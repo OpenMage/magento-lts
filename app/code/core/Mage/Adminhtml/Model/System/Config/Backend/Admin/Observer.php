@@ -43,7 +43,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
         Mage::app()->getResponse()
             ->setRedirect(Mage::getBaseUrl() . $route)
             ->sendResponse();
-        // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
         exit(0);
     }
 }

@@ -39,17 +39,14 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     protected function _beforeSave()
     {
         $value = $this->getValue();
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (!empty($_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value'])) {
             $uploadDir = $this->_getUploadDir();
 
             try {
                 $file = [];
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
-                $tmpName = $_FILES['groups']['tmp_name'];
+                        $tmpName = $_FILES['groups']['tmp_name'];
                 $file['tmp_name'] = $tmpName[$this->getGroupId()]['fields'][$this->getField()]['value'];
-                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
-                $name = $_FILES['groups']['name'];
+                        $name = $_FILES['groups']['name'];
                 $file['name'] = $name[$this->getGroupId()]['fields'][$this->getField()]['value'];
                 $uploader = Mage::getModel('core/file_uploader', $file);
                 $uploader->setAllowedExtensions($this->_getAllowedExtensions());
@@ -89,7 +86,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      */
     public function validateMaxSize($filePath)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if ($this->_maxFileSize > 0 && filesize($filePath) > ($this->_maxFileSize * 1024)) {
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Uploaded file is larger than %.2f kilobytes allowed by server', $this->_maxFileSize));
         }

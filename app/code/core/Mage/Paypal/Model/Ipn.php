@@ -153,7 +153,6 @@ class Mage_Paypal_Model_Ipn
                 $reason = 'Response code: ' . $responseCode . '.';
             }
             $this->_debugData['exception'] = 'PayPal IPN postback failure. ' . $reason;
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Paypal_UnavailableException($reason);
         }
 

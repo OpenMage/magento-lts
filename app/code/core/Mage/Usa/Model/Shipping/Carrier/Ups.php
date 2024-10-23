@@ -1710,7 +1710,6 @@ XMLAuth;
             $result->setTrackingNumber($package->TrackingNumber);
             // ShippingLabel is not guaranteed to be set, but if it is, GraphicImage will be set.
             if (isset($package->ShippingLabel->GraphicImage)) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction
                 $result->setShippingLabelContent(base64_decode($package->ShippingLabel->GraphicImage));
             }
         }

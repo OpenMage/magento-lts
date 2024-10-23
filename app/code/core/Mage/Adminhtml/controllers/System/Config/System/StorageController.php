@@ -54,10 +54,8 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
      */
     public function synchronizeAction()
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         session_write_close();
 
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (!isset($_REQUEST['storage'])) {
             return;
         }
@@ -73,12 +71,9 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         $flag->setState(Mage_Core_Model_File_Storage_Flag::STATE_RUNNING)->save();
         Mage::getSingleton('admin/session')->setSyncProcessStopWatch(false);
 
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         $storage = ['type' => (int) $_REQUEST['storage']];
-        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
         if (isset($_REQUEST['connection']) && !empty($_REQUEST['connection'])) {
-            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageError
-            $storage['connection'] = $_REQUEST['connection'];
+                $storage['connection'] = $_REQUEST['connection'];
         }
 
         try {
@@ -133,7 +128,6 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                         if (is_array($flagData)
                             && !(isset($flagData['timeout_reached']) && $flagData['timeout_reached'])
                         ) {
-                            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
                             Mage::logException(new Mage_Core_Exception(
                                 Mage::helper('adminhtml')->__('Timeout limit for response from synchronize process was reached.')
                             ));

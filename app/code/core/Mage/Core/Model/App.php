@@ -834,7 +834,6 @@ class Mage_Core_Model_App
     public function getArea($code)
     {
         if (!isset($this->_areas[$code])) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $this->_areas[$code] = new Mage_Core_Model_App_Area($code, $this);
         }
         return $this->_areas[$code];
@@ -1281,7 +1280,6 @@ class Mage_Core_Model_App
     public function getRequest()
     {
         if (empty($this->_request)) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $this->_request = new Mage_Core_Controller_Request_Http();
         }
         return $this->_request;
@@ -1338,7 +1336,6 @@ class Mage_Core_Model_App
     public function getResponse()
     {
         if (empty($this->_response)) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $this->_response = new Mage_Core_Controller_Response_Http();
             $this->_response->headersSentThrowsException = Mage::$headersSentThrowsException;
             $this->_response->setHeader('Content-Type', 'text/html; charset=UTF-8');
@@ -1484,7 +1481,6 @@ class Mage_Core_Model_App
      */
     public function throwStoreException($text = '')
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         throw new Mage_Core_Model_Store_Exception($text);
     }
 

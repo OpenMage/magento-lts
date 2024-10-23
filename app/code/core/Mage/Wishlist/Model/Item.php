@@ -315,7 +315,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         $product = $this->_getData('product');
         if (is_null($product)) {
             if (!$this->getProductId()) {
-                // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
                 throw new Mage_Core_Exception(
                     Mage::helper('wishlist')->__('Cannot specify product.'),
                     self::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT
@@ -363,7 +362,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         }
 
         if (!$product->isSalable()) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Core_Exception(null, self::EXCEPTION_CODE_NOT_SALABLE);
         }
 

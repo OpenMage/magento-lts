@@ -562,7 +562,6 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_array($sessionHosts)) {
             foreach (array_keys($sessionHosts) as $host) {
                 // Delete cookies with the same name for parent domains
-                // phpcs:ignore Ecg.Strings.StringPosition.ImproperValueTesting
                 if (strpos($currentCookieDomain, $host) > 0) {
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $this->getCookie()->delete($this->getSessionName(), null, $host);

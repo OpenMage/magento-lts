@@ -896,7 +896,6 @@ XML;
     public function checkLfiProtection($name)
     {
         if (preg_match('#\.\.[\\\/]#', $name)) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Core_Exception($this->__('Requested file may not include parent directory traversal ("../", "..\\" notation)'));
         }
         return true;

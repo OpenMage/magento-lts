@@ -97,8 +97,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $productType = $product->getTypeInstance();
             if (!$productId || !$productType->getUsedProductAttributeIds()) {
                 $productType->setUsedProductAttributeIds(
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-                    explode(',', base64_decode(urldecode($attributes)))
+                        explode(',', base64_decode(urldecode($attributes)))
                 );
             }
         }
@@ -829,10 +828,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     protected function _decodeInput($encoded)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         parse_str($encoded, $data);
         foreach ($data as $key => $value) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             parse_str(base64_decode($value), $data[$key]);
         }
         return $data;
@@ -985,7 +982,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
             if (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
-                // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
                 throw new Mage_Core_Exception(
                     $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.')
                 );

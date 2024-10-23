@@ -202,8 +202,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 $currentCookieDomain = $cookie->getDomain();
                 foreach (array_keys($sessionHosts) as $host) {
                     // Delete cookies with the same name for parent domains
-                    // phpcs:ignore Ecg.Strings.StringPosition.ImproperValueTesting
-                    if (strpos($currentCookieDomain, $host) > 0) {
+                        if (strpos($currentCookieDomain, $host) > 0) {
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         $cookie->delete($this->getSessionName(), null, $host);
                     }
@@ -483,7 +482,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             if (!self::$isValidated && ! $this->_validate()) {
                 $this->getCookie()->delete(session_name());
                 // throw core session exception
-                // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
                 throw new Mage_Core_Model_Session_Exception('');
             }
 

@@ -335,7 +335,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     public function __()
     {
         $args = func_get_args();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getUsedModuleName());
         array_unshift($args, $expr);
         return Mage::app()->getTranslator()->translate($args);
