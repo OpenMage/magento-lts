@@ -176,7 +176,6 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Core_Model_Store      $store
      * @return bool|int
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     public function typeOfDisplay($product, $compareTo = null, $zone = null, $store = null)
     {
         if (!$this->isEnabled($store)) {

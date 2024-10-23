@@ -548,7 +548,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     public function applyAllRulesForDateRange($fromDate = null, $toDate = null, $productId = null)
     {
         return $this->applyAllRules($productId);

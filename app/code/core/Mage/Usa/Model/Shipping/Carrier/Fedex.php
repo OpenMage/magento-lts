@@ -1600,7 +1600,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      *
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         return $this->getCode('delivery_confirmation_types');

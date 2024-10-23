@@ -43,7 +43,6 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param mixed $range
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function checkIsLive($range)
     {
         $this->_isLive = (bool)!Mage::getStoreConfig('sales/dashboard/use_aggregated_data');
@@ -292,7 +291,6 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param string $tzTo
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _getTZRangeExpressionForAttribute($range, $attribute, $tzFrom = '+00:00', $tzTo = null)
     {
         if ($tzTo == null) {
@@ -460,7 +458,6 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param int $isFilter
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _calculateTotalsAggregated($isFilter = 0)
     {
         $this->setMainTable('sales/order_aggregated_created');

@@ -92,7 +92,6 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
      *
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         return $this;

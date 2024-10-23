@@ -439,7 +439,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @return Mage_Paypal_Model_Payflow_Request
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _buildBasicRequest(Varien_Object $payment)
     {
         $request = Mage::getModel('paypal/payflow_request');
@@ -568,7 +567,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param mixed $amount
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _initialize(Varien_Object $payment, $amount)
     {
         return $this;
@@ -593,7 +591,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param string $txnId
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _authorize(Varien_Object $payment, $amount, $transaction, $txnId)
     {
         return $this;
@@ -616,7 +613,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param mixed $amount
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _checkTransaction($transaction, $amount)
     {
         return $this;

@@ -656,7 +656,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param array $args array of arguments
      * @return bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
         if (!is_object($instance) || !method_exists($instance, $method)) {
@@ -1007,7 +1006,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   mixed $rowId
      * @return  Zend_Db_Select
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _getLoadRowSelect($object, $rowId)
     {
         return $this->_getReadAdapter()->select()
@@ -1220,7 +1218,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param mixed $v  New value of the attribute. Can be used in subclasses.
      * @return bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _canUpdateAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $v, array &$origData)
     {
         return array_key_exists($attribute->getAttributeCode(), $origData);
@@ -1393,7 +1390,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   mixed $value
      * @return  $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
         return $this->_saveAttribute($object, $attribute, $value);
@@ -1488,7 +1484,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   array $info
      * @return  $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _deleteAttributes($object, $table, $info)
     {
         $valueIds = [];

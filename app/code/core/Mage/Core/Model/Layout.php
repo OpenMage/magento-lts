@@ -356,7 +356,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param string[]                 $args
      * @throws Mage_Core_Exception
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
     {
         foreach ($this->invalidActions as $action) {

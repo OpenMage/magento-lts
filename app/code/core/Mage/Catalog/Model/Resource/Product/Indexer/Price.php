@@ -604,7 +604,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
      * @param string $table
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

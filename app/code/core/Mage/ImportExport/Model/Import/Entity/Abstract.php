@@ -218,7 +218,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      * @return true
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     protected function _isRowScopeDefault(array $rowData)
     {
         return true;
@@ -365,7 +364,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                         }
                     }
                 }
-                // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
             } catch (Exception $e) {
                 // ignore exceptions connected with source models
             }

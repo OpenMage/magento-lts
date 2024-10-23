@@ -879,7 +879,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param null $mergeConfig deprecated
      * @return $this|void
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _loadDeclaredModules($mergeConfig = null)
     {
         $moduleFiles = $this->_getDeclaredModuleFiles();
@@ -1325,7 +1324,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param array|string $args Module name if string
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getPathVars($args = null)
     {
         $path = [];

@@ -106,7 +106,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param Mage_Core_Model_Resource_Abstract $resource
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function __construct($resource = null)
     {
         parent::__construct();

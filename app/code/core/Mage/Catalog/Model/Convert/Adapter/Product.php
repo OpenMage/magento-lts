@@ -739,7 +739,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     if (!in_array($website->getId(), $websiteIds)) {
                         $websiteIds[] = $website->getId();
                     }
-                    // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
                 } catch (Exception $e) {
                 }
             }

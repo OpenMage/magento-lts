@@ -29,7 +29,6 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
      * @param mixed $matchFields
      * @return int
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function mergeVisitorProductIndex($mainTable, $data, $matchFields)
     {
         return $this->_getWriteAdapter()->insertOnDuplicate($mainTable, $data, array_keys($data));

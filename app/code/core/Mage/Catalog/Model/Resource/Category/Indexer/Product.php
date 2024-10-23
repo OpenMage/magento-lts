@@ -1179,7 +1179,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      * @param string $table
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {

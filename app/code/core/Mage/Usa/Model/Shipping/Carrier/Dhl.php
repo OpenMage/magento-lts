@@ -1313,7 +1313,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @return array|bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return $this->getCode('shipment_type');

@@ -630,7 +630,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @return array
      * @deprecated after 1.4.2.0
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getParentProductIds($object)
     {
         return [];

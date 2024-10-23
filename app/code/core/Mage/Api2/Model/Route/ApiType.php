@@ -38,7 +38,6 @@ class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract imple
      * @param Zend_Translate|null $translator Translator to use for this instance
      * @param mixed $locale
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function __construct(
         $route,
         $defaults = [],

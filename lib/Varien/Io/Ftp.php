@@ -163,7 +163,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function mkdir($dir, $mode = 0777, $recursive = true)
     {
         // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
@@ -178,7 +177,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function rmdir($dir, $recursive = false)
     {
         // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
@@ -238,7 +236,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             if (is_null($dest)) {
                 fseek($stream, 0);
                 $result = '';
-                // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed,Ecg.Security.ForbiddenFunction.Found
                 for ($result = ''; $s = fread($stream, 4096); $result .= $s);
                 fclose($stream);
             }
@@ -255,7 +252,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function write($filename, $src, $mode = null)
     {
         if (is_string($src) && is_readable($src)) {
@@ -328,7 +324,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function ls($grep = null)
     {
         // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found

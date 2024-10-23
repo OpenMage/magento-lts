@@ -210,7 +210,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param int $id
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function addUnitId($id)
     {
         $this->_page->saveGS();
@@ -227,7 +226,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param $data
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function addReferenceData($data)
     {
         $this->_page->saveGS();

@@ -71,19 +71,14 @@ class Mage_System_Ftp
         $dir = explode('/', $path);
         $path = '';
         $ret = true;
-        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed,Ecg.Performance.Loop.ArraySize
         for ($i = 0; $i < count($dir); $i++) {
             $path .= '/' . $dir[$i];
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
             if (!@ftp_chdir($this->_conn, $path)) {
-                // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
                 @ftp_chdir($this->_conn, '/');
-                // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
                 if (!@ftp_mkdir($this->_conn, $path)) {
                     $ret = false;
                     break;
                 } else {
-                    // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
                     @ftp_chmod($this->_conn, $mode, $path);
                 }
             }
