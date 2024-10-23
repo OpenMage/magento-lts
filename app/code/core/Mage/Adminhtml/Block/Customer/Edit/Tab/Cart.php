@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,29 +99,24 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
             'header'    => Mage::helper('catalog')->__('Qty'),
             'index'     => 'qty',
             'type'      => 'number',
-            'width'     => '60px',
         ]);
 
         $this->addColumn('price', [
-            'header'        => Mage::helper('catalog')->__('Price'),
-            'index'         => 'price',
             'type'          => 'currency',
-            'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
+            'currency_code' => Mage_Directory_Helper_Data::getConfigCurrencyBase(),
         ]);
 
         $this->addColumn('total', [
             'header'        => Mage::helper('sales')->__('Total'),
             'index'         => 'row_total',
             'type'          => 'currency',
-            'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
+            'currency_code' => Mage_Directory_Helper_Data::getConfigCurrencyBase(),
         ]);
 
         $this->addColumn('action', [
-            'header'    => Mage::helper('customer')->__('Action'),
+            'type'      => 'action',
             'index'     => 'quote_item_id',
             'renderer'  => 'adminhtml/customer_grid_renderer_multiaction',
-            'filter'    => false,
-            'sortable'  => false,
             'actions'   => [
                 [
                     'caption'           => Mage::helper('customer')->__('Configure'),

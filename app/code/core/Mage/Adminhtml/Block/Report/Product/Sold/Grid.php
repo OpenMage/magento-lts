@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,7 +66,6 @@ class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block
         $this->addColumn('ordered_qty', [
             'header'    => Mage::helper('reports')->__('Quantity Ordered'),
             'width'     => '120px',
-            'align'     => 'right',
             'index'     => 'ordered_qty',
             'total'     => 'sum',
             'type'      => 'number'
