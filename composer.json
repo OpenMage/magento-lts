@@ -136,6 +136,9 @@
     "scripts": {
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
+        "phpmd": "vendor/bin/phpmd app/code/core/Mage text .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml",
+        "phpcs": "vendor/bin/phpcs -s -p --standard=.phpcs.dist.xml,.phpcs.dist.php.xml --cache=.phpcs.result.cache --report=full,summary",
+        "phpcs:ecg": "vendor/bin/phpcs -s -p --standard=.phpcs.dist.ecg.xml --report=full,summary",
         "phpstan": "vendor/bin/phpstan analyze",
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --no-coverage --testdox",
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testdox",
@@ -146,6 +149,9 @@
     "scripts-descriptions": {
         "php-cs-fixer:test": "Run php-cs-fixer",
         "php-cs-fixer:fix": "Run php-cs-fixer and fix issues",
+        "phpmd": "Run phpmd",
+        "phpcs": "Run phpcs",
+        "phpcs:ecg": "Run phcs with ECG standard",
         "phpstan": "Run phpstan",
         "phpunit:test": "Run PHPUnit",
         "phpunit:coverage": "Run PHPUnit with code coverage (requires XDEBUG enabled)",
