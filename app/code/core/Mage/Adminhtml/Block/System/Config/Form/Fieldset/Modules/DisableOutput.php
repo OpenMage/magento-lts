@@ -27,7 +27,16 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
     {
         $html = $this->_getHeaderHtml($element);
 
-        $modules = array_keys((array)Mage::getConfig()->getNode('modules')->children());
+        $modules = (array)Mage::getConfig()->getNode('modules')->children();
+        /** @var Mage_Core_Model_Config_Element $module */
+        foreach ($modules as $index => $module) {
+            $module = $module->asArray();
+            if ($module['active'] === 'false') {
+                unset($modules[$index]);
+            }
+        }
+
+        $modules = array_keys($modules);
 
         $dispatchResult = new Varien_Object($modules);
         Mage::dispatchEvent(
