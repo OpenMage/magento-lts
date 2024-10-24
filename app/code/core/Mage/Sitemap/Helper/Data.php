@@ -19,5 +19,33 @@
  */
 class Mage_Sitemap_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    public const XML_PATH_CATEGORY_ENABLED          = 'sitemap/category/enabled';
+    public const XML_PATH_CMS_PAGE_ENABLED          = 'sitemap/page/enabled';
+    public const XML_PATH_PRODUCT_ENABLED           = 'sitemap/product/enabled';
+
     protected $_moduleName = 'Mage_Sitemap';
+
+    /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     */
+    public function isCategoryEnabled($store = null): bool
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_CATEGORY_ENABLED, $store);
+    }
+
+    /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     */
+    public function isCmsPageEnabled($store = null): bool
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_CMS_PAGE_ENABLED, $store);
+    }
+
+    /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     */
+    public function isProductEnabled($store = null): bool
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_PRODUCT_ENABLED, $store);
+    }
 }

@@ -120,7 +120,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     }
 
     /**
-         * Retrieve category rewrite sufix for store
+         * Retrieve category rewrite suffix for store
          *
          * @param int $storeId
          * @return string
@@ -171,6 +171,6 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      */
     public function canUseCanonicalTag($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_USE_CATEGORY_CANONICAL_TAG, $store);
+        return Mage::getStoreConfigFlag(self::XML_PATH_USE_CATEGORY_CANONICAL_TAG, $store);
     }
 }

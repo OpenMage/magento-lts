@@ -60,11 +60,10 @@ class Mage_Sitemap_Model_Observer
             return;
         }
 
-        $collection = Mage::getModel('sitemap/sitemap')->getCollection();
         /** @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
+        $collection = Mage::getModel('sitemap/sitemap')->getCollection();
+        /** @var Mage_Sitemap_Model_Sitemap $sitemap */
         foreach ($collection as $sitemap) {
-            /** @var Mage_Sitemap_Model_Sitemap $sitemap */
-
             try {
                 $sitemap->generateXml();
             } catch (Exception $e) {
@@ -73,12 +72,12 @@ class Mage_Sitemap_Model_Observer
         }
 
         if ($errors && Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT)) {
-            $translate = Mage::getSingleton('core/translate');
             /** @var Mage_Core_Model_Translate $translate */
+            $translate = Mage::getSingleton('core/translate');
             $translate->setTranslateInline(false);
 
-            $emailTemplate = Mage::getModel('core/email_template');
             /** @var Mage_Core_Model_Email_Template $emailTemplate */
+            $emailTemplate = Mage::getModel('core/email_template');
             $emailTemplate->setDesignConfig(['area' => 'backend'])
                 ->sendTransactional(
                     Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),

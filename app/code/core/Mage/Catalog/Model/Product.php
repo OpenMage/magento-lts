@@ -138,7 +138,7 @@
  * @method string getMetaDescription()
  * @method string getMetaKeyword()
  * @method string getMetaTitle()
- * @method $this hasMsrpEnabled(bool $value)
+ * @method bool hasMsrpEnabled()
  * @method bool getMsrpEnabled()
  * @method string getMsrpDisplayActualPriceType()
  *

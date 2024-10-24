@@ -174,7 +174,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Split SKU of an item by dashes and spaces
-     * Words will not be broken, unless thir length is greater than $length
+     * Words will not be broken, unless their length is greater than $length
      *
      * @param string $sku
      * @param int $length
@@ -267,12 +267,14 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve template processor for catalog content
      *
-     * @return false|Mage_Core_Model_Abstract
+     * @return Mage_Catalog_Model_Template_Filter
      */
     public function getPageTemplateProcessor()
     {
-        $model = (string)Mage::getConfig()->getNode(self::XML_PATH_CONTENT_TEMPLATE_FILTER);
-        return Mage::getModel($model);
+        $node = (string)Mage::getConfig()->getNode(self::XML_PATH_CONTENT_TEMPLATE_FILTER);
+        /** @var Mage_Catalog_Model_Template_Filter $model */
+        $model = Mage::getModel($node);
+        return $model;
     }
 
     /**

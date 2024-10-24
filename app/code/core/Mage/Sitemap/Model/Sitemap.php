@@ -62,7 +62,7 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $realPath = $io->getCleanPath(Mage::getBaseDir() . '/' . $this->getSitemapPath());
 
         /**
-         * Check path is allow
+         * Check path is allowed
          */
         if (!$io->allowedPath($realPath, Mage::getBaseDir())) {
             Mage::throwException(Mage::helper('sitemap')->__('Please define correct path'));
@@ -135,74 +135,17 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $io->streamOpen($this->getSitemapFilename());
 
         $io->streamWrite('<?xml version="1.0" encoding="UTF-8"?>' . "\n");
-        $io->streamWrite('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+        $io->streamWrite('<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">');
 
-        $storeId = $this->getStoreId();
-        $date    = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
-        $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+        $config = [
+            'storeId' => $storeId = $this->getStoreId(),
+            'date'    => $date    = Mage::getSingleton('core/date')->gmtDate('Y-m-d'),
+            'baseUrl' => $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK),
+        ];
 
-        /**
-         * Generate categories sitemap
-         */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/category/priority', $storeId);
-        $lastmod    = Mage::getStoreConfigFlag('sitemap/category/lastmod', $storeId) ? $date : '';
-        $collection = Mage::getResourceModel('sitemap/catalog_category')->getCollection($storeId);
-        $categories = new Varien_Object();
-        $categories->setItems($collection);
-        Mage::dispatchEvent('sitemap_categories_generating_before', [
-            'collection' => $categories,
-            'store_id' => $storeId
-        ]);
-        foreach ($categories->getItems() as $item) {
-            $xml = $this->getSitemapRow($baseUrl . $item->getUrl(), $lastmod, $changefreq, $priority);
-            $io->streamWrite($xml);
-        }
-        unset($collection);
-
-        /**
-         * Generate products sitemap
-         */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/product/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/product/priority', $storeId);
-        $lastmod    = Mage::getStoreConfigFlag('sitemap/product/lastmod', $storeId) ? $date : '';
-        $collection = Mage::getResourceModel('sitemap/catalog_product')->getCollection($storeId);
-        $products = new Varien_Object();
-        $products->setItems($collection);
-        Mage::dispatchEvent('sitemap_products_generating_before', [
-            'collection' => $products,
-            'store_id' => $storeId
-        ]);
-        foreach ($products->getItems() as $item) {
-            $xml = $this->getSitemapRow($baseUrl . $item->getUrl(), $lastmod, $changefreq, $priority);
-            $io->streamWrite($xml);
-        }
-        unset($collection);
-
-        /**
-         * Generate cms pages sitemap
-         */
-        $homepage = (string)Mage::getStoreConfig('web/default/cms_home_page', $storeId);
-        $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/page/priority', $storeId);
-        $lastmod    = Mage::getStoreConfigFlag('sitemap/page/lastmod', $storeId) ? $date : '';
-        $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
-        $pages = new Varien_Object();
-        $pages->setItems($collection);
-        Mage::dispatchEvent('sitemap_cms_pages_generating_before', [
-            'collection' => $pages,
-            'store_id' => $storeId
-        ]);
-        foreach ($pages->getItems() as $item) {
-            $url = $item->getUrl();
-            if ($url == $homepage) {
-                $url = '';
-            }
-
-            $xml = $this->getSitemapRow($baseUrl . $url, $lastmod, $changefreq, $priority);
-            $io->streamWrite($xml);
-        }
-        unset($collection);
+        $this->generateXmlCategories($io, $config);
+        $this->generateXmlProducts($io, $config);
+        $this->generateXmlCmsPages($io, $config);
 
         Mage::dispatchEvent('sitemap_urlset_generating_before', [
             'file'      => $io ,
@@ -220,6 +163,102 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $this->save();
 
         return $this;
+    }
+
+    /**
+     * Generate categories sitemap
+     */
+    protected function generateXmlCategories(Varien_Io_File &$io, array $config): void
+    {
+        if (!Mage::helper('sitemap')->isCategoryEnabled($config['storeId'])) {
+            return;
+        }
+
+        $collection = Mage::getResourceModel('sitemap/catalog_category')->getCollection($config['storeId']);
+        $categories = new Varien_Object();
+        $categories->setItems($collection);
+        Mage::dispatchEvent('sitemap_categories_generating_before', [
+            'collection' => $categories,
+            'store_id' => $config['storeId']
+        ]);
+
+        list($changeFreq, $priority, $lastMod) = $this->getSitemapConfig('category', $config);
+        foreach ($categories->getItems() as $item) {
+            $xml = $this->getSitemapRow($config['baseUrl'] . $item->getUrl(), $lastMod, $changeFreq, $priority);
+            $io->streamWrite($xml);
+        }
+        unset($collection);
+    }
+
+    /**
+     * Generate products sitemap
+     */
+    protected function generateXmlProducts(Varien_Io_File &$io, array $config): void
+    {
+        if (!Mage::helper('sitemap')->isProductEnabled($config['storeId'])) {
+            return;
+        }
+
+        $collection = Mage::getResourceModel('sitemap/catalog_product')->getCollection($config['storeId']);
+        $products = new Varien_Object();
+        $products->setItems($collection);
+        Mage::dispatchEvent('sitemap_products_generating_before', [
+            'collection' => $products,
+            'store_id' => $config['storeId']
+        ]);
+
+        list($changeFreq, $priority, $lastMod) = $this->getSitemapConfig('product', $config);
+        foreach ($products->getItems() as $item) {
+            $xml = $this->getSitemapRow($config['baseUrl'] . $item->getUrl(), $lastMod, $changeFreq, $priority);
+            $io->streamWrite($xml);
+        }
+        unset($collection);
+    }
+
+    /**
+     * Generate cms pages sitemap
+     */
+    protected function generateXmlCmsPages(Varien_Io_File &$io, array $config): void
+    {
+        if (!Mage::helper('sitemap')->isCmsPageEnabled($config['storeId'])) {
+            return;
+        }
+
+        $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($config['storeId']);
+        $pages = new Varien_Object();
+        $pages->setItems($collection);
+        Mage::dispatchEvent('sitemap_cms_pages_generating_before', [
+            'collection' => $pages,
+            'store_id' => $config['storeId']
+        ]);
+
+        list($changeFreq, $priority, $lastMod) = $this->getSitemapConfig('page', $config);
+        $homepage = (string)Mage::getStoreConfig(Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE, $config['storeId']);
+        foreach ($pages->getItems() as $item) {
+            $url = $item->getUrl();
+            if ($url == $homepage) {
+                $url = '';
+            }
+
+            $xml = $this->getSitemapRow($config['baseUrl'] . $url, $lastMod, $changeFreq, $priority);
+            $io->streamWrite($xml);
+        }
+        unset($collection);
+    }
+
+    /**
+     * @param 'category'|'product'|'page' $type
+     */
+    public function getSitemapConfig(string $type, array $config): array
+    {
+        $storeId = $config['storeId'] ?? null;
+        $data = $config['date'] ?? '';
+
+        return [
+            (string)Mage::getStoreConfig("sitemap/$type/changefreq", $storeId),
+            (string)Mage::getStoreConfig("sitemap/$type/priority", $storeId),
+            Mage::getStoreConfigFlag("sitemap/$type/lastmod", $storeId) ? $data : ''
+        ];
     }
 
     /**
