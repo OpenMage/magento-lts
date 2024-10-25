@@ -44,4 +44,24 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
             ->sendResponse();
         exit(0);
     }
+
+    /**
+     * Hide disabled modules
+     *
+     * @see Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput::render()
+     */
+    public function beforeRenderModuleList(Varien_Event_Observer $observer): void
+    {
+        $event = $observer->getDataByKey('event');
+        $modules = $event->getDataByKey('modules');
+        $data = $modules->getData();
+        /** @var Mage_Core_Model_Config_Element $module */
+        foreach ($data as $index => $module) {
+            $module = $module->asArray();
+            if ($module['active'] === 'false') {
+                unset($data[$index]);
+            }
+        }
+        $modules->setData($data);
+    }
 }

@@ -28,22 +28,13 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
         $html = $this->_getHeaderHtml($element);
 
         $modules = (array)Mage::getConfig()->getNode('modules')->children();
-        /** @var Mage_Core_Model_Config_Element $module */
-        foreach ($modules as $index => $module) {
-            $module = $module->asArray();
-            if ($module['active'] === 'false') {
-                unset($modules[$index]);
-            }
-        }
-
-        $modules = array_keys($modules);
 
         $dispatchResult = new Varien_Object($modules);
         Mage::dispatchEvent(
             'adminhtml_system_config_advanced_disableoutput_render_before',
             ['modules' => $dispatchResult]
         );
-        $modules = $dispatchResult->toArray();
+        $modules = array_keys($dispatchResult->toArray());
 
         sort($modules);
 
