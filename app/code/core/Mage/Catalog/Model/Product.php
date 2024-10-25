@@ -217,7 +217,7 @@
  * @method $this setStoreIds(array $storeIds)
  * @method array getSwatchPrices()
  *
- * @method string getTaxClassId()
+ * @method int getTaxClassId()
  * @method string getThumbnail()
  * @method float|null getTaxPercent()
  * @method $this setTaxPercent(float|null $value)
