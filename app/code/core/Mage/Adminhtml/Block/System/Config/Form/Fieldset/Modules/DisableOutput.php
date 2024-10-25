@@ -27,6 +27,20 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
     {
         $html = $this->_getHeaderHtml($element);
 
+        $modules = $this->getModules();
+        foreach ($modules as $moduleName) {
+            if ($moduleName === 'Mage_Adminhtml') {
+                continue;
+            }
+            $html .= $this->_getFieldHtml($element, $moduleName);
+        }
+        $html .= $this->_getFooterHtml($element);
+
+        return $html;
+    }
+
+    public function getModules(): array
+    {
         $modules = (array)Mage::getConfig()->getNode('modules')->children();
 
         $dispatchResult = new Varien_Object($modules);
@@ -38,15 +52,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
 
         sort($modules);
 
-        foreach ($modules as $moduleName) {
-            if ($moduleName === 'Mage_Adminhtml') {
-                continue;
-            }
-            $html .= $this->_getFieldHtml($element, $moduleName);
-        }
-        $html .= $this->_getFooterHtml($element);
-
-        return $html;
+        return $modules;
     }
 
     protected function _getDummyElement()
