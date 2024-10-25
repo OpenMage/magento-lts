@@ -139,7 +139,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
 
     public function canDisplayGiftmessage(): bool
     {
-        if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */

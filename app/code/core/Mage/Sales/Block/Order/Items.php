@@ -33,7 +33,7 @@ class Mage_Sales_Block_Order_Items extends Mage_Sales_Block_Items_Abstract
 
     public function canDisplayGiftmessage($_item): bool
     {
-        if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */

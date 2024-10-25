@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
 
     public function canDisplayGiftmessage(): bool
     {
-        if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */

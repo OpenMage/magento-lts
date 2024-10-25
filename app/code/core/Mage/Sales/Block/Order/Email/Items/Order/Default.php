@@ -93,7 +93,7 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
 
     public function getGiftMessage(): ?Mage_GiftMessage_Model_Message
     {
-        if (!Mage::helper('core')->isModuleEnabled('Mage_GiftMessage')) {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
             return null;
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */
