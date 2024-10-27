@@ -311,7 +311,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Multiple calls of resource functionality
      *
      * @param string $sessionId
-     * @param array $calls
      * @param array $options
      * @return array|void
      */

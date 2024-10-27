@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -117,21 +117,21 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             case 'website':
                 $itemId     = $this->getRequest()->getParam('website_id', null);
                 $model      = Mage::getModel('core/website');
-                $title      = Mage::helper('core')->__("Website");
-                $notExists  = Mage::helper('core')->__("The website does not exist.");
+                $title      = Mage::helper('core')->__('Website');
+                $notExists  = Mage::helper('core')->__('The website does not exist.');
                 $codeBase   = Mage::helper('core')->__('Before modifying the website code please make sure that it is not used in index.php.');
                 break;
             case 'group':
                 $itemId     = $this->getRequest()->getParam('group_id', null);
                 $model      = Mage::getModel('core/store_group');
-                $title      = Mage::helper('core')->__("Store");
-                $notExists  = Mage::helper('core')->__("The store does not exist");
+                $title      = Mage::helper('core')->__('Store');
+                $notExists  = Mage::helper('core')->__('The store does not exist');
                 $codeBase   = false;
                 break;
             case 'store':
                 $itemId     = $this->getRequest()->getParam('store_id', null);
                 $model      = Mage::getModel('core/store');
-                $title      = Mage::helper('core')->__("Store View");
+                $title      = Mage::helper('core')->__('Store View');
                 $notExists  = Mage::helper('core')->__("Store view doesn't exist");
                 $codeBase   = Mage::helper('core')->__('Before modifying the store view code please make sure that it is not used in index.php.');
                 break;
@@ -442,7 +442,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
      *
      * @param string $failPath redirect path if backup failed
      * @param array $arguments
-     * @return $this
+     * @return $this|void
      */
     protected function _backupDatabase($failPath, $arguments = [])
     {
@@ -468,11 +468,11 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirect($failPath, $arguments);
-            return ;
+            return;
         } catch (Exception $e) {
             $this->_getSession()->addException($e, Mage::helper('backup')->__('Unable to create backup. Please, try again later.'));
             $this->_redirect($failPath, $arguments);
-            return ;
+            return;
         }
         return $this;
     }

@@ -227,7 +227,7 @@ class Mage_Core_Model_Translate
             $value  = $value === null ? '' : $this->_prepareDataString($value);
             if ($scope && isset($this->_dataScope[$key]) && !$forceReload) {
                 /**
-                 * Checking previos value
+                 * Checking previous value
                  */
                 $scopeKey = $this->_dataScope[$key] . self::SCOPE_SEPARATOR . $key;
                 if (!isset($this->_data[$scopeKey])) {
@@ -465,7 +465,7 @@ class Mage_Core_Model_Translate
             $localeCode = $this->getLocale();
         }
 
-        $filePath = Mage::getBaseDir('locale')  . DS
+        $filePath = Mage::getBaseDir('locale') . DS
                   . $localeCode . DS . 'template' . DS . $type . DS . $file;
 
         if (!file_exists($filePath)) { // If no template specified for this locale, use store default

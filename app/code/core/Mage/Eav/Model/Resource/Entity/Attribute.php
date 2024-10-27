@@ -72,7 +72,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Load attribute data by attribute code
      *
-     * @param Mage_Core_Model_Abstract $object
      * @param int $entityTypeId
      * @param string $code
      * @return bool
@@ -95,7 +94,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Retrieve Max Sort order for attribute in group
      *
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute $object
      * @return int
      */
     private function _getMaxSortOrder(Mage_Core_Model_Abstract $object)
@@ -107,7 +105,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 ':attribute_group_id' => $object->getAttributeGroupId()
             ];
             $select = $adapter->select()
-                ->from($this->getTable('eav/entity_attribute'), new Zend_Db_Expr("MAX(sort_order)"))
+                ->from($this->getTable('eav/entity_attribute'), new Zend_Db_Expr('MAX(sort_order)'))
                 ->where('attribute_set_id = :attribute_set_id')
                 ->where('attribute_group_id = :attribute_group_id');
 
@@ -120,7 +118,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Delete entity
      *
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute $object
      * @return $this
      */
     public function deleteEntity(Mage_Core_Model_Abstract $object)
@@ -182,7 +179,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Save store labels
      *
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute $object
      * @return $this
      */
     protected function _saveStoreLabels(Mage_Core_Model_Abstract $object)
@@ -213,7 +209,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Save additional data of attribute
      *
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute $object
      * @return $this
      */
     protected function _saveAdditionalAttributeData(Mage_Core_Model_Abstract $object)
@@ -241,7 +236,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Save in set including
      *
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute $object
      * @return $this
      */
     public function saveInSetIncluding(Mage_Core_Model_Abstract $object)
@@ -278,7 +272,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      *  Save attribute options
      *
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute $object
      * @return $this
      */
     protected function _saveOption(Mage_Core_Model_Abstract $object)
@@ -338,7 +331,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                     foreach ($stores as $store) {
                         if (isset($values[$store->getId()])
                             && (!empty($values[$store->getId()])
-                            || $values[$store->getId()] == "0")
+                            || $values[$store->getId()] == '0')
                         ) {
                             $data = [
                                 'option_id' => $intOptionId,
@@ -422,17 +415,16 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param int $storeId
      * @return Varien_Db_Select
      */
     public function getFlatUpdateSelect(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $storeId)
     {
         $adapter = $this->_getReadAdapter();
-        $joinConditionTemplate = "%s.entity_id = %s.entity_id"
-            . " AND %s.entity_type_id = " . $attribute->getEntityTypeId()
-            . " AND %s.attribute_id = " . $attribute->getId()
-            . " AND %s.store_id = %d";
+        $joinConditionTemplate = '%s.entity_id = %s.entity_id'
+            . ' AND %s.entity_type_id = ' . $attribute->getEntityTypeId()
+            . ' AND %s.attribute_id = ' . $attribute->getId()
+            . ' AND %s.store_id = %d';
         $joinCondition = sprintf(
             $joinConditionTemplate,
             'e',
@@ -460,7 +452,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 [$attribute->getAttributeCode() => $valueExpr]
             );
         if ($attribute->getFlatAddChildData()) {
-            $select->where("e.is_child = ?", 0);
+            $select->where('e.is_child = ?', 0);
         }
 
         return $select;
@@ -492,7 +484,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
      * Load additional attribute data.
      * Load label of current active store
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)

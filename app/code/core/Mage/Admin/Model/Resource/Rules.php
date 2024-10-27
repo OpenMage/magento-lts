@@ -28,8 +28,6 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
 
     /**
      * Save ACL resources
-     *
-     * @param Mage_Admin_Model_Rules $rule
      */
     public function saveRel(Mage_Admin_Model_Rules $rule)
     {
@@ -96,8 +94,6 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Delete orphaned resources
      *
-     * @param array $orphanedIds
-     * @return int
      * @throws Mage_Core_Exception
      */
     public function deleteOrphanedResources(array $orphanedIds): int

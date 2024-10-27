@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +54,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     {
         Mage::app()->getCacheInstance()->flush();
         Mage::dispatchEvent('adminhtml_cache_flush_all');
-        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The cache storage has been flushed."));
+        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The cache storage has been flushed.'));
         $this->_redirect('*/*');
     }
 
@@ -76,12 +76,12 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             Mage::getConfig()->releaseCacheSaveLock();
         }
         Mage::dispatchEvent('adminhtml_cache_flush_system');
-        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The OpenMage cache has been flushed and updates applied."));
+        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('The OpenMage cache has been flushed and updates applied.'));
         $this->_redirect('*/*');
     }
 
     /**
-     * Mass action for cache enabeling
+     * Mass action for cache enabling
      */
     public function massEnableAction()
     {
@@ -97,13 +97,13 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
         }
         if ($updatedTypes > 0) {
             Mage::app()->saveUseCache($allTypes);
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("%s cache type(s) enabled.", $updatedTypes));
+            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('%s cache type(s) enabled.', $updatedTypes));
         }
         $this->_redirect('*/*');
     }
 
     /**
-     * Mass action for cache disabeling
+     * Mass action for cache disabling
      */
     public function massDisableAction()
     {
@@ -120,7 +120,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
         }
         if ($updatedTypes > 0) {
             Mage::app()->saveUseCache($allTypes);
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("%s cache type(s) disabled.", $updatedTypes));
+            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('%s cache type(s) disabled.', $updatedTypes));
         }
         $this->_redirect('*/*');
     }
@@ -140,7 +140,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             }
         }
         if ($updatedTypes > 0) {
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("%s cache type(s) refreshed.", $updatedTypes));
+            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('%s cache type(s) refreshed.', $updatedTypes));
         }
         $this->_redirect('*/*');
     }

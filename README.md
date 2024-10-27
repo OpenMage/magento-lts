@@ -35,6 +35,7 @@ level of backwards compatibility to the official releases.
   - [Changes to SOAP/WSDL](#changes-to-soapwsdl)
 - [Development Environment with ddev](#development-environment-with-ddev)
 - [PhpStorm Factory Helper](#phpstorm-factory-helper)
+- [PhpStorm File-Watcher for SCSS files](#phpstorm-file-watcher-for-scss-files)
 - [Public Communication](#public-communication)
 - [Maintainers](#maintainers)
 - [License](#license)
@@ -282,6 +283,7 @@ UPS shut down their old CGI APIs so we removed the support for it from the Mage_
 - `catalog/search/search_separator`
 - `dev/log/max_level`
 - `newsletter/security/enable_form_key`
+- `rss/admin_order/new_period`
 - `sitemap/category/lastmod`
 - `sitemap/page/lastmod`
 - `sitemap/product/lastmod`
@@ -372,6 +374,22 @@ n98-magerun.phar dev:ide:phpstorm:meta
 You can add additional meta files in this directory to cover your own project files. See
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
 for more information.
+
+## PhpStorm File-Watcher for SCSS files
+- install SCSS
+  ```bash
+  npm install -g sass
+  ```
+- open settings `CTRL+ALT+S` and go to File Watcher
+- change default setting to:
+  - Arguments:
+  ```
+  $FileName$:$FileParentDir$/$FileNameWithoutExtension$.css
+  ```
+  - Output paths to refresh:
+  ```
+  $FileParentDir$/$FileNameWithoutExtension$.css:$FileParentDir$/$FileNameWithoutExtension$.css.map
+  ```
 
 ## Public Communication
 

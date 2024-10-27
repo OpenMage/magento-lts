@@ -57,7 +57,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     protected $_helpers = [];
 
     /**
-     * Flag to have blocks' output go directly to browser as oppose to return result
+     * Flag to have blocks' output go directly to browser as opposed to return result
      *
      * @var bool
      */
@@ -139,14 +139,14 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * Loyout xml generation
+     * Layout xml generation
      *
      * @return $this
      */
     public function generateXml()
     {
         $xml = $this->getUpdate()->asSimplexml();
-        $removeInstructions = $xml->xpath("//remove");
+        $removeInstructions = $xml->xpath('//remove');
         if (is_array($removeInstructions)) {
             foreach ($removeInstructions as $infoNode) {
                 $attributes = $infoNode->attributes();
@@ -313,6 +313,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                         $helperName = implode('/', $helperName);
                         $arg = $arg->asArray();
                         unset($arg['@']);
+                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $args[$key] = call_user_func_array([Mage::helper($helperName), $helperMethod], $arg);
                     } else {
                         /**
@@ -343,6 +344,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($block, $method, $args);
 
             $this->_translateLayoutNode($node, $args);
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             call_user_func_array([$block, $method], array_values($args));
         }
 
@@ -352,12 +354,11 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * @param Mage_Core_Block_Abstract $block
      * @param string                   $method
      * @param string[]                 $args
-     *
      * @throws Mage_Core_Exception
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
     {
         foreach ($this->invalidActions as $action) {
@@ -393,6 +394,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 $argumentHierarchy = explode('.', $translatableArgumentName);
                 $argumentStack = &$args;
                 $canTranslate = true;
+                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 while (is_array($argumentStack) && count($argumentStack) > 0) {
                     $argumentName = array_shift($argumentHierarchy);
                     if (isset($argumentStack[$argumentName])) {
@@ -419,7 +421,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Save block in blocks registry
      *
      * @param string $name
-     * @param Mage_Core_Model_Layout $block
+     * @param Mage_Core_Block_Abstract $block
      * @return $this
      */
     public function setBlock($name, $block)
@@ -445,8 +447,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Block Factory
      *
      * @param     string $type
-     * @param     string $name
-     * @param     array $attributes
+     * @param     string|null $name
      * @return    Mage_Core_Block_Abstract|false
      */
     public function createBlock($type, $name = '', array $attributes = [])
@@ -494,7 +495,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * Create block object instance based on block type
      *
      * @param string $block
-     * @param array $attributes
      * @return Mage_Core_Block_Abstract
      */
     protected function _getBlockInstance($block, array $attributes = [])
@@ -506,6 +506,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 }
             }
             if (class_exists($block, false) || mageFindClassFile($block)) {
+                // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
                 $block = new $block($attributes);
             }
         }
@@ -603,6 +604,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
             }
 
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $helper = new $className();
             if ($helper) {
                 if ($helper instanceof Mage_Core_Block_Abstract) {
@@ -637,7 +639,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * 2) "module" attribute in any ancestor element
      * 3) layout handle name - first 1 or 2 parts (namespace is determined automatically)
      *
-     * @param Varien_Simplexml_Element $node
      * @return string
      */
     public static function findTranslationModuleName(Varien_Simplexml_Element $node)

@@ -79,12 +79,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
         // special management for "label" and "position" since they're columns of the
         // catalog_product_entity_media_gallery_value database table
-        if ($attributeCode == "label" || $attributeCode == "position") {
+        if ($attributeCode == 'label' || $attributeCode == 'position') {
             $media_gallery = $this->getDataObject()->getMediaGallery();
-            if (!count($media_gallery["images"])) {
+            if (!count($media_gallery['images'])) {
                 return true;
             }
-            return $media_gallery["images"][0]["{$attributeCode}_use_default"];
+            return $media_gallery['images'][0]["{$attributeCode}_use_default"];
         }
 
         $defaultValue = $this->getDataObject()->getAttributeDefaultValue($attributeCode);

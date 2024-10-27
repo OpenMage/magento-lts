@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     {
         $allowCountries = explode(',', (string)$this->_getStoreConfig('general/country/allow', $store));
         if (!empty($allowCountries)) {
-            $this->addFieldToFilter("country_id", ['in' => $allowCountries]);
+            $this->addFieldToFilter('country_id', ['in' => $allowCountries]);
         }
         return $this;
     }
@@ -75,7 +75,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * Add filter by country code to collection.
      * $countryCode can be either array of country codes or string representing one country code.
      * $iso can be either array containing 'iso2', 'iso3' values or string with containing one of that values directly.
-     * The collection will contain countries where at least one of contry $iso fields matches $countryCode.
+     * The collection will contain countries where at least one of country $iso fields matches $countryCode.
      *
      * @param string|array $countryCode
      * @param string|array $iso
@@ -119,9 +119,9 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
     {
         if (!empty($countryId)) {
             if (is_array($countryId)) {
-                $this->addFieldToFilter("country_id", ['in' => $countryId]);
+                $this->addFieldToFilter('country_id', ['in' => $countryId]);
             } else {
-                $this->addFieldToFilter("country_id", $countryId);
+                $this->addFieldToFilter('country_id', $countryId);
             }
         }
         return $this;

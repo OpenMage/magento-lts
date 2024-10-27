@@ -784,7 +784,7 @@ class Mage_Paypal_Model_Config
             return $this->_config[$key];
         }
 
-        $underscored = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $key));
+        $underscored = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $key));
         if (array_key_exists($underscored, $this->_config)) {
             return $this->_config[$underscored];
         }
@@ -1067,11 +1067,10 @@ class Mage_Paypal_Model_Config
     }
 
     /**
-    * PayPal web URL generic getter
-    *
-    * @param array $params
-    * @return string
-    */
+     * PayPal web URL generic getter
+     *
+     * @return string
+     */
     public function getPaypalUrl(array $params = [])
     {
         return sprintf(
@@ -1175,7 +1174,6 @@ class Mage_Paypal_Model_Config
      * Get "What Is PayPal" localized URL
      * Supposed to be used with "mark" as popup window
      *
-     * @param Mage_Core_Model_Locale|null $locale
      * @return string
      */
     public function getPaymentMarkWhatIsPaypalUrl(?Mage_Core_Model_Locale $locale = null)
@@ -1305,7 +1303,7 @@ class Mage_Paypal_Model_Config
      */
     public function getBuildNotationCode()
     {
-        return Mage::getStoreConfig("paypal/bncode", $this->_storeId);
+        return Mage::getStoreConfig('paypal/bncode', $this->_storeId);
     }
 
     /**
@@ -1541,8 +1539,6 @@ class Mage_Paypal_Model_Config
 
     /**
      * Export page style current settings to specified object
-     *
-     * @param Varien_Object $to
      */
     public function exportExpressCheckoutStyleSettings(Varien_Object $to)
     {
@@ -1658,7 +1654,7 @@ class Mage_Paypal_Model_Config
     }
 
     /**
-     * Check wheter specified country code is supported by build notation codes for specific countries
+     * Check whether specified country code is supported by build notation codes for specific countries
      *
      * @param string $code
      * @return string|null
@@ -1745,7 +1741,7 @@ class Mage_Paypal_Model_Config
     {
         switch ($fieldName) {
             case 'allow_ba_signup':
-                return "payment/" . self::METHOD_WPP_EXPRESS . "/{$fieldName}";
+                return 'payment/' . self::METHOD_WPP_EXPRESS . "/{$fieldName}";
             default:
                 return $this->_mapExpressFieldset($fieldName);
         }
@@ -1761,7 +1757,7 @@ class Mage_Paypal_Model_Config
     {
         switch ($fieldName) {
             case 'allow_ba_signup':
-                return "payment/" . self::METHOD_WPP_PE_EXPRESS . "/{$fieldName}";
+                return 'payment/' . self::METHOD_WPP_PE_EXPRESS . "/{$fieldName}";
             default:
                 return $this->_mapExpressFieldset($fieldName);
         }

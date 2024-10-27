@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,7 +92,6 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     /**
      * Get link for update revoke status
      *
-     * @param Mage_Oauth_Model_Token $model
      * @return string
      */
     public function getUpdateRevokeLink(Mage_Oauth_Model_Token $model)
@@ -106,7 +105,6 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     /**
      * Get delete link
      *
-     * @param Mage_Oauth_Model_Token $model
      * @return string
      */
     public function getDeleteLink(Mage_Oauth_Model_Token $model)

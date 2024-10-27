@@ -216,7 +216,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns boolean TRUE if row scope is default (fundamental) scope.
      *
-     * @param array $rowData
      * @return bool
      */
     protected function _isRowScopeDefault(array $rowData)
@@ -227,7 +226,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Change row data before saving in DB table.
      *
-     * @param array $rowData
      * @return array
      */
     protected function _prepareRowForDb(array $rowData)
@@ -263,7 +261,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         $bunchSize       = Mage::helper('importexport')->getBunchSize();
 
         /** @var Mage_Core_Helper_Data $coreHelper */
-        $coreHelper = Mage::helper("core");
+        $coreHelper = Mage::helper('core');
 
         $source->rewind();
         $this->_dataSourceModel->cleanBunches();
@@ -339,7 +337,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns attributes all values in label-value or value-value pairs form. Labels are lower-cased.
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param array $indexValAttrs OPTIONAL Additional attributes' codes with index values.
      * @return array
      */
@@ -603,7 +600,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns TRUE if row is valid and not in skipped rows array.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -615,7 +611,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Validate data row.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -624,7 +619,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Set data from outside to change behavior. I.e. for setting some default parameters etc.
      *
-     * @param array $params
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function setParameters(array $params)
@@ -636,7 +630,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Source model setter.
      *
-     * @param Mage_ImportExport_Model_Import_Adapter_Abstract $source
      * @return Mage_ImportExport_Model_Import_Entity_Abstract
      */
     public function setSource(Mage_ImportExport_Model_Import_Adapter_Abstract $source)
@@ -658,7 +651,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         if (!$this->_dataValidated) {
             // does all permanent columns exists?
             if (($colsAbsent = array_diff($this->_permanentAttributes, $this->_getSource()->getColNames()))) {
-                file_put_contents($this->_getSource()->getSource(), "");
+                file_put_contents($this->_getSource()->getSource(), '');
                 Mage::throwException(
                     Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent))
                 );

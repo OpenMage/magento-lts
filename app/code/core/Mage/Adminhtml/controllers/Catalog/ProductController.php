@@ -97,7 +97,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $productType = $product->getTypeInstance();
             if (!$productId || !$productType->getUsedProductAttributeIds()) {
                 $productType->setUsedProductAttributeIds(
-                    explode(",", base64_decode(urldecode($attributes)))
+                    explode(',', base64_decode(urldecode($attributes)))
                 );
             }
         }
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if ($this->getRequest()->getParam('popup')
             && $requiredAttributes = $this->getRequest()->getParam('required')
         ) {
-            $requiredAttributes = explode(",", $requiredAttributes);
+            $requiredAttributes = explode(',', $requiredAttributes);
             foreach ($product->getAttributes() as $attribute) {
                 if (in_array($attribute->getId(), $requiredAttributes)) {
                     $attribute->setIsRequired(1);
@@ -152,7 +152,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Create serializer block for a grid
      *
      * @param string $inputName
-     * @param Mage_Adminhtml_Block_Widget_Grid $gridBlock
      * @param array $productsArray
      * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer
      */
@@ -972,7 +971,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Validate batch of products before theirs status will be set
      *
      * @throws Mage_Core_Exception
-     * @param  array $productIds
      * @param  int $status
      */
     public function _validateMassStatus(array $productIds, $status)

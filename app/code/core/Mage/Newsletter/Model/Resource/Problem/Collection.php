@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,7 +107,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
 
         $customers = Mage::getResourceModel('customer/customer_collection')
             ->addNameToSelect()
-            ->addAttributeToFilter('entity_id', ["in" => $customersIds]);
+            ->addAttributeToFilter('entity_id', ['in' => $customersIds]);
 
         $customers->load();
 
@@ -122,7 +122,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Loads collecion and adds customers info
+     * Loads collection and adds customers info
      *
      * @param bool $printQuery
      * @param bool $logQuery

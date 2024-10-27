@@ -180,7 +180,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve processed template
      *
-     * @param array $variables
      * @param bool $usePreprocess
      * @return string
      */
@@ -250,7 +249,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Retrieve included template
      *
      * @param string $templateCode
-     * @param array $variables
      * @return string
      */
     public function getInclude($templateCode, array $variables)
@@ -388,7 +386,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Retrieve processed template subject
      *
-     * @param array $variables
      * @return string
      */
     public function getProcessedTemplateSubject(array $variables)

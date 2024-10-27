@@ -169,7 +169,6 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Get attribute type for upcoming validation.
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     public static function getAttributeType(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -335,7 +334,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
      */
     public function expandSource()
     {
-        $writer  = Mage::getModel('importexport/export_adapter_csv', self::getWorkingDir() . "big0.csv");
+        $writer  = Mage::getModel('importexport/export_adapter_csv', self::getWorkingDir() . 'big0.csv');
         $regExps = ['last' => '/(.*?)(\d+)$/', 'middle' => '/(.*?)(\d+)(.*)$/'];
         $colReg  = [
             'sku' => 'last', 'name' => 'last', 'description' => 'last', 'short_description' => 'last',

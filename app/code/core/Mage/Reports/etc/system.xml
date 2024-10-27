@@ -40,6 +40,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <frontend_class>validate-digits</frontend_class>
                         </viewed_count>
                         <compared_count translate="label">
                             <label>Default Recently Compared Products Count</label>
@@ -47,6 +48,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <frontend_class>validate-digits</frontend_class>
                         </compared_count>
                     </fields>
                 </recently_products>

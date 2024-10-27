@@ -887,6 +887,7 @@
 'phpstan':
   - changed-files:
     - any-glob-to-any-file: [
+      .phpstan*,
       phpstan*,
       .github/workflows/phpstan.yml
     ]
@@ -894,11 +895,9 @@
 'phpunit':
   - changed-files:
     - any-glob-to-any-file: [
-      dev/test/*,
-      dev/phpunit*,
-      dev/sonar*,
-      .github/workflows/phpunit.yml,
-      .github/workflows/sonar.yml
+      phpunit*,
+      tests/*,
+      .github/workflows/phpunit.yml
     ]
 
 'ddev':
@@ -907,3 +906,10 @@
       .ddev/*,
       .ddev/**/*
     ]
+
+'rector':
+  - changed-files:
+      - any-glob-to-any-file: [
+        rector.php,
+        .github/workflows/rector.yml
+      ]

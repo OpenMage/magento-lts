@@ -236,8 +236,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Set JS validation container for element
      *
-     * @param int $elementId
-     * @param int $containerId
+     * @param string $elementId
+     * @param string $containerId
      * @return string
      */
     public function setValidationContainer($elementId, $containerId)

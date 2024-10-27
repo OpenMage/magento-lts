@@ -24,7 +24,6 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Severity extends Mage_Admi
     /**
      * Renders grid column
      *
-     * @param   Varien_Object $row
      * @return  string
      */
     public function render(Varien_Object $row)
@@ -44,6 +43,7 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Severity extends Mage_Admi
                 $class = 'minor';
                 $value = $notice->getSeverities(Mage_AdminNotification_Model_Inbox::SEVERITY_MINOR);
                 break;
+            default:
             case Mage_AdminNotification_Model_Inbox::SEVERITY_NOTICE:
             default:
                 $class = 'notice';

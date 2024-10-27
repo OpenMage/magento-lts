@@ -251,7 +251,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Apply filter to collection and add not skipped attributes to select.
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
@@ -373,7 +372,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Clean up attribute collection.
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
@@ -398,7 +396,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Returns attributes all values in label-value or value-value pairs form. Labels are lower-cased.
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return array
      */
     public function getAttributeOptions(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
@@ -520,7 +517,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Set parameters.
      *
-     * @param array $parameters
      * @return Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function setParameters(array $parameters)
@@ -533,7 +529,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Writer model setter.
      *
-     * @param Mage_ImportExport_Model_Export_Adapter_Abstract $writer
      * @return Mage_ImportExport_Model_Export_Entity_Abstract
      */
     public function setWriter(Mage_ImportExport_Model_Export_Adapter_Abstract $writer)

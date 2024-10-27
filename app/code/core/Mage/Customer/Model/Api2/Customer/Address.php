@@ -44,7 +44,6 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
     /**
      * Is specified address a default billing address?
      *
-     * @param Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _isDefaultBillingAddress(Mage_Customer_Model_Address $address)
@@ -55,7 +54,6 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
     /**
      * Is specified address a default shipping address?
      *
-     * @param Mage_Customer_Model_Address $address
      * @return bool
      */
     protected function _isDefaultShippingAddress(Mage_Customer_Model_Address $address)

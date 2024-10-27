@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -184,6 +184,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $select = $adapter->select()
             ->from($this->getMainTable(), new Zend_Db_Expr('MAX(' . $urlIncrementPartExpression . ')'))
             ->where('store_id = :store_id')
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             ->where('request_path LIKE :request_path')
             ->where($adapter->prepareSqlCondition('request_path', [
                 'regexp' => '^' . preg_quote($prefix) . '[0-9]*' . preg_quote($suffix) . '$'
@@ -264,6 +265,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $select->where('product_id IN(?)', $productIds);
         }
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $rowSet = $adapter->fetchAll($select, $bind);
 
         foreach ($rowSet as $row) {
@@ -333,7 +335,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save category attribute
      *
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
      * @param string $attributeCode
      * @return $this
      */
@@ -468,6 +469,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $bind['store_id']     = $storeId;
         }
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $rowSet = $adapter->fetchAll($select, $bind);
 
         $attributes = [];
@@ -487,7 +489,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save product attribute
      *
-     * @param Varien_Object|Mage_Catalog_Model_Product $product
      * @param string $attributeCode
      * @return $this
      */
@@ -610,6 +611,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $bind['store_id'] = $storeId;
         }
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $rowSet = $adapter->fetchAll($select, $bind);
 
         $attributes = [];
@@ -629,7 +631,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Prepare category parentId
      *
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
      * @return $this
      */
     protected function _prepareCategoryParentId(Varien_Object $category)
@@ -675,7 +676,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * Retrieve categories objects
      * Either $categoryIds or $path (with ending slash) must be specified
      *
-     * @param int|array $categoryIds
+     * @param int|array|null $categoryIds
      * @param int $storeId
      * @param string $path
      * @return array
@@ -709,6 +710,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             }
 
             $select
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                 ->where('main_table.path LIKE ?', $path . '%')
                 ->order('main_table.path');
         }
@@ -733,6 +735,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             'store_id'     => (int)$storeId
         ];
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $rowSet = $adapter->fetchAll($select, $bind);
         foreach ($rowSet as $row) {
             if ($storeId !== null) {
@@ -808,9 +811,8 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * Retrieve category childs data objects
+     * Retrieve category children data objects
      *
-     * @param Varien_Object $category
      * @return Varien_Object
      */
     public function loadCategoryChilds(Varien_Object $category)
@@ -860,9 +862,11 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $adapter = $this->_getReadAdapter();
             $select = $adapter->select()
                 ->from([$this->getTable('catalog/category')], ['entity_id'])
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                 ->where('path LIKE ?', $categoryPath . '/%');
 
             $categoryIds = [];
+            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $rowSet = $adapter->fetchAll($select);
             foreach ($rowSet as $row) {
                 $categoryIds[$row['entity_id']] = $row['entity_id'];
@@ -880,7 +884,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Retrieve category parent path
      *
-     * @param Varien_Object $category
      * @return string
      */
     public function getCategoryParentPath(Varien_Object $category)
@@ -923,7 +926,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Retrieve Product data objects
      *
-     * @param int|array $productIds
+     * @param int|array|null $productIds
      * @param int $storeId
      * @param int $entityId
      * @param int $lastEntityId
@@ -958,6 +961,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $select->where('e.entity_id IN(?)', $productIds);
         }
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $rowSet = $adapter->fetchAll($select, $bind);
         foreach ($rowSet as $row) {
             $product = new Varien_Object($row);
@@ -977,6 +981,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                     ['product_id', 'category_id']
                 )
                 ->where('product_id IN(?)', array_keys($products));
+            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $categories = $adapter->fetchAll($select);
             foreach ($categories as $category) {
                 $productId = $category['product_id'];
@@ -1025,7 +1030,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Retrieve Product data objects in category
      *
-     * @param Varien_Object $category
      * @param int $lastEntityId
      * @return array
      */
@@ -1109,13 +1113,17 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         // Form a list of all current store categories ids
         $store          = $this->getStores($storeId);
+        if (!$store instanceof Mage_Core_Model_Store) {
+            return $this;
+        }
+
         $rootCategoryId = $store->getRootCategoryId();
         if (!$rootCategoryId) {
             return $this;
         }
         $categoryIds = $this->getRootChildrenIds($rootCategoryId, $store->getRootCategoryPath());
 
-        // Remove all store catalog rewrites that are for some category or cartegory/product not within store categories
+        // Remove all store catalog rewrites that are for some category or category/product not within store categories
         $where   = [
             'store_id = ?' => $storeId,
             'category_id IS NOT NULL', // For sure check that it's a catalog rewrite
@@ -1142,6 +1150,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     public function clearStoreProductsInvalidRewrites($storeId, $productId = null)
     {
         $store   = $this->getStores($storeId);
+        if (!$store instanceof Mage_Core_Model_Store) {
+            return $this;
+        }
+
         $adapter = $this->_getReadAdapter();
         $bind    = [
             'website_id' => (int)$store->getWebsiteId(),
@@ -1236,7 +1248,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * visibility   int; visibility for store
      * url_rewrite  string; rewrite URL for store
      *
-     * @param array $products
      * @return array
      */
     public function getRewriteByProductStore(array $products)
@@ -1276,6 +1287,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $select->orWhere($cond);
         }
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $rowSet = $adapter->fetchAll($select, $bind);
         foreach ($rowSet as $row) {
             $result[$row['product_id']] = [
@@ -1294,7 +1306,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param string $requestPath
      * @param int $storeId
-     * @param array $_checkedPaths internal varible to prevent infinite loops.
+     * @param array $_checkedPaths internal variable to prevent infinite loops.
      * @return string | bool
      */
     public function findFinalTargetPath($requestPath, $storeId, &$_checkedPaths = [])

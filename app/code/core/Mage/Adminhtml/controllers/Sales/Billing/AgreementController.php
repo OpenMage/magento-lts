@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
         if ($agreementModel) {
             $this->_title($this->__('Sales'))
                 ->_title($this->__('Billing Agreements'))
-                ->_title(sprintf("#%s", $agreementModel->getReferenceId()));
+                ->_title(sprintf('#%s', $agreementModel->getReferenceId()));
 
             $this->loadLayout()
                 ->_setActiveMenu('sales/billing_agreement')

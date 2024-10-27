@@ -999,7 +999,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Declare order billing address
      *
-     * @param   Mage_Sales_Model_Order_Address $address
      * @return  $this
      */
     public function setBillingAddress(Mage_Sales_Model_Order_Address $address)
@@ -1015,7 +1014,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Declare order shipping address
      *
-     * @param   Mage_Sales_Model_Order_Address $address
      * @return  $this
      */
     public function setShippingAddress(Mage_Sales_Model_Order_Address $address)
@@ -1636,7 +1634,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Address $address
      * @return $this
      * @throws Exception
      */
@@ -1791,7 +1788,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
      * @return $this
      * @throws Exception
      */
@@ -1868,7 +1864,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Payment $payment
      * @return $this
      * @throws Exception
      */
@@ -1883,7 +1878,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Payment $payment
      * @return Mage_Sales_Model_Order_Payment
      */
     public function setPayment(Mage_Sales_Model_Order_Payment $payment)
@@ -1970,7 +1964,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * See the entity_id attribute backend model.
      * Or the history record can be saved standalone after this.
      *
-     * @param Mage_Sales_Model_Order_Status_History $history
      * @return $this
      */
     public function addStatusHistory(Mage_Sales_Model_Order_Status_History $history)
@@ -2290,7 +2283,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     /**
      * Add New object to related array
      *
-     * @param   Mage_Core_Model_Abstract $object
      * @return  $this
      */
     public function addRelatedObject(Mage_Core_Model_Abstract $object)

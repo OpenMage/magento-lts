@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +28,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     public const STORAGE_MEDIA_DATABASE            = 1;
 
     /**
-     * Config pathes for storing storage configuration
+     * Config paths for storing storage configuration
      */
     public const XML_PATH_STORAGE_MEDIA            = 'default/system/media_storage_configuration/media_storage';
     public const XML_PATH_STORAGE_MEDIA_DATABASE   = 'default/system/media_storage_configuration/media_database';
@@ -47,8 +47,6 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     /**
      * Show if there were errors while synchronize process
      *
-     * @param  Mage_Core_Model_Abstract $sourceModel
-     * @param  Mage_Core_Model_Abstract $destinationModel
      * @return bool
      */
     protected function _synchronizeHasErrors(
