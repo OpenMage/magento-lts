@@ -1073,7 +1073,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             $convertNode = Mage::getConfig()->getNode('default/url/convert/' . $locale);
             if ($convertNode instanceof Mage_Core_Model_Config_Element) {
                 $custom = [];
-                /** @var Mage_Core_Model_Config_Element $configNode */
+                /** @var Mage_Core_Model_Config_Element $node */
                 foreach ($convertNode->children() as $node) {
                     if (property_exists($node, 'from') && property_exists($node, 'to')) {
                         $custom[(string) $node->from] = (string) $node->to;
