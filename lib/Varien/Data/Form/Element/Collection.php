@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,6 +26,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @var array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_elements;
 
     /**
@@ -33,6 +34,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      *
      * @var Varien_Data_Form_Abstract
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_container;
 
     /**
@@ -93,7 +95,6 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Implementation of ArrayAccess:offsetExists()
      *
      * @param mixed $key
-     * @return bool
      */
     public function offsetExists($key): bool
     {
@@ -104,9 +105,7 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
      * Add element to collection
      *
      * @todo get it straight with $after
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @param bool|string $after
-     *
+     * @param string|false $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function add(Varien_Data_Form_Element_Abstract $element, $after = false)
@@ -170,8 +169,6 @@ class Varien_Data_Form_Element_Collection implements ArrayAccess, IteratorAggreg
 
     /**
      * Count elements in collection
-     *
-     * @return int
      */
     public function count(): int
     {

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,6 +92,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->from($this->_productWebsiteTable, ['product_id', 'website_id'])
             ->where('product_id IN (?)', $productIds);
         $productsWebsites = [];
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         foreach ($this->_getWriteAdapter()->fetchAll($select) as $productInfo) {
             $productId = $productInfo['product_id'];
             if (!isset($productsWebsites[$productId])) {
@@ -106,7 +107,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product category identifiers
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product|Varien_Object $product
      * @return array
      */
     public function getCategoryIds($product)
@@ -124,7 +125,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Get product identifier by sku
      *
      * @param string $sku
-     * @return int|false
+     * @return string
      */
     public function getIdBySku($sku)
     {
@@ -148,7 +149,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     protected function _beforeSave(Varien_Object $object)
     {
         /**
-         * Try detect product id by sku if id is not declared
+         * Try to detect product id by sku if id is not declared
          */
         if (!$object->getId() && $object->getSku()) {
             $object->setId($this->getIdBySku($object->getSku()));
@@ -219,6 +220,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     'website_id = ?' => (int)$websiteId,
                 ];
 
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $adapter->delete($this->_productWebsiteTable, $condition);
             }
         }
@@ -233,7 +235,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Save product category relations
      *
-     * @param Varien_Object|Mage_Catalog_Model_Product $object
      * @return $this
      */
     protected function _saveCategories(Varien_Object $object)
@@ -277,6 +278,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     'category_id = ?' => (int)$categoryId,
                 ];
 
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $write->delete($this->_productCategoryTable, $where);
             }
         }
@@ -317,6 +319,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 ->from($this->getTable('catalog/category'))
                 ->where('entity_id IN (?)', $categoryIds);
 
+            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $categoriesInfo = $writeAdapter->fetchAll($categoriesSelect);
 
             $indexCategoryIds = [];
@@ -514,6 +517,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     {
         // is_parent=1 ensures that we'll get only category IDs those are direct parents of the product, instead of
         // fetching all parent IDs, including those are higher on the tree
+        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         $select = $this->_getReadAdapter()->select()->distinct()
             ->from($this->getTable('catalog/category_product_index'), ['category_id'])
             ->where('product_id = ? AND is_parent = 1', (int)$object->getEntityId());
@@ -610,7 +614,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Get SKU through product identifiers
      *
-     * @param  array $productIds
      * @return array
      */
     public function getProductsSku(array $productIds)
@@ -618,6 +621,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('catalog/product'), ['entity_id', 'sku'])
             ->where('entity_id IN (?)', $productIds);
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $this->_getReadAdapter()->fetchAll($select);
     }
 
@@ -626,6 +630,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @return array
      * @deprecated after 1.4.2.0
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getParentProductIds($object)
     {
         return [];
@@ -650,6 +655,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select = $adapter->select()
             ->from($this->getTable('catalog/product'), $columns);
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $adapter->fetchAll($select);
     }
 
@@ -685,6 +691,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->where('store_id IN (?)', $storeIds)
             ->where('attribute_code IN (?)', ['small_image', 'thumbnail', 'image']);
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $read->fetchAll($select);
     }
 

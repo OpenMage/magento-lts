@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -362,12 +362,12 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header = [];
         $header['100-name']       = $long ? '././@LongLink' : substr($nameFile, 0, 100);
         $header['8-mode']         = $long ? '       '
-            : str_pad(substr(sprintf("%07o", $infoFile['mode']), -4), 6, '0', STR_PAD_LEFT);
-        $header['8-uid']          = $long || $infoFile['uid'] == 0 ? "\0\0\0\0\0\0\0" : sprintf("%07o", $infoFile['uid']);
-        $header['8-gid']          = $long || $infoFile['gid'] == 0 ? "\0\0\0\0\0\0\0" : sprintf("%07o", $infoFile['gid']);
-        $header['12-size']        = $long ? sprintf("%011o", strlen($nameFile)) : sprintf("%011o", is_dir($file)
+            : str_pad(substr(sprintf('%07o', $infoFile['mode']), -4), 6, '0', STR_PAD_LEFT);
+        $header['8-uid']          = $long || $infoFile['uid'] == 0 ? "\0\0\0\0\0\0\0" : sprintf('%07o', $infoFile['uid']);
+        $header['8-gid']          = $long || $infoFile['gid'] == 0 ? "\0\0\0\0\0\0\0" : sprintf('%07o', $infoFile['gid']);
+        $header['12-size']        = $long ? sprintf('%011o', strlen($nameFile)) : sprintf('%011o', is_dir($file)
             ? 0 : filesize($file));
-        $header['12-mtime']       = $long ? '00000000000' : sprintf("%011o", $infoFile['mtime']);
+        $header['12-mtime']       = $long ? '00000000000' : sprintf('%011o', $infoFile['mtime']);
         $header['8-check']        = sprintf('% 8s', '');
         $header['1-type']         = $long ? 'L' : (is_link($file) ? 2 : (is_dir($file) ? 5 : 0));
         $header['100-symlink']    = is_link($file) ? readlink($file) : '';
@@ -392,14 +392,14 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         for ($i = 0; $i < 512; $i++) {
             $checksum += ord(substr($packedHeader, $i, 1));
         }
-        $packedHeader = substr_replace($packedHeader, sprintf("%07o", $checksum) . "\0", 148, 8);
+        $packedHeader = substr_replace($packedHeader, sprintf('%07o', $checksum) . "\0", 148, 8);
 
         return $longHeader . $packedHeader;
     }
 
     /**
      * Read TAR string from file, and unpacked it.
-     * Create files and directories information about discribed
+     * Create files and directories information about described
      * in the string.
      *
      * @param string $destination path to file is unpacked
@@ -423,7 +423,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $currentFile = $destination . $header['name'];
             $dirname = dirname($currentFile);
 
-            if (in_array($header['type'], ["0",chr(0), ''])) {
+            if (in_array($header['type'], ['0',chr(0), ''])) {
                 if (!file_exists($dirname)) {
                     $mkdirResult = @mkdir($dirname, 0777, true);
 
@@ -477,7 +477,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header['mtime'] = octdec($header['mtime']);
         $header['checksum'] = octdec($header['checksum']);
 
-        if ($header['type'] == "5") {
+        if ($header['type'] == '5') {
             $header['size'] = 0;
         }
 
@@ -532,7 +532,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header['mtime']    = octdec($header['mtime']);
         $header['checksum'] = octdec($header['checksum']);
 
-        if ($header['type'] == "5") {
+        if ($header['type'] == '5') {
             $header['size'] = 0;
         }
 

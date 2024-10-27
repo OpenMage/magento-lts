@@ -55,9 +55,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     protected $_includeProcessor = null;
 
     /**
-     * Sets template variables that's can be called througth {var ...} statement
-     *
-     * @param array $variables
+     * Sets template variables that's can be called through {var ...} statement
      */
     public function setVariables(array $variables)
     {
@@ -272,7 +270,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     */
     protected function _getVariable($value, $default = '{no_value_defined}')
     {
-        Varien_Profiler::start("email_template_proccessing_variables");
+        Varien_Profiler::start('email_template_proccessing_variables');
         $tokenizer = new Varien_Filter_Template_Tokenizer_Variable();
         $tokenizer->setString($value);
         $stackVars = $tokenizer->tokenize();
@@ -314,7 +312,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             // If value for construction exists set it
             $result = $stackVars[$last]['variable'];
         }
-        Varien_Profiler::stop("email_template_proccessing_variables");
+        Varien_Profiler::stop('email_template_proccessing_variables');
         return $result;
     }
 

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,6 @@ class Mage_Api2_Model_Auth
     /**
      * Figure out API user type and create user model instance
      *
-     * @param Mage_Api2_Model_Request $request
      * @throws Exception
      * @return Mage_Api2_Model_Auth_User_Abstract
      */

@@ -180,7 +180,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $this->setIsValid(false);
                 $value = $this->_bytesToMbytes($this->_getUploadMaxFilesize());
                 Mage::throwException(
-                    Mage::helper('catalog')->__("The file you uploaded is larger than %s Megabytes allowed by server", $value)
+                    Mage::helper('catalog')->__('The file you uploaded is larger than %s Megabytes allowed by server', $value)
                 );
             } else {
                 switch ($this->getProcessMode()) {
@@ -434,7 +434,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             try {
                 Mage::helper('core/unserializeArray')->unserialize($result);
             } catch (Exception $e) {
-                Mage::throwException(Mage::helper('catalog')->__("File options format is not valid."));
+                Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
             }
         } else {
             /*
@@ -515,7 +515,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $sizes
             );
         } catch (Exception $e) {
-            Mage::throwException(Mage::helper('catalog')->__("File options format is not valid."));
+            Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
         }
     }
 
@@ -749,7 +749,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     protected function _parseExtensionsString($extensions)
     {
         preg_match_all('/[a-z0-9]+/si', strtolower($extensions), $matches);
-        if (isset($matches[0]) && is_array($matches[0]) && count($matches[0]) > 0) {
+        if (count($matches[0]) > 0) {
             return $matches[0];
         }
         return null;

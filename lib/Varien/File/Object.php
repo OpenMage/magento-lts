@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,7 +20,7 @@
  * @package    Varien_File
  */
 
-require_once("Varien/Object.php");
+require_once('Varien/Object.php');
 require_once('Varien/Directory/IFactory.php');
 
 class Varien_File_Object extends SplFileObject implements IFactory
@@ -180,8 +180,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     public static function getExt($fileName)
     {
         $path_parts = pathinfo($fileName);
-        if (isset($path_parts["extension"])) {
-            return $path_parts["extension"];
+        if (isset($path_parts['extension'])) {
+            return $path_parts['extension'];
         } else {
             return '';
         }

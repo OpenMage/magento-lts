@@ -44,7 +44,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param bool $before
      * @return $this
      */
-    public function addCss($name, $params = "", $referenceName = "*", $before = null)
+    public function addCss($name, $params = '', $referenceName = '*', $before = null)
     {
         $this->addItem('skin_css', $name, $params, null, null, $referenceName, $before);
         return $this;
@@ -59,7 +59,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param bool $before
      * @return $this
      */
-    public function addJs($name, $params = "", $referenceName = "*", $before = null)
+    public function addJs($name, $params = '', $referenceName = '*', $before = null)
     {
         $this->addItem('js', $name, $params, null, null, $referenceName, $before);
         return $this;
@@ -75,7 +75,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @return $this
      * @deprecated
      */
-    public function addCssIe($name, $params = "", $referenceName = "*", $before = null)
+    public function addCssIe($name, $params = '', $referenceName = '*', $before = null)
     {
         return $this;
     }
@@ -90,7 +90,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @return $this
      * @deprecated
      */
-    public function addJsIe($name, $params = "", $referenceName = "*", $before = null)
+    public function addJsIe($name, $params = '', $referenceName = '*', $before = null)
     {
         return $this;
     }
@@ -127,7 +127,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string|bool $before If true insert before the $referenceName instead of after
      * @return $this
      */
-    public function addItem($type, $name, $params = null, $if = null, $cond = null, $referenceName = "*", $before = false)
+    public function addItem($type, $name, $params = null, $if = null, $cond = null, $referenceName = '*', $before = false)
     {
         // allow skipping of parameters in the layout XML files via empty-string
         if ($params === '') {
@@ -481,7 +481,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     }
 
     /**
-     * Get miscellanious scripts/styles to be included in head before head closing tag
+     * Get miscellaneous scripts/styles to be included in head before head closing tag
      *
      * @return string
      */

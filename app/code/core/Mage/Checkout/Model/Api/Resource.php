@@ -103,7 +103,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected function _getQuote($quoteId, $store = null)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        $quote = Mage::getModel("sales/quote");
+        $quote = Mage::getModel('sales/quote');
 
         if (!(is_string($store) || is_int($store))) {
             $quote->loadByIdWithoutStore($quoteId);
@@ -141,7 +141,6 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array $data
      * @param Mage_Core_Model_Abstract $object
      * @param string $type
-     * @param array|null $attributes
      * @return $this
      */
     protected function _updateAttributes($data, $object, $type, ?array $attributes = null)
@@ -160,7 +159,6 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param Mage_Core_Model_Abstract $object
      * @param string $type
-     * @param array|null $attributes
      * @return array
      */
     protected function _getAttributes($object, $type, ?array $attributes = null)
@@ -199,7 +197,6 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param string $attributeCode
      * @param string $type
-     * @param array|null $attributes
      * @return bool
      */
     protected function _isAllowedAttribute($attributeCode, $type, ?array $attributes = null)

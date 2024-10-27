@@ -103,7 +103,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  string $string
      * @param  int $x
      * @param  int $columnWidth
-     * @param  Zend_Pdf_Resource_Font $font
      * @param  int $fontSize
      * @param  int $padding
      * @return int
@@ -120,7 +119,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  string $string
      * @param  int $x
      * @param  int $columnWidth
-     * @param  Zend_Pdf_Resource_Font $font
      * @param  int $fontSize
      * @return int
      */
@@ -366,7 +364,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         if (!$order->getIsVirtual()) {
             $this->y = $addressesStartY;
-            if (isset($shippingAddress) and is_iterable($shippingAddress)) {
+            if (isset($shippingAddress) && is_iterable($shippingAddress)) {
                 foreach ($shippingAddress as $value) {
                     if ($value !== '') {
                         $text = [];
@@ -438,8 +436,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             }
 
             $yShipments = $this->y;
-            $totalShippingChargesText = "(" . Mage::helper('sales')->__('Total Shipping Charges') . " "
-                . $order->formatPriceTxt($order->getShippingAmount()) . ")";
+            $totalShippingChargesText = '(' . Mage::helper('sales')->__('Total Shipping Charges') . ' '
+                . $order->formatPriceTxt($order->getShippingAmount()) . ')';
 
             $page->drawText($totalShippingChargesText, 285, $yShipments - $topMargin, 'UTF-8');
             $yShipments -= $topMargin + 10;
@@ -499,7 +497,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Insert title and number for concrete document type
      *
-     * @param  Zend_Pdf_Page $page
      * @param  string $text
      */
     public function insertDocumentNumber(Zend_Pdf_Page $page, $text)
@@ -663,7 +660,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $resultValue .= $value['title'];
 
             if (isset($value['price'])) {
-                $resultValue .= " " . $order->formatPrice($value['price']);
+                $resultValue .= ' ' . $order->formatPrice($value['price']);
             }
             return  $resultValue;
         } else {
@@ -727,9 +724,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Render item
      *
-     * @param Varien_Object $item
-     * @param Zend_Pdf_Page $page
-     * @param Mage_Sales_Model_Order $order
      * @param Mage_Sales_Model_Order_Pdf_Items_Abstract $renderer
      *
      * @return Mage_Sales_Model_Order_Pdf_Abstract
@@ -749,9 +743,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Draw Item process
      *
-     * @param  Varien_Object $item
-     * @param  Zend_Pdf_Page $page
-     * @param  Mage_Sales_Model_Order $order
      * @return Zend_Pdf_Page
      */
     protected function _drawItem(Varien_Object $item, Zend_Pdf_Page $page, Mage_Sales_Model_Order $order)
@@ -823,7 +814,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Set PDF object
      *
-     * @param  Zend_Pdf $pdf
      * @return Mage_Sales_Model_Order_Pdf_Abstract
      */
     protected function _setPdf(Zend_Pdf $pdf)
@@ -850,7 +840,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Create new page and assign to PDF object
      *
-     * @param  array $settings
      * @return Zend_Pdf_Page
      */
     public function newPage(array $settings = [])
@@ -879,12 +868,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * font         string; font style, optional: bold, italic, regular
      * font_file    string; path to font file (optional for use your custom font)
      * font_size    int; font size (default 7)
-     * align        string; text align (also see feed parametr), optional left, right
+     * align        string; text align (also see feed parameter), optional left, right
      * height       int;line spacing (default 10)
      *
-     * @param  Zend_Pdf_Page $page
-     * @param  array $draw
-     * @param  array $pageSettings
      * @throws Mage_Core_Exception
      * @return Zend_Pdf_Page
      */

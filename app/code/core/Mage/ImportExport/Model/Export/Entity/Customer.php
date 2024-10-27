@@ -88,7 +88,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Apply filter to collection and add not skipped attributes to select.
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
@@ -307,7 +306,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Clean up already loaded attribute collection.
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)

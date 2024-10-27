@@ -18,8 +18,8 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['8.1', '8.3']
-        mysql-version: ["8.0", "5.7"]
+        php-versions: ['7.4', '8.3']
+        mysql-version: ['5.7', '8.0']
 
     services:
       mysql:
@@ -42,6 +42,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
+          coverage: pcov #optional, setup coverage driver
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/checkout@v4
 
@@ -93,27 +96,25 @@ jobs:
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
-        continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: output/*.xml
+          files: tests/logging/*.xml
 
       - name: prepare SonarCloud Scan Data
-        continue-on-error: true
-        if: ${{ matrix.php-versions == '7.4' }} && {{ matrix.mysql-version == '5.7' }}
+        if: ${{ (matrix.php-versions == '7.4') && (matrix.mysql-version == '5.7') }}
         run: |
-          head dev/tests/clover.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/junit.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' dev/tests/clover.xml
-          head ./dev/tests/clover.xml
+          head tests/coverage/clover.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' tests/logging/junit.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' tests/coverage/clover.xml
+          head ./tests/coverage/clover.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         continue-on-error: true
-        if: ${{ matrix.php-versions == '7.4' }} && {{ matrix.mysql-version == '5.7' }} && SONAR_TOKEN
+        if: ${{ (matrix.php-versions == '7.4') && (matrix.mysql-version == '5.7') }} && SONAR_TOKEN
         with:
           args: >
-            -Dproject.settings=dev/sonar-project.properties
+            -Dproject.settings=tests/sonar-project.properties
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

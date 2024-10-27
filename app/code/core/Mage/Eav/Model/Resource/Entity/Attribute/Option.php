@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,7 +70,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
     /**
      * Retrieve Select for update Flat data
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param int $store
      * @param bool $hasValueField flag which require option value
      * @return Varien_Db_Select
@@ -84,10 +83,10 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
         $attributeTable = $attribute->getBackend()->getTable();
         $attributeCode  = $attribute->getAttributeCode();
 
-        $joinConditionTemplate = "%s.entity_id = %s.entity_id"
-            . " AND %s.entity_type_id = " . $attribute->getEntityTypeId()
-            . " AND %s.attribute_id = " . $attribute->getId()
-            . " AND %s.store_id = %d";
+        $joinConditionTemplate = '%s.entity_id = %s.entity_id'
+            . ' AND %s.entity_type_id = ' . $attribute->getEntityTypeId()
+            . ' AND %s.attribute_id = ' . $attribute->getId()
+            . ' AND %s.store_id = %d';
         $joinCondition = sprintf(
             $joinConditionTemplate,
             'e',
@@ -126,7 +125,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
         }
 
         if ($attribute->getFlatAddChildData()) {
-            $select->where("e.is_child = ?", 0);
+            $select->where('e.is_child = ?', 0);
         }
 
         return $select;

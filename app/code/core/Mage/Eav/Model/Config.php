@@ -505,7 +505,7 @@ class Mage_Eav_Model_Config
 
         // return an empty model to avoid breaking compatibility
         if (!$attribute) {
-            $attribute = $this->_hydrateAttribute(["entity_type_id" => $entityType->getId()]);
+            $attribute = $this->_hydrateAttribute(['entity_type_id' => $entityType->getId()]);
         }
 
         return $attribute;
@@ -650,7 +650,6 @@ class Mage_Eav_Model_Config
 
     /**
      * @param string|Mage_Eav_Model_Entity_Type $entityType
-     * @param array $attributes
      * @return $this
      * @deprecated No longer required. All attribute data is cached on-access.
      */

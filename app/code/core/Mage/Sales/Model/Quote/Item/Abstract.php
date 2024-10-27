@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +32,7 @@
  * @method $this setAppliedRuleIds(string $value)
  *
  * @method bool hasBaseCalculationPrice()
- * @method $this setBaseCalculationPrice(float $value)
+ * @method $this setBaseCalculationPrice(float|null $value)
  * @method $this setBaseCustomPrice(float $value)
  * @method float getBaseDiscountAmount()
  * @method $this setBaseDiscountAmount(float $value)
@@ -75,7 +75,7 @@
  * @method int getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(int $value)
  *
- * @method $this setCalculationPrice(float $value)
+ * @method $this setCalculationPrice(float|null $value)
  * @method bool hasCustomPrice()
  * @method float getCustomPrice()
  *
@@ -625,7 +625,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     }
 
     /**
-     * Specify custom item price (used in case whe we have apply not product price to item)
+     * Specify custom item price (used in case when we have applied not product price to item)
      *
      * @param   float $value
      * @return  $this
@@ -676,7 +676,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
     /**
      * Set new value for converted price
-     * @param float $value
+     * @param float|null $value
      * @return $this
      */
     public function setConvertedPrice($value)
@@ -688,8 +688,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
     /**
      * Clone quote item
-     *
-     * @return $this
      */
     public function __clone()
     {
@@ -697,7 +695,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         $this->_parentItem  = null;
         $this->_children    = [];
         $this->_messages    = [];
-        return $this;
     }
 
     /**

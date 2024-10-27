@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -458,7 +458,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     /**
      * Fetch transaction details info
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param string $transactionId
      * @return array
      */
@@ -469,8 +468,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
 
     /**
      * Validate RP data
-     *
-     * @param Mage_Payment_Model_Recurring_Profile $profile
      */
     public function validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
     {
@@ -479,9 +476,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
 
     /**
      * Submit RP to the gateway
-     *
-     * @param Mage_Payment_Model_Recurring_Profile $profile
-     * @param Mage_Payment_Model_Info $paymentInfo
      */
     public function submitRecurringProfile(
         Mage_Payment_Model_Recurring_Profile $profile,
@@ -497,7 +491,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      * Fetch RP details
      *
      * @param string $referenceId
-     * @param Varien_Object $result
      */
     public function getRecurringProfileDetails($referenceId, Varien_Object $result)
     {
@@ -514,8 +507,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
 
     /**
      * Update RP data
-     *
-     * @param Mage_Payment_Model_Recurring_Profile $profile
      */
     public function updateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
     {
@@ -524,8 +515,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
 
     /**
      * Manage status
-     *
-     * @param Mage_Payment_Model_Recurring_Profile $profile
      */
     public function updateRecurringProfileStatus(Mage_Payment_Model_Recurring_Profile $profile)
     {
@@ -550,7 +539,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     /**
      * Place an order with authorization or capture action
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      * @return $this
      */
@@ -606,7 +594,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     /**
      * Check void availability
      *
-     * @param   Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)
@@ -698,7 +685,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     /**
      * Check transaction for expiration in PST
      *
-     * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
      * @param int $period
      * @return bool
      */

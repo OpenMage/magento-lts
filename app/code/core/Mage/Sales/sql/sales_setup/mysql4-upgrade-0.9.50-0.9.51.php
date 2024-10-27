@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ $entityTypeId = $connection->fetchOne("
 ");
 
 /* get order_payment attribute codes*/
-foreach ($attributesIds as $attributeCode => $attributeId) {
+foreach (array_keys($attributesIds) as $attributeCode) {
     $attributesIds[$attributeCode] = $connection->fetchOne("
         SELECT attribute_id
         FROM {$this->getTable('eav_attribute')}

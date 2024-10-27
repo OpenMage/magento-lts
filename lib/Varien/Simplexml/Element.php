@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Simplexml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -128,7 +128,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @todo    Do we need to make it xpath look-a-like?
      * @todo    Check if we still need all this and revert to plain XPath if this makes any sense
      * @todo    param string $path Subset of xpath. Example: "child/grand[@attrName='attrValue']/subGrand"
-     * @param   string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
+     * @param   array|string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
      * @return  Varien_Simplexml_Element|false
      */
     public function descend($path)
@@ -141,10 +141,10 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             // Simple exploding by / does not suffice,
             // as an attribute value may contain a / inside
             // Note that there are three matches for different kinds of attribute values specification
-            if (strpos($path, "@") === false) {
+            if (strpos($path, '@') === false) {
                 $pathArr = explode('/', $path);
             } else {
-                $regex = "#([^@/\\\"]+(?:@[^=/]+=(?:\\\"[^\\\"]*\\\"|[^/]*))?)/?#";
+                $regex = '#([^@/\\"]+(?:@[^=/]+=(?:\\"[^\\"]*\\"|[^/]*))?)/?#';
                 $pathArr = $pathMatches = [];
                 if (preg_match_all($regex, $path, $pathMatches)) {
                     $pathArr = $pathMatches[1];

@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Cache
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -123,7 +123,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param  string  $id                     Cache id
      * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
-     * @return string|false cached datas
+     * @return string|false cached data
      */
     public function load($id, $doNotTestCacheValidity = false)
     {

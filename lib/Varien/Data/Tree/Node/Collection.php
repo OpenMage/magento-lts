@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,7 +90,6 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     /**
      * Implementation of ArrayAccess:offsetExists()
      * @param string $key
-     * @return bool
      */
     public function offsetExists($key): bool
     {
@@ -99,7 +98,6 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
 
     /**
      * Adds a node to this node
-     * @param Varien_Data_Tree_Node $node
      * @return Varien_Data_Tree_Node
      */
     public function add(Varien_Data_Tree_Node $node)
@@ -131,8 +129,6 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
 
     /**
      * Implementation of Countable:count()
-     *
-     * @return int
      */
     public function count(): int
     {

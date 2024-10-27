@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +75,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     {
         $this->getSelect()->joinLeft(
             ['tax_class_table' => $this->getTable('tax/tax_class')],
-            "main_table.tax_class_id = tax_class_table.class_id"
+            'main_table.tax_class_id = tax_class_table.class_id'
         );
         return $this;
     }

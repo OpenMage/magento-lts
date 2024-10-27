@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -138,6 +138,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * @var array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_designAttributes  = [
         'custom_design',
         'custom_design_from',
@@ -346,7 +347,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             ->getSortedAttributes();
 
         if ($noDesignAttributes) {
-            foreach ($result as $k => $a) {
+            foreach (array_keys($result) as $k) {
                 if (in_array($k, $this->_designAttributes)) {
                     unset($result[$k]);
                 }
@@ -629,6 +630,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @param string $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _getAttribute($attributeCode)
     {
         if (!$this->_useFlatResource) {
@@ -687,7 +689,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Check category id exising
+     * Check category id existing
      *
      * @param   int $id
      * @return  bool
@@ -729,7 +731,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Verify category ids
      *
-     * @param array $ids
      * @return array
      */
     public function verifyIds(array $ids)
@@ -876,7 +877,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Return parent category of current category with own custom design settings
      *
-     * @return $this
+     * @return Mage_Catalog_Model_Category
      */
     public function getParentDesignCategory()
     {

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
@@ -10,17 +11,23 @@
         convertWarningsToExceptions="true"
         processIsolation="false"
         stopOnFailure="false"
-        bootstrap="dev/tests/bootstrap.php"
+        bootstrap="tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="Unit">
-            <directory>dev/tests/unit</directory>
+        <testsuite name="Base">
+            <directory>tests/unit/Base</directory>
+        </testsuite>
+        <testsuite name="Mage">
+            <directory>tests/unit/Mage</directory>
+        </testsuite>
+        <testsuite name="Varien">
+            <directory>tests/unit/Varien</directory>
         </testsuite>
     </testsuites>
 
     <coverage
-            includeUncoveredFiles="true"
-            processUncoveredFiles="false"
+        includeUncoveredFiles="true"
+        processUncoveredFiles="false"
     >
         <include>
             <directory suffix=".php">app/code</directory>
@@ -30,13 +37,18 @@
             <file>app/bootstrap.php</file>
             <file>app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php</file>
             <file>app/code/core/Mage/Admin/Model/Acl/Assert/Time.php</file>
+            <directory>app/code/community</directory>
+            <directory>app/code/local/</directory>
+            <directory>app/code/core/Mage/*/data</directory>
+            <directory>app/code/core/Mage/*/sql</directory>
+            <directory>vendor</directory>
         </exclude>
         <report>
-            <clover outputFile="dev/tests/reports/clover.xml"/>
-            <crap4j outputFile="dev/tests/reports/crap4j.xml"/>
+            <clover outputFile="tests/coverage/clover.xml"/>
+            <crap4j outputFile="tests/coverage/crap4j.xml"/>
         </report>
     </coverage>
     <logging>
-        <junit outputFile="dev/tests/logs/junit.xml"/>
+        <junit outputFile="tests/logging/junit.xml"/>
     </logging>
 </phpunit>

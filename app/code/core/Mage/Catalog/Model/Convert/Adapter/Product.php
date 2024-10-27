@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -268,7 +268,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * ReDefine Product Type Instance to Product
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProductTypeInstance(Mage_Catalog_Model_Product $product)
@@ -438,7 +437,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
      * @throws Mage_Core_Exception
      * @throws Varien_Exception
      */
@@ -458,7 +456,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     }
 
     /**
-     * @param Mage_CatalogInventory_Model_Stock_Item $object
      * @throws Mage_Core_Exception
      * @throws Varien_Exception
      */
@@ -575,7 +572,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                         unset($model);
                         $i++;
                     }
-                    $this->addException(Mage::helper('catalog')->__("Saved %d record(s)", $i));
+                    $this->addException(Mage::helper('catalog')->__('Saved %d record(s)', $i));
                 } catch (Exception $e) {
                     if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
                         $this->addException(
@@ -631,7 +628,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Save product (import)
      *
-     * @param  array $importData
      * @throws Mage_Core_Exception
      * @return bool
      */
@@ -872,7 +868,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Silently save product (import)
      *
-     * @param  array $importData
      * @return bool
      */
     public function saveRowSilently(array $importData)

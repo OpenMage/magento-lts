@@ -75,8 +75,6 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load roles
      *
-     * @param Mage_Admin_Model_Acl $acl
-     * @param array $rolesArr
      * @return $this
      */
     public function loadRoles(Mage_Admin_Model_Acl $acl, array $rolesArr)
@@ -106,8 +104,6 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load rules
      *
-     * @param Mage_Admin_Model_Acl $acl
-     * @param array $rulesArr
      * @return $this
      */
     public function loadRules(Mage_Admin_Model_Acl $acl, array $rulesArr)
@@ -148,7 +144,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 Mage::helper('adminhtml')->__(
                     'The following role resources are no longer available in the system: %s. You can delete them by <a href="%s">clicking here</a>.',
                     implode(', ', $orphanedResources),
-                    Mage::helper("adminhtml")->getUrl('adminhtml/permissions_orphanedResource')
+                    Mage::helper('adminhtml')->getUrl('adminhtml/permissions_orphanedResource')
                 )
             );
         }

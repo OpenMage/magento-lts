@@ -116,7 +116,7 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * Called after old fields are initiated. Forms synchronization map to sync old fields and new fields
+     * Called after old fields are inited. Forms synchronization map to sync old fields and new fields
      * between each other.
      *
      * @return $this
@@ -219,7 +219,6 @@ class Varien_Object implements ArrayAccess
      *
      * Retains previous data in the object.
      *
-     * @param array $arr
      * @return $this
      */
     public function addData(array $arr)
@@ -292,7 +291,7 @@ class Varien_Object implements ArrayAccess
     public function unsetOldData($key = null)
     {
         if (is_null($key)) {
-            foreach ($this->_oldFieldsMap as $key => $newFieldName) {
+            foreach (array_keys($this->_oldFieldsMap) as $key) {
                 unset($this->_data[$key]);
             }
         } else {
@@ -309,7 +308,7 @@ class Varien_Object implements ArrayAccess
      * It is possible to use keys like a/b/c for access nested array data
      *
      * If $index is specified it will assume that attribute data is an array
-     * and retrieve corresponding member. If data is the string - it will be exploded
+     * and retrieve corresponding member. If data is the string - it will be explode
      * by new line character and converted to array.
      *
      * @param string $key
@@ -473,7 +472,6 @@ class Varien_Object implements ArrayAccess
     /**
      * Public wrapper for __toArray
      *
-     * @param array $arrAttributes
      * @return array
      */
     public function toArray(array $arrAttributes = [])
@@ -485,7 +483,6 @@ class Varien_Object implements ArrayAccess
      * Set required array elements
      *
      * @param   array $arr
-     * @param   array $elements
      * @return  array
      */
     protected function _prepareArray(&$arr, array $elements = [])
@@ -535,7 +532,6 @@ class Varien_Object implements ArrayAccess
     /**
      * Public wrapper for __toXml
      *
-     * @param array $arrAttributes
      * @param string $rootName
      * @param bool $addOpenTag
      * @param bool $addCdata
@@ -562,7 +558,6 @@ class Varien_Object implements ArrayAccess
     /**
      * Public wrapper for __toJson
      *
-     * @param array $arrAttributes
      * @return string
      */
     public function toJson(array $arrAttributes = [])
@@ -598,7 +593,7 @@ class Varien_Object implements ArrayAccess
         } else {
             preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
             foreach ($matches[1] as $var) {
-                $format = str_replace('{{' . $var . '}}', $this->getData($var) ?? '', $format);
+                $format = str_replace('{{' . $var . '}}', $this->getData($var), $format);
             }
             $str = $format;
         }
@@ -616,22 +611,36 @@ class Varien_Object implements ArrayAccess
     {
         switch (substr($method, 0, 3)) {
             case 'get':
+                //Varien_Profiler::start('GETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                return $this->getData($key, $args[0] ?? null);
+                $data = $this->getData($key, $args[0] ?? null);
+                //Varien_Profiler::stop('GETTER: '.get_class($this).'::'.$method);
+                return $data;
 
             case 'set':
+                //Varien_Profiler::start('SETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                return $this->setData($key, $args[0] ?? null);
+                $result = $this->setData($key, $args[0] ?? null);
+                //Varien_Profiler::stop('SETTER: '.get_class($this).'::'.$method);
+                return $result;
 
             case 'uns':
+                //Varien_Profiler::start('UNS: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                return $this->unsetData($key);
+                $result = $this->unsetData($key);
+                //Varien_Profiler::stop('UNS: '.get_class($this).'::'.$method);
+                return $result;
 
             case 'has':
+                //Varien_Profiler::start('HAS: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
+                //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
-        throw new Varien_Exception("Invalid method " . get_class($this) . "::" . $method . "(" . print_r($args, 1) . ")");
+        throw new Varien_Exception(
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
+            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')'
+        );
     }
 
     /**
@@ -685,7 +694,9 @@ class Varien_Object implements ArrayAccess
         if (isset(self::$_underscoreCache[$name])) {
             return self::$_underscoreCache[$name];
         }
-        $result = strtolower(preg_replace('/([A-Z])/', "_$1", lcfirst($name)));
+        #Varien_Profiler::start('underscore');
+        $result = strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($name)));
+        #Varien_Profiler::stop('underscore');
         self::$_underscoreCache[$name] = $result;
         return $result;
     }
@@ -782,7 +793,6 @@ class Varien_Object implements ArrayAccess
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetexists.php
      * @param string $offset
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

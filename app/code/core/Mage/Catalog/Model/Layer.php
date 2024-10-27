@@ -66,7 +66,6 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get default tags for current layer state
      *
-     * @param   array $additionalTags
      * @return  array
      */
     public function getStateTags(array $additionalTags = [])

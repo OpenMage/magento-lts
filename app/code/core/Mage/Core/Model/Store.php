@@ -50,7 +50,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public const ENTITY = 'core_store';
 
     /**
-     * Configuration pathes
+     * Configuration paths
      * @var string
      */
     public const XML_PATH_STORE_STORE_NAME          = 'general/store_information/name';
@@ -439,8 +439,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
     /**
      * Set website model
-     *
-     * @param Mage_Core_Model_Website $website
      */
     public function setWebsite(Mage_Core_Model_Website $website)
     {
@@ -511,7 +509,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Convert config values for url pathes
+     * Convert config values for url paths
      *
      * @deprecated after 1.4.2.0
      * @param string $value
@@ -967,9 +965,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Format price with currency filter (taking rate into consideration)
      *
-     * @param   double $price
+     * @param   float $price
      * @param   bool $includeContainer
-     * @return  string
+     * @return  string|float
      */
     public function formatPrice($price, $includeContainer = true)
     {

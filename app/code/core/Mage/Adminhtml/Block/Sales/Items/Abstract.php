@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -147,7 +147,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve rendered item html content
      *
-     * @param Varien_Object $item
      * @return string
      */
     public function getItemHtml(Varien_Object $item)
@@ -167,7 +166,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve rendered item extra info html content
      *
-     * @param Varien_Object $item
      * @return string
      */
     public function getItemExtraInfoHtml(Varien_Object $item)
@@ -184,7 +182,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve rendered column html content
      *
-     * @param Varien_Object $item
      * @param string $column the column key
      * @param string $field the custom item field
      * @return string
@@ -326,7 +323,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve include tax html formatted content
      *
-     * @param Varien_Object $item
      * @return string
      */
     public function displayPriceInclTax(Varien_Object $item)
@@ -369,7 +365,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve tax calculation html content
      *
-     * @param Varien_Object $item
      * @return string
      */
     public function displayTaxCalculation(Varien_Object $item)
@@ -391,7 +386,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Retrieve tax with persent html content
      *
-     * @param Varien_Object $item
      * @return string
      */
     public function displayTaxPercent(Varien_Object $item)

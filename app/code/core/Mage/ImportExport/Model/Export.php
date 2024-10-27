@@ -208,7 +208,6 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     /**
      * Clean up already loaded attribute collection.
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
@@ -220,7 +219,6 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
      * Determine filter type for specified attribute.
      *
      * @static
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @throws Exception
      * @return string
      */
@@ -299,6 +297,6 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
      */
     public function getFileName()
     {
-        return $this->getEntity() . '_' . date('Ymd_His') .  '.' . $this->_getWriter()->getFileExtension();
+        return $this->getEntity() . '_' . date('Ymd_His') . '.' . $this->_getWriter()->getFileExtension();
     }
 }

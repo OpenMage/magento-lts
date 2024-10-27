@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +59,6 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Declare link model and initialize type attributes join
      *
-     * @param Mage_Catalog_Model_Product_Link $linkModel
      * @return $this
      */
     public function setLinkModel(Mage_Catalog_Model_Product_Link $linkModel)
@@ -95,7 +94,6 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     /**
      * Initialize collection parent product and add limitation join
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product)

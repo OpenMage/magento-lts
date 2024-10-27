@@ -162,7 +162,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 }
 
                 /**
-                 * Require shiping rate recollect
+                 * Require shipping rate recollect
                  */
                 $address->setCollectShippingRates((bool) $this->getCollectRatesFlag());
 
@@ -309,7 +309,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                     $quoteAddress->addItem($quoteItem, $qty);
                 }
                 /**
-                 * Require shiping rate recollect
+                 * Require shipping rate recollect
                  */
                 $quoteAddress->setCollectShippingRates((bool) $this->getCollectRatesFlag());
             }
@@ -397,7 +397,6 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     /**
      * Prepare order based on quote address
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Sales_Model_Order
      * @throws  Mage_Checkout_Exception
      */

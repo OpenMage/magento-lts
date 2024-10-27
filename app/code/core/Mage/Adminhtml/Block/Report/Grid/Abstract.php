@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Column for grid to be grouped by
      *
-     * @var string|null
+     * @var string
      */
     protected $_columnGroupBy;
 
@@ -60,7 +60,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     public function getCollection()
     {
         if (is_null($this->_collection)) {
-            $this->setCollection(Mage::getModel('reports/grouped_collection'));
+            $collection = Mage::getModel('reports/grouped_collection');
+            $this->setCollection($collection);
         }
         return $this->_collection;
     }
@@ -85,7 +86,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
 
     /**
      * Add column to grid
-     * Override to add support for visibility_filter column option
+     * Overridden to add support for visibility_filter column option
      * It stands for conditional visibility of the column depending on filter field values
      * Value of visibility_filter supports (filter_field_name => filter_field_value) pairs
      *
@@ -314,6 +315,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * @param Varien_Object $filterData
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _addCustomFilter($collection, $filterData)
     {
         return $this;

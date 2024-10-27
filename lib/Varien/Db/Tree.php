@@ -204,7 +204,7 @@ class Varien_Db_Tree
     }
 
     /**
-     * Cleare table and add root element
+     * Clear table and add root element
      *
      */
     public function clear($data = [])
@@ -496,7 +496,7 @@ class Varien_Db_Tree
 
         $dbSelect = new Zend_Db_Select($this->_db);
         $dbSelect->from($this->_table)
-            ->where($this->_left  . ' >= :left')
+            ->where($this->_left . ' >= :left')
             ->where($this->_right . ' <= :right')
             ->order($this->_left);
 
@@ -524,7 +524,7 @@ class Varien_Db_Tree
     {
         $dbSelect = new Zend_Db_Select($this->_db);
         $dbSelect->from($this->_table)
-            ->where($this->_table . '.' . $this->_id  . ' >= :id');
+            ->where($this->_table . '.' . $this->_id . ' >= :id');
 
         $this->_addExtTablesToSelect($dbSelect);
 

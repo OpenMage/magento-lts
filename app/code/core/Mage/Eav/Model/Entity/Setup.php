@@ -104,14 +104,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     }
 
     /******************* ENTITY TYPES *****************/
-
     /**
      * Add an entity type
      *
      * If already exists updates the entity type with params data
      *
      * @param string $code
-     * @param array $params
      * @return $this
      */
     public function addEntityType($code, array $params)
@@ -666,7 +664,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string|int $entityTypeId
      * @param string $code
-     * @param array $attr
      * @return $this
      */
     public function addAttribute($entityTypeId, $code, array $attr)
@@ -1474,7 +1471,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Insert attribute and filter data
      *
-     * @param array $data
      * @return $this
      */
     protected function _insertAttribute(array $data)
@@ -1506,7 +1502,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Insert attribute additional data
      *
      * @param int $entityTypeId
-     * @param array $data
      * @return $this
      */
     protected function _insertAttributeAdditionalData($entityTypeId, array $data)

@@ -219,8 +219,8 @@
  *
  * @method int getTaxClassId()
  * @method string getThumbnail()
- * @method float getTaxPercent()
- * @method $this setTaxPercent(float $value)
+ * @method float|null getTaxPercent()
+ * @method $this setTaxPercent(float|null $value)
  * @method $this setTypeId(int $value)
  * @method bool getTypeHasOptions()
  * @method $this setTypeHasOptions(bool $value)
@@ -530,7 +530,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Retrieve product id by sku
      *
      * @param   string $sku
-     * @return  int
+     * @return  string
      */
     public function getIdBySku($sku)
     {
@@ -660,6 +660,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param bool $skipSuper Not used
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function getAttributes($groupId = null, $skipSuper = false)
     {
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute[] $productAttributes */
@@ -699,7 +700,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function hasStockItem()
     {
-        return !!$this->_stockItem;
+        return (bool) $this->_stockItem;
     }
 
     /**
@@ -812,7 +813,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Clear chache related with product and protect delete from not admin
+     * Clear cache related with product and protect delete from not admin
      * Register indexing event before delete product
      *
      * @inheritDoc
@@ -941,7 +942,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * products it's called very often in Item->getProduct(). So removing chain of magic with more cpu consuming
      * algorithms gives nice optimization boost.
      *
-     * @param float $price Price amount
+     * @param float|null $price Price amount
      * @return $this
      */
     public function setFinalPrice($price)
@@ -1305,7 +1306,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Create duplicate
      *
-     * @return $this
+     * @return Mage_Catalog_Model_Product
      */
     public function duplicate()
     {
@@ -1835,7 +1836,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrieve weight throught type instance
+     * Retrieve weight through type instance
      *
      * @return float
      */
@@ -1871,7 +1872,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Add option to array of product options
      *
-     * @param Mage_Catalog_Model_Product_Option $option
      * @return $this
      */
     public function addOption(Mage_Catalog_Model_Product_Option $option)
@@ -2069,7 +2069,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($methods as $method) {
                 if (preg_match('/^get([A-Z]{1}.+)/', $method, $matches)) {
                     $method = $matches[1];
-                    $tmp = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $method));
+                    $tmp = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $method));
                     $_reserved[] = $tmp;
                 }
             }
@@ -2153,7 +2153,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Check for empty SKU on each product
      *
-     * @param  array $productIds
      * @return bool|null
      */
     public function isProductsHasSku(array $productIds)
@@ -2173,7 +2172,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Parse buyRequest into options values used by product
      *
-     * @param  Varien_Object $buyRequest
      * @return Varien_Object
      */
     public function processBuyRequest(Varien_Object $buyRequest)
