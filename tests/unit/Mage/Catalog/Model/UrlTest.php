@@ -87,9 +87,15 @@ class UrlTest extends TestCase
     public function testGetSluggerConfig($expectedResult, string $locale): void
     {
         $result = $this->subject->getSluggerConfig($locale);
+
         $this->assertArrayHasKey($locale, $result);
+
         $this->assertArrayHasKey('%', $result[$locale]);
         $this->assertArrayHasKey('&', $result[$locale]);
+
+        $this->assertSame($expectedResult[$locale]['%'], $result[$locale]['%']);
+        $this->assertSame($expectedResult[$locale]['&'], $result[$locale]['&']);
+
         $this->assertSame('at', $result[$locale]['@']);
     }
 
@@ -97,10 +103,6 @@ class UrlTest extends TestCase
     {
         yield 'de_DE' => [
             ['de_DE' => [
-                '@' => 'at',
-                '\u00a9' => 'c',
-                '\u00ae' => 'r',
-                '\u2122' => 'tm',
                 '%' => 'prozent',
                 '&' => 'und',
             ]],
@@ -108,10 +110,6 @@ class UrlTest extends TestCase
         ];
         yield 'en_US' => [
             ['en_US' => [
-                '@' => 'at',
-                '\u00a9' => 'c',
-                '\u00ae' => 'r',
-                '\u2122' => 'tm',
                 '%' => 'percent',
                 '&' => 'and',
             ]],
@@ -119,10 +117,6 @@ class UrlTest extends TestCase
         ];
         yield 'fr_FR' => [
             ['fr_FR' => [
-                '@' => 'at',
-                '\u00a9' => 'c',
-                '\u00ae' => 'r',
-                '\u2122' => 'tm',
                 '%' => 'pour cent',
                 '&' => 'et',
             ]],

@@ -1060,26 +1060,19 @@ class Mage_Catalog_Model_Url extends Varien_Object
 
     final public function getSluggerConfig(?string $locale): array
     {
-        $config = [
-            '@'      => 'at',
-            '\u00a9' => 'c',
-            '\u00ae' => 'r',
-            '\u2122' => 'tm'
-        ];
-
-        $config += Mage::helper('catalog/product_url')->getConvertTable();
+        $config = Mage::helper('catalog/product_url')->getConvertTable();
 
         if ($locale) {
             $convertNode = Mage::getConfig()->getNode('default/url/convert/' . $locale);
             if ($convertNode instanceof Mage_Core_Model_Config_Element) {
-                $custom = [];
+                $localeConfig = [];
                 /** @var Mage_Core_Model_Config_Element $node */
                 foreach ($convertNode->children() as $node) {
                     if (property_exists($node, 'from') && property_exists($node, 'to')) {
-                        $custom[(string) $node->from] = (string) $node->to;
+                        $localeConfig[(string) $node->from] = (string) $node->to;
                     }
                 }
-                $config = [$locale => $config + $custom];
+                $config = [$locale => $config + $localeConfig];
             }
         }
 
