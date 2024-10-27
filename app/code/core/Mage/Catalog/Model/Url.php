@@ -1058,7 +1058,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
         return $this->slugger[$locale];
     }
 
-    final public function getSluggerConfig(?string $locale, bool $useConvertTable = true): array
+    final public function getSluggerConfig(?string $locale): array
     {
         $config = [
             '@'      => 'at',
@@ -1067,21 +1067,19 @@ class Mage_Catalog_Model_Url extends Varien_Object
             '\u2122' => 'tm'
         ];
 
-        // @todo better config
+        $config += Mage::helper('catalog/product_url')->getConvertTable();
+
         if ($locale) {
-            $configNodes = Mage::getConfig()->getNode('global/slugger/' . $locale . '/replacements');
-            if ($configNodes instanceof Mage_Core_Model_Config_Element) {
+            $convertNode = Mage::getConfig()->getNode('default/url/convert/' . $locale);
+            if ($convertNode instanceof Mage_Core_Model_Config_Element) {
                 $custom = [];
                 /** @var Mage_Core_Model_Config_Element $configNode */
-                foreach ($configNodes->children() as $configNode) {
-                    $configNode = $configNode->asArray();
-                    $custom[$configNode['from']] = $configNode['to'];
+                foreach ($convertNode->children() as $node) {
+                    if (property_exists($node, 'from') && property_exists($node, 'to')) {
+                        $custom[(string) $node->from] = (string) $node->to;
+                    }
                 }
                 $config = [$locale => $config + $custom];
-
-                if ($useConvertTable) {
-                    $config[$locale] += Mage::helper('catalog/product_url')->getConvertTable();
-                }
             }
         }
 

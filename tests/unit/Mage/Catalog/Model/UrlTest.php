@@ -84,9 +84,13 @@ class UrlTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-    public function testGetSluggerConfig($expectedResult, string $locale, bool $useConvertTable = true): void
+    public function testGetSluggerConfig($expectedResult, string $locale): void
     {
-        $this->assertSame($expectedResult, $this->subject->getSluggerConfig($locale, $useConvertTable));
+        $result = $this->subject->getSluggerConfig($locale);
+        $this->assertArrayHasKey($locale, $result);
+        $this->assertArrayHasKey('%', $result[$locale]);
+        $this->assertArrayHasKey('&', $result[$locale]);
+        $this->assertSame('at', $result[$locale]['@']);
     }
 
     public function provideGetSluggerConfig(): Generator
@@ -101,7 +105,6 @@ class UrlTest extends TestCase
                 '&' => 'und',
             ]],
             'de_DE',
-            false,
         ];
         yield 'en_US' => [
             ['en_US' => [
@@ -113,7 +116,6 @@ class UrlTest extends TestCase
                 '&' => 'and',
             ]],
             'en_US',
-            false,
         ];
         yield 'fr_FR' => [
             ['fr_FR' => [
@@ -125,7 +127,6 @@ class UrlTest extends TestCase
                 '&' => 'et',
             ]],
             'fr_FR',
-            false,
         ];
     }
 }
