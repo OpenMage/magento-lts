@@ -21,7 +21,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Url
+class Mage_Catalog_Model_Url extends Varien_Object
 {
     /**
      * Number of characters allowed to be in URL path
@@ -104,9 +104,56 @@ class Mage_Catalog_Model_Url
     protected ?string $locale = null;
 
     /**
+     * Url instance
+     *
+     * @var Mage_Core_Model_Url
+     */
+    protected $_url;
+
+    /**
+     * Url rewrite instance
+     *
+     * @var Mage_Core_Model_Url_Rewrite
+     */
+    protected $_urlRewrite;
+
+    /**
+     * Factory instance
+     *
+     * @var Mage_Catalog_Model_Factory
+     */
+    protected $_factory;
+
+    /**
      * @var AsciiSlugger[]
      */
     protected ?array $slugger = null;
+
+    /**
+     * Retrieve Url instance
+     *
+     * @return Mage_Core_Model_Url
+     */
+    public function getUrlInstance()
+    {
+        if ($this->_url === null) {
+            $this->_url = $this->_factory->getModel('core/url');
+        }
+        return $this->_url;
+    }
+
+    /**
+     * Retrieve Url rewrite instance
+     *
+     * @return Mage_Core_Model_Url_Rewrite
+     */
+    public function getUrlRewrite()
+    {
+        if ($this->_urlRewrite === null) {
+            $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
+        }
+        return $this->_urlRewrite;
+    }
 
     /**
      * Adds url_path property for non-root category - to ensure that url path is not empty.

@@ -19,61 +19,14 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Category_Url
+class Mage_Catalog_Model_Category_Url extends Mage_Catalog_Model_Url
 {
-    /**
-     * Url instance
-     *
-     * @var Mage_Core_Model_Url
-     */
-    protected $_url;
-
-    /**
-     * Url rewrite instance
-     *
-     * @var Mage_Core_Model_Url_Rewrite
-     */
-    protected $_urlRewrite;
-
-    /**
-     * Factory instance
-     *
-     * @var Mage_Catalog_Model_Factory
-     */
-    protected $_factory;
-
     /**
      * Initialize Url model
      */
     public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
-    }
-
-    /**
-     * Retrieve Url instance
-     *
-     * @return Mage_Core_Model_Url
-     */
-    public function getUrlInstance()
-    {
-        if ($this->_url === null) {
-            $this->_url = $this->_factory->getModel('core/url');
-        }
-        return $this->_url;
-    }
-
-    /**
-     * Retrieve Url rewrite instance
-     *
-     * @return Mage_Core_Model_Url_Rewrite
-     */
-    public function getUrlRewrite()
-    {
-        if ($this->_urlRewrite === null) {
-            $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
-        }
-        return $this->_urlRewrite;
     }
 
     /**
@@ -137,21 +90,5 @@ class Mage_Catalog_Model_Category_Url
             return $rewrite->getRequestPath();
         }
         return false;
-    }
-
-    /**
-     * Format Key for URL
-     *
-     * @param string $str
-     * @return string
-     */
-    public function formatUrlKey($str)
-    {
-        $str = Mage::helper('catalog/product_url')->format($str);
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', $str);
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-
-        return $urlKey;
     }
 }

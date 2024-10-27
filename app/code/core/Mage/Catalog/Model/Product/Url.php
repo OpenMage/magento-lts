@@ -19,30 +19,9 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Product_Url extends Varien_Object
+class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
 {
     public const CACHE_TAG = 'url_rewrite';
-
-    /**
-     * Url instance
-     *
-     * @var Mage_Core_Model_Url
-     */
-    protected $_url;
-
-    /**
-     * Url rewrite instance
-     *
-     * @var Mage_Core_Model_Url_Rewrite
-     */
-    protected $_urlRewrite;
-
-    /**
-     * Factory instance
-     *
-     * @var Mage_Catalog_Model_Factory
-     */
-    protected $_factory;
 
     /**
      * @var Mage_Core_Model_Store
@@ -56,32 +35,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
         $this->_store = !empty($args['store']) ? $args['store'] : Mage::app()->getStore();
-    }
-
-    /**
-     * Retrieve Url instance
-     *
-     * @return Mage_Core_Model_Url
-     */
-    public function getUrlInstance()
-    {
-        if ($this->_url === null) {
-            $this->_url = $this->_factory->getModel('core/url');
-        }
-        return $this->_url;
-    }
-
-    /**
-     * Retrieve Url rewrite instance
-     *
-     * @return Mage_Core_Model_Url_Rewrite
-     */
-    public function getUrlRewrite()
-    {
-        if ($this->_urlRewrite === null) {
-            $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
-        }
-        return $this->_urlRewrite;
     }
 
     /**
@@ -265,23 +218,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
         if ($rewrite->getId()) {
             return $rewrite->getRequestPath();
         }
-
         return false;
-    }
-
-    /**
-     * Format Key for URL
-     *
-     * @param string $str
-     * @return string
-     */
-    public function formatUrlKey($str)
-    {
-        $str = Mage::helper('catalog/product_url')->format($str);
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', $str);
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-
-        return $urlKey;
     }
 }
