@@ -1941,11 +1941,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Category_Url\\:\\:\\$_url \\(Mage_Core_Model_Url\\) does not accept bool\\|Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Url.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Config\\:\\:_init\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Config.php
