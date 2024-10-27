@@ -184,6 +184,44 @@
                 </observers>
             </model_delete_before>
         </events>
+        <slugger>
+            <de_DE>
+                <replacements>
+                    <replach_percent>
+                        <f><![CDATA[%]]></f>
+                        <t>prozent</t>
+                    </replach_percent>
+                    <replace_and>
+                        <f><![CDATA[&]]></f>
+                        <t>und</t>
+                    </replace_and>
+                </replacements>
+            </de_DE>
+            <en_US>
+                <replacements>
+                    <replach_percent>
+                        <f><![CDATA[%]]></f>
+                        <t>percent</t>
+                    </replach_percent>
+                    <replace_and>
+                        <f><![CDATA[&]]></f>
+                        <t>and</t>
+                    </replace_and>
+                </replacements>
+            </en_US>
+            <fr_FR>
+                <replacements>
+                    <replach_percent>
+                        <f><![CDATA[%]]></f>
+                        <t>pour cent</t>
+                    </replach_percent>
+                    <replace_and>
+                        <f><![CDATA[&]]></f>
+                        <t>et</t>
+                    </replace_and>
+                </replacements>
+            </fr_FR>
+        </slugger>
     </global>
     <frontend>
         <routers>
