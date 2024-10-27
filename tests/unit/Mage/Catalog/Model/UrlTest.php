@@ -55,9 +55,17 @@ class UrlTest extends TestCase
             'a-and-b-x-percent-a-o-u',
             'en_US',
         ];
+        yield 'es_ES' => [
+            'a-et-b-x-por-ciento-a-o-u',
+            'es_ES',
+        ];
         yield 'fr_FR' => [
             'a-et-b-x-pour-cent-a-o-u',
             'fr_FR',
+        ];
+        yield 'it_IT' => [
+            'a-e-b-x-per-cento-a-o-u',
+            'it_IT',
         ];
     }
 
