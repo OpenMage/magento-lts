@@ -45,6 +45,7 @@ class UrlTest extends TestCase
         $this->subject->setLocale($locale);
         $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
     }
+
     public function provideFormatUrlKey(): Generator
     {
         yield 'de_DE' => [
@@ -83,9 +84,9 @@ class UrlTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-    public function testGetSluggerConfig($expectedResult, string $locale): void
+    public function testGetSluggerConfig($expectedResult, string $locale, bool $useConvertTable = true): void
     {
-        $this->assertSame($expectedResult, $this->subject->getSluggerConfig($locale));
+        $this->assertSame($expectedResult, $this->subject->getSluggerConfig($locale, $useConvertTable));
     }
 
     public function provideGetSluggerConfig(): Generator
@@ -99,7 +100,8 @@ class UrlTest extends TestCase
                 '%' => 'prozent',
                 '&' => 'und',
             ]],
-            'de_DE'
+            'de_DE',
+            false,
         ];
         yield 'en_US' => [
             ['en_US' => [
@@ -110,7 +112,8 @@ class UrlTest extends TestCase
                 '%' => 'percent',
                 '&' => 'and',
             ]],
-            'en_US'
+            'en_US',
+            false,
         ];
         yield 'fr_FR' => [
             ['fr_FR' => [
@@ -121,7 +124,8 @@ class UrlTest extends TestCase
                 '%' => 'pour cent',
                 '&' => 'et',
             ]],
-            'fr_FR'
+            'fr_FR',
+            false,
         ];
     }
 }

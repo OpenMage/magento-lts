@@ -1047,7 +1047,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
     public function getSlugger(): AsciiSlugger
     {
         $locale = $this->getLocale();
-
         if (is_null($this->slugger) || !array_key_exists($locale, $this->slugger)) {
             $config = $this->getSluggerConfig($locale);
             $slugger = new AsciiSlugger('en', $config);
@@ -1059,7 +1058,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
         return $this->slugger[$locale];
     }
 
-    public function getSluggerConfig(?string $locale): array
+    final public function getSluggerConfig(?string $locale, bool $useConvertTable = true): array
     {
         $config = [
             '@'      => 'at',
@@ -1079,6 +1078,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
                     $custom[$configNode['from']] = $configNode['to'];
                 }
                 $config = [$locale => $config + $custom];
+
+                if ($useConvertTable) {
+                    $config[$locale] += Mage::helper('catalog/product_url')->getConvertTable();
+                }
             }
         }
 
