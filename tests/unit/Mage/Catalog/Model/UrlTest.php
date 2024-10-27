@@ -25,7 +25,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class UrlTest extends TestCase
 {
-    public const TEST_STRING = 'a & B, x%, ä, ö, ü';
+    public const TEST_STRING = '--a & B, x% @ ä ö ü ™--';
 
     public Mage_Catalog_Model_Url $subject;
 
@@ -48,23 +48,23 @@ class UrlTest extends TestCase
     public function provideFormatUrlKey(): Generator
     {
         yield 'de_DE' => [
-            'a-und-b-x-prozent-ae-oe-ue',
+            'a-und-b-x-prozent-at-ae-oe-ue-tm',
             'de_DE',
         ];
         yield 'en_US' => [
-            'a-and-b-x-percent-a-o-u',
+            'a-and-b-x-percent-at-a-o-u-tm',
             'en_US',
         ];
         yield 'es_ES' => [
-            'a-et-b-x-por-ciento-a-o-u',
+            'a-et-b-x-por-ciento-at-a-o-u-tm',
             'es_ES',
         ];
         yield 'fr_FR' => [
-            'a-et-b-x-pour-cent-a-o-u',
+            'a-et-b-x-pour-cent-at-a-o-u-tm',
             'fr_FR',
         ];
         yield 'it_IT' => [
-            'a-e-b-x-per-cento-a-o-u',
+            'a-e-b-x-per-cento-at-a-o-u-tm',
             'it_IT',
         ];
     }
