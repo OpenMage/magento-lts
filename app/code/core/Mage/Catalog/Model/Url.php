@@ -381,7 +381,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
         }
 
         $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
-
         if ($product->getUrlKey() == '') {
             $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($product->getName());
         } else {
@@ -735,7 +734,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     }
 
     /**
-     * Retrieve product rewrite sufix for store
+     * Retrieve product rewrite suffix for store
      *
      * @param int $storeId
      * @return string
@@ -746,7 +745,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     }
 
     /**
-     * Retrieve category rewrite sufix for store
+     * Retrieve category rewrite suffix for store
      *
      * @param int $storeId
      * @return string
@@ -1061,28 +1060,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
 
     public function getSlugger(): AsciiSlugger
     {
-        $locale = $this->getLocale() ?? 'en_US';
+        $locale = $this->getLocale() ?: 'en_US';
 
         if (is_null($this->slugger) || !array_key_exists($locale, $this->slugger)) {
-            $config = [
-                '@'      => 'at',
-                '\u00a9' => "c",
-                '\u00ae' => "r",
-                '\u2122' => "tm"
-            ];
-
-            // @todo better config
-            $configNodes = Mage::getConfig()->getNode('global/slugger/' . $locale . '/replacements');
-            if ($configNodes instanceof Mage_Core_Model_Config_Element) {
-                $custom = [];
-                /** @var Mage_Core_Model_Config_Element $configNode */
-                foreach ($configNodes->children() as $configNode) {
-                    $configNode = $configNode->asArray();
-                    $custom[$configNode['f']] =$configNode['t'];
-                }
-                $config = [$locale => $config + $custom];
-            }
-
+            $config = $this->getSluggerConfig($locale);
             $slugger = new AsciiSlugger('en', $config);
             $slugger->setLocale($locale);
 
@@ -1090,6 +1071,30 @@ class Mage_Catalog_Model_Url extends Varien_Object
         }
 
         return $this->slugger[$locale];
+    }
+
+    public function getSluggerConfig(string $locale): array
+    {
+        $config = [
+            '@'      => 'at',
+            '\u00a9' => 'c',
+            '\u00ae' => 'r',
+            '\u2122' => 'tm'
+        ];
+
+        // @todo better config
+        $configNodes = Mage::getConfig()->getNode('global/slugger/' . $locale . '/replacements');
+        if ($configNodes instanceof Mage_Core_Model_Config_Element) {
+            $custom = [];
+            /** @var Mage_Core_Model_Config_Element $configNode */
+            foreach ($configNodes->children() as $configNode) {
+                $configNode = $configNode->asArray();
+                $custom[$configNode['f']] = $configNode['t'];
+            }
+            $config = [$locale => $config + $custom];
+        }
+
+        return $config;
     }
 
     public function getLocale(): ?string
