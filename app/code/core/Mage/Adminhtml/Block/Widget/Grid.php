@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Collection object
      *
-     * @var Mage_Core_Model_Resource_Db_Collection_Abstract|null
+     * @var Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection_Db|null
      */
     protected $_collection = null;
 
@@ -229,16 +229,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected $_emptyCellLabel = '';
 
     /**
-     * @var array[][]
+     * @var null|array[][]
      */
-    protected $defaultColumnSettings = [
-        'date' => [
-            'width' => 140
-        ],
-        'datetime' => [
-            'width' => 160
-        ],
-    ];
+    protected ?array $defaultColumnSettings = null;
 
     /**
      * Mage_Adminhtml_Block_Widget_Grid constructor.
@@ -346,7 +339,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * set collection object
      *
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @param Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection_Db $collection
      */
     public function setCollection($collection)
     {
@@ -356,7 +349,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * get collection object
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|Varien_Data_Collection_Db
      */
     public function getCollection()
     {
@@ -374,9 +367,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function addColumn($columnId, $column)
     {
         if (is_array($column)) {
-            if (isset($column['type'], $this->defaultColumnSettings[$column['type']])) {
-                $column += $this->defaultColumnSettings[$column['type']];
-            }
+            $column = $this->addColumnDefaultData($column);
             $this->_columns[$columnId] = $this->getLayout()->createBlock('adminhtml/widget_grid_column')
                 ->setData($column)
                 ->setGrid($this);
@@ -387,6 +378,62 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->_columns[$columnId]->setId($columnId);
         $this->_lastColumnId = $columnId;
         return $this;
+    }
+
+    public function addColumnDefaultData(array $column): array
+    {
+        $config = $this->getConfigDefaultColumnSettings();
+        $columnHasIndex = array_key_exists('index', $column);
+        if ($columnHasIndex && array_key_exists($column['index'], $config['index'])) {
+            $column += $config['index'][$column['index']];
+        }
+
+        $columnHasType = array_key_exists('type', $column);
+        if ($columnHasType && array_key_exists($column['type'], $config['type'])) {
+            $column += $config['type'][$column['type']];
+        }
+
+        if ($columnHasType
+            && !array_key_exists('header', $column)
+            && in_array($column['type'], ['action', 'currency', 'price', 'store'])
+        ) {
+            switch ($column['type']) {
+                case 'action':
+                    $column['header'] = Mage::helper('adminhtml')->__('Action');
+                    break;
+                case 'currency':
+                case 'price':
+                    $column['header'] = Mage::helper('adminhtml')->__('Price');
+                    break;
+                case 'store':
+                    $column['header'] = Mage::helper('adminhtml')->__('Store View');
+                    break;
+            }
+        }
+
+        return $column;
+    }
+
+    public function getConfigDefaultColumnSettings(): array
+    {
+        if (is_null($this->defaultColumnSettings)) {
+            $configNode = Mage::getConfig()->getNode('grid/column/default');
+            # should be called only once
+            if ($configNode === false) {
+                Mage::app()->getCacheInstance()->cleanType('config');
+                $configNode = Mage::getConfig()->getNode('grid/column/default');
+            }
+            $config = $configNode->asArray();
+            array_walk_recursive($config, function (&$value, $key) {
+                $boolean = ['display_deleted', 'filter', 'sortable', 'store_view'];
+                if (in_array($key, $boolean)) {
+                    $value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                }
+            });
+            $this->defaultColumnSettings = $config;
+        }
+
+        return $this->defaultColumnSettings;
     }
 
     /**
@@ -412,7 +459,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @param string $columnId
      * @param array|Varien_Object $column
      * @param string $after
-     * @return  Mage_Adminhtml_Block_Widget_Grid
+     * @return $this
      * @throws Exception
      */
     public function addColumnAfter($columnId, $column, $after)
@@ -546,6 +593,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         if ($this->getCollection()) {
             $field = $column->getFilterIndex() ?: $column->getIndex();
             if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
             } else {
                 $cond = $column->getFilter()->getCondition();
@@ -1118,7 +1166,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param   string $url
      * @param   string $label
-     * @return  Mage_Adminhtml_Block_Widget_Grid
+     * @return  $this
      */
     public function addExportType($url, $label)
     {
@@ -1134,7 +1182,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
     * Retrieve rss lists types
     *
-    * @return array
+    * @return array|false
     */
     public function getRssLists()
     {
@@ -1164,7 +1212,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $url
      * @param string $label
-     * @return  Mage_Adminhtml_Block_Widget_Grid
+     * @return  $this
      * @throws Mage_Core_Model_Store_Exception
      */
     public function addRssList($url, $label)
@@ -1253,6 +1301,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $collection = clone $originalCollection;
             $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $collection->load();
             if (is_null($count)) {
                 $count = $collection->getSize();
@@ -1264,6 +1313,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $page++;
 
             foreach ($collection as $item) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 call_user_func_array([$this, $callback], array_merge([$item], $args));
             }
             $collection->clear();
@@ -1973,7 +2023,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * @param string|object $column
      * @param string $value
-     * @return bool|Mage_Adminhtml_Block_Widget_Grid
+     * @return bool|$this
      */
     public function isColumnGrouped($column, $value = null)
     {

@@ -48,17 +48,16 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * @var bool
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_isAdminScopeAllowed = true;
 
     /**
      * Init model
      * Load Website, Group and Store collections
-     *
-     * @return $this
      */
     public function __construct()
     {
-        return $this->reload();
+        $this->reload();
     }
 
     /**
@@ -122,6 +121,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             ];
         }
 
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $nonEscapableNbspChar = html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8');
 
         foreach ($this->_websiteCollection as $website) {
