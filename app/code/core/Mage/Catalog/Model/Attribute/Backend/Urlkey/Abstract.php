@@ -39,6 +39,11 @@ abstract class Mage_Catalog_Model_Attribute_Backend_Urlkey_Abstract extends Mage
             $urlKey = $object->getName();
         }
 
+        if (method_exists($object, 'setLocale')) {
+            $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $object->getStoreId());
+            $object->setLocale($locale);
+        }
+
         $object->setData($attributeName, $object->formatUrlKey($urlKey));
 
         return $this;

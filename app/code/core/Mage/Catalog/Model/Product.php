@@ -1681,7 +1681,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function formatUrlKey($str)
     {
-        return $this->getUrlModel()->formatUrlKey($str);
+        return $this->getUrlModel()->setLocale($this->getLocale())->formatUrlKey($str);
     }
 
     public function getLocale(): ?string
@@ -1689,7 +1689,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $this->locale;
     }
 
-    public function setLocale(string $locale)
+    public function setLocale(?string $locale)
     {
         $this->locale = $locale;
         return $this;
