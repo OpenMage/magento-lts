@@ -24,14 +24,14 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     public const CACHE_TAG = 'url_rewrite';
 
     /**
-     * URL instance
+     * Url instance
      *
      * @var Mage_Core_Model_Url
      */
     protected $_url;
 
     /**
-     * URL Rewrite Instance
+     * Url rewrite instance
      *
      * @var Mage_Core_Model_Url_Rewrite
      */
@@ -59,20 +59,20 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     }
 
     /**
-     * Retrieve URL Instance
+     * Retrieve Url instance
      *
      * @return Mage_Core_Model_Url
      */
     public function getUrlInstance()
     {
         if ($this->_url === null) {
-            $this->_url = Mage::getModel('core/url');
+            $this->_url = $this->_factory->getModel('core/url');
         }
         return $this->_url;
     }
 
     /**
-     * Retrieve URL Rewrite Instance
+     * Retrieve Url rewrite instance
      *
      * @return Mage_Core_Model_Url_Rewrite
      */
@@ -129,21 +129,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
         }
 
         return $this->getUrl($product, $params);
-    }
-
-    /**
-     * Format Key for URL
-     *
-     * @param string $str
-     * @return string
-     */
-    public function formatUrlKey($str)
-    {
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-
-        return $urlKey;
     }
 
     /**
@@ -282,5 +267,21 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
         }
 
         return false;
+    }
+
+    /**
+     * Format Key for URL
+     *
+     * @param string $str
+     * @return string
+     */
+    public function formatUrlKey($str)
+    {
+        $str = Mage::helper('catalog/product_url')->format($str);
+        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', $str);
+        $urlKey = strtolower($urlKey);
+        $urlKey = trim($urlKey, '-');
+
+        return $urlKey;
     }
 }
