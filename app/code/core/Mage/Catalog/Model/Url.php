@@ -307,7 +307,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Refresh category rewrite
      *
-     * @param Mage_Catalog_Model_Category|Varien_Object $category
      * @param string $parentPath
      * @param bool $refreshProducts
      * @return $this
@@ -368,8 +367,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Refresh product rewrite
      *
-     * @param Mage_Catalog_Model_Product|Varien_Object $product
-     * @param Mage_Catalog_Model_Category|Varien_Object $category
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -425,7 +422,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Refresh products for category
      *
-     * @param Mage_Catalog_Model_Category|Varien_Object $category
      * @return $this
      */
     protected function _refreshCategoryProductRewrites(Varien_Object $category)
