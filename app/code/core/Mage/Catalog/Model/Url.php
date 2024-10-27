@@ -258,6 +258,7 @@ class Mage_Catalog_Model_Url
     /**
      * Refresh category rewrite
      *
+     * @param Mage_Catalog_Model_Category $category
      * @param string $parentPath
      * @param bool $refreshProducts
      * @return $this
@@ -265,10 +266,11 @@ class Mage_Catalog_Model_Url
     protected function _refreshCategoryRewrites(Varien_Object $category, $parentPath = null, $refreshProducts = true)
     {
         if ($category->getId() != $this->getStores($category->getStoreId())->getRootCategoryId()) {
+            $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
             if ($category->getUrlKey() == '') {
-                $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
+                $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($category->getName());
             } else {
-                $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
+                $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($category->getUrlKey());
             }
 
             $idPath      = $this->generatePath('id', null, $category);
@@ -330,10 +332,13 @@ class Mage_Catalog_Model_Url
         if ($category->getId() == $category->getPath()) {
             return $this;
         }
+
+        $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
+
         if ($product->getUrlKey() == '') {
-            $urlKey = $this->getProductModel()->formatUrlKey($product->getName());
+            $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($product->getName());
         } else {
-            $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
+            $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($product->getUrlKey());
         }
 
         $idPath      = $this->generatePath('id', $product, $category);

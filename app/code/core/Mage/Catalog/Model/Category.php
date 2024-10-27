@@ -162,6 +162,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     protected $_urlModel;
 
+
+    protected ?string $locale = null;
+
     /**
      * Initialize resource mode
      */
@@ -522,6 +525,17 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         $urlKey = strtolower($urlKey);
         $urlKey = trim($urlKey, '-');
         return $urlKey;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
 
     /**
