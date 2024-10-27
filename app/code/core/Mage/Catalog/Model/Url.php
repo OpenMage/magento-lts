@@ -13,6 +13,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Symfony\Component\String\Slugger\AsciiSlugger;
+
 /**
  * Catalog url model
  *
@@ -98,6 +100,13 @@ class Mage_Catalog_Model_Url
     * @var Mage_Catalog_Model_Category
     */
     protected static $_categoryForUrlPath;
+
+    protected ?string $locale = null;
+
+    /**
+     * @var AsciiSlugger[]
+     */
+    protected ?array $slugger = null;
 
     /**
      * Adds url_path property for non-root category - to ensure that url path is not empty.
@@ -311,6 +320,8 @@ class Mage_Catalog_Model_Url
     /**
      * Refresh product rewrite
      *
+     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Category $category
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -365,8 +376,9 @@ class Mage_Catalog_Model_Url
     }
 
     /**
-     * Refresh products for catwgory
+     * Refresh products for category
      *
+     * @param Mage_Catalog_Model_Category $category
      * @return $this
      */
     protected function _refreshCategoryProductRewrites(Varien_Object $category)
@@ -981,6 +993,64 @@ class Mage_Catalog_Model_Url
             $this->getResource()->saveRewriteHistory($rewriteData);
         }
 
+        return $this;
+    }
+
+    /**
+     * Format Key for URL
+     *
+     * @param string $str
+     * @return string
+     */
+    public function formatUrlKey($str)
+    {
+        return $this->getSlugger()->slug($str)->lower()->toString();
+    }
+
+    public function getSlugger(): AsciiSlugger
+    {
+        $locale = $this->getLocale() ?? 'en_US';
+
+        if (is_null($this->slugger) || !array_key_exists($locale, $this->slugger)) {
+            $config = [
+                '@'      => 'at',
+                '\u00a9' => "c",
+                '\u00ae' => "r",
+                '\u2122' => "tm"
+            ];
+
+            // @todo better config
+            $configNodes = Mage::getConfig()->getNode('global/slugger/' . $locale . '/replacements');
+            if ($configNodes instanceof Mage_Core_Model_Config_Element) {
+                $custom = [];
+                /** @var Mage_Core_Model_Config_Element $configNode */
+                foreach ($configNodes->children() as $configNode) {
+                    $configNode = $configNode->asArray();
+                    $custom[$configNode['f']] =$configNode['t'];
+                }
+                $config = [$locale => $config + $custom];
+            }
+
+            $slugger = new AsciiSlugger('en', $config);
+            $slugger->setLocale($locale);
+
+            $this->slugger[$locale] = $slugger;
+        }
+
+        return $this->slugger[$locale];
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setLocale(string $locale)
+    {
+        $this->locale = $locale;
         return $this;
     }
 }
