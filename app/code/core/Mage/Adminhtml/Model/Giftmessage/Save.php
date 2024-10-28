@@ -256,6 +256,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         foreach ($products as $productId => $data) {
             $product = Mage::getModel('catalog/product')
                 ->setStore($this->_getSession()->getStore())
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 ->load($productId);
             $item = $this->_getQuote()->getItemByProduct($product);
 

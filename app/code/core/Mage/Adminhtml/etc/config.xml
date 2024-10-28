@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -252,4 +252,46 @@
             </web>
         </admin>
     </websites>
+    <grid>
+        <column>
+            <default>
+                <index>
+                    <entity_id>
+                        <align>right</align>
+                        <type>number</type>
+                    </entity_id>
+                </index>
+                <type>
+                    <action>
+                        <filter>false</filter>
+                        <sortable>false</sortable>
+                        <width>40</width>
+                    </action>
+                    <currency>
+                        <align>right</align>
+                        <index>price</index>
+                    </currency>
+                    <date>
+                        <width>140</width>
+                    </date>
+                    <datetime>
+                        <width>170</width>
+                    </datetime>
+                    <number>
+                        <align>right</align>
+                        <width>1</width>
+                    </number>
+                    <price>
+                        <align>right</align>
+                        <index>price</index>
+                    </price>
+                    <store>
+                        <index>store_id</index>
+                        <store_view>true</store_view>
+                        <width>160</width>
+                    </store>
+                </type>
+            </default>
+        </column>
+    </grid>
 </config>

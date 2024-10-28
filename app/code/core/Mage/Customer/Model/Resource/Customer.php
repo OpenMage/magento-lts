@@ -277,7 +277,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Get customer website id
      *
      * @param int $customerId
-     * @return int
+     * @return string
      */
     public function getWebsiteId($customerId)
     {
