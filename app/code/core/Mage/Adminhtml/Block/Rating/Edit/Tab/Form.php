@@ -98,7 +98,7 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
             'name' => 'stores[]',
             'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm()
         ]);
-        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        $renderer = $this->getStoreSwitcherRenderer();
         $field->setRenderer($renderer);
 
         $fieldset->addField('position', 'text', [

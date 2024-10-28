@@ -169,7 +169,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get value by given id
      *
-     * @param int $valueId
+     * @param int|string $valueId
      * @return Mage_Catalog_Model_Product_Option_Value
      */
     public function getValueById($valueId)

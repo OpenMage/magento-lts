@@ -17,11 +17,14 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Generator;
 use Mage;
 use Mage_Core_Helper_Data;
 use Mage_Core_Model_Encryption;
+use Mage_Core_Model_Locale;
 use PHPUnit\Framework\TestCase;
 use Varien_Crypt_Mcrypt;
+use Varien_Date;
 
 class DataTest extends TestCase
 {
@@ -69,6 +72,71 @@ class DataTest extends TestCase
     public function testValidateKey(): void
     {
         $this->assertInstanceOf(Varien_Crypt_Mcrypt::class, $this->subject->validateKey('test'));
+    }
+
+    /**
+     * @dataProvider provideFormatTimezoneDate
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     * @group Dates
+     */
+    public function testFormatTimezoneDate(
+        string $expectedResult,
+        $data,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = false # disable timezone by default for tests
+    ): void {
+        $this->assertSame($expectedResult, $this->subject->formatTimezoneDate($data, $format, $showTime, $useTimezone));
+    }
+
+    public function provideFormatTimezoneDate(): Generator
+    {
+        $date           = date_create()->getTimestamp();
+        $dateShort      = date('m/j/Y', $date);
+        $dateLong       = date('F j, Y', $date);
+        $dateShortTime  = date('m/j/Y g:i A', $date);
+
+        yield 'null' => [
+            $dateShort,
+            null
+        ];
+        yield 'empty date' => [
+            $dateShort,
+            ''
+        ];
+        yield 'string date' => [
+            $dateShort,
+            'now'
+        ];
+        yield 'numeric date' => [
+            $dateShort,
+            '0'
+        ];
+        yield 'invalid date' => [
+            '',
+            'invalid'
+        ];
+        yield 'invalid format' => [
+            (string)$date,
+            $date,
+            'invalid',
+        ];
+        yield 'date short' => [
+            $dateShort,
+            $date
+        ];
+        yield 'date long' => [
+            $dateLong,
+            $date,
+            'long'
+        ];
+//        yield 'date short w/ time' => [
+//            $dateShortTime,
+//            $date,
+//            'short',
+//            true,
+//        ];
     }
 
     /**

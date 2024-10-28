@@ -164,7 +164,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Set database connection adapter
      *
-     * @param Zend_Db_Adapter_Abstract $conn
+     * @param Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $conn
      * @return $this
      */
     public function setConnection($conn)
