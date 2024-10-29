@@ -21,6 +21,8 @@ use Generator;
 use Mage;
 use Mage_Catalog_Model_Category;
 use Mage_Catalog_Model_Category_Url;
+use Mage_Catalog_Model_Resource_Product_Collection;
+use Mage_Catalog_Model_Url;
 use PHPUnit\Framework\TestCase;
 
 class CategoryTest extends TestCase
@@ -39,11 +41,65 @@ class CategoryTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-    public function testGetUrlModel(): void
+    public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Category_Url::class, $this->subject->getUrlModel());
+        $this->assertIsInt($this->subject->getDefaultAttributeSetId());
     }
 
+    /**
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testGetProductCollection(): void
+    {
+        $this->assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, $this->subject->getProductCollection());
+    }
+
+    /**
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testGetAvailableSortByOptions(): void
+    {
+        $this->assertIsArray($this->subject->getAvailableSortByOptions());
+    }
+
+    /**
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testGetDefaultSortBy(): void
+    {
+        $this->assertSame('position', $this->subject->getDefaultSortBy());
+    }
+
+    /**
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testValidate(): void
+    {
+        $this->assertIsArray($this->subject->validate());
+    }
+
+    /**
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testAfterCommitCallback(): void
+    {
+        $this->assertInstanceOf(Mage_Catalog_Model_Category::class, $this->subject->afterCommitCallback());
+    }
+
+    /**
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testGetUrlModel(): void
+    {
+        $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());
+        $this->assertInstanceOf(Mage_Catalog_Model_Category_Url::class, $this->subject->getUrlModel());
+    }
 
     /**
      * @dataProvider provideFormatUrlKey

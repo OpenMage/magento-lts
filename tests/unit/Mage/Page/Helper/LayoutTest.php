@@ -15,28 +15,28 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
+namespace OpenMage\Tests\Unit\Mage\Page\Helper;
 
 use Mage;
-use Mage_Uploader_Helper_Data;
+use Mage_Page_Helper_Layout;
 use PHPUnit\Framework\TestCase;
 
-class DataTest extends TestCase
+class LayoutTest extends TestCase
 {
-    public Mage_Uploader_Helper_Data $subject;
+    public Mage_Page_Helper_Layout $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('uploader/data');
+        $this->subject = Mage::helper('page/layout');
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Mage_Page
+     * @group Mage_Page_Helper
      */
-    public function testIsModuleEnabled(): void
-    {
-        $this->assertIsBool($this->subject->isModuleEnabled());
-    }
+//    public function testApplyTemplate(): void
+//    {
+//        $this->assertInstanceOf(Mage_Page_Helper_Layout::class, $this->subject->applyTemplate());
+//    }
 }

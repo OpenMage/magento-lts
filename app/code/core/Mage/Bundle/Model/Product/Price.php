@@ -79,7 +79,6 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
                 /** @var Mage_Bundle_Model_Product_Type $productType */
                 $productType = $product->getTypeInstance(true);
-                /** @var Mage_Bundle_Model_Resource_Selection_Collection $selections */
                 $selections = $productType->getSelectionsByIds($selectionIds, $product);
                 $selections->addTierPriceData();
                 Mage::dispatchEvent('prepare_catalog_product_collection_prices', [

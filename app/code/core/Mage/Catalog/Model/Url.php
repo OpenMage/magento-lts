@@ -193,7 +193,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      * Retrieve stores array or store model
      *
      * @param int|null $storeId
-     * @return Mage_Core_Model_Store|array
+     * @return Mage_Core_Model_Store|Mage_Core_Model_Store[]
      */
     public function getStores($storeId = null)
     {
@@ -269,7 +269,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param int $storeId Store View
+     * @param null|string|bool|int|Mage_Core_Model_Store $storeId Store View
      * @return bool
      */
     public function getShouldSaveRewritesHistory($storeId = null)

@@ -138,7 +138,7 @@
  * @method string getMetaDescription()
  * @method string getMetaKeyword()
  * @method string getMetaTitle()
- * @method $this hasMsrpEnabled(bool $value)
+ * @method $this hasMsrpEnabled()
  * @method bool getMsrpEnabled()
  * @method string getMsrpDisplayActualPriceType()
  *
@@ -367,7 +367,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getStoreId()
     {
         if ($this->hasData('store_id')) {
-            return $this->getData('store_id');
+            return (int)$this->getData('store_id');
         }
         return Mage::app()->getStore()->getId();
     }
@@ -419,7 +419,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product name
      *
-     * @return string
+     * @return string|null
      */
     public function getName()
     {
@@ -444,16 +444,18 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Set Price calculation flag
      *
      * @param bool $calculate
+     * @return $this
      */
     public function setPriceCalculation($calculate = true)
     {
         $this->_calculatePrice = $calculate;
+        return $this;
     }
 
     /**
      * Get product type identifier
      *
-     * @return string
+     * @return string|null
      */
     public function getTypeId()
     {
@@ -878,7 +880,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product price model
      *
-     * @return Mage_Catalog_Model_Product_Type_Price|Mage_Bundle_Model_Product_Price
+     * @return Mage_Bundle_Model_Product_Price
      */
     public function getPriceModel()
     {
