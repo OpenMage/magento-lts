@@ -84,6 +84,10 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
         'צ' => 'c', 'ק' => 'q', 'ר' => 'r', 'ש' => 'w', 'ת' => 't', '™' => 'tm',
     ];
 
+    protected array $_convertTableShort = ['©' => 'c', '®' => 'r', '™' => 'tm'];
+
+    protected array $_convertTableCustom = [];
+
     /**
      * Check additional instruction for conversion table in configuration
      */
@@ -93,7 +97,7 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
         if ($convertNode) {
             foreach ($convertNode->children() as $node) {
                 if (property_exists($node, 'from') && property_exists($node, 'to')) {
-                    $this->_convertTable[(string) $node->from] = (string) $node->to;
+                    $this->_convertTableCustom[(string) $node->from] = (string) $node->to;
                 }
             }
         }
@@ -106,7 +110,12 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
      */
     public function getConvertTable()
     {
-        return $this->_convertTable;
+        return $this->_convertTable + $this->_convertTableShort + $this->_convertTableCustom;
+    }
+
+    public function getConvertTableShort(): array
+    {
+        return $this->_convertTableShort + $this->_convertTableCustom;
     }
 
     /**

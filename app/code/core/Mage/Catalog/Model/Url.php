@@ -1060,7 +1060,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
 
     final public function getSluggerConfig(?string $locale): array
     {
-        $config = Mage::helper('catalog/product_url')->getConvertTable();
+        $config = Mage::helper('catalog/product_url')->getConvertTableShort();
 
         if ($locale) {
             $convertNode = Mage::getConfig()->getNode('default/url/convert/' . $locale);
