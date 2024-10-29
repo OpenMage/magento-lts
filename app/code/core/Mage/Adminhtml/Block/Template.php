@@ -50,6 +50,10 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      */
     public function isOutputEnabled($moduleName = null)
     {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
         return Mage::helper('core')->isModuleOutputEnabled($moduleName);
     }
 
