@@ -84,7 +84,7 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
         'צ' => 'c', 'ק' => 'q', 'ר' => 'r', 'ש' => 'w', 'ת' => 't', '™' => 'tm',
     ];
 
-    protected array $_convertTableShort = ['©' => 'c', '®' => 'r', '™' => 'tm'];
+    protected array $_convertTableShort = ['@' => 'at', '©' => 'c', '®' => 'r', '™' => 'tm'];
 
     protected array $_convertTableCustom = [];
 
