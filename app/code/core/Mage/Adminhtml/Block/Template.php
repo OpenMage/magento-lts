@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
         if ($moduleName === null) {
             $moduleName = $this->getModuleName();
         }
+
         return !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
     }
 

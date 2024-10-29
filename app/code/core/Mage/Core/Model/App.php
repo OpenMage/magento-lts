@@ -874,7 +874,7 @@ class Mage_Core_Model_App
             return $id;
         }
         if (!isset($id)) {
-            $this->throwStoreException();
+            $this->throwStoreException('Invalid store id requested.');
         }
 
         if (empty($this->_stores[$id])) {
@@ -887,7 +887,7 @@ class Mage_Core_Model_App
             }
 
             if (!$store->getCode()) {
-                $this->throwStoreException();
+                $this->throwStoreException('Invalid store code requested.');
             }
             $this->_stores[$store->getStoreId()] = $store;
             $this->_stores[$store->getCode()] = $store;
