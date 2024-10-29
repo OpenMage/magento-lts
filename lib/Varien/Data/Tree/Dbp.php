@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,7 +81,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         parent::__construct();
 
         if (!$connection) {
-            throw new Exception('Wrong "$connection" parametr');
+            throw new Exception('Wrong "$connection" parameter');
         }
 
         $this->_conn    = $connection;
@@ -92,7 +92,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             || !isset($fields[self::LEVEL_FIELD])
             || !isset($fields[self::ORDER_FIELD])
         ) {
-            throw new Exception('"$fields" tree configuratin array');
+            throw new Exception('"$fields" tree configuration array');
         }
 
         $this->_idField     = $fields[self::ID_FIELD];
@@ -162,6 +162,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             $select->order($this->_table . '.' . $this->_orderField . ' ASC');
             if ($parentPath) {
                 $pathField = $this->_conn->quoteIdentifier([$this->_table, $this->_pathField]);
+                // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                 $select->where("{$pathField} LIKE ?", "{$parentPath}/%");
             }
             if ($recursionLevel != 0) {
@@ -169,6 +170,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $select->where("{$levelField} <= ?", $startLevel + $recursionLevel);
             }
 
+            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $arrNodes = $this->_conn->fetchAll($select);
 
             $childrenItems = [];
@@ -189,7 +191,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node $children
+     * @param Varien_Data_Tree_Node|array $children
      * @param string $path
      * @param Varien_Data_Tree_Node $parentNode
      * @param int $level
@@ -198,7 +200,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     {
         if (isset($children[$path])) {
             foreach ($children[$path] as $child) {
-                $nodeId = isset($child[$this->_idField]) ? $child[$this->_idField] : false;
+                $nodeId = $child[$this->_idField] ?? false;
                 if ($parentNode && $nodeId && $node = $parentNode->getChildren()->searchById($nodeId)) {
                     $node->addData($child);
                 } else {
@@ -344,6 +346,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             $select->where($condition);
         }
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $arrNodes = $this->_conn->fetchAll($select);
 
         if ($arrNodes) {
@@ -365,7 +368,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node $children
+     * @param Varien_Data_Tree_Node|array $children
      * @param string $path
      * @param Varien_Data_Tree_Node $parentNode
      * @param bool $withChildren

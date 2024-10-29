@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -749,7 +749,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     protected function _parseExtensionsString($extensions)
     {
         preg_match_all('/[a-z0-9]+/si', strtolower($extensions), $matches);
-        if (isset($matches[0]) && is_array($matches[0]) && count($matches[0]) > 0) {
+        if (count($matches[0]) > 0) {
             return $matches[0];
         }
         return null;

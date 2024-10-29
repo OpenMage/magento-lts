@@ -12,6 +12,9 @@ on:
       php:
         description: "Count changed PHP files"
         value: ${{ jobs.check.outputs.php }}
+      phtml:
+        description: "Count changed Template files"
+        value: ${{ jobs.check.outputs.phtml }}
       xml:
         description: "Count changed XML files"
         value: ${{ jobs.check.outputs.xml }}
@@ -33,9 +36,6 @@ on:
       phpunit:
         description: "Count changed PhpUnit files"
         value: ${{ jobs.check.outputs.phpunit }}
-      sonar:
-        description: "Count changed Sonar files"
-        value: ${{ jobs.check.outputs.sonar }}
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
@@ -47,6 +47,7 @@ jobs:
       composer: ${{ steps.changes-composer.outputs.composer }}
       js: ${{ steps.changes-js.outputs.js }}
       php: ${{ steps.changes-php.outputs.php }}
+      phtml: ${{ steps.all.outputs.phtml }}
       xml: ${{ steps.changes-xml.outputs.xml }}
       workflow: ${{ steps.changes-workflow.outputs.workflow }}
       phpcs: ${{ steps.changes-phpcs.outputs.phpcs }}
@@ -54,7 +55,6 @@ jobs:
       phpstan: ${{ steps.changes-phpstan.outputs.phpstan }}
       phpunit-test: ${{ steps.changes-phpunit-test.outputs.phpunit-test }}
       phpunit: ${{ steps.changes-phpunit.outputs.phpunit }}
-      sonar: ${{ steps.changes-sonar.outputs.sonar }}
 
     steps:
       - name: Checkout code
@@ -81,15 +81,16 @@ jobs:
             composer.*
             *.php
             **/*.php
+            **/*.phtml
             **/*.xml
             **/*.js
             .github/workflows/**
             **phpcs**
             **php-cs-fixer**
             **phpstan**
-            dev/tests/
-            dev/phpunit*
-            dev/sonar*
+            rector.php
+            tests/
+            phpunit*
 
       - name: Check if composer files changed
         id: changes-composer
@@ -116,6 +117,14 @@ jobs:
           count="$(grep -oE "*.php" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHP file(s) changed"
           echo "php=$count" >> $GITHUB_OUTPUT
+
+      - name: Check if Template files changed
+        id: changes-phtml
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "*.phtml" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Template file(s) changed"
+          echo "phtml=$count" >> $GITHUB_OUTPUT
 
       - name: Check if XML files changed
         id: changes-xml
@@ -161,7 +170,7 @@ jobs:
         id: changes-phpunit-test
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "dev/tests/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "tests/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count UnitTest test file(s) changed"
           echo "phpunit-test=$count" >> $GITHUB_OUTPUT
 
@@ -169,14 +178,6 @@ jobs:
         id: changes-phpunit
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "dev/phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPUnit file(s) changed"
           echo "phpunit=$count" >> $GITHUB_OUTPUT
-
-      - name: Check if Sonar files changed
-        id: changes-sonar
-        if: steps.changed-files-specific.outputs.any_modified == 'true'
-        run: |
-          count="$(grep -oE "dev/sonar*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
-          echo "$count Sonar file(s) changed"
-          echo "sonar=$count" >> $GITHUB_OUTPUT

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -17,7 +17,7 @@ $start = microtime(true);
 /**
  * Error reporting
  */
-ini_set('display_errors', 0);
+ini_set('display_errors', '0');
 
 $ds = DIRECTORY_SEPARATOR;
 $ps = PATH_SEPARATOR;

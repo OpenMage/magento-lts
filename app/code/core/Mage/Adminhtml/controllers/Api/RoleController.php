@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +41,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
     protected function _initAction()
     {
         $this->loadLayout();
-        $this->_setActiveMenu('system/services/roles');
+        $this->_setActiveMenu('system/api/roles');
         $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'));
         $this->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'));
         $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));

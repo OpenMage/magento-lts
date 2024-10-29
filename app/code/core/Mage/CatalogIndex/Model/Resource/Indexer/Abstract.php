@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,11 +52,10 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      */
     public function saveIndex($data, $storeId, $productId)
     {
-        return $this->saveIndices([$data], $storeId, $productId);
+        $this->saveIndices([$data], $storeId, $productId);
     }
 
     /**
-     * @param array $data
      * @param int $storeId
      * @param int $productId
      */
@@ -71,6 +70,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      * @param int $productId
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _executeReplace($data, $storeId, $productId)
     {
         $this->beginTransaction();
@@ -119,6 +119,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
         $select = $this->_getReadAdapter()->select();
         $select->from(['main_table' => $table], 'attribute_id')
             ->join(['additional_table' => $this->getTable('catalog/eav_attribute')], 'additional_table.attribute_id=main_table.attribute_id');
+        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         $select->distinct(true);
 
         if (is_array($conditions)) {

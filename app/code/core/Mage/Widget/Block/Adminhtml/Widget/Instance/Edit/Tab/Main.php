@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -138,7 +138,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
                 'required'  => true,
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
             ]);
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $renderer = $this->getStoreSwitcherRenderer();
             $field->setRenderer($renderer);
         }
 
@@ -188,7 +188,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
     }
 
     /**
-     * Initialize form fileds values
+     * Initialize form fields values
      *
      * @inheritDoc
      */

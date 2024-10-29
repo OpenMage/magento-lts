@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,6 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files extends Mage_Adminht
     /**
      * File idetifier getter
      *
-     * @param  Varien_Object $file
      * @return string
      */
     public function getFileId(Varien_Object $file)
@@ -66,7 +65,6 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files extends Mage_Adminht
     /**
      * File thumb URL getter
      *
-     * @param  Varien_Object $file
      * @return string
      */
     public function getFileThumbUrl(Varien_Object $file)
@@ -77,7 +75,6 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files extends Mage_Adminht
     /**
      * File name URL getter
      *
-     * @param  Varien_Object $file
      * @return string
      */
     public function getFileName(Varien_Object $file)
@@ -88,7 +85,6 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files extends Mage_Adminht
     /**
      * Image file width getter
      *
-     * @param  Varien_Object $file
      * @return string
      */
     public function getFileWidth(Varien_Object $file)
@@ -99,7 +95,6 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files extends Mage_Adminht
     /**
      * Image file height getter
      *
-     * @param  Varien_Object $file
      * @return string
      */
     public function getFileHeight(Varien_Object $file)
@@ -110,7 +105,6 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files extends Mage_Adminht
     /**
      * File short name getter
      *
-     * @param  Varien_Object $file
      * @return string
      */
     public function getFileShortName(Varien_Object $file)

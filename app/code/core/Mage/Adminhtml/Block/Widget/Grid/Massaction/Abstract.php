@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -97,7 +97,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      * );
      *
      * @param string $itemId
-     * @param array $item
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
     public function addItem($itemId, array $item)
@@ -334,8 +333,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
     /**
      * Group items for optgroups
-     *
-     * @return array
      */
     public function getGroupedItems(): array
     {
@@ -354,10 +351,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         return $groupedItems;
     }
 
-    /**
-     * @param string $itemId
-     * @return bool
-     */
     protected function isConfirmMassAction(string $itemId): bool
     {
         return in_array($itemId, static::$needsConfirm);

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -114,8 +114,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
     /**
      * Initialize factory instance
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -545,7 +543,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     }
 
     /**
-     * Create Flate Table(s)
+     * Create Flat Table(s)
      *
      * @param array|int $stores
      * @return $this
@@ -996,7 +994,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Synchronize flat category data after move by affected category ids
      *
-     * @param array $affectedCategoryIds
      * @return $this
      */
     public function move(array $affectedCategoryIds)
@@ -1152,7 +1149,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $table = $this->_getReadAdapter()->describeTable($table);
         $data = [];
         $idFieldName = Mage::getSingleton('catalog/category')->getIdFieldName();
-        foreach ($table as $column => $columnData) {
+        foreach (array_keys($table) as $column) {
             if ($column != $idFieldName || $category->getData($column) !== null) {
                 if (array_key_exists($column, $replaceFields)) {
                     $value = $category->getData($replaceFields[$column]);
@@ -1422,7 +1419,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     /**
      * Retrieve anchors above
      *
-     * @param array $filterIds
      * @param int $storeId
      * @return array
      */

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Truncate a string to a certain length if necessary, appending the $etc string.
      * $remainder will contain the string that has been replaced with $etc.
      *
-     * @param string $string
+     * @param string|null $string
      * @param int $length
      * @param string $etc
      * @param string &$remainder
@@ -241,7 +241,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Split words
      *
-     * @param string $str The source string
+     * @param string|null $str The source string
      * @param bool $uniqueOnly Unique words only
      * @param int $maxWordLength Limit words count
      * @param string $wordSeparatorRegexp
@@ -299,7 +299,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Sorts array with multibyte string keys
      *
-     * @param array $sort
      * @return array|false
      */
     public function ksortMultibyte(array &$sort)
@@ -375,8 +374,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Append param to general result
      *
-     * @param array $result
-     * @param array $param
      * @return array
      */
     protected function _appendParam(array $result, array $param)
@@ -399,7 +396,6 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Handle param recursively
      *
-     * @param array $param
      * @return array
      */
     protected function _handleRecursiveParamForQueryStr(array $param)
@@ -517,7 +513,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 
     /**
      * UnSerialize string
-     * @param string $str
+     * @param string|null $str
      * @return mixed|null
      * @throws Exception
      */

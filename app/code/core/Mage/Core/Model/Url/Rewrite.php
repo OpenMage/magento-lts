@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -201,8 +201,6 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Implement logic of custom rewrites
      *
-     * @param Zend_Controller_Request_Http|null $request
-     * @param Zend_Controller_Response_Http|null $response
      * @return bool
      * @throws Mage_Core_Model_Store_Exception
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
@@ -319,7 +317,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
             $queryParams = [];
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
-            foreach ($queryParams as $key => $value) {
+            foreach (array_keys($queryParams) as $key) {
                 if (substr($key, 0, 3) === '___') {
                     unset($queryParams[$key]);
                     $hasChanges = true;

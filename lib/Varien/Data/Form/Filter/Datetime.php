@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,8 +24,8 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
     /**
      * Returns the result of filtering $value
      *
-     * @param string $value
-     * @return string
+     * @param string|null $value
+     * @return string|null
      */
     public function inputFilter($value)
     {

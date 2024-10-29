@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,9 +71,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
                 'header'    => Mage::helper('sales')->__('Purchased From (Store)'),
-                'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view' => true,
                 'display_deleted' => true,
                 'escape'  => true,
             ]);
@@ -121,8 +119,6 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             $this->addColumn(
                 'action',
                 [
-                    'header'    => Mage::helper('sales')->__('Action'),
-                    'width'     => '50px',
                     'type'      => 'action',
                     'getter'     => 'getId',
                     'actions'   => [
@@ -133,25 +129,44 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
                             'data-column' => 'action',
                         ]
                     ],
-                    'filter'    => false,
-                    'sortable'  => false,
                     'index'     => 'stores',
                     'is_system' => true,
                 ]
             );
         }
 
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_Rss') &&
-            Mage::helper('rss')->isRssEnabled() &&
-            Mage::getStoreConfigFlag('rss/order/new')
-        ) {
-            $this->addRssList('rss/order/new', Mage::helper('sales')->__('New Order RSS'));
-        }
+        $this->addRssFeedLink();
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
 
         return parent::_prepareColumns();
+    }
+
+    /**
+     * Add link to RSS feed when enabled for filtered store-view
+     *
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function addRssFeedLink()
+    {
+        if (Mage::helper('sales')->isModuleOutputEnabled('Mage_Rss')) {
+            $storeId = null;
+
+            $filterString = $this->getParam($this->getVarNameFilter(), '');
+            if ($filterString) {
+                $filter = Mage::helper('adminhtml')->prepareFilterString($filterString);
+                $storeId = $filter['store_id'] ?? null;
+            }
+
+            if (Mage::helper('rss')->isRssAdminOrderNewEnabled($storeId)) {
+                $slug = $storeId ? '/store/' . $storeId : '';
+                $this->addRssList('rss/order/new' . $slug, Mage::helper('sales')->__('New Order RSS'));
+            }
+        }
+
+        return $this;
     }
 
     /**

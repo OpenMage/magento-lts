@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Captcha
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,6 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_captcha = [];
 
     /**
-     * @return bool
      * @since 19.4.19 / 20.0.17
      */
     public function isEnabled(): bool
@@ -63,7 +62,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
      * Get Captcha
      *
      * @param string $formId
-     * @return Mage_Captcha_Model_Interface
+     * @return Mage_Captcha_Model_Zend
      */
     public function getCaptcha($formId)
     {
@@ -77,7 +76,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns value of the node with respect to current area (frontend or backend)
      *
-     * @param string $id The last part of XML_PATH_$area_CAPTCHA_ constant (case insensitive)
+     * @param string $id The last part of XML_PATH_$area_CAPTCHA_ constant (case-insensitive)
      * @param Mage_Core_Model_Store $store
      * @return Mage_Core_Model_Config_Element
      */

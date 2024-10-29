@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -361,9 +361,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Load an object
      *
-     * @param Mage_Core_Model_Abstract $object
      * @param mixed $value
-     * @param string $field field to load by (defaults to model id)
+     * @param string|null $field field to load by (defaults to model id)
      * @return $this
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
@@ -415,7 +414,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Save object object data
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     public function save(Mage_Core_Model_Abstract $object)
@@ -475,7 +473,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * forced update If duplicate unique key data
      *
      * @deprecated
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     public function forsedSave(Mage_Core_Model_Abstract $object)
@@ -501,7 +498,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Delete the object
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      * @throws Exception
      */
@@ -546,8 +542,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
     /**
      * Un-serialize serializable object fields
-     *
-     * @param Mage_Core_Model_Abstract $object
      */
     public function unserializeFields(Mage_Core_Model_Abstract $object)
     {
@@ -584,7 +578,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Prepare data for save
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return array
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
@@ -630,7 +623,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Check for unique values existence
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -687,8 +679,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
     /**
      * After load
-     *
-     * @param Mage_Core_Model_Abstract $object
      */
     public function afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -698,7 +688,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Perform actions after object load
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
@@ -709,7 +698,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Perform actions before object save
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
@@ -720,7 +708,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Perform actions after object save
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -731,7 +718,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Perform actions before object delete
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
@@ -742,7 +728,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Perform actions after object delete
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
@@ -752,8 +737,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
     /**
      * Serialize serializable fields of the object
-     *
-     * @param Mage_Core_Model_Abstract $object
      */
     protected function _serializeFields(Mage_Core_Model_Abstract $object)
     {

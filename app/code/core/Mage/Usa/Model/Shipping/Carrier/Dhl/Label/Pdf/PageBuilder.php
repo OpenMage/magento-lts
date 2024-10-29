@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Set Page
      *
-     * @param Zend_Pdf_Page $page
      * @return $this
      */
     public function setPage(Zend_Pdf_Page $page)
@@ -74,7 +73,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     }
 
     /**
-     * Calculate x coordinate with identation
+     * Calculate x coordinate with indentation
      *
      * @param int $pt
      * @return int
@@ -85,7 +84,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     }
 
     /**
-     * Calculate y coordinate with identation
+     * Calculate y coordinate with indentation
      *
      * @param int $pt
      * @return int
@@ -211,6 +210,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param int $id
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function addUnitId($id)
     {
         $this->_page->saveGS();
@@ -227,6 +227,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      * @param $data
      * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function addReferenceData($data)
     {
         $this->_page->saveGS();
@@ -240,7 +241,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Add Sender Info
      *
-     * @param SimpleXMLElement $sender
      * @return $this
      * @throws InvalidArgumentException
      */
@@ -282,7 +282,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Draw Sender Address
      *
-     * @param SimpleXMLElement $addressLines
      * @param string $phoneNumber
      * @return float
      */
@@ -336,7 +335,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     /**
      * Add Receive Info
      *
-     * @param SimpleXMLElement $consignee
      * @return $this
      */
     public function addReceiveInfo(SimpleXMLElement $consignee)

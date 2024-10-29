@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,14 +36,14 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     protected $_paymentMethod;
 
     /**
-     * Name formate for button variables
+     * Name format for button variables
      *
      * @var string
      */
     protected $_buttonVarFormat = 'L_BUTTONVAR%d';
 
     /**
-     * Request Parameters which dont have to wrap as button vars
+     * Request Parameters which don't have to wrap as button vars
      *
      * @var array
      */
@@ -109,7 +109,6 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get peymet request data as array
      *
-     * @param Mage_Paypal_Model_Hostedpro $paymentMethod
      * @return array
      */
     protected function _getPaymentData(Mage_Paypal_Model_Hostedpro $paymentMethod)
@@ -135,7 +134,6 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get order request data as array
      *
-     * @param Mage_Sales_Model_Order $order
      * @return array
      */
     protected function _getOrderData(Mage_Sales_Model_Order $order)
@@ -171,7 +169,6 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get shipping address request data
      *
-     * @param Varien_Object $address
      * @return array
      */
     protected function _getShippingAddress(Varien_Object $address)
@@ -198,7 +195,6 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
     /**
      * Get billing address request data
      *
-     * @param Varien_Object $address
      * @return array
      */
     protected function _getBillingAddress(Varien_Object $address)

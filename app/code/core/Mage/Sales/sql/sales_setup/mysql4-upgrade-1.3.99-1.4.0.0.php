@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -913,13 +913,13 @@ foreach ($entityToFlat as $entityCode => $flags) {
 
                 if ($joinCount > 60) { // If we have too much joins for mysql
                     $joinCount = 0;
-                    $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)])  . "; \n";
+                    $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)]) . "; \n";
                     $select->reset();
                 }
             }
 
             if ($joinCount > 0) {
-                $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)])  . "; \n";
+                $sql .= $select->crossUpdateFromSelect(['e' => $installer->getTable($flatTablePrefix)]) . "; \n";
             }
         }
     } else {

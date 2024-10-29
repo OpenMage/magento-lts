@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public const CHARS_PASSWORD_SPECIALS               = '!$*-.=?@_';
 
     /**
-     * Config pathes to merchant country code and merchant VAT number
+     * Config paths to merchant country code and merchant VAT number
      */
     public const XML_PATH_MERCHANT_COUNTRY_CODE = 'general/store_information/merchant_country';
     public const XML_PATH_MERCHANT_VAT_NUMBER = 'general/store_information/merchant_vat_number';
@@ -146,33 +146,48 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|Zend_Date|null $date If empty, return current datetime.
-     * @param   string              $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
-     * @param   bool                $showTime Whether to include time
-     * @param   bool                $useTimezone Convert to local datetime?
+     * @param   string|int|Zend_Date|null   $date If empty, return current datetime.
+     * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
+     * @param   bool                        $showTime Whether to include time
      * @return  string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
+        return $this->formatTimezoneDate($date, $format, $showTime);
+    }
+
+    /**
+     * Format date using current locale options and time zone.
+     *
+     * @param   string|int|Zend_Date|null   $date If empty, return current locale datetime.
+     * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
+     * @param   bool                        $showTime Whether to include time
+     * @param   bool                        $useTimezone Convert to local datetime?
+     */
+    public function formatTimezoneDate(
+        $date = null,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = true
+    ): string {
         if (!in_array($format, $this->_allowedFormats, true)) {
             return $date;
         }
+
+        $locale = Mage::app()->getLocale();
         if (empty($date)) {
-            $date = Mage::app()->getLocale()->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
+            $date = $locale->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
         } elseif (is_int($date)) {
-            $date = Mage::app()->getLocale()->date($date, null, null, $useTimezone);
+            $date = $locale->date($date, null, null, $useTimezone);
         } elseif (!$date instanceof Zend_Date) {
             if (($time = strtotime($date)) !== false) {
-                $date = Mage::app()->getLocale()->date($time, null, null, $useTimezone);
+                $date = $locale->date($time, null, null, $useTimezone);
             } else {
                 return '';
             }
         }
 
-        $format = $showTime
-            ? Mage::app()->getLocale()->getDateTimeFormat($format)
-            : Mage::app()->getLocale()->getDateFormat($format);
-
+        $format = $showTime ? $locale->getDateTimeFormat($format) : $locale->getDateFormat($format);
         return $date->toString($format);
     }
 
@@ -190,18 +205,19 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             return $time;
         }
 
+        $locale = Mage::app()->getLocale();
         if (is_null($time)) {
-            $date = Mage::app()->getLocale()->date(time());
+            $date = $locale->date(time());
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
-            $date = Mage::app()->getLocale()->date(strtotime($time));
+            $date = $locale->date(strtotime($time));
         }
 
         if ($showDate) {
-            $format = Mage::app()->getLocale()->getDateTimeFormat($format);
+            $format = $locale->getDateTimeFormat($format);
         } else {
-            $format = Mage::app()->getLocale()->getTimeFormat($format);
+            $format = $locale->getTimeFormat($format);
         }
 
         return $date->toString($format);
@@ -303,7 +319,6 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get encryption method depending on the presence of the function - password_hash.
      *
-     * @param Mage_Core_Model_Encryption $encryptionModel
      * @return int
      */
     public function getVersionHash(Mage_Core_Model_Encryption $encryptionModel)
@@ -316,7 +331,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve store identifier
      *
-     * @param   mixed $store
+     * @param   bool|int|Mage_Core_Model_Store|null|string $store
      * @return  int
      */
     public function getStoreId($store = null)
@@ -369,12 +384,14 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
             $replacements[$german] = [];
             foreach ($subst as $k => $v) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $replacements[$german][$k < 256 ? chr($k) : '&#' . $k . ';'] = $v;
             }
         }
 
         // convert string from default database format (UTF-8)
         // to encoding which replacement arrays made with (ISO-8859-1)
+        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
         if ($s = @iconv('UTF-8', 'ISO-8859-1', $string)) {
             $string = $s;
         }
@@ -572,6 +589,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param mixed $value
      * @param bool $dontSkip
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _decorateArrayObject($element, $key, $value, $dontSkip)
     {
         if ($dontSkip) {
@@ -587,7 +605,6 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Transform an assoc array to SimpleXMLElement object
      * Array has some limitations. Appropriate exceptions will be thrown
      *
-     * @param array $array
      * @param string $rootName
      * @return SimpleXMLElement
      * @throws Exception
@@ -603,7 +620,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 <$rootName></$rootName>
 XML;
         $xml = new SimpleXMLElement($xmlstr);
-        foreach ($array as $key => $value) {
+        foreach (array_keys($array) as $key) {
             if (is_numeric($key)) {
                 throw new Exception('Array root keys must not be numeric.');
             }
@@ -614,12 +631,11 @@ XML;
     /**
      * Function, that actually recursively transforms array to xml
      *
-     * @param array $array
      * @param string $rootName
-     * @param SimpleXMLElement $xml
      * @return SimpleXMLElement
      * @throws Exception
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _assocToXml(array $array, $rootName, SimpleXMLElement &$xml)
     {
         $hasNumericKey = false;
@@ -650,7 +666,6 @@ XML;
      * Transform SimpleXMLElement to associative array
      * SimpleXMLElement must be conform structure, generated by assocToXml()
      *
-     * @param SimpleXMLElement $xml
      * @return array
      */
     public function xmlToAssoc(SimpleXMLElement $xml)
@@ -752,13 +767,11 @@ XML;
      * May filter files by specified extension(s)
      * Returns false on error
      *
-     * @param array $srcFiles
      * @param string|false $targetFile - file path to be written
      * @param bool $mustMerge
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
-     *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function mergeFiles(
@@ -772,14 +785,18 @@ XML;
             // check whether merger is required
             $shouldMerge = $mustMerge || !$targetFile;
             if (!$shouldMerge) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 if (!file_exists($targetFile)) {
                     $shouldMerge = true;
                 } else {
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     $targetMtime = filemtime($targetFile);
                     foreach ($srcFiles as $file) {
+                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         if (!file_exists($file)) {
                             // no translation intentionally
                             Mage::logException(new Exception(sprintf('File %s not found.', $file)));
+                            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
                         } elseif (@filemtime($file) > $targetMtime) {
                             $shouldMerge = true;
                             break;
@@ -790,8 +807,10 @@ XML;
 
             // merge contents into the file
             if ($shouldMerge) {
+                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 if ($targetFile && !is_writable(dirname($targetFile))) {
                     // no translation intentionally
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     throw new Exception(sprintf('Path %s is not writeable.', dirname($targetFile)));
                 }
 
@@ -802,6 +821,7 @@ XML;
                     }
                     if (!empty($srcFiles)) {
                         foreach ($srcFiles as $key => $file) {
+                            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
                             $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                             if (!in_array($fileExt, $extensionsFilter)) {
                                 unset($srcFiles[$key]);
@@ -816,11 +836,15 @@ XML;
 
                 $data = '';
                 foreach ($srcFiles as $file) {
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if (!file_exists($file)) {
                         continue;
                     }
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     $contents = file_get_contents($file) . "\n";
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if ($beforeMergeCallback && is_callable($beforeMergeCallback)) {
+                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $contents = call_user_func($beforeMergeCallback, $file, $contents);
                     }
                     $data .= $contents;
@@ -830,6 +854,7 @@ XML;
                     throw new Exception(sprintf("No content found in files:\n%s", implode("\n", $srcFiles)));
                 }
                 if ($targetFile) {
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     file_put_contents($targetFile, $data, LOCK_EX);
                 } else {
                     return $data; // no need to write to file, just return data
@@ -885,6 +910,7 @@ XML;
     public function checkLfiProtection($name)
     {
         if (preg_match('#\.\.[\\\/]#', $name)) {
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Core_Exception($this->__('Requested file may not include parent directory traversal ("../", "..\\" notation)'));
         }
         return true;
@@ -960,10 +986,9 @@ XML;
     /**
      * Escaping CSV-data
      *
-     * Security enchancement for CSV data processing by Excel-like applications.
+     * Security enhancement for CSV data processing by Excel-like applications.
      * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1054702
      *
-     * @param array $data
      * @return array
      */
     public function getEscapedCSVData(array $data)
@@ -1004,7 +1029,6 @@ XML;
     /**
      * Returns true if the rate limit of the current client is exceeded
      * @param bool $setErrorMessage Adds a predefined error message to the 'core/session' object
-     * @param bool $recordRateLimitHit
      * @return bool is rate limit exceeded
      */
     public function isRateLimitExceeded(bool $setErrorMessage = true, bool $recordRateLimitHit = true): bool
@@ -1030,7 +1054,6 @@ XML;
 
     /**
      * Save the client rate limit hit to the cache
-     * @return void
      */
     public function recordRateLimitHit(): void
     {

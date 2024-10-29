@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,7 +57,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     public function indexAction()
     {
         $this->_title($this->__('Sales'))->_title($this->__('Order Statuses'));
-        $this->loadLayout()->_setActiveMenu('system')->renderLayout();
+        $this->loadLayout()->_setActiveMenu('system/order_statuses')->renderLayout();
     }
 
     /**
@@ -73,6 +73,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
         }
         $this->_title($this->__('Sales'))->_title($this->__('Create New Order Status'));
         $this->loadLayout()
+            ->_setActiveMenu('system/order_statuses')
             ->renderLayout();
     }
 
@@ -86,6 +87,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
             Mage::register('current_status', $status);
             $this->_title($this->__('Sales'))->_title($this->__('Edit Order Status'));
             $this->loadLayout()
+                ->_setActiveMenu('system/order_statuses')
                 ->renderLayout();
         } else {
             $this->_getSession()->addError(
@@ -161,6 +163,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     {
         $this->_title($this->__('Sales'))->_title($this->__('Assign Order Status to State'));
         $this->loadLayout()
+            ->_setActiveMenu('system/order_statuses')
             ->renderLayout();
     }
 

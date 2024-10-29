@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -239,7 +239,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Set quote object
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
@@ -251,7 +250,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Initialize creation data from existing order
      *
-     * @param Mage_Sales_Model_Order $order
      * @return $this
      */
     public function initFromOrder(Mage_Sales_Model_Order $order)
@@ -408,7 +406,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Initialize creation data from existing order Item
      *
-     * @param Mage_Sales_Model_Order_Item $orderItem
      * @param int $qty
      * @return Mage_Sales_Model_Quote_Item | string
      */
@@ -808,7 +805,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Add multiple products to current order quote
      *
-     * @param   array $products
      * @return  Mage_Adminhtml_Model_Sales_Order_Create|Exception
      */
     public function addProducts(array $products)
@@ -889,7 +885,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Parse additional options and sync them with product options
      *
-     * @param Mage_Sales_Model_Quote_Item $item
      * @param array $additionalOptions
      * @return array
      */
@@ -956,7 +951,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Assign options to item
      *
-     * @param Mage_Sales_Model_Quote_Item $item
      * @param array $options
      * @return $this
      */
@@ -1079,8 +1073,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Set and validate Quote address
      * All errors added to _errors
      *
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @param array $data
      * @return $this
      */
     protected function _setQuoteAddress(Mage_Sales_Model_Quote_Address $address, array $data)
@@ -1344,7 +1336,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Set and validate Customer data
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     protected function _setCustomerData(Mage_Customer_Model_Customer $customer)

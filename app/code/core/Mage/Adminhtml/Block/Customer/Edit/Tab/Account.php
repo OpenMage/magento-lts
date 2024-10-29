@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             $form->getElement('website_id')->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
-                var {$prefix}_websites = " . Mage::helper('core')->jsonEncode($websites) .";
+                var {$prefix}_websites = " . Mage::helper('core')->jsonEncode($websites) . ";
                 Validation.add(
                     'validate-website-has-store',
                     '" . Mage::helper('core')->jsQuoteEscape(
@@ -96,7 +96,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             );
             // @codingStandardsIgnoreEnd
         }
-        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        $renderer = $this->getStoreSwitcherRenderer();
         $form->getElement('website_id')->setRenderer($renderer);
 
         $customerStoreId = null;

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,7 +74,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected $_parent;
 
     /**
-     * Short alias of this block that was refered from parent
+     * Short alias of this block that was referred from parent
      *
      * @var string
      */
@@ -165,6 +165,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * @var Varien_Object
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static $_transportObject;
 
     /**
@@ -190,8 +191,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     /**
      * Initialize factory instance
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -267,7 +266,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set parent block
      *
-     * @param   Mage_Core_Block_Abstract $block
      * @return  $this
      */
     public function setParentBlock(Mage_Core_Block_Abstract $block)
@@ -289,7 +287,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set layout object
      *
-     * @param   Mage_Core_Model_Layout $layout
      * @return  $this
      */
     public function setLayout(Mage_Core_Model_Layout $layout)
@@ -420,7 +417,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * Wrapper for method "setData"
      *
-     * @param   string $name
+     * @param   array|string $name
      * @param   mixed $value
      * @return  $this
      */
@@ -524,6 +521,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             }
 
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($child, $callback, $params);
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if ($result == call_user_func_array([&$child, $callback], $params)) {
                 $this->unsetChild($alias);
             }
@@ -799,7 +797,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Make sure specified block will be registered in the specified child groups
      *
      * @param string $groupName
-     * @param Mage_Core_Block_Abstract $child
      */
     public function addToChildGroup($groupName, Mage_Core_Block_Abstract $child)
     {
@@ -863,7 +860,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param string $alias
      * @param string $key
-     * @return mixed
+     * @return mixed|void
      */
     public function getChildData($alias, $key = '')
     {
@@ -1054,7 +1051,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve url of skins file
      *
      * @param   string $file path to file in skin
-     * @param   array $params
      * @return  string
      */
     public function getSkinUrl($file = null, array $params = [])
@@ -1078,7 +1074,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set messages block
      *
-     * @param   Mage_Core_Block_Messages $block
      * @return  $this
      */
     public function setMessagesBlock(Mage_Core_Block_Messages $block)
@@ -1091,7 +1086,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Return block helper
      *
      * @param string $type
-     * @return $this
+     * @return Mage_Core_Block_Abstract
      */
     public function getHelper($type)
     {
@@ -1115,17 +1110,32 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting date
      *
-     * @param   string $date
-     * @param   string $format
-     * @param   bool $showTime
-     * @param   bool $useTimezone
-     * @return  string
+     * @param string|int|Zend_Date|null $date
+     * @param string $format
+     * @param bool $showTime
+     * @return string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
         /** @var Mage_Core_Helper_Data $helper */
         $helper = $this->helper('core');
-        return $helper->formatDate($date, $format, $showTime, $useTimezone);
+        return $helper->formatDate($date, $format, $showTime);
+    }
+
+    /**
+     * Retrieve formatting timezone date
+     *
+     * @param string|int|Zend_Date|null $date
+     */
+    public function formatTimezoneDate(
+        $date = null,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = true
+    ): string {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->formatTimezoneDate($date, $format, $showTime, $useTimezone);
     }
 
     /**
@@ -1167,6 +1177,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function __()
     {
         $args = func_get_args();
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getModuleName());
         array_unshift($args, $expr);
         return $this->_getApp()->getTranslator()->translate($args);
@@ -1187,13 +1198,45 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Escape html entities
      *
-     * @param   string|array $data
-     * @param   array $allowedTags
-     * @return  string
+     * @param string|string[] $data
+     * @param array|null $allowedTags
+     * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
     {
         return $this->helper('core')->escapeHtml($data, $allowedTags);
+    }
+
+    /**
+     * Wrapper for escapeHtml() function with keeping original value
+     *
+     * @param string[]|null $allowedTags
+     *
+     * @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
+     */
+    public function escapeHtmlAsObject(string $data, ?array $allowedTags = null): Mage_Core_Model_Security_HtmlEscapedString
+    {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        return new Mage_Core_Model_Security_HtmlEscapedString($data, $allowedTags);
+    }
+
+    /**
+     * Wrapper for escapeHtml() function with keeping original value
+     *
+     * @param string[] $data
+     * @param string[]|null $allowedTags
+     * @return Mage_Core_Model_Security_HtmlEscapedString[]
+     *
+     *  @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
+     */
+    public function escapeHtmlArrayAsObject(array $data, ?array $allowedTags = null): array
+    {
+        $result = [];
+        foreach ($data as $key => $string) {
+            $result[$key] = $this->escapeHtmlAsObject($string, $allowedTags);
+        }
+
+        return $result;
     }
 
     /**
@@ -1386,7 +1429,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Add tags from specified model to current block
      *
-     * @param Mage_Core_Model_Abstract $model
      * @return $this
      */
     public function addModelTags(Mage_Core_Model_Abstract $model)

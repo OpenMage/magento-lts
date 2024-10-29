@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      * Initialize factory
      *
      * @param Mage_Core_Model_Resource_Abstract $resource
-     * @param array $args
      */
     public function __construct($resource = null, array $args = [])
     {
@@ -239,16 +238,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     * Retrieve resource instance
-     *
-     * @inheritDoc
-     */
-    public function getResource()
-    {
-        return parent::getResource();
-    }
-
-    /**
      * Add attribute to sort order
      *
      * @param string $attribute
@@ -326,6 +315,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         $select = $this->getSelect();
         $cond   = [];
         foreach ($paths as $path) {
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             $cond[] = $this->getResource()->getReadConnection()->quoteInto('main_table.path LIKE ?', "$path%");
         }
         if ($cond) {

@@ -322,7 +322,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Success Registration
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -435,7 +434,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Get Customer Form Initalized Model
+     * Get Customer Form Initialized Model
      *
      * @param Mage_Customer_Model_Customer $customer
      * @return Mage_Customer_Model_Form
@@ -542,7 +541,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Add welcome message and send new account email.
      * Returns success URL
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @param bool $isJustConfirmed
      * @return string
      * @throws Mage_Core_Model_Store_Exception
@@ -826,7 +824,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
     /**
      * Reset forgotten password
-     * Used to handle data recieved from reset forgotten password form
+     * Used to handle data received from reset forgotten password form
      */
     public function resetPasswordPostAction()
     {
@@ -876,6 +874,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->cleanPasswordsValidationData();
             $customer->setPasswordCreatedAt(time());
             $customer->setRpCustomerId(null);
+            $customer->setConfirmation(null); // Set email is confirmed.
             $customer->save();
 
             $this->_getSession()->unsetData(self::TOKEN_SESSION_NAME);
@@ -895,8 +894,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function getCustomerId()
     {
-        $customerId = $this->getRequest()->getQuery('id');
-        if (strlen($customerId) > 12) {
+        $customerId = $this->getRequest()->getQuery('id', false);
+        if (is_string($customerId) && strlen($customerId) > 12) {
             $customerCollection = Mage::getModel('customer/customer')
                 ->getCollection()
                 ->addAttributeToSelect(['rp_customer_id'])
@@ -933,7 +932,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $customerToken = $customer->getRpToken();
-        if (strcmp($customerToken, $resetPasswordLinkToken) != 0 || $customer->isResetPasswordLinkTokenExpired()) {
+        if (is_null($customerToken) || strcmp($customerToken, $resetPasswordLinkToken) !== 0 || $customer->isResetPasswordLinkTokenExpired()) {
             throw Mage::exception('Mage_Core', $this->_getHelper('customer')->__('Your password reset link has expired.'));
         }
     }
@@ -1099,7 +1098,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Get restore password params.
      *
-     * @param Mage_Customer_Model_Session $session
      * @return array array ($customerId, $resetPasswordToken)
      */
     protected function _getRestorePasswordParameters(Mage_Customer_Model_Session $session)

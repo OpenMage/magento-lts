@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -271,7 +271,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Fetch transaction details info
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param string $transactionId
      * @return array
      */
@@ -283,7 +282,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Place an order with authorization or capture action
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      * @return $this
      */
@@ -336,7 +334,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
         try {
             $api->callGetTransactionDetails();
         } catch (Mage_Core_Exception $e) {
-            // if we recieve errors, but DoDirectPayment response is Success, then set Pending status for transaction
+            // if we receive errors, but DoDirectPayment response is Success, then set Pending status for transaction
             $payment->setIsTransactionPending(true);
         }
         $this->_importResultToPayment($api, $payment);
@@ -371,7 +369,6 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Check void availability
      *
-     * @param   Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)

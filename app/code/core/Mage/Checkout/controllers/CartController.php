@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -718,8 +718,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Set product form data in checkout session for populating the product form
      * in case of errors in add to cart process.
-     *
-     * @return void
      */
     protected function _setProductBuyRequest(): void
     {

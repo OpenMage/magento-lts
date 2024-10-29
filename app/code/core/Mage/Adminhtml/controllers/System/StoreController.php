@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -442,7 +442,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
      *
      * @param string $failPath redirect path if backup failed
      * @param array $arguments
-     * @return $this
+     * @return $this|void
      */
     protected function _backupDatabase($failPath, $arguments = [])
     {
@@ -468,11 +468,11 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirect($failPath, $arguments);
-            return ;
+            return;
         } catch (Exception $e) {
             $this->_getSession()->addException($e, Mage::helper('backup')->__('Unable to create backup. Please, try again later.'));
             $this->_redirect($failPath, $arguments);
-            return ;
+            return;
         }
         return $this;
     }

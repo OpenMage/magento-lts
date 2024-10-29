@@ -20,6 +20,8 @@ return $config
         'class_definition' => true,
         // Remove extra spaces in a nullable typehint.
         'compact_nullable_typehint' => true,
+        // Concatenation should be spaced according to configuration.
+        'concat_space' => ['spacing' => 'one'],
         // The PHP constants `true`, `false`, and `null` MUST be written using the correct casing.
         'constant_case' => true,
         // Equal sign in declare statement should be surrounded by spaces or not following configuration.
@@ -107,10 +109,12 @@ return $config
         PhpCsFixer\Finder::create()
             ->in([
                 'app/code/core/Mage/',
+                'errors/',
                 'lib/Mage/',
                 'lib/Magento/',
                 'lib/Varien/',
                 'shell/',
+                'tests/unit/',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('cms/widgets')
+            ->_setActiveMenu('cms/widget_instance')
             ->_addBreadcrumb(
                 Mage::helper('widget')->__('CMS'),
                 Mage::helper('widget')->__('CMS')

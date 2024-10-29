@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,7 +108,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * array(
      *      $sectionName => $recursionLevel
      * )
-     * Recursion level provide availability cache subnodes separatly
+     * Recursion level provide availability cache sub-nodes separately
      *
      * @var array
      */
@@ -239,6 +239,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Active modules array per namespace
      * @var array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_moduleNamespaces = null;
 
     /**
@@ -257,7 +258,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function __construct($sourceData = null)
     {
         $this->setCacheId('config_global');
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->_options         = new Mage_Core_Model_Config_Options($sourceData);
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->_prototype       = new Mage_Core_Model_Config_Base();
         $this->_cacheChecksum   = null;
         parent::__construct($sourceData);
@@ -338,6 +341,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function loadBase()
     {
         $etcDir = $this->getOptions()->getEtcDir();
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $files = glob($etcDir . DS . '*.xml');
         $this->loadFile(current($files));
         while ($file = next($files)) {
@@ -381,7 +385,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $this->_loadDeclaredModules();
 
         $resourceConfig = sprintf('config.%s.xml', $this->_getResourceConnectionModel('core'));
-        $this->loadModulesConfiguration(['config.xml',$resourceConfig], $this);
+        $this->loadModulesConfiguration(['config.xml', $resourceConfig], $this);
 
         /**
          * Prevent local.xml directives overwriting
@@ -425,8 +429,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Load environment variables and override config
-     *
-     * @return self
      */
     public function loadEnv(): Mage_Core_Model_Config
     {
@@ -444,7 +446,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Reinitialize configuration
      *
      * @param   array $options
-     * @return  Mage_Core_Model_Config
+     * @return  $this
      */
     public function reinit($options = [])
     {
@@ -455,7 +457,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Check local modules enable/disable flag
-     * If local modules are disbled remove local modules path from include dirs
+     * If local modules are disabled remove local modules path from include dirs
      *
      * return true if local modules enabled and false if disabled
      *
@@ -475,6 +477,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         if ($disableLocalModules === true) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             set_include_path(
                 BP . DS . 'app' . DS . 'code' . DS . 'community' . PS .
                 BP . DS . 'app' . DS . 'code' . DS . 'core' . PS .
@@ -523,6 +526,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!Mage::app()->useCache('config')) {
             return;
         }
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $waitTime = $waitTime ?: (getenv('MAGE_CONFIG_CACHE_LOCK_WAIT') ?: (PHP_SAPI === 'cli' ? 60 : 3));
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
         if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
@@ -532,7 +536,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 throw new Exception('Could not get lock on cache save operation.');
             } else {
                 Mage::log(sprintf('Failed to get cache save lock in %d seconds.', $waitTime), Zend_Log::NOTICE);
+                // phpcs:ignore Ecg.Security.IncludeFile.IncludeFileDetected
                 require Mage::getBaseDir() . DS . 'errors' . DS . '503.php';
+                // phpcs:ignore Ecg.Security.LanguageConstruct.ExitUsage
                 die();
             }
         }
@@ -741,7 +747,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Returns node found by the $path and scope info
      *
      * @inheritDoc
-     * @return Mage_Core_Model_Config_Element
+     * @return Mage_Core_Model_Config_Element|false
      */
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {
@@ -807,6 +813,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected function _getDeclaredModuleFiles()
     {
         $etcDir = $this->getOptions()->getEtcDir();
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $moduleFiles = glob($etcDir . DS . 'modules' . DS . '*.xml');
 
         if (!$moduleFiles) {
@@ -820,6 +827,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         foreach ($moduleFiles as $v) {
             $name = explode(DIRECTORY_SEPARATOR, $v);
+            // phpcs:ignore Ecg.Performance.Loop.ArraySize
             $name = substr($name[count($name) - 1], 0, -4);
 
             if (array_key_exists($name, self::MAGE_MODULES)) {
@@ -877,6 +885,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param null $mergeConfig deprecated
      * @return $this|void
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _loadDeclaredModules($mergeConfig = null)
     {
         $moduleFiles = $this->_getDeclaredModuleFiles();
@@ -886,8 +895,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         Varien_Profiler::start('config/load-modules-declaration');
 
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $unsortedConfig = new Mage_Core_Model_Config_Base();
         $unsortedConfig->loadString('<config/>');
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $fileConfig = new Mage_Core_Model_Config_Base();
 
         // load modules declarations
@@ -919,6 +930,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $moduleDepends = $this->_sortModuleDepends($moduleDepends);
 
         // create sorted config
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $sortedConfig = new Mage_Core_Model_Config_Base();
         $sortedConfig->loadString('<config><modules/></config>');
 
@@ -1037,9 +1049,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Iterate all active modules "etc" folders and combine data from
-     * specidied xml file name to one object
+     * specified xml file name to one object
      *
-     * @param string $fileName
+     * @param array|string $fileName
      * @param null|Mage_Core_Model_Config_Base|Varien_Simplexml_Config $mergeToObject
      * @param Varien_Simplexml_Config|null $mergeModel
      * @return Mage_Core_Model_Config_Base|Varien_Simplexml_Config
@@ -1099,10 +1111,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getDistroServerVars()
     {
         if (!$this->_distroServerVars) {
+            // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
             if (isset($_SERVER['SCRIPT_NAME']) && isset($_SERVER['HTTP_HOST'])) {
+                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 $secure = (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] != 'off')) || $_SERVER['SERVER_PORT'] == '443';
                 $scheme = ($secure ? 'https' : 'http') . '://' ;
 
+                // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
                 $hostArr = explode(':', $_SERVER['HTTP_HOST']);
                 $host = $hostArr[0];
                 $port = isset(
@@ -1319,6 +1334,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @param array|string $args Module name if string
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getPathVars($args = null)
     {
         $path = [];
@@ -1698,6 +1714,18 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         return $this;
     }
 
+
+    /**
+     * Get config value from DB
+     *
+     * @return  string|false
+     */
+    public function getConfig(string $path, string $scope = 'default', int $scopeId = 0)
+    {
+        $resource = $this->getResourceModel();
+        return $resource->getConfig(rtrim($path, '/'), $scope, $scopeId);
+    }
+
     /**
      * Get fieldset from configuration
      *
@@ -1781,7 +1809,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Makes all events to lower-case
      *
      * @param string $area
-     * @param Varien_Simplexml_Config $mergeModel
      */
     protected function _makeEventsLowerCase($area, Varien_Simplexml_Config $mergeModel)
     {
@@ -1807,7 +1834,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Checks is event name has upper-case letters
      *
-     * @param Mage_Core_Model_Config_Element $event
      * @return bool
      */
     protected function _isNodeNameHasUpperCase(Mage_Core_Model_Config_Element $event)

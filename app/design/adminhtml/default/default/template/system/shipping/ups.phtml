@@ -9,7 +9,7 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -21,7 +21,7 @@ $allMethodsCodes = [];
 foreach (Mage::getModel('usa/shipping_carrier_ups_source_method')->toOptionArray() as $method) {
     $allMethodsCodes[]= $method['value'];
 }
-/** @var $this Mage_Adminhtml_Block_Template */
+/** @var Mage_Adminhtml_Block_Template $this */
 $sectionCode = $this->getRequest()->getParam('section');
 $websiteCode = $this->getRequest()->getParam('website');
 $storeCode = $this->getRequest()->getParam('store');

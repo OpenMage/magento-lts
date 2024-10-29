@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -152,7 +152,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Prepare select object for loading entity attributes values
      *
-     * @param array $selects
      * @return Varien_Db_Select
      */
     protected function _prepareLoadSelect(array $selects)
@@ -204,7 +203,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Insert or Update attribute data
      *
-     * @param Mage_Catalog_Model_Abstract $object
+     * @param Mage_Catalog_Model_Abstract|Varien_Object $object
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param mixed $value
      * @return Mage_Catalog_Model_Resource_Abstract
@@ -511,7 +510,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Check is attribute value empty
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $value
      * @return bool
      */
@@ -525,9 +523,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Checks also attribute's store scope:
      * We should insert on duplicate key update values if we unchecked 'STORE VIEW' checkbox in store view.
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param mixed $value New value of the attribute.
-     * @param array $origData
      * @return bool
      */
     protected function _canUpdateAttribute(
@@ -552,7 +548,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Prepare value for save
      *
      * @param mixed $value
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return mixed
      */
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
@@ -569,7 +564,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Retrieve attribute's raw value from DB.
      *
      * @param int $entityId
-     * @param int|string|array $attribute atrribute's ids or codes
+     * @param int|string|array $attribute attribute's ids or codes
      * @param int|Mage_Core_Model_Store $store
      * @return bool|string|null|array
      */

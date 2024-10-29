@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +27,7 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
     protected $_entity;
 
     /**
-     * Currect comments collection
+     * Current comments collection
      *
      * @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract|null
      */
@@ -75,7 +75,9 @@ class Mage_Sales_Block_Order_Comments extends Mage_Core_Block_Template
                 Mage::throwException(Mage::helper('sales')->__('Invalid entity model'));
             }
 
-            $this->_commentCollection = Mage::getResourceModel($collectionClass);
+            /** @var Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract $commentCollection */
+            $commentCollection = Mage::getResourceModel($collectionClass);
+            $this->_commentCollection = $commentCollection;
             $this->_commentCollection->setParentFilter($entity)
                ->setCreatedAtOrder()
                ->addVisibleOnFrontFilter();

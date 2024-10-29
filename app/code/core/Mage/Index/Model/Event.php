@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,8 +26,8 @@
  * @method $this setEntityPk(int $value)
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
- * @method $this setOldData(string $value)
- * @method $this setNewData(string $value)
+ * @method $this setOldData(string|array $value)
+ * @method $this setNewData(string|array $value)
  * @method Varien_Object getDataObject()
  * @method $this setDataObject(Varien_Object $value)
  * @method bool hasCreatedAt()
@@ -71,7 +71,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Specify process object
      *
-     * @param Mage_Index_Model_Process $process
+     * @param Mage_Index_Model_Process|null $process
      * @return $this
      */
     public function setProcess($process)
@@ -83,7 +83,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get related process object
      *
-     * @return Mage_Index_Model_Process
+     * @return Mage_Index_Model_Process|null
      */
     public function getProcess()
     {
@@ -92,7 +92,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 
     /**
      * Specify namespace for old and new data
-     * @param string $namespace
+     * @param string|null $namespace
      * @return $this
      */
     public function setDataNamespace($namespace)
@@ -157,7 +157,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
             return $previous;
         }
 
-        foreach ($previous as $key => $value) {
+        foreach (array_keys($previous) as $key) {
             if (array_key_exists($key, $current) && !is_null($current[$key]) && is_array($previous[$key])) {
                 if (!is_string($key) || is_array($current[$key])) {
                     $current[$key] = $this->_mergeNewDataRecursive($previous[$key], $current[$key]);
@@ -231,6 +231,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @param bool $useNamespace
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getOldData($useNamespace = true)
     {
         return [];
@@ -264,6 +265,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @return $this
      * @deprecated since 1.6.2.0
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function addOldData($key, $value = null)
     {
         return $this;

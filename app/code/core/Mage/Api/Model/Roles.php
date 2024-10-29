@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,7 +71,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      */
     public function getResourcesTree()
     {
-        return $this->_buildResourcesArray(null, null, null, null, true);
+        return $this->_buildResourcesArray(null, null, 0, null, true);
     }
 
     /**
@@ -87,7 +87,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      */
     public function getResourcesList2D()
     {
-        return $this->_buildResourcesArray(null, null, null, true);
+        return $this->_buildResourcesArray(null, null, 0, true);
     }
 
     /**
@@ -99,7 +99,6 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Varien_Simplexml_Element|null $resource
      * @param string|null $parentName
      * @param int $level
      * @param bool|null $represent2Darray

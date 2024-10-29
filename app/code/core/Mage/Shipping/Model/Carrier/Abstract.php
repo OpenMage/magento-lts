@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -135,7 +135,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Collect and get rates
      *
      * @abstract
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return Mage_Shipping_Model_Rate_Result|bool|null
      */
     abstract public function collectRates(Mage_Shipping_Model_Rate_Request $request);
@@ -144,9 +143,9 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Do request to shipment
      * Implementation must be in overridden method
      *
-     * @param Mage_Shipping_Model_Shipment_Request $request
      * @return Varien_Object
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
         return new Varien_Object();
@@ -159,6 +158,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * @param mixed $request
      * @return Varien_Object
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function returnOfShipment($request)
     {
         return new Varien_Object();
@@ -167,9 +167,9 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Return container types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return [];
@@ -178,7 +178,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Get allowed containers of carrier
      *
-     * @param Varien_Object|null $params
      * @return array|bool
      */
     protected function _getAllowedContainers(?Varien_Object $params = null)
@@ -241,17 +240,16 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Return delivery confirmation types of carrier
      *
-     * @param Varien_Object|null $params
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         return [];
     }
 
     /**
-     * @param Mage_Shipping_Model_Rate_Request $request
-     * @return $this|bool|false|Mage_Core_Model_Abstract
+     * @return $this|false|Mage_Shipping_Model_Rate_Result_Error
      */
     public function checkAvailableShipCountries(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -289,9 +287,9 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Processing additional validation to check is carrier applicable.
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
+     * @return $this
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         return $this;
@@ -539,8 +537,9 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Determine whether zip-code is required for the country of destination
      *
      * @param string|null $countryId
-     * @return bool
+     * @return false
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function isZipCodeRequired($countryId = null)
     {
         return false;
@@ -593,9 +592,9 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Return content types of package
      *
-     * @param Varien_Object $params
      * @return array
      */
+    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getContentTypes(Varien_Object $params)
     {
         return [];

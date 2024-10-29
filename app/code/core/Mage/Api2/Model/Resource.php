@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -312,7 +312,6 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set request
      *
-     * @param Mage_Api2_Model_Request $request
      * @return $this
      */
     public function setRequest(Mage_Api2_Model_Request $request)
@@ -417,8 +416,6 @@ abstract class Mage_Api2_Model_Resource
 
     /**
      * Set response
-     *
-     * @param Mage_Api2_Model_Response $response
      */
     public function setResponse(Mage_Api2_Model_Response $response)
     {
@@ -442,8 +439,6 @@ abstract class Mage_Api2_Model_Resource
 
     /**
      * Set filter
-     *
-     * @param Mage_Api2_Model_Acl_Filter $filter
      */
     public function setFilter(Mage_Api2_Model_Acl_Filter $filter)
     {
@@ -467,8 +462,6 @@ abstract class Mage_Api2_Model_Resource
 
     /**
      * Set renderer
-     *
-     * @param Mage_Api2_Model_Renderer_Interface $renderer
      */
     public function setRenderer(Mage_Api2_Model_Renderer_Interface $renderer)
     {
@@ -518,7 +511,6 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set API user
      *
-     * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
      * @return $this
      */
     public function setApiUser(Mage_Api2_Model_Auth_User_Abstract $apiUser)
@@ -629,6 +621,7 @@ abstract class Mage_Api2_Model_Resource
             }
             $code = $errors[$message];
         }
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         throw new Mage_Api2_Exception($message, $code);
     }
 
@@ -665,6 +658,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _error($message, $code)
     {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->getResponse()->setException(new Mage_Api2_Exception($message, $code));
         return $this;
     }
@@ -700,7 +694,6 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set navigation parameters and apply filters from URL params
      *
-     * @param Varien_Data_Collection_Db $collection
      * @return $this
      */
     final protected function _applyCollectionModifiers(Varien_Data_Collection_Db $collection)
@@ -738,7 +731,6 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Validate filter data and apply it to collection if possible
      *
-     * @param Varien_Data_Collection_Db $collection
      * @return $this
      */
     protected function _applyFilter(Varien_Data_Collection_Db $collection)
@@ -799,7 +791,7 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $resourceId Resource identifier
      * @param array $requestParams Parameters to be set to request
-     * @return $this
+     * @return Mage_Api2_Model_Resource
      */
     protected function _getSubModel($resourceId, array $requestParams)
     {
@@ -881,7 +873,7 @@ abstract class Mage_Api2_Model_Resource
     }
 
     /**
-     * Resource specific method to retrieve attributes' codes. May be overriden in child.
+     * Resource specific method to retrieve attributes' codes. May be overridden in child.
      *
      * @return array
      */

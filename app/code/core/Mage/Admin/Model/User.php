@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -364,7 +364,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Authenticate user name and password and save loaded record
+     * Authenticate username and password and save loaded record
      *
      * @param string $username
      * @param string $password
@@ -384,7 +384,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             $this->loadByUsername($username);
             $sensitive = ($config) ? $username == $this->getUsername() : true;
 
-            if ($sensitive && $this->getId() && Mage::helper('core')->validateHash($password, $this->getPassword())) {
+            if ($sensitive && $this->getId() && $this->validatePasswordHash($password, $this->getPassword())) {
                 if ($this->getIsActive() != '1') {
                     Mage::throwException(Mage::helper('adminhtml')->__('This account is inactive.'));
                 }
@@ -409,6 +409,11 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             $this->unsetData();
         }
         return $result;
+    }
+
+    public function validatePasswordHash(string $string1, string $string2): bool
+    {
+        return Mage::helper('core')->validateHash($string1, $string2);
     }
 
     /**

@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -158,7 +158,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Add value of option to values array
      *
-     * @param Mage_Catalog_Model_Product_Option_Value $value
      * @return $this
      */
     public function addValue(Mage_Catalog_Model_Product_Option_Value $value)
@@ -170,7 +169,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get value by given id
      *
-     * @param int $valueId
+     * @param int|string $valueId
      * @return Mage_Catalog_Model_Product_Option_Value
      */
     public function getValueById($valueId)
@@ -259,7 +258,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Set product instance
      *
-     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
     public function setProduct(?Mage_Catalog_Model_Product $product = null)
@@ -444,7 +442,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * get Product Option Collection
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return Mage_Catalog_Model_Resource_Product_Option_Collection
      */
     public function getProductOptionCollection(Mage_Catalog_Model_Product $product)
