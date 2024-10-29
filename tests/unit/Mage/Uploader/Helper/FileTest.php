@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
+use Generator;
 use Mage;
 use Mage_Core_Model_Config;
 use Mage_Uploader_Helper_File;
@@ -42,47 +43,44 @@ class FileTest extends TestCase
      * @param string|array<int, string> $extensionsList
      *
      * @group Mage_Uploader
+     * @group Mage_Uploader_Helper
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
-        $this->assertEquals($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
+        $this->assertSame($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
     }
 
-    /**
-     * @return array<string, array<int, array<int, string>|string>>
-     */
-    public function provideGetMimeTypeFromExtensionListData(): array
+    public function provideGetMimeTypeFromExtensionListData(): Generator
     {
-        return [
-            'string exists' => [
-                [
-                    0 => 'application/vnd.lotus-1-2-3'
-                ],
-                '123'
+        yield 'string exists' => [
+            [
+                0 => 'application/vnd.lotus-1-2-3'
             ],
-            'string not exists' => [
-                [
-                    0 => 'application/octet-stream'
-                ],
-                'not-exists'
+            '123'
+        ];
+        yield 'string not exists' => [
+            [
+                0 => 'application/octet-stream'
             ],
-            'array' => [
-                [
-                    0 => 'application/vnd.lotus-1-2-3',
-                    1 => 'application/octet-stream',
-                    2 => 'application/octet-stream',
-                ],
-                [
-                    '123',
-                    'not-exists',
-                    'test-new-node',
-                ]
+            'not-exists'
+        ];
+        yield 'array' => [
+            [
+                0 => 'application/vnd.lotus-1-2-3',
+                1 => 'application/octet-stream',
+                2 => 'application/octet-stream',
             ],
+            [
+                '123',
+                'not-exists',
+                'test-new-node',
+            ]
         ];
     }
 
     /**
      * @group Mage_Uploader
+     * @group Mage_Uploader_Helper
      */
     public function testGetPostMaxSize(): void
     {
@@ -91,6 +89,7 @@ class FileTest extends TestCase
 
     /**
      * @group Mage_Uploader
+     * @group Mage_Uploader_Helper
      */
     public function testGetUploadMaxSize(): void
     {
@@ -99,6 +98,7 @@ class FileTest extends TestCase
 
     /**
      * @group Mage_Uploader
+     * @group Mage_Uploader_Helper
      */
     public function testGetDataMaxSize(): void
     {
@@ -108,13 +108,13 @@ class FileTest extends TestCase
 
         $mock->expects($this->once())->method('getPostMaxSize')->willReturn('1G');
         $mock->expects($this->once())->method('getUploadMaxSize')->willReturn('1M');
-        $this->assertEquals('1M', $mock->getDataMaxSize());
+        $this->assertSame('1M', $mock->getDataMaxSize());
     }
 
     /**
      * @dataProvider provideGetDataMaxSizeInBytesData
-     *
      * @group Mage_Uploader
+     * @group Mage_Uploader_Helper
      */
     public function testGetDataMaxSizeInBytes(int $expectedResult, string $maxSize): void
     {
@@ -123,31 +123,26 @@ class FileTest extends TestCase
             ->getMock();
 
         $mock->expects($this->once())->method('getDataMaxSize')->willReturn($maxSize);
-        $this->assertEquals($expectedResult, $mock->getDataMaxSizeInBytes());
+        $this->assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 
-    /**
-     * @return array<string, array<int, int|string>>
-     */
-    public function provideGetDataMaxSizeInBytesData(): array
+    public function provideGetDataMaxSizeInBytesData(): Generator
     {
-        return [
-            'no unit' => [
-                1024,
-                '1024'
-            ],
-            'kilobyte' => [
-                1024,
-                '1K'
-            ],
-            'megabyte' => [
-                1048576,
-                '1M'
-            ],
-            'gigabyte' => [
-                1073741824,
-                '1G'
-            ]
+        yield 'no unit' => [
+            1024,
+            '1024'
+        ];
+        yield 'kilobyte' => [
+            1024,
+            '1K'
+        ];
+        yield 'megabyte' => [
+            1048576,
+            '1M'
+        ];
+        yield 'gigabyte' => [
+            1073741824,
+            '1G'
         ];
     }
 }

@@ -331,7 +331,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve store identifier
      *
-     * @param   mixed $store
+     * @param   bool|int|Mage_Core_Model_Store|null|string $store
      * @return  int
      */
     public function getStoreId($store = null)
@@ -842,6 +842,7 @@ XML;
                     }
                     // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     $contents = file_get_contents($file) . "\n";
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if ($beforeMergeCallback && is_callable($beforeMergeCallback)) {
                         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $contents = call_user_func($beforeMergeCallback, $file, $contents);
