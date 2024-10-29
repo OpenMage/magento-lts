@@ -113,6 +113,11 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
         return $this->_convertTable + $this->_convertTableShort + $this->_convertTableCustom;
     }
 
+    public function getConvertTableCustom(): array
+    {
+        return $this->_convertTableCustom;
+    }
+
     public function getConvertTableShort(): array
     {
         return $this->_convertTableShort + $this->_convertTableCustom;
@@ -123,6 +128,8 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
      *
      * @param   string $string
      * @return  string
+     * @deprecated
+     * @see Mage_Catalog_Model_Url::formatUrlKey()
      */
     public function format($string)
     {
