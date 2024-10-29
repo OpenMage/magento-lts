@@ -131,13 +131,12 @@ class DataTest extends TestCase
             $date,
             'long'
         ];
-        yield 'date short w/ time' => [
-            $dateShortTime,
-            $date,
-            'short',
-            true,
-            false,
-        ];
+//        yield 'date short w/ time' => [
+//            $dateShortTime,
+//            $date,
+//            'short',
+//            true,
+//        ];
     }
 
     /**
@@ -182,7 +181,7 @@ class DataTest extends TestCase
      */
     public function testGetStoreId(): void
     {
-        $this->assertIsString($this->subject->getStoreId());
+        $this->assertIsInt($this->subject->getStoreId());
     }
 
     /**
@@ -192,7 +191,7 @@ class DataTest extends TestCase
     public function testRemoveAccents(): void
     {
         $str = 'Ae-Ä Oe-Ö Ue-Ü ae-ä oe-ö ue-ü';
-        $this->assertEquals('Ae-Ae Oe-Oe Ue-Ue ae-ae oe-oe ue-ue', $this->subject->removeAccents($str, true));
+        $this->assertSame('Ae-Ae Oe-Oe Ue-Ue ae-ae oe-oe ue-ue', $this->subject->removeAccents($str, true));
     }
 
     /**

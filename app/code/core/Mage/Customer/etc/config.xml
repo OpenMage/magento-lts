@@ -445,7 +445,7 @@
             <customer_customer_authenticated>
                 <observers>
                     <customer_upgrade_password>
-                        <class>Mage_Customer_Model_Observer</class>
+                        <class>customer/observer</class>
                         <method>actionUpgradeCustomerPassword</method>
                     </customer_upgrade_password>
                 </observers>

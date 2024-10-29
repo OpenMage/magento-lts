@@ -36,6 +36,20 @@ class SitemapTest extends TestCase
     /**
      * @group Mage_Sitemap
      * @group Mage_Sitemap_Model
+     */
+    public function testGetPreparedFilename(): void
+    {
+        $mock = $this->getMockBuilder(Mage_Sitemap_Model_Sitemap::class)
+            ->setMethods(['getSitemapFilename'])
+            ->getMock();
+
+        $mock->expects($this->any())->method('getSitemapFilename')->willReturn('text.xml');
+        $this->assertIsString($mock->getPreparedFilename());
+    }
+
+    /**
+     * @group Mage_Sitemap
+     * @group Mage_Sitemap_Model
      * @todo  test content of xml
      * @todo  test validation
      */

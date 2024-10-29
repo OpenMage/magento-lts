@@ -83,7 +83,7 @@
             <api_user_authenticated>
                 <observers>
                     <api2_upgrade_key>
-                        <class>Mage_Api2_Model_Observer</class>
+                        <class>api2/observer</class>
                         <method>upgradeApiKey</method>
                     </api2_upgrade_key>
                 </observers>
