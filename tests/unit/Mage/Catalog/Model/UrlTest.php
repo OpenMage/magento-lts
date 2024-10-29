@@ -221,5 +221,4 @@ class UrlTest extends TestCase
             'fr_FR',
         ];
     }
-
 }
