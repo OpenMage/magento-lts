@@ -27,11 +27,13 @@ class DataTest extends TestCase
 
     public function setUp(): void
     {
+        Mage::app();
         $this->subject = Mage::helper('uploader/data');
     }
 
     /**
      * @group Mage_Uploader
+     * @group Mage_Uploader_Helper
      */
     public function testIsModuleEnabled(): void
     {

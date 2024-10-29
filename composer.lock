@@ -1082,16 +1082,16 @@
         },
         {
             "name": "shardj/zf1-future",
-            "version": "1.24.1",
+            "version": "1.24.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Shardj/zf1-future.git",
-                "reference": "f009a0db2ebab9d7fd993db825e398e517d0531c"
+                "reference": "68d83e18c01950547ddf26700a8a99abeb98e936"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Shardj/zf1-future/zipball/f009a0db2ebab9d7fd993db825e398e517d0531c",
-                "reference": "f009a0db2ebab9d7fd993db825e398e517d0531c",
+                "url": "https://api.github.com/repos/Shardj/zf1-future/zipball/68d83e18c01950547ddf26700a8a99abeb98e936",
+                "reference": "68d83e18c01950547ddf26700a8a99abeb98e936",
                 "shasum": ""
             },
             "require": {
@@ -1139,9 +1139,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Shardj/zf1-future/issues",
-                "source": "https://github.com/Shardj/zf1-future/tree/release-1.24.1"
+                "source": "https://github.com/Shardj/zf1-future/tree/release-1.24.2"
             },
-            "time": "2024-10-15T16:42:29+00:00"
+            "time": "2024-10-25T09:00:05+00:00"
         },
         {
             "name": "sreichel/composer-plugin-file-copy",
