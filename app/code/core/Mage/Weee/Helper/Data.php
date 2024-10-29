@@ -220,7 +220,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param null|false|Varien_Object   $shipping
      * @param null|false|Varien_Object   $billing
-     * @param int                        $website
+     * @param int|Mage_Core_Model_Website $website
      * @param bool                       $calculateTaxes
      * @return array
      */
