@@ -422,7 +422,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Delete prices of option
      *
-     * @param int $optionId
+     * @param int|string $optionId
      * @return $this
      */
     public function deletePrices($optionId)
@@ -434,7 +434,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Delete titles of option
      *
-     * @param int $optionId
+     * @param int|string $optionId
      * @return $this
      */
     public function deleteTitles($optionId)

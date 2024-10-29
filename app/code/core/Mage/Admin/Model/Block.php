@@ -37,7 +37,7 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|bool
+     * @return array|true
      * @throws Exception
      * @throws Zend_Validate_Exception
      */
