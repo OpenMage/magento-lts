@@ -62,9 +62,9 @@ class TemplateTest extends TestCase
             true,
             'Mage_Core',
         ];
-        yield 'Not_Exits' => [
+        yield 'Not_Exist' => [
             false,
-            'Not_Exits',
+            'Not_Exist',
         ];
     }
 
