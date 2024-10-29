@@ -5761,16 +5761,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Msrp.php
 
 		-
-			message: "#^Return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Nominal_Shipping\\:\\:fetch\\(\\) should be compatible with return type \\(Mage_Sales_Model_Quote_Address_Total_Shipping\\) of method Mage_Sales_Model_Quote_Address_Total_Shipping\\:\\:fetch\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Nominal/Shipping.php
-
-		-
-			message: "#^Return type \\(array\\) of method Mage_Sales_Model_Quote_Address_Total_Nominal_Subtotal\\:\\:fetch\\(\\) should be compatible with return type \\(Mage_Sales_Model_Quote_Address_Total_Subtotal\\) of method Mage_Sales_Model_Quote_Address_Total_Subtotal\\:\\:fetch\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Nominal/Subtotal.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address/Total/Shipping.php
@@ -5844,36 +5834,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Quote.php
-
-		-
-			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Custbalance\\)\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Custbalance\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Address/Attribute/Frontend/Custbalance.php
-
-		-
-			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Discount\\)\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Discount\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Address/Attribute/Frontend/Discount.php
-
-		-
-			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Grand\\)\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Grand\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Address/Attribute/Frontend/Grand.php
-
-		-
-			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Shipping\\)\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Shipping\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Address/Attribute/Frontend/Shipping.php
-
-		-
-			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Subtotal\\)\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Subtotal\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Address/Attribute/Frontend/Subtotal.php
-
-		-
-			message: "#^Return type \\(\\$this\\(Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Tax\\)\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Tax\\:\\:fetchTotals\\(\\) should be compatible with return type \\(array\\) of method Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend\\:\\:fetchTotals\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Quote/Address/Attribute/Frontend/Tax.php
 
 		-
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
@@ -6224,11 +6184,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Model/Resource/Report/Tax/Createdat.php
-
-		-
-			message: "#^Return type \\(array\\) of method Mage_Tax_Model_Sales_Total_Quote_Nominal_Tax\\:\\:fetch\\(\\) should be compatible with return type \\(\\$this\\(Mage_Tax_Model_Sales_Total_Quote_Tax\\)\\) of method Mage_Tax_Model_Sales_Total_Quote_Tax\\:\\:fetch\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Nominal/Tax.php
 
 		-
 			message: "#^Parameter \\#2 \\$rate of method Mage_Tax_Model_Sales_Total_Quote_Shipping\\:\\:_round\\(\\) expects string, float given\\.$#"

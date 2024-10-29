@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Url
      * Retrieve stores array or store model
      *
      * @param int|null $storeId
-     * @return Mage_Core_Model_Store|array
+     * @return Mage_Core_Model_Store|Mage_Core_Model_Store[]
      */
     public function getStores($storeId = null)
     {

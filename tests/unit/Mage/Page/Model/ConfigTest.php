@@ -15,37 +15,28 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Mage\Core\Model;
+namespace OpenMage\Tests\Unit\Mage\Page\Model;
 
 use Mage;
-use Mage_Core_Model_Config;
+use Mage_Page_Model_Config;
 use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public Mage_Core_Model_Config $subject;
+    public Mage_Page_Model_Config $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('core/config');
+        $this->subject = Mage::getModel('page/config');
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Mage_Page
+     * @group Mage_Page_Model
      */
-    public function testSaveDeleteGetConfig(): void
+    public function testGetPageLayoutHandles(): void
     {
-        $path = 'test/config';
-        $value = 'foo';
-
-        $this->assertFalse($this->subject->getConfig($path));
-
-        $this->subject->saveConfig($path, $value);
-        $this->assertSame($value, $this->subject->getConfig($path));
-
-        $this->subject->deleteConfig($path);
-        $this->assertFalse($this->subject->getConfig($path));
+        $this->assertIsArray($this->subject->getPageLayoutHandles());
     }
 }
