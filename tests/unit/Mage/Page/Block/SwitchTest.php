@@ -56,7 +56,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentStoreId(): void
     {
-        $this->assertIsString($this->subject->getCurrentStoreId());
+        $this->assertIsInt($this->subject->getCurrentStoreId());
     }
 
     /**

@@ -31,9 +31,10 @@ interface Mage_Eav_Model_Entity_Attribute_Backend_Interface
 
     /**
      * @param int $valueId
-     * @return int
+     * @return $this
      */
     public function setValueId($valueId);
+
     public function getValueId();
 
     /**
