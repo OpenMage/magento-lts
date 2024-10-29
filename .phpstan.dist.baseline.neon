@@ -6836,11 +6836,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option/search.phtml
 
 		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 37
-			path: app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option/selection.phtml
-
-		-
 			message: "#^Parameter \\#2 \\$compareTo of method Mage_Weee_Helper_Data\\:\\:typeOfDisplay\\(\\) expects array\\|null, int given\\.$#"
 			count: 16
 			path: app/design/adminhtml/default/default/template/bundle/sales/creditmemo/create/items/renderer.phtml
@@ -7056,27 +7051,17 @@ parameters:
 			path: app/design/adminhtml/default/default/template/catalog/product/js.phtml
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$_coreHelper Mage_Core_Helper_Data\\)\\: Unexpected token \"\\$_coreHelper\", expected type at offset 9 on line 1$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$_taxHelper Mage_Tax_Helper_Data\\)\\: Unexpected token \"\\$_taxHelper\", expected type at offset 9 on line 1$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$_weeeHelper Mage_Weee_Helper_Data\\)\\: Unexpected token \"\\$_weeeHelper\", expected type at offset 9 on line 1$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
-
-		-
 			message: "#^Parameter \\#2 \\$compareTo of method Mage_Weee_Helper_Data\\:\\:typeOfDisplay\\(\\) expects array\\|null, int given\\.$#"
 			count: 12
 			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
 
 		-
 			message: "#^Parameter \\#2 \\$store of method Mage_Core_Helper_Data\\:\\:currencyByStore\\(\\) expects int\\|Mage_Core_Model_Store\\|null, true given\\.$#"
+			count: 1
+			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
+
+		-
+			message: "#^Parameter \\#4 \\$website of method Mage_Weee_Helper_Data\\:\\:getProductWeeeAttributesForRenderer\\(\\) expects int\\|null, Mage_Core_Model_Website given\\.$#"
 			count: 1
 			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
 
