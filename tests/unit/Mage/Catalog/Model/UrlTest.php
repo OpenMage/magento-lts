@@ -96,10 +96,12 @@ class UrlTest extends TestCase
             'id'        => '999',
             'store_id'  => '1',
             'url_key'   => '',
+            'name'      => 'category',
 
         ]);
         $product = new Varien_Object([
-            'id' => '999'
+            'id'        => '999',
+            'name'      => 'product',
         ]);
 
         yield 'test exception' => [
@@ -109,7 +111,7 @@ class UrlTest extends TestCase
             null,
         ];
         yield 'request' => [
-            '-.html',
+            'product.html',
             'request',
             $product,
             $category,
