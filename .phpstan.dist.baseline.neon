@@ -516,7 +516,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
 
 		-
-			message: "#^Parameter \\#2 \\$character_mask of function rtrim expects string, int given\\.$#"
+			message: "#^Parameter \\#2 \\$characters of function rtrim expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
 
@@ -686,7 +686,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, array given\\.$#"
+			message: "#^Parameter \\#2 \\$string of function explode expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
@@ -776,7 +776,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Customer/Wishlist/Product/Composite/WishlistController.php
 
 		-
-			message: "#^Parameter \\#2 \\$timestamp of function date expects int, array\\|bool given\\.$#"
+			message: "#^Parameter \\#2 \\$timestamp of function date expects int\\|null, array\\|bool given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/CustomerController.php
 
@@ -863,6 +863,11 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(mixed\\)\\: bool\\)\\|null, '\\\\\\\\intval' given\\.$#"
 			count: 2
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
+
+		-
+			message: "#^Parameter \\#2 \\$enable of function imageinterlace expects bool\\|null, int given\\.$#"
+			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
@@ -996,7 +1001,7 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
 
 		-
-			message: "#^Parameter \\#1 \\$code of class SoapFault constructor expects string, int given\\.$#"
+			message: "#^Parameter \\#1 \\$code of class SoapFault constructor expects array\\|string\\|null, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
 
@@ -1041,7 +1046,7 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/V2/Handler.php
 
 		-
-			message: "#^Parameter \\#2 \\$needle of function str_contains expects string\\|null, array given\\.$#"
+			message: "#^Parameter \\#2 \\$needle of function str_contains expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/V2/Handler.php
 
@@ -1071,7 +1076,7 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/Wsi/Handler.php
 
 		-
-			message: "#^Parameter \\#2 \\$needle of function str_contains expects string\\|null, array given\\.$#"
+			message: "#^Parameter \\#2 \\$needle of function str_contains expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Wsi/Handler.php
 
@@ -1107,6 +1112,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$source of static method Mage_Api_Model_Wsdl_Config_Element\\:\\:_getChildren\\(\\) expects Varien_Simplexml_Element, SimpleXMLElement given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
+
+		-
+			message: "#^Return type \\(array\\) of method Mage_Api_Model_Wsdl_Config_Element\\:\\:getChildren\\(\\) should be compatible with return type \\(RecursiveIterator\\|null\\) of method RecursiveIterator\\<string,static\\(SimpleXMLElement\\)\\>\\:\\:getChildren\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
 
@@ -1231,7 +1241,7 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$args of function array_merge expects array, false given\\.$#"
+			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
 
@@ -1596,12 +1606,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
 
 		-
-			message: "#^Parameter \\#1 \\$array_arg of function current expects array\\|object, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of function array_keys expects array, string given\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_keys expects array, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
 
@@ -1876,7 +1881,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Api.php
 
 		-
-			message: "#^Parameter \\#1 \\$stack of function array_pop is passed by reference, so it expects variables only\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_pop is passed by reference, so it expects variables only\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Api.php
 
@@ -2631,12 +2636,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Website.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_reverse expects array, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Setup.php
-
-		-
-			message: "#^Parameter \\#2 \\$pieces of function implode expects array, null given\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_reverse expects array, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Setup.php
 
@@ -3171,7 +3171,7 @@ parameters:
 			path: app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$stack of function array_unshift expects array, null given\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_unshift expects array, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Model/System/Config/Source/Catalog/Product/Configattribute/Select.php
 
@@ -3292,11 +3292,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Core_Helper_Abstract\\:\\:_getRequest\\(\\) should return Mage_Core_Controller_Request_Http but returns Zend_Controller_Request_Http\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Abstract.php
-
-		-
-			message: "#^Parameter \\#3 \\$encoding of function htmlspecialchars expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Helper/Abstract.php
 
@@ -4061,11 +4056,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
 
 		-
-			message: "#^Parameter \\#2 \\$class_name of function simplexml_load_string expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Profile.php
@@ -4116,11 +4106,6 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
 
 		-
-			message: "#^Parameter \\#2 \\$class_name of function simplexml_load_string expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
-
-		-
 			message: "#^Parameter \\#1 \\$modelClass of static method Mage\\:\\:getModel\\(\\) expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Directory/Model/Observer.php
@@ -4151,7 +4136,7 @@ parameters:
 			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtolower expects string, bool given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function strtolower expects string, bool given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
@@ -4291,7 +4276,7 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, array given\\.$#"
+			message: "#^Parameter \\#2 \\$string of function explode expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Convert/Parser/Abstract.php
 
@@ -4531,7 +4516,7 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Form.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$args of function array_merge expects array, false given\\.$#"
+			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Form.php
 
@@ -4641,11 +4626,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
 
 		-
-			message: "#^Parameter \\#2 \\$fields of function fputcsv expects array\\<int\\|string, bool\\|float\\|int\\|string\\|null\\>, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export/Adapter/Abstract.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Abstract.php
@@ -4679,11 +4659,6 @@ parameters:
 			message: "#^Variable \\$collection might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
-
-		-
-			message: "#^Parameter \\#2 \\$length of function fgetcsv expects int\\<0, max\\>, null given\\.$#"
-			count: 4
-			path: app/code/core/Mage/ImportExport/Model/Import/Adapter/Csv.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -4869,6 +4844,51 @@ parameters:
 			message: "#^Binary operation \"\\+\" between non\\-falsy\\-string and 1 results in an error\\.$#"
 			count: 2
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
+
+		-
+			message: "#^Method Mage_Media_Model_File_Image\\:\\:getImage\\(\\) should return bool\\|resource but returns GdImage\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: "#^Method Mage_Media_Model_File_Image\\:\\:getTmpImage\\(\\) should return resource but returns \\(GdImage\\|false\\)\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: "#^Parameter \\#1 \\$dst_image of function imagecopyresampled expects GdImage, resource given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagedestroy expects GdImage, resource given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagegif expects GdImage, resource given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagejpeg expects GdImage, resource given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagepng expects GdImage, resource given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: "#^Parameter \\#1 \\$image of function imagewebp expects GdImage, resource given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: "#^Parameter \\#2 \\$src_image of function imagecopyresampled expects GdImage, resource given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
 
 		-
 			message: "#^Call to function is_null\\(\\) with bool will always evaluate to false\\.$#"
@@ -5761,7 +5781,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Api.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, float given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function trim expects string, float given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
 
@@ -6656,7 +6676,7 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Abstract.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, array given\\.$#"
+			message: "#^Parameter \\#2 \\$string of function explode expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Abstract.php
 
@@ -6701,11 +6721,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
-			message: "#^Parameter \\#1 \\$array_arg of function sort contains unresolvable type\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
 			message: "#^Parameter \\#1 \\$cost of method Mage_Shipping_Model_Carrier_Abstract\\:\\:getMethodPrice\\(\\) expects string, float given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
@@ -6716,13 +6731,8 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, \\(float\\|false\\) given\\.$#"
-			count: 8
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, float given\\.$#"
-			count: 4
+			count: 12
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
 		-
@@ -6861,7 +6871,7 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, \\(float\\|false\\) given\\.$#"
+			message: "#^Parameter \\#2 \\$value of method SimpleXMLElement\\:\\:addChild\\(\\) expects string\\|null, float given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
@@ -6886,7 +6896,7 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
-			message: "#^Parameter \\#1 \\$code of function curl_strerror expects int, \\(resource\\|false\\) given\\.$#"
+			message: "#^Parameter \\#1 \\$error_code of function curl_strerror expects int, \\(CurlHandle\\|false\\) given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/UpsAuth.php
 
@@ -9391,7 +9401,7 @@ parameters:
 			path: app/design/frontend/base/default/template/catalog/product/list/toolbar.phtml
 
 		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, string given\\.$#"
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, string given\\.$#"
 			count: 1
 			path: app/design/frontend/base/default/template/catalog/product/list/toolbar.phtml
 
@@ -11116,7 +11126,7 @@ parameters:
 			path: app/design/frontend/rwd/default/template/catalog/product/list/toolbar.phtml
 
 		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, string given\\.$#"
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, string given\\.$#"
 			count: 1
 			path: app/design/frontend/rwd/default/template/catalog/product/list/toolbar.phtml
 
@@ -11861,6 +11871,16 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
+			message: "#^Parameter \\#1 \\$handle of function curl_setopt expects CurlHandle, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/HTTP/Client/Curl.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_setopt_array expects CurlHandle, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/HTTP/Client/Curl.php
+
+		-
 			message: "#^Property Mage_HTTP_Client_Socket\\:\\:\\$_postFields is never read, only written\\.$#"
 			count: 1
 			path: lib/Mage/HTTP/Client/Socket.php
@@ -11872,6 +11892,76 @@ parameters:
 
 		-
 			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_cdup expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_chdir expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 3
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_chmod expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 2
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_close expects FTP\\\\Connection, resource given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_delete expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_fput expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_get expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_login expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_mkdir expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 2
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_nlist expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_pasv expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_put expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_raw expects FTP\\\\Connection, resource\\|false given\\.$#"
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: "#^Parameter \\#1 \\$ftp of function ftp_rawlist expects FTP\\\\Connection, resource\\|false given\\.$#"
 			count: 1
 			path: lib/Mage/System/Ftp.php
 
@@ -12016,12 +12106,12 @@ parameters:
 			path: lib/Varien/Data/Form/Element/Multiline.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function str_pad expects string, int\\<0, 23\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function str_pad expects string, int\\<0, 23\\> given\\.$#"
 			count: 1
 			path: lib/Varien/Data/Form/Element/Time.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function str_pad expects string, int\\<0, 59\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function str_pad expects string, int\\<0, 59\\> given\\.$#"
 			count: 2
 			path: lib/Varien/Data/Form/Element/Time.php
 
@@ -12039,6 +12129,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$parent of method Varien_Data_Tree_Node\\:\\:setParent\\(\\) expects Varien_Data_Tree_Node, Varien_Data_Tree given\\.$#"
 			count: 1
 			path: lib/Varien/Data/Tree/Node/Collection.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method mysqli\\:\\:options\\(\\) expects int\\|string, true given\\.$#"
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
 
 		-
 			message: "#^Variable \\$result might not be defined\\.$#"
@@ -12116,27 +12211,12 @@ parameters:
 			path: lib/Varien/Filter/Template/Tokenizer/Variable.php
 
 		-
-			message: "#^Method Varien_Http_Adapter_Curl\\:\\:_getResource\\(\\) has invalid return type CurlHandle\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
 			message: "#^Parameter \\#3 \\$value of function curl_setopt expects bool, int given\\.$#"
 			count: 2
 			path: lib/Varien/Http/Adapter/Curl.php
 
 		-
-			message: "#^Property Varien_Http_Adapter_Curl\\:\\:\\$_resource has unknown class CurlHandle as its type\\.$#"
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
-			message: "#^Property Varien_Image_Adapter_Abstract\\:\\:\\$_imageHandler has unknown class GdImage as its type\\.$#"
-			count: 1
-			path: lib/Varien/Image/Adapter/Abstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$groupname of function posix_getgrnam expects string, int\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$name of function posix_getgrnam expects string, int\\|false given\\.$#"
 			count: 1
 			path: lib/Varien/Io/File.php
 
@@ -12201,6 +12281,6 @@ parameters:
 			path: lib/Varien/Simplexml/Element.php
 
 		-
-			message: "#^Parameter \\#2 \\$timestamp of function gmdate expects int, float given\\.$#"
+			message: "#^Parameter \\#2 \\$timestamp of function gmdate expects int\\|null, float given\\.$#"
 			count: 1
 			path: shell/indexer.php
