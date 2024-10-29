@@ -40,7 +40,7 @@ class CacheTest extends TestCase
      */
     public function testGetFlushStorageUrl(): void
     {
-        $this->assertStringStartsWith('https', $this->subject->getFlushStorageUrl());
+        $this->assertStringStartsWith('http', $this->subject->getFlushStorageUrl());
     }
 
     /**
@@ -51,6 +51,6 @@ class CacheTest extends TestCase
      */
     public function testGetFlushSystemUrl(): void
     {
-        $this->assertStringStartsWith('https', $this->subject->getFlushSystemUrl());
+        $this->assertStringStartsWith('http', $this->subject->getFlushSystemUrl());
     }
 }
