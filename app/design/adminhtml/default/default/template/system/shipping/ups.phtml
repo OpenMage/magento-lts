@@ -21,7 +21,7 @@ $allMethodsCodes = [];
 foreach (Mage::getModel('usa/shipping_carrier_ups_source_method')->toOptionArray() as $method) {
     $allMethodsCodes[]= $method['value'];
 }
-/** @var $this Mage_Adminhtml_Block_Template */
+/** @var Mage_Adminhtml_Block_Template $this */
 $sectionCode = $this->getRequest()->getParam('section');
 $websiteCode = $this->getRequest()->getParam('website');
 $storeCode = $this->getRequest()->getParam('store');
