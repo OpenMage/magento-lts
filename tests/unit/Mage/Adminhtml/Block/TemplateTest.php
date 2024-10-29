@@ -51,13 +51,17 @@ class TemplateTest extends TestCase
      * @group Mage_Adminhtml
      * @group Mage_Adminhtml_Block
      */
-    public function testIsOutputEnabled(bool $expectedResult, string $moduleName): void
+    public function testIsOutputEnabled(bool $expectedResult, ?string $moduleName): void
     {
         $this->assertSame($expectedResult, $this->subject->isOutputEnabled($moduleName));
     }
 
     public function provideIsOutputEnabled(): Generator
     {
+        yield 'null' => [
+            true,
+            null, #Mage_Adminhtml
+        ];
         yield 'Mage_Core' => [
             true,
             'Mage_Core',
@@ -66,6 +70,15 @@ class TemplateTest extends TestCase
             false,
             'Not_Exist',
         ];
+    }
+
+    /**
+     * @group Mage_Adminhtml
+     * @group Mage_Adminhtml_Block
+     */
+    public function testGetModuleName(): void
+    {
+        $this->assertSame('Mage_Adminhtml', $this->subject->getModuleName());
     }
 
     /**
