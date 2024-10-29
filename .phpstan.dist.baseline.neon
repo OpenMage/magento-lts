@@ -9021,11 +9021,6 @@ parameters:
 			path: app/design/frontend/base/default/template/bundle/catalog/product/list/partof.phtml
 
 		-
-			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getTotalPrices\\(\\)\\.$#"
-			count: 2
-			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
-
-		-
 			message: "#^PHPDoc tag @var has invalid value \\(\\$_coreHelper Mage_Core_Helper_Data\\)\\: Unexpected token \"\\$_coreHelper\", expected type at offset 12 on line 2$#"
 			count: 1
 			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
@@ -9106,16 +9101,6 @@ parameters:
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/checkbox.phtml
 
 		-
-			message: "#^Parameter \\#1 \\$elementId of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/checkbox.phtml
-
-		-
-			message: "#^Parameter \\#2 \\$containerId of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/checkbox.phtml
-
-		-
 			message: "#^Call to protected method _isSelected\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
 			count: 1
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/multi.phtml
@@ -9137,16 +9122,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @var has invalid value \\(\\$_selection Mage_Catalog_Model_Product\\)\\: Unexpected token \"\\$_selection\", expected type at offset 9 on line 1$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
-
-		-
-			message: "#^Parameter \\#1 \\$elementId of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
-
-		-
-			message: "#^Parameter \\#2 \\$containerId of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:setValidationContainer\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
 
@@ -9239,11 +9214,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 15
 			path: app/design/frontend/base/default/template/bundle/email/order/items/shipment/default.phtml
-
-		-
-			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Price\\:\\:getPrices\\(\\)\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/rss/catalog/product/price.phtml
 
 		-
 			message: "#^PHPDoc tag @var has invalid value \\(\\$_coreHelper Mage_Core_Helper_Data\\)\\: Unexpected token \"\\$_coreHelper\", expected type at offset 12 on line 2$#"
