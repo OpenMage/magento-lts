@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     }
 
     /**
-     * Check whether or not the module output is enabled
+     * Check whether the module output is enabled
      *
      * Because many module blocks belong to Adminhtml module,
      * the feature "Disable module output" doesn't cover Admin area
@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
             $moduleName = $this->getModuleName();
         }
 
-        return !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
+        return Mage::helper('core')->isModuleOutputEnabled($moduleName);
     }
 
     /**
