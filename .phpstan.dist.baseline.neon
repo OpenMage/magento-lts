@@ -10057,18 +10057,8 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 5
-			path: app/design/frontend/base/default/template/sales/order/creditmemo.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 17
 			path: app/design/frontend/base/default/template/sales/order/creditmemo/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 167
-			path: app/design/frontend/base/default/template/sales/order/creditmemo/items/renderer/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -10084,11 +10074,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 10
 			path: app/design/frontend/base/default/template/sales/order/info/buttons.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 5
-			path: app/design/frontend/base/default/template/sales/order/invoice.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
