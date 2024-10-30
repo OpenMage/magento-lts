@@ -42,6 +42,10 @@ abstract class Mage_Core_Helper_Abstract
      */
     protected $_layout;
 
+    protected array $modulesDisabled = [];
+
+    protected array $modulesDisabledOutput = [];
+
     /**
      * Retrieve request object
      *
@@ -120,7 +124,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check whether or not the module output is enabled in Configuration
+     * Check whether the module output is enabled in Configuration
      *
      * @param string $moduleName Full module name
      * @return bool
@@ -135,10 +139,12 @@ abstract class Mage_Core_Helper_Abstract
             return false;
         }
 
-        if (Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName)) {
-            return false;
+        if (array_key_exists($moduleName, $this->modulesDisabledOutput)) {
+            return $this->modulesDisabledOutput[$moduleName];
         }
-        return true;
+
+        $config = !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
+        return $this->modulesDisabledOutput[$moduleName] = $config;
     }
 
     /**
@@ -153,15 +159,19 @@ abstract class Mage_Core_Helper_Abstract
             $moduleName = $this->_getModuleName();
         }
 
+        if (array_key_exists($moduleName, $this->modulesDisabled)) {
+            return $this->modulesDisabled[$moduleName];
+        }
+
         if (!Mage::getConfig()->getNode('modules/' . $moduleName)) {
-            return false;
+            return $this->modulesDisabled[$moduleName] = false;
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
         if (!$isActive || !in_array((string)$isActive, ['true', '1'])) {
-            return false;
+            return $this->modulesDisabled[$moduleName] = false;
         }
-        return true;
+        return $this->modulesDisabled[$moduleName] = true;
     }
 
     /**
