@@ -8011,16 +8011,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/sales/order/create/form/address.phtml
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/create/giftmessage.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 9
-			path: app/design/adminhtml/default/default/template/sales/order/create/giftmessage.phtml
-
-		-
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 3
 			path: app/design/adminhtml/default/default/template/sales/order/create/items.phtml
@@ -8811,51 +8801,6 @@ parameters:
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/options.phtml
 
 		-
-			message: "#^Variable \\$_item might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$_showlastRow might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 22
-			path: app/design/frontend/base/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$_inc might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$_item might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$_showlastRow might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 22
-			path: app/design/frontend/base/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 27
-			path: app/design/frontend/base/default/template/bundle/email/order/items/order/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 15
-			path: app/design/frontend/base/default/template/bundle/email/order/items/shipment/default.phtml
-
-		-
 			message: "#^PHPDoc tag @var has invalid value \\(\\$_coreHelper Mage_Core_Helper_Data\\)\\: Unexpected token \"\\$_coreHelper\", expected type at offset 12 on line 2$#"
 			count: 1
 			path: app/design/frontend/base/default/template/bundle/rss/catalog/product/price.phtml
@@ -8904,16 +8849,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 173
 			path: app/design/frontend/base/default/template/bundle/sales/order/invoice/items/renderer.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 181
-			path: app/design/frontend/base/default/template/bundle/sales/order/items/renderer.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 20
-			path: app/design/frontend/base/default/template/bundle/sales/order/shipment/items/renderer.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -9477,11 +9412,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 4
-			path: app/design/frontend/base/default/template/checkout/onepage/shipping_method/additional.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 15
 			path: app/design/frontend/base/default/template/checkout/total/default.phtml
 
@@ -9772,26 +9702,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 28
-			path: app/design/frontend/base/default/template/downloadable/email/order/items/order/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 170
-			path: app/design/frontend/base/default/template/downloadable/sales/order/creditmemo/items/renderer/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 170
-			path: app/design/frontend/base/default/template/downloadable/sales/order/invoice/items/renderer/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 190
-			path: app/design/frontend/base/default/template/downloadable/sales/order/items/renderer/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 8
 			path: app/design/frontend/base/default/template/email/order/creditmemo/items.phtml
 
@@ -9803,22 +9713,12 @@ parameters:
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 16
-			path: app/design/frontend/base/default/template/email/order/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 16
 			path: app/design/frontend/base/default/template/email/order/items/creditmemo/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 16
 			path: app/design/frontend/base/default/template/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 24
-			path: app/design/frontend/base/default/template/email/order/items/order/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -10152,11 +10052,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 27
-			path: app/design/frontend/base/default/template/rss/order/details.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 1
 			path: app/design/frontend/base/default/template/sales/guest/form.phtml
 
@@ -10202,21 +10097,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 167
-			path: app/design/frontend/base/default/template/sales/order/invoice/items/renderer/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 18
-			path: app/design/frontend/base/default/template/sales/order/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 187
-			path: app/design/frontend/base/default/template/sales/order/items/renderer/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 18
 			path: app/design/frontend/base/default/template/sales/order/print.phtml
 
@@ -10237,28 +10117,13 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 5
-			path: app/design/frontend/base/default/template/sales/order/shipment.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 22
 			path: app/design/frontend/base/default/template/sales/order/shipment/items.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 15
-			path: app/design/frontend/base/default/template/sales/order/shipment/items/renderer/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 23
 			path: app/design/frontend/base/default/template/sales/order/trackinginfo.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 22
-			path: app/design/frontend/base/default/template/sales/order/view.phtml
 
 		-
 			message: "#^Call to method __\\(\\) on an unknown class Mage_Sale_Block_Reorder_Sidebar\\.$#"
@@ -10449,56 +10314,6 @@ parameters:
 			message: "#^PHPDoc tag @var has invalid value \\(\\$_selection Mage_Catalog_Model_Product\\)\\: Unexpected token \"\\$_selection\", expected type at offset 9 on line 1$#"
 			count: 1
 			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			message: "#^Variable \\$_item might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$_showlastRow might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 25
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$_inc might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$_item might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$_showlastRow might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 25
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 29
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/order/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 16
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/shipment/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 181
-			path: app/design/frontend/rwd/default/template/bundle/sales/order/items/renderer.phtml
 
 		-
 			message: "#^Call to method escapeUrl\\(\\) on an unknown class Mage_Catalog_Block_Layer_Filter\\.$#"
@@ -10941,16 +10756,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/downloadable/email/order/items/invoice/downloadable.phtml
 
 		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 29
-			path: app/design/frontend/rwd/default/template/downloadable/email/order/items/order/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 198
-			path: app/design/frontend/rwd/default/template/downloadable/sales/order/items/renderer/downloadable.phtml
-
-		-
 			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
 			count: 1
 			path: app/design/frontend/rwd/default/template/email/catalog/product/list.phtml
@@ -10972,11 +10777,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 16
-			path: app/design/frontend/rwd/default/template/email/order/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 17
 			path: app/design/frontend/rwd/default/template/email/order/items/creditmemo/default.phtml
 
@@ -10984,11 +10784,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 17
 			path: app/design/frontend/rwd/default/template/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 25
-			path: app/design/frontend/rwd/default/template/email/order/items/order/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -11122,11 +10917,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 173
-			path: app/design/frontend/rwd/default/template/sales/order/creditmemo/items/renderer/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 19
 			path: app/design/frontend/rwd/default/template/sales/order/history.phtml
 
@@ -11134,21 +10924,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 18
 			path: app/design/frontend/rwd/default/template/sales/order/invoice/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 172
-			path: app/design/frontend/rwd/default/template/sales/order/invoice/items/renderer/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 18
-			path: app/design/frontend/rwd/default/template/sales/order/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 191
-			path: app/design/frontend/rwd/default/template/sales/order/items/renderer/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
