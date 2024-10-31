@@ -87,4 +87,6 @@ phpunit.xml
 # DDEV
 .ddev/config.yaml
 .ddev/.sampleData
+.ddev/docker-compose.xhgui.yaml
+.ddev/docker-compose.xhgui_norouter.yaml
 app/etc/includes/ddev.xhgui.php
