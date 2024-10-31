@@ -87,3 +87,4 @@ phpunit.xml
 # DDEV
 .ddev/config.yaml
 .ddev/.sampleData
+app/etc/includes/ddev.xhgui.php

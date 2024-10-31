@@ -13,6 +13,10 @@
         stopOnFailure="false"
         bootstrap="tests/bootstrap.php"
 >
+    <php>
+        <env name="NO_XHGUI" value="1"/>
+    </php>
+
     <testsuites>
         <testsuite name="Base">
             <directory>tests/unit/Base</directory>
