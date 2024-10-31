@@ -385,28 +385,4 @@ HTML;
     {
         return false;
     }
-
-    public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
-    {
-        if ($moduleName === null) {
-            $moduleName = $this->getModuleName();
-        }
-
-        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
-    }
-
-    /**
-     * Check whether the module output is enabled
-     *
-     * Because many module blocks belong to Adminhtml module,
-     * the feature "Disable module output" doesn't cover Admin area
-     */
-    public function isModuleOutputEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
-    {
-        if ($moduleName === null) {
-            $moduleName = $this->getModuleName();
-        }
-
-        return Mage::helper($helperAlias)->isModuleOutputEnabled($moduleName);
-    }
 }
