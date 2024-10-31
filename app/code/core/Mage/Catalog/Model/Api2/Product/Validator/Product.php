@@ -380,7 +380,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 if (isset($stockData['enable_qty_increments']) && (bool) $stockData['enable_qty_increments'] == true) {
                     $this->_validatePositiveNumeric($stockData, $fieldSet, 'qty_increments', false, true);
                 }
-                if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+                if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
                     $this->_validateSource(
                         $stockData,
                         $fieldSet,
