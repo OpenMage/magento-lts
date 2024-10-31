@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
         if ($store = $this->getRequest()->getParam('store')) {
             $websiteId = Mage::app()->getStore($store)->getWebsiteId();
         }
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_ProductAlert')) {
+        if ($this->isModuleEnabled('Mage_ProductAlert', 'catalog')) {
             $collection = Mage::getModel('productalert/stock')
                 ->getCustomerCollection()
                 ->join($productId, $websiteId);

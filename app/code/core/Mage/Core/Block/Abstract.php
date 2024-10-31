@@ -1578,7 +1578,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         return $this->_getApp()->getFrontController()->getRequest()->isSecure();
     }
 
-
     public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
     {
         if ($moduleName === null) {

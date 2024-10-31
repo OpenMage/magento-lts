@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag_Customer extends Mage_Ad
 
     protected function _prepareCollection()
     {
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_Tag')) {
+        if ($this->isModuleEnabled('Mage_Tag', 'catalog')) {
             $collection = Mage::getModel('tag/tag')
                 ->getCustomerCollection()
                 ->addProductFilter($this->getProductId())
