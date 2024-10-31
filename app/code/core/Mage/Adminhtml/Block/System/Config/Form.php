@@ -592,7 +592,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected function _canShowField($field)
     {
         $ifModuleEnabled = trim((string)$field->if_module_enabled);
-        if ($ifModuleEnabled && !Mage::helper('Core')->isModuleEnabled($ifModuleEnabled)) {
+        if ($ifModuleEnabled && !Mage::helper('core')->isModuleEnabled($ifModuleEnabled)) {
+            return false;
+        }
+
+        $aclResource = trim((string)$field->acl_rescource);
+        if ($aclResource && !Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
             return false;
         }
 

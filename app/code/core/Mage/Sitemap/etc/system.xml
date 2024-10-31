@@ -30,6 +30,7 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
+                    <acl_resource>system/config/sitemap/category</acl_resource>
                     <fields>
                         <changefreq translate="label">
                             <label>Frequency</label>
@@ -69,6 +70,7 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
+                    <acl_resource>system/config/sitemap/product</acl_resource>
                     <fields>
                         <changefreq translate="label">
                             <label>Frequency</label>
@@ -108,6 +110,7 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
+                    <acl_resource>system/config/sitemap/page</acl_resource>
                     <fields>
                         <changefreq translate="label">
                             <label>Frequency</label>
@@ -147,6 +150,7 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
+                    <acl_resource>system/config/generate/page</acl_resource>
                     <fields>
                         <enabled translate="label">
                             <label>Enabled</label>

@@ -43,6 +43,24 @@
                                 <children>
                                     <sitemap translate="title" module="shipping">
                                         <title>Google Sitemap</title>
+                                        <children>
+                                            <category translate="title">
+                                                <title>Categories Options</title>
+                                                <sort_order>10</sort_order>
+                                            </category>
+                                            <product translate="title">
+                                                <title>Products Options</title>
+                                                <sort_order>20</sort_order>
+                                            </product>
+                                            <page translate="title">
+                                                <title>CMS Pages Options</title>
+                                                <sort_order>30</sort_order>
+                                            </page>
+                                            <generate translate="title">
+                                                <title>Generation Settings</title>
+                                                <sort_order>40</sort_order>
+                                            </generate>
+                                        </children>
                                     </sitemap>
                                 </children>
                             </config>
