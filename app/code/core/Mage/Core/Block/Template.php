@@ -386,6 +386,15 @@ HTML;
         return false;
     }
 
+    public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
+    {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
+
     /**
      * Check whether the module output is enabled
      *
