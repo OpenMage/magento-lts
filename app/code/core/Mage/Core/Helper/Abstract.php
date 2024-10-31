@@ -44,8 +44,6 @@ abstract class Mage_Core_Helper_Abstract
 
     protected array $modulesDisabled = [];
 
-    protected array $modulesDisabledOutput = [];
-
     /**
      * Retrieve request object
      *
@@ -139,12 +137,7 @@ abstract class Mage_Core_Helper_Abstract
             return false;
         }
 
-        if (array_key_exists($moduleName, $this->modulesDisabledOutput)) {
-            return $this->modulesDisabledOutput[$moduleName];
-        }
-
-        $config = !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
-        return $this->modulesDisabledOutput[$moduleName] = $config;
+        return !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
     }
 
     /**
