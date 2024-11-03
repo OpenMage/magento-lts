@@ -334,7 +334,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->sendNewAccountEmail(
                 'confirmation',
                 $session->getBeforeAuthUrl(),
-                $store->getId(),
+                (string)$store->getId(),
                 $this->getRequest()->getPost('password')
             );
             /** @var Helper $customerHelper */
@@ -576,7 +576,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $customer->sendNewAccountEmail(
             $isJustConfirmed ? 'confirmed' : 'registered',
             '',
-            Mage::app()->getStore()->getId(),
+            (string)Mage::app()->getStore()->getId(),
             $this->getRequest()->getPost('password')
         );
 
@@ -666,7 +666,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     throw new Exception('');
                 }
                 if ($customer->getConfirmation()) {
-                    $customer->sendNewAccountEmail('confirmation', '', Mage::app()->getStore()->getId());
+                    $customer->sendNewAccountEmail('confirmation', '', (string)Mage::app()->getStore()->getId());
                     $this->_getSession()->addSuccess($this->__('Please, check your email for confirmation key.'));
                 } else {
                     $this->_getSession()->addSuccess($this->__('This email does not require confirmation.'));
