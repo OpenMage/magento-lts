@@ -33,6 +33,7 @@ class StoreTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Model_Store::getId()
      * @dataProvider provideGetId
      * @group Mage_Core
      * @group Mage_Core_Model
