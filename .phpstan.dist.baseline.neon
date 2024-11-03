@@ -1566,11 +1566,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product.php
 
 		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Review_Block_Helper\\:\\:getSummaryHtml\\(\\) expects string, bool given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Abstract.php
-
-		-
 			message: "#^Property Mage_Catalog_Block_Product_Abstract\\:\\:\\$_reviewsHelperBlock \\(Mage_Review_Block_Helper\\|null\\) does not accept Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/Abstract.php
@@ -8971,19 +8966,9 @@ parameters:
 			path: app/design/frontend/base/default/template/catalog/product/compare/list.phtml
 
 		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/compare/list.phtml
-
-		-
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 24
 			path: app/design/frontend/base/default/template/catalog/product/gallery.phtml
-
-		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/list.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -10046,16 +10031,6 @@ parameters:
 			path: app/design/frontend/base/default/template/rating/empty.phtml
 
 		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/home_product_compared.phtml
-
-		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/home_product_viewed.phtml
-
-		-
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 12
 			path: app/design/frontend/base/default/template/reports/widget/compared/column/compared_default_list.phtml
@@ -10079,16 +10054,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 20
 			path: app/design/frontend/base/default/template/reports/widget/compared/content/compared_list.phtml
-
-		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/widget/viewed/content/viewed_grid.phtml
-
-		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/reports/widget/viewed/content/viewed_list.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -10307,36 +10272,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 5
-			path: app/design/frontend/base/default/template/tag/cloud.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 7
-			path: app/design/frontend/base/default/template/tag/customer/recent.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 11
-			path: app/design/frontend/base/default/template/tag/customer/tags.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 31
-			path: app/design/frontend/base/default/template/tag/customer/view.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 12
-			path: app/design/frontend/base/default/template/tag/list.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 5
-			path: app/design/frontend/base/default/template/tag/popular.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 22
 			path: app/design/frontend/base/default/template/tax/order/tax.phtml
 
@@ -10541,16 +10476,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml
 
 		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/compare/list.phtml
-
-		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/list.phtml
-
-		-
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 17
 			path: app/design/frontend/rwd/default/template/catalog/product/list/related.phtml
@@ -10587,11 +10512,6 @@ parameters:
 
 		-
 			message: "#^Call to protected method _isSecure\\(\\) of class Mage_Core_Block_Abstract\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/view.phtml
-
-		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
 			count: 1
 			path: app/design/frontend/rwd/default/template/catalog/product/view.phtml
 
@@ -10951,11 +10871,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/downloadable/sales/order/items/renderer/downloadable.phtml
 
 		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/email/catalog/product/list.phtml
-
-		-
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 10
 			path: app/design/frontend/rwd/default/template/email/catalog/product/new.phtml
@@ -11084,11 +10999,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 7
 			path: app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_list.phtml
-
-		-
-			message: "#^Parameter \\#2 \\$templateType of method Mage_Catalog_Block_Product_Abstract\\:\\:getReviewsSummaryHtml\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/reports/widget/viewed/content/viewed_grid.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
