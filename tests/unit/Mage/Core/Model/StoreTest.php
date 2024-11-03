@@ -36,7 +36,6 @@ class StoreTest extends TestCase
      * @dataProvider provideGetId
      * @group Mage_Core
      * @group Mage_Core_Model
-     * @group pr-4236
      */
     public function testGetId(?int $expectedResult, ?string $withStore): void
     {
