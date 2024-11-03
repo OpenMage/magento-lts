@@ -271,7 +271,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Get product reviews summary
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param string|false $templateType
      * @param bool $displayIfNoReviews
      * @return string
