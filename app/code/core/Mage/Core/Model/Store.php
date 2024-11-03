@@ -703,8 +703,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getId()
     {
-        $data = $this->_getData('store_id');
-        return is_null($data) ? null : (int)$data;
+        $storeId = $this->_getData('store_id');
+        return is_null($storeId) ? null : (int)$storeId;
     }
 
     /**
