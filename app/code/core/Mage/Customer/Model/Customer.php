@@ -717,7 +717,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param string $type
      * @param string $backUrl
-     * @param string $storeId
+     * @param string|int $storeId
      * @param string $password
      * @throws Mage_Core_Exception
      * @return $this

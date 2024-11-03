@@ -691,11 +691,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
 		-
-			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			message: "#^Variable \\$billingAddress might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
@@ -3116,11 +3111,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
 
 		-
-			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
-
-		-
 			message: "#^Property Mage_Checkout_Model_Type_Onepage\\:\\:\\$_quote \\(Mage_Sales_Model_Quote\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
@@ -5133,11 +5123,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$message of static method Mage\\:\\:throwException\\(\\) expects string, array given\\.$#"
 			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
