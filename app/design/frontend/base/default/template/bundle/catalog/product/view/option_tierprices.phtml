@@ -25,7 +25,7 @@ if ($this->getParent()->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE
 }
 $_finalPriceInclTax = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice(), true);
 
-/** @var $_catalogHelper Mage_Catalog_Helper_Data */
+/** @var Mage_Catalog_Helper_Data $_catalogHelper */
 $_catalogHelper = Mage::helper('catalog');
 
 $_weeeTaxAmount = Mage::helper('weee')->getAmountForDisplay($_product);
