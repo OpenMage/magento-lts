@@ -21,10 +21,12 @@ $taxTable = $this->getTable('tax/sales_order_tax');
 $orderTable = $this->getTable('sales/order');
 
 // adds FK_SALES_ORDER_TAX_ORDER back again
-
 $this->getConnection()->addForeignKey(
     $this->getFkName($taxTable, 'order_id', $orderTable, 'entity_id'),
-    $taxTable, 'order_id', $orderTable, 'entity_id'
+    $taxTable,
+    'order_id',
+    $orderTable,
+    'entity_id'
 );
 
 $this->endSetup();
