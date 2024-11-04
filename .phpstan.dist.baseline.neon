@@ -7706,11 +7706,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/sales/order/address/form.phtml
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/create/giftmessage.phtml
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Abstract\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
 			count: 18
 			path: app/design/adminhtml/default/default/template/sales/order/create/items/grid.phtml
