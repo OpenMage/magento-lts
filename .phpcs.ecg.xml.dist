@@ -44,6 +44,7 @@
         <exclude-pattern>*/core/Mage/Adminhtml/Model/System/Config/Backend/Category.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Adminhtml/Model/System/Config/Backend/Locale.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Adminhtml/Model/System/Config/Backend/Customer/Show/Customer.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Api/Model/Acl/Role/Registry.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Api/Model/Resource/User.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Api2/Model/Observer.php*</exclude-pattern>
         <exclude-pattern>*/core/Mage/Api2/controllers/Adminhtml/Api2/AttributeController.php*</exclude-pattern>
