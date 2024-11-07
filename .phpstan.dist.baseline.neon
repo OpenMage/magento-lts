@@ -691,11 +691,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
 		-
-			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			message: "#^Variable \\$billingAddress might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
@@ -2461,11 +2456,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
 
 		-
-			message: "#^Parameter \\#1 \\$expression of class Zend_Db_Expr constructor expects string, int given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media\\:\\:insertGallery\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Media.php
@@ -3113,11 +3103,6 @@ parameters:
 		-
 			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
-			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
-
-		-
-			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Checkout/Model/Type/Onepage.php
 
 		-
@@ -3959,11 +3944,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$url of method Mage_Core_Controller_Response_Http\\:\\:setRedirect\\(\\) expects string, bool given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Session.php
-
-		-
-			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
-			count: 3
-			path: app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
 			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:setParams\\(\\) should return Mage_Dataflow_Model_Batch_Abstract but returns \\$this\\(Mage_Dataflow_Model_Batch\\)\\.$#"
@@ -5138,11 +5118,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$message of static method Mage\\:\\:throwException\\(\\) expects string, array given\\.$#"
 			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^Parameter \\#3 \\$storeId of method Mage_Customer_Model_Customer\\:\\:sendNewAccountEmail\\(\\) expects string, int given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
