@@ -21,8 +21,6 @@
  */
 abstract class Mage_Core_Model_Resource_Abstract
 {
-    use Mage_Core_Trait_Module;
-
     /**
      * Main constructor
      */
@@ -227,5 +225,10 @@ abstract class Mage_Core_Model_Resource_Abstract
             return Mage::app()->getLocale()->getNumber($value);
         }
         return $value;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

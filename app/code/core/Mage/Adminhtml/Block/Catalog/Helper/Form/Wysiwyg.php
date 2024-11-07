@@ -21,8 +21,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_Element_Textarea
 {
-    use Mage_Core_Trait_Module;
-
     /**
      * Retrieve additional html and put it at the end of element html
      *
@@ -52,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
      */
     public function getIsWysiwygEnabled()
     {
-        if ($this->isModuleEnabled('Mage_Cms', 'catalog')) {
+        if (Mage::helper('catalog')->isModuleEnabled('Mage_Cms')) {
             return (bool)(Mage::getSingleton('cms/wysiwyg_config')->isEnabled()
                 && $this->getEntityAttribute()->getIsWysiwygEnabled());
         }

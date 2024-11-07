@@ -29,8 +29,6 @@
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {
-    use Mage_Core_Trait_Module;
-
     /**
      * Prefix of model events names
      *
@@ -636,5 +634,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _clearData()
     {
         return $this;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

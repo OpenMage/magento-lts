@@ -23,8 +23,6 @@
  */
 abstract class Mage_Core_Controller_Varien_Action
 {
-    use Mage_Core_Trait_Module;
-
     public const FLAG_NO_CHECK_INSTALLATION    = 'no-install-check';
     public const FLAG_NO_DISPATCH              = 'no-dispatch';
     public const FLAG_NO_PRE_DISPATCH          = 'no-preDispatch';

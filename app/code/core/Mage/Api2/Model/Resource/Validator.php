@@ -28,8 +28,6 @@
  */
 abstract class Mage_Api2_Model_Resource_Validator
 {
-    use Mage_Core_Trait_Module;
-
     /**
      * Array of validation failure errors.
      *

@@ -106,7 +106,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             $block = $this->getLayout()->createBlock('adminhtml/system_config_edit');
             $this->_addContent($block->initForm());
 
-            if (($current == 'carriers') && $this->isModuleEnabled('Mage_Usa')) {
+            if (($current == 'carriers') && Mage::helper('core')->isModuleEnabled('Mage_Usa')) {
                 $this->_addJs($this->getLayout()
                      ->createBlock('adminhtml/template')
                      ->setTemplate('system/shipping/ups.phtml'));

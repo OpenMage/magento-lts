@@ -1580,7 +1580,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
     {
-        if (is_null($moduleName)) {
+        if ($moduleName === null) {
             $moduleName = $this->getModuleName();
         }
 
@@ -1595,7 +1595,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function isModuleOutputEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
     {
-        if (is_null($moduleName)) {
+        if ($moduleName === null) {
             $moduleName = $this->getModuleName();
         }
 
