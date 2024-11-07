@@ -74,7 +74,7 @@ class DataTest extends TestCase
     {
         $string = '';
         $this->subject->decodeFilter($string);
-        $this->assertIsString($string);
+        $this->assertSame('', $string);
     }
 
     /**
