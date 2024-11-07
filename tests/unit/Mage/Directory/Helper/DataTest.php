@@ -126,22 +126,22 @@ class DataTest extends TestCase
     public function provideGetCountriesWithStatesRequired(): Generator
     {
         yield 'as json' => [
-            '["AT","CA","EE","FI","FR","DE","LV","LT","RO","ES","CH","US"]',
+            '["AT","CA","CH","DE","EE","ES","FI","FR","LT","LV","RO","US"]',
             true
         ];
         yield 'as array' => [
             [
                 0 => 'AT',
                 1 => 'CA',
-                2 => 'EE',
-                3 => 'FI',
-                4 => 'FR',
-                5 => 'DE',
-                6 => 'LV',
-                7 => 'LT',
-                8 => 'RO',
-                9 => 'ES',
-                10 => 'CH',
+                2 => 'CH',
+                3 => 'DE',
+                4 => 'EE',
+                5 => 'ES',
+                6 => 'FI',
+                7 => 'FR',
+                8 => 'LT',
+                9 => 'LV',
+                10 => 'RO',
                 11 => 'US',
             ],
             false

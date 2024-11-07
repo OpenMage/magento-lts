@@ -48,4 +48,13 @@ class FeedTest extends TestCase
     {
         $this->assertInstanceOf(Mage_AdminNotification_Model_Feed::class, $this->subject->checkUpdate());
     }
+
+    /**
+     * @group Mage_AdminNotification
+     * @group Mage_AdminNotification_Model
+     */
+    public function testGetFeedData(): void
+    {
+        $this->assertInstanceOf(\SimpleXMLElement::class, $this->subject->getFeedData());
+    }
 }

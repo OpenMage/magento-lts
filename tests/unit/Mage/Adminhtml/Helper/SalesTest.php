@@ -33,7 +33,7 @@ class SalesTest extends TestCase
     }
 
     /**
-     * @covers Mage_Adminhtml_Helper_Sales::decodeGridSerializedInput()
+     * @covers Mage_Adminhtml_Helper_Sales::escapeHtmlWithLinks()
      * @dataProvider provideDecodeGridSerializedInput
      * @group Mage_Adminhtml
      * @group Mage_Adminhtml_Helper

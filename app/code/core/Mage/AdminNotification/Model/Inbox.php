@@ -95,12 +95,10 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
 
     /**
      * Parse and save new data
-     *
-     * @return $this
      */
     public function parse(array $data)
     {
-        return $this->getResource()->parse($this, $data);
+        $this->getResource()->parse($this, $data);
     }
 
     /**
