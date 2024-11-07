@@ -39,5 +39,4 @@ class JsTest extends TestCase
     {
         $this->assertIsString($this->subject->getTranslatorScript());
     }
-
 }

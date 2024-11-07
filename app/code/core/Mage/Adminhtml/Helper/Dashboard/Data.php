@@ -47,10 +47,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      */
     public function countStores()
     {
-        if (!$this->_stores) {
-            $this->_stores = $this->getStores();
-        }
-        return count($this->_stores->getItems());
+        return count($this->getStores()->getItems());
     }
 
     /**
