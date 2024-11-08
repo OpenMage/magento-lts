@@ -27,7 +27,7 @@
 </dt>
 <dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
     <div class="input-box">
-        <?php /** @var $_selection Mage_Catalog_Model_Product*/ ?>
+        <?php /** @var Mage_Catalog_Model_Product $_selection */ ?>
         <?php if ($this->_showSingle()): ?>
             <?php echo $this->getSelectionTitlePrice($_selections[0]); ?>
             <?php if ($_selections[0]->getSelectionCanChangeQty()): ?>

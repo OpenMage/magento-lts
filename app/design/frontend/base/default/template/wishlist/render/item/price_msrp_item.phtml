@@ -22,12 +22,11 @@
  */
 ?>
 <?php
-    /** @var $_coreHelper Mage_Core_Helper_Data */
+    /** @var Mage_Core_Helper_Data $_coreHelper */
     $_coreHelper = $this->helper('core');
-    /** @var $_catalogHelper Mage_Catalog_Helper_Data */
+    /** @var Mage_Catalog_Helper_Data $_catalogHelper */
     $_catalogHelper = $this->helper('catalog');
 
-    /** @var $_product Mage_Catalog_Model_Product */
     $_product = $this->getProduct();
     $_id = $_product->getId();
     $_msrpPrice = '';

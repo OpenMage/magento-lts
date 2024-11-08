@@ -213,7 +213,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve Escaped Description for Wishlist Item
      *
-     * @param Mage_Catalog_Model_Product $item
+     * @param Mage_Wishlist_Model_Item $item
      * @return string
      */
     public function getEscapedDescription($item)
