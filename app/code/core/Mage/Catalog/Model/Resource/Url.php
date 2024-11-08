@@ -184,7 +184,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $select = $adapter->select()
             ->from($this->getMainTable(), new Zend_Db_Expr('MAX(' . $urlIncrementPartExpression . ')'))
             ->where('store_id = :store_id')
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             ->where('request_path LIKE :request_path')
             ->where($adapter->prepareSqlCondition('request_path', [
                 'regexp' => '^' . preg_quote($prefix) . '[0-9]*' . preg_quote($suffix) . '$'
@@ -707,7 +706,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             }
 
             $select
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                 ->where('main_table.path LIKE ?', $path . '%')
                 ->order('main_table.path');
         }
@@ -858,7 +856,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $adapter = $this->_getReadAdapter();
             $select = $adapter->select()
                 ->from([$this->getTable('catalog/category')], ['entity_id'])
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                 ->where('path LIKE ?', $categoryPath . '/%');
 
             $categoryIds = [];

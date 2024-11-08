@@ -624,7 +624,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 ['COUNT(DISTINCT scp.product_id)']
             )
             ->where('see.entity_id = e.entity_id')
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             ->orWhere('see.path LIKE ?', $subConcat);
         $select->columns(['product_count' => $subSelect]);
 

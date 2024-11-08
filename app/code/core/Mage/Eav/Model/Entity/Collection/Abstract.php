@@ -1121,7 +1121,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             if (!empty($selects)) {
                 try {
                     if (is_array($selects)) {
-                        // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                         $select = implode(' UNION ALL ', $selects);
                     } else {
                         $select = $selects;

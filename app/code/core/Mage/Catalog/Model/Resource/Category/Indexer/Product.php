@@ -348,7 +348,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                         . ' AND ie.product_id=i.product_id AND ie.store_id = ' . (int)$storeId,
                     []
                 )
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                 ->where('cc.path LIKE ?', $rootPath . '/%')
                 ->where('ie.category_id IS NULL')
                 ->columns([
@@ -1129,7 +1128,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     . $adapter->quoteInto('cas.store_id=?', $storeId),
                 []
             )
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             ->where("{$anchorExpr} = 1 AND {$adapter->quoteIdentifier('ce.path')} LIKE ?", $rootPath . '%')
             ->orWhere('ce.path = ?', $rootPath);
 
