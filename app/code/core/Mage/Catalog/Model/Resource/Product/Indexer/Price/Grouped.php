@@ -102,8 +102,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
                     'group_price'  => new Zend_Db_Expr('NULL'),
                 ]
             )
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-            ->group(['e.entity_id', 'cg.customer_group_id', 'cw.website_id'])
+                ->group(['e.entity_id', 'cg.customer_group_id', 'cw.website_id'])
             ->where('e.type_id=?', $this->getTypeId());
 
         $statusCond = $write->quoteInto(' = ?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);

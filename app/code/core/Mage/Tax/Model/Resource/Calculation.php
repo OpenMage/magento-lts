@@ -335,8 +335,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
              * @see ZF-7592 issue http://framework.zend.com/issues/browse/ZF-7592
              */
             if ($postcodeIsNumeric || $postcodeIsRange) {
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-                $select = $this->_getReadAdapter()->select()->union(
+                        $select = $this->_getReadAdapter()->select()->union(
                     [
                         '(' . $select . ')',
                         '(' . $selectClone . ')'
@@ -483,8 +482,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 'state_table.region_id = main_table.tax_region_id',
                 ['region_code' => 'state_table.code']
             )
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-            ->distinct();
+                ->distinct();
 
         $CSP = $adapter->fetchAll($selectCSP);
 

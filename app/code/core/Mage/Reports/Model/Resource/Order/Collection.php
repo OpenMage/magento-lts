@@ -168,8 +168,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 Mage_Sales_Model_Order::STATE_NEW])
             ->order('range ' . Zend_Db_Select::SQL_ASC)
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-            ->group($tzRangeOffsetExpression);
+                ->group($tzRangeOffsetExpression);
 
         $this->addFieldToFilter('created_at', $dateRange);
 
@@ -202,7 +201,6 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             'range' => $rangePeriod2,
         ])
         ->order('range')
-        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         ->group($rangePeriod);
 
         $this->getSelect()->where(
@@ -555,8 +553,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             ->addFieldToFilter('state', ['neq' => Mage_Sales_Model_Order::STATE_CANCELED])
             ->getSelect()
                 ->columns(['orders' => 'COUNT(DISTINCT(main_table.entity_id))'])
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-                ->group('entity_id');
+                        ->group('entity_id');
 
         $this->getSelect()->columns([
             'items' => 'SUM(main_table.total_qty_ordered)']);
@@ -620,8 +617,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     {
         $this->getSelect()
             ->where('main_table.customer_id IS NOT NULL')
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-            ->group('main_table.customer_id');
+                ->group('main_table.customer_id');
 
         /*
          * Allow Analytic functions usage

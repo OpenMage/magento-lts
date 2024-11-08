@@ -543,14 +543,12 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
         } else {
             if (isset($this->_joinFields[$attribute])) {
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-                $this->getSelect()->group($this->_getAttributeFieldName($attribute));
+                        $this->getSelect()->group($this->_getAttributeFieldName($attribute));
                 return $this;
             }
 
             if (isset($this->_staticFields[$attribute])) {
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-                $this->getSelect()->group(sprintf('e.%s', $attribute));
+                        $this->getSelect()->group(sprintf('e.%s', $attribute));
                 return $this;
             }
 
@@ -563,12 +561,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
 
             if ($attrInstance->getBackend()->isStatic()) {
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-                $this->getSelect()->group($entityField);
+                        $this->getSelect()->group($entityField);
             } else {
                 $this->_addAttributeJoin($attribute);
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-                $this->getSelect()->group($this->_getAttributeTableAlias($attribute) . '.value');
+                        $this->getSelect()->group($this->_getAttributeTableAlias($attribute) . '.value');
             }
         }
 

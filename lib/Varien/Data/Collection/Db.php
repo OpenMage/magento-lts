@@ -230,8 +230,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         if (count($this->getSelect()->getPart(Zend_Db_Select::GROUP)) > 0) {
             $countSelect->reset(Zend_Db_Select::GROUP);
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
-            $countSelect->distinct(true);
+                $countSelect->distinct(true);
             $group = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
             $group = array_map(function ($token) {
                 return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
@@ -575,7 +574,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     public function distinct($flag)
     {
-        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         $this->_select->distinct($flag);
         return $this;
     }
