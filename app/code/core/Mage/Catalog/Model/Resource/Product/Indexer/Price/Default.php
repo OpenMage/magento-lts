@@ -396,7 +396,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
                 'otps.option_type_id = otpd.option_type_id AND otps.store_id = csg.default_store_id',
                 []
             )
-                ->group(['i.entity_id', 'i.customer_group_id', 'i.website_id', 'o.option_id']);
+            ->group(['i.entity_id', 'i.customer_group_id', 'i.website_id', 'o.option_id']);
 
         $optPriceType   = $write->getCheckSql('otps.option_type_price_id > 0', 'otps.price_type', 'otpd.price_type');
         $optPriceValue  = $write->getCheckSql('otps.option_type_price_id > 0', 'otps.price', 'otpd.price');
@@ -508,7 +508,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
                     'group_price'   => 'SUM(group_price)',
                 ]
             )
-                ->group(['entity_id', 'customer_group_id', 'website_id']);
+            ->group(['entity_id', 'customer_group_id', 'website_id']);
         $query = $select->insertFromSelect($copTable);
         $write->query($query);
 
