@@ -335,7 +335,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
              * @see ZF-7592 issue http://framework.zend.com/issues/browse/ZF-7592
              */
             if ($postcodeIsNumeric || $postcodeIsRange) {
-                        $select = $this->_getReadAdapter()->select()->union(
+                $select = $this->_getReadAdapter()->select()->union(
                     [
                         '(' . $select . ')',
                         '(' . $selectClone . ')'

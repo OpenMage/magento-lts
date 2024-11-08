@@ -543,12 +543,12 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
         } else {
             if (isset($this->_joinFields[$attribute])) {
-                        $this->getSelect()->group($this->_getAttributeFieldName($attribute));
+                $this->getSelect()->group($this->_getAttributeFieldName($attribute));
                 return $this;
             }
 
             if (isset($this->_staticFields[$attribute])) {
-                        $this->getSelect()->group(sprintf('e.%s', $attribute));
+                $this->getSelect()->group(sprintf('e.%s', $attribute));
                 return $this;
             }
 
@@ -561,10 +561,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
 
             if ($attrInstance->getBackend()->isStatic()) {
-                        $this->getSelect()->group($entityField);
+                $this->getSelect()->group($entityField);
             } else {
                 $this->_addAttributeJoin($attribute);
-                        $this->getSelect()->group($this->_getAttributeTableAlias($attribute) . '.value');
+                $this->getSelect()->group($this->_getAttributeTableAlias($attribute) . '.value');
             }
         }
 
@@ -1127,7 +1127,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                         $select = $selects;
                     }
 
-                            $values = $this->getConnection()->fetchAll($select);
+                    $values = $this->getConnection()->fetchAll($select);
                 } catch (Exception $e) {
                     Mage::printException($e, $select);
                     $this->printLogQuery(true, true, $select);

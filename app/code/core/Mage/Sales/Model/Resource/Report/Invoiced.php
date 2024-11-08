@@ -123,19 +123,19 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 ->where('filter_source_table.order_id = source_table.order_id');
 
             if ($subSelect !== null) {
-                        $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
+                $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
             $select->where('source_table.entity_id = (?)', new Zend_Db_Expr($filterSubSelect));
             unset($filterSubSelect);
 
-                $select->group([
-                $periodExpr,
-                'order_table.store_id',
-                'order_table.status'
+            $select->group([
+            $periodExpr,
+            'order_table.store_id',
+            'order_table.status'
             ]);
 
-                $select->having('orders_count > 0');
+            $select->having('orders_count > 0');
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);
             $select->reset();
@@ -159,9 +159,9 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-                $select->group([
-                'period',
-                'order_status'
+            $select->group([
+            'period',
+            'order_status'
             ]);
 
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
@@ -245,7 +245,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 ->where('state <> ?', Mage_Sales_Model_Order::STATE_CANCELED);
 
         if ($subSelect !== null) {
-                $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
+            $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 
         $select->group([

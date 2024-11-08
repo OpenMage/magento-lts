@@ -975,7 +975,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                     $select = $selects;
                 }
 
-                    $values = $this->_getReadAdapter()->fetchAll($select);
+                $values = $this->_getReadAdapter()->fetchAll($select);
                 foreach ($values as $valueRow) {
                     $this->_setAttributeValue($object, $valueRow);
                 }
