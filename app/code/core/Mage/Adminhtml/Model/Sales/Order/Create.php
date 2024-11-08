@@ -1181,8 +1181,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 ->setAddressType(Mage_Sales_Model_Quote_Address::TYPE_BILLING);
             $this->_setQuoteAddress($billingAddress, $address);
             $billingAddress->implodeStreetAddress();
-        }
-        if ($address instanceof Mage_Sales_Model_Quote_Address) {
+        } elseif ($address instanceof Mage_Sales_Model_Quote_Address) {
             $billingAddress = $address;
         }
 
