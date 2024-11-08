@@ -64,7 +64,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
+        if ($this->isObjectNew() && is_null($this->getCreatedAt())) {
             $this->setCreatedAt(Varien_Date::now());
         } else {
             $this->setUpdatedAt(Varien_Date::now());

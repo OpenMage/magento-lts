@@ -942,7 +942,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                             $dataRow[$colPrefix . 'position'] = $linkData['position'];
                             $dataRow[$colPrefix . 'sku'] = $linkData['sku'];
 
-                            if ($linkData['default_qty'] !== null) {
+                            if (!is_null($linkData['default_qty'])) {
                                 $dataRow[$colPrefix . 'default_qty'] = $linkData['default_qty'];
                             }
                         }
@@ -1020,7 +1020,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                                     $dataRow[$colPrefix . 'position'] = $linkData['position'];
                                     $dataRow[$colPrefix . 'sku']      = $linkData['sku'];
 
-                                    if ($linkData['default_qty'] !== null) {
+                                    if (!is_null($linkData['default_qty'])) {
                                         $dataRow[$colPrefix . 'default_qty'] = $linkData['default_qty'];
                                     }
                                 }

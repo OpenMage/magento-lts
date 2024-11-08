@@ -937,7 +937,7 @@ abstract class Mage_Core_Controller_Varien_Action
             if ($text === false) {
                 $this->_removeDefaultTitle = false;
                 $this->_titles = [];
-            } elseif ($text === null) {
+            } elseif (is_null($text)) {
                 $this->_removeDefaultTitle = true;
                 $this->_titles = [];
             }

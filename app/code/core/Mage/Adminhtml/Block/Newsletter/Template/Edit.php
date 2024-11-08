@@ -266,7 +266,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     public function getJsTemplateName()
     {
         $templateCode = $this->getModel()->getTemplateCode();
-        if ($templateCode === null) {
+        if (is_null($templateCode)) {
             return '';
         }
         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found

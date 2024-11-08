@@ -94,7 +94,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         // Check cache dir
-        if ($this->_options['cache_dir'] !== null) {
+        if (!is_null($this->_options['cache_dir'])) {
             $this->setCacheDir($this->_options['cache_dir']);
         } else {
             $this->setCacheDir(self::getTmpDir() . DIRECTORY_SEPARATOR, false);

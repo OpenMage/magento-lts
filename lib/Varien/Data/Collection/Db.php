@@ -687,7 +687,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     public function getData()
     {
-        if ($this->_data === null) {
+        if (is_null($this->_data)) {
             $this->_renderFilters()
                  ->_renderOrders()
                  ->_renderLimit();

@@ -882,7 +882,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $type = $rowData['_custom_option_type'];
                     $rowIsMain = true;
                 } else {
-                    if ($type === null) {
+                    if (is_null($type)) {
                         continue;
                     }
                     $rowIsMain = false;
@@ -1396,7 +1396,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                             continue;
                         }
                     }
-                } elseif ($rowSku === null) {
+                } elseif (is_null($rowSku)) {
                     $this->_rowsToSkip[$rowNum] = true;
                     continue; // skip rows when SKU is NULL
                 } elseif (self::SCOPE_STORE == $rowScope) { // set necessary data from SCOPE_DEFAULT row
@@ -2131,7 +2131,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 }
             }
         } else {
-            if ($sku === null) {
+            if (is_null($sku)) {
                 $this->addRowError(self::ERROR_SKU_IS_EMPTY, $rowNum);
             } elseif ($sku === false) {
                 $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);
@@ -2201,7 +2201,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _getUrlKeyAttributeId()
     {
-        if ($this->_urlKeyAttributeId === null) {
+        if (is_null($this->_urlKeyAttributeId)) {
             $adapter  = $this->getConnection();
             $resource = $this->getResourceModel('eav/entity_attribute');
 

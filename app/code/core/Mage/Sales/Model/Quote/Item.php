@@ -482,7 +482,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                 continue;
             }
             if (!isset($options2[$code])
-                || ($options2[$code]->getValue() === null)
+                || is_null($options2[$code]->getValue())
                 || $options2[$code]->getValue() != $option->getValue()
             ) {
                 return false;
@@ -877,7 +877,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     public function addErrorInfo($origin = null, $code = null, $message = null, $additionalData = null)
     {
         $this->_errorInfos->addItem($origin, $code, $message, $additionalData);
-        if ($message !== null) {
+        if (!is_null($message)) {
             $this->setMessage($message);
         }
         $this->_setHasError(true);
@@ -907,7 +907,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         $removedItems = $this->_errorInfos->removeItemsByParams($params);
         foreach ($removedItems as $item) {
-            if ($item['message'] !== null) {
+            if (!is_null($item['message'])) {
                 $this->removeMessageByText($item['message']);
             }
         }

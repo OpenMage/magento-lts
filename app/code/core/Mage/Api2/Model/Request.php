@@ -71,7 +71,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     protected function _getInterpreter()
     {
-        if ($this->_interpreter === null) {
+        if (is_null($this->_interpreter)) {
             $this->_interpreter = Mage_Api2_Model_Request_Interpreter::factory($this->getContentType());
         }
         return $this->_interpreter;

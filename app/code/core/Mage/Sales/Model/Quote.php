@@ -371,15 +371,15 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         parent::_afterSave();
 
-        if ($this->_addresses !== null) {
+        if (!is_null($this->_addresses)) {
             $this->getAddressesCollection()->save();
         }
 
-        if ($this->_items !== null) {
+        if (!is_null($this->_items)) {
             $this->getItemsCollection()->save();
         }
 
-        if ($this->_payments !== null) {
+        if (!is_null($this->_payments)) {
             $this->getPaymentsCollection()->save();
         }
         return $this;
@@ -1028,7 +1028,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function addProductAdvanced(Mage_Catalog_Model_Product $product, $request = null, $processMode = null)
     {
-        if ($request === null) {
+        if (is_null($request)) {
             $request = 1;
         }
         if (is_numeric($request)) {
@@ -1638,7 +1638,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         $this->_errorInfoGroups[$type]->addItem($origin, $code, $message, $additionalData);
 
-        if ($message !== null) {
+        if (!is_null($message)) {
             $this->addMessage($message, $type);
         }
         $this->_setHasError(true);
@@ -1671,7 +1671,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         foreach ($errorLists as $type => $errorList) {
             $removedItems = $errorList->removeItemsByParams($params);
             foreach ($removedItems as $item) {
-                if ($item['message'] !== null) {
+                if (!is_null($item['message'])) {
                     $this->removeMessageByText($type, $item['message']);
                 }
             }

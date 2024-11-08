@@ -205,7 +205,7 @@ abstract class Magento_Profiler_OutputAbstract
      */
     public function setThreshold($fetchKey, $minAllowedValue)
     {
-        if ($minAllowedValue === null) {
+        if (is_null($minAllowedValue)) {
             unset($this->_thresholds[$fetchKey]);
         } else {
             $this->_thresholds[$fetchKey] = $minAllowedValue;

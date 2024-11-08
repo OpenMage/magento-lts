@@ -465,7 +465,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     protected function _canUseLocalModules()
     {
-        if ($this->_canUseLocalModules !== null) {
+        if (!is_null($this->_canUseLocalModules)) {
             return $this->_canUseLocalModules;
         }
 
@@ -770,7 +770,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         /**
          * Check path cache loading
          */
-        if ($this->_useCache && ($path !== null)) {
+        if ($this->_useCache && (!is_null($path))) {
             $path   = explode('/', $path);
             $section = $path[0];
             if (isset($this->_cacheSections[$section])) {
@@ -793,7 +793,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function setNode($path, $value, $overwrite = true)
     {
-        if ($this->_useCache && ($path !== null)) {
+        if ($this->_useCache && (!is_null($path))) {
             $sectionPath = explode('/', $path);
             $config = $this->_getSectionConfig($sectionPath);
             if ($config) {
@@ -1013,7 +1013,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function determineOmittedNamespace($name, $asFullModuleName = false)
     {
-        if ($this->_moduleNamespaces === null) {
+        if (is_null($this->_moduleNamespaces)) {
             $this->_moduleNamespaces = [];
             foreach ($this->_xml->xpath('modules/*') as $m) {
                 if ((string)$m->active == 'true') {
@@ -1060,11 +1060,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     {
         $disableLocalModules = !$this->_canUseLocalModules();
 
-        if ($mergeToObject === null) {
+        if (is_null($mergeToObject)) {
             $mergeToObject = clone $this->_prototype;
             $mergeToObject->loadString('<config/>');
         }
-        if ($mergeModel === null) {
+        if (is_null($mergeModel)) {
             $mergeModel = clone $this->_prototype;
         }
         $modules = $this->getNode('modules')->children();
@@ -1227,7 +1227,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getVarDir($path = null, $type = 'var')
     {
-        $dir = Mage::getBaseDir($type) . ($path !== null ? DS . $path : '');
+        $dir = Mage::getBaseDir($type) . (!is_null($path) ? DS . $path : '');
         if (!$this->createDirIfNotExists($dir)) {
             return false;
         }

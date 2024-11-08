@@ -164,7 +164,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     public function getCollection($path = null)
     {
         $collection = Mage::getModel('cms/wysiwyg_images_storage_collection');
-        if ($path !== null) {
+        if (!is_null($path)) {
             $collection->addTargetDir($path);
         }
         return $collection;

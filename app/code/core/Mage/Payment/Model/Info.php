@@ -165,7 +165,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     public function getAdditionalInformation($key = null)
     {
         $this->_initAdditionalInformation();
-        if ($key === null) {
+        if (is_null($key)) {
             return $this->_additionalInformation;
         }
         return $this->_additionalInformation[$key] ?? null;
@@ -196,7 +196,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     public function hasAdditionalInformation($key = null)
     {
         $this->_initAdditionalInformation();
-        return $key === null
+        return is_null($key)
             ? !empty($this->_additionalInformation)
             : array_key_exists($key, $this->_additionalInformation);
     }
@@ -209,7 +209,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
         if ($this->_additionalInformation === -1) {
             $this->_additionalInformation = $this->_getData('additional_information');
         }
-        if ($this->_additionalInformation === null) {
+        if (is_null($this->_additionalInformation)) {
             $this->_additionalInformation = [];
         }
     }

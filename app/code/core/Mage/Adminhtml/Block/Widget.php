@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
 {
     public function getId()
     {
-        if ($this->getData('id') === null) {
+        if (is_null($this->getData('id'))) {
             $this->setData('id', Mage::helper('core')->uniqHash('id_'));
         }
         return $this->getData('id');

@@ -55,7 +55,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                 $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
                 foreach ($typeIds as $id) {
                     $finalPrice = $retreiver->getFinalPrice($id, $store, $group);
-                    if (($resultMinimal === null) || ($finalPrice < $resultMinimal)) {
+                    if ((is_null($resultMinimal)) || ($finalPrice < $resultMinimal)) {
                         $resultMinimal    = $finalPrice;
                         $resultTaxClassId = $retreiver->getTaxClassId($id, $store);
                     }
@@ -65,7 +65,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                         if ($tier['customer_group_id'] != $customerGroup && !$tier['all_groups']) {
                             continue;
                         }
-                        if (($resultMinimal === null) || ($tier['value'] < $resultMinimal)) {
+                        if ((is_null($resultMinimal)) || ($tier['value'] < $resultMinimal)) {
                             $resultMinimal    = $tier['value'];
                             $resultTaxClassId = $retreiver->getTaxClassId($tier['entity_id'], $store);
                         }
@@ -78,7 +78,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                     continue;
                 }
 
-                if (($resultMinimal === null) || ($one['value'] < $resultMinimal)) {
+                if ((is_null($resultMinimal)) || ($one['value'] < $resultMinimal)) {
                     $resultMinimal = $one['value'];
                     $taxClassId    = $one['tax_class_id'];
                 } else {

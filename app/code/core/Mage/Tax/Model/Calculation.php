@@ -153,7 +153,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     public function getDefaultCustomerTaxClass($store = null)
     {
-        if ($this->_defaultCustomerTaxClass === null) {
+        if (is_null($this->_defaultCustomerTaxClass)) {
             $defaultCustomerGroup = Mage::helper('customer')->getDefaultCustomerGroupId($store);
             $this->_defaultCustomerTaxClass = Mage::getModel('customer/group')->getTaxClassId($defaultCustomerGroup);
         }
@@ -167,7 +167,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     public function getCustomer()
     {
-        if ($this->_customer === null) {
+        if (is_null($this->_customer)) {
             $session = Mage::getSingleton('customer/session');
             if ($session->isLoggedIn()) {
                 $this->_customer = $session->getCustomer();

@@ -115,6 +115,6 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
      */
     public function format($string)
     {
-        return $string === null ? '' : strtr($string, $this->getConvertTable());
+        return is_null($string) ? '' : strtr($string, $this->getConvertTable());
     }
 }

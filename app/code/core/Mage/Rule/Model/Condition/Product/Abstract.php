@@ -63,7 +63,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getDefaultOperatorInputByType()
     {
-        if ($this->_defaultOperatorInputByType === null) {
+        if (is_null($this->_defaultOperatorInputByType)) {
             parent::getDefaultOperatorInputByType();
             /*
              * '{}' and '!{}' are left for back-compatibility and equal to '==' and '!='
@@ -231,7 +231,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         }
 
         // Set new values only if we really got them
-        if ($selectOptions !== null) {
+        if (!is_null($selectOptions)) {
             // Overwrite only not already existing values
             if (!$selectReady) {
                 $this->setData('value_select_options', $selectOptions);

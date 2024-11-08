@@ -393,7 +393,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getUrlModel()
     {
-        if ($this->_urlModel === null) {
+        if (is_null($this->_urlModel)) {
             $this->_urlModel = Mage::getSingleton('catalog/factory')->getProductUrlInstance();
         }
         return $this->_urlModel;
@@ -491,7 +491,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             return $this->_typeInstanceSingleton;
         }
 
-        if ($this->_typeInstance === null) {
+        if (is_null($this->_typeInstance)) {
             $this->_typeInstance = Mage::getSingleton('catalog/product_type')
                 ->factory($this);
         }
@@ -789,7 +789,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function canAffectOptions($value = null)
     {
-        if ($value !== null) {
+        if (!is_null($value)) {
             $this->_canAffectOptions = (bool)$value;
         }
         return $this->_canAffectOptions;
@@ -2065,7 +2065,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getReservedAttributes()
     {
-        if ($this->_reservedAttributes === null) {
+        if (is_null($this->_reservedAttributes)) {
             $_reserved = ['position'];
             $methods = get_class_methods(__CLASS__);
             foreach ($methods as $method) {

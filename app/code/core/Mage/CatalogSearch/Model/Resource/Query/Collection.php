@@ -114,7 +114,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
         if ($storeIds) {
             $this->addStoreFilter($storeIds);
             $this->getSelect()->where('num_results > 0');
-        } elseif ($storeIds === null) {
+        } elseif (is_null($storeIds)) {
             $this->addStoreFilter(Mage::app()->getStore()->getId());
             $this->getSelect()->where('num_results > 0');
         }

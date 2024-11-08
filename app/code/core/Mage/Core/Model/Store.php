@@ -367,7 +367,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         /**
          * Functionality related with config separation
          */
-        if ($this->_configCache === null) {
+        if (is_null($this->_configCache)) {
             $code = $this->getCode();
             if ($code) {
                 if (Mage::app()->useCache('config')) {
@@ -724,7 +724,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isAdminUrlSecure()
     {
-        if ($this->_isAdminSecure === null) {
+        if (is_null($this->_isAdminSecure)) {
             $this->_isAdminSecure = (bool) (int) (string) Mage::getConfig()
                 ->getNode(Mage_Core_Model_Url::XML_PATH_SECURE_IN_ADMIN);
         }
@@ -738,7 +738,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isFrontUrlSecure()
     {
-        if ($this->_isFrontSecure === null) {
+        if (is_null($this->_isFrontSecure)) {
             $this->_isFrontSecure = Mage::getStoreConfigFlag(
                 Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
                 $this->getId()
@@ -892,7 +892,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         // remove base currency code, if it is not allowed by config (optional)
         if ($skipBaseNotAllowed) {
             $disallowedBaseCodeIndex = $this->getData('disallowed_base_currency_code_index');
-            if ($disallowedBaseCodeIndex !== null) {
+            if (!is_null($disallowedBaseCodeIndex)) {
                 unset($codes[$disallowedBaseCodeIndex]);
             }
         }
@@ -1215,7 +1215,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isReadOnly($value = null)
     {
-        if ($value !== null) {
+        if (!is_null($value)) {
             $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;
