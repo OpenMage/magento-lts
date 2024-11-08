@@ -389,7 +389,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $select = $this->_getWriteAdapter()->select()
             ->from($this->getTable('catalogrule/rule_product_price'), 'product_id')
             ->where(implode(' AND ', $conds))
-                ->group('product_id');
+            ->group('product_id');
 
         $replace = $write->insertFromSelect(
             $select,

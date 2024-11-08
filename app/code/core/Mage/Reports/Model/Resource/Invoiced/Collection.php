@@ -46,8 +46,8 @@ class Mage_Reports_Model_Resource_Invoiced_Collection extends Mage_Sales_Model_E
             )
             ->addAttributeToFilter('state', ['neq' => Mage_Sales_Model_Order::STATE_CANCELED])
             ->getSelect()
-                        ->group('entity_id')
-                        ->having('orders > ?', 0);
+            ->group('entity_id')
+            ->having('orders > ?', 0);
         /*
          * Allow Analytic Functions Usage
          */

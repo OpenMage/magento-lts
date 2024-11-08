@@ -168,7 +168,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 Mage_Sales_Model_Order::STATE_NEW])
             ->order('range ' . Zend_Db_Select::SQL_ASC)
-                ->group($tzRangeOffsetExpression);
+            ->group($tzRangeOffsetExpression);
 
         $this->addFieldToFilter('created_at', $dateRange);
 
@@ -552,8 +552,8 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             ->addFieldToFilter('created_at', ['from' => $from, 'to' => $to])
             ->addFieldToFilter('state', ['neq' => Mage_Sales_Model_Order::STATE_CANCELED])
             ->getSelect()
-                ->columns(['orders' => 'COUNT(DISTINCT(main_table.entity_id))'])
-                        ->group('entity_id');
+            ->columns(['orders' => 'COUNT(DISTINCT(main_table.entity_id))'])
+            ->group('entity_id');
 
         $this->getSelect()->columns([
             'items' => 'SUM(main_table.total_qty_ordered)']);
@@ -617,7 +617,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     {
         $this->getSelect()
             ->where('main_table.customer_id IS NOT NULL')
-                ->group('main_table.customer_id');
+            ->group('main_table.customer_id');
 
         /*
          * Allow Analytic functions usage

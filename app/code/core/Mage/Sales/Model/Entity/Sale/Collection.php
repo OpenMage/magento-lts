@@ -87,7 +87,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
                 ]
             )
             ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
-                ->group('sales.store_id')
+            ->group('sales.store_id')
         ;
         if ($this->_customer instanceof Mage_Customer_Model_Customer) {
             $this->getSelect()

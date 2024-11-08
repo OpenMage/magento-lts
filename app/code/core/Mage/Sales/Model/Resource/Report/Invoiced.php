@@ -130,9 +130,9 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             unset($filterSubSelect);
 
             $select->group([
-            $periodExpr,
-            'order_table.store_id',
-            'order_table.status'
+                $periodExpr,
+                'order_table.store_id',
+                'order_table.status'
             ]);
 
             $select->having('orders_count > 0');
@@ -160,8 +160,8 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             }
 
             $select->group([
-            'period',
-            'order_status'
+                'period',
+                'order_status'
             ]);
 
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));

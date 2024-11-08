@@ -82,7 +82,7 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
         $cols['total_qty'] = new Zend_Db_Expr('SUM(t.' . $column . ')');
 
         $periodSubSelect->from(['t' => $mainTable], $cols)
-                ->group(['t.store_id', $periodCol, 't.product_id']);
+            ->group(['t.store_id', $periodCol, 't.product_id']);
 
         if ($column == 'qty_ordered') {
             $productTypesInExpr = $adapter->quoteInto(
