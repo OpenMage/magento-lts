@@ -482,7 +482,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 'state_table.region_id = main_table.tax_region_id',
                 ['region_code' => 'state_table.code']
             )
-                ->distinct();
+            ->distinct();
 
         $CSP = $adapter->fetchAll($selectCSP);
 
