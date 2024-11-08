@@ -170,7 +170,6 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $select->where("{$levelField} <= ?", $startLevel + $recursionLevel);
             }
 
-            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $arrNodes = $this->_conn->fetchAll($select);
 
             $childrenItems = [];
@@ -346,7 +345,6 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             $select->where($condition);
         }
 
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $arrNodes = $this->_conn->fetchAll($select);
 
         if ($arrNodes) {

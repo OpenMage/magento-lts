@@ -351,7 +351,6 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                    ->order('tax_postcode ' . Varien_Db_Select::SQL_DESC)
                    ->order('value ' . Varien_Db_Select::SQL_DESC);
 
-            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $this->_ratesCache[$cacheKey] = $this->_getReadAdapter()->fetchAll($select);
         }
 
@@ -487,7 +486,6 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->distinct();
 
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $CSP = $adapter->fetchAll($selectCSP);
 
         $result = [];

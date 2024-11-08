@@ -308,7 +308,6 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                 ['i' => $this->_getBundleSelectionTable()],
                 ['entity_id', 'customer_group_id', 'website_id', 'option_id']
             )
-            //phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group(['entity_id', 'customer_group_id', 'website_id', 'option_id', 'is_required', 'group_type'])
             ->columns([
                 'min_price' => $write->getCheckSql('i.is_required = 1', 'MIN(i.price)', '0'),
@@ -361,7 +360,6 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
                 . ' AND i.website_id = io.website_id',
                 []
             )
-            //phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group(['io.entity_id', 'io.customer_group_id', 'io.website_id',
                 'i.tax_class_id', 'i.orig_price', 'i.price'])
             ->columns(['i.tax_class_id',
@@ -614,7 +612,6 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             ->where('cw.website_id != 0')
             ->where('e.type_id=?', $this->getTypeId())
             ->columns(new Zend_Db_Expr('MIN(tp.value)'))
-            //phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group(['tp.entity_id', 'cg.customer_group_id', 'cw.website_id']);
 
         if (!empty($entityIds)) {
@@ -674,7 +671,6 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
             ->where('cw.website_id != 0')
             ->where('e.type_id=?', $this->getTypeId())
             ->columns(new Zend_Db_Expr('MIN(gp.value)'))
-            //phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group(['gp.entity_id', 'cg.customer_group_id', 'cw.website_id']);
 
         if (!empty($entityIds)) {

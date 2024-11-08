@@ -1131,8 +1131,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                         $select = $selects;
                     }
 
-                    // phpcs:ignore Ecg.Performance.FetchAll.Found
-                    $values = $this->getConnection()->fetchAll($select);
+                            $values = $this->getConnection()->fetchAll($select);
                 } catch (Exception $e) {
                     Mage::printException($e, $select);
                     $this->printLogQuery(true, true, $select);

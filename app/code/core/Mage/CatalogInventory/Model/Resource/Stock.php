@@ -117,7 +117,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             ->where('stock_id=?', $stock->getId())
             ->where('product_id IN(?)', $productIds)
             ->forUpdate($lockRows);
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $rows = $this->_getWriteAdapter()->fetchAll($select);
 
         // Add type_id to result using separate select without FOR UPDATE instead

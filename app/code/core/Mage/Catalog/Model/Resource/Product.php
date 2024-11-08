@@ -92,7 +92,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->from($this->_productWebsiteTable, ['product_id', 'website_id'])
             ->where('product_id IN (?)', $productIds);
         $productsWebsites = [];
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         foreach ($this->_getWriteAdapter()->fetchAll($select) as $productInfo) {
             $productId = $productInfo['product_id'];
             if (!isset($productsWebsites[$productId])) {
@@ -319,7 +318,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 ->from($this->getTable('catalog/category'))
                 ->where('entity_id IN (?)', $categoryIds);
 
-            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $categoriesInfo = $writeAdapter->fetchAll($categoriesSelect);
 
             $indexCategoryIds = [];
@@ -621,7 +619,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('catalog/product'), ['entity_id', 'sku'])
             ->where('entity_id IN (?)', $productIds);
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $this->_getReadAdapter()->fetchAll($select);
     }
 
@@ -654,7 +651,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select = $adapter->select()
             ->from($this->getTable('catalog/product'), $columns);
 
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $adapter->fetchAll($select);
     }
 
@@ -690,7 +686,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->where('store_id IN (?)', $storeIds)
             ->where('attribute_code IN (?)', ['small_image', 'thumbnail', 'image']);
 
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $read->fetchAll($select);
     }
 

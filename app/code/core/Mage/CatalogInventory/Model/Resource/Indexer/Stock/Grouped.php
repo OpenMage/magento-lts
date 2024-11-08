@@ -77,7 +77,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Grouped extends Mage_Ca
             ->columns(['qty' => new Zend_Db_Expr('0')])
             ->where('cw.website_id != 0')
             ->where('e.type_id = ?', $this->getTypeId())
-            //phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group(['e.entity_id', 'cw.website_id', 'cis.stock_id']);
 
         // add limitation of status

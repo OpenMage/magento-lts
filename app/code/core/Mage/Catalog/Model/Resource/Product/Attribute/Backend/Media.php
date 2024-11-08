@@ -63,7 +63,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         $select = $this->_getLoadGallerySelect($productIds, $product->getStoreId(), $object->getAttribute()->getId());
 
         $adapter = $this->_getReadAdapter();
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $result = $adapter->fetchAll($select);
         $this->_removeDuplicates($result);
         return $result;
@@ -180,7 +179,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
 
         $valueIdMap = [];
         // Duplicate main entries of gallery
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
             $data = [
                 'attribute_id' => $object->getAttribute()->getId(),
@@ -200,7 +198,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             ->from($this->getTable(self::GALLERY_VALUE_TABLE))
             ->where('value_id IN(?)', array_keys($valueIdMap));
 
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
             $row['value_id'] = $valueIdMap[$row['value_id']];
             $this->insertGalleryValueInStore($row);
@@ -275,7 +272,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         $select = $this->_getLoadGallerySelect($productIds, $storeId, $this->_getAttributeId());
 
         $adapter = $this->_getReadAdapter();
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $result = $adapter->fetchAll($select);
         $this->_removeDuplicates($result);
         return $result;

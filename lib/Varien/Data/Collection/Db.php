@@ -785,12 +785,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             if ($data) {
                 $data = unserialize($data);
             } else {
-                // phpcs:ignore Ecg.Performance.FetchAll.Found
-                $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
+                    $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
                 $this->_saveCache($data, $select);
             }
         } else {
-            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
         }
         return $data;

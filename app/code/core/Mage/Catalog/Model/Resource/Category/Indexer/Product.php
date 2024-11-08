@@ -1091,7 +1091,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                         'root_id'   => 'entity_id'
                     ]
                 );
-            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $this->_storesInfo = $adapter->fetchAll($select);
         }
 

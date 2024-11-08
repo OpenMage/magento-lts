@@ -554,7 +554,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             ->where('cw.website_id != 0');
 
         $data = [];
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         foreach ($write->fetchAll($select) as $item) {
             $website = Mage::app()->getWebsite($item['website_id']);
 

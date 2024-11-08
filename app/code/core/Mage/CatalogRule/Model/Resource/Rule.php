@@ -706,7 +706,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             ->where('to_time = 0 or to_time > ?', $date)
             ->order('sort_order');
 
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $adapter->fetchAll($select);
     }
 
@@ -728,7 +727,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             ->where('website_id=?', $wId)
             ->where('product_id=?', $pId);
 
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         return $read->fetchAll($select);
     }
 
