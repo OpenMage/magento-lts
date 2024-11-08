@@ -893,7 +893,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     'pv.product_id = cp.product_id',
                     ['position' => $position]
                 )
-                        ->group(['ca.category_id', 'cp.product_id']);
+                ->group(['ca.category_id', 'cp.product_id']);
                 $query = $select->insertFromSelect(
                     $anchorProductsTable,
                     ['category_id', 'product_id', 'position'],

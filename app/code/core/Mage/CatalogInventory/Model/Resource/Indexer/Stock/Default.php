@@ -137,7 +137,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      * @param bool $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
      */
-    //phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
         $adapter = $this->_getWriteAdapter();
@@ -264,7 +263,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      * @param string $table
      * @return string
      */
-    //phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getIdxTable($table = null)
     {
         if ($this->useIdxTable()) {
