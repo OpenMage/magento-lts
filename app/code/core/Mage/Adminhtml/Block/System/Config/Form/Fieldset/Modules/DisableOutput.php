@@ -45,14 +45,20 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
 
         $dispatchResult = new Varien_Object($modules);
         Mage::dispatchEvent(
+            'adminhtml_system_config_advanced_disableoutput_module_config_after',
+            ['modules' => $dispatchResult]
+        );
+
+        $modules = array_keys($dispatchResult->toArray());
+        sort($modules);
+
+        $dispatchResult = new Varien_Object($modules);
+        Mage::dispatchEvent(
             'adminhtml_system_config_advanced_disableoutput_render_before',
             ['modules' => $dispatchResult]
         );
-        $modules = array_keys($dispatchResult->toArray());
 
-        sort($modules);
-
-        return $modules;
+        return $dispatchResult->toArray();
     }
 
     protected function _getDummyElement()

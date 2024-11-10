@@ -115,14 +115,14 @@
                     </bind_locale>
                 </observers>
             </admin_system_config_changed_section_admin>
-            <adminhtml_system_config_advanced_disableoutput_render_before>
+            <adminhtml_system_config_advanced_disableoutput_module_config_after>
                 <observers>
-                    <hide_disabled>
+                    <hide_disabled_modules>
                         <class>adminhtml/system_config_backend_admin_observer</class>
                         <method>beforeRenderModuleList</method>
-                    </hide_disabled>
+                    </hide_disabled_modules>
                 </observers>
-            </adminhtml_system_config_advanced_disableoutput_render_before>
+            </adminhtml_system_config_advanced_disableoutput_module_config_after>
         </events>
         <global_search>
             <products>

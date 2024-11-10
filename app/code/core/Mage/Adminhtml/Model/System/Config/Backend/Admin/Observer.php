@@ -48,7 +48,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
     /**
      * Hide disabled modules
      *
-     * @see Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput::render()
+     * @see Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput::getModules()
      */
     public function beforeRenderModuleList(Varien_Event_Observer $observer): void
     {
