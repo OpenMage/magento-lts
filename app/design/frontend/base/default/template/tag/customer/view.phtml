@@ -12,6 +12,8 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Mage_Tag_Block_Customer_View $this */
 ?>
 <div class="page-title">
     <h1><?php echo $this->__('My Tags') ?></h1>
@@ -25,6 +27,7 @@
 <?php echo $this->getToolbarHtml() ?>
 <table class="data-table" id="my-tags-table">
 <?php if(count($this->getMyProducts()) > 0): ?>
+    <?php $params[Mage_Core_Model_Url::FORM_KEY] = $this->getFormKey() ?>
     <col width="1" />
     <col />
     <col width="1" />
@@ -41,14 +44,20 @@
             </td>
             <td>
                 <?php if($_product->isSaleable()): ?>
-                    <?php $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey() ?>
                     <?php $params['product'] = $_product->getId(); ?>
                     <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add', $params) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                 <?php endif ?>
                 <?php if ($this->helper('wishlist')->isAllow()) : ?>
                 <ul class="add-to-links">
                     <li>
-                        <a href="<?php echo $this->getUrl('wishlist/index/add', ['product'=>$_product->getId()]) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
+                        <a href="#"
+                           class="link-wishlist"
+                           onclick="customFormSubmit(
+                                   '<?php echo $this->getAddToWishlistUrlCustom($_product, false) ?>',
+                                   '<?php echo $this->escapeHtml(json_encode(['form_key' => $params[Mage_Core_Model_Url::FORM_KEY]])) ?>',
+                                   'post')">
+                            <?php echo $this->__('Add to Wishlist') ?>
+                        </a>
                     </li>
                 </ul>
                 <?php endif ?>
