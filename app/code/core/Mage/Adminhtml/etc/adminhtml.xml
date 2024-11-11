@@ -197,10 +197,6 @@
                                         <title>Currency Setup</title>
                                         <sort_order>120</sort_order>
                                     </currency>
-                                    <sendfriend translate="title">
-                                        <title>Email to a Friend</title>
-                                        <sort_order>140</sort_order>
-                                    </sendfriend>
                                     <admin translate="title">
                                         <title>Admin</title>
                                         <sort_order>100</sort_order>

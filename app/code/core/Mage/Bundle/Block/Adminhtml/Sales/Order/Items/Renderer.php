@@ -29,27 +29,28 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
      */
     public function getChilds($item)
     {
-        $_itemsArray = [];
+        $orderItems = [];
+        $itemsArray = [];
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
-            $_items = $item->getInvoice()->getAllItems();
+            $orderItems = $item->getInvoice()->getAllItems();
         } elseif ($item instanceof Mage_Sales_Model_Order_Shipment_Item) {
-            $_items = $item->getShipment()->getAllItems();
+            $orderItems = $item->getShipment()->getAllItems();
         } elseif ($item instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
-            $_items = $item->getCreditmemo()->getAllItems();
+            $orderItems = $item->getCreditmemo()->getAllItems();
         }
 
-        if ($_items) {
-            foreach ($_items as $_item) {
-                if ($parentItem = $_item->getOrderItem()->getParentItem()) {
-                    $_itemsArray[$parentItem->getId()][$_item->getOrderItemId()] = $_item;
+        if ($orderItems) {
+            foreach ($orderItems as $orderItem) {
+                if ($parentItem = $orderItem->getOrderItem()->getParentItem()) {
+                    $itemsArray[$parentItem->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 } else {
-                    $_itemsArray[$_item->getOrderItem()->getId()][$_item->getOrderItemId()] = $_item;
+                    $itemsArray[$orderItem->getOrderItem()->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 }
             }
         }
 
-        return $_itemsArray[$item->getOrderItem()->getId()] ?? null;
+        return $itemsArray[$item->getOrderItem()->getId()] ?? null;
     }
 
     /**

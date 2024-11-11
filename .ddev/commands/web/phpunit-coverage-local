@@ -5,5 +5,5 @@
 ## Example: ddev phpunit-coverage-local
 
 enable_xdebug
-XDEBUG_MODE=coverage php vendor/bin/phpunit --coverage-html build/coverage "$@" --testdox
+XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --coverage-html build/coverage --testdox "$@"
 disable_xdebug

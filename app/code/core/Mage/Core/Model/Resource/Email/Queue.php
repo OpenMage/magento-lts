@@ -78,6 +78,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
             ->where('queue.event_type =? ', $queue->getEventType())
             ->where('queue.message_body_hash =? ', md5($queue->getMessageBody()));
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $existingRecipients = $readAdapter->fetchAll($select);
         if ($existingRecipients) {
             $newRecipients = $queue->getRecipients();
@@ -120,6 +121,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
         $select = $readAdapter->select()
             ->from($this->getTable('core/email_recipients'), ['recipient_email', 'recipient_name', 'email_type'])
             ->where('message_id =? ', $messageId);
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $recipients = $readAdapter->fetchAll($select);
         $existingRecipients = [];
         if ($recipients) {
