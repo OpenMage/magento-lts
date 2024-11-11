@@ -598,6 +598,7 @@ class Mage_Core_Model_Locale
      *
      * @param   string $currency
      * @return  Zend_Currency
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function currency($currency)
     {

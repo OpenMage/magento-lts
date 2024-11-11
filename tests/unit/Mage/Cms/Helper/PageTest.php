@@ -50,17 +50,17 @@ class PageTest extends TestCase
         ];
         yield 'empty array' => [
             [
-                0 => 'web/default/cms_no_route',
-                1 => 'web/default/cms_no_cookies',
-                2 => 'web/default/cms_home_page',
+                0 => Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE,
+                1 => Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE,
+                2 => Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE,
             ],
             [],
         ];
         yield 'custom paths' => [
             [
-                0 => 'web/default/cms_no_route',
-                1 => 'web/default/cms_no_cookies',
-                2 => 'web/default/cms_home_page',
+                0 => Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE,
+                1 => Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE,
+                2 => Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE,
                 3 => 'my/first/path',
                 4 => 'my/second/path',
             ],

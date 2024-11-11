@@ -214,7 +214,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
     /**
      * Delete values by option id
      *
-     * @param int $optionId
+     * @param int|string $optionId
      * @return $this
      */
     public function deleteValue($optionId)

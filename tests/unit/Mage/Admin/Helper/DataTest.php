@@ -32,6 +32,7 @@ class DataTest extends TestCase
     }
 
     /**
+     * @covers Mage_Admin_Helper_Data::generateResetPasswordLinkToken()
      * @group Mage_Admin
      * @group Mage_Admin_Helper
      */
@@ -41,6 +42,7 @@ class DataTest extends TestCase
     }
 
     /**
+     * @covers Mage_Admin_Helper_Data::getResetPasswordLinkExpirationPeriod()
      * @group Mage_Admin
      * @group Mage_Admin_Helper
      */

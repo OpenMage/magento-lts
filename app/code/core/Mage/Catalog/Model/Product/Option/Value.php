@@ -22,10 +22,10 @@
  * @method Mage_Catalog_Model_Resource_Product_Option_Value_Collection getCollection()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
- * @method int getOptionId()
- * @method $this setOptionId(int $value)
- * @method int getOptionTypeId()
- * @method $this setOptionTypeId(int $value)
+ * @method int|null getOptionId()
+ * @method $this setOptionId(int|null $value)
+ * @method int|null getOptionTypeId()
+ * @method $this setOptionTypeId(int|null $value)
  * @method string getPriceType()
  * @method string getSku()
  * @method $this setSku(string $value)
@@ -152,9 +152,11 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
             if ($this->getData('is_delete') == '1') {
                 if ($this->getId()) {
                     $this->deleteValues($this->getId());
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $this->delete();
                 }
             } else {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $this->save();
             }
         }//eof foreach()
@@ -189,34 +191,34 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 
     /**
      * @param array $optionIds
-     * @param int $option_id
-     * @param int $store_id
+     * @param int $optionId
+     * @param int $storeId
      * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
-    public function getValuesByOption($optionIds, $option_id, $store_id)
+    public function getValuesByOption($optionIds, $optionId, $storeId)
     {
         return Mage::getResourceModel('catalog/product_option_value_collection')
-            ->addFieldToFilter('option_id', $option_id)
-            ->getValuesByOption($optionIds, $store_id);
+            ->addFieldToFilter('option_id', $optionId)
+            ->getValuesByOption($optionIds, $storeId);
     }
 
     /**
-     * @param int $option_id
+     * @param int|string $optionId
      * @return $this
      */
-    public function deleteValue($option_id)
+    public function deleteValue($optionId)
     {
-        $this->getResource()->deleteValue($option_id);
+        $this->getResource()->deleteValue($optionId);
         return $this;
     }
 
     /**
-     * @param int $option_type_id
+     * @param int $optionTypeId
      * @return $this
      */
-    public function deleteValues($option_type_id)
+    public function deleteValues($optionTypeId)
     {
-        $this->getResource()->deleteValues($option_type_id);
+        $this->getResource()->deleteValues($optionTypeId);
         return $this;
     }
 

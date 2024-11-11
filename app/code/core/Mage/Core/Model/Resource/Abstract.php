@@ -69,6 +69,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      *
      * @param callable $callback
      * @return $this
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function addCommitCallback($callback)
     {
@@ -81,6 +82,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      * Commit resource transaction
      *
      * @return $this
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function commit()
     {
@@ -93,7 +95,7 @@ abstract class Mage_Core_Model_Resource_Abstract
             if (isset(self::$_commitCallbacks[$adapterKey])) {
                 $callbacks = self::$_commitCallbacks[$adapterKey];
                 self::$_commitCallbacks[$adapterKey] = [];
-                foreach ($callbacks as $index => $callback) {
+                foreach ($callbacks as $callback) {
                     call_user_func($callback);
                 }
             }
@@ -105,6 +107,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      * Roll back resource transaction
      *
      * @return $this
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function rollBack()
     {

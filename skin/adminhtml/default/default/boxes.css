@@ -335,7 +335,7 @@ table.form-edit                         { width:100%; }
 .box,
 .entry-edit fieldset,
 .entry-edit .fieldset                   { padding:10px 15px; margin-bottom:15px; }
-.entry-edit .entry-edit-head h4         { float:left; padding:0; background:none; margin:0; color:#fff; font-size:1em; line-height:18px; min-height:0; }
+.entry-edit .entry-edit-head h4         { float:left; padding:0; background:none; margin:0; color:#fff; font-size:1em; line-height:24px; min-height:0; }
 .entry-edit .entry-edit-head .tools     { float:right;}
 .entry-edit .entry-edit-head strong,
 .entry-edit .entry-edit-head a          { color:#fff; font-size:1em; line-height:18px; min-height:0; font-weight:bold}

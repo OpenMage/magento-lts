@@ -654,14 +654,14 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             if (in_array($column['COLUMN_NAME'], $columnsToSkip)) {
                 continue;
             }
-            $_is_unsigned = '';
+            $isUnsigned = '';
             $ddlType = $helper->getDdlTypeByColumnType($column['DATA_TYPE']);
             $column['DEFAULT'] = empty($column['DEFAULT']) ? $column['DEFAULT'] : trim($column['DEFAULT'], "' ");
             switch ($ddlType) {
                 case Varien_Db_Ddl_Table::TYPE_SMALLINT:
                 case Varien_Db_Ddl_Table::TYPE_INTEGER:
                 case Varien_Db_Ddl_Table::TYPE_BIGINT:
-                    $_is_unsigned = (bool)$column['UNSIGNED'];
+                    $isUnsigned = (bool)$column['UNSIGNED'];
                     if ($column['DEFAULT'] === '') {
                         $column['DEFAULT'] = null;
                     }
@@ -675,26 +675,26 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     // no break
                 case Varien_Db_Ddl_Table::TYPE_DECIMAL:
                     $options = $column['PRECISION'] . ',' . $column['SCALE'];
-                    $_is_unsigned = null;
+                    $isUnsigned = null;
                     if ($column['DEFAULT'] === '') {
                         $column['DEFAULT'] = null;
                     }
                     break;
                 case Varien_Db_Ddl_Table::TYPE_TEXT:
                     $options = $column['LENGTH'];
-                    $_is_unsigned = null;
+                    $isUnsigned = null;
                     break;
                 case Varien_Db_Ddl_Table::TYPE_TIMESTAMP:
                     $options = null;
-                    $_is_unsigned = null;
+                    $isUnsigned = null;
                     break;
                 case Varien_Db_Ddl_Table::TYPE_DATETIME:
-                    $_is_unsigned = null;
+                    $isUnsigned = null;
                     break;
             }
             $columns[$column['COLUMN_NAME']] = [
                 'type' => [$ddlType, $options],
-                'unsigned' => $_is_unsigned,
+                'unsigned' => $isUnsigned,
                 'nullable' => $column['NULLABLE'],
                 'default' => $column['DEFAULT'] ?? false,
                 'comment' => $column['COLUMN_NAME']
@@ -807,10 +807,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      * Return attribute values for given entities and store
      *
      * @param int|string|array $entityIds
-     * @param int $store_id
+     * @param int $storeId
      * @return array
      */
-    protected function _getAttributeValues($entityIds, $store_id)
+    protected function _getAttributeValues($entityIds, $storeId)
     {
         if (!is_array($entityIds)) {
             $entityIds = [$entityIds];
@@ -829,7 +829,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             'datetime'
         ];
         foreach ($attributesType as $type) {
-            foreach ($this->_getAttributeTypeValues($type, $entityIds, $store_id) as $row) {
+            foreach ($this->_getAttributeTypeValues($type, $entityIds, $storeId) as $row) {
                 if (isset($attributes[$row['attribute_id']])) {
                     $values[$row['entity_id']][$attributes[$row['attribute_id']]['attribute_code']] = $row['value'];
                 }

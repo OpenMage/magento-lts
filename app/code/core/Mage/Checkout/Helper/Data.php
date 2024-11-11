@@ -221,11 +221,11 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $items = '';
-        foreach ($checkout->getAllVisibleItems() as $_item) {
-            /** @var Mage_Sales_Model_Quote_Item $_item */
-            $items .= $_item->getProduct()->getName() . '  x ' . $_item->getQty() . '  '
+        foreach ($checkout->getAllVisibleItems() as $item) {
+            /** @var Mage_Sales_Model_Quote_Item $item */
+            $items .= $item->getProduct()->getName() . '  x ' . $item->getQty() . '  '
                 . $checkout->getStoreCurrencyCode() . ' '
-                . $_item->getProduct()->getFinalPrice($_item->getQty()) . "\n";
+                . $item->getProduct()->getFinalPrice($item->getQty()) . "\n";
         }
         $total = $checkout->getStoreCurrencyCode() . ' ' . $checkout->getGrandTotal();
 
