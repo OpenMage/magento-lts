@@ -134,7 +134,7 @@ class DataTest extends TestCase
         #$this->assertSame(1, $this->subject->needPriceConversion());
     }
 
-     /**
+    /**
      * @group Mage_Tax
      * @group Mage_Tax_Helper
      * @group runInSeparateProcess
