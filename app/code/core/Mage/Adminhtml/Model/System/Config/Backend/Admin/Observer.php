@@ -58,8 +58,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
         $data = $modules->getData();
         /** @var Mage_Core_Model_Config_Element $module */
         foreach ($data as $index => $module) {
-            $module = $module->asArray();
-            if ($module['active'] === 'false') {
+            if ($module->active === 'false') {
                 unset($data[$index]);
             }
         }
