@@ -74,6 +74,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
      * Checking installation status
      *
      * @return bool
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _checkIfInstalled()
     {
@@ -205,6 +206,8 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Process configuration POST data
+     *
+     * @return Mage_Core_Controller_Varien_Action|void
      */
     public function configPostAction()
     {
@@ -276,6 +279,8 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
     /**
      * Process administrator installation POST data
+     *
+     * @return false|void
      */
     public function administratorPostAction()
     {

@@ -39,6 +39,7 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
      * @param array $args
      * @return bool|mixed|Varien_Object
      * @throws Varien_Exception
+     * @SuppressWarnings(PHPMD.DevelopmentCodeFragment)
      */
     public function __call($method, $args)
     {
@@ -56,7 +57,6 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
             case 'has':
                 return isset($this->_data[$key]);
         }
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')');
     }
 }

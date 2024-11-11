@@ -33,6 +33,7 @@ function destruct($object)
  *
  * @return string
  * @deprecated 1.3
+ * @SuppressWarnings(PHPMD.ShortMethodName)
  */
 function __()
 {
@@ -294,7 +295,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
  *
  * @SuppressWarnings(PHPMD.ErrorControlOperator)
  */
-function is_dir_writeable($dir)
+function isDirWriteable($dir)
 {
     if (is_dir($dir) && is_writable($dir)) {
         if (stripos(PHP_OS, 'win') === 0) {
@@ -313,4 +314,21 @@ function is_dir_writeable($dir)
         return true;
     }
     return false;
+}
+
+
+/**
+ * @param string $dir
+ * @return bool
+ * @deprecated avoid php_codesniffer error
+ *
+ *     An error occurred during processing; checking has been aborted. The error message was: Undefined index: ^is_dir/i_writeab in
+ *     /var/www/html/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP/ForbiddenFunctionsSniff.php on line 228
+ *     The error originated in the Generic.PHP.ForbiddenFunctions sniff on line 228. (Internal.Exception)
+ *
+ * @see isDirWriteable()
+ */
+function is_dir_writeable($dir)
+{
+    return isDirWriteable($dir);
 }

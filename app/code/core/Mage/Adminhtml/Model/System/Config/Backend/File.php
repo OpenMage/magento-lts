@@ -34,6 +34,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * Save uploaded file before saving config value
      *
      * @return $this
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _beforeSave()
     {
