@@ -32,20 +32,22 @@ class BlockTest extends TestCase
     }
 
     /**
+     * @covers Mage_Admin_Helper_Block::isTypeAllowed()
      * @group Mage_Admin
      * @group Mage_Admin_Helper
      */
     public function testIsTypeAllowed(): void
     {
-        $this->assertIsBool($this->subject->isTypeAllowed('some-type'));
+        $this->assertFalse($this->subject->isTypeAllowed('some-type'));
     }
 
     /**
+     * @covers Mage_Admin_Helper_Block::getDisallowedBlockNames()
      * @group Mage_Admin
      * @group Mage_Admin_Helper
      */
     public function testGetDisallowedBlockNames(): void
     {
-        $this->assertIsArray($this->subject->getDisallowedBlockNames());
+        $this->assertSame(['install/end'], $this->subject->getDisallowedBlockNames());
     }
 }

@@ -35,7 +35,8 @@ class AppTest extends TestCase
         try {
             $this->assertInstanceOf(Mage_Core_Model_Store::class, $this->subject->getStore($id));
         } catch (Mage_Core_Model_Store_Exception $e) {
-            $this->assertSame('', $e->getMessage());
+            $this->assertNotEmpty($e->getMessage());
+            $this->assertSame('Invalid store code requested.', $e->getMessage());
         }
     }
 
@@ -77,6 +78,7 @@ class AppTest extends TestCase
         try {
             $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->getWebsite($id));
         } catch (Mage_Core_Exception $e) {
+            $this->assertNotEmpty($e->getMessage());
             $this->assertSame('Invalid website id requested.', $e->getMessage());
         }
     }
@@ -119,6 +121,7 @@ class AppTest extends TestCase
         try {
             $this->assertInstanceOf(Mage_Core_Model_Store_Group::class, $this->subject->getGroup($id));
         } catch (Mage_Core_Exception $e) {
+            $this->assertNotEmpty($e->getMessage());
             $this->assertSame('Invalid store group id requested.', $e->getMessage());
         }
     }
