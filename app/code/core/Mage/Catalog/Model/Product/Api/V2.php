@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,9 +61,9 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         $_additionalAttributeCodes = [];
         if (!empty($attributes->additional_attributes)) {
-            foreach ($attributes->additional_attributes as $k => $_attributeCode) {
-                $allAttributes[] = $_attributeCode;
-                $_additionalAttributeCodes[] = $_attributeCode;
+            foreach ($attributes->additional_attributes as $attributeCode) {
+                $allAttributes[] = $attributeCode;
+                $_additionalAttributeCodes[] = $attributeCode;
             }
         }
 
@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param string $type
      * @param int $set
      * @param string $sku
-     * @param array $productData
+     * @param array|stdClass $productData
      * @param string $store
      * @return int
      */
@@ -112,8 +112,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         if (!property_exists($productData, 'stock_data')) {
             //Set default stock_data if not exist in product data
-            $_stockData = ['use_config_manage_stock' => 0];
-            $product->setStockData($_stockData);
+            $stockData = ['use_config_manage_stock' => 0];
+            $product->setStockData($stockData);
         }
 
         foreach ($product->getMediaAttributes() as $mediaAttribute) {
@@ -151,7 +151,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * Update product data
      *
      * @param int|string $productId
-     * @param array $productData
+     * @param array|stdClass $productData
      * @param string|int $store
      * @param string|null $identifierType
      * @return bool
@@ -227,7 +227,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      *  Set additional data before product saved
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $productData
+     * @param array|stdClass $productData
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -243,34 +243,35 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         if (property_exists($productData, 'additional_attributes')) {
             if (property_exists($productData->additional_attributes, 'single_data')) {
                 foreach ($productData->additional_attributes->single_data as $_attribute) {
-                    $_attrCode = $_attribute->key;
-                    $productData->$_attrCode = $_attribute->value;
+                    $attributeCode = $_attribute->key;
+                    $productData->$attributeCode = $_attribute->value;
                 }
             }
             if (property_exists($productData->additional_attributes, 'multi_data')) {
                 foreach ($productData->additional_attributes->multi_data as $_attribute) {
-                    $_attrCode = $_attribute->key;
-                    $productData->$_attrCode = $_attribute->value;
+                    $attributeCode = $_attribute->key;
+                    $productData->$attributeCode = $_attribute->value;
                 }
             }
             unset($productData->additional_attributes);
         }
 
+        // phpcs:ignore: Ecg.Performance.Loop.DataLoad
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
-            $_attrCode = $attribute->getAttributeCode();
+            $attributeCode = $attribute->getAttributeCode();
 
             //Unset data if object attribute has no value in current store
             if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID !== (int) $product->getStoreId()
-                && !$product->getExistsStoreValueFlag($_attrCode)
+                && !$product->getExistsStoreValueFlag($attributeCode)
                 && !$attribute->isScopeGlobal()
             ) {
-                $product->setData($_attrCode, false);
+                $product->setData($attributeCode, false);
             }
 
-            if ($this->_isAllowedAttribute($attribute) && (isset($productData->$_attrCode))) {
+            if ($this->_isAllowedAttribute($attribute) && (isset($productData->$attributeCode))) {
                 $product->setData(
-                    $_attrCode,
-                    $productData->$_attrCode
+                    $attributeCode,
+                    $productData->$attributeCode
                 );
             }
         }

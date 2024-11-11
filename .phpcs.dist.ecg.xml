@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<ruleset name="OpenMage ECG" namespace="OpenMage\CS\Standard">
+    <file>api.php</file>
+    <file>cron.php</file>
+    <file>get.php</file>
+    <file>index.php</file>
+    <file>install.php</file>
+    <file>app/Mage.php</file>
+    <file>app/code/core/Mage/</file>
+    <file>errors/</file>
+    <file>lib/Mage/</file>
+    <file>lib/Magento/</file>
+    <file>lib/Varien/</file>
+    <file>shell/</file>
+
+    <exclude-pattern>*/core/Mage/*/data/*</exclude-pattern>
+    <exclude-pattern>*/core/Mage/*/sql/*</exclude-pattern>
+
+    <rule ref="Ecg" />
+    <rule ref="Ecg.Classes.Mysql4.Found">
+        <exclude-pattern>*/core/Mage/Catalog/Model/Resource/Eav/Mysql4/**.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Install/Block/Db/Type/Mysql4.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Install/Model/Installer/Db/Mysql4.php*</exclude-pattern>
+        <!-- remove when MySql4 classes are removed -->
+        <exclude-pattern>*/core/Mage/*/Model/Mysql4/**.php*</exclude-pattern>
+        <!-- resource helpers - keep -->
+        <exclude-pattern>*/core/Mage/*/Model/Resource/Helper/Mysql4.php*</exclude-pattern>
+    </rule>
+    <rule ref="Ecg.Classes.ObjectInstantiation">
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Classes.ObjectInstantiation.DirectInstantiation"/>
+    </rule>
+    <rule ref="Ecg.Performance">
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Performance.CollectionCount.Found"/>
+        <!-- should be reviewed/commented -->
+        <exclude name="Ecg.Performance.GetFirstItem.Found"/>
+        <!-- should be commented -->
+        <exclude name="Ecg.Performance.FetchAll.Found"/>
+        <!-- should be reviewed/commented -->
+        <exclude name="Ecg.Performance.Loop.DataLoad"/>
+        <!-- should be reviewed/commented -->
+        <exclude name="Ecg.Performance.Loop.ModelLSD"/>
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Performance.Loop.ArraySize"/>
+    </rule>
+    <rule ref="Ecg.PHP">
+        <!-- should be commented -->
+        <exclude name="Ecg.PHP.PrivateClassMember.PrivateClassMemberError"/>
+    </rule>
+    <rule ref="Ecg.Security">
+        <!-- can be reviewed -->
+        <exclude name="Ecg.Security.Acl.MissingAclMethod"/>
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Security.DiscouragedFunction.Discouraged"/>
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Security.ForbiddenFunction.Found"/>
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Security.IncludeFile.IncludeFileDetected"/>
+        <!-- should be ignored -->
+        <exclude name="Ecg.Security.LanguageConstruct.DirectOutput"/>
+        <!-- should be ignored -->
+        <exclude name="Ecg.Security.LanguageConstruct.ExitUsage"/>
+        <!-- should be ignored - PHPMD -->
+        <exclude name="Ecg.Security.Superglobal.SuperglobalUsageWarning"/>
+        <!-- should be ignored - PHPMD -->
+        <exclude name="Ecg.Security.Superglobal.SuperglobalUsageError"/>
+    </rule>
+    <rule ref="Ecg.Strings">
+        <!-- should be fixed -->
+        <exclude name="Ecg.Strings.StringPosition.ImproperValueTesting"/>
+    </rule>
+    <rule ref="Ecg.Sql">
+        <!-- should be fixed -->
+        <exclude name="Ecg.Sql.RawQuery.RawSql"/>
+        <!-- should be commented -->
+        <exclude name="Ecg.Sql.SlowQuery.SlowSql"/>
+        <!-- should be commented -->
+        <exclude name="Ecg.Sql.SlowQuery.SlowRawSql"/>
+    </rule>
+    <rule ref="Generic.CodeAnalysis">
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.AssignmentInCondition.Found"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedIf"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedElse"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedElseif"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedWhile"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.CodeAnalysis.RequireExplicitBooleanOperatorPrecedence.MissingParentheses"/>
+        <!-- should be ignored - PHPMD -->
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.CodeAnalysis.UselessOverridingMethod.Found"/>
+    </rule>
+    <rule ref="Generic.Commenting">
+        <exclude name="Generic.Commenting.DocComment"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Commenting.Fixme.TaskFound"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Commenting.Todo.CommentFound"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Commenting.Todo.TaskFound"/>
+    </rule>
+    <rule ref="Generic.Metrics">
+        <!-- should be reviewed -->
+        <exclude name="Generic.Metrics.CyclomaticComplexity.MaxExceeded"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Metrics.CyclomaticComplexity.TooHigh"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Metrics.NestingLevel.MaxExceeded"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Metrics.NestingLevel.TooHigh"/>
+    </rule>
+    <rule ref="Generic.Metrics">
+        <!-- should be ignored - PHPMD -->
+        <exclude name="Generic.PHP.NoSilencedErrors.Discouraged"/>
+    </rule>
+    <rule ref="Squiz.Functions.GlobalFunction">
+        <!-- should be ignored -->
+        <exclude name="Squiz.Functions.GlobalFunction.Found"/>
+    </rule>
+    <rule ref="Squiz.Operators.IncrementDecrementUsage">
+        <!-- should be ignored -->
+        <exclude name="Squiz.Operators.IncrementDecrementUsage.NoBrackets"/>
+    </rule>
+    <rule ref="Squiz.PHP.NonExecutableCode">
+        <!-- should be fixed -->
+        <exclude name="Squiz.PHP.NonExecutableCode.ReturnNotRequired"/>
+        <!-- should be fixed -->
+        <exclude name="Squiz.PHP.NonExecutableCode.Unreachable"/>
+    </rule>
+    <rule ref="Squiz.PHP.Eval">
+        <!-- should be reviewed -->
+        <exclude name="Squiz.PHP.Eval.Discouraged"/>
+    </rule>
+</ruleset>

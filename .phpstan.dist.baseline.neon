@@ -676,17 +676,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:initFromOrderItem\\(\\) should return Mage_Sales_Model_Quote_Item\\|string but returns \\$this\\(Mage_Adminhtml_Model_Sales_Order_Create\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product\\:\\:getOptionById\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
@@ -1366,19 +1356,9 @@ parameters:
 			path: app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option/Selection.php
 
 		-
-			message: "#^Variable \\$_items might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Adminhtml/Sales/Order/Items/Renderer.php
-
-		-
 			message: "#^Parameter \\#4 \\$cond of method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:joinTable\\(\\) expects array\\|null, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Block/Catalog/Product/List/Partof.php
-
-		-
-			message: "#^Variable \\$_items might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Block/Sales/Order/Items/Renderer.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Interface\\:\\:getQty\\(\\)\\.$#"
@@ -1504,11 +1484,6 @@ parameters:
 			message: "#^Variable \\$customOptions might not be defined\\.$#"
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
-
-		-
-			message: "#^Variable \\$_items might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Sales/Order/Pdf/Items/Abstract.php
 
 		-
 			message: "#^Parameter \\#1 \\$item of method Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract\\:\\:canShowPriceInfo\\(\\) expects Mage_Sales_Model_Order_Item, Mage_Sales_Model_Order_Invoice_Item given\\.$#"
@@ -1861,11 +1836,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Api.php
 
 		-
-			message: "#^Parameter \\#1 \\$stack of function array_pop is passed by reference, so it expects variables only\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Api.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php
@@ -2061,11 +2031,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
 
 		-
-			message: "#^Parameter \\#2 \\$productData of method Mage_Catalog_Model_Product_Api_V2\\:\\:update\\(\\) expects array, stdClass given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
-
-		-
 			message: "#^Parameter \\#3 \\$attributes \\(stdClass\\) of method Mage_Catalog_Model_Product_Api_V2\\:\\:info\\(\\) should be compatible with parameter \\$attributes \\(array\\) of method Mage_Catalog_Model_Product_Api\\:\\:info\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Api/V2.php
@@ -2121,32 +2086,7 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:getValuesCollection\\(\\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection but returns Mage_Catalog_Model_Resource_Product_Option_Value_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product_Option\\:\\:groupFactory\\(\\) should return Mage_Catalog_Model_Product_Option_Type_Default but returns Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option.php
-
-		-
 			message: "#^Parameter \\#1 \\$optionId of method Mage_Catalog_Model_Product\\:\\:getOptionById\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Api.php
-
-		-
-			message: "#^Parameter \\#1 \\$option_id of method Mage_Catalog_Model_Product_Option\\:\\:deletePrices\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Api.php
-
-		-
-			message: "#^Parameter \\#1 \\$option_id of method Mage_Catalog_Model_Product_Option\\:\\:deleteTitles\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Api.php
-
-		-
-			message: "#^Parameter \\#1 \\$option_id of method Mage_Catalog_Model_Product_Option_Value\\:\\:deleteValue\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Api.php
 
@@ -3231,17 +3171,7 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Admin.php
 
 		-
-			message: "#^Argument of an invalid type string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
-			message: "#^Parameter \\#2 \\$modules of method Mage_Core_Controller_Varien_Router_Standard\\:\\:getModuleByName\\(\\) expects string, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
 
@@ -3401,16 +3331,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Design/Fallback.php
 
 		-
-			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and array results in an error\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: "#^Parameter \\#1 \\$file of method Mage_Core_Model_Design_Package\\:\\:_renderFilename\\(\\) expects array, string given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
 			message: "#^Property Mage_Core_Model_Design_Package\\:\\:\\$_store \\(int\\|Mage_Core_Model_Store\\|string\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Design/Package.php
@@ -3544,11 +3464,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$sourceData of method Varien_Simplexml_Config\\:\\:__construct\\(\\) expects string\\|Varien_Simplexml_Element\\|null, array given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Layout.php
-
-		-
-			message: "#^Method Mage_Core_Model_Layout_Update\\:\\:saveCache\\(\\) should return bool but returns Mage_Core_Model_App\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Layout/Update.php
 
 		-
 			message: "#^Parameter \\#3 \\$value of method Zend_Locale\\:\\:getTranslationList\\(\\) expects string\\|null, int given\\.$#"
@@ -4696,11 +4611,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/controllers/Adminhtml/ExportController.php
 
 		-
-			message: "#^Parameter \\#2 \\$elementId of method Mage_ImportExport_Block_Adminhtml_Import_Frame_Result\\:\\:addAction\\(\\) expects string, array\\<int, string\\> given\\.$#"
-			count: 2
-			path: app/code/core/Mage/ImportExport/controllers/Adminhtml/ImportController.php
-
-		-
 			message: "#^Parameter \\#3 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\<string, int\\|string\\>\\|null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Index/Model/Lock.php
@@ -5481,11 +5391,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Refunded/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$select of method Mage_Reports_Model_Resource_Report_Abstract\\:\\:_makeConditionFromDateRangeSelect\\(\\) expects Varien_Db_Select, string\\|Zend_Db_Select given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Abstract.php
-
-		-
 			message: "#^Parameter \\#1 \\$datetime of method Mage_Reports_Model_Resource_Report_Collection\\:\\:timeShift\\(\\) expects string, int given\\.$#"
 			count: 4
 			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
@@ -6221,11 +6126,6 @@ parameters:
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
 
 		-
-			message: "#^Parameter \\#1 \\$product of method Mage_Tax_Helper_Data\\:\\:getPrice\\(\\) expects Mage_Catalog_Model_Product, Mage_Sales_Model_Quote_Item_Abstract given\\.$#"
-			count: 2
-			path: app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
 			message: "#^Parameter \\#2 \\$title of method Mage_Weee_Helper_Data\\:\\:setWeeeTaxesAppliedProperty\\(\\) expects string, null given\\.$#"
 			count: 2
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
@@ -6278,11 +6178,6 @@ parameters:
 		-
 			message: "#^Method Mage_Shipping_Model_Carrier_Tablerate\\:\\:getRate\\(\\) should return Mage_Core_Model_Abstract but returns array\\|bool\\.$#"
 			count: 1
-			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
-			message: "#^Parameter \\#1 \\$result of method Mage_Shipping_Model_Rate_Result\\:\\:append\\(\\) expects Mage_Shipping_Model_Rate_Result\\|Mage_Shipping_Model_Rate_Result_Abstract, Mage_Core_Model_Abstract given\\.$#"
-			count: 3
 			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
 
 		-
@@ -6387,11 +6282,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Tax_Helper_Data\\:\\:needPriceConversion\\(\\) should return int\\|false but returns bool\\.$#"
-			count: 1
-			path: app/code/core/Mage/Tax/Helper/Data.php
-
-		-
-			message: "#^Parameter \\#1 \\$product of method Mage_Tax_Helper_Data\\:\\:getPrice\\(\\) expects Mage_Catalog_Model_Product, Varien_Object given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
@@ -6551,27 +6441,7 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
 		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_doRequest\\(\\) should return Mage_Shipping_Model_Rate_Result\\|Varien_Object but empty return statement found\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_getQuotes\\(\\) should return Mage_Shipping_Model_Rate_Result but returns Varien_Object\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
 			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_mapRequestToShipment\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:_parseXmlTrackingResponse\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl\\:\\:setTrackingReqeust\\(\\) should return null but return statement is missing\\.$#"
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
@@ -6734,11 +6604,6 @@ parameters:
 			message: "#^Variable \\$packageType might not be defined\\.$#"
 			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
-			message: "#^Method Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page\\:\\:drawText\\(\\) should return \\$this\\(Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page\\) but returns Zend_Pdf_Canvas_Interface\\.$#"
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/Page.php
 
 		-
 			message: "#^Call to an undefined method Zend_Pdf_Page\\:\\:drawLines\\(\\)\\.$#"
@@ -7066,17 +6931,7 @@ parameters:
 			path: app/code/core/Mage/Wishlist/Helper/Data.php
 
 		-
-			message: "#^Parameter \\#1 \\$item of method Mage_Wishlist_Model_Resource_Item_Option_Collection\\:\\:addItemFilter\\(\\) expects array\\|int, \\$this\\(Mage_Wishlist_Model_Item\\) given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item.php
-
-		-
 			message: "#^Parameter \\#1 \\$message of class Mage_Core_Exception constructor expects string, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item.php
-
-		-
-			message: "#^Parameter \\#1 \\$option of method Mage_Wishlist_Model_Item\\:\\:addOption\\(\\) expects Mage_Wishlist_Model_Item_Option, array\\<string, string\\> given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Item.php
 
@@ -7681,11 +7536,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/sales/order/address/form.phtml
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/create/giftmessage.phtml
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Abstract\\:\\:formatPrice\\(\\) invoked with 3 parameters, 1 required\\.$#"
 			count: 18
 			path: app/design/adminhtml/default/default/template/sales/order/create/items/grid.phtml
@@ -8151,51 +8001,6 @@ parameters:
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/options.phtml
 
 		-
-			message: "#^Variable \\$_item might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$_showlastRow might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 22
-			path: app/design/frontend/base/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$_inc might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$_item might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$_showlastRow might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 22
-			path: app/design/frontend/base/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 27
-			path: app/design/frontend/base/default/template/bundle/email/order/items/order/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 15
-			path: app/design/frontend/base/default/template/bundle/email/order/items/shipment/default.phtml
-
-		-
 			message: "#^Variable \\$_weeeTaxAttributes might not be defined\\.$#"
 			count: 8
 			path: app/design/frontend/base/default/template/bundle/rss/catalog/product/price.phtml
@@ -8229,16 +8034,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 173
 			path: app/design/frontend/base/default/template/bundle/sales/order/invoice/items/renderer.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 181
-			path: app/design/frontend/base/default/template/bundle/sales/order/items/renderer.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 20
-			path: app/design/frontend/base/default/template/bundle/sales/order/shipment/items/renderer.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -8757,11 +8552,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 4
-			path: app/design/frontend/base/default/template/checkout/onepage/shipping_method/additional.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 15
 			path: app/design/frontend/base/default/template/checkout/total/default.phtml
 
@@ -9042,26 +8832,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 28
-			path: app/design/frontend/base/default/template/downloadable/email/order/items/order/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 170
-			path: app/design/frontend/base/default/template/downloadable/sales/order/creditmemo/items/renderer/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 170
-			path: app/design/frontend/base/default/template/downloadable/sales/order/invoice/items/renderer/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 190
-			path: app/design/frontend/base/default/template/downloadable/sales/order/items/renderer/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 8
 			path: app/design/frontend/base/default/template/email/order/creditmemo/items.phtml
 
@@ -9073,22 +8843,12 @@ parameters:
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 16
-			path: app/design/frontend/base/default/template/email/order/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 16
 			path: app/design/frontend/base/default/template/email/order/items/creditmemo/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 16
 			path: app/design/frontend/base/default/template/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 24
-			path: app/design/frontend/base/default/template/email/order/items/order/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -9387,28 +9147,13 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 27
-			path: app/design/frontend/base/default/template/rss/order/details.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 1
 			path: app/design/frontend/base/default/template/sales/guest/form.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 5
-			path: app/design/frontend/base/default/template/sales/order/creditmemo.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 17
 			path: app/design/frontend/base/default/template/sales/order/creditmemo/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 167
-			path: app/design/frontend/base/default/template/sales/order/creditmemo/items/renderer/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -9427,28 +9172,8 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 5
-			path: app/design/frontend/base/default/template/sales/order/invoice.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 15
 			path: app/design/frontend/base/default/template/sales/order/invoice/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 167
-			path: app/design/frontend/base/default/template/sales/order/invoice/items/renderer/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 18
-			path: app/design/frontend/base/default/template/sales/order/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 187
-			path: app/design/frontend/base/default/template/sales/order/items/renderer/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -9472,28 +9197,13 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 5
-			path: app/design/frontend/base/default/template/sales/order/shipment.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 22
 			path: app/design/frontend/base/default/template/sales/order/shipment/items.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 15
-			path: app/design/frontend/base/default/template/sales/order/shipment/items/renderer/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 23
 			path: app/design/frontend/base/default/template/sales/order/trackinginfo.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 22
-			path: app/design/frontend/base/default/template/sales/order/view.phtml
 
 		-
 			message: "#^Call to method __\\(\\) on an unknown class Mage_Sale_Block_Reorder_Sidebar\\.$#"
@@ -9624,56 +9334,6 @@ parameters:
 			message: "#^Call to protected method _showSingle\\(\\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\.$#"
 			count: 1
 			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			message: "#^Variable \\$_item might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$_showlastRow might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 25
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/creditmemo/default.phtml
-
-		-
-			message: "#^Variable \\$_inc might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$_item might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$_showlastRow might not be defined\\.$#"
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 25
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 29
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/order/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 16
-			path: app/design/frontend/rwd/default/template/bundle/email/order/items/shipment/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 181
-			path: app/design/frontend/rwd/default/template/bundle/sales/order/items/renderer.phtml
 
 		-
 			message: "#^Call to method escapeUrl\\(\\) on an unknown class Mage_Catalog_Block_Layer_Filter\\.$#"
@@ -10102,16 +9762,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 29
-			path: app/design/frontend/rwd/default/template/downloadable/email/order/items/order/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 198
-			path: app/design/frontend/rwd/default/template/downloadable/sales/order/items/renderer/downloadable.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 10
 			path: app/design/frontend/rwd/default/template/email/catalog/product/new.phtml
 
@@ -10127,11 +9777,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 16
-			path: app/design/frontend/rwd/default/template/email/order/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 17
 			path: app/design/frontend/rwd/default/template/email/order/items/creditmemo/default.phtml
 
@@ -10139,11 +9784,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 17
 			path: app/design/frontend/rwd/default/template/email/order/items/invoice/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 25
-			path: app/design/frontend/rwd/default/template/email/order/items/order/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
@@ -10272,11 +9912,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 173
-			path: app/design/frontend/rwd/default/template/sales/order/creditmemo/items/renderer/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 19
 			path: app/design/frontend/rwd/default/template/sales/order/history.phtml
 
@@ -10284,21 +9919,6 @@ parameters:
 			message: "#^Variable \\$this might not be defined\\.$#"
 			count: 18
 			path: app/design/frontend/rwd/default/template/sales/order/invoice/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 172
-			path: app/design/frontend/rwd/default/template/sales/order/invoice/items/renderer/default.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 18
-			path: app/design/frontend/rwd/default/template/sales/order/items.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 191
-			path: app/design/frontend/rwd/default/template/sales/order/items/renderer/default.phtml
 
 		-
 			message: "#^Variable \\$this might not be defined\\.$#"

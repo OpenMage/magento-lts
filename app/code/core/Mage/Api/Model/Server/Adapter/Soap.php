@@ -174,6 +174,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      *
      * @param int $code
      * @param string $message
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function fault($code, $message)
     {

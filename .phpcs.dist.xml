@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="OpenMage" namespace="OpenMage\CS\Standard">
+<ruleset name="OpenMage Default" namespace="OpenMage\CS\Standard">
     <file>api.php</file>
     <file>cron.php</file>
     <file>get.php</file>
@@ -13,6 +13,7 @@
     <file>lib/Varien/</file>
     <file>shell/</file>
     <file>tests/unit/</file>
+
     <!-- file contains include/include_once/... -->
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <!-- controllers -->

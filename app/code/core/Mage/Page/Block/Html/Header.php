@@ -40,14 +40,14 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $logo_src
-     * @param string $logo_alt
+     * @param string $logoSrc
+     * @param string $logoAlt
      * @return $this
      */
-    public function setLogo($logo_src, $logo_alt)
+    public function setLogo($logoSrc, $logoAlt)
     {
-        $this->setLogoSrc($logo_src);
-        $this->setLogoAlt($logo_alt);
+        $this->setLogoSrc($logoSrc);
+        $this->setLogoAlt($logoAlt);
         return $this;
     }
 

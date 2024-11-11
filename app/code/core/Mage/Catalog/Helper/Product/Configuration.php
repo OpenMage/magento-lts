@@ -221,19 +221,19 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         // Truncate standard view
         $result = [];
         if (is_array($optionValue)) {
-            $_truncatedValue = implode("\n", $optionValue);
-            $_truncatedValue = nl2br($_truncatedValue);
-            return ['value' => $_truncatedValue];
+            $truncatedValue = implode("\n", $optionValue);
+            $truncatedValue = nl2br($truncatedValue);
+            return ['value' => $truncatedValue];
         } else {
             if ($maxLength) {
-                $_truncatedValue = Mage::helper('core/string')->truncate($optionValue, $maxLength, '');
+                $truncatedValue = Mage::helper('core/string')->truncate($optionValue, $maxLength, '');
             } else {
-                $_truncatedValue = $optionValue;
+                $truncatedValue = $optionValue;
             }
-            $_truncatedValue = nl2br($_truncatedValue);
+            $truncatedValue = nl2br($truncatedValue);
         }
 
-        $result = ['value' => $_truncatedValue];
+        $result = ['value' => $truncatedValue];
 
         if ($maxLength && (Mage::helper('core/string')->strlen($optionValue) > $maxLength)) {
             $result['value'] = $result['value'] . $cutReplacer;

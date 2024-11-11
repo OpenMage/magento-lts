@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +18,7 @@
  * @package    Mage_Adminhtml
  *
  * @method bool getNoSecret()
- * @method $this setNoSecret(bool $avlue)
+ * @method $this setNoSecret(bool $value)
  */
 class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 {
@@ -77,14 +77,14 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
             return $result;
         }
 
-        $_route = $this->getRouteName() ? $this->getRouteName() : '*';
-        $_controller = $this->getControllerName() ? $this->getControllerName() : $this->getDefaultControllerName();
-        $_action = $this->getActionName() ? $this->getActionName() : $this->getDefaultActionName();
+        $route = $this->getRouteName() ? $this->getRouteName() : '*';
+        $controller = $this->getControllerName() ? $this->getControllerName() : $this->getDefaultControllerName();
+        $action = $this->getActionName() ? $this->getActionName() : $this->getDefaultActionName();
 
         if ($cacheSecretKey) {
-            $secret = [self::SECRET_KEY_PARAM_NAME => "\${$_controller}/{$_action}\$"];
+            $secret = [self::SECRET_KEY_PARAM_NAME => "\${$controller}/{$action}\$"];
         } else {
-            $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action)];
+            $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($controller, $action)];
         }
         if (is_array($routeParams)) {
             $routeParams = array_merge($secret, $routeParams);
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
             $routeParams = array_merge($this->getRouteParams(), $routeParams);
         }
 
-        return parent::getUrl("{$_route}/{$_controller}/{$_action}", $routeParams);
+        return parent::getUrl("{$route}/{$controller}/{$action}", $routeParams);
     }
 
     /**
