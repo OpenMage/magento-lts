@@ -915,8 +915,8 @@ XMLRequest;
                 $rate->setCarrier('ups');
                 $rate->setCarrierTitle($this->getConfigData('title'));
                 $rate->setMethod($method);
-                $method_arr = $this->getShipmentByCode($method);
-                $rate->setMethodTitle($method_arr);
+                $methods = $this->getShipmentByCode($method);
+                $rate->setMethodTitle($methods);
                 $rate->setCost($costArr[$method]);
                 $rate->setPrice($price);
                 $result->append($rate);
@@ -954,16 +954,16 @@ XMLRequest;
      */
     protected function setXMLAccessRequest()
     {
-        $userid = $this->getConfigData('username');
-        $userid_pass = $this->getConfigData('password');
-        $access_key = $this->getConfigData('access_license_number');
+        $userId     = $this->getConfigData('username');
+        $userIdPass = $this->getConfigData('password');
+        $accessKey  = $this->getConfigData('access_license_number');
 
         $this->_xmlAccessRequest =  <<<XMLAuth
 <?xml version="1.0"?>
 <AccessRequest xml:lang="en-US">
-  <AccessLicenseNumber>$access_key</AccessLicenseNumber>
-  <UserId>$userid</UserId>
-  <Password>$userid_pass</Password>
+  <AccessLicenseNumber>$accessKey</AccessLicenseNumber>
+  <UserId>$userId</UserId>
+  <Password>$userIdPass</Password>
 </AccessRequest>
 XMLAuth;
     }
@@ -1710,7 +1710,6 @@ XMLAuth;
             $result->setTrackingNumber($package->TrackingNumber);
             // ShippingLabel is not guaranteed to be set, but if it is, GraphicImage will be set.
             if (isset($package->ShippingLabel->GraphicImage)) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction
                 $result->setShippingLabelContent(base64_decode($package->ShippingLabel->GraphicImage));
             }
         }
@@ -2312,6 +2311,7 @@ XMLAuth;
     /**
      * Prepare shipping rate result based on response
      * @return Mage_Shipping_Model_Rate_Result
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _parseRestResponse(string $rateResponse)
     {
@@ -2483,6 +2483,7 @@ XMLAuth;
     /**
      * Setting common request params for Rate Request
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function setQuoteRequestData(Varien_Object $rowRequest): array
     {
         if (self::USA_COUNTRY_ID == $rowRequest->getDestCountry()) {
@@ -2517,6 +2518,7 @@ XMLAuth;
         return $params;
     }
 
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function mapCurrencyCode(string $code): string
     {
         $currencyMapping = [

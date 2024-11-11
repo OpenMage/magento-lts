@@ -21,6 +21,7 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
 {
     /**
      * @return string
+     * @SuppressWarnings(PHPMD.DevelopmentCodeFragment)
      */
     protected function _toHtml()
     {
@@ -59,7 +60,6 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
         }
         $out .= '</table>';
         $out .= '<pre>';
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $out .= print_r(Varien_Profiler::getSqlProfiler(Mage::getSingleton('core/resource')->getConnection('core_write')), true);
         $out .= '</pre>';
         $out .= '</div>';

@@ -245,7 +245,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $request->setActionName($action);
         $request->setControllerModule($realModule);
 
-        // set parameters from pathinfo
+        // set parameters from path info
         for ($i = 3, $l = count($p); $i < $l; $i += 2) {
             $request->setParam($p[$i], isset($p[$i + 1]) ? urldecode($p[$i + 1]) : '');
         }
@@ -375,7 +375,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     /**
      * @param string $moduleName
-     * @param string $modules
+     * @param array $modules
      * @return bool
      */
     public function getModuleByName($moduleName, $modules)
@@ -478,6 +478,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      *
      * @param Mage_Core_Controller_Request_Http $request
      * @param string $path
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _checkShouldBeSecure($request, $path = '')
     {

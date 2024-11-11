@@ -100,10 +100,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         $this->_config = $args;
 
         if (empty($this->_config['ssl'])) {
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
             $this->_conn = @ftp_connect($this->_config['host'], $this->_config['port'], $this->_config['timeout']);
         } else {
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
             $this->_conn = @ftp_ssl_connect($this->_config['host'], $this->_config['port'], $this->_config['timeout']);
         }
         if (!$this->_conn) {
@@ -111,7 +109,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             throw new Varien_Io_Exception('Could not establish FTP connection, invalid host or port');
         }
 
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         if (!@ftp_login($this->_conn, $this->_config['user'], $this->_config['password'])) {
             $this->_error = self::ERROR_INVALID_LOGIN;
             $this->close();
@@ -119,7 +116,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         }
 
         if (!empty($this->_config['path'])) {
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
             if (!@ftp_chdir($this->_conn, $this->_config['path'])) {
                 $this->_error = self::ERROR_INVALID_PATH;
                 $this->close();
@@ -128,7 +124,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         }
 
         if (!empty($this->_config['passive'])) {
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
             if (!@ftp_pasv($this->_conn, true)) {
                 $this->_error = self::ERROR_INVALID_MODE;
                 $this->close();
@@ -148,7 +143,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      */
     public function close()
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_close($this->_conn);
     }
 
@@ -163,10 +157,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function mkdir($dir, $mode = 0777, $recursive = true)
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_mkdir($this->_conn, $dir);
     }
 
@@ -178,10 +170,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function rmdir($dir, $recursive = false)
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_rmdir($this->_conn, $dir);
     }
 
@@ -194,7 +184,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      */
     public function pwd()
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_pwd($this->_conn);
     }
 
@@ -208,7 +197,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      */
     public function cd($dir)
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_chdir($this->_conn, $dir);
     }
 
@@ -222,7 +210,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     public function read($filename, $dest = null)
     {
         if (is_string($dest)) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $result = ftp_get($this->_conn, $dest, $filename, $this->_config['file_mode']);
         } else {
             if (is_resource($dest)) {
@@ -234,13 +221,11 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
                 return false;
             }
 
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $result = ftp_fget($this->_conn, $stream, $filename, $this->_config['file_mode']);
 
             if (is_null($dest)) {
                 fseek($stream, 0);
                 $result = '';
-                // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed,Ecg.Security.ForbiddenFunction.Found
                 for ($result = ''; $s = fread($stream, 4096); $result .= $s);
                 fclose($stream);
             }
@@ -257,12 +242,9 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function write($filename, $src, $mode = null)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (is_string($src) && is_readable($src)) {
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
             return @ftp_put($this->_conn, $filename, $src, $this->_config['file_mode']);
         } else {
             if (is_string($src)) {
@@ -276,7 +258,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
                 return false;
             }
 
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $result = ftp_fput($this->_conn, $filename, $stream, $this->_config['file_mode']);
             if (is_string($src)) {
                 fclose($stream);
@@ -295,7 +276,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      */
     public function rm($filename)
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_delete($this->_conn, $filename);
     }
 
@@ -310,7 +290,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      */
     public function mv($src, $dest)
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_rename($this->_conn, $src, $dest);
     }
 
@@ -325,17 +304,14 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      */
     public function chmod($filename, $mode)
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_chmod($this->_conn, $mode, $filename);
     }
 
     /**
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function ls($grep = null)
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         $ls = @ftp_nlist($this->_conn, '.');
 
         $list = [];
@@ -352,7 +328,6 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     protected function _tmpFilename($new = false)
     {
         if ($new || !$this->_tmpFilename) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $this->_tmpFilename = tempnam(md5(uniqid(rand(), true)), '');
         }
         return $this->_tmpFilename;

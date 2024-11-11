@@ -70,7 +70,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      * @param int $productId
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _executeReplace($data, $storeId, $productId)
     {
         $this->beginTransaction();

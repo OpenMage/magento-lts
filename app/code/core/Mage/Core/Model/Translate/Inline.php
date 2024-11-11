@@ -241,9 +241,9 @@ class Mage_Core_Model_Translate_Inline
         }
 
         $baseJsUrl = Mage::getBaseUrl('js');
-        $url_prefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
+        $urlPrefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
         $ajaxUrl = Mage::getUrl(
-            $url_prefix . '/ajax/translate',
+            $urlPrefix . '/ajax/translate',
             ['_secure' => Mage::app()->getStore()->isCurrentlySecure()]
         );
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
@@ -504,6 +504,7 @@ class Mage_Core_Model_Translate_Inline
      * @param int $from
      * @return false|int return false if end of tag is not found
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function findEndOfTag($body, $tagName, $from)
     {
         $openTag = '<' . $tagName;
