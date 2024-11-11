@@ -148,19 +148,25 @@ class DataTest extends TestCase
     /**
      * @group Mage_Tax
      * @group Mage_Tax_Helper
+     * @group UsesSampleDataFlag
      */
     public function testGetTaxRatesByProductClass(): void
     {
-        $this->assertSame('{"value_2":9,"value_4":0,"value_6":0}', $this->subject->getTaxRatesByProductClass());
+        $expectedResult = defined('USES_SAMPLEDATA') && USES_SAMPLEDATA === true ?
+            '{"value_2":9,"value_4":0,"value_6":0}' : '{"value_2":8.25,"value_4":0}';
+        $this->assertSame($expectedResult, $this->subject->getTaxRatesByProductClass());
     }
 
     /**
      * @group Mage_Tax
      * @group Mage_Tax_Helper
+     * @group UsesSampleDataFlag
      */
     public function testGetAllRatesByProductClass(): void
     {
-        $this->assertSame('{"value_2":9,"value_4":0,"value_6":0}', $this->subject->getAllRatesByProductClass());
+        $expectedResult = defined('USES_SAMPLEDATA') && USES_SAMPLEDATA === true ?
+            '{"value_2":9,"value_4":0,"value_6":0}' : '{"value_2":8.25,"value_4":0}';
+        $this->assertSame($expectedResult, $this->subject->getAllRatesByProductClass());
     }
 
     /**

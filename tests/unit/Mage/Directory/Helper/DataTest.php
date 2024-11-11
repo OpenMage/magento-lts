@@ -120,7 +120,12 @@ class DataTest extends TestCase
      */
     public function testGetCountriesWithStatesRequired($expectedResult, bool $asJson): void
     {
-        $this->assertSame($expectedResult, $this->subject->getCountriesWithStatesRequired($asJson));
+        $result = $this->subject->getCountriesWithStatesRequired($asJson);
+        if (defined('USES_SAMPLEDATA') && USES_SAMPLEDATA === true) {
+            $asJson ? $this->assertIsString($result) : $this->assertIsArray($result);
+        } else {
+            $this->assertSame($expectedResult, $result);
+        }
     }
 
     public function provideGetCountriesWithStatesRequired(): Generator
