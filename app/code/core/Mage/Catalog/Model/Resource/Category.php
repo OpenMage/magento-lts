@@ -597,7 +597,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             ->addFieldToFilter('level', ['neq' => 0])
             ->setOrder('level', 'DESC')
             ->load();
-        // phpcs:ignore Ecg.Performance.GetFirstItem.Found
         return $collection->getFirstItem();
     }
 

@@ -13,6 +13,11 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @var Mage_Sales_Block_Order_Item_Renderer_Default $this
+ */
+?>
 <?php $_item = $this->getItem() ?>
 <tr class="border" id="order-item-row-<?php echo $_item->getId() ?>">
     <td><h3 class="product-name"><?php echo $this->escapeHtml($_item->getName()) ?></h3>
@@ -46,7 +51,7 @@
             <?php echo $addtInfoBlock->setItem($_item)->toHtml(); ?>
         <?php endif ?>
         <?php echo $this->escapeHtml($_item->getDescription()) ?>
-        <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item) && $_item->getGiftMessageId()): ?>
+        <?php if($this->canDisplayGiftmessage()): ?>
             <a href="#" id="order-item-gift-message-link-<?php echo $_item->getId() ?>" class="gift-message-link" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>')"><?php echo $this->__('Gift Message') ?></a>
         <?php endif ?>
     </td>

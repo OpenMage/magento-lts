@@ -47,10 +47,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     protected function _showSingle()
     {
         if (is_null($this->_showSingle)) {
-            $_option        = $this->getOption();
-            $_selections    = $_option->getSelections();
+            $option     = $this->getOption();
+            $selections = $option->getSelections();
 
-            $this->_showSingle = (count($_selections) === 1 && $_option->getRequired());
+            $this->_showSingle = (count($selections) === 1 && $option->getRequired());
         }
 
         return $this->_showSingle;
@@ -63,32 +63,32 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
      */
     protected function _getDefaultValues()
     {
-        $_option            = $this->getOption();
-        $_default           = $_option->getDefaultSelection();
-        $_selections        = $_option->getSelections();
+        $option             = $this->getOption();
+        $default            = $option->getDefaultSelection();
+        $selections         = $option->getSelections();
         $selectedOptions    = $this->_getSelectedOptions();
         $inPreConfigured    = $this->getProduct()->hasPreconfiguredValues()
             && $this->getProduct()->getPreconfiguredValues()
-                    ->getData('bundle_option_qty/' . $_option->getId());
+                    ->getData('bundle_option_qty/' . $option->getId());
 
-        if (empty($selectedOptions) && $_default) {
-            $_defaultQty = $_default->getSelectionQty() * 1;
-            $_canChangeQty = $_default->getSelectionCanChangeQty();
+        if (empty($selectedOptions) && $default) {
+            $_defaultQty = $default->getSelectionQty() * 1;
+            $_canChangeQty = $default->getSelectionCanChangeQty();
         } elseif (!$inPreConfigured && $selectedOptions && is_numeric($selectedOptions)) {
-            $selectedSelection = $_option->getSelectionById($selectedOptions);
+            $selectedSelection = $option->getSelectionById($selectedOptions);
             if ($selectedSelection) {
                 $_defaultQty = $selectedSelection->getSelectionQty() * 1;
                 $_canChangeQty = $selectedSelection->getSelectionCanChangeQty();
             } else {
-                $_defaultQty = $_selections[0]->getSelectionQty() * 1;
-                $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
+                $_defaultQty = $selections[0]->getSelectionQty() * 1;
+                $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
             }
         } elseif (!$this->_showSingle() || $inPreConfigured) {
             $_defaultQty = $this->_getSelectedQty();
             $_canChangeQty = (bool)$_defaultQty;
         } else {
-            $_defaultQty = $_selections[0]->getSelectionQty() * 1;
-            $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
+            $_defaultQty = $selections[0]->getSelectionQty() * 1;
+            $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
         }
 
         return [$_defaultQty, $_canChangeQty];
@@ -175,16 +175,16 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Returns the formatted string for the quantity chosen for the given selection
      *
-     * @param Mage_Catalog_Model_Product $_selection
+     * @param Mage_Catalog_Model_Product $selection
      * @param bool $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function getSelectionQtyTitlePrice($_selection, $includeContainer = true)
+    public function getSelectionQtyTitlePrice($selection, $includeContainer = true)
     {
-        $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection);
-        $this->setFormatProduct($_selection);
-        $priceTitle = $_selection->getSelectionQty() * 1 . ' x ' . $this->escapeHtml($_selection->getName());
+        $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $selection);
+        $this->setFormatProduct($selection);
+        $priceTitle = $selection->getSelectionQty() * 1 . ' x ' . $this->escapeHtml($selection->getName());
 
         $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
             . '+' . $this->formatPriceString($price, $includeContainer)
@@ -196,15 +196,15 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Get price for selection product
      *
-     * @param Mage_Catalog_Model_Product $_selection
+     * @param Mage_Catalog_Model_Product $selection
      * @return int|float
      */
-    public function getSelectionPrice($_selection)
+    public function getSelectionPrice($selection)
     {
         $price = 0;
         $store = $this->getProduct()->getStore();
-        if ($_selection) {
-            $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection);
+        if ($selection) {
+            $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $selection);
             if (is_numeric($price)) {
                 /** @var Mage_Core_Helper_Data $helper */
                 $helper = $this->helper('core');
@@ -217,16 +217,16 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Get title price for selection product
      *
-     * @param Mage_Catalog_Model_Product $_selection
+     * @param Mage_Catalog_Model_Product $selection
      * @param bool $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function getSelectionTitlePrice($_selection, $includeContainer = true)
+    public function getSelectionTitlePrice($selection, $includeContainer = true)
     {
-        $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $_selection, 1);
-        $this->setFormatProduct($_selection);
-        $priceTitle = $this->escapeHtml($_selection->getName());
+        $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $selection, 1);
+        $this->setFormatProduct($selection);
+        $priceTitle = $this->escapeHtml($selection->getName());
         $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
             . '+' . $this->formatPriceString($price, $includeContainer)
             . ($includeContainer ? '</span>' : '');

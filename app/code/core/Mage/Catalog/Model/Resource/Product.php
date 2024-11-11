@@ -395,7 +395,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
             $selectFields = [
                 't_v_default.entity_id',
-                new Zend_Db_Expr($storeId),
+                new Zend_Db_Expr((string)$storeId),
                 $adapter->getCheckSql('t_v.value_id > 0', 't_v.value', 't_v_default.value'),
             ];
 
@@ -424,7 +424,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
             $selectFields = [
                 new Zend_Db_Expr($productId),
-                new Zend_Db_Expr($storeId),
+                new Zend_Db_Expr((string)$storeId),
                 $adapter->getCheckSql('t_v.value_id > 0', 't_v.value', 't_v_default.value')
             ];
 

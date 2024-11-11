@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -119,28 +119,28 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         }
 
         $position = 0;
-        foreach ($optionsArray as $_option) {
-            /** @var Mage_Bundle_Model_Option $_option */
-            if (!$_option->getSelections()) {
+        foreach ($optionsArray as $bundleOption) {
+            /** @var Mage_Bundle_Model_Option $bundleOption */
+            if (!$bundleOption->getSelections()) {
                 continue;
             }
 
-            $optionId = $_option->getId();
+            $optionId = $bundleOption->getId();
             $option = [
                 'selections' => [],
-                'title'      => $_option->getTitle(),
-                'isMulti'    => in_array($_option->getType(), ['multi', 'checkbox']),
+                'title'      => $bundleOption->getTitle(),
+                'isMulti'    => in_array($bundleOption->getType(), ['multi', 'checkbox']),
                 'position'   => $position++
             ];
 
-            $selectionCount = count($_option->getSelections());
+            $selectionCount = count($bundleOption->getSelections());
             /** @var Mage_Tax_Helper_Data $taxHelper */
             $taxHelper = Mage::helper('tax');
-            foreach ($_option->getSelections() as $_selection) {
-                $selectionId = $_selection->getSelectionId();
-                $_qty = !($_selection->getSelectionQty() * 1) ? '1' : $_selection->getSelectionQty() * 1;
+            foreach ($bundleOption->getSelections() as $bundleSelection) {
+                $selectionId = $bundleSelection->getSelectionId();
+                $_qty = !($bundleSelection->getSelectionQty() * 1) ? '1' : $bundleSelection->getSelectionQty() * 1;
                 // recalculate currency
-                $tierPrices = $_selection->getTierPrice();
+                $tierPrices = $bundleSelection->getTierPrice();
                 foreach ($tierPrices as &$tierPriceInfo) {
                     $tierPriceInfo['price'] =
                         $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['price']);
@@ -148,7 +148,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                         $bundlePriceModel->getLowestPrice($currentProduct, $tierPriceInfo['website_price']);
                     $tierPriceInfo['price'] = $coreHelper::currency($tierPriceInfo['price'], false, false);
                     $tierPriceInfo['priceInclTax'] = $taxHelper->getPrice(
-                        $_selection,
+                        $bundleSelection,
                         $tierPriceInfo['price'],
                         true,
                         null,
@@ -159,7 +159,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                         false
                     );
                     $tierPriceInfo['priceExclTax'] = $taxHelper->getPrice(
-                        $_selection,
+                        $bundleSelection,
                         $tierPriceInfo['price'],
                         false,
                         null,
@@ -174,9 +174,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
 
                 $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice(
                     $currentProduct,
-                    $_selection,
+                    $bundleSelection,
                     $currentProduct->getQty(),
-                    $_selection->getQty(),
+                    $bundleSelection->getQty(),
                     false,
                     false
                 );
@@ -187,7 +187,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 $taxHelper = Mage::helper('tax');
 
                 $_priceInclTax = $taxHelper->getPrice(
-                    $_selection,
+                    $bundleSelection,
                     $itemPrice,
                     true,
                     null,
@@ -198,7 +198,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     false
                 );
                 $_priceExclTax = $taxHelper->getPrice(
-                    $_selection,
+                    $bundleSelection,
                     $itemPrice,
                     false,
                     null,
@@ -236,22 +236,22 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
 
                 $selection = [
                     'qty'              => $_qty,
-                    'customQty'        => $_selection->getSelectionCanChangeQty(),
-                    'price'            => $coreHelper::currency($_selection->getFinalPrice(), false, false),
+                    'customQty'        => $bundleSelection->getSelectionCanChangeQty(),
+                    'price'            => $coreHelper::currency($bundleSelection->getFinalPrice(), false, false),
                     'priceInclTax'     => $coreHelper::currency($_priceInclTax, false, false),
                     'priceExclTax'     => $coreHelper::currency($_priceExclTax, false, false),
-                    'priceValue'       => $coreHelper::currency($_selection->getSelectionPriceValue(), false, false),
-                    'priceType'        => $_selection->getSelectionPriceType(),
+                    'priceValue'       => $coreHelper::currency($bundleSelection->getSelectionPriceValue(), false, false),
+                    'priceType'        => $bundleSelection->getSelectionPriceType(),
                     'tierPrice'        => $tierPrices,
-                    'name'             => $_selection->getName(),
+                    'name'             => $bundleSelection->getName(),
                     'plusDisposition'  => 0,
                     'minusDisposition' => 0,
                     'canApplyMAP'      => $canApplyMAP,
-                    'tierPriceHtml'    => $this->getTierPriceHtml($_selection, $currentProduct),
+                    'tierPriceHtml'    => $this->getTierPriceHtml($bundleSelection, $currentProduct),
                 ];
 
                 $responseObject = new Varien_Object();
-                $args = ['response_object' => $responseObject, 'selection' => $_selection];
+                $args = ['response_object' => $responseObject, 'selection' => $bundleSelection];
                 Mage::dispatchEvent('bundle_product_view_config', $args);
                 if (is_array($responseObject->getAdditionalOptions())) {
                     foreach ($responseObject->getAdditionalOptions() as $o => $v) {
@@ -260,8 +260,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 }
                 $option['selections'][$selectionId] = $selection;
 
-                if (($_selection->getIsDefault() || ($selectionCount == 1 && $_option->getRequired()))
-                    && $_selection->isSalable()
+                if (($bundleSelection->getIsDefault() || ($selectionCount == 1 && $bundleOption->getRequired()))
+                    && $bundleSelection->isSalable()
                 ) {
                     $selected[$optionId][] = $selectionId;
                 }

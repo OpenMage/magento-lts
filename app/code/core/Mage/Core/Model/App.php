@@ -537,6 +537,7 @@ class Mage_Core_Model_App
      *
      * @param string $type
      * @return $this
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _checkGetStore($type)
     {
@@ -652,7 +653,6 @@ class Mage_Core_Model_App
 
         $this->_isSingleStore = false;
         if ($this->_isSingleStoreAllowed) {
-            // phpcs:ignore Ecg.Performance.CollectionCount.Found
             $this->_isSingleStore = $storeCollection->count() < 3;
         }
 
@@ -780,7 +780,6 @@ class Mage_Core_Model_App
      */
     protected function _initFrontController()
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->_frontController = new Mage_Core_Controller_Varien_Front();
         Mage::register('controller', $this->_frontController);
         Varien_Profiler::start('mage::app::init_front_controller');
@@ -835,7 +834,6 @@ class Mage_Core_Model_App
     public function getArea($code)
     {
         if (!isset($this->_areas[$code])) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $this->_areas[$code] = new Mage_Core_Model_App_Area($code, $this);
         }
         return $this->_areas[$code];
@@ -869,7 +867,7 @@ class Mage_Core_Model_App
             return $id;
         }
         if (!isset($id)) {
-            $this->throwStoreException();
+            $this->throwStoreException('Invalid store id requested.');
         }
 
         if (empty($this->_stores[$id])) {
@@ -882,7 +880,7 @@ class Mage_Core_Model_App
             }
 
             if (!$store->getCode()) {
-                $this->throwStoreException();
+                $this->throwStoreException('Invalid store code requested.');
             }
             $this->_stores[$store->getStoreId()] = $store;
             $this->_stores[$store->getCode()] = $store;
@@ -954,11 +952,11 @@ class Mage_Core_Model_App
      */
     public function getDefaultStoreView()
     {
-        foreach ($this->getWebsites() as $_website) {
-            if ($_website->getIsDefault()) {
-                $_defaultStore = $this->getGroup($_website->getDefaultGroupId())->getDefaultStore();
-                if ($_defaultStore) {
-                    return $_defaultStore;
+        foreach ($this->getWebsites() as $website) {
+            if ($website->getIsDefault()) {
+                $defaultStore = $this->getGroup($website->getDefaultGroupId())->getDefaultStore();
+                if ($defaultStore) {
+                    return $defaultStore;
                 }
             }
         }
@@ -1282,7 +1280,6 @@ class Mage_Core_Model_App
     public function getRequest()
     {
         if (empty($this->_request)) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $this->_request = new Mage_Core_Controller_Request_Http();
         }
         return $this->_request;
@@ -1301,6 +1298,7 @@ class Mage_Core_Model_App
 
     /**
      * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function isCurrentlySecure()
     {
@@ -1483,7 +1481,6 @@ class Mage_Core_Model_App
      */
     public function throwStoreException($text = '')
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         throw new Mage_Core_Model_Store_Exception($text);
     }
 

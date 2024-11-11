@@ -538,7 +538,6 @@ class Varien_Db_Ddl_Table
      * Retrieve array of table columns
      *
      * @param bool $normalized
-     * @see $this->_columns
      * @return array
      */
     public function getColumns($normalized = true)
@@ -553,7 +552,6 @@ class Varien_Db_Ddl_Table
      * Set column, formatted according to DDL Table format, into columns structure
      *
      * @param array $column
-     * @see $this->_columns
      * @return Varien_Db_Ddl_Table
      */
     public function setColumn($column)
@@ -566,7 +564,6 @@ class Varien_Db_Ddl_Table
     /**
      * Retrieve array of table indexes
      *
-     * @see $this->_indexes
      * @return array
      */
     public function getIndexes()
@@ -577,7 +574,6 @@ class Varien_Db_Ddl_Table
     /**
      * Retrieve array of table foreign keys
      *
-     * @see $this->_foreignKeys
      * @return array
      */
     public function getForeignKeys()

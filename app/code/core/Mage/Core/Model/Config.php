@@ -258,9 +258,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function __construct($sourceData = null)
     {
         $this->setCacheId('config_global');
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->_options         = new Mage_Core_Model_Config_Options($sourceData);
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->_prototype       = new Mage_Core_Model_Config_Base();
         $this->_cacheChecksum   = null;
         parent::__construct($sourceData);
@@ -518,6 +516,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @return void
      * @throws Exception
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
     {
@@ -821,7 +820,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         foreach ($moduleFiles as $v) {
             $name = explode(DIRECTORY_SEPARATOR, $v);
-            // phpcs:ignore Ecg.Performance.Loop.ArraySize
             $name = substr($name[count($name) - 1], 0, -4);
 
             if (array_key_exists($name, self::MAGE_MODULES)) {
@@ -888,10 +886,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         Varien_Profiler::start('config/load-modules-declaration');
 
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $unsortedConfig = new Mage_Core_Model_Config_Base();
         $unsortedConfig->loadString('<config/>');
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $fileConfig = new Mage_Core_Model_Config_Base();
 
         // load modules declarations
@@ -923,7 +919,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $moduleDepends = $this->_sortModuleDepends($moduleDepends);
 
         // create sorted config
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $sortedConfig = new Mage_Core_Model_Config_Base();
         $sortedConfig->loadString('<config><modules/></config>');
 
@@ -1100,6 +1095,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Get default server variables values
      *
      * @return array
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function getDistroServerVars()
     {

@@ -390,7 +390,6 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         // convert string from default database format (UTF-8)
         // to encoding which replacement arrays made with (ISO-8859-1)
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
         if ($s = @iconv('UTF-8', 'ISO-8859-1', $string)) {
             $string = $s;
         }
@@ -898,7 +897,6 @@ XML;
     public function checkLfiProtection($name)
     {
         if (preg_match('#\.\.[\\\/]#', $name)) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Core_Exception($this->__('Requested file may not include parent directory traversal ("../", "..\\" notation)'));
         }
         return true;

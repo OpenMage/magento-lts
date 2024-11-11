@@ -228,8 +228,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         }
 
         $blockName = (string)$node['name'];
-        $_profilerKey = 'BLOCK: ' . $blockName;
-        Varien_Profiler::start($_profilerKey);
+        $profilerKey = 'BLOCK: ' . $blockName;
+        Varien_Profiler::start($profilerKey);
 
         $block = $this->addBlock($className, $blockName);
         if (!$block) {
@@ -270,7 +270,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $method = (string)$node['output'];
             $this->addOutputBlock($blockName, $method);
         }
-        Varien_Profiler::stop($_profilerKey);
+        Varien_Profiler::stop($profilerKey);
 
         return $this;
     }
@@ -295,8 +295,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $parentName = $parent->getBlockName();
         }
 
-        $_profilerKey = 'BLOCK ACTION: ' . $parentName . ' -> ' . $method;
-        Varien_Profiler::start($_profilerKey);
+        $profilerKey = 'BLOCK ACTION: ' . $parentName . ' -> ' . $method;
+        Varien_Profiler::start($profilerKey);
 
         if (!empty($parentName)) {
             $block = $this->getBlock($parentName);
@@ -346,7 +346,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             call_user_func_array([$block, $method], array_values($args));
         }
 
-        Varien_Profiler::stop($_profilerKey);
+        Varien_Profiler::stop($profilerKey);
 
         return $this;
     }
@@ -391,7 +391,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 $argumentHierarchy = explode('.', $translatableArgumentName);
                 $argumentStack = &$args;
                 $canTranslate = true;
-                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 while (is_array($argumentStack) && count($argumentStack) > 0) {
                     $argumentName = array_shift($argumentHierarchy);
                     if (isset($argumentStack[$argumentName])) {
@@ -463,7 +462,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             }
             $name = 'ANONYMOUS_' . count($this->_blocks);
         } elseif (isset($this->_blocks[$name]) && Mage::getIsDeveloperMode()) {
-            //Mage::throwException(Mage::helper('core')->__('Block with name "%s" already exists', $name));
+            Mage::throwException(Mage::helper('core')->__('Block with name "%s" already exists', $name));
         }
 
         $block->setType($type);

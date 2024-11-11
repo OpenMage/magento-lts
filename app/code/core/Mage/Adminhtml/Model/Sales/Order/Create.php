@@ -407,7 +407,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Initialize creation data from existing order Item
      *
      * @param int $qty
-     * @return $this|Mage_Sales_Model_Quote_Item|string
+     * @return Mage_Sales_Model_Quote_Item|string|$this
      */
     public function initFromOrderItem(Mage_Sales_Model_Order_Item $orderItem, $qty = null)
     {
@@ -898,15 +898,15 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         $newOptions = [];
         $newAdditionalOptions = [];
 
-        foreach (explode("\n", $additionalOptions) as $_additionalOption) {
-            if (strlen(trim($_additionalOption))) {
+        foreach (explode("\n", $additionalOptions) as $additionalOption) {
+            if (strlen(trim($additionalOption))) {
                 try {
-                    if (!str_contains($_additionalOption, ':')) {
+                    if (!str_contains($additionalOption, ':')) {
                         Mage::throwException(
                             Mage::helper('adminhtml')->__('There is an error in one of the option rows.')
                         );
                     }
-                    list($label, $value) = explode(':', $_additionalOption, 2);
+                    list($label, $value) = explode(':', $additionalOption, 2);
                 } catch (Exception $e) {
                     Mage::throwException(Mage::helper('adminhtml')->__('There is an error in one of the option rows.'));
                 }

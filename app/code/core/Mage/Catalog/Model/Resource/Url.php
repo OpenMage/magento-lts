@@ -1295,16 +1295,16 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param string $requestPath
      * @param int $storeId
-     * @param array $_checkedPaths internal variable to prevent infinite loops.
+     * @param array $checkedPaths internal variable to prevent infinite loops.
      * @return string | bool
      */
-    public function findFinalTargetPath($requestPath, $storeId, &$_checkedPaths = [])
+    public function findFinalTargetPath($requestPath, $storeId, &$checkedPaths = [])
     {
-        if (in_array($requestPath, $_checkedPaths)) {
+        if (in_array($requestPath, $checkedPaths)) {
             return false;
         }
 
-        $_checkedPaths[] = $requestPath;
+        $checkedPaths[] = $requestPath;
 
         $select = $this->_getWriteAdapter()->select()
             ->from($this->getMainTable(), ['target_path', 'id_path'])
@@ -1312,7 +1312,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             ->where('request_path = ?', $requestPath);
 
         if ($row = $this->_getWriteAdapter()->fetchRow($select)) {
-            $idPath = $this->findFinalTargetPath($row['target_path'], $storeId, $_checkedPaths);
+            $idPath = $this->findFinalTargetPath($row['target_path'], $storeId, $checkedPaths);
             if (!$idPath) {
                 return $row['id_path'];
             } else {
