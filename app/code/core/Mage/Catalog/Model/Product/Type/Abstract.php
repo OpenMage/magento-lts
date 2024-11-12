@@ -236,7 +236,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $editableAttributes = [];
             foreach ($this->getSetAttributes($product) as $attributeCode => $attribute) {
                 if (!is_array($attribute->getApplyTo())
-                    || count($attribute->getApplyTo()) == 0
+                        || count($attribute->getApplyTo()) == 0
                     || in_array($this->getProduct($product)->getTypeId(), $attribute->getApplyTo())
                 ) {
                     $editableAttributes[$attributeCode] = $attribute;
@@ -268,7 +268,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Check is virtual product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return bool
+     * @return false
      */
     public function isVirtual($product = null)
     {
@@ -509,10 +509,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $transport = new stdClass();
         $transport->options = [];
-        foreach ($this->getProduct($product)->getOptions() as $_option) {
-            /** @var Mage_Catalog_Model_Product_Option $_option */
-            $group = $_option->groupFactory($_option->getType())
-                ->setOption($_option)
+        foreach ($this->getProduct($product)->getOptions() as $option) {
+            /** @var Mage_Catalog_Model_Product_Option $option */
+            $group = $option->groupFactory($option->getType())
+                ->setOption($option)
                 ->setProduct($this->getProduct($product))
                 ->setRequest($buyRequest)
                 ->setProcessMode($processMode)
@@ -520,7 +520,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
 
             $preparedValue = $group->prepareForCart();
             if ($preparedValue !== null) {
-                $transport->options[$_option->getId()] = $preparedValue;
+                $transport->options[$option->getId()] = $preparedValue;
             }
         }
 
@@ -839,7 +839,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * (applicable for complicated product types. As default returns false)
      *
      * @param Mage_Catalog_Model_Product|null $product
-     * @return bool false
+     * @return bool
      */
     public function getForceChildItemQtyChanges($product = null)
     {
@@ -976,7 +976,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @param int $visibility
-     * @return bool
+     * @return false
      */
     public function isMapEnabledInOptions($product, $visibility = null)
     {

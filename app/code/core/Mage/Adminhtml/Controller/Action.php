@@ -171,29 +171,29 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         Mage::dispatchEvent('adminhtml_controller_action_predispatch_start', []);
         parent::preDispatch();
-        $_isValidFormKey = true;
-        $_isValidSecretKey = true;
-        $_keyErrorMsg = '';
+        $isValidFormKey = true;
+        $isValidSecretKey = true;
+        $keyErrorMsg = '';
         if (Mage::getSingleton('admin/session')->isLoggedIn()) {
             if ($this->getRequest()->isPost() || $this->_checkIsForcedFormKeyAction()) {
-                $_isValidFormKey = $this->_validateFormKey();
-                $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.');
+                $isValidFormKey = $this->_validateFormKey();
+                $keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.');
             } elseif (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
-                $_isValidSecretKey = $this->_validateSecretKey();
-                $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Secret Key. Please refresh the page.');
+                $isValidSecretKey = $this->_validateSecretKey();
+                $keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Secret Key. Please refresh the page.');
             }
         }
-        if (!$_isValidFormKey || !$_isValidSecretKey) {
+        if (!$isValidFormKey || !$isValidSecretKey) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
             if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
                     'error' => true,
-                    'message' => $_keyErrorMsg
+                    'message' => $keyErrorMsg
                 ]));
             } else {
-                if (!$_isValidFormKey) {
-                    Mage::getSingleton('adminhtml/session')->addError($_keyErrorMsg);
+                if (!$isValidFormKey) {
+                    Mage::getSingleton('adminhtml/session')->addError($keyErrorMsg);
                 }
                 $this->_redirect(Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl());
             }
@@ -329,6 +329,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * Translate a phrase
      *
      * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function __()
     {

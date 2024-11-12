@@ -87,7 +87,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
                 ]
             )
             ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->group('sales.store_id')
         ;
         if ($this->_customer instanceof Mage_Customer_Model_Customer) {
@@ -97,7 +96,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
 
         $this->printLogQuery($printQuery, $logQuery);
         try {
-            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $values = $this->_read->fetchAll($this->getSelect()->__toString());
         } catch (Exception $e) {
             $this->printLogQuery(true, true, $this->getSelect()->__toString());
@@ -135,7 +133,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {
         if ($printQuery) {
-            // phpcs:ignore Ecg.Security.LanguageConstruct.DirectOutput
             echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
         }
 

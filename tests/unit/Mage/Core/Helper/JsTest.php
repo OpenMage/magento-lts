@@ -23,6 +23,8 @@ use PHPUnit\Framework\TestCase;
 
 class JsTest extends TestCase
 {
+    public const TEST_URL = 'foo';
+
     public Mage_Core_Helper_Js $subject;
 
     public function setUp(): void
@@ -32,6 +34,7 @@ class JsTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Js::getTranslateJson()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
@@ -41,6 +44,7 @@ class JsTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Js::getTranslatorScript()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
@@ -55,7 +59,7 @@ class JsTest extends TestCase
      */
     public function testIncludeScript(): void
     {
-        $this->assertIsString($this->subject->includeScript('test'));
+        $this->assertStringContainsString(self::TEST_URL, $this->subject->includeScript(self::TEST_URL));
     }
 
     /**
@@ -64,7 +68,7 @@ class JsTest extends TestCase
      */
     public function testIncludeSkinScript(): void
     {
-        $this->assertIsString($this->subject->includeSkinScript('test'));
+        $this->assertStringContainsString(self::TEST_URL, $this->subject->includeSkinScript(self::TEST_URL));
     }
 
     /**
@@ -93,15 +97,20 @@ class JsTest extends TestCase
      */
     public function testGetSetLocationJs(): void
     {
-        $this->assertStringStartsWith('setLocation', $this->subject->getSetLocationJs('foo'));
+        $result = $this->subject->getSetLocationJs(self::TEST_URL);
+        $this->assertStringStartsWith('setLocation', $result);
+        $this->assertStringContainsString(self::TEST_URL, $result);
     }
 
     /**
+     * @covers Mage_Core_Helper_Js::getSaveAndContinueEditJs()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
     public function testGetSaveAndContinueEditJs(): void
     {
-        $this->assertStringStartsWith('saveAndContinueEdit', $this->subject->getSaveAndContinueEditJs('foo'));
+        $result = $this->subject->getSaveAndContinueEditJs(self::TEST_URL);
+        $this->assertStringStartsWith('saveAndContinueEdit', $result);
+        $this->assertStringContainsString(self::TEST_URL, $result);
     }
 }

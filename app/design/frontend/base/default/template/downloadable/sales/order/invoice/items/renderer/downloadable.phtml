@@ -13,6 +13,11 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @var Mage_Downloadable_Block_Sales_Order_Item_Renderer_Downloadable $this
+ */
+?>
 <?php $_item = $this->getItem() ?>
 <?php $_order = $this->getItem()->getOrderItem()->getOrder() ?>
 <tr class="border" id="order-item-row-<?php echo $_item->getId() ?>">
@@ -53,7 +58,7 @@
     <!-- EOF downloadable -->
 
     <?php echo $this->escapeHtml($_item->getDescription()) ?>
-    <?php if ($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item->getOrderItem()) && $_item->getGiftMessageId()): ?>
+    <?php if ($this->canDisplayGiftmessage()): ?>
         <br/><a href="#" id="order-item-gift-message-link-<?php echo $_item->getId() ?>"
                 class="giftmessage-preview-link expand"
                 onclick="return giftMessageToogle('<?php echo $_item->getId() ?>')"><?php echo $this->__('Gift Message') ?></a>

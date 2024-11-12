@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Generator;
 use Mage;
 use Mage_Core_Helper_Purifier;
 use PHPUnit\Framework\TestCase;
@@ -34,12 +35,24 @@ class PurifierTest extends TestCase
     }
 
     /**
+     * @dataProvider providePurify
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
-    public function testPurify(): void
+    public function testPurify($expectedResult, $content): void
     {
-        $this->assertIsArray($this->subject->purify([]));
-        $this->assertIsString($this->subject->purify(''));
+        $this->assertSame($expectedResult, $this->subject->purify($content));
+    }
+
+    public function providePurify(): Generator
+    {
+        yield 'array' => [
+            [],
+            [],
+        ];
+        yield 'string' => [
+            '',
+            '',
+        ];
     }
 }

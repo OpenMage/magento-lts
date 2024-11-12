@@ -463,7 +463,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get product price with all tax settings processing
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product|Varien_Object $product
      * @param float $price inputted product price
      * @param bool $includingTax return price include tax flag
      * @param null|Mage_Customer_Model_Address $shippingAddress
@@ -1028,15 +1028,15 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                             $price = $price - $item->getDiscountAmount() + $item->getHiddenTaxAmount();
                             $basePrice = $basePrice - $item->getBaseDiscountAmount() + $item->getBaseHiddenTaxAmount();
                         }
-                        $tax_amount = $price * $percent / 100;
-                        $base_tax_amount = $basePrice * $percent / 100;
+                        $taxAmount = $price * $percent / 100;
+                        $baseTaxAmount = $basePrice * $percent / 100;
 
                         if (isset($taxClassAmount[$taxClassId])) {
-                            $taxClassAmount[$taxClassId]['tax_amount'] += $tax_amount;
-                            $taxClassAmount[$taxClassId]['base_tax_amount'] += $base_tax_amount;
+                            $taxClassAmount[$taxClassId]['tax_amount'] += $taxAmount;
+                            $taxClassAmount[$taxClassId]['base_tax_amount'] += $baseTaxAmount;
                         } else {
-                            $taxClassAmount[$taxClassId]['tax_amount'] = $tax_amount;
-                            $taxClassAmount[$taxClassId]['base_tax_amount'] = $base_tax_amount;
+                            $taxClassAmount[$taxClassId]['tax_amount'] = $taxAmount;
+                            $taxClassAmount[$taxClassId]['base_tax_amount'] = $baseTaxAmount;
                             $taxClassAmount[$taxClassId]['title'] = $tax['title'];
                             $taxClassAmount[$taxClassId]['percent'] = $tax['percent'];
                         }

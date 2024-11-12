@@ -87,7 +87,7 @@ jobs:
           --skip_url_validation 'yes'
 
       - name: Run phpUnit
-        run: php -f vendor/bin/phpunit
+        run: php vendor/bin/phpunit --configuration .phpunit.dist.xml
 
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2

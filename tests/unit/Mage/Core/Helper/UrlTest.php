@@ -47,6 +47,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::getCurrentBase64Url()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
@@ -56,6 +57,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::getEncodedUrl()
      * @dataProvider provideGetEncodedUrl
      * @group Mage_Core
      * @group Mage_Core_Helper
@@ -78,6 +80,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::getHomeUrl()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
@@ -87,6 +90,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::addRequestParam()
      * @dataProvider provideAddRequestParam
      * @group Mage_Core
      * @group Mage_Core_Helper
@@ -131,6 +135,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::removeRequestParam()
      * @dataProvider provideRemoveRequestParam
      * @group Mage_Core
      * @group Mage_Core_Helper
@@ -182,6 +187,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::encodePunycode()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
@@ -191,7 +197,9 @@ class UrlTest extends TestCase
         $this->assertSame(self::TEST_URL_PUNY, $this->subject->encodePunycode(self::TEST_URL_PUNY));
         $this->markTestIncomplete('This test has to be checked.');
     }
+
     /**
+     * @covers Mage_Core_Helper_Url::decodePunycode()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */

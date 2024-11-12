@@ -33,6 +33,7 @@
     $_product           = $this->getProduct();
     $_id                = $_product->getId();
     $_storeId           = $_product->getStoreId();
+    /** @var Mage_Core_Model_Website $_website */
     $_website           = Mage::app()->getStore($_storeId)->getWebsite();
 
     $_weeeSeparator     = '';

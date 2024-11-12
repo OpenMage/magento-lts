@@ -121,7 +121,6 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             ];
         }
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $nonEscapableNbspChar = html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8');
 
         foreach ($this->_websiteCollection as $website) {
@@ -130,6 +129,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 if ($website->getId() != $group->getWebsiteId()) {
                     continue;
                 }
+                $values    = [];
                 $groupShow = false;
                 foreach ($this->_storeCollection as $store) {
                     if ($group->getId() != $store->getGroupId()) {

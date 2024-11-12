@@ -169,7 +169,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          */
         $frameCallback = $this->getFrameCallback();
         if (is_array($frameCallback)) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
         }
 
@@ -198,7 +197,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          */
         $frameCallback = $this->getFrameCallback();
         if (is_array($frameCallback)) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, true);
         }
 

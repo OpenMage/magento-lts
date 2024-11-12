@@ -3,6 +3,7 @@
 /.github export-ignore
 /dev export-ignore
 /docs export-ignore
+/docs_includes export-ignore
 /tests export-ignore
 
 /.all-contributorsrc export-ignore
@@ -14,10 +15,11 @@
 /.phpcs.ecg.xml.dist export-ignore
 /.phpcs.php.xml.dist export-ignore
 /.phpcs.xml.dist export-ignore
+/.phpmd.dist.baseline.xml export-ignore
 /.phpmd.dist.xml export-ignore
 /.phpstan.dist.baseline.neon export-ignore
 /.phpstan.dist.neon export-ignore
-/rector.php export-ignore
+/.rector.php export-ignore
 
 /README.md export-ignore
 
