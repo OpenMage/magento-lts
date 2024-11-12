@@ -484,7 +484,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param string $alias
      * @param string $expression
-     * @param string $attribute
+     * @param string|array $attribute
      * @return $this
      */
     public function addExpressionAttributeToSelect($alias, $expression, $attribute)
@@ -544,13 +544,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
         } else {
             if (isset($this->_joinFields[$attribute])) {
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 $this->getSelect()->group($this->_getAttributeFieldName($attribute));
                 return $this;
             }
 
             if (isset($this->_staticFields[$attribute])) {
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 $this->getSelect()->group(sprintf('e.%s', $attribute));
                 return $this;
             }
@@ -564,11 +562,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
 
             if ($attrInstance->getBackend()->isStatic()) {
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 $this->getSelect()->group($entityField);
             } else {
                 $this->_addAttributeJoin($attribute);
-                // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
                 $this->getSelect()->group($this->_getAttributeTableAlias($attribute) . '.value');
             }
         }
@@ -748,7 +744,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @param array|string|Zend_Db_Expr $table
      * @param string $bind
      * @param string|array $fields
-     * @param null|array $cond
+     * @param string|array|null $cond
      * @param string $joinType
      * @return $this
      */
@@ -1126,13 +1122,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             if (!empty($selects)) {
                 try {
                     if (is_array($selects)) {
-                        // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
                         $select = implode(' UNION ALL ', $selects);
                     } else {
                         $select = $selects;
                     }
 
-                    // phpcs:ignore Ecg.Performance.FetchAll.Found
                     $values = $this->getConnection()->fetchAll($select);
                 } catch (Exception $e) {
                     Mage::printException($e, $select);

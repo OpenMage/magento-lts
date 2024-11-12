@@ -408,13 +408,13 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         $tierPriceRound = new Zend_Db_Expr("ROUND(i.base_tier * ({$optPriceValue} / 100), 4)");
         $tierPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $tierPriceRound);
         $tierPriceMin   = new Zend_Db_Expr("MIN($tierPriceExpr)");
-        $tierPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $tierPriceMin, 0);
+        $tierPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $tierPriceMin, '0');
         $tierPrice      = $write->getCheckSql('MIN(i.base_tier) IS NOT NULL', $tierPriceValue, 'NULL');
 
         $groupPriceRound = new Zend_Db_Expr("ROUND(i.base_group_price * ({$optPriceValue} / 100), 4)");
         $groupPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $groupPriceRound);
         $groupPriceMin   = new Zend_Db_Expr("MIN($groupPriceExpr)");
-        $groupPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $groupPriceMin, 0);
+        $groupPriceValue = $write->getCheckSql('MIN(o.is_require) > 0', $groupPriceMin, '0');
         $groupPrice      = $write->getCheckSql('MIN(i.base_group_price) IS NOT NULL', $groupPriceValue, 'NULL');
 
         $maxPriceRound  = new Zend_Db_Expr("ROUND(i.price * ({$optPriceValue} / 100), 4)");
@@ -471,18 +471,18 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
 
         $minPriceRound  = new Zend_Db_Expr("ROUND(i.price * ({$optPriceValue} / 100), 4)");
         $priceExpr      = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $minPriceRound);
-        $minPrice       = $write->getCheckSql("{$priceExpr} > 0 AND o.is_require > 1", $priceExpr, 0);
+        $minPrice       = $write->getCheckSql("{$priceExpr} > 0 AND o.is_require > 1", $priceExpr, '0');
 
         $maxPrice       = $priceExpr;
 
         $tierPriceRound = new Zend_Db_Expr("ROUND(i.base_tier * ({$optPriceValue} / 100), 4)");
         $tierPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $tierPriceRound);
-        $tierPriceValue = $write->getCheckSql("{$tierPriceExpr} > 0 AND o.is_require > 0", $tierPriceExpr, 0);
+        $tierPriceValue = $write->getCheckSql("{$tierPriceExpr} > 0 AND o.is_require > 0", $tierPriceExpr, '0');
         $tierPrice      = $write->getCheckSql('i.base_tier IS NOT NULL', $tierPriceValue, 'NULL');
 
         $groupPriceRound = new Zend_Db_Expr("ROUND(i.base_group_price * ({$optPriceValue} / 100), 4)");
         $groupPriceExpr  = $write->getCheckSql("{$optPriceType} = 'fixed'", $optPriceValue, $groupPriceRound);
-        $groupPriceValue = $write->getCheckSql("{$groupPriceExpr} > 0 AND o.is_require > 0", $groupPriceExpr, 0);
+        $groupPriceValue = $write->getCheckSql("{$groupPriceExpr} > 0 AND o.is_require > 0", $groupPriceExpr, '0');
         $groupPrice      = $write->getCheckSql('i.base_group_price IS NOT NULL', $groupPriceValue, 'NULL');
 
         $select->columns([

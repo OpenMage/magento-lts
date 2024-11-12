@@ -79,8 +79,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
             );
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
-        $minCheckSql = $write->getCheckSql('le.required_options = 0', 'i.min_price', 0);
-        $maxCheckSql = $write->getCheckSql('le.required_options = 0', 'i.max_price', 0);
+        $minCheckSql = $write->getCheckSql('le.required_options = 0', 'i.min_price', '0');
+        $maxCheckSql = $write->getCheckSql('le.required_options = 0', 'i.max_price', '0');
         $select->columns('website_id', 'cw')
             ->join(
                 ['le' => $this->getTable('catalog/product')],

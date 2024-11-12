@@ -48,7 +48,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Rate request data
      *
-     * @var Mage_Shipping_Model_Rate_Request|null
+     * @var Mage_Shipping_Model_Rate_Request|Varien_Object|null
      */
     protected $_request = null;
 
@@ -62,7 +62,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     /**
      * Rate result data
      *
-     * @var Mage_Shipping_Model_Rate_Result|null
+     * @var Mage_Shipping_Model_Rate_Result|Mage_Shipping_Model_Tracking_Result|null
      */
     protected $_result = null;
 
@@ -400,7 +400,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      *
      * @param string $type
      * @param string $code
-     * @return array|bool
+     * @return array|string|false
      */
     public function getCode($type, $code = '')
     {
@@ -671,18 +671,18 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                     } elseif (($sumWeight + $weightItem) > $maxWeight) {
                         $numberOfPieces++;
                         $nodePiece = $nodePieces->addChild('Piece', '', '');
-                        $nodePiece->addChild('PieceID', $numberOfPieces);
+                        $nodePiece->addChild('PieceID', (string)$numberOfPieces);
                         $this->_addDimension($nodePiece);
-                        $nodePiece->addChild('Weight', $sumWeight);
+                        $nodePiece->addChild('Weight', (string)$sumWeight);
                         break;
                     } else {
                         unset($items[$keyItem]);
                         $numberOfPieces++;
                         $sumWeight += $weightItem;
                         $nodePiece = $nodePieces->addChild('Piece', '', '');
-                        $nodePiece->addChild('PieceID', $numberOfPieces);
+                        $nodePiece->addChild('PieceID', (string)$numberOfPieces);
                         $this->_addDimension($nodePiece);
-                        $nodePiece->addChild('Weight', $sumWeight);
+                        $nodePiece->addChild('Weight', (string)$sumWeight);
                         $sumWeight = 0;
                         break;
                     }
@@ -691,15 +691,15 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             if ($sumWeight > 0) {
                 $numberOfPieces++;
                 $nodePiece = $nodePieces->addChild('Piece', '', '');
-                $nodePiece->addChild('PieceID', $numberOfPieces);
+                $nodePiece->addChild('PieceID', (string)$numberOfPieces);
                 $this->_addDimension($nodePiece);
-                $nodePiece->addChild('Weight', $sumWeight);
+                $nodePiece->addChild('Weight', (string)$sumWeight);
             }
         } else {
             $nodePiece = $nodePieces->addChild('Piece', '', '');
-            $nodePiece->addChild('PieceID', 1);
+            $nodePiece->addChild('PieceID', '1');
             $this->_addDimension($nodePiece);
-            $nodePiece->addChild('Weight', $this->_getWeight($this->_rawRequest->getWeight()));
+            $nodePiece->addChild('Weight', (string)$this->_getWeight($this->_rawRequest->getWeight()));
         }
 
         $handlingAction = $this->getConfigData('handling_action');
@@ -752,9 +752,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     {
         $sizeChecker = (string)$this->getConfigData('size');
 
-        $height = $this->_getDimension((float)$this->getConfigData('height'));
-        $depth = $this->_getDimension((float)$this->getConfigData('depth'));
-        $width = $this->_getDimension((float)$this->getConfigData('width'));
+        $height = (string)$this->_getDimension((float)$this->getConfigData('height'));
+        $depth  = (string)$this->_getDimension((float)$this->getConfigData('depth'));
+        $width  = (string)$this->_getDimension((float)$this->getConfigData('width'));
 
         if ($sizeChecker && $height && $depth && $width) {
             $nodePiece->addChild('Height', $height);
@@ -903,7 +903,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      * Parse response from DHL web service
      *
      * @param string $response
-     * @return Mage_Shipping_Model_Rate_Result
+     * @return Mage_Shipping_Model_Rate_Result|Varien_Object
      */
     protected function _parseResponse($response)
     {
@@ -1177,8 +1177,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
     /**
      * Map request to shipment
-     *
-     * @return null
      */
     protected function _mapRequestToShipment(Varien_Object $request)
     {
@@ -1320,7 +1318,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
         /* Commodity
          * The CommodityCode element contains commodity code for shipment contents. Its
-         * value should lie in between 1 to 9999.This field is mandatory.
+         * value should lie in between 1 and 9999.This field is mandatory.
          */
         $nodeCommodity = $xml->addChild('Commodity', '', '');
         $nodeCommodity->addChild('CommodityCode', '1');
@@ -1415,13 +1413,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      * Generation Shipment Details Node according to origin region
      *
      * @param SimpleXMLElement $xml
-     * @param Mage_Shipping_Model_Rate_Request $rawRequest
+     * @param Mage_Shipping_Model_Rate_Request|Varien_Object $rawRequest
      * @param string $originRegion
      */
     protected function _shipmentDetails($xml, $rawRequest, $originRegion = '')
     {
         $nodeShipmentDetails = $xml->addChild('ShipmentDetails', '', '');
-        $nodeShipmentDetails->addChild('NumberOfPieces', count($rawRequest->getPackages()));
+        $nodeShipmentDetails->addChild('NumberOfPieces', (string)count($rawRequest->getPackages()));
 
         if ($originRegion) {
             $nodeShipmentDetails->addChild(
@@ -1431,6 +1429,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         }
 
         $nodePieces = $nodeShipmentDetails->addChild('Pieces', '', '');
+
+        $package = [];
+        $packageType = '';
 
         /*
          * Package type
@@ -1446,19 +1447,19 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             if ($package['params']['container'] == self::DHL_CONTENT_TYPE_NON_DOC) {
                 $packageType = 'CP';
             }
-            $nodePiece->addChild('PieceID', ++$i);
+            $nodePiece->addChild('PieceID', (string)++$i);
             $nodePiece->addChild('PackageType', $packageType);
-            $nodePiece->addChild('Weight', round($package['params']['weight'], 1));
+            $nodePiece->addChild('Weight', (string)round($package['params']['weight'], 1));
             $params = $package['params'];
             if ($params['width'] && $params['length'] && $params['height']) {
                 if (!$originRegion) {
-                    $nodePiece->addChild('Width', round($params['width']));
-                    $nodePiece->addChild('Height', round($params['height']));
-                    $nodePiece->addChild('Depth', round($params['length']));
+                    $nodePiece->addChild('Width', (string)round($params['width']));
+                    $nodePiece->addChild('Height', (string)round($params['height']));
+                    $nodePiece->addChild('Depth', (string)round($params['length']));
                 } else {
-                    $nodePiece->addChild('Depth', round($params['length']));
-                    $nodePiece->addChild('Width', round($params['width']));
-                    $nodePiece->addChild('Height', round($params['height']));
+                    $nodePiece->addChild('Depth', (string)round($params['length']));
+                    $nodePiece->addChild('Width', (string)round($params['width']));
+                    $nodePiece->addChild('Height', (string)round($params['height']));
                 }
             }
             $content = [];
@@ -1469,7 +1470,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         }
 
         if (!$originRegion) {
-            $nodeShipmentDetails->addChild('Weight', round($rawRequest->getPackageWeight(), 1));
+            $nodeShipmentDetails->addChild('Weight', (string)round($rawRequest->getPackageWeight(), 1));
 
             $nodeShipmentDetails->addChild('WeightUnit', substr($this->_getWeightUnit(), 0, 1));
 

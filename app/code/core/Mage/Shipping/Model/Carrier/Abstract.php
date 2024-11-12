@@ -406,7 +406,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Calculate price considering free shipping and handling fee
      *
-     * @param string $cost
+     * @param float $cost
      * @param string $method
      * @return float|string
      */
