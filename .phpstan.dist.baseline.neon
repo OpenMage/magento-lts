@@ -4771,11 +4771,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Direct.php
 
 		-
-			message: "#^Call to an undefined method Mage_Payment_Model_Info\\:\\:lookupTransaction\\(\\)\\.$#"
-			count: 2
-			path: app/code/core/Mage/Paypal/Model/Express.php
-
-		-
 			message: "#^If condition is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Express.php
@@ -4788,11 +4783,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$datetime of class DateTime constructor expects string, null given\\.$#"
 			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express.php
-
-		-
-			message: "#^Parameter \\#1 \\$txnId of method Mage_Sales_Model_Order_Payment\\:\\:lookupTransaction\\(\\) expects string, false given\\.$#"
-			count: 2
 			path: app/code/core/Mage/Paypal/Model/Express.php
 
 		-
@@ -4854,16 +4844,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$spec of method Zend_Controller_Response_Abstract\\:\\:getBody\\(\\) expects bool, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Observer.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$payment with type Mage_Payment_Model_Info is not subtype of native type Mage_Sales_Model_Order_Payment\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Parameter \\#1 \\$payment of method Mage_Paypal_Model_Payflowlink\\:\\:_buildTokenRequest\\(\\) expects Mage_Sales_Model_Order_Payment, Mage_Payment_Model_Info given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Payflowlink.php
 
 		-
 			message: "#^Return type \\(bool\\) of method Mage_Paypal_Model_Payflowlink\\:\\:validate\\(\\) should be compatible with return type \\(\\$this\\(Mage_Payment_Model_Method_Cc\\)\\) of method Mage_Payment_Model_Method_Cc\\:\\:validate\\(\\)$#"
@@ -5049,11 +5029,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Data_Collection_Db\\:\\:getResource\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Event.php
-
-		-
-			message: "#^Return type \\(int\\) of method Mage_Reports_Model_Resource_Helper_Mysql4\\:\\:mergeVisitorProductIndex\\(\\) should be compatible with return type \\(string\\) of method Mage_Reports_Model_Resource_Helper_Interface\\:\\:mergeVisitorProductIndex\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Helper/Mysql4.php
 
 		-
 			message: "#^Method Mage_Reports_Model_Resource_Order_Collection\\:\\:_prepareSummaryAggregated\\(\\) invoked with 4 parameters, 3 required\\.$#"
@@ -5382,26 +5357,6 @@ parameters:
 
 		-
 			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Order_Payment\\:\\:_addTransaction\\(\\) should return Mage_Sales_Model_Order_Payment_Transaction\\|null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^Parameter \\#1 \\$invoice of method Mage_Sales_Model_Order_Payment\\:\\:capture\\(\\) expects Mage_Sales_Model_Order_Invoice, null given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^Parameter \\#1 \\$txnId of method Mage_Sales_Model_Order_Payment\\:\\:_lookupTransaction\\(\\) expects string, false given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^Parameter \\#1 \\$txnId of method Mage_Sales_Model_Order_Payment\\:\\:_lookupTransaction\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
 
@@ -5794,11 +5749,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$ruleId of method Mage_SalesRule_Model_Rule_Customer\\:\\:loadByCustomerRule\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/SalesRule/Model/Observer.php
-
-		-
-			message: "#^Return type \\(array\\) of method Mage_SalesRule_Model_Quote_Nominal_Discount\\:\\:fetch\\(\\) should be compatible with return type \\(\\$this\\(Mage_SalesRule_Model_Quote_Discount\\)\\) of method Mage_SalesRule_Model_Quote_Discount\\:\\:fetch\\(\\)$#"
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Quote/Nominal/Discount.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -6742,11 +6692,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$store of method Mage_Core_Helper_Data\\:\\:currencyByStore\\(\\) expects int\\|Mage_Core_Model_Store\\|null, true given\\.$#"
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
-
-		-
-			message: "#^Parameter \\#4 \\$website of method Mage_Weee_Helper_Data\\:\\:getProductWeeeAttributesForRenderer\\(\\) expects int\\|null, Mage_Core_Model_Website given\\.$#"
 			count: 1
 			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
 

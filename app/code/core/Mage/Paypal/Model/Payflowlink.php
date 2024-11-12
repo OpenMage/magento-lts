@@ -365,7 +365,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Build request for getting token
      *
-     * @param Mage_Sales_Model_Order_Payment|Mage_Payment_Model_Info $payment
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @return Varien_Object
      */
     protected function _buildTokenRequest(Mage_Sales_Model_Order_Payment $payment)
