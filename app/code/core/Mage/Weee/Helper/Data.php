@@ -170,7 +170,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns display type for price accordingly to current zone
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param mixed                      $product
      * @param array|int|null             $compareTo
      * @param string                     $zone
      * @param Mage_Core_Model_Store      $store
