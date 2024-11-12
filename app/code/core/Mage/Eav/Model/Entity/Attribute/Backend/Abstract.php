@@ -221,8 +221,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
      * Validate object
      *
      * @param Varien_Object $object
-     * @throws Mage_Eav_Exception
      * @return $this|bool
+     * @throws Mage_Eav_Exception|Mage_Core_Exception
      */
     public function validate($object)
     {
@@ -309,6 +309,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     {
         return $this;
     }
+
     /**
      * After delete method
      *

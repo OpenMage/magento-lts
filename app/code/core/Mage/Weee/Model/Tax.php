@@ -148,7 +148,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Sales_Model_Quote_Address $shipping
      * @param Mage_Sales_Model_Quote_Address $billing
-     * @param int $website
+     * @param int|Mage_Core_Model_Website $website
      * @param bool $calculateTax
      * @param bool $ignoreDiscount
      * @return array
@@ -238,6 +238,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                             $amount =  $amount - $taxAmount;
                         } else {
                             $appliedRates = Mage::getModel('tax/calculation')->getAppliedRates($rateRequest);
+                            // phpcs:ignore Ecg.Performance.Loop.ArraySize
                             if (count($appliedRates) > 1) {
                                 $taxAmount = 0;
                                 foreach ($appliedRates as $appliedRate) {
