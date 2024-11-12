@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -116,14 +116,14 @@ class Mage_Shipping_Model_Info extends Varien_Object
             $shipments = $order->getShipmentsCollection();
             /** @var Mage_Sales_Model_Order_Shipment $shipment */
             foreach ($shipments as $shipment) {
-                $increment_id = $shipment->getIncrementId();
+                $incrementId = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
                 $trackingInfos = [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
-                $shipTrack[$increment_id] = $trackingInfos;
+                $shipTrack[$incrementId] = $trackingInfos;
             }
         }
         $this->_trackingInfo = $shipTrack;
@@ -140,14 +140,14 @@ class Mage_Shipping_Model_Info extends Varien_Object
         $shipTrack = [];
         $shipment = $this->_initShipment();
         if ($shipment) {
-            $increment_id = $shipment->getIncrementId();
+            $incrementId = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
             $trackingInfos = [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
-            $shipTrack[$increment_id] = $trackingInfos;
+            $shipTrack[$incrementId] = $trackingInfos;
         }
         $this->_trackingInfo = $shipTrack;
         return $this->_trackingInfo;

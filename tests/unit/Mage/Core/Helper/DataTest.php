@@ -185,21 +185,185 @@ class DataTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Data::removeAccents()
+     * @dataProvider provideRemoveAccents
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
-    public function testRemoveAccents(): void
+    public function testRemoveAccents(string $expectedResult, string $string, bool $german): void
     {
-        $str = 'Ae-Ä Oe-Ö Ue-Ü ae-ä oe-ö ue-ü';
-        $this->assertSame('Ae-Ae Oe-Oe Ue-Ue ae-ae oe-oe ue-ue', $this->subject->removeAccents($str, true));
+        $this->assertSame($expectedResult, $this->subject->removeAccents($string, $german));
+    }
+
+    public function provideRemoveAccents(): Generator
+    {
+        $string = 'Ae-Ä Oe-Ö Ue-Ü ae-ä oe-ö ue-ü';
+
+        yield 'german false' => [
+            'Ae-A Oe-O Ue-U ae-a oe-o ue-u',
+            $string,
+            false
+        ];
+        yield 'german true' => [
+            'Ae-Ae Oe-Oe Ue-Ue ae-ae oe-oe ue-ue',
+            $string,
+            true
+        ];
     }
 
     /**
+     * @covers Mage_Core_Helper_Data::isDevAllowed()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
     public function testIsDevAllowed(): void
     {
         $this->assertIsBool($this->subject->isDevAllowed());
+        $this->markTestIncomplete('add tests for IPS');
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Data::getCacheTypes()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testGetCacheTypes(): void
+    {
+        $expectedResult = [
+            'config' => 'Configuration',
+            'layout' => 'Layouts',
+            'block_html' => 'Blocks HTML output',
+            'translate' => 'Translations',
+            'collections' => 'Collections Data',
+            'eav' => 'EAV types and attributes',
+            'config_api' => 'Web Services Configuration',
+            'config_api2' => 'Web Services Configuration',
+
+        ];
+        $this->assertSame($expectedResult, $this->subject->getCacheTypes());
+    }
+    /**
+     * @covers Mage_Core_Helper_Data::getCacheBetaTypes()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+
+    public function testGetCacheBetaTypes(): void
+    {
+        $expectedResult = [];
+        $this->assertSame($expectedResult, $this->subject->getCacheBetaTypes());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Data::uniqHash()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testUniqHash(): void
+    {
+        $prefix = 'string';
+        $this->assertStringStartsWith($prefix, $this->subject->uniqHash($prefix));
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Data::getDefaultCountry()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testGetDefaultCountry(): void
+    {
+        $this->assertSame('US', $this->subject->getDefaultCountry());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Data::getProtectedFileExtensions()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testGetProtectedFileExtensions(): void
+    {
+        $expectedResult = [
+            'php' => 'php',
+            'php3' => 'php3',
+            'php4' => 'php4',
+            'php5' => 'php5',
+            'php7' => 'php7',
+            'htaccess' => 'htaccess',
+            'jsp' => 'jsp',
+            'pl' => 'pl',
+            'py' => 'py',
+            'asp' => 'asp',
+            'sh' => 'sh',
+            'cgi' => 'cgi',
+            'htm' => 'htm',
+            'html' => 'html',
+            'pht' => 'pht',
+            'phtml' => 'phtml',
+            'shtml' => 'shtml',
+        ];
+        $this->assertSame($expectedResult, $this->subject->getProtectedFileExtensions());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Data::getPublicFilesValidPath()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testGetPublicFilesValidPath(): void
+    {
+        $expectedResult = [
+            'protected' => [
+                'app' => '/app/*/*',
+                'dev' => '/dev/*/*',
+                'errors' => '/errors/*/*',
+                'js' => '/js/*/*',
+                'lib' => '/lib/*/*',
+                'shell' => '/shell/*/*',
+                'skin' => '/skin/*/*',
+            ]
+        ];
+        $this->assertSame($expectedResult, $this->subject->getPublicFilesValidPath());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Data::useDbCompatibleMode()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testUseDbCompatibleMode(): void
+    {
+        $this->assertTrue($this->subject->useDbCompatibleMode());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Data::getMerchantCountryCode()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testGetMerchantCountryCode(): void
+    {
+        $this->assertIsString($this->subject->getMerchantCountryCode());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Data::getMerchantCountryCode()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testGetMerchantVatNumber(): void
+    {
+        $this->assertIsString($this->subject->getMerchantVatNumber());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Data::getMerchantCountryCode()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testIsCountryInEU(): void
+    {
+        $this->assertTrue($this->subject->isCountryInEU('DE'));
+        $this->assertFalse($this->subject->isCountryInEU('XX'));
+        $this->markTestIncomplete('add better tests');
     }
 }

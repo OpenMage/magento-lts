@@ -24,4 +24,30 @@ class Mage_Rss_Block_Order_Details extends Mage_Core_Block_Template
         parent::__construct();
         $this->setTemplate('rss/order/details.phtml');
     }
+
+    public function getGiftMessageItem(Mage_Sales_Model_Order_Item $item): ?Mage_GiftMessage_Model_Message
+    {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return null;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        if ($item->getGiftMessageId()) {
+            return $helper->getGiftMessage($item->getGiftMessageId());
+        }
+        return null;
+    }
+    public function getGiftMessageOrder(): ?Mage_GiftMessage_Model_Message
+    {
+        $order = $this->getOrder();
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return null;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        if ($order->getGiftMessageId()) {
+            return $helper->getGiftMessage($order->getGiftMessageId());
+        }
+        return null;
+    }
 }

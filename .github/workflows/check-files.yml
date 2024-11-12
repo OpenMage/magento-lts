@@ -27,6 +27,9 @@ on:
       php-cs-fixer:
         description: "Count changed PHP-CS-Fixer files"
         value: ${{ jobs.check.outputs.php-cs-fixer }}
+      phpmd:
+        description: "Count changed PHPMD files"
+        value: ${{ jobs.check.outputs.phpmd }}
       phpstan:
         description: "Count changed PHPStan files"
         value: ${{ jobs.check.outputs.phpstan }}
@@ -52,6 +55,7 @@ jobs:
       workflow: ${{ steps.changes-workflow.outputs.workflow }}
       phpcs: ${{ steps.changes-phpcs.outputs.phpcs }}
       php-cs-fixer: ${{ steps.changes-php-cs-fixer.outputs.php-cs-fixer }}
+      phpmd: ${{ steps.changes-phpstan.outputs.phpmd }}
       phpstan: ${{ steps.changes-phpstan.outputs.phpstan }}
       phpunit-test: ${{ steps.changes-phpunit-test.outputs.phpunit-test }}
       phpunit: ${{ steps.changes-phpunit.outputs.phpunit }}
@@ -87,8 +91,9 @@ jobs:
             .github/workflows/**
             **phpcs**
             **php-cs-fixer**
+            **phpmd**
             **phpstan**
-            rector.php
+            .rector.php
             tests/
             phpunit*
 
@@ -158,6 +163,14 @@ jobs:
           echo "$count PHP-CS-Fixer file(s) changed"
           echo "php-cs-fixer=$count" >> $GITHUB_OUTPUT
 
+      - name: Check if PHPMD files changed
+        id: changes-phpmd
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "**phpmd**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count PHPMD file(s) changed"
+          echo "phpmd=$count" >> $GITHUB_OUTPUT
+
       - name: Check if PHPStan files changed
         id: changes-phpstan
         if: steps.changed-files-specific.outputs.any_modified == 'true'
@@ -178,6 +191,6 @@ jobs:
         id: changes-phpunit
         if: steps.changed-files-specific.outputs.any_modified == 'true'
         run: |
-          count="$(grep -oE "phpunit*" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          count="$(grep -oE "**phpunit**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPUnit file(s) changed"
           echo "phpunit=$count" >> $GITHUB_OUTPUT

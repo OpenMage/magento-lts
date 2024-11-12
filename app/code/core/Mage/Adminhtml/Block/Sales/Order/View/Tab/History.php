@@ -57,62 +57,62 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             );
         }
 
-        foreach ($order->getCreditmemosCollection() as $_memo) {
+        foreach ($order->getCreditmemosCollection() as $memo) {
             $history[] = $this->_prepareHistoryItem(
-                $this->__('Credit memo #%s created', $_memo->getIncrementId()),
-                $_memo->getEmailSent(),
-                $_memo->getCreatedAtDate()
+                $this->__('Credit memo #%s created', $memo->getIncrementId()),
+                $memo->getEmailSent(),
+                $memo->getCreatedAtDate()
             );
 
-            foreach ($_memo->getCommentsCollection() as $_comment) {
+            foreach ($memo->getCommentsCollection() as $comment) {
                 $history[] = $this->_prepareHistoryItem(
-                    $this->__('Credit memo #%s comment added', $_memo->getIncrementId()),
-                    $_comment->getIsCustomerNotified(),
-                    $_comment->getCreatedAtDate(),
-                    $_comment->getComment()
+                    $this->__('Credit memo #%s comment added', $memo->getIncrementId()),
+                    $comment->getIsCustomerNotified(),
+                    $comment->getCreatedAtDate(),
+                    $comment->getComment()
                 );
             }
         }
 
-        foreach ($order->getShipmentsCollection() as $_shipment) {
+        foreach ($order->getShipmentsCollection() as $shipment) {
             $history[] = $this->_prepareHistoryItem(
-                $this->__('Shipment #%s created', $_shipment->getIncrementId()),
-                $_shipment->getEmailSent(),
-                $_shipment->getCreatedAtDate()
+                $this->__('Shipment #%s created', $shipment->getIncrementId()),
+                $shipment->getEmailSent(),
+                $shipment->getCreatedAtDate()
             );
 
-            foreach ($_shipment->getCommentsCollection() as $_comment) {
+            foreach ($shipment->getCommentsCollection() as $comment) {
                 $history[] = $this->_prepareHistoryItem(
-                    $this->__('Shipment #%s comment added', $_shipment->getIncrementId()),
-                    $_comment->getIsCustomerNotified(),
-                    $_comment->getCreatedAtDate(),
-                    $_comment->getComment()
+                    $this->__('Shipment #%s comment added', $shipment->getIncrementId()),
+                    $comment->getIsCustomerNotified(),
+                    $comment->getCreatedAtDate(),
+                    $comment->getComment()
                 );
             }
         }
 
-        foreach ($order->getInvoiceCollection() as $_invoice) {
+        foreach ($order->getInvoiceCollection() as $invoice) {
             $history[] = $this->_prepareHistoryItem(
-                $this->__('Invoice #%s created', $_invoice->getIncrementId()),
-                $_invoice->getEmailSent(),
-                $_invoice->getCreatedAtDate()
+                $this->__('Invoice #%s created', $invoice->getIncrementId()),
+                $invoice->getEmailSent(),
+                $invoice->getCreatedAtDate()
             );
 
-            foreach ($_invoice->getCommentsCollection() as $_comment) {
+            foreach ($invoice->getCommentsCollection() as $comment) {
                 $history[] = $this->_prepareHistoryItem(
-                    $this->__('Invoice #%s comment added', $_invoice->getIncrementId()),
-                    $_comment->getIsCustomerNotified(),
-                    $_comment->getCreatedAtDate(),
-                    $_comment->getComment()
+                    $this->__('Invoice #%s comment added', $invoice->getIncrementId()),
+                    $comment->getIsCustomerNotified(),
+                    $comment->getCreatedAtDate(),
+                    $comment->getComment()
                 );
             }
         }
 
-        foreach ($order->getTracksCollection() as $_track) {
+        foreach ($order->getTracksCollection() as $track) {
             $history[] = $this->_prepareHistoryItem(
-                $this->__('Tracking number %s for %s assigned', $_track->getNumber(), $_track->getTitle()),
+                $this->__('Tracking number %s for %s assigned', $track->getNumber(), $track->getTitle()),
                 false,
-                $_track->getCreatedAtDate()
+                $track->getCreatedAtDate()
             );
         }
 
@@ -286,6 +286,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
      * @param mixed $b
      * @return int
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static function _sortHistoryByTimestamp($a, $b)
     {
         $createdAtA = $a['created_at'];

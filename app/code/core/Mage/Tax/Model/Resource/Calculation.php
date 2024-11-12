@@ -484,10 +484,10 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             )
             ->distinct(true);
 
-        $CSP = $adapter->fetchAll($selectCSP);
+        $csp = $adapter->fetchAll($selectCSP);
 
         $result = [];
-        foreach ($CSP as $one) {
+        foreach ($csp as $one) {
             $request = new Varien_Object();
             $request->setCountryId($one['country'])
                 ->setRegionId($one['region_id'])

@@ -357,13 +357,14 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Specify session identifier
      *
      * @inheritDoc
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function setSessionId($id = null)
     {
         if (is_null($id) && $this->useSid()) {
-            $_queryParam = $this->getSessionIdQueryParam();
-            if (isset($_GET[$_queryParam]) && Mage::getSingleton('core/url')->isOwnOriginUrl()) {
-                $id = $_GET[$_queryParam];
+            $queryParam = $this->getSessionIdQueryParam();
+            if (isset($_GET[$queryParam]) && Mage::getSingleton('core/url')->isOwnOriginUrl()) {
+                $id = $_GET[$queryParam];
             }
         }
 
@@ -390,8 +391,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function getSessionIdQueryParam()
     {
-        $_sessionName = $this->getSessionName();
-        if ($_sessionName && $queryParam = (string)Mage::getConfig()->getNode($_sessionName . '/session/query_param')) {
+        $sessionName = $this->getSessionName();
+        if ($sessionName && $queryParam = (string)Mage::getConfig()->getNode($sessionName . '/session/query_param')) {
             return $queryParam;
         }
         return self::SESSION_ID_QUERY_PARAM;
@@ -424,6 +425,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @param string $urlHost can be host or url
      * @return string {session_id_key}={session_id_encrypted}
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function getSessionIdForHost($urlHost)
     {
@@ -561,6 +563,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
             foreach (array_keys($sessionHosts) as $host) {
                 // Delete cookies with the same name for parent domains
                 if (strpos($currentCookieDomain, $host) > 0) {
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $this->getCookie()->delete($this->getSessionName(), null, $host);
                 }
             }
