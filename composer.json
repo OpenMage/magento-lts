@@ -32,6 +32,7 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
+        "shipstream/fedex-rest-sdk": "dev-patch-1",
         "symfony/polyfill-php74": "^1.31",
         "symfony/polyfill-php80": "^1.31",
         "symfony/polyfill-php81": "^1.31",
@@ -55,6 +56,12 @@
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/vendor-patches": "^11.1"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/xqiu/fedex-rest-php-sdk"
+        }
+    ],
     "conflict": {
         "n98/n98_layouthelper": "*"
     },
@@ -129,7 +136,7 @@
             "cweagans/composer-patches": true
         },
         "platform": {
-            "php": "7.4"
+            "php": "8.1.28"
         },
         "sort-packages": true
     },

@@ -428,6 +428,35 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </active>
+                        <use_rest_api translate="label">
+                            <label>Use REST API</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_rest_api>
+                        <rest_track_key translate="label">
+                            <label>RestAPI Track Key</label>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Fedex RestAPI need a seperate project for tracking, it's different with project that collect rate.</comment>
+                        </rest_track_key>
+                        <rest_track_secrete translate="label">
+                            <label>RestAPI Track Secrete</label>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Fedex RestAPI need a seperate project for tracking, it's different with project that collect rate.</comment>
+                        </rest_track_secrete>
                         <title translate="label">
                             <label>Title</label>
                             <sort_order>20</sort_order>
@@ -456,6 +485,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
+                            <comment>WebService Meter Number. Not used in Fedex RestAPI</comment>
                         </meter_number>
                         <key translate="label">
                             <label>Key</label>
@@ -466,6 +496,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
+                            <comment>WebService key. For Fedex RestAPI, this is the API Key</comment>
                         </key>
                         <password translate="label">
                             <label>Password</label>
@@ -476,6 +507,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
+                            <comment>WebService Password. For Fedex RestAPI, this is the Secrete Key</comment>
                         </password>
                         <sandbox_mode translate="label">
                             <label>Sandbox Mode</label>
