@@ -20,7 +20,6 @@ namespace OpenMage\Tests\Unit\Mage\GiftMessage\Helper;
 use Generator;
 use Mage;
 use Mage_Catalog_Model_Product;
-use Mage_Sales_Model_Quote;
 use Mage_GiftMessage_Helper_Message as Subject;
 use PHPUnit\Framework\TestCase;
 use Varien_Object;
@@ -50,7 +49,6 @@ class MessageTest extends TestCase
     public function provideIsMessagesAvailable(): Generator
     {
         $entity = new Varien_Object();
-        $quote = new Mage_Sales_Model_Quote();
 
         yield Subject::TYPE_ADDRESS_ITEM => [
             true,
