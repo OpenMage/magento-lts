@@ -16,7 +16,7 @@ level of backwards compatibility to the official releases.
 
 ## Documentation
 
-See: https://OpenMage.github.io/magento-lts/
+See: https://docs.openmage.org/
 
 ---
 
