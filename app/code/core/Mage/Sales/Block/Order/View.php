@@ -137,7 +137,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable(
-                $helper::TYPE_ORDER,
+            $helper::TYPE_ORDER,
             $this->getOrder()
         ) && $this->getOrder()->getGiftMessageId();
     }

@@ -101,56 +101,56 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      */
     public function isMessagesAvailable($type, Varien_Object $entity, $store = null)
     {
-        if ($type == self::TYPE_ITEMS) {
-            $items = $entity->getAllItems();
-            if (!is_array($items) || empty($items)) {
-                return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
-            }
-            if ($entity instanceof Mage_Sales_Model_Quote) {
-                $_type = $entity->getIsMultiShipping() ? self::TYPE_ADDRESS_ITEM : self::TYPE_ITEM;
-            } else {
-                $_type = self::TYPE_ORDER_ITEM;
-            }
-
-            foreach ($items as $item) {
-                if ($item->getParentItem()) {
-                    continue;
+        switch ($type) {
+            case self::TYPE_ITEMS:
+                $items = $entity->getAllItems();
+                if (!is_array($items) || empty($items)) {
+                    return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
                 }
-                if ($this->isMessagesAvailable($_type, $item, $store)) {
-                    return true;
+                if ($entity instanceof Mage_Sales_Model_Quote) {
+                    $_type = $entity->getIsMultiShipping() ? self::TYPE_ADDRESS_ITEM : self::TYPE_ITEM;
+                } else {
+                    $_type = self::TYPE_ORDER_ITEM;
                 }
-            }
-        } elseif ($type == self::TYPE_ITEM) {
-            return $this->_getDependenceFromStoreConfig(
-                $entity->getProduct()->getGiftMessageAvailable(),
-                $store
-            );
-        } elseif ($type == self::TYPE_ORDER_ITEM) {
-            return $this->_getDependenceFromStoreConfig(
-                $entity->getGiftMessageAvailable(),
-                $store
-            );
-        } elseif ($type == self::TYPE_ADDRESS_ITEM) {
-            $storeId = is_numeric($store) ? $store : Mage::app()->getStore($store)->getId();
 
-            if (!$this->isCached('address_item_' . $entity->getProductId())) {
-                $this->setCached(
-                    'address_item_' . $entity->getProductId(),
-                    Mage::getModel('catalog/product')
-                        ->setStoreId($storeId)
-                        ->load($entity->getProductId())
-                        ->getGiftMessageAvailable()
+                foreach ($items as $item) {
+                    if ($item->getParentItem()) {
+                        continue;
+                    }
+                    if ($this->isMessagesAvailable($_type, $item, $store)) {
+                        return true;
+                    }
+                }
+                // no break
+            case self::TYPE_ITEM:
+                return $this->_getDependenceFromStoreConfig(
+                    $entity->getProduct()->getGiftMessageAvailable(),
+                    $store
                 );
-            }
-            return $this->_getDependenceFromStoreConfig(
-                $this->getCached('address_item_' . $entity->getProductId()),
-                $store
-            );
-        } else {
-            return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER, $store);
-        }
+            case self::TYPE_ORDER_ITEM:
+                return $this->_getDependenceFromStoreConfig(
+                    $entity->getGiftMessageAvailable(),
+                    $store
+                );
+            case self::TYPE_ADDRESS_ITEM:
+                $storeId = is_numeric($store) ? $store : Mage::app()->getStore($store)->getId();
 
-        return false;
+                if (!$this->isCached('address_item_' . $entity->getProductId())) {
+                    $this->setCached(
+                        'address_item_' . $entity->getProductId(),
+                        Mage::getModel('catalog/product')
+                            ->setStoreId($storeId)
+                            ->load($entity->getProductId())
+                            ->getGiftMessageAvailable()
+                    );
+                }
+                return $this->_getDependenceFromStoreConfig(
+                    $this->getCached('address_item_' . $entity->getProductId()),
+                    $store
+                );
+            default:
+                return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER, $store);
+        }
     }
 
     /**
