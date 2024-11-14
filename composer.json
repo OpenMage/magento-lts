@@ -28,7 +28,7 @@
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
-        "mklkj/tinymce-i18n": "^24.10",
+        "mklkj/tinymce-i18n": "^24.11",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
@@ -40,7 +40,7 @@
         "symfony/polyfill-php82": "^1.31",
         "symfony/polyfill-php83": "^1.31",
         "symfony/polyfill-php84": "^1.31",
-        "tinymce/tinymce": "^7.4.1"
+        "tinymce/tinymce": "^7.5"
     },
     "require-dev": {
         "ext-xmlreader": "*",
