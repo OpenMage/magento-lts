@@ -134,10 +134,11 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                 );
             case self::TYPE_ADDRESS_ITEM:
                 $storeId = is_numeric($store) ? $store : Mage::app()->getStore($store)->getId();
+                $cacheId = self::TYPE_ADDRESS_ITEM . '_' . $entity->getProductId();
 
-                if (!$this->isCached('address_item_' . $entity->getProductId())) {
+                if (!$this->isCached($cacheId)) {
                     $this->setCached(
-                        'address_item_' . $entity->getProductId(),
+                        $cacheId,
                         Mage::getModel('catalog/product')
                             ->setStoreId($storeId)
                             ->load($entity->getProductId())
@@ -145,7 +146,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                     );
                 }
                 return $this->_getDependenceFromStoreConfig(
-                    $this->getCached('address_item_' . $entity->getProductId()),
+                    $this->getCached($cacheId),
                     $store
                 );
             default:
