@@ -126,7 +126,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
-        return $helper->getIsMessagesAvailable('items', $this->getOrder());
+        return $helper->getIsMessagesAvailable($helper::TYPE_ITEMS, $this->getOrder());
     }
 
     public function canDisplayGiftmessageOrder(): bool
@@ -136,6 +136,9 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
-        return $helper->getIsMessagesAvailable('order', $this->getOrder()) && $this->getOrder()->getGiftMessageId();
+        return $helper->getIsMessagesAvailable(
+                $helper::TYPE_ORDER,
+            $this->getOrder()
+        ) && $this->getOrder()->getGiftMessageId();
     }
 }
