@@ -19,6 +19,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @deprecated
+ *
+ * @method Mage_Api_Model_Resource_Roles_User_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Api_Block_Adminhtml_Role_Grid_User
 {

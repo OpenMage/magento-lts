@@ -9,7 +9,7 @@
  * @category   Magento
  * @package    Magento_Profiler
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,6 +32,11 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
      * @var string
      */
     protected $_enclosure;
+
+    /**
+     * @var string
+     */
+    protected $_escape = '\\';
 
     /**
      * Start output buffering
@@ -86,7 +91,7 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
             foreach ($this->_getColumns() as $columnId) {
                 $row[] = $this->_renderColumnValue($timerId, $columnId);
             }
-            fputcsv($fileHandle, $row, $this->_delimiter, $this->_enclosure);
+            fputcsv($fileHandle, $row, $this->_delimiter, $this->_enclosure, $this->_escape);
         }
     }
 }

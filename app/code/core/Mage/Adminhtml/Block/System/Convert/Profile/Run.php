@@ -172,6 +172,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                     $liStyle = 'background-color:#FFD; ';
                     break;
                 case Varien_Convert_Exception::NOTICE:
+                default:
                     $img = 'fam_bullet_success.gif';
                     $liStyle = 'background-color:#DDF; ';
                     break;

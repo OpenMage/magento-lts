@@ -381,6 +381,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
      *
      * @throws Mage_Core_Exception
      * @return string Source file path
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function uploadSource()
     {

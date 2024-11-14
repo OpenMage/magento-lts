@@ -85,18 +85,18 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable extends Ma
         if ($this->_isManageStock()) {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
-                1,
+                '1',
                 'cisi.is_in_stock'
             );
         } else {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
                 'cisi.is_in_stock',
-                1
+                '1'
             );
         }
 
-        $optExpr = $adapter->getCheckSql("{$psCond} AND le.required_options = 0", 'i.stock_status', 0);
+        $optExpr = $adapter->getCheckSql("{$psCond} AND le.required_options = 0", 'i.stock_status', '0');
         $stockStatusExpr = $adapter->getLeastSql(["MAX({$optExpr})", "MIN({$statusExpr})"]);
 
         $select->columns([

@@ -106,7 +106,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product category identifiers
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product|Varien_Object $product
      * @return array
      */
     public function getCategoryIds($product)
@@ -124,7 +124,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * Get product identifier by sku
      *
      * @param string $sku
-     * @return int|false
+     * @return string
      */
     public function getIdBySku($sku)
     {
@@ -148,7 +148,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     protected function _beforeSave(Varien_Object $object)
     {
         /**
-         * Try detect product id by sku if id is not declared
+         * Try to detect product id by sku if id is not declared
          */
         if (!$object->getId() && $object->getSku()) {
             $object->setId($this->getIdBySku($object->getSku()));
@@ -219,6 +219,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     'website_id = ?' => (int)$websiteId,
                 ];
 
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $adapter->delete($this->_productWebsiteTable, $condition);
             }
         }
@@ -276,6 +277,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     'category_id = ?' => (int)$categoryId,
                 ];
 
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $write->delete($this->_productCategoryTable, $where);
             }
         }
@@ -393,7 +395,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
             $selectFields = [
                 't_v_default.entity_id',
-                new Zend_Db_Expr($storeId),
+                new Zend_Db_Expr((string)$storeId),
                 $adapter->getCheckSql('t_v.value_id > 0', 't_v.value', 't_v_default.value'),
             ];
 
@@ -422,7 +424,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
             $selectFields = [
                 new Zend_Db_Expr($productId),
-                new Zend_Db_Expr($storeId),
+                new Zend_Db_Expr((string)$storeId),
                 $adapter->getCheckSql('t_v.value_id > 0', 't_v.value', 't_v_default.value')
             ];
 

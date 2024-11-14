@@ -32,6 +32,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Extract data from request and return value
      *
      * @return false|array|string
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function extractValue(Zend_Controller_Request_Http $request)
     {

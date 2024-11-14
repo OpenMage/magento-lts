@@ -4,4 +4,4 @@
 ## Usage: rector
 ## Example: ddev rector <path-to-files>
 
-php vendor/bin/rector process "$@"
+php vendor/bin/rector process --config .rector.php "$@"

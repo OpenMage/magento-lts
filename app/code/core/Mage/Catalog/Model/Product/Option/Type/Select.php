@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -113,8 +113,8 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         $option = $this->getOption();
         $result = '';
         if (!$this->_isSingleSelection()) {
-            foreach (explode(',', $optionValue) as $_value) {
-                if ($_result = $option->getValueById($_value)) {
+            foreach (explode(',', $optionValue) as $value) {
+                if ($_result = $option->getValueById($value)) {
                     $result .= $_result->getTitle() . ', ';
                 } else {
                     if ($this->getListener()) {
@@ -159,10 +159,10 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     {
         $_values = [];
         if (!$this->_isSingleSelection()) {
-            foreach (explode(',', $optionValue) as $_value) {
-                $_value = trim($_value);
-                if (array_key_exists($_value, $productOptionValues)) {
-                    $_values[] = $productOptionValues[$_value];
+            foreach (explode(',', $optionValue) as $value) {
+                $value = trim($value);
+                if (array_key_exists($value, $productOptionValues)) {
+                    $_values[] = $productOptionValues[$value];
                 }
             }
         } elseif ($this->_isSingleSelection() && array_key_exists($optionValue, $productOptionValues)) {

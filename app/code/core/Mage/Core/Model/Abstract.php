@@ -48,7 +48,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Original data that was loaded
      *
-     * @var array
+     * @var array|null
      */
     protected $_origData;
 
@@ -275,7 +275,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Load object data
      *
-     * @param string|int $id
+     * @param string|null|int $id
      * @param string|null $field
      * @return $this
      */
@@ -474,8 +474,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($this->getId() && $this->_cacheTag) {
             $tags = [];
             if (is_array($this->_cacheTag)) {
-                foreach ($this->_cacheTag as $_tag) {
-                    $tags[] = $_tag . '_' . $this->getId();
+                foreach ($this->_cacheTag as $tag) {
+                    $tags[] = $tag . '_' . $this->getId();
                 }
             } else {
                 $tags[] = $this->_cacheTag . '_' . $this->getId();

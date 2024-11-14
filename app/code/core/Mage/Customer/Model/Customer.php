@@ -29,13 +29,13 @@
  * @method $this setConfirmation(bool|null $value)
  * @method string getCreatedAt()
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
+ * @method $this setCustomerId(int|null $value)
  *
- * @method int getDefaultBilling()
- * @method $this setDefaultBilling(int $value)
+ * @method int|null getDefaultBilling()
+ * @method $this setDefaultBilling(int|null $value)
  * @method $this unsetDefaultBilling()
- * @method int getDefaultShipping()
- * @method $this setDefaultShipping(int $value)
+ * @method int|null getDefaultShipping()
+ * @method $this setDefaultShipping(int|null $value)
  * @method $this unsetDefaultShipping()
  * @method int getDisableAutoGroupChange()
  * @method string getDob()
@@ -227,6 +227,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @var bool
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static $_isConfirmationRequired;
 
     /**
@@ -379,7 +380,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Retrieve customer address by address id
      *
-     * @param   int $addressId
+     * @param   int|null $addressId
      * @return  Mage_Customer_Model_Address
      */
     public function getAddressById($addressId)
@@ -715,7 +716,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param string $type
      * @param string $backUrl
-     * @param string $storeId
+     * @param string|int $storeId
      * @param string $password
      * @throws Mage_Core_Exception
      * @return $this

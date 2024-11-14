@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,14 +51,14 @@
  * @method Mage_Sales_Model_Quote_Item[] getAllItems()
  * @method $this setAllItems(array $items)
  *
- * @method string getBaseCurrency()
- * @method $this setBaseCurrency(string $value)
+ * @method Mage_Directory_Model_Currency getBaseCurrency()
+ * @method $this setBaseCurrency(Mage_Directory_Model_Currency $value)
  * @method float getBaseSubtotalInclTax()
  * @method $this setBaseSubtotalInclTax(float $value)
  *
  * @method $this setCity(string $value)
- * @method string getConditionName()
- * @method $this setConditionName(array $value)
+ * @method string|array getConditionName()
+ * @method $this setConditionName(string|array $value)
  * @method $this setCountryId(string $value)
  *
  * @method string getDestCountryId()
@@ -117,8 +117,8 @@
  * @method $this setPackageWidth(int $value)
  * @method int getPackageDepth()
  * @method $this setPackageDepth(int $value)
- * @method string getPackageCurrency()
- * @method $this setPackageCurrency(string $value)
+ * @method Mage_Directory_Model_Currency getPackageCurrency()
+ * @method $this setPackageCurrency(Mage_Directory_Model_Currency $value)
  * @method $this setPostcode(string $value)
  *
  * @method $this setRegionId(string $value)

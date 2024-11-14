@@ -24,7 +24,7 @@ use XMLReader;
 class XmlFileLoadingTest extends TestCase
 {
     /**
-     *
+     * @group Base
      * @dataProvider provideXmlFiles
      */
     public function testFileLoading(string $filepath): void
@@ -39,7 +39,7 @@ class XmlFileLoadingTest extends TestCase
     }
 
     /**
-     *
+     * @group Base
      * @dataProvider provideXmlFiles
      */
     public function testXmlReaderIsValid(string $filepath): void
@@ -55,7 +55,6 @@ class XmlFileLoadingTest extends TestCase
      */
     public function provideXmlFiles(): array
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $root = realpath(__DIR__ . '/../../../') . '/';
 
         return [

@@ -301,7 +301,6 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         foreach ($this->getAllSeries() as $serie) {
             $thisdataarray = $serie;
-            // phpcs:ignore Ecg.Performance.Loop.ArraySize
             $thisdataarrayCount = count($thisdataarray);
             for ($j = 0; $j < $thisdataarrayCount; $j++) {
                 $currentvalue = $thisdataarray[$j];
@@ -363,18 +362,14 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $tmpstring = implode('|', $this->_axisLabels[$idx]);
 
                     $valueBuffer[] = $indexid . ':|' . $tmpstring;
-                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
                     if (count($this->_axisLabels[$idx]) > 1) {
-                        // phpcs:ignore Ecg.Performance.Loop.ArraySize
                         $deltaX = 100 / (count($this->_axisLabels[$idx]) - 1);
                     } else {
                         $deltaX = 100;
                     }
                 } elseif ($idx === 'y') {
                     $valueBuffer[] = $indexid . ':|' . implode('|', $yLabels);
-                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
                     if (count($yLabels) - 1) {
-                        // phpcs:ignore Ecg.Performance.Loop.ArraySize
                         $deltaY = 100 / (count($yLabels) - 1);
                     } else {
                         $deltaY = 100;
