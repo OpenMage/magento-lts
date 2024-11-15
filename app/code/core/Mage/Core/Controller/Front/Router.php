@@ -53,9 +53,9 @@ class Mage_Core_Controller_Front_Router
     }
 
     /**
-     * @param array $params
+     * @param string|array $params
      * @return string
-     */
+-     */
     public function getUrl($params = [])
     {
         static $reservedKeys = ['module' => 1, 'controller' => 1, 'action' => 1, 'array' => 1];
@@ -65,7 +65,7 @@ class Mage_Core_Controller_Front_Router
             $params = ['controller' => $paramsArr[0], 'action' => $paramsArr[1]];
         }
 
-        $url = Mage::getBaseUrl($params);
+        $url = Mage::getBaseUrl();
 
         if (!empty($params['frontName'])) {
             $url .= $params['frontName'] . '/';

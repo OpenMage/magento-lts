@@ -571,7 +571,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve base URL
      *
-     * @param string $type
+     * @param self::URL_TYPE_* $type
      * @param bool|null $secure
      * @return string
      */
