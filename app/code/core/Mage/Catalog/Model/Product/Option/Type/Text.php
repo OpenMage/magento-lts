@@ -33,7 +33,7 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
         parent::validateUserValue($values);
 
         $option = $this->getOption();
-        $value = trim($this->getUserValue());
+        $value = is_null($this->getUserValue()) ? '' : trim($this->getUserValue());
 
         // Check requires option to have some value
         if (strlen($value) == 0 && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
