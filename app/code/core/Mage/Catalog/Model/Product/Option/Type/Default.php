@@ -25,6 +25,7 @@
  * @method string getProcessMode()
  * @method $this setProcessMode(string $value)
  * @method $this setQuoteItem(Mage_Sales_Model_Quote_Item $value)
+ * @method array|int getUserValue()
  * @method $this setRequest(Varien_Object $value)
  * @method $this setUserValue(array|int $value)
  */
@@ -53,14 +54,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @var string|null
      */
     protected $_formattedOptionValue = null;
-
-    /**
-     * @return string|array
-     */
-    public function getUserValue()
-    {
-        return $this->getDataByKey('user_value') ?? '';
-    }
 
     /**
      * Option Instance setter
