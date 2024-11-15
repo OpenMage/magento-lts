@@ -43,7 +43,7 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('sales/shipment')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
             ->_addBreadcrumb($this->__('Shipments'), $this->__('Shipments'));
         return $this;
@@ -66,13 +66,17 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
      */
     public function viewAction()
     {
-        if ($shipmentId = $this->getRequest()->getParam('shipment_id')) {
+        if ($this->getRequest()->getParam('shipment_id')) {
             $this->_forward('view', 'sales_order_shipment', null, ['come_from' => 'shipment']);
         } else {
             $this->_forward('noRoute');
         }
     }
 
+    /**
+     * @return Mage_Adminhtml_Controller_Sales_Shipment|void
+     * @throws Zend_Pdf_Exception
+     */
     public function pdfshipmentsAction()
     {
         $shipmentIds = $this->getRequest()->getPost('shipment_ids');
@@ -83,7 +87,8 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
                 ->load();
             $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf($shipments);
 
-            return $this->_prepareDownloadResponse('packingslip' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf', $pdf->render(), 'application/pdf');
+            return $this->_prepareDownloadResponse('packingslip' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') .
+                '.pdf', $pdf->render(), 'application/pdf');
         }
         $this->_redirect('*/*/');
     }

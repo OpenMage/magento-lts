@@ -39,7 +39,7 @@ class Mage_Adminhtml_SalesController extends Mage_Adminhtml_Controller_Action
     public function indexAction()
     {
         $this->loadLayout();
-        $this->_setActiveMenu('sales');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
 
         $block = $this->getLayout()->createBlock('adminhtml/sales', 'sales');
         $this->_addContent($block);

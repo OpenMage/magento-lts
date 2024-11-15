@@ -57,7 +57,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         $this->_title($this->__('Customers'))->_title($this->__('Customer Groups'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('customer/group');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->_addBreadcrumb(Mage::helper('customer')->__('Customers'), Mage::helper('customer')->__('Customers'));
         $this->_addBreadcrumb(Mage::helper('customer')->__('Customer Groups'), Mage::helper('customer')->__('Customer Groups'));
         $this->renderLayout();
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
     {
         $this->_initGroup();
         $this->loadLayout();
-        $this->_setActiveMenu('customer/group');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->_addBreadcrumb(Mage::helper('customer')->__('Customers'), Mage::helper('customer')->__('Customers'));
         $this->_addBreadcrumb(Mage::helper('customer')->__('Customer Groups'), Mage::helper('customer')->__('Customer Groups'), $this->getUrl('*/customer_group'));
 

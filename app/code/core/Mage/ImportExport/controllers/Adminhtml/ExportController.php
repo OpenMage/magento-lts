@@ -45,7 +45,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     {
         $this->_title($this->__('Import/Export'))
             ->loadLayout()
-            ->_setActiveMenu('system/convert/export');
+            ->_setActiveMenu(self::ADMIN_RESOURCE);
 
         return $this;
     }

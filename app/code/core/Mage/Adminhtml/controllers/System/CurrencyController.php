@@ -50,7 +50,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
         $this->_title($this->__('System'))->_title($this->__('Manage Currency Rates'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('system/currency/rates');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->_addContent($this->getLayout()->createBlock('adminhtml/system_currency'));
         $this->renderLayout();
     }

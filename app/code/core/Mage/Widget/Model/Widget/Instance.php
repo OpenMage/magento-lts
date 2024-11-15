@@ -26,11 +26,11 @@
  * @method array getPageGroups()
  * @method $this setPageGroups(array $value)
  * @method $this setStoreIds(string $value)
- * @method string getTitle()
- * @method $this setTitle(string $value)
- * @method $this setWidgetParameters(string $value)
  * @method int getSortOrder()
  * @method $this setSortOrder(int $value)
+ * @method string getTitle()
+ * @method $this setTitle(string $value)
+ * @method $this setWidgetParameters(array $value)
  */
 class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 {

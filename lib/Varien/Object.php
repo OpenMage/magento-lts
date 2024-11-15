@@ -51,7 +51,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Object delete flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDeleted = false;
 
@@ -95,6 +95,9 @@ class Varien_Object implements ArrayAccess
         $this->_construct();
     }
 
+    /**
+     * @return void
+     */
     protected function _addFullNames()
     {
         if (empty($this->_syncFieldsMap)) {
@@ -141,8 +144,8 @@ class Varien_Object implements ArrayAccess
     /**
      * Set _isDeleted flag value (if $isDeleted param is defined) and return current flag value
      *
-     * @param boolean $isDeleted
-     * @return boolean
+     * @param bool $isDeleted
+     * @return bool
      */
     public function isDeleted($isDeleted = null)
     {
@@ -436,7 +439,7 @@ class Varien_Object implements ArrayAccess
      * Otherwise checks if the specified attribute is set.
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function hasData($key = '')
     {
@@ -611,30 +614,19 @@ class Varien_Object implements ArrayAccess
     {
         switch (substr($method, 0, 3)) {
             case 'get':
-                //Varien_Profiler::start('GETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $data = $this->getData($key, $args[0] ?? null);
-                //Varien_Profiler::stop('GETTER: '.get_class($this).'::'.$method);
-                return $data;
+                return $this->getData($key, $args[0] ?? null);
 
             case 'set':
-                //Varien_Profiler::start('SETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $result = $this->setData($key, $args[0] ?? null);
-                //Varien_Profiler::stop('SETTER: '.get_class($this).'::'.$method);
-                return $result;
+                return $this->setData($key, $args[0] ?? null);
 
             case 'uns':
-                //Varien_Profiler::start('UNS: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $result = $this->unsetData($key);
-                //Varien_Profiler::stop('UNS: '.get_class($this).'::'.$method);
-                return $result;
+                return $this->unsetData($key);
 
             case 'has':
-                //Varien_Profiler::start('HAS: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
         throw new Varien_Exception(
@@ -669,7 +661,7 @@ class Varien_Object implements ArrayAccess
     /**
      * checks whether the object is empty
      *
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -736,7 +728,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Clears data changes status
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setDataChanges($value)
@@ -824,7 +816,7 @@ class Varien_Object implements ArrayAccess
 
     /**
      * @param string $field
-     * @return boolean
+     * @return bool
      */
     public function isDirty($field = null)
     {
@@ -839,7 +831,7 @@ class Varien_Object implements ArrayAccess
 
     /**
      * @param string $field
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function flagDirty($field, $flag = true)

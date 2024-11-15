@@ -41,7 +41,7 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
         );
         $this->loadLayout();
 
-        $this->_setActiveMenu('newsletter/problem');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
 
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Newsletter Problem Reports'), Mage::helper('newsletter')->__('Newsletter Problem Reports'));
 

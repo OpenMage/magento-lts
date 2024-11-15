@@ -41,7 +41,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
         $this->_title($this->__('System'))->_title($this->__('Design'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('system/design');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->_addContent($this->getLayout()->createBlock('adminhtml/system_design'));
         $this->renderLayout();
     }
@@ -61,7 +61,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
         $this->_title($this->__('System'))->_title($this->__('Design'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('system/design');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
 
         $id  = (int) $this->getRequest()->getParam('id');

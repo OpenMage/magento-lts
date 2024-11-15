@@ -22,6 +22,14 @@
 class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE         = 'cms/page';
+    public const ADMIN_RESOURCE_SAVE    = 'cms/page/save';
+    public const ADMIN_RESOURCE_DELETE  = 'cms/page/delete';
+
+    /**
      * Init actions
      *
      * @return $this
@@ -30,7 +38,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         // load layout, set active menu and breadcrumbs
         $this->loadLayout()
-            ->_setActiveMenu('cms/page')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->_addBreadcrumb(Mage::helper('cms')->__('CMS'), Mage::helper('cms')->__('CMS'))
             ->_addBreadcrumb(Mage::helper('cms')->__('Manage Pages'), Mage::helper('cms')->__('Manage Pages'))
         ;
@@ -225,11 +233,11 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         switch ($action) {
             case 'new':
             case 'save':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/save');
+                return Mage::getSingleton('admin/session')->isAllowed(self::ADMIN_RESOURCE_SAVE);
             case 'delete':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
+                return Mage::getSingleton('admin/session')->isAllowed(self::ADMIN_RESOURCE_DELETE);
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page');
+                return Mage::getSingleton('admin/session')->isAllowed(self::ADMIN_RESOURCE);
         }
     }
 

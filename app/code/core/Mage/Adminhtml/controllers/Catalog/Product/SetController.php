@@ -36,7 +36,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_setTypeId();
 
         $this->loadLayout();
-        $this->_setActiveMenu('catalog/attributes/sets');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         Mage::register('current_attribute_set', $attributeSet);
 
         $this->loadLayout();
-        $this->_setActiveMenu('catalog/attributes/sets');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
@@ -183,7 +183,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_setTypeId();
 
         $this->loadLayout();
-        $this->_setActiveMenu('catalog/sets');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_toolbar_add'));
 

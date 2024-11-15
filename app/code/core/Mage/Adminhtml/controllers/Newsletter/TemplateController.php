@@ -21,15 +21,10 @@
 class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Check is allowed access
-     *
-     * @return bool
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')
-            ->isAllowed('newsletter/template');
-    }
+    public const ADMIN_RESOURCE = 'newsletter/template';
 
     /**
      * Set title of page
@@ -54,7 +49,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             return;
         }
         $this->loadLayout();
-        $this->_setActiveMenu('newsletter/template');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Newsletter Templates'), Mage::helper('newsletter')->__('Newsletter Templates'));
         $this->_addContent($this->getLayout()->createBlock('adminhtml/newsletter_template', 'template'));
         $this->renderLayout();
@@ -97,7 +92,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
         Mage::register('_current_template', $model);
 
         $this->loadLayout();
-        $this->_setActiveMenu('newsletter/template');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
 
         if ($model->getId()) {
             $breadcrumbTitle = Mage::helper('newsletter')->__('Edit Template');

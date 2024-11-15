@@ -22,6 +22,12 @@
 class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'system/api/oauth_authorized_tokens';
+
+    /**
      * Init titles
      *
      * @return $this
@@ -41,7 +47,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
     public function indexAction()
     {
         $this->loadLayout();
-        $this->_setActiveMenu('system/api/oauth_authorized_tokens');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->renderLayout();
     }
 
@@ -141,16 +147,6 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             Mage::logException($e);
         }
         $this->_redirect('*/*/index');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/oauth_authorized_tokens');
     }
 
     /**

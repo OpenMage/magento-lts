@@ -43,7 +43,7 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('sales/invoice')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
             ->_addBreadcrumb($this->__('Invoices'), $this->__('Invoices'));
         return $this;
@@ -77,7 +77,7 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
      */
     public function viewAction()
     {
-        if ($invoiceId = $this->getRequest()->getParam('invoice_id')) {
+        if ($this->getRequest()->getParam('invoice_id')) {
             $this->_forward('view', 'sales_order_invoice', null, ['come_from' => 'invoice']);
         } else {
             $this->_forward('noRoute');
@@ -120,6 +120,10 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
         }
     }
 
+    /**
+     * @return Mage_Adminhtml_Controller_Sales_Invoice|void
+     * @throws Zend_Pdf_Exception
+     */
     public function pdfinvoicesAction()
     {
         $invoicesIds = $this->getRequest()->getPost('invoice_ids');

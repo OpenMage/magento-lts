@@ -28,7 +28,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('catalog/search')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->_addBreadcrumb(Mage::helper('catalog')->__('Search'), Mage::helper('catalog')->__('Search'))
         ;
         return $this;

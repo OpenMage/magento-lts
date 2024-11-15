@@ -103,11 +103,13 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Define active menu item in menu block
      *
+     * @param string $menuPath
      * @return $this
      */
     protected function _setActiveMenu($menuPath)
     {
-        $this->getLayout()->getBlock('menu')->setActive($menuPath);
+        $block = $this->getLayout()->getBlock('menu');
+        $block->setActive($menuPath);
         return $this;
     }
 

@@ -44,7 +44,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('sales/creditmemo')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
             ->_addBreadcrumb($this->__('Credit Memos'), $this->__('Credit Memos'));
         return $this;
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
      */
     public function viewAction()
     {
-        if ($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) {
+        if ($this->getRequest()->getParam('creditmemo_id')) {
             $this->_forward('view', 'sales_order_creditmemo', null, ['come_from' => 'sales_creditmemo']);
         } else {
             $this->_forward('noRoute');
@@ -95,6 +95,10 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
         }
     }
 
+    /**
+     * @return Mage_Adminhtml_Controller_Sales_Creditmemo|void
+     * @throws Zend_Pdf_Exception
+     */
     public function pdfcreditmemosAction()
     {
         $creditmemosIds = $this->getRequest()->getPost('creditmemo_ids');

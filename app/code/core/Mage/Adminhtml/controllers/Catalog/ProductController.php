@@ -217,7 +217,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 strtolower($this->getFullActionName()),
                 'adminhtml_catalog_product_' . $product->getTypeId() . $additionalLayoutPart
             ]);
-            $this->_setActiveMenu('catalog/products');
+            $this->_setActiveMenu(self::ADMIN_RESOURCE);
         }
 
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
@@ -263,7 +263,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             'adminhtml_catalog_product_' . $product->getTypeId() . $additionalLayoutPart
         ]);
 
-        $this->_setActiveMenu('catalog/products');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
 
         if (!Mage::app()->isSingleStoreMode() && ($switchBlock = $this->getLayout()->getBlock('store_switcher'))) {
             $switchBlock->setDefaultStoreName($this->__('Default Values'))

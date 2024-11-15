@@ -38,7 +38,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
 
         $this->loadLayout();
 
-        $this->_setActiveMenu('newsletter/subscriber');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
 
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Newsletter'), Mage::helper('newsletter')->__('Newsletter'));
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Subscribers'), Mage::helper('newsletter')->__('Subscribers'));

@@ -32,7 +32,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
         $this->_title($this->__('Dashboard'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('dashboard');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Dashboard'), Mage::helper('adminhtml')->__('Dashboard'));
         $this->renderLayout();
     }

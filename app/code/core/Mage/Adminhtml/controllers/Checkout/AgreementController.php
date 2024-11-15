@@ -145,7 +145,7 @@ class Mage_Adminhtml_Checkout_AgreementController extends Mage_Adminhtml_Control
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('sales/checkoutagreement')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->_addBreadcrumb(Mage::helper('checkout')->__('Sales'), Mage::helper('checkout')->__('Sales'))
             ->_addBreadcrumb(Mage::helper('checkout')->__('Checkout Conditions'), Mage::helper('checkout')->__('Checkout Terms and Conditions'))
         ;

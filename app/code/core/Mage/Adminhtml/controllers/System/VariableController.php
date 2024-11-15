@@ -35,7 +35,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
     protected function _initLayout()
     {
         $this->loadLayout()
-            ->_setActiveMenu('system/variable')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Custom Variables'), Mage::helper('adminhtml')->__('Custom Variables'));
         return $this;
     }

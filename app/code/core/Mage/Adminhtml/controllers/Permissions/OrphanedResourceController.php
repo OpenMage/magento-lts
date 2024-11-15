@@ -28,7 +28,7 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('system/acl/orphaned_resources')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->_addBreadcrumb($this->__('System'), $this->__('System'))
             ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
             ->_addBreadcrumb($this->__('Orphaned Resources'), $this->__('Orphaned Role Resources'));

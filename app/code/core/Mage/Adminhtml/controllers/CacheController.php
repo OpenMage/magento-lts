@@ -43,7 +43,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
         $this->_title($this->__('System'))->_title($this->__('Cache Management'));
 
         $this->loadLayout()
-            ->_setActiveMenu('system/cache')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->renderLayout();
     }
 

@@ -22,6 +22,12 @@
 class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    public const ADMIN_RESOURCE = 'system/api/oauth_consumer';
+
+    /**
      * Unset unused data from request
      * Skip getting "key" and "secret" because its generated from server side only
      *
@@ -58,7 +64,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     public function indexAction()
     {
         $this->loadLayout();
-        $this->_setActiveMenu('system/api/oauth_consumer');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->renderLayout();
     }
 
@@ -94,7 +100,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
         Mage::register('current_consumer', $model);
 
         $this->loadLayout();
-        $this->_setActiveMenu('system/api/oauth_consumer');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->renderLayout();
     }
 
@@ -125,7 +131,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
         Mage::register('current_consumer', $model);
 
         $this->loadLayout();
-        $this->_setActiveMenu('system/api/oauth_consumer');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->renderLayout();
     }
 
@@ -242,7 +248,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
         }
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/oauth_consumer' . $action);
+        return $session->isAllowed(self::ADMIN_RESOURCE . $action);
     }
 
     /**
@@ -258,7 +264,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     /**
      * Set form data
      *
-     * @param array $data
+     * @param array|null $data
      * @return $this
      */
     protected function _setFormData($data)

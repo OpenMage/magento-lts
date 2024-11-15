@@ -55,7 +55,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('promo/quote')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->_addBreadcrumb(Mage::helper('salesrule')->__('Promotions'), Mage::helper('salesrule')->__('Promotions'))
         ;
         return $this;
