@@ -54,9 +54,12 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     protected $_formattedOptionValue = null;
 
-    public function getUserValue(): string
+    /**
+     * @return string|array
+     */
+    public function getUserValue()
     {
-        return (string) $this->getDataByKey('user_value');
+        return $this->getDataByKey('user_value') ?? '';
     }
 
     /**
