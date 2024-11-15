@@ -6,6 +6,8 @@
 *[HTML5]: Hyper Text Markup Language
 *[JSON]: JSON (JavaScript Object Notation) is a lightweight data-interchange format.
 *[Mailpit]: Mailpit is a small, fast, low memory, zero-dependency, multi-platform email testing tool & API for developers.
+*[MariaDB]: One of the possible databases OpenMage is compatible to.
+*[MySQL]: One of the possible databases OpenMage is compatible to.
 *[n98-magerun]: The n98 magerun cli tools provides some handy tools to work with Magento from command line.
 *[OpenMage]: This project
 *[phpMyAdmin]: phpMyAdmin is a free software tool written in PHP, intended to handle the administration of MySQL over the Web.

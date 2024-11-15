@@ -94,10 +94,12 @@ extra:
     Install: install
     JavaScript: js
     Modules: modules
+    PHP-7.4: php
     PHP-8.0: php
     PHP-8.1: php
     PHP-8.2: php
     PHP-8.3: php
+    PHP-8.4: php
     TinyMCE: tinymce
     Security: security
 
@@ -176,12 +178,16 @@ nav:
       - 'Events':
           - developers/events/list.md
       - 'Guides':
+          - developers/guides/index.md
+          - developers/guides/dynamic-blocks.md
           - developers/guides/observer.md
       - 'Tools':
           - developers/ddev.md
           - developers/phpstorm.md
       - 'Multistore':
           - developers/error-pages.md
+      - 'Tutorials':
+          - developers/tutorials/index.md
       - 'Documentation':
           - developers/mkdocs.md
   - 'Modules':
@@ -192,6 +198,8 @@ nav:
       - users/modules/logging.md
       - users/modules/products.md
       - users/modules/social.md
+      - 'Core':
+          - users/modules/core/swatches.md
       - 'Payment':
           - users/modules/payment/bitcoin.md
       - 'Themes':
