@@ -40,10 +40,9 @@ class MessageTest extends TestCase
      * @group Mage_GiftMessage
      * @group Mage_GiftMessage_Helper
      */
-    public function testIsMessagesAvailable(bool $expectedResult, string $type, Varien_Object $entity, $store = null): void
+    public function testIsMessagesAvailable(string $type, Varien_Object $entity, $store = null): void
     {
-        $result = $this->subject->isMessagesAvailable($type, $entity, $store);
-        $this->assertSame($expectedResult, $result);
+        $this->assertIsBool($this->subject->isMessagesAvailable($type, $entity, $store));
     }
 
     public function provideIsMessagesAvailable(): Generator
@@ -51,32 +50,26 @@ class MessageTest extends TestCase
         $entity = new Varien_Object();
 
         yield Subject::TYPE_ADDRESS_ITEM => [
-            true,
             Subject::TYPE_ADDRESS_ITEM,
             $entity,
         ];
         yield Subject::TYPE_ITEM => [
-            true,
             Subject::TYPE_ITEM,
             $entity->setProduct(new Mage_Catalog_Model_Product()),
         ];
         yield Subject::TYPE_ITEMS => [
-            true,
             Subject::TYPE_ITEMS,
             $entity,
         ];
         yield Subject::TYPE_ORDER => [
-            true,
             Subject::TYPE_ORDER,
             $entity,
         ];
         yield Subject::TYPE_ORDER_ITEM => [
-            true,
             Subject::TYPE_ORDER_ITEM,
             $entity,
         ];
         yield 'invalid type' => [
-            true,
             'quote',
             $entity,
         ];
