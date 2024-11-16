@@ -61,7 +61,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
         if (is_null($this->_relatedOrders)) {
             $this->_relatedOrders = Mage::getResourceModel('sales/order_collection')
                 ->addFieldToSelect('*')
-                ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
+                ->addFieldToFilter('customer_id', $this->getCustomerSession()->getCustomer()->getId())
                 ->addFieldToFilter(
                     'state',
                     ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]

@@ -26,7 +26,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function saveAction()
     {
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
         if (!$customerSession->authenticate($this)) {
             return;
         }

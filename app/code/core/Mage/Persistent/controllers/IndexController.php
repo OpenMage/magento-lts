@@ -69,7 +69,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     protected function _cleanup()
     {
         Mage::dispatchEvent('persistent_session_expired');
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
         $customerSession
             ->setCustomerId(null)
             ->setCustomerGroupId(null);
@@ -87,8 +87,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     {
         if ($this->_getHelper()->isPersistent()) {
             $this->_getHelper()->getSession()->removePersistentCookie();
-            /** @var Mage_Customer_Model_Session $customerSession */
-            $customerSession = Mage::getSingleton('customer/session');
+            $customerSession = $this->getCustomerSession();
             if (!$customerSession->isLoggedIn()) {
                 $customerSession->setCustomerId(null)
                     ->setCustomerGroupId(null);

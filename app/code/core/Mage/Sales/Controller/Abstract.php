@@ -29,7 +29,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
      */
     protected function _canViewOrder($order)
     {
-        $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+        $customerId = $this->getCustomerSession()->getCustomerId();
         $availableStates = Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates();
         if ($order->getId() && $order->getCustomerId() && ($order->getCustomerId() == $customerId)
             && in_array($order->getState(), $availableStates, $strict = true)
@@ -187,7 +187,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             $this->loadLayout('print');
             $this->renderLayout();
         } else {
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            if ($this->getCustomerSession()->isLoggedIn()) {
                 $this->_redirect('*/*/history');
             } else {
                 $this->_redirect('sales/guest/form');
@@ -216,7 +216,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             $this->loadLayout('print');
             $this->renderLayout();
         } else {
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            if ($this->getCustomerSession()->isLoggedIn()) {
                 $this->_redirect('*/*/history');
             } else {
                 $this->_redirect('sales/guest/form');
@@ -246,7 +246,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             $this->loadLayout('print');
             $this->renderLayout();
         } else {
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            if ($this->getCustomerSession()->isLoggedIn()) {
                 $this->_redirect('*/*/history');
             } else {
                 $this->_redirect('sales/guest/form');

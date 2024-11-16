@@ -34,7 +34,7 @@ class Mage_Checkout_Block_Onepage_Login extends Mage_Checkout_Block_Onepage_Abst
      */
     public function getMessages()
     {
-        return Mage::getSingleton('customer/session')->getMessages(true);
+        return $this->getCustomerSession()->getMessages(true);
     }
 
     /**
@@ -84,6 +84,6 @@ class Mage_Checkout_Block_Onepage_Login extends Mage_Checkout_Block_Onepage_Abst
      */
     public function getUsername()
     {
-        return Mage::getSingleton('customer/session')->getUsername(true);
+        return $this->getCustomerSession()->getUsername(true);
     }
 }

@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Reports
  */
-class Mage_Reports_Model_Event_Observer
+class Mage_Reports_Model_Event_Observer extends Mage_Core_Model_Observer
 {
     protected $_enabledReports = true;
 
@@ -45,8 +45,8 @@ class Mage_Reports_Model_Event_Observer
     protected function _event($eventTypeId, $objectId, $subjectId = null, $subtype = 0)
     {
         if (is_null($subjectId)) {
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $customer = Mage::getSingleton('customer/session')->getCustomer();
+            if ($this->getCustomerSession()->isLoggedIn()) {
+                $customer = $this->getCustomerSession()->getCustomer();
                 $subjectId = $customer->getId();
             } else {
                 $subjectId = Mage::getSingleton('log/visitor')->getId();
@@ -74,12 +74,12 @@ class Mage_Reports_Model_Event_Observer
      */
     public function customerLogin(Varien_Event_Observer $observer)
     {
-        if (!Mage::getSingleton('customer/session')->isLoggedIn() || !$this->_enabledReports) {
+        if (!$this->getCustomerSession()->isLoggedIn() || !$this->_enabledReports) {
             return $this;
         }
 
         $visitorId  = Mage::getSingleton('log/visitor')->getId();
-        $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+        $customerId = $this->getCustomerSession()->getCustomerId();
         $eventModel = Mage::getModel('reports/event');
         $eventModel->updateCustomerType($visitorId, $customerId);
 

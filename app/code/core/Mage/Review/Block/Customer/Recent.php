@@ -35,7 +35,7 @@ class Mage_Review_Block_Customer_Recent extends Mage_Core_Block_Template
 
         $this->_collection
             ->addStoreFilter(Mage::app()->getStore()->getId())
-            ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
+            ->addCustomerFilter($this->getCustomerSession()->getCustomerId())
             ->setDateOrder()
             ->setPageSize(5)
             ->load()

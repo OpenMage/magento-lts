@@ -63,7 +63,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
      */
     public function formAction()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if ($this->getCustomerSession()->isLoggedIn()) {
             $this->_redirect('customer/account/');
             return;
         }

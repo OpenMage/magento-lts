@@ -38,7 +38,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     public function getCustomer()
     {
         if (empty($this->_customer)) {
-            $this->_customer = Mage::getSingleton('customer/session')->getCustomer();
+            $this->_customer = $this->getCustomerSession()->getCustomer();
         }
         return $this->_customer;
     }
@@ -74,7 +74,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
      */
     public function isCustomerLoggedIn()
     {
-        return Mage::getSingleton('customer/session')->isLoggedIn();
+        return $this->getCustomerSession()->isLoggedIn();
     }
 
     /**

@@ -110,14 +110,14 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 }
 
                 $translate->setTranslateInline(true);
-                Mage::getSingleton('customer/session')->addSuccess($this->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
+                $this->getCustomerSession()->addSuccess($this->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
             } catch (Mage_Core_Exception $e) {
                 $translate->setTranslateInline(true);
                 Mage::logException($e);
-                Mage::getSingleton('customer/session')->addError($e->getMessage());
+                $this->getCustomerSession()->addError($e->getMessage());
             } catch (Exception $e) {
                 Mage::logException($e);
-                Mage::getSingleton('customer/session')->addError($this->__('Unable to submit your request. Please, try again later'));
+                $this->getCustomerSession()->addError($this->__('Unable to submit your request. Please, try again later'));
             }
         }
 

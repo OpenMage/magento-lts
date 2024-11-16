@@ -358,7 +358,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         if ($product->hasCustomerGroupId()) {
             $customerGroupId = $product->getCustomerGroupId();
         } else {
-            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $customerGroupId = $this->getCustomerSession()->getCustomerGroupId();
         }
         $dateTs     = Mage::app()->getLocale()->date()->getTimestamp();
         $cacheKey   = date('Y-m-d', $dateTs) . "|$websiteId|$customerGroupId|$productId|$price";

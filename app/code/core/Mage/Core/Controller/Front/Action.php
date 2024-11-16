@@ -45,6 +45,15 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      */
     protected $_sessionNamespace = self::SESSION_NAMESPACE;
 
+
+    /**
+     * Retrieve customer session model object
+     */
+    final protected function getCustomerSession(): Mage_Customer_Model_Session
+    {
+        return Mage::getSingleton('customer/session');
+    }
+
     /**
      * Predispatch: should set layout area
      *

@@ -196,7 +196,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             return;
         }
         Mage::getSingleton('checkout/session')->setCartWasUpdated(false);
-        Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_secure' => true]));
+        $this->getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_secure' => true]));
         $this->getOnepage()->initCheckout();
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
@@ -321,7 +321,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         if ($addressId) {
             $address = $this->getOnepage()->getAddress($addressId);
 
-            if (Mage::getSingleton('customer/session')->getCustomer()->getId() == $address->getCustomerId()) {
+            if ($this->getCustomerSession()->getCustomer()->getId() == $address->getCustomerId()) {
                 $this->_prepareDataJSON($address->toArray());
             } else {
                 $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
@@ -663,7 +663,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _canShowForUnregisteredUsers()
     {
-        return Mage::getSingleton('customer/session')->isLoggedIn()
+        return $this->getCustomerSession()->isLoggedIn()
             || $this->getRequest()->getActionName() == 'index'
             || Mage::helper('checkout')->isAllowedGuestCheckout($this->getOnepage()->getQuote())
             || !Mage::helper('checkout')->isCustomerMustBeLogged();

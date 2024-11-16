@@ -202,7 +202,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     public function getCustomerId()
     {
         if (!$this->hasData('customer_id')) {
-            $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+            $customerId = $this->getCustomerSession()->getCustomerId();
             $this->setData('customer_id', $customerId);
         }
         return $this->getData('customer_id');

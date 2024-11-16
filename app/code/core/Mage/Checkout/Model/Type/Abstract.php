@@ -65,7 +65,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     {
         $customer = $this->getData('customer_session');
         if (is_null($customer)) {
-            $customer = Mage::getSingleton('customer/session');
+            $customer = $this->getCustomerSession();
             $this->setData('customer_session', $customer);
         }
         return $customer;

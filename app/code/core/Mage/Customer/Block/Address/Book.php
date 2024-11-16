@@ -124,7 +124,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
     {
         $customer = $this->getData('customer');
         if (is_null($customer)) {
-            $customer = Mage::getSingleton('customer/session')->getCustomer();
+            $customer = $this->getCustomerSession()->getCustomer();
             $this->setData('customer', $customer);
         }
         return $customer;

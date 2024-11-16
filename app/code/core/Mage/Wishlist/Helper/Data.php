@@ -63,10 +63,12 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve customer session
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getCustomerSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**

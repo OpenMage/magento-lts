@@ -29,7 +29,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     {
         $tagId = (int) $this->getRequest()->getParam('tagId');
         if ($tagId) {
-            $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+            $customerId = $this->getCustomerSession()->getCustomerId();
             $model = Mage::getModel('tag/tag_relation');
             $model->loadByTagCustomer(null, $tagId, $customerId);
             Mage::register('tagModel', $model);
@@ -40,8 +40,8 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function indexAction()
     {
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-            Mage::getSingleton('customer/session')->authenticate($this);
+        if (!$this->getCustomerSession()->isLoggedIn()) {
+            $this->getCustomerSession()->authenticate($this);
             return;
         }
 
@@ -65,8 +65,8 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-            Mage::getSingleton('customer/session')->authenticate($this);
+        if (!$this->getCustomerSession()->isLoggedIn()) {
+            $this->getCustomerSession()->authenticate($this);
             return;
         }
 
@@ -101,8 +101,8 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function removeAction()
     {
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-            Mage::getSingleton('customer/session')->authenticate($this);
+        if (!$this->getCustomerSession()->isLoggedIn()) {
+            $this->getCustomerSession()->authenticate($this);
             return;
         }
 

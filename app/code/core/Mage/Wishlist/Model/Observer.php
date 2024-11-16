@@ -99,9 +99,9 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
         if (!empty($wishlistIds) && $request->getParam('wishlist_next')) {
             $wishlistId = array_shift($wishlistIds);
 
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            if ($this->getCustomerSession()->isLoggedIn()) {
                 $wishlist = Mage::getModel('wishlist/wishlist')
-                        ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer(), true);
+                        ->loadByCustomer($this->getCustomerSession()->getCustomer(), true);
             } elseif ($sharedWishlist) {
                 $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($sharedWishlist);
             } else {
@@ -152,7 +152,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function customerLogout(Varien_Event_Observer $observer)
     {
-        Mage::getSingleton('customer/session')->setWishlistItemCount(0);
+        $this->getCustomerSession()->setWishlistItemCount(0);
 
         return $this;
     }

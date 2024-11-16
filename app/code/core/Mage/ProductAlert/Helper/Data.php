@@ -57,10 +57,12 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
 
     /**
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     public function getCustomer()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**

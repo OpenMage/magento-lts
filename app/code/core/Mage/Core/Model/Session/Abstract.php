@@ -98,6 +98,14 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     }
 
     /**
+     * Retrieve customer session model object
+     */
+    final protected function getCustomerSession(): Mage_Customer_Model_Session
+    {
+        return Mage::getSingleton('customer/session');
+    }
+
+    /**
      * Retrieve Cookie domain
      *
      * @return string

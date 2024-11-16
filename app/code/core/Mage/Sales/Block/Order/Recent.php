@@ -54,7 +54,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
             )
             ->addAttributeToFilter(
                 'customer_id',
-                Mage::getSingleton('customer/session')->getCustomer()->getId()
+                $this->getCustomerSession()->getCustomer()->getId()
             )
             ->addAttributeToFilter(
                 'state',

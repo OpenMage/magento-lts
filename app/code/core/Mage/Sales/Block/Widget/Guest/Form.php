@@ -28,7 +28,7 @@ class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implem
      */
     public function isEnable()
     {
-        return !(Mage::getSingleton('customer/session')->isLoggedIn());
+        return !$this->getCustomerSession()->isLoggedIn();
     }
 
     /**

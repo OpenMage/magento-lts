@@ -109,7 +109,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * Retrieve core session model object
+     * Retrieve admin session model object
      */
     final protected function getAdminSession(): Mage_Admin_Model_Session
     {
@@ -122,6 +122,14 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     final protected function getCoreSession(): Mage_Core_Model_Session
     {
         return Mage::getSingleton('core/session');
+    }
+
+    /**
+     * Retrieve customer session model object
+     */
+    final protected function getCustomerSession(): Mage_Customer_Model_Session
+    {
+        return Mage::getSingleton('customer/session');
     }
 
     /**

@@ -34,7 +34,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     public function __construct()
     {
         parent::__construct();
-        $session = Mage::getSingleton('customer/session');
+        $session = $this->getCustomerSession();
         $purchased = Mage::getResourceModel('downloadable/link_purchased_collection')
             ->addFieldToFilter('customer_id', $session->getCustomerId())
             ->addOrder('created_at', 'desc');

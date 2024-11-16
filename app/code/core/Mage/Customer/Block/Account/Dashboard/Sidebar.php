@@ -60,7 +60,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
     {
         if (!$this->_wishlist) {
             $this->_wishlist = Mage::getModel('wishlist/wishlist')
-                ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
+                ->loadByCustomer($this->getCustomerSession()->getCustomer());
             $this->_wishlist->getItemCollection()
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('price')
@@ -101,7 +101,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
         if (!$this->_compareItems) {
             $this->_compareItems = Mage::getResourceModel('catalog/product_compare_item_collection')
                 ->setStoreId(Mage::app()->getStore()->getId());
-            $this->_compareItems->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+            $this->_compareItems->setCustomerId($this->getCustomerSession()->getCustomerId());
             $this->_compareItems
                ->addAttributeToSelect('name')
                ->useProductItem()

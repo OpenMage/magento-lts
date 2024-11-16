@@ -506,4 +506,12 @@ abstract class Mage_Core_Helper_Abstract
     {
         return Mage::getSingleton('core/session');
     }
+
+    /**
+     * Retrieve customer session model object
+     */
+    final protected function getCustomerSession(): Mage_Customer_Model_Session
+    {
+        return Mage::getSingleton('customer/session');
+    }
 }

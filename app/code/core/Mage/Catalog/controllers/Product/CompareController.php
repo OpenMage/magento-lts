@@ -68,7 +68,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
         $productId = (int) $this->getRequest()->getParam('product');
         if ($this->isProductAvailable($productId)
-            && (Mage::getSingleton('log/visitor')->getId() || Mage::getSingleton('customer/session')->isLoggedIn())
+            && (Mage::getSingleton('log/visitor')->getId() || $this->getCustomerSession()->isLoggedIn())
         ) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId(Mage::app()->getStore()->getId())
@@ -102,8 +102,8 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
             if ($product->getId()) {
                 /** @var Mage_Catalog_Model_Product_Compare_Item $item */
                 $item = Mage::getModel('catalog/product_compare_item');
-                if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                    $item->addCustomerData(Mage::getSingleton('customer/session')->getCustomer());
+                if ($this->getCustomerSession()->isLoggedIn()) {
+                    $item->addCustomerData($this->getCustomerSession()->getCustomer());
                 } elseif ($this->_customerId) {
                     $item->addCustomerData(
                         Mage::getModel('customer/customer')->load($this->_customerId)
@@ -137,8 +137,8 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
     {
         $items = Mage::getResourceModel('catalog/product_compare_item_collection');
 
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $items->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+        if ($this->getCustomerSession()->isLoggedIn()) {
+            $items->setCustomerId($this->getCustomerSession()->getCustomerId());
         } elseif ($this->_customerId) {
             $items->setCustomerId($this->_customerId);
         } else {

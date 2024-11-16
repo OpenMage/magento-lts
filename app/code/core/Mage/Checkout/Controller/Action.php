@@ -31,13 +31,13 @@ abstract class Mage_Checkout_Controller_Action extends Mage_Core_Controller_Fron
      */
     protected function _preDispatchValidateCustomer($redirect = true, $addErrors = true)
     {
-        $customer = Mage::getSingleton('customer/session')->getCustomer();
+        $customer = $this->getCustomerSession()->getCustomer();
         if ($customer && $customer->getId()) {
             $validationResult = $customer->validate();
             if (($validationResult !== true) && is_array($validationResult)) {
                 if ($addErrors) {
                     foreach ($validationResult as $error) {
-                        Mage::getSingleton('customer/session')->addError($error);
+                        $this->getCustomerSession()->addError($error);
                     }
                 }
                 if ($redirect) {

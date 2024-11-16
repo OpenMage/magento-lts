@@ -73,7 +73,7 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
      */
     public function getBackUrl()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if ($this->getCustomerSession()->isLoggedIn()) {
             return Mage::getUrl('*/*/history');
         }
         return Mage::getUrl('*/*/form');
@@ -86,7 +86,7 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
      */
     public function getBackTitle()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if ($this->getCustomerSession()->isLoggedIn()) {
             return Mage::helper('sales')->__('Back to My Orders');
         }
         return Mage::helper('sales')->__('View Another Order');

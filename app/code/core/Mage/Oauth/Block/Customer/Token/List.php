@@ -33,8 +33,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     protected function _construct()
     {
-        /** @var Mage_Customer_Model_Session $session */
-        $session = Mage::getSingleton('customer/session');
+        $session = $this->getCustomerSession();
 
         /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
         $collection = Mage::getModel('oauth/token')->getCollection();

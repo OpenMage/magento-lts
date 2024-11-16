@@ -37,7 +37,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
     public function applyPersistentData($observer)
     {
         if (!Mage::helper('persistent')->canProcess($observer)
-            || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()
+            || !$this->_getPersistentHelper()->isPersistent() || $this->getCustomerSession()->isLoggedIn()
         ) {
             return $this;
         }
@@ -55,7 +55,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
      */
     public function applyBlockPersistentData($observer)
     {
-        if (!$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if (!$this->_getPersistentHelper()->isPersistent() || $this->getCustomerSession()->isLoggedIn()) {
             return $this;
         }
 
@@ -163,7 +163,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
         ];
 
         if (!Mage::helper('persistent')->canProcess($observer)
-            || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()
+            || !$this->_getPersistentHelper()->isPersistent() || $this->getCustomerSession()->isLoggedIn()
         ) {
             return;
         }
@@ -282,8 +282,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
      */
     public function customerAuthenticatedEvent($observer)
     {
-        /** @var Mage_Customer_Model_Session $customerSession */
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
         $customerSession->setCustomerId(null)->setCustomerGroupId(null);
 
         if (Mage::app()->getRequest()->getParam('context') != 'checkout') {
@@ -306,8 +305,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
         }
 
         $this->_getPersistentHelper()->getSession()->removePersistentCookie();
-        /** @var Mage_Customer_Model_Session $customerSession */
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
         if (!$customerSession->isLoggedIn()) {
             $customerSession->setCustomerId(null)->setCustomerGroupId(null);
         }
@@ -346,7 +344,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
             );
             $controllerAction->redirectLogin();
             if ($controllerAction instanceof Mage_Paypal_Controller_Express_Abstract) {
-                Mage::getSingleton('customer/session')
+                $this->getCustomerSession()
                     ->setBeforeAuthUrl(Mage::getUrl('persistent/index/expressCheckout'));
             }
         }
@@ -413,7 +411,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
      */
     protected function _isLoggedOut()
     {
-        return $this->_isPersistent() && !Mage::getSingleton('customer/session')->isLoggedIn();
+        return $this->_isPersistent() && !$this->getCustomerSession()->isLoggedIn();
     }
 
     /**
@@ -472,7 +470,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
             return;
         }
 
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
 
         if (Mage::helper('persistent')->isEnabled()
             && !$this->_isPersistent()
@@ -535,7 +533,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
         if (Mage::helper('persistent')->canProcess($observer) && $layout && Mage::helper('persistent')->isEnabled()
             && Mage::helper('persistent/session')->isPersistent()
         ) {
-            $handle = (Mage::getSingleton('customer/session')->isLoggedIn())
+            $handle = ($this->getCustomerSession()->isLoggedIn())
                 ? Mage_Persistent_Helper_Data::LOGGED_IN_LAYOUT_HANDLE
                 : Mage_Persistent_Helper_Data::LOGGED_OUT_LAYOUT_HANDLE;
             $layout->getUpdate()->addHandle($handle);
@@ -578,7 +576,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
             $customer = Mage::getModel('customer/customer')->load(
                 $this->_getPersistentHelper()->getSession()->getCustomerId()
             );
-            Mage::getSingleton('customer/session')
+            $this->getCustomerSession()
                 ->setCustomerId($customer->getId())
                 ->setCustomerGroupId($customer->getGroupId());
         }

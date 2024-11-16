@@ -42,9 +42,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         $action = strtolower($this->getRequest()->getActionName());
         if (!$allowGuest && $action == 'post' && $this->getRequest()->isPost()) {
-            if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
+            if (!$this->getCustomerSession()->isLoggedIn()) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
+                $this->getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
                 Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
                     ->setRedirectUrl($this->_getRefererUrl());
                 $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
@@ -172,7 +172,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                     $review->setEntityId($review->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE))
                         ->setEntityPkValue($product->getId())
                         ->setStatusId(Mage_Review_Model_Review::STATUS_PENDING)
-                        ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
+                        ->setCustomerId($this->getCustomerSession()->getCustomerId())
                         ->setStoreId(Mage::app()->getStore()->getId())
                         ->setStores([Mage::app()->getStore()->getId()])
                         ->save();
@@ -181,7 +181,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                         Mage::getModel('rating/rating')
                         ->setRatingId($ratingId)
                         ->setReviewId($review->getId())
-                        ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
+                        ->setCustomerId($this->getCustomerSession()->getCustomerId())
                         ->addOptionVote($optionId, $product->getId());
                     }
 

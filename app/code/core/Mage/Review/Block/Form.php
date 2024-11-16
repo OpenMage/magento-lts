@@ -27,7 +27,7 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
 {
     public function __construct()
     {
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
 
         parent::__construct();
 

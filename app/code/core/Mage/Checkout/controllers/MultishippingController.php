@@ -99,7 +99,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
 
         if (!in_array($action, ['login', 'register'])) {
-            if (!Mage::getSingleton('customer/session')->authenticate($this, $this->_getHelper()->getMSLoginUrl())) {
+            if (!$this->getCustomerSession()->authenticate($this, $this->_getHelper()->getMSLoginUrl())) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             }
 
@@ -151,7 +151,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      */
     public function loginAction()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if ($this->getCustomerSession()->isLoggedIn()) {
             $this->_redirect('*/*/');
             return;
         }
@@ -171,7 +171,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      */
     public function registerAction()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if ($this->getCustomerSession()->isLoggedIn()) {
             $this->_redirectUrl($this->_getHelper()->getMSCheckoutUrl());
             return;
         }
@@ -586,7 +586,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
     public function redirectLogin()
     {
         $this->setFlag('', 'no-dispatch', true);
-        Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*', ['_secure' => true]));
+        $this->getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('*/*', ['_secure' => true]));
 
         $this->getResponse()->setRedirect(
             Mage::helper('core/url')->addRequestParam(

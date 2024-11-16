@@ -37,10 +37,12 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Retrieve customer session model object
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**

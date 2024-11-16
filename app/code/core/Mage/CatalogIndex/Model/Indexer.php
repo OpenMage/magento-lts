@@ -657,7 +657,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                             if ($code == 'price') {
                                 $filter[$code]->where(
                                     $table . '.customer_group_id = ?',
-                                    Mage::getSingleton('customer/session')->getCustomerGroupId()
+                                    $this->getCustomerSession()->getCustomerGroupId()
                                 );
                             }
 

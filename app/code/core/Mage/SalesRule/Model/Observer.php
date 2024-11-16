@@ -292,7 +292,7 @@ class Mage_SalesRule_Model_Observer extends Mage_Core_Model_Observer
         $attributes = Mage::getResourceModel('salesrule/rule')
             ->getActiveAttributes(
                 Mage::app()->getWebsite()->getId(),
-                Mage::getSingleton('customer/session')->getCustomer()->getGroupId()
+                $this->getCustomerSession()->getCustomer()->getGroupId()
             );
         $result = [];
         foreach ($attributes as $attribute) {

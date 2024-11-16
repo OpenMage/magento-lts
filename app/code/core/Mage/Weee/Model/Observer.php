@@ -88,7 +88,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         $table = $observer->getEvent()->getTable();
 
         $websiteId = (int)Mage::app()->getStore($storeId)->getWebsiteId();
-        $customerGroupId = (int)Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $customerGroupId = (int)$this->getCustomerSession()->getCustomerGroupId();
 
         /** @var Varien_Object $response */
         $response = $observer->getEvent()->getResponseObject();

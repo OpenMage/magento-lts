@@ -29,7 +29,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
     public function preDispatch()
     {
         parent::preDispatch();
-        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+        if (!$this->getCustomerSession()->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
         return $this;
@@ -48,23 +48,26 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return Mage_Newsletter_ManageController|void
+     */
     public function saveAction()
     {
         if (!$this->_validateFormKey()) {
             return $this->_redirect('customer/account/');
         }
         try {
-            Mage::getSingleton('customer/session')->getCustomer()
+            $this->getCustomerSession()->getCustomer()
             ->setStoreId(Mage::app()->getStore()->getId())
             ->setIsSubscribed((bool)$this->getRequest()->getParam('is_subscribed', false))
             ->save();
             if ((bool)$this->getRequest()->getParam('is_subscribed', false)) {
-                Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been saved.'));
+                $this->getCustomerSession()->addSuccess($this->__('The subscription has been saved.'));
             } else {
-                Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));
+                $this->getCustomerSession()->addSuccess($this->__('The subscription has been removed.'));
             }
         } catch (Exception $e) {
-            Mage::getSingleton('customer/session')->addError($this->__('An error occurred while saving your subscription.'));
+            $this->getCustomerSession()->addError($this->__('An error occurred while saving your subscription.'));
         }
         $this->_redirect('customer/account/');
     }

@@ -38,7 +38,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
         if ($this->getRequest()->isPost() && $this->getRequest()->getPost('email')) {
             $session            = $this->getCoreSession();
-            $customerSession    = Mage::getSingleton('customer/session');
+            $customerSession    = $this->getCustomerSession();
             $email              = (string) $this->getRequest()->getPost('email');
 
             try {

@@ -25,10 +25,12 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
      * Retrieve customer session object
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**
@@ -37,7 +39,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     public function preDispatch()
     {
         parent::preDispatch();
-        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+        if (!$this->getCustomerSession()->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
         return $this;
@@ -48,7 +50,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
      */
     public function indexAction()
     {
-        if (count($this->_getSession()->getCustomer()->getAddresses())) {
+        if (count($this->getCustomerSession()->getCustomer()->getAddresses())) {
             $this->loadLayout();
             $this->_initLayoutMessages('customer/session');
             $this->_initLayoutMessages('catalog/session');

@@ -36,7 +36,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
      */
     public function loadValidOrder()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if ($this->getCustomerSession()->isLoggedIn()) {
             Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/order/history'));
             return false;
         }

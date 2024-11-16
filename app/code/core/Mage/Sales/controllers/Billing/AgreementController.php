@@ -124,7 +124,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
                 $agreement->setStoreId(Mage::app()->getStore()->getId())
                     ->setToken($token)
                     ->setMethodCode($paymentCode)
-                    ->setCustomer(Mage::getSingleton('customer/session')->getCustomer())
+                    ->setCustomer($this->getCustomerSession()->getCustomer())
                     ->place();
                 $this->_getSession()->addSuccess(
                     $this->__('The billing agreement "%s" has been created.', $agreement->getReferenceId())
@@ -207,9 +207,11 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
      * Retrieve customer session model
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 }

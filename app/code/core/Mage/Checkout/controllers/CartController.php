@@ -709,10 +709,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      * Get customer session model
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getCustomerSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**

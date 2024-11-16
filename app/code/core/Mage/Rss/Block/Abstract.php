@@ -46,7 +46,7 @@ class Mage_Rss_Block_Abstract extends Mage_Core_Block_Template
         //customer group id
         $custGroupID =   (int) $this->getRequest()->getParam('cid');
         if ($custGroupID == null) {
-            $custGroupID = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $custGroupID = $this->getCustomerSession()->getCustomerGroupId();
         }
         return $custGroupID;
     }

@@ -47,7 +47,7 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
      */
     protected function _prepareData()
     {
-        $validatorData = Mage::getSingleton('customer/session')->getValidatorData();
+        $validatorData = $this->getCustomerSession()->getValidatorData();
         $this->setIp($validatorData[Mage_Customer_Model_Session::VALIDATOR_REMOTE_ADDR_KEY])
             ->setRequestedDate(Mage::getModel('core/date')->date());
         return $this;
@@ -90,7 +90,7 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     public function checkCustomerForgotPasswordFlowIp()
     {
         $helper        = Mage::helper('customer');
-        $validatorData = Mage::getSingleton('customer/session')->getValidatorData();
+        $validatorData = $this->getCustomerSession()->getValidatorData();
         $remoteAddr    = $validatorData[Mage_Customer_Model_Session::VALIDATOR_REMOTE_ADDR_KEY];
         $checkForgotPasswordFlowTypes = [
             Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword::FORGOTPASS_FLOW_IP_EMAIL,

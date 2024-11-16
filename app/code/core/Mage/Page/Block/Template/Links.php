@@ -258,8 +258,8 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      */
     public function getCacheTags()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $this->addModelTags(Mage::getSingleton('customer/session')->getCustomer());
+        if ($this->getCustomerSession()->isLoggedIn()) {
+            $this->addModelTags($this->getCustomerSession()->getCustomer());
         }
 
         return parent::getCacheTags();

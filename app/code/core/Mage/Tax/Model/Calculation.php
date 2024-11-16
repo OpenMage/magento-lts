@@ -168,7 +168,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function getCustomer()
     {
         if ($this->_customer === null) {
-            $session = Mage::getSingleton('customer/session');
+            $session = $this->getCustomerSession();
             if ($session->isLoggedIn()) {
                 $this->_customer = $session->getCustomer();
             } elseif ($session->getCustomerId()) {

@@ -33,7 +33,7 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
             $tags = Mage::getResourceModel('tag/tag_collection')
                 ->addPopularity()
                 ->setOrder('popularity', 'DESC')
-                ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
+                ->addCustomerFilter($this->getCustomerSession()->getCustomerId())
                 ->setActiveFilter()
                 ->load()
                 ->getItems();

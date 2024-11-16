@@ -87,7 +87,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
             return ;
         }
 
-        if (Mage::getSingleton('customer/session')->authenticate($this)
+        if ($this->getCustomerSession()->authenticate($this)
             && $wishlist->getCustomerId() == $this->_getCustomer()->getId()
         ) {
             $this->_showWishlistRss();
@@ -140,7 +140,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
             $params = $this->_getHelper('core')->urlDecode($this->getRequest()->getParam('data'));
             $data   = explode(',', $params);
             $customerId    = abs((int) $data[0]);
-            if ($customerId && ($customerId == Mage::getSingleton('customer/session')->getCustomerId())) {
+            if ($customerId && ($customerId == $this->getCustomerSession()->getCustomerId())) {
                 $this->_customer->load($customerId);
             }
         }

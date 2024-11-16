@@ -65,8 +65,8 @@ gtag('config', '{$this->jsQuoteEscape($accountId)}', {'debug_mode':true});
         }
 
         //add user_id
-        if ($this->helper('googleanalytics')->isUserIdEnabled() && Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $customer = Mage::getSingleton('customer/session')->getCustomer();
+        if ($this->helper('googleanalytics')->isUserIdEnabled() && $this->getCustomerSession()->isLoggedIn()) {
+            $customer = $this->getCustomerSession()->getCustomer();
             $trackingCode .= "
 gtag('set', 'user_id', '{$customer->getId()}');
 ";

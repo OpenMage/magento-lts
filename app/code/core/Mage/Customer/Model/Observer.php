@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Customer
  */
-class Mage_Customer_Model_Observer
+class Mage_Customer_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * VAT ID validation processed flag code
@@ -85,7 +85,7 @@ class Mage_Customer_Model_Observer
      */
     public function beforeLoadLayout($observer)
     {
-        $loggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+        $loggedIn = $this->getCustomerSession()->isLoggedIn();
 
         $observer->getEvent()->getLayout()->getUpdate()
            ->addHandle('customer_logged_' . ($loggedIn ? 'in' : 'out'));
@@ -179,9 +179,9 @@ class Mage_Customer_Model_Observer
                     );
 
                     if (!$validationMessage->getIsError()) {
-                        Mage::getSingleton('customer/session')->addSuccess($validationMessage->getMessage());
+                        $this->getCustomerSession()->addSuccess($validationMessage->getMessage());
                     } else {
-                        Mage::getSingleton('customer/session')->addError($validationMessage->getMessage());
+                        $this->getCustomerSession()->addError($validationMessage->getMessage());
                     }
                 }
             }

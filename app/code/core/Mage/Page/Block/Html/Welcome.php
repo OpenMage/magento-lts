@@ -27,10 +27,12 @@ class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
      * Get customer session
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**
@@ -41,8 +43,8 @@ class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         if (empty($this->_data['welcome'])) {
-            if (Mage::isInstalled() && $this->_getSession()->isLoggedIn()) {
-                $this->_data['welcome'] = $this->__('Welcome, %s!', $this->escapeHtml($this->_getSession()->getCustomer()->getName()));
+            if (Mage::isInstalled() && $this->getCustomerSession()->isLoggedIn()) {
+                $this->_data['welcome'] = $this->__('Welcome, %s!', $this->escapeHtml($this->getCustomerSession()->getCustomer()->getName()));
             } else {
                 $this->_data['welcome'] = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/welcome'));
             }
@@ -58,8 +60,8 @@ class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
      */
     public function getCacheTags()
     {
-        if ($this->_getSession()->isLoggedIn()) {
-            $this->addModelTags($this->_getSession()->getCustomer());
+        if ($this->getCustomerSession()->isLoggedIn()) {
+            $this->addModelTags($this->getCustomerSession()->getCustomer());
         }
 
         return parent::getCacheTags();

@@ -57,6 +57,6 @@ class Mage_Customer_Block_Widget_Gender extends Mage_Customer_Block_Widget_Abstr
      */
     public function getCustomer()
     {
-        return Mage::getSingleton('customer/session')->getCustomer();
+        return $this->getCustomerSession()->getCustomer();
     }
 }

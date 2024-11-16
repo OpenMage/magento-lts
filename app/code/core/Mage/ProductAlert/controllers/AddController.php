@@ -28,10 +28,10 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
     {
         parent::preDispatch();
 
-        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+        if (!$this->getCustomerSession()->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
-            if (!Mage::getSingleton('customer/session')->getBeforeUrl()) {
-                Mage::getSingleton('customer/session')->setBeforeUrl($this->_getRefererUrl());
+            if (!$this->getCustomerSession()->getBeforeUrl()) {
+                $this->getCustomerSession()->setBeforeUrl($this->_getRefererUrl());
             }
         }
         return $this;
@@ -68,7 +68,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 
         try {
             $model  = Mage::getModel('productalert/price')
-                ->setCustomerId(Mage::getSingleton('customer/session')->getId())
+                ->setCustomerId($this->getCustomerSession()->getId())
                 ->setProductId($product->getId())
                 ->setPrice($product->getFinalPrice())
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
@@ -100,7 +100,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 
         try {
             $model = Mage::getModel('productalert/stock')
-                ->setCustomerId(Mage::getSingleton('customer/session')->getId())
+                ->setCustomerId($this->getCustomerSession()->getId())
                 ->setProductId($product->getId())
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
             $model->save();

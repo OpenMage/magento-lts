@@ -72,7 +72,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             $this->_forward('noRoute');
             return;
         }
-        $isOwner    = $wishlist->isOwner(Mage::getSingleton('customer/session')->getCustomerId());
+        $isOwner    = $wishlist->isOwner($this->getCustomerSession()->getCustomerId());
 
         $messages   = [];
         $addedItems = [];

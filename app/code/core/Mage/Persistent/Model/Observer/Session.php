@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Persistent
  */
-class Mage_Persistent_Model_Observer_Session
+class Mage_Persistent_Model_Observer_Session extends Mage_Core_Model_Observer
 {
     /**
      * Create/Update and Load session when customer log in
@@ -105,7 +105,7 @@ class Mage_Persistent_Model_Observer_Session
         $request = $observer->getEvent()->getFront()->getRequest();
 
         // Quote Id could be changed only by logged in customer
-        if (Mage::getSingleton('customer/session')->isLoggedIn()
+        if ($this->getCustomerSession()->isLoggedIn()
             || ($request && $request->getActionName() == 'logout' && $request->getControllerName() == 'account')
         ) {
             $sessionModel->save();
@@ -148,7 +148,7 @@ class Mage_Persistent_Model_Observer_Session
 
         $controllerAction = $observer->getEvent()->getControllerAction();
 
-        if (Mage::getSingleton('customer/session')->isLoggedIn()
+        if ($this->getCustomerSession()->isLoggedIn()
             || $controllerAction->getFullActionName() == 'customer_account_logout'
         ) {
             Mage::getSingleton('core/cookie')->renew(

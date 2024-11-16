@@ -26,7 +26,7 @@ class Mage_Customer_Block_Account_Dashboard_Address extends Mage_Core_Block_Temp
      */
     public function getCustomer()
     {
-        return Mage::getSingleton('customer/session')->getCustomer();
+        return $this->getCustomerSession()->getCustomer();
     }
 
     /**

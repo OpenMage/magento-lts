@@ -46,7 +46,7 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
         $this->_init('catalogindex/price');
         $this->_getResource()->setStoreId(Mage::app()->getStore()->getId());
         $this->_getResource()->setRate(Mage::app()->getStore()->getCurrentCurrencyRate());
-        $this->_getResource()->setCustomerGroupId(Mage::getSingleton('customer/session')->getCustomerGroupId());
+        $this->_getResource()->setCustomerGroupId($this->getCustomerSession()->getCustomerGroupId());
     }
 
     /**

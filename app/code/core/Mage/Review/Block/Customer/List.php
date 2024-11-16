@@ -36,7 +36,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
         $this->_collection = Mage::getModel('review/review')->getProductCollection();
         $this->_collection
             ->addStoreFilter(Mage::app()->getStore()->getId())
-            ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
+            ->addCustomerFilter($this->getCustomerSession()->getCustomerId())
             ->setDateOrder();
     }
 

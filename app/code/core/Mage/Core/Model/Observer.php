@@ -46,6 +46,14 @@ class Mage_Core_Model_Observer
     }
 
     /**
+     * Retrieve customer session model object
+     */
+    final protected function getCustomerSession(): Mage_Customer_Model_Session
+    {
+        return Mage::getSingleton('customer/session');
+    }
+
+    /**
      * Check if synchronize process is finished and generate notification message
      *
      * @return $this

@@ -75,7 +75,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                 $this->_getQuote()->removeAllAddresses();
             }
 
-            $customer = Mage::getSingleton('customer/session')->getCustomer();
+            $customer = $this->getCustomerSession()->getCustomer();
             $quoteCheckoutMethod = $this->_getQuote()->getCheckoutMethod();
             if ($customer && $customer->getId()) {
                 $this->_checkout->setCustomerWithAddressChange(
@@ -94,7 +94,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                     Mage::helper('paypal')->__('To proceed to Checkout, please log in using your email address.')
                 );
                 $this->redirectLogin();
-                Mage::getSingleton('customer/session')
+                $this->getCustomerSession()
                     ->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
                 return;
             }

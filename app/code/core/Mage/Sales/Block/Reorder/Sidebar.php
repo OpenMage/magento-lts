@@ -137,10 +137,12 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      * Retrieve customer session instance
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getCustomerSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**

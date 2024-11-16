@@ -38,7 +38,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
         if (!$this->getRequest()->isDispatched()) {
             return;
         }
-        $this->_session = Mage::getSingleton('customer/session');
+        $this->_session = $this->getCustomerSession();
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }

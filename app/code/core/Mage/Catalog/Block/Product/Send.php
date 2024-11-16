@@ -29,7 +29,7 @@ class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstrac
 
     public function getUserName()
     {
-        return Mage::getSingleton('customer/session')->getCustomer()->getName();
+        return $this->getCustomerSession()->getCustomer()->getName();
     }
 
     /**
@@ -37,7 +37,7 @@ class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstrac
      */
     public function getEmail()
     {
-        return (string)Mage::getSingleton('customer/session')->getCustomer()->getEmail();
+        return (string)$this->getCustomerSession()->getCustomer()->getEmail();
     }
 
     /**
