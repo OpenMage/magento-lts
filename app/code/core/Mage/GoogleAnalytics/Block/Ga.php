@@ -138,7 +138,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
          *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#remove_from_cart
          */
-        $removedProducts = Mage::getSingleton('core/session')->getRemovedProductsForAnalytics();
+        $removedProducts = $this->getCoreSession()->getRemovedProductsForAnalytics();
         if ($removedProducts) {
             foreach ($removedProducts as $removedProduct) {
                 $eventData = [];
@@ -156,7 +156,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $eventData['items'][] = $_item;
                 $result[] = ['remove_from_cart', $eventData];
             }
-            Mage::getSingleton('core/session')->unsRemovedProductsForAnalytics();
+            $this->getCoreSession()->unsRemovedProductsForAnalytics();
         }
 
         /**
@@ -164,7 +164,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
          *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#add_to_cart
          */
-        $addedProducts = Mage::getSingleton('core/session')->getAddedProductsForAnalytics();
+        $addedProducts = $this->getCoreSession()->getAddedProductsForAnalytics();
         if ($addedProducts) {
             foreach ($addedProducts as $_addedProduct) {
                 $eventData = [];
@@ -181,7 +181,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 ];
                 $eventData['items'][] = $_item;
                 $result[] = ['add_to_cart', $eventData];
-                Mage::getSingleton('core/session')->unsAddedProductsForAnalytics();
+                $this->getCoreSession()->unsAddedProductsForAnalytics();
             }
         }
 

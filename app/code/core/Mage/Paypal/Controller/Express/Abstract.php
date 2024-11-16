@@ -90,7 +90,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
                     $this->_getQuote()->getStoreId()
                 )
             ) {
-                Mage::getSingleton('core/session')->addNotice(
+                $this->getCoreSession()->addNotice(
                     Mage::helper('paypal')->__('To proceed to Checkout, please log in using your email address.')
                 );
                 $this->redirectLogin();

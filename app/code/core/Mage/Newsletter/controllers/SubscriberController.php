@@ -37,7 +37,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
         }
 
         if ($this->getRequest()->isPost() && $this->getRequest()->getPost('email')) {
-            $session            = Mage::getSingleton('core/session');
+            $session            = $this->getCoreSession();
             $customerSession    = Mage::getSingleton('customer/session');
             $email              = (string) $this->getRequest()->getPost('email');
 
@@ -85,7 +85,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
         if ($id && $code) {
             $subscriber = Mage::getModel('newsletter/subscriber')->load($id);
-            $session = Mage::getSingleton('core/session');
+            $session = $this->getCoreSession();
 
             if ($subscriber->getStatus() == $subscriber::STATUS_SUBSCRIBED) {
                 $session->addNotice($this->__('This email address is already confirmed.'));
@@ -113,7 +113,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
         $code  = (string) $this->getRequest()->getParam('code');
 
         if ($id && $code) {
-            $session = Mage::getSingleton('core/session');
+            $session = $this->getCoreSession();
             try {
                 Mage::getModel('newsletter/subscriber')->load($id)
                     ->setCheckCode($code)

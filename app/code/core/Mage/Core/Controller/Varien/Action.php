@@ -133,6 +133,14 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
+     * Retrieve core session model object
+     */
+    final protected function getCoreSession(): Mage_Core_Model_Session
+    {
+        return Mage::getSingleton('core/session');
+    }
+
+    /**
      * @param string $action
      * @return bool
      */
@@ -899,7 +907,7 @@ abstract class Mage_Core_Controller_Varien_Action
     protected function _validateFormKey()
     {
         if (!($formKey = $this->getRequest()->getParam('form_key', null))
-            || $formKey != Mage::getSingleton('core/session')->getFormKey()
+            || $formKey != $this->getCoreSession()->getFormKey()
         ) {
             return false;
         }

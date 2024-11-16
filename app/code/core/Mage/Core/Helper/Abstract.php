@@ -482,4 +482,12 @@ abstract class Mage_Core_Helper_Abstract
         }
         return false;
     }
+
+    /**
+     * Retrieve core session model object
+     */
+    final protected function getCoreSession(): Mage_Core_Model_Session
+    {
+        return Mage::getSingleton('core/session');
+    }
 }

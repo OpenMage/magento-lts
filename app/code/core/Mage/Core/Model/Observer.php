@@ -22,13 +22,37 @@
 class Mage_Core_Model_Observer
 {
     /**
+     * Retrieve admin session model object
+     */
+    final protected function getAdminSession(): Mage_Admin_Model_Session
+    {
+        return Mage::getSingleton('admin/session');
+    }
+
+    /**
+     * Retrieve adminhtml session model object
+     */
+    final protected function getAdminhtmlSession(): Mage_Adminhtml_Model_Session
+    {
+        return Mage::getSingleton('adminhtml/session');
+    }
+
+    /**
+     * Retrieve core session model object
+     */
+    final protected function getCoreSession(): Mage_Core_Model_Session
+    {
+        return Mage::getSingleton('core/session');
+    }
+
+    /**
      * Check if synchronize process is finished and generate notification message
      *
      * @return $this
      */
     public function addSynchronizeNotification(Varien_Event_Observer $observer)
     {
-        $adminSession = Mage::getSingleton('admin/session');
+        $adminSession = $this->getAdminSession();
         if (!$adminSession->hasSyncProcessStopWatch()) {
             $flag = Mage::getSingleton('core/file_storage')->getSyncFlag();
             $state = $flag->getState();

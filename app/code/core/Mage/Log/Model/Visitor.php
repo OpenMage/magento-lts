@@ -90,7 +90,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $this->_config = !empty($data['config']) ? $data['config'] : Mage::getConfig();
         $this->_logCondition = !empty($data['log_condition']) ?
             $data['log_condition'] : Mage::helper('log');
-        $this->_session = !empty($data['session']) ? $data['session'] : Mage::getSingleton('core/session');
+        $this->_session = !empty($data['session']) ? $data['session'] : $this->getCoreSession();
         parent::__construct($data);
     }
 

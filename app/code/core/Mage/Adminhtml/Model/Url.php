@@ -107,7 +107,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      */
     public function getSecretKey($controller = null, $action = null)
     {
-        $salt = Mage::getSingleton('core/session')->getFormKey();
+        $salt = $this->getCoreSession()->getFormKey();
 
         $p = explode('/', trim($this->getRequest()->getOriginalPathInfo(), '/'));
         if (!$controller) {

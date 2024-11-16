@@ -156,6 +156,15 @@ class Mage_Core_Model_Url extends Varien_Object
         $this->setStore(null);
     }
 
+
+    /**
+     * Retrieve core session model object
+     */
+    final protected function getCoreSession(): Mage_Core_Model_Session
+    {
+        return Mage::getSingleton('core/session');
+    }
+
     /**
      * Initialize object data from retrieved url
      *
@@ -768,7 +777,7 @@ class Mage_Core_Model_Url extends Varien_Object
     {
         $hostArr = explode(':', $this->getRequest()->getServer('HTTP_HOST'));
         if ($hostArr[0] !== $this->getHost()) {
-            $session = Mage::getSingleton('core/session');
+            $session = $this->getCoreSession();
             if (!$session->isValidForHost($this->getHost())) {
                 if (!self::$_encryptedSessionId) {
                     $helper = Mage::helper('core');
@@ -790,7 +799,7 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function addSessionParam()
     {
-        $session = Mage::getSingleton('core/session');
+        $session = $this->getCoreSession();
 
         if (!self::$_encryptedSessionId) {
             $helper = Mage::helper('core');
@@ -1180,7 +1189,7 @@ class Mage_Core_Model_Url extends Varien_Object
     public function sessionVarCallback($match)
     {
         if ($this->useSessionIdForUrl($match[2] == 'S')) {
-            $session = Mage::getSingleton('core/session');
+            $session = $this->getCoreSession();
             /** @var Mage_Core_Model_Session $session */
             return $match[1]
                 . $session->getSessionIdQueryParam()

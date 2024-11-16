@@ -428,7 +428,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     {
         if ($this->authenticate($username, $password)) {
             $this->getResource()->recordLogin($this);
-            Mage::getSingleton('core/session')->renewFormKey();
+            $this->getCoreSession()->renewFormKey();
         }
         return $this;
     }

@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Admin
  */
-class Mage_Admin_Model_Observer
+class Mage_Admin_Model_Observer extends Mage_Core_Model_Observer
 {
     public const FLAG_NO_LOGIN = 'no-login';
 
@@ -52,8 +52,7 @@ class Mage_Admin_Model_Observer
             }
             if (!$user || !$user->getId()) {
                 if ($request->getPost('login')) {
-                    /** @var Mage_Core_Model_Session $coreSession */
-                    $coreSession = Mage::getSingleton('core/session');
+                    $coreSession = $this->getCoreSession();
 
                     if ($coreSession->validateFormKey($request->getPost('form_key'))) {
                         $postLogin = $request->getPost('login');
@@ -61,13 +60,11 @@ class Mage_Admin_Model_Observer
                         $password = $postLogin['password'] ?? '';
                         $session->login($username, $password, $request);
                         $request->setPost('login', null);
-                    } else {
-                        if (!$request->getParam('messageSent')) {
-                            Mage::getSingleton('adminhtml/session')->addError(
-                                Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.')
-                            );
-                            $request->setParam('messageSent', true);
-                        }
+                    } elseif (!$request->getParam('messageSent')) {
+                        $this->getAdminhtmlSession()->addError(
+                            Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.')
+                        );
+                        $request->setParam('messageSent', true);
                     }
 
                     $coreSession->renewFormKey();

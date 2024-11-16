@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
                 '*/*/delete' . $storeType . 'Post',
                 [
                     'item_id' => Mage::registry('store_data')->getId(),
-                    'form_key' => Mage::getSingleton('core/session')->getFormKey()
+                    'form_key' => $this->getCoreSession()->getFormKey()
                 ]
             );
         }

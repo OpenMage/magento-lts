@@ -1025,7 +1025,7 @@ XML;
             if (Mage::app()->testCache($cacheTag)) {
                 if ($setErrorMessage) {
                     $errorMessage = $this->__('Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again.');
-                    Mage::getSingleton('core/session')->addError($errorMessage);
+                    $this->getCoreSession()->addError($errorMessage);
                 }
                 return true;
             }

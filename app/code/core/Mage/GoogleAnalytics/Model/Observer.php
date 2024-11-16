@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  */
-class Mage_GoogleAnalytics_Model_Observer
+class Mage_GoogleAnalytics_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Add order information into GA block to render on checkout success pages
@@ -86,7 +86,7 @@ class Mage_GoogleAnalytics_Model_Observer
                 'category' => Mage::helper('googleanalytics')->getLastCategoryName($product)
             ];
 
-            $session = Mage::getSingleton('core/session');
+            $session = $this->getCoreSession();
             if ($addedQty) {
                 $addedProducts = $session->getAddedProductsForAnalytics() ?: [];
                 $addedProducts[] = $dataForAnalytics;

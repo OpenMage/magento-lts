@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Persistent
  */
-class Mage_Persistent_Model_Observer
+class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Whether set quote to be persistent in workflow
@@ -341,7 +341,7 @@ class Mage_Persistent_Model_Observer
         /** @var Mage_Core_Controller_Front_Action $controllerAction */
         $controllerAction = $observer->getEvent()->getControllerAction();
         if (method_exists($controllerAction, 'redirectLogin')) {
-            Mage::getSingleton('core/session')->addNotice(
+            $this->getCoreSession()->addNotice(
                 Mage::helper('persistent')->__('To proceed to Checkout, please log in using your email address.')
             );
             $controllerAction->redirectLogin();

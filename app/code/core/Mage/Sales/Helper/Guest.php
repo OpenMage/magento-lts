@@ -116,7 +116,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
         }
 
         if (!Mage::helper('core')->isRateLimitExceeded(true, false)) {
-            Mage::getSingleton('core/session')->addError($this->__($errorMessage));
+            $this->getCoreSession()->addError($this->__($errorMessage));
         }
 
         Mage::app()->getResponse()->setRedirect(Mage::getUrl('sales/guest/form'));

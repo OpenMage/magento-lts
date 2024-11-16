@@ -162,10 +162,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         if (($product = $this->_initProduct()) && !empty($data)) {
-            $session = Mage::getSingleton('core/session');
-            /** @var Mage_Core_Model_Session $session */
-            $review = Mage::getModel('review/review')->setData($this->_cropReviewData($data));
+            $session = $this->getCoreSession();
             /** @var Mage_Review_Model_Review $review */
+            $review = Mage::getModel('review/review')->setData($this->_cropReviewData($data));
 
             $validate = $review->validate();
             if ($validate === true) {

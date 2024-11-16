@@ -240,7 +240,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
         ];
         if ($addFormKey) {
-            $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey();
+            $params[Mage_Core_Model_Url::FORM_KEY] = $this->getCoreSession()->getFormKey();
         }
 
         return $this->getUrl('checkout/cart/delete', $params);
