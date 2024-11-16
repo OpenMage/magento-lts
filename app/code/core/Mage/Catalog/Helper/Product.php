@@ -336,7 +336,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         // Load product current category
         $categoryId = $params->getCategoryId();
         if (!$categoryId && ($categoryId !== false)) {
-            $lastId = Mage::getSingleton('catalog/session')->getLastVisitedCategoryId();
+            $lastId = $this->getCatalogSession()->getLastVisitedCategoryId();
             if ($product->canBeShowInCategory($lastId)) {
                 $categoryId = $lastId;
             }

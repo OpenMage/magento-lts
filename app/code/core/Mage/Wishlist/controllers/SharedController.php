@@ -109,12 +109,12 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
             } elseif ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT) {
                 if (!$wishlist->getItemsCount()) {
                     $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
-                    $session = Mage::getSingleton('catalog/session');
+                    $session = $this->getCatalogSession();
                 }
                 $message = Mage::helper('wishlist')->__('Cannot add the selected product to shopping cart because the product was removed from the wishlist');
                 $session->addNotice($message);
             } else {
-                Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
+                $this->getCatalogSession()->addNotice($e->getMessage());
                 $redirectUrl = $item->getProductUrl();
             }
         } catch (Exception $e) {

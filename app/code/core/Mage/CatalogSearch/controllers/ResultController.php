@@ -25,10 +25,12 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
      * Retrieve catalog session
      *
      * @return Mage_Catalog_Model_Session
+     * @deprecated
+     * @see getCatalogSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('catalog/session');
+        return $this->getCatalogSession();
     }
     /**
      * Display search result

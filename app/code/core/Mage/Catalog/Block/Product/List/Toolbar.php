@@ -195,7 +195,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      */
     protected function _memorizeParam($param, $value)
     {
-        $session = Mage::getSingleton('catalog/session');
+        $session = $this->getCatalogSession();
         if ($this->_paramsMemorizeAllowed && !$session->getParamsMemorizeDisabled()) {
             $session->setData($param, $value);
         }
@@ -321,12 +321,12 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $order = $this->getRequest()->getParam($this->getOrderVarName());
         if ($order && isset($orders[$order])) {
             if ($order == $defaultOrder) {
-                Mage::getSingleton('catalog/session')->unsSortOrder();
+                $this->getCatalogSession()->unsSortOrder();
             } else {
                 $this->_memorizeParam('sort_order', $order);
             }
         } else {
-            $order = Mage::getSingleton('catalog/session')->getSortOrder();
+            $order = $this->getCatalogSession()->getSortOrder();
         }
         // validate session value
         if (!$order || !isset($orders[$order])) {
@@ -352,12 +352,12 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $dir = strtolower($this->getRequest()->getParam($this->getDirectionVarName(), ''));
         if ($dir && in_array($dir, $directions)) {
             if ($dir == $this->_direction) {
-                Mage::getSingleton('catalog/session')->unsSortDirection();
+                $this->getCatalogSession()->unsSortDirection();
             } else {
                 $this->_memorizeParam('sort_direction', $dir);
             }
         } else {
-            $dir = Mage::getSingleton('catalog/session')->getSortDirection();
+            $dir = $this->getCatalogSession()->getSortDirection();
         }
         // validate direction
         if (!$dir || !in_array($dir, $directions)) {
@@ -506,12 +506,12 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $mode = $this->getRequest()->getParam($this->getModeVarName());
         if ($mode) {
             if ($mode == $defaultMode) {
-                Mage::getSingleton('catalog/session')->unsDisplayMode();
+                $this->getCatalogSession()->unsDisplayMode();
             } else {
                 $this->_memorizeParam('display_mode', $mode);
             }
         } else {
-            $mode = Mage::getSingleton('catalog/session')->getDisplayMode();
+            $mode = $this->getCatalogSession()->getDisplayMode();
         }
 
         if (!$mode || !isset($this->_availableMode[$mode])) {
@@ -728,12 +728,12 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $limit = $this->getRequest()->getParam($this->getLimitVarName());
         if ($limit && isset($limits[$limit])) {
             if ($limit == $defaultLimit) {
-                Mage::getSingleton('catalog/session')->unsLimitPage();
+                $this->getCatalogSession()->unsLimitPage();
             } else {
                 $this->_memorizeParam('limit_page', $limit);
             }
         } else {
-            $limit = Mage::getSingleton('catalog/session')->getLimitPage();
+            $limit = $this->getCatalogSession()->getLimitPage();
         }
         if (!$limit || !isset($limits[$limit])) {
             $limit = $defaultLimit;

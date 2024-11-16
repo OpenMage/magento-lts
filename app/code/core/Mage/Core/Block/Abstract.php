@@ -219,6 +219,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve core session model object
      */
+    final protected function getCatalogSession(): Mage_Catalog_Model_Session
+    {
+        return Mage::getSingleton('catalog/session');
+    }
+
+    /**
+     * Retrieve core session model object
+     */
     final protected function getCheckoutSession(): Mage_Checkout_Model_Session
     {
         return Mage::getSingleton('checkout/session');

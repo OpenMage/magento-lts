@@ -87,7 +87,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function __construct(array $data = [])
     {
         $this->_logCondition = $data['log_condition'] ?? Mage::helper('log');
-        $this->_catalogSession = $data['catalog_session'] ?? Mage::getSingleton('catalog/session');
+        $this->_catalogSession = $data['catalog_session'] ?? $this->getCatalogSession();
         $this->_customerSession = $data['customer_session'] ?? $this->getCustomerSession();
         $this->_coreSession = $data['core_session'] ?? $this->getCoreSession();
         $this->_productVisibility = $data['product_visibility'] ?? Mage::getSingleton('catalog/product_visibility');

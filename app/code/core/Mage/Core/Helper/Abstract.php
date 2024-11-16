@@ -500,6 +500,14 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
+     * Retrieve catalog session model object
+     */
+    final protected function getCatalogSession(): Mage_Catalog_Model_Session
+    {
+        return Mage::getSingleton('catalog/session');
+    }
+
+    /**
      * Retrieve core session model object
      */
     final protected function getCoreSession(): Mage_Core_Model_Session

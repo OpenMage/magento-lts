@@ -154,14 +154,14 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLastViewedUrl()
     {
-        if ($productId = Mage::getSingleton('catalog/session')->getLastViewedProductId()) {
+        if ($productId = $this->getCatalogSession()->getLastViewedProductId()) {
             $product = Mage::getModel('catalog/product')->load($productId);
             /** @var Mage_Catalog_Model_Product $product */
             if (Mage::helper('catalog/product')->canShow($product, 'catalog')) {
                 return $product->getProductUrl();
             }
         }
-        if ($categoryId = Mage::getSingleton('catalog/session')->getLastViewedCategoryId()) {
+        if ($categoryId = $this->getCatalogSession()->getLastViewedCategoryId()) {
             $category = Mage::getModel('catalog/category')->load($categoryId);
             /** @var Mage_Catalog_Model_Category $category */
             if (!Mage::helper('catalog/category')->canShow($category)) {

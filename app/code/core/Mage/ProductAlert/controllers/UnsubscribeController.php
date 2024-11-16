@@ -43,8 +43,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             return;
         }
 
-        /** @var Mage_Catalog_Model_Session $session */
-        $session = Mage::getSingleton('catalog/session');
+        $session = $this->getCatalogSession();
 
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($productId);
@@ -96,7 +95,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             return;
         }
 
-        $session = Mage::getSingleton('catalog/session');
+        $session = $this->getCatalogSession();
         $product = Mage::getModel('catalog/product')->load($productId);
 
         if (!$product->getId() || !$product->isVisibleInCatalog()) {

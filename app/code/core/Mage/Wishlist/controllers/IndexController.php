@@ -548,15 +548,15 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 ->load($item->getProductId());
             $productName = Mage::helper('core')->escapeHtml($product->getName());
             $message = $this->__('%s was added to your shopping cart.', $productName);
-            Mage::getSingleton('catalog/session')->addSuccess($message);
+            $this->getCatalogSession()->addSuccess($message);
         } catch (Mage_Core_Exception $e) {
             if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SALABLE) {
                 $session->addError($this->__('This product(s) is currently out of stock'));
             } elseif ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
-                Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
+                $this->getCatalogSession()->addNotice($e->getMessage());
                 $redirectUrl = Mage::getUrl('*/*/configure/', ['id' => $item->getId()]);
             } else {
-                Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
+                $this->getCatalogSession()->addNotice($e->getMessage());
                 $redirectUrl = Mage::getUrl('*/*/configure/', ['id' => $item->getId()]);
             }
         } catch (Exception $e) {

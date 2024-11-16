@@ -40,7 +40,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
         $items = $this->getRequest()->getParam('items');
 
         if ($beforeUrl = $this->getRequest()->getParam(self::PARAM_NAME_URL_ENCODED)) {
-            Mage::getSingleton('catalog/session')
+            $this->getCatalogSession()
                 ->setBeforeCompareUrl(Mage::helper('core')->urlDecodeAndEscape($beforeUrl));
         }
 
@@ -76,7 +76,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
             if ($product->getId()/* && !$product->isSuper()*/) {
                 Mage::getSingleton('catalog/product_compare_list')->addProduct($product);
-                Mage::getSingleton('catalog/session')->addSuccess(
+                $this->getCatalogSession()->addSuccess(
                     $this->__('The product %s has been added to comparison list.', Mage::helper('core')->escapeHtml($product->getName()))
                 );
                 Mage::dispatchEvent('catalog_product_compare_add_product', ['product' => $product]);
@@ -116,7 +116,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
 
                 if ($item->getId()) {
                     $item->delete();
-                    Mage::getSingleton('catalog/session')->addSuccess(
+                    $this->getCatalogSession()->addSuccess(
                         $this->__('The product %s has been removed from comparison list.', $product->getName())
                     );
                     Mage::dispatchEvent('catalog_product_compare_remove_product', ['product' => $item]);
@@ -145,8 +145,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
             $items->setVisitorId(Mage::getSingleton('log/visitor')->getId());
         }
 
-        /** @var Mage_Catalog_Model_Session $session */
-        $session = Mage::getSingleton('catalog/session');
+        $session = $this->getCatalogSession();
 
         try {
             $items->clear();
