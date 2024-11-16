@@ -126,9 +126,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
         try {
             Mage::getModel('api/roles')->load($rid)->delete();
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been deleted.'));
+            $this->getAdminhtmlSession()->addSuccess($this->__('The role has been deleted.'));
         } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while deleting this role.'));
+            $this->getAdminhtmlSession()->addError($this->__('An error occurred while deleting this role.'));
         }
 
         $this->_redirect('*/*/');
@@ -136,10 +136,10 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
     public function saveRoleAction()
     {
-        $rid        = $this->getRequest()->getParam('role_id', false);
+        $rid = $this->getRequest()->getParam('role_id', false);
         $role = Mage::getModel('api/roles')->load($rid);
         if (!$role->getId() && $rid) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('This Role no longer exists'));
+            $this->getAdminhtmlSession()->addError($this->__('This Role no longer exists'));
             $this->_redirect('*/*/');
             return;
         }
@@ -192,9 +192,9 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             }
 
             $rid = $role->getId();
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been saved.'));
+            $this->getAdminhtmlSession()->addSuccess($this->__('The role has been saved.'));
         } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
+            $this->getAdminhtmlSession()->addError($this->__('An error occurred while saving this role.'));
         }
 
         $this->_redirect('*/*/editrole', ['rid' => $rid]);

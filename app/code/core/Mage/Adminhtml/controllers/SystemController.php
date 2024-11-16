@@ -39,7 +39,7 @@ class Mage_Adminhtml_SystemController extends Mage_Adminhtml_Controller_Action
     {
         $storeId = (int) $this->getRequest()->getParam('store');
         if ($storeId) {
-            Mage::getSingleton('adminhtml/session')->setStoreId($storeId);
+            $this->getAdminhtmlSession()->setStoreId($storeId);
         }
         $this->_redirectReferer();
     }

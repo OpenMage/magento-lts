@@ -124,7 +124,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     {
         if (($data = $this->getRequest()->getPost()) && ($reviewId = $this->getRequest()->getParam('id'))) {
             $review = Mage::getModel('review/review')->load($reviewId);
-            $session = Mage::getSingleton('adminhtml/session');
+            $session = $this->getAdminhtmlSession();
             if (!$review->getId()) {
                 $session->addError(Mage::helper('catalog')->__('The review was removed by another user or does not exist.'));
             } else {
@@ -170,7 +170,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     public function deleteAction()
     {
         $reviewId   = $this->getRequest()->getParam('id', false);
-        $session    = Mage::getSingleton('adminhtml/session');
+        $session    = $this->getAdminhtmlSession();
 
         try {
             Mage::getModel('review/review')->setId($reviewId)
@@ -196,7 +196,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     public function massDeleteAction()
     {
         $reviewsIds = $this->getRequest()->getParam('reviews');
-        $session    = Mage::getSingleton('adminhtml/session');
+        $session    = $this->getAdminhtmlSession();
 
         if (!is_array($reviewsIds)) {
             $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
@@ -206,7 +206,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                     $model = Mage::getModel('review/review')->load($reviewId);
                     $model->delete();
                 }
-                Mage::getSingleton('adminhtml/session')->addSuccess(
+                $this->getAdminhtmlSession()->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) have been deleted.', count($reviewsIds))
                 );
             } catch (Mage_Core_Exception $e) {
@@ -222,7 +222,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     public function massUpdateStatusAction()
     {
         $reviewsIds = $this->getRequest()->getParam('reviews');
-        $session    = Mage::getSingleton('adminhtml/session');
+        $session    = $this->getAdminhtmlSession();
 
         if (!is_array($reviewsIds)) {
             $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
@@ -252,12 +252,12 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     public function massVisibleInAction()
     {
         $reviewsIds = $this->getRequest()->getParam('reviews');
-        $session    = Mage::getSingleton('adminhtml/session');
+        $session    = $this->getAdminhtmlSession();
 
         if (!is_array($reviewsIds)) {
             $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
         } else {
-            $session = Mage::getSingleton('adminhtml/session');
+            $session = $this->getAdminhtmlSession();
             /** @var Mage_Adminhtml_Model_Session $session */
             try {
                 $stores = $this->getRequest()->getParam('stores');
@@ -310,7 +310,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     public function postAction()
     {
         $productId  = $this->getRequest()->getParam('product_id', false);
-        $session    = Mage::getSingleton('adminhtml/session');
+        $session    = $this->getAdminhtmlSession();
 
         if ($data = $this->getRequest()->getPost()) {
             if (Mage::app()->isSingleStoreMode()) {

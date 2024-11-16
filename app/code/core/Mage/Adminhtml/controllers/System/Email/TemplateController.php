@@ -115,7 +115,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
         $template = $this->_initTemplate('id');
         if (!$template->getId() && $id) {
-            Mage::getSingleton('adminhtml/session')->addError(
+            $this->getAdminhtmlSession()->addError(
                 Mage::helper('adminhtml')->__('This Email template no longer exists.')
             );
             $this->_redirect('*/*/');
@@ -147,17 +147,17 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
             }
 
             $template->save();
-            Mage::getSingleton('adminhtml/session')->setFormData(false);
-            Mage::getSingleton('adminhtml/session')->addSuccess(
+            $this->getAdminhtmlSession()->setFormData(false);
+            $this->getAdminhtmlSession()->addSuccess(
                 Mage::helper('adminhtml')->__('The email template has been saved.')
             );
             $this->_redirect('*/*');
         } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->setData(
+            $this->getAdminhtmlSession()->setData(
                 'email_template_form_data',
                 $this->getRequest()->getParams()
             );
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            $this->getAdminhtmlSession()->addError($e->getMessage());
             $this->_forward('new');
         }
     }
@@ -171,7 +171,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
         if ($template->getId()) {
             try {
                 $template->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(
+                $this->getAdminhtmlSession()->addSuccess(
                     Mage::helper('adminhtml')->__('The email template has been deleted.')
                 );
                 $this->_redirect('*/*/');
@@ -187,7 +187,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 return;
             }
         }
-        Mage::getSingleton('adminhtml/session')->addError(
+        $this->getAdminhtmlSession()->addError(
             Mage::helper('adminhtml')->__('Unable to find a Email Template to delete.')
         );
         $this->_redirect('*/*/');

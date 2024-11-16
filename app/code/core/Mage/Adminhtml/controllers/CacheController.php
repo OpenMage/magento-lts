@@ -29,10 +29,12 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
      * Retrieve session model
      *
      * @return Mage_Adminhtml_Model_Session
+     * @deprecated
+     * @see getAdminhtmlSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('adminhtml/session');
+        return $this->getAdminhtmlSession();
     }
 
     /**

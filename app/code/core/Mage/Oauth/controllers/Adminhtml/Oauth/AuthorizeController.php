@@ -52,7 +52,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
 
         // call after parent::preDispatch(); to get session started
         if ($loginError) {
-            Mage::getSingleton('adminhtml/session')
+            $this->getAdminhtmlSession()
                 ->addError(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
             $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);

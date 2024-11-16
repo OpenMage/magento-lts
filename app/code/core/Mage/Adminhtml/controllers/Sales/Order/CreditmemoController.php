@@ -28,11 +28,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     {
         $data = $this->getRequest()->getParam('creditmemo');
         if (!$data) {
-            $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
+            $data = $this->getAdminhtmlSession()->getFormData(true);
         }
 
-        $qtys = $data['items'] ?? [];
-        return $qtys;
+        return $data['items'] ?? [];
     }
 
     /**
@@ -217,7 +216,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 $this->_title($this->__('New Memo'));
             }
 
-            if ($comment = Mage::getSingleton('adminhtml/session')->getCommentText(true)) {
+            if ($comment = $this->getAdminhtmlSession()->getCommentText(true)) {
                 $creditmemo->setCommentText($comment);
             }
 
@@ -262,7 +261,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     {
         $data = $this->getRequest()->getPost('creditmemo');
         if (!empty($data['comment_text'])) {
-            Mage::getSingleton('adminhtml/session')->setCommentText($data['comment_text']);
+            $this->getAdminhtmlSession()->setCommentText($data['comment_text']);
         }
 
         try {
@@ -302,7 +301,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 $this->_saveCreditmemo($creditmemo);
                 $creditmemo->sendEmail(!empty($data['send_email']), $comment);
                 $this->_getSession()->addSuccess($this->__('The credit memo has been created.'));
-                Mage::getSingleton('adminhtml/session')->getCommentText(true);
+                $this->getAdminhtmlSession()->getCommentText(true);
                 $this->_redirect('*/sales_order/view', ['order_id' => $creditmemo->getOrderId()]);
                 return;
             } else {
@@ -311,7 +310,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-            Mage::getSingleton('adminhtml/session')->setFormData($data);
+            $this->getAdminhtmlSession()->setFormData($data);
         } catch (Exception $e) {
             Mage::logException($e);
             $this->_getSession()->addError($this->__('Cannot save the credit memo.'));

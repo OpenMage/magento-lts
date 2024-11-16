@@ -19,6 +19,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  *
+ * @method string getCommentText(bool $value)
+ * @method $this setCommentText(string $value)
  * @method array|string getProductIds()
  * @method $this setProductIds(array|string $value)
  */

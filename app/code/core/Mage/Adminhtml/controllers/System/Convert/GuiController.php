@@ -81,7 +81,7 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         $profile = Mage::registry('current_convert_profile');
 
         // set entered data if was error when we do save
-        $data = Mage::getSingleton('adminhtml/session')->getConvertProfileData(true);
+        $data = $this->getAdminhtmlSession()->getConvertProfileData(true);
 
         if (!empty($data)) {
             $profile->addData($data);

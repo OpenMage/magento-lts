@@ -66,7 +66,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
         if ($classId) {
             $model->load($classId);
             if (!$model->getId() || $model->getClassType() != Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT) {
-                Mage::getSingleton('adminhtml/session')->addError(
+                $this->getAdminhtmlSession()->addError(
                     Mage::helper('tax')->__('This class no longer exists')
                 );
                 $this->_redirect('*/*/');
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
         $this->_title($model->getId() ? $model->getClassName() : $this->__('New Class'));
 
-        $data = Mage::getSingleton('adminhtml/session')->getClassData(true);
+        $data = $this->getAdminhtmlSession()->getClassData(true);
         if (!empty($data)) {
             $model->setData($data);
         }
@@ -102,7 +102,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
     public function deleteAction()
     {
         $classId    = $this->getRequest()->getParam('id');
-        $session    = Mage::getSingleton('adminhtml/session');
+        $session    = $this->getAdminhtmlSession();
         $classModel = Mage::getModel('tax/class')
             ->load($classId);
 

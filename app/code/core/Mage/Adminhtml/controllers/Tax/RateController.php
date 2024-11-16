@@ -56,7 +56,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
         $this->_title($this->__('New Rate'));
 
-        $rateModel->setData(Mage::getSingleton('adminhtml/session')->getFormData(true));
+        $rateModel->setData($this->getAdminhtmlSession()->getFormData(true));
 
         if ($rateModel->getZipIsRange() && !$rateModel->hasTaxPostcode()) {
             $rateModel->setTaxPostcode($rateModel->getZipFrom() . '-' . $rateModel->getZipTo());
@@ -98,14 +98,14 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             try {
                 $rateModel->save();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been saved.'));
+                $this->getAdminhtmlSession()->addSuccess(Mage::helper('tax')->__('The tax rate has been saved.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/'));
                 return true;
             } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('adminhtml/session')->setFormData($ratePost);
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getAdminhtmlSession()->setFormData($ratePost);
+                $this->getAdminhtmlSession()->addError($e->getMessage());
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getAdminhtmlSession()->addError($e->getMessage());
             }
 
             $this->_redirectReferer();
@@ -125,7 +125,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
         $rateId = (int)$this->getRequest()->getParam('rate');
         $rateModel = Mage::getSingleton('tax/calculation_rate')->load(null);
-        $rateModel->setData(Mage::getSingleton('adminhtml/session')->getFormData(true));
+        $rateModel->setData($this->getAdminhtmlSession()->getFormData(true));
         if ($rateModel->getId() != $rateId) {
             $rateModel->load($rateId);
         }
@@ -168,13 +168,13 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 try {
                     $rateModel->delete();
 
-                    Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been deleted.'));
+                    $this->getAdminhtmlSession()->addSuccess(Mage::helper('tax')->__('The tax rate has been deleted.'));
                     $this->getResponse()->setRedirect($this->getUrl('*/*/'));
                     return true;
                 } catch (Mage_Core_Exception $e) {
-                    Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                    $this->getAdminhtmlSession()->addError($e->getMessage());
                 } catch (Exception $e) {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate.'));
+                    $this->getAdminhtmlSession()->addError(Mage::helper('tax')->__('An error occurred while deleting this rate.'));
                 }
                 if ($referer = $this->getRequest()->getServer('HTTP_REFERER')) {
                     $this->getResponse()->setRedirect($referer);
@@ -182,7 +182,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     $this->getResponse()->setRedirect($this->getUrl('*/*/'));
                 }
             } else {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate. Incorrect rate ID.'));
+                $this->getAdminhtmlSession()->addError(Mage::helper('tax')->__('An error occurred while deleting this rate. Incorrect rate ID.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             }
         }
@@ -255,14 +255,14 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             try {
                 $this->_importRates();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been imported.'));
+                $this->getAdminhtmlSession()->addSuccess(Mage::helper('tax')->__('The tax rate has been imported.'));
             } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getAdminhtmlSession()->addError($e->getMessage());
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
+                $this->getAdminhtmlSession()->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
             }
         } else {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
+            $this->getAdminhtmlSession()->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
         }
         $this->_redirect('*/*/importExport');
     }
@@ -337,12 +337,12 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 if (count($csvFields) != count($v)) {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
+                    $this->getAdminhtmlSession()->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
                 }
 
                 $country = Mage::getModel('directory/country')->loadByCode($v[1], 'iso2_code');
                 if (!$country->getId()) {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('One of the country has invalid code.'));
+                    $this->getAdminhtmlSession()->addError(Mage::helper('tax')->__('One of the country has invalid code.'));
                     continue;
                 }
 

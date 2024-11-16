@@ -90,12 +90,20 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * Retrieve adminhtml session model object
-     *
+     */
+    final protected function getAdminhtmlSession(): Mage_Adminhtml_Model_Session
+    {
+        return Mage::getSingleton('adminhtml/session');
+    }
+
+    /**
      * @return Mage_Adminhtml_Model_Session
+     * @deprecated
+     * @see getAdminhtmlSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('adminhtml/session');
+        return $this->getAdminhtmlSession();
     }
 
     /**
@@ -201,7 +209,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                 ]));
             } else {
                 if (!$isValidFormKey) {
-                    Mage::getSingleton('adminhtml/session')->addError($keyErrorMsg);
+                    $this->getAdminhtmlSession()->addError($keyErrorMsg);
                 }
                 $this->_redirect($this->getAdminSession()->getUser()->getStartupPageUrl());
             }
@@ -225,8 +233,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             //$this->_checkUrlSettings();
             $this->setFlag('', self::FLAG_IS_URLS_CHECKED, true);
         }
-        if (is_null(Mage::getSingleton('adminhtml/session')->getLocale())) {
-            Mage::getSingleton('adminhtml/session')->setLocale(Mage::app()->getLocale()->getLocaleCode());
+        if (is_null($this->getAdminhtmlSession()->getLocale())) {
+            $this->getAdminhtmlSession()->setLocale(Mage::app()->getLocale()->getLocaleCode());
         }
 
         return $this;

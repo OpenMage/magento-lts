@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml
             //'required' => true,
         ]);
 
-        $formData = Mage::getSingleton('adminhtml/session')->getDesignData(true);
+        $formData = $this->getAdminhtmlSession()->getDesignData(true);
         if (!$formData) {
             $formData = Mage::registry('design')->getData();
         } else {

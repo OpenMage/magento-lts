@@ -76,7 +76,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {
-                Mage::getSingleton('adminhtml/session')->addError(
+                $this->getAdminhtmlSession()->addError(
                     Mage::helper('cms')->__('This page no longer exists.')
                 );
                 $this->_redirect('*/*/');
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         $this->_title($model->getId() ? $model->getTitle() : $this->__('New Page'));
 
         // 3. Set entered data if was error when we do save
-        $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
+        $data = $this->getAdminhtmlSession()->getFormData(true);
         if (!empty($data)) {
             $data['store_id'] = $data['stores'];
             $model->setData($data);
@@ -139,11 +139,11 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $model->save();
 
                 // display success message
-                Mage::getSingleton('adminhtml/session')->addSuccess(
+                $this->getAdminhtmlSession()->addSuccess(
                     Mage::helper('cms')->__('The page has been saved.')
                 );
                 // clear previously saved data from session
-                Mage::getSingleton('adminhtml/session')->setFormData(false);
+                $this->getAdminhtmlSession()->setFormData(false);
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
                     $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current' => true]);
@@ -183,7 +183,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $title = $model->getTitle();
                 $model->delete();
                 // display success message
-                Mage::getSingleton('adminhtml/session')->addSuccess(
+                $this->getAdminhtmlSession()->addSuccess(
                     Mage::helper('cms')->__('The page has been deleted.')
                 );
                 // go to grid
@@ -193,14 +193,14 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             } catch (Exception $e) {
                 Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'fail']);
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getAdminhtmlSession()->addError($e->getMessage());
                 // go back to edit form
                 $this->_redirect('*/*/edit', ['page_id' => $id]);
                 return;
             }
         }
         // display error message
-        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('Unable to find a page to delete.'));
+        $this->getAdminhtmlSession()->addError(Mage::helper('cms')->__('Unable to find a page to delete.'));
         // go to grid
         $this->_redirect('*/*/');
     }

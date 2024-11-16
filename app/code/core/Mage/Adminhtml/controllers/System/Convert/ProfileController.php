@@ -39,7 +39,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
         if ($profileId) {
             $profile->load($profileId);
             if (!$profile->getId()) {
-                Mage::getSingleton('adminhtml/session')->addError(
+                $this->getAdminhtmlSession()->addError(
                     $this->__('The profile you are trying to save no longer exists')
                 );
                 $this->_redirect('*/*');
@@ -113,7 +113,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
         $profile = Mage::registry('current_convert_profile');
 
         // set entered data if was error when we do save
-        $data = Mage::getSingleton('adminhtml/session')->getConvertProfileData(true);
+        $data = $this->getAdminhtmlSession()->getConvertProfileData(true);
 
         if (!empty($data)) {
             $profile->addData($data);
@@ -153,11 +153,11 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
         if ($profile->getId()) {
             try {
                 $profile->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(
+                $this->getAdminhtmlSession()->addSuccess(
                     Mage::helper('adminhtml')->__('The profile has been deleted.')
                 );
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getAdminhtmlSession()->addError($e->getMessage());
             }
         }
         $this->_redirect('*/*');
@@ -182,13 +182,13 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             try {
                 $profile->save();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(
+                $this->getAdminhtmlSession()->addSuccess(
                     Mage::helper('adminhtml')->__('The profile has been saved.')
                 );
             } catch (Exception $e) {
                 Mage::logException($e);
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                Mage::getSingleton('adminhtml/session')->setConvertProfileData($data);
+                $this->getAdminhtmlSession()->addError($e->getMessage());
+                $this->getAdminhtmlSession()->setConvertProfileData($data);
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['id' => $profile->getId()]));
                 return;
             }
@@ -198,7 +198,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 $this->_redirect('*/*');
             }
         } else {
-            Mage::getSingleton('adminhtml/session')->addError(
+            $this->getAdminhtmlSession()->addError(
                 $this->__('Invalid POST data (please check post_max_size and upload_max_filesize settings in your php.ini file).')
             );
             $this->_redirect('*/*');

@@ -67,7 +67,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
         if ($classId) {
             $model->load($classId);
             if (!$model->getId() || $model->getClassType() != Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('This class no longer exists'));
+                $this->getAdminhtmlSession()->addError(Mage::helper('tax')->__('This class no longer exists'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
         $this->_title($model->getId() ? $model->getClassName() : $this->__('New Class'));
 
-        $data = Mage::getSingleton('adminhtml/session')->getClassData(true);
+        $data = $this->getAdminhtmlSession()->getClassData(true);
         if (!empty($data)) {
             $model->setData($data);
         }
@@ -103,12 +103,12 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
     public function deleteAction()
     {
         $classId    = $this->getRequest()->getParam('id');
-        $session    = Mage::getSingleton('adminhtml/session');
+        $session    = $this->getAdminhtmlSession();
         $classModel = Mage::getModel('tax/class')
             ->load($classId);
 
         if (!$classModel->getId() || $classModel->getClassType() != Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('This class no longer exists'));
+            $this->getAdminhtmlSession()->addError(Mage::helper('tax')->__('This class no longer exists'));
             $this->_redirect('*/*/');
             return;
         }

@@ -72,7 +72,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
         }
         if (is_array($result)) {
             foreach ($result as $error) {
-                Mage::getSingleton('adminhtml/session')->addError($error);
+                $this->getAdminhtmlSession()->addError($error);
             }
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             return;
@@ -80,11 +80,11 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
 
         try {
             $user->save();
-            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The account has been saved.'));
+            $this->getAdminhtmlSession()->addSuccess(Mage::helper('adminhtml')->__('The account has been saved.'));
         } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            $this->getAdminhtmlSession()->addError($e->getMessage());
         } catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('An error occurred while saving account.'));
+            $this->getAdminhtmlSession()->addError(Mage::helper('adminhtml')->__('An error occurred while saving account.'));
         }
         $this->getResponse()->setRedirect($this->getUrl('*/*/'));
     }

@@ -134,7 +134,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         /**
          * Check if we have data in session (if duering category save was exceprion)
          */
-        $data = Mage::getSingleton('adminhtml/session')->getCategoryData(true);
+        $data = $this->getAdminhtmlSession()->getCategoryData(true);
         if (isset($data['general'])) {
             $category->addData($data['general']);
         }
@@ -336,7 +336,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $category->unsetData('use_post_data_config');
 
                 $category->save();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The category has been saved.'));
+                $this->getAdminhtmlSession()->addSuccess(Mage::helper('catalog')->__('The category has been saved.'));
                 $refreshTree = 'true';
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage())
@@ -393,13 +393,13 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $this->getAdminSession()->setDeletedPath($category->getPath());
 
                 $category->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The category has been deleted.'));
+                $this->getAdminhtmlSession()->addSuccess(Mage::helper('catalog')->__('The category has been deleted.'));
             } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getAdminhtmlSession()->addError($e->getMessage());
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current' => true]));
                 return;
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while trying to delete the category.'));
+                $this->getAdminhtmlSession()->addError(Mage::helper('catalog')->__('An error occurred while trying to delete the category.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current' => true]));
                 return;
             }

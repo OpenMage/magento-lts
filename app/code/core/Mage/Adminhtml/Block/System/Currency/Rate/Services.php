@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Services extends Mage_Adminhtml_
             ->setOptions(Mage::getModel('adminhtml/system_config_source_currency_service')->toOptionArray(0))
             ->setId('rate_services')
             ->setName('rate_services')
-            ->setValue(Mage::getSingleton('adminhtml/session')->getCurrencyRateService(true))
+            ->setValue($this->getAdminhtmlSession()->getCurrencyRateService(true))
             ->setTitle(Mage::helper('adminhtml')->__('Import Service'))
         );
 

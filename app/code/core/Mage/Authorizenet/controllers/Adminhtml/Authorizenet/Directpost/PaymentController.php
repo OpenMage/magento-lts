@@ -170,8 +170,8 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
             //clear sessions
             $this->_getSession()->clear();
             $this->_getDirectPostSession()->removeCheckoutOrderIncrementId($redirectParams['x_invoice_num']);
-            Mage::getSingleton('adminhtml/session')->clear();
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The order has been created.'));
+            $this->getAdminhtmlSession()->clear();
+            $this->getAdminhtmlSession()->addSuccess($this->__('The order has been created.'));
         }
 
         if (!empty($redirectParams['error_msg'])) {

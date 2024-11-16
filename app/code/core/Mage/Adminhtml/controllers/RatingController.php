@@ -105,14 +105,14 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
                     }
                 }
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The rating has been saved.'));
-                Mage::getSingleton('adminhtml/session')->setRatingData(false);
+                $this->getAdminhtmlSession()->addSuccess(Mage::helper('adminhtml')->__('The rating has been saved.'));
+                $this->getAdminhtmlSession()->setRatingData(false);
 
                 $this->_redirect('*/*/');
                 return;
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                Mage::getSingleton('adminhtml/session')->setRatingData($this->getRequest()->getPost());
+                $this->getAdminhtmlSession()->addError($e->getMessage());
+                $this->getAdminhtmlSession()->setRatingData($this->getRequest()->getPost());
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
@@ -128,10 +128,10 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
                 /** @var Mage_Rating_Model_Rating $model */
                 $model->load($this->getRequest()->getParam('id'))
                     ->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The rating has been deleted.'));
+                $this->getAdminhtmlSession()->addSuccess(Mage::helper('adminhtml')->__('The rating has been deleted.'));
                 $this->_redirect('*/*/');
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getAdminhtmlSession()->addError($e->getMessage());
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
             }
         }

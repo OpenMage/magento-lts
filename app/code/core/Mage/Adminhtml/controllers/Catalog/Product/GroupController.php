@@ -34,12 +34,12 @@ class Mage_Adminhtml_Catalog_Product_GroupController extends Mage_Adminhtml_Cont
               ->setAttributeSetId($this->getRequest()->getParam('attribute_set_id'));
 
         if ($model->itemExists()) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('A group with the same name already exists.'));
+            $this->getAdminhtmlSession()->addError(Mage::helper('catalog')->__('A group with the same name already exists.'));
         } else {
             try {
                 $model->save();
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while saving this group.'));
+                $this->getAdminhtmlSession()->addError(Mage::helper('catalog')->__('An error occurred while saving this group.'));
             }
         }
     }

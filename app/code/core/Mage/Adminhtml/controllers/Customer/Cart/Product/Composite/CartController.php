@@ -138,7 +138,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
         }
 
         $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));
-        Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
+        $this->getAdminhtmlSession()->setCompositeProductResult($updateResult);
         $this->_redirect('*/catalog_product/showUpdateResult');
 
         return $this;
