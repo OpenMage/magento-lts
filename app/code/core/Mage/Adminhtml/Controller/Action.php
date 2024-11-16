@@ -81,22 +81,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * Retrieve admin session model object
-     */
-    final protected function getAdminSession(): Mage_Admin_Model_Session
-    {
-        return Mage::getSingleton('admin/session');
-    }
-
-    /**
-     * Retrieve adminhtml session model object
-     */
-    final protected function getAdminhtmlSession(): Mage_Adminhtml_Model_Session
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
-    /**
      * @return Mage_Adminhtml_Model_Session
      * @deprecated
      * @see getAdminhtmlSession()

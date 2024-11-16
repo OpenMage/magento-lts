@@ -30,8 +30,7 @@ class Mage_Admin_Model_Observer extends Mage_Core_Model_Observer
      */
     public function actionPreDispatchAdmin($observer)
     {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
+        $session = $this->getAdminSession();
 
         $request = Mage::app()->getRequest();
         $user = $session->getUser();

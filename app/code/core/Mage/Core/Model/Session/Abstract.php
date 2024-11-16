@@ -82,6 +82,14 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     }
 
     /**
+     * Retrieve adminhtml session model object
+     */
+    final protected function getAdminhtmlSession(): Mage_Adminhtml_Model_Session
+    {
+        return Mage::getSingleton('adminhtml/session');
+    }
+
+    /**
      * Retrieve core session model object
      */
     final protected function getCoreSession(): Mage_Core_Model_Session

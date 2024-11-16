@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  */
-class Mage_Oauth_Model_Observer
+class Mage_Oauth_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Retrieve oauth_token param from request
@@ -75,8 +75,7 @@ class Mage_Oauth_Model_Observer
     public function afterAdminLoginFailed(Varien_Event_Observer $observer)
     {
         if ($this->_getOauthToken() !== null) {
-            /** @var Mage_Admin_Model_Session $session */
-            $session = Mage::getSingleton('admin/session');
+            $session = $this->getAdminSession();
             $session->addError($observer->getException()->getMessage());
 
             $userType = Mage_Oauth_Model_Token::USER_TYPE_ADMIN;

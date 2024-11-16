@@ -161,7 +161,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $this->setUser($user);
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
                 if ($backendLocale = $user->getBackendLocale()) {
-                    Mage::getSingleton('adminhtml/session')->setLocale($backendLocale);
+                    $this->getAdminhtmlSession()->setLocale($backendLocale);
                 }
 
                 $alternativeUrl = $this->_getRequestUri($request);
@@ -316,7 +316,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         }
 
         if ($request && !$request->getParam('messageSent')) {
-            Mage::getSingleton('adminhtml/session')->addError($message);
+            $this->getAdminhtmlSession()->addError($message);
             $request->setParam('messageSent', true);
         }
     }

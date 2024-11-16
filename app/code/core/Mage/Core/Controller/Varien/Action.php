@@ -133,6 +133,22 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
+     * Retrieve admin session model object
+     */
+    final protected function getAdminSession(): Mage_Admin_Model_Session
+    {
+        return Mage::getSingleton('admin/session');
+    }
+
+    /**
+     * Retrieve adminhtml session model object
+     */
+    final protected function getAdminhtmlSession(): Mage_Adminhtml_Model_Session
+    {
+        return Mage::getSingleton('adminhtml/session');
+    }
+
+    /**
      * Retrieve core session model object
      */
     final protected function getCoreSession(): Mage_Core_Model_Session
@@ -1051,7 +1067,7 @@ abstract class Mage_Core_Controller_Varien_Action
         $contentType = 'application/octet-stream',
         $contentLength = null
     ) {
-        $session = Mage::getSingleton('admin/session');
+        $session = $this->getAdminSession();
         if ($session->isFirstPageAfterLogin()) {
             $this->_redirect($session->getUser()->getStartupPageUrl());
             return $this;

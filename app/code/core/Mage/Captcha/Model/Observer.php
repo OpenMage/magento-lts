@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Captcha
  */
-class Mage_Captcha_Model_Observer
+class Mage_Captcha_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Check Captcha On Forgot Password Page
@@ -164,10 +164,12 @@ class Mage_Captcha_Model_Observer
      * Returns backend session
      *
      * @return Mage_Adminhtml_Model_Session
+     * @deprecated
+     * @see getAdminhtmlSession()
      */
     protected function _getBackendSession()
     {
-        return Mage::getSingleton('adminhtml/session');
+        return $this->getAdminhtmlSession();
     }
 
     /**
@@ -187,9 +189,9 @@ class Mage_Captcha_Model_Observer
         if (!empty($email) && !empty($params)) {
             if ($captchaModel->isRequired()) {
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
-                    $this->_getBackendSession()->setEmail((string) $controller->getRequest()->getPost('email'));
+                    $this->getAdminhtmlSession()->setEmail((string) $controller->getRequest()->getPost('email'));
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $this->_getBackendSession()->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $this->getAdminhtmlSession()->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                     $controller->getResponse()->setRedirect(Mage::getUrl('*/*/forgotpassword'));
                 }
             }

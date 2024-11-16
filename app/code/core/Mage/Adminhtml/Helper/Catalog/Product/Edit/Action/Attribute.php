@@ -72,8 +72,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
      */
     public function getProductIds()
     {
-        /** @var Mage_Adminhtml_Model_Session $session */
-        $session = Mage::getSingleton('adminhtml/session');
+        $session = $this->getAdminhtmlSession();
 
         if ($this->_getRequest()->isPost() && strtolower($this->_getRequest()->getActionName()) === 'edit') {
             $session->setProductIds($this->_getRequest()->getParam('product', null));

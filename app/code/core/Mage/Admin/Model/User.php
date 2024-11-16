@@ -156,9 +156,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             // Change user password
             $data['password'] = $this->_getEncodedPassword($this->getNewPassword());
             $data['new_password'] = $data['password'];
-            $sessionUser = $this->getSession()->getUser();
+            $sessionUser = $this->getAdminSession()->getUser();
             if ($sessionUser && $sessionUser->getId() == $this->getId()) {
-                $this->getSession()->setUserPasswordChanged(true);
+                $this->getAdminSession()->setUserPasswordChanged(true);
             }
         } elseif ($this->getPassword() && $this->getPassword() != $this->getOrigData('password')) {
             // New user password
@@ -182,10 +182,12 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
     /**
      * @return Mage_Admin_Model_Session
-*/
+     * @deprecated
+     * @see getAdminSession()
+     */
     protected function getSession()
     {
-        return  Mage::getSingleton('admin/session');
+        return  $this->getAdminSession();
     }
 
     /**
@@ -444,11 +446,11 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $oldPassword = $this->getPassword();
         $this->setId(null);
         $this->load($id);
-        $isUserPasswordChanged = $this->getSession()->getUserPasswordChanged();
+        $isUserPasswordChanged = $this->getAdminSession()->getUserPasswordChanged();
         if (!$isUserPasswordChanged && $this->getPassword() !== $oldPassword) {
             $this->setId(null);
         } elseif ($isUserPasswordChanged) {
-            $this->getSession()->setUserPasswordChanged(false);
+            $this->getAdminSession()->setUserPasswordChanged(false);
         }
         return $this;
     }
@@ -513,7 +515,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
         foreach ($parent->children() as $childName => $child) {
             $aclResource = 'admin/' . $path . $childName;
-            if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
+            if ($this->getAdminSession()->isAllowed($aclResource)) {
                 if (!$child->children) {
                     return (string)$child->action;
                 } elseif ($child->children) {
@@ -557,7 +559,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     {
         $startupPage = Mage::getStoreConfig(self::XML_PATH_STARTUP_PAGE);
         $aclResource = 'admin/' . $startupPage;
-        if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
+        if ($this->getAdminSession()->isAllowed($aclResource)) {
             $nodePath = 'menu/' . implode('/children/', explode('/', $startupPage)) . '/action';
             $url = (string)Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode($nodePath);
             if ($url) {

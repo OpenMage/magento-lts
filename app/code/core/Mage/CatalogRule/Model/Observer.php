@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  */
-class Mage_CatalogRule_Model_Observer
+class Mage_CatalogRule_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Preload price rules for all items in quote
@@ -324,7 +324,7 @@ class Mage_CatalogRule_Model_Observer
 
         if ($disabledRulesCount) {
             Mage::getModel('catalogrule/rule')->applyAll();
-            Mage::getSingleton('adminhtml/session')->addWarning(
+            $this->getAdminhtmlSession()->addWarning(
                 Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode)
             );
         }

@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  */
-class Mage_CatalogSearch_Model_Fulltext_Observer
+class Mage_CatalogSearch_Model_Fulltext_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Retrieve fulltext (indexer) model
@@ -97,7 +97,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
 
         if ($showNotice) {
             $url = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/system_cache');
-            Mage::getSingleton('adminhtml/session')->addNotice(
+            $this->getAdminhtmlSession()->addNotice(
                 Mage::helper('catalogsearch')->__('Attribute setting change related with Search Index. Please run <a href="%s">Rebuild Search Index</a> process.', $url)
             );
         }

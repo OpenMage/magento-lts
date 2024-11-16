@@ -90,8 +90,8 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
      */
     public function getCurrentUserId()
     {
-        if (Mage::getSingleton('admin/session')->getUser()) {
-            return Mage::getSingleton('admin/session')->getUser()->getId();
+        if ($this->getAdminSession()->getUser()) {
+            return $this->getAdminSession()->getUser()->getId();
         }
         return false;
     }
