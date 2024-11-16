@@ -183,12 +183,11 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      * @param Mage_Oauth_Model_Token $row
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @param bool $isExport
-     * @return mixed
+     * @return int
      */
     public function decorateUserId($value, $row, $column, $isExport)
     {
-        $value = $row->getCustomerId() ? $row->getCustomerId() : $row->getAdminId();
-        return $value;
+        return $row->getCustomerId() ? $row->getCustomerId() : $row->getAdminId();
     }
 
     /**
@@ -198,8 +197,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      */
     protected function _isAllowed()
     {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/oauth/authorizedTokens');
+        return $this->getAdminSession()->isAllowed('system/oauth/authorizedTokens');
     }
 }

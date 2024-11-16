@@ -220,6 +220,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
      */
     public function _isAllowedAction($action)
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/' . $action);
+        return $this->getAdminSession()->isAllowed('sales/order/actions/' . $action);
     }
 }

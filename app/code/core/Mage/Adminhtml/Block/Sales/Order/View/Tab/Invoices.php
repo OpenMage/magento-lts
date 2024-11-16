@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
 
     public function canShowTab()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/invoice');
+        return $this->getAdminSession()->isAllowed('sales/invoice');
     }
 
     public function isHidden()

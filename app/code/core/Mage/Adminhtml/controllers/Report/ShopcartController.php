@@ -149,13 +149,13 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'customer':
-                return Mage::getSingleton('admin/session')->isAllowed('report/shopcart/customer');
+                return $this->getAdminSession()->isAllowed('report/shopcart/customer');
             case 'product':
-                return Mage::getSingleton('admin/session')->isAllowed('report/shopcart/product');
+                return $this->getAdminSession()->isAllowed('report/shopcart/product');
             case 'abandoned':
-                return Mage::getSingleton('admin/session')->isAllowed('report/shopcart/abandoned');
+                return $this->getAdminSession()->isAllowed('report/shopcart/abandoned');
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/shopcart');
+                return $this->getAdminSession()->isAllowed('report/shopcart');
         }
     }
 }

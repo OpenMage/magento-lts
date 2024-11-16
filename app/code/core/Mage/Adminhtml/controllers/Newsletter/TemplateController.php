@@ -27,8 +27,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')
-            ->isAllowed('newsletter/template');
+        return $this->getAdminSession()->isAllowed('newsletter/template');
     }
 
     /**

@@ -77,7 +77,15 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed(static::ADMIN_RESOURCE);
+        return $this->getAdminSession()->isAllowed(static::ADMIN_RESOURCE);
+    }
+
+    /**
+     * Retrieve admin session model object
+     */
+    final protected function getAdminSession(): Mage_Admin_Model_Session
+    {
+        return Mage::getSingleton('admin/session');
     }
 
     /**
@@ -174,7 +182,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         $isValidFormKey = true;
         $isValidSecretKey = true;
         $keyErrorMsg = '';
-        if (Mage::getSingleton('admin/session')->isLoggedIn()) {
+        if ($this->getAdminSession()->isLoggedIn()) {
             if ($this->getRequest()->isPost() || $this->_checkIsForcedFormKeyAction()) {
                 $isValidFormKey = $this->_validateFormKey();
                 $keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.');
@@ -195,7 +203,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                 if (!$isValidFormKey) {
                     Mage::getSingleton('adminhtml/session')->addError($keyErrorMsg);
                 }
-                $this->_redirect(Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl());
+                $this->_redirect($this->getAdminSession()->getUser()->getStartupPageUrl());
             }
             return $this;
         }
@@ -280,7 +288,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     public function deniedAction()
     {
         $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
-        if (!Mage::getSingleton('admin/session')->isLoggedIn()) {
+        if (!$this->getAdminSession()->isLoggedIn()) {
             $this->_redirect('*/index/login');
             return;
         }
@@ -372,7 +380,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _forward($action, $controller = null, $module = null, ?array $params = null)
     {
         $this->_getSession()->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
-        return parent::_forward($action, $controller, $module, $params);
+        parent::_forward($action, $controller, $module, $params);
     }
 
     /**
@@ -411,11 +419,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * @param string $password - current password
      *
-     * @return mixed - returns true or array of errors
+     * @return array|true - returns true or array of errors
      */
     protected function _validateCurrentPassword($password)
     {
-        $user = Mage::getSingleton('admin/session')->getUser();
+        $user = $this->getAdminSession()->getUser();
         return $user->validateCurrentPassword($password);
     }
 

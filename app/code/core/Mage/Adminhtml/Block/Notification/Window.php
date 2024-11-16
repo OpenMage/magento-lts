@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
             return $this->_available;
         }
 
-        if (!Mage::getSingleton('admin/session')->isFirstPageAfterLogin()) {
+        if (!$this->getAdminSession()->isFirstPageAfterLogin()) {
             $this->_available = false;
             return false;
         }
@@ -166,8 +166,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     protected function _isAllowed()
     {
         if (!is_null($this->_aclResourcePath)) {
-            return Mage::getSingleton('admin/session')
-                ->isAllowed('admin/system/adminnotification/show_toolbar');
+            return $this->getAdminSession()->isAllowed('admin/system/adminnotification/show_toolbar');
         } else {
             return true;
         }

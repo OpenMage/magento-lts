@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
         // load: Orders, Shopping Cart, Wishlist, Product Reviews, Product Tags - with ajax
 
         if (Mage::registry('current_customer')->getId()) {
-            if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+            if ($this->getAdminSession()->isAllowed('sales/order/actions/view')) {
                 $this->addTab('orders', [
                     'label'     => Mage::helper('customer')->__('Orders'),
                     'class'     => 'ajax',
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/wishlist', ['_current' => true]),
             ]);
 
-            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Newsletter') && Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
+            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Newsletter') && $this->getAdminSession()->isAllowed('newsletter/subscriber')) {
                 /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $block */
                 $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
                 $this->addTab('newsletter', [
@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 ]);
             }
 
-            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Review') && Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings')) {
+            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Review') && $this->getAdminSession()->isAllowed('catalog/reviews_ratings')) {
                 $this->addTab('reviews', [
                     'label'     => Mage::helper('customer')->__('Product Reviews'),
                     'class'     => 'ajax',
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 ]);
             }
 
-            if (Mage::helper('core')->isModuleEnabled('Mage_Tag') && Mage::getSingleton('admin/session')->isAllowed('catalog/tag')) {
+            if (Mage::helper('core')->isModuleEnabled('Mage_Tag') && $this->getAdminSession()->isAllowed('catalog/tag')) {
                 $this->addTab('tags', [
                     'label'     => Mage::helper('customer')->__('Product Tags'),
                     'class'     => 'ajax',

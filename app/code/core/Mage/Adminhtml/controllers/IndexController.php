@@ -45,7 +45,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      */
     public function indexAction()
     {
-        $session = Mage::getSingleton('admin/session');
+        $session = $this->getAdminSession();
         $url = $session->getUser()->getStartupPageUrl();
         if ($session->isFirstPageAfterLogin()) {
             // retain the "first page after login" value in session (before redirect)
@@ -59,7 +59,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      */
     public function loginAction()
     {
-        if (Mage::getSingleton('admin/session')->isLoggedIn()) {
+        if ($this->getAdminSession()->isLoggedIn()) {
             $this->_redirect('*');
             return;
         }
@@ -75,8 +75,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      */
     public function logoutAction()
     {
-        /** @var Mage_Admin_Model_Session $adminSession */
-        $adminSession = Mage::getSingleton('admin/session');
+        $adminSession = $this->getAdminSession();
         $adminSession->unsetAll();
         $adminSession->getCookie()->delete($adminSession->getSessionName());
         $adminSession->addSuccess(Mage::helper('adminhtml')->__('You have logged out.'));
@@ -92,7 +91,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         $searchModules = Mage::getConfig()->getNode('adminhtml/global_search');
         $items = [];
 
-        if (!Mage::getStoreConfigFlag('admin/global_search/enable') || !Mage::getSingleton('admin/session')->isAllowed('admin/global_search')) {
+        if (!Mage::getStoreConfigFlag('admin/global_search/enable') || !$this->getAdminSession()->isAllowed('admin/global_search')) {
             $items[] = [
                 'id' => 'error',
                 'type' => Mage::helper('adminhtml')->__('Error'),
@@ -114,7 +113,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 $limit = $this->getRequest()->getParam('limit', 10);
                 $query = $this->getRequest()->getParam('query', '');
                 foreach ($searchModules->children() as $searchConfig) {
-                    if ($searchConfig->acl && !Mage::getSingleton('admin/session')->isAllowed($searchConfig->acl)) {
+                    if ($searchConfig->acl && !$this->getAdminSession()->isAllowed($searchConfig->acl)) {
                         continue;
                     }
 

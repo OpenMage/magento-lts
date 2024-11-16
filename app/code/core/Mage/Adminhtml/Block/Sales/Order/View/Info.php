@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
 
     public function getCustomerViewUrl()
     {
-        if (!Mage::getSingleton('admin/session')->isAllowed('customer/manage')) {
+        if (!$this->getAdminSession()->isAllowed('customer/manage')) {
             return false;
         }
         if ($this->getOrder()->getCustomerIsGuest() || !$this->getOrder()->getCustomerId()) {

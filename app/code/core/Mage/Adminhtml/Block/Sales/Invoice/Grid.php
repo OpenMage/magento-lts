@@ -149,7 +149,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
      */
     public function getRowUrl($row)
     {
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/invoice')) {
+        if (!$this->getAdminSession()->isAllowed('sales/order/invoice')) {
             return false;
         }
 

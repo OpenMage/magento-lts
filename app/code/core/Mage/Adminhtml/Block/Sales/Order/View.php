@@ -340,7 +340,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
      */
     protected function _isAllowedAction($action)
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/' . $action);
+        return $this->getAdminSession()->isAllowed('sales/order/actions/' . $action);
     }
 
     /**

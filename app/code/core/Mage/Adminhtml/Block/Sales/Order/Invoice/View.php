@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         $this->_objectId    = 'invoice_id';
         $this->_controller  = 'sales_order_invoice';
         $this->_mode        = 'view';
-        $this->_session = Mage::getSingleton('admin/session');
+        $this->_session = $this->getAdminSession();
 
         parent::__construct();
 

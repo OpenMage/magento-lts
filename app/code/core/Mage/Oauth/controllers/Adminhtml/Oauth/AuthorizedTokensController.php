@@ -148,8 +148,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
      */
     protected function _isAllowed()
     {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
+        $session = $this->getAdminSession();
         return $session->isAllowed('system/api/oauth_authorized_tokens');
     }
 
@@ -162,8 +161,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
     protected function _sendTokenStatusChangeNotification($token, $newStatus)
     {
         if (($adminId = $token->getAdminId())) {
-            /** @var Mage_Admin_Model_Session $session */
-            $session = Mage::getSingleton('admin/session');
+            $session = $this->getAdminSession();
 
             $admin = $session->getUser();
 

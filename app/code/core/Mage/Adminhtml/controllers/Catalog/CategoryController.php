@@ -62,7 +62,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         }
 
         if ($activeTabId = (string) $this->getRequest()->getParam('active_tab_id')) {
-            Mage::getSingleton('admin/session')->setActiveTabId($activeTabId);
+            $this->getAdminSession()->setActiveTabId($activeTabId);
         }
 
         Mage::register('category', $category);
@@ -83,7 +83,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
      */
     public function addAction()
     {
-        Mage::getSingleton('admin/session')->unsActiveTabId();
+        $this->getAdminSession()->unsActiveTabId();
         $this->_forward('edit');
     }
 
@@ -97,8 +97,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         $storeId = (int) $this->getRequest()->getParam('store');
         $parentId = (int) $this->getRequest()->getParam('parent');
-        $prevStoreId = Mage::getSingleton('admin/session')
-            ->getLastViewedStore(true);
+        $prevStoreId = $this->getAdminSession()->getLastViewedStore(true);
 
         if (!empty($prevStoreId) && !$this->getRequest()->getQuery('isAjax')) {
             $params['store'] = $prevStoreId;
@@ -106,8 +105,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         }
 
         $categoryId = (int) $this->getRequest()->getParam('id');
-        $prevCategoryId = Mage::getSingleton('admin/session')
-            ->getLastEditedCategory(true);
+        $prevCategoryId = $this->getAdminSession()->getLastEditedCategory(true);
 
         if ($prevCategoryId
             && !$this->getRequest()->getQuery('isAjax')
@@ -149,7 +147,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             $breadcrumbsPath = $category->getPath();
             if (empty($breadcrumbsPath)) {
                 // but if no category, and it is deleted - prepare breadcrumbs from path, saved in session
-                $breadcrumbsPath = Mage::getSingleton('admin/session')->getDeletedPath(true);
+                $breadcrumbsPath = $this->getAdminSession()->getDeletedPath(true);
                 if (!empty($breadcrumbsPath)) {
                     $breadcrumbsPath = explode('/', $breadcrumbsPath);
                     // no need to get parent breadcrumbs if deleting category level 1
@@ -162,10 +160,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 }
             }
 
-            Mage::getSingleton('admin/session')
-                ->setLastViewedStore($this->getRequest()->getParam('store'));
-            Mage::getSingleton('admin/session')
-                ->setLastEditedCategory($category->getId());
+            $this->getAdminSession()->setLastViewedStore($this->getRequest()->getParam('store'));
+            $this->getAdminSession()->setLastEditedCategory($category->getId());
             $this->loadLayout();
 
             $eventResponse = new Varien_Object([
@@ -230,9 +226,9 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     public function categoriesJsonAction()
     {
         if ($this->getRequest()->getParam('expand_all')) {
-            Mage::getSingleton('admin/session')->setIsTreeWasExpanded(true);
+            $this->getAdminSession()->setIsTreeWasExpanded(true);
         } else {
-            Mage::getSingleton('admin/session')->setIsTreeWasExpanded(false);
+            $this->getAdminSession()->setIsTreeWasExpanded(false);
         }
         if ($categoryId = (int) $this->getRequest()->getPost('id')) {
             $this->getRequest()->setParam('id', $categoryId);
@@ -394,7 +390,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $category = Mage::getModel('catalog/category')->load($id);
                 Mage::dispatchEvent('catalog_controller_category_delete', ['category' => $category]);
 
-                Mage::getSingleton('admin/session')->setDeletedPath($category->getPath());
+                $this->getAdminSession()->setDeletedPath($category->getPath());
 
                 $category->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('The category has been deleted.'));

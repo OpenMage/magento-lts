@@ -225,11 +225,11 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         switch ($action) {
             case 'new':
             case 'save':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/save');
+                return $this->getAdminSession()->isAllowed('cms/page/save');
             case 'delete':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
+                return $this->getAdminSession()->isAllowed('cms/page/delete');
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page');
+                return $this->getAdminSession()->isAllowed('cms/page');
         }
     }
 

@@ -289,8 +289,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
      */
     protected function _isAllowed()
     {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
+        $session = $this->getAdminSession();
         return $session->isAllowed('system/api/rest_roles');
     }
 

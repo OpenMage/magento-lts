@@ -47,7 +47,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             }
         }
 
-        $profile->setAdminUserId(Mage::getSingleton('admin/session')->getUser()->getId());
+        $profile->setAdminUserId($this->getAdminSession()->getUser()->getId());
         Mage::register('current_convert_profile', $profile);
 
         return $this;

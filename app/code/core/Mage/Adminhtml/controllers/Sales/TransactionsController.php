@@ -122,9 +122,9 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'fetch':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch');
+                return $this->getAdminSession()->isAllowed('sales/transactions/fetch');
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('sales/transactions');
+                return $this->getAdminSession()->isAllowed('sales/transactions');
         }
     }
 }

@@ -109,7 +109,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
         ]);
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+        if ($this->getAdminSession()->isAllowed('sales/order/actions/view')) {
             $this->addColumn(
                 'action',
                 [

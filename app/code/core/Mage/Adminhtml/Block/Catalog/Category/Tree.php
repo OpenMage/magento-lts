@@ -125,7 +125,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function getLoadTreeUrl($expanded = null)
     {
         $params = ['_current' => true, 'id' => null,'store' => null];
-        if ((is_null($expanded) && Mage::getSingleton('admin/session')->getIsTreeWasExpanded())
+        if ((is_null($expanded) && $this->getAdminSession()->getIsTreeWasExpanded())
             || $expanded == true
         ) {
             $params['expand_all'] = true;
@@ -148,7 +148,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
     public function getIsWasExpanded()
     {
-        return Mage::getSingleton('admin/session')->getIsTreeWasExpanded();
+        return $this->getAdminSession()->getIsTreeWasExpanded();
     }
 
     public function getMoveUrl()

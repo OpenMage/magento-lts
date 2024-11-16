@@ -332,11 +332,11 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'pending':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/pending');
+                return $this->getAdminSession()->isAllowed('catalog/tag/pending');
             case 'all':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/all');
+                return $this->getAdminSession()->isAllowed('catalog/tag/all');
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag');
+                return $this->getAdminSession()->isAllowed('catalog/tag');
         }
     }
 }

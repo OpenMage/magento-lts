@@ -81,7 +81,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/tax/classes_product')
-            || Mage::getSingleton('admin/session')->isAllowed('sales/tax/classes_customer');
+        return $this->getAdminSession()->isAllowed('sales/tax/classes_product')
+            || $this->getAdminSession()->isAllowed('sales/tax/classes_customer');
     }
 }

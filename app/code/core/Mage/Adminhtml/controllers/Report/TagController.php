@@ -276,14 +276,14 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'customer':
-                return Mage::getSingleton('admin/session')->isAllowed('report/tags/customer');
+                return $this->getAdminSession()->isAllowed('report/tags/customer');
             case 'productall':
             case 'product':
-                return Mage::getSingleton('admin/session')->isAllowed('report/tags/product');
+                return $this->getAdminSession()->isAllowed('report/tags/product');
             case 'popular':
-                return Mage::getSingleton('admin/session')->isAllowed('report/tags/popular');
+                return $this->getAdminSession()->isAllowed('report/tags/popular');
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/tags');
+                return $this->getAdminSession()->isAllowed('report/tags');
         }
     }
 }

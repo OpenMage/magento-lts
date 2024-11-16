@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Transactions extends Mage_Adminh
      */
     public function canShowTab()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/transactions');
+        return $this->getAdminSession()->isAllowed('sales/transactions');
     }
 
     /**
@@ -78,6 +78,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Transactions extends Mage_Adminh
      */
     public function isHidden()
     {
-        return !Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch');
+        return !$this->getAdminSession()->isAllowed('sales/transactions/fetch');
     }
 }

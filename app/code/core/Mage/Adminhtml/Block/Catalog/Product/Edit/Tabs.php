@@ -131,7 +131,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
 
             if ($this->getRequest()->getParam('id', false)) {
                 if (Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
-                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')) {
+                    if ($this->getAdminSession()->isAllowed('admin/catalog/reviews_ratings')) {
                         $this->addTab('reviews', [
                             'label' => Mage::helper('catalog')->__('Product Reviews'),
                             'url'   => $this->getUrl('*/*/reviews', ['_current' => true]),
@@ -140,7 +140,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                     }
                 }
                 if (Mage::helper('catalog')->isModuleEnabled('Mage_Tag')) {
-                    if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')) {
+                    if ($this->getAdminSession()->isAllowed('admin/catalog/tag')) {
                         $this->addTab('tags', [
                          'label'     => Mage::helper('catalog')->__('Product Tags'),
                          'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),

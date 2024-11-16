@@ -160,13 +160,13 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'accounts':
-                return Mage::getSingleton('admin/session')->isAllowed('report/customers/accounts');
+                return $this->getAdminSession()->isAllowed('report/customers/accounts');
             case 'orders':
-                return Mage::getSingleton('admin/session')->isAllowed('report/customers/orders');
+                return $this->getAdminSession()->isAllowed('report/customers/orders');
             case 'totals':
-                return Mage::getSingleton('admin/session')->isAllowed('report/customers/totals');
+                return $this->getAdminSession()->isAllowed('report/customers/totals');
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/customers');
+                return $this->getAdminSession()->isAllowed('report/customers');
         }
     }
 }

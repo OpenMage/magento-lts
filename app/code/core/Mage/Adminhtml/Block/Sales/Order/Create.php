@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
      */
     protected function _isCanCancel()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/cancel');
+        return $this->getAdminSession()->isAllowed('sales/order/actions/cancel');
     }
 
     /**

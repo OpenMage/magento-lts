@@ -56,7 +56,7 @@ class Mage_Index_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Temp
      */
     protected function _toHtml()
     {
-        if (Mage::getSingleton('admin/session')->isAllowed('system/index')) {
+        if ($this->getAdminSession()->isAllowed('system/index')) {
             return parent::_toHtml();
         }
         return '';

@@ -193,7 +193,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             return;
         }
 
-        $currentUser = Mage::getSingleton('admin/session')->getUser();
+        $currentUser = $this->getAdminSession()->getUser();
 
         if ($id = $this->getRequest()->getParam('user_id')) {
             if ($currentUser->getId() == $id) {

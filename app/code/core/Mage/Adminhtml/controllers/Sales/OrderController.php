@@ -685,7 +685,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $aclResource = 'sales/order';
                 break;
         }
-        return Mage::getSingleton('admin/session')->isAllowed($aclResource);
+        return $this->getAdminSession()->isAllowed($aclResource);
     }
 
     /**

@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/rules_collection')
-            ->addFieldToFilter('resource_id', ['nin' => Mage::getSingleton('admin/session')->getAcl()->getResources()])
+            ->addFieldToFilter('resource_id', ['nin' => $this->getAdminSession()->getAcl()->getResources()])
             ->addFieldToSelect('resource_id');
         $collection->getSelect()->group('resource_id');
 

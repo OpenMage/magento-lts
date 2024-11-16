@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
             'class'   => 'back'
         ]);
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')
+        if ($this->getAdminSession()->isAllowed('sales/transactions/fetch')
             && $this->_txn->getOrderPaymentObject()->getMethodInstance()->canFetchTransactionInfo()
         ) {
             $this->_addButton('fetch', [

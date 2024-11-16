@@ -460,7 +460,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
 
     public function canCapture()
     {
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/capture')) {
+        if ($this->getAdminSession()->isAllowed('sales/order/actions/capture')) {
             return $this->getInvoice()->canCapture();
         }
         return false;

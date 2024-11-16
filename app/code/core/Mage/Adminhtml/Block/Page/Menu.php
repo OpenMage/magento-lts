@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         $cacheKeyInfo = [
             'admin_top_nav',
             $this->getActive(),
-            Mage::getSingleton('admin/session')->getUser()->getId(),
+            $this->getAdminSession()->getUser()->getId(),
             Mage::app()->getLocale()->getLocaleCode()
         ];
         // Add additional key parameters if needed
@@ -218,7 +218,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     protected function _checkAcl($resource)
     {
         try {
-            $res =  Mage::getSingleton('admin/session')->isAllowed($resource);
+            $res = $this->getAdminSession()->isAllowed($resource);
         } catch (Exception $e) {
             return false;
         }

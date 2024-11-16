@@ -73,9 +73,9 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'search':
-                return Mage::getSingleton('admin/session')->isAllowed('report/search');
+                return $this->getAdminSession()->isAllowed('report/search');
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('report');
+                return $this->getAdminSession()->isAllowed('report');
         }
     }
 }

@@ -115,7 +115,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
         ]);
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+        if ($this->getAdminSession()->isAllowed('sales/order/actions/view')) {
             $this->addColumn(
                 'action',
                 [
@@ -178,21 +178,21 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         $this->getMassactionBlock()->setFormFieldName('order_ids');
         $this->getMassactionBlock()->setUseSelectAll(false);
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/cancel')) {
+        if ($this->getAdminSession()->isAllowed('sales/order/actions/cancel')) {
             $this->getMassactionBlock()->addItem(MassAction::CANCEL_ORDER, [
                  'label' => Mage::helper('sales')->__('Cancel'),
                  'url'  => $this->getUrl('*/sales_order/massCancel'),
             ]);
         }
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/hold')) {
+        if ($this->getAdminSession()->isAllowed('sales/order/actions/hold')) {
             $this->getMassactionBlock()->addItem(MassAction::HOLD_ORDER, [
                  'label' => Mage::helper('sales')->__('Hold'),
                  'url'  => $this->getUrl('*/sales_order/massHold'),
             ]);
         }
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/unhold')) {
+        if ($this->getAdminSession()->isAllowed('sales/order/actions/unhold')) {
             $this->getMassactionBlock()->addItem(MassAction::UNHOLD_ORDER, [
                  'label' => Mage::helper('sales')->__('Unhold'),
                  'url'  => $this->getUrl('*/sales_order/massUnhold'),
@@ -233,7 +233,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      */
     public function getRowUrl($row)
     {
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+        if ($this->getAdminSession()->isAllowed('sales/order/actions/view')) {
             return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
         }
         return false;

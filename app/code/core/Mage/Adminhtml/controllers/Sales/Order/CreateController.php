@@ -504,7 +504,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
             $this->_getSession()->clear();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The order has been created.'));
-            if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+            if ($this->getAdminSession()->isAllowed('sales/order/actions/view')) {
                 $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
             } else {
                 $this->_redirect('*/sales_order/index');
@@ -533,7 +533,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed($this->_getAclResourse());
+        return $this->getAdminSession()->isAllowed($this->_getAclResourse());
     }
 
     /**

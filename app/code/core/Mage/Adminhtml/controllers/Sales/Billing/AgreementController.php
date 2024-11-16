@@ -195,12 +195,12 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
             case 'index':
             case 'grid':
             case 'view':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/billing_agreement/actions/view');
+                return $this->getAdminSession()->isAllowed('sales/billing_agreement/actions/view');
             case 'cancel':
             case 'delete':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/billing_agreement/actions/manage');
+                return $this->getAdminSession()->isAllowed('sales/billing_agreement/actions/manage');
             default:
-                return Mage::getSingleton('admin/session')->isAllowed('sales/billing_agreement');
+                return $this->getAdminSession()->isAllowed('sales/billing_agreement');
         }
     }
 }

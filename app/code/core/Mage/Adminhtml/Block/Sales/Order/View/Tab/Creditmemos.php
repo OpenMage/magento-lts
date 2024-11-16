@@ -131,7 +131,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
 
     public function canShowTab()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/creditmemo');
+        return $this->getAdminSession()->isAllowed('sales/creditmemo');
     }
 
     public function isHidden()

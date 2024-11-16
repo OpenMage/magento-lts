@@ -120,7 +120,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             ]);
         }
 
-        if (Mage::getSingleton('admin/session')->getUser()->getId() != $model->getUserId()) {
+        if ($this->getAdminSession()->getUser()->getId() != $model->getUserId()) {
             $fieldset->addField('is_active', 'select', [
                 'name'      => 'is_active',
                 'label'     => Mage::helper('adminhtml')->__('This account is'),

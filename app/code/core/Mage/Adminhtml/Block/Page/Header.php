@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Page_Header extends Mage_Adminhtml_Block_Template
 
     public function getUser()
     {
-        return Mage::getSingleton('admin/session')->getUser();
+        return $this->getAdminSession()->getUser();
     }
 
     public function getLogoutLink()
