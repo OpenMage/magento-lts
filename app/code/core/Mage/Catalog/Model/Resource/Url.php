@@ -224,7 +224,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * Prepare rewrites for condition
      *
      * @param int $storeId
-     * @param int|array $categoryIds
+     * @param int|string|array|false $categoryIds
      * @param int|array $productIds
      * @return array
      */
@@ -560,7 +560,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param string $attributeCode
      * @param int|array $productIds
-     * @param string $storeId
+     * @param int|string $storeId
      * @return array
      */
     public function _getProductAttribute($attributeCode, $productIds, $storeId)

@@ -35,7 +35,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Load an object
      *
-     * @param Mage_Eav_Model_Resource_Form_Type $object
+     * @param Mage_Eav_Model_Form_Type $object
      * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
@@ -72,7 +72,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
      *
      * @see Mage_Core_Model_Resource_Db_Abstract::_afterSave()
      *
-     * @param Mage_Eav_Model_Resource_Form_Type $object
+     * @param Mage_Eav_Model_Form_Type $object
      * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)

@@ -29,7 +29,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     /**
      * Products count
      *
-     * @var null
+     * @var int
      */
     protected $_productsCount;
 

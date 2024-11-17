@@ -162,7 +162,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $varName
+     * @param bool $varName
      * @return $this
      */
     public function setShowPerPage($varName)

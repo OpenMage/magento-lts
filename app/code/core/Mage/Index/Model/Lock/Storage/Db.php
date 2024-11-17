@@ -65,7 +65,7 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
      * Release named lock
      *
      * @param string $lockName
-     * @return int|null
+     * @return bool
      */
     public function releaseLock($lockName)
     {

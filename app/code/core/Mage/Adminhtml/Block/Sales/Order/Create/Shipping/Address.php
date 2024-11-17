@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address extends Mage_Admi
     /**
      * Return address object
      *
-     * @return Mage_Customer_Model_Address
+     * @return Mage_Sales_Model_Quote_Address
      */
     public function getAddress()
     {

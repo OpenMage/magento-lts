@@ -500,7 +500,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Gets minimal sales quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int|null
+     * @return float|null
      */
     public function getMinimalQty($product)
     {

@@ -404,7 +404,7 @@ class Mage_Core_Model_Cache
     /**
      * Clean cached data by specific tag
      *
-     * @param   array $tags
+     * @param   array|string $tags
      * @return  bool
      */
     public function clean($tags = [])

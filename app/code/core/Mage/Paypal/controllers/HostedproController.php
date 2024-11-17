@@ -82,7 +82,8 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
     protected function _getIframeBlock()
     {
         $this->loadLayout('paypal_hosted_pro_iframe');
-        return $this->getLayout()
-            ->getBlock('hosted.pro.iframe');
+        /** @var Mage_Paypal_Block_Hosted_Pro_Iframe $block */
+        $block = $this->getLayout()->getBlock('hosted.pro.iframe');
+        return $block;
     }
 }

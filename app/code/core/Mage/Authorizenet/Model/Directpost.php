@@ -66,6 +66,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Send capture request to gateway
      *
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      * @return $this
      * @throws Mage_Core_Exception
@@ -220,6 +221,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * refund the amount with transaction id
      *
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param string $amount
      * @return $this
      * @throws Mage_Core_Exception

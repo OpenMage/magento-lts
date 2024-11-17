@@ -1086,7 +1086,7 @@ interface Varien_Db_Adapter_Interface
      * Change table auto increment value
      *
      * @param string $tableName
-     * @param string $increment
+     * @param int $increment
      * @param null|string $schemaName
      * @return Zend_Db_Statement_Interface
      */
