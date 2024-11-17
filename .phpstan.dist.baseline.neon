@@ -1761,11 +1761,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php
 
 		-
-			message: "#^Property Mage_Catalog_Model_Category_Url\\:\\:\\$_url \\(Mage_Core_Model_Url\\) does not accept bool\\|Mage_Core_Model_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Url.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Config\\:\\:_init\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Config.php
@@ -4466,16 +4461,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Config.php
 
 		-
-			message: "#^Method Mage_Install_Model_Installer\\:\\:getDataModel\\(\\) should return Mage_Install_Model_Session but returns Mage_Install_Model_Installer_Data\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method Mage_Install_Model_Installer\\:\\:setDataModel\\(\\) expects Mage_Install_Model_Installer_Data, Mage_Install_Model_Session given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method Mage_Core_Model_Resource_Setup\\:\\:setConfigData\\(\\) expects string, int given\\.$#"
 			count: 5
 			path: app/code/core/Mage/Install/Model/Installer.php
@@ -4679,11 +4664,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method Mage_Core_Model_Config\\:\\:saveConfig\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Deprecated.php
-
-		-
-			message: "#^Method Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group\\:\\:_getCollapseState\\(\\) should return bool but returns int\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Group.php
 
 		-
 			message: "#^Method Mage_Paypal_Block_Express_Review\\:\\:_formatPrice\\(\\) should return string but returns float\\.$#"
@@ -4957,11 +4937,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_ProductAlert_Model_Observer\\:\\:process\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
-
-		-
-			message: "#^PHPDoc tag @var with type Mage_Catalog_Model_Product is not subtype of native type 0\\|0\\.0\\|''\\|'0'\\|array\\{\\}\\|false\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
 
