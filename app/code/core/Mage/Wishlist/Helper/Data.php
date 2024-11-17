@@ -569,7 +569,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if ($productId) {
             $params['product'] = $productId;
             if ($addFormKey) {
-                $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
+                $params[Mage_Core_Model_Url::FORM_KEY] = $this->getCoreSession()->getFormKey();
             }
             return $this->_getUrlStore($item)->getUrl('wishlist/index/add', $params);
         }
@@ -590,7 +590,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             'item' => $item->getWishlistItemId()
         ];
         if ($addFormKey) {
-            $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
+            $params[Mage_Core_Model_Url::FORM_KEY] = $this->getCoreSession()->getFormKey();
         }
 
         return $this->_getUrl('wishlist/index/remove', $params);
@@ -617,7 +617,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl,
         ];
         if ($addFormKey) {
-            $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
+            $params[Mage_Core_Model_Url::FORM_KEY] = $this->getCoreSession()->getFormKey();
         }
         return $this->_getUrlStore($item)->getUrl('wishlist/index/cart', $params);
     }

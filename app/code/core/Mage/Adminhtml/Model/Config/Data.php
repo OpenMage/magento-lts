@@ -36,6 +36,8 @@
  */
 class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     public const SCOPE_DEFAULT  = 'default';
     public const SCOPE_WEBSITES = 'websites';
     public const SCOPE_STORES   = 'stores';
@@ -258,7 +260,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     protected function _isSectionAllowed($section)
     {
         try {
-            $session = Mage::getSingleton('admin/session');
+            $session = $this->getAdminSession();
             $resourceLookup = "admin/system/config/{$section}";
             if ($session->getData('acl') instanceof Mage_Admin_Model_Acl) {
                 return $session->isAllowed(

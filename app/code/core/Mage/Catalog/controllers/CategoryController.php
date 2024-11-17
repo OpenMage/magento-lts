@@ -161,8 +161,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                     ->addBodyClass('category-' . $category->getUrlKey());
             }
 
-            $this->_initLayoutMessages('catalog/session');
-            $this->_initLayoutMessages('checkout/session');
+            $this->_initLayoutMessages($this->getCatalogSessionStorage());
+            $this->_initLayoutMessages($this->getCheckoutSessionStorage());
             $this->renderLayout();
         } elseif (!$this->getResponse()->isRedirect()) {
             $this->_forward('noRoute');

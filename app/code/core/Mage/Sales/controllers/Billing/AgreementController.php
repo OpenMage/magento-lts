@@ -30,7 +30,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
     {
         $this->_title($this->__('Billing Agreements'));
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getAdminSessionStorage());
         $this->renderLayout();
     }
 
@@ -74,7 +74,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
         $this->_title($this->__('Billing Agreements'))
             ->_title($this->__('Billing Agreement # %s', $agreement->getReferenceId()));
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
         $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
         if ($navigationBlock) {
             $navigationBlock->setActive('sales/billing_agreement/');

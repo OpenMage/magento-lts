@@ -138,10 +138,12 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
      * Get frontend checkout session object
      *
      * @return Mage_Checkout_Model_Session
+     * @deprecated
+     * @see getCheckoutSession()
      */
     protected function _getCheckout()
     {
-        return Mage::getSingleton('checkout/session');
+        return $this->getCheckoutSession();
     }
 
     /**

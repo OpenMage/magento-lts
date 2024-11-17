@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  */
-class Mage_Downloadable_Model_Observer
+class Mage_Downloadable_Model_Observer extends Mage_Core_Model_Observer
 {
     public const XML_PATH_DISABLE_GUEST_CHECKOUT   = 'catalog/downloadable/disable_guest_checkout';
 
@@ -128,7 +128,7 @@ class Mage_Downloadable_Model_Observer
      */
     public function setHasDownloadableProducts($observer)
     {
-        $session = Mage::getSingleton('checkout/session');
+        $session = $this->getCheckoutSession();
         if (!$session->getHasDownloadableProducts()) {
             /** @var Mage_Sales_Model_Order $order */
             $order = $observer->getEvent()->getOrder();

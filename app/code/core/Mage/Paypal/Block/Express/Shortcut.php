@@ -75,7 +75,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         $config = Mage::getModel('paypal/config', [$this->_paymentMethodCode]);
         $isInCatalog = $this->getIsInCatalogProduct();
         $quote = ($isInCatalog || $this->getIsQuoteAllowed() == '')
-            ? null : Mage::getSingleton('checkout/session')->getQuote();
+            ? null : $this->getCheckoutSession()->getQuote();
 
         // check visibility on cart or product page
         $context = $isInCatalog ? 'visible_on_product' : 'visible_on_cart';

@@ -21,6 +21,8 @@
  */
 class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Layout Update module
      *
@@ -166,7 +168,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                             continue;
                         }
                         $acl = (string)$attributes->acl;
-                        if ($acl && Mage::getSingleton('admin/session')->isAllowed($acl)) {
+                        if ($acl && $this->getAdminSession()->isAllowed($acl)) {
                             continue;
                         }
                         if (!isset($block->attributes()->ignore)) {

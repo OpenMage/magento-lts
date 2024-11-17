@@ -21,6 +21,8 @@
  */
 class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Model_Cart_Interface
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Shopping cart items summary quantity(s)
      *
@@ -43,26 +45,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     protected function _getResource()
     {
         return Mage::getResourceSingleton('checkout/cart');
-    }
-
-    /**
-     * Retrieve checkout session model
-     *
-     * @return Mage_Checkout_Model_Session
-     */
-    public function getCheckoutSession()
-    {
-        return Mage::getSingleton('checkout/session');
-    }
-
-    /**
-     * Retrieve customer session model
-     *
-     * @return Mage_Customer_Model_Session
-     */
-    public function getCustomerSession()
-    {
-        return Mage::getSingleton('customer/session');
     }
 
     /**
@@ -480,7 +462,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function getProductIds()
     {
-        $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         if ($this->_productIds === null) {
             $this->_productIds = [];
             if ($this->getSummaryQty() > 0) {
@@ -500,14 +481,13 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function getSummaryQty()
     {
-        $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
+        $quoteId = $this->getCheckoutSession()->getQuoteId();
 
         //If there is no quote id in session trying to load quote
         //and get new quote id. This is done for cases when quote was created
         //not by customer (from backend for example).
-        if (!$quoteId && Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $quote = Mage::getSingleton('checkout/session')->getQuote();
-            $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
+        if (!$quoteId && $this->getCustomerSession()->isLoggedIn()) {
+            $quoteId = $this->getCheckoutSession()->getQuoteId();
         }
 
         if ($quoteId && $this->_summaryQty === null) {

@@ -291,7 +291,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     public function loadLayout($ids = null, $generateBlocks = true, $generateXml = true)
     {
         parent::loadLayout($ids, $generateBlocks, $generateXml);
-        $this->_initLayoutMessages('adminhtml/session');
+        $this->_initLayoutMessages($this->getAdminSessionStorage());
         return $this;
     }
 

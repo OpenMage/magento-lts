@@ -33,6 +33,8 @@
  */
 abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     public const ACTION_ORDER             = 'order';
     public const ACTION_AUTHORIZE         = 'authorize';
     public const ACTION_AUTHORIZE_CAPTURE = 'authorize_capture';

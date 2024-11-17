@@ -51,7 +51,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     public function getCheckout()
     {
         if (empty($this->_checkout)) {
-            $this->_checkout = Mage::getSingleton('checkout/session');
+            $this->_checkout = $this->getCheckoutSession();
         }
         return $this->_checkout;
     }

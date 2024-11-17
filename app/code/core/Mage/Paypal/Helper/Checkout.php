@@ -66,10 +66,12 @@ class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
      * Return checkout session instance
      *
      * @return Mage_Checkout_Model_Session
+     * @deprecated
+     * @see getCheckoutSession()
      */
     protected function _getCheckoutSession()
     {
-        return Mage::getSingleton('checkout/session');
+        return $this->getCheckoutSession();
     }
 
     /**

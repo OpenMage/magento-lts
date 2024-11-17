@@ -335,7 +335,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $this->setData('password_created_at', $time);
         if (session_status() === PHP_SESSION_ACTIVE) {
-            Mage::getSingleton('checkout/session')->setValidatorSessionRenewTimestamp($time);
+            $this->getCheckoutSession()->setValidatorSessionRenewTimestamp($time);
         }
         return $this;
     }

@@ -74,7 +74,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
             ->setCustomerId(null)
             ->setCustomerGroupId(null);
         if ($this->_clearCheckoutSession) {
-            Mage::getSingleton('checkout/session')->unsetAll();
+            $this->getCheckoutSession()->unsetAll();
         }
         $this->_getHelper()->getSession()->removePersistentCookie();
         return $this;

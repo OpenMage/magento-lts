@@ -21,6 +21,8 @@
  */
 abstract class Mage_Core_Helper_Abstract
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Helper module name
      *
@@ -481,45 +483,5 @@ abstract class Mage_Core_Helper_Abstract
             }
         }
         return false;
-    }
-
-    /**
-     * Retrieve admin session model object
-     */
-    final protected function getAdminSession(): Mage_Admin_Model_Session
-    {
-        return Mage::getSingleton('admin/session');
-    }
-
-    /**
-     * Retrieve adminhtml session model object
-     */
-    final protected function getAdminhtmlSession(): Mage_Adminhtml_Model_Session
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
-    /**
-     * Retrieve catalog session model object
-     */
-    final protected function getCatalogSession(): Mage_Catalog_Model_Session
-    {
-        return Mage::getSingleton('catalog/session');
-    }
-
-    /**
-     * Retrieve core session model object
-     */
-    final protected function getCoreSession(): Mage_Core_Model_Session
-    {
-        return Mage::getSingleton('core/session');
-    }
-
-    /**
-     * Retrieve customer session model object
-     */
-    final protected function getCustomerSession(): Mage_Customer_Model_Session
-    {
-        return Mage::getSingleton('customer/session');
     }
 }

@@ -206,9 +206,9 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
 
             return;
         } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            $this->getCheckoutSession()->addError($e->getMessage());
         } catch (Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($this->__('Unable to process Express Checkout approval.'));
+            $this->getCheckoutSession()->addError($this->__('Unable to process Express Checkout approval.'));
             Mage::logException($e);
         }
         $this->_redirect('checkout/cart');
@@ -223,7 +223,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_initCheckout();
             $this->_checkout->prepareOrderReview($this->_initToken());
             $this->loadLayout();
-            $this->_initLayoutMessages('paypal/session');
+            $this->_initLayoutMessages($this->getPaypalSessionStorage());
             $reviewBlock = $this->getLayout()->getBlock('paypal.express.review');
             $reviewBlock->setQuote($this->_getQuote());
             $reviewBlock->getChild('details')->setQuote($this->_getQuote());
@@ -233,9 +233,9 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->renderLayout();
             return;
         } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            $this->getCheckoutSession()->addError($e->getMessage());
         } catch (Exception $e) {
-            Mage::getSingleton('checkout/session')->addError(
+            $this->getCheckoutSession()->addError(
                 $this->__('Unable to initialize Express Checkout review.')
             );
             Mage::logException($e);
@@ -497,20 +497,24 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      * PayPal session instance getter
      *
      * @return Mage_Paypal_Model_Session
+     * @deprecated
+     * @see getPaypalSession()
      */
     private function _getSession()
     {
-        return Mage::getSingleton('paypal/session');
+        return $this->getPaypalSession();
     }
 
     /**
      * Return checkout session object
      *
      * @return Mage_Checkout_Model_Session
+     * @deprecated
+     * @see getCheckoutSession()
      */
     protected function _getCheckoutSession()
     {
-        return Mage::getSingleton('checkout/session');
+        return $this->getCheckoutSession();
     }
 
     /**

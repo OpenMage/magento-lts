@@ -111,8 +111,8 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
         $variable->addData($this->getRequest()->getPost('variable'));
         $result = $variable->validate();
         if ($result !== true && is_string($result)) {
-            $this->_getSession()->addError($result);
-            $this->_initLayoutMessages('adminhtml/session');
+            $this->getAdminhtmlSession()->addError($result);
+            $this->_initLayoutMessages($this->getAdminhtmlSessionStorage());
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
         }

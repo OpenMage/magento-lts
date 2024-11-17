@@ -25,7 +25,7 @@ class Mage_Adminhtml_Helper_Rss extends Mage_Core_Helper_Abstract
 
     public function authAdmin($path)
     {
-        $session = Mage::getSingleton('rss/session');
+        $session = $this->getRssSession();
         if ($session->isAdminLoggedIn()) {
             return;
         }

@@ -141,12 +141,12 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 $model->initFromSkeleton($this->getRequest()->getParam('skeleton_set'));
             }
             $model->save();
-            $this->_getSession()->addSuccess(Mage::helper('catalog')->__('The attribute set has been saved.'));
+            $this->getAdminhtmlSession()->addSuccess(Mage::helper('catalog')->__('The attribute set has been saved.'));
         } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+            $this->getAdminSession()->addError($e->getMessage());
             $hasError = true;
         } catch (Exception $e) {
-            $this->_getSession()->addException(
+            $this->getAdminhtmlSession()->addException(
                 $e,
                 Mage::helper('catalog')->__('An error occurred while saving the attribute set.')
             );
@@ -162,7 +162,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         } else {
             $response = [];
             if ($hasError) {
-                $this->_initLayoutMessages('adminhtml/session');
+                $this->_initLayoutMessages($this->getAdminhtmlSessionStorage());
                 $response['error']   = 1;
                 $response['message'] = $this->getLayout()->getMessagesBlock()->getGroupedHtml();
             } else {
@@ -198,10 +198,10 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 ->setId($setId)
                 ->delete();
 
-            $this->_getSession()->addSuccess($this->__('The attribute set has been removed.'));
+            $this->getAdminhtmlSession()->addSuccess($this->__('The attribute set has been removed.'));
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
         } catch (Exception $e) {
-            $this->_getSession()->addError($this->__('An error occurred while deleting this set.'));
+            $this->getAdminhtmlSession()->addError($this->__('An error occurred while deleting this set.'));
             $this->_redirectReferer();
         }
     }

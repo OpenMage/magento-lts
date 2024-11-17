@@ -120,7 +120,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
         }
 
         /** @see Mage_Checkout_CartController::_setProductBuyRequest() */
-        $checkoutBuyRequest = Mage::getSingleton('checkout/session')->getProductBuyRequest(true);
+        $checkoutBuyRequest = $this->getCheckoutSession()->getProductBuyRequest(true);
         $buyRequest = $params->getBuyRequest() ?: $checkoutBuyRequest;
         if ($buyRequest) {
             $productHelper->prepareProductOptions($product, $buyRequest);

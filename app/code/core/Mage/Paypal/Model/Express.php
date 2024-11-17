@@ -189,7 +189,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
      */
     public function order(Varien_Object $payment, $amount)
     {
-        $paypalTransactionData = Mage::getSingleton('checkout/session')->getPaypalTransactionData();
+        $paypalTransactionData = $this->getCheckoutSession()->getPaypalTransactionData();
         if (!is_array($paypalTransactionData)) {
             $this->_placeOrder($payment, $amount);
         } else {
@@ -666,7 +666,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
                 unset($apiData[$k]);
             }
         }
-        Mage::getSingleton('checkout/session')->setPaypalTransactionData($apiData);
+        $this->getCheckoutSession()->setPaypalTransactionData($apiData);
         $this->_pro->resetApi();
         $api = $this->_setApiProcessableErrors()
             ->setAmount($amount)

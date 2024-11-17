@@ -250,7 +250,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
         } elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
             // This event signifies that a user viewed his cart.
             // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_cart
-            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+            $productCollection = $this->getCheckoutSession()->getQuote()->getAllItems();
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
             $eventData['value'] = 0.00;
@@ -282,7 +282,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
         } elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
             // This event signifies that a user has begun a checkout.
             // @see https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
-            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+            $productCollection = $this->getCheckoutSession()->getQuote()->getAllItems();
             if ($productCollection) {
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();

@@ -693,7 +693,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if ($addFormKey) {
             $additional = array_merge(
                 $additional,
-                [Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()]
+                [Mage_Core_Model_Url::FORM_KEY => $this->getCoreSession()->getFormKey()]
             );
         }
         if (!isset($additional['_escape'])) {

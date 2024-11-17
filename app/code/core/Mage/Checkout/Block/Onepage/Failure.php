@@ -20,28 +20,28 @@
 class Mage_Checkout_Block_Onepage_Failure extends Mage_Core_Block_Template
 {
     /**
-     * @return mixed
+     * @return string
      */
     public function getRealOrderId()
     {
-        return Mage::getSingleton('checkout/session')->getLastRealOrderId();
+        return $this->getCheckoutSession()->getLastRealOrderId();
     }
 
     /**
      *  Payment custom error message
      *
-     *  @return   string
+     *  @return string
      */
     public function getErrorMessage()
     {
-        // Mage::getSingleton('checkout/session')->unsErrorMessage();
-        return Mage::getSingleton('checkout/session')->getErrorMessage();
+        // $this->getCheckoutSession()->unsErrorMessage();
+        return $this->getCheckoutSession()->getErrorMessage();
     }
 
     /**
      * Continue shopping URL
      *
-     *  @return   string
+     *  @return string
      */
     public function getContinueShoppingUrl()
     {

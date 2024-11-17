@@ -21,6 +21,8 @@
  */
 abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_Db
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Array of items with item id key
      *

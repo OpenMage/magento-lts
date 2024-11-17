@@ -292,9 +292,9 @@ class Mage_Captcha_Model_Observer extends Mage_Core_Model_Observer
             $controller = $observer->getControllerAction();
             $request = $controller->getRequest();
             if (!$captchaModel->isCorrect($this->_getCaptchaString($request, $formId))) {
-                Mage::getSingleton('wishlist/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                $this->getWishlistSession()->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                Mage::getSingleton('wishlist/session')->setSharingForm($request->getPost());
+                $this->getWishlistSession()->setSharingForm($request->getPost());
                 $wishlistId = (int)$request->getParam('wishlist_id');
                 $controller->getResponse()
                     ->setRedirect(Mage::getUrl('wishlist/index/share/wishlist_id/' . $wishlistId));
@@ -317,9 +317,9 @@ class Mage_Captcha_Model_Observer extends Mage_Core_Model_Observer
             $controller = $observer->getControllerAction();
             $request = $controller->getRequest();
             if (!$captchaModel->isCorrect($this->_getCaptchaString($request, $formId))) {
-                Mage::getSingleton('catalog/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                $this->getCatalogSession()->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                Mage::getSingleton('catalog/session')->setFormData($request->getPost());
+                $this->getCatalogSession()->setFormData($request->getPost());
                 $id = (int)$request->getParam('id');
                 $catId = $request->getParam('cat_id');
                 if ($catId !== null) {

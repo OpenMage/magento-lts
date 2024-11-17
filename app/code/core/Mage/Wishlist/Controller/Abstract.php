@@ -163,7 +163,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                 }
                 $redirectUrl = $item->getProductUrl();
             } else {
-                $wishlistSession = Mage::getSingleton('wishlist/session');
+                $wishlistSession = $this->getWishlistSession();
                 foreach ($messages as $message) {
                     $wishlistSession->addError($message);
                 }
@@ -176,7 +176,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             try {
                 $wishlist->save();
             } catch (Exception $e) {
-                Mage::getSingleton('wishlist/session')->addError($this->__('Cannot update wishlist'));
+                $this->getWishlistSession()->addError($this->__('Cannot update wishlist'));
                 $redirectUrl = $indexUrl;
             }
 
@@ -185,7 +185,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                 $products[] = '"' . $product->getName() . '"';
             }
 
-            Mage::getSingleton('checkout/session')->addSuccess(
+            $this->getCheckoutSession()->addSuccess(
                 Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', count($addedItems), implode(', ', $products))
             );
 

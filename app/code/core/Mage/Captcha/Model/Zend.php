@@ -21,6 +21,8 @@
  */
 class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha_Model_Interface
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Key in session for captcha code
      */
@@ -189,8 +191,8 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     protected function _isUserAuth()
     {
         return Mage::app()->getStore()->isAdmin()
-            ? Mage::getSingleton('admin/session')->isLoggedIn()
-            : Mage::getSingleton('customer/session')->isLoggedIn();
+            ? $this->getAdminSession()->isLoggedIn()
+            : $this->getCustomerSession()->isLoggedIn();
     }
 
     /**
@@ -276,10 +278,12 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      * Returns session instance
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     public function getSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**

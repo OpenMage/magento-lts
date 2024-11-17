@@ -29,19 +29,6 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
         return 'adminhtml/url';
     }
 
-    final public function getAdminSession(): Mage_Admin_Model_Session
-    {
-        return Mage::getSingleton('admin/session');
-    }
-
-    /**
-     * Retrieve adminhtml session model object
-     */
-    final protected function getAdminhtmlSession(): Mage_Adminhtml_Model_Session
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
     /**
      * Retrieve Session Form Key
      *

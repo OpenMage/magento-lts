@@ -44,7 +44,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
             return false;
         }
 
-        Mage::getSingleton('checkout/session')->setSharedWishlist($code);
+        $this->getCheckoutSession()->setSharedWishlist($code);
 
         return $wishlist;
     }
@@ -66,8 +66,8 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         Mage::register('shared_wishlist', $wishlist);
 
         $this->loadLayout();
-        $this->_initLayoutMessages('checkout/session');
-        $this->_initLayoutMessages('wishlist/session');
+        $this->_initLayoutMessages($this->getCheckoutSessionStorage());
+        $this->_initLayoutMessages($this->getWishlistSessionStorage());
         $this->renderLayout();
     }
 
@@ -88,8 +88,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($code);
         $redirectUrl = Mage::getUrl('*/*/index', ['code' => $code]);
 
-        /** @var Mage_Wishlist_Model_Session $session */
-        $session    = Mage::getSingleton('wishlist/session');
+        $session    = $this->getWishlistSession();
         $cart       = Mage::getSingleton('checkout/cart');
 
         try {

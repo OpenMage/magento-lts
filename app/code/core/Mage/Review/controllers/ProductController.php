@@ -45,7 +45,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             if (!$this->getCustomerSession()->isLoggedIn()) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
                 $this->getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
-                Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
+                $this->getReviewSession()->setFormData($this->getRequest()->getPost())
                     ->setRedirectUrl($this->_getRefererUrl());
                 $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
             }
@@ -151,7 +151,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        if ($data = Mage::getSingleton('review/session')->getFormData(true)) {
+        if ($data = $this->getReviewSession()->getFormData(true)) {
             $rating = [];
             if (isset($data['ratings']) && is_array($data['ratings'])) {
                 $rating = $data['ratings'];
@@ -203,7 +203,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             }
         }
 
-        if ($redirectUrl = Mage::getSingleton('review/session')->getRedirectUrl(true)) {
+        if ($redirectUrl = $this->getReviewSession()->getRedirectUrl(true)) {
             $this->_redirectUrl($redirectUrl);
             return;
         }
@@ -263,8 +263,8 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         $this->loadLayout();
-        $this->_initLayoutMessages('review/session');
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getReviewSessionStorage());
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
         $this->renderLayout();
     }
 

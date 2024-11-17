@@ -31,6 +31,8 @@
  */
 class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Option Instance
      *
@@ -202,7 +204,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     public function validateUserValue($values)
     {
-        Mage::getSingleton('checkout/session')->setUseNotice(false);
+        $this->getCheckoutSession()->setUseNotice(false);
 
         $this->setIsValid(false);
 

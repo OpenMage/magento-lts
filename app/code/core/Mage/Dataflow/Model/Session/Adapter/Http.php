@@ -43,7 +43,7 @@ class Mage_Dataflow_Model_Session_Adapter_Http extends Mage_Dataflow_Model_Conve
                 $session = Mage::getModel('dataflow/session');
                 $session->setCreatedDate(date(Varien_Date::DATETIME_PHP_FORMAT));
                 $session->setDirection('import');
-                $session->setUserId(Mage::getSingleton('admin/session')->getUser()->getId());
+                $session->setUserId($this->getAdminSession()->getUser()->getId());
                 $session->save();
                 $sessionId = $session->getId();
                 $newFilename = 'import_' . $sessionId . '_' . $uploadFile;

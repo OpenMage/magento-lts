@@ -21,6 +21,8 @@
  */
 class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     public const STEP_SELECT_ADDRESSES = 'multishipping_addresses';
     public const STEP_SHIPPING         = 'multishipping_shipping';
     public const STEP_BILLING          = 'multishipping_billing';
@@ -186,15 +188,5 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
 
     public function canSuccess()
     {
-    }
-
-    /**
-     * Retrieve checkout session
-     *
-     * @return Mage_Checkout_Model_Session
-     */
-    public function getCheckoutSession()
-    {
-        return Mage::getSingleton('checkout/session');
     }
 }

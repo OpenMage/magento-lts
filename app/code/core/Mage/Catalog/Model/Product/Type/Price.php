@@ -21,6 +21,8 @@
  */
 class Mage_Catalog_Model_Product_Type_Price
 {
+    use Mage_Core_Trait_Session;
+
     public const CACHE_TAG = 'PRODUCT_PRICE';
 
     public static $attributeCache = [];
@@ -256,7 +258,7 @@ class Mage_Catalog_Model_Product_Type_Price
         if ($product->getCustomerGroupId()) {
             return $product->getCustomerGroupId();
         }
-        return Mage::getSingleton('customer/session')->getCustomerGroupId();
+        return $this->getCustomerSession()->getCustomerGroupId();
     }
 
     /**

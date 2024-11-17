@@ -23,6 +23,8 @@
  */
 class Mage_Catalog_Model_Layer extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Product collections array
      *
@@ -57,7 +59,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         if ($this->_stateKey === null) {
             $this->_stateKey = 'STORE_' . Mage::app()->getStore()->getId()
                 . '_CAT_' . $this->getCurrentCategory()->getId()
-                . '_CUSTGROUP_' . Mage::getSingleton('customer/session')->getCustomerGroupId();
+                . '_CUSTGROUP_' . $this->getCustomerSession()->getCustomerGroupId();
         }
 
         return $this->_stateKey;

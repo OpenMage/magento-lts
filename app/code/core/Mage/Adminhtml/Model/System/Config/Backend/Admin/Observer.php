@@ -17,7 +17,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
+class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Log out user and redirect him to new admin custom url
@@ -31,8 +31,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
             return;
         }
 
-        /** @var Mage_Admin_Model_Session $adminSession */
-        $adminSession = Mage::getSingleton('admin/session');
+        $adminSession = $this->getAdminSession();
         $adminSession->unsetAll();
         $adminSession->getCookie()->delete($adminSession->getSessionName());
 

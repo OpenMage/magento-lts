@@ -21,7 +21,7 @@
  *
  * @method array getFormData()
  * @method $this setFormData(array $value)
- * @method array getRedirectUrl()
+ * @method string getRedirectUrl()
  * @method $this setRedirectUrl(string $value)
  */
 class Mage_Review_Model_Session extends Mage_Core_Model_Session_Abstract

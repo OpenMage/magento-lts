@@ -98,7 +98,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      */
     public function getQuote()
     {
-        return Mage::getSingleton('checkout/session')->getQuote();
+        return $this->getCheckoutSession()->getQuote();
     }
 
     /**
@@ -168,7 +168,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
             'product' => $product->getEntityId(),
         ];
         if ($addFormKey) {
-            $routeParams[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
+            $routeParams[Mage_Core_Model_Url::FORM_KEY] = $this->getCoreSession()->getFormKey();
         }
         if (!empty($additional)) {
             $routeParams = array_merge($routeParams, $additional);

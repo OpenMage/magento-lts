@@ -33,8 +33,8 @@ class Mage_Tag_ProductController extends Mage_Core_Controller_Front_Action
         Mage::register('current_tag', $tag);
 
         $this->loadLayout();
-        $this->_initLayoutMessages('checkout/session');
-        $this->_initLayoutMessages('tag/session');
+        $this->_initLayoutMessages($this->getCheckoutSessionStorage());
+        $this->_initLayoutMessages($this->getTagSessionStorage());
         $this->renderLayout();
     }
 }

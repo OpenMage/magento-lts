@@ -74,6 +74,8 @@
  */
 class Mage_Core_Model_Url extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Default controller name
      */
@@ -154,15 +156,6 @@ class Mage_Core_Model_Url extends Varien_Object
     protected function _construct()
     {
         $this->setStore(null);
-    }
-
-
-    /**
-     * Retrieve core session model object
-     */
-    final protected function getCoreSession(): Mage_Core_Model_Session
-    {
-        return Mage::getSingleton('core/session');
     }
 
     /**

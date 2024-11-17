@@ -19,17 +19,16 @@
  * @category   Mage
  * @package    Mage_AdminNotification
  */
-class Mage_AdminNotification_Model_Observer
+class Mage_AdminNotification_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Predispath admin action controller
      */
     public function preDispatch(Varien_Event_Observer $observer)
     {
-        if (Mage::getSingleton('admin/session')->isLoggedIn()) {
-            $feedModel  = Mage::getModel('adminnotification/feed');
+        if ($this->getAdminSession()->isLoggedIn()) {
             /** @var Mage_AdminNotification_Model_Feed $feedModel */
-
+            $feedModel  = Mage::getModel('adminnotification/feed');
             $feedModel->checkUpdate();
         }
     }

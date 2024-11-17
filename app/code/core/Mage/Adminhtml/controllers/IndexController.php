@@ -29,7 +29,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      */
     protected function _outTemplate($tplName, $data = [])
     {
-        $this->_initLayoutMessages('adminhtml/session');
+        $this->_initLayoutMessages($this->getAdminhtmlSessionStorage());
         $block = $this->getLayout()->createBlock('adminhtml/template')->setTemplate("$tplName.phtml");
         foreach ($data as $index => $value) {
             $block->assign($index, $value);

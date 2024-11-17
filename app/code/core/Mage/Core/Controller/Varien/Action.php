@@ -23,6 +23,8 @@
  */
 abstract class Mage_Core_Controller_Varien_Action
 {
+    use Mage_Core_Trait_Session;
+
     public const FLAG_NO_CHECK_INSTALLATION    = 'no-install-check';
     public const FLAG_NO_DISPATCH              = 'no-dispatch';
     public const FLAG_NO_PRE_DISPATCH          = 'no-preDispatch';
@@ -130,30 +132,6 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected function _construct()
     {
-    }
-
-    /**
-     * Retrieve admin session model object
-     */
-    final protected function getAdminSession(): Mage_Admin_Model_Session
-    {
-        return Mage::getSingleton('admin/session');
-    }
-
-    /**
-     * Retrieve adminhtml session model object
-     */
-    final protected function getAdminhtmlSession(): Mage_Adminhtml_Model_Session
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
-    /**
-     * Retrieve core session model object
-     */
-    final protected function getCoreSession(): Mage_Core_Model_Session
-    {
-        return Mage::getSingleton('core/session');
     }
 
     /**

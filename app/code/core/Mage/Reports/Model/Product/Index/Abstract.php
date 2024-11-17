@@ -149,10 +149,12 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
      * Retrieve Reports Session instance
      *
      * @return Mage_Reports_Model_Session
+     * @deprecated
+     * @see getReportsSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('reports/session');
+        return $this->getReportsSession();
     }
 
     /**

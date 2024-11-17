@@ -38,8 +38,8 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
     public function indexAction()
     {
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
 
         if ($block = $this->getLayout()->getBlock('customer_newsletter')) {
             $block->setRefererUrl($this->_getRefererUrl());

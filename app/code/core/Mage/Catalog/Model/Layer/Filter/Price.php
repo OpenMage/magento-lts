@@ -211,7 +211,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     protected function _getCacheKey()
     {
         $key = $this->getLayer()->getStateKey()
-            . '_PRICES_GRP_' . Mage::getSingleton('customer/session')->getCustomerGroupId()
+            . '_PRICES_GRP_' . $this->getCustomerSession()->getCustomerGroupId()
             . '_CURR_' . Mage::app()->getStore()->getCurrentCurrencyCode()
             . '_ATTR_' . $this->getAttributeModel()->getAttributeCode()
             . '_LOC_'
@@ -427,7 +427,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $customerGroupId = $this->_getData('customer_group_id');
         if (is_null($customerGroupId)) {
-            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $customerGroupId = $this->getCustomerSession()->getCustomerGroupId();
         }
         return $customerGroupId;
     }

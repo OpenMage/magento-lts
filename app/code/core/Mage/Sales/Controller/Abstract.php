@@ -49,7 +49,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
         }
 
         $this->loadLayout();
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
 
         $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
         if ($navigationBlock) {
@@ -134,14 +134,14 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             try {
                 $cart->addOrderItem($item);
             } catch (Mage_Core_Exception $e) {
-                if (Mage::getSingleton('checkout/session')->getUseNotice(true)) {
-                    Mage::getSingleton('checkout/session')->addNotice($e->getMessage());
+                if ($this->getCheckoutSession()->getUseNotice(true)) {
+                    $this->getCheckoutSession()->addNotice($e->getMessage());
                 } else {
-                    Mage::getSingleton('checkout/session')->addError($e->getMessage());
+                    $this->getCheckoutSession()->addError($e->getMessage());
                 }
                 $this->_redirect('*/*/history');
             } catch (Exception $e) {
-                Mage::getSingleton('checkout/session')->addException(
+                $this->getCheckoutSession()->addException(
                     $e,
                     Mage::helper('checkout')->__('Cannot add the item to shopping cart.')
                 );

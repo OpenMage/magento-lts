@@ -23,10 +23,12 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
 {
     /**
      * @return Mage_Checkout_Model_Session
+     * @deprecated
+     * @see getCheckoutSession()
      */
     protected function _getCheckout()
     {
-        return Mage::getSingleton('checkout/session');
+        return $this->getCheckoutSession();
     }
 
     /**

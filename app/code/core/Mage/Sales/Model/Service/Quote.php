@@ -21,6 +21,8 @@
  */
 class Mage_Sales_Model_Service_Quote
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Quote object
      *
@@ -179,7 +181,7 @@ class Mage_Sales_Model_Service_Quote
         try {
             $transaction->save();
         } catch (Exception $e) {
-            if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
+            if (!$this->getCustomerSession()->isLoggedIn()) {
                 // reset customer ID's on exception, because customer not saved
                 $quote->getCustomer()->setId(null);
             }

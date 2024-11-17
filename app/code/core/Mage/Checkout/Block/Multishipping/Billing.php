@@ -81,7 +81,7 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
      */
     public function getQuote()
     {
-        return Mage::getSingleton('checkout/session')->getQuote();
+        return $this->getCheckoutSession()->getQuote();
     }
 
     /**

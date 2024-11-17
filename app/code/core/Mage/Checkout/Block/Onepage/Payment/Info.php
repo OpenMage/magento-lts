@@ -28,7 +28,7 @@ class Mage_Checkout_Block_Onepage_Payment_Info extends Mage_Payment_Block_Info_C
      */
     public function getPaymentInfo()
     {
-        $info = Mage::getSingleton('checkout/session')->getQuote()->getPayment();
+        $info = $this->getCheckoutSession()->getQuote()->getPayment();
         if ($info->getMethod()) {
             return $info;
         }

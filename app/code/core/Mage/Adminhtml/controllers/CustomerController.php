@@ -675,7 +675,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         }
 
         if ($response->getError()) {
-            $this->_initLayoutMessages('adminhtml/session');
+            $this->_initLayoutMessages($this->getAdminhtmlSessionStorage());
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
         }
 

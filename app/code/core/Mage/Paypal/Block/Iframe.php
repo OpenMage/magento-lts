@@ -113,10 +113,12 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * Get frontend checkout session object
      *
      * @return Mage_Checkout_Model_Session
+     * @deprecated
+     * @see getCheckoutSession()
      */
     protected function _getCheckout()
     {
-        return Mage::getSingleton('checkout/session');
+        return $this->getCheckoutSession();
     }
 
     /**

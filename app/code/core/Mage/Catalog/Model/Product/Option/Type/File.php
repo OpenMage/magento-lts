@@ -112,7 +112,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     public function validateUserValue($values)
     {
-        Mage::getSingleton('checkout/session')->setUseNotice(false);
+        $this->getCheckoutSession()->setUseNotice(false);
 
         $this->setIsValid(true);
         $option = $this->getOption();

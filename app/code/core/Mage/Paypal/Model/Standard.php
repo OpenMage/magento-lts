@@ -47,23 +47,27 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-    * Get paypal session namespace
-    *
-    * @return Mage_Paypal_Model_Session
-    */
+     * Get paypal session namespace
+     *
+     * @return Mage_Paypal_Model_Session
+     * @deprecated
+     * @see getPaypalSession()
+     */
     public function getSession()
     {
-        return Mage::getSingleton('paypal/session');
+        return $this->getPaypalSession();
     }
 
     /**
      * Get checkout session namespace
      *
      * @return Mage_Checkout_Model_Session
+     * @deprecated
+     * @see getCheckoutSession()
      */
     public function getCheckout()
     {
-        return Mage::getSingleton('checkout/session');
+        return $this->getCheckoutSession();
     }
 
     /**

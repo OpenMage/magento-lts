@@ -50,7 +50,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         // Disable flat for product collection
         Mage::helper('catalog/product_flat')->disableFlatCollection(true);
 
-        $checkoutSessionQuote = Mage::getSingleton('checkout/session')->getQuote();
+        $checkoutSessionQuote = $this->getCheckoutSession()->getQuote();
         if ($checkoutSessionQuote->getIsMultiShipping()) {
             $checkoutSessionQuote->setIsMultiShipping(false);
             $checkoutSessionQuote->removeAllAddresses();
@@ -94,7 +94,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             return true;
         }
         $action = strtolower($this->getRequest()->getActionName());
-        if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
+        if ($this->getCheckoutSession()->getCartWasUpdated(true)
             && !in_array($action, ['index', 'progress'])
         ) {
             $this->_ajaxRedirectResponse();
@@ -177,7 +177,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     public function indexAction()
     {
         if (!Mage::helper('checkout')->canOnepageCheckout()) {
-            Mage::getSingleton('checkout/session')->addError($this->__('The onepage checkout is disabled.'));
+            $this->getCheckoutSession()->addError($this->__('The onepage checkout is disabled.'));
             $this->_redirect('checkout/cart');
             return;
         }
@@ -191,15 +191,15 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 Mage::getStoreConfig('sales/minimum_order/error_message') :
                 Mage::helper('checkout')->__('Subtotal must exceed minimum order amount');
 
-            Mage::getSingleton('checkout/session')->addError($error);
+            $this->getCheckoutSession()->addError($error);
             $this->_redirect('checkout/cart');
             return;
         }
-        Mage::getSingleton('checkout/session')->setCartWasUpdated(false);
+        $this->getCheckoutSession()->setCartWasUpdated(false);
         $this->getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_secure' => true]));
         $this->getOnepage()->initCheckout();
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
         $this->getLayout()->getBlock('head')->setTitle($this->__('Checkout'));
         $this->renderLayout();
     }
@@ -279,7 +279,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         $session->clear();
         $this->loadLayout();
-        $this->_initLayoutMessages('checkout/session');
+        $this->_initLayoutMessages($this->getCheckoutSessionStorage());
         Mage::dispatchEvent('checkout_onepage_controller_success_action', ['order_ids' => [$lastOrderId]]);
         $this->renderLayout();
     }

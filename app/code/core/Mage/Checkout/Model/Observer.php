@@ -19,21 +19,21 @@
  * @category   Mage
  * @package    Mage_Checkout
  */
-class Mage_Checkout_Model_Observer
+class Mage_Checkout_Model_Observer extends Mage_Core_Model_Observer
 {
     public function unsetAll()
     {
-        Mage::getSingleton('checkout/session')->unsetAll();
+        $this->getCheckoutSession()->unsetAll();
     }
 
     public function loadCustomerQuote()
     {
         try {
-            Mage::getSingleton('checkout/session')->loadCustomerQuote();
+            $this->getCheckoutSession()->loadCustomerQuote();
         } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            $this->getCheckoutSession()->addError($e->getMessage());
         } catch (Exception $e) {
-            Mage::getSingleton('checkout/session')->addException(
+            $this->getCheckoutSession()->addException(
                 $e,
                 Mage::helper('checkout')->__('Load customer quote error')
             );
@@ -45,7 +45,7 @@ class Mage_Checkout_Model_Observer
         $quote = $observer->getEvent()->getQuote();
         /** @var Mage_Sales_Model_Quote $quote */
         if ($quote->getIsCheckoutCart()) {
-            Mage::getSingleton('checkout/session')->getQuoteId($quote->getId());
+            $this->getCheckoutSession()->getQuoteId($quote->getId());
         }
     }
 }

@@ -29,6 +29,8 @@
  */
 class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_Varien
 {
+    use Mage_Core_Trait_Session;
+
     public const XML_PATH_COOKIE_DOMAIN        = 'web/cookie/cookie_domain';
     public const XML_PATH_COOKIE_PATH          = 'web/cookie/cookie_path';
     public const XML_PATH_COOKIE_LIFETIME      = 'web/cookie/cookie_lifetime';
@@ -79,30 +81,6 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         parent::init($namespace, $sessionName);
         $this->addHost(true);
         return $this;
-    }
-
-    /**
-     * Retrieve adminhtml session model object
-     */
-    final protected function getAdminhtmlSession(): Mage_Adminhtml_Model_Session
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
-    /**
-     * Retrieve core session model object
-     */
-    final protected function getCoreSession(): Mage_Core_Model_Session
-    {
-        return Mage::getSingleton('core/session');
-    }
-
-    /**
-     * Retrieve customer session model object
-     */
-    final protected function getCustomerSession(): Mage_Customer_Model_Session
-    {
-        return Mage::getSingleton('customer/session');
     }
 
     /**

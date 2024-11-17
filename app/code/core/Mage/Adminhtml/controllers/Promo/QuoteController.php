@@ -418,8 +418,8 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                     $generator->setData($data);
                     $generator->generatePool();
                     $generated = $generator->getGeneratedCount();
-                    $this->_getSession()->addSuccess(Mage::helper('salesrule')->__('%s Coupon(s) have been generated', $generated));
-                    $this->_initLayoutMessages('adminhtml/session');
+                    $this->getAdminhtmlSession()->addSuccess(Mage::helper('salesrule')->__('%s Coupon(s) have been generated', $generated));
+                    $this->_initLayoutMessages($this->getAdminhtmlSessionStorage());
                     $result['messages']  = $this->getLayout()->getMessagesBlock()->getGroupedHtml();
                 }
             } catch (Mage_Core_Exception $e) {

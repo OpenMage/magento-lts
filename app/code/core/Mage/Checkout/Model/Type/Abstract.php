@@ -21,6 +21,8 @@
  */
 abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Retrieve checkout session model
      *

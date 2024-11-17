@@ -21,6 +21,8 @@
  */
 class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     public const DIRECTORY_NAME_REGEXP = '/^[a-z0-9\-\_]+$/si';
     public const THUMBS_DIRECTORY_NAME = '.thumbs';
     public const THUMB_PLACEHOLDER_PATH_SUFFIX = 'images/placeholder/thumbnail.jpg';
@@ -440,10 +442,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Storage session
      *
      * @return Mage_Adminhtml_Model_Session
+     * @deprecated
+     * @see getAdminhtmlSession()
      */
     public function getSession()
     {
-        return Mage::getSingleton('adminhtml/session');
+        return $this->getAdminhtmlSession();
     }
 
     /**

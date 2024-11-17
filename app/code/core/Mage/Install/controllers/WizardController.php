@@ -104,7 +104,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
 
         $this->_prepareLayout();
-        $this->_initLayoutMessages('install/session');
+        $this->_initLayoutMessages($this->getInstallSessionStorage());
 
         $this->getLayout()->getBlock('content')->append(
             $this->getLayout()->createBlock('install/begin', 'install.begin')
@@ -138,7 +138,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
 
         $this->_prepareLayout();
-        $this->_initLayoutMessages('install/session');
+        $this->_initLayoutMessages($this->getInstallSessionStorage());
         $this->getLayout()->getBlock('content')->append(
             $this->getLayout()->createBlock('install/locale', 'install.locale')
         );
@@ -157,9 +157,9 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $timezone = $this->getRequest()->getParam('timezone');
         $currency = $this->getRequest()->getParam('currency');
         if ($locale) {
-            Mage::getSingleton('install/session')->setLocale($locale);
-            Mage::getSingleton('install/session')->setTimezone($timezone);
-            Mage::getSingleton('install/session')->setCurrency($currency);
+            $this->getInstallSession()->setLocale($locale);
+            $this->getInstallSession()->setTimezone($timezone);
+            $this->getInstallSession()->setCurrency($currency);
         }
 
         $this->_redirect('*/*/locale');
@@ -174,7 +174,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $step = $this->_getWizard()->getStepByName('locale');
 
         if ($data = $this->getRequest()->getPost('config')) {
-            Mage::getSingleton('install/session')->setLocaleData($data);
+            $this->getInstallSession()->setLocaleData($data);
         }
 
         $this->getResponse()->setRedirect($step->getNextUrl());
@@ -192,11 +192,11 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
 
         if ($data = $this->getRequest()->getQuery('config')) {
-            Mage::getSingleton('install/session')->setLocaleData($data);
+            $this->getInstallSession()->setLocaleData($data);
         }
 
         $this->_prepareLayout();
-        $this->_initLayoutMessages('install/session');
+        $this->_initLayoutMessages($this->getInstallSessionStorage());
         $this->getLayout()->getBlock('content')->append(
             $this->getLayout()->createBlock('install/config', 'install.config')
         );
@@ -222,7 +222,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             $config['secure_base_url'] = Mage::helper('core/url')->encodePunycode($config['unsecure_base_url']);
             $data = array_merge($config, $connectionConfig[$config['db_model']]);
 
-            Mage::getSingleton('install/session')
+            $this->getInstallSession()
                 ->setConfigData($data)
                 ->setSkipUrlValidation($this->getRequest()->getPost('skip_url_validation'))
                 ->setSkipBaseUrlValidation($this->getRequest()->getPost('skip_base_url_validation'));
@@ -231,7 +231,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 $this->_redirect('*/*/installDb');
                 return $this;
             } catch (Exception $e) {
-                Mage::getSingleton('install/session')->addError($e->getMessage());
+                $this->getInstallSession()->addError($e->getMessage());
                 $this->getResponse()->setRedirect($step->getUrl());
             }
         }
@@ -250,13 +250,13 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             /**
              * Clear session config data
              */
-            Mage::getSingleton('install/session')->getConfigData(true);
+            $this->getInstallSession()->getConfigData(true);
 
             Mage::app()->getStore()->resetConfig();
 
             $this->getResponse()->setRedirect(Mage::getUrl($step->getNextUrlPath()));
         } catch (Exception $e) {
-            Mage::getSingleton('install/session')->addError($e->getMessage());
+            $this->getInstallSession()->addError($e->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
         }
     }
@@ -269,7 +269,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->_checkIfInstalled();
 
         $this->_prepareLayout();
-        $this->_initLayoutMessages('install/session');
+        $this->_initLayoutMessages($this->getInstallSessionStorage());
 
         $this->getLayout()->getBlock('content')->append(
             $this->getLayout()->createBlock('install/admin', 'install.administrator')
@@ -305,7 +305,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         if (!empty($errors)) {
-            Mage::getSingleton('install/session')->setAdminData($adminData);
+            $this->getInstallSession()->setAdminData($adminData);
             $this->getResponse()->setRedirect($step->getUrl());
             return false;
         }
@@ -314,7 +314,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             $this->_getInstaller()->createAdministrator($user);
             $this->_getInstaller()->installEnryptionKey($encryptionKey);
         } catch (Exception $e) {
-            Mage::getSingleton('install/session')
+            $this->getInstallSession()
                 ->setAdminData($adminData)
                 ->addError($e->getMessage());
             $this->getResponse()->setRedirect($step->getUrl());
@@ -339,13 +339,13 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->_getInstaller()->finish();
 
         $this->_prepareLayout();
-        $this->_initLayoutMessages('install/session');
+        $this->_initLayoutMessages($this->getInstallSessionStorage());
 
         $this->getLayout()->getBlock('content')->append(
             $this->getLayout()->createBlock('install/end', 'install.end')
         );
         $this->renderLayout();
-        Mage::getSingleton('install/session')->clear();
+        $this->getInstallSession()->clear();
     }
 
     /**

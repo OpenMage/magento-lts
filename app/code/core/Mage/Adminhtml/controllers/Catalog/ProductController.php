@@ -559,7 +559,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $response->setMessage($e->getMessage());
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-            $this->_initLayoutMessages('adminhtml/session');
+            $this->_initLayoutMessages($this->getAdminhtmlSessionStorage());
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
         }
@@ -1099,8 +1099,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $product->validate();
             $product->save();
             $result['product_id'] = $product->getId();
-            $this->_getSession()->addSuccess(Mage::helper('catalog')->__('The product has been created.'));
-            $this->_initLayoutMessages('adminhtml/session');
+            $this->getAdminhtmlSession()->addSuccess(Mage::helper('catalog')->__('The product has been created.'));
+            $this->_initLayoutMessages($this->getAdminhtmlSessionStorage());
             $result['messages']  = $this->getLayout()->getMessagesBlock()->getGroupedHtml();
         } catch (Mage_Core_Exception $e) {
             $result['error'] = [

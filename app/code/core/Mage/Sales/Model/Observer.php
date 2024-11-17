@@ -19,7 +19,7 @@
  * @category   Mage
  * @package    Mage_Sales
  */
-class Mage_Sales_Model_Observer
+class Mage_Sales_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Expire quotes additional fields to filter
@@ -285,7 +285,7 @@ class Mage_Sales_Model_Observer
         if (!($methodInstance instanceof Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract)) {
             return;
         }
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/billing_agreement/actions/use')) {
+        if (!$this->getAdminSession()->isAllowed('sales/billing_agreement/actions/use')) {
             $observer->getEvent()->getResult()->isAvailable = false;
         }
     }

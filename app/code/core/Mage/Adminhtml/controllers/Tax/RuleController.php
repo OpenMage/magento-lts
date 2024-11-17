@@ -108,8 +108,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         $ruleModel->setData($postData);
         $ruleModel->setCalculateSubtotal($this->getRequest()->getParam('calculate_subtotal', 0));
 
-        /** @var Mage_Adminhtml_Model_Session $session */
-        $session = $this->_getSingletonModel('adminhtml/session');
+        $session = $this->getAdminhtmlSession();
 
         try {
             //Check if the rule already exists
@@ -131,7 +130,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             $session->addError($this->_getHelperModel('tax')->__('An error occurred while saving this tax rule.'));
         }
 
-        $this->_getSingletonModel('adminhtml/session')->setRuleData($postData);
+        $this->getAdminhtmlSession()->setRuleData($postData);
         $this->_redirectReferer();
     }
 
@@ -149,8 +148,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             $ruleModel->getTaxProductClass()
         );
 
-        /** @var Mage_Adminhtml_Model_Session $session */
-        $session = $this->_getSingletonModel('adminhtml/session');
+        $session = $this->getAdminhtmlSession();
 
         //Remove the current one from the list
         $existingRules = array_diff($existingRules, [$ruleModel->getOrigData('code')]);

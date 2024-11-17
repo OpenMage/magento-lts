@@ -91,7 +91,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      */
     protected function _prepareLastOrder()
     {
-        $orderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+        $orderId = $this->getCheckoutSession()->getLastOrderId();
         if ($orderId) {
             $order = Mage::getModel('sales/order')->load($orderId);
             if ($order->getId()) {
@@ -139,7 +139,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      */
     protected function _prepareLastRecurringProfiles()
     {
-        $profileIds = Mage::getSingleton('checkout/session')->getLastRecurringProfileIds();
+        $profileIds = $this->getCheckoutSession()->getLastRecurringProfileIds();
         if ($profileIds && is_array($profileIds)) {
             $collection = Mage::getModel('sales/recurring_profile')->getCollection()
                 ->addFieldToFilter('profile_id', ['in' => $profileIds])

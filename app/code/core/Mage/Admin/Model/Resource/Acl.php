@@ -139,8 +139,8 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             }
         }
 
-        if ($orphanedResources !== [] && $acl->isAllowed(Mage::getSingleton('admin/session')->getUser()->getAclRole(), 'admin/system/acl/orphaned_resources')) {
-            Mage::getSingleton('adminhtml/session')->addNotice(
+        if ($orphanedResources !== [] && $acl->isAllowed($this->getAdminSession()->getUser()->getAclRole(), 'admin/system/acl/orphaned_resources')) {
+            $this->getAdminhtmlSession()->addNotice(
                 Mage::helper('adminhtml')->__(
                     'The following role resources are no longer available in the system: %s. You can delete them by <a href="%s">clicking here</a>.',
                     implode(', ', $orphanedResources),

@@ -43,7 +43,7 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
      */
     protected function _expireAjax()
     {
-        if (!Mage::getSingleton('checkout/session')->getQuote()->hasItems()) {
+        if (!$this->getCheckoutSession()->getQuote()->hasItems()) {
             $this->getResponse()->setHeader('HTTP/1.1', '403 Session Expired');
             exit;
         }
@@ -65,7 +65,7 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
      */
     public function redirectAction()
     {
-        $session = Mage::getSingleton('checkout/session');
+        $session = $this->getCheckoutSession();
         $session->setPaypalStandardQuoteId($session->getQuoteId());
         $this->getResponse()->setBody($this->getLayout()->createBlock('paypal/standard_redirect')->toHtml());
         $session->unsQuoteId();
@@ -77,7 +77,7 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
      */
     public function cancelAction()
     {
-        $session = Mage::getSingleton('checkout/session');
+        $session = $this->getCheckoutSession();
         $session->setQuoteId($session->getPaypalStandardQuoteId(true));
         if ($session->getLastRealOrderId()) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($session->getLastRealOrderId());
@@ -97,9 +97,9 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
      */
     public function successAction()
     {
-        $session = Mage::getSingleton('checkout/session');
+        $session = $this->getCheckoutSession();
         $session->setQuoteId($session->getPaypalStandardQuoteId(true));
-        Mage::getSingleton('checkout/session')->getQuote()->setIsActive(false)->save();
+        $this->getCheckoutSession()->getQuote()->setIsActive(false)->save();
         $this->_redirect('checkout/onepage/success', ['_secure' => true]);
     }
 }

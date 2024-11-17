@@ -29,7 +29,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Expanded extends Mage_A
      */
     protected function _getCollapseState($element)
     {
-        $extra = Mage::getSingleton('admin/session')->getUser()->getExtra();
+        $extra = $this->getAdminSession()->getUser()->getExtra();
         return $extra['configState'][$element->getId()] ?? true;
     }
 }

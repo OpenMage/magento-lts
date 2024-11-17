@@ -104,8 +104,8 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     {
         $condition = [];
 
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $condition['customer_id'] = Mage::getSingleton('customer/session')->getCustomerId();
+        if ($this->getCustomerSession()->isLoggedIn()) {
+            $condition['customer_id'] = $this->getCustomerSession()->getCustomerId();
         } elseif ($this->_customerId) {
             $condition['customer_id'] = $this->_customerId;
         } else {

@@ -176,7 +176,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
             return;
         }
 
-        $checkoutSession = Mage::getSingleton('checkout/session');
+        $checkoutSession = $this->getCheckoutSession();
         if ($this->_isShoppingCartPersist()) {
             $checkoutSession->setCustomer($this->_getPersistentCustomer());
             if (!$checkoutSession->hasQuote()) {
@@ -432,10 +432,10 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
     public function setQuoteGuest($checkQuote = false)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        $quote = $this->getCheckoutSession()->getQuote();
         if ($quote && $quote->getId()) {
             if ($checkQuote && !Mage::helper('persistent')->isShoppingCartPersist() && !$quote->getIsPersistent()) {
-                Mage::getSingleton('checkout/session')->unsetAll();
+                $this->getCheckoutSession()->unsetAll();
                 return;
             }
 
@@ -475,7 +475,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
         if (Mage::helper('persistent')->isEnabled()
             && !$this->_isPersistent()
             && !$customerSession->isLoggedIn()
-            && Mage::getSingleton('checkout/session')->getQuoteId()
+            && $this->getCheckoutSession()->getQuoteId()
             && !($observer->getControllerAction() instanceof Mage_Checkout_OnepageController)
             // persistent session does not expire on onepage checkout page to not spoil customer group id
         ) {
@@ -489,8 +489,7 @@ class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
      */
     protected function _expirePersistentSession()
     {
-        /** @var Mage_Checkout_Model_Session $checkoutSession */
-        $checkoutSession = Mage::getSingleton('checkout/session');
+        $checkoutSession = $this->getCheckoutSession();
 
         $quote = $checkoutSession->setLoadInactive()->getQuote();
         if ($quote->getIsActive() && $quote->getCustomerId()) {

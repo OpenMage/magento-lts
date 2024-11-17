@@ -21,6 +21,8 @@
  */
 abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Get file helper
      *

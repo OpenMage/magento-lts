@@ -21,6 +21,8 @@
  */
 class Mage_Install_Model_Installer_Env extends Mage_Install_Model_Installer_Abstract
 {
+    use Mage_Core_Trait_Session;
+
     public function __construct()
     {
     }
@@ -58,13 +60,13 @@ class Mage_Install_Model_Installer_Env extends Mage_Install_Model_Installer_Abst
             }
 
             if (!$oneLoaded) {
-                Mage::getSingleton('install/session')->addError(
+                $this->getInstallSession()->addError(
                     Mage::helper('install')->__('One of PHP Extensions "%s" must be loaded.', implode(',', $extension))
                 );
                 return false;
             }
         } elseif (!extension_loaded($extension)) {
-            Mage::getSingleton('install/session')->addError(
+            $this->getInstallSession()->addError(
                 Mage::helper('install')->__('PHP extension "%s" must be loaded.', $extension)
             );
             return false;

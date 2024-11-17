@@ -21,6 +21,8 @@
  */
 abstract class Mage_Api_Model_Server_Handler_Abstract
 {
+    use Mage_Core_Trait_Session;
+
     protected $_resourceSuffix = null;
 
     public function __construct()
@@ -48,10 +50,12 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Retrieve webservice session
      *
      * @return Mage_Api_Model_Session
+     * @deprecated
+     * @see getApiSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('api/session');
+        return $this->getApiSession();
     }
 
     /**

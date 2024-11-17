@@ -135,7 +135,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
      */
     protected function _getLastAddedProductId()
     {
-        return Mage::getSingleton('checkout/session')->getLastAddedProductId(true);
+        return $this->getCheckoutSession()->getLastAddedProductId(true);
     }
 
     /**
@@ -145,7 +145,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
      */
     public function getQuote()
     {
-        return Mage::getSingleton('checkout/session')->getQuote();
+        return $this->getCheckoutSession()->getQuote();
     }
 
     /**

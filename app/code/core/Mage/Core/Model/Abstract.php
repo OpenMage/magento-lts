@@ -29,6 +29,8 @@
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Prefix of model events names
      *
@@ -106,30 +108,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _init($resourceModel)
     {
         $this->_setResourceModel($resourceModel);
-    }
-
-    /**
-     * Retrieve admin session model object
-     */
-    final protected function getAdminSession(): Mage_Admin_Model_Session
-    {
-        return Mage::getSingleton('admin/session');
-    }
-
-    /**
-     * Retrieve core session model object
-     */
-    final protected function getCoreSession(): Mage_Core_Model_Session
-    {
-        return Mage::getSingleton('core/session');
-    }
-
-    /**
-     * Retrieve customer session model object
-     */
-    final protected function getCustomerSession(): Mage_Customer_Model_Session
-    {
-        return Mage::getSingleton('customer/session');
     }
 
     /**

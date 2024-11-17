@@ -43,7 +43,7 @@ class Mage_Paypal_Helper_Hss extends Mage_Core_Helper_Abstract
      */
     public function getReviewButtonTemplate($name, $block)
     {
-        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        $quote = $this->getCheckoutSession()->getQuote();
         if ($quote) {
             $payment = $quote->getPayment();
             if ($payment && in_array($payment->getMethod(), $this->_hssMethods)) {

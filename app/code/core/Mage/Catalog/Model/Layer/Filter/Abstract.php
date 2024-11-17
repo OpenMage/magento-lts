@@ -21,6 +21,8 @@
  */
 abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Request variable name with filter value
      *

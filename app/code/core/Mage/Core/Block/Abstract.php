@@ -38,6 +38,8 @@
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Prefix for cache key
      */
@@ -51,6 +53,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Cache tags data key
      */
     public const CACHE_TAGS_DATA_KEY = 'cache_tags';
+
+    public const SESSION_CATALOG    = 'catalog/session';
+    public const SESSION_CHECKOUT   = 'checkout/session';
+    public const SESSION_CORE       = 'core/session';
+    public const SESSION_CUSTOMER   = 'customer/session';
 
     /**
      * Block name in layout
@@ -221,7 +228,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     final protected function getCatalogSession(): Mage_Catalog_Model_Session
     {
-        return Mage::getSingleton('catalog/session');
+        /** @var Mage_Catalog_Model_Session $session */
+        $session = Mage::getSingleton(self::SESSION_CATALOG);
+        return $session;
     }
 
     /**
@@ -229,7 +238,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     final protected function getCheckoutSession(): Mage_Checkout_Model_Session
     {
-        return Mage::getSingleton('checkout/session');
+        /** @var Mage_Checkout_Model_Session $session */
+        $session = Mage::getSingleton(self::SESSION_CHECKOUT);
+        return $session;
     }
 
     /**
@@ -237,7 +248,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     final protected function getCoreSession(): Mage_Core_Model_Session
     {
-        return Mage::getSingleton('core/session');
+        /** @var Mage_Core_Model_Session $session */
+        $session = Mage::getSingleton(self::SESSION_CORE);
+        return $session;
     }
 
     /**
@@ -245,7 +258,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     final protected function getCustomerSession(): Mage_Customer_Model_Session
     {
-        return Mage::getSingleton('customer/session');
+        /** @var Mage_Customer_Model_Session $session */
+        $session = Mage::getSingleton(self::SESSION_CUSTOMER);
+        return $session;
     }
 
     /**

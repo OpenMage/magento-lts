@@ -319,10 +319,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      *
      * @return Mage_Checkout_Model_Session
      */
-    public function getCheckoutSession()
+    public function getCheckout()
     {
         if ($this->_checkoutSession === null) {
-            $this->_checkoutSession = Mage::getSingleton('checkout/session');
+            $this->_checkoutSession = $this->getCheckoutSession();
         }
         return $this->_checkoutSession;
     }
@@ -353,7 +353,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         }
 
         // Add messages saved previously in checkout session
-        $checkoutSession = $this->getCheckoutSession();
+        $checkoutSession = $this->getCheckout();
         if ($checkoutSession) {
             /** @var Mage_Core_Model_Message_Collection $collection */
             $collection = $checkoutSession->getQuoteItemMessages($quoteItem->getId(), true);

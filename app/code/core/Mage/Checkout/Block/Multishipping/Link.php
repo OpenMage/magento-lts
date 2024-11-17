@@ -34,7 +34,7 @@ class Mage_Checkout_Block_Multishipping_Link extends Mage_Core_Block_Template
      */
     public function getQuote()
     {
-        return Mage::getSingleton('checkout/session')->getQuote();
+        return $this->getCheckoutSession()->getQuote();
     }
 
     /**

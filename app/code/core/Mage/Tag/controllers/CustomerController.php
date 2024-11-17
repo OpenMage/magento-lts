@@ -46,8 +46,8 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
         }
 
         $this->loadLayout();
-        $this->_initLayoutMessages('tag/session');
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getTagSessionStorage());
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
 
         $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
         if ($navigationBlock) {
@@ -74,14 +74,14 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
         if ($tagId) {
             Mage::register('tagId', $tagId);
             $this->loadLayout();
-            $this->_initLayoutMessages('tag/session');
+            $this->_initLayoutMessages($this->getTagSessionStorage());
 
             $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
             if ($navigationBlock) {
                 $navigationBlock->setActive('tag/customer');
             }
 
-            $this->_initLayoutMessages('checkout/session');
+            $this->_initLayoutMessages($this->getCheckoutSessionStorage());
             $this->getLayout()->getBlock('head')->setTitle(Mage::helper('tag')->__('My Tags'));
             $this->renderLayout();
         } else {
@@ -112,13 +112,13 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                 $model = Mage::registry('tagModel');
                 $model->deactivate();
                 $tag = Mage::getModel('tag/tag')->load($tagId)->aggregate();
-                Mage::getSingleton('tag/session')->addSuccess(Mage::helper('tag')->__('The tag has been deleted.'));
+                $this->getTagSession()->addSuccess(Mage::helper('tag')->__('The tag has been deleted.'));
                 $this->getResponse()->setRedirect(Mage::getUrl('*/*/', [
                     self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/'))
                 ]));
                 return;
             } catch (Exception $e) {
-                Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
+                $this->getTagSession()->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
             }
         } else {
             $this->_forward('noRoute');
