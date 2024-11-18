@@ -68,13 +68,12 @@ return $config
     ->setFinder(
         PhpCsFixer\Finder::create()
             ->in([
-                'app/code/core/Mage/',
-                'errors/',
-                'lib/Mage/',
-                'lib/Magento/',
-                'lib/Varien/',
-                'shell/',
-                'tests/unit/',
+                __DIR__,
+            ])
+            ->exclude([
+                'lib/3Dsecure/',
+                'lib/LinLibertineFont/',
+                'lib/Unserialize/',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)
