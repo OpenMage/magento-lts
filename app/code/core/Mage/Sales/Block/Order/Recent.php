@@ -61,7 +61,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
                 ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
             )
             ->addAttributeToSort('created_at', 'desc')
-            ->setPageSize('5')
+            ->setPageSize(5)
             ->load()
         ;
 

@@ -324,7 +324,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Retrieve currency rates to other currencies
      *
-     * @param string|Mage_Directory_Model_Currency $currency
+     * @param array|string|Mage_Directory_Model_Currency $currency
      * @param array $toCurrencies
      * @return array
      */

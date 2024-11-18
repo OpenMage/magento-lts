@@ -461,11 +461,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
 
 		-
-			message: "#^Parameter \\#1 \\$currency of method Mage_Directory_Model_Currency\\:\\:getCurrencyRates\\(\\) expects Mage_Directory_Model_Currency\\|string, array given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
-
-		-
 			message: "#^Parameter \\#2 \\$character_mask of function rtrim expects string, int given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
@@ -1176,11 +1171,6 @@ parameters:
 			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
 
 		-
-			message: "#^Parameter \\#1 \\$payment of method Mage_Authorizenet_Model_Directpost\\:\\:authorize\\(\\) expects Mage_Sales_Model_Order_Payment, true given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
-
-		-
 			message: "#^Parameter \\#2 \\$amount of method Mage_Authorizenet_Model_Directpost\\:\\:_refund\\(\\) expects string, float given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Authorizenet/Model/Directpost.php
@@ -1379,11 +1369,6 @@ parameters:
 			message: "#^Property Mage_Catalog_Block_Product_List_Crosssell\\:\\:\\$_itemCollection \\(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection\\) does not accept Mage_Catalog_Model_Resource_Product_Link_Product_Collection\\.$#"
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/List/Crosssell.php
-
-		-
-			message: "#^Property Mage_Catalog_Block_Product_List_Toolbar\\:\\:\\$_availableMode \\(array\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
 
 		-
 			message: "#^Property Mage_Catalog_Block_Product_List_Toolbar\\:\\:\\$_collection \\(Mage_Core_Model_Resource_Db_Collection_Abstract\\) does not accept Varien_Data_Collection\\.$#"
@@ -3946,11 +3931,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
 
 		-
-			message: "#^Method Mage_ImportExport_Block_Adminhtml_Export_Filter\\:\\:prepareCollection\\(\\) should return Mage_Eav_Model_Resource_Entity_Attribute_Collection but returns Varien_Data_Collection_Db\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
-
-		-
 			message: "#^Parameter \\#1 \\$limit of method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultLimit\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
@@ -4431,11 +4411,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php
 
 		-
-			message: "#^Method Mage_PaypalUk_Model_Api_Nvp\\:\\:_exportLineItems\\(\\) should return true\\|null but returns bool\\|null\\.$#"
-			count: 1
-			path: app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
-
-		-
 			message: "#^Return type \\(void\\) of method Mage_PaypalUk_Model_Pro\\:\\:fetchTransactionInfo\\(\\) should be compatible with return type \\(array\\) of method Mage_Paypal_Model_Pro\\:\\:fetchTransactionInfo\\(\\)$#"
 			count: 1
 			path: app/code/core/Mage/PaypalUk/Model/Pro.php
@@ -4791,11 +4766,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Block/Order/Details.php
 
 		-
-			message: "#^Parameter \\#1 \\$size of method Varien_Data_Collection\\:\\:setPageSize\\(\\) expects int\\|null, string given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Block/Order/Recent.php
-
-		-
 			message: "#^Property Mage_Sales_Block_Recurring_Profiles\\:\\:\\$_profiles \\(Mage_Sales_Model_Resource_Recurring_Profile_Collection\\) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Recurring/Profiles.php
@@ -4867,16 +4837,6 @@ parameters:
 
 		-
 			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Order_Payment\\:\\:_addTransaction\\(\\) should return Mage_Sales_Model_Order_Payment_Transaction\\|null but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^Parameter \\#1 \\$invoice of method Mage_Sales_Model_Order_Payment\\:\\:capture\\(\\) expects Mage_Sales_Model_Order_Invoice, null given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Payment.php
 
@@ -9212,11 +9172,6 @@ parameters:
 
 		-
 			message: "#^Method Varien_Db_Adapter_Pdo_Mysql\\:\\:query\\(\\) should return Zend_Db_Statement_Pdo but returns PDOStatement\\|Zend_Db_Statement_Interface\\.$#"
-			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: "#^Parameter \\#2 \\$increment \\(string\\) of method Varien_Db_Adapter_Pdo_Mysql\\:\\:changeTableAutoIncrement\\(\\) should be compatible with parameter \\$increment \\(int\\) of method Varien_Db_Adapter_Interface\\:\\:changeTableAutoIncrement\\(\\)$#"
 			count: 1
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 

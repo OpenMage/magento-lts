@@ -550,7 +550,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      */
     public function setModes($modes)
     {
-        if (!isset($this->_availableMode)) {
+        if (!$this->_availableMode) {
             $this->_availableMode = $modes;
         }
         return $this;

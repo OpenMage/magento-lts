@@ -232,7 +232,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Retrieve specified attribute data for specified products from specified store
      *
-     * @param array $products
+     * @param array|string $products
      * @param array $attributes
      * @param Mage_Core_Model_Store $store
      * @return array

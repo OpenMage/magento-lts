@@ -433,7 +433,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * TODO: eliminate logic duplication with registerCaptureNotification()
      *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @param Mage_Sales_Model_Order_Invoice|null $invoice
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -1251,7 +1251,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * @param string $type
      * @param Mage_Sales_Model_Abstract $salesDocument
      * @param bool $failsafe
-     * @return null|Mage_Sales_Model_Order_Payment_Transaction
+     * @return null|Mage_Sales_Model_Order_Payment_Transaction|void
      */
     protected function _addTransaction($type, $salesDocument = null, $failsafe = false)
     {
@@ -1413,7 +1413,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Append transaction ID (if any) message to the specified message
      *
-     * @param Mage_Sales_Model_Order_Payment_Transaction|null $transaction
+     * @param Mage_Sales_Model_Order_Payment_Transaction|string $transaction
      * @param string $message
      * @return string
      */
