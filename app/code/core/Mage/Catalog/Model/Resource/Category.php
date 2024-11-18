@@ -458,7 +458,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = m.entity_id',
                 []
             )
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             ->where('m.path LIKE :c_path')
             ->where($checkSql . ' = :active_flag');
 
@@ -598,7 +597,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             ->addFieldToFilter('level', ['neq' => 0])
             ->setOrder('level', 'DESC')
             ->load();
-        // phpcs:ignore Ecg.Performance.GetFirstItem.Found
         return $collection->getFirstItem();
     }
 

@@ -407,7 +407,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get xml quotes
      *
-     * @return Mage_Core_Model_Abstract|Varien_Object
+     * @return Mage_Shipping_Model_Rate_Result|Varien_Object|null
      */
     protected function _getXmlQuotes()
     {
@@ -417,19 +417,19 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Do rate request and handle errors
      *
-     * @return Mage_Shipping_Model_Rate_Result|Varien_Object
+     * @return Mage_Shipping_Model_Rate_Result|Varien_Object|void
      */
     protected function _doRequest()
     {
-        $r = $this->_rawRequest;
+        $rawRequest = $this->_rawRequest;
 
         $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><eCommerce/>');
         $xml->addAttribute('action', 'Request');
         $xml->addAttribute('version', '1.1');
 
         $requestor = $xml->addChild('Requestor');
-        $requestor->addChild('ID', $r->getId());
-        $requestor->addChild('Password', $r->getPassword());
+        $requestor->addChild('ID', $rawRequest->getId());
+        $requestor->addChild('Password', $rawRequest->getPassword());
 
         $methods = explode(',', $this->getConfigData('allowed_methods'));
         $internationcode = $this->getCode('international_searvice');
@@ -437,59 +437,59 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         $shipDate = $this->_getShipDate();
 
-        if ($r->hasService() && $r->getFreeMethodRequest()) {
-            if ($r->getDestCountryId() == self::USA_COUNTRY_ID) {
+        if ($rawRequest->hasService() && $rawRequest->getFreeMethodRequest()) {
+            if ($rawRequest->getDestCountryId() == self::USA_COUNTRY_ID) {
                 $shipment = $xml->addChild('Shipment');
-                $shipKey = $r->getShippingKey();
-                $r->setShipDate($shipDate);
+                $shipKey = $rawRequest->getShippingKey();
+                $rawRequest->setShipDate($shipDate);
             } else {
                 $shipment = $xml->addChild('IntlShipment');
-                $shipKey = $r->getShippingIntlKey();
-                $r->setShipDate($this->_getShipDate(false));
+                $shipKey = $rawRequest->getShippingIntlKey();
+                $rawRequest->setShipDate($this->_getShipDate(false));
                 /*
                 * For international shipment customs value must be posted
                 */
                 $shippingDuty = $shipment->addChild('Dutiable');
-                $shippingDuty->addChild('DutiableFlag', ($r->getDutiable() ? 'Y' : 'N'));
-                $shippingDuty->addChild('CustomsValue', $r->getValue());
+                $shippingDuty->addChild('DutiableFlag', ($rawRequest->getDutiable() ? 'Y' : 'N'));
+                $shippingDuty->addChild('CustomsValue', $rawRequest->getValue());
                 $shippingDuty->addChild('IsSEDReqd', 'N');
             }
             $hasShipCode = true;
             $this->_createShipmentXml($shipment, $shipKey);
         } else {
-            if ($r->getAction() == 'GenerateLabel') {
-                $methods = [$r->getService()];
+            if ($rawRequest->getAction() == 'GenerateLabel') {
+                $methods = [$rawRequest->getService()];
             }
 
             foreach ($methods as $method) {
                 $shipment = false;
                 if (array_key_exists($method, $this->getCode('special_express'))) {
-                    $r->setService('E');
-                    $r->setExtendedService($this->getCode('special_express', $method));
+                    $rawRequest->setService('E');
+                    $rawRequest->setExtendedService($this->getCode('special_express', $method));
                 } else {
-                    $r->setService($method);
-                    $r->setExtendedService(null);
+                    $rawRequest->setService($method);
+                    $rawRequest->setExtendedService(null);
                 }
-                if ($r->getDestCountryId() == self::USA_COUNTRY_ID && $method != $internationcode) {
+                if ($rawRequest->getDestCountryId() == self::USA_COUNTRY_ID && $method != $internationcode) {
                     $shipment = $xml->addChild('Shipment');
-                    $shipKey = $r->getShippingKey();
-                    $r->setShipDate($shipDate);
-                } elseif ($r->getDestCountryId() != self::USA_COUNTRY_ID && $method == $internationcode) {
+                    $shipKey = $rawRequest->getShippingKey();
+                    $rawRequest->setShipDate($shipDate);
+                } elseif ($rawRequest->getDestCountryId() != self::USA_COUNTRY_ID && $method == $internationcode) {
                     $shipment = $xml->addChild('IntlShipment');
-                    $shipKey = $r->getShippingIntlKey();
-                    if ($r->getCustomsValue() != null && $r->getCustomsValue() != '') {
-                        $customsValue =  $r->getCustomsValue();
+                    $shipKey = $rawRequest->getShippingIntlKey();
+                    if ($rawRequest->getCustomsValue() != null && $rawRequest->getCustomsValue() != '') {
+                        $customsValue =  $rawRequest->getCustomsValue();
                     } else {
-                        $customsValue =  $r->getValue();
+                        $customsValue =  $rawRequest->getValue();
                     }
 
-                    $r->setShipDate($this->_getShipDate(false));
+                    $rawRequest->setShipDate($this->_getShipDate(false));
 
                     /*
                     * For international shipment customs value must be posted
                     */
                     $shippingDuty = $shipment->addChild('Dutiable');
-                    $shippingDuty->addChild('DutiableFlag', ($r->getDutiable() ? 'Y' : 'N'));
+                    $shippingDuty->addChild('DutiableFlag', ($rawRequest->getDutiable() ? 'Y' : 'N'));
                     $shippingDuty->addChild('CustomsValue', $customsValue);
                     $shippingDuty->addChild('IsSEDReqd', 'N');
                 }
@@ -544,53 +544,51 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      */
     protected function _createShipmentXml($shipment, $shipKey)
     {
-        $r = $this->_rawRequest;
+        $rawRequest = $this->_rawRequest;
 
-        $store = Mage::app()->getStore($r->getStoreId());
+        $isHaz = $this->getConfigFlag('hazardous_materials');
 
-        $_haz = $this->getConfigFlag('hazardous_materials');
+        $subtotal = $rawRequest->getValue();
+        $subtotalWithDiscount = $rawRequest->getValueWithDiscount();
 
-        $_subtotal = $r->getValue();
-        $_subtotalWithDiscount = $r->getValueWithDiscount();
+        $width = max(0, (float)$this->getConfigData('default_width'));
+        $height = max(0, (float)$this->getConfigData('default_height'));
+        $length = max(0, (float)$this->getConfigData('default_length'));
 
-        $_width = max(0, (float)$this->getConfigData('default_width'));
-        $_height = max(0, (float)$this->getConfigData('default_height'));
-        $_length = max(0, (float)$this->getConfigData('default_length'));
-
-        $packageParams = $r->getPackageParams();
+        $packageParams = $rawRequest->getPackageParams();
         if ($packageParams) {
-            $_length = $packageParams->getLength();
-            $_width = $packageParams->getWidth();
-            $_height = $packageParams->getHeight();
+            $length = $packageParams->getLength();
+            $width = $packageParams->getWidth();
+            $height = $packageParams->getHeight();
         }
 
-        $_apEnabled = $this->getConfigFlag('additional_protection_enabled');
-        $_apUseSubtotal = $this->getConfigData('additional_protection_use_subtotal');
-        $_apConfigValue = max(0, (float)$this->getConfigData('additional_protection_value'));
-        $_apMinValue = max(0, (float)$this->getConfigData('additional_protection_min_value'));
-        $_apValueRounding = $this->getConfigData('additional_protection_rounding');
+        $apEnabled = $this->getConfigFlag('additional_protection_enabled');
+        $apUseSubtotal = $this->getConfigData('additional_protection_use_subtotal');
+        $apConfigValue = max(0, (float)$this->getConfigData('additional_protection_value'));
+        $apMinValue = max(0, (float)$this->getConfigData('additional_protection_min_value'));
+        $apValueRounding = $this->getConfigData('additional_protection_rounding');
 
         $apValue = 0;
         $apCode = self::ADDITIONAL_PROTECTION_NOT_REQUIRED;
-        if ($_apEnabled) {
-            if ($_apMinValue <= $_subtotal) {
-                switch ($_apUseSubtotal) {
+        if ($apEnabled) {
+            if ($apMinValue <= $subtotal) {
+                switch ($apUseSubtotal) {
                     case self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL:
-                        $apValue = $_subtotal;
+                        $apValue = $subtotal;
                         break;
                     case self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT:
-                        $apValue = $_subtotalWithDiscount;
+                        $apValue = $subtotalWithDiscount;
                         break;
                     default:
                     case self::ADDITIONAL_PROTECTION_VALUE_CONFIG:
-                        $apValue = $_apConfigValue;
+                        $apValue = $apConfigValue;
                         break;
                 }
 
                 if ($apValue) {
                     $apCode = self::ADDITIONAL_PROTECTION_ASSET;
 
-                    switch ($_apValueRounding) {
+                    switch ($apValueRounding) {
                         case self::ADDITIONAL_PROTECTION_ROUNDING_CEIL:
                             $apValue = ceil($apValue);
                             break;
@@ -606,7 +604,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             }
         }
 
-        if ($r->getAction() == 'GenerateLabel') {
+        if ($rawRequest->getAction() == 'GenerateLabel') {
             $shipment->addAttribute('action', 'GenerateLabel');
         } else {
             $shipment->addAttribute('action', 'RateEstimate');
@@ -615,49 +613,49 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         $shippingCredentials = $shipment->addChild('ShippingCredentials');
         $shippingCredentials->addChild('ShippingKey', $shipKey);
-        $shippingCredentials->addChild('AccountNbr', $r->getAccountNbr());
+        $shippingCredentials->addChild('AccountNbr', $rawRequest->getAccountNbr());
 
         $shipmentDetail = $shipment->addChild('ShipmentDetail');
-        if ($r->getAction() == 'GenerateLabel') {
+        if ($rawRequest->getAction() == 'GenerateLabel') {
             if ($this->_request->getReferenceData()) {
                 $referenceData = $this->_request->getReferenceData() . $this->_request->getPackageId();
             } else {
                 $referenceData = 'Order #'
-                                 . $r->getOrderShipment()->getOrder()->getIncrementId()
+                                 . $rawRequest->getOrderShipment()->getOrder()->getIncrementId()
                                  . ' P'
-                                 . $r->getPackageId();
+                                 . $rawRequest->getPackageId();
             }
 
             $shipmentDetail->addChild('ShipperReference', $referenceData);
         }
-        $shipmentDetail->addChild('ShipDate', $r->getShipDate());
-        $shipmentDetail->addChild('Service')->addChild('Code', $r->getService());
-        $shipmentDetail->addChild('ShipmentType')->addChild('Code', $r->getShipmentType());
-        $shipmentDetail->addChild('Weight', $r->getWeight());
-        $shipmentDetail->addChild('ContentDesc', $r->getContentDesc());
+        $shipmentDetail->addChild('ShipDate', $rawRequest->getShipDate());
+        $shipmentDetail->addChild('Service')->addChild('Code', $rawRequest->getService());
+        $shipmentDetail->addChild('ShipmentType')->addChild('Code', $rawRequest->getShipmentType());
+        $shipmentDetail->addChild('Weight', $rawRequest->getWeight());
+        $shipmentDetail->addChild('ContentDesc', $rawRequest->getContentDesc());
         $additionalProtection = $shipmentDetail->addChild('AdditionalProtection');
         $additionalProtection->addChild('Code', $apCode);
         $additionalProtection->addChild('Value', floor($apValue));
 
-        if ($_width || $_height || $_length) {
+        if ($width || $height || $length) {
             $dimensions = $shipmentDetail->addChild('Dimensions');
-            $dimensions->addChild('Length', $_length);
-            $dimensions->addChild('Width', $_width);
-            $dimensions->addChild('Height', $_height);
+            $dimensions->addChild('Length', $length);
+            $dimensions->addChild('Width', $width);
+            $dimensions->addChild('Height', $height);
         }
 
-        if ($_haz || ($r->getExtendedService())) {
+        if ($isHaz || ($rawRequest->getExtendedService())) {
             $specialServices = $shipmentDetail->addChild('SpecialServices');
         }
 
-        if ($_haz) {
+        if ($isHaz) {
             $hazardousMaterials = $specialServices->addChild('SpecialService');
             $hazardousMaterials->addChild('Code', 'HAZ');
         }
 
-        if ($r->getExtendedService()) {
+        if ($rawRequest->getExtendedService()) {
             $extendedService = $specialServices->addChild('SpecialService');
-            $extendedService->addChild('Code', $r->getExtendedService());
+            $extendedService->addChild('Code', $rawRequest->getExtendedService());
         }
 
         /*
@@ -666,52 +664,52 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         * 3 = Third Party (if third party, need AccountNbr)
         */
         $billing = $shipment->addChild('Billing');
-        $billing->addChild('Party')->addChild('Code', $r->getIsGenerateLabelReturn() ? 'R' : 'S');
-        $billing->addChild('DutyPaymentType', $r->getDutyPaymentType());
-        if ($r->getIsGenerateLabelReturn()) {
-            $billing->addChild('AccountNbr', $r->getAccountNbr());
+        $billing->addChild('Party')->addChild('Code', $rawRequest->getIsGenerateLabelReturn() ? 'R' : 'S');
+        $billing->addChild('DutyPaymentType', $rawRequest->getDutyPaymentType());
+        if ($rawRequest->getIsGenerateLabelReturn()) {
+            $billing->addChild('AccountNbr', $rawRequest->getAccountNbr());
         }
 
         $sender = $shipment->addChild('Sender');
-        $sender->addChild('SentBy', ($r->getOrigPersonName()));
-        $sender->addChild('PhoneNbr', $r->getOrigPhoneNumber());
-        $sender->addChild('Email', $r->getOrigEmail());
+        $sender->addChild('SentBy', ($rawRequest->getOrigPersonName()));
+        $sender->addChild('PhoneNbr', $rawRequest->getOrigPhoneNumber());
+        $sender->addChild('Email', $rawRequest->getOrigEmail());
 
         $senderAddress = $sender->addChild('Address');
-        $senderAddress->addChild('Street', htmlspecialchars($r->getOrigStreet() ? $r->getOrigStreet() : 'N/A'));
-        $senderAddress->addChild('City', htmlspecialchars($r->getOrigCity()));
-        $senderAddress->addChild('State', htmlspecialchars($r->getOrigState()));
-        $senderAddress->addChild('CompanyName', htmlspecialchars($r->getOrigCompanyName()));
+        $senderAddress->addChild('Street', htmlspecialchars($rawRequest->getOrigStreet() ? $rawRequest->getOrigStreet() : 'N/A'));
+        $senderAddress->addChild('City', htmlspecialchars($rawRequest->getOrigCity()));
+        $senderAddress->addChild('State', htmlspecialchars($rawRequest->getOrigState()));
+        $senderAddress->addChild('CompanyName', htmlspecialchars($rawRequest->getOrigCompanyName()));
         /*
         * DHL xml service is using UK for united kingdom instead of GB which is a standard ISO country code
         */
-        $senderAddress->addChild('Country', ($r->getOrigCountryId() == 'GB' ? 'UK' : $r->getOrigCountryId()));
-        $senderAddress->addChild('PostalCode', $r->getOrigPostal());
+        $senderAddress->addChild('Country', ($rawRequest->getOrigCountryId() == 'GB' ? 'UK' : $rawRequest->getOrigCountryId()));
+        $senderAddress->addChild('PostalCode', $rawRequest->getOrigPostal());
 
         $receiver = $shipment->addChild('Receiver');
-        $receiver->addChild('AttnTo', $r->getDestPersonName());
-        $receiver->addChild('PhoneNbr', $r->getDestPhoneNumber());
+        $receiver->addChild('AttnTo', $rawRequest->getDestPersonName());
+        $receiver->addChild('PhoneNbr', $rawRequest->getDestPhoneNumber());
 
         $receiverAddress = $receiver->addChild('Address');
-        $receiverAddress->addChild('Street', htmlspecialchars($r->getDestStreet() ? $r->getDestStreet() : 'N/A'));
+        $receiverAddress->addChild('Street', htmlspecialchars($rawRequest->getDestStreet() ? $rawRequest->getDestStreet() : 'N/A'));
         $receiverAddress->addChild(
             'StreetLine2',
-            htmlspecialchars($r->getDestStreetLine2() ? $r->getDestStreetLine2() : 'N/A')
+            htmlspecialchars($rawRequest->getDestStreetLine2() ? $rawRequest->getDestStreetLine2() : 'N/A')
         );
-        $receiverAddress->addChild('City', htmlspecialchars($r->getDestCity()));
-        $receiverAddress->addChild('State', htmlspecialchars($r->getDestState()));
+        $receiverAddress->addChild('City', htmlspecialchars($rawRequest->getDestCity()));
+        $receiverAddress->addChild('State', htmlspecialchars($rawRequest->getDestState()));
         $receiverAddress->addChild(
             'CompanyName',
-            htmlspecialchars($r->getDestCompanyName() ? $r->getDestCompanyName() : 'N/A')
+            htmlspecialchars($rawRequest->getDestCompanyName() ? $rawRequest->getDestCompanyName() : 'N/A')
         );
 
         /*
         * DHL xml service is using UK for united kingdom instead of GB which is a standard ISO country code
         */
-        $receiverAddress->addChild('Country', ($r->getDestCountryId() == 'GB' ? 'UK' : $r->getDestCountryId()));
-        $receiverAddress->addChild('PostalCode', $r->getDestPostal());
+        $receiverAddress->addChild('Country', ($rawRequest->getDestCountryId() == 'GB' ? 'UK' : $rawRequest->getDestCountryId()));
+        $receiverAddress->addChild('PostalCode', $rawRequest->getDestPostal());
 
-        if ($r->getAction() == 'GenerateLabel') {
+        if ($rawRequest->getAction() == 'GenerateLabel') {
             $label = $shipment->addChild('ShipmentProcessingInstructions')->addChild('Label');
             $label->addChild('ImageType', 'PNG');
         }
@@ -910,7 +908,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $desc = ($shipXml->EstimateDetail) ? (string)$shipXml->EstimateDetail->ServiceLevelCommitment->Desc : null;
 
         $totalEstimate = $shipXml->EstimateDetail
-                ? (string)$shipXml->EstimateDetail->RateEstimate->TotalChargeEstimate
+                ? (float)$shipXml->EstimateDetail->RateEstimate->TotalChargeEstimate
                 : null;
         /*
         * DHL can return with empty result and success code
@@ -953,20 +951,18 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
     /**
      * Set tracking request
-     *
-     * @return null
      */
     protected function setTrackingReqeust()
     {
-        $r = new Varien_Object();
+        $request = new Varien_Object();
 
-        $id = $this->getConfigData('id');
-        $r->setId($id);
+        $requestId = $this->getConfigData('id');
+        $request->setId($requestId);
 
         $password = $this->getConfigData('password');
-        $r->setPassword($password);
+        $request->setPassword($password);
 
-        $this->_rawTrackRequest = $r;
+        $this->_rawTrackRequest = $request;
     }
 
     /**
@@ -1026,15 +1022,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      *
      * @param array $trackings
      * @param string $response
-     * @return null
      */
     protected function _parseXmlTrackingResponse($trackings, $response)
     {
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
         $errorArr = [];
-        $trackingserror = [];
-        $tracknum = '';
         if (strlen(trim($response)) > 0) {
             if (strpos(trim($response), '<?xml') === 0) {
                 $xml = simplexml_load_string($response);
@@ -1264,8 +1257,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
     /**
      * Map request to shipment
-     *
-     * @return null
      */
     protected function _mapRequestToShipment(Varien_Object $request)
     {

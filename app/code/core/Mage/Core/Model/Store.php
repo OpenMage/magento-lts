@@ -244,6 +244,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @var bool
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_isReadOnly = false;
 
     /**
@@ -537,9 +538,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve default base path
      *
      * @return string
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function getDefaultBasePath()
     {
+        // phpcs:ignore Ecg.Security.Superglobal.SuperglobalUsageWarning
         if (!isset($_SERVER['SCRIPT_NAME'])) {
             return '/';
         }
@@ -625,10 +628,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @param   string $url
      * @return  string
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _updatePathUseRewrites($url)
     {
         if ($this->isAdmin() || !$this->getConfig(self::XML_PATH_USE_REWRITES) || !Mage::isInstalled()) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Ecg.Security.Superglobal.SuperglobalUsageWarning
             $indexFileName = $this->_isCustomEntryPoint() ? 'index.php' : basename($_SERVER['SCRIPT_FILENAME']);
             $url .= $indexFileName . '/';
         }
@@ -696,11 +701,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Get store identifier
      *
-     * @return  int
+     * @return int|null
      */
     public function getId()
     {
-        return $this->_getData('store_id');
+        $storeId = $this->_getData('store_id');
+        return is_null($storeId) ? null : (int)$storeId;
     }
 
     /**
@@ -1039,21 +1045,21 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve website identifier
      *
-     * @return int|string|null
+     * @return int
      */
     public function getWebsiteId()
     {
-        return $this->_getData('website_id');
+        return (int)$this->_getData('website_id');
     }
 
     /**
      * Retrieve group identifier
      *
-     * @return int|string|null
+     * @return int
      */
     public function getGroupId()
     {
-        return $this->_getData('group_id');
+        return (int)$this->_getData('group_id');
     }
 
     /**
@@ -1096,10 +1102,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         $storeUrl = Mage::app()->getStore()->isCurrentlySecure()
             ? $this->getUrl('', ['_secure' => true])
             : $this->getUrl('');
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $storeParsedUrl = parse_url($storeUrl);
 
         $storeParsedQuery = [];
         if (isset($storeParsedUrl['query'])) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             parse_str($storeParsedUrl['query'], $storeParsedQuery);
         }
 

@@ -30,4 +30,14 @@ class Mage_Sales_Block_Order_Items extends Mage_Sales_Block_Items_Abstract
     {
         return Mage::registry('current_order');
     }
+
+    public function canDisplayGiftmessage(Mage_Sales_Model_Order_Item $item): bool
+    {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable($helper::TYPE_ORDER_ITEM, $item) && $item->getGiftMessageId();
+    }
 }

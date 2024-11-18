@@ -70,7 +70,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      * @param int $productId
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _executeReplace($data, $storeId, $productId)
     {
         $this->beginTransaction();
@@ -119,7 +118,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
         $select = $this->_getReadAdapter()->select();
         $select->from(['main_table' => $table], 'attribute_id')
             ->join(['additional_table' => $this->getTable('catalog/eav_attribute')], 'additional_table.attribute_id=main_table.attribute_id');
-        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         $select->distinct(true);
 
         if (is_array($conditions)) {

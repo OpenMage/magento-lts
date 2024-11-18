@@ -273,13 +273,17 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Indicates that block can display giftmessages form
      *
+     * TODO set return type
      * @return bool
      * @throws Exception
      */
     public function canDisplayGiftmessage()
     {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
-        return $helper->getIsMessagesAvailable('order', $this->getEntity(), $this->getEntity()->getStoreId());
+        return $helper->getIsMessagesAvailable($helper::TYPE_ORDER, $this->getEntity(), $this->getEntity()->getStoreId());
     }
 }

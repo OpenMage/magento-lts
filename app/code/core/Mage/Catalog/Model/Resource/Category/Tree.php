@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      */
     public function setStoreId($storeId)
     {
-        $this->_storeId = (int) $storeId;
+        $this->_storeId = $storeId;
         return $this;
     }
 
@@ -474,6 +474,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $pathIds  = explode('/', $item['path']);
             $level = (int)$item['level'];
             while ($level > 0) {
+                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 $pathIds[count($pathIds) - 1] = '%';
                 $path = implode('/', $pathIds);
                 $where["$levelField=$level AND $pathField LIKE '$path'"] = true;
@@ -557,7 +558,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
     /**
      * Obtain select for categories with attributes.
-     * By default everything from entity table is selected
+     * By default, everything from entity table is selected
      * + name, is_active and is_anchor
      * Also the correct product_count is selected, depending on is the category anchor or not.
      *

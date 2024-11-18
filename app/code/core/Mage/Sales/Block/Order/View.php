@@ -118,4 +118,27 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
     {
         return Mage::getUrl('*/*/creditmemo', ['order_id' => $order->getId()]);
     }
+
+    public function canDisplayGiftmessageItems(): bool
+    {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable($helper::TYPE_ITEMS, $this->getOrder());
+    }
+
+    public function canDisplayGiftmessageOrder(): bool
+    {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable(
+            $helper::TYPE_ORDER,
+            $this->getOrder()
+        ) && $this->getOrder()->getGiftMessageId();
+    }
 }

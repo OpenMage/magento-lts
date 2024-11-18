@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +65,6 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             $this->_paymentMethodCode = $paymentCode;
             $templatePath = str_replace('_', '', $paymentCode);
             $templateFile = "paypal/{$templatePath}/iframe.phtml";
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if (file_exists(Mage::getDesign()->getTemplateFilename($templateFile))) {
                 $this->setTemplate($templateFile);
             } else {
