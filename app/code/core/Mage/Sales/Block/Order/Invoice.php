@@ -144,6 +144,6 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
-        return $helper->getIsMessagesAvailable('order', $this->getOrder());
+        return $helper->getIsMessagesAvailable($helper::TYPE_ORDER, $this->getOrder());
     }
 }

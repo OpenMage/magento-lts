@@ -31,6 +31,6 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Form extends Mage_Admi
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         $quote = Mage::getSingleton('adminhtml/session_quote')->getQuote();
-        return $helper->getIsMessagesAvailable('items', $quote, $quote->getStore());
+        return $helper->getIsMessagesAvailable($helper::TYPE_ITEMS, $quote, $quote->getStore());
     }
 }
