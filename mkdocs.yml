@@ -1,0 +1,200 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+site_name: OpenMage Docs
+site_url: https://OpenMage.github.io/magento-lts/
+repo_url: https://github.com/OpenMage/magento-lts
+repo_name: OpenMage/magento-lts
+edit_uri: blob/main/docs/content
+copyright: OpenMage contributors
+site_author: OpenMage contributors
+site_description: >-
+  Magento - Long Term Support.
+docs_dir: docs/content
+
+# Configuration
+theme:
+  name: material
+  favicon: assets/images/favicon.ico
+  custom_dir: docs/overrides
+  palette:
+    - scheme: default
+      primary: white
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+    - navigation.expand
+    - navigation.indexes
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+  icon:
+    icon:
+      annotation: material/plus-circle
+    tag:
+      code: fontawesome/solid/code
+      config: fontawesome/solid/clipboard-check
+      css: fontawesome/brands/css3
+      debug: fontawesome/solid/bug-slash
+      documentation: fontawesome/regular/file
+      events: fontawesome/regular/calendar-xmark
+      html: fontawesome/brands/html5
+      install: fontawesome/solid/plus
+      js: fontawesome/brands/js
+      modules: fontawesome/regular/square-plus
+      php: fontawesome/brands/php
+      security: fontawesome/solid/shield
+      share: fontawesome/solid/share
+      tinymce: fontawesome/solid/wand-magic-sparkles
+
+# Plugins
+plugins:
+  - blog
+  - search
+  - tags:
+      tags_file: tags.md
+  - redirects:
+      redirect_maps:
+  - minify:
+      minify_html: true
+      cache_safe: true
+
+# Customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/OpenMage/magento-lts
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/EV8aNbU
+    - icon: fontawesome/brands/stack-overflow
+      link: https://magento.stackexchange.com/tags/openmage
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/openmageproject
+  generator: false
+  tags:
+    Configuration: config
+    Contribute: share
+    CSS: css
+    Debug: debug
+    Development: code
+    Documentation: documentation
+    Events: events
+    HTML5: html
+    Install: install
+    JavaScript: js
+    Modules: modules
+    PHP-8.0: php
+    PHP-8.1: php
+    PHP-8.2: php
+    PHP-8.3: php
+    TinyMCE: tinymce
+    Security: security
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: OpenMage
+      repo: magento-lts
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - docs_includes/abbreviations.md
+  - pymdownx.superfences:
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - smarty
+
+nav:
+  - 'Get started':
+      - index.md
+      - users/requirements.md
+      - 'Installing':
+          - users/install/index.md
+          - users/install/_use-composer.md
+          - users/install/_use-git.md
+          - users/install/_use-tarball.md
+          - users/install/secure-install.md
+      - 'Changelog':
+          - developers/changelog/index.md
+          - developers/changelog/new-config.md
+          - developers/changelog/new-events.md
+          - developers/changelog/soap-wsdl.md
+      - 'Versioning':
+          - users/versioning/index.md
+          - users/versioning/maintained.md
+      - 'Quick links':
+          - tags.md
+  - 'API':
+      - 'REST':
+          - api/rest/common_http_status_codes.md
+          - api/rest/http_methods.md
+          - api/rest/get_filters.md
+          - 'Resources':
+              - 'Products':
+                  - api/rest/resources/products/product_categories.md
+              - 'Customers':
+                  - api/rest/resources/customers.md
+          - api/rest/response_formats.md
+          - api/rest/testing_rest_resources.md
+  - 'Development':
+      - 'Events':
+          - developers/events/list.md
+      - 'Guides':
+          - developers/guides/observer.md
+      - 'Tools':
+          - developers/ddev.md
+          - developers/phpstorm.md
+      - 'Multistore':
+          - developers/error-pages.md
+      - 'Documentation':
+          - developers/mkdocs.md
+  - 'Modules':
+      - users/modules/index.md
+      - users/modules/cron.md
+      - users/modules/email.md
+      - users/modules/images.md
+      - users/modules/logging.md
+      - users/modules/products.md
+      - users/modules/social.md
+      - 'Payment':
+          - users/modules/payment/bitcoin.md
+      - 'Themes':
+          - users/modules/themes/frontend.md
+#  - 'Blog':
+#      - blog/index.md

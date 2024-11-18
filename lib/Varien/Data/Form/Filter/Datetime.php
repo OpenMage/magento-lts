@@ -50,7 +50,7 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
     /**
      * Returns the result of filtering $value
      *
-     * @param string $value
+     * @param string|null $value
      * @return string
      */
     public function outputFilter($value)

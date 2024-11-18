@@ -216,7 +216,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns boolean TRUE if row scope is default (fundamental) scope.
      *
-     * @return bool
+     * @return true
      */
     protected function _isRowScopeDefault(array $rowData)
     {
@@ -287,6 +287,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                     $rowData = $this->_prepareRowForDb($rowData);
                     $rowSize = strlen(Mage::helper('core')->jsonEncode($rowData));
 
+                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
                     $isBunchSizeExceeded = ($bunchSize > 0 && count($bunchRows) >= $bunchSize);
 
                     if (($productDataSize + $rowSize) >= $maxDataSize || $isBunchSizeExceeded) {
