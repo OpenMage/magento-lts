@@ -21,5 +21,5 @@ $billingAgreementTable = $installer->getTable('sales/billing_agreement');
 $installer->getConnection()->addColumn(
     $billingAgreementTable,
     'agreement_label',
-    'varchar(255)'
+    'varchar(255)',
 );

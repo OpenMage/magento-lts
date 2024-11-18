@@ -20,6 +20,4 @@
  * @package    Mage_Dataflow
  * @deprecated
  */
-class Mage_Dataflow_Model_Mysql4_Session extends Mage_Dataflow_Model_Resource_Session
-{
-}
+class Mage_Dataflow_Model_Mysql4_Session extends Mage_Dataflow_Model_Resource_Session {}

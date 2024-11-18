@@ -19,6 +19,4 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Product_Type_Api_V2 extends Mage_Catalog_Model_Product_Type_Api
-{
-}
+class Mage_Catalog_Model_Product_Type_Api_V2 extends Mage_Catalog_Model_Product_Type_Api {}

@@ -26,7 +26,7 @@ $installer->getConnection()->changeColumn(
         'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length' => 255,
         'comment' => 'User Password',
-    ]
+    ],
 );
 
 $installer->endSetup();

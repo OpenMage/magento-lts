@@ -114,7 +114,7 @@ class Mage_Core_Model_Factory
      */
     public function getUrlRewriteClassAlias()
     {
-        return (string)$this->_config->getNode(self::XML_PATH_URL_REWRITE_MODEL);
+        return (string) $this->_config->getNode(self::XML_PATH_URL_REWRITE_MODEL);
     }
 
     /**
@@ -122,6 +122,6 @@ class Mage_Core_Model_Factory
      */
     public function getIndexClassAlias()
     {
-        return (string)$this->_config->getNode(self::XML_PATH_INDEX_INDEX_MODEL);
+        return (string) $this->_config->getNode(self::XML_PATH_INDEX_INDEX_MODEL);
     }
 }

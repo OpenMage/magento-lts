@@ -66,7 +66,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
         if ($quote->getGiftMessageId() > 0) {
             $quote->setGiftMessage(
-                Mage::getSingleton('giftmessage/message')->load($quote->getGiftMessageId())->getMessage()
+                Mage::getSingleton('giftmessage/message')->load($quote->getGiftMessageId())->getMessage(),
             );
         }
 
@@ -78,7 +78,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         foreach ($quote->getAllItems() as $item) {
             if ($item->getGiftMessageId() > 0) {
                 $item->setGiftMessage(
-                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
+                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage(),
                 );
             }
 
@@ -105,7 +105,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         foreach ($totals as $total) {
             $totalsResult[] = [
                 'title' => $total->getTitle(),
-                'amount' => $total->getValue()
+                'amount' => $total->getValue(),
             ];
         }
         return $totalsResult;
@@ -161,7 +161,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
             if ($order) {
                 Mage::dispatchEvent(
                     'checkout_type_onepage_save_order_after',
-                    ['order' => $order, 'quote' => $quote]
+                    ['order' => $order, 'quote' => $quote],
                 );
 
                 try {
@@ -173,7 +173,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
             Mage::dispatchEvent(
                 'checkout_submit_all_after',
-                ['order' => $order, 'quote' => $quote]
+                ['order' => $order, 'quote' => $quote],
             );
         } catch (Mage_Core_Exception $e) {
             $this->_fault('create_order_fault', $e->getMessage());

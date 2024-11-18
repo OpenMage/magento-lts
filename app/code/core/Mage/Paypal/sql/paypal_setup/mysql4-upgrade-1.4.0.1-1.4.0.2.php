@@ -32,5 +32,5 @@ $installer->getConnection()->addConstraint(
     $this->getTable('paypal/cert'),
     'website_id',
     $this->getTable('core/website'),
-    'website_id'
+    'website_id',
 );

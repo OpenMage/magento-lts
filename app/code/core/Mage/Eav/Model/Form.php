@@ -470,7 +470,7 @@ abstract class Mage_Eav_Model_Form
      */
     public function setIsAjaxRequest($flag = true)
     {
-        $this->_isAjax = (bool)$flag;
+        $this->_isAjax = (bool) $flag;
         return $this;
     }
 
@@ -511,7 +511,7 @@ abstract class Mage_Eav_Model_Form
     public function ignoreInvisible($setValue = null)
     {
         if ($setValue !== null) {
-            $this->_ignoreInvisible = (bool)$setValue;
+            $this->_ignoreInvisible = (bool) $setValue;
             return $this;
         }
         return $this->_ignoreInvisible;

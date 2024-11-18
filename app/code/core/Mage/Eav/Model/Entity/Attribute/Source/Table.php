@@ -46,7 +46,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
             $idPrefix = 'ATTRIBUTE_OPTIONS_ID_' . $this->getAttribute()->getId();
             $tags = array_merge(
                 ['eav', Mage_Core_Model_Translate::CACHE_TAG],
-                $this->getAttribute()->getCacheTags()
+                $this->getAttribute()->getCacheTags(),
             );
             $collection = Mage::getResourceModel('eav/entity_attribute_option_collection')
                 ->setPositionOrder('asc')
@@ -117,14 +117,14 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                 "e.entity_id={$valueTable1}.entity_id"
                 . " AND {$valueTable1}.attribute_id='{$this->getAttribute()->getId()}'"
                 . " AND {$valueTable1}.store_id=0",
-                []
+                [],
             )
             ->joinLeft(
                 [$valueTable2 => $this->getAttribute()->getBackend()->getTable()],
                 "e.entity_id={$valueTable2}.entity_id"
                 . " AND {$valueTable2}.attribute_id='{$this->getAttribute()->getId()}'"
                 . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
-                []
+                [],
             );
         $valueExpr = $collection->getSelect()->getAdapter()
             ->getCheckSql("{$valueTable2}.value_id > 0", "{$valueTable2}.value", "{$valueTable1}.value");
@@ -155,7 +155,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                 'unsigned'  => false,
                 'is_null'   => true,
                 'default'   => null,
-                'extra'     => null
+                'extra'     => null,
             ];
             if (!$isMulti) {
                 $columns[$attributeCode . '_value'] = [
@@ -163,7 +163,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
             }
         } else {
@@ -175,7 +175,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                 'nullable'   => true,
                 'default'   => null,
                 'extra'     => null,
-                'comment'   => $attributeCode . ' column'
+                'comment'   => $attributeCode . ' column',
             ];
             if (!$isMulti) {
                 $columns[$attributeCode . '_value'] = [
@@ -185,7 +185,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null,
-                    'comment'   => $attributeCode . ' column'
+                    'comment'   => $attributeCode . ' column',
                 ];
             }
         }
@@ -205,7 +205,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
         $index = sprintf('IDX_%s', strtoupper($this->getAttribute()->getAttributeCode()));
         $indexes[$index] = [
             'type'      => 'index',
-            'fields'    => [$this->getAttribute()->getAttributeCode()]
+            'fields'    => [$this->getAttribute()->getAttributeCode()],
         ];
 
         $sortable   = $this->getAttribute()->getUsedForSortBy();
@@ -214,7 +214,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
 
             $indexes[$index] = [
                 'type'      => 'index',
-                'fields'    => [$this->getAttribute()->getAttributeCode() . '_value']
+                'fields'    => [$this->getAttribute()->getAttributeCode() . '_value'],
             ];
         }
 

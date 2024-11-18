@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_Reports
  */
-class Mage_Reports_Exception extends Zend_Exception
-{
-}
+class Mage_Reports_Exception extends Zend_Exception {}

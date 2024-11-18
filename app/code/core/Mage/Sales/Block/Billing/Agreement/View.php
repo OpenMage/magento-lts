@@ -64,7 +64,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
                 ->addFieldToFilter(
                     'state',
-                    ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
+                    ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()],
                 )
                 ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
                 ->setOrder('created_at', 'desc');
@@ -160,7 +160,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             $this->setCancelUrl(
                 $this->getUrl('*/billing_agreement/cancel', [
                     '_current' => true,
-                    'payment_method' => $this->_billingAgreementInstance->getMethodCode()])
+                    'payment_method' => $this->_billingAgreementInstance->getMethodCode()]),
             );
 
             $paymentMethodTitle = $this->_billingAgreementInstance->getAgreementLabel();
@@ -169,7 +169,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             $createdAt = $this->_billingAgreementInstance->getCreatedAt();
             $updatedAt = $this->_billingAgreementInstance->getUpdatedAt();
             $this->setAgreementCreatedAt(
-                ($createdAt) ? $this->formatDate($createdAt, 'short', true) : $this->__('N/A')
+                ($createdAt) ? $this->formatDate($createdAt, 'short', true) : $this->__('N/A'),
             );
             if ($updatedAt) {
                 $this->setAgreementUpdatedAt($this->formatDate($updatedAt, 'short', true));

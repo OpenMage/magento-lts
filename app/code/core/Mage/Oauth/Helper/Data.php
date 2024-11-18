@@ -64,7 +64,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         self::ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE,
         self::ENDPOINT_AUTHORIZE_ADMIN_SIMPLE,
         self::ENDPOINT_INITIATE,
-        self::ENDPOINT_TOKEN
+        self::ENDPOINT_TOKEN,
     ];
 
     /**
@@ -86,7 +86,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             $helper = Mage::helper('core');
             $randomString = $helper->getRandomString(
                 $length,
-                Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS
+                Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS,
             );
         }
 
@@ -236,7 +236,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
                 'applicationName'   => $applicationName,
                 'status'            => $status,
 
-            ]
+            ],
         );
     }
 

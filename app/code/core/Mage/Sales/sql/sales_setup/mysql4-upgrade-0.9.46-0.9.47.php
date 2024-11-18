@@ -22,7 +22,7 @@ $orderEntityTypeId = $orderEntityType['entity_type_id'];
 
 $attributes = [
     $installer->getAttribute($orderEntityTypeId, 'is_virtual'),
-    $installer->getAttribute($orderEntityTypeId, 'shipping_description')
+    $installer->getAttribute($orderEntityTypeId, 'shipping_description'),
 ];
 
 $installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[0]['attribute_code'], 'tinyint(1) UNSIGNED NOT NULL DEFAULT 0');
@@ -96,7 +96,7 @@ $installer->getConnection()->addConstraint(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    'SET NULL'
+    'SET NULL',
 );
 
 $installer->getConnection()->addConstraint(
@@ -105,7 +105,7 @@ $installer->getConnection()->addConstraint(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    'SET NULL'
+    'SET NULL',
 );
 
 $this->endSetup();

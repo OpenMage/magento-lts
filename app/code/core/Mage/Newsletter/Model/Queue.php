@@ -265,7 +265,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function setSaveTemplateFlag($value)
     {
-        $this->_saveTemplateFlag = (bool)$value;
+        $this->_saveTemplateFlag = (bool) $value;
         return $this;
     }
 
@@ -288,7 +288,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function setSaveStoresFlag($value)
     {
-        $this->_saveStoresFlag = (bool)$value;
+        $this->_saveStoresFlag = (bool) $value;
         return $this;
     }
 

@@ -46,12 +46,12 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
-            'method'    => 'post'
+            'method'    => 'post',
         ]);
 
         $fieldset   = $form->addFieldset('base_fieldset', [
             'legend'    => Mage::helper('newsletter')->__('Template Information'),
-            'class'     => 'fieldset-wide'
+            'class'     => 'fieldset-wide',
         ]);
 
         if ($model->getId()) {
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'required'  => true,
             'value'     => $model->getId() !== null
                 ? $model->getTemplateSenderEmail()
-                : $identityEmail
+                : $identityEmail,
         ]);
 
         $widgetFilters = ['is_email_compatible' => 1];
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'state'     => 'html',
             'style'     => 'height:36em;',
             'value'     => $model->getTemplateText(),
-            'config'    => $wysiwygConfig
+            'config'    => $wysiwygConfig,
         ]);
 
         if (!$model->isPlain()) {
@@ -119,7 +119,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
                 'name'          => 'styles',
                 'label'         => Mage::helper('newsletter')->__('Template Styles'),
                 'container_id'  => 'field_template_styles',
-                'value'         => $model->getTemplateStyles()
+                'value'         => $model->getTemplateStyles(),
             ]);
         }
 

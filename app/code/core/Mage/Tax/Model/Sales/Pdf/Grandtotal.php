@@ -47,7 +47,7 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
         $totals = [[
             'amount'    => $this->getAmountPrefix() . $amountExclTax,
             'label'     => Mage::helper('tax')->__('Grand Total (Excl. Tax)') . ':',
-            'font_size' => $fontSize
+            'font_size' => $fontSize,
         ]];
 
         if ($config->displaySalesFullSummary($store)) {
@@ -57,12 +57,12 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
         $totals[] = [
             'amount'    => $this->getAmountPrefix() . $tax,
             'label'     => Mage::helper('tax')->__('Tax') . ':',
-            'font_size' => $fontSize
+            'font_size' => $fontSize,
         ];
         $totals[] = [
             'amount'    => $this->getAmountPrefix() . $amount,
             'label'     => Mage::helper('tax')->__('Grand Total (Incl. Tax)') . ':',
-            'font_size' => $fontSize
+            'font_size' => $fontSize,
         ];
         return $totals;
     }

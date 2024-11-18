@@ -20,6 +20,4 @@
  * @package    Mage_Log
  * @deprecated
  */
-class Mage_Log_Model_Mysql4_Visitor_Online extends Mage_Log_Model_Resource_Visitor_Online
-{
-}
+class Mage_Log_Model_Mysql4_Visitor_Online extends Mage_Log_Model_Resource_Visitor_Online {}

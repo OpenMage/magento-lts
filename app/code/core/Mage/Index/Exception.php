@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_Index
 */
-class Mage_Index_Exception extends Mage_Core_Exception
-{
-}
+class Mage_Index_Exception extends Mage_Core_Exception {}

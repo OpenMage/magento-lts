@@ -18,6 +18,4 @@
  * @package    Mage_CatalogRule
  * @deprecated
  */
-class Mage_CatalogRule_Model_Mysql4_Rule_Collection extends Mage_CatalogRule_Model_Resource_Rule_Collection
-{
-}
+class Mage_CatalogRule_Model_Mysql4_Rule_Collection extends Mage_CatalogRule_Model_Resource_Rule_Collection {}

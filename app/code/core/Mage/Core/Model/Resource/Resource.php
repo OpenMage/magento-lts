@@ -115,7 +115,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
             return $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 $dbModuleInfo,
-                ['code = ?' => $resName]
+                ['code = ?' => $resName],
             );
         } else {
             self::$_versions[$resName] = $version;
@@ -153,7 +153,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     {
         $data = [
             'code'          => $resName,
-            'data_version'  => $version
+            'data_version'  => $version,
         ];
 
         if ($this->getDbVersion($resName) || $this->getDataVersion($resName)) {

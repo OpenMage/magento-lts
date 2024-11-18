@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_Weee
  */
-class Mage_Weee_Block_Element_Weee_Tax extends Varien_Data_Form_Element_Abstract
-{
-}
+class Mage_Weee_Block_Element_Weee_Tax extends Varien_Data_Form_Element_Abstract {}

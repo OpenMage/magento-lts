@@ -36,7 +36,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         $isAvailable = Mage::helper('giftmessage/message')->getIsMessagesAvailable(
             'item',
             $quoteItem,
-            $quoteItem->getStoreId()
+            $quoteItem->getStoreId(),
         );
 
         $orderItem->setGiftMessageId($quoteItem->getGiftMessageId())
@@ -206,7 +206,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         $isAvailable = Mage::helper('giftmessage/message')->isMessagesAvailable(
             'order_item',
             $orderItem,
-            $orderItem->getStoreId()
+            $orderItem->getStoreId(),
         );
         if (!$isAvailable) {
             return $this;

@@ -50,7 +50,7 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
                     'privileges'  => '', // not used yet
                     'assert_id'   => 0,
                     'role_id'     => $roleId,
-                    'permission'  => 'allow'
+                    'permission'  => 'allow',
                 ];
 
                 // If all was selected save it only and nothing else.
@@ -109,8 +109,8 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
             throw new Mage_Core_Exception(
                 Mage::helper('adminhtml')->__(
                     'The following role resource(s) are not orphaned: %s',
-                    implode(', ', $validIds)
-                )
+                    implode(', ', $validIds),
+                ),
             );
         }
 

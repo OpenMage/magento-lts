@@ -100,7 +100,7 @@ class Varien_Db_Select extends Zend_Db_Select
          * Additional internal type used for really null value
          * cast to string, to prevent false matching 0 == "TYPE_CONDITION"
          */
-        if ((string)$type === self::TYPE_CONDITION) {
+        if ((string) $type === self::TYPE_CONDITION) {
             $type = null;
         }
         if (is_array($value)) {
@@ -213,7 +213,7 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     protected function _findTableInCond($table, $cond)
     {
-        $cond  = (string)$cond;
+        $cond  = (string) $cond;
         $quote = $this->_adapter->getQuoteIdentifierSymbol();
 
         if (strpos($cond, $quote . $table . $quote . '.') !== false) {

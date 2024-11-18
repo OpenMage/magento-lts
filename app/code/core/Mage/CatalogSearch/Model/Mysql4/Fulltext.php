@@ -20,6 +20,4 @@
  * @package    Mage_CatalogSearch
  * @deprecated
  */
-class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_CatalogSearch_Model_Resource_Fulltext
-{
-}
+class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_CatalogSearch_Model_Resource_Fulltext {}

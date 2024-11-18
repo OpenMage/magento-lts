@@ -19,6 +19,4 @@
  * @category   Mage
  * @package    Mage_Cron
  */
-class Mage_Cron_Exception extends Mage_Core_Exception
-{
-}
+class Mage_Cron_Exception extends Mage_Core_Exception {}

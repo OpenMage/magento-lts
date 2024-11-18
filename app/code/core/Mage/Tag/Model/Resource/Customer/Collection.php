@@ -238,7 +238,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         ->join(
             ['tr' => $tagRelationTable],
             'tr.customer_id = e.entity_id',
-            ['tag_relation_id', 'product_id', 'active', 'added_in' => 'store_id']
+            ['tag_relation_id', 'product_id', 'active', 'added_in' => 'store_id'],
         )
         ->join(['t' => $tagTable], 't.tag_id = tr.tag_id', ['*']);
     }
@@ -316,7 +316,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
             $this->_select->joinLeft(
                 [$field => $attr->getBackend()->getTable()],
                 'tr.product_id = ' . $field . '.entity_id AND ' . $field . '.attribute_id = ' . $attr->getId(),
-                ['product_' . $field => $fieldName]
+                ['product_' . $field => $fieldName],
             );
         }
 
@@ -324,7 +324,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         $this->_select->joinLeft(
             ['p' => $this->getTable('catalog/product')],
             'tr.product_id = p.entity_id',
-            ['product_sku' => 'sku']
+            ['product_sku' => 'sku'],
         );
 
         return $this;

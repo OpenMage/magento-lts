@@ -157,13 +157,13 @@ class Mage_Customer_Model_Observer
             } else {
                 $result = $customerHelper->checkVatNumber(
                     $customerAddress->getCountryId(),
-                    $customerAddress->getVatId()
+                    $customerAddress->getVatId(),
                 );
 
                 $newGroupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
                     $customerAddress->getCountryId(),
                     $result,
-                    $customer->getStore()
+                    $customer->getStore(),
                 );
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $newGroupId) {
@@ -175,7 +175,7 @@ class Mage_Customer_Model_Observer
                     $validationMessage = Mage::helper('customer')->getVatValidationUserMessage(
                         $customerAddress,
                         $customer->getDisableAutoGroupChange(),
-                        $result
+                        $result,
                     );
 
                     if (!$validationMessage->getIsError()) {
@@ -209,7 +209,7 @@ class Mage_Customer_Model_Observer
         }
 
         $customer->setGroupId(
-            $customer->getOrigData('group_id')
+            $customer->getOrigData('group_id'),
         );
         $customer->save();
     }

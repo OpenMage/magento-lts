@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Header extends Mage_Adminhtml_Bloc
         if ($this->_getSession()->getOrder()->getId()) {
             return '<h3 class="icon-head head-sales-order">' . Mage::helper('sales')->__(
                 'Edit Order #%s',
-                $this->escapeHtml($this->_getSession()->getOrder()->getIncrementId())
+                $this->escapeHtml($this->_getSession()->getOrder()->getIncrementId()),
             ) . '</h3>';
         }
 

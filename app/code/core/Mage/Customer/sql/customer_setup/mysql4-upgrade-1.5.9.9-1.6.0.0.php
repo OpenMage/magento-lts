@@ -22,187 +22,187 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer/address_entity'),
-    'FK_CUSTOMER_ADDRESS_CUSTOMER_ID'
+    'FK_CUSTOMER_ADDRESS_CUSTOMER_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer/eav_attribute'),
-    'FK_CUSTOMER_EAV_ATTRIBUTE_ID'
+    'FK_CUSTOMER_EAV_ATTRIBUTE_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer/eav_attribute_website'),
-    'FK_CUST_EAV_ATTR_WEBST_ATTR_EAV_ATTR'
+    'FK_CUST_EAV_ATTR_WEBST_ATTR_EAV_ATTR',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer/eav_attribute_website'),
-    'FK_CUST_EAV_ATTR_WEBST_WEBST_CORE_WEBST'
+    'FK_CUST_EAV_ATTR_WEBST_WEBST_CORE_WEBST',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer/entity'),
-    'FK_CUSTOMER_ENTITY_STORE'
+    'FK_CUSTOMER_ENTITY_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer/entity'),
-    'FK_CUSTOMER_WEBSITE'
+    'FK_CUSTOMER_WEBSITE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer/form_attribute'),
-    'FK_CUSTOMER_FORM_ATTRIBUTE_ATTRIBUTE'
+    'FK_CUSTOMER_FORM_ATTRIBUTE_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_datetime'),
-    'FK_CUSTOMER_ADDRESS_DATETIME_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_DATETIME_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_datetime'),
-    'FK_CUSTOMER_ADDRESS_DATETIME_ENTITY'
+    'FK_CUSTOMER_ADDRESS_DATETIME_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_datetime'),
-    'FK_CUSTOMER_ADDRESS_DATETIME_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_DATETIME_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_decimal'),
-    'FK_CUSTOMER_ADDRESS_DECIMAL_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_DECIMAL_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_decimal'),
-    'FK_CUSTOMER_ADDRESS_DECIMAL_ENTITY'
+    'FK_CUSTOMER_ADDRESS_DECIMAL_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_decimal'),
-    'FK_CUSTOMER_ADDRESS_DECIMAL_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_DECIMAL_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_int'),
-    'FK_CUSTOMER_ADDRESS_INT_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_INT_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_int'),
-    'FK_CUSTOMER_ADDRESS_INT_ENTITY'
+    'FK_CUSTOMER_ADDRESS_INT_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_int'),
-    'FK_CUSTOMER_ADDRESS_INT_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_INT_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_text'),
-    'FK_CUSTOMER_ADDRESS_TEXT_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_TEXT_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_text'),
-    'FK_CUSTOMER_ADDRESS_TEXT_ENTITY'
+    'FK_CUSTOMER_ADDRESS_TEXT_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_text'),
-    'FK_CUSTOMER_ADDRESS_TEXT_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_TEXT_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_varchar'),
-    'FK_CUSTOMER_ADDRESS_VARCHAR_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_VARCHAR_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_varchar'),
-    'FK_CUSTOMER_ADDRESS_VARCHAR_ENTITY'
+    'FK_CUSTOMER_ADDRESS_VARCHAR_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_varchar'),
-    'FK_CUSTOMER_ADDRESS_VARCHAR_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_VARCHAR_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_datetime'),
-    'FK_CUSTOMER_DATETIME_ATTRIBUTE'
+    'FK_CUSTOMER_DATETIME_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_datetime'),
-    'FK_CUSTOMER_DATETIME_ENTITY'
+    'FK_CUSTOMER_DATETIME_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_datetime'),
-    'FK_CUSTOMER_DATETIME_ENTITY_TYPE'
+    'FK_CUSTOMER_DATETIME_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_decimal'),
-    'FK_CUSTOMER_DECIMAL_ATTRIBUTE'
+    'FK_CUSTOMER_DECIMAL_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_decimal'),
-    'FK_CUSTOMER_DECIMAL_ENTITY'
+    'FK_CUSTOMER_DECIMAL_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_decimal'),
-    'FK_CUSTOMER_DECIMAL_ENTITY_TYPE'
+    'FK_CUSTOMER_DECIMAL_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_int'),
-    'FK_CUSTOMER_INT_ATTRIBUTE'
+    'FK_CUSTOMER_INT_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_int'),
-    'FK_CUSTOMER_INT_ENTITY'
+    'FK_CUSTOMER_INT_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_int'),
-    'FK_CUSTOMER_INT_ENTITY_TYPE'
+    'FK_CUSTOMER_INT_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_text'),
-    'FK_CUSTOMER_TEXT_ATTRIBUTE'
+    'FK_CUSTOMER_TEXT_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_text'),
-    'FK_CUSTOMER_TEXT_ENTITY'
+    'FK_CUSTOMER_TEXT_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_text'),
-    'FK_CUSTOMER_TEXT_ENTITY_TYPE'
+    'FK_CUSTOMER_TEXT_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_varchar'),
-    'FK_CUSTOMER_VARCHAR_ATTRIBUTE'
+    'FK_CUSTOMER_VARCHAR_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_varchar'),
-    'FK_CUSTOMER_VARCHAR_ENTITY'
+    'FK_CUSTOMER_VARCHAR_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_varchar'),
-    'FK_CUSTOMER_VARCHAR_ENTITY_TYPE'
+    'FK_CUSTOMER_VARCHAR_ENTITY_TYPE',
 );
 
 /**
@@ -210,277 +210,277 @@ $connection = $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('customer/address_entity'),
-    'FK_CUSTOMER_ADDRESS_CUSTOMER_ID'
+    'FK_CUSTOMER_ADDRESS_CUSTOMER_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('customer/eav_attribute_website'),
-    'IDX_WEBSITE'
+    'IDX_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('customer/entity'),
-    'FK_CUSTOMER_ENTITY_STORE'
+    'FK_CUSTOMER_ENTITY_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('customer/entity'),
-    'IDX_ENTITY_TYPE'
+    'IDX_ENTITY_TYPE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('customer/entity'),
-    'IDX_AUTH'
+    'IDX_AUTH',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('customer/entity'),
-    'FK_CUSTOMER_WEBSITE'
+    'FK_CUSTOMER_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('customer/form_attribute'),
-    'IDX_CUSTOMER_FORM_ATTRIBUTE_ATTRIBUTE'
+    'IDX_CUSTOMER_FORM_ATTRIBUTE_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_datetime'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_datetime'),
-    'FK_CUSTOMER_ADDRESS_DATETIME_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_DATETIME_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_datetime'),
-    'FK_CUSTOMER_ADDRESS_DATETIME_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_DATETIME_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_datetime'),
-    'FK_CUSTOMER_ADDRESS_DATETIME_ENTITY'
+    'FK_CUSTOMER_ADDRESS_DATETIME_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_datetime'),
-    'IDX_VALUE'
+    'IDX_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_decimal'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_decimal'),
-    'FK_CUSTOMER_ADDRESS_DECIMAL_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_DECIMAL_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_decimal'),
-    'FK_CUSTOMER_ADDRESS_DECIMAL_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_DECIMAL_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_decimal'),
-    'FK_CUSTOMER_ADDRESS_DECIMAL_ENTITY'
+    'FK_CUSTOMER_ADDRESS_DECIMAL_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_decimal'),
-    'IDX_VALUE'
+    'IDX_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_int'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_int'),
-    'FK_CUSTOMER_ADDRESS_INT_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_INT_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_int'),
-    'FK_CUSTOMER_ADDRESS_INT_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_INT_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_int'),
-    'FK_CUSTOMER_ADDRESS_INT_ENTITY'
+    'FK_CUSTOMER_ADDRESS_INT_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_int'),
-    'IDX_VALUE'
+    'IDX_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_text'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_text'),
-    'FK_CUSTOMER_ADDRESS_TEXT_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_TEXT_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_text'),
-    'FK_CUSTOMER_ADDRESS_TEXT_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_TEXT_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_text'),
-    'FK_CUSTOMER_ADDRESS_TEXT_ENTITY'
+    'FK_CUSTOMER_ADDRESS_TEXT_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_varchar'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_varchar'),
-    'FK_CUSTOMER_ADDRESS_VARCHAR_ENTITY_TYPE'
+    'FK_CUSTOMER_ADDRESS_VARCHAR_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_varchar'),
-    'FK_CUSTOMER_ADDRESS_VARCHAR_ATTRIBUTE'
+    'FK_CUSTOMER_ADDRESS_VARCHAR_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_varchar'),
-    'FK_CUSTOMER_ADDRESS_VARCHAR_ENTITY'
+    'FK_CUSTOMER_ADDRESS_VARCHAR_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_address_entity_varchar'),
-    'IDX_VALUE'
+    'IDX_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_datetime'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_datetime'),
-    'FK_CUSTOMER_DATETIME_ENTITY_TYPE'
+    'FK_CUSTOMER_DATETIME_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_datetime'),
-    'FK_CUSTOMER_DATETIME_ATTRIBUTE'
+    'FK_CUSTOMER_DATETIME_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_datetime'),
-    'FK_CUSTOMER_DATETIME_ENTITY'
+    'FK_CUSTOMER_DATETIME_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_datetime'),
-    'IDX_VALUE'
+    'IDX_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_decimal'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_decimal'),
-    'FK_CUSTOMER_DECIMAL_ENTITY_TYPE'
+    'FK_CUSTOMER_DECIMAL_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_decimal'),
-    'FK_CUSTOMER_DECIMAL_ATTRIBUTE'
+    'FK_CUSTOMER_DECIMAL_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_decimal'),
-    'FK_CUSTOMER_DECIMAL_ENTITY'
+    'FK_CUSTOMER_DECIMAL_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_decimal'),
-    'IDX_VALUE'
+    'IDX_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_int'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_int'),
-    'FK_CUSTOMER_INT_ENTITY_TYPE'
+    'FK_CUSTOMER_INT_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_int'),
-    'FK_CUSTOMER_INT_ATTRIBUTE'
+    'FK_CUSTOMER_INT_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_int'),
-    'FK_CUSTOMER_INT_ENTITY'
+    'FK_CUSTOMER_INT_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_int'),
-    'IDX_VALUE'
+    'IDX_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_text'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_text'),
-    'FK_CUSTOMER_TEXT_ENTITY_TYPE'
+    'FK_CUSTOMER_TEXT_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_text'),
-    'FK_CUSTOMER_TEXT_ATTRIBUTE'
+    'FK_CUSTOMER_TEXT_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_text'),
-    'FK_CUSTOMER_TEXT_ENTITY'
+    'FK_CUSTOMER_TEXT_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_varchar'),
-    'IDX_ATTRIBUTE_VALUE'
+    'IDX_ATTRIBUTE_VALUE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_varchar'),
-    'FK_CUSTOMER_VARCHAR_ENTITY_TYPE'
+    'FK_CUSTOMER_VARCHAR_ENTITY_TYPE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_varchar'),
-    'FK_CUSTOMER_VARCHAR_ATTRIBUTE'
+    'FK_CUSTOMER_VARCHAR_ATTRIBUTE',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_varchar'),
-    'FK_CUSTOMER_VARCHAR_ENTITY'
+    'FK_CUSTOMER_VARCHAR_ENTITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_varchar'),
-    'IDX_VALUE'
+    'IDX_VALUE',
 );
 
 /**
@@ -495,69 +495,69 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_set_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Set Id'
+                'comment'   => 'Attribute Set Id',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'email' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Email'
+                'comment'   => 'Email',
             ],
             'group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Group Id'
+                'comment'   => 'Group Id',
             ],
             'increment_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
-                'comment'   => 'Increment Id'
+                'comment'   => 'Increment Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Created At'
+                'comment'   => 'Created At',
             ],
             'updated_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Updated At'
+                'comment'   => 'Updated At',
             ],
             'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Is Active'
-            ]
+                'comment'   => 'Is Active',
+            ],
         ],
-        'comment' => 'Customer Entity'
+        'comment' => 'Customer Entity',
     ],
     $installer->getTable('customer/address_entity') => [
         'columns' => [
@@ -567,51 +567,51 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_set_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Set Id'
+                'comment'   => 'Attribute Set Id',
             ],
             'increment_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
-                'comment'   => 'Increment Id'
+                'comment'   => 'Increment Id',
             ],
             'parent_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Parent Id'
+                'comment'   => 'Parent Id',
             ],
             'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Created At'
+                'comment'   => 'Created At',
             ],
             'updated_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Updated At'
+                'comment'   => 'Updated At',
             ],
             'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Is Active'
-            ]
+                'comment'   => 'Is Active',
+            ],
         ],
-        'comment' => 'Customer Address Entity'
+        'comment' => 'Customer Address Entity',
     ],
     $installer->getTable('customer/customer_group') => [
         'columns' => [
@@ -621,23 +621,23 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Customer Group Id'
+                'comment'   => 'Customer Group Id',
             ],
             'customer_group_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'nullable'  => false,
-                'comment'   => 'Customer Group Code'
+                'comment'   => 'Customer Group Code',
             ],
             'tax_class_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Tax Class Id'
-            ]
+                'comment'   => 'Tax Class Id',
+            ],
         ],
-        'comment' => 'Customer Group'
+        'comment' => 'Customer Group',
     ],
     $installer->getTable('customer/eav_attribute') => [
         'columns' => [
@@ -646,53 +646,53 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'is_visible' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Is Visible'
+                'comment'   => 'Is Visible',
             ],
             'input_filter' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Input Filter'
+                'comment'   => 'Input Filter',
             ],
             'multiline_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Multiline Count'
+                'comment'   => 'Multiline Count',
             ],
             'validate_rules' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Validate Rules'
+                'comment'   => 'Validate Rules',
             ],
             'is_system' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Is System'
+                'comment'   => 'Is System',
             ],
             'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Sort Order'
+                'comment'   => 'Sort Order',
             ],
             'data_model' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Data Model'
-            ]
+                'comment'   => 'Data Model',
+            ],
         ],
-        'comment' => 'Customer Eav Attribute'
+        'comment' => 'Customer Eav Attribute',
     ],
     $installer->getTable('customer/eav_attribute_website') => [
         'columns' => [
@@ -701,37 +701,37 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'is_visible' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
-                'comment'   => 'Is Visible'
+                'comment'   => 'Is Visible',
             ],
             'is_required' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
-                'comment'   => 'Is Required'
+                'comment'   => 'Is Required',
             ],
             'default_value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Default Value'
+                'comment'   => 'Default Value',
             ],
             'multiline_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
-                'comment'   => 'Multiline Count'
-            ]
+                'comment'   => 'Multiline Count',
+            ],
         ],
-        'comment' => 'Customer Eav Attribute Website'
+        'comment' => 'Customer Eav Attribute Website',
     ],
     $installer->getTable('customer/form_attribute') => [
         'columns' => [
@@ -740,17 +740,17 @@ $tables = [
                 'length'    => 32,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Form Code'
+                'comment'   => 'Form Code',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Attribute Id'
-            ]
+                'comment'   => 'Attribute Id',
+            ],
         ],
-        'comment' => 'Customer Form Attribute'
+        'comment' => 'Customer Form Attribute',
     ],
     $installer->getTable('customer_address_entity_datetime') => [
         'columns' => [
@@ -759,37 +759,37 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                 'nullable'  => false,
                 'default' => '0000-00-00 00:00:00',
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Address Entity Datetime'
+        'comment' => 'Customer Address Entity Datetime',
     ],
     $installer->getTable('customer_address_entity_decimal') => [
         'columns' => [
@@ -798,28 +798,28 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -827,10 +827,10 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Address Entity Decimal'
+        'comment' => 'Customer Address Entity Decimal',
     ],
     $installer->getTable('customer_address_entity_int') => [
         'columns' => [
@@ -839,37 +839,37 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Address Entity Int'
+        'comment' => 'Customer Address Entity Int',
     ],
     $installer->getTable('customer_address_entity_text') => [
         'columns' => [
@@ -878,37 +878,37 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'nullable'  => false,
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Address Entity Text'
+        'comment' => 'Customer Address Entity Text',
     ],
     $installer->getTable('customer_address_entity_varchar') => [
         'columns' => [
@@ -917,36 +917,36 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Address Entity Varchar'
+        'comment' => 'Customer Address Entity Varchar',
     ],
     $installer->getTable('customer_entity_datetime') => [
         'columns' => [
@@ -955,37 +955,37 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                 'nullable'  => false,
                 'default' => '0000-00-00 00:00:00',
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Entity Datetime'
+        'comment' => 'Customer Entity Datetime',
     ],
     $installer->getTable('customer_entity_decimal') => [
         'columns' => [
@@ -994,28 +994,28 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -1023,10 +1023,10 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Entity Decimal'
+        'comment' => 'Customer Entity Decimal',
     ],
     $installer->getTable('customer_entity_int') => [
         'columns' => [
@@ -1035,37 +1035,37 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Entity Int'
+        'comment' => 'Customer Entity Int',
     ],
     $installer->getTable('customer_entity_text') => [
         'columns' => [
@@ -1074,37 +1074,37 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'nullable'  => false,
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Entity Text'
+        'comment' => 'Customer Entity Text',
     ],
     $installer->getTable('customer_entity_varchar') => [
         'columns' => [
@@ -1113,37 +1113,37 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Type Id'
+                'comment'   => 'Entity Type Id',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Customer Entity Varchar'
-    ]
+        'comment' => 'Customer Entity Varchar',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -1155,49 +1155,49 @@ $installer->getConnection()->addIndex(
     $installer->getTable('customer/address_entity'),
     $installer->getIdxName('customer/address_entity', ['parent_id']),
     ['parent_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('customer/eav_attribute_website'),
     $installer->getIdxName('customer/eav_attribute_website', ['website_id']),
     ['website_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('customer/entity'),
     $installer->getIdxName('customer/entity', ['store_id']),
     ['store_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('customer/entity'),
     $installer->getIdxName('customer/entity', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('customer/entity'),
     $installer->getIdxName('customer/entity', ['email', 'website_id']),
     ['email', 'website_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('customer/entity'),
     $installer->getIdxName('customer/entity', ['website_id']),
     ['website_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('customer/form_attribute'),
     $installer->getIdxName('customer/form_attribute', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1205,38 +1205,38 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_address_entity_datetime',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_datetime'),
     $installer->getIdxName('customer_address_entity_datetime', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_datetime'),
     $installer->getIdxName('customer_address_entity_datetime', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_datetime'),
     $installer->getIdxName('customer_address_entity_datetime', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_datetime'),
     $installer->getIdxName('customer_address_entity_datetime', ['entity_id', 'attribute_id', 'value']),
     ['entity_id', 'attribute_id', 'value'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1244,38 +1244,38 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_address_entity_decimal',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_decimal'),
     $installer->getIdxName('customer_address_entity_decimal', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_decimal'),
     $installer->getIdxName('customer_address_entity_decimal', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_decimal'),
     $installer->getIdxName('customer_address_entity_decimal', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_decimal'),
     $installer->getIdxName('customer_address_entity_decimal', ['entity_id', 'attribute_id', 'value']),
     ['entity_id', 'attribute_id', 'value'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1283,38 +1283,38 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_address_entity_int',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_int'),
     $installer->getIdxName('customer_address_entity_int', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_int'),
     $installer->getIdxName('customer_address_entity_int', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_int'),
     $installer->getIdxName('customer_address_entity_int', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_int'),
     $installer->getIdxName('customer_address_entity_int', ['entity_id', 'attribute_id', 'value']),
     ['entity_id', 'attribute_id', 'value'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1322,31 +1322,31 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_address_entity_text',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_text'),
     $installer->getIdxName('customer_address_entity_text', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_text'),
     $installer->getIdxName('customer_address_entity_text', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_text'),
     $installer->getIdxName('customer_address_entity_text', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1354,38 +1354,38 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_address_entity_varchar',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_varchar'),
     $installer->getIdxName('customer_address_entity_varchar', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_varchar'),
     $installer->getIdxName('customer_address_entity_varchar', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_varchar'),
     $installer->getIdxName('customer_address_entity_varchar', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_address_entity_varchar'),
     $installer->getIdxName('customer_address_entity_varchar', ['entity_id', 'attribute_id', 'value']),
     ['entity_id', 'attribute_id', 'value'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1393,38 +1393,38 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_entity_datetime',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_datetime'),
     $installer->getIdxName('customer_entity_datetime', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_datetime'),
     $installer->getIdxName('customer_entity_datetime', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_datetime'),
     $installer->getIdxName('customer_entity_datetime', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_datetime'),
     $installer->getIdxName('customer_entity_datetime', ['entity_id', 'attribute_id', 'value']),
     ['entity_id', 'attribute_id', 'value'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1432,38 +1432,38 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_entity_decimal',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_decimal'),
     $installer->getIdxName('customer_entity_decimal', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_decimal'),
     $installer->getIdxName('customer_entity_decimal', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_decimal'),
     $installer->getIdxName('customer_entity_decimal', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_decimal'),
     $installer->getIdxName('customer_entity_decimal', ['entity_id', 'attribute_id', 'value']),
     ['entity_id', 'attribute_id', 'value'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1471,38 +1471,38 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_entity_int',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_int'),
     $installer->getIdxName('customer_entity_int', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_int'),
     $installer->getIdxName('customer_entity_int', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_int'),
     $installer->getIdxName('customer_entity_int', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_int'),
     $installer->getIdxName('customer_entity_int', ['entity_id', 'attribute_id', 'value']),
     ['entity_id', 'attribute_id', 'value'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1510,31 +1510,31 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_entity_text',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_text'),
     $installer->getIdxName('customer_entity_text', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_text'),
     $installer->getIdxName('customer_entity_text', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_text'),
     $installer->getIdxName('customer_entity_text', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
@@ -1542,38 +1542,38 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'customer_entity_varchar',
         ['entity_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['entity_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_varchar'),
     $installer->getIdxName('customer_entity_varchar', ['entity_type_id']),
     ['entity_type_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_varchar'),
     $installer->getIdxName('customer_entity_varchar', ['attribute_id']),
     ['attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_varchar'),
     $installer->getIdxName('customer_entity_varchar', ['entity_id']),
     ['entity_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('customer_entity_varchar'),
     $installer->getIdxName('customer_entity_varchar', ['entity_id', 'attribute_id', 'value']),
     ['entity_id', 'attribute_id', 'value'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+    Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
 );
 
 /**
@@ -1584,7 +1584,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('customer/eav_attribute'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1592,7 +1592,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('customer/address_entity'),
     'parent_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1600,7 +1600,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('customer/eav_attribute_website'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1608,7 +1608,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('customer/eav_attribute_website'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1617,7 +1617,7 @@ $installer->getConnection()->addForeignKey(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    Varien_Db_Ddl_Table::ACTION_SET_NULL
+    Varien_Db_Ddl_Table::ACTION_SET_NULL,
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1626,7 +1626,7 @@ $installer->getConnection()->addForeignKey(
     'website_id',
     $installer->getTable('core/website'),
     'website_id',
-    Varien_Db_Ddl_Table::ACTION_SET_NULL
+    Varien_Db_Ddl_Table::ACTION_SET_NULL,
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1634,7 +1634,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('customer/form_attribute'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1642,7 +1642,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_datetime'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1650,7 +1650,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_datetime'),
     'entity_id',
     $installer->getTable('customer_address_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1658,7 +1658,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_datetime'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1666,7 +1666,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_decimal'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1674,7 +1674,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_decimal'),
     'entity_id',
     $installer->getTable('customer_address_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1682,7 +1682,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_decimal'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1690,7 +1690,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_int'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1698,7 +1698,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_int'),
     'entity_id',
     $installer->getTable('customer_address_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1706,7 +1706,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_int'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1714,7 +1714,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_text'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1722,7 +1722,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_text'),
     'entity_id',
     $installer->getTable('customer_address_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1730,7 +1730,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_text'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1738,7 +1738,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_varchar'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1746,7 +1746,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_varchar'),
     'entity_id',
     $installer->getTable('customer_address_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1754,7 +1754,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_address_entity_varchar'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1762,7 +1762,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_datetime'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1770,7 +1770,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_datetime'),
     'entity_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1778,7 +1778,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_datetime'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1786,7 +1786,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_decimal'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1794,7 +1794,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_decimal'),
     'entity_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1802,7 +1802,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_decimal'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1810,7 +1810,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_int'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1818,7 +1818,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_int'),
     'entity_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1826,7 +1826,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_int'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1834,7 +1834,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_text'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1842,7 +1842,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_text'),
     'entity_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1850,7 +1850,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_text'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1858,7 +1858,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_varchar'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1866,7 +1866,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_varchar'),
     'entity_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $connection = $installer->getConnection()->addForeignKey(
@@ -1874,7 +1874,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('customer_entity_varchar'),
     'entity_type_id',
     $installer->getTable('eav/entity_type'),
-    'entity_type_id'
+    'entity_type_id',
 );
 
 /**
@@ -1884,28 +1884,28 @@ $installer->updateAttribute(
     'customer_address',
     'region',
     'backend_model',
-    'customer/entity_address_attribute_backend_region'
+    'customer/entity_address_attribute_backend_region',
 );
 
 $installer->updateAttribute(
     'customer_address',
     'street',
     'backend_model',
-    'customer/entity_address_attribute_backend_street'
+    'customer/entity_address_attribute_backend_street',
 );
 
 $installer->updateAttribute(
     'customer_address',
     'region_id',
     'source_model',
-    'customer/entity_address_attribute_source_region'
+    'customer/entity_address_attribute_source_region',
 );
 
 $installer->updateAttribute(
     'customer_address',
     'country_id',
     'source_model',
-    'customer/entity_address_attribute_source_country'
+    'customer/entity_address_attribute_source_country',
 );
 
 $installer->endSetup();

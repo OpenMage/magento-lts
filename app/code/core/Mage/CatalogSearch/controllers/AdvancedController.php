@@ -39,7 +39,7 @@ class Mage_CatalogSearch_AdvancedController extends Mage_Core_Controller_Front_A
             $this->_redirectError(
                 Mage::getModel('core/url')
                     ->setQueryParams($this->getRequest()->getQuery())
-                    ->getUrl('*/*/')
+                    ->getUrl('*/*/'),
             );
         }
         $this->_initLayoutMessages('catalog/session');

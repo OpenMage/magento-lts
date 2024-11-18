@@ -61,7 +61,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
     {
         return $this->getUrl(
             'customer/address/delete',
-            [Mage_Core_Model_Url::FORM_KEY => Mage::getSingleton('core/session')->getFormKey()]
+            [Mage_Core_Model_Url::FORM_KEY => Mage::getSingleton('core/session')->getFormKey()],
         );
     }
 

@@ -79,7 +79,7 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
      */
     public function dependsOnChildren($depends = '0')
     {
-        $this->_dependsOnChildren = (bool)(int)$depends;
+        $this->_dependsOnChildren = (bool) (int) $depends;
         return $this;
     }
 

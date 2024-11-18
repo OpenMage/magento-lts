@@ -36,7 +36,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
         'image/jpg'  => 'jpg',
         'image/jpeg' => 'jpg',
         'image/gif'  => 'gif',
-        'image/png'  => 'png'
+        'image/png'  => 'png',
     ];
 
     /**
@@ -48,7 +48,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     protected function _retrieve()
     {
         $imageData = [];
-        $imageId = (int)$this->getRequest()->getParam('image');
+        $imageId = (int) $this->getRequest()->getParam('image');
         $galleryData = $this->_getProduct()->getData(self::GALLERY_ATTRIBUTE_CODE);
 
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
@@ -120,7 +120,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
             'position'  => $image['position'],
             'exclude'   => $image['disabled'],
             'url'       => $this->_getMediaConfig()->getMediaUrl($image['file']),
-            'types'     => $this->_getImageTypesAssignedToProduct($image['file'])
+            'types'     => $this->_getImageTypesAssignedToProduct($image['file']),
         ];
     }
 

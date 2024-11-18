@@ -78,22 +78,22 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                 if ($this->getRequest()->getParam('parent')) {
                     $fieldset->addField('path', 'hidden', [
                         'name'  => 'path',
-                        'value' => $this->getRequest()->getParam('parent')
+                        'value' => $this->getRequest()->getParam('parent'),
                     ]);
                 } else {
                     $fieldset->addField('path', 'hidden', [
                         'name'  => 'path',
-                        'value' => 1
+                        'value' => 1,
                     ]);
                 }
             } else {
                 $fieldset->addField('id', 'hidden', [
                     'name'  => 'id',
-                    'value' => $this->getCategory()->getId()
+                    'value' => $this->getCategory()->getId(),
                 ]);
                 $fieldset->addField('path', 'hidden', [
                     'name'  => 'path',
-                    'value' => $this->getCategory()->getPath()
+                    'value' => $this->getCategory()->getPath(),
                 ]);
             }
         }
@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                     $fieldset->removeField('url_key');
                 } else {
                     $form->getElement('url_key')->setRenderer(
-                        $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey')
+                        $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey'),
                     );
                 }
             }
@@ -161,7 +161,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
     {
         return [
             'image' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_category_helper_image'),
-            'textarea' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_helper_form_wysiwyg')
+            'textarea' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_helper_form_wysiwyg'),
         ];
     }
 }

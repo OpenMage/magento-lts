@@ -29,6 +29,6 @@ $installer->getConnection()
             'UNSIGNED' => true,
             'NULLABLE' => false,
             'DEFAULT' => 0,
-            'COMMENT' => 'Is Divided into Multiple Boxes for Shipping'
-        ]
+            'COMMENT' => 'Is Divided into Multiple Boxes for Shipping',
+        ],
     );

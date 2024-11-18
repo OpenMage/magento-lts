@@ -76,20 +76,20 @@ class ProductTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-//    public function testGetName(): void
-//    {
-//        $this->assertNull($this->subject->getName());
-//        $this->assertIsString($this->subject->getName());
-//    }
+    //    public function testGetName(): void
+    //    {
+    //        $this->assertNull($this->subject->getName());
+    //        $this->assertIsString($this->subject->getName());
+    //    }
 
     /**
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-//    public function testGetPrice(): void
-//    {
-//        $this->assertIsFloat($this->subject->getPrice());
-//    }
+    //    public function testGetPrice(): void
+    //    {
+    //        $this->assertIsFloat($this->subject->getPrice());
+    //    }
 
     /**
      * @group Mage_Catalog
@@ -104,10 +104,10 @@ class ProductTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-//    public function testGetTypeId(): void
-//    {
-//        $this->assertIsString($this->subject->getTypeId());
-//    }
+    //    public function testGetTypeId(): void
+    //    {
+    //        $this->assertIsString($this->subject->getTypeId());
+    //    }
 
     /**
      * @group Mage_Catalog

@@ -82,7 +82,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
                 str_replace(':', '-', $this->getRunAt()),
                 $this->getScheduledOperationId(),
                 $this->getOperationType(),
-                $this->getEntity()
+                $this->getEntity(),
             ]);
             $dirPath = Mage::getBaseDir('var') . DS . self::LOG_DIRECTORY
                 . $dirName;
@@ -121,7 +121,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
      */
     public function setDebugMode($mode = true)
     {
-        $this->_debugMode = (bool)$mode;
+        $this->_debugMode = (bool) $mode;
         return $this;
     }
 }

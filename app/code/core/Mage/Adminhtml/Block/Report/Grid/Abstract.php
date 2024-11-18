@@ -129,7 +129,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     {
         $filterData = $this->getFilterData();
         if ($filterData) {
-            $storeIds = explode(',', (string)$filterData->getData('store_ids'));
+            $storeIds = explode(',', (string) $filterData->getData('store_ids'));
         } else {
             $storeIds = [];
         }
@@ -187,7 +187,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 $this->getCollection(),
                 $filterData->getData('from', null),
                 $filterData->getData('to', null),
-                $filterData->getData('period_type')
+                $filterData->getData('period_type'),
             );
         }
 

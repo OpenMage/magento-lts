@@ -122,7 +122,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateRemoteAddr();
         }
-        return (bool)$use;
+        return (bool) $use;
     }
 
     /**
@@ -136,7 +136,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateHttpVia();
         }
-        return (bool)$use;
+        return (bool) $use;
     }
 
     /**
@@ -150,7 +150,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateHttpXForwardedFor();
         }
-        return (bool)$use;
+        return (bool) $use;
     }
 
     /**
@@ -164,7 +164,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateHttpUserAgent();
         }
-        return (bool)$use;
+        return (bool) $use;
     }
 
     /**
@@ -188,7 +188,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         $userAgents = [];
         $skip = Mage::getConfig()->getNode(self::XML_NODE_USET_AGENT_SKIP);
         foreach ($skip->children() as $userAgent) {
-            $userAgents[] = (string)$userAgent;
+            $userAgents[] = (string) $userAgent;
         }
         return $userAgents;
     }
@@ -392,7 +392,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     public function getSessionIdQueryParam()
     {
         $sessionName = $this->getSessionName();
-        if ($sessionName && $queryParam = (string)Mage::getConfig()->getNode($sessionName . '/session/query_param')) {
+        if ($sessionName && $queryParam = (string) Mage::getConfig()->getNode($sessionName . '/session/query_param')) {
             return $queryParam;
         }
         return self::SESSION_ID_QUERY_PARAM;

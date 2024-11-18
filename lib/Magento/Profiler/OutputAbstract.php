@@ -82,7 +82,7 @@ abstract class Magento_Profiler_OutputAbstract
         if ($columnId == 'timer_id') {
             return $this->_renderTimerId($timerId);
         }
-        $value = (float)Magento_Profiler::fetch($timerId, $columnId);
+        $value = (float) Magento_Profiler::fetch($timerId, $columnId);
         if (in_array($columnId, [Magento_Profiler::FETCH_TIME, Magento_Profiler::FETCH_AVG])) {
             $value = number_format($value, 6);
         } else {

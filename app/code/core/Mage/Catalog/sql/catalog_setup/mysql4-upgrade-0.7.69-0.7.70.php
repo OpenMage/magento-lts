@@ -20,7 +20,7 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('catalog/compare_item'),
     'store_id',
-    'smallint unsigned default null'
+    'smallint unsigned default null',
 );
 $installer->getConnection()->addConstraint(
     'FK_CATALOG_COMPARE_ITEM_STORE',
@@ -29,7 +29,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('core/store'),
     'store_id',
     'set null',
-    'cascade'
+    'cascade',
 );
 
 $installer->endSetup();

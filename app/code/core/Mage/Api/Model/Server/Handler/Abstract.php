@@ -135,7 +135,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         }
         $this->_getServer()->getAdapter()->fault(
             $faults[$faultName]['code'],
-            (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage)
+            (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
         );
     }
 
@@ -159,7 +159,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         return [
             'isFault'      => true,
             'faultCode'    => $faults[$faultName]['code'],
-            'faultMessage' => (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage)
+            'faultMessage' => (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
         ];
     }
 
@@ -258,14 +258,14 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
         if (!isset($resources->$resourceName->public)
             && isset($resources->$resourceName->acl)
-            && !$this->_isAllowed((string)$resources->$resourceName->acl)
+            && !$this->_isAllowed((string) $resources->$resourceName->acl)
         ) {
             return $this->_fault('access_denied');
         }
 
         if (!isset($resources->$resourceName->methods->$methodName->public)
             && isset($resources->$resourceName->methods->$methodName->acl)
-            && !$this->_isAllowed((string)$resources->$resourceName->methods->$methodName->acl)
+            && !$this->_isAllowed((string) $resources->$resourceName->methods->$methodName->acl)
         ) {
             return $this->_fault('access_denied');
         }
@@ -278,7 +278,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         }
 
         try {
-            $modelName = $this->_prepareResourceModelName((string)$resources->$resourceName->model);
+            $modelName = $this->_prepareResourceModelName((string) $resources->$resourceName->model);
             try {
                 $model = Mage::getModel($modelName);
                 if ($model instanceof Mage_Api_Model_Resource_Abstract) {
@@ -289,7 +289,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             if (method_exists($model, $method)) {
-                if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
+                if (isset($methodInfo->arguments) && ((string) $methodInfo->arguments) == 'array') {
                     $result = $model->$method((is_array($args) ? $args : [$args]));
                 } elseif (!is_array($args)) {
                     $result = $model->$method($args);
@@ -370,7 +370,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
             if (!isset($resources->$resourceName->public)
                 && isset($resources->$resourceName->acl)
-                && !$this->_isAllowed((string)$resources->$resourceName->acl)
+                && !$this->_isAllowed((string) $resources->$resourceName->acl)
             ) {
                 $result[] = $this->_faultAsArray('access_denied');
                 if (isset($options['break']) && $options['break'] == 1) {
@@ -382,7 +382,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
             if (!isset($resources->$resourceName->methods->$methodName->public)
                 && isset($resources->$resourceName->methods->$methodName->acl)
-                && !$this->_isAllowed((string)$resources->$resourceName->methods->$methodName->acl)
+                && !$this->_isAllowed((string) $resources->$resourceName->methods->$methodName->acl)
             ) {
                 $result[] = $this->_faultAsArray('access_denied');
                 if (isset($options['break']) && $options['break'] == 1) {
@@ -409,7 +409,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
 
                 if (method_exists($model, $method)) {
-                    if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
+                    if (isset($methodInfo->arguments) && ((string) $methodInfo->arguments) == 'array') {
                         $callResult = $model->$method((is_array($args) ? $args : [$args]));
                     } elseif (!is_array($args)) {
                         $callResult = $model->$method($args);
@@ -482,10 +482,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
                 $methods[] = [
                     'title'       => (string) $method->title,
-                    'description' => (isset($method->description) ? (string)$method->description : null),
+                    'description' => (isset($method->description) ? (string) $method->description : null),
                     'path'        => $resourceName . '.' . $methodName,
                     'name'        => $methodName,
-                    'aliases'     => $methodAliases
+                    'aliases'     => $methodAliases,
                 ];
             }
 
@@ -495,10 +495,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
             $resources[] = [
                 'title'       => (string) $resource->title,
-                'description' => (isset($resource->description) ? (string)$resource->description : null),
+                'description' => (isset($resource->description) ? (string) $resource->description : null),
                 'name'        => $resourceName,
                 'aliases'     => $resourcesAlias[$resourceName] ?? [],
-                'methods'     => $methods
+                'methods'     => $methods,
             ];
         }
 
@@ -535,7 +535,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         }
 
         if (isset($resources->$resourceName->acl)
-            && !$this->_isAllowed((string)$resources->$resourceName->acl)
+            && !$this->_isAllowed((string) $resources->$resourceName->acl)
         ) {
             return $this->_fault('access_denied');
         }
@@ -593,7 +593,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             function ($matches) {
                 return '&#' . Mage::helper('core/string')->uniOrd($matches[0]) . ';';
             },
-            $row
+            $row,
         );
         return $row;
     }

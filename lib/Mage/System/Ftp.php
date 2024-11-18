@@ -489,7 +489,7 @@ class Mage_System_Ftp
                     'size'   => (int) $info[4],
                     'chmod'  => self::chmodnum($info[0]),
                     'rawdata' => $info,
-                    'raw'     => $rawfile
+                    'raw'     => $rawfile,
                 ];
             }
         }

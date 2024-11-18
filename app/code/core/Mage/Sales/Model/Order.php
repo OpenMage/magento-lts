@@ -1095,7 +1095,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($shouldProtectState) {
             if ($this->isStateProtected($state)) {
                 Mage::throwException(
-                    Mage::helper('sales')->__('The Order State "%s" must not be set manually.', $state)
+                    Mage::helper('sales')->__('The Order State "%s" must not be set manually.', $state),
                 );
             }
         }
@@ -1351,7 +1351,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             list($carrierCode, $method) = $segments;
             return new Varien_Object([
                 'carrier_code' => $carrierCode,
-                'method'       => $method
+                'method'       => $method,
             ]);
         }
     }
@@ -1463,7 +1463,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer->setTemplateParams([
             'order'        => $this,
             'billing'      => $this->getBillingAddress(),
-            'payment_html' => $paymentBlockHtml
+            'payment_html' => $paymentBlockHtml,
         ]);
 
         /** @var Mage_Core_Model_Email_Queue $emailQueue */
@@ -1555,9 +1555,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams([
-                'order'   => $this,
-                'comment' => $comment,
-                'billing' => $this->getBillingAddress()
+            'order'   => $this,
+            'comment' => $comment,
+            'billing' => $this->getBillingAddress(),
         ]);
 
         /** @var Mage_Core_Model_Email_Queue $emailQueue */
@@ -2233,7 +2233,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $result = false;
         $shipmentsCollection = $this->getShipmentsCollection();
         if ($shipmentsCollection) {
-            $result = (bool)$shipmentsCollection->count();
+            $result = (bool) $shipmentsCollection->count();
         }
         return $result;
     }
@@ -2248,7 +2248,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $result = false;
         $creditmemosCollection = $this->getCreditmemosCollection();
         if ($creditmemosCollection) {
-            $result = (bool)$creditmemosCollection->count();
+            $result = (bool) $creditmemosCollection->count();
         }
         return $result;
     }

@@ -51,8 +51,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'name'   => 'delete_address',
                     'element_name' => 'delete_address',
                     'disabled' => $this->isReadonly(),
-                    'class'  => 'delete' . ($this->isReadonly() ? ' disabled' : '')
-                ])
+                    'class'  => 'delete' . ($this->isReadonly() ? ' disabled' : ''),
+                ]),
         );
         $this->setChild(
             'add_address_button',
@@ -64,8 +64,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'element_name' => 'add_address_button',
                     'disabled' => $this->isReadonly(),
                     'class'  => 'add' . ($this->isReadonly() ? ' disabled' : ''),
-                    'onclick' => 'customerAddresses.addNewAddress()'
-                ])
+                    'onclick' => 'customerAddresses.addNewAddress()',
+                ]),
         );
         $this->setChild(
             'cancel_button',
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'class'  => 'cancel delete-address' . ($this->isReadonly() ? ' disabled' : ''),
                     'disabled' => $this->isReadonly(),
                     'onclick' => 'customerAddresses.cancelAdd(this)',
-                ])
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -178,7 +178,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     $prefixElement->getId(),
                     'select',
                     $prefixElement->getData(),
-                    '^'
+                    '^',
                 );
                 $prefixField->setValues($prefixOptions);
             }
@@ -195,7 +195,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     $suffixElement->getId(),
                     'select',
                     $suffixElement->getData(),
-                    $form->getElement('lastname')->getId()
+                    $form->getElement('lastname')->getId(),
                 );
                 $suffixField->setValues($suffixOptions);
             }
@@ -260,7 +260,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         $result = [];
         foreach ($websites as $website) {
             $result[$website['value']] = Mage::app()->getWebsite($website['value'])->getConfig(
-                Mage_Core_Helper_Data::XML_PATH_DEFAULT_COUNTRY
+                Mage_Core_Helper_Data::XML_PATH_DEFAULT_COUNTRY,
             );
         }
 

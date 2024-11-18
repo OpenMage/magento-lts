@@ -123,14 +123,14 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         // schedule
         $schedule = $form->addFieldset('schedule_fieldset', [
             'legend' => Mage::helper('sales')->__('Schedule'),
-            'disabled'  => $this->_isReadOnly
+            'disabled'  => $this->_isReadOnly,
         ]);
         $schedule->addField('start_date_is_editable', 'select', [
             'name'    => 'start_date_is_editable',
             'label'   => Mage::helper('sales')->__('Customer Can Define Start Date'),
             'comment' => Mage::helper('sales')->__('Whether buyer can define the date when billing for the profile begins.'),
             'options' => $noYes,
-            'disabled' => $this->_isReadOnly
+            'disabled' => $this->_isReadOnly,
         ]);
         $this->_addField($schedule, 'schedule_description');
         $this->_addField($schedule, 'suspension_threshold');
@@ -139,7 +139,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         // billing
         $billing = $form->addFieldset('billing_fieldset', [
             'legend' => Mage::helper('sales')->__('Billing'),
-            'disabled'  => $this->_isReadOnly
+            'disabled'  => $this->_isReadOnly,
         ]);
         $this->_addField($billing, 'period_unit', [
             'options' => $this->_getPeriodUnitOptions(Mage::helper('adminhtml')->__('-- Please Select --')),
@@ -150,7 +150,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         // trial
         $trial = $form->addFieldset('trial_fieldset', [
             'legend' => Mage::helper('sales')->__('Trial Period'),
-            'disabled'  => $this->_isReadOnly
+            'disabled'  => $this->_isReadOnly,
         ]);
         $this->_addField($trial, 'trial_period_unit', [
             'options' => $this->_getPeriodUnitOptions(Mage::helper('adminhtml')->__('-- Not Selected --')),
@@ -162,7 +162,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         // initial fees
         $initial = $form->addFieldset('initial_fieldset', [
             'legend' => Mage::helper('sales')->__('Initial Fees'),
-            'disabled'  => $this->_isReadOnly
+            'disabled'  => $this->_isReadOnly,
         ]);
         $this->_addField($initial, 'init_amount');
         $this->_addField($initial, 'init_may_fail', ['options' => $noYes], 'select');
@@ -204,7 +204,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     {
         return array_merge(
             ['' => $emptyLabel],
-            $this->_profile->getAllPeriodUnits()
+            $this->_profile->getAllPeriodUnits(),
         );
     }
 

@@ -46,7 +46,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
 
         $this->join(
             ['eav_attributes' => 'eav/attribute'],
-            '`eav_attributes`.`attribute_id` = `main_table`.`attribute_id`'
+            '`eav_attributes`.`attribute_id` = `main_table`.`attribute_id`',
         );
 
         $this->_eavAttributesJoined = true;
@@ -72,7 +72,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
      */
     public function getStoreId()
     {
-        return (int)$this->_storeId;
+        return (int) $this->_storeId;
     }
 
     /**
@@ -118,12 +118,12 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
                 [
                     'label' => 'labels.value',
                     'store_id' => 'labels.store_id',
-                ]
+                ],
             )
             ->where('options.attribute_id IN (?)', $attributeIds)
             ->where(
                 'labels.store_id IN (?)',
-                [Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID, $this->getStoreId()]
+                [Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID, $this->getStoreId()],
             );
 
         $resultSet = $this->getConnection()->query($select);

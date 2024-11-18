@@ -165,7 +165,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
         return $this->_getUrl('sendfriend/product/send', [
             'id' => $product->getId(),
-            'cat_id' => $categoryId
+            'cat_id' => $categoryId,
         ]);
     }
 
@@ -247,11 +247,11 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         */
         $inputTypes = [
             'multiselect'   => [
-                'backend_model'     => 'eav/entity_attribute_backend_array'
+                'backend_model'     => 'eav/entity_attribute_backend_array',
             ],
             'boolean'       => [
-                'source_model'      => 'eav/entity_attribute_source_boolean'
-            ]
+                'source_model'      => 'eav/entity_attribute_source_boolean',
+            ],
         ];
 
         if (is_null($inputType)) {
@@ -360,8 +360,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             Mage::dispatchEvent(
                 'catalog_controller_product_init_after',
                 ['product' => $product,
-                                'controller_action' => $controller
-                ]
+                    'controller_action' => $controller,
+                ],
             );
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
@@ -546,7 +546,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         $fieldData = $this->getFieldset($fieldName) ? (array) $this->getFieldset($fieldName) : null;
         if (!empty($fieldData)
             && ((is_array($fieldData['product_type']) && array_key_exists($productType, $fieldData['product_type'])) || (is_object($fieldData['product_type']) && property_exists($fieldData['product_type'], $productType)))
-            && (bool)$fieldData['use_config']
+            && (bool) $fieldData['use_config']
         ) {
             return $fieldData['inventory'];
         }

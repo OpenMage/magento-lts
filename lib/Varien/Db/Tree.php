@@ -302,9 +302,7 @@ class Varien_Db_Tree
         return $this->_db->fetchAll($sql);
     }
 
-    public function insertBefore($ID, $data)
-    {
-    }
+    public function insertBefore($ID, $data) {}
 
     public function removeNode($ID)
     {
@@ -473,8 +471,8 @@ class Varien_Db_Tree
     public function addTable($tableName, $joinCondition, $fields = '*')
     {
         $this->_extTables[$tableName] = [
-           'joinCondition' => $joinCondition,
-           'fields'        => $fields
+            'joinCondition' => $joinCondition,
+            'fields'        => $fields,
         ];
     }
 

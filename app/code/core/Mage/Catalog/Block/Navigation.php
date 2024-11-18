@@ -57,7 +57,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $this->addData(['cache_lifetime' => false]);
         $this->addCacheTag([
             Mage_Catalog_Model_Category::CACHE_TAG,
-            Mage_Core_Model_Store_Group::CACHE_TAG
+            Mage_Core_Model_Store_Group::CACHE_TAG,
         ]);
     }
 
@@ -76,7 +76,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             Mage::getSingleton('customer/session')->getCustomerGroupId(),
             'template' => $this->getTemplate(),
             'name' => $this->getNameInLayout(),
-            $this->getCurrenCategoryKey()
+            $this->getCurrenCategoryKey(),
         ];
         $cacheId = $shortCacheId;
 
@@ -241,7 +241,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         // If Flat Data enabled then use it but only on frontend
         $flatHelper = Mage::helper('catalog/category_flat');
         if ($flatHelper->isAvailable() && $flatHelper->isBuilt(true) && !Mage::app()->getStore()->isAdmin()) {
-            $children = (array)$category->getChildrenNodes();
+            $children = (array) $category->getChildrenNodes();
             $childrenCount = count($children);
         } else {
             $children = $category->getChildren();
@@ -315,7 +315,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 false,
                 $outermostItemClass,
                 $childrenWrapClass,
-                $noEventAttributes
+                $noEventAttributes,
             );
             $j++;
         }
@@ -448,7 +448,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 true,
                 $outermostItemClass,
                 $childrenWrapClass,
-                true
+                true,
             );
             $j++;
         }

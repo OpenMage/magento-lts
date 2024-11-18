@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      */
     protected function _initSelect()
     {
-        $entityTypeId = (int)Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
+        $entityTypeId = (int) Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
         $columns = $this->getConnection()->describeTable($this->getResource()->getMainTable());
         unset($columns['attribute_id']);
         $retColumns = [];
@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
             ->from(['main_table' => $this->getResource()->getMainTable()], $retColumns)
             ->join(
                 ['additional_table' => $this->getTable('catalog/eav_attribute')],
-                'additional_table.attribute_id = main_table.attribute_id'
+                'additional_table.attribute_id = main_table.attribute_id',
             )
             ->where('main_table.entity_type_id = ?', $entityTypeId);
         return $this;
@@ -83,8 +83,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
             [
                 'additional_table.is_global',
                 'additional_table.is_html_allowed_on_front',
-                'additional_table.is_wysiwyg_enabled'
-            ]
+                'additional_table.is_wysiwyg_enabled',
+            ],
         );
     }
 
@@ -161,13 +161,13 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
             'additional_table.is_visible_in_advanced_search = 1',
             'additional_table.is_filterable > 0',
             'additional_table.is_filterable_in_search = 1',
-            'additional_table.used_for_sort_by = 1'
+            'additional_table.used_for_sort_by = 1',
         ];
 
         if ($addRequiredCodes) {
             $conditions[] = $this->getConnection()->quoteInto(
                 'main_table.attribute_code IN (?)',
-                ['status', 'visibility']
+                ['status', 'visibility'],
             );
         }
 
@@ -185,7 +185,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     {
         $this->getSelect()->where(
             'additional_table.is_searchable = 1 OR ' .
-            $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', ['status', 'visibility'])
+            $this->getConnection()->quoteInto('main_table.attribute_code IN (?)', ['status', 'visibility']),
         );
 
         return $this;

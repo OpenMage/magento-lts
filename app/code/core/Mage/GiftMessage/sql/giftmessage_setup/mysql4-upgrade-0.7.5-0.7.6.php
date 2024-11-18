@@ -20,5 +20,5 @@ $installer->updateAttribute(
     'catalog_product',
     'gift_message_available',
     'frontend_input_renderer',
-    'giftmessage/adminhtml_product_helper_form_config'
+    'giftmessage/adminhtml_product_helper_form_config',
 );

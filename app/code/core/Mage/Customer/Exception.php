@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_Customer
  */
-class Mage_Customer_Exception extends Mage_Core_Exception
-{
-}
+class Mage_Customer_Exception extends Mage_Core_Exception {}

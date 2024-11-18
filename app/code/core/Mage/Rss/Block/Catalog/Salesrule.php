@@ -56,7 +56,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
             'description' => $title,
             'link'        => $newUrl,
             'charset'     => 'UTF-8',
-            'language'    => $lang
+            'language'    => $lang,
         ];
         $rssObject->_addHeader($data);
 
@@ -74,10 +74,10 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
             '</td>' .
             '</tr></table>';
             $data = [
-                 'title'       => $sr->getName(),
-                 'description' => $description,
-                 'link'        => $url
-             ];
+                'title'       => $sr->getName(),
+                'description' => $description,
+                'link'        => $url,
+            ];
             $rssObject->_addEntry($data);
         }
 

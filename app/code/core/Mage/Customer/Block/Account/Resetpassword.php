@@ -20,6 +20,4 @@
  * @package    Mage_Customer
  * @deprecated
  */
-class Mage_Customer_Block_Account_Resetpassword extends Mage_Core_Block_Template
-{
-}
+class Mage_Customer_Block_Account_Resetpassword extends Mage_Core_Block_Template {}

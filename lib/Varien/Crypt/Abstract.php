@@ -19,6 +19,4 @@
  * @category   Varien
  * @package    Varien_Crypt
  */
-abstract class Varien_Crypt_Abstract extends Varien_Object
-{
-}
+abstract class Varien_Crypt_Abstract extends Varien_Object {}

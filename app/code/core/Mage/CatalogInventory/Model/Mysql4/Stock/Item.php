@@ -20,6 +20,4 @@
  * @package    Mage_CatalogInventory
  * @deprecated
  */
-class Mage_CatalogInventory_Model_Mysql4_Stock_Item extends Mage_CatalogInventory_Model_Resource_Stock_Item
-{
-}
+class Mage_CatalogInventory_Model_Mysql4_Stock_Item extends Mage_CatalogInventory_Model_Resource_Stock_Item {}

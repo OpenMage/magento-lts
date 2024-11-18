@@ -20,6 +20,4 @@
  * @package    Mage_CatalogSearch
  * @deprecated
  */
-class Mage_CatalogSearch_Model_Mysql4_Query extends Mage_CatalogSearch_Model_Resource_Query
-{
-}
+class Mage_CatalogSearch_Model_Mysql4_Query extends Mage_CatalogSearch_Model_Resource_Query {}

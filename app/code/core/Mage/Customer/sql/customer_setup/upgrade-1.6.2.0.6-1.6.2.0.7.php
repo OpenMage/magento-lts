@@ -22,7 +22,7 @@ $installer->addAttribute('customer', 'rp_customer_id', [
     'type'     => 'varchar',
     'input'    => 'hidden',
     'visible'  => false,
-    'required' => false
+    'required' => false,
 ]);
 
 $installer->endSetup();

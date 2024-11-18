@@ -21,7 +21,7 @@ $billingAgreementTable = $installer->getTable('sales/billing_agreement');
 $installer->getConnection()->addColumn(
     $billingAgreementTable,
     'store_id',
-    'smallint(5) unsigned DEFAULT NULL'
+    'smallint(5) unsigned DEFAULT NULL',
 );
 
 $installer->getConnection()->addConstraint(
@@ -31,5 +31,5 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('core/store'),
     'store_id',
     'SET NULL',
-    'CASCADE'
+    'CASCADE',
 );

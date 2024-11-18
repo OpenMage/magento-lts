@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
     {
         $this->setChild(
             'grid',
-            $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid', 'newsletter.problem.grid')
+            $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid', 'newsletter.problem.grid'),
         );
 
         $this->setChild(
@@ -43,9 +43,9 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
                 ->setData(
                     [
                         'label' => Mage::helper('newsletter')->__('Delete Selected Problems'),
-                        'onclick' => 'problemController.deleteSelected();'
-                    ]
-                )
+                        'onclick' => 'problemController.deleteSelected();',
+                    ],
+                ),
         );
 
         $this->setChild(
@@ -54,9 +54,9 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
                 ->setData(
                     [
                         'label' => Mage::helper('newsletter')->__('Unsubscribe Selected'),
-                        'onclick' => 'problemController.unsubscribe();'
-                    ]
-                )
+                        'onclick' => 'problemController.unsubscribe();',
+                    ],
+                ),
         );
         return parent::_prepareLayout();
     }

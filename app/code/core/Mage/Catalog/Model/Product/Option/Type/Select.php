@@ -75,7 +75,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     {
         if ($this->_formattedOptionValue === null) {
             $this->_formattedOptionValue = Mage::helper('core')->escapeHtml(
-                $this->getEditableOptionValue($optionValue)
+                $this->getEditableOptionValue($optionValue),
             );
         }
         return $this->_formattedOptionValue;
@@ -121,7 +121,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                         $this->getListener()
                                 ->setHasError(true)
                                 ->setMessage(
-                                    $this->_getWrongConfigurationMessage()
+                                    $this->_getWrongConfigurationMessage(),
                                 );
                         $result = '';
                         break;
@@ -137,7 +137,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     $this->getListener()
                             ->setHasError(true)
                             ->setMessage(
-                                $this->_getWrongConfigurationMessage()
+                                $this->_getWrongConfigurationMessage(),
                             );
                 }
                 $result = '';
@@ -207,14 +207,14 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     $result += $this->_getChargableOptionPrice(
                         $_result->getPrice(),
                         $_result->getPriceType() == 'percent',
-                        $basePrice
+                        $basePrice,
                     );
                 } else {
                     if ($this->getListener()) {
                         $this->getListener()
                                 ->setHasError(true)
                                 ->setMessage(
-                                    $this->_getWrongConfigurationMessage()
+                                    $this->_getWrongConfigurationMessage(),
                                 );
                         break;
                     }
@@ -225,14 +225,14 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                 $result = $this->_getChargableOptionPrice(
                     $_result->getPrice(),
                     $_result->getPriceType() == 'percent',
-                    $basePrice
+                    $basePrice,
                 );
             } else {
                 if ($this->getListener()) {
                     $this->getListener()
                             ->setHasError(true)
                             ->setMessage(
-                                $this->_getWrongConfigurationMessage()
+                                $this->_getWrongConfigurationMessage(),
                             );
                 }
             }
@@ -262,7 +262,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                         $this->getListener()
                                 ->setHasError(true)
                                 ->setMessage(
-                                    $this->_getWrongConfigurationMessage()
+                                    $this->_getWrongConfigurationMessage(),
                                 );
                         break;
                     }
@@ -277,7 +277,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     $this->getListener()
                             ->setHasError(true)
                             ->setMessage(
-                                $this->_getWrongConfigurationMessage()
+                                $this->_getWrongConfigurationMessage(),
                             );
                 }
                 return '';
@@ -298,7 +298,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     {
         $_single = [
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN,
-            Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO,
         ];
         return in_array($this->getOption()->getType(), $_single);
     }

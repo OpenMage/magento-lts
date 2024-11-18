@@ -64,7 +64,7 @@ class BlockTest extends TestCase
             [
                 'getBlockName' => '',
                 'getIsAllowed' => '',
-            ]
+            ],
         ];
     }
 

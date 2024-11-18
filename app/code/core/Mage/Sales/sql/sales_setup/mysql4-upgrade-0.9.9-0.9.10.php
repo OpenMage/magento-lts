@@ -30,5 +30,5 @@ $installer->getConnection()->addConstraint(
     $this->getTable('sales_flat_quote_item'),
     'product_id',
     $this->getTable('catalog_product_entity'),
-    'entity_id'
+    'entity_id',
 );

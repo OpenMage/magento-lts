@@ -36,7 +36,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         foreach ($collection as $attributeSet) {
             $result[] = [
                 'set_id' => $attributeSet->getId(),
-                'name'   => $attributeSet->getAttributeSetName()
+                'name'   => $attributeSet->getAttributeSetName(),
             ];
         }
 
@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         } catch (Exception $e) {
             $this->_fault('create_attribute_set_error', $e->getMessage());
         }
-        return (int)$attributeSet->getId();
+        return (int) $attributeSet->getId();
     }
 
     /**
@@ -205,7 +205,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         $group = Mage::getModel('eav/entity_attribute_group');
         $group->setAttributeSetId($attributeSetId)
                 ->setAttributeGroupName(
-                    Mage::helper('catalog')->stripTags($groupName)
+                    Mage::helper('catalog')->stripTags($groupName),
                 );
         if ($group->itemExists()) {
             $this->_fault('group_already_exists');
@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         } catch (Exception $e) {
             $this->_fault('group_add_error', $e->getMessage());
         }
-        return (int)$group->getId();
+        return (int) $group->getId();
     }
 
     /**
@@ -234,7 +234,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         }
 
         $model->setAttributeGroupName(
-            Mage::helper('catalog')->stripTags($groupName)
+            Mage::helper('catalog')->stripTags($groupName),
         );
         try {
             $model->save();

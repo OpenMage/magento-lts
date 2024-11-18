@@ -50,7 +50,7 @@ class Varien_Date
         'd'    => '%e',
         'yyyy' => '%Y',
         'yy'   => '%Y',
-        'y'    => '%Y'
+        'y'    => '%Y',
     ];
     /**
      * Zend Date To local time according Map array
@@ -66,7 +66,7 @@ class Varien_Date
         'mm' => '%M',
         'ss' => '%S',
         'z'  => '%Z',
-        'v'  => '%Z'
+        'v'  => '%Z',
     ];
 
     /**

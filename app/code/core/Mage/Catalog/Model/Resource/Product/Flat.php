@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     protected function _construct()
     {
         $this->_init('catalog/product_flat', 'entity_id');
-        $this->_storeId = (int)Mage::app()->getStore()->getId();
+        $this->_storeId = (int) Mage::app()->getStore()->getId();
     }
 
     /**
@@ -66,7 +66,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (is_int($store)) {
             $this->_storeId = $store;
         } else {
-            $this->_storeId = (int)Mage::app()->getStore($store)->getId();
+            $this->_storeId = (int) Mage::app()->getStore($store)->getId();
         }
         return $this;
     }
@@ -233,7 +233,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
                 ->from($this->getFlatTableName($storeId), 'entity_id')
                 ->limit(1);
             try {
-                $this->_isBuilt[$storeId] = (bool)$this->_getReadAdapter()->fetchOne($select);
+                $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
             } catch (Exception $e) {
                 $this->_isBuilt[$storeId] = false;
             }

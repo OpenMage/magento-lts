@@ -20,6 +20,4 @@
  * @package    Mage_GiftMessage
  * @deprecated
  */
-class Mage_GiftMessage_Model_Mysql4_Message_Collection extends Mage_GiftMessage_Model_Resource_Message_Collection
-{
-}
+class Mage_GiftMessage_Model_Mysql4_Message_Collection extends Mage_GiftMessage_Model_Resource_Message_Collection {}

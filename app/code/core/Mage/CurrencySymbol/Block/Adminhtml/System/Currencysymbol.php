@@ -60,7 +60,7 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
         $block->setData([
             'label'     => Mage::helper('currencysymbol')->__('Save Currency Symbols'),
             'onclick'   => 'currencySymbolsForm.submit();',
-            'class'     => 'save'
+            'class'     => 'save',
         ]);
 
         return $block->toHtml();

@@ -38,7 +38,7 @@ foreach ($types as $type) {
         $installer->getConnection()->query($sql, [
             $row['entity_id'],
             $row['attribute_id'],
-            $row['store_id']
+            $row['store_id'],
         ]);
     }
 
@@ -68,7 +68,7 @@ while ($row = $query->fetch()) {
         $row['entity_type_id'],
         $row['entity_id'],
         $row['attribute_id'],
-        $row['store_id']
+        $row['store_id'],
     ]);
 }
 

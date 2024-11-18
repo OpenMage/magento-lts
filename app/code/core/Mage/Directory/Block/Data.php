@@ -161,7 +161,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
                 }
                 $regions[$region->getCountryId()][$region->getRegionId()] = [
                     'code' => $region->getCode(),
-                    'name' => $region->getName()
+                    'name' => $region->getName(),
                 ];
             }
             $regionsJs = Mage::helper('core')->jsonEncode($regions);

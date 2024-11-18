@@ -18,7 +18,7 @@ $installer = $this;
 
 $pathesForReplace = [
     'sales/gift_messages/allow_order' => 'sales/gift_options/allow_order',
-    'sales/gift_messages/allow_items' => 'sales/gift_options/allow_items'
+    'sales/gift_messages/allow_items' => 'sales/gift_options/allow_items',
 ];
 
 foreach ($pathesForReplace as $from => $to) {
@@ -26,7 +26,7 @@ foreach ($pathesForReplace as $from => $to) {
         "UPDATE `%s` SET `path` = '%s' WHERE `path` = '%s'",
         $this->getTable('core/config_data'),
         $to,
-        $from
+        $from,
     ));
 }
 

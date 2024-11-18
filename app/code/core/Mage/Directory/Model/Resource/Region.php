@@ -61,7 +61,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
         $select->joinLeft(
             ['lrn' => $this->_regionNameTable],
             "{$regionField} = lrn.region_id AND {$condition}",
-            []
+            [],
         );
 
         if ($locale != $systemLocale) {
@@ -70,7 +70,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
             $select->joinLeft(
                 ['srn' => $this->_regionNameTable],
                 "{$regionField} = srn.region_id AND {$condition}",
-                ['name' => $nameExpr]
+                ['name' => $nameExpr],
             );
         } else {
             $select->columns(['name'], 'lrn');
@@ -99,7 +99,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
             ->joinLeft(
                 ['rname' => $this->_regionNameTable],
                 $joinCondition,
-                ['name']
+                ['name'],
             )
             ->where('region.country_id = ?', $countryId)
             ->where("region.{$field} = ?", $value);
@@ -123,7 +123,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      */
     public function loadByCode(Mage_Directory_Model_Region $region, $regionCode, $countryId)
     {
-        return $this->_loadByCountry($region, $countryId, (string)$regionCode, 'code');
+        return $this->_loadByCountry($region, $countryId, (string) $regionCode, 'code');
     }
 
     /**
@@ -135,6 +135,6 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      */
     public function loadByName(Mage_Directory_Model_Region $region, $regionName, $countryId)
     {
-        return $this->_loadByCountry($region, $countryId, (string)$regionName, 'default_name');
+        return $this->_loadByCountry($region, $countryId, (string) $regionName, 'default_name');
     }
 }

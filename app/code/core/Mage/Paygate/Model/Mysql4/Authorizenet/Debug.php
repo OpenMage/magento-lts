@@ -18,6 +18,4 @@
  * @package    Mage_Paygate
  * @deprecated
  */
-class Mage_Paygate_Model_Mysql4_Authorizenet_Debug extends Mage_Paygate_Model_Resource_Authorizenet_Debug
-{
-}
+class Mage_Paygate_Model_Mysql4_Authorizenet_Debug extends Mage_Paygate_Model_Resource_Authorizenet_Debug {}

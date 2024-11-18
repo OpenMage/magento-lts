@@ -20,6 +20,4 @@
  * @package    Mage_Paypal
  * @deprecated
  */
-class Mage_Paypal_Model_Mysql4_Setup extends Mage_Paypal_Model_Resource_Setup
-{
-}
+class Mage_Paypal_Model_Mysql4_Setup extends Mage_Paypal_Model_Resource_Setup {}

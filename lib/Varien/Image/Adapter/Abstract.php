@@ -234,7 +234,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function keepAspectRatio($value = null)
     {
         if (null !== $value) {
-            $this->_keepAspectRatio = (bool)$value;
+            $this->_keepAspectRatio = (bool) $value;
         }
         return $this->_keepAspectRatio;
     }
@@ -248,7 +248,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function keepFrame($value = null)
     {
         if (null !== $value) {
-            $this->_keepFrame = (bool)$value;
+            $this->_keepFrame = (bool) $value;
         }
         return $this->_keepFrame;
     }
@@ -262,7 +262,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function keepTransparency($value = null)
     {
         if (null !== $value) {
-            $this->_keepTransparency = (bool)$value;
+            $this->_keepTransparency = (bool) $value;
         }
         return $this->_keepTransparency;
     }
@@ -276,7 +276,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function constrainOnly($value = null)
     {
         if (null !== $value) {
-            $this->_constrainOnly = (bool)$value;
+            $this->_constrainOnly = (bool) $value;
         }
         return $this->_constrainOnly;
     }
@@ -290,7 +290,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function quality($value = null)
     {
         if (null !== $value) {
-            $this->_quality = (int)$value;
+            $this->_quality = (int) $value;
         }
         return $this->_quality;
     }

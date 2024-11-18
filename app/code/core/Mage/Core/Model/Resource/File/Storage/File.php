@@ -84,7 +84,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                     if (is_dir($fullPath)) {
                         $directories[] = [
                             'name' => $file,
-                            'path' => str_replace(DS, '/', ltrim($dir, DS))
+                            'path' => str_replace(DS, '/', ltrim($dir, DS)),
                         ];
 
                         $data = $this->getStorageData($relativePath);
@@ -144,7 +144,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     protected function _getIgnoredFiles()
     {
         if ($this->_ignoredFiles === null) {
-            $ignored = (string)Mage::app()->getConfig()
+            $ignored = (string) Mage::app()->getConfig()
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_MEDIA_RESOURCE_IGNORED);
             $this->_ignoredFiles = $ignored ? explode(',', $ignored) : [];
         }

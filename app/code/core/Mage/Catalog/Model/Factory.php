@@ -47,7 +47,7 @@ class Mage_Catalog_Model_Factory extends Mage_Core_Model_Factory
     public function getCategoryUrlRewriteHelper()
     {
         return $this->getHelper(
-            (string)$this->_config->getNode(self::XML_PATH_CATEGORY_URL_REWRITE_HELPER_CLASS)
+            (string) $this->_config->getNode(self::XML_PATH_CATEGORY_URL_REWRITE_HELPER_CLASS),
         );
     }
 
@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Factory extends Mage_Core_Model_Factory
     public function getProductUrlRewriteHelper()
     {
         return $this->getHelper(
-            (string)$this->_config->getNode(self::XML_PATH_PRODUCT_URL_REWRITE_HELPER_CLASS)
+            (string) $this->_config->getNode(self::XML_PATH_PRODUCT_URL_REWRITE_HELPER_CLASS),
         );
     }
 
@@ -71,7 +71,7 @@ class Mage_Catalog_Model_Factory extends Mage_Core_Model_Factory
     public function getProductUrlInstance()
     {
         return $this->getModel(
-            (string)$this->_config->getNode(self::XML_PATH_PRODUCT_URL_MODEL)
+            (string) $this->_config->getNode(self::XML_PATH_PRODUCT_URL_MODEL),
         );
     }
 
@@ -83,7 +83,7 @@ class Mage_Catalog_Model_Factory extends Mage_Core_Model_Factory
     public function getCategoryUrlInstance()
     {
         return $this->getModel(
-            (string)$this->_config->getNode(self::XML_PATH_CATEGORY_URL_MODEL)
+            (string) $this->_config->getNode(self::XML_PATH_CATEGORY_URL_MODEL),
         );
     }
 }

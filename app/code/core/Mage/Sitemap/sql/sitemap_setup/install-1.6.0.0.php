@@ -44,7 +44,7 @@ $table = $installer->getConnection()
     ], 'Store id')
     ->addIndex(
         $installer->getIdxName('sitemap/sitemap', ['store_id']),
-        ['store_id']
+        ['store_id'],
     )
     ->addForeignKey(
         $installer->getFkName('sitemap/sitemap', 'store_id', 'core/store', 'store_id'),
@@ -52,7 +52,7 @@ $table = $installer->getConnection()
         $installer->getTable('core/store'),
         'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Google Sitemap');
 

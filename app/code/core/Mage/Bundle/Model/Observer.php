@@ -53,7 +53,7 @@ class Mage_Bundle_Model_Observer
         }
 
         $product->setCanSaveBundleSelections(
-            (bool)$request->getPost('affect_bundle_product_selections') && !$product->getCompositeReadonly()
+            (bool) $request->getPost('affect_bundle_product_selections') && !$product->getCompositeReadonly(),
         );
 
         return $this;
@@ -195,7 +195,7 @@ class Mage_Bundle_Model_Observer
         $optionCollection = $productType->getOptionsCollection($product);
         $selectionCollection = $productType->getSelectionsCollection(
             $productType->getOptionsIds($product),
-            $product
+            $product,
         );
         $optionCollection->appendSelections($selectionCollection);
 
@@ -205,11 +205,11 @@ class Mage_Bundle_Model_Observer
         $i = 0;
         foreach ($optionCollection as $option) {
             $optionRawData[$i] = [
-                    'required' => $option->getData('required'),
-                    'position' => $option->getData('position'),
-                    'type' => $option->getData('type'),
-                    'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
-                    'delete' => ''
+                'required' => $option->getData('required'),
+                'position' => $option->getData('position'),
+                'type' => $option->getData('type'),
+                'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
+                'delete' => '',
             ];
             foreach ($option->getSelections() as $selection) {
                 $selectionRawData[$i][] = [
@@ -220,7 +220,7 @@ class Mage_Bundle_Model_Observer
                     'selection_price_value' => $selection->getSelectionPriceValue(),
                     'selection_qty' => $selection->getSelectionQty(),
                     'selection_can_change_qty' => $selection->getSelectionCanChangeQty(),
-                    'delete' => ''
+                    'delete' => '',
                 ];
             }
             $i++;

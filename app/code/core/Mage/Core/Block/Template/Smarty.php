@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Block_Template_Smarty extends Mage_Core_Block_Template
-{
-}
+class Mage_Core_Block_Template_Smarty extends Mage_Core_Block_Template {}

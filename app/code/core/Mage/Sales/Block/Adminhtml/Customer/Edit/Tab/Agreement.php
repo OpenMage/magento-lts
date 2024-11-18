@@ -30,7 +30,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
         'customer_email',
         'customer_firstname',
         'customer_middlename',
-        'customer_lastname'
+        'customer_lastname',
     ];
 
     /**
@@ -71,7 +71,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     public function canShowTab()
     {
         $customer = Mage::registry('current_customer');
-        return (bool)$customer->getId();
+        return (bool) $customer->getId();
     }
 
     /**

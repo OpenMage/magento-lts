@@ -117,7 +117,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     {
         return [
             '_store'        => $this->getStore(),
-            '_store_to_url' => true
+            '_store_to_url' => true,
         ];
     }
 

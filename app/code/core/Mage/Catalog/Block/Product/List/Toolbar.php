@@ -152,7 +152,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     {
         parent::_construct();
         $this->_orderField  = Mage::getStoreConfig(
-            Mage_Catalog_Model_Config::XML_PATH_LIST_DEFAULT_SORT_BY
+            Mage_Catalog_Model_Config::XML_PATH_LIST_DEFAULT_SORT_BY,
         );
 
         $this->_availableOrder = $this->_getConfig()->getAttributeUsedForSortByArray();
@@ -215,7 +215,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $this->_collection->setCurPage($this->getCurrentPage());
 
         // we need to set pagination only if passed value integer and more that 0
-        $limit = (int)$this->getLimit();
+        $limit = (int) $this->getLimit();
         if ($limit) {
             $this->_collection->setPageSize($limit);
         }
@@ -470,7 +470,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         return $this->getPagerUrl([
             $this->getOrderVarName() => $order,
             $this->getDirectionVarName() => $direction,
-            $this->getPageVarName() => null
+            $this->getPageVarName() => null,
         ]);
     }
 
@@ -696,7 +696,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
             return $this->_availableLimit[$mode];
         }
         $perPageConfigKey = 'catalog/frontend/' . $mode . '_per_page_values';
-        $perPageValues = (string)Mage::getStoreConfig($perPageConfigKey);
+        $perPageValues = (string) Mage::getStoreConfig($perPageConfigKey);
         $perPageValues = explode(',', $perPageValues);
         $perPageValues = array_combine($perPageValues, $perPageValues);
         if (Mage::getStoreConfigFlag('catalog/frontend/list_allow_all')) {
@@ -753,7 +753,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     {
         return $this->getPagerUrl([
             $this->getLimitVarName() => $limit,
-            $this->getPageVarName() => null
+            $this->getPageVarName() => null,
         ]);
     }
 

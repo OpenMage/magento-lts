@@ -20,6 +20,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Order_Shipment extends Mage_Sales_Model_Resource_Order_Shipment
-{
-}
+class Mage_Sales_Model_Mysql4_Order_Shipment extends Mage_Sales_Model_Resource_Order_Shipment {}

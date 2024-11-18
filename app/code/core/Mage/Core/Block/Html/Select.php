@@ -160,11 +160,11 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
         foreach ($this->getOptions() as $key => $option) {
             if ($isArrayOption && is_array($option)) {
                 $value  = $option['value'];
-                $label  = (string)$option['label'];
+                $label  = (string) $option['label'];
                 $params = (!empty($option['params'])) ? $option['params'] : [];
             } else {
-                $value = (string)$key;
-                $label = (string)$option;
+                $value = (string) $key;
+                $label = (string) $option;
                 $isArrayOption = false;
                 $params = [];
             }
@@ -175,12 +175,12 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
                     if (!is_array($optionGroup)) {
                         $optionGroup = [
                             'value' => $keyGroup,
-                            'label' => $optionGroup
+                            'label' => $optionGroup,
                         ];
                     }
                     $html .= $this->_optionToHtml(
                         $optionGroup,
-                        in_array($optionGroup['value'], $values)
+                        in_array($optionGroup['value'], $values),
                     );
                 }
                 $html .= '</optgroup>';
@@ -189,9 +189,9 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
                     [
                         'value' => $value,
                         'label' => $label,
-                        'params' => $params
+                        'params' => $params,
                     ],
-                    in_array($value, $values)
+                    in_array($value, $values),
                 );
             }
         }
@@ -231,7 +231,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             $this->escapeHtml($option['value']),
             $selectedHtml,
             $params,
-            $this->escapeHtml($option['label'])
+            $this->escapeHtml($option['label']),
         );
     }
 

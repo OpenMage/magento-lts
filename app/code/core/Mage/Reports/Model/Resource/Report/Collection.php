@@ -70,9 +70,7 @@ class Mage_Reports_Model_Resource_Report_Collection
      */
     protected $_storeIds;
 
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * Set period
@@ -181,7 +179,7 @@ class Mage_Reports_Model_Resource_Report_Collection
         return [
             'day'   => Mage::helper('reports')->__('Day'),
             'month' => Mage::helper('reports')->__('Month'),
-            'year'  => Mage::helper('reports')->__('Year')
+            'year'  => Mage::helper('reports')->__('Year'),
         ];
     }
 

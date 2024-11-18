@@ -41,7 +41,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Coupon extends Mage_Sales_Bl
                 'name'    => 'price_rule_type',
                 'options' => [
                     Mage::helper('reports')->__('Any'),
-                    Mage::helper('reports')->__('Specified')
+                    Mage::helper('reports')->__('Specified'),
                 ],
                 'label'   => Mage::helper('reports')->__('Shopping Cart Price Rule'),
             ]);
@@ -54,14 +54,14 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Coupon extends Mage_Sales_Bl
                 $rulesListOptions[] = [
                     'label' => $ruleName,
                     'value' => $key,
-                    'title' => $ruleName
+                    'title' => $ruleName,
                 ];
             }
 
             $fieldset->addField('rules_list', 'multiselect', [
                 'name'      => 'rules_list',
                 'values'    => $rulesListOptions,
-                'display'   => 'none'
+                'display'   => 'none',
             ], 'price_rule_type');
 
             /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */

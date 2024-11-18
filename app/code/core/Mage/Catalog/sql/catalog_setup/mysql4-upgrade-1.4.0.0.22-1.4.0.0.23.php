@@ -21,7 +21,7 @@ $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_link'),
     'IDX_UNIQUE',
     ['link_type_id', 'product_id', 'linked_product_id'],
-    'unique'
+    'unique',
 );
 
 $installer->endSetup();

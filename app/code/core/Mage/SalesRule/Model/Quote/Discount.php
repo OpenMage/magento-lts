@@ -150,7 +150,7 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
             $address->addTotal([
                 'code'  => $this->getCode(),
                 'title' => $title,
-                'value' => $amount
+                'value' => $amount,
             ]);
         }
         return $this;

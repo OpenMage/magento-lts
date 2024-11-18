@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
             'header'    => Mage::helper('cms')->__('ID'),
             'align'     => 'right',
             'index'     => 'block_id',
-            'width'     => 50
+            'width'     => 50,
         ]);
 
         $this->addColumn('chooser_title', [
@@ -121,7 +121,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
         $this->addColumn('chooser_identifier', [
             'header'    => Mage::helper('cms')->__('Identifier'),
             'align'     => 'left',
-            'index'     => 'identifier'
+            'index'     => 'identifier',
         ]);
 
         $this->addColumn('chooser_is_active', [
@@ -130,7 +130,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
             'type'      => 'options',
             'options'   => [
                 0 => Mage::helper('cms')->__('Disabled'),
-                1 => Mage::helper('cms')->__('Enabled')
+                1 => Mage::helper('cms')->__('Enabled'),
             ],
         ]);
 

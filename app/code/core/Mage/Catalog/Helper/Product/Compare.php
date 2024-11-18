@@ -118,8 +118,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
 
         $params = [
             'items' => implode(',', $itemIds),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-         ];
+            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl(),
+        ];
 
         return $this->_getUrl('catalog/product_compare', $params);
     }
@@ -178,7 +178,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     {
         $params = [
             'product' => $item->getId(),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
+            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl(),
         ];
         return $this->_getUrl('catalog/product_compare/remove', $params);
     }
@@ -191,7 +191,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function getClearListUrl()
     {
         $params = [
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
+            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl(),
         ];
         return $this->_getUrl('catalog/product_compare/clear', $params);
     }
@@ -299,7 +299,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function setAllowUsedFlat($flag)
     {
-        $this->_allowUsedFlat = (bool)$flag;
+        $this->_allowUsedFlat = (bool) $flag;
         return $this;
     }
 

@@ -217,7 +217,7 @@ class Mage_SalesRule_Model_Observer
 
         if ($disabledRulesCount) {
             Mage::getSingleton('adminhtml/session')->addWarning(
-                Mage::helper('salesrule')->__('%d Shopping Cart Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode)
+                Mage::helper('salesrule')->__('%d Shopping Cart Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode),
             );
         }
 
@@ -292,7 +292,7 @@ class Mage_SalesRule_Model_Observer
         $attributes = Mage::getResourceModel('salesrule/rule')
             ->getActiveAttributes(
                 Mage::app()->getWebsite()->getId(),
-                Mage::getSingleton('customer/session')->getCustomer()->getGroupId()
+                Mage::getSingleton('customer/session')->getCustomer()->getGroupId(),
             );
         $result = [];
         foreach ($attributes as $attribute) {

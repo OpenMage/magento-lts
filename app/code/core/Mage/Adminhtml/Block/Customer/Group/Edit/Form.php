@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
 
         $validateClass = sprintf(
             'required-entry validate-length maximum-length-%d',
-            Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH
+            Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH,
         );
         $name = $fieldset->addField(
             'customer_group_code',
@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
                 'note'  => Mage::helper('customer')->__('Maximum length must be less then %s symbols', Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH),
                 'class' => $validateClass,
                 'required' => true,
-            ]
+            ],
         );
 
         if ($customerGroup->getId() == 0 && $customerGroup->getCustomerGroupCode()) {
@@ -62,8 +62,8 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
                 'title' => Mage::helper('customer')->__('Tax Class'),
                 'class' => 'required-entry',
                 'required' => true,
-                'values' => Mage::getSingleton('tax/class_source_customer')->toOptionArray()
-            ]
+                'values' => Mage::getSingleton('tax/class_source_customer')->toOptionArray(),
+            ],
         );
 
         if (!is_null($customerGroup->getId())) {
@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
                 [
                     'name'  => 'id',
                     'value' => $customerGroup->getId(),
-                ]
+                ],
             );
         }
 

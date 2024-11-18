@@ -145,7 +145,7 @@ $fieldList = [
     'minimal_price',
     'cost',
     'tier_price',
-    'tax_class_id'
+    'tax_class_id',
 ];
 
 // make these attributes applicable to downloadable products
@@ -176,7 +176,7 @@ $installer->addAttribute('catalog_product', 'links_purchased_separately', [
     'visible_on_front'  => false,
     'unique'            => false,
     'apply_to'          => 'downloadable',
-    'is_configurable'   => false
+    'is_configurable'   => false,
 ]);
 
 $installer->addAttribute('catalog_product', 'samples_title', [
@@ -198,7 +198,7 @@ $installer->addAttribute('catalog_product', 'samples_title', [
     'visible_on_front'  => false,
     'unique'            => false,
     'apply_to'          => 'downloadable',
-    'is_configurable'   => false
+    'is_configurable'   => false,
 ]);
 
 $installer->addAttribute('catalog_product', 'links_title', [
@@ -220,7 +220,7 @@ $installer->addAttribute('catalog_product', 'links_title', [
     'visible_on_front'  => false,
     'unique'            => false,
     'apply_to'          => 'downloadable',
-    'is_configurable'   => false
+    'is_configurable'   => false,
 ]);
 
 $installer->addAttribute('catalog_product', 'links_exist', [
@@ -243,7 +243,7 @@ $installer->addAttribute('catalog_product', 'links_exist', [
     'unique'                    => false,
     'apply_to'                  => 'downloadable',
     'is_configurable'           => false,
-    'used_in_product_listing'   => 1
+    'used_in_product_listing'   => 1,
 ]);
 
 $installer->endSetup();

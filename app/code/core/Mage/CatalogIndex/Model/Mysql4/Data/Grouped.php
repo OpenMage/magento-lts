@@ -20,6 +20,4 @@
  * @package    Mage_CatalogIndex
  * @deprecated
  */
-class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Model_Resource_Data_Grouped
-{
-}
+class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Model_Resource_Data_Grouped {}

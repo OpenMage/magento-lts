@@ -74,7 +74,7 @@ class Mage_Core_Model_Date
         }
 
         if ($result === true) {
-            $offset = (int)date('Z');
+            $offset = (int) date('Z');
         }
 
         if (!is_null($timezone)) {
@@ -103,7 +103,7 @@ class Mage_Core_Model_Date
             return false;
         }
 
-        return date($format, (int)$date);
+        return date($format, (int) $date);
     }
 
     /**
@@ -216,7 +216,7 @@ class Mage_Core_Model_Date
             return false;
         }
         foreach (['hour' => 23, 'minute' => 59, 'second' => 59] as $var => $maxValue) {
-            $value = (int)$$var;
+            $value = (int) $$var;
             if (($value < 0) || ($value > $maxValue)) {
                 return false;
             }
@@ -240,11 +240,11 @@ class Mage_Core_Model_Date
             // priority is important!
             '%m/%d/%y %I:%M' => [
                 '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/',
-                ['y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5]
+                ['y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5],
             ],
             'm/d/y h:i' => [
                 '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/',
-                ['y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5]
+                ['y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5],
             ],
             '%m/%d/%y' => ['/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', ['y' => 3, 'm' => 1, 'd' => 2]],
             'm/d/y' => ['/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', ['y' => 3, 'm' => 1, 'd' => 2]],
@@ -272,7 +272,7 @@ class Mage_Core_Model_Date
         foreach (['y', 'm', 'd', 'h', 'i', 's'] as $key) {
             $value = 0;
             if (isset($mask[$key]) && isset($matches[$mask[$key]])) {
-                $value = (int)$matches[$mask[$key]];
+                $value = (int) $matches[$mask[$key]];
             }
             $result[] = $value;
         }

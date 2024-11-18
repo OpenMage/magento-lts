@@ -20,6 +20,4 @@
  * @package    Mage_Newsletter
  * @deprecated
  */
-class Mage_Newsletter_Model_Mysql4_Queue extends Mage_Newsletter_Model_Resource_Queue
-{
-}
+class Mage_Newsletter_Model_Mysql4_Queue extends Mage_Newsletter_Model_Resource_Queue {}

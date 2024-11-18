@@ -20,6 +20,4 @@
  * @package    Mage_Directory
  * @deprecated
  */
-class Mage_Directory_Model_Mysql4_Region_Collection extends Mage_Directory_Model_Resource_Region_Collection
-{
-}
+class Mage_Directory_Model_Mysql4_Region_Collection extends Mage_Directory_Model_Resource_Region_Collection {}

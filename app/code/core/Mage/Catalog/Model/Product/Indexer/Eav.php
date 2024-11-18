@@ -44,11 +44,11 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
             Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Core_Model_Store::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
-        ]
+            Mage_Index_Model_Event::TYPE_SAVE,
+        ],
     ];
 
     /**
@@ -57,7 +57,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      * @var array
      */
     protected $_dependentAttributes = [
-        'status'
+        'status',
     ];
 
     /**

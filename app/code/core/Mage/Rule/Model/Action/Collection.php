@@ -108,9 +108,9 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     public function getNewChildElement()
     {
         return $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
-           'name' => 'rule[actions][' . $this->getId() . '][new_child]',
-           'values' => $this->getNewChildSelectOptions(),
-           'value_name' => $this->getNewChildName(),
+            'name' => 'rule[actions][' . $this->getId() . '][new_child]',
+            'values' => $this->getNewChildSelectOptions(),
+            'value_name' => $this->getNewChildName(),
         ])->setRenderer(Mage::getBlockSingleton('rule/newchild'));
     }
 

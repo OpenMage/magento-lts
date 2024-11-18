@@ -127,7 +127,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
             'showBillingPhone'      => 'false',
             'showCustomerName'      => 'false',
             'showCardInfo'          => 'true',
-            'showHostedThankyouPage' => 'false'
+            'showHostedThankyouPage' => 'false',
         ];
     }
 
@@ -149,7 +149,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
             'discount'         => $this->_formatPrice(
                 $order->getBaseGiftCardsAmount()
                 + abs($order->getBaseDiscountAmount())
-                + $order->getBaseCustomerBalanceAmount()
+                + $order->getBaseCustomerBalanceAmount(),
             ),
         ];
 

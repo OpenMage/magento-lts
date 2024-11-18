@@ -33,7 +33,7 @@ $data = [];
 foreach ($statuses as $code => $info) {
     $data[] = [
         'status'    => $code,
-        'label'     => $info['label']
+        'label'     => $info['label'],
     ];
 }
 $installer->getConnection()->insertArray($statusTable, ['status', 'label'], $data);
@@ -56,7 +56,7 @@ foreach ($states as $code => $info) {
             $data[] = [
                 'status'    => $status,
                 'state'     => $code,
-                'is_default' => is_array($statusInfo) && isset($statusInfo['@']['default']) ? 1 : 0
+                'is_default' => is_array($statusInfo) && isset($statusInfo['@']['default']) ? 1 : 0,
             ];
         }
     }
@@ -64,7 +64,7 @@ foreach ($states as $code => $info) {
 $installer->getConnection()->insertArray(
     $statusStateTable,
     ['status', 'state', 'is_default'],
-    $data
+    $data,
 );
 
 $installer->run("

@@ -119,8 +119,8 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
                     $billingAliasName . '.middlename',
                     $billingAliasName . '.lastname',
                     $billingAliasName . '.telephone',
-                    $billingAliasName . '.postcode'
-                ]
+                    $billingAliasName . '.postcode',
+                ],
             )
             ->joinLeft(
                 [$shippingAliasName => $joinTable],
@@ -131,8 +131,8 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
                     $shippingAliasName . '.middlename',
                     $shippingAliasName . '.lastname',
                     $shippingAliasName . '.telephone',
-                    $shippingAliasName . '.postcode'
-                ]
+                    $shippingAliasName . '.postcode',
+                ],
             );
 
         /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
@@ -203,7 +203,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
             ->joinInner(
                 ['sbao' => $this->getTable('sales/billing_agreement_order')],
                 'main_table.entity_id = sbao.order_id',
-                []
+                [],
             )
             ->where('sbao.agreement_id IN(?)', $agreements);
         return $this;
@@ -222,7 +222,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
             ->joinInner(
                 ['srpo' => $this->getTable('sales/recurring_profile_order')],
                 'main_table.entity_id = srpo.order_id',
-                []
+                [],
             )
             ->where('srpo.profile_id IN(?)', $ids);
         return $this;

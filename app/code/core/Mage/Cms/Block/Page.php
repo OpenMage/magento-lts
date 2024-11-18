@@ -66,15 +66,15 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
                 'crumbInfo' => [
                     'label' => Mage::helper('cms')->__('Home'),
                     'title' => Mage::helper('cms')->__('Go to Home Page'),
-                    'link'  => Mage::getBaseUrl()
-                ]
+                    'link'  => Mage::getBaseUrl(),
+                ],
             ];
             $breadcrumbsArray[] = [
                 'crumbName' => 'cms_page',
                 'crumbInfo' => [
                     'label' => $page->getTitle(),
-                    'title' => $page->getTitle()
-                ]
+                    'title' => $page->getTitle(),
+                ],
             ];
             $breadcrumbsObject = new Varien_Object();
             $breadcrumbsObject->setCrumbs($breadcrumbsArray);

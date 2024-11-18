@@ -20,6 +20,4 @@
  * @package    Mage_Admin
  * @deprecated
  */
-class Mage_Admin_Model_Mysql4_Roles extends Mage_Admin_Model_Resource_Roles
-{
-}
+class Mage_Admin_Model_Mysql4_Roles extends Mage_Admin_Model_Resource_Roles {}

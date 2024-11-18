@@ -53,7 +53,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object im
     public function format($id)
     {
         $result = $this->getPrefix();
-        $result .= str_pad((string)$id, $this->getPadLength(), $this->getPadChar(), STR_PAD_LEFT);
+        $result .= str_pad((string) $id, $this->getPadLength(), $this->getPadChar(), STR_PAD_LEFT);
         return $result;
     }
 

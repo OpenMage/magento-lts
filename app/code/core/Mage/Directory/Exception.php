@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_Directory
  */
-class Mage_Directory_Exception extends Mage_Core_Exception
-{
-}
+class Mage_Directory_Exception extends Mage_Core_Exception {}

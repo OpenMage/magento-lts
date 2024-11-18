@@ -20,6 +20,4 @@
  * @package    Mage_CatalogIndex
  * @deprecated
  */
-class Mage_CatalogIndex_Model_Mysql4_Indexer_Price extends Mage_CatalogIndex_Model_Resource_Indexer_Price
-{
-}
+class Mage_CatalogIndex_Model_Mysql4_Indexer_Price extends Mage_CatalogIndex_Model_Resource_Indexer_Price {}

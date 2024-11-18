@@ -38,7 +38,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         '^default$',
         '^catalog_category_*',
         '^catalog_product_*',
-        '^PRODUCT_*'
+        '^PRODUCT_*',
     ];
 
     /**
@@ -118,7 +118,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
             ->setOptions($this->getLayoutHandles(
                 $this->getArea(),
                 $this->getPackage(),
-                $this->getTheme()
+                $this->getTheme(),
             ));
         return parent::_toHtml() . $selectBlock->toHtml();
     }
@@ -154,7 +154,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
                 if ($this->_filterLayoutHandle($node->getName())) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($node));
                     $this->_layoutHandles[$node->getName()] = $this->helper('core')->jsQuoteEscape(
-                        $helper->__((string)$node->label)
+                        $helper->__((string) $node->label),
                     );
                 }
             }

@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_Oauth
  */
-class Mage_Oauth_Exception extends Zend_Exception
-{
-}
+class Mage_Oauth_Exception extends Zend_Exception {}

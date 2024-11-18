@@ -25,7 +25,7 @@ $select = $installer->getConnection()->select()
     ->join(
         ['value_table' => $installer->getTable('core/variable_value')],
         'value_table.variable_id = main_table.variable_id',
-        []
+        [],
     )
     ->columns(['main_table.variable_id', 'main_table.is_html', 'value_table.value']);
 
@@ -43,7 +43,7 @@ foreach ($data as $variableId => $value) {
     $installer->getConnection()->update(
         $installer->getTable('core/variable_value'),
         $value,
-        ['variable_id = ?' => $variableId]
+        ['variable_id = ?' => $variableId],
     );
 }
 

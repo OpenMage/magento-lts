@@ -18,6 +18,4 @@
  * @package    Mage_Checkout
  * @deprecated
  */
-class Mage_Checkout_Model_Mysql4_Cart extends Mage_Checkout_Model_Resource_Cart
-{
-}
+class Mage_Checkout_Model_Mysql4_Cart extends Mage_Checkout_Model_Resource_Cart {}

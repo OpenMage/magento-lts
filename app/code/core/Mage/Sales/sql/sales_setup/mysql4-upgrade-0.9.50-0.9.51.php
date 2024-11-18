@@ -29,13 +29,13 @@ $paymentMethods = [
     'paypal_express',
     'paypal_direct',
     'paypaluk_direct',
-    'paypaluk_express'
+    'paypaluk_express',
 ];
 $entityTypeCode = 'order_payment';
 $attributesIds = [
     'method' => false,
     'additional_data' => false,
-    'additional_information' => false
+    'additional_information' => false,
 ];
 
 /* get order_payment entity type code*/
@@ -102,7 +102,7 @@ try {
                     $entityTypeId,
                     $attributesIds['additional_information'],
                     $item['entity_id'],
-                    $additionalInformation
+                    $additionalInformation,
                 ];
             }
         }
@@ -114,7 +114,7 @@ try {
         $connection->insertArray(
             $this->getTable('sales_order_entity_text'),
             ['entity_type_id', 'attribute_id', 'entity_id', 'value'],
-            $insertQueryItems
+            $insertQueryItems,
         );
     }
 } catch (Exception $e) {

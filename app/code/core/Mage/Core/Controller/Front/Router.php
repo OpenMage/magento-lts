@@ -44,7 +44,7 @@ class Mage_Core_Controller_Front_Router
     {
         $frontName = $this->_config->getName();
         $routeMatch = $frontName . '/:controller/:action/*';
-        $moduleName = (string)$this->_config->module;
+        $moduleName = (string) $this->_config->module;
         $routeParams = ['module' => $moduleName, 'controller' => 'index', 'action' => 'index', '_frontName' => $frontName];
         $route = new Zend_Controller_Router_Route($routeMatch, $routeParams);
         $router->addRoute($moduleName, $route);

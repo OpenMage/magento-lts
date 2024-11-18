@@ -187,7 +187,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             }
             if ($asMessage) {
                 return Mage::throwException(
-                    Mage::helper('payment')->__("Payment profile is invalid:\n%s", implode("\n", $result))
+                    Mage::helper('payment')->__("Payment profile is invalid:\n%s", implode("\n", $result)),
                 );
             }
             return $result;
@@ -280,7 +280,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             new Varien_Object([
                 'title'    => Mage::helper('payment')->__('Billing Period'),
                 'schedule' => $this->_renderSchedule('period_unit', 'period_frequency', 'period_max_cycles'),
-            ])
+            ]),
         ];
         $trial = $this->_renderSchedule('trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles');
         if ($trial) {
@@ -363,7 +363,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             self::PERIOD_UNIT_WEEK,
             self::PERIOD_UNIT_SEMI_MONTH,
             self::PERIOD_UNIT_MONTH,
-            self::PERIOD_UNIT_YEAR
+            self::PERIOD_UNIT_YEAR,
         ];
 
         if ($withLabels) {
@@ -614,7 +614,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         }
         if (!$this->getInternalReferenceId()) {
             Mage::throwException(
-                Mage::helper('payment')->__('An internal reference ID is required to save the payment profile.')
+                Mage::helper('payment')->__('An internal reference ID is required to save the payment profile.'),
             );
         }
     }
@@ -645,7 +645,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         $result = [];
 
         $period = $this->_getData($periodKey);
-        $frequency = (int)$this->_getData($frequencyKey);
+        $frequency = (int) $this->_getData($frequencyKey);
         if (!$period || !$frequency) {
             return $result;
         }
@@ -654,7 +654,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         }
         $result[] = Mage::helper('payment')->__('%s %s cycle.', $frequency, $this->getPeriodUnitLabel($period));
 
-        $cycles = (int)$this->_getData($cyclesKey);
+        $cycles = (int) $this->_getData($cyclesKey);
         if ($cycles) {
             $result[] = Mage::helper('payment')->__('Repeats %s time(s).', $cycles);
         } else {

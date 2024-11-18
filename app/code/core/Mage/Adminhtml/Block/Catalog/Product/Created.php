@@ -37,8 +37,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'   => Mage::helper('catalog')->__('Close Window'),
-                    'onclick' => 'addProduct(true)'
-                ])
+                    'onclick' => 'addProduct(true)',
+                ]),
         );
         return $this;
     }
@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
             $result[] = [
                 'label'         => $value,
                 'value_index'   => $this->getProduct()->getData($attribute->getAttributeCode()),
-                'attribute_id'  => $attribute->getId()
+                'attribute_id'  => $attribute->getId(),
             ];
         }
 

@@ -46,7 +46,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
                     [
                         'label'     => 'Add New Image',
                         'onclick'   => 'addNewImg()',
-                        'class'     => 'add']
+                        'class'     => 'add'],
                 )
                 ->toHtml();
 

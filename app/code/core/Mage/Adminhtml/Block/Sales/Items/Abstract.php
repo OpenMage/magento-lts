@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         $this->_itemRenders[$type] = [
             'block'     => $block,
             'template'  => $template,
-            'renderer'  => null
+            'renderer'  => null,
         ];
         return $this;
     }
@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
         $this->_columnRenders[$column] = [
             'block'     => $block,
             'template'  => $template,
-            'renderer'  => null
+            'renderer'  => null,
         ];
         return $this;
     }
@@ -268,14 +268,14 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
                 $this->getPriceDataObject()->getData($code),
                 $this->getOrder()->getRowTaxDisplayPrecision(),
                 $strong,
-                $separator
+                $separator,
             );
         } else {
             return $this->displayPrices(
                 $this->getPriceDataObject()->getData('base_' . $code),
                 $this->getPriceDataObject()->getData($code),
                 $strong,
-                $separator
+                $separator,
             );
         }
     }
@@ -341,7 +341,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
 
         return $this->displayPrices(
             $this->getOrder()->getStore()->roundPrice($basePriceTax),
-            $this->getOrder()->getStore()->roundPrice($priceTax)
+            $this->getOrder()->getStore()->roundPrice($priceTax),
         );
     }
 
@@ -358,7 +358,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
 
         return $this->displayPrices(
             $item->getBaseRowTotal() + $baseTax,
-            $item->getRowTotal() + $tax
+            $item->getRowTotal() + $tax,
         );
     }
 

@@ -20,6 +20,4 @@
  * @package    Mage_Sitemap
  * @deprecated
  */
-class Mage_Sitemap_Model_Mysql4_Catalog_Category extends Mage_Sitemap_Model_Resource_Catalog_Category
-{
-}
+class Mage_Sitemap_Model_Mysql4_Catalog_Category extends Mage_Sitemap_Model_Resource_Catalog_Category {}

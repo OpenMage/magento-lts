@@ -57,7 +57,7 @@ $installer->getConnection()->addConstraint(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    'SET NULL'
+    'SET NULL',
 );
 
 $installer->getConnection()->addConstraint(
@@ -66,7 +66,7 @@ $installer->getConnection()->addConstraint(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    'SET NULL'
+    'SET NULL',
 );
 
 $this->endSetup();

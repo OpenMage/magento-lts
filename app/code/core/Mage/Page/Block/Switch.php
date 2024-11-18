@@ -84,7 +84,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
                 $store->setLocaleCode(Mage::getStoreConfig('general/locale/code', $store->getId()));
 
                 $params = [
-                    '_query' => []
+                    '_query' => [],
                 ];
                 if (!$this->isStoreInUrl()) {
                     $params['_query']['___store'] = $store->getCode();

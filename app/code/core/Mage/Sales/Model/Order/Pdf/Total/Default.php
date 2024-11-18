@@ -58,7 +58,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         $total = [
             'amount'    => $amount,
             'label'     => $label,
-            'font_size' => $fontSize
+            'font_size' => $fontSize,
         ];
         return [$total];
     }
@@ -114,7 +114,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                         $taxInfo[] = [
                             'amount'    => $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($_amount),
                             'label'     => $this->_getTaxHelper()->__($rate['title']) . $percent . ':',
-                            'font_size' => $fontSize
+                            'font_size' => $fontSize,
                         ];
                     }
                 }

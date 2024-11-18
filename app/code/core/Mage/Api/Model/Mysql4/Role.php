@@ -18,6 +18,4 @@
  * @package    Mage_Api
  * @deprecated
  */
-class Mage_Api_Model_Mysql4_Role extends Mage_Api_Model_Resource_Role
-{
-}
+class Mage_Api_Model_Mysql4_Role extends Mage_Api_Model_Resource_Role {}

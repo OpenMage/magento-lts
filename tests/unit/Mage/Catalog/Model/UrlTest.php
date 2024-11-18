@@ -96,7 +96,7 @@ class UrlTest extends TestCase
 
         ]);
         $product = new Varien_Object([
-            'id' => '999'
+            'id' => '999',
         ]);
 
         yield 'test exception' => [
@@ -111,12 +111,12 @@ class UrlTest extends TestCase
             $product,
             $category,
         ];
-//        yield 'request w/o product' => [
-//            '-.html',
-//            'request',
-//            null,
-//            $category,
-//        ];
+        //        yield 'request w/o product' => [
+        //            '-.html',
+        //            'request',
+        //            null,
+        //            $category,
+        //        ];
         yield 'target category' => [
             'catalog/category/view/id/999',
             'target',

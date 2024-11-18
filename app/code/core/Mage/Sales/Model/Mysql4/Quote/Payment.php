@@ -20,6 +20,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Quote_Payment extends Mage_Sales_Model_Resource_Quote_Payment
-{
-}
+class Mage_Sales_Model_Mysql4_Quote_Payment extends Mage_Sales_Model_Resource_Quote_Payment {}

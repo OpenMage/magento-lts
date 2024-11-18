@@ -20,6 +20,4 @@
  * @package    Mage_Directory
  * @deprecated
  */
-class Mage_Directory_Model_Mysql4_Currency extends Mage_Directory_Model_Resource_Currency
-{
-}
+class Mage_Directory_Model_Mysql4_Currency extends Mage_Directory_Model_Resource_Currency {}

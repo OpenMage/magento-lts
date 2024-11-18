@@ -55,7 +55,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/visitor'),
-                    ['visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id']
+                    ['visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id'],
                 )
                 ->where('last_visit_at >= ?', $readAdapter->formatDate($lastDate));
 
@@ -76,7 +76,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/visitor_info'),
-                    ['visitor_id', 'remote_addr']
+                    ['visitor_id', 'remote_addr'],
                 )
                 ->where('visitor_id IN(?)', array_keys($visitors));
 
@@ -89,7 +89,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/url_info_table'),
-                    ['url_id', 'url']
+                    ['url_id', 'url'],
                 )
                 ->where('url_id IN(?)', array_keys($lastUrls));
 
@@ -103,7 +103,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/customer'),
-                    ['visitor_id', 'customer_id']
+                    ['visitor_id', 'customer_id'],
                 )
                 ->where('visitor_id IN(?)', array_keys($visitors));
 

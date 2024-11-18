@@ -25,7 +25,7 @@ $installer->getConnection()->addConstraint(
     'store_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 
 $installer->endSetup();

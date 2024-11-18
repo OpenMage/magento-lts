@@ -120,7 +120,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         'x_card_code', 'x_bank_aba_code',
         'x_bank_name', 'x_bank_acct_num',
         'x_bank_acct_type','x_bank_acct_name',
-        'x_echeck_type'
+        'x_echeck_type',
     ];
 
     /**
@@ -170,7 +170,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         'x_zip', 'x_country', 'x_phone', 'x_fax', 'x_cust_id', 'x_customer_ip', 'x_customer_tax_id', 'x_email',
         'x_email_customer', 'x_merchant_email', 'x_ship_to_first_name', 'x_ship_to_last_name', 'x_ship_to_company',
         'x_ship_to_address', 'x_ship_to_city', 'x_ship_to_state', 'x_ship_to_zip', 'x_ship_to_country', 'x_po_num',
-        'x_tax', 'x_freight'
+        'x_tax', 'x_freight',
     ];
 
     /**
@@ -180,7 +180,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     protected $_centinelFieldMap = [
         'centinel_cavv' => 'x_cardholder_authentication_value',
-        'centinel_eci'  => 'x_authentication_indicator'
+        'centinel_eci'  => 'x_authentication_indicator',
     ];
 
     /**
@@ -527,8 +527,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         $requestType,
                         $card->getLastTransId(),
                         $card,
-                        $amount
-                    )
+                        $amount,
+                    ),
                 );
                 if ($requestType == self::REQUEST_TYPE_AUTH_CAPTURE) {
                     $card->setCapturedAmount($card->getProcessedAmount());
@@ -547,15 +547,15 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         ['is_transaction_closed' => 0],
                         [
                             $this->_realTransactionIdKey => $card->getLastTransId(),
-                            $this->_isTransactionFraud => true
+                            $this->_isTransactionFraud => true,
                         ],
                         Mage::helper('paygate')->getTransactionMessage(
                             $payment,
                             $requestType,
                             $card->getLastTransId(),
                             $card,
-                            $amount
-                        )
+                            $amount,
+                        ),
                     );
                     if ($requestType == self::REQUEST_TYPE_AUTH_CAPTURE) {
                         $card->setCapturedAmount($card->getProcessedAmount());
@@ -611,7 +611,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_DATA_CHANGED);
                 $quotePayment->setAdditionalInformation($payment->getAdditionalInformation());
                 throw new Mage_Payment_Model_Info_Exception(
-                    Mage::helper('paygate')->__('Shopping cart contents and/or address has been changed.')
+                    Mage::helper('paygate')->__('Shopping cart contents and/or address has been changed.'),
                 );
             }
         }
@@ -646,8 +646,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $requestType,
                     $card->getLastTransId(),
                     $card,
-                    $card->getProcessedAmount()
-                )
+                    $card->getProcessedAmount(),
+                ),
             );
             if ($requestType == self::REQUEST_TYPE_AUTH_CAPTURE) {
                 $card->setCapturedAmount($card->getProcessedAmount());
@@ -708,7 +708,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $newTransaction = $this->_preauthorizeCaptureCardTransaction(
                         $payment,
                         $cardAmountForCapture,
-                        $card
+                        $card,
                     );
                     $messages[] = $newTransaction->getMessage();
                     $isSuccessful = true;
@@ -766,7 +766,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE,
                         [
                             'is_transaction_closed' => 0,
-                            'parent_transaction_id' => $authTransactionId
+                            'parent_transaction_id' => $authTransactionId,
                         ],
                         [$this->_realTransactionIdKey => $result->getTransactionId()],
                         Mage::helper('paygate')->getTransactionMessage(
@@ -774,8 +774,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                             self::REQUEST_TYPE_PRIOR_AUTH_CAPTURE,
                             $result->getTransactionId(),
                             $card,
-                            $amount
-                        )
+                            $amount,
+                        ),
                     );
                 }
                 $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());
@@ -796,7 +796,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $realAuthTransactionId,
             $card,
             $amount,
-            $exceptionMessage
+            $exceptionMessage,
         );
         Mage::throwException($exceptionMessage);
     }
@@ -832,15 +832,15 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         [
                             'is_transaction_closed' => 1,
                             'should_close_parent_transaction' => 1,
-                            'parent_transaction_id' => $authTransactionId
+                            'parent_transaction_id' => $authTransactionId,
                         ],
                         [$this->_realTransactionIdKey => $result->getTransactionId()],
                         Mage::helper('paygate')->getTransactionMessage(
                             $payment,
                             self::REQUEST_TYPE_VOID,
                             $result->getTransactionId(),
-                            $card
-                        )
+                            $card,
+                        ),
                     );
                 }
                 $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());
@@ -856,9 +856,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         $voidTransactionId,
                         Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID,
                         [
-                        'is_transaction_closed' => 1,
-                        'should_close_parent_transaction' => 1,
-                        'parent_transaction_id' => $authTransactionId
+                            'is_transaction_closed' => 1,
+                            'should_close_parent_transaction' => 1,
+                            'parent_transaction_id' => $authTransactionId,
                         ],
                         [],
                         Mage::helper('paygate')->getExtendedTransactionMessage(
@@ -868,8 +868,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                             $card,
                             false,
                             false,
-                            Mage::helper('paygate')->__('Parent Authorize.Net transaction (ID %s) expired', $realAuthTransactionId)
-                        )
+                            Mage::helper('paygate')->__('Parent Authorize.Net transaction (ID %s) expired', $realAuthTransactionId),
+                        ),
                     );
                 }
                 $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());
@@ -885,7 +885,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $realAuthTransactionId,
             $card,
             false,
-            $exceptionMessage
+            $exceptionMessage,
         );
         Mage::throwException($exceptionMessage);
     }
@@ -947,7 +947,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         [
                             'is_transaction_closed' => 1,
                             'should_close_parent_transaction' => $shouldCloseCaptureTransaction,
-                            'parent_transaction_id' => $captureTransactionId
+                            'parent_transaction_id' => $captureTransactionId,
                         ],
                         [$this->_realTransactionIdKey => $result->getTransactionId()],
                         Mage::helper('paygate')->getTransactionMessage(
@@ -955,8 +955,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                             self::REQUEST_TYPE_CREDIT,
                             $result->getTransactionId(),
                             $card,
-                            $amount
-                        )
+                            $amount,
+                        ),
                     );
                 }
                 $exceptionMessage = $this->_wrapGatewayError($result->getResponseReasonText());
@@ -976,7 +976,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $realCaptureTransactionId,
             $card,
             $amount,
-            $exceptionMessage
+            $exceptionMessage,
         );
         Mage::throwException($exceptionMessage);
     }
@@ -1148,7 +1148,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     $this->setPartialAuthorizationLastActionState(self::PARTIAL_AUTH_LAST_DECLINED);
                     $quotePayment->setAdditionalInformation($orderPayment->getAdditionalInformation());
                     $exceptionMessage = $this->_wrapGatewayError(
-                        Mage::helper('paygate')->__('Payment partial authorization error.')
+                        Mage::helper('paygate')->__('Payment partial authorization error.'),
                     );
             }
         } catch (Exception $e) {
@@ -1332,9 +1332,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $r = explode(self::RESPONSE_DELIM_CHAR, $responseBody);
 
         if ($r) {
-            $result->setResponseCode((int)str_replace('"', '', $r[0]))
-                ->setResponseSubcode((int)str_replace('"', '', $r[1]))
-                ->setResponseReasonCode((int)str_replace('"', '', $r[2]))
+            $result->setResponseCode((int) str_replace('"', '', $r[0]))
+                ->setResponseSubcode((int) str_replace('"', '', $r[1]))
+                ->setResponseReasonCode((int) str_replace('"', '', $r[2]))
                 ->setResponseReasonText($r[3])
                 ->setApprovalCode($r[4])
                 ->setAvsResultCode($r[5])
@@ -1356,7 +1356,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             ;
         } else {
             Mage::throwException(
-                Mage::helper('paygate')->__('Error in payment gateway.')
+                Mage::helper('paygate')->__('Error in payment gateway.'),
             );
         }
 
@@ -1489,7 +1489,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     protected function _formatAmount($amount, $asFloat = false)
     {
         $amount = sprintf('%.2F', $amount); // "f" depends on locale, "F" doesn't
-        return $asFloat ? (float)$amount : $amount;
+        return $asFloat ? (float) $amount : $amount;
     }
 
     /**
@@ -1565,7 +1565,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             . '</getTransactionDetailsRequest>',
             $this->getConfigData('login'),
             $this->getConfigData('trans_key'),
-            $transactionId
+            $transactionId,
         );
 
         $client = new Varien_Http_Client();
@@ -1583,7 +1583,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         $debugData = [
             'url' => $uri,
-            'request' => $requestBody
+            'request' => $requestBody,
         ];
 
         try {
@@ -1615,17 +1615,17 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $responseTransactionXmlDocument = $responseXmlDocument->transaction;
         //main fields for generating order status:
         $response
-            ->setResponseCode((string)$responseTransactionXmlDocument->responseCode)
-            ->setResponseReasonCode((string)$responseTransactionXmlDocument->responseReasonCode)
-            ->setTransactionStatus((string)$responseTransactionXmlDocument->transactionStatus)
+            ->setResponseCode((string) $responseTransactionXmlDocument->responseCode)
+            ->setResponseReasonCode((string) $responseTransactionXmlDocument->responseReasonCode)
+            ->setTransactionStatus((string) $responseTransactionXmlDocument->transactionStatus)
         ;
         //some additional fields:
-        isset($responseTransactionXmlDocument->responseReasonDescription) && $response->setResponseReasonDescription((string)$responseTransactionXmlDocument->responseReasonDescription);
-        isset($responseTransactionXmlDocument->FDSFilterAction)           && $response->setFdsFilterAction((string)$responseTransactionXmlDocument->FDSFilterAction);
+        isset($responseTransactionXmlDocument->responseReasonDescription) && $response->setResponseReasonDescription((string) $responseTransactionXmlDocument->responseReasonDescription);
+        isset($responseTransactionXmlDocument->FDSFilterAction)           && $response->setFdsFilterAction((string) $responseTransactionXmlDocument->FDSFilterAction);
         isset($responseTransactionXmlDocument->FDSFilters)                && $response->setFdsFilters(serialize($responseTransactionXmlDocument->FDSFilters->asArray()));
-        isset($responseTransactionXmlDocument->transactionType)           && $response->setTransactionType((string)$responseTransactionXmlDocument->transactionType);
-        isset($responseTransactionXmlDocument->submitTimeUTC)             && $response->setSubmitTimeUtc((string)$responseTransactionXmlDocument->submitTimeUTC);
-        isset($responseTransactionXmlDocument->submitTimeLocal)           && $response->setSubmitTimeLocal((string)$responseTransactionXmlDocument->submitTimeLocal);
+        isset($responseTransactionXmlDocument->transactionType)           && $response->setTransactionType((string) $responseTransactionXmlDocument->transactionType);
+        isset($responseTransactionXmlDocument->submitTimeUTC)             && $response->setSubmitTimeUtc((string) $responseTransactionXmlDocument->submitTimeUTC);
+        isset($responseTransactionXmlDocument->submitTimeLocal)           && $response->setSubmitTimeLocal((string) $responseTransactionXmlDocument->submitTimeLocal);
 
         return $response;
     }

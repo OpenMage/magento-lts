@@ -63,12 +63,12 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('reports')->__('ID'),
             'index'     => 'entity_id',
-            'total'     => 'Total'
+            'total'     => 'Total',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('viewed', [
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
             'width'     => '50px',
             'align'     => 'right',
             'index'     => 'viewed',
-            'total'     => 'sum'
+            'total'     => 'sum',
         ]);
 
         $this->addColumn('added', [
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
             'width'     => '50px',
             'align'     => 'right',
             'index'     => 'added',
-            'total'     => 'sum'
+            'total'     => 'sum',
         ]);
 
         $this->addColumn('purchased', [
@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
             'width'     => '50px',
             'align'     => 'right',
             'index'     => 'purchased',
-            'total'     => 'sum'
+            'total'     => 'sum',
         ]);
 
         $this->addColumn('fulfilled', [
@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
             'width'     => '50px',
             'align'     => 'right',
             'index'     => 'fulfilled',
-            'total'     => 'sum'
+            'total'     => 'sum',
         ]);
 
         $this->addColumn('revenue', [
@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
             'width'     => '50px',
             'align'     => 'right',
             'index'     => 'revenue',
-            'total'     => 'sum'
+            'total'     => 'sum',
         ]);
 
         $this->setCountTotals(true);

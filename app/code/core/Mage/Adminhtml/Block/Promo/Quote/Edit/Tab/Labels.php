@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels extends Mage_Adminhtml_Bl
         $form->setHtmlIdPrefix('rule_');
 
         $fieldset = $form->addFieldset('default_label_fieldset', [
-            'legend' => Mage::helper('salesrule')->__('Default Label')
+            'legend' => Mage::helper('salesrule')->__('Default Label'),
         ]);
         $labels = $rule->getStoreLabels();
         $fieldset->addField('store_default_label', 'text', [

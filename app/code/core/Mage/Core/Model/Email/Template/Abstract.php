@@ -79,7 +79,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             $templateText = Mage::app()->getTranslator()->getTemplateFile(
                 $data['file'],
                 'email',
-                $localeCode
+                $localeCode,
             );
 
             $this->setTemplateText($templateText);
@@ -225,7 +225,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 '_area' => $area,
                 '_package' => $package,
                 '_theme' => $theme,
-            ]
+            ],
         );
         $validator = new Zend_Validate_File_Extension('css');
 

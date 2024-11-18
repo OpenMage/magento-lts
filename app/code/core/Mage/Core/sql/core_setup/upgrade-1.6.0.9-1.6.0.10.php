@@ -31,7 +31,7 @@ if ($installer->getConnection()->isTableExists($table)) {
             'length' => 255,
             'nullable' => false,
             'comment' => 'Filename',
-        ]
+        ],
     );
 }
 

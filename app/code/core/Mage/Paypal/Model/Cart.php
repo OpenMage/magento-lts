@@ -159,7 +159,7 @@ class Mage_Paypal_Model_Cart
         // cut down totals to one total if they are invalid
         if (!$this->_areTotalsValid) {
             $totals = [
-                self::TOTAL_SUBTOTAL => $this->_totals[self::TOTAL_SUBTOTAL] + $this->_totals[self::TOTAL_TAX]
+                self::TOTAL_SUBTOTAL => $this->_totals[self::TOTAL_SUBTOTAL] + $this->_totals[self::TOTAL_TAX],
             ];
             if (!$this->_isShippingAsItem) {
                 $totals[self::TOTAL_SUBTOTAL] += $this->_totals[self::TOTAL_SHIPPING];
@@ -194,7 +194,7 @@ class Mage_Paypal_Model_Cart
         $item = new Varien_Object([
             'name'   => $name,
             'qty'    => $qty,
-            'amount' => (float)$amount,
+            'amount' => (float) $amount,
         ]);
         if ($identifier) {
             $item->setData('id', $identifier);
@@ -320,16 +320,16 @@ class Mage_Paypal_Model_Cart
                 Mage::helper('paypal')->__('Discount'),
                 1,
                 -1.00 * $this->_totals[self::TOTAL_DISCOUNT],
-                $this->_renderTotalLineItemDescriptions(self::TOTAL_DISCOUNT)
+                $this->_renderTotalLineItemDescriptions(self::TOTAL_DISCOUNT),
             );
         }
         $shippingItemId = $this->_renderTotalLineItemDescriptions(self::TOTAL_SHIPPING, $shippingDescription);
-        if ($this->_isShippingAsItem && (float)$this->_totals[self::TOTAL_SHIPPING]) {
+        if ($this->_isShippingAsItem && (float) $this->_totals[self::TOTAL_SHIPPING]) {
             $this->addItem(
                 Mage::helper('paypal')->__('Shipping'),
                 1,
-                (float)$this->_totals[self::TOTAL_SHIPPING],
-                $shippingItemId
+                (float) $this->_totals[self::TOTAL_SHIPPING],
+                $shippingItemId,
             );
         }
 
@@ -500,8 +500,8 @@ class Mage_Paypal_Model_Cart
      */
     private function _applyHiddenTaxWorkaround($salesEntity)
     {
-        $this->_totals[self::TOTAL_TAX] += (float)$salesEntity->getBaseHiddenTaxAmount();
-        $this->_totals[self::TOTAL_TAX] += (float)$salesEntity->getBaseShippingHiddenTaxAmount();
+        $this->_totals[self::TOTAL_TAX] += (float) $salesEntity->getBaseHiddenTaxAmount();
+        $this->_totals[self::TOTAL_TAX] += (float) $salesEntity->getBaseShippingHiddenTaxAmount();
     }
 
     /**

@@ -49,10 +49,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalog/product_super_link',
         ['product_id', 'parent_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_id', 'parent_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 /**
@@ -63,10 +63,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalog/product_super_attribute',
         ['product_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 /**
@@ -77,10 +77,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalog/product_super_attribute_pricing',
         ['product_super_attribute_id', 'value_index', 'website_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_super_attribute_id', 'value_index', 'website_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 /**
@@ -91,10 +91,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalog/product_link_attribute_int',
         ['product_link_attribute_id', 'link_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_link_attribute_id', 'link_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 /**
@@ -105,12 +105,12 @@ $installer->getConnection()->addForeignKey(
         'catalog/product_link_attribute_int',
         'link_id',
         'catalog/product_link',
-        'link_id'
+        'link_id',
     ),
     $installer->getTable('catalog/product_link_attribute_int'),
     'link_id',
     $installer->getTable('catalog/product_link'),
-    'link_id'
+    'link_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -118,12 +118,12 @@ $installer->getConnection()->addForeignKey(
         'catalog/product_link_attribute_int',
         'product_link_attribute_id',
         'catalog/product_link_attribute',
-        'product_link_attribute_id'
+        'product_link_attribute_id',
     ),
     $installer->getTable('catalog/product_link_attribute_int'),
     'product_link_attribute_id',
     $installer->getTable('catalog/product_link_attribute'),
-    'product_link_attribute_id'
+    'product_link_attribute_id',
 );
 
 $installer->endSetup();

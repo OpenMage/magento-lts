@@ -76,7 +76,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
     {
         $this->_operatorSelectOptionsHash = [
             self::OPERATOR_ATTRIBUTE_IS_ASSIGNED        => $this->_getHelper()->__('is assigned'),
-            self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED    => $this->_getHelper()->__('is not assigned')
+            self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED    => $this->_getHelper()->__('is not assigned'),
         ];
 
         parent::__construct();
@@ -93,7 +93,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
             foreach ($this->_operatorSelectOptionsHash as $operatorValue => $operatorLabel) {
                 $this->_cachedOperatorSelectOptionsCache[] = [
                     'label' => $operatorLabel,
-                    'value' => $operatorValue
+                    'value' => $operatorValue,
                 ];
             }
         }
@@ -139,7 +139,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
             $this->getAttributeElementHtml(),
             $this->getOperatorElementHtml(),
             $this->getRemoveLinkHtml(),
-            $this->getTypeElementHtml()
+            $this->getTypeElementHtml(),
         );
     }
 }

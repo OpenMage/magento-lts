@@ -32,7 +32,7 @@ class Varien_File_Uploader
         UPLOAD_ERR_NO_FILE => 'No file was uploaded',
         UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
         UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
-        UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload'
+        UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload',
     ];
 
     /**
@@ -225,7 +225,7 @@ class Varien_File_Uploader
                 $fileName = str_replace(
                     DIRECTORY_SEPARATOR,
                     '/',
-                    self::_addDirSeparator($this->_dispretionPath)
+                    self::_addDirSeparator($this->_dispretionPath),
                 ) . $fileName;
             }
             $this->_uploadedFileName = $fileName;
@@ -305,8 +305,8 @@ class Varien_File_Uploader
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
     {
         $this->_validateCallbacks[$callbackName] = [
-           'object' => $callbackObject,
-           'method' => $callbackMethod
+            'object' => $callbackObject,
+            'method' => $callbackMethod,
         ];
         return $this;
     }
@@ -449,7 +449,7 @@ class Varien_File_Uploader
 
     public function setAllowedExtensions($extensions = [])
     {
-        foreach ((array)$extensions as $extension) {
+        foreach ((array) $extensions as $extension) {
             $this->_allowedExtensions[] = strtolower($extension);
         }
         return $this;

@@ -113,7 +113,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
             $url = str_replace(
                 ['{{API_KEY}}', '{{CURRENCY_FROM}}_{{CURRENCY_TO}}'],
                 [$apiKey, $currenciesCombined],
-                $this->_url
+                $this->_url,
             );
 
             $timeLimitCalculated = 2 * Mage::getStoreConfigAsInt(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)

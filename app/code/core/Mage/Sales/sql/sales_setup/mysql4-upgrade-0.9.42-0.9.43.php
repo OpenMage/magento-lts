@@ -26,7 +26,7 @@ $attributeLabels = [
     'postcode' => 'Zip/Postal Code',
     'country_id' => 'Country',
     'telephone' => 'Telephone',
-    'email' => 'Email'
+    'email' => 'Email',
 ];
 
 foreach ($attributeLabels as $attributeCode => $attributeLabel) {

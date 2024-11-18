@@ -196,7 +196,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function useIdxTable($value = null)
     {
         if (!is_null($value)) {
-            $this->_isNeedUseIdxTable = (bool)$value;
+            $this->_isNeedUseIdxTable = (bool) $value;
         }
         return $this->_isNeedUseIdxTable;
     }
@@ -210,7 +210,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function useDisableKeys($value = null)
     {
         if (!is_null($value)) {
-            $this->_isDisableKeys = (bool)$value;
+            $this->_isDisableKeys = (bool) $value;
         }
         return $this->_isDisableKeys;
     }

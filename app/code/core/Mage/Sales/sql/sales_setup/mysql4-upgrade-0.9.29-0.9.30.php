@@ -29,7 +29,7 @@ $cleanTables = [
     $tableOrderEntity . '_datetime',
     $tableOrderEntity . '_int',
     $tableOrderEntity . '_text',
-    $tableOrderEntity . '_varchar'
+    $tableOrderEntity . '_varchar',
 ];
 foreach ($cleanTables as $tableName) {
     $select = $installer->getConnection()->select()
@@ -49,7 +49,7 @@ foreach ($cleanTables as $tableName) {
         $installer->getConnection()->query($sql, [
             $row['entity_id'],
             $row['attribute_id'],
-            $row['entity_type_id']
+            $row['entity_type_id'],
         ]);
     }
 }

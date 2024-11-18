@@ -24,6 +24,7 @@ use Mage_Core_Exception;
 use Mage_Core_Helper_Security;
 use Mage_Page_Block_Html_Topmenu_Renderer;
 use PHPUnit\Framework\TestCase;
+
 use function sprintf;
 
 class SecurityTest extends TestCase
@@ -53,12 +54,12 @@ class SecurityTest extends TestCase
             [
                 $topmenu,
                 'setData',
-                []
+                [],
             ],
             [
                 $template,
                 'setData',
-                []
+                [],
             ],
         ];
     }
@@ -94,37 +95,37 @@ class SecurityTest extends TestCase
             [
                 $template,
                 'fetchView',
-                []
+                [],
             ],
             [
                 $topmenu,
                 'fetchView',
-                []
+                [],
             ],
             [
                 $topmenu,
                 'render',
-                []
+                [],
             ],
             [
                 $template,
                 'Mage_Core_Block_Template::fetchView',
-                []
+                [],
             ],
             [
                 $topmenu,
                 'Mage_Page_Block_Html_Topmenu_Renderer::fetchView',
-                []
+                [],
             ],
             'parent class name is passed as second arg' => [
                 $topmenu,
                 'Mage_Core_Block_Template::fetchView',
-                []
+                [],
             ],
             'parent class name is passed as second arg2' => [
                 $topmenu,
                 'Mage_Core_Block_Template::render',
-                []
+                [],
             ],
         ];
     }

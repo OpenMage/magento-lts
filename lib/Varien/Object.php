@@ -111,9 +111,7 @@ class Varien_Object implements ArrayAccess
      * Inits mapping array of object's previously used fields to new fields.
      * Must be overloaded by descendants to set concrete fields map.
      */
-    protected function _initOldFieldsMap()
-    {
-    }
+    protected function _initOldFieldsMap() {}
 
     /**
      * Called after old fields are inited. Forms synchronization map to sync old fields and new fields
@@ -134,9 +132,7 @@ class Varien_Object implements ArrayAccess
      *
      * @return void
      */
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * Set _isDeleted flag value (if $isDeleted param is defined) and return current flag value
@@ -328,7 +324,7 @@ class Varien_Object implements ArrayAccess
         }
 
         if ($index !== null) {
-            if ($data === (array)$data) {
+            if ($data === (array) $data) {
                 $data = $data[$index] ?? null;
             } elseif (is_string($data)) {
                 $data = explode(PHP_EOL, $data);
@@ -352,11 +348,11 @@ class Varien_Object implements ArrayAccess
      */
     public function getDataByPath($path)
     {
-        $keys = explode('/', (string)$path);
+        $keys = explode('/', (string) $path);
 
         $data = $this->_data;
         foreach ($keys as $key) {
-            if ((array)$data === $data && isset($data[$key])) {
+            if ((array) $data === $data && isset($data[$key])) {
                 $data = $data[$key];
             } elseif ($data instanceof Varien_Object) {
                 $data = $data->getDataByKey($key);
@@ -572,11 +568,11 @@ class Varien_Object implements ArrayAccess
      * @param  string $valueSeparator
      * @return string
      */
-//    public function __toString(array $arrAttributes = array(), $valueSeparator=',')
-//    {
-//        $arrData = $this->toArray($arrAttributes);
-//        return implode($valueSeparator, $arrData);
-//    }
+    //    public function __toString(array $arrAttributes = array(), $valueSeparator=',')
+    //    {
+    //        $arrData = $this->toArray($arrAttributes);
+    //        return implode($valueSeparator, $arrData);
+    //    }
 
     /**
      * Public wrapper for __toString
@@ -638,7 +634,7 @@ class Varien_Object implements ArrayAccess
                 return isset($this->_data[$key]);
         }
         throw new Varien_Exception(
-            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')'
+            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')',
         );
     }
 
@@ -741,7 +737,7 @@ class Varien_Object implements ArrayAccess
      */
     public function setDataChanges($value)
     {
-        $this->_hasDataChanges = (bool)$value;
+        $this->_hasDataChanges = (bool) $value;
         return $this;
     }
 

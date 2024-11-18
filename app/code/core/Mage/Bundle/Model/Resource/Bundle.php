@@ -37,9 +37,9 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
             ->where('bundle_option.required = 1')
             ->joinLeft(
                 [
-                'bundle_selection' => $this->getTable('bundle/selection')],
+                    'bundle_selection' => $this->getTable('bundle/selection')],
                 'bundle_selection.option_id = bundle_option.option_id',
-                $columns
+                $columns,
             );
     }
 
@@ -53,7 +53,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     {
         return $this->_getReadAdapter()->fetchAll($this->_getSelect(
             $productId,
-            ['*']
+            ['*'],
         ));
     }
 
@@ -68,13 +68,13 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
             $this->_getReadAdapter()->select()
             ->from($this->getTable('sales/quote_item'), ['item_id'])
             ->where('product_id = :product_id'),
-            ['product_id' => $productId]
+            ['product_id' => $productId],
         );
 
         if ($quoteItemIds) {
             $this->_getWriteAdapter()->delete(
                 $this->getTable('sales/quote_item'),
-                ['parent_item_id IN(?)' => $quoteItemIds]
+                ['parent_item_id IN(?)' => $quoteItemIds],
             );
         }
     }
@@ -88,7 +88,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
     public function dropAllUnneededSelections($productId, $ids)
     {
         $where = [
-            'parent_product_id = ?' => $productId
+            'parent_product_id = ?' => $productId,
         ];
         if (!empty($ids)) {
             $where['selection_id NOT IN (?) '] = $ids;

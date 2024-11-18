@@ -359,7 +359,7 @@ HTML;
      */
     public function getObjectData(Varien_Object $object, $key)
     {
-        return $object->getDataUsingMethod((string)$key);
+        return $object->getDataUsingMethod((string) $key);
     }
 
     /**
@@ -371,7 +371,7 @@ HTML;
             'BLOCK_TPL',
             Mage::app()->getStore()->getCode(),
             $this->getTemplateFile(),
-            'template' => $this->getTemplate()
+            'template' => $this->getTemplate(),
         ];
     }
 

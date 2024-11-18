@@ -56,7 +56,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
             Varien_Date::toTimestamp($this->getCreatedAt()),
             null,
             null,
-            true
+            true,
         );
     }
 
@@ -70,7 +70,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
         return Mage::app()->getLocale()->storeDate(
             $this->getStore(),
             Varien_Date::toTimestamp($this->getCreatedAt()),
-            true
+            true,
         );
     }
 }

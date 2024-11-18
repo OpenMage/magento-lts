@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
             'index'     => 'orders_count',
             'type'      => 'number',
             'total'     => 'sum',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('total_qty_ordered', [
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
             'index'     => 'total_qty_ordered',
             'type'      => 'number',
             'total'     => 'sum',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('total_qty_invoiced', [
@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
             'type'      => 'number',
             'total'     => 'sum',
             'sortable'  => false,
-            'visibility_filter' => ['show_actual_columns']
+            'visibility_filter' => ['show_actual_columns'],
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {

@@ -177,11 +177,11 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
             Mage::dispatchEvent('category_prepare_ajax_response', [
                 'response' => $eventResponse,
-                'controller' => $this
+                'controller' => $this,
             ]);
 
             $this->getResponse()->setBody(
-                Mage::helper('core')->jsonEncode($eventResponse->getData())
+                Mage::helper('core')->jsonEncode($eventResponse->getData()),
             );
 
             return;
@@ -194,7 +194,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         $this->_addBreadcrumb(
             Mage::helper('catalog')->__('Manage Catalog Categories'),
-            Mage::helper('catalog')->__('Manage Categories')
+            Mage::helper('catalog')->__('Manage Categories'),
         );
 
         $block = $this->getLayout()->getBlock('catalog.wysiwyg.js');
@@ -242,7 +242,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             }
             $this->getResponse()->setBody(
                 $this->getLayout()->createBlock('adminhtml/catalog_category_tree')
-                    ->getTreeJson($category)
+                    ->getTreeJson($category),
             );
         }
     }
@@ -299,7 +299,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
              */
             if ($category->getId() && isset($data['general']['url_key_create_redirect'])) {
                 // && $category->getOrigData('url_key') != $category->getData('url_key')
-                $category->setData('save_rewrites_history', (bool)$data['general']['url_key_create_redirect']);
+                $category->setData('save_rewrites_history', (bool) $data['general']['url_key_create_redirect']);
             }
 
             $category->setAttributeSetId($category->getDefaultAttributeSetId());
@@ -313,7 +313,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
             Mage::dispatchEvent('catalog_category_prepare_save', [
                 'category' => $category,
-                'request' => $this->getRequest()
+                'request' => $this->getRequest(),
             ]);
 
             /**
@@ -350,7 +350,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         }
         $url = $this->getUrl('*/*/edit', ['_current' => true, 'id' => $category->getId()]);
         $this->getResponse()->setBody(
-            '<script type="text/javascript">parent.updateContent("' . $url . '", {}, ' . $refreshTree . ');</script>'
+            '<script type="text/javascript">parent.updateContent("' . $url . '", {}, ' . $refreshTree . ');</script>',
         );
     }
 
@@ -422,7 +422,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         }
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('adminhtml/catalog_category_tab_product', 'category.product.grid')
-                ->toHtml()
+                ->toHtml(),
         );
     }
 
@@ -458,7 +458,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 'expanded'    => (int) $block->getIsWasExpanded(),
                 'store_id'    => (int) $block->getStore()->getId(),
                 'category_id' => (int) $category->getId(),
-                'root_visible' => (int) $root->getIsVisible()
+                'root_visible' => (int) $root->getIsVisible(),
             ]]));
     }
 
@@ -471,9 +471,9 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             $category = Mage::getModel('catalog/category')->load($id);
             $this->getResponse()->setBody(
                 Mage::helper('core')->jsonEncode([
-                   'id' => $id,
-                   'path' => $category->getPath(),
-                ])
+                    'id' => $id,
+                    'path' => $category->getPath(),
+                ]),
             );
         }
     }

@@ -32,7 +32,7 @@ $billingAgreementOrderTable = $installer->getTable('sales/billing_agreement_orde
 $installer->getConnection()->addColumn(
     $orderGridTable,
     'store_name',
-    'varchar(255) null default null AFTER `store_id`'
+    'varchar(255) null default null AFTER `store_id`',
 );
 
 $installer->run("
@@ -46,7 +46,7 @@ $installer->run("
 $installer->getConnection()->addColumn(
     $paymentTransactionTable,
     'created_at',
-    'DATETIME NULL'
+    'DATETIME NULL',
 );
 
 //-------
@@ -72,7 +72,7 @@ $installer->getConnection()->addConstraint(
     $billingAgreementTable,
     'customer_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 //-------
@@ -89,7 +89,7 @@ $installer->getConnection()->addConstraint(
     $billingAgreementOrderTable,
     'agreement_id',
     $billingAgreementTable,
-    'agreement_id'
+    'agreement_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -97,7 +97,7 @@ $installer->getConnection()->addConstraint(
     $billingAgreementOrderTable,
     'order_id',
     $orderTable,
-    'entity_id'
+    'entity_id',
 );
 
 //-------
@@ -149,7 +149,7 @@ $this->getConnection()->addConstraint(
     'customer_id',
     $customerEntityTable,
     'entity_id',
-    'SET NULL'
+    'SET NULL',
 );
 
 $this->getConnection()->addConstraint(
@@ -158,7 +158,7 @@ $this->getConnection()->addConstraint(
     'store_id',
     $coreStoreTable,
     'store_id',
-    'SET NULL'
+    'SET NULL',
 );
 
 $this->run("
@@ -177,7 +177,7 @@ $this->getConnection()->addConstraint(
     $profileOrderTable,
     'profile_id',
     $profileTable,
-    'profile_id'
+    'profile_id',
 );
 
 $this->getConnection()->addConstraint(
@@ -185,5 +185,5 @@ $this->getConnection()->addConstraint(
     $profileOrderTable,
     'order_id',
     $flatOrderTable,
-    'entity_id'
+    'entity_id',
 );

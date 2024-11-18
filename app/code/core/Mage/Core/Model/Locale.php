@@ -265,7 +265,7 @@ class Mage_Core_Model_Locale
                 }
                 $options[] = [
                     'value' => $code,
-                    'label' => $label
+                    'label' => $label,
                 ];
             }
         }
@@ -317,8 +317,8 @@ class Mage_Core_Model_Locale
         $days = $preserveCodes ? $days['format']['wide'] : array_values($days['format']['wide']);
         foreach ($days as $code => $name) {
             $options[] = [
-               'label' => $name,
-               'value' => $ucFirstCode ? ucfirst($code) : $code,
+                'label' => $name,
+                'value' => $ucFirstCode ? ucfirst($code) : $code,
             ];
         }
         return $options;
@@ -336,8 +336,8 @@ class Mage_Core_Model_Locale
 
         foreach ($countries as $code => $name) {
             $options[] = [
-               'label' => $name,
-               'value' => $code,
+                'label' => $name,
+                'value' => $code,
             ];
         }
         return $this->_sortOptionArray($options);
@@ -360,8 +360,8 @@ class Mage_Core_Model_Locale
             }
 
             $options[] = [
-               'label' => $name,
-               'value' => $code,
+                'label' => $name,
+                'value' => $code,
             ];
         }
         return $this->_sortOptionArray($options);
@@ -378,8 +378,8 @@ class Mage_Core_Model_Locale
         $options = [];
         foreach ($currencies as $name => $code) {
             $options[] = [
-               'label' => $name,
-               'value' => $code,
+                'label' => $name,
+                'value' => $code,
             ];
         }
         return $this->_sortOptionArray($options);
@@ -399,8 +399,8 @@ class Mage_Core_Model_Locale
         $option = [];
         foreach ($data as $key => $label) {
             $option[] = [
-               'value' => $key,
-               'label' => $label
+                'value' => $key,
+                'label' => $label,
             ];
         }
         return $option;
@@ -455,7 +455,7 @@ class Mage_Core_Model_Locale
         return preg_replace(
             '/(?<!y)yy(?!y)/',
             'yyyy',
-            $this->getTranslation(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, 'date')
+            $this->getTranslation(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, 'date'),
         );
     }
 
@@ -625,7 +625,7 @@ class Mage_Core_Model_Locale
             $options = new Varien_Object($options);
             Mage::dispatchEvent('currency_display_options_forming', [
                 'currency_options' => $options,
-                'base_code' => $currency
+                'base_code' => $currency,
             ]);
 
             $currencyObject->setFormat($options->toArray());
@@ -726,7 +726,7 @@ class Mage_Core_Model_Locale
             'decimalSymbol' => $symbols['decimal'],
             'groupSymbol' => $symbols['group'],
             'groupLength' => $group,
-            'integerRequired' => $integerRequired
+            'integerRequired' => $integerRequired,
         ];
     }
 
@@ -835,16 +835,16 @@ class Mage_Core_Model_Locale
         }
 
         $storeTimeStamp = $this->storeTimeStamp($store);
-        $fromTimeStamp  = strtotime((string)$dateFrom);
-        $toTimeStamp    = strtotime((string)$dateTo);
+        $fromTimeStamp  = strtotime((string) $dateFrom);
+        $toTimeStamp    = strtotime((string) $dateTo);
         if ($dateTo) {
             // fix date YYYY-MM-DD 00:00:00 to YYYY-MM-DD 23:59:59
             $toTimeStamp += 86400;
         }
 
         $result = false;
-        if (!is_empty_date((string)$dateFrom) && $storeTimeStamp < $fromTimeStamp) {
-        } elseif (!is_empty_date((string)$dateTo) && $storeTimeStamp > $toTimeStamp) {
+        if (!is_empty_date((string) $dateFrom) && $storeTimeStamp < $fromTimeStamp) {
+        } elseif (!is_empty_date((string) $dateTo) && $storeTimeStamp > $toTimeStamp) {
         } else {
             $result = true;
         }

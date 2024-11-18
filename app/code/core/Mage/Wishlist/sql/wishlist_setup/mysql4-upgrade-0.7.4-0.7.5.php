@@ -30,7 +30,7 @@ $installer->getConnection()->dropKey($installer->getTable('wishlist/wishlist'), 
 $installer->getConnection()->modifyColumn(
     $installer->getTable('wishlist/item'),
     'store_id',
-    'smallint UNSIGNED DEFAULT NULL'
+    'smallint UNSIGNED DEFAULT NULL',
 );
 
 $installer->getConnection()->addKey($installer->getTable('wishlist/item'), 'IDX_WISHLIST', 'wishlist_id');
@@ -46,7 +46,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('core/store'),
     'store_id',
     'set null',
-    'cascade'
+    'cascade',
 );
 $installer->getConnection()->addConstraint(
     'FK_WISHLIST_ITEM_WISHLIST',
@@ -55,7 +55,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('wishlist/wishlist'),
     'wishlist_id',
     'cascade',
-    'cascade'
+    'cascade',
 );
 $installer->getConnection()->addConstraint(
     'FK_WISHLIST_ITEM_PRODUCT',
@@ -64,7 +64,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('catalog/product'),
     'entity_id',
     'cascade',
-    'cascade'
+    'cascade',
 );
 $installer->getConnection()->addConstraint(
     'FK_WISHLIST_CUSTOMER',
@@ -73,7 +73,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('customer/entity'),
     'entity_id',
     'cascade',
-    'cascade'
+    'cascade',
 );
 
 $installer->endSetup();

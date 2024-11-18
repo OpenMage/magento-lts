@@ -20,6 +20,4 @@
  * @package    Mage_Admin
  * @deprecated
  */
-class Mage_Admin_Model_Mysql4_User extends Mage_Admin_Model_Resource_User
-{
-}
+class Mage_Admin_Model_Mysql4_User extends Mage_Admin_Model_Resource_User {}

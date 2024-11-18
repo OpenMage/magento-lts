@@ -20,7 +20,7 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('cms/page'),
     'content_heading',
-    "VARCHAR(255) NOT NULL DEFAULT '' AFTER `identifier`"
+    "VARCHAR(255) NOT NULL DEFAULT '' AFTER `identifier`",
 );
 
 $installer->endSetup();

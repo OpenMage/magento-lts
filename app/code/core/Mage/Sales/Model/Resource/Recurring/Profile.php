@@ -36,7 +36,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
             'order_info' => [null, []],
             'order_item_info' => [null, []],
             'billing_address_info' => [null, []],
-            'shipping_address_info' => [null, []]
+            'shipping_address_info' => [null, []],
         ];
     }
 
@@ -80,7 +80,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
         $select  = $adapter->select()
             ->from(
                 ['main_table' => $this->getTable('sales/recurring_profile_order')],
-                ['order_id']
+                ['order_id'],
             )
             ->where('profile_id=:profile_id');
 
@@ -100,8 +100,8 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
             $this->getTable('sales/recurring_profile_order'),
             [
                 'profile_id' => $recurringProfileId,
-                'order_id'   => $orderId
-            ]
+                'order_id'   => $orderId,
+            ],
         );
         return $this;
     }

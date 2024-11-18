@@ -42,11 +42,11 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
-            'method'    => 'post'
+            'method'    => 'post',
         ]);
 
         $fieldset   = $form->addFieldset('base_fieldset', [
-            'legend'    => Mage::helper('tax')->__('Tax Rule Information')
+            'legend'    => Mage::helper('tax')->__('Tax Rule Information'),
         ]);
 
         $productClasses = Mage::getModel('tax/class')
@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'label'     => Mage::helper('tax')->__('Name'),
                 'class'     => 'required-entry',
                 'required'  => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'values'    => $customerClasses,
                 'value'     => $model->getCustomerTaxClasses(),
                 'required'  => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'values'    => $productClasses,
                 'value'     => $model->getProductTaxClasses(),
                 'required'  => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -113,7 +113,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'values'    => $rates,
                 'value'     => $model->getRates(),
                 'required'  => true,
-            ]
+            ],
         );
         $fieldset->addField(
             'priority',
@@ -125,7 +125,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'value'     => (int) $model->getPriority(),
                 'required'  => true,
                 'note'      => Mage::helper('tax')->__('Tax rates at the same priority are added, others are compounded.'),
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -135,8 +135,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'name'      => 'calculate_subtotal',
                 'label'     => Mage::helper('tax')->__('Calculate off subtotal only'),
                 'onclick'   => 'this.value = this.checked ? 1 : 0;',
-                'checked'   => $model->getCalculateSubtotal()
-            ]
+                'checked'   => $model->getCalculateSubtotal(),
+            ],
         );
         $fieldset->addField(
             'position',
@@ -147,7 +147,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 'class'     => 'validate-not-negative-number',
                 'value'     => (int) $model->getPosition(),
                 'required'  => true,
-            ]
+            ],
         );
 
         if ($model->getId() > 0) {
@@ -157,8 +157,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
                 [
                     'name'      => 'tax_calculation_rule_id',
                     'value'     => $model->getId(),
-                    'no_span'   => true
-                ]
+                    'no_span'   => true,
+                ],
             );
         }
 

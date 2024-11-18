@@ -73,7 +73,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
             $fpTimestamp . '^' .
             $amount . '^' .
             $currencyCode,
-            $merchantTransactionKey
+            $merchantTransactionKey,
         );
     }
 
@@ -171,7 +171,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
                 $this->getXAmount(),
                 $this->getXCurrencyCode(),
                 $this->getXFpSequence(),
-                $fpTimestamp
+                $fpTimestamp,
             );
         } else {
             $hash = $this->generateRequestSign(
@@ -180,7 +180,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
                 $this->getXAmount(),
                 $this->getXCurrencyCode(),
                 $this->getXFpSequence(),
-                $fpTimestamp
+                $fpTimestamp,
             );
         }
         $this->setXFpTimestamp($fpTimestamp);

@@ -78,7 +78,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
 
         $validationConfig = $resource->getConfig()->getValidationConfig(
             $resource->getResourceType(),
-            self::CONFIG_NODE_KEY
+            self::CONFIG_NODE_KEY,
         );
 
         if (empty($validationConfig[$userType]['form_model'])) {
@@ -213,12 +213,12 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         $isRequiredRE  = '/^' . str_replace(
             '%s',
             '(.+)',
-            preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/')
+            preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/'),
         ) . '$/';
         $greaterThanRE = '/^' . str_replace(
             '%s',
             '(.+)',
-            preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'), '/')
+            preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'), '/'),
         ) . '$/';
 
         // find all required attributes labels

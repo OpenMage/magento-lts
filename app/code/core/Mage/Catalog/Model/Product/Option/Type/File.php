@@ -181,7 +181,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $this->setIsValid(false);
                 $value = $this->_bytesToMbytes($this->_getUploadMaxFilesize());
                 Mage::throwException(
-                    Mage::helper('catalog')->__('The file you uploaded is larger than %s Megabytes allowed by server', $value)
+                    Mage::helper('catalog')->__('The file you uploaded is larger than %s Megabytes allowed by server', $value),
                 );
             } else {
                 switch ($this->getProcessMode()) {
@@ -246,7 +246,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
             $upload->addFilter('Rename', [
                 'target' => $fileFullPath,
-                'overwrite' => true
+                'overwrite' => true,
             ]);
 
             $this->getProduct()->getTypeInstance(true)->addFileQueue([
@@ -347,7 +347,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         }
         if (count($_dimentions) > 0) {
             $validatorChain->addValidator(
-                new Zend_Validate_File_ImageSize($_dimentions)
+                new Zend_Validate_File_ImageSize($_dimentions),
             );
         }
 
@@ -364,7 +364,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
         // Maximum filesize
         $validatorChain->addValidator(
-            new Zend_Validate_File_FilesSize(['max' => $this->_getUploadMaxFilesize()])
+            new Zend_Validate_File_FilesSize(['max' => $this->_getUploadMaxFilesize()]),
         );
 
         if ($validatorChain->isValid($fileFullPath)) {
@@ -471,7 +471,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
                 $customOptionUrlParams = $this->getCustomOptionUrlParams() ?: [
                     'id'  => $this->getConfigurationItemOption()->getId(),
-                    'key' => $value['secret_key']
+                    'key' => $value['secret_key'],
                 ];
 
                 $value['url'] = ['route' => $this->_customOptionDownloadUrl, 'params' => $customOptionUrlParams];
@@ -513,7 +513,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 '<a href="%s" target="_blank">%s</a> %s',
                 $this->_getOptionDownloadUrl($urlRoute, $urlParams),
                 Mage::helper('core')->escapeHtml($title),
-                $sizes
+                $sizes,
             );
         } catch (Exception $e) {
             Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
@@ -563,7 +563,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             return sprintf(
                 '%s [%d]',
                 Mage::helper('core')->escapeHtml($value['title']),
-                $this->getConfigurationItemOption()->getId()
+                $this->getConfigurationItemOption()->getId(),
             );
         } catch (Exception $e) {
             return $optionValue;

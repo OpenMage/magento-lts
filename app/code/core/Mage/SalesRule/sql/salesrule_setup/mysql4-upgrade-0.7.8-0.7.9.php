@@ -19,7 +19,7 @@ $installer = $this;
 $installer->getConnection()->addColumn(
     $this->getTable('salesrule'),
     'apply_to_shipping',
-    "tinyint(1) unsigned not null default '0' after simple_free_shipping"
+    "tinyint(1) unsigned not null default '0' after simple_free_shipping",
 );
 
 $installer->run("
@@ -40,7 +40,7 @@ $installer->getConnection()->addConstraint(
     $this->getTable('salesrule/label'),
     'rule_id',
     $this->getTable('salesrule'),
-    'rule_id'
+    'rule_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -48,5 +48,5 @@ $installer->getConnection()->addConstraint(
     $this->getTable('salesrule/label'),
     'store_id',
     $this->getTable('core/store'),
-    'store_id'
+    'store_id',
 );

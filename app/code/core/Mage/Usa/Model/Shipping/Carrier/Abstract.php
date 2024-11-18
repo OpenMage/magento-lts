@@ -223,8 +223,8 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                 array_merge(
                     [$this->getCarrierCode()],
                     array_keys($requestParams),
-                    $requestParams
-                )
+                    $requestParams,
+                ),
             );
         }
         return crc32($requestParams);
@@ -267,7 +267,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      */
     protected function _prepareServiceName($name)
     {
-        $name = html_entity_decode((string)$name);
+        $name = html_entity_decode((string) $name);
         $name = strip_tags(preg_replace('#&\w+;#', '', $name));
         return trim($name);
     }
@@ -318,7 +318,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             } else {
                 $data[] = [
                     'tracking_number' => $result->getTrackingNumber(),
-                    'label_content'   => $result->getShippingLabelContent()
+                    'label_content'   => $result->getShippingLabelContent(),
                 ];
             }
             if (!isset($isFirstRequest)) {
@@ -328,7 +328,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         }
 
         $response = new Varien_Object([
-            'info'   => $data
+            'info'   => $data,
         ]);
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
@@ -367,7 +367,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             } else {
                 $data[] = [
                     'tracking_number' => $result->getTrackingNumber(),
-                    'label_content'   => $result->getShippingLabelContent()
+                    'label_content'   => $result->getShippingLabelContent(),
                 ];
             }
             if (!isset($isFirstRequest)) {
@@ -377,7 +377,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         }
 
         $response = new Varien_Object([
-            'info'   => $data
+            'info'   => $data,
         ]);
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());

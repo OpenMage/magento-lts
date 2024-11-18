@@ -149,7 +149,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_before',
-            [$this->_eventObject => $this]
+            [$this->_eventObject => $this],
         );
         return parent::_beforeLoad();
     }
@@ -163,7 +163,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_after',
-            [$this->_eventObject => $this]
+            [$this->_eventObject => $this],
         );
 
         return parent::_afterLoad();
@@ -259,7 +259,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                 $select = $this->_conn->select();
                 $select->from(
                     ['main_table' => $this->_productTable],
-                    ['category_id', new Zend_Db_Expr('COUNT(main_table.product_id)')]
+                    ['category_id', new Zend_Db_Expr('COUNT(main_table.product_id)')],
                 )
                     ->where($this->_conn->quoteInto('main_table.category_id IN(?)', $regularIds))
                     ->group('main_table.category_id');
@@ -267,7 +267,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                     $select->join(
                         ['w' => $this->_productWebsiteTable],
                         'main_table.product_id = w.product_id',
-                        []
+                        [],
                     )
                     ->where('w.website_id = ?', $websiteId);
                 }
@@ -288,17 +288,17 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                 if ($allChildren = $item->getAllChildren()) {
                     $bind = [
                         'entity_id' => $item->getId(),
-                        'c_path'    => $item->getPath() . '/%'
+                        'c_path'    => $item->getPath() . '/%',
                     ];
                     $select = $this->_conn->select();
                     $select->from(
                         ['main_table' => $this->_productTable],
-                        new Zend_Db_Expr('COUNT(DISTINCT main_table.product_id)')
+                        new Zend_Db_Expr('COUNT(DISTINCT main_table.product_id)'),
                     )
                         ->joinInner(
                             ['e' => $this->getTable('catalog/category')],
                             'main_table.category_id=e.entity_id',
-                            []
+                            [],
                         )
                         ->where('e.entity_id = :entity_id')
                         ->orWhere('e.path LIKE :c_path');
@@ -306,7 +306,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                         $select->join(
                             ['w' => $this->_productWebsiteTable],
                             'main_table.product_id = w.product_id',
-                            []
+                            [],
                         )
                         ->where('w.website_id = ?', $websiteId);
                     }
@@ -351,7 +351,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      */
     protected function _getCurrentStoreId()
     {
-        return (int)Mage::app()->getStore()->getId();
+        return (int) Mage::app()->getStore()->getId();
     }
 
     /**
@@ -387,7 +387,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         $this->addAttributeToFilter('is_active', 1);
         Mage::dispatchEvent(
             $this->_eventPrefix . '_add_is_active_filter',
-            [$this->_eventObject => $this]
+            [$this->_eventObject => $this],
         );
         return $this;
     }

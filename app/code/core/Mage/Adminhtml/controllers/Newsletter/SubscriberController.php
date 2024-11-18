@@ -44,7 +44,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
         $this->_addBreadcrumb(Mage::helper('newsletter')->__('Subscribers'), Mage::helper('newsletter')->__('Subscribers'));
 
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/newsletter_subscriber', 'subscriber')
+            $this->getLayout()->createBlock('adminhtml/newsletter_subscriber', 'subscriber'),
         );
 
         $this->renderLayout();
@@ -54,7 +54,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
     {
         $this->loadLayout();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')->toHtml()
+            $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid')->toHtml(),
         );
     }
 
@@ -109,7 +109,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                     $subscriber->unsubscribe();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) were updated', count($subscribersIds))
+                    Mage::helper('adminhtml')->__('Total of %d record(s) were updated', count($subscribersIds)),
                 );
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -131,7 +131,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                     $subscriber->delete();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($subscribersIds))
+                    Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($subscribersIds)),
                 );
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());

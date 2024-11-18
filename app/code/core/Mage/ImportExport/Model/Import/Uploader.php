@@ -28,7 +28,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         'jpg' => 'image/jpeg',
         'jpeg' => 'image/jpeg',
         'gif' => 'image/gif',
-        'png' => 'image/png'
+        'png' => 'image/png',
     ];
     public const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
@@ -55,12 +55,12 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         $this->addValidateCallback(
             'catalog_product_image',
             Mage::helper('catalog/image'),
-            'validateUploadFile'
+            'validateUploadFile',
         );
         $this->addValidateCallback(
             Mage_Core_Model_File_Validator_Image::NAME,
             Mage::getModel('core/file_validator_image'),
-            'validate'
+            'validate',
         );
         $this->_uploadType = self::SINGLE_STYLE;
     }
@@ -111,7 +111,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             'type' => $this->_getMimeTypeByExt($fileInfo['extension']),
             'tmp_name' => $filePath,
             'error' => 0,
-            'size' => filesize($filePath)
+            'size' => filesize($filePath),
         ];
     }
 

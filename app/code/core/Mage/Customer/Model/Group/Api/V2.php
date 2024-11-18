@@ -19,6 +19,4 @@
  * @category   Mage
  * @package    Mage_Customer
  */
-class Mage_Customer_Model_Group_Api_V2 extends Mage_Customer_Model_Group_Api
-{
-}
+class Mage_Customer_Model_Group_Api_V2 extends Mage_Customer_Model_Group_Api {}

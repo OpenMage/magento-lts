@@ -26,5 +26,5 @@ $this->getConnection()
             'TYPE' => Varien_Db_Ddl_Table::TYPE_INTEGER,
             'NULLABLE' => false,
             'COMMENT' => 'Calculate off subtotal option',
-        ]
+        ],
     );

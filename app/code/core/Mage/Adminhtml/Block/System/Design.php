@@ -33,8 +33,8 @@ class Mage_Adminhtml_Block_System_Design extends Mage_Adminhtml_Block_Template
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Add Design Change'),
                     'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/new')),
-                    'class'     => 'add'
-                ])
+                    'class'     => 'add',
+                ]),
         );
 
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/system_design_grid', 'design.grid'));

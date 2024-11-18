@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         }
         $this->_prepareAdditionalFields(
             $data,
-            $product->getOptionInstance()->getGroupByType($data['type'])
+            $product->getOptionInstance()->getGroupByType($data['type']),
         );
         $this->_saveProductCustomOption($product, $data);
         return true;
@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (isset($data['additional_fields'])) {
             $this->_prepareAdditionalFields(
                 $data,
-                $option->getGroupByType()
+                $option->getGroupByType(),
             );
         }
         foreach ($option->getValues() as $valueId => $value) {
@@ -152,7 +152,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 // because it is not used for options changing in observers
                 Mage::dispatchEvent(
                     'catalog_product_prepare_save',
-                    ['product' => $product, 'request' => new Mage_Core_Controller_Request_Http()]
+                    ['product' => $product, 'request' => new Mage_Core_Controller_Request_Http()],
                 );
 
                 $product->save();
@@ -178,7 +178,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 $labelPath = $path . '/' . $group->getName() . '/types/' . $type->getName() . '/label';
                 $types[] = [
                     'label' => (string) Mage::getConfig()->getNode($labelPath),
-                    'value' => $type->getName()
+                    'value' => $type->getName(),
                 ];
             }
         }
@@ -211,9 +211,9 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 [
                     'price' => $option->getPrice(),
                     'price_type' => $option->getPriceType(),
-                    'sku' => $option->getSku()
-                ]
-            ]
+                    'sku' => $option->getSku(),
+                ],
+            ],
         ];
         // Set additional fields to each type group
         switch ($option->getGroupByType()) {
@@ -234,7 +234,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                         'price' => $value->getPrice(),
                         'price_type' => $value->getPriceType(),
                         'sku' => $value->getSku(),
-                        'sort_order' => $value->getSortOrder()
+                        'sort_order' => $value->getSortOrder(),
                     ];
                 }
                 break;
@@ -263,7 +263,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 'title' => $option->getTitle(),
                 'type' => $option->getType(),
                 'is_require' => $option->getIsRequire(),
-                'sort_order' => $option->getSortOrder()
+                'sort_order' => $option->getSortOrder(),
             ];
         }
         return $result;

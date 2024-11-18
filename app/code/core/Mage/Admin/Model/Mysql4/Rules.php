@@ -20,6 +20,4 @@
  * @package    Mage_Admin
  * @deprecated
  */
-class Mage_Admin_Model_Mysql4_Rules extends Mage_Admin_Model_Resource_Rules
-{
-}
+class Mage_Admin_Model_Mysql4_Rules extends Mage_Admin_Model_Resource_Rules {}

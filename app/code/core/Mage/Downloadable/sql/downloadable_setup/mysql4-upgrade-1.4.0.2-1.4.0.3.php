@@ -21,13 +21,13 @@ $adapter = $installer->getConnection();
 $adapter->modifyColumn(
     $installer->getTable('downloadable/link_purchased'),
     'order_id',
-    "INT(10) UNSIGNED NULL DEFAULT '0'"
+    "INT(10) UNSIGNED NULL DEFAULT '0'",
 );
 
 $adapter->modifyColumn(
     $installer->getTable('downloadable/link_purchased_item'),
     'order_item_id',
-    "INT(10) UNSIGNED NULL DEFAULT '0'"
+    "INT(10) UNSIGNED NULL DEFAULT '0'",
 );
 
 /**
@@ -40,7 +40,7 @@ $select = $adapter->select()
     ->joinLeft(
         ['o' => $installer->getTable('sales/order')],
         'd.order_id = o.entity_id',
-        []
+        [],
     )
     ->where('o.entity_id IS NULL')
     ->where('d.order_id IS NOT NULL')
@@ -50,7 +50,7 @@ if ($ids) {
     $adapter->update(
         $installer->getTable('downloadable/link_purchased'),
         ['order_id' => new Zend_Db_Expr('(NULL)')],
-        $adapter->quoteInto('purchased_id IN (?)', $ids)
+        $adapter->quoteInto('purchased_id IN (?)', $ids),
     );
 }
 //update downloadable purchased items data
@@ -59,7 +59,7 @@ $select = $adapter->select()
     ->joinLeft(
         ['o' => $installer->getTable('sales/order_item')],
         'd.order_item_id = o.item_id',
-        []
+        [],
     )
     ->where('o.item_id IS NULL')
     ->where('d.order_item_id IS NOT NULL')
@@ -69,7 +69,7 @@ if ($ids) {
     $adapter->update(
         $installer->getTable('downloadable/link_purchased_item'),
         ['order_item_id' => new Zend_Db_Expr('(NULL)')],
-        $adapter->quoteInto('item_id IN (?)', $ids)
+        $adapter->quoteInto('item_id IN (?)', $ids),
     );
 }
 $adapter->commit();
@@ -81,7 +81,7 @@ $adapter->addConstraint(
     'order_id',
     $installer->getTable('sales/order'),
     'entity_id',
-    'set null'
+    'set null',
 );
 $adapter->addConstraint(
     'FK_DOWNLOADABLE_LINK_ORDER_ITEM_ID',
@@ -89,5 +89,5 @@ $adapter->addConstraint(
     'order_item_id',
     $installer->getTable('sales/order_item'),
     'item_id',
-    'set null'
+    'set null',
 );

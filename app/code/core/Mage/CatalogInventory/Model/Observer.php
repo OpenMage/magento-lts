@@ -173,7 +173,7 @@ class Mage_CatalogInventory_Model_Observer
             'use_config_min_sale_qty'   => 1,
             'use_config_max_sale_qty'   => 1,
             'use_config_backorders'     => 1,
-            'use_config_notify_stock_qty' => 1
+            'use_config_notify_stock_qty' => 1,
         ];
         $currentStockItem = $currentProduct->getStockItem();
         if ($currentStockItem) {
@@ -256,7 +256,7 @@ class Mage_CatalogInventory_Model_Observer
         if ($item->getHasError()) {
             $params = [
                 'origin' => 'cataloginventory',
-                'code' => $code
+                'code' => $code,
             ];
             $item->removeErrorInfosByParams($params);
         }
@@ -287,7 +287,7 @@ class Mage_CatalogInventory_Model_Observer
         if ($quote->getHasError() && $canRemoveErrorFromQuote) {
             $params = [
                 'origin' => 'cataloginventory',
-                'code' => $code
+                'code' => $code,
             ];
             $quote->removeErrorInfosByParams(null, $params);
         }
@@ -330,13 +330,13 @@ class Mage_CatalogInventory_Model_Observer
                 $quoteItem->addErrorInfo(
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    Mage::helper('cataloginventory')->__('This product is currently out of stock.')
+                    Mage::helper('cataloginventory')->__('This product is currently out of stock.'),
                 );
                 $quoteItem->getQuote()->addErrorInfo(
                     'stock',
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    Mage::helper('cataloginventory')->__('Some of the products are currently out of stock.')
+                    Mage::helper('cataloginventory')->__('Some of the products are currently out of stock.'),
                 );
                 return $this;
             } else {
@@ -359,20 +359,20 @@ class Mage_CatalogInventory_Model_Observer
                     $quoteItem->addErrorInfo(
                         'cataloginventory',
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS,
-                        $result->getMessage()
+                        $result->getMessage(),
                     );
 
                     $quoteItem->getQuote()->addErrorInfo(
                         $result->getQuoteMessageIndex(),
                         'cataloginventory',
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS,
-                        $result->getQuoteMessage()
+                        $result->getQuoteMessage(),
                     );
                 } else {
                     // Delete error from item and its quote, if it was set due to qty problems
                     $this->_removeErrorsFromQuoteAndItem(
                         $quoteItem,
-                        Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS
+                        Mage_CatalogInventory_Helper_Data::ERROR_QTY_INCREMENTS,
                     );
                 }
             }
@@ -394,7 +394,7 @@ class Mage_CatalogInventory_Model_Observer
                 /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
                 if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                     Mage::throwException(
-                        Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.')
+                        Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.'),
                     );
                 }
 
@@ -410,7 +410,7 @@ class Mage_CatalogInventory_Model_Observer
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $option->getProduct()->getId(),
                     $quoteItem->getId(),
-                    $increaseOptionQty
+                    $increaseOptionQty,
                 );
 
                 $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue);
@@ -443,14 +443,14 @@ class Mage_CatalogInventory_Model_Observer
                     $quoteItem->addErrorInfo(
                         'cataloginventory',
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                        $result->getMessage()
+                        $result->getMessage(),
                     );
 
                     $quoteItem->getQuote()->addErrorInfo(
                         $result->getQuoteMessageIndex(),
                         'cataloginventory',
                         Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                        $result->getQuoteMessage()
+                        $result->getQuoteMessage(),
                     );
                 } elseif (!$quoteItemHasErrors) {
                     // Delete error from item and its quote, if it was set due to qty lack
@@ -476,7 +476,7 @@ class Mage_CatalogInventory_Model_Observer
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $quoteItem->getProduct()->getId(),
                     $quoteItem->getId(),
-                    0
+                    0,
                 );
             } else {
                 $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
@@ -484,7 +484,7 @@ class Mage_CatalogInventory_Model_Observer
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $quoteItem->getProduct()->getId(),
                     $quoteItem->getId(),
-                    $increaseQty
+                    $increaseQty,
                 );
             }
 
@@ -540,14 +540,14 @@ class Mage_CatalogInventory_Model_Observer
                 $quoteItem->addErrorInfo(
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    $result->getMessage()
+                    $result->getMessage(),
                 );
 
                 $quoteItem->getQuote()->addErrorInfo(
                     $result->getQuoteMessageIndex(),
                     'cataloginventory',
                     Mage_CatalogInventory_Helper_Data::ERROR_QTY,
-                    $result->getQuoteMessage()
+                    $result->getQuoteMessage(),
                 );
             } else {
                 // Delete error from item and its quote, if it was set due to qty lack
@@ -689,7 +689,7 @@ class Mage_CatalogInventory_Model_Observer
             }
             $items[$productId] = [
                 'item' => $stockItem,
-                'qty'  => $quoteItem->getTotalQty()
+                'qty'  => $quoteItem->getTotalQty(),
             ];
         }
     }
@@ -1039,7 +1039,7 @@ class Mage_CatalogInventory_Model_Observer
     {
         Mage::getSingleton('index/indexer')->indexEvents(
             Mage_Catalog_Model_Product::ENTITY,
-            Mage_Index_Model_Event::TYPE_MASS_ACTION
+            Mage_Index_Model_Event::TYPE_MASS_ACTION,
         );
     }
 

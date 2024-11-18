@@ -56,7 +56,7 @@ class UrlTest extends TestCase
     {
         yield 'null' => [
             '',
-            null
+            null,
         ];
         yield '&amp;' => [
             'and',

@@ -63,8 +63,8 @@ class Mage_Payment_Model_Source_Cctype
         foreach (Mage::getSingleton('payment/config')->getCcTypes() as $code => $name) {
             if (in_array($code, $allowed) || !count($allowed)) {
                 $options[] = [
-                   'value' => $code,
-                   'label' => $name
+                    'value' => $code,
+                    'label' => $name,
                 ];
             }
         }

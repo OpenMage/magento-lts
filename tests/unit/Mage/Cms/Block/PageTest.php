@@ -42,10 +42,10 @@ class PageTest extends TestCase
     public function provideGetPageData(): Generator
     {
         yield 'valid page ID' => [
-            '2'
+            '2',
         ];
         yield 'invalid page ID' => [
-            '0'
+            '0',
         ];
     }
 }

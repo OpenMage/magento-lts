@@ -21,7 +21,7 @@ $installer->getConnection()
     ->modifyColumn(
         $this->getTable('catalogrule'),
         'customer_group_ids',
-        'TEXT'
+        'TEXT',
     );
 
 $installer->endSetup();

@@ -18,6 +18,4 @@
  * @package    Mage_Core
  * @deprecated
  */
-class Mage_Core_Model_Mysql4_Language extends Mage_Core_Model_Resource_Language
-{
-}
+class Mage_Core_Model_Mysql4_Language extends Mage_Core_Model_Resource_Language {}

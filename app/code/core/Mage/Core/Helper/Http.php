@@ -103,7 +103,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         $element = Mage::getConfig()->getNode(self::XML_NODE_REMOTE_ADDR_HEADERS);
         if ($element instanceof Mage_Core_Model_Config_Element) {
             foreach ($element->children() as $node) {
-                $headers[] = (string)$node;
+                $headers[] = (string) $node;
             }
         }
 

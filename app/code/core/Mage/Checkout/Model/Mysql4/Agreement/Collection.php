@@ -18,6 +18,4 @@
  * @package    Mage_Checkout
  * @deprecated
  */
-class Mage_Checkout_Model_Mysql4_Agreement_Collection extends Mage_Checkout_Model_Resource_Agreement_Collection
-{
-}
+class Mage_Checkout_Model_Mysql4_Agreement_Collection extends Mage_Checkout_Model_Resource_Agreement_Collection {}

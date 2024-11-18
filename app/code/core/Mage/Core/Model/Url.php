@@ -131,7 +131,7 @@ class Mage_Core_Model_Url extends Varien_Object
     protected $_reservedRouteParams = [
         '_store', '_type', '_secure', '_forced_secure', '_use_rewrite', '_nosid',
         '_absolute', '_current', '_direct', '_fragment', '_escape', '_query',
-        '_store_to_url'
+        '_store_to_url',
     ];
 
     /**
@@ -321,7 +321,7 @@ class Mage_Core_Model_Url extends Varien_Object
     public function getSecure()
     {
         if ($this->hasData('secure_is_forced')) {
-            return (bool)$this->getData('secure');
+            return (bool) $this->getData('secure');
         }
 
         $store = $this->getStore();
@@ -631,11 +631,11 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         if (isset($data['_forced_secure'])) {
-            $this->setSecure((bool)$data['_forced_secure']);
+            $this->setSecure((bool) $data['_forced_secure']);
             $this->setSecureIsForced(true);
             unset($data['_forced_secure']);
         } elseif (isset($data['_secure'])) {
-            $this->setSecure((bool)$data['_secure']);
+            $this->setSecure((bool) $data['_secure']);
             unset($data['_secure']);
         }
 
@@ -675,7 +675,7 @@ class Mage_Core_Model_Url extends Varien_Object
             unset($data['_use_rewrite']);
         }
 
-        if (isset($data['_store_to_url']) && (bool)$data['_store_to_url'] === true) {
+        if (isset($data['_store_to_url']) && (bool) $data['_store_to_url'] === true) {
             if (!Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getStore())
                 && !Mage::app()->isSingleStoreMode()
             ) {
@@ -982,7 +982,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $noSid = null;
         if (isset($routeParams['_nosid'])) {
-            $noSid = (bool)$routeParams['_nosid'];
+            $noSid = (bool) $routeParams['_nosid'];
             unset($routeParams['_nosid']);
         }
 
@@ -1141,7 +1141,7 @@ class Mage_Core_Model_Url extends Varien_Object
             return preg_replace_callback(
                 '#(\?|&amp;|&)___SID=([SU])(&amp;|&)?#',
                 [$this, 'sessionVarCallback'],
-                $html
+                $html,
             );
         }
     }
@@ -1159,7 +1159,7 @@ class Mage_Core_Model_Url extends Varien_Object
             $httpHost = Mage::app()->getFrontController()->getRequest()->getHttpHost();
             $urlHost = parse_url(
                 Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, $secure),
-                PHP_URL_HOST
+                PHP_URL_HOST,
             );
 
             if ($httpHost != $urlHost) {
@@ -1235,7 +1235,7 @@ class Mage_Core_Model_Url extends Varien_Object
     public function getRedirectUrl($url)
     {
         $this->_prepareSessionUrlWithParams($url, [
-            'name' => Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
+            'name' => Mage_Core_Controller_Front_Action::SESSION_NAMESPACE,
         ]);
 
         $query = $this->getQuery(false);

@@ -21,5 +21,5 @@ $installer->getConnection()
         'TYPE'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'LENGTH'    => 255,
         'NULLABLE'  => true,
-        'COMMENT'   => 'Coupon Sales Rule Name'
+        'COMMENT'   => 'Coupon Sales Rule Name',
     ]);

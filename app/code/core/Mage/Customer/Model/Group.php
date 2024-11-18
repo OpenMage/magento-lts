@@ -126,7 +126,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this,
             self::ENTITY,
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         );
         return $this;
     }
@@ -148,7 +148,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     protected function _prepareData()
     {
         $this->setCode(
-            substr($this->getCode(), 0, self::GROUP_CODE_MAX_LENGTH)
+            substr($this->getCode(), 0, self::GROUP_CODE_MAX_LENGTH),
         );
         return $this;
     }

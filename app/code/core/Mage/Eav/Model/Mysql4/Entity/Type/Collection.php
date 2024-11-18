@@ -18,6 +18,4 @@
  * @package    Mage_Eav
  * @deprecated
  */
-class Mage_Eav_Model_Mysql4_Entity_Type_Collection extends Mage_Eav_Model_Resource_Entity_Type_Collection
-{
-}
+class Mage_Eav_Model_Mysql4_Entity_Type_Collection extends Mage_Eav_Model_Resource_Entity_Type_Collection {}

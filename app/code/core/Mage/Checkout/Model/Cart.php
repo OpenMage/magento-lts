@@ -266,7 +266,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 $redirectUrl = ($product->hasOptionsValidationFail())
                     ? $product->getUrlModel()->getUrl(
                         $product,
-                        ['_query' => ['startcustomization' => 1]]
+                        ['_query' => ['startcustomization' => 1]],
                     )
                     : $product->getProductUrl();
                 $this->getCheckoutSession()->setRedirectUrl($redirectUrl);
@@ -315,12 +315,12 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
             if (!$allAvailable) {
                 $this->getCheckoutSession()->addError(
-                    Mage::helper('checkout')->__('Some of the requested products are unavailable.')
+                    Mage::helper('checkout')->__('Some of the requested products are unavailable.'),
                 );
             }
             if (!$allAdded) {
                 $this->getCheckoutSession()->addError(
-                    Mage::helper('checkout')->__('Some of the requested products are not available in the desired quantity.')
+                    Mage::helper('checkout')->__('Some of the requested products are not available in the desired quantity.'),
                 );
             }
         }
@@ -414,7 +414,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
         if ($qtyRecalculatedFlag) {
             $session->addNotice(
-                Mage::helper('checkout')->__('Some products quantities were recalculated because of quantity increment mismatch')
+                Mage::helper('checkout')->__('Some products quantities were recalculated because of quantity increment mismatch'),
             );
         }
 
@@ -592,7 +592,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
         Mage::dispatchEvent('checkout_cart_product_update_after', [
             'quote_item' => $result,
-            'product' => $product
+            'product' => $product,
         ]);
         $this->getCheckoutSession()->setLastAddedProductId($productId);
         return $result;

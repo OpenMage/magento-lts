@@ -70,7 +70,7 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
         $this->getSelect()->join(
             [$alias => $this->getTable('checkout/agreement_store')],
             'main_table.agreement_id = ' . $alias . '.agreement_id',
-            []
+            [],
         )
         ->where($alias . '.store_id IN (?)', $storeFilter)
         ->group('main_table.agreement_id');
@@ -93,7 +93,7 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
      */
     public function setIsStoreFilterWithAdmin($value)
     {
-        $this->_isStoreFilterWithAdmin = (bool)$value;
+        $this->_isStoreFilterWithAdmin = (bool) $value;
         return $this;
     }
 }

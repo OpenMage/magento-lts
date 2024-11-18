@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_Checkout
  */
-class Mage_Checkout_Exception extends Zend_Exception
-{
-}
+class Mage_Checkout_Exception extends Zend_Exception {}

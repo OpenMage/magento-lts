@@ -194,7 +194,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
             $this->setData('qty', $qty);
         } else {
             Mage::throwException(
-                Mage::helper('sales')->__('Invalid qty to invoice item "%s"', $this->getName())
+                Mage::helper('sales')->__('Invalid qty to invoice item "%s"', $this->getName()),
             );
         }
         return $this;
@@ -285,7 +285,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function isLast()
     {
-        if ((string)(float)$this->getQty() == (string)(float)$this->getOrderItem()->getQtyToInvoice()) {
+        if ((string) (float) $this->getQty() == (string) (float) $this->getOrderItem()->getQtyToInvoice()) {
             return true;
         }
         return false;

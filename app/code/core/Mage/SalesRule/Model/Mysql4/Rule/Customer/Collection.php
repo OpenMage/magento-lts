@@ -20,6 +20,4 @@
  * @package    Mage_SalesRule
  * @deprecated
  */
-class Mage_SalesRule_Model_Mysql4_Rule_Customer_Collection extends Mage_SalesRule_Model_Resource_Rule_Customer_Collection
-{
-}
+class Mage_SalesRule_Model_Mysql4_Rule_Customer_Collection extends Mage_SalesRule_Model_Resource_Rule_Customer_Collection {}

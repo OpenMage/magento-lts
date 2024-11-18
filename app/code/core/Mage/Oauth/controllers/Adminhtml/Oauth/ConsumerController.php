@@ -170,7 +170,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
         if ($id) {
             if (!(int) $id) {
                 $this->_getSession()->addError(
-                    $this->__('Invalid ID parameter.')
+                    $this->__('Invalid ID parameter.'),
                 );
                 $this->_redirect('*/*/index');
                 return;
@@ -179,7 +179,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
             if (!$model->getId()) {
                 $this->_getSession()->addError(
-                    $this->__('Entry with ID #%s not found.', $id)
+                    $this->__('Entry with ID #%s not found.', $id),
                 );
                 $this->_redirect('*/*/index');
                 return;
@@ -303,7 +303,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             } catch (Exception $e) {
                 $this->_getSession()->addException(
                     $e,
-                    Mage::helper('oauth')->__('An error occurred while deleting the consumer.')
+                    Mage::helper('oauth')->__('An error occurred while deleting the consumer.'),
                 );
             }
         }

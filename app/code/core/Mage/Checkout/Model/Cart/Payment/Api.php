@@ -145,7 +145,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
                 $this->_fault('billing_address_is_not_set');
             }
             $quote->getBillingAddress()->setPaymentMethod(
-                $paymentData['method'] ?? null
+                $paymentData['method'] ?? null,
             );
         } else {
             // check if shipping address is set
@@ -153,7 +153,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
                 $this->_fault('shipping_address_is_not_set');
             }
             $quote->getShippingAddress()->setPaymentMethod(
-                $paymentData['method'] ?? null
+                $paymentData['method'] ?? null,
             );
         }
 

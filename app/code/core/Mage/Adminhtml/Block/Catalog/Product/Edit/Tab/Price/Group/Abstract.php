@@ -190,8 +190,8 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         $this->_websites = [
             0 => [
                 'name' => Mage::helper('catalog')->__('All Websites'),
-                'currency' => Mage::app()->getBaseCurrencyCode()
-            ]
+                'currency' => Mage::app()->getBaseCurrencyCode(),
+            ],
         ];
 
         if (!$this->isScopeGlobal() && $this->getProduct()->getStoreId()) {
@@ -200,7 +200,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
 
             $this->_websites[$website->getId()] = [
                 'name' => $website->getName(),
-                'currency' => $website->getBaseCurrencyCode()
+                'currency' => $website->getBaseCurrencyCode(),
             ];
         } elseif (!$this->isScopeGlobal()) {
             $websites = Mage::app()->getWebsites(false);
@@ -211,7 +211,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
                 }
                 $this->_websites[$website->getId()] = [
                     'name' => $website->getName(),
-                    'currency' => $website->getBaseCurrencyCode()
+                    'currency' => $website->getBaseCurrencyCode(),
                 ];
             }
         }

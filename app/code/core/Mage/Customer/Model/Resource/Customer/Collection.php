@@ -38,7 +38,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
         $this->getSelect()
             ->from(
                 ['email' => $this->getEntity()->getEntityTable()],
-                ['email_count' => new Zend_Db_Expr('COUNT(email.entity_id)')]
+                ['email_count' => new Zend_Db_Expr('COUNT(email.entity_id)')],
             )
             ->where('email.entity_id = e.entity_id')
             ->group('email.email');
@@ -67,7 +67,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
             $concatenate[] = $adapter->getCheckSql(
                 '{{prefix}} IS NOT NULL AND {{prefix}} != \'\'',
                 $adapter->getConcatSql(['LTRIM(RTRIM({{prefix}}))', '\' \'']),
-                '\'\''
+                '\'\'',
             );
         }
         $concatenate[] = 'LTRIM(RTRIM({{firstname}}))';
@@ -76,7 +76,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
             $concatenate[] = $adapter->getCheckSql(
                 '{{middlename}} IS NOT NULL AND {{middlename}} != \'\'',
                 $adapter->getConcatSql(['LTRIM(RTRIM({{middlename}}))', '\' \'']),
-                '\'\''
+                '\'\'',
             );
         }
         $concatenate[] = 'LTRIM(RTRIM({{lastname}}))';
@@ -85,7 +85,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
                     ->getCheckSql(
                         '{{suffix}} IS NOT NULL AND {{suffix}} != \'\'',
                         $adapter->getConcatSql(['\' \'', 'LTRIM(RTRIM({{suffix}}))']),
-                        '\'\''
+                        '\'\'',
                     );
         }
 

@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
     {
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $baseCurrencyCode = $this->getCurrentCurrencyCode();
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
             'width'     => '120px',
             'index'     => 'ordered_qty',
             'total'     => 'sum',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addExportType('*/*/exportOrderedCsv', Mage::helper('reports')->__('CSV'));

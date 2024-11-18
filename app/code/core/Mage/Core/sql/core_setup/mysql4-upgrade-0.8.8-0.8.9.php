@@ -21,7 +21,7 @@ $installer->getConnection()->changeColumn(
     $this->getTable('core_session'),
     'session_data',
     'session_data',
-    'MEDIUMBLOB NOT NULL'
+    'MEDIUMBLOB NOT NULL',
 );
 
 $installer->endSetup();

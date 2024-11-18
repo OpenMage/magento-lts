@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
             $this->_options = parent::getAllOptions();
             $this->_options[] = [
                 'label' => Mage::helper('catalog')->__('Use config'),
-                'value' => self::TYPE_USE_CONFIG
+                'value' => self::TYPE_USE_CONFIG,
             ];
         }
         return $this->_options;
@@ -55,7 +55,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
         $column = [
             'unsigned'  => false,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {

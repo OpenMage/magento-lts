@@ -142,7 +142,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getAllowedAttemptsForSameLogin()
     {
-        return (int)$this->_getHelper()->getConfigNode('failed_attempts_login');
+        return (int) $this->_getHelper()->getConfigNode('failed_attempts_login');
     }
 
     /**
@@ -152,7 +152,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getAllowedAttemptsFromSameIp()
     {
-        return (int)$this->_getHelper()->getConfigNode('failed_attempts_ip');
+        return (int) $this->_getHelper()->getConfigNode('failed_attempts_ip');
     }
 
     /**
@@ -200,7 +200,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     public function isCaseSensitive()
     {
-        return (string)$this->_getHelper()->getConfigNode('case_sensitive');
+        return (string) $this->_getHelper()->getConfigNode('case_sensitive');
     }
 
     /**
@@ -225,7 +225,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
              * as "timeout" configuration parameter specifies timeout in minutes - we multiply it on 60 to set
              * expiration in seconds
              */
-            $this->_expiration = (int)$this->_getHelper()->getConfigNode('timeout') * 60;
+            $this->_expiration = (int) $this->_getHelper()->getConfigNode('timeout') * 60;
         }
         return $this->_expiration;
     }
@@ -316,7 +316,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getFontPath()
     {
-        $font = (string)$this->_getHelper()->getConfigNode('font');
+        $font = (string) $this->_getHelper()->getConfigNode('font');
         $fonts = $this->_getHelper()->getFonts();
 
         if (isset($fonts[$font])) {
@@ -365,7 +365,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _getSymbols()
     {
-        return str_split((string)$this->_getHelper()->getConfigNode('symbols'));
+        return str_split((string) $this->_getHelper()->getConfigNode('symbols'));
     }
 
     /**
@@ -377,15 +377,15 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         $from = 0;
         $to = 0;
-        $length = (string)$this->_getHelper()->getConfigNode('length');
+        $length = (string) $this->_getHelper()->getConfigNode('length');
         if (!is_numeric($length)) {
             if (preg_match('/(\d+)-(\d+)/', $length, $matches)) {
-                $from = (int)$matches[1];
-                $to = (int)$matches[2];
+                $from = (int) $matches[1];
+                $to = (int) $matches[2];
             }
         } else {
-            $from = (int)$length;
-            $to = (int)$length;
+            $from = (int) $length;
+            $to = (int) $length;
         }
 
         if (($to < $from) || ($from < 1) || ($to < 1)) {
@@ -408,7 +408,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             return true;
         }
 
-        if ((string)$this->_getHelper()->getConfigNode('mode') == Mage_Captcha_Helper_Data::MODE_ALWAYS) {
+        if ((string) $this->_getHelper()->getConfigNode('mode') == Mage_Captcha_Helper_Data::MODE_ALWAYS) {
             return true;
         }
 
@@ -429,7 +429,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     protected function _isEnabled()
     {
-        return (string)$this->_getHelper()->getConfigNode('enable');
+        return (string) $this->_getHelper()->getConfigNode('enable');
     }
 
     /**
@@ -469,7 +469,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
-            ['data' => $word, 'expires' => time() + $this->getTimeout()]
+            ['data' => $word, 'expires' => time() + $this->getTimeout()],
         );
         $this->_word = $word;
         return $this;

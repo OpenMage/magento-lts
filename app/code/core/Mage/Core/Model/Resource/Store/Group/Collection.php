@@ -51,7 +51,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      */
     public function setLoadDefault($loadDefault)
     {
-        return $this->setFlag('load_default_store_group', (bool)$loadDefault);
+        return $this->setFlag('load_default_store_group', (bool) $loadDefault);
     }
 
     /**

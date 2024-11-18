@@ -44,16 +44,12 @@ class Varien_Data_Tree
     /**
      * @param Varien_Data_Tree_Node $parentNode
      */
-    public function load($parentNode = null)
-    {
-    }
+    public function load($parentNode = null) {}
 
     /**
      * @param int $nodeId
      */
-    public function loadNode($nodeId)
-    {
-    }
+    public function loadNode($nodeId) {}
 
     /**
      * @param array|Varien_Data_Tree_Node $data
@@ -66,7 +62,7 @@ class Varien_Data_Tree
         if (is_array($data)) {
             $node = $this->addNode(
                 new Varien_Data_Tree_Node($data, $parentNode->getIdField(), $this),
-                $parentNode
+                $parentNode,
             );
         } elseif ($data instanceof Varien_Data_Tree_Node) {
             $node = $this->addNode($data, $parentNode);
@@ -94,18 +90,14 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function moveNodeTo($node, $parentNode, $prevNode = null)
-    {
-    }
+    public function moveNodeTo($node, $parentNode, $prevNode = null) {}
 
     /**
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function copyNodeTo($node, $parentNode, $prevNode = null)
-    {
-    }
+    public function copyNodeTo($node, $parentNode, $prevNode = null) {}
 
     /**
      * @param Varien_Data_Tree_Node $node
@@ -125,23 +117,17 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function createNode($parentNode, $prevNode = null)
-    {
-    }
+    public function createNode($parentNode, $prevNode = null) {}
 
     /**
      * @param Varien_Data_Tree_Node $node
      */
-    public function getChild($node)
-    {
-    }
+    public function getChild($node) {}
 
     /**
      * @param Varien_Data_Tree_Node $node
      */
-    public function getChildren($node)
-    {
-    }
+    public function getChildren($node) {}
 
     /**
      * @return Varien_Data_Tree_Node_Collection

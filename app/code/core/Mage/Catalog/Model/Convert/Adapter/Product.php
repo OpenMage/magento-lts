@@ -174,7 +174,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
         $attrToDb = [
             'type'          => 'type_id',
-            'attribute_set' => 'attribute_set_id'
+            'attribute_set' => 'attribute_set_id',
         ];
 
         $filters = $this->_parseVars();
@@ -200,13 +200,13 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             $this->_filter[] = [
                 'attribute' => 'price',
                 'from'      => $price['from'],
-                'to'        => $price['to']
+                'to'        => $price['to'],
             ];
             $this->setJoinAttr([
                 'alias'     => 'price',
                 'attribute' => 'catalog_product/price',
                 'bind'      => 'entity_id',
-                'joinType'  => 'LEFT'
+                'joinType'  => 'LEFT',
             ]);
         }
 
@@ -481,7 +481,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         $stores = [];
         foreach (Mage::getConfig()->getNode('stores')->children() as $storeNode) {
-            $stores[(int)$storeNode->system->store->id] = $storeNode->getName();
+            $stores[(int) $storeNode->system->store->id] = $storeNode->getName();
         }
 
         $collections = $this->getData();
@@ -490,7 +490,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         } elseif (!is_array($collections)) {
             $this->addException(
                 Mage::helper('catalog')->__('No product collections found.'),
-                Mage_Dataflow_Model_Convert_Exception::FATAL
+                Mage_Dataflow_Model_Convert_Exception::FATAL,
             );
         }
 
@@ -502,7 +502,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 if (!$collection instanceof Mage_Catalog_Model_Resource_Product_Collection) {
                     $this->addException(
                         Mage::helper('catalog')->__('Product collection expected.'),
-                        Mage_Dataflow_Model_Convert_Exception::FATAL
+                        Mage_Dataflow_Model_Convert_Exception::FATAL,
                     );
                 }
                 try {
@@ -533,7 +533,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                             if ($storeId !== 0) {
                                 Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore(
                                     $model->getId(),
-                                    $storeId
+                                    $storeId,
                                 );
                             }
                             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
@@ -582,7 +582,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
                         $this->addException(
                             Mage::helper('catalog')->__('An error occurred while saving the collection, aborting. Error message: %s', $e->getMessage()),
-                            Mage_Dataflow_Model_Convert_Exception::FATAL
+                            Mage_Dataflow_Model_Convert_Exception::FATAL,
                         );
                     }
                 }
@@ -606,7 +606,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         $imageData = [
             'label'         => $importData['_media_lable'],
             'position'      => $importData['_media_position'],
-            'disabled'      => $importData['_media_is_disabled']
+            'disabled'      => $importData['_media_is_disabled'],
         ];
 
         $imageFile = trim($importData['_media_image']);
@@ -618,7 +618,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             $imageFilePath,
             null,
             false,
-            (bool) $importData['_media_is_disabled']
+            (bool) $importData['_media_is_disabled'],
         );
         $this->_galleryBackendModel->updateImage($product, $updatedFileName, $imageData);
 
@@ -833,7 +833,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             $arrayToMassAdd,
             Mage::getBaseDir('media') . DS . 'import',
             false,
-            false
+            false,
         );
 
         foreach ($product->getMediaAttributes() as $mediaAttributeCode => $mediaAttribute) {
@@ -843,7 +843,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 if (isset($importData[$mediaAttributeCode])) {
                     $keyInAddedFile = array_search(
                         $importData[$mediaAttributeCode],
-                        $addedFilesCorrespondence['alreadyAddedFiles']
+                        $addedFilesCorrespondence['alreadyAddedFiles'],
                     );
                     if ($keyInAddedFile !== false) {
                         $addedFile = $addedFilesCorrespondence['alreadyAddedFilesNames'][$keyInAddedFile];
@@ -899,7 +899,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         Mage::getSingleton('index/indexer')->processEntityAction(
             $entity,
             self::ENTITY,
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         );
     }
 }

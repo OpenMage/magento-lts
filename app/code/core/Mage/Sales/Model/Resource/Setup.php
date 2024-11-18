@@ -59,7 +59,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         'order',
         'invoice',
         'shipment',
-        'creditmemo'
+        'creditmemo',
     ];
 
     /**
@@ -408,7 +408,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes'            => [
                     'entity_id'             => [
                         'type'      => 'static',
-                        'backend'   => 'sales_entity/order_attribute_backend_parent'
+                        'backend'   => 'sales_entity/order_attribute_backend_parent',
                     ],
                     'store_id'                  => ['type' => 'static'],
                     'store_name'                => ['type' => 'varchar'],
@@ -566,7 +566,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes'        => [
                     'parent_id'                 => [
                         'type'      => 'static',
-                        'backend'   => 'sales_entity/order_attribute_backend_child'
+                        'backend'   => 'sales_entity/order_attribute_backend_child',
                     ],
 
                     'quote_item_id'             => ['type' => 'int'],
@@ -626,7 +626,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'parent_id' => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_attribute_backend_child'
+                        'backend' => 'sales_entity/order_attribute_backend_child',
                     ],
                     'quote_payment_id'      => ['type' => 'int'],
                     'method'                => [],
@@ -691,7 +691,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'parent_id' => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_attribute_backend_child'
+                        'backend' => 'sales_entity/order_attribute_backend_child',
                     ],
                     'status'    => ['type' => 'varchar'],
                     'comment'   => ['type' => 'text'],
@@ -708,7 +708,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'entity_id' => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_invoice_attribute_backend_parent'
+                        'backend' => 'sales_entity/order_invoice_attribute_backend_parent',
                     ],
 
                     'state'    => ['type' => 'int'],
@@ -717,7 +717,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 
                     'order_id'              => [
                         'type' => 'int',
-                        'backend' => 'sales_entity/order_invoice_attribute_backend_order'
+                        'backend' => 'sales_entity/order_invoice_attribute_backend_order',
                     ],
 
                     'billing_address_id'    => ['type' => 'int'],
@@ -758,7 +758,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'parent_id'     => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_invoice_attribute_backend_child'
+                        'backend' => 'sales_entity/order_invoice_attribute_backend_child',
                     ],
                     'order_item_id' => ['type' => 'int'],
                     'product_id'    => ['type' => 'int'],
@@ -787,7 +787,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'parent_id' => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_invoice_attribute_backend_child'
+                        'backend' => 'sales_entity/order_invoice_attribute_backend_child',
                     ],
                     'comment' => ['type' => 'text'],
                     'is_customer_notified' => ['type' => 'int'],
@@ -804,7 +804,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'entity_id'     => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_shipment_attribute_backend_parent'
+                        'backend' => 'sales_entity/order_shipment_attribute_backend_parent',
                     ],
 
                     'customer_id'   => ['type' => 'int'],
@@ -827,7 +827,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'parent_id'     => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_shipment_attribute_backend_child'
+                        'backend' => 'sales_entity/order_shipment_attribute_backend_child',
                     ],
                     'order_item_id' => ['type' => 'int'],
                     'product_id'    => ['type' => 'int'],
@@ -849,7 +849,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'parent_id' => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_shipment_attribute_backend_child'
+                        'backend' => 'sales_entity/order_shipment_attribute_backend_child',
                     ],
                     'comment' => ['type' => 'text'],
                     'is_customer_notified' => ['type' => 'int'],
@@ -862,7 +862,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'parent_id'     => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_shipment_attribute_backend_child'
+                        'backend' => 'sales_entity/order_shipment_attribute_backend_child',
                     ],
                     'order_id'      => ['type' => 'int'],
                     'number'        => ['type' => 'text'],
@@ -884,7 +884,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'entity_id'     => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_creditmemo_attribute_backend_parent'
+                        'backend' => 'sales_entity/order_creditmemo_attribute_backend_parent',
                     ],
                     'state'         => ['type' => 'int'],
                     'invoice_id'    => ['type' => 'int'],
@@ -933,7 +933,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'parent_id'     => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_creditmemo_attribute_backend_child'
+                        'backend' => 'sales_entity/order_creditmemo_attribute_backend_child',
                     ],
                     'order_item_id' => ['type' => 'int'],
                     'product_id'    => ['type' => 'int'],
@@ -962,7 +962,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'attributes' => [
                     'parent_id' => [
                         'type' => 'static',
-                        'backend' => 'sales_entity/order_creditmemo_attribute_backend_child'
+                        'backend' => 'sales_entity/order_creditmemo_attribute_backend_child',
                     ],
                     'comment' => ['type' => 'text'],
                     'is_customer_notified' => ['type' => 'int'],

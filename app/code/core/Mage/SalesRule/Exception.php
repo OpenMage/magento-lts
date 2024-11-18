@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_SalesRule
  */
-class Mage_SalesRule_Exception extends Zend_Exception
-{
-}
+class Mage_SalesRule_Exception extends Zend_Exception {}

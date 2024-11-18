@@ -31,7 +31,7 @@ $installer->getConnection()->addConstraint(
     $this->getTable('bundle/selection_price'),
     'selection_id',
     $this->getTable('bundle/selection'),
-    'selection_id'
+    'selection_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -39,5 +39,5 @@ $installer->getConnection()->addConstraint(
     $this->getTable('bundle/selection_price'),
     'website_id',
     $this->getTable('core_website'),
-    'website_id'
+    'website_id',
 );

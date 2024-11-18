@@ -47,7 +47,7 @@ $conn->addConstraint(
     $installer->getTable('downloadable/link'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->run("
@@ -67,14 +67,14 @@ $conn->addConstraint(
     $installer->getTable('downloadable/link_price'),
     'link_id',
     $installer->getTable('downloadable/link'),
-    'link_id'
+    'link_id',
 );
 $conn->addConstraint(
     'FK_DOWNLOADABLE_LINK_PRICE_WEBSITE',
     $installer->getTable('downloadable/link_price'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->run("
@@ -107,14 +107,14 @@ $conn->addConstraint(
     $installer->getTable('downloadable/link_purchased'),
     'order_id',
     $installer->getTable('sales/order'),
-    'entity_id'
+    'entity_id',
 );
 $conn->addConstraint(
     'FK_DOWNLOADABLE_ORDER_ITEM_ID',
     $installer->getTable('downloadable/link_purchased'),
     'order_item_id',
     $installer->getTable('sales/order_item'),
-    'item_id'
+    'item_id',
 );
 
 $installer->run("
@@ -134,14 +134,14 @@ $conn->addConstraint(
     $installer->getTable('downloadable/link_title'),
     'link_id',
     $installer->getTable('downloadable/link'),
-    'link_id'
+    'link_id',
 );
 $conn->addConstraint(
     'FK_DOWNLOADABLE_LINK_TITLE_STORE',
     $installer->getTable('downloadable/link_title'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->run("
@@ -161,7 +161,7 @@ $conn->addConstraint(
     $installer->getTable('downloadable/sample'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->run("
@@ -181,7 +181,7 @@ $conn->addConstraint(
     $installer->getTable('downloadable/sample_title'),
     'sample_id',
     $installer->getTable('downloadable/sample'),
-    'sample_id'
+    'sample_id',
 );
 
 $conn->addConstraint(
@@ -189,7 +189,7 @@ $conn->addConstraint(
     $installer->getTable('downloadable/sample_title'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

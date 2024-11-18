@@ -41,7 +41,7 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
-        $select->where('store_id = ?', (int)$object->getStoreId());
+        $select->where('store_id = ?', (int) $object->getStoreId());
         return $select;
     }
 
@@ -60,8 +60,8 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
                 [
                     'primary_id' => new Zend_Db_Expr('MAX(primary_id)'),
                     'store_id',
-                    'entity_pk_value'
-                ]
+                    'entity_pk_value',
+                ],
             )
             ->group(['entity_pk_value', 'store_id']);
         foreach ($adapter->fetchAll($select) as $row) {
@@ -78,7 +78,7 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
             $adapter->update(
                 $this->getMainTable(),
                 ['rating_summary' => $ratingSummary],
-                $adapter->quoteInto('primary_id = ?', $row['primary_id'])
+                $adapter->quoteInto('primary_id = ?', $row['primary_id']),
             );
         }
         return $this;

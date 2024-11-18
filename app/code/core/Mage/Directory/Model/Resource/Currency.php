@@ -70,7 +70,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
             $read = $this->_getReadAdapter();
             $bind = [
                 ':currency_from' => strtoupper($currencyFrom),
-                ':currency_to'   => strtoupper($currencyTo)
+                ':currency_to'   => strtoupper($currencyTo),
             ];
             $select = $read->select()
                 ->from($this->_currencyRateTable, 'rate')
@@ -108,7 +108,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
             $adapter = $this->_getReadAdapter();
             $bind    = [
                 ':currency_from' => strtoupper($currencyFrom),
-                ':currency_to'   => strtoupper($currencyTo)
+                ':currency_to'   => strtoupper($currencyTo),
             ];
             $select  = $adapter->select()
                 ->from($this->_currencyRateTable, 'rate')
@@ -224,7 +224,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
     {
         $adapter = $this->_getReadAdapter();
         $bind    = [
-            ':currency_from' => $code
+            ':currency_from' => $code,
         ];
         $select  = $adapter->select()
             ->from($this->getTable('directory/currency_rate'), ['currency_to', 'rate'])

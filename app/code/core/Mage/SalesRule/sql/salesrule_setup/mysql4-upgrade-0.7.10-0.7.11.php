@@ -94,7 +94,7 @@ $installer->getConnection()->addConstraint(
     $this->getTable('salesrule/coupon_aggregated_order'),
     'store_id',
     $this->getTable('core_store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -102,7 +102,7 @@ $installer->getConnection()->addConstraint(
     $this->getTable('salesrule/coupon_aggregated'),
     'store_id',
     $this->getTable('core_store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

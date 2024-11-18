@@ -20,6 +20,4 @@
  * @package    Mage_Reports
  * @deprecated
  */
-class Mage_Reports_Model_Mysql4_Customer_Orders_Collection extends Mage_Reports_Model_Resource_Customer_Orders_Collection
-{
-}
+class Mage_Reports_Model_Mysql4_Customer_Orders_Collection extends Mage_Reports_Model_Resource_Customer_Orders_Collection {}

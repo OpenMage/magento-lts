@@ -52,10 +52,10 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment extends Mage_Ad
         if ($configCallback && is_callable($configCallback)) {
             $isPaymentEnabled = call_user_func($configCallback, $activityPath);
         } else {
-            $isPaymentEnabled = (bool)(string)$this->_getConfigDataModel()->getConfigDataValue($activityPath);
+            $isPaymentEnabled = (bool) (string) $this->_getConfigDataModel()->getConfigDataValue($activityPath);
         }
 
-        return (bool)$isPaymentEnabled;
+        return (bool) $isPaymentEnabled;
     }
 
     /**

@@ -30,7 +30,7 @@ $installer->getConnection()->addConstraint(
     'entity_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_PRODUCT_ALERT_STOCK_PRODUCT',
@@ -40,7 +40,7 @@ $installer->getConnection()->addConstraint(
     'entity_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_PRODUCT_ALERT_STOCK_WEBSITE',
@@ -50,6 +50,6 @@ $installer->getConnection()->addConstraint(
     'website_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->endSetup();

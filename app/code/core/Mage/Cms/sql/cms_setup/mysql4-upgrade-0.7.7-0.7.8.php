@@ -31,6 +31,6 @@ $connection->insert($installer->getTable('cms/page'), [
 ]);
 $connection->insert($installer->getTable('cms/page_store'), [
     'page_id'   => $connection->lastInsertId(),
-    'store_id'  => 0
+    'store_id'  => 0,
 ]);
 $installer->endSetup();

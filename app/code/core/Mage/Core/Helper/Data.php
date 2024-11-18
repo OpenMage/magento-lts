@@ -61,7 +61,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage_Core_Model_Locale::FORMAT_TYPE_FULL,
         Mage_Core_Model_Locale::FORMAT_TYPE_LONG,
         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
-        Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+        Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
     ];
 
     /**
@@ -70,7 +70,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function getEncryptor()
     {
         if ($this->_encryptor === null) {
-            $encryptionModel = (string)Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
+            $encryptionModel = (string) Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
             if ($encryptionModel) {
                 $this->_encryptor = new $encryptionModel();
             } else {
@@ -378,8 +378,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             if ($german) {
                 // umlauts
                 $subst = [
-                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue'
-                    ] + $subst;
+                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue',
+                ] + $subst;
             }
 
             $replacements[$german] = [];
@@ -432,7 +432,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $types = [];
         $config = Mage::getConfig()->getNode(Mage_Core_Model_Cache::XML_PATH_TYPES);
         foreach ($config->children() as $type => $node) {
-            $types[$type] = (string)$node->label;
+            $types[$type] = (string) $node->label;
         }
         return $types;
     }
@@ -448,7 +448,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
             foreach ($config->children() as $type => $node) {
-                $types[$type] = (string)$node->label;
+                $types[$type] = (string) $node->label;
             }
         }
         return $types;
@@ -495,7 +495,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 $value = $source->getDataUsingMethod($code);
             }
 
-            $targetCode = (string)$node->$aspect;
+            $targetCode = (string) $node->$aspect;
             $targetCode = $targetCode == '*' ? $code : $targetCode;
 
             if ($targetIsArray) {
@@ -511,7 +511,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage::dispatchEvent($eventName, [
             'target' => $target,
             'source' => $source,
-            'root'   => $root
+            'root'   => $root,
         ]);
 
         return $result;
@@ -673,15 +673,15 @@ XML;
             if (isset($value->$key)) {
                 $i = 0;
                 foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string)$v;
+                    $array[$key][$i++] = (string) $v;
                 }
             } else {
                 // try to transform it into string value, trimming spaces between elements
-                $array[$key] = trim((string)$value);
+                $array[$key] = trim((string) $value);
                 if (empty($array[$key]) && !empty($value)) {
                     $array[$key] = self::xmlToAssoc($value);
                 } else { // untrim strings values
-                    $array[$key] = (string)$value;
+                    $array[$key] = (string) $value;
                 }
             }
         }
@@ -981,7 +981,7 @@ XML;
     {
         if (Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
             foreach ($data as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
 
                 $firstLetter = substr($value, 0, 1);
                 if ($firstLetter && in_array($firstLetter, ['=', '+', '-'])) {
@@ -1002,7 +1002,7 @@ XML;
     {
         if (is_array($data) && Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
             foreach ($data as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
 
                 if (preg_match("/^ [=\-+]/", $value)) {
                     $data[$key] = ltrim($value);

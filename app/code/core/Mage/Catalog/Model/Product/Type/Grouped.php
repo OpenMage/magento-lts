@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         return Mage::getResourceSingleton('catalog/product_link')
             ->getChildrenIds(
                 $parentId,
-                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
             );
     }
 
@@ -128,7 +128,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         return Mage::getResourceSingleton('catalog/product_link')
             ->getParentIdsByChild(
                 $childId,
-                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
             );
     }
 
@@ -193,7 +193,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     {
         $this->getProduct($product)->setData(
             $this->_keyStatusFilters,
-            Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+            Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
         );
         return $this;
     }
@@ -209,7 +209,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         if (!$this->getProduct($product)->hasData($this->_keyStatusFilters)) {
             return [
                 Mage_Catalog_Model_Product_Status::STATUS_ENABLED,
-                Mage_Catalog_Model_Product_Status::STATUS_DISABLED
+                Mage_Catalog_Model_Product_Status::STATUS_DISABLED,
             ];
         }
         return $this->getProduct($product)->getData($this->_keyStatusFilters);
@@ -325,9 +325,9 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                                     serialize([
                                         'super_product_config' => [
                                             'product_type'  => self::TYPE_CODE,
-                                            'product_id'    => $product->getId()
-                                        ]
-                                    ])
+                                            'product_id'    => $product->getId(),
+                                        ],
+                                    ]),
                                 );
                                 $products[] = $_result[0];
                             } else {

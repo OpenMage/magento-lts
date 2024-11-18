@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
 
         $this->setChild(
             'form',
-            $this->getLayout()->createBlock('adminhtml/newsletter_queue_edit_form', 'form')
+            $this->getLayout()->createBlock('adminhtml/newsletter_queue_edit_form', 'form'),
         );
 
         return parent::_beforeToHtml();
@@ -88,8 +88,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Preview Template'),
                     'onclick'   => 'queueControl.preview();',
-                    'class'     => 'task'
-                ])
+                    'class'     => 'task',
+                ]),
         );
 
         $this->setChild(
@@ -98,8 +98,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save Newsletter'),
                     'onclick'   => 'queueControl.save()',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
 
         $this->setChild(
@@ -108,8 +108,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save and Resume'),
                     'onclick'   => 'queueControl.resume()',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
 
         $this->setChild(
@@ -117,8 +117,8 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Reset'),
-                    'onclick'   => 'window.location = window.location'
-                ])
+                    'onclick'   => 'window.location = window.location',
+                ]),
         );
 
         $this->setChild(
@@ -130,9 +130,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                         'onclick' => "window.location.href = '" . $this->getUrl((
                             $this->getTemplateId() ? '*/newsletter_template/' : '*/*'
                         )) . "'",
-                        'class'   => 'back'
-                    ]
-                )
+                        'class'   => 'back',
+                    ],
+                ),
         );
 
         return parent::_prepareLayout();
@@ -207,7 +207,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     {
         return !in_array($this->getQueue()->getQueueStatus(), [
             Mage_Newsletter_Model_Queue::STATUS_NEVER,
-            Mage_Newsletter_Model_Queue::STATUS_PAUSE
+            Mage_Newsletter_Model_Queue::STATUS_PAUSE,
         ]);
     }
 

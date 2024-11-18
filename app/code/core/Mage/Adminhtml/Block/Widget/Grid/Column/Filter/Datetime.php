@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
 
             //calculate end date considering timezone specification
             $datetimeTo->setTimezone(
-                Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE)
+                Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE),
             );
             $datetimeTo->addDay(1)->subSecond(1);
             $datetimeTo->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
@@ -65,14 +65,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
 
                 //set default timezone for store (admin)
                 $dateObj->setTimezone(
-                    Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE)
+                    Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE),
                 );
 
                 //set date with applying timezone of store
                 $dateObj->set(
                     $date,
                     $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-                    $locale
+                    $locale,
                 );
 
                 //convert store date to default date in UTC timezone without DST
@@ -157,7 +157,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
             $value = $this->getValue($index);
             if ($value instanceof Zend_Date) {
                 return $value->toString(
-                    $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
+                    $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                 );
             }
             return $this->escapeHtml($value);

@@ -114,7 +114,7 @@ class Mage_Centinel_Model_Config
      */
     public function getIsTestMode()
     {
-        return (bool)(int)$this->_getServiceConfigValue('test_mode');
+        return (bool) (int) $this->_getServiceConfigValue('test_mode');
     }
 
     /**

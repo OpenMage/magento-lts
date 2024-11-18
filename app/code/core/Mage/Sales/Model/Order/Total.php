@@ -17,6 +17,4 @@
  * @category   Mage
  * @package    Mage_Sales
  */
-class Mage_Sales_Model_Order_Total extends Varien_Object
-{
-}
+class Mage_Sales_Model_Order_Total extends Varien_Object {}

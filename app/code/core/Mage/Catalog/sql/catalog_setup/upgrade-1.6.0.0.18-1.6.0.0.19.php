@@ -20,5 +20,5 @@ $installer->updateAttribute(
     Mage_Catalog_Model_Product::ENTITY,
     'special_from_date',
     'backend_model',
-    'catalog/product_attribute_backend_startdate_specialprice'
+    'catalog/product_attribute_backend_startdate_specialprice',
 );

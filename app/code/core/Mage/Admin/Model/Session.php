@@ -177,7 +177,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             }
         } catch (Mage_Core_Exception $e) {
             $e->setMessage(
-                Mage::helper('adminhtml')->__('You did not sign in correctly or your account is temporarily disabled.')
+                Mage::helper('adminhtml')->__('You did not sign in correctly or your account is temporarily disabled.'),
             );
             $this->_loginFailed($e, $request, $username, $e->getMessage());
         } catch (Exception $e) {
@@ -276,7 +276,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function setIsFirstPageAfterLogin($value)
     {
-        $this->_isFirstPageAfterLogin = (bool)$value;
+        $this->_isFirstPageAfterLogin = (bool) $value;
         return $this->setIsFirstVisit($this->_isFirstPageAfterLogin);
     }
 
@@ -310,7 +310,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         try {
             Mage::dispatchEvent('admin_session_user_login_failed', [
                 'user_name' => $username,
-                'exception' => $e
+                'exception' => $e,
             ]);
         } catch (Exception $e) {
         }

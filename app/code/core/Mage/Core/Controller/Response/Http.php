@@ -90,7 +90,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         self::$_transportObject->setCode($code);
         Mage::dispatchEvent(
             'controller_response_redirect',
-            ['response' => $this, 'transport' => self::$_transportObject]
+            ['response' => $this, 'transport' => self::$_transportObject],
         );
 
         return parent::setRedirect(self::$_transportObject->getUrl(), self::$_transportObject->getCode());

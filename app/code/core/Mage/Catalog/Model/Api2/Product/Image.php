@@ -19,6 +19,4 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Api2_Product_Image extends Mage_Api2_Model_Resource
-{
-}
+class Mage_Catalog_Model_Api2_Product_Image extends Mage_Api2_Model_Resource {}

@@ -35,7 +35,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         if ($port) {
             $defaultPorts = [
                 Mage_Core_Controller_Request_Http::DEFAULT_HTTP_PORT,
-                Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT
+                Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT,
             ];
             $port = (in_array($port, $defaultPorts)) ? '' : ':' . $port;
         }

@@ -53,11 +53,11 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         $store = $this->_getStore();
         $entityOnlyAttributes = $this->getEntityOnlyAttributes(
             $this->getUserType(),
-            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ,
         );
         $availableAttributes = array_keys($this->getAvailableAttributes(
             $this->getUserType(),
-            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ,
         ));
         // available attributes not contain image attribute, but it needed for get image_url
         $availableAttributes[] = 'image';
@@ -134,7 +134,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $productData['total_reviews_count'] = $reviewModel->getTotalReviews(
                 $product->getId(),
                 true,
-                $this->_getStore()->getId()
+                $this->_getStore()->getId(),
             );
 
             $productData['tier_price'] = $this->_getTierPrices();
@@ -365,7 +365,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $tierPrices[] = [
                 'qty' => $tierPrice['price_qty'],
                 'price_with_tax' => $this->_applyTaxToPrice($tierPrice['price']),
-                'price_without_tax' => $this->_applyTaxToPrice($tierPrice['price'], false)
+                'price_without_tax' => $this->_applyTaxToPrice($tierPrice['price'], false),
             ];
         }
         return $tierPrices;

@@ -611,7 +611,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     protected function _setFrameInitialized($flag)
     {
-        $this->_frameInitialized = (bool)$flag;
+        $this->_frameInitialized = (bool) $flag;
         return $this;
     }
 
@@ -653,7 +653,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function setIsOutputRequired($isRequired)
     {
-        $this->_outputRequired = (bool)$isRequired;
+        $this->_outputRequired = (bool) $isRequired;
         return $this;
     }
 

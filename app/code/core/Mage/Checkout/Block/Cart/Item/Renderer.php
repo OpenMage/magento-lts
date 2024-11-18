@@ -206,7 +206,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     {
         return $this->getUrl(
             'checkout/cart/configure',
-            ['id' => $this->getItem()->getId()]
+            ['id' => $this->getItem()->getId()],
         );
     }
 
@@ -262,7 +262,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
                 'id' => $this->getItem()->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
                 '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
-            ]
+            ],
         );
     }
 
@@ -282,7 +282,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
                 'id' => $this->getItem()->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
                 '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
-            ]
+            ],
         );
     }
     /**
@@ -292,7 +292,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getQty()
     {
-        if (!$this->_strictQtyMode && (string)$this->getItem()->getQty() == '') {
+        if (!$this->_strictQtyMode && (string) $this->getItem()->getQty() == '') {
             return '';
         }
         return $this->getItem()->getQty() * 1;
@@ -347,7 +347,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             foreach ($baseMessages as $message) {
                 $messages[] = [
                     'text' => $message,
-                    'type' => $quoteItem->getHasError() ? 'error' : 'notice'
+                    'type' => $quoteItem->getHasError() ? 'error' : 'notice',
                 ];
             }
         }
@@ -363,7 +363,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
                     /** @var Mage_Core_Model_Message_Abstract $message */
                     $messages[] = [
                         'text' => $message->getCode(),
-                        'type' => ($message->getType() === Mage_Core_Model_Message::ERROR) ? 'error' : 'notice'
+                        'type' => ($message->getType() === Mage_Core_Model_Message::ERROR) ? 'error' : 'notice',
                     ];
                 }
             }
@@ -398,7 +398,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         $helper = Mage::helper('catalog/product_configuration');
         $params = [
             'max_length' => 55,
-            'cut_replacer' => ' <a href="#" class="dots" onclick="return false">...</a>'
+            'cut_replacer' => ' <a href="#" class="dots" onclick="return false">...</a>',
         ];
         return $helper->getFormattedOptionValue($optionValue, $params);
     }

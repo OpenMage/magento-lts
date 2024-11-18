@@ -25,7 +25,7 @@ $installer->getConnection()->addConstraint(
     'review_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 
 $installer->endSetup();

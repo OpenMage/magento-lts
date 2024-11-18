@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
         $form = new Varien_Data_Form([
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
-            'method' => 'post'
+            'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('catalog')->__('General Information')]);
@@ -53,11 +53,11 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
         $yesno = [
             [
                 'value' => 0,
-                'label' => Mage::helper('catalog')->__('No')
+                'label' => Mage::helper('catalog')->__('No'),
             ],
             [
                 'value' => 1,
-                'label' => Mage::helper('catalog')->__('Yes')
+                'label' => Mage::helper('catalog')->__('Yes'),
             ]];
 
         if ($model->getId()) {
@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
             $field->setRenderer($renderer);
         } else {
             $fieldset->addField('store_id', 'hidden', [
-                'name'      => 'store_id'
+                'name'      => 'store_id',
             ]);
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }

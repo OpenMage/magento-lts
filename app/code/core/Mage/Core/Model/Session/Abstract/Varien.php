@@ -108,11 +108,11 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         // session cookie params
         $cookieParams = [
-            'lifetime' => (int)$cookie->getLifetime(),
+            'lifetime' => (int) $cookie->getLifetime(),
             'path'     => $cookie->getPath(),
             'domain'   => $cookie->getConfigDomain(),
             'secure'   => $cookie->isSecure(),
-            'httponly' => $cookie->getHttponly()
+            'httponly' => $cookie->getHttponly(),
         ];
 
         if (!$cookieParams['httponly']) {
@@ -151,7 +151,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         Varien_Profiler::start(__METHOD__ . '/start');
         $sessionCacheLimiter = Mage::getConfig()->getNode('global/session_cache_limiter');
         if ($sessionCacheLimiter) {
-            session_cache_limiter((string)$sessionCacheLimiter);
+            session_cache_limiter((string) $sessionCacheLimiter);
         }
 
         // Start session, abort and render error page if it fails
@@ -551,7 +551,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if ($this->useValidateSessionExpire()
             && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            && ((int)$sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int)$sessionData[self::VALIDATOR_SESSION_LIFETIME])
+            && ((int) $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int) $sessionData[self::VALIDATOR_SESSION_LIFETIME])
             < time()
         ) {
             return false;
@@ -580,7 +580,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             self::VALIDATOR_REMOTE_ADDR_KEY             => '',
             self::VALIDATOR_HTTP_VIA_KEY                => '',
             self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY    => '',
-            self::VALIDATOR_HTTP_USER_AGENT_KEY         => ''
+            self::VALIDATOR_HTTP_USER_AGENT_KEY         => '',
         ];
 
         // collect ip data
@@ -588,15 +588,15 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $parts[self::VALIDATOR_REMOTE_ADDR_KEY] = Mage::helper('core/http')->getRemoteAddr();
         }
         if (isset($_ENV['HTTP_VIA'])) {
-            $parts[self::VALIDATOR_HTTP_VIA_KEY] = (string)$_ENV['HTTP_VIA'];
+            $parts[self::VALIDATOR_HTTP_VIA_KEY] = (string) $_ENV['HTTP_VIA'];
         }
         if (isset($_ENV['HTTP_X_FORWARDED_FOR'])) {
-            $parts[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] = (string)$_ENV['HTTP_X_FORWARDED_FOR'];
+            $parts[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] = (string) $_ENV['HTTP_X_FORWARDED_FOR'];
         }
 
         // collect user agent data
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
-            $parts[self::VALIDATOR_HTTP_USER_AGENT_KEY] = (string)$_SERVER['HTTP_USER_AGENT'];
+            $parts[self::VALIDATOR_HTTP_USER_AGENT_KEY] = (string) $_SERVER['HTTP_USER_AGENT'];
         }
 
         // get time when password was last changed

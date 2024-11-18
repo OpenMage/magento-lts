@@ -59,7 +59,7 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
             return $title;
         }
 
-        return (string)Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
+        return (string) Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
     }
 
     /**
@@ -75,7 +75,7 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
         if ($links) {
             $linksOption = [
                 'label' => $this->getLinksTitle($item->getProduct()),
-                'value' => []
+                'value' => [],
             ];
             foreach ($links as $link) {
                 $linksOption['value'][] = $link->getTitle();

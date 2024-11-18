@@ -28,7 +28,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
         $this->_init('eav/form_type', 'type_id');
         $this->addUniqueField([
             'field' => ['code', 'theme', 'store_id'],
-            'title' => Mage::helper('eav')->__('Form Type with the same code')
+            'title' => Mage::helper('eav')->__('Form Type with the same code'),
         ]);
     }
 
@@ -93,8 +93,8 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
                         continue;
                     }
                     $data[] = [
-                        'entity_type_id' => (int)$entityId,
-                        'type_id'        => $object->getId()
+                        'entity_type_id' => (int) $entityId,
+                        'type_id'        => $object->getId(),
                     ];
                 }
                 if ($data) {
@@ -105,7 +105,7 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
             if (!empty($delete)) {
                 $where = [
                     'entity_type_id IN (?)' => $delete,
-                    'type_id = ?'           => $object->getId()
+                    'type_id = ?'           => $object->getId(),
                 ];
                 $adapter->delete($this->getTable('eav/form_type_entity'), $where);
             }

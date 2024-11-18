@@ -36,7 +36,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
         if ($specialPrice) {
             $specialPrice->setRenderer(
                 $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_attributes_special')
-                    ->setDisableChild(false)
+                    ->setDisableChild(false),
             );
         }
 
@@ -44,7 +44,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
         if ($sku) {
             $sku->setRenderer(
                 $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_attributes_extend')
-                    ->setDisableChild(false)
+                    ->setDisableChild(false),
             );
         }
 
@@ -53,8 +53,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
             $price->setRenderer(
                 $this->getLayout()->createBlock(
                     'bundle/adminhtml_catalog_product_edit_tab_attributes_extend',
-                    'adminhtml.catalog.product.bundle.edit.tab.attributes.price'
-                )->setDisableChild(true)
+                    'adminhtml.catalog.product.bundle.edit.tab.attributes.price',
+                )->setDisableChild(true),
             );
         }
 
@@ -86,7 +86,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                 });
                 //]]>
                 "
-                . '</script>'
+                . '</script>',
             );
         }
 
@@ -94,7 +94,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
         if ($weight) {
             $weight->setRenderer(
                 $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_attributes_extend')
-                    ->setDisableChild(true)
+                    ->setDisableChild(true),
             );
         }
 
@@ -103,7 +103,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
             $tierPrice->setRenderer(
                 $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_tier')
                     ->setPriceColumnHeader(Mage::helper('bundle')->__('Percent Discount'))
-                    ->setPriceValidation('validate-greater-than-zero validate-percents')
+                    ->setPriceValidation('validate-greater-than-zero validate-percents'),
             );
         }
 
@@ -113,7 +113,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                 $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_group')
                     ->setPriceColumnHeader(Mage::helper('bundle')->__('Percent Discount'))
                     ->setIsPercent(true)
-                    ->setPriceValidation('validate-greater-than-zero validate-percents')
+                    ->setPriceValidation('validate-greater-than-zero validate-percents'),
             );
         }
 
@@ -145,7 +145,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
                     changePriceTypeMap();
                 });
                 "
-                . '</script>'
+                . '</script>',
             );
         }
 

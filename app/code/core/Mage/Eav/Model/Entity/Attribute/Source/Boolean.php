@@ -36,11 +36,11 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
             $this->_options = [
                 [
                     'label' => Mage::helper('eav')->__('Yes'),
-                    'value' => self::VALUE_YES
+                    'value' => self::VALUE_YES,
                 ],
                 [
                     'label' => Mage::helper('eav')->__('No'),
-                    'value' => self::VALUE_NO
+                    'value' => self::VALUE_NO,
                 ],
             ];
         }
@@ -99,7 +99,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
         $column = [
             'unsigned'  => false,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
@@ -127,7 +127,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
         $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
         $indexes[$index] = [
             'type'      => 'index',
-            'fields'    => [$this->getAttribute()->getAttributeCode()]
+            'fields'    => [$this->getAttribute()->getAttributeCode()],
         ];
 
         return $indexes;

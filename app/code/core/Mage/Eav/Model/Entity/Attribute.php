@@ -146,14 +146,14 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             !Zend_Validate::is(
                 $this->_data['attribute_code'],
                 'StringLength',
-                ['max' => self::ATTRIBUTE_CODE_MAX_LENGTH]
+                ['max' => self::ATTRIBUTE_CODE_MAX_LENGTH],
             )
         ) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
         }
 
         $defaultValue   = $this->getDefaultValue();
-        $hasDefaultValue = ((string)$defaultValue != '');
+        $hasDefaultValue = ((string) $defaultValue != '');
 
         if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
             $locale = Mage::app()->getLocale()->getLocaleCode();
@@ -163,7 +163,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
 
             try {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    ['locale' => Mage::app()->getLocale()->getLocaleCode()]
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()],
                 );
                 $this->setDefaultValue($filter->filter($defaultValue));
             } catch (Exception $e) {

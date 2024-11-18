@@ -189,7 +189,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         Mage::getResourceModel('salesrule/coupon_usage')->loadByCustomerCoupon(
                             $couponUsage,
                             $customerId,
-                            $coupon->getId()
+                            $coupon->getId(),
                         );
                         if ($couponUsage->getCouponId() &&
                             $couponUsage->getTimesUsed() >= $coupon->getUsagePerCustomer()
@@ -546,7 +546,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $address,
             $quote->getBillingAddress(),
             $quote->getCustomerTaxClassId(),
-            $store
+            $store,
         );
 
         /** @var Mage_Weee_Helper_Data $helper */
@@ -616,13 +616,13 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                                     $item,
                                     $weeeTaxAppliedAmount['title'],
                                     'weee_discount',
-                                    $weeeDiscount
+                                    $weeeDiscount,
                                 );
                                 $helper->setWeeeTaxesAppliedProperty(
                                     $item,
                                     $weeeTaxAppliedAmount['title'],
                                     'base_weee_discount',
-                                    $baseWeeeDiscount
+                                    $baseWeeeDiscount,
                                 );
                             }
 
@@ -641,12 +641,12 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         $totalWeeeDiscount = $this->_roundWithDeltas(
                             $discountPercentage,
                             $totalWeeeDiscount,
-                            $quote->getStore()
+                            $quote->getStore(),
                         );
                         $totalBaseWeeeDiscount = $this->_roundWithDeltasForBase(
                             $discountPercentage,
                             $totalBaseWeeeDiscount,
-                            $quote->getStore()
+                            $quote->getStore(),
                         );
 
                         $item->setWeeeDiscount($totalWeeeDiscount);
@@ -660,13 +660,13 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                                 $item,
                                 null,
                                 'total_base_weee_discount',
-                                $totalBaseWeeeDiscount
+                                $totalBaseWeeeDiscount,
                             );
                             $helper->setWeeeTaxesAppliedProperty(
                                 $item,
                                 null,
                                 'total_weee_discount',
-                                $totalWeeeDiscount
+                                $totalWeeeDiscount,
                             );
                         }
 
@@ -679,7 +679,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                             if ($applyTaxAfterDiscount) {
                                 $address->setExtraTaxAmount($address->getExtraTaxAmount() - $totalWeeeDiscount);
                                 $address->setBaseExtraTaxAmount(
-                                    $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount
+                                    $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount,
                                 );
                                 $address->setWeeeDiscount($address->getWeeeDiscount() + $totalWeeeDiscount);
                                 $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $totalBaseWeeeDiscount);
@@ -687,7 +687,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                                 //tax has already been calculated, we need to remove weeeDiscount from total tax
                                 $address->setExtraTaxAmount($address->getExtraTaxAmount() - $totalWeeeDiscount);
                                 $address->setBaseExtraTaxAmount(
-                                    $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount
+                                    $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount,
                                 );
                                 $address->addTotalAmount('tax', -$totalWeeeDiscount);
                                 $address->addBaseTotalAmount('tax', -$totalBaseWeeeDiscount);
@@ -790,11 +790,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         $quoteAmount        = $quote->getStore()->convertPrice($cartRules[$rule->getId()]);
                         $discountAmount     = min(
                             $shippingAmount - $address->getShippingDiscountAmount(),
-                            $quoteAmount
+                            $quoteAmount,
                         );
                         $baseDiscountAmount = min(
                             $baseShippingAmount - $address->getBaseShippingDiscountAmount(),
-                            $cartRules[$rule->getId()]
+                            $cartRules[$rule->getId()],
                         );
                         $cartRules[$rule->getId()] -= $baseDiscountAmount;
                     }
@@ -806,7 +806,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $discountAmount     = min($address->getShippingDiscountAmount() + $discountAmount, $shippingAmount);
             $baseDiscountAmount = min(
                 $address->getBaseShippingDiscountAmount() + $baseDiscountAmount,
-                $baseShippingAmount
+                $baseShippingAmount,
             );
             $address->setShippingDiscountAmount($discountAmount);
             $address->setBaseShippingDiscountAmount($baseDiscountAmount);

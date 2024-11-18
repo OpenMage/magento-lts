@@ -33,8 +33,8 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Back'),
                     'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
-                    'class' => 'back'
-                ])
+                    'class' => 'back',
+                ]),
         );
 
         $this->setChild(
@@ -42,8 +42,8 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Reset'),
-                    'onclick'   => 'window.location.reload()'
-                ])
+                    'onclick'   => 'window.location.reload()',
+                ]),
         );
 
         $this->setChild(
@@ -52,8 +52,8 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Save Role'),
                     'onclick'   => 'roleForm.submit();return false;',
-                    'class' => 'save'
-                ])
+                    'class' => 'save',
+                ]),
         );
 
         $this->setChild(
@@ -62,10 +62,10 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Delete Role'),
                     'onclick'   => 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
-                        Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+                        Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
                     ) . '\')) roleForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;',
-                    'class' => 'delete'
-                ])
+                    'class' => 'delete',
+                ]),
         );
         return parent::_prepareLayout();
     }

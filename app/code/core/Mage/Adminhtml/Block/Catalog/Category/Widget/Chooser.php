@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
         $sourceUrl = $this->getUrl(
             '*/catalog_category_widget/chooser',
-            ['uniq_id' => $uniqId, 'use_massaction' => false]
+            ['uniq_id' => $uniqId, 'use_massaction' => false],
         );
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
@@ -159,7 +159,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         if (in_array($node->getId(), $this->getSelectedCategories())) {
             $item['checked'] = true;
         }
-        $item['is_anchor'] = (int)$node->getIsAnchor();
+        $item['is_anchor'] = (int) $node->getIsAnchor();
         $item['url_key'] = $node->getData('url_key');
         return $item;
     }
