@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage e
     {
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
-        if (!$helper->getIsMessagesAvailable('order_item', $row, $this->getColumn()->getGrid()->getStore())) {
+        if (!$helper->getIsMessagesAvailable($helper::TYPE_ORDER_ITEM, $row, $this->getColumn()->getGrid()->getStore())) {
             return '&nbsp;';
         }
 

@@ -20,6 +20,7 @@
         "ext-libxml": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
         "ext-simplexml": "*",
         "ext-soap": "*",
         "ext-zlib": "*",
