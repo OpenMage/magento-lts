@@ -137,7 +137,6 @@
     "scripts": {
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
-        "phpcs": "vendor/bin/phpcs -s -p --standard=.phpcs.dist.xml --report=full,summary",
         "phpcs:php": "vendor/bin/phpcs -s -p --standard=.phpcs.dist.php.xml --report=full,summary",
         "phpcs:ecg": "vendor/bin/phpcs -s -p --standard=.phpcs.dist.ecg.xml --report=full,summary",
         "phpmd": "vendor/bin/phpmd app/code/core/Mage text .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml",
