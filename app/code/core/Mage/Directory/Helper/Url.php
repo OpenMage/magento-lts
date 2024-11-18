@@ -42,4 +42,8 @@ class Mage_Directory_Helper_Url extends Mage_Core_Helper_Url
 
         return $this->_getUrl('directory/currency/switch', $params);
     }
+
+    public function getLoadRegionsUrl()
+    {
+    }
 }
