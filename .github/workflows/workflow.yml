@@ -11,11 +11,11 @@ on:
       - '**.js'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
-      - '.phpcs.xml.dist'
-      - '.phpcs.ecg.xml.dist'
-      - '.phpcs.php.xml.dist'
-      - 'phpstan.dist.neon'
-      - 'phpstan.dist.baseline.neon'
+      - '.phpcs.dist.xml'
+      - '.phpcs.dist.ecg.xml'
+      - '.phpcs.dist.php.xml'
+      - '.phpstan.dist.neon'
+      - '.phpstan.dist.baseline.neon'
 
   pull_request:
     paths:
@@ -27,11 +27,11 @@ on:
       - '**.js'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
-      - '.phpcs.xml.dist'
-      - '.phpcs.ecg.xml.dist'
-      - '.phpcs.php.xml.dist'
-      - 'phpstan.dist.neon'
-      - 'phpstan.dist.baseline.neon'
+      - '.phpcs.dist.xml'
+      - '.phpcs.dist.ecg.xml'
+      - '.phpcs.dist.php.xml'
+      - '.phpstan.dist.neon'
+      - '.phpstan.dist.baseline.neon'
 
 jobs:
   debug:
@@ -83,6 +83,16 @@ jobs:
       needs.check.outputs.composer > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/php-cs-fixer.yml
+
+  phpmd:
+    name: PHPMD
+    needs: [check, composer]
+    if: |
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phpmd > 0 ||
+      needs.check.outputs.composer > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/phpmd.yml
 
   phpstan:
     name: PHPStan

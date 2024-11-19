@@ -46,24 +46,26 @@ class CookieTest extends TestCase
      */
     public function testGetAcceptedSaveCookiesWebsiteIds(): void
     {
-        $this->assertIsString($this->subject->getAcceptedSaveCookiesWebsiteIds());
+        $this->assertSame('{"1":1}', $this->subject->getAcceptedSaveCookiesWebsiteIds());
     }
 
     /**
+     * @covers Mage_Core_Helper_Cookie::getCookieRestrictionLifetime()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
     public function testGetCookieRestrictionLifetime(): void
     {
-        $this->assertIsInt($this->subject->getCookieRestrictionLifetime());
+        $this->assertSame(31536000, $this->subject->getCookieRestrictionLifetime());
     }
 
     /**
+     * @covers Mage_Core_Helper_Cookie::getCookieRestrictionNoticeCmsBlockIdentifier()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
     public function testGetCookieRestrictionNoticeCmsBlockIdentifier(): void
     {
-        $this->assertIsString($this->subject->getCookieRestrictionNoticeCmsBlockIdentifier());
+        $this->assertSame('cookie_restriction_notice_block', $this->subject->getCookieRestrictionNoticeCmsBlockIdentifier());
     }
 }

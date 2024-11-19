@@ -4,4 +4,4 @@
 ## Usage: phpunit
 ## Example: ddev phpunit
 
-php vendor/bin/phpunit --no-coverage "$@" --testdox
+php vendor/bin/phpunit --configuration .phpunit.dist.xml --no-coverage "$@" --testdox

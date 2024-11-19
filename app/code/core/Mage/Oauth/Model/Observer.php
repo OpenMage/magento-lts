@@ -33,6 +33,8 @@ class Mage_Oauth_Model_Observer
 
     /**
      * Redirect customer to callback page after login
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function afterCustomerLogin(Varien_Event_Observer $observer)
     {
@@ -49,6 +51,8 @@ class Mage_Oauth_Model_Observer
 
     /**
      * Redirect admin to authorize controller after login success
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function afterAdminLogin(Varien_Event_Observer $observer)
     {
@@ -65,6 +69,8 @@ class Mage_Oauth_Model_Observer
 
     /**
      * Redirect admin to authorize controller after login fail
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function afterAdminLoginFailed(Varien_Event_Observer $observer)
     {

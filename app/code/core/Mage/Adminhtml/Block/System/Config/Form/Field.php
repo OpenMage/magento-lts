@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         $isMultiple = $element->getExtType() === 'multiple';
 
         // replace [value] with [inherit]
-        $namePrefix = preg_replace('#\[value\](\[\])?$#', '', $element->getName());
+        $namePrefix = preg_replace('#\[value\](\[\])?$#', '', (string) $element->getName());
 
         $options = $element->getValues();
 

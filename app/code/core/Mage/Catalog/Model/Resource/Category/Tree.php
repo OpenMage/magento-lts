@@ -467,7 +467,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             ->where('entity_id IN (?)', $ids);
         $where = [$levelField . '=0' => true];
 
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         foreach ($this->_conn->fetchAll($select) as $item) {
             if (!preg_match("#^[0-9\/]+$#", $item['path'])) {
                 $item['path'] = '';
@@ -495,7 +494,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $select->where(implode(' OR ', $where));
 
         // get array of records and add them as nodes to the tree
-        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $arrNodes = $this->_conn->fetchAll($select);
         if (!$arrNodes) {
             return false;
@@ -538,7 +536,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $select
                 ->where('e.entity_id IN(?)', $pathIds)
                 ->order($this->_conn->getLengthSql('e.path') . ' ' . Varien_Db_Select::SQL_ASC);
-            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $result = $this->_conn->fetchAll($select);
             $this->_updateAnchorProductCount($result);
         }
@@ -561,7 +558,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
     /**
      * Obtain select for categories with attributes.
-     * By default everything from entity table is selected
+     * By default, everything from entity table is selected
      * + name, is_active and is_anchor
      * Also the correct product_count is selected, depending on is the category anchor or not.
      *
@@ -627,7 +624,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 ['COUNT(DISTINCT scp.product_id)']
             )
             ->where('see.entity_id = e.entity_id')
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             ->orWhere('see.path LIKE ?', $subConcat);
         $select->columns(['product_count' => $subSelect]);
 

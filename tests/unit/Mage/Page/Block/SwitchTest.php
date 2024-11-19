@@ -38,7 +38,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentWebsiteId(): void
     {
-        $this->assertIsString($this->subject->getCurrentWebsiteId());
+        $this->assertIsInt($this->subject->getCurrentWebsiteId());
     }
 
     /**
@@ -47,7 +47,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentGroupId(): void
     {
-        $this->assertIsString($this->subject->getCurrentGroupId());
+        $this->assertIsInt($this->subject->getCurrentGroupId());
     }
 
     /**

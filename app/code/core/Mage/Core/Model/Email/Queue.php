@@ -33,9 +33,9 @@
  * @method string getMessageBodyHash()
  * @method string getMessageBody()
  * @method $this setMessageBody(string $value)
- * @method $this setMessageBodyHash(array $value)
- * @method array getMessageParameters()
- * @method $this setMessageParameters(array $value)
+ * @method $this setMessageBodyHash(string $value)
+ * @method string getMessageParameters()
+ * @method $this setMessageParameters(string $value)
  * @method $this setProcessedAt(string $value)
  */
 class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
@@ -118,8 +118,8 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * @param array|string $emails
      * @param array|string|null $names
      * @param int $type
-     *
      * @return $this
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function addRecipients($emails, $names = null, $type = self::EMAIL_TYPE_TO)
     {
@@ -242,7 +242,9 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 
                     unset($mailer);
                     $message->setProcessedAt(Varien_Date::formatDate(true));
-                    $message->save(); // save() is throwing exception when recipient is not set
+                    // save() is throwing exception when recipient is not set
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $message->save();
 
                     foreach ($message->getRecipients() as $recipient) {
                         list($email, $name, $type) = $recipient;

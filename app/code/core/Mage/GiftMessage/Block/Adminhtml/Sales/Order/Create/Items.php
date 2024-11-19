@@ -34,6 +34,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
     /**
      * Indicates that block can display gift messages form
      *
+     * TODO set return type
      * @return bool
      */
     public function canDisplayGiftMessage()
@@ -46,7 +47,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable(
-            'item',
+            $helper::TYPE_ITEM,
             $item,
             $item->getStoreId()
         );

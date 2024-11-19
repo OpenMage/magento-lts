@@ -36,6 +36,7 @@ class FileTest extends TestCase
      * @dataProvider provideGetFilePathData
      *
      * @group Mage_Downloadable
+     * @group Mage_Downloadable_Helper
      */
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {

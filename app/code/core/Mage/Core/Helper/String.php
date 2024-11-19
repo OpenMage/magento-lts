@@ -156,6 +156,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param bool $trim
      * @param string $wordSeparatorRegex
      * @return array
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function str_split($str, $length = 1, $keepWords = false, $trim = false, $wordSeparatorRegex = '\s')
@@ -514,7 +515,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * UnSerialize string
      * @param string|null $str
-     * @return mixed|null
+     * @return null|void
      * @throws Exception
      */
     public function unserialize($str)
@@ -524,7 +525,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         $reader = new Unserialize_Reader_ArrValue('data');
         $prevChar = null;
-        for ($i = 0; $i < strlen($str); $i++) {
+
+        $strLen = strlen($str);
+        for ($i = 0; $i < $strLen; $i++) {
             $char = $str[$i];
             $result = $reader->read($char, $prevChar);
             if (!is_null($result)) {

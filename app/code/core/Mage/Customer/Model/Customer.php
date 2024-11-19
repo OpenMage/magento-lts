@@ -31,11 +31,11 @@
  * @method int getCustomerId()
  * @method $this setCustomerId(int|null $value)
  *
- * @method int getDefaultBilling()
- * @method $this setDefaultBilling(int $value)
+ * @method int|null getDefaultBilling()
+ * @method $this setDefaultBilling(int|null $value)
  * @method $this unsetDefaultBilling()
- * @method int getDefaultShipping()
- * @method $this setDefaultShipping(int $value)
+ * @method int|null getDefaultShipping()
+ * @method $this setDefaultShipping(int|null $value)
  * @method $this unsetDefaultShipping()
  * @method int getDisableAutoGroupChange()
  * @method string getDob()
@@ -334,7 +334,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function setPasswordCreatedAt($time)
     {
         $this->setData('password_created_at', $time);
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (session_status() === PHP_SESSION_ACTIVE) {
             Mage::getSingleton('checkout/session')->setValidatorSessionRenewTimestamp($time);
         }

@@ -230,13 +230,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         if (count($this->getSelect()->getPart(Zend_Db_Select::GROUP)) > 0) {
             $countSelect->reset(Zend_Db_Select::GROUP);
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             $countSelect->distinct(true);
             $group = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
             $group = array_map(function ($token) {
                 return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
             }, $group);
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             $countSelect->columns('COUNT(DISTINCT ' . implode(', ', $group) . ')');
         } else {
             $countSelect->columns('COUNT(*)');
@@ -575,7 +573,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     public function distinct($flag)
     {
-        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         $this->_select->distinct($flag);
         return $this;
     }
@@ -748,7 +745,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {
         if ($printQuery) {
-            // phpcs:ignore Ecg.Security.LanguageConstruct.DirectOutput
             echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
         }
 
@@ -786,12 +782,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             if ($data) {
                 $data = unserialize($data);
             } else {
-                // phpcs:ignore Ecg.Performance.FetchAll.Found
                 $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
                 $this->_saveCache($data, $select);
             }
         } else {
-            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
         }
         return $data;
