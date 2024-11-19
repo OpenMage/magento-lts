@@ -1,7 +1,8 @@
-*[Composer]: A tool to manage dependencies of a PHP project
+*[Composer]: A tool to manage dependencies of a PHP project.
 *[composer.json]: Composer configuration file
+*[CVE]: Common Vulnerabilities and Exposures
 *[DDEV]: Docker-based PHP development environments.
-*[deprecated]: Marked as not recommended for users and developers
+*[deprecated]: Marked as not recommended for users and developers.
 *[HTML]: Hyper Text Markup Language
 *[HTML5]: Hyper Text Markup Language
 *[JSON]: JSON (JavaScript Object Notation) is a lightweight data-interchange format.
@@ -12,6 +13,10 @@
 *[OpenMage]: This project
 *[phpMyAdmin]: phpMyAdmin is a free software tool written in PHP, intended to handle the administration of MySQL over the Web.
 *[PhpStorm]: PhpStorm is an innovative, Java-based integrated development environment (IDE) engineered by JetBrains for PHP and web developers.
+*[REST]: Representational State Transfer
 *[TinyMCE]: WYSIWYG editor
+*[UPS]: United Parcel Service
 *[W3C]: World Wide Web Consortium
+*[WSDL]: Web Services Description Language
+*[Xdebug]: Xdebug is a debugging tool for PHP.
 *[XML]: Extensible Markup Language

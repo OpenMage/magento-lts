@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 site_name: OpenMage Docs
-site_url: https://OpenMage.github.io/magento-lts/
+site_url: https://docs.openmage.org/
 repo_url: https://github.com/OpenMage/magento-lts
 repo_name: OpenMage/magento-lts
-edit_uri: blob/main/docs/content
+edit_uri: edit/main/docs
 copyright: OpenMage contributors
 site_author: OpenMage contributors
 site_description: >-
@@ -33,6 +33,7 @@ theme:
     - content.action.view
     - content.code.copy
     - navigation.expand
+    - navigation.footer
     - navigation.indexes
     - navigation.instant
     - navigation.sections
@@ -60,7 +61,11 @@ theme:
 
 # Plugins
 plugins:
-  - blog
+  - blog:
+      archive_toc: true
+      categories_toc: true
+      pagination: true
+      pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
   - search
   - tags:
       tags_file: tags.md
@@ -79,8 +84,14 @@ extra:
       link: https://discord.gg/EV8aNbU
     - icon: fontawesome/brands/stack-overflow
       link: https://magento.stackexchange.com/tags/openmage
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/openmageproject
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/OpenMageProject
+    - icon: fontawesome/brands/facebook
+      link: https://www.facebook.com/OpenMageProject
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/groups/13655485/
+    - icon: fontawesome/brands/mastodon
+      link: https://phpc.social/@OpenMageProject
   generator: false
   tags:
     Configuration: config
@@ -148,9 +159,9 @@ nav:
       - users/requirements.md
       - 'Installing':
           - users/install/index.md
-          - users/install/_use-composer.md
-          - users/install/_use-git.md
-          - users/install/_use-tarball.md
+          - users/install/use-composer.md
+          - users/install/use-git.md
+          - users/install/use-tarball.md
           - users/install/secure-install.md
       - 'Changelog':
           - developers/changelog/index.md
@@ -177,17 +188,15 @@ nav:
   - 'Development':
       - 'Events':
           - developers/events/list.md
-      - 'Guides':
-          - developers/guides/index.md
-          - developers/guides/dynamic-blocks.md
-          - developers/guides/observer.md
       - 'Tools':
-          - developers/ddev.md
-          - developers/phpstorm.md
+          - developers/tools/ddev.md
+          - developers/tools/n98-magerun.md
+          - developers/tools/phpstorm.md
       - 'Multistore':
           - developers/error-pages.md
-      - 'Tutorials':
-          - developers/tutorials/index.md
+      - 'Samples':
+          - developers/samples/php-ini.md
+          - developers/samples/robots-txt.md
       - 'Documentation':
           - developers/mkdocs.md
   - 'Modules':
@@ -204,5 +213,5 @@ nav:
           - users/modules/payment/bitcoin.md
       - 'Themes':
           - users/modules/themes/frontend.md
-#  - 'Blog':
-#      - blog/index.md
+  - 'Blog':
+      - blog/index.md

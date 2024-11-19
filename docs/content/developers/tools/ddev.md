@@ -1,14 +1,11 @@
+---
+tags:
+- Development
+---
+
 # DDEV
 
 See: https://ddev.com
-
-## Using n98-magerun
-
-You can use the swiss army knife for Magento developers, sysadmins and devops. The tool provides a huge set of well tested command line commands which save hours of work time.
-
-Run any n98-magerun command in the terminal window by adding **ddev** in front of it. For example `ddev magerun sys:info` prints infos about the current OpenMage system.
-
-For more information about the available commands please visit https://n98-magerun.readthedocs.io/en/latest/index.html.
 
 ## Using phpMyAdmin
 
@@ -40,7 +37,7 @@ By default the OpenMage cronjob runs every minute. If you want to change it edit
 
 You can set the OpenMage cronjob using DDEV hooks, but you must comment all the lines in the file `.ddev/web-build/openmage.cron`. Edit the file `.ddev/config.yaml` and insert the following lines
 
-```
+```yml
 hooks:
   post-start:
     - exec: printf "SHELL=/bin/bash\n* * * * * /var/www/html/cron.sh\n" | crontab
@@ -51,7 +48,7 @@ hooks:
 
 Set environment variables editing the file `.ddev/config.yaml`. If you want to enable the Developer Mode insert the following lines
 
-```
+```yml
 web_environment: [
     MAGE_IS_DEVELOPER_MODE=1
 ]
@@ -65,13 +62,16 @@ Every DDEV project is automatically configured with Xdebug so that popular IDEs 
 
 Run the following commands in the terminal window to enable or disable xDebug
 
-`ddev xdebug on`
-
-`ddev xdebug off`
+```bash
+ddev xdebug on`
+```
+```bash
+ddev xdebug off
+```
 
 If Xdebug does not work properly with PHPStorm edit the file `.ddev/php/xdebug.ini` and insert the following lines
 
-```
+```ini
 [xdebug]
 xdebug.mode=debug
 xdebug.start_with_request=trigger
@@ -81,7 +81,7 @@ xdebug.start_with_request=trigger
 
 Please note that DDEV changes the port numbers on every restart. If you want to access the database in PHPStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
 
-```
+```yml
 host_db_port: 6000
 ```
 
@@ -91,7 +91,7 @@ See: https://github.com/ddev/ddev-browsersync
 
 Browsersync features live reloads, click mirroring, network throttling. Run the following commands in the terminal window
 
-```
+```bash
 ddev get ddev/ddev-browsersync
 ddev restart
 ddev browsersync
@@ -105,7 +105,7 @@ Compass is required for editing SCSS files.
 
 Create a new file named `.ddev/web-build/Dockerfile.ddev-compass` and insert the following lines
 
-```
+```dockerfile
 ARG BASE_IMAGE
 FROM $BASE_IMAGE
 RUN apt-get update
@@ -121,7 +121,7 @@ For more information, please visit https://stackoverflow.com/questions/61787926/
 
 Create a new file named `phpstan` in the `.ddev/commands/web` directory and insert the following lines
 
-```
+```bash
 #!/bin/bash
 
 ## Description: run PHPStan
@@ -139,12 +139,10 @@ Run in the terminal window `ddev phpstan`.
 
 You can use flags, for example `ddev openmage-install -d -s -k -q`
 
-```
--d (default values for the administrator account)
--s (sampledata installation)
--k (keeps the downloaded archive in the .ddev/.sampleData directory)
--q (quiet mode)
-```
+- `-d` (default values for the administrator account)
+- `-s` (sampledata installation)
+- `-k` (keeps the downloaded archive in the .ddev/.sampleData directory)
+- `-q` (quiet mode)
 
 **2. By default, running the `ddev config` command does not create an administrator account. If you want to create or update one run in the terminal window `ddev openmage-admin` and follow the steps.**
 
@@ -226,9 +224,13 @@ mkcert is a simple tool for making locally-trusted development certificates. If 
 
 For example, copy `rootCA.pem` and `rootCA-key.pem`
 
+From:
 ```
-From: C:\Users\<User Name>\AppData\Local\mkcert
-To: /home/<user_name>/.local/share/mkcert
+C:\Users\<User Name>\AppData\Local\mkcert
+```
+To:
+```
+/home/<user_name>/.local/share/mkcert
 ```
 
 ## Installing OpenMage in the browser
@@ -237,11 +239,9 @@ If you want to install OpenMage in the browser rename or delete the `/app/etc/lo
 
 For the database connection use the following information
 
-```
-Host: db
-Database Name: db
-User Name: db
-User Password: db
-```
+- Host: db
+- Database Name: db
+- User Name: db
+- User Password: db
 
 ![installation](https://github.com/OpenMage/magento-lts/assets/909743/7b31ccf2-f13f-43ce-b065-c0328b2a649b)

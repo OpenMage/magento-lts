@@ -5,6 +5,8 @@ tags:
 
 # PhpStorm
 
+See: https://www.jetbrains.com/phpstorm/
+
 ## Metadata Factory Helper
 
 This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
