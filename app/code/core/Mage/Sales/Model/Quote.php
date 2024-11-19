@@ -31,8 +31,8 @@
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
+ * @method string|array getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(string|array $value)
  *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)

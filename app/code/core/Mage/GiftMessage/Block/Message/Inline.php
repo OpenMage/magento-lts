@@ -255,7 +255,9 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function isMessagesAvailable()
     {
-        return Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity());
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->isMessagesAvailable($helper::TYPE_CONFIG, $this->getEntity());
     }
 
     /**
