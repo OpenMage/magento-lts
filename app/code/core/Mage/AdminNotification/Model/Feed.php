@@ -169,7 +169,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
             $data = $this->getFeedData();
             $xml  = new SimpleXMLElement($data);
         } catch (Exception $e) {
-            $xml  = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?>');
+            $xml  = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?><feed />');
         }
 
         return $xml;
