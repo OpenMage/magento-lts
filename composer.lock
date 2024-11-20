@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5cdf50ae79c9b3c21ac90aa32ffebe54",
+    "content-hash": "5a4c1af1aa04c2bf08c5fedb7a41d41c",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -1156,16 +1156,16 @@
         },
         {
             "name": "sreichel/composer-plugin-file-copy",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sreichel/composer-plugin-file-copy.git",
-                "reference": "362147bd899170b9c9257357563ccb9ac57fbf68"
+                "reference": "6fc816a518d367658020a2b0594d74c3e0aa36e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/362147bd899170b9c9257357563ccb9ac57fbf68",
-                "reference": "362147bd899170b9c9257357563ccb9ac57fbf68",
+                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/6fc816a518d367658020a2b0594d74c3e0aa36e3",
+                "reference": "6fc816a518d367658020a2b0594d74c3e0aa36e3",
                 "shasum": ""
             },
             "require": {
@@ -1208,9 +1208,9 @@
                 "files copy"
             ],
             "support": {
-                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/v1.1.0"
+                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/v1.2.0"
             },
-            "time": "2024-10-13T07:47:28+00:00"
+            "time": "2024-11-20T13:26:22+00:00"
         },
         {
             "name": "symfony/console",
@@ -3953,6 +3953,68 @@
                 }
             ],
             "time": "2023-12-17T18:09:59+00:00"
+        },
+        {
+            "name": "perftools/php-profiler",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/perftools/php-profiler.git",
+                "reference": "b5051e96679aa0d6cb3afe9a13a4e6a1fd890fea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/perftools/php-profiler/zipball/b5051e96679aa0d6cb3afe9a13a4e6a1fd890fea",
+                "reference": "b5051e96679aa0d6cb3afe9a13a4e6a1fd890fea",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^5.3.0 || ^7.0 || ^8.0"
+            },
+            "conflict": {
+                "perftools/xhgui-collector": "<1.8"
+            },
+            "require-dev": {
+                "alcaeus/mongo-php-adapter": "^1.1",
+                "perftools/xhgui-collector": "^1.8"
+            },
+            "suggest": {
+                "alcaeus/mongo-php-adapter": "Adapter to provide ext-mongo interface on top of mongo-php-library (PHP>=5.6)",
+                "ext-curl": "cURL extension for upload saver",
+                "ext-mongo": "mongo extension (PHP>=5.3,<7.0)",
+                "ext-mongodb": "mongodb extension (PHP>=5.4)",
+                "ext-tideways": "Use tideways to profile",
+                "ext-uprofiler": "Use uprofiler to profile",
+                "ext-xhprof": "Use xhprof to profile",
+                "perftools/xhgui-collector": "For mongodb or pdo savers"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Xhgui\\Profiler\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lauri Piisang",
+                    "email": "lauri.piisang@eesti.ee"
+                },
+                {
+                    "name": "Elan Ruusamäe",
+                    "email": "glen@pld-linux.org"
+                }
+            ],
+            "description": "PHP Profiling based on XHGui",
+            "support": {
+                "issues": "https://github.com/perftools/php-profiler/issues",
+                "source": "https://github.com/perftools/php-profiler/tree/1.1.2"
+            },
+            "time": "2024-04-16T05:42:45+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -7370,6 +7432,7 @@
         "ext-libxml": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
         "ext-simplexml": "*",
         "ext-soap": "*",
         "ext-zlib": "*"
