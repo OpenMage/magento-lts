@@ -1160,12 +1160,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sreichel/composer-plugin-file-copy.git",
-                "reference": "18601f67cd9213d4e75ce2f14f56c2e86dc208e5"
+                "reference": "397deea71c27d39a78668b1abea4077218825a61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/18601f67cd9213d4e75ce2f14f56c2e86dc208e5",
-                "reference": "18601f67cd9213d4e75ce2f14f56c2e86dc208e5",
+                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/397deea71c27d39a78668b1abea4077218825a61",
+                "reference": "397deea71c27d39a78668b1abea4077218825a61",
                 "shasum": ""
             },
             "require": {
@@ -1211,7 +1211,7 @@
             "support": {
                 "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/master"
             },
-            "time": "2024-11-20T19:25:58+00:00"
+            "time": "2024-11-20T20:07:08+00:00"
         },
         {
             "name": "symfony/console",
