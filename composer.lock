@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a4c1af1aa04c2bf08c5fedb7a41d41c",
+    "content-hash": "3cb4d2d23cf7688391d3e1f960cd890b",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -1156,16 +1156,16 @@
         },
         {
             "name": "sreichel/composer-plugin-file-copy",
-            "version": "v1.2.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sreichel/composer-plugin-file-copy.git",
-                "reference": "6fc816a518d367658020a2b0594d74c3e0aa36e3"
+                "reference": "de2413a461094e70d4bea0da6872b9bdc4f8c3fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/6fc816a518d367658020a2b0594d74c3e0aa36e3",
-                "reference": "6fc816a518d367658020a2b0594d74c3e0aa36e3",
+                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/de2413a461094e70d4bea0da6872b9bdc4f8c3fa",
+                "reference": "de2413a461094e70d4bea0da6872b9bdc4f8c3fa",
                 "shasum": ""
             },
             "require": {
@@ -1208,9 +1208,9 @@
                 "files copy"
             ],
             "support": {
-                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/v1.2.0"
+                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/develop"
             },
-            "time": "2024-11-20T13:26:22+00:00"
+            "time": "2024-11-20T18:51:36+00:00"
         },
         {
             "name": "symfony/console",
@@ -7415,7 +7415,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "sreichel/composer-plugin-file-copy": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
