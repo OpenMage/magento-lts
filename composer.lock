@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cb4d2d23cf7688391d3e1f960cd890b",
+    "content-hash": "5aea364269dbf072e9905b6ae39dc6f4",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -1156,16 +1156,16 @@
         },
         {
             "name": "sreichel/composer-plugin-file-copy",
-            "version": "dev-develop",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sreichel/composer-plugin-file-copy.git",
-                "reference": "de2413a461094e70d4bea0da6872b9bdc4f8c3fa"
+                "reference": "18601f67cd9213d4e75ce2f14f56c2e86dc208e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/de2413a461094e70d4bea0da6872b9bdc4f8c3fa",
-                "reference": "de2413a461094e70d4bea0da6872b9bdc4f8c3fa",
+                "url": "https://api.github.com/repos/sreichel/composer-plugin-file-copy/zipball/18601f67cd9213d4e75ce2f14f56c2e86dc208e5",
+                "reference": "18601f67cd9213d4e75ce2f14f56c2e86dc208e5",
                 "shasum": ""
             },
             "require": {
@@ -1176,6 +1176,7 @@
             "require-dev": {
                 "composer/composer": "^2.6"
             },
+            "default-branch": true,
             "type": "composer-plugin",
             "extra": {
                 "class": "Sreichel\\Composer\\Plugin\\FileCopy\\ScriptHandler"
@@ -1208,9 +1209,9 @@
                 "files copy"
             ],
             "support": {
-                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/develop"
+                "source": "https://github.com/sreichel/composer-plugin-file-copy/tree/master"
             },
-            "time": "2024-11-20T18:51:36+00:00"
+            "time": "2024-11-20T19:25:58+00:00"
         },
         {
             "name": "symfony/console",
