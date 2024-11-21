@@ -135,10 +135,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         $helper = $this->helper('giftmessage/message');
 
         if (is_null($item)) {
-            return $helper->getIsMessagesAvailable('items', $this->getQuote(), $this->getStore());
+            return $helper->getIsMessagesAvailable($helper::TYPE_ITEMS, $this->getQuote(), $this->getStore());
         }
 
-        return $helper->getIsMessagesAvailable('item', $item, $this->getStore());
+        return $helper->getIsMessagesAvailable($helper::TYPE_ITEM, $item, $this->getStore());
     }
 
     /**
