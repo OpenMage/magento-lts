@@ -91,7 +91,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
             foreach ($value as $v) {
                 $results[] = $this->_adapter->quoteInto("{$selectOperator}", $v);
             }
-            $result = implode(in_array($operator, ['()', '!()']) ? ' OR ' : ' AND ', $results);
+            $result = implode($operator == '()' ? ' OR ' : ' AND ', $results);
         } else {
             $result = $this->_adapter->quoteInto("{$field}{$selectOperator}", $value);
         }
