@@ -43,6 +43,3 @@ Also, tell us what else would you like to see happen?
 You want to know more about how we managed to do this?
 Have fun reading through the Code of our [Tooling](https://github.com/OpenMageModuleFostering/Tooling){:target="_blank"}.
 Keep an eye on it, we will continue to add Tooling, helping us to script changes for all the Modules at once.
-
- 
-
