@@ -70,7 +70,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         if (!$this->_storageRoot) {
             $path = Mage::getConfig()->getOptions()->getMediaDir()
                 . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY;
-            // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
             $this->_storageRoot = realpath($path);
             if (!$this->_storageRoot) {
                 $this->_storageRoot = $path;
@@ -108,7 +107,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function convertPathToId($path)
     {
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
         $storageRoot = realpath($this->getStorageRoot());
         $path = str_replace($storageRoot, '', $path);
         return $this->idEncode($path);
@@ -123,7 +121,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function convertIdToPath($id)
     {
         $path = $this->idDecode($id);
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
         $storageRoot = realpath($this->getStorageRoot());
         if (!strstr($path, $storageRoot)) {
             $path = $storageRoot . DS . $path;
@@ -212,9 +209,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $currentPath = $this->getStorageRoot();
             $node = $this->_getRequest()->getParam($this->getTreeNodeName());
             if ($node) {
-                // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
                 $path = realpath($this->convertIdToPath($node));
-                // phpcs:ignore: Ecg.Security.DiscouragedFunction.Discouraged
                 if ($path && is_dir($path) && stripos($path, $currentPath) !== false) {
                     $currentPath = $path;
                 }
@@ -240,7 +235,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function getCurrentUrl()
     {
         if (!$this->_currentUrl) {
-            // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
             $mediaPath = realpath(Mage::getConfig()->getOptions()->getMediaDir());
             $path = str_replace($mediaPath, '', $this->getCurrentPath());
             $path = trim($path, DS);
@@ -280,7 +274,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function idDecode($string)
     {
         $string = strtr($string, ':_-', '+/=');
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
         return base64_decode($string);
     }
 

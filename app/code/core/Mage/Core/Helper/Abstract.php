@@ -120,7 +120,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check whether or not the module output is enabled in Configuration
+     * Check whether the module output is enabled in Configuration
      *
      * @param string $moduleName Full module name
      * @return bool
@@ -135,10 +135,7 @@ abstract class Mage_Core_Helper_Abstract
             return false;
         }
 
-        if (Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName)) {
-            return false;
-        }
-        return true;
+        return !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
     }
 
     /**
@@ -168,6 +165,8 @@ abstract class Mage_Core_Helper_Abstract
      * Translate
      *
      * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function __()
     {

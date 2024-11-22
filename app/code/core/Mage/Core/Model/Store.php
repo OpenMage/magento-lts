@@ -538,6 +538,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve default base path
      *
      * @return string
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function getDefaultBasePath()
     {
@@ -627,6 +628,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @param   string $url
      * @return  string
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _updatePathUseRewrites($url)
     {
@@ -699,11 +701,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Get store identifier
      *
-     * @return int
+     * @return int|null
      */
     public function getId()
     {
-        return (int)$this->_getData('store_id');
+        $storeId = $this->_getData('store_id');
+        return is_null($storeId) ? null : (int)$storeId;
     }
 
     /**
@@ -1042,21 +1045,21 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve website identifier
      *
-     * @return int|string|null
+     * @return int
      */
     public function getWebsiteId()
     {
-        return $this->_getData('website_id');
+        return (int)$this->_getData('website_id');
     }
 
     /**
      * Retrieve group identifier
      *
-     * @return int|string|null
+     * @return int
      */
     public function getGroupId()
     {
-        return $this->_getData('group_id');
+        return (int)$this->_getData('group_id');
     }
 
     /**

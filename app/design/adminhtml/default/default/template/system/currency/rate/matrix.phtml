@@ -12,9 +12,9 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
 
-<?php
+/** @var Mage_Adminhtml_Block_System_Currency_Rate_Matrix $this */
+
 $_oldRates = $this->getOldRates();
 $_newRates = $this->getNewRates();
 $_rates = ( $_newRates ) ? $_newRates : $_oldRates;

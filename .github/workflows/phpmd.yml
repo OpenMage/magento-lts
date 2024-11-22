@@ -1,0 +1,32 @@
+name: PHPMD
+
+on:
+  workflow_call:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  phpcs:
+    name: Mess Detector
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
+
+      - name: PHPMD
+        run: php vendor/bin/phpmd app/code/core/Mage/ github .phpmd.dist.xml --baseline-file .phpmd.dist.baseline.xml

@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Mage\Catalog\Hlelper\Product;
+namespace OpenMage\Tests\Unit\Mage\Catalog\Helper\Product;
 
 use Generator;
 use Mage;
@@ -71,7 +71,7 @@ class UrlTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
      */
-    public function testFormat($expectedResult, ?string $string): void
+    public function testFormat(string $expectedResult, ?string $string): void
     {
         $this->assertSame($expectedResult, $this->subject->format($string));
     }

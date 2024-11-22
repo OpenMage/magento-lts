@@ -29,13 +29,13 @@ class Mage_Adminhtml_Block_Api_Tab_Userroles extends Mage_Adminhtml_Block_Widget
             ->getCollection()
             ->load();
 
-        $user_roles = Mage::getModel('api/roles')
+        $userRoles = Mage::getModel('api/roles')
             ->getUsersCollection()
             ->setUserFilter($uid)
             ->load();
 
         $this->setTemplate('api/userroles.phtml')
             ->assign('roles', $roles)
-            ->assign('user_roles', $user_roles);
+            ->assign('user_roles', $userRoles);
     }
 }

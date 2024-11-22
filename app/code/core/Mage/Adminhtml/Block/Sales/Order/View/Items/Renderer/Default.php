@@ -199,15 +199,18 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Indicates that block can display giftmessages form
      *
-     * @deprecated after 1.4.2.0
+     * TODO set return type
      * @return bool
      */
     public function canDisplayGiftmessage()
     {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable(
-            'order_item',
+            $helper::TYPE_ORDER_ITEM,
             $this->getItem(),
             $this->getItem()->getOrder()->getStoreId()
         );

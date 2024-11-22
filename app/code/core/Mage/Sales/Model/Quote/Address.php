@@ -27,8 +27,8 @@
  * @method string getAddressType()
  * @method $this setAddressType(string $value)
  * @method $this unsAddressType()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
+ * @method array getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(array $value)
  * @method bool getAppliedTaxesReset()
  * @method $this setAppliedTaxesReset(bool $value)
  *

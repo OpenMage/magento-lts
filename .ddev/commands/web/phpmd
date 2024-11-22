@@ -4,4 +4,4 @@
 ## Usage: phpmd
 ## Example: ddev phpmd <path-to-files>
 
-php vendor/bin/phpmd "$@" text .phpmd.dist.xml
+php vendor/bin/phpmd "$@" text .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml

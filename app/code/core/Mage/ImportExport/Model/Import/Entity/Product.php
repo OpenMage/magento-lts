@@ -1675,6 +1675,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
     /**
      * Returns an object for upload a media files
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     protected function _getUploader()
     {

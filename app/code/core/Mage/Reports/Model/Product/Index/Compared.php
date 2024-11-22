@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,8 +56,8 @@ class Mage_Reports_Model_Product_Index_Compared extends Mage_Reports_Model_Produ
         $helper = Mage::helper('catalog/product_compare');
 
         if ($helper->hasItems()) {
-            foreach ($helper->getItemCollection() as $_item) {
-                $productIds[] = $_item->getEntityId();
+            foreach ($helper->getItemCollection() as $item) {
+                $productIds[] = $item->getEntityId();
             }
         }
 

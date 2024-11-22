@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +36,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
      *  $index => array(
      *      'amount'   => $amount,
      *      'label'    => $label,
-     *      'font_size'=> $font_size
+     *      'font_size'=> $fontSize
      *  )
      * )
      * @return array
@@ -77,7 +77,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
      *  $index => array(
      *      'amount'   => $amount,
      *      'label'    => $label,
-     *      'font_size'=> $font_size
+     *      'font_size'=> $fontSize
      *  )
      * )
      * @return array
@@ -98,7 +98,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
             }
         } else {
             $fullInfo = $this->_getFullRateInfo();
-            $tax_info = [];
+            $taxInfo = [];
 
             if ($fullInfo) {
                 foreach ($fullInfo as $info) {
@@ -111,7 +111,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                     foreach ($info['rates'] as $rate) {
                         $percent = $rate['percent'] ? ' (' . $rate['percent'] . '%)' : '';
 
-                        $tax_info[] = [
+                        $taxInfo[] = [
                             'amount'    => $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($_amount),
                             'label'     => $this->_getTaxHelper()->__($rate['title']) . $percent . ':',
                             'font_size' => $fontSize
@@ -119,7 +119,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                     }
                 }
             }
-            $taxClassAmount = $tax_info;
+            $taxClassAmount = $taxInfo;
         }
 
         return $taxClassAmount;

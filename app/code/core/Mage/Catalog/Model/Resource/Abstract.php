@@ -713,10 +713,10 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         // Ensure we have an associative array of attribute => values
         $values = is_array($value) ? $value : array_combine($attribute, [$value]);
 
-        foreach ($values as $_attribute => &$_value) {
+        foreach ($values as $_attribute => &$optionText) {
             $_attribute = (clone $this->getAttribute($_attribute))->setStoreId($store);
             if ($_attribute->getSourceModel() || $_attribute->getFrontendInput() === 'select' || $_attribute->getFrontendInput() === 'multiselect') {
-                $_value = $_attribute->getSource()->getOptionText($_value);
+                $optionText = $_attribute->getSource()->getOptionText($optionText);
             }
         }
 

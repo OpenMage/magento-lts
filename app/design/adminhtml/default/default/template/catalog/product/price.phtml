@@ -23,16 +23,17 @@
  */
 ?>
 <?php
-    /** @var $_coreHelper Mage_Core_Helper_Data */
+    /** @var Mage_Core_Helper_Data $_coreHelper */
     $_coreHelper        = $this->helper('core');
-    /** @var $_weeeHelper Mage_Weee_Helper_Data */
+    /** @var Mage_Weee_Helper_Data $_weeeHelper */
     $_weeeHelper        = $this->helper('weee');
-    /** @var $_taxHelper Mage_Tax_Helper_Data */
+    /** @var Mage_Tax_Helper_Data $_taxHelper */
     $_taxHelper         = $this->helper('tax');
 
     $_product           = $this->getProduct();
     $_id                = $_product->getId();
     $_storeId           = $_product->getStoreId();
+    /** @var Mage_Core_Model_Website $_website */
     $_website           = Mage::app()->getStore($_storeId)->getWebsite();
 
     $_weeeSeparator     = '';

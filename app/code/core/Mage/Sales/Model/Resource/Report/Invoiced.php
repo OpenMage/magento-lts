@@ -213,7 +213,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 'orders_invoiced'       => new Zend_Db_Expr(
                     sprintf(
                         'SUM(%s)',
-                        $adapter->getCheckSql('base_total_invoiced > 0', 1, 0)
+                        $adapter->getCheckSql('base_total_invoiced > 0', '1', '0')
                     )
                 ),
                 'invoiced'              => new Zend_Db_Expr(

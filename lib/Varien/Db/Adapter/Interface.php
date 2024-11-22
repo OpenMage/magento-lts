@@ -828,7 +828,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Add time values (intervals) to a date value
      *
-     * @see INTERVAL_* constants for $unit
+     * @see INTERVAL_ constants for $unit
      *
      * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
      * @param int $interval
@@ -840,7 +840,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Subtract time values (intervals) to a date value
      *
-     * @see INTERVAL_* constants for $unit
+     * @see INTERVAL_ constants for $unit
      *
      * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
      * @param int|string $interval
@@ -896,7 +896,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Extract part of a date
      *
-     * @see INTERVAL_* constants for $unit
+     * @see INTERVAL_ constants for $unit
      *
      * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
      * @param string $unit

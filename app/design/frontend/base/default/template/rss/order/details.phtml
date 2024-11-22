@@ -18,6 +18,11 @@ web site name = $_order->getStore()->getWebsite()->getName()
 store name = $_order->getStore()->getGroup()->getName()
 */
 ?>
+<?php
+/**
+ * @var Mage_Rss_Block_Order_Details $this
+ */
+?>
 <?php $_order=$this->getOrder() ?>
 <div>
 <?php $customerName = $_order->getCustomerFirstname() ? $_order->getCustomerName() : $_order->getBillingAddress()->getName(); ?>
@@ -37,7 +42,7 @@ store name = $_order->getStore()->getGroup()->getName()
 <?php $i=0; foreach ($_order->getAllItems() as $_item): $i++ ?>
         <tr <?php echo $i%2?'bgcolor="#eeeded"':'' ?>>
             <td align="left" valign="top" style="padding:3px 9px"><strong><?php echo $this->escapeHtml($_item->getName()) ?></strong>
-            <?php if($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
+            <?php if($_giftMessage = $this->getGiftMessageItem($_item)): ?>
             <br /><strong><?php echo $this->__('Gift Message') ?></strong>
             <br /><?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
             <br /><?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
@@ -51,7 +56,7 @@ store name = $_order->getStore()->getGroup()->getName()
     </tbody>
 
     <tfoot>
-    <?php if($_order->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId())): ?>
+    <?php if($_giftMessage = $this->getGiftMessageOrder()): ?>
         <tr>
             <td colspan="3" align="left" style="padding:3px 9px">
             <strong><?php echo $this->__('Gift Message') ?></strong>

@@ -27,7 +27,7 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
      * @param string $mainTable
      * @param array $data
      * @param mixed $matchFields
-     * @return string
+     * @return int
      */
     public function mergeVisitorProductIndex($mainTable, $data, $matchFields)
     {
@@ -93,7 +93,7 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
                 [
                     't.store_id',
                     $periodCol,
-                    $adapter->getCheckSql($productTypesInExpr, 1, 0),
+                    $adapter->getCheckSql($productTypesInExpr, '1', '0'),
                     'total_qty DESC'
                 ]
             );
