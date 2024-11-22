@@ -27,6 +27,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
+     * @param Mage_Cms_Model_Block $object
      * @inheritDoc
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
@@ -43,6 +44,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Perform operations before object save
      *
+     * @param Mage_Cms_Model_Block $object
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -60,6 +62,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
+     * @param Mage_Cms_Model_Block $object
      * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -97,6 +100,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
+     * @param Mage_Cms_Model_Block $object
      * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
@@ -109,6 +113,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     }
 
     /**
+     * @param Mage_Cms_Model_Block $object
      * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
@@ -156,6 +161,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Check for unique of identifier of block to selected store(s).
      *
+     * @param Mage_Cms_Model_Block $object
      * @return bool
      */
     public function getIsUniqueBlockToStores(Mage_Core_Model_Abstract $object)
@@ -163,7 +169,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         if (Mage::app()->isSingleStoreMode()) {
             $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
         } else {
-            $stores = (array)$object->getData('stores');
+            $stores = (array)$object->getDataByKey('stores');
         }
 
         $select = $this->_getReadAdapter()->select()
@@ -172,7 +178,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
                 ['cbs' => $this->getTable('cms/block_store')],
                 'cb.block_id = cbs.block_id',
                 []
-            )->where('cb.identifier = ?', $object->getData('identifier'))
+            )->where('cb.identifier = ?', $object->getDataByKey('identifier'))
             ->where('cbs.store_id IN (?)', $stores);
 
         if ($object->getId()) {

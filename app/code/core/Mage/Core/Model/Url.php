@@ -325,23 +325,24 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         $store = $this->getStore();
+        $isAdmin = $store->isAdmin();
 
-        if ($store->isAdmin() && !$store->isAdminUrlSecure()) {
+        if ($isAdmin && !$store->isAdminUrlSecure()) {
             return false;
         }
-        if (!$store->isAdmin() && !$store->isFrontUrlSecure()) {
+        if (!$isAdmin && !$store->isFrontUrlSecure()) {
             return false;
         }
 
         if (!$this->hasData('secure')) {
-            if ($this->getType() == Mage_Core_Model_Store::URL_TYPE_LINK && !$store->isAdmin()) {
+            if ($this->getType() == Mage_Core_Model_Store::URL_TYPE_LINK && !$isAdmin) {
                 $pathSecure = Mage::getConfig()->shouldUrlBeSecure('/' . $this->getActionPath());
                 $this->setData('secure', $pathSecure);
             } else {
                 $this->setData('secure', true);
             }
         }
-        return $this->getData('secure');
+        return $this->getDataByKey('secure');
     }
 
     /**

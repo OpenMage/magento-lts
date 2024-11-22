@@ -63,7 +63,7 @@ class Mage_Core_Model_Domainpolicy
      */
     public function addDomainPolicyHeader(Varien_Event_Observer $observer)
     {
-        $action = $observer->getControllerAction();
+        $action = $observer->getDataByKey('controller_action');
         $policy = null;
 
         if ($action->getLayout()->getArea() == 'adminhtml') {

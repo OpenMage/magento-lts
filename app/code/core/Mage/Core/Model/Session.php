@@ -30,7 +30,6 @@
  * @method array getOrderIds()
  * @method $this setOrderIds(array $value)
  * @method $this setJustVotedPoll(int $value)
- * @method $this setLastUrl(string $value)
  */
 class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -73,5 +72,31 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
     public function validateFormKey($formKey)
     {
         return ($formKey === $this->getFormKey());
+    }
+
+    public function getLastUrl(): ?string
+    {
+        return $this->getDataByKey('last_url');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setLastUrl(?string $storeId)
+    {
+        return $this->setData('last_url', $storeId);
+    }
+
+    public function getVisitorData(): ?array
+    {
+        return $this->getDataByKey('visitor_data');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setVisitorData(?array $data)
+    {
+        return $this->setData('visitor_data', $data);
     }
 }

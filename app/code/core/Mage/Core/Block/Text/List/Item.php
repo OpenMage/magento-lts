@@ -23,7 +23,7 @@ class Mage_Core_Block_Text_List_Item extends Mage_Core_Block_Text
 {
     /**
      * @param array $liParams
-     * @param array $innerText
+     * @param string $innerText
      * @return $this
      */
     public function setLink($liParams, $innerText)

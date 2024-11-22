@@ -30,7 +30,6 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
 
     /**
      * Define resource model
-     *
      */
     protected function _construct()
     {
@@ -60,13 +59,13 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
         $res = [];
         $existingIdentifiers = [];
         foreach ($this as $item) {
-            $identifier = $item->getData('identifier');
+            $identifier = $item->getDataByKey('identifier');
 
             $data['value'] = $identifier;
-            $data['label'] = $item->getData('title');
+            $data['label'] = $item->getDataByKey('title');
 
             if (in_array($identifier, $existingIdentifiers)) {
-                $data['value'] .= '|' . $item->getData('page_id');
+                $data['value'] .= '|' . $item->getDataByKey('page_id');
             } else {
                 $existingIdentifiers[] = $identifier;
             }
@@ -104,15 +103,15 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
 
                 if ($result = $connection->fetchPairs($select)) {
                     foreach ($this as $item) {
-                        if (!isset($result[$item->getData('page_id')])) {
+                        if (!isset($result[$item->getDataByKey('page_id')])) {
                             continue;
                         }
-                        if ($result[$item->getData('page_id')] == 0) {
+                        if ($result[$item->getDataByKey('page_id')] == 0) {
                             $stores = Mage::app()->getStores(false, true);
                             $storeId = current($stores)->getId();
                             $storeCode = key($stores);
                         } else {
-                            $storeId = $result[$item->getData('page_id')];
+                            $storeId = $result[$item->getDataByKey('page_id')];
                             $storeCode = Mage::app()->getStore($storeId)->getCode();
                         }
                         $item->setData('_first_store_id', $storeId);

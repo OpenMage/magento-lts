@@ -24,23 +24,13 @@
  * @method Mage_Core_Model_Resource_Website_Collection getCollection()
  * @method Mage_Core_Model_Resource_Website_Collection getResourceCollection()
  *
- * @method $this setCode(string $value)
- * @method string getName()
- * @method $this setName(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method $this setDefaultGroupId(int $value)
- * @method int getIsDefault()
- * @method $this setIsDefault(int $value)
  * @method int getGroupId()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method array getStoresIds()
  * @method bool hasWebsiteId()
- * @method int getWebsiteId()
- * @method bool hasDefaultGroupId()
  */
-class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
+class Mage_Core_Model_Website extends Mage_Core_Model_Abstract implements Mage_Core_Api_Data_WebsiteInterface
 {
     public const ENTITY    = 'core_website';
     public const CACHE_TAG = 'website';
@@ -315,7 +305,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     public function getDefaultGroup()
     {
-        if (!$this->hasDefaultGroupId()) {
+        if (!$this->hasData('default_group_id')) {
             return false;
         }
         if (is_null($this->_groups)) {
@@ -457,22 +447,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
-     */
-    public function getDefaultGroupId()
-    {
-        return $this->_getData('default_group_id');
-    }
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->_getData('code');
-    }
-
-    /**
      * @inheritDoc
      */
     protected function _beforeDelete()
@@ -562,5 +536,110 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             $this->_isReadOnly = (bool)$value;
         }
         return $this->_isReadOnly;
+    }
+
+    /**
+     * @api
+     */
+    public function getWebsiteId(): ?int
+    {
+        $websiteId = $this->getDataByKey(self::DATA_ID);
+        return is_null($websiteId) ? null : (int) $websiteId;
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setWebsiteId(?int $value)
+    {
+        return $this->setData(self::DATA_ID, $value);
+    }
+
+    /**
+     * @api
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->_getData(self::DATA_CODE);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setCode(?string $code)
+    {
+        return $this->setData(self::DATA_CODE, $code);
+    }
+
+    /**
+     * @api
+     * @return int
+     */
+    public function getDefaultGroupId()
+    {
+        return (int) $this->_getData(self::DATA_DEFAULT_GROUP_ID);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setDefaultGroupId(int $value)
+    {
+        return $this->setData(self::DATA_DEFAULT_GROUP_ID, $value);
+    }
+
+    /**
+     * @api
+     */
+    public function getIsDefault(): ?int
+    {
+        return (int) $this->_getData(self::DATA_IS_DEFAULT);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setIsDefault(?int $value)
+    {
+        return $this->setData(self::DATA_IS_DEFAULT, $value);
+    }
+
+    /**
+     * @api
+     */
+    public function getName(): ?string
+    {
+        return $this->_getData(self::DATA_NAME);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setName(?string $name)
+    {
+        return $this->setData(self::DATA_NAME, $name);
+    }
+
+    /**
+     * @api
+     */
+    public function getSortOrder(): int
+    {
+        return (int) $this->_getData(self::DATA_SORT_ORDER);
+    }
+
+    /**
+     * @api
+     * @return $this
+     */
+    public function setSortOrder(int $position)
+    {
+        return $this->setData(self::DATA_SORT_ORDER, $position);
     }
 }

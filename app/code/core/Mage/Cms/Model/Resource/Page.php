@@ -75,7 +75,11 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
          * If they are empty we need to convert them into DB
          * type NULL so in DB they will be empty and not some default value
          */
-        foreach (['custom_theme_from', 'custom_theme_to'] as $field) {
+        $dates = [
+            Mage_Cms_Api_Data_PageInterface::DATA_CUSTOM_THEME_FROM,
+            Mage_Cms_Api_Data_PageInterface::DATA_CUSTOM_THEME_TO,
+        ];
+        foreach ($dates as $field) {
             $value = !$object->getData($field) ? null : $object->getData($field);
             $object->setData($field, $this->formatDate($value));
         }
@@ -83,7 +87,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         if (!$object->getIsActive()) {
             $isUsedInConfig = $this->getUsedInStoreConfigCollection($object);
             if ($isUsedInConfig->count()) {
-                $object->setIsActive(true);
+                $object->setIsActive(1);
                 Mage::getSingleton('adminhtml/session')->addWarning(
                     Mage::helper('cms')->__(
                         'Cannot disable page, it is used in configuration "%s".',
@@ -249,10 +253,10 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         if (!$object->hasStores()) {
             $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
         } else {
-            $stores = (array)$object->getData('stores');
+            $stores = (array)$object->getDataByKey('stores');
         }
 
-        $select = $this->_getLoadByIdentifierSelect($object->getData('identifier'), $stores);
+        $select = $this->_getLoadByIdentifierSelect($object->getDataByKey('identifier'), $stores);
 
         if ($object->getId()) {
             $select->where('cps.page_id <> ?', $object->getId());
@@ -272,18 +276,17 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
     {
-        return preg_match('/^[0-9]+$/', $object->getData('identifier'));
+        return preg_match('/^[0-9]+$/', $object->getDataByKey('identifier'));
     }
 
     /**
      *  Check whether page identifier is valid
      *
-     *
      * @return   int|false
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)
     {
-        return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('identifier'));
+        return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getDataByKey('identifier'));
     }
 
     public function getUsedInStoreConfigCollection(Mage_Cms_Model_Page $page, ?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract
