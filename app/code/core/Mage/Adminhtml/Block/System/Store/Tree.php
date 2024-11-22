@@ -40,13 +40,13 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     /**
      * Prepare block layout
      *
-     * @return Mage_Core_Block_Abstract
+     * @return Mage_Adminhtml_Block_Template
      */
     protected function _prepareLayout()
     {
-        $this->_cellTemplate = $this->getLayout()
-            ->createBlock('adminhtml/template')
-            ->setTemplate('system/store/cell.phtml');
+        /** @var Mage_Adminhtml_Block_Template $block */
+        $block = $this->getLayout()->createBlock('adminhtml/template');
+        $this->_cellTemplate = $block->setTemplate('system/store/cell.phtml');
         return parent::_prepareLayout();
     }
 

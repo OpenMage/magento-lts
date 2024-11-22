@@ -110,9 +110,11 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
             $type = 'default';
         }
         if (is_null($this->_itemRenders[$type]['renderer'])) {
-            $this->_itemRenders[$type]['renderer'] = $this->getLayout()
+            /** @var Mage_Adminhtml_Block_Sales_Items_Abstract $renderer */
+            $renderer = $this->getLayout()
                 ->createBlock($this->_itemRenders[$type]['block'])
                 ->setTemplate($this->_itemRenders[$type]['template']);
+            $this->_itemRenders[$type]['renderer'] = $renderer;
             foreach ($this->_columnRenders as $columnType => $renderer) {
                 $this->_itemRenders[$type]['renderer']->addColumnRender($columnType, $renderer['block'], $renderer['template']);
             }

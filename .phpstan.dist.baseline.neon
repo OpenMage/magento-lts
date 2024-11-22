@@ -3241,11 +3241,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Layout.php
 
 		-
-			message: "#^Method Mage_Core_Model_Layout\\:\\:getMessagesBlock\\(\\) should return Mage_Core_Block_Messages but returns Mage_Core_Block_Abstract\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Model/Layout.php
-
-		-
 			message: "#^Method Mage_Core_Model_Layout\\:\\:getMessagesBlock\\(\\) should return Mage_Core_Block_Messages but returns Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Layout.php
