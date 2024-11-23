@@ -62,172 +62,225 @@ class ObjectTest extends TestCase
 
     public function provideGetDataData(): Generator
     {
-        yield 'empty_key' => [
+        $key   = 'empty_key';
+        $value = ['empty_value'];
+        yield $key => [
             [
-                'getData'       => ['empty_key' => ['empty_value']],
-                'jsonSerialize' => '{"empty_key":["empty_value"]}',
+                'getData'       => [$key => $value],
+                'jsonSerialize' => [$key => $value],
             ],
-            'empty_key',
-            ['empty_value'],
+            $key,
+            $value,
             ''
         ];
-        yield 'string' => [
+
+        $key   = 'string';
+        $value = 'value';
+        yield $key => [
             [
-                'getData'       => 'value',
-                'jsonSerialize' => '{"string":"value"}',
+                'getData'       => $value,
+                'jsonSerialize' => [$key => $value],
             ],
-            'string',
-            'value',
+            $key,
+            $value,
             'string'
         ];
-        yield 'int' => [
+
+        $key   = 'int';
+        $value = 1;
+        yield $key => [
             [
-                'getData'       => 1,
-                'jsonSerialize' => '{"int":1}',
+                'getData'       => $value,
+                'jsonSerialize' => [$key => $value],
             ],
-            'int',
-            1,
+            $key,
+            $value,
             'int'
         ];
-        yield 'numeric' => [
+
+        $key   = 'numeric';
+        $value = '1';
+        yield $key => [
             [
-                'getData'       => '1',
-                'jsonSerialize' => '{"numeric":"1"}',
+                'getData'       => $value,
+                'jsonSerialize' => [$key => $value],
             ],
-            'numeric',
-            '1',
+            $key,
+            $value,
             'numeric'
         ];
-        yield 'array' => [
+
+        $key   = 'array';
+        $value = ['string', 1];
+        yield $key => [
             [
-                'getData'       => ['string', 1],
-                'jsonSerialize' => '{"array":["string",1]}',
+                'getData'       => $value,
+                'jsonSerialize' => [$key => $value],
             ],
-            'array',
-            ['string', 1],
+            $key,
+            $value,
             'array',
         ];
-        yield 'array_index_int' => [
+
+        $key   = 'array_index_int';
+        $value = ['string', 1];
+        yield $key => [
             [
                 'getData'       => 'string',
-                'jsonSerialize' => '{"array_index_int":["string",1]}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_index_int',
-            ['string', 1],
+            $key,
+            $value,
             'array_index_int',
             0,
         ];
-        yield 'array_index_int_invalid' => [
+
+        $key   = 'array_index_int_invalid';
+        $value = ['string', 1];
+        yield $key => [
             [
                 'getData'       => null,
-                'jsonSerialize' => '{"array_index_int_invalid":["string",1]}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_index_int_invalid',
-            ['string', 1],
+            $key,
+            $value,
             'array_index_int_invalid',
             999,
         ];
-        yield 'array_index_string' => [
+
+        $key   = 'array_index_string';
+        $value = ['string' => 'string', 'int' => 1];
+        yield $key => [
             [
                 'getData'       => 1,
-                'jsonSerialize' => '{"array_index_string":{"string":"string","int":1}}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_index_string',
-            ['string' => 'string', 'int' => 1],
+            $key,
+            $value,
             'array_index_string',
             'int',
         ];
-        yield 'array_index_string_string' => [
+
+        $key   = 'array_index_string_string';
+        $value = 'some_string';
+        yield $key => [
             [
                 'getData'       => null,
-                'jsonSerialize' => '{"array_index_string_string":"some_string"}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_index_string_string',
-            'some_string',
+            $key,
+            $value,
             'array_index_string_string',
             'not-exists',
         ];
-        yield 'array_index_string_varien_object' => [
+
+        $key   = 'array_index_string_varien_object';
+        $value = new Varien_Object(['array' => []]);
+        yield $key => [
             [
                 'getData'       => [],
-                'jsonSerialize' => '{"array_index_string_varien_object":{"array":[]}}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_index_string_varien_object',
-            new Varien_Object(['array' => []]),
+            $key,
+            $value,
             'array_index_string_varien_object',
             'array',
         ];
-        yield 'array_index_string_std_class' => [
+
+        $key   = 'array_index_string_std_class';
+        $value = new stdClass();
+        yield $key => [
             [
                 'getData'       => null,
-                'jsonSerialize' => '{"array_index_string_std_class":{}}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_index_string_std_class',
-            new stdClass(),
+            $key,
+            $value,
             'array_index_string_std_class',
             'not-exists',
         ];
-        yield 'array_nested' => [
+
+        $key   = 'array_nested';
+        $value = ['nested' => ['string' => 'string', 'int' => 1]];
+        yield $key => [
             [
-                'getData' => 1,
-                'jsonSerialize' => '{"array_nested":{"nested":{"string":"string","int":1}}}',
+                'getData'       => 1,
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_nested',
-            ['nested' => ['string' => 'string', 'int' => 1]],
+            $key,
+            $value,
             'array_nested/nested/int',
         ];
-        yield 'array_nested_invalid_key' => [
+
+        $key   = 'array_nested_invalid_key';
+        $value = ['nested' => ['string' => 'string', 'int' => 1]];
+        yield $key => [
             [
                 'getData'       => null,
-                'jsonSerialize' => '{"array_nested":{"nested":{"string":"string","int":1}}}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_nested',
-            ['nested' => ['string' => 'string', 'int' => 1]],
+            $key,
+            $value,
             'array_nested/nested/invalid_key',
         ];
+
+        $key   = 'array_nested';
+        $value = ['nested' => ['string' => 'string', 'int' => '']];
         yield 'array_nested_empty_key' => [
             [
                 'getData'       => null,
-                'jsonSerialize' => '{"array_nested":{"nested":{"string":"string","int":""}}}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_nested',
-            ['nested' => ['string' => 'string', 'int' => '']],
+            $key,
+            $value,
             'array_nested/nested/',
         ];
+
+        $key   = 'array_nested_string';
+        $value = ['nested' => 'some"\n"string'];
         yield 'array_nested_string' => [
             [
                 'getData'       => 'some"\n"string',
-                'jsonSerialize' => '{"array_nested_string":{"nested":"some\"\\\n\"string"}}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_nested_string',
-            ['nested' => 'some"\n"string'],
+            $key,
+            $value,
             'array_nested_string/nested',
         ];
+
+        $key   = 'array_nested_varien_object';
+        $value = new Varien_Object();
         yield 'array_nested_varien_object' => [
             [
                 'getData'       => null,
-                'jsonSerialize' => '{"array_nested_varien_object":[]}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_nested_varien_object',
-            new Varien_Object(),
+            $key,
+            $value,
             'array_nested_varien_object/nested',
         ];
-        yield 'array_nested_std_class' => [
+
+        $key   = 'array_nested_std_class';
+        $value = new stdClass();
+        yield $key => [
             [
                 'getData'       => null,
-                'jsonSerialize' => '{"array_nested_std_class":{}}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_nested_std_class',
-            new stdClass(),
+            $key,
+            $value,
             'array_nested_std_class/nested',
         ];
-        yield 'array_nested_key_not_exists' => [
+
+        $key   = 'array_nested_key_not_exists';
+        $value = ['nested' => ['string' => 'string', 'int' => 1]];
+        yield $key => [
             [
                 'getData'       => null,
-                'jsonSerialize' => '{"array_nested_key_not_exists":{"nested":{"string":"string","int":1}}}',
+                'jsonSerialize' => [$key => $value],
             ],
-            'array_nested_key_not_exists',
-            ['nested' => ['string' => 'string', 'int' => 1]],
+            $key,
+            $value,
             'array_nested_key_not_exists_test/nested/int',
         ];
     }
