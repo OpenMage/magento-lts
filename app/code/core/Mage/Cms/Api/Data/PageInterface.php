@@ -74,6 +74,6 @@ interface Mage_Cms_Api_Data_PageInterface
     public function setCustomThemeTo(?string $to);
     public function getCustomThemeFrom(): ?string;
     public function setCustomThemeFrom(?string $from);
-    public function getStoreId(): int;
+    public function getStoreId(): ?int;
     public function setStoreId(int $storeId);
 }

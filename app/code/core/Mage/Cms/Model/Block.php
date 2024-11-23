@@ -156,7 +156,7 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract implements Mage_Cms_
     /**
      * @api
      */
-    public function getStoreId(): int
+    public function getStoreId(): ?int
     {
         return $this->getDataByKey(self::DATA_STORE_ID);
     }

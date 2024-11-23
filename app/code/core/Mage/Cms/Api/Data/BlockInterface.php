@@ -41,6 +41,6 @@ interface Mage_Cms_Api_Data_BlockInterface
     public function setUpdateTime(?string $time);
     public function getIsActive(): int;
     public function setIsActive(int $value);
-    public function getStoreId(): int;
+    public function getStoreId(): ?int;
     public function setStoreId(int $storeId);
 }

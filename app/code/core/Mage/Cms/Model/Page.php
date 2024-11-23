@@ -424,7 +424,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract implements Mage_Cms_A
     /**
      * @api
      */
-    public function getStoreId(): int
+    public function getStoreId(): ?int
     {
         return (int) $this->getDataByKey(self::DATA_STORE_ID);
     }
