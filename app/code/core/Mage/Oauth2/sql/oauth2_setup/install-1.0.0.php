@@ -14,78 +14,242 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+declare(strict_types=1);
+
 /** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
-$installer->run("
-    CREATE TABLE `{$installer->getTable('oauth2/client')}` (
-        `entity_id` BIGINT AUTO_INCREMENT PRIMARY KEY,
-        `name` VARCHAR(200),
-        `secret` VARCHAR(80) NOT NULL,
-        `redirect_uri` VARCHAR(2000),
-        `grant_types` VARCHAR(2000),
-        `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        INDEX `idx_oauth2_client_created_at` (`created_at`)
-    ) ENGINE=InnoDB;
-");
+$table = $installer->getConnection()
+    ->newTable($installer->getTable('oauth2/client'))
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
+        'identity' => true,
+        'unsigned' => true,
+        'nullable' => false,
+        'primary' => true,
+    ], 'Entity ID')
+    ->addColumn('name', Varien_Db_Ddl_Table::TYPE_VARCHAR, 200, [
+        'nullable' => true,
+    ], 'Name')
+    ->addColumn('secret', Varien_Db_Ddl_Table::TYPE_VARCHAR, 80, [
+        'nullable' => false,
+    ], 'Secret')
+    ->addColumn('redirect_uri', Varien_Db_Ddl_Table::TYPE_VARCHAR, 2000, [
+        'nullable' => true,
+    ], 'Redirect URI')
+    ->addColumn('grant_types', Varien_Db_Ddl_Table::TYPE_VARCHAR, 2000, [
+        'nullable' => true,
+    ], 'Grant Types')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
+        'nullable' => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
+    ], 'Created At')
+    ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
+        'nullable' => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT_UPDATE,
+    ], 'Updated At')
+    ->addIndex(
+        $installer->getIdxName('oauth2/client', ['created_at']),
+        ['created_at']
+    )
+    ->setComment('OAuth2 Client Table');
+$installer->getConnection()->createTable($table);
 
-$installer->run("
-    CREATE TABLE `{$installer->getTable('oauth2/auth_code')}` (
-        `authorization_code` VARCHAR(100) NOT NULL,
-        `customer_id` INT(10) UNSIGNED,
-        `redirect_uri` VARCHAR(2000),
-        `client_id` BIGINT NOT NULL,
-        `expires_in` INT NOT NULL,
-        `used` BOOLEAN DEFAULT FALSE,
-        `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (`authorization_code`),
-        CONSTRAINT `fk_oauth2_auth_code_client_id` FOREIGN KEY (`client_id`) REFERENCES `{$installer->getTable('oauth2/client')}` (`entity_id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
-        CONSTRAINT `fk_oauth2_auth_code_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `{$installer->getTable('customer/entity')}` (`entity_id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
-        INDEX `idx_oauth2_auth_code_created_at` (`created_at`),
-        INDEX `idx_oauth2_auth_code_client_id` (`client_id`),
-        INDEX `idx_oauth2_auth_code_customer_id` (`customer_id`)
-    ) ENGINE=InnoDB;
-");
+$table = $installer->getConnection()
+    ->newTable($installer->getTable('oauth2/auth_code'))
+    ->addColumn('authorization_code', Varien_Db_Ddl_Table::TYPE_VARCHAR, 100, [
+        'nullable' => false,
+        'primary' => true,
+    ], 'Authorization Code')
+    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'unsigned' => true,
+        'nullable' => true,
+    ], 'Customer ID')
+    ->addColumn('redirect_uri', Varien_Db_Ddl_Table::TYPE_VARCHAR, 2000, [
+        'nullable' => true,
+    ], 'Redirect URI')
+    ->addColumn('client_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
+        'unsigned' => true,
+        'nullable' => false,
+    ], 'Client ID')
+    ->addColumn('expires_in', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'nullable' => false,
+    ], 'Expires In')
+    ->addColumn('used', Varien_Db_Ddl_Table::TYPE_BOOLEAN, null, [
+        'nullable' => false,
+        'default' => false,
+    ], 'Used')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
+        'nullable' => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
+    ], 'Created At')
+    ->addIndex(
+        $installer->getIdxName('oauth2/auth_code', ['created_at']),
+        ['created_at']
+    )
+    ->addIndex(
+        $installer->getIdxName('oauth2/auth_code', ['client_id']),
+        ['client_id']
+    )
+    ->addIndex(
+        $installer->getIdxName('oauth2/auth_code', ['customer_id']),
+        ['customer_id']
+    )
+    ->addForeignKey(
+        $installer->getFkName('oauth2/auth_code', 'client_id', 'oauth2/client', 'entity_id'),
+        'client_id',
+        $installer->getTable('oauth2/client'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION
+    )
+    ->addForeignKey(
+        $installer->getFkName('oauth2/auth_code', 'customer_id', 'customer/entity', 'entity_id'),
+        'customer_id',
+        $installer->getTable('customer/entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION
+    )
+    ->setComment('OAuth2 Authorization Code Table');
+$installer->getConnection()->createTable($table);
 
-$installer->run("
-    CREATE TABLE `{$installer->getTable('oauth2/access_token')}` (
-        `access_token` VARCHAR(100) NOT NULL,
-        `refresh_token` VARCHAR(100),
-        `admin_id` INT(10) UNSIGNED,
-        `customer_id` INT(10) UNSIGNED,
-        `client_id` BIGINT NOT NULL,
-        `expires_in` INT NOT NULL,
-        `revoked` BOOLEAN DEFAULT FALSE,
-        `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (`access_token`),
-        CONSTRAINT `fk_oauth2_access_token_client_id` FOREIGN KEY (`client_id`) REFERENCES `{$installer->getTable('oauth2/client')}` (`entity_id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
-        CONSTRAINT `fk_oauth2_access_token_admin_id` FOREIGN KEY (`admin_id`) REFERENCES `{$installer->getTable('admin/user')}` (`user_id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
-        CONSTRAINT `fk_oauth2_access_token_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `{$installer->getTable('customer/entity')}` (`entity_id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
-        INDEX `idx_oauth2_access_token_created_at` (`created_at`),
-        INDEX `idx_oauth2_access_token_client_id` (`client_id`),
-        INDEX `idx_oauth2_access_token_admin_id` (`admin_id`),
-        INDEX `idx_oauth2_access_token_customer_id` (`customer_id`)
-    ) ENGINE=InnoDB;
-");
+$table = $installer->getConnection()
+    ->newTable($installer->getTable('oauth2/access_token'))
+    ->addColumn('access_token', Varien_Db_Ddl_Table::TYPE_VARCHAR, 100, [
+        'nullable' => false,
+        'primary' => true,
+    ], 'Access Token')
+    ->addColumn('refresh_token', Varien_Db_Ddl_Table::TYPE_VARCHAR, 100, [
+        'nullable' => true,
+    ], 'Refresh Token')
+    ->addColumn('admin_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'unsigned' => true,
+        'nullable' => true,
+    ], 'Admin ID')
+    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'unsigned' => true,
+        'nullable' => true,
+    ], 'Customer ID')
+    ->addColumn('client_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
+        'unsigned' => true,
+        'nullable' => false,
+    ], 'Client ID')
+    ->addColumn('expires_in', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'nullable' => false,
+    ], 'Expires In')
+    ->addColumn('revoked', Varien_Db_Ddl_Table::TYPE_BOOLEAN, null, [
+        'nullable' => false,
+        'default' => false,
+    ], 'Revoked')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
+        'nullable' => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
+    ], 'Created At')
+    ->addIndex(
+        $installer->getIdxName('oauth2/access_token', ['created_at']),
+        ['created_at']
+    )
+    ->addIndex(
+        $installer->getIdxName('oauth2/access_token', ['client_id']),
+        ['client_id']
+    )
+    ->addIndex(
+        $installer->getIdxName('oauth2/access_token', ['admin_id']),
+        ['admin_id']
+    )
+    ->addIndex(
+        $installer->getIdxName('oauth2/access_token', ['customer_id']),
+        ['customer_id']
+    )
+    ->addForeignKey(
+        $installer->getFkName('oauth2/access_token', 'client_id', 'oauth2/client', 'entity_id'),
+        'client_id',
+        $installer->getTable('oauth2/client'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION
+    )
+    ->addForeignKey(
+        $installer->getFkName('oauth2/access_token', 'admin_id', 'admin/user', 'user_id'),
+        'admin_id',
+        $installer->getTable('admin/user'),
+        'user_id',
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION
+    )
+    ->addForeignKey(
+        $installer->getFkName('oauth2/access_token', 'customer_id', 'customer/entity', 'entity_id'),
+        'customer_id',
+        $installer->getTable('customer/entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION
+    )
+    ->setComment('OAuth2 Access Token Table');
+$installer->getConnection()->createTable($table);
 
-
-$installer->run("
-CREATE TABLE `{$installer->getTable('oauth2/device_code')}` (
-    `device_code` VARCHAR(32) PRIMARY KEY NOT NULL,
-    `admin_id` INT(10) UNSIGNED,
-    `customer_id` INT(10) UNSIGNED,
-    `user_code` VARCHAR(8) NOT NULL,
-    `client_id` BIGINT NOT NULL,
-    `expires_in` INT NOT NULL,
-    `authorized` BOOLEAN DEFAULT FALSE,
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    INDEX `idx_oauth2_device_code_user_code` (`user_code`),
-    CONSTRAINT `fk_oauth2_device_code_admin_id` FOREIGN KEY (`admin_id`) REFERENCES `{$installer->getTable('admin/user')}` (`user_id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
-    CONSTRAINT `fk_oauth2_device_code_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `{$installer->getTable('customer/entity')}` (`entity_id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
-    CONSTRAINT `fk_oauth2_device_code_client_id` FOREIGN KEY (`client_id`) REFERENCES `{$installer->getTable('oauth2/client')}` (`entity_id`) ON DELETE CASCADE
-) ENGINE=InnoDB;
-");
+$table = $installer->getConnection()
+    ->newTable($installer->getTable('oauth2/device_code'))
+    ->addColumn('device_code', Varien_Db_Ddl_Table::TYPE_VARCHAR, 32, [
+        'nullable' => false,
+        'primary' => true,
+    ], 'Device Code')
+    ->addColumn('admin_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'unsigned' => true,
+        'nullable' => true,
+    ], 'Admin ID')
+    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'unsigned' => true,
+        'nullable' => true,
+    ], 'Customer ID')
+    ->addColumn('user_code', Varien_Db_Ddl_Table::TYPE_VARCHAR, 8, [
+        'nullable' => false,
+    ], 'User Code')
+    ->addColumn('client_id', Varien_Db_Ddl_Table::TYPE_BIGINT, null, [
+        'unsigned' => true,
+        'nullable' => false,
+    ], 'Client ID')
+    ->addColumn('expires_in', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
+        'nullable' => false,
+    ], 'Expires In')
+    ->addColumn('authorized', Varien_Db_Ddl_Table::TYPE_BOOLEAN, null, [
+        'nullable' => false,
+        'default' => false,
+    ], 'Authorized')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
+        'nullable' => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
+    ], 'Created At')
+    ->addIndex(
+        $installer->getIdxName('oauth2/device_code', ['user_code']),
+        ['user_code']
+    )
+    ->addForeignKey(
+        $installer->getFkName('oauth2/device_code', 'admin_id', 'admin/user', 'user_id'),
+        'admin_id',
+        $installer->getTable('admin/user'),
+        'user_id',
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION
+    )
+    ->addForeignKey(
+        $installer->getFkName('oauth2/device_code', 'customer_id', 'customer/entity', 'entity_id'),
+        'customer_id',
+        $installer->getTable('customer/entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION
+    )
+    ->addForeignKey(
+        $installer->getFkName('oauth2/device_code', 'client_id', 'oauth2/client', 'entity_id'),
+        'client_id',
+        $installer->getTable('oauth2/client'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->setComment('OAuth2 Device Code Table');
+$installer->getConnection()->createTable($table);
 
 $installer->endSetup();

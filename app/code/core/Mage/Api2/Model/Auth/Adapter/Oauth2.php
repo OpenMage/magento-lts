@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -17,18 +18,19 @@
  * @category   Mage
  * @package    Mage_Api2
  */
+
+declare(strict_types=1);
+
 class Mage_Api2_Model_Auth_Adapter_Oauth2 extends Mage_Api2_Model_Auth_Adapter_Abstract
 {
     /**
      * Process request and figure out an API user type and its identifier
      *
-     * Returns stdClass object with two properties: type and id
-     *
-     * @return stdClass
+     * Returns Varien_Object with two properties: type and id
      */
-    public function getUserParams(Mage_Api2_Model_Request $request)
+    public function getUserParams(Mage_Api2_Model_Request $request): Varien_Object
     {
-        $userParamsObj = (object) ['type' => null, 'id' => null];
+        $userParamsObj = new Varien_Object(['type' => null, 'id' => null]);
 
         try {
             $token = $this->_validateToken($request);

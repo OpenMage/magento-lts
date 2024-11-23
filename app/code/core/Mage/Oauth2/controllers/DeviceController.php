@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+declare(strict_types=1);
+
 /**
  * OAuth2 Device Controller
  */
@@ -22,7 +24,7 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
     /**
      * Request action - Generate device and user codes
      *
-     * @return mixed
+     * @return void|null
      */
     public function requestAction()
     {
@@ -44,7 +46,7 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
     /**
      * Authorize action - Process device authorization
      *
-     * @return  mixed
+     * @return void|null
      */
     public function authorizeAction()
     {
@@ -101,7 +103,7 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
     /**
      * Poll action - Check authorization status and provide access token
      *
-     * @return mixed
+     * @return void|null
      */
     public function pollAction()
     {

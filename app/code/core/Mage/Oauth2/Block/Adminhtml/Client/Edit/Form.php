@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+ declare(strict_types=1);
+
 class Mage_Oauth2_Block_Adminhtml_Client_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected $_model;
@@ -88,7 +90,7 @@ class Mage_Oauth2_Block_Adminhtml_Client_Edit_Form extends Mage_Adminhtml_Block_
     /**
      * Retrieves the model object from the registry if it is not already set.
      *
-     * @return mixed The model object from the registry.
+     * @return Mage_Oauth2_Model_Client The model object from the registry.
      */
     protected function getModel()
     {

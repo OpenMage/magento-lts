@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+declare(strict_types=1);
+
 /**
  * OAuth2 Authorize Controller
  */
@@ -22,7 +24,7 @@ class Mage_Oauth2_AuthorizeController extends Mage_Oauth2_Controller_BaseControl
     /**
      * Index action
      *
-     * @return mixed
+     * @return void|null
      */
     public function indexAction()
     {

@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+declare(strict_types=1);
+
 /**
  * OAuth2 Client Controller for Magento Admin Panel
  */
@@ -129,7 +131,7 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
     /**
      * Save client action - save new or update existing OAuth2 client
      *
-     * @return mixed
+     * @return void|null
      */
     public function saveAction()
     {
@@ -193,7 +195,7 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
     /**
      * Get form data from session
      *
-     * @return mixed
+     * @return array|null
      */
     protected function _getFormData()
     {
@@ -203,7 +205,7 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
     /**
      * Set form data to session
      *
-     * @param mixed $data
+     * @param array|null $data
      */
     protected function _setFormData($data)
     {
