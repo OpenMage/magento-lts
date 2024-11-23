@@ -1,5 +1,5 @@
 ---
-title: Dynamic block contents in category page
+title: Dynamic block content
 draft: false
 date: 2023-01-09
 authors:
