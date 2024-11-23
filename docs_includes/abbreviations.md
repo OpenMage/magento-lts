@@ -5,6 +5,7 @@
 *[deprecated]: Marked as not recommended for users and developers.
 *[HTML]: Hyper Text Markup Language
 *[HTML5]: Hyper Text Markup Language
+*[ImageMagick]: a free, open-source software suite, used for editing and manipulating digital images.
 *[JSON]: JSON (JavaScript Object Notation) is a lightweight data-interchange format.
 *[Mailpit]: Mailpit is a small, fast, low memory, zero-dependency, multi-platform email testing tool & API for developers.
 *[MariaDB]: One of the possible databases OpenMage is compatible to.

@@ -201,17 +201,19 @@ nav:
           - developers/mkdocs.md
   - 'Modules':
       - users/modules/index.md
+      - users/modules/analytics.md
+      - users/modules/backend.md
+      - users/modules/cache.md
+      - users/modules/captcha.md
       - users/modules/cron.md
       - users/modules/email.md
+      - users/modules/frontend.md
       - users/modules/images.md
-      - users/modules/logging.md
-      - users/modules/products.md
-      - users/modules/social.md
-      - 'Core':
-          - users/modules/core/swatches.md
-      - 'Payment':
-          - users/modules/payment/bitcoin.md
+      - users/modules/log-debug.md
+      - users/modules/payment.md
       - 'Themes':
           - users/modules/themes/frontend.md
+      - 'User Guides':
+          - users/modules/user-guides/swatches.md
   - 'Blog':
       - blog/index.md
