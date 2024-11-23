@@ -19,7 +19,7 @@
  * @category   Varien
  * @package    Varien_Object
  */
-class Varien_Object implements ArrayAccess
+class Varien_Object implements ArrayAccess, JsonSerializable
 {
     /**
      * Object attributes
@@ -563,6 +563,17 @@ class Varien_Object implements ArrayAccess
     public function toJson(array $arrAttributes = [])
     {
         return $this->__toJson($arrAttributes);
+    }
+
+    /**
+     * Implementation of JsonSerializable::jsonSerialize()
+     *
+     * @link https://www.php.net/manual/en/jsonserializable.jsonserialize.php
+     */
+    #[\Override]
+    public function jsonSerialize(): array
+    {
+        return $this->__toArray();
     }
 
     /**
