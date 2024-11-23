@@ -71,7 +71,7 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * Index action - display list of OAuth2 clients
-     * 
+     *
      * @return void
      */
     public function indexAction()
@@ -83,7 +83,7 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * New client action - display form for creating new OAuth2 client
-     * 
+     *
      * @return void
      */
     public function newAction()
@@ -107,7 +107,7 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * Edit client action - display form for editing existing OAuth2 client
-     * 
+     *
      * @return void
      */
     public function editAction()
@@ -128,8 +128,8 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * Save client action - save new or update existing OAuth2 client
-     * 
-     * @return void
+     *
+     * @return mixed
      */
     public function saveAction()
     {
@@ -169,7 +169,7 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * Delete client action
-     * 
+     *
      * @return void
      */
     public function deleteAction()

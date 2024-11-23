@@ -22,7 +22,7 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
     /**
      * Request action - Generate device and user codes
      *
-     * @return void
+     * @return mixed
      */
     public function requestAction()
     {
@@ -44,7 +44,7 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
     /**
      * Authorize action - Process device authorization
      *
-     * @return void
+     * @return  mixed
      */
     public function authorizeAction()
     {
@@ -101,7 +101,7 @@ class Mage_Oauth2_DeviceController extends Mage_Oauth2_Controller_BaseController
     /**
      * Poll action - Check authorization status and provide access token
      *
-     * @return void
+     * @return mixed
      */
     public function pollAction()
     {

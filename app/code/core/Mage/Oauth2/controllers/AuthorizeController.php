@@ -22,7 +22,7 @@ class Mage_Oauth2_AuthorizeController extends Mage_Oauth2_Controller_BaseControl
     /**
      * Index action
      *
-     * @return void
+     * @return mixed
      */
     public function indexAction()
     {
