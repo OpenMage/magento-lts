@@ -46,11 +46,25 @@ class ObjectTest extends TestCase
         $this->assertSame($expectedResult['getData'], $this->subject->getData($key, $index));
     }
 
+    /**
+     * @dataProvider provideGetDataData
+     * @param mixed $expectedResult
+     * @param string $setKey
+     * @param mixed $setValue
+     * @group Varien_Object
+     */
+    public function testJsonSerialize($expectedResult, $setKey, $setValue): void
+    {
+        $this->subject->setData($setKey, $setValue);
+        $this->assertSame($expectedResult['jsonSerialize'], json_encode($this->subject));
+    }
+
     public function provideGetDataData(): Generator
     {
         yield 'empty_key' => [
             [
                 'getData' => ['empty_key' => ['empty_value']],
+                'jsonSerialize' => '{}',
             ],
             'empty_key',
             ['empty_value'],
@@ -59,6 +73,7 @@ class ObjectTest extends TestCase
         yield 'string' => [
             [
                 'getData' => 'value',
+                'jsonSerialize' => '{}',
             ],
             'string',
             'value',
@@ -67,6 +82,7 @@ class ObjectTest extends TestCase
         yield 'int' => [
             [
                 'getData' => 1,
+                'jsonSerialize' => '{}',
             ],
             'int',
             1,
@@ -75,6 +91,7 @@ class ObjectTest extends TestCase
         yield 'numeric' => [
             [
                 'getData' => '1',
+                'jsonSerialize' => '{}',
             ],
             'numeric',
             '1',
@@ -83,6 +100,7 @@ class ObjectTest extends TestCase
         yield 'array' => [
             [
                 'getData' => ['string', 1],
+                'jsonSerialize' => '{}',
             ],
             'array',
             ['string', 1],
@@ -91,6 +109,7 @@ class ObjectTest extends TestCase
         yield 'array_index_int' => [
             [
                 'getData' => 'string',
+                'jsonSerialize' => '{}',
             ],
             'array_index_int',
             ['string', 1],
@@ -100,6 +119,7 @@ class ObjectTest extends TestCase
         yield 'array_index_int_invalid' => [
             [
                 'getData' => null,
+                'jsonSerialize' => '{}',
             ],
             'array_index_int_invalid',
             ['string', 1],
@@ -109,6 +129,7 @@ class ObjectTest extends TestCase
         yield 'array_index_string' => [
             [
                 'getData' => 1,
+                'jsonSerialize' => '{}',
             ],
             'array_index_string',
             ['string' => 'string', 'int' => 1],
@@ -118,6 +139,7 @@ class ObjectTest extends TestCase
         yield 'array_index_string_string' => [
             [
                 'getData' => null,
+                'jsonSerialize' => '{}',
             ],
             'array_index_string_string',
             'some_string',
@@ -127,6 +149,7 @@ class ObjectTest extends TestCase
         yield 'array_index_string_varien_object' => [
             [
                 'getData' => [],
+                'jsonSerialize' => '{}',
             ],
             'array_index_string_varien_object',
             new Varien_Object(['array' => []]),
@@ -136,6 +159,7 @@ class ObjectTest extends TestCase
         yield 'array_index_string_std_class' => [
             [
                 'getData' => null,
+                'jsonSerialize' => '{}',
             ],
             'array_index_string_std_class',
             new stdClass(),
@@ -145,6 +169,7 @@ class ObjectTest extends TestCase
         yield 'array_nested' => [
             [
                 'getData' => 1,
+                'jsonSerialize' => '{}',
             ],
             'array_nested',
             ['nested' => ['string' => 'string', 'int' => 1]],
@@ -153,6 +178,7 @@ class ObjectTest extends TestCase
         yield 'array_nested_invalid_key' => [
             [
                 'getData' => null,
+                'jsonSerialize' => '{}',
             ],
             'array_nested',
             ['nested' => ['string' => 'string', 'int' => 1]],
@@ -161,6 +187,7 @@ class ObjectTest extends TestCase
         yield 'array_nested_empty_key' => [
             [
                 'getData' => null,
+                'jsonSerialize' => '{}',
             ],
             'array_nested',
             ['nested' => ['string' => 'string', 'int' => '']],
@@ -169,6 +196,7 @@ class ObjectTest extends TestCase
         yield 'array_nested_string' => [
             [
                 'getData' => 'some"\n"string',
+                'jsonSerialize' => '{}',
             ],
             'array_nested_string',
             ['nested' => 'some"\n"string'],
@@ -177,6 +205,7 @@ class ObjectTest extends TestCase
         yield 'array_nested_varien_object' => [
             [
                 'getData' => null,
+                'jsonSerialize' => '{}',
             ],
             'array_nested_varien_object',
             new Varien_Object(),
@@ -185,6 +214,7 @@ class ObjectTest extends TestCase
         yield 'array_nested_std_class' => [
             [
                 'getData' => null,
+                'jsonSerialize' => '{}',
             ],
             'array_nested_std_class',
             new stdClass(),
@@ -193,6 +223,7 @@ class ObjectTest extends TestCase
         yield 'array_nested_key_not_exists' => [
             [
                 'getData' => null,
+                'jsonSerialize' => '{}',
             ],
             'array_nested_key_not_exists',
             ['nested' => ['string' => 'string', 'int' => 1]],
