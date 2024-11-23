@@ -1,6 +1,20 @@
 <?php
 
 /**
+ * OpenMage
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
+ *
+ * @category   Mage
+ * @package    Mage_Oauth2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
  * OAuth2 Client Controller for Magento Admin Panel
  */
 class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Controller_Action
@@ -57,6 +71,8 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * Index action - display list of OAuth2 clients
+     * 
+     * @return void
      */
     public function indexAction()
     {
@@ -67,6 +83,8 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * New client action - display form for creating new OAuth2 client
+     * 
+     * @return void
      */
     public function newAction()
     {
@@ -89,6 +107,8 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * Edit client action - display form for editing existing OAuth2 client
+     * 
+     * @return void
      */
     public function editAction()
     {
@@ -108,6 +128,8 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * Save client action - save new or update existing OAuth2 client
+     * 
+     * @return void
      */
     public function saveAction()
     {
@@ -147,6 +169,8 @@ class Mage_Oauth2_Adminhtml_Oauth2_ClientController extends Mage_Adminhtml_Contr
 
     /**
      * Delete client action
+     * 
+     * @return void
      */
     public function deleteAction()
     {
