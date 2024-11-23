@@ -47,6 +47,7 @@ class ObjectTest extends TestCase
     }
 
     /**
+     * @covers Varien_Object::jsonSerialize()
      * @dataProvider provideGetDataData
      * @param mixed $expectedResult
      * @param string $setKey
@@ -56,7 +57,7 @@ class ObjectTest extends TestCase
     public function testJsonSerialize($expectedResult, $setKey, $setValue): void
     {
         $this->subject->setData($setKey, $setValue);
-        $this->assertSame($expectedResult['jsonSerialize'], json_encode($this->subject));
+        $this->assertSame($expectedResult['jsonSerialize'], $this->subject->jsonSerialize());
     }
 
     public function provideGetDataData(): Generator
