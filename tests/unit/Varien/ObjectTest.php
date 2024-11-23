@@ -34,13 +34,12 @@ class ObjectTest extends TestCase
 
     /**
      * @dataProvider provideGetDataData
-     * @param mixed $expectedResult
      * @param string $setKey
      * @param mixed $setValue
      * @param string|int|null $index
      * @group Varien_Object
      */
-    public function testGetData($expectedResult, $setKey, $setValue, string $key, $index = null): void
+    public function testGetData(array $expectedResult, $setKey, $setValue, string $key, $index = null): void
     {
         $this->subject->setData($setKey, $setValue);
         $this->assertSame($expectedResult[__FUNCTION__], $this->subject->getData($key, $index));
@@ -49,12 +48,11 @@ class ObjectTest extends TestCase
     /**
      * @covers Varien_Object::jsonSerialize()
      * @dataProvider provideGetDataData
-     * @param mixed $expectedResult
      * @param string $setKey
      * @param mixed $setValue
      * @group Varien_Object
      */
-    public function testJsonSerialize($expectedResult, $setKey, $setValue): void
+    public function testJsonSerialize(array $expectedResult, $setKey, $setValue): void
     {
         $this->subject->setData($setKey, $setValue);
         $this->assertSame($expectedResult[__FUNCTION__], $this->subject->jsonSerialize());
