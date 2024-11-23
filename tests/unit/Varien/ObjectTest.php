@@ -43,7 +43,7 @@ class ObjectTest extends TestCase
     public function testGetData($expectedResult, $setKey, $setValue, string $key, $index = null): void
     {
         $this->subject->setData($setKey, $setValue);
-        $this->assertSame($expectedResult['getData'], $this->subject->getData($key, $index));
+        $this->assertSame($expectedResult[__FUNCTION__], $this->subject->getData($key, $index));
     }
 
     /**
@@ -57,7 +57,7 @@ class ObjectTest extends TestCase
     public function testJsonSerialize($expectedResult, $setKey, $setValue): void
     {
         $this->subject->setData($setKey, $setValue);
-        $this->assertSame($expectedResult['jsonSerialize'], $this->subject->jsonSerialize());
+        $this->assertSame($expectedResult[__FUNCTION__], $this->subject->jsonSerialize());
     }
 
     public function provideGetDataData(): Generator
@@ -66,8 +66,8 @@ class ObjectTest extends TestCase
         $value = ['empty_value'];
         yield $key => [
             [
-                'getData'       => [$key => $value],
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => [$key => $value],
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -78,8 +78,8 @@ class ObjectTest extends TestCase
         $value = 'value';
         yield $key => [
             [
-                'getData'       => $value,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => $value,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -90,8 +90,8 @@ class ObjectTest extends TestCase
         $value = 1;
         yield $key => [
             [
-                'getData'       => $value,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => $value,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -102,8 +102,8 @@ class ObjectTest extends TestCase
         $value = '1';
         yield $key => [
             [
-                'getData'       => $value,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => $value,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -114,8 +114,8 @@ class ObjectTest extends TestCase
         $value = ['string', 1];
         yield $key => [
             [
-                'getData'       => $value,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => $value,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -126,8 +126,8 @@ class ObjectTest extends TestCase
         $value = ['string', 1];
         yield $key => [
             [
-                'getData'       => 'string',
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => 'string',
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -139,8 +139,8 @@ class ObjectTest extends TestCase
         $value = ['string', 1];
         yield $key => [
             [
-                'getData'       => null,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => null,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -152,8 +152,8 @@ class ObjectTest extends TestCase
         $value = ['string' => 'string', 'int' => 1];
         yield $key => [
             [
-                'getData'       => 1,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => 1,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -165,8 +165,8 @@ class ObjectTest extends TestCase
         $value = 'some_string';
         yield $key => [
             [
-                'getData'       => null,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => null,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -178,8 +178,8 @@ class ObjectTest extends TestCase
         $value = new Varien_Object(['array' => []]);
         yield $key => [
             [
-                'getData'       => [],
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => [],
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -191,8 +191,8 @@ class ObjectTest extends TestCase
         $value = new stdClass();
         yield $key => [
             [
-                'getData'       => null,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => null,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -204,8 +204,8 @@ class ObjectTest extends TestCase
         $value = ['nested' => ['string' => 'string', 'int' => 1]];
         yield $key => [
             [
-                'getData'       => 1,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => 1,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -216,8 +216,8 @@ class ObjectTest extends TestCase
         $value = ['nested' => ['string' => 'string', 'int' => 1]];
         yield $key => [
             [
-                'getData'       => null,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => null,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -228,8 +228,8 @@ class ObjectTest extends TestCase
         $value = ['nested' => ['string' => 'string', 'int' => '']];
         yield 'array_nested_empty_key' => [
             [
-                'getData'       => null,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => null,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -240,8 +240,8 @@ class ObjectTest extends TestCase
         $value = ['nested' => 'some"\n"string'];
         yield 'array_nested_string' => [
             [
-                'getData'       => 'some"\n"string',
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => 'some"\n"string',
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -252,8 +252,8 @@ class ObjectTest extends TestCase
         $value = new Varien_Object();
         yield 'array_nested_varien_object' => [
             [
-                'getData'       => null,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => null,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -264,8 +264,8 @@ class ObjectTest extends TestCase
         $value = new stdClass();
         yield $key => [
             [
-                'getData'       => null,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => null,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
@@ -276,8 +276,8 @@ class ObjectTest extends TestCase
         $value = ['nested' => ['string' => 'string', 'int' => 1]];
         yield $key => [
             [
-                'getData'       => null,
-                'jsonSerialize' => [$key => $value],
+                'testGetData'       => null,
+                'testJsonSerialize' => [$key => $value],
             ],
             $key,
             $value,
