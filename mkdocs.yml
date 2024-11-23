@@ -197,6 +197,10 @@ nav:
       - 'Samples':
           - developers/samples/php-ini.md
           - developers/samples/robots-txt.md
+      - 'Guides':
+          - blog/posts/guides/2023-01-09-dynamic-blocks.md
+          - blog/posts/guides/2022-08-17-observer.md
+          - blog/posts/guides/2023-05-01-customize-your-openmage.md
       - 'Documentation':
           - developers/mkdocs.md
   - 'Modules':
