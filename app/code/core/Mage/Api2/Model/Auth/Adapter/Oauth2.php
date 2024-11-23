@@ -26,11 +26,13 @@ class Mage_Api2_Model_Auth_Adapter_Oauth2 extends Mage_Api2_Model_Auth_Adapter_A
     /**
      * Process request and figure out an API user type and its identifier
      *
-     * Returns Varien_Object with two properties: type and id
+     * Returns stdClass object with two properties: type and id
+     *
+     * @return stdClass
      */
-    public function getUserParams(Mage_Api2_Model_Request $request): Varien_Object
+    public function getUserParams(Mage_Api2_Model_Request $request)
     {
-        $userParamsObj = new Varien_Object(['type' => null, 'id' => null]);
+        $userParamsObj = (object) ['type' => null, 'id' => null];
 
         try {
             $token = $this->_validateToken($request);

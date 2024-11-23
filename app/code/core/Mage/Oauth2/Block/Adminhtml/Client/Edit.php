@@ -14,7 +14,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- declare(strict_types=1);
+declare(strict_types=1);
 
 class Mage_Oauth2_Block_Adminhtml_Client_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
