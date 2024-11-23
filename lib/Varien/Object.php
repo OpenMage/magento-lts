@@ -436,7 +436,7 @@ class Varien_Object implements ArrayAccess, JsonSerializable
      * Otherwise checks if the specified attribute is set.
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function hasData($key = '')
     {
@@ -577,19 +577,6 @@ class Varien_Object implements ArrayAccess, JsonSerializable
     }
 
     /**
-     * Convert object attributes to string
-     *
-     * @param  array  $arrAttributes array of required attributes
-     * @param  string $valueSeparator
-     * @return string
-     */
-//    public function __toString(array $arrAttributes = array(), $valueSeparator=',')
-//    {
-//        $arrData = $this->toArray($arrAttributes);
-//        return implode($valueSeparator, $arrData);
-//    }
-
-    /**
      * Public wrapper for __toString
      *
      * Will use $format as an template and substitute {{key}} for attributes
@@ -654,10 +641,11 @@ class Varien_Object implements ArrayAccess, JsonSerializable
     }
 
     /**
-     * Attribute getter (deprecated)
+     * Attribute getter
      *
      * @param string $var
      * @return mixed
+     * @deprecated
      */
     public function __get($var)
     {
@@ -666,10 +654,11 @@ class Varien_Object implements ArrayAccess, JsonSerializable
     }
 
     /**
-     * Attribute setter (deprecated)
+     * Attribute setter
      *
      * @param string $var
      * @param mixed $value
+     * @deprecated
      */
     public function __set($var, $value)
     {
@@ -680,7 +669,7 @@ class Varien_Object implements ArrayAccess, JsonSerializable
     /**
      * checks whether the object is empty
      *
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -747,7 +736,7 @@ class Varien_Object implements ArrayAccess, JsonSerializable
     /**
      * Clears data changes status
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setDataChanges($value)
@@ -850,7 +839,7 @@ class Varien_Object implements ArrayAccess, JsonSerializable
 
     /**
      * @param string $field
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function flagDirty($field, $flag = true)
