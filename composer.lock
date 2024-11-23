@@ -607,12 +607,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/composer-plugin.git",
-                "reference": "95650097f894339a5b8da34997c2964a45bc3f24"
+                "reference": "70d8eb2c4c77078151959adc9b1e8afe37ae7099"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/95650097f894339a5b8da34997c2964a45bc3f24",
-                "reference": "95650097f894339a5b8da34997c2964a45bc3f24",
+                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/70d8eb2c4c77078151959adc9b1e8afe37ae7099",
+                "reference": "70d8eb2c4c77078151959adc9b1e8afe37ae7099",
                 "shasum": ""
             },
             "require": {
@@ -654,7 +654,7 @@
                 "issues": "https://github.com/OpenMage/composer-plugin/issues",
                 "source": "https://github.com/OpenMage/composer-plugin/tree/main"
             },
-            "time": "2024-11-21T13:26:32+00:00"
+            "time": "2024-11-23T02:06:03+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
