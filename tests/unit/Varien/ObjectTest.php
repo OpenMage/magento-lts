@@ -38,127 +38,162 @@ class ObjectTest extends TestCase
      * @param string $setKey
      * @param mixed $setValue
      * @param string|int|null $index
-     *
      * @group Varien_Object
      */
     public function testGetData($expectedResult, $setKey, $setValue, string $key, $index = null): void
     {
         $this->subject->setData($setKey, $setValue);
-        $this->assertSame($expectedResult, $this->subject->getData($key, $index));
+        $this->assertSame($expectedResult['getData'], $this->subject->getData($key, $index));
     }
 
     public function provideGetDataData(): Generator
     {
         yield 'empty_key' => [
-            ['empty_key' => ['empty_value']],
+            [
+                'getData' => ['empty_key' => ['empty_value']],
+            ],
             'empty_key',
             ['empty_value'],
             ''
         ];
         yield 'string' => [
-            'value',
+            [
+                'getData' => 'value',
+            ],
             'string',
             'value',
             'string'
         ];
         yield 'int' => [
-            1,
+            [
+                'getData' => 1,
+            ],
             'int',
             1,
             'int'
         ];
         yield 'numeric' => [
-            '1',
+            [
+                'getData' => '1',
+            ],
             'numeric',
             '1',
             'numeric'
         ];
         yield 'array' => [
-            ['string', 1],
+            [
+                'getData' => ['string', 1],
+            ],
             'array',
             ['string', 1],
             'array',
         ];
         yield 'array_index_int' => [
-            'string',
+            [
+                'getData' => 'string',
+            ],
             'array_index_int',
             ['string', 1],
             'array_index_int',
             0,
         ];
         yield 'array_index_int_invalid' => [
-            null,
+            [
+                'getData' => null,
+            ],
             'array_index_int_invalid',
             ['string', 1],
             'array_index_int_invalid',
             999,
         ];
         yield 'array_index_string' => [
-            1,
+            [
+                'getData' => 1,
+            ],
             'array_index_string',
             ['string' => 'string', 'int' => 1],
             'array_index_string',
             'int',
         ];
         yield 'array_index_string_string' => [
-            null,
+            [
+                'getData' => null,
+            ],
             'array_index_string_string',
             'some_string',
             'array_index_string_string',
             'not-exists',
         ];
         yield 'array_index_string_varien_object' => [
-            [],
+            [
+                'getData' => [],
+            ],
             'array_index_string_varien_object',
             new Varien_Object(['array' => []]),
             'array_index_string_varien_object',
             'array',
         ];
         yield 'array_index_string_std_class' => [
-            null,
+            [
+                'getData' => null,
+            ],
             'array_index_string_std_class',
             new stdClass(),
             'array_index_string_std_class',
             'not-exists',
         ];
         yield 'array_nested' => [
-            1,
+            [
+                'getData' => 1,
+            ],
             'array_nested',
             ['nested' => ['string' => 'string', 'int' => 1]],
             'array_nested/nested/int',
         ];
         yield 'array_nested_invalid_key' => [
-            null,
+            [
+                'getData' => null,
+            ],
             'array_nested',
             ['nested' => ['string' => 'string', 'int' => 1]],
             'array_nested/nested/invalid_key',
         ];
         yield 'array_nested_empty_key' => [
-            null,
+            [
+                'getData' => null,
+            ],
             'array_nested',
             ['nested' => ['string' => 'string', 'int' => '']],
             'array_nested/nested/',
         ];
         yield 'array_nested_string' => [
-            'some"\n"string',
+            [
+                'getData' => 'some"\n"string',
+            ],
             'array_nested_string',
             ['nested' => 'some"\n"string'],
             'array_nested_string/nested',
         ];
         yield 'array_nested_varien_object' => [
-            null,
+            [
+                'getData' => null,
+            ],
             'array_nested_varien_object',
             new Varien_Object(),
             'array_nested_varien_object/nested',
         ];
         yield 'array_nested_std_class' => [
-            null,
+            [
+                'getData' => null,
+            ],
             'array_nested_std_class',
             new stdClass(),
             'array_nested_std_class/nested',
         ];
         yield 'array_nested_key_not_exists' => [
-            null,
+            [
+                'getData' => null,
+            ],
             'array_nested_key_not_exists',
             ['nested' => ['string' => 'string', 'int' => 1]],
             'array_nested_key_not_exists_test/nested/int',
