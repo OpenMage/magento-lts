@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77e7758f8495ed919bf9fbbfffb342d7",
+    "content-hash": "ca696c67c84b3863971a35117141c296",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -603,7 +603,7 @@
         },
         {
             "name": "openmage/composer-plugin",
-            "version": "dev-main",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/composer-plugin.git",
@@ -624,7 +624,6 @@
             "require-dev": {
                 "composer/composer": "^2.7"
             },
-            "default-branch": true,
             "type": "composer-plugin",
             "extra": {
                 "class": "OpenMage\\Composer\\Plugin"
@@ -652,7 +651,7 @@
             ],
             "support": {
                 "issues": "https://github.com/OpenMage/composer-plugin/issues",
-                "source": "https://github.com/OpenMage/composer-plugin/tree/main"
+                "source": "https://github.com/OpenMage/composer-plugin/tree/v1.0.0"
             },
             "time": "2024-11-23T02:06:03+00:00"
         },
@@ -7412,9 +7411,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "openmage/composer-plugin": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
