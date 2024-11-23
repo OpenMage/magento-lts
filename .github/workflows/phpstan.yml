@@ -37,10 +37,10 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
       - name: Restore result cache
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           path: .phpstan.cache
-          key: "phpstan-result-cache-${{ github.run_id }}"
+          key: phpstan-result-cache-${{ matrix.php-versions }}-${{ github.run_id }}
           restore-keys: |
             phpstan-result-cache-
 
@@ -48,8 +48,8 @@ jobs:
         run: XDEBUG_MODE=off php vendor/bin/phpstan.phar analyze
 
       - name: Save result cache
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         if: always()
         with:
           path: .phpstan.cache
-          key: "phpstan-result-cache-${{ github.run_id }}"
+          key: phpstan-result-cache-${{ matrix.php-versions }}-${{ github.run_id }}

@@ -284,6 +284,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     ->setStoreId($product->getStoreId());
 
                 $optionModel->isDeleted((bool)$option['delete']);
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $optionModel->save();
 
                 $options[$key]['option_id'] = $optionModel->getOptionId();
@@ -310,6 +311,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                             ->setParentProductId($product->getId());
 
                         $selectionModel->isDeleted((bool)$selection['delete']);
+                        // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         $selectionModel->save();
 
                         $selection['selection_id'] = $selectionModel->getSelectionId();
@@ -573,16 +575,16 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $selections = $this->getSelectionsByIds($selectionIds, $product);
 
                 // Check if added selections are still on sale
-                foreach ($selections->getItems() as $key => $selection) {
+                foreach ($selections->getItems() as $selection) {
                     if (!$selection->isSalable() && !$skipSaleableCheck) {
-                        $_option = $optionsCollection->getItemById($selection->getOptionId());
-                        if (is_array($options[$_option->getId()]) && count($options[$_option->getId()]) > 1) {
+                        $selectedOption = $optionsCollection->getItemById($selection->getOptionId());
+                        if (is_array($options[$selectedOption->getId()]) && count($options[$selectedOption->getId()]) > 1) {
                             $moreSelections = true;
                         } else {
                             $moreSelections = false;
                         }
-                        if ($_option->getRequired()
-                            && (!$_option->isMultiSelection() || ($_option->isMultiSelection() && !$moreSelections))
+                        if ($selectedOption->getRequired()
+                            && (!$selectedOption->isMultiSelection() || ($selectedOption->isMultiSelection() && !$moreSelections))
                         ) {
                             return Mage::helper('bundle')->__('Selected required options are not available.');
                         }
@@ -605,7 +607,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $optionCollection = $productType->getOptionsCollection($product);
 
             $optionIds = $productType->getOptionsIds($product);
-            $selectionIds = [];
 
             $selectionCollection = $productType->getSelectionsCollection(
                 $optionIds,
@@ -883,7 +884,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      * Allow for updates of chidren qty's
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return bool true
+     * @return true
      */
     public function getForceChildItemQtyChanges($product = null)
     {

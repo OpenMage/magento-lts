@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -144,11 +144,11 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         }
 
         if ($this->_isAllowedAction('invoice') && $order->canInvoice()) {
-            $_label = $order->getForcedDoShipmentWithInvoice() ?
+            $label = $order->getForcedDoShipmentWithInvoice() ?
                 Mage::helper('sales')->__('Invoice and Ship') :
                 Mage::helper('sales')->__('Invoice');
             $this->_addButton('order_invoice', [
-                'label'     => $_label,
+                'label'     => $label,
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getInvoiceUrl()),
                 'class'     => 'go'
             ]);
@@ -218,15 +218,15 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
      */
     public function getHeaderText()
     {
-        if ($_extOrderId = $this->getOrder()->getExtOrderId()) {
-            $_extOrderId = '[' . $_extOrderId . '] ';
+        if ($extOrderId = $this->getOrder()->getExtOrderId()) {
+            $extOrderId = '[' . $extOrderId . '] ';
         } else {
-            $_extOrderId = '';
+            $extOrderId = '';
         }
         return Mage::helper('sales')->__(
             'Order # %s %s | %s',
             $this->getOrder()->getRealOrderId(),
-            $_extOrderId,
+            $extOrderId,
             $this->formatDate(
                 $this->getOrder()->getCreatedAtDate(),
                 'medium',

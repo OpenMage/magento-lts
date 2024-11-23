@@ -26,6 +26,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
 
     protected $_eventPrefix = 'catalog_product_attribute_backend_media';
 
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_attributeId = null;
 
     protected function _construct()
@@ -94,7 +95,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Insert gallery value to db and retrieve last id
      *
      * @param array $data
-     * @return int
+     * @return string
      */
     public function insertGallery($data)
     {

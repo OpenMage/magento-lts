@@ -97,23 +97,23 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         $storeId = (int) $this->getRequest()->getParam('store');
         $parentId = (int) $this->getRequest()->getParam('parent');
-        $_prevStoreId = Mage::getSingleton('admin/session')
+        $prevStoreId = Mage::getSingleton('admin/session')
             ->getLastViewedStore(true);
 
-        if (!empty($_prevStoreId) && !$this->getRequest()->getQuery('isAjax')) {
-            $params['store'] = $_prevStoreId;
+        if (!empty($prevStoreId) && !$this->getRequest()->getQuery('isAjax')) {
+            $params['store'] = $prevStoreId;
             $redirect = true;
         }
 
         $categoryId = (int) $this->getRequest()->getParam('id');
-        $_prevCategoryId = Mage::getSingleton('admin/session')
+        $prevCategoryId = Mage::getSingleton('admin/session')
             ->getLastEditedCategory(true);
 
-        if ($_prevCategoryId
+        if ($prevCategoryId
             && !$this->getRequest()->getQuery('isAjax')
             && !$this->getRequest()->getParam('clear')
         ) {
-            $this->getRequest()->setParam('id', $_prevCategoryId);
+            $this->getRequest()->setParam('id', $prevCategoryId);
         }
 
         if ($redirect) {
@@ -123,8 +123,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         if ($storeId && !$categoryId && !$parentId) {
             $store = Mage::app()->getStore($storeId);
-            $_prevCategoryId = (int) $store->getRootCategoryId();
-            $this->getRequest()->setParam('id', $_prevCategoryId);
+            $prevCategoryId = (int) $store->getRootCategoryId();
+            $this->getRequest()->setParam('id', $prevCategoryId);
         }
 
         if (!($category = $this->_initCategory(true))) {

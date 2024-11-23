@@ -128,14 +128,17 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function isGiftMessagesAvailable($item = null)
     {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
 
         if (is_null($item)) {
-            return $helper->getIsMessagesAvailable('items', $this->getQuote(), $this->getStore());
+            return $helper->getIsMessagesAvailable($helper::TYPE_ITEMS, $this->getQuote(), $this->getStore());
         }
 
-        return $helper->getIsMessagesAvailable('item', $item, $this->getStore());
+        return $helper->getIsMessagesAvailable($helper::TYPE_ITEM, $item, $this->getStore());
     }
 
     /**
@@ -146,6 +149,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function isAllowedForGiftMessage($item)
     {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
         return Mage::getSingleton('adminhtml/giftmessage_save')->getIsAllowedQuoteItem($item);
     }
 

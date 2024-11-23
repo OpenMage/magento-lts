@@ -273,10 +273,18 @@ small {
           width: 125px;
         }
 
+        &.filter-range .range-line {
+          width: initial;
+        }
+
         .label {
           font-weight: 400;
           width: 40px;
           padding: 4px;
+        }
+
+        &.filter-range .label {
+          display: none;
         }
 
         div.date {

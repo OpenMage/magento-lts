@@ -108,7 +108,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             ),
             'trim'
         );
-        list($_, $scope) = $configKeyParts;
+        list($unused, $scope) = $configKeyParts;
         return [$configKeyParts, $scope];
     }
 

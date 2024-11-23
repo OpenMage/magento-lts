@@ -29,7 +29,10 @@ class Mage_Core_Model_Design_Package
      */
     public const FALLBACK_THEME  = 'default';
 
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static $_regexMatchCache      = [];
+
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static $_customThemeTypeCache = [];
 
     /**
@@ -385,7 +388,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Get filename by specified theme parameters
      *
-     * @param array $file
+     * @param string $file
      * @return string
      */
     protected function _renderFilename($file, array $params)
@@ -573,6 +576,7 @@ class Mage_Core_Model_Design_Package
      * @param string|bool $fullPath
      * @return array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _listDirectories($path, $fullPath = false)
     {
         $result = [];
@@ -601,7 +605,10 @@ class Mage_Core_Model_Design_Package
      * Will return false or found string.
      *
      * @param string $regexpsConfigPath
-     * @return mixed
+     * @return false|string
+     *
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName))
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _checkUserAgentAgainstRegexps($regexpsConfigPath)
     {
@@ -640,6 +647,8 @@ class Mage_Core_Model_Design_Package
      * @return bool|string
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {
@@ -792,8 +801,8 @@ class Mage_Core_Model_Design_Package
     public function cleanMergedJsCss()
     {
         $result = (bool)$this->_initMergerDir('js', true);
-        $result = (bool)$this->_initMergerDir('css', true) && $result;
-        return (bool)$this->_initMergerDir('css_secure', true) && $result;
+        $result = $this->_initMergerDir('css', true) && $result;
+        return $this->_initMergerDir('css_secure', true) && $result;
     }
 
     /**
@@ -806,7 +815,6 @@ class Mage_Core_Model_Design_Package
      */
     protected function _initMergerDir($dirRelativeName, $cleanup = false)
     {
-        $mediaDir = Mage::getBaseDir('media');
         try {
             $dir = Mage::getBaseDir('media') . DS . $dirRelativeName;
             if ($cleanup) {

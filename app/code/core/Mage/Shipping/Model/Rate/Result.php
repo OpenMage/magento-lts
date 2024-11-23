@@ -67,7 +67,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Add a rate to the result
      *
-     * @param Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
+     * @param Mage_Shipping_Model_Rate_Result_Error|Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
      * @return $this
      */
     public function append($result)

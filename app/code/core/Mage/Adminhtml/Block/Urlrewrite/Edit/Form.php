@@ -119,18 +119,18 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
              * If we use custom rewrite, all stores are accepted.
              */
             if ($stores && $isFilterAllowed) {
-                foreach ($stores as $i => $store) {
+                foreach ($stores as $index => $store) {
                     if (isset($store['value']) && $store['value']) {
                         $found = false;
-                        foreach ($store['value'] as $_k => $_v) {
-                            if (isset($_v['value']) && in_array($_v['value'], $entityStores)) {
+                        foreach ($store['value'] as $key => $value) {
+                            if (isset($value['value']) && in_array($value['value'], $entityStores)) {
                                 $found = true;
                             } else {
-                                unset($stores[$i]['value'][$_k]);
+                                unset($stores[$index]['value'][$key]);
                             }
                         }
                         if (!$found) {
-                            unset($stores[$i]);
+                            unset($stores[$index]);
                         }
                     }
                 }
@@ -188,23 +188,23 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
 
         // auto-generate paths for new url rewrites
         if (!$model->getId()) {
-            $_product  = null;
-            $_category = null;
+            $newProduct  = null;
+            $newCategory = null;
             if ($category->getId() || $product->getId()) {
-                $_category = $category;
+                $newCategory = $category;
             }
 
             if ($product->getId()) {
-                $_product = $product;
+                $newProduct = $product;
             }
 
-            if ($_category || $_product) {
+            if ($newCategory || $newProduct) {
                 $catalogUrlModel = Mage::getSingleton('catalog/url');
-                $idPath->setValue($catalogUrlModel->generatePath('id', $_product, $_category));
+                $idPath->setValue($catalogUrlModel->generatePath('id', $newProduct, $newCategory));
                 if (!isset($sessionData['request_path'])) {
-                    $requestPath->setValue($catalogUrlModel->generatePath('request', $_product, $_category, ''));
+                    $requestPath->setValue($catalogUrlModel->generatePath('request', $newProduct, $newCategory, ''));
                 }
-                $targetPath->setValue($catalogUrlModel->generatePath('target', $_product, $_category));
+                $targetPath->setValue($catalogUrlModel->generatePath('target', $newProduct, $newCategory));
             } else {
                 $idPath->unsetData('disabled');
                 $targetPath->unsetData('disabled');

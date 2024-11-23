@@ -304,4 +304,9 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return in_array($countryId, $countyList);
     }
+
+    public static function getConfigCurrencyBase(): string
+    {
+        return (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
+    }
 }
