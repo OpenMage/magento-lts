@@ -463,6 +463,7 @@ class Mage_Oauth_Model_Server
         $nonceObj->load($nonce, 'nonce');
 
         if ($nonceObj->getTimestamp() == $timestamp) {
+            $this->_initConsumer();
             $this->_throwException('', self::ERR_NONCE_USED);
         }
         $nonceObj->setNonce($nonce)
