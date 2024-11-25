@@ -27,8 +27,6 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
 
     /**
      * Return information array of input types
-     *
-     * @param string $inputType
      */
     public function getInputTypes(?string $inputType = null): array
     {
