@@ -3635,12 +3635,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-copyright.git",
-                "reference": "c963a65ec34e932f2fef0d80db087e059bb1fec8"
+                "reference": "db9b67a776d46303f36123f624f7c76ff0ed5e78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-copyright/zipball/c963a65ec34e932f2fef0d80db087e059bb1fec8",
-                "reference": "c963a65ec34e932f2fef0d80db087e059bb1fec8",
+                "url": "https://api.github.com/repos/OpenMage/dev-copyright/zipball/db9b67a776d46303f36123f624f7c76ff0ed5e78",
+                "reference": "db9b67a776d46303f36123f624f7c76ff0ed5e78",
                 "shasum": ""
             },
             "require": {
@@ -3663,20 +3663,20 @@
                 "issues": "https://github.com/OpenMage/dev-copyright/issues",
                 "source": "https://github.com/OpenMage/dev-copyright/tree/main"
             },
-            "time": "2023-04-04T07:37:16+00:00"
+            "time": "2024-11-18T19:22:21+00:00"
         },
         {
             "name": "openmage/dev-meta-package",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-meta-package.git",
-                "reference": "34a240a5c5eab60dad41c19688a9a5e0e6c24474"
+                "reference": "0f007abd860e3f233addef5dfd03e217db639233"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/34a240a5c5eab60dad41c19688a9a5e0e6c24474",
-                "reference": "34a240a5c5eab60dad41c19688a9a5e0e6c24474",
+                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/0f007abd860e3f233addef5dfd03e217db639233",
+                "reference": "0f007abd860e3f233addef5dfd03e217db639233",
                 "shasum": ""
             },
             "require": {
@@ -3697,9 +3697,9 @@
             "description": "OpenMage tools that are only needed for development.",
             "support": {
                 "issues": "https://github.com/OpenMage/dev-meta-package/issues",
-                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.0.3"
+                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.0.4"
             },
-            "time": "2023-04-04T07:39:43+00:00"
+            "time": "2024-11-18T19:24:16+00:00"
         },
         {
             "name": "openmage/dev-translations",
@@ -3707,12 +3707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-translations.git",
-                "reference": "bdbecd2f51723056787ca1efb24db700d605c152"
+                "reference": "582b768e8669c1904e5fdfb5d2c3618fa11d86d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/bdbecd2f51723056787ca1efb24db700d605c152",
-                "reference": "bdbecd2f51723056787ca1efb24db700d605c152",
+                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/582b768e8669c1904e5fdfb5d2c3618fa11d86d7",
+                "reference": "582b768e8669c1904e5fdfb5d2c3618fa11d86d7",
                 "shasum": ""
             },
             "require": {
@@ -3735,7 +3735,7 @@
                 "issues": "https://github.com/OpenMage/dev-translations/issues",
                 "source": "https://github.com/OpenMage/dev-translations/tree/main"
             },
-            "time": "2023-04-04T07:36:52+00:00"
+            "time": "2024-11-18T19:57:52+00:00"
         },
         {
             "name": "pdepend/pdepend",
@@ -7261,7 +7261,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
