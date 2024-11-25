@@ -15,29 +15,29 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Mage\Page\Helper;
+namespace OpenMage\Tests\Unit\Mage\Admin\Helper;
 
 use Mage;
-use Mage_Page_Helper_Layout;
+use Mage_Admin_Helper_Variable;
 use PHPUnit\Framework\TestCase;
 
-class LayoutTest extends TestCase
+class VariableTest extends TestCase
 {
-    public Mage_Page_Helper_Layout $subject;
+    public Mage_Admin_Helper_Variable $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('page/layout');
+        $this->subject = Mage::helper('admin/variable');
     }
 
     /**
-     * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
-     * @group Mage_Page
-     * @group Mage_Page_Helper
+     * @covers Mage_Admin_Helper_Variable::isPathAllowed()
+     * @group Mage_Admin
+     * @group Mage_Admin_Helper
      */
-    public function testApplyTemplate(): void
+    public function testIsPathAllowed(): void
     {
-        $this->assertTrue($this->subject->isModuleEnabled());
+        $this->assertIsBool($this->subject->isPathAllowed(''));
     }
 }
