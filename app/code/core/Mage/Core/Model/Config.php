@@ -239,6 +239,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Active modules array per namespace
      * @var array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_moduleNamespaces = null;
 
     /**
@@ -381,7 +382,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $this->_loadDeclaredModules();
 
         $resourceConfig = sprintf('config.%s.xml', $this->_getResourceConnectionModel('core'));
-        $this->loadModulesConfiguration(['config.xml',$resourceConfig], $this);
+        $this->loadModulesConfiguration(['config.xml', $resourceConfig], $this);
 
         /**
          * Prevent local.xml directives overwriting
@@ -442,7 +443,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Reinitialize configuration
      *
      * @param   array $options
-     * @return  Mage_Core_Model_Config
+     * @return  $this
      */
     public function reinit($options = [])
     {
@@ -515,6 +516,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @return void
      * @throws Exception
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
     {
@@ -739,7 +741,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Returns node found by the $path and scope info
      *
      * @inheritDoc
-     * @return Mage_Core_Model_Config_Element
+     * @return Mage_Core_Model_Config_Element|false
      */
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {
@@ -1035,9 +1037,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Iterate all active modules "etc" folders and combine data from
-     * specidied xml file name to one object
+     * specified xml file name to one object
      *
-     * @param string $fileName
+     * @param array|string $fileName
      * @param null|Mage_Core_Model_Config_Base|Varien_Simplexml_Config $mergeToObject
      * @param Varien_Simplexml_Config|null $mergeModel
      * @return Mage_Core_Model_Config_Base|Varien_Simplexml_Config
@@ -1093,6 +1095,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Get default server variables values
      *
      * @return array
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function getDistroServerVars()
     {

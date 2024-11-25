@@ -502,7 +502,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             $averageExpr = $adapter->getCheckSql(
                 'SUM(main_table.orders_count) > 0',
                 'SUM(main_table.total_revenue_amount)/SUM(main_table.orders_count)',
-                0
+                '0'
             );
             $this->getSelect()->columns([
                 'lifetime' => new Zend_Db_Expr('SUM(main_table.total_revenue_amount)'),
@@ -552,8 +552,8 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             ->addFieldToFilter('created_at', ['from' => $from, 'to' => $to])
             ->addFieldToFilter('state', ['neq' => Mage_Sales_Model_Order::STATE_CANCELED])
             ->getSelect()
-                ->columns(['orders' => 'COUNT(DISTINCT(main_table.entity_id))'])
-                ->group('entity_id');
+            ->columns(['orders' => 'COUNT(DISTINCT(main_table.entity_id))'])
+            ->group('entity_id');
 
         $this->getSelect()->columns([
             'items' => 'SUM(main_table.total_qty_ordered)']);

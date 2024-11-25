@@ -100,7 +100,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * Add form element
      *
-     * @param bool|string|null $after
+     * @param string|false $after
      * @return $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = null)

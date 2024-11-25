@@ -49,6 +49,7 @@ class Mage_SalesRule_Model_Observer
      *
      * @deprecated process call moved to total model
      * @param Varien_Event_Observer $observer
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_quote_address_discount_item($observer)
@@ -62,6 +63,7 @@ class Mage_SalesRule_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_order_afterPlace($observer)
@@ -87,9 +89,11 @@ class Mage_SalesRule_Model_Observer
                     continue;
                 }
                 $rule = Mage::getModel('salesrule/rule');
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $rule->load($ruleId);
                 if ($rule->getId()) {
                     $rule->setTimesUsed($rule->getTimesUsed() + 1);
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $rule->save();
 
                     if ($customerId) {
@@ -104,6 +108,7 @@ class Mage_SalesRule_Model_Observer
                             ->setRuleId($ruleId)
                             ->setTimesUsed(1);
                         }
+                        // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         $ruleCustomer->save();
                     }
                 }
@@ -126,6 +131,7 @@ class Mage_SalesRule_Model_Observer
      * Registered callback: called after an order payment is canceled
      *
      * @param Varien_Event_Observer $observer
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_order_paymentCancel($observer)
@@ -203,6 +209,7 @@ class Mage_SalesRule_Model_Observer
             /** @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $rule->save();
 
             $disabledRulesCount++;

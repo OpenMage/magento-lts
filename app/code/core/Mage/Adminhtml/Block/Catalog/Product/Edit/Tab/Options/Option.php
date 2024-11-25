@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -235,37 +235,37 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                 if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
                     $i = 0;
                     $itemCount = 0;
-                    foreach ($option->getValues() as $_value) {
-                        /** @var Mage_Catalog_Model_Product_Option_Value $_value */
+                    foreach ($option->getValues() as $optionValue) {
+                        /** @var Mage_Catalog_Model_Product_Option_Value $optionValue */
                         $value['optionValues'][$i] = [
-                            'item_count' => max($itemCount, $_value->getOptionTypeId()),
-                            'option_id' => $_value->getOptionId(),
-                            'option_type_id' => $_value->getOptionTypeId(),
-                            'title' => $this->escapeHtml($_value->getTitle()),
+                            'item_count' => max($itemCount, $optionValue->getOptionTypeId()),
+                            'option_id' => $optionValue->getOptionId(),
+                            'option_type_id' => $optionValue->getOptionTypeId(),
+                            'title' => $this->escapeHtml($optionValue->getTitle()),
                             'price' => ($showPrice)
-                                ? $this->getPriceValue($_value->getPrice(), $_value->getPriceType()) : '',
-                            'price_type' => ($showPrice) ? $_value->getPriceType() : 0,
-                            'sku' => $this->escapeHtml($_value->getSku()),
-                            'sort_order' => $_value->getSortOrder(),
+                                ? $this->getPriceValue($optionValue->getPrice(), $optionValue->getPriceType()) : '',
+                            'price_type' => ($showPrice) ? $optionValue->getPriceType() : 0,
+                            'sku' => $this->escapeHtml($optionValue->getSku()),
+                            'sort_order' => $optionValue->getSortOrder(),
                         ];
 
                         if ($this->getProduct()->getStoreId() != '0') {
                             $value['optionValues'][$i]['checkboxScopeTitle'] = $this->getCheckboxScopeHtml(
-                                $_value->getOptionId(),
+                                $optionValue->getOptionId(),
                                 'title',
-                                is_null($_value->getStoreTitle()),
-                                $_value->getOptionTypeId()
+                                is_null($optionValue->getStoreTitle()),
+                                $optionValue->getOptionTypeId()
                             );
-                            $value['optionValues'][$i]['scopeTitleDisabled'] = is_null($_value->getStoreTitle())
+                            $value['optionValues'][$i]['scopeTitleDisabled'] = is_null($optionValue->getStoreTitle())
                                 ? 'disabled' : null;
                             if ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE) {
                                 $value['optionValues'][$i]['checkboxScopePrice'] = $this->getCheckboxScopeHtml(
-                                    $_value->getOptionId(),
+                                    $optionValue->getOptionId(),
                                     'price',
-                                    is_null($_value->getstorePrice()),
-                                    $_value->getOptionTypeId()
+                                    is_null($optionValue->getstorePrice()),
+                                    $optionValue->getOptionTypeId()
                                 );
-                                $value['optionValues'][$i]['scopePriceDisabled'] = is_null($_value->getStorePrice())
+                                $value['optionValues'][$i]['scopePriceDisabled'] = is_null($optionValue->getStorePrice())
                                     ? 'disabled' : null;
                             }
                         }
@@ -305,10 +305,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
      * @param string $id
      * @param string $name
      * @param bool $checked
-     * @param string $select_id
+     * @param string $selectId
      * @return string
      */
-    public function getCheckboxScopeHtml($id, $name, $checked = true, $select_id = '-1')
+    public function getCheckboxScopeHtml($id, $name, $checked = true, $selectId = '-1')
     {
         $checkedHtml = '';
         if ($checked) {
@@ -316,9 +316,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         }
         $selectNameHtml = '';
         $selectIdHtml = '';
-        if ($select_id != '-1') {
-            $selectNameHtml = '[values][' . $select_id . ']';
-            $selectIdHtml = 'select_' . $select_id . '_';
+        if ($selectId != '-1') {
+            $selectNameHtml = '[values][' . $selectId . ']';
+            $selectIdHtml = 'select_' . $selectId . '_';
         }
         $checkbox = '<input type="checkbox" id="' . $this->getFieldId() . '_' . $id . '_' .
             $selectIdHtml . $name . '_use_default" class="product-option-scope-checkbox" name="' .

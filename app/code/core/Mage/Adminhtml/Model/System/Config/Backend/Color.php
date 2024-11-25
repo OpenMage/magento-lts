@@ -38,12 +38,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
             return $this;
         }
 
-        $with_hash = true;
+        $withHash = true;
         if (isset($config->with_hash)) {
-            $with_hash = $config->is('with_hash', true);
+            $withHash = $config->is('with_hash', true);
         }
 
-        if ($with_hash) {
+        if ($withHash) {
             $regex = Varien_Data_Form_Element_Color::VALIDATION_REGEX_WITH_HASH;
             $errorMessage = 'Color must be in hexadecimal format with the hash character';
         } else {

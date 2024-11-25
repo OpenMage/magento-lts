@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +24,11 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Config path to RSS field
      */
-    public const XML_PATH_RSS_ACTIVE = 'rss/config/active';
+    public const XML_PATH_RSS_ACTIVE                    = 'rss/config/active';
+    public const XML_PATH_RSS_ADMIN_CATALOG_NOTIFYSTOCK = 'rss/admin_catalog/notifystock';
+    public const XML_PATH_RSS_ADMIN_CATALOG_REVIEW      = 'rss/admin_catalog/review';
+    public const XML_PATH_RSS_ADMIN_ORDER_NEW           = 'rss/admin_order/new';
+    public const XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD    = 'rss/admin_order/new_period';
 
     protected $_moduleName = 'Mage_Rss';
 
@@ -130,5 +134,31 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     public function isRssEnabled()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_RSS_ACTIVE);
+    }
+
+    public function isRssAdminCatalogNotifyStockEnabled(): bool
+    {
+        return $this->isRssEnabled() && Mage::getStoreConfigFlag(self::XML_PATH_RSS_ADMIN_CATALOG_NOTIFYSTOCK);
+    }
+
+    public function isRssAdminCatalogReviewEnabled(): bool
+    {
+        return $this->isRssEnabled() && Mage::getStoreConfigFlag(self::XML_PATH_RSS_ADMIN_CATALOG_REVIEW);
+    }
+
+    /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     */
+    public function isRssAdminOrderNewEnabled($store = null): bool
+    {
+        return $this->isRssEnabled() && Mage::getStoreConfigFlag(self::XML_PATH_RSS_ADMIN_ORDER_NEW, $store);
+    }
+
+    /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     */
+    public function getRssAdminOrderNewPeriod($store = null): int
+    {
+        return (int)Mage::getStoreConfig(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
     }
 }

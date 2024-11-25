@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,17 +48,16 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * @var bool
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_isAdminScopeAllowed = true;
 
     /**
      * Init model
      * Load Website, Group and Store collections
-     *
-     * @return $this
      */
     public function __construct()
     {
-        return $this->reload();
+        $this->reload();
     }
 
     /**
@@ -130,6 +129,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 if ($website->getId() != $group->getWebsiteId()) {
                     continue;
                 }
+                $values    = [];
                 $groupShow = false;
                 foreach ($this->_storeCollection as $store) {
                     if ($group->getId() != $store->getGroupId()) {

@@ -595,7 +595,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     {
         $this->_connection->delete($this->_resource->getTable('catalogrule/rule_group_website'), []);
         $select = $this->_connection->select()
-            ->distinct(true)
+            ->distinct()
             ->from(
                 $this->_resource->getTable('catalogrule/rule_product'),
                 ['rule_id', 'customer_group_id', 'website_id']

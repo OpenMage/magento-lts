@@ -153,6 +153,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @return $this
      * @throws Mage_Core_Exception|Zend_File_Transfer_Exception
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _validateUploadedFile()
     {
@@ -749,7 +750,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     protected function _parseExtensionsString($extensions)
     {
         preg_match_all('/[a-z0-9]+/si', strtolower($extensions), $matches);
-        if (isset($matches[0]) && is_array($matches[0]) && count($matches[0]) > 0) {
+        if (count($matches[0]) > 0) {
             return $matches[0];
         }
         return null;
@@ -792,14 +793,14 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Return php.ini setting value in bytes
      *
-     * @param string $ini_key php.ini Var name
+     * @param string $option php.ini Var name
      * @return int Setting value
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    protected function _getBytesIniValue($ini_key)
+    protected function _getBytesIniValue($option)
     {
-        $_bytes = @ini_get($ini_key);
+        $_bytes = @ini_get($option);
 
         return ini_parse_quantity($_bytes);
     }

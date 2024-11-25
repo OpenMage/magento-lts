@@ -242,4 +242,11 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     {
         return '';
     }
+
+    protected function getStoreSwitcherRenderer(): Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element
+    {
+        /** @var Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element $renderer */
+        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        return $renderer;
+    }
 }

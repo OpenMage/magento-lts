@@ -9,7 +9,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,7 +104,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
      * @param string $elementId
      * @param string $type
      * @param array $config
-     * @param boolean $after
+     * @param string|false $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function addField($elementId, $type, $config, $after = false)

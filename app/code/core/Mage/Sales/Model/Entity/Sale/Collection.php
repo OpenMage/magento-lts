@@ -22,7 +22,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Read connection
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Interface|false
      */
     protected $_read;
 

@@ -310,7 +310,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Get response status code
-     * @see lib/Mage/HTTP/Mage_HTTP_Client#getStatus()
+     * @see Mage_HTTP_Client::getStatus()
      */
     public function getStatus()
     {
@@ -433,15 +433,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      */
     protected function validateHttpVersion(array $line)
     {
-        if ($line[0] === 'HTTP/1.0' || $line[0] === 'HTTP/1.1') {
-            if (count($line) !== 3) {
-                $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
-            }
-
-            return;
-        }
-
-        if ($line[0] === 'HTTP/2') {
+        if (in_array($line[0], ['HTTP/2', 'HTTP/1.0', 'HTTP/1.1'])) {
             if (!in_array(count($line), [2, 3])) {
                 $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
             }

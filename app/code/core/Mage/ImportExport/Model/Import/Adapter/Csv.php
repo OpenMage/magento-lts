@@ -36,6 +36,13 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     protected $_enclosure = '"';
 
     /**
+     * Field escape character.
+     *
+     * @var string
+     */
+    protected $_escape = '\\';
+
+    /**
      * Source file handler.
      *
      * @var resource
@@ -72,7 +79,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     #[\ReturnTypeWillChange]
     public function next()
     {
-        $this->_currentRow = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure);
+        $this->_currentRow = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure, $this->_escape);
         $this->_currentKey = $this->_currentRow ? $this->_currentKey + 1 : null;
     }
 
@@ -86,8 +93,8 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     {
         // rewind resource, reset column names, read first row as current
         rewind($this->_fileHandler);
-        $this->_colNames = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure);
-        $this->_currentRow = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure);
+        $this->_colNames = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure, $this->_escape);
+        $this->_currentRow = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure, $this->_escape);
 
         if ($this->_currentRow) {
             $this->_currentKey = 0;
@@ -112,7 +119,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
                 if ($position < $this->_currentKey) {
                     $this->rewind();
                 }
-                while ($this->_currentRow = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure)) {
+                while ($this->_currentRow = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure, $this->_escape)) {
                     if (++$this->_currentKey == $position) {
                         return;
                     }

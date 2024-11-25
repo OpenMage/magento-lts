@@ -181,8 +181,8 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     public function appendSummary($collection)
     {
         $entityIds = [];
-        foreach ($collection->getItems() as $_itemId => $_item) {
-            $entityIds[] = $_item->getId();
+        foreach ($collection->getItems() as $item) {
+            $entityIds[] = $item->getId();
         }
 
         if (!count($entityIds)) {
@@ -194,10 +194,10 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
             ->addStoreFilter(Mage::app()->getStore()->getId())
             ->load();
 
-        /** @var Mage_Review_Model_Review_Summary $_summary */
-        foreach ($summaryData as $_summary) {
-            if (($_item = $collection->getItemById($_summary->getEntityPkValue()))) {
-                $_item->setRatingSummary($_summary);
+        /** @var Mage_Review_Model_Review_Summary $summary */
+        foreach ($summaryData as $summary) {
+            if (($item = $collection->getItemById($summary->getEntityPkValue()))) {
+                $item->setRatingSummary($summary);
             }
         }
 

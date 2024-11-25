@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,7 +68,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param Mage_Payment_Model_Info $payment
      * @param string $requestType
-     * @param string $lastTransactionId
+     * @param string|null $lastTransactionId
      * @param Varien_Object $card
      * @param float|false $amount
      * @param string|false $exception

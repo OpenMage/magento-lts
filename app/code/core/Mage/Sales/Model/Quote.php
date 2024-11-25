@@ -31,8 +31,8 @@
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
+ * @method string|array getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(string|array $value)
  *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
@@ -261,7 +261,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             return Mage::app()->getStore()->getId();
         }
-        return $this->_getData('store_id');
+        return (int)$this->_getData('store_id');
     }
 
     /**
@@ -1646,10 +1646,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * Removes error infos, that have parameters equal to passed in $params.
-     * $params can have following keys (if not set - then any item is good for this key):
+     * $params can have the following keys (if not set - then any item is good for this key):
      *   'origin', 'code', 'message'
      *
-     * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param string|null $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
      * @param array $params
      * @return $this
      */
@@ -1794,13 +1794,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $isVirtual = true;
         $countItems = 0;
-        foreach ($this->getItemsCollection() as $_item) {
-            /** @var Mage_Sales_Model_Quote_Item $_item */
-            if ($_item->isDeleted() || $_item->getParentItemId()) {
+        foreach ($this->getItemsCollection() as $item) {
+            /** @var Mage_Sales_Model_Quote_Item $item */
+            if ($item->isDeleted() || $item->getParentItemId()) {
                 continue;
             }
             $countItems++;
-            if (!$_item->getProduct()->getIsVirtual()) {
+            if (!$item->getProduct()->getIsVirtual()) {
                 $isVirtual = false;
                 break;
             }
@@ -1826,11 +1826,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function hasVirtualItems()
     {
         $hasVirtual = false;
-        foreach ($this->getItemsCollection() as $_item) {
-            if ($_item->getParentItemId()) {
+        foreach ($this->getItemsCollection() as $quoteItem) {
+            if ($quoteItem->getParentItemId()) {
                 continue;
             }
-            if ($_item->getProduct()->isVirtual()) {
+            if ($quoteItem->getProduct()->isVirtual()) {
                 $hasVirtual = true;
             }
         }

@@ -1173,7 +1173,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 . '( ON DELETE (RESTRICT|CASCADE|SET NULL|NO ACTION))?'
                 . '( ON UPDATE (RESTRICT|CASCADE|SET NULL|NO ACTION))?#';
             $matches = [];
-            preg_match_all($regExp, $createSql, $matches, PREG_SET_ORDER);
+            preg_match_all($regExp, $createSql, $matches, PREG_SET_ORDER | PREG_UNMATCHED_AS_NULL);
             foreach ($matches as $match) {
                 $ddl[strtoupper($match[1])] = [
                     'FK_NAME'           => $match[1],
@@ -3298,7 +3298,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Add time values (intervals) to a date value
      *
-     * @see INTERVAL_* constants for $unit
+     * @see INTERVAL_ constants for $unit
      *
      * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
      * @param int $interval
@@ -3314,7 +3314,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Subtract time values (intervals) to a date value
      *
-     * @see INTERVAL_* constants for $expr
+     * @see INTERVAL_ constants for $expr
      *
      * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
      * @param int|string $interval
@@ -3390,7 +3390,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Extract part of a date
      *
-     * @see INTERVAL_* constants for $unit
+     * @see INTERVAL_ constants for $unit
      *
      * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
      * @param string $unit

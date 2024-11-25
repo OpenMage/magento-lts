@@ -136,4 +136,14 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
     {
         return Mage::getUrl('*/*/printShipment', ['order_id' => $order->getId()]);
     }
+
+    public function canDisplayGiftmessage(): bool
+    {
+        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable($helper::TYPE_ORDER, $this->getOrder());
+    }
 }

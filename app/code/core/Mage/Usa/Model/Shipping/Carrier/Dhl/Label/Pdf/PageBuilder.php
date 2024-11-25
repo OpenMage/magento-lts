@@ -77,6 +77,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param int $pt
      * @return int
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     protected function _x($pt)
     {
@@ -88,6 +89,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      *
      * @param int $pt
      * @return int
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     protected function _y($pt)
     {
