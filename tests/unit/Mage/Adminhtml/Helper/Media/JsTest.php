@@ -15,29 +15,28 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Mage\Page\Helper;
+namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Media;
 
 use Mage;
-use Mage_Page_Helper_Layout;
+use Mage_Adminhtml_Helper_Media_Js;
 use PHPUnit\Framework\TestCase;
 
-class LayoutTest extends TestCase
+class JsTest extends TestCase
 {
-    public Mage_Page_Helper_Layout $subject;
+    public Mage_Adminhtml_Helper_Media_Js $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('page/layout');
+        $this->subject = Mage::helper('adminhtml/media_js');
     }
 
     /**
-     * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
-     * @group Mage_Page
-     * @group Mage_Page_Helper
+     * @group Mage_Adminhtml
+     * @group Mage_Adminhtml_Helper
      */
-    public function testApplyTemplate(): void
+    public function testDecodeGridSerializedInput(): void
     {
-        $this->assertTrue($this->subject->isModuleEnabled());
+        $this->assertIsString($this->subject->getTranslatorScript());
     }
 }
