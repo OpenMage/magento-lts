@@ -3438,21 +3438,21 @@
         },
         {
             "name": "macopedia/phpstan-magento1",
-            "version": "v1.0.8",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/macopedia/phpstan-magento1.git",
-                "reference": "2b796db811945f7f9e77e7fb7520b920a77b36d8"
+                "reference": "01418cc9a536ffbf298fdf7ea3b9fac1f87a0508"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/2b796db811945f7f9e77e7fb7520b920a77b36d8",
-                "reference": "2b796db811945f7f9e77e7fb7520b920a77b36d8",
+                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/01418cc9a536ffbf298fdf7ea3b9fac1f87a0508",
+                "reference": "01418cc9a536ffbf298fdf7ea3b9fac1f87a0508",
                 "shasum": ""
             },
             "require": {
-                "php": ">= 7.2",
-                "phpstan/phpstan": ">=0.12"
+                "php": ">= 7.4",
+                "phpstan/phpstan": "^1.12.11 | ^2.0.2"
             },
             "replace": {
                 "inviqa/phpstan-magento1": "0.1.5",
@@ -3471,9 +3471,9 @@
             "description": "Extension for PHPStan to allow analysis of Magento 1 code.",
             "support": {
                 "issues": "https://github.com/macopedia/phpstan-magento1/issues",
-                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.0.8"
+                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.1.0"
             },
-            "time": "2024-10-10T07:19:02+00:00"
+            "time": "2024-11-19T10:50:38+00:00"
         },
         {
             "name": "magento-ecg/coding-standard",
@@ -4127,16 +4127,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.9",
+            "version": "1.12.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ceb937fb39a92deabc02d20709cf14b2c452502c"
+                "reference": "0d1fc20a962a91be578bcfe7cf939e6e1a2ff733"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ceb937fb39a92deabc02d20709cf14b2c452502c",
-                "reference": "ceb937fb39a92deabc02d20709cf14b2c452502c",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0d1fc20a962a91be578bcfe7cf939e6e1a2ff733",
+                "reference": "0d1fc20a962a91be578bcfe7cf939e6e1a2ff733",
                 "shasum": ""
             },
             "require": {
@@ -4181,7 +4181,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-10T17:10:04+00:00"
+            "time": "2024-11-17T14:08:01+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -7261,7 +7261,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
