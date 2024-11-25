@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -182,7 +183,10 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
-        return $helper->getIsMessagesAvailable('order_item', $this->getOrderItem()) && $this->getItem()->getGiftMessageId();
+        return $helper->getIsMessagesAvailable(
+            $helper::TYPE_ORDER_ITEM,
+            $this->getOrderItem()
+        ) && $this->getItem()->getGiftMessageId();
     }
 
     public function getGiftMessage(): ?Mage_GiftMessage_Model_Message

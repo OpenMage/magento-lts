@@ -82,6 +82,7 @@
                     <mcrypt/>
                 </mcrypt>
                 <pdo/>
+                <pdo_mysql/>
                 <simplexml/>
                 <soap/>
                 <spl/>
