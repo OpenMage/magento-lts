@@ -95,5 +95,11 @@ phpunit.xml
 /site
 
 # DDEV
-.ddev/config.yaml
 .ddev/.sampleData
+.ddev/config.yaml
+.ddev/config.*.yaml
+.ddev/xhgui
+.ddev/xhprof
+.ddev/docker-compose.xhgui.yaml
+.ddev/docker-compose.xhgui_norouter.yaml
+app/etc/includes/ddev.xhgui.php

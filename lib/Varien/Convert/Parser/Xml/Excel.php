@@ -36,17 +36,19 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
         $dom->loadXML($this->getData());
 
         $worksheets = $dom->getElementsByTagName('Worksheet');
-
+        /** @var DOMElement $worksheet */
         foreach ($worksheets as $worksheet) {
             $wsName = $worksheet->getAttribute('ss:Name');
             $rows = $worksheet->getElementsByTagName('Row');
             $firstRow = true;
             $fieldNames = [];
             $wsData = [];
+            /** @var DOMElement $row */
             foreach ($rows as $row) {
                 $index = 1;
                 $cells = $row->getElementsByTagName('Cell');
                 $rowData = [];
+                /** @var DOMElement $cell */
                 foreach ($cells as $cell) {
                     $value = $cell->getElementsByTagName('Data')->item(0)->nodeValue;
                     $ind = $cell->getAttribute('ss:Index');
@@ -195,7 +197,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
         $xmlData = [];
         $xmlData[] = '<Row>';
         foreach ($row as $value) {
-            $this->_xmlElement->row = htmlspecialchars($value);
+            $this->_xmlElement->row = htmlspecialchars((string) $value);
             $value = str_replace($xmlHeader, '', $this->_xmlElement->asXML());
             $value = preg_replace($xmlRegexp, '\\1', $value);
             $dataType = 'String';
