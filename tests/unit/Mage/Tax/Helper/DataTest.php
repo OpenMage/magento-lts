@@ -71,6 +71,7 @@ class DataTest extends TestCase
     public function testGetProductPrice(): void
     {
         #$this->assertSame('', $this->subject->getProductPrice());
+        $this->markTestIncomplete();
     }
 
     /**
@@ -132,6 +133,7 @@ class DataTest extends TestCase
     public function testNeedPriceConversion(): void
     {
         #$this->assertSame(1, $this->subject->needPriceConversion());
+        $this->markTestIncomplete();
     }
 
     /**
@@ -143,6 +145,7 @@ class DataTest extends TestCase
     public function testGetPriceFormat(): void
     {
         #$this->assertSame('', $this->subject->getPriceFormat());
+        $this->markTestIncomplete();
     }
 
     /**
@@ -176,6 +179,7 @@ class DataTest extends TestCase
     public function testGetPrice(): void
     {
         #$this->assertFalse($this->subject->getPrice());
+        $this->markTestIncomplete();
     }
 
     /**
