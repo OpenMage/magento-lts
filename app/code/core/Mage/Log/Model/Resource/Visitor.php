@@ -46,6 +46,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Prepare data for save
      *
+     * @param Mage_Log_Model_Visitor $visitor
      * @return array
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $visitor)
@@ -62,7 +63,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving information about url
      *
-     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @param   Mage_Log_Model_Visitor $visitor
      * @return  $this
      */
     protected function _saveUrlInfo($visitor)
@@ -76,7 +77,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
 
         $adapter->insert($this->getTable('log/url_info_table'), $bind);
 
-        $visitor->setLastUrlId($adapter->lastInsertId($this->getTable('log/url_info_table')));
+        $visitor->setLastUrlId((int) $adapter->lastInsertId($this->getTable('log/url_info_table')));
 
         return $this;
     }
@@ -84,6 +85,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save url info before save
      *
+     * @param Mage_Log_Model_Visitor $visitor
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $visitor)
@@ -100,6 +102,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Actions after save
      *
+     * @param Mage_Log_Model_Visitor $visitor
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $visitor)
@@ -131,6 +134,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Perform actions after object load
      *
+     * @param Mage_Log_Model_Visitor $object
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
@@ -153,8 +157,8 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving visitor information
      *
-     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
-     * @return  $this
+     * @param Mage_Log_Model_Visitor $visitor
+     * @return $this
      */
     protected function _saveVisitorInfo($visitor)
     {

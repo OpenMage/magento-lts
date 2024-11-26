@@ -582,6 +582,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      */
     public function getMessagesBlock()
     {
+        /** @var Mage_Core_Block_Messages $block */
         $block = $this->getBlock('messages');
         if ($block) {
             return $block;
