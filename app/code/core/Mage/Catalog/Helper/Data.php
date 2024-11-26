@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -44,7 +45,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Breadcrumb Path cache
      *
-     * @var string
+     * @var string|array<string, array<string, string|null>>
      */
     protected $_categoryPath;
 
@@ -236,7 +237,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param int $storeId Store View
+     * @param null|string|bool|int|Mage_Core_Model_Store $storeId Store View
      * @return bool
      */
     public function shouldSaveUrlRewritesHistory($storeId = null)

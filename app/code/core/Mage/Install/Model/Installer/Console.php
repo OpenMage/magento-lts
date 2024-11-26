@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -92,6 +93,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      *
      * @param array $args
      * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function setArgs($args = null)
     {

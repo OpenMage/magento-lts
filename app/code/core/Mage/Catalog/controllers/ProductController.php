@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -101,6 +102,8 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * Product view action
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function viewAction()
     {
@@ -137,6 +140,8 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
 
     /**
      * View product gallery action
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function galleryAction()
     {

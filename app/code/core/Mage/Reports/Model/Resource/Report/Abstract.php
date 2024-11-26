@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -170,6 +171,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                     $this->getStoreTZOffsetQuery([$alias => $table], $alias . '.' . $column, $from, $to)
                 )
             )
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->distinct(true);
 
         if ($from !== null) {
@@ -200,7 +202,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * from select statement with single date column
      *
      *
-     * @param Varien_Db_Select $select
+     * @param Zend_Db_Select|string $select
      * @param string $periodColumn
      * @return string|false
      */
@@ -255,6 +257,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param string $alias
      * @param string $relatedAlias
      * @return Varien_Db_Select
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     protected function _getTableDateRangeRelatedSelect(
         $table,
@@ -287,6 +290,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 implode(' AND ', $joinConditionSql),
                 []
             )
+            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             ->distinct(true);
 
         if ($from !== null) {

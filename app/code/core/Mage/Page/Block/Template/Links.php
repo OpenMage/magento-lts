@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -68,6 +69,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      * @param string $beforeText
      * @param string $afterText
      * @return $this
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function addLink(
         $label,

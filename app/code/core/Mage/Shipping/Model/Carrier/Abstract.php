@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -145,7 +146,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @return Varien_Object
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
         return new Varien_Object();
@@ -158,7 +158,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * @param mixed $request
      * @return Varien_Object
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function returnOfShipment($request)
     {
         return new Varien_Object();
@@ -169,7 +168,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return [];
@@ -242,7 +240,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
         return [];
@@ -289,7 +286,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @return $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
         return $this;
@@ -411,7 +407,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Calculate price considering free shipping and handling fee
      *
-     * @param string $cost
+     * @param float $cost
      * @param string $method
      * @return float|string
      */
@@ -539,7 +535,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * @param string|null $countryId
      * @return false
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function isZipCodeRequired($countryId = null)
     {
         return false;
@@ -594,7 +589,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getContentTypes(Varien_Object $params)
     {
         return [];

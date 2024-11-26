@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -365,7 +366,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Build request for getting token
      *
-     * @return Varien_Object
+     * @return Mage_Paypal_Model_Payflow_Request
      */
     protected function _buildTokenRequest(Mage_Sales_Model_Order_Payment $payment)
     {
@@ -427,7 +428,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     {
         $response = $this->getResponse();
         if ($response->getUser1()) {
-            return (int) $response->getUser1();
+            return (int)$response->getUser1();
         }
 
         return Mage::app()->getStore($this->getStore())->getId();
@@ -508,7 +509,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
       * Set token data in payment object
       *
       * @param Varien_Object $response
-      * @param Mage_Sales_Model_Order_Payment $payment
+      * @param Mage_Payment_Model_Info|Mage_Sales_Model_Order_Payment $payment
       * @throws Mage_Core_Exception
       */
     protected function _processTokenErrors($response, $payment)
@@ -538,7 +539,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Generate end return new secure hash value
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param Mage_Payment_Model_Info $payment
      * @return string
      */
     protected function _generateSecureSilentPostHash($payment)

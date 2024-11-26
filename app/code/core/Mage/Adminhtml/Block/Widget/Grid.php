@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -553,7 +554,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         if ($this->getCollection()) {
             $field = $column->getFilterIndex() ?: $column->getIndex();
             if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
             } else {
                 $cond = $column->getFilter()->getCondition();
@@ -1159,7 +1159,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $page++;
 
             foreach ($collection as $item) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 call_user_func_array([$this, $callback], array_merge([$item], $args));
             }
             $collection->clear();

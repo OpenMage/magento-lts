@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -231,7 +232,6 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @param bool $useNamespace
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getOldData($useNamespace = true)
     {
         return [];
@@ -265,7 +265,6 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * @return $this
      * @deprecated since 1.6.2.0
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     public function addOldData($key, $value = null)
     {
         return $this;

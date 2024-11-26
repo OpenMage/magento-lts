@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,8 +32,8 @@
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
+ * @method string|array getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(string|array $value)
  *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
@@ -261,7 +262,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             return Mage::app()->getStore()->getId();
         }
-        return $this->_getData('store_id');
+        return (int)$this->_getData('store_id');
     }
 
     /**
@@ -798,7 +799,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param bool $useCache
      * @return Mage_Sales_Model_Resource_Quote_Item_Collection
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getItemsCollection($useCache = true)
     {
         if ($this->hasItemsCollection()) {
@@ -1124,7 +1124,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @return  Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Model_Store_Exception
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
     {
         $newItem = false;
@@ -1796,13 +1795,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $isVirtual = true;
         $countItems = 0;
-        foreach ($this->getItemsCollection() as $_item) {
-            /** @var Mage_Sales_Model_Quote_Item $_item */
-            if ($_item->isDeleted() || $_item->getParentItemId()) {
+        foreach ($this->getItemsCollection() as $item) {
+            /** @var Mage_Sales_Model_Quote_Item $item */
+            if ($item->isDeleted() || $item->getParentItemId()) {
                 continue;
             }
             $countItems++;
-            if (!$_item->getProduct()->getIsVirtual()) {
+            if (!$item->getProduct()->getIsVirtual()) {
                 $isVirtual = false;
                 break;
             }
@@ -1828,11 +1827,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function hasVirtualItems()
     {
         $hasVirtual = false;
-        foreach ($this->getItemsCollection() as $_item) {
-            if ($_item->getParentItemId()) {
+        foreach ($this->getItemsCollection() as $quoteItem) {
+            if ($quoteItem->getParentItemId()) {
                 continue;
             }
-            if ($_item->getProduct()->isVirtual()) {
+            if ($quoteItem->getProduct()->isVirtual()) {
                 $hasVirtual = true;
             }
         }

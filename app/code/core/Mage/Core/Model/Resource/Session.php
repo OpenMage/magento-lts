@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -72,7 +73,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     }
 
     /**
-     * Destrucor
+     * Destructor
      *
      */
     public function __destruct()
@@ -258,6 +259,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      *
      * @param int $sessMaxLifeTime ignored
      * @return bool
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     #[\ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)

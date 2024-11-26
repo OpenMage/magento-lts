@@ -884,18 +884,24 @@
       .github/workflows/php-cs-fixer.yml
     ]
 
+'phpmd':
+  - changed-files:
+    - any-glob-to-any-file: [
+      .phpmd*,
+      .github/workflows/phpmd.yml
+    ]
+
 'phpstan':
   - changed-files:
     - any-glob-to-any-file: [
       .phpstan*,
-      phpstan*,
       .github/workflows/phpstan.yml
     ]
 
 'phpunit':
   - changed-files:
     - any-glob-to-any-file: [
-      phpunit*,
+      .phpunit*,
       tests/*,
       .github/workflows/phpunit.yml
     ]
@@ -910,6 +916,6 @@
 'rector':
   - changed-files:
       - any-glob-to-any-file: [
-        rector.php,
+        .rector.php,
         .github/workflows/rector.yml
       ]

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -235,16 +236,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
 
         $this->getSelect()->columns($attribute, 'main_table');
         return $this;
-    }
-
-    /**
-     * Retrieve resource instance
-     *
-     * @inheritDoc
-     */
-    public function getResource()
-    {
-        return parent::getResource();
     }
 
     /**

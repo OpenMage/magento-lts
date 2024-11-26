@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -690,8 +691,10 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         } else {
             try {
                 foreach ($customersIds as $customerId) {
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $customer = Mage::getModel('customer/customer')->load($customerId);
                     $customer->setIsSubscribed(true);
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $customer->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
@@ -712,8 +715,10 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         } else {
             try {
                 foreach ($customersIds as $customerId) {
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $customer = Mage::getModel('customer/customer')->load($customerId);
                     $customer->setIsSubscribed(false);
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $customer->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
@@ -737,7 +742,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 $customer = Mage::getModel('customer/customer');
                 foreach ($customersIds as $customerId) {
                     $customer->reset()
+                        // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         ->load($customerId)
+                        // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         ->delete();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
@@ -759,8 +766,10 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         } else {
             try {
                 foreach ($customersIds as $customerId) {
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $customer = Mage::getModel('customer/customer')->load($customerId);
                     $customer->setGroupId($this->getRequest()->getParam('group'));
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $customer->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
@@ -774,9 +783,11 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/index');
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ExitExpression)
+     */
     public function viewfileAction()
     {
-        $file   = null;
         $plain  = false;
         if ($this->getRequest()->getParam('file')) {
             // download file
@@ -786,7 +797,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $file   = Mage::helper('core')->urlDecode($this->getRequest()->getParam('image'));
             $plain  = true;
         } else {
-            return $this->norouteAction();
+            $this->norouteAction();
+            return;
         }
 
         $path = Mage::getBaseDir('media') . DS . 'customer';
@@ -799,7 +811,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         if ((!$ioFile->fileExists($fileName) || strpos($fileName, $path) !== 0)
             && !Mage::helper('core/file_storage')->processStorageFile(str_replace('/', DS, $fileName))
         ) {
-            return $this->norouteAction();
+            $this->norouteAction();
+            return;
         }
 
         if ($plain) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -90,6 +91,9 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         return $type;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public function importXml($xml)
     {
         if (is_string($xml)) {

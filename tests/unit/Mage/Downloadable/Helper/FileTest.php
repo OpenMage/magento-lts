@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
 
+use Generator;
 use Mage;
 use Mage_Downloadable_Helper_File;
 use PHPUnit\Framework\TestCase;
@@ -35,44 +36,40 @@ class FileTest extends TestCase
      * @dataProvider provideGetFilePathData
      *
      * @group Mage_Downloadable
+     * @group Mage_Downloadable_Helper
      */
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
         $result = $this->subject->getFilePath($path, $file);
-        $this->assertEquals($expectedResult, $result);
+        $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @return array<string, array<int, string|null>>
-     */
-    public function provideGetFilePathData(): array
+    public function provideGetFilePathData(): Generator
     {
-        return [
-            'strings path and strings file' => [
-                'path' . DS . 'file',
-                'path',
-                'file'
-            ],
-            'strings path and strings file with slash' => [
-                'path' . DS . 'file',
-                'path',
-                '/file'
-            ],
-            'string path and null file' => [
-                'path' . DS,
-                'path',
-                null
-            ],
-            'string path and empty file' => [
-                'path' . DS,
-                'path',
-                ''
-            ],
-            'strings path and strings file named 0' => [
-                'path' . DS . '0',
-                'path',
-                '0'
-            ],
+        yield 'strings path and strings file' => [
+            'path' . DS . 'file',
+            'path',
+            'file'
+        ];
+        yield 'strings path and strings file with slash' => [
+            'path' . DS . 'file',
+            'path',
+            '/file'
+        ];
+        yield 'string path and null file' => [
+            'path' . DS,
+            'path',
+            null
+        ];
+        yield 'string path and empty file' => [
+            'path' . DS,
+            'path',
+            ''
+        ];
+        yield 'strings path and strings file named 0' => [
+            'path' . DS . '0',
+            'path',
+            '0'
         ];
     }
 }

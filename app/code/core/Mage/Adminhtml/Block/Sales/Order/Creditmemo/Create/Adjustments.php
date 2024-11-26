@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -19,7 +20,11 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * @var Mage_Sales_Model_Order_Creditmemo
+     */
     protected $_source;
+
     /**
      * Initialize creditmemo adjustment totals
      *
@@ -40,6 +45,9 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
         return $this;
     }
 
+    /**
+     * @return Mage_Sales_Model_Order_Creditmemo
+     */
     public function getSource()
     {
         return $this->_source;
