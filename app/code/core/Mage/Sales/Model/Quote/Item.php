@@ -519,9 +519,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                         /** @var Unserialize_Parser $parser */
                         $parser = Mage::helper('core/unserializeArray');
 
-                        $_itemOptionValue =
-                            is_numeric($itemOptionValue) ? $itemOptionValue : $parser->unserialize($itemOptionValue);
-                        $_optionValue = is_numeric($optionValue) ? $optionValue : $parser->unserialize($optionValue);
+                        // only ever try to unserialize, if it looks like a serialized array
+                        $_itemOptionValue = str_starts_with($itemOptionValue, 'a:') ? $parser->unserialize($itemOptionValue) : $itemOptionValue;
+                        $_optionValue = str_starts_with($optionValue, 'a:') ? $parser->unserialize($optionValue) : $optionValue;
 
                         if (is_array($_itemOptionValue) && is_array($_optionValue)) {
                             $itemOptionValue = $_itemOptionValue;
