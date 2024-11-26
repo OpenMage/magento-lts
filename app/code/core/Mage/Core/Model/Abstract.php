@@ -636,4 +636,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     {
         return $this;
     }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
 }
