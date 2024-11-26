@@ -516,12 +516,16 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                 // dispose of some options params, that can cramp comparing of arrays
                 if (is_string($itemOptionValue) && is_string($optionValue)) {
                     try {
-                        /** @var Unserialize_Parser $parser */
+                        /**
+                         * @var Mage_Core_Helper_UnserializeArray $parser
+                         * @var Mage_Core_Helper_String $stringHelper
+                         */
                         $parser = Mage::helper('core/unserializeArray');
+                        $stringHelper = Mage::helper('core/string');
 
                         // only ever try to unserialize, if it looks like a serialized array
-                        $_itemOptionValue = str_starts_with($itemOptionValue, 'a:') ? $parser->unserialize($itemOptionValue) : $itemOptionValue;
-                        $_optionValue = str_starts_with($optionValue, 'a:') ? $parser->unserialize($optionValue) : $optionValue;
+                        $_itemOptionValue = $stringHelper->isSerializedArrayOrObject($itemOptionValue) ? $parser->unserialize($itemOptionValue) : $itemOptionValue;
+                        $_optionValue = $stringHelper->isSerializedArrayOrObject($optionValue) ? $parser->unserialize($optionValue) : $optionValue;
 
                         if (is_array($_itemOptionValue) && is_array($_optionValue)) {
                             $itemOptionValue = $_itemOptionValue;
