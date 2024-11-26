@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -1441,7 +1442,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Get block cache life time
+     * Get block cache lifetime
      *
      * @return int|null
      */
@@ -1549,7 +1550,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     /**
      * Collect and retrieve items tags.
-     * Item should implements Mage_Core_Model_Abstract::getCacheIdTags method
+     * Item should implement Mage_Core_Model_Abstract::getCacheIdTags method
      *
      * @param array|Varien_Data_Collection $items
      * @return array
@@ -1576,5 +1577,29 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected function _isSecure()
     {
         return $this->_getApp()->getFrontController()->getRequest()->isSecure();
+    }
+
+    public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
+    {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
+
+    /**
+     * Check whether the module output is enabled
+     *
+     * Because many module blocks belong to Adminhtml module,
+     * the feature "Disable module output" doesn't cover Admin area
+     */
+    public function isModuleOutputEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
+    {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
+        return Mage::helper($helperAlias)->isModuleOutputEnabled($moduleName);
     }
 }

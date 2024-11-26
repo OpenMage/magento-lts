@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -312,7 +313,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     protected function _initReviewsHelperBlock()
     {
         if (!$this->_reviewsHelperBlock) {
-            if (!Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
+            if (!$this->isModuleEnabled('Mage_Review', 'catalog')) {
                 return false;
             }
 
