@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -71,7 +72,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 $sessionResource->setSaveHandler();
                 break;
             case 'redis':
-                /* @var Cm_RedisSession_Model_Session $sessionResource */
+                /** @var Cm_RedisSession_Model_Session $sessionResource */
                 $sessionResource = Mage::getSingleton('cm_redissession/session');
                 $sessionResource->setSaveHandler();
                 if (method_exists($sessionResource, 'setDieOnError')) {
