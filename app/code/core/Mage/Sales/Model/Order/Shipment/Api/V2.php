@@ -43,7 +43,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      * @param string $orderIncrementId
      * @param array $itemsQty
      * @param string $comment
-     * @param bool $email
+     * @param bool $notifyCustomer
      * @param bool $includeComment
      * @return string
      */

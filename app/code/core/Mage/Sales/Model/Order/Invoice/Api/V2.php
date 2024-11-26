@@ -28,7 +28,7 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
      * @param string $invoiceIncrementId
      * @param array $itemsQty
      * @param string $comment
-     * @param bool $email
+     * @param bool $notifyCustomer
      * @param bool $includeComment
      * @return string
      */
