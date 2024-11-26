@@ -23,14 +23,8 @@ declare(strict_types=1);
  */
 class Mage_Core_Model_Security_Obfuscated implements Stringable
 {
-    /**
-     * @var string
-     */
     protected string $value;
 
-    /**
-     * @param string|null $value
-     */
     public function __construct(?string $value)
     {
         $this->value = $value;
