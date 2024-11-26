@@ -1740,7 +1740,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function fromArray($data)
     {
         if (isset($data['stock_item'])) {
-            if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+            if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item')
                     ->setData($data['stock_item'])
                     ->setProduct($this);
