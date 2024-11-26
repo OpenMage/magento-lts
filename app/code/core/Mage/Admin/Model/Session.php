@@ -142,7 +142,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param  Mage_Core_Controller_Request_Http $request
      * @return Mage_Admin_Model_User|null
      */
-    public function login($username, #[\SensitiveParameter] $password, $request = null)
+    public function login(#[\SensitiveParameter] $username, #[\SensitiveParameter] $password, $request = null)
     {
         if (empty($username) || empty($password)) {
             return null;
@@ -306,7 +306,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param string $message
      * @param Mage_Core_Controller_Request_Http|null $request
      */
-    protected function _loginFailed($e, $request, $username, $message)
+    protected function _loginFailed($e, $request, #[\SensitiveParameter] $username, $message)
     {
         try {
             Mage::dispatchEvent('admin_session_user_login_failed', [

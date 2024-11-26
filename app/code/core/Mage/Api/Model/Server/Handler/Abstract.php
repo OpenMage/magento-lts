@@ -207,7 +207,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param string $apiKey
      * @return string
      */
-    public function login($username, $apiKey = null)
+    public function login(#[\SensitiveParameter] $username, #[\SensitiveParameter] $apiKey = null)
     {
         if (empty($username) || empty($apiKey)) {
             return $this->_fault('invalid_request_param');

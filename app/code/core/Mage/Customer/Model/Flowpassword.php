@@ -60,7 +60,7 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
      * @param string $email
      * @return bool
      */
-    public function checkCustomerForgotPasswordFlowEmail($email)
+    public function checkCustomerForgotPasswordFlowEmail(#[\SensitiveParameter] $email)
     {
         $helper = Mage::helper('customer');
         $checkForgotPasswordFlowTypes = [

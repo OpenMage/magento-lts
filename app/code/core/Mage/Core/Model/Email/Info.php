@@ -62,7 +62,7 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      * @param string|null $name
      * @return $this
      */
-    public function addBcc($email, $name = null)
+    public function addBcc(#[\SensitiveParameter] $email, $name = null)
     {
         $this->_bccNames[] = $name;
         $this->_bccEmails[] = $email;
@@ -76,7 +76,7 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      * @param array|string|null $name
      * @return $this
      */
-    public function addTo($email, $name = null)
+    public function addTo(#[\SensitiveParameter] $email, $name = null)
     {
         $this->_toNames[] = $name;
         $this->_toEmails[] = $email;

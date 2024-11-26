@@ -306,7 +306,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      * @throws Exception
      * @return int
      */
-    public function subscribe($email)
+    public function subscribe(#[\SensitiveParameter] $email)
     {
         $this->loadByEmail($email);
         $customerSession = Mage::getSingleton('customer/session');

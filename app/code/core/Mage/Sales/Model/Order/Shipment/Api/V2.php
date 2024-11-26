@@ -51,7 +51,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         $orderIncrementId,
         $itemsQty = [],
         $comment = null,
-        $email = false,
+        $notifyCustomer = false,
         $includeComment = false
     ) {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
@@ -74,8 +74,8 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         $shipment = $order->prepareShipment($itemsQty);
         if ($shipment) {
             $shipment->register();
-            $shipment->addComment($comment, $email && $includeComment);
-            if ($email) {
+            $shipment->addComment($comment, $notifyCustomer && $includeComment);
+            if ($notifyCustomer) {
                 $shipment->setEmailSent(true);
             }
             $shipment->getOrder()->setIsInProcess(true);
@@ -84,7 +84,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
                     ->addObject($shipment)
                     ->addObject($shipment->getOrder())
                     ->save();
-                $shipment->sendEmail($email, ($includeComment ? $comment : ''));
+                $shipment->sendEmail($notifyCustomer, ($includeComment ? $comment : ''));
             } catch (Mage_Core_Exception $e) {
                 $this->_fault('data_invalid', $e->getMessage());
             }

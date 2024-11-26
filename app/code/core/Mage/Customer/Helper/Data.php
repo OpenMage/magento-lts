@@ -360,7 +360,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $email
      * @return string
      */
-    public function getEmailConfirmationUrl($email = null)
+    public function getEmailConfirmationUrl(#[\SensitiveParameter] $email = null)
     {
         return $this->_getUrl('customer/account/confirmation', ['email' => $email]);
     }

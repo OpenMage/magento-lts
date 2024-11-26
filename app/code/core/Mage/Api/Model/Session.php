@@ -122,7 +122,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      * @return mixed
      * @throws Mage_Core_Exception
      */
-    public function login($username, $apiKey)
+    public function login(#[\SensitiveParameter] $username, #[\SensitiveParameter] $apiKey)
     {
         $user = Mage::getModel('api/user')
             ->setSessid($this->getSessionId());

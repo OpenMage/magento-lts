@@ -238,7 +238,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * @return bool
      * @throws Exception
      */
-    public function authenticate($username, $apiKey)
+    public function authenticate(#[\SensitiveParameter] $username, #[\SensitiveParameter] $apiKey)
     {
         $this->loadByUsername($username);
         if (!$this->getId()) {
@@ -261,7 +261,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * @return Mage_Api_Model_User
      * @throws Exception
      */
-    public function login($username, $apiKey)
+    public function login(#[\SensitiveParameter] $username, #[\SensitiveParameter] $apiKey)
     {
         $sessId = $this->getSessid();
         if ($this->authenticate($username, $apiKey)) {
@@ -295,7 +295,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * @param string $username
      * @return $this
      */
-    public function loadByUsername($username)
+    public function loadByUsername(#[\SensitiveParameter] $username)
     {
         $this->setData($this->getResource()->loadByUsername($username));
         return $this;
@@ -342,7 +342,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * @param string $apiKey
      * @return string
      */
-    protected function _getEncodedApiKey($apiKey)
+    protected function _getEncodedApiKey(#[\SensitiveParameter] $apiKey)
     {
         return Mage::helper('core')->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
     }

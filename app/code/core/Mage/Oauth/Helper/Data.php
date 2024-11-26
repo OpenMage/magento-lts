@@ -221,7 +221,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $applicationName
      * @param string $status
      */
-    public function sendNotificationOnTokenStatusChange($userEmail, $userName, $applicationName, $status)
+    public function sendNotificationOnTokenStatusChange(#[\SensitiveParameter] $userEmail, #[\SensitiveParameter] $userName, $applicationName, $status)
     {
         /** @var Mage_Core_Model_Email_Template $mailTemplate */
         $mailTemplate = Mage::getModel('core/email_template');

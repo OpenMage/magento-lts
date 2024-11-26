@@ -1065,7 +1065,7 @@ class Mage_Paypal_Model_Express_Checkout
      * @param string $email
      * @return bool
      */
-    protected function _customerEmailExists($email)
+    protected function _customerEmailExists(#[\SensitiveParameter] $email)
     {
         $result    = false;
         $customer  = Mage::getModel('customer/customer');

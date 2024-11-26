@@ -131,7 +131,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      * @param string $username
      * @return array
      */
-    public function loadByUsername($username)
+    public function loadByUsername(#[\SensitiveParameter] $username)
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()->from($this->getTable('api/user'))

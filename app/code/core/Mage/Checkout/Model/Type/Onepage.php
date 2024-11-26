@@ -911,7 +911,7 @@ class Mage_Checkout_Model_Type_Onepage
      * @param int $websiteId
      * @return false|Mage_Customer_Model_Customer
      */
-    protected function _customerEmailExists($email, $websiteId = null)
+    protected function _customerEmailExists(#[\SensitiveParameter] $email, $websiteId = null)
     {
         $customer = Mage::getModel('customer/customer');
         if ($websiteId) {

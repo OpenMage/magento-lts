@@ -372,7 +372,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @return bool
      * @throws Mage_Core_Exception
      */
-    public function authenticate($username, #[\SensitiveParameter] $password)
+    public function authenticate(#[\SensitiveParameter] $username, #[\SensitiveParameter] $password)
     {
         $config = Mage::getStoreConfigFlag('admin/security/use_case_sensitive_login');
         $result = false;
@@ -425,7 +425,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @return  $this
      * @throws Mage_Core_Exception
      */
-    public function login($username, #[\SensitiveParameter] $password)
+    public function login(#[\SensitiveParameter] $username, #[\SensitiveParameter] $password)
     {
         if ($this->authenticate($username, $password)) {
             $this->getResource()->recordLogin($this);
@@ -460,7 +460,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * @param string $username
      * @return $this
      */
-    public function loadByUsername($username)
+    public function loadByUsername(#[\SensitiveParameter] $username)
     {
         $this->setData($this->getResource()->loadByUsername($username));
         return $this;

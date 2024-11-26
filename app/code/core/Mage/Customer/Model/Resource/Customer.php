@@ -190,7 +190,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @param bool $testOnly
      * @return $this
      */
-    public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
+    public function loadByEmail(Mage_Customer_Model_Customer $customer, #[\SensitiveParameter] $email, $testOnly = false)
     {
         $adapter = $this->_getReadAdapter();
         $bind    = ['customer_email' => $email];

@@ -370,7 +370,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array              $variables    template variables
      * @return bool
      **/
-    public function send($email, $name = null, array $variables = [])
+    public function send(#[\SensitiveParameter] $email, $name = null, array $variables = [])
     {
         if (!$this->isValidForSend()) {
             Mage::logException(new Exception('This letter cannot be sent.')); // translation is intentionally omitted
@@ -498,7 +498,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @return  $this
      */
-    public function sendTransactional($templateId, $sender, $email, $name, $vars = [], $storeId = null)
+    public function sendTransactional($templateId, $sender, #[\SensitiveParameter] $email, $name, $vars = [], $storeId = null)
     {
         $this->setSentSuccess(false);
         if (($storeId === null) && $this->getDesignConfig()->getStore()) {
@@ -583,7 +583,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param string $email
      * @return $this
      */
-    public function setReturnPath($email)
+    public function setReturnPath(#[\SensitiveParameter] $email)
     {
         $this->getMail()->setReturnPath($email);
         return $this;
@@ -595,7 +595,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param string $email
      * @return $this
      */
-    public function setReplyTo($email)
+    public function setReplyTo(#[\SensitiveParameter] $email)
     {
         $this->getMail()->setReplyTo($email);
         return $this;
