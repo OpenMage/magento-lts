@@ -4416,11 +4416,6 @@ parameters:
 			path: app/code/core/Mage/Rating/Model/Resource/Rating.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method Mage_Rating_Model_Resource_Rating\\:\\:_getEntitySummaryData\\(\\) expects Mage_Rating_Model_Rating, Mage_Core_Model_Abstract given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Rating/Model/Resource/Rating.php
-
-		-
 			message: "#^Variable \\$data in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/Rating/Model/Resource/Rating.php
