@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -1413,7 +1414,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Append transaction ID (if any) message to the specified message
      *
-     * @param Mage_Sales_Model_Order_Payment_Transaction|string $transaction
+     * @param Mage_Sales_Model_Order_Payment_Transaction|string|null $transaction
      * @param string $message
      * @return string
      */
@@ -1479,7 +1480,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Find one transaction by ID or type
-     * @param string $txnId
+     * @param string|false|null $txnId
      * @param string|false $txnType
      * @return Mage_Sales_Model_Order_Payment_Transaction|false
      */
@@ -1518,7 +1519,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Find one transaction by ID or type
-     * @param string $txnId
+     * @param string|false $txnId
      * @param string|false $txnType
      * @return Mage_Sales_Model_Order_Payment_Transaction|false
      */
