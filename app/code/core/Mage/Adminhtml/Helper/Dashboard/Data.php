@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,7 +30,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
     /**
      * Retrieve stores configured in system.
      *
-     * @return array
+     * @return Mage_Core_Model_Resource_Store_Collection
      */
     public function getStores()
     {
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      */
     public function countStores()
     {
-        return count($this->_stores->getItems());
+        return count($this->getStores()->getItems());
     }
 
     /**
@@ -68,7 +69,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
 
     /**
      * Create data hash to ensure that we got valid
-     * data and it is not changed by some one else.
+     * data, and it is not changed by someone else.
      *
      * @param string $data
      * @return string
