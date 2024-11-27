@@ -41,7 +41,7 @@ class SitemapTest extends TestCase
             ->setMethods(['getSitemapFilename'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getSitemapFilename')->willReturn('text.xml');
+        $mock->method('getSitemapFilename')->willReturn('text.xml');
         $this->assertIsString($mock->getPreparedFilename());
     }
 
@@ -55,7 +55,7 @@ class SitemapTest extends TestCase
             ->setMethods(['getSitemapFilename'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getSitemapFilename')->willReturn('text.xml');
+        $mock->method('getSitemapFilename')->willReturn('text.xml');
         $this->assertInstanceOf(Mage_Sitemap_Model_Sitemap::class, $mock->generateXml());
     }
 }
