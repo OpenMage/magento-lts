@@ -148,6 +148,9 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             return null;
         }
 
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         try {
             /** @var Mage_Admin_Model_User $user */
             $user = $this->_factory->getModel('admin/user');

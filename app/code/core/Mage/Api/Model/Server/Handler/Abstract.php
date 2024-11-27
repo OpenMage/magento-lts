@@ -91,7 +91,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Allow insta-login via HTTP Basic Auth
      *
-     * @param string $sessionId
+     * @param stdClass|string|null $sessionId
      * @return $this
      * @SuppressWarnings(PHPMD.Superglobals)
      */
@@ -204,20 +204,25 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Login user and Retrieve session id
      *
      * @param string $username
-     * @param string $apiKey
-     * @return string
+     * @param string|null $apiKey
+     * @return stdClass|string|void
      */
     public function login($username, $apiKey = null)
     {
         if (empty($username) || empty($apiKey)) {
-            return $this->_fault('invalid_request_param');
+            $this->_fault('invalid_request_param');
+            return;
         }
+
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $apiKey   = new Mage_Core_Model_Security_Obfuscated($apiKey);
 
         try {
             $this->_startSession();
             $this->_getSession()->login($username, $apiKey);
         } catch (Exception $e) {
-            return $this->_fault('access_denied');
+            $this->_fault('access_denied');
+            return;
         }
         return $this->_getSession()->getSessionId();
     }
@@ -228,7 +233,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param string $sessionId
      * @param string $apiPath
      * @param array  $args
-     * @return mixed
+     * @return mixed|void
      */
     public function call($sessionId, $apiPath, $args = [])
     {
@@ -236,13 +241,15 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             ->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
-            return $this->_fault('session_expired');
+            $this->_fault('session_expired');
+            return;
         }
 
         list($resourceName, $methodName) = explode('.', $apiPath);
 
         if (empty($resourceName) || empty($methodName)) {
-            return $this->_fault('resource_path_invalid');
+            $this->_fault('resource_path_invalid');
+            return;
         }
 
         $resourcesAlias = $this->_getConfig()->getResourcesAlias();
@@ -254,21 +261,24 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         if (!isset($resources->$resourceName)
             || !isset($resources->$resourceName->methods->$methodName)
         ) {
-            return $this->_fault('resource_path_invalid');
+            $this->_fault('resource_path_invalid');
+            return;
         }
 
         if (!isset($resources->$resourceName->public)
             && isset($resources->$resourceName->acl)
             && !$this->_isAllowed((string) $resources->$resourceName->acl)
         ) {
-            return $this->_fault('access_denied');
+            $this->_fault('access_denied');
+            return;
         }
 
         if (!isset($resources->$resourceName->methods->$methodName->public)
             && isset($resources->$resourceName->methods->$methodName->acl)
             && !$this->_isAllowed((string) $resources->$resourceName->methods->$methodName->acl)
         ) {
-            return $this->_fault('access_denied');
+            $this->_fault('access_denied');
+            return;
         }
 
         $methodInfo = $resources->$resourceName->methods->$methodName;
@@ -302,10 +312,12 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 throw new Mage_Api_Exception('resource_path_not_callable');
             }
         } catch (Mage_Api_Exception $e) {
-            return $this->_fault($e->getMessage(), $resourceName, $e->getCustomMessage());
+            $this->_fault($e->getMessage(), $resourceName, $e->getCustomMessage());
+            return;
         } catch (Exception $e) {
             Mage::logException($e);
-            return $this->_fault('internal', null, $e->getMessage());
+            $this->_fault('internal', null, $e->getMessage());
+            return;
         }
     }
 
@@ -322,7 +334,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             ->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
-            return $this->_fault('session_expired');
+            $this->_fault('session_expired');
+            return;
         }
 
         $result = [];
@@ -454,7 +467,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             ->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
-            return $this->_fault('session_expired');
+            $this->_fault('session_expired');
+            return;
         }
 
         $resources = [];
@@ -519,7 +533,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             ->_startSession($sessionId);
 
         if (!$this->_getSession()->isLoggedIn($sessionId)) {
-            return $this->_fault('session_expired');
+            $this->_fault('session_expired');
+            return;
         }
 
         $resourcesAlias = $this->_getConfig()->getResourcesAlias();
@@ -532,13 +547,15 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         if (empty($resourceName)
             || !isset($resources->$resourceName)
         ) {
-            return $this->_fault('resource_path_invalid');
+            $this->_fault('resource_path_invalid');
+            return;
         }
 
         if (isset($resources->$resourceName->acl)
             && !$this->_isAllowed((string) $resources->$resourceName->acl)
         ) {
-            return $this->_fault('access_denied');
+            $this->_fault('access_denied');
+            return;
         }
 
         return array_values($this->_getConfig()->getFaults($resourceName));
