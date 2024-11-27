@@ -43,7 +43,7 @@ class CustomerTest extends TestCase
 
         $this->assertNull($mock->getLoginAtTimestamp());
 
-        $mock->expects($this->any())->method('getLoginAt')->willReturn(true);
+        $mock->method('getLoginAt')->willReturn(true);
         $this->assertIsInt($mock->getLoginAtTimestamp());
     }
 }
