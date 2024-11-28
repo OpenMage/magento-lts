@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
 
+use Generator;
 use PHPUnit\Framework\TestCase;
 use SimpleXMLElement;
 use XMLReader;
@@ -50,17 +51,12 @@ class XmlFileLoadingTest extends TestCase
         $this->assertTrue($xml->isValid());
     }
 
-    /**
-     * @return string[][]
-     */
-    public function provideXmlFiles(): array
+    public function provideXmlFiles(): Generator
     {
         $root = realpath(__DIR__ . '/../../../') . '/';
 
-        return [
-            'file from vendor directory' => [
-                $root . 'vendor/shardj/zf1-future/library/Zend/Locale/Data/es_419.xml'
-            ],
+        yield 'file from vendor directory' => [
+            $root . 'vendor/shardj/zf1-future/library/Zend/Locale/Data/es_419.xml'
         ];
     }
 }
