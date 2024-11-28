@@ -38,9 +38,7 @@ class MysqlTest extends TestCase
         ];
 
         // Create a mock object for Varien_Db_Adapter_Pdo_Mysql
-        $this->adapter = $this->getMockBuilder(Varien_Db_Adapter_Pdo_Mysql::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->adapter = $this->createMock(Varien_Db_Adapter_Pdo_Mysql::class);
 
         // Call the constructor manually with our config
         $reflectedAdapter = new \ReflectionClass(Varien_Db_Adapter_Pdo_Mysql::class);
@@ -79,7 +77,7 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '192.168.1.1:3306');
 
-        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV4_ADDRESS);
+        $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV4_ADDRESS, $hostInfo->getAddressType());
         $this->assertSame('192.168.1.1', $hostInfo->getHostName());
         $this->assertSame('3306', $hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
@@ -96,7 +94,7 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '192.168.1.1');
 
-        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV4_ADDRESS);
+        $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV4_ADDRESS, $hostInfo->getAddressType());
         $this->assertSame('192.168.1.1', $hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
@@ -113,7 +111,7 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, 'db.example.com:3306');
 
-        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_HOSTNAME);
+        $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_HOSTNAME, $hostInfo->getAddressType());
         $this->assertSame('db.example.com', $hostInfo->getHostName());
         $this->assertSame('3306', $hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
@@ -130,7 +128,7 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, 'db.example.com');
 
-        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_HOSTNAME);
+        $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_HOSTNAME, $hostInfo->getAddressType());
         $this->assertSame('db.example.com', $hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
@@ -147,7 +145,7 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '[2001:db8::1]:3306');
 
-        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS, $hostInfo->getAddressType());
         $this->assertSame('2001:db8::1', $hostInfo->getHostName());
         $this->assertSame('3306', $hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
@@ -164,7 +162,7 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '2001:db8::1');
 
-        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS, $hostInfo->getAddressType());
         $this->assertSame('2001:db8::1', $hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
@@ -181,7 +179,7 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, '[fe80::1%eth0]:3306');
 
-        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS, $hostInfo->getAddressType());
         $this->assertSame('fe80::1%eth0', $hostInfo->getHostName());
         $this->assertSame('3306', $hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());
@@ -198,7 +196,7 @@ class MysqlTest extends TestCase
         /** @var Varien_Object $hostInfo */
         $hostInfo = $method->invoke($this->adapter, 'fe80::1%eth0');
 
-        $this->assertSame($hostInfo->getAddressType(), Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS);
+        $this->assertSame(Varien_Db_Adapter_Pdo_Mysql::ADDRESS_TYPE_IPV6_ADDRESS, $hostInfo->getAddressType());
         $this->assertSame('fe80::1%eth0', $hostInfo->getHostName());
         $this->assertNull($hostInfo->getPort());
         $this->assertNull($hostInfo->getUnixSocket());

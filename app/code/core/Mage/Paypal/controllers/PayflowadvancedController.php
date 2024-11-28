@@ -153,7 +153,8 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     protected function _getIframeBlock()
     {
         $this->loadLayout('paypal_payflow_advanced_iframe');
-        return $this->getLayout()
-            ->getBlock('payflow.advanced.iframe');
+        /** @var Mage_Paypal_Block_Payflow_Advanced_Iframe $block */
+        $block = $this->getLayout()->getBlock('payflow.advanced.iframe');
+        return $block;
     }
 }
