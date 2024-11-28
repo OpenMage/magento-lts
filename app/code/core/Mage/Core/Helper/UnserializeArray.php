@@ -29,11 +29,8 @@ class Mage_Core_Helper_UnserializeArray
      */
     public function unserialize($str)
     {
-        if (!is_string($str) || $str === '') {
-            throw new Exception('Error unserializing data.');
-        }
         try {
-            $result = unserialize($str, ['allowed_classes' => false]);
+            $result = @unserialize($str, ['allowed_classes' => false]);
             if ($result === false && $str !== serialize(false)) {
                 throw new Exception('Error unserializing data.');
             }
