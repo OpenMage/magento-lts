@@ -891,7 +891,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      *
      * @param array $category
      * @param array $path
-     * @return string
+     * @return array
      */
     protected function _getCategoryPath($category, $path = [])
     {
