@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -51,7 +52,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             ->addAttributeToSelect('attribute_set_id')
             ->addAttributeToSelect('type_id');
 
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+        if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
             $collection->joinField(
                 'qty',
                 'cataloginventory/stock_item',
@@ -215,7 +216,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             ]
         );
 
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+        if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
             $this->addColumn(
                 'qty',
                 [
@@ -283,7 +284,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
             ]
         );
 
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_Rss') &&
+        if ($this->isModuleEnabled('Mage_Rss', 'catalog') &&
             Mage::helper('rss')->isRssAdminCatalogNotifyStockEnabled()
         ) {
             $this->addRssList('rss/catalog/notifystock', Mage::helper('catalog')->__('Notify Low Stock RSS'));

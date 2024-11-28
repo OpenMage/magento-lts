@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -229,7 +230,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve Value HTML
      *
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param Mage_Sales_Model_Order_Invoice_Item $item
      * @return string
      */
     public function getValueHtml($item)
@@ -253,13 +254,13 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Can show price info for item
      *
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function canShowPriceInfo($item)
     {
         if (($item->getOrderItem()->getParentItem() && $this->isChildCalculated())
-                || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated())
+            || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated())
         ) {
             return true;
         }

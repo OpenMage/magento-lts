@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -262,6 +263,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     public function login($username, $apiKey)
     {
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $apiKey = new Mage_Core_Model_Security_Obfuscated($apiKey);
+
         $sessId = $this->getSessid();
         if ($this->authenticate($username, $apiKey)) {
             $this->setSessid($sessId);
