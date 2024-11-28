@@ -122,7 +122,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
 
     public function canDisplayGiftmessageItems(): bool
     {
-        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */
@@ -132,7 +132,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
 
     public function canDisplayGiftmessageOrder(): bool
     {
-        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */
