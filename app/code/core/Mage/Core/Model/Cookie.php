@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -152,7 +153,7 @@ class Mage_Core_Model_Cookie
     /**
      * Retrieve use HTTP only flag
      *
-     * @return bool
+     * @return bool|null
      */
     public function getHttponly()
     {

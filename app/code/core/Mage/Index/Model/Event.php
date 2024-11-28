@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -122,8 +123,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * Add process id to event object
      *
      * @param int $processId
-     * @param string $status
-     * @return  $this
+     * @param Mage_Index_Model_Process::EVENT_STATUS_* $status
+     * @return $this
      */
     public function addProcessId($processId, $status = Mage_Index_Model_Process::EVENT_STATUS_NEW)
     {

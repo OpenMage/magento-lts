@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -26,7 +27,7 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
     {
         $backupAvailable =
             Mage::getSingleton('admin/session')->isAllowed('system/tools/backup')
-            && Mage::helper('core')->isModuleEnabled('Mage_Backup')
+            && $this->isModuleEnabled('Mage_Backup')
             && !Mage::getStoreConfigFlag('advanced/modules_disable_output/Mage_Backup');
 
         $saveLabel      = '';

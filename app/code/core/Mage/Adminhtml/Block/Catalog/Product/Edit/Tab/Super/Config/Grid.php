@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -127,7 +128,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             ->addFilterByRequiredOptions()
             ->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
 
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+        if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
             Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
         }
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
