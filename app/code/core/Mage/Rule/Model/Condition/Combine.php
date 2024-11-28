@@ -238,8 +238,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $condition) {
             $xml .= "<$itemKey>" . $condition->asXml() . "</$itemKey>";
         }
-        $xml .= "</$containerKey>";
-        return $xml;
+        return $xml . "</$containerKey>";
     }
 
     /**
@@ -319,8 +318,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
-        $html .= '<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>';
-        return $html;
+        return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
     /**

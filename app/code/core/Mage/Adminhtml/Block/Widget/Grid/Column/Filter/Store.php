@@ -80,8 +80,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
             $selected = ($this->getValue() == '_deleted_') ? ' selected' : '';
             $html .= '<option value="_deleted_"' . $selected . '>' . $this->__('[ deleted ]') . '</option>';
         }
-        $html .= '</select>';
-        return $html;
+        return $html . '</select>';
     }
 
     /**

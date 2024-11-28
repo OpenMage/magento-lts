@@ -36,7 +36,6 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Filter_Action extends Mag
         foreach ($values as $k => $v) {
             $html .= '<option value="' . $k . '"' . ($value == $k ? ' selected="selected"' : '') . '>' . $v . '</option>';
         }
-        $html .= '</select>';
-        return $html;
+        return $html . '</select>';
     }
 }

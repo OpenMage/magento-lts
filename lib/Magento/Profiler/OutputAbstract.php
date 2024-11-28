@@ -193,8 +193,7 @@ abstract class Magento_Profiler_OutputAbstract
     protected function _renderCaption()
     {
         $result = 'Code Profiler (Memory usage: real - %s, emalloc - %s)';
-        $result = sprintf($result, memory_get_usage(true), memory_get_usage());
-        return $result;
+        return sprintf($result, memory_get_usage(true), memory_get_usage());
     }
 
     /**

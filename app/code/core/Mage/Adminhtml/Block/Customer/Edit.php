@@ -85,8 +85,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     public function getFormHtml()
     {
         $html = parent::getFormHtml();
-        $html .= $this->getLayout()->createBlock('adminhtml/catalog_product_composite_configure')->toHtml();
-        return $html;
+        return $html . $this->getLayout()->createBlock('adminhtml/catalog_product_composite_configure')->toHtml();
     }
 
     /**

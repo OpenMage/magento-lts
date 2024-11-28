@@ -32,8 +32,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
     protected function _getValueForSave($object)
     {
         $attributeName  = $this->getAttribute()->getName();
-        $startDate      = $object->getData($attributeName);
-        return $startDate;
+        return $object->getData($attributeName);
     }
 
     /**

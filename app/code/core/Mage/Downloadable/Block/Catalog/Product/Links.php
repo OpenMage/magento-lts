@@ -96,9 +96,8 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
                 $priceStr .= ' (+' . $coreHelper::currencyByStore($_priceInclTax, $store) . ' ' . $this->__('Incl. Tax') . ')';
             }
         }
-        $priceStr .= '</span>';
 
-        return $priceStr;
+        return $priceStr . '</span>';
     }
 
     /**

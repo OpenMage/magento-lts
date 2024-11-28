@@ -167,8 +167,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
         </script>
 
 EndSCRIPT;
-        $html .= $this->getAfterElementHtml();
-        return $html;
+        return $html . $this->getAfterElementHtml();
     }
 
     /**

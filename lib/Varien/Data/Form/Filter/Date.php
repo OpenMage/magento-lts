@@ -73,8 +73,7 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
         ]);
 
         $value = $filterInput->filter($value);
-        $value = $filterInternal->filter($value);
-        return $value;
+        return $filterInternal->filter($value);
     }
 
     /**
@@ -99,7 +98,6 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
         ]);
 
         $value = $filterInput->filter($value);
-        $value = $filterInternal->filter($value);
-        return $value;
+        return $filterInternal->filter($value);
     }
 }

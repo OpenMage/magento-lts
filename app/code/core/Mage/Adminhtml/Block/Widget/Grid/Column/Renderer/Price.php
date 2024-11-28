@@ -44,8 +44,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminh
 
             $data = (float) $data * $this->_getRate($row);
             $data = sprintf('%F', $data);
-            $data = Mage::app()->getLocale()->currency($currencyCode)->toCurrency($data);
-            return $data;
+            return Mage::app()->getLocale()->currency($currencyCode)->toCurrency($data);
         }
         return $this->getColumn()->getDefault();
     }

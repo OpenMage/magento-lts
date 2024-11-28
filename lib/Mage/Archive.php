@@ -91,8 +91,7 @@ class Mage_Archive
         }
         $format = $this->_formats[$ext];
         if ($format) {
-            $archivers = explode('.', $format);
-            return $archivers;
+            return explode('.', $format);
         }
         return [];
     }

@@ -142,9 +142,8 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     {
         $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
         $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
 
-        return $urlKey;
+        return trim($urlKey, '-');
     }
 
     /**

@@ -39,7 +39,6 @@ class Varien_Data_Form_Element_Info extends Varien_Data_Form_Element_Abstract
     {
         $id = $this->getHtmlId();
         $label = $this->getLabel();
-        $html = '<tr class="' . $id . '"><td class="label" colspan="99"><label>' . $label . '</label></td></tr>';
-        return $html;
+        return '<tr class="' . $id . '"><td class="label" colspan="99"><label>' . $label . '</label></td></tr>';
     }
 }

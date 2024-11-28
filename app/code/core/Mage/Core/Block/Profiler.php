@@ -63,8 +63,7 @@ class Mage_Core_Block_Profiler extends Mage_Core_Block_Abstract
         $out .= '<pre>';
         $out .= print_r(Varien_Profiler::getSqlProfiler(Mage::getSingleton('core/resource')->getConnection('core_write')), true);
         $out .= '</pre>';
-        $out .= '</div>';
 
-        return $out;
+        return $out . '</div>';
     }
 }

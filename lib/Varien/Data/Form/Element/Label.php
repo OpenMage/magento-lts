@@ -45,7 +45,6 @@ class Varien_Data_Form_Element_Label extends Varien_Data_Form_Element_Abstract
         $html = $this->getBold() ? '<strong>' : '';
         $html .= $this->getEscapedValue();
         $html .= $this->getBold() ? '</strong>' : '';
-        $html .= $this->getAfterElementHtml();
-        return $html;
+        return $html . $this->getAfterElementHtml();
     }
 }

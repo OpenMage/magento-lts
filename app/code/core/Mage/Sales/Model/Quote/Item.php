@@ -287,8 +287,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     protected function _prepareQty($qty)
     {
         $qty = Mage::app()->getLocale()->getNumber($qty);
-        $qty = ($qty > 0) ? $qty : 1;
-        return $qty;
+        return ($qty > 0) ? $qty : 1;
     }
 
     /**
