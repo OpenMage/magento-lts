@@ -39,7 +39,7 @@ class DisableOutputTest extends TestCase
      */
     public function testGetModulesCount(): void
     {
-        $this->assertSame(60, count($this->subject->getModules()));
+        $this->assertCount(60, $this->subject->getModules());
     }
 
     /**
