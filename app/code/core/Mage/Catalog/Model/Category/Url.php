@@ -122,7 +122,9 @@ class Mage_Catalog_Model_Category_Url
     public function getUrlInstance()
     {
         if ($this->_url === null) {
-            $this->_url = $this->_factory->getModel('core/url');
+            /** @var Mage_Core_Model_Url $model */
+            $model = $this->_factory->getModel('core/url');
+            $this->_url = $model;
         }
         return $this->_url;
     }

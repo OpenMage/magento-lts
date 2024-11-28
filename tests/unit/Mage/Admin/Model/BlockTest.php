@@ -48,8 +48,8 @@ class BlockTest extends TestCase
             ])
             ->getMock();
 
-        $mock->expects($this->any())->method('getBlockName')->willReturn($methods['getBlockName']);
-        $mock->expects($this->any())->method('getIsAllowed')->willReturn($methods['getIsAllowed']);
+        $mock->method('getBlockName')->willReturn($methods['getBlockName']);
+        $mock->method('getIsAllowed')->willReturn($methods['getIsAllowed']);
         $this->assertEquals($expectedResult, $mock->validate());
     }
 
