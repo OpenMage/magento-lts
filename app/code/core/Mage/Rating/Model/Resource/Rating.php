@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -209,14 +210,15 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
 
     /**
      * Perform actions after object delete
-     * Prepare rating data for reaggregate all data for reviews
+     * Prepare rating data for re-aggregate all data for reviews
      *
+     * @param Mage_Rating_Model_Rating $object
      * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         parent::_afterDelete($object);
-        if (!Mage::helper('rating')->isModuleEnabled('Mage_Review')) {
+        if (!$this->isModuleEnabled('Mage_Review', 'rating')) {
             return $this;
         }
         $data = $this->_getEntitySummaryData($object);

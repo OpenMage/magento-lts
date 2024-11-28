@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -101,6 +102,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
                 'inherit'       => $inherit,
                 'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
                 'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
+                'scope'         => true,
+                'scope_label'   => Mage::helper('adminhtml')->__('[STORE VIEW]'),
             ]
         )->setRenderer($this->_getFieldRenderer());
 

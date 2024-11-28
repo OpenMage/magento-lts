@@ -35,7 +35,7 @@ class PageTest extends TestCase
             ->setMethods(['getPageId'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getPageId')->willReturn($pageId);
+        $mock->method('getPageId')->willReturn($pageId);
         $this->assertInstanceOf(Mage_Cms_Model_Page::class, $mock->getPage());
     }
 

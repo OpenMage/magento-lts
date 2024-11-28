@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -151,7 +152,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      */
     public function addRssFeedLink()
     {
-        if (Mage::helper('sales')->isModuleOutputEnabled('Mage_Rss')) {
+        if ($this->isModuleOutputEnabled('Mage_Rss', 'sales')) {
             $storeId = null;
 
             $filterString = $this->getParam($this->getVarNameFilter(), '');

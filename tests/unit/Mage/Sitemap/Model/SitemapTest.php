@@ -43,7 +43,7 @@ class SitemapTest extends TestCase
             ->setMethods(['getSitemapFilename'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getSitemapFilename')->willReturn('text.xml');
+        $mock->method('getSitemapFilename')->willReturn('text.xml');
         $this->assertIsString($mock->getPreparedFilename());
     }
 
@@ -60,8 +60,8 @@ class SitemapTest extends TestCase
             ->setMethods(['getSitemapFilename'])
             ->getMock();
 
-        $mock->expects($this->any())->method('isDeleted')->willReturn(true);
-        $mock->expects($this->any())->method('getSitemapFilename')->willReturn(self::SITEMAP_FILE);
+        $mock->method('isDeleted')->willReturn(true);
+        $mock->method('getSitemapFilename')->willReturn(self::SITEMAP_FILE);
         $result = $mock->generateXml();
         $this->assertInstanceOf(Mage_Sitemap_Model_Sitemap::class, $result);
         $this->assertFileExists(self::SITEMAP_FILE);
@@ -75,6 +75,6 @@ class SitemapTest extends TestCase
     public function testGetSitemapConfig(): void
     {
         $result = $this->subject->getSitemapConfig('page', []);
-        $this->assertSame(3, count($result));
+        $this->assertCount(3, $result);
     }
 }

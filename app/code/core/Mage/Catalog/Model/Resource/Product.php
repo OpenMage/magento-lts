@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -360,7 +361,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * if product parameter is null - idex will be refreshed for all products
      *
      * @param Mage_Core_Model_Store $store
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product|array $product
      * @throws Mage_Core_Exception
      * @return $this
      */

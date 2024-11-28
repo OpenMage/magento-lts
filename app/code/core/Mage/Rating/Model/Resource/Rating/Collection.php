@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -81,7 +82,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
     /**
      * Set store filter
      *
-     * @param int $storeId
+     * @param int|array $storeId
      * @return $this
      */
     public function setStoreFilter($storeId)
