@@ -26,11 +26,11 @@ class Mage_Core_Helper_UnserializeArray
      * @param string $str
      * @return array
      * @throws Exception
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function unserialize($str)
     {
         try {
-            /** @SuppressWarnings(PHPMD.ErrorControlOperator) */
             $result = @unserialize($str, ['allowed_classes' => false]);
             if ($result === false && $str !== serialize(false)) {
                 throw new Exception('Error unserializing data.');
