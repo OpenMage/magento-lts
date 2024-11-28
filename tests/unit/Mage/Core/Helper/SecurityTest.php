@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
+use Generator;
 use Mage;
 use Mage_Core_Block_Abstract;
 use Mage_Core_Block_Template;
@@ -37,29 +38,22 @@ class SecurityTest extends TestCase
     }
 
     /**
-     * @return array<int|string, array<int, array<empty, empty>|Mage_Page_Block_Html_Topmenu_Renderer|Mage_Core_Block_Template|string>>
-     *
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
-    public function validateAgainstBlockMethodBlacklistDataProvider(): array
+    public function validateAgainstBlockMethodBlacklistDataProvider(): Generator
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $template = new Mage_Core_Block_Template();
-
-        return [
-            [
-                $topmenu,
-                'setData',
-                []
-            ],
-            [
-                $template,
-                'setData',
-                []
-            ],
+        yield [
+            $topmenu,
+            'setData',
+            []
+        ];
+        yield [
+            $template,
+            'setData',
+            []
         ];
     }
 
@@ -80,52 +74,46 @@ class SecurityTest extends TestCase
         $this->subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 
-    /**
-     * @return array<int|string, array<int, array<empty, empty>|Mage_Page_Block_Html_Topmenu_Renderer|Mage_Core_Block_Template|string>>
-     */
-    public function forbiddenBlockMethodsDataProvider(): array
+    public function forbiddenBlockMethodsDataProvider(): Generator
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $template = new Mage_Core_Block_Template();
-
-        return [
-            [
-                $template,
-                'fetchView',
-                []
-            ],
-            [
-                $topmenu,
-                'fetchView',
-                []
-            ],
-            [
-                $topmenu,
-                'render',
-                []
-            ],
-            [
-                $template,
-                'Mage_Core_Block_Template::fetchView',
-                []
-            ],
-            [
-                $topmenu,
-                'Mage_Page_Block_Html_Topmenu_Renderer::fetchView',
-                []
-            ],
-            'parent class name is passed as second arg' => [
-                $topmenu,
-                'Mage_Core_Block_Template::fetchView',
-                []
-            ],
-            'parent class name is passed as second arg2' => [
-                $topmenu,
-                'Mage_Core_Block_Template::render',
-                []
-            ],
+        yield [
+            $template,
+            'fetchView',
+            []
+        ];
+        yield [
+            $topmenu,
+            'fetchView',
+            []
+        ];
+        yield [
+            $topmenu,
+            'render',
+            []
+        ];
+        yield [
+            $template,
+            'Mage_Core_Block_Template::fetchView',
+            []
+        ];
+        yield [
+            $topmenu,
+            'Mage_Page_Block_Html_Topmenu_Renderer::fetchView',
+            []
+        ];
+        yield 'parent class name is passed as second arg' => [
+            $topmenu,
+            'Mage_Core_Block_Template::fetchView',
+            []
+        ];
+        yield 'parent class name is passed as second arg2' => [
+            $topmenu,
+            'Mage_Core_Block_Template::render',
+            []
         ];
     }
 
