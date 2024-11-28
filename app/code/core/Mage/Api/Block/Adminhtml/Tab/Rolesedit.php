@@ -27,11 +27,11 @@ class Mage_Api_Block_Adminhtml_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
         $resources = Mage::getModel('api/roles')->getResourcesList();
 
-        $rules_set = Mage::getResourceModel('api/rules_collection')->getByRoles($rid)->load();
+        $rulesSet = Mage::getResourceModel('api/rules_collection')->getByRoles($rid)->load();
 
         $selrids = [];
 
-        foreach ($rules_set->getItems() as $item) {
+        foreach ($rulesSet->getItems() as $item) {
             if (array_key_exists(strtolower($item->getResource_id()), $resources)
                 && $item->getApiPermission() == 'allow'
             ) {
