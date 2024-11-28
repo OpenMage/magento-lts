@@ -7,6 +7,10 @@ tags:
 
 See: https://ddev.com
 
+!!! info "Test Environment for OpenMage in Windows 10 Based on DDEV"
+
+    See https://github.com/OpenMage/magento-lts/discussions/3839
+
 ## Using phpMyAdmin
 
 Run in the terminal window to install the phpMyAdmin add-on then restart DDEV.
