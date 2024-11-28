@@ -106,7 +106,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         $valueAfterOverride = $xml->getNode($configPath);
 
         // assert
-        $this->assertNotEquals((string)$defaultValue, (string)$valueAfterOverride, 'Default value was not overridden.');
+        $this->assertNotSame((string)$defaultValue, (string)$valueAfterOverride, 'Default value was not overridden.');
     }
 
     public function envOverridesCorrectConfigKeysDataProvider(): Generator
@@ -222,7 +222,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         }
 
         // assert
-        $this->assertTrue(!str_contains('value_will_not_be_changed', (string)$valueAfterCheck), 'Default value was wrongfully overridden.');
+        $this->assertFalse(str_contains('value_will_not_be_changed', (string)$valueAfterCheck), 'Default value was wrongfully overridden.');
     }
 
     public function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator

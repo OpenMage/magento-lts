@@ -193,7 +193,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ]
         );
 
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_Rss') &&
+        if ($this->isModuleEnabled('Mage_Rss', 'catalog') &&
             Mage::helper('rss')->isRssAdminCatalogReviewEnabled()
         ) {
             $this->addRssList('rss/catalog/review', Mage::helper('catalog')->__('Pending Reviews RSS'));
