@@ -87,7 +87,7 @@
     </rule>
 <!--    <rule ref="rulesets/naming.xml/ShortVariable">-->
 <!--        <properties>-->
-<!--            <property name="exceptions" value="a,b,e,id,idx,io,ip,to,x,y,x1,x2,y1,y2" />-->
+<!--            <property name="exceptions" value="a,b,x,y,x1,x2,y1,y2" />-->
 <!--        </properties>-->
 <!--    </rule>-->
     <rule ref="rulesets/naming.xml/ShortMethodName" />
