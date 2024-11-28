@@ -244,7 +244,7 @@ class ObjectTest extends TestCase
         $this->subject->offsetSet('off', 'set');
         $this->assertTrue($this->subject->offsetExists('off'));
         $this->assertSame('set', $this->subject->offsetGet('off'));
-        $this->assertSame(null, $this->subject->offsetGet('not-exists'));
+        $this->assertNull($this->subject->offsetGet('not-exists'));
 
         $this->subject->offsetUnset('off');
         $this->assertFalse($this->subject->offsetExists('off'));

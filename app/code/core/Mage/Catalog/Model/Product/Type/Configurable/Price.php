@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     /**
      * @param array $values
      * @param string $index
-     * @return bool
+     * @return array|false
      */
     protected function _getValueByIndex($values, $index)
     {

@@ -168,7 +168,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     public function getLastPageNum()
     {
         if ($this->_lastPage === null) {
-            $this->_lastPage = ceil($this->getCollectionSize() / $this->getLimit());
+            $this->_lastPage = (int) ceil($this->getCollectionSize() / $this->getLimit());
             if ($this->_lastPage <= 0) {
                 $this->_lastPage = 1;
             }

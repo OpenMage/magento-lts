@@ -75,7 +75,10 @@ class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat extend
             $optionsVarName = $this->getJsVariablePrefix() . 'VatParameters';
             $beforeHtml = '<script type="text/javascript">var ' . $optionsVarName . ' = ' . $vatValidateOptions
                 . ';</script>';
-            $this->_validateButton = $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+
+            /** @var Mage_Adminhtml_Block_Widget_Button $block */
+            $block = $this->getLayout()->createBlock('adminhtml/widget_button');
+            $this->_validateButton = $block->setData([
                 'label'       => Mage::helper('customer')->__('Validate VAT Number'),
                 'before_html' => $beforeHtml,
                 'onclick'     => 'order.validateVat(' . $optionsVarName . ')',

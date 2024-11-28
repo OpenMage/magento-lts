@@ -45,7 +45,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group extends Mage_Admi
      * Return collapse state
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return bool
+     * @return int|false
      */
     protected function _getCollapseState($element)
     {

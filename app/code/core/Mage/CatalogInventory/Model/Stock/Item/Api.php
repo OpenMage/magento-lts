@@ -67,7 +67,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
     }
 
     /**
-     * @param int $productId
+     * @param string $productId
      * @param array $data
      * @return bool
      * @throws Mage_Api_Exception

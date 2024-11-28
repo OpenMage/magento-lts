@@ -1885,8 +1885,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get option from options array of product by given option id
      *
-     * @param int $optionId
-     * @return Mage_Catalog_Model_Product_Option | null
+     * @param string $optionId
+     * @return Mage_Catalog_Model_Product_Option|null
      */
     public function getOptionById($optionId)
     {
@@ -1984,7 +1984,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Check availability display product in category
      *
      * @param   int $categoryId
-     * @return  bool
+     * @return  string
      */
     public function canBeShowInCategory($categoryId)
     {

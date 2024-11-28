@@ -45,8 +45,8 @@ class VariableTest extends TestCase
             ->setMethods(['getVariableName', 'getIsAllowed'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getVariableName')->willReturn($variableName);
-        $mock->expects($this->any())->method('getIsAllowed')->willReturn($isAllowed);
+        $mock->method('getVariableName')->willReturn($variableName);
+        $mock->method('getIsAllowed')->willReturn($isAllowed);
         $this->assertSame($expectedResult, $mock->validate());
     }
 

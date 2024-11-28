@@ -34,7 +34,7 @@ class BlockTest extends TestCase
             ->setMethods(['getBlockId'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getBlockId')->willReturn($blockId);
+        $mock->method('getBlockId')->willReturn($blockId);
         $this->assertIsArray($mock->getCacheKeyInfo());
     }
 

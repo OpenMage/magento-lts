@@ -384,7 +384,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Get list of additional attributes which are not in default create/update list
      *
-     * @param  int $productType
+     * @param  string $productType
      * @param  int $attributeSetId
      * @return array
      */
@@ -429,7 +429,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Check if product type exists
      *
-     * @param int $productType
+     * @param string $productType
      * @throw Mage_Api_Exception
      */
     protected function _checkProductTypeExists($productType)

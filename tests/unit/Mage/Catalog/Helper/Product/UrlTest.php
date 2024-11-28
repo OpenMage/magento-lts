@@ -39,7 +39,7 @@ class UrlTest extends TestCase
     public function testGetConvertTable(): void
     {
         $this->assertIsArray($this->subject->getConvertTable());
-        $this->assertSame(317, count($this->subject->getConvertTable()));
+        $this->assertCount(317, $this->subject->getConvertTable());
     }
 
     /**
