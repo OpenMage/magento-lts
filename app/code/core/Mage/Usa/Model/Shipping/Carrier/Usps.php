@@ -1578,7 +1578,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $xml->addAttribute('USERID', $this->getConfigData('userid'));
         $xml->addAttribute('PASSWORD', $this->getConfigData('password'));
         $xml->addChild('Option');
-        $xml->addChild('Revision', (string)self::DEFAULT_REVISION);
+        $xml->addChild('Revision', (string) self::DEFAULT_REVISION);
         $xml->addChild('ImageParameters');
         $xml->addChild('FromFirstName', $request->getShipperContactPersonFirstName());
         $xml->addChild('FromLastName', $request->getShipperContactPersonLastName());
@@ -1675,8 +1675,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $ceiledQty = 1;
             }
             $individualItemWeight = $itemWeight / $ceiledQty;
-            $itemDetail->addChild('Quantity', (string)$ceiledQty);
-            $itemDetail->addChild('Value', (string)($item->getCustomsValue() * $item->getQty()));
+            $itemDetail->addChild('Quantity', (string) $ceiledQty);
+            $itemDetail->addChild('Value', (string) ($item->getCustomsValue() * $item->getQty()));
             list($individualPoundsWeight, $individualOuncesWeight) = $this->_convertPoundOunces($individualItemWeight);
             $itemDetail->addChild('NetPounds', $individualPoundsWeight);
             $itemDetail->addChild('NetOunces', $individualOuncesWeight);
