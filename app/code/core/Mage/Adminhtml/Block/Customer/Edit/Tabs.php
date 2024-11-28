@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/wishlist', ['_current' => true]),
             ]);
 
-            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Newsletter') && $this->getAdminSession()->isAllowed('newsletter/subscriber')) {
+            if ($this->isModuleOutputEnabled('Mage_Newsletter') && $this->getAdminSession()->isAllowed('newsletter/subscriber')) {
                 /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $block */
                 $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
                 $this->addTab('newsletter', [
@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 ]);
             }
 
-            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Review') && $this->getAdminSession()->isAllowed('catalog/reviews_ratings')) {
+            if ($this->isModuleOutputEnabled('Mage_Review') && $this->getAdminSession()->isAllowed('catalog/reviews_ratings')) {
                 $this->addTab('reviews', [
                     'label'     => Mage::helper('customer')->__('Product Reviews'),
                     'class'     => 'ajax',
@@ -91,7 +91,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 ]);
             }
 
-            if (Mage::helper('core')->isModuleEnabled('Mage_Tag') && $this->getAdminSession()->isAllowed('catalog/tag')) {
+            if ($this->isModuleEnabled('Mage_Tag') && $this->getAdminSession()->isAllowed('catalog/tag')) {
                 $this->addTab('tags', [
                     'label'     => Mage::helper('customer')->__('Product Tags'),
                     'class'     => 'ajax',

@@ -232,4 +232,9 @@ abstract class Mage_Core_Model_Resource_Abstract
         }
         return $value;
     }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
 }

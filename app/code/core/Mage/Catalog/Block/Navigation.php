@@ -32,7 +32,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Current category key
      *
-     * @var string
+     * @var int|string
      */
     protected $_currentCategoryKey;
 
@@ -94,7 +94,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     /**
      * Get current category key
      *
-     * @return mixed
+     * @return int|string
      */
     public function getCurrenCategoryKey()
     {

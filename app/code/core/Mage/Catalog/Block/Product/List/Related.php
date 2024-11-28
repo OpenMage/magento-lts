@@ -45,7 +45,7 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
             ->addStoreFilter()
         ;
 
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_Checkout')) {
+        if ($this->isModuleEnabled('Mage_Checkout', 'catalog')) {
             Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter(
                 $this->_itemCollection,
                 $this->getCheckoutSession()->getQuoteId()
