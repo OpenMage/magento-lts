@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
      */
     public function isShow()
     {
-        if (!$this->isOutputEnabled('Mage_AdminNotification')) {
+        if (!$this->isModuleOutputEnabled('Mage_AdminNotification')) {
             return false;
         }
         if ($this->getRequest()->getControllerName() === 'notification') {

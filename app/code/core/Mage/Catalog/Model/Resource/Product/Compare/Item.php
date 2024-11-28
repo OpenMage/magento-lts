@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -66,7 +67,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
      *
      * @param int $customerId
      * @param int $visitorId
-     * @return int
+     * @return false|string|null
      */
     public function getCount($customerId, $visitorId)
     {

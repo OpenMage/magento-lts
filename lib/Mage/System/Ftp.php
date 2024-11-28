@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -97,6 +98,9 @@ class Mage_System_Ftp
      */
     public function login($login = 'anonymous', $password = 'test@gmail.com')
     {
+        $login = new Mage_Core_Model_Security_Obfuscated($login);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         $this->checkConnected();
         $res = @ftp_login($this->_conn, $login, $password);
         if (!$res) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -938,10 +939,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Convert price from default currency to current currency
      *
-     * @param   double $price
+     * @param   float $price
      * @param   bool $format             Format price to currency format
      * @param   bool $includeContainer   Enclose into <span class="price"><span>
-     * @return  double
+     * @return  float
      */
     public function convertPrice($price, $format = false, $includeContainer = true)
     {

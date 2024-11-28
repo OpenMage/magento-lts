@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -134,7 +135,7 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
     /**
      * Add discount total information to address
      *
-     * @return $this
+     * @return $this|array
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {

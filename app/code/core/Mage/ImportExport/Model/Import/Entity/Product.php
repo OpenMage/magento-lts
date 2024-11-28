@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -1206,7 +1207,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $linkRows,
                     ['link_id']
                 );
-                $adapter->changeTableAutoIncrement($mainTable, $nextLinkId);
+                $adapter->changeTableAutoIncrement($mainTable, (string)$nextLinkId);
             }
             if ($positionRows) { // process linked product positions
                 $adapter->insertOnDuplicate(

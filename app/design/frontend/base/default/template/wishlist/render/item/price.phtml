@@ -12,12 +12,12 @@
  * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-/** @var Mage_Wishlist_Block_Customer_Wishlist_Render_Item_Price $this */
+/** @var Mage_Wishlist_Block_Render_Item_Price $this */
 ?>
 
 <?php echo $this->getCleanProductPriceHtml(); ?>
 
-<?php /* @var $product Mage_Catalog_Model_Product */ ?>
+<?php /** @var Mage_Catalog_Model_Product $product */ ?>
 <?php $product = $this->getProduct(); ?>
 <?php $finalPrice = $product->getFinalPrice(1); ?>
 <?php if ($product->canConfigure()): ?>
