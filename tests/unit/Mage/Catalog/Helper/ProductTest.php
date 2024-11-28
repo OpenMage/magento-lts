@@ -48,7 +48,7 @@ class ProductTest extends TestCase
      */
     public function testGetAttributeInputTypes(int $expectedResult, ?string $inputType = null): void
     {
-        $this->assertSame($expectedResult, count($this->subject->getAttributeInputTypes($inputType)));
+        $this->assertCount($expectedResult, $this->subject->getAttributeInputTypes($inputType));
     }
 
     public function provideGetAttributeInputTypes(): Generator
