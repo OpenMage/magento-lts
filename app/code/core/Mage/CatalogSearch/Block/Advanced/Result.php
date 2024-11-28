@@ -129,7 +129,7 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
     public function getSearchCriterias()
     {
         $searchCriterias = $this->getSearchModel()->getSearchCriterias();
-        $middle = ceil(count($searchCriterias) / 2);
+        $middle = (int) ceil(count($searchCriterias) / 2);
         $left = array_slice($searchCriterias, 0, $middle);
         $right = array_slice($searchCriterias, $middle);
 
