@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -127,7 +128,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     public function getCustomerGroups($groupId = null)
     {
         if ($this->_customerGroups === null) {
-            if (!Mage::helper('catalog')->isModuleEnabled('Mage_Customer')) {
+            if (!$this->isModuleEnabled('Mage_Customer', 'catalog')) {
                 return [];
             }
             $collection = Mage::getModel('customer/group')->getCollection();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -117,9 +118,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                     if ($item->getParentItem()) {
                         continue;
                     }
-                    if ($this->isMessagesAvailable($_type, $item, $store)) {
-                        return true;
-                    }
+                    return $this->isMessagesAvailable($_type, $item, $store);
                 }
                 // no break
             case self::TYPE_ITEM:

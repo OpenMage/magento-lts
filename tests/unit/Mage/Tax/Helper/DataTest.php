@@ -67,10 +67,12 @@ class DataTest extends TestCase
     /**
      * @group Mage_Tax
      * @group Mage_Tax_Helper
+     * @doesNotPerformAssertions
      */
     public function testGetProductPrice(): void
     {
         #$this->assertSame('', $this->subject->getProductPrice());
+        $this->markTestIncomplete();
     }
 
     /**
@@ -128,10 +130,12 @@ class DataTest extends TestCase
     /**
      * @group Mage_Tax
      * @group Mage_Tax_Helper
+     * @doesNotPerformAssertions
      */
     public function testNeedPriceConversion(): void
     {
         #$this->assertSame(1, $this->subject->needPriceConversion());
+        $this->markTestIncomplete();
     }
 
     /**
@@ -139,10 +143,12 @@ class DataTest extends TestCase
      * @group Mage_Tax_Helper
      * @group runInSeparateProcess
      * @runInSeparateProcess
+     * @doesNotPerformAssertions
      */
     public function testGetPriceFormat(): void
     {
         #$this->assertSame('', $this->subject->getPriceFormat());
+        $this->markTestIncomplete();
     }
 
     /**
@@ -172,10 +178,12 @@ class DataTest extends TestCase
     /**
      * @group Mage_Tax
      * @group Mage_Tax_Helper
+     * @doesNotPerformAssertions
      */
     public function testGetPrice(): void
     {
         #$this->assertFalse($this->subject->getPrice());
+        $this->markTestIncomplete();
     }
 
     /**
@@ -296,7 +304,7 @@ class DataTest extends TestCase
      */
     public function testGetShippingPrice(): void
     {
-        $this->assertSame(100.0, $this->subject->getShippingPrice(100.0));
+        $this->assertEqualsWithDelta(100.0, $this->subject->getShippingPrice(100.0), PHP_FLOAT_EPSILON);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,7 +30,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
 
     public function getBackordersOption()
     {
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+        if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
             return Mage::getSingleton('cataloginventory/source_backorders')->toOptionArray();
         }
 
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
      */
     public function getStockOption()
     {
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+        if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
             return Mage::getSingleton('cataloginventory/source_stock')->toOptionArray();
         }
 

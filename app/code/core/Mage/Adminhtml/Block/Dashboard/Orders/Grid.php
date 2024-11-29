@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,7 +30,7 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
     protected function _prepareCollection()
     {
-        if (!Mage::helper('core')->isModuleEnabled('Mage_Reports')) {
+        if (!$this->isModuleEnabled('Mage_Reports')) {
             return $this;
         }
         $collection = Mage::getResourceModel('reports/order_collection')
