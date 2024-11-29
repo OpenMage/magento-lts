@@ -22,10 +22,13 @@ use Mage;
 use Mage_Catalog_Model_Url;
 use Mage_Core_Exception;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Varien_Object;
 
 class UrlTest extends TestCase
 {
+    public const TEST_STRING = '--a & B, x% @ ä ö ü ™--';
+
     public Mage_Catalog_Model_Url $subject;
 
     public function setUp(): void
@@ -93,10 +96,12 @@ class UrlTest extends TestCase
             'id'        => '999',
             'store_id'  => '1',
             'url_key'   => '',
+            'name'      => 'category',
 
         ]);
         $product = new Varien_Object([
-            'id' => '999'
+            'id'        => '999',
+            'name'      => 'product',
         ]);
 
         yield 'test exception' => [
@@ -106,7 +111,7 @@ class UrlTest extends TestCase
             null,
         ];
         yield 'request' => [
-            '-.html',
+            'product.html',
             'request',
             $product,
             $category,
@@ -128,6 +133,94 @@ class UrlTest extends TestCase
             'target',
             $product,
             $category,
+        ];
+    }
+    /**
+     * @dataProvider provideFormatUrlKey
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testFormatUrlKey($expectedResult, string $locale): void
+    {
+        $this->subject->setLocale($locale);
+        $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
+    }
+
+    public function provideFormatUrlKey(): Generator
+    {
+        yield 'de_DE' => [
+            'a-und-b-x-prozent-at-ae-oe-ue-tm',
+            'de_DE',
+        ];
+        yield 'en_US' => [
+            'a-and-b-x-percent-at-a-o-u-tm',
+            'en_US',
+        ];
+        yield 'es_ES' => [
+            'a-et-b-x-por-ciento-at-a-o-u-tm',
+            'es_ES',
+        ];
+        yield 'fr_FR' => [
+            'a-et-b-x-pour-cent-at-a-o-u-tm',
+            'fr_FR',
+        ];
+        yield 'it_IT' => [
+            'a-e-b-x-per-cento-at-a-o-u-tm',
+            'it_IT',
+        ];
+    }
+
+    /**
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testGetSlugger(): void
+    {
+        $this->assertInstanceOf(AsciiSlugger::class, $this->subject->getSlugger());
+    }
+
+    /**
+     * @dataProvider provideGetSluggerConfig
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testGetSluggerConfig($expectedResult, string $locale): void
+    {
+        $result = $this->subject->getSluggerConfig($locale);
+
+        $this->assertArrayHasKey($locale, $result);
+
+        $this->assertArrayHasKey('%', $result[$locale]);
+        $this->assertArrayHasKey('&', $result[$locale]);
+
+        $this->assertSame($expectedResult[$locale]['%'], $result[$locale]['%']);
+        $this->assertSame($expectedResult[$locale]['&'], $result[$locale]['&']);
+
+        $this->assertSame('at', $result[$locale]['@']);
+    }
+
+    public function provideGetSluggerConfig(): Generator
+    {
+        yield 'de_DE' => [
+            ['de_DE' => [
+                '%' => 'prozent',
+                '&' => 'und',
+            ]],
+            'de_DE',
+        ];
+        yield 'en_US' => [
+            ['en_US' => [
+                '%' => 'percent',
+                '&' => 'and',
+            ]],
+            'en_US',
+        ];
+        yield 'fr_FR' => [
+            ['fr_FR' => [
+                '%' => 'pour cent',
+                '&' => 'et',
+            ]],
+            'fr_FR',
         ];
     }
 }
