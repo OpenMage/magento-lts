@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -25,6 +26,7 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
      * @param string $var
      * @param string|true $value
      * @return bool
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function is($var, $value = true)
     {

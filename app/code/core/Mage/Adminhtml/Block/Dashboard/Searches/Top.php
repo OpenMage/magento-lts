@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
 
     protected function _prepareCollection()
     {
-        if (!Mage::helper('core')->isModuleEnabled('Mage_CatalogSearch')) {
+        if (!$this->isModuleEnabled('Mage_CatalogSearch')) {
             return parent::_prepareCollection();
         }
         $this->_collection = Mage::getModel('catalogsearch/query')

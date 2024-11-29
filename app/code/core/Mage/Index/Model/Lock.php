@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,7 +64,6 @@ class Mage_Index_Model_Lock
 
     protected function __construct()
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         register_shutdown_function([$this, 'shutdownReleaseLocks']);
     }
 
@@ -153,7 +153,6 @@ class Mage_Index_Model_Lock
      * @param bool $block
      * @return bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
     protected function _setLockDb($lockName, $block = false)
     {
         if ($this->_getLockStorage()->setLock($lockName)) {
@@ -285,19 +284,15 @@ class Mage_Index_Model_Lock
         if (!isset(self::$_lockFileResource[$lockName]) || self::$_lockFileResource[$lockName] === null) {
             $varDir = Mage::getConfig()->getVarDir('locks');
             $file = $varDir . DS . $lockName . '.lock';
-            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
             if (is_file($file)) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 self::$_lockFileResource[$lockName] = fopen($file, 'w');
             } else {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 self::$_lockFileResource[$lockName] = fopen($file, 'x');
             }
             if (!self::$_lockFileResource[$lockName]) {
                 self::$_lockFileResource[$lockName] = null;
                 throw new Exception(sprintf('Unable to open lock file \'%s\': %s', $file, error_get_last()));
             }
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             fwrite(self::$_lockFileResource[$lockName], date('r'));
         }
         return self::$_lockFileResource[$lockName];

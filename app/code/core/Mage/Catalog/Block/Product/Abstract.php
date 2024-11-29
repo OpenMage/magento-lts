@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -166,7 +167,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Gets minimal sales quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int|null
+     * @return float|null
      */
     public function getMinimalQty($product)
     {
@@ -232,19 +233,19 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
-        $type_id = $product->getTypeId();
+        $typeId = $product->getTypeId();
         if (Mage::helper('catalog')->canApplyMsrp($product)) {
-            $realPriceHtml = $this->_preparePriceRenderer($type_id)
+            $realPriceHtml = $this->_preparePriceRenderer($typeId)
                 ->setProduct($product)
                 ->setDisplayMinimalPrice($displayMinimalPrice)
                 ->setIdSuffix($idSuffix)
                 ->toHtml();
             $product->setAddToCartUrl($this->getAddToCartUrl($product));
             $product->setRealPriceHtml($realPriceHtml);
-            $type_id = $this->_mapRenderer;
+            $typeId = $this->_mapRenderer;
         }
 
-        return $this->_preparePriceRenderer($type_id)
+        return $this->_preparePriceRenderer($typeId)
             ->setProduct($product)
             ->setDisplayMinimalPrice($displayMinimalPrice)
             ->setIdSuffix($idSuffix)
@@ -271,7 +272,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Get product reviews summary
      *
-     * @param bool $templateType
+     * @param string|false $templateType
      * @param bool $displayIfNoReviews
      * @return string
      * @throws Mage_Core_Model_Store_Exception
@@ -312,11 +313,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     protected function _initReviewsHelperBlock()
     {
         if (!$this->_reviewsHelperBlock) {
-            if (!Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
+            if (!$this->isModuleEnabled('Mage_Review', 'catalog')) {
                 return false;
             }
 
-            $this->_reviewsHelperBlock = $this->getLayout()->createBlock('review/helper');
+            /** @var Mage_Review_Block_Helper $block */
+            $block = $this->getLayout()->createBlock('review/helper');
+            $this->_reviewsHelperBlock = $block;
         }
 
         return true;

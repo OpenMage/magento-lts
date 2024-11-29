@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -849,7 +850,6 @@ class Mage_CatalogInventory_Model_Observer
      * @param Varien_Event_Observer $observer
      * @return  $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function updateItemsStockUponConfigChange($observer)
     {
         Mage::getResourceSingleton('cataloginventory/stock')->updateSetOutOfStock();
@@ -1036,7 +1036,6 @@ class Mage_CatalogInventory_Model_Observer
      * @param Varien_Event_Observer $observer
      * @throws Exception
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
     public function reindexProductsMassAction($observer)
     {
         Mage::getSingleton('index/indexer')->indexEvents(

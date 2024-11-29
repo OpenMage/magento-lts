@@ -34,6 +34,17 @@ class HintTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Hint::getAvailableHints()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testGetAvailableHints(): void
+    {
+        $this->assertSame([], $this->subject->getAvailableHints());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Hint::getHintByCode()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */

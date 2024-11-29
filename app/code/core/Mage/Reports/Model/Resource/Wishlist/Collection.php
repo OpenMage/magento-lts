@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -85,7 +86,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
     /**
      * Get shared items collection count
      *
-     * @return int
+     * @return false|string|null
      */
     public function getSharedCount()
     {

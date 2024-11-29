@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -464,6 +465,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
         $block->setParentBlock($this);
         $block->setBlockAlias($alias);
+        $this->unsetChild($alias);
         $this->_children[$alias] = $block;
         return $this;
     }
@@ -482,7 +484,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             unset($this->_children[$alias]);
             $key = array_search($name, $this->_sortedChildren);
             if ($key !== false) {
-                unset($this->_sortedChildren[$key]);
+                array_splice($this->_sortedChildren, $key, 1);
             }
         }
 
@@ -521,7 +523,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             }
 
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($child, $callback, $params);
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if ($result == call_user_func_array([&$child, $callback], $params)) {
                 $this->unsetChild($alias);
             }
@@ -741,7 +742,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function sortChildren($force = false)
     {
-        $this->_sortedChildren = array_values($this->_sortedChildren); // reset indexes which might have gaps after unsetting blocks
         foreach ($this->_sortInstructions as $name => $list) {
             list($siblingName, $after, $exists) = $list;
             if ($exists && !$force) {
@@ -1173,11 +1173,13 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Translate block sentence
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function __()
     {
         $args = func_get_args();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getModuleName());
         array_unshift($args, $expr);
         return $this->_getApp()->getTranslator()->translate($args);
@@ -1216,7 +1218,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function escapeHtmlAsObject(string $data, ?array $allowedTags = null): Mage_Core_Model_Security_HtmlEscapedString
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         return new Mage_Core_Model_Security_HtmlEscapedString($data, $allowedTags);
     }
 
@@ -1441,7 +1442,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Get block cache life time
+     * Get block cache lifetime
      *
      * @return int|null
      */
@@ -1549,7 +1550,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     /**
      * Collect and retrieve items tags.
-     * Item should implements Mage_Core_Model_Abstract::getCacheIdTags method
+     * Item should implement Mage_Core_Model_Abstract::getCacheIdTags method
      *
      * @param array|Varien_Data_Collection $items
      * @return array
@@ -1576,5 +1577,29 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected function _isSecure()
     {
         return $this->_getApp()->getFrontController()->getRequest()->isSecure();
+    }
+
+    public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
+    {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
+
+    /**
+     * Check whether the module output is enabled
+     *
+     * Because many module blocks belong to Adminhtml module,
+     * the feature "Disable module output" doesn't cover Admin area
+     */
+    public function isModuleOutputEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
+    {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
+        return Mage::helper($helperAlias)->isModuleOutputEnabled($moduleName);
     }
 }

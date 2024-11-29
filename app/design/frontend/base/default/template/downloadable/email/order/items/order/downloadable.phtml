@@ -13,6 +13,12 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @var Mage_Downloadable_Block_Sales_Order_Email_Items_Order_Downloadable $this
+ * @var Mage_Downloadable_Model_Link_Purchased_Item|Mage_Sales_Model_Order_Item|Mage_Catalog_Model_Product|Mage_Sales_Model_Quote_Item_Abstract $_item
+ */
+?>
 <?php $_item = $this->getItem() ?>
 <?php $_order = $this->getItem()->getOrder() ?>
 <tr>
@@ -39,7 +45,7 @@
             </dl>
         <?php endif ?>
         <?php echo $this->escapeHtml($_item->getDescription()) ?>
-        <?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
+        <?php if ($_giftMessage = $this->getGiftMessage()): ?>
             <br/><strong><?php echo $this->__('Gift Message') ?></strong>
             <br/><?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
             <br/><?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
@@ -65,20 +71,20 @@
                     <small>
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
-                                : <?php echo $_order->formatPrice($tax['row_amount'], true, true); ?></span><br/>
+                                : <?php echo $_order->formatPrice($tax['row_amount'], true); ?></span><br/>
                         <?php endforeach ?>
                     </small>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'email', $_order->getStore())): ?>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                         <span class="nobr"><small><?php echo $tax['title']; ?>
-                                : <?php echo $_order->formatPrice($tax['row_amount'], true, true); ?></small></span>
+                                : <?php echo $_order->formatPrice($tax['row_amount'], true); ?></small></span>
                         <br/>
                     <?php endforeach ?>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'email', $_order->getStore())): ?>
                     <small>
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
-                                : <?php echo $_order->formatPrice($tax['row_amount'], true, true); ?></span><br/>
+                                : <?php echo $_order->formatPrice($tax['row_amount'], true); ?></span><br/>
                         <?php endforeach ?>
                     </small>
                 <?php endif ?>
@@ -107,21 +113,21 @@
                     <small>
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
-                                : <?php echo $_order->formatPrice($tax['row_amount_incl_tax'], true, true); ?></span>
+                                : <?php echo $_order->formatPrice($tax['row_amount_incl_tax'], true); ?></span>
                             <br/>
                         <?php endforeach ?>
                     </small>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'email', $_order->getStore())): ?>
                     <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                         <span class="nobr"><small><?php echo $tax['title']; ?>
-                                : <?php echo $_order->formatPrice($tax['row_amount_incl_tax'], true, true); ?></small></span>
+                                : <?php echo $_order->formatPrice($tax['row_amount_incl_tax'], true); ?></small></span>
                         <br/>
                     <?php endforeach ?>
                 <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'email', $_order->getStore())): ?>
                     <small>
                         <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
                             <span class="nobr"><?php echo $tax['title']; ?>
-                                : <?php echo $_order->formatPrice($tax['row_amount_incl_tax'], true, true); ?></span>
+                                : <?php echo $_order->formatPrice($tax['row_amount_incl_tax'], true); ?></span>
                             <br/>
                         <?php endforeach ?>
                     </small>

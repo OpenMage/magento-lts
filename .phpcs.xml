@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ruleset name="OpenMage All" namespace="OpenMage\CS\Standard">
+    <rule ref=".phpcs.dist.xml" />
+    <rule ref=".phpcs.dist.php.xml" />
+    <rule ref=".phpcs.dist.ecg.xml" />
+</ruleset>

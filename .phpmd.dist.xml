@@ -2,24 +2,27 @@
 <ruleset name="OpenMage ruleset"
          xmlns="http://pmd.sf.net/ruleset/1.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
-         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 https://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="https://pmd.sf.net/ruleset_xml_schema.xsd">
     <description>
         OpenMage ruleset
     </description>
 
     <!-- UNUSEDCODE
-    [?] UnusedFormalParameter
-    [x] UnusedLocalVariable
+    [ ] UnusedFormalParameter - TMP disabled
+    [ ] UnusedLocalVariable - TMP disabled
     [x] UnusedPrivateField
     [x] UnusedPrivateMethod
     -->
-    <rule ref="rulesets/unusedcode.xml" />
+    <rule ref="rulesets/unusedcode.xml">
+        <exclude name="UnusedFormalParameter" />
+        <exclude name="UnusedLocalVariable" />
+    </rule>
 
     <!-- CLEANCODE
     [-] BooleanArgumentFlag
     [?] ElseExpression
-    [?] ErrorControlOperator
+    [x] ErrorControlOperator
     [x] DuplicatedArrayKey
     [ ] IfStatementAssignment
     [?] MissingImport
@@ -41,10 +44,10 @@
     </rule>
 
     <!-- CONTROVERSIAL
-    [ ] CamelCaseClassName
-    [ ] CamelCaseMethodName
+    [-] CamelCaseClassName
+    [-] CamelCaseMethodName
     [ ] CamelCaseParameterName
-    [ ] CamelCasePropertyName
+    [-] CamelCasePropertyName
     [ ] CamelCaseVariableName
     [x] Superglobals
     -->
@@ -66,20 +69,26 @@
     </rule>
     <rule ref="rulesets/controversial.xml/Superglobals" />
 
-    <!-- NAMEING
-    [ ] BooleanGetMethodName
+    <!-- NAMING
+    [-] BooleanGetMethodName
     [ ] ConstantNamingConventions
     [ ] ConstructorWithNameAsEnclosingClass
-    [ ] LongClassName
+    [-] LongClassName
     [ ] ShortClassName
-    [ ] LongVariable
-    [?] ShortVariable
+    [-] LongVariable
+    [?] ShortVariable - TMP disabled
     [ ] ShortMethodName
     -->
-    <rule ref="rulesets/naming.xml/ShortVariable">
-        <properties>
-            <property name="exceptions" value="a,b,e,id,idx,io,ip,to,x,y,x1,x2,y1,y2" />
-        </properties>
+<!--    <rule ref="rulesets/naming.xml/ShortVariable">-->
+<!--        <properties>-->
+<!--            <property name="exceptions" value="a,b,e,id,idx,io,ip,to,x,y,x1,x2,y1,y2" />-->
+<!--        </properties>-->
+<!--    </rule>-->
+    <rule ref="rulesets/naming.xml">
+        <exclude name="BooleanGetMethodName" />
+        <exclude name="LongClassName" />
+        <exclude name="LongVariable" />
+        <exclude name="ShortVariable" />
     </rule>
     <rule ref="rulesets/naming.xml/ShortMethodName" />
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
     /**
      * Collect information about free shipping for all address items
      *
-     * @return  Mage_SalesRule_Model_Quote_Freeshipping
+     * @return  $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -90,7 +91,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
      * Add information about free shipping for all address items to address object
      * By default we not present such information
      *
-     * @return  Mage_SalesRule_Model_Quote_Freeshipping
+     * @return $this
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {

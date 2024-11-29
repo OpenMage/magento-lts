@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -171,6 +172,6 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      */
     public function canUseCanonicalTag($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_USE_CATEGORY_CANONICAL_TAG, $store);
+        return Mage::getStoreConfigFlag(self::XML_PATH_USE_CATEGORY_CANONICAL_TAG, $store);
     }
 }

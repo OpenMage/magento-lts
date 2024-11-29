@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -72,7 +73,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
     /**
      * Retrieves store id from store code, if no store id specified,
-     * it use set session or admin store
+     * it uses set session or admin store
      *
      * @param string|int $store
      * @return int

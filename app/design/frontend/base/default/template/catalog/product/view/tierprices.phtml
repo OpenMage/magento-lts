@@ -9,7 +9,7 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -17,12 +17,13 @@
 <?php
 /**
  * @see Mage_Catalog_Block_Product_View
+ * @var Mage_Catalog_Block_Product_View $this
  */
 $_product = $this->getProduct();
 $_tierPrices = $this->getTierPrices();
 $_finalPriceInclTax = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice(), true);
 
-/** @var $_catalogHelper Mage_Catalog_Helper_Data */
+/** @var Mage_Catalog_Helper_Data $_catalogHelper */
 $_catalogHelper = Mage::helper('catalog');
 
 $_weeeTaxAmount = Mage::helper('weee')->getAmountForDisplay($_product);

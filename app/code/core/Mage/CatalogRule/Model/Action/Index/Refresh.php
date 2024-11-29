@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -420,7 +421,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 ) . ' = cppt.grouped_id AND '
                 . $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@action_stop'),
-                    new Zend_Db_Expr(0)
+                    new Zend_Db_Expr('0')
                 ) . ' = 0' => '@price := ' . $this->_connection->getCaseSql(
                     $this->_connection->quoteIdentifier('cppt.action_operator'),
                     [
@@ -480,7 +481,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                                 ) . ' = cppt.grouped_id' => '@action_stop := '
                                     . $this->_connection->getIfNullSql(
                                         new Zend_Db_Expr('@action_stop'),
-                                        new Zend_Db_Expr(0)
+                                        new Zend_Db_Expr('0')
                                     ) . ' + cppt.action_stop',
                             ]
                         )
@@ -534,7 +535,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             ->where(
                 $this->_connection->getCheckSql(
                     new Zend_Db_Expr('to_time = 0'),
-                    new Zend_Db_Expr(1),
+                    new Zend_Db_Expr('1'),
                     new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . ' <= to_time')
                 )
             )
@@ -595,7 +596,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     {
         $this->_connection->delete($this->_resource->getTable('catalogrule/rule_group_website'), []);
         $select = $this->_connection->select()
-            ->distinct(true)
+            ->distinct()
             ->from(
                 $this->_resource->getTable('catalogrule/rule_product'),
                 ['rule_id', 'customer_group_id', 'website_id']
@@ -604,7 +605,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             ->where(
                 $this->_connection->getCheckSql(
                     new Zend_Db_Expr('to_time = 0'),
-                    new Zend_Db_Expr(1),
+                    new Zend_Db_Expr('1'),
                     new Zend_Db_Expr("{$timestamp} <= to_time")
                 )
             );

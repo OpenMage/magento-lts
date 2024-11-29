@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -77,7 +78,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (function_exists('openssl_random_pseudo_bytes')) {
             // use openssl lib if it is install. It provides a better randomness
-            $bytes = openssl_random_pseudo_bytes(ceil($length / 2), $strong);
+            $bytes = openssl_random_pseudo_bytes((int)ceil($length / 2), $strong);
             $hex = bin2hex($bytes); // hex() doubles the length of the string
             $randomString = substr($hex, 0, $length); // we truncate at most 1 char if length parameter is an odd number
         } else {

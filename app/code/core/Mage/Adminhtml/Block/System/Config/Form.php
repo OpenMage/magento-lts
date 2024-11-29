@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -592,7 +593,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected function _canShowField($field)
     {
         $ifModuleEnabled = trim((string)$field->if_module_enabled);
-        if ($ifModuleEnabled && !Mage::helper('Core')->isModuleEnabled($ifModuleEnabled)) {
+        if ($ifModuleEnabled && !$this->isModuleEnabled($ifModuleEnabled)) {
             return false;
         }
 

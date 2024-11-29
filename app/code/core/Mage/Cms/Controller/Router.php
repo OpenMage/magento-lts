@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -38,6 +39,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
      * Validate and Match Cms Page and modify request
      *
      * @return bool
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function match(Zend_Controller_Request_Http $request)
     {
@@ -45,7 +47,6 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect(Mage::getUrl('install'))
                 ->sendResponse();
-            // phpcs:ignore: Ecg.Security.LanguageConstruct.ExitUsage
             exit;
         }
 

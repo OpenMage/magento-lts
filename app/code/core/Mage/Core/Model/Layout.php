@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -228,8 +229,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         }
 
         $blockName = (string)$node['name'];
-        $_profilerKey = 'BLOCK: ' . $blockName;
-        Varien_Profiler::start($_profilerKey);
+        $profilerKey = 'BLOCK: ' . $blockName;
+        Varien_Profiler::start($profilerKey);
 
         $block = $this->addBlock($className, $blockName);
         if (!$block) {
@@ -270,7 +271,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $method = (string)$node['output'];
             $this->addOutputBlock($blockName, $method);
         }
-        Varien_Profiler::stop($_profilerKey);
+        Varien_Profiler::stop($profilerKey);
 
         return $this;
     }
@@ -295,8 +296,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $parentName = $parent->getBlockName();
         }
 
-        $_profilerKey = 'BLOCK ACTION: ' . $parentName . ' -> ' . $method;
-        Varien_Profiler::start($_profilerKey);
+        $profilerKey = 'BLOCK ACTION: ' . $parentName . ' -> ' . $method;
+        Varien_Profiler::start($profilerKey);
 
         if (!empty($parentName)) {
             $block = $this->getBlock($parentName);
@@ -313,7 +314,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                         $helperName = implode('/', $helperName);
                         $arg = $arg->asArray();
                         unset($arg['@']);
-                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $args[$key] = call_user_func_array([Mage::helper($helperName), $helperMethod], $arg);
                     } else {
                         /**
@@ -344,11 +344,10 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($block, $method, $args);
 
             $this->_translateLayoutNode($node, $args);
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             call_user_func_array([$block, $method], array_values($args));
         }
 
-        Varien_Profiler::stop($_profilerKey);
+        Varien_Profiler::stop($profilerKey);
 
         return $this;
     }
@@ -358,7 +357,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param string[]                 $args
      * @throws Mage_Core_Exception
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
     {
         foreach ($this->invalidActions as $action) {
@@ -394,7 +392,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 $argumentHierarchy = explode('.', $translatableArgumentName);
                 $argumentStack = &$args;
                 $canTranslate = true;
-                // phpcs:ignore Ecg.Performance.Loop.ArraySize
                 while (is_array($argumentStack) && count($argumentStack) > 0) {
                     $argumentName = array_shift($argumentHierarchy);
                     if (isset($argumentStack[$argumentName])) {

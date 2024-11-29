@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -238,7 +239,6 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     protected function _getAdditionalElementHtml($element)
     {
         return '';

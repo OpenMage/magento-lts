@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -286,7 +287,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Delete prices
      *
-     * @param int $optionId
+     * @param int|string $optionId
      * @return $this
      */
     public function deletePrices($optionId)
@@ -304,7 +305,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Delete titles
      *
-     * @param int $optionId
+     * @param int|string $optionId
      * @return $this
      */
     public function deleteTitles($optionId)

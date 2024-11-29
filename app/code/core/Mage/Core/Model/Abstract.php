@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,7 +49,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Original data that was loaded
      *
-     * @var array
+     * @var array|null
      */
     protected $_origData;
 
@@ -474,8 +475,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($this->getId() && $this->_cacheTag) {
             $tags = [];
             if (is_array($this->_cacheTag)) {
-                foreach ($this->_cacheTag as $_tag) {
-                    $tags[] = $_tag . '_' . $this->getId();
+                foreach ($this->_cacheTag as $tag) {
+                    $tags[] = $tag . '_' . $this->getId();
                 }
             } else {
                 $tags[] = $this->_cacheTag . '_' . $this->getId();
@@ -634,5 +635,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _clearData()
     {
         return $this;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -229,7 +230,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      */
     public function canUseCanonicalTag($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_USE_PRODUCT_CANONICAL_TAG, $store);
+        return Mage::getStoreConfigFlag(self::XML_PATH_USE_PRODUCT_CANONICAL_TAG, $store);
     }
 
     /**
@@ -500,7 +501,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Gets minimal sales quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int|null
+     * @return float|null
      */
     public function getMinimalQty($product)
     {
