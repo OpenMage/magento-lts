@@ -38,7 +38,9 @@
         "symfony/polyfill-php81": "^1.31",
         "symfony/polyfill-php82": "^1.31",
         "symfony/polyfill-php83": "^1.31",
-        "symfony/polyfill-php84": "^1.31"
+        "symfony/polyfill-php84": "^1.31",
+        "symfony/string": "^5.4",
+        "symfony/translation-contracts": "^2.5"
     },
     "require-dev": {
         "ext-xmlreader": "*",
