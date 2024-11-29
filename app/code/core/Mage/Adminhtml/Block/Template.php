@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -40,21 +41,14 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     }
 
     /**
-     * Check whether the module output is enabled
-     *
-     * Because many module blocks belong to Adminhtml module,
-     * the feature "Disable module output" doesn't cover Admin area
-     *
      * @param string $moduleName Full module name
      * @return bool
+     * @deprecated
+     * @see Mage_Core_Block_Template::isModuleOutputEnabled()
      */
     public function isOutputEnabled($moduleName = null)
     {
-        if ($moduleName === null) {
-            $moduleName = $this->getModuleName();
-        }
-
-        return Mage::helper('core')->isModuleOutputEnabled($moduleName);
+        return $this->isModuleOutputEnabled($moduleName);
     }
 
     /**

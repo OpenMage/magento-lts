@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -226,6 +227,9 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function login($username, $password)
     {
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());

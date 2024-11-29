@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -69,7 +70,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     /**
      * Retrieve specified attribute data for specified products from specified store
      *
-     * @param array $products
+     * @param array|string $products
      * @param array $attributes
      * @param int $store
      * @return array
