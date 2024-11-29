@@ -339,6 +339,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     protected $_reviewSummary = [];
 
+    protected ?string $locale = null;
+
     /**
      * Initialize resources
      */
@@ -1681,7 +1683,18 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function formatUrlKey($str)
     {
-        return $this->getUrlModel()->formatUrlKey($str);
+        return $this->getUrlModel()->setLocale($this->getLocale())->formatUrlKey($str);
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
 
     /**
