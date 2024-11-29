@@ -24,10 +24,13 @@ use Mage_Catalog_Model_Product_Link;
 use Mage_Catalog_Model_Product_Type_Abstract;
 use Mage_Catalog_Model_Product_Url;
 use Mage_Catalog_Model_Resource_Product_Collection;
+use Mage_Catalog_Model_Url;
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
 {
+    public const TEST_STRING = 'a & B, x%, ä, ö, ü';
+
     public Mage_Catalog_Model_Product $subject;
 
     public function setUp(): void
@@ -60,6 +63,7 @@ class ProductTest extends TestCase
      */
     public function testGetUrlModel(): void
     {
+        $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());
         $this->assertInstanceOf(Mage_Catalog_Model_Product_Url::class, $this->subject->getUrlModel());
     }
 
@@ -163,5 +167,28 @@ class ProductTest extends TestCase
     public function testAfterCommitCallback(): void
     {
         $this->assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->afterCommitCallback());
+    }
+
+    /**
+     * @dataProvider provideFormatUrlKey
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testFormatUrlKey($expectedResult, ?string $locale): void
+    {
+        $this->subject->setLocale($locale);
+        $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
+    }
+
+    public function provideFormatUrlKey(): Generator
+    {
+        yield 'null locale' => [
+            'a-b-x-a-o-u',
+            null,
+        ];
+        yield 'de_DE' => [
+            'a-und-b-x-prozent-ae-oe-ue',
+            'de_DE',
+        ];
     }
 }
