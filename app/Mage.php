@@ -781,7 +781,7 @@ final class Mage
      *
      * @param array $options
      */
-    protected static function _setIsInstalled($options = [])
+    private static function _setIsInstalled($options = [])
     {
         if (isset($options['is_installed']) && $options['is_installed']) {
             self::$_isInstalled = true;
@@ -793,7 +793,7 @@ final class Mage
      *
      * @param array $options
      */
-    protected static function _setConfigModel($options = [])
+    private static function _setConfigModel($options = [])
     {
         if (isset($options['config_model']) && class_exists($options['config_model'])) {
             $alternativeConfigModelName = $options['config_model'];
