@@ -44,7 +44,7 @@ class NewsletterTest extends TestCase
             ->setMethods(['getRegistryCurrentCustomer'])
             ->getMock();
 
-        $mock->expects($this->any())
+        $mock
             ->method('getRegistryCurrentCustomer')
             // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             ->willReturn(new Mage_Customer_Model_Customer());

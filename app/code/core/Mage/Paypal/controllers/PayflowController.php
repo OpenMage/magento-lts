@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -132,7 +133,8 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
     protected function _getIframeBlock()
     {
         $this->loadLayout('paypal_payflow_link_iframe');
-        return $this->getLayout()
-            ->getBlock('payflow.link.iframe');
+        /** @var Mage_Paypal_Block_Payflow_Link_Iframe $block */
+        $block = $this->getLayout()->getBlock('payflow.link.iframe');
+        return $block;
     }
 }

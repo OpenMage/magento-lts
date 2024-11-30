@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -614,6 +615,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
 
             // prepare multi-store values and system columns values
             foreach ($this->_storeIdToCode as $storeId => &$storeCode) { // go through all stores
+                /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
                 $collection = $this->_prepareEntityCollection(Mage::getResourceModel('catalog/product_collection'));
                 $collection
                     ->setStoreId($storeId)
@@ -721,7 +723,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 $collection->clear();
             }
 
-            if ($collection->getCurPage() < $offsetProducts) {
+            if (isset($collection) && $collection->getCurPage() < $offsetProducts) {
                 break;
             }
 

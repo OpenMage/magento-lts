@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -13,13 +14,15 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Symfony\Component\String\Slugger\AsciiSlugger;
+
 /**
  * Catalog url model
  *
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Url
+class Mage_Catalog_Model_Url extends Varien_Object
 {
     /**
      * Number of characters allowed to be in URL path
@@ -98,6 +101,62 @@ class Mage_Catalog_Model_Url
     * @var Mage_Catalog_Model_Category
     */
     protected static $_categoryForUrlPath;
+
+    protected ?string $locale = null;
+
+    /**
+     * Url instance
+     *
+     * @var Mage_Core_Model_Url
+     */
+    protected $_url;
+
+    /**
+     * Url rewrite instance
+     *
+     * @var Mage_Core_Model_Url_Rewrite
+     */
+    protected $_urlRewrite;
+
+    /**
+     * Factory instance
+     *
+     * @var Mage_Catalog_Model_Factory
+     */
+    protected $_factory;
+
+    /**
+     * @var AsciiSlugger[]
+     */
+    protected ?array $slugger = null;
+
+    /**
+     * Retrieve Url instance
+     *
+     * @return Mage_Core_Model_Url
+     */
+    public function getUrlInstance()
+    {
+        if ($this->_url === null) {
+            /** @var Mage_Core_Model_Url $model */
+            $model = $this->_factory->getModel('core/url');
+            $this->_url = $model;
+        }
+        return $this->_url;
+    }
+
+    /**
+     * Retrieve Url rewrite instance
+     *
+     * @return Mage_Core_Model_Url_Rewrite
+     */
+    public function getUrlRewrite()
+    {
+        if ($this->_urlRewrite === null) {
+            $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
+        }
+        return $this->_urlRewrite;
+    }
 
     /**
      * Adds url_path property for non-root category - to ensure that url path is not empty.
@@ -256,11 +315,9 @@ class Mage_Catalog_Model_Url
     protected function _refreshCategoryRewrites(Varien_Object $category, $parentPath = null, $refreshProducts = true)
     {
         if ($category->getId() != $this->getStores($category->getStoreId())->getRootCategoryId()) {
-            if ($category->getUrlKey() == '') {
-                $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
-            } else {
-                $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
-            }
+            $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
+            $urlKey = $category->getUrlKey() == '' ? $category->getName() : $category->getUrlKey();
+            $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($urlKey);
 
             $idPath      = $this->generatePath('id', null, $category);
             $targetPath  = $this->generatePath('target', null, $category);
@@ -319,11 +376,10 @@ class Mage_Catalog_Model_Url
         if ($category->getId() == $category->getPath()) {
             return $this;
         }
-        if ($product->getUrlKey() == '') {
-            $urlKey = $this->getProductModel()->formatUrlKey($product->getName());
-        } else {
-            $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
-        }
+
+        $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
+        $urlKey = $product->getUrlKey() == '' ? $product->getName() : $product->getUrlKey();
+        $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($urlKey);
 
         $idPath      = $this->generatePath('id', $product, $category);
         $targetPath  = $this->generatePath('target', $product, $category);
@@ -365,7 +421,7 @@ class Mage_Catalog_Model_Url
     }
 
     /**
-     * Refresh products for catwgory
+     * Refresh products for category
      *
      * @return $this
      */
@@ -671,7 +727,7 @@ class Mage_Catalog_Model_Url
     }
 
     /**
-     * Retrieve product rewrite sufix for store
+     * Retrieve product rewrite suffix for store
      *
      * @param int $storeId
      * @return string
@@ -682,7 +738,7 @@ class Mage_Catalog_Model_Url
     }
 
     /**
-     * Retrieve category rewrite sufix for store
+     * Retrieve category rewrite suffix for store
      *
      * @param int $storeId
      * @return string
@@ -709,11 +765,9 @@ class Mage_Catalog_Model_Url
             $existingRequestPath = $this->_rewrites[$idPath]->getRequestPath();
         }
 
-        if ($category->getUrlKey() == '') {
-            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
-        } else {
-            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
-        }
+        $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
+        $urlKey = $category->getUrlKey() == '' ? $category->getName() : $category->getUrlKey();
+        $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($urlKey);
 
         $categoryUrlSuffix = $this->getCategoryUrlSuffix($storeId);
         if ($parentPath === null) {
@@ -765,11 +819,10 @@ class Mage_Catalog_Model_Url
      */
     public function getProductRequestPath($product, $category)
     {
-        if ($product->getUrlKey() == '') {
-            $urlKey = $this->getProductModel()->formatUrlKey($product->getName());
-        } else {
-            $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
-        }
+        $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
+        $urlKey = $product->getUrlKey() == '' ? $product->getName() : $product->getUrlKey();
+        $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($urlKey);
+
         $storeId = $category->getStoreId();
         $suffix  = $this->getProductUrlSuffix($storeId);
         $idPath  = $this->generatePath('id', $product, $category);
@@ -880,11 +933,9 @@ class Mage_Catalog_Model_Url
         if ($type === 'request') {
             // for category
             if (!$product) {
-                if ($category->getUrlKey() == '') {
-                    $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
-                } else {
-                    $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
-                }
+                $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
+                $urlKey = $category->getUrlKey() == '' ? $category->getName() : $category->getUrlKey();
+                $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($urlKey);
 
                 $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
                 if ($parentPath === null) {
@@ -911,11 +962,10 @@ class Mage_Catalog_Model_Url
                 Mage::throwException(Mage::helper('core')->__('A category object is required for determining the product request path.')); // why?
             }
 
-            if ($product->getUrlKey() == '') {
-                $urlKey = $this->getProductModel()->formatUrlKey($product->getName());
-            } else {
-                $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
-            }
+            $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
+            $urlKey = $product->getUrlKey() == '' ? $product->getName() : $product->getUrlKey();
+            $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($urlKey);
+
             $productUrlSuffix  = $this->getProductUrlSuffix($category->getStoreId());
             if ($category->getLevel() > 1) {
                 // To ensure, that category has url path either from attribute or generated now
@@ -981,6 +1031,66 @@ class Mage_Catalog_Model_Url
             $this->getResource()->saveRewriteHistory($rewriteData);
         }
 
+        return $this;
+    }
+
+    /**
+     * Format Key for URL
+     *
+     * @param string $str
+     * @return string
+     */
+    public function formatUrlKey($str)
+    {
+        return $this->getSlugger()->slug($str)->lower()->toString();
+    }
+
+    public function getSlugger(): AsciiSlugger
+    {
+        $locale = $this->getLocale();
+        if (is_null($this->slugger) || !array_key_exists($locale, $this->slugger)) {
+            $config = $this->getSluggerConfig($locale);
+            $slugger = new AsciiSlugger('en', $config);
+            $slugger->setLocale($locale);
+
+            $this->slugger[$locale] = $slugger;
+        }
+
+        return $this->slugger[$locale];
+    }
+
+    final public function getSluggerConfig(?string $locale): array
+    {
+        $config = Mage::helper('catalog/product_url')->getConvertTableShort();
+
+        if ($locale) {
+            $convertNode = Mage::getConfig()->getNode('default/url/convert/' . $locale);
+            if ($convertNode instanceof Mage_Core_Model_Config_Element) {
+                $localeConfig = [];
+                /** @var Mage_Core_Model_Config_Element $node */
+                foreach ($convertNode->children() as $node) {
+                    if (property_exists($node, 'from') && property_exists($node, 'to')) {
+                        $localeConfig[(string) $node->from] = (string) $node->to;
+                    }
+                }
+                $config = [$locale => $config + $localeConfig];
+            }
+        }
+
+        return $config;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setLocale(?string $locale)
+    {
+        $this->locale = $locale;
         return $this;
     }
 }

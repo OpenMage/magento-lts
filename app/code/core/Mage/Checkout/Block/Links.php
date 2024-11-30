@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
     public function addCartLink()
     {
         $parentBlock = $this->getParentBlock();
-        if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
+        if ($parentBlock && $this->isModuleOutputEnabled('Mage_Checkout')) {
             /** @var Mage_Checkout_Helper_Cart $helper */
             $helper = $this->helper('checkout/cart');
             $count = $this->getSummaryQty() ?: $helper->getSummaryCount();
@@ -64,7 +65,7 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
         }
 
         $parentBlock = $this->getParentBlock();
-        if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
+        if ($parentBlock && $this->isModuleOutputEnabled('Mage_Checkout')) {
             $text = $this->__('Checkout');
             $parentBlock->addLink(
                 $text,

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -14,34 +15,13 @@
  */
 
 /**
- * Catalog category url
+ * Catalog Url model
  *
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Category_Url
+class Mage_Catalog_Model_Category_Url extends Mage_Catalog_Model_Url
 {
-    /**
-     * Url instance
-     *
-     * @var Mage_Core_Model_Url
-     */
-    protected $_url;
-
-    /**
-     * Factory instance
-     *
-     * @var Mage_Catalog_Model_Factory
-     */
-    protected $_factory;
-
-    /**
-     * Url rewrite instance
-     *
-     * @var Mage_Core_Model_Url_Rewrite
-     */
-    protected $_urlRewrite;
-
     /**
      * Initialize Url model
      */
@@ -111,31 +91,5 @@ class Mage_Catalog_Model_Category_Url
             return $rewrite->getRequestPath();
         }
         return false;
-    }
-
-    /**
-     * Retrieve Url instance
-     *
-     * @return Mage_Core_Model_Url
-     */
-    public function getUrlInstance()
-    {
-        if ($this->_url === null) {
-            $this->_url = $this->_factory->getModel('core/url');
-        }
-        return $this->_url;
-    }
-
-    /**
-     * Retrieve Url rewrite instance
-     *
-     * @return Mage_Core_Model_Url_Rewrite
-     */
-    public function getUrlRewrite()
-    {
-        if ($this->_urlRewrite === null) {
-            $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
-        }
-        return $this->_urlRewrite;
     }
 }

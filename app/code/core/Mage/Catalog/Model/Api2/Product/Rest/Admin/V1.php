@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -354,7 +355,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      * Filter out fields if Use Config Settings option used
      *
      * @param array $data
-     * @param string $fields
+     * @param array $fields
      */
     protected function _filterConfigValueUsed(&$data, $fields)
     {

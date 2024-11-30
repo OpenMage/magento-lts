@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -109,26 +110,6 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             return 0;
         }
         return $this->getSubtotal(false);
-    }
-
-    /**
-     * Add tax to amount
-     *
-     * @param float $price
-     * @param bool $exclShippingTax
-     * @return float
-     */
-    private function _addTax($price, $exclShippingTax = true)
-    {
-        $totals = $this->getTotals();
-        if (isset($totals['tax'])) {
-            if ($exclShippingTax) {
-                $price += $totals['tax']->getValue() - $this->_getShippingTaxAmount();
-            } else {
-                $price += $totals['tax']->getValue();
-            }
-        }
-        return $price;
     }
 
     /**

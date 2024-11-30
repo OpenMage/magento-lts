@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -325,7 +326,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $xml->addChild('Revision', '2');
 
             $package = $xml->addChild('Package');
-            $package->addAttribute('ID', 0);
+            $package->addAttribute('ID', '0');
             $service = $this->getCode('service_to_code', $r->getService());
             if (!$service) {
                 $service = $r->getService();
@@ -369,7 +370,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $xml->addChild('Revision', '2');
 
             $package = $xml->addChild('Package');
-            $package->addAttribute('ID', 0);
+            $package->addAttribute('ID', '0');
             $package->addChild('Pounds', $r->getWeightPounds());
             $package->addChild('Ounces', $r->getWeightOunces());
             $package->addChild('MailType', 'All');
@@ -1443,7 +1444,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
         $xml = $xmlWrap->addChild($rootNode);
         $xml->addAttribute('USERID', $this->getConfigData('userid'));
-        $xml->addChild('Option', 1);
+        $xml->addChild('Option', '1');
         $xml->addChild('ImageParameters');
         $xml->addChild('FromName', $request->getShipperContactPersonName());
         $xml->addChild('FromFirm', $request->getShipperContactCompanyName());
@@ -1577,7 +1578,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $xml->addAttribute('USERID', $this->getConfigData('userid'));
         $xml->addAttribute('PASSWORD', $this->getConfigData('password'));
         $xml->addChild('Option');
-        $xml->addChild('Revision', self::DEFAULT_REVISION);
+        $xml->addChild('Revision', (string)self::DEFAULT_REVISION);
         $xml->addChild('ImageParameters');
         $xml->addChild('FromFirstName', $request->getShipperContactPersonFirstName());
         $xml->addChild('FromLastName', $request->getShipperContactPersonLastName());
@@ -1674,12 +1675,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $ceiledQty = 1;
             }
             $individualItemWeight = $itemWeight / $ceiledQty;
-            $itemDetail->addChild('Quantity', $ceiledQty);
-            $itemDetail->addChild('Value', $item->getCustomsValue() * $item->getQty());
+            $itemDetail->addChild('Quantity', (string)$ceiledQty);
+            $itemDetail->addChild('Value', (string)($item->getCustomsValue() * $item->getQty()));
             list($individualPoundsWeight, $individualOuncesWeight) = $this->_convertPoundOunces($individualItemWeight);
             $itemDetail->addChild('NetPounds', $individualPoundsWeight);
             $itemDetail->addChild('NetOunces', $individualOuncesWeight);
-            $itemDetail->addChild('HSTariffNumber', 0);
+            $itemDetail->addChild('HSTariffNumber', '0');
             $itemDetail->addChild('CountryOfOrigin', $countryOfManufacture);
 
             list($itemPoundsWeight, $itemOuncesWeight) = $this->_convertPoundOunces($itemWeight);
