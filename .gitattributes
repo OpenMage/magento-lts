@@ -21,6 +21,8 @@
 /.phpstan.dist.neon export-ignore
 /.rector.php export-ignore
 
+/CNAME export-ignore
+
 /README.md export-ignore
 
 # Enforce checkout with linux lf consistent over all platforms
