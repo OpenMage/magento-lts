@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -23,6 +24,11 @@
  */
 class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection|null
+     */
+    protected $_collection = null;
+
     /**
      * Helper object.
      *
@@ -432,7 +438,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Prepare collection by setting page number, sorting etc..
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|null
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function prepareCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
     {

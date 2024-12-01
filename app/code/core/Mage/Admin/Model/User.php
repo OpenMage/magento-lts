@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -373,6 +374,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function authenticate($username, $password)
     {
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         $config = Mage::getStoreConfigFlag('admin/security/use_case_sensitive_login');
         $result = false;
 
@@ -426,6 +430,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function login($username, $password)
     {
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         if ($this->authenticate($username, $password)) {
             $this->getResource()->recordLogin($this);
             Mage::getSingleton('core/session')->renewFormKey();

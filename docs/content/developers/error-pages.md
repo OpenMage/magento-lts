@@ -38,7 +38,7 @@ This is what it looks like as a rewrite rule:
 
 === "Nginx"
 
-    !!! question
+    !!! bug ""
 
         The setting should be added for multistore setups.
 

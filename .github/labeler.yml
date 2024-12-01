@@ -5,6 +5,13 @@
       .github/**/*
     ]
 
+'git':
+  - changed-files:
+    - any-glob-to-any-file: [
+      .gitattributes,
+      .gitignore
+    ]
+
 'htaccess':
   - changed-files:
     - any-glob-to-any-file: [

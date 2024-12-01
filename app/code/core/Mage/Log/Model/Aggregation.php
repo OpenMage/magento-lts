@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,17 +49,6 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         foreach (Mage::app()->getStores(false) as $store) {
             $this->_process($store->getId());
         }
-    }
-
-    /**
-     * Remove empty records before $lastDate
-     *
-     * @param  string $lastDate
-     * @return Mage_Log_Model_Resource_Aggregation
-     */
-    private function _removeEmpty($lastDate)
-    {
-        return $this->_getResource()->removeEmpty($lastDate);
     }
 
     /**

@@ -19,6 +19,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
     - `Mage_GoogleBase`
     - `Mage_PageCache` ([#2258](https://github.com/OpenMage/magento-lts/pull/2258))
     - `Mage_Poll` ([#3098](https://github.com/OpenMage/magento-lts/pull/3098))
+    - `Mage_Sendfriend` ([#4274](https://github.com/OpenMage/magento-lts/pull/4274))
     - `Mage_Xmlconnect`
     - `Phoenix_Moneybookers`
 
@@ -40,6 +41,12 @@ _If you rely on those modules you can reinstall them with composer:_
 
   ```bash
   composer require openmage/module-mage-poll
+  ```
+
+- Module `Mage_Sendfriend`
+
+  ```bash
+  composer require openmage/module-mage-sendfriend
   ```
 
 - Legacy frontend themes
