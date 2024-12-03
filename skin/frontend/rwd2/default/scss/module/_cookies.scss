@@ -1,0 +1,96 @@
+//
+// OpenMage
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available at https://opensource.org/license/afl-3-0-php
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+// @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Cookies
+ * ============================================ */
+
+.notice-cookie {
+    .notice-inner {
+        padding-bottom: 0;
+
+        &:after {
+            @include clearfix;
+        }
+    }
+
+    .notice-text {
+        float: left;
+        max-width: 90%;
+        padding-top: 4px;
+        text-align: left;
+
+        p {
+            padding-bottom: (40px - $f-size-xxs) / 2;
+            line-height: 1.3;
+        }
+    }
+
+    .actions {
+        float: left;
+        text-align: right;
+        padding-bottom: (40px - $f-size-xxs) / 2;
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(max-width, $bp-large) {
+    .notice-cookie {
+        .notice-text {
+            max-width: 86%;
+        }
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(max-width, $bp-medium) {
+
+    .notice-cookie {
+        padding: 0 20px;
+
+        .notice-text {
+            max-width: 82%;
+            padding-top: 0;
+        }
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(max-width, 620px) {
+
+    .notice-cookie {
+        padding: 0 20px;
+
+        .notice-inner {
+            background-position: left 10px;
+
+            &:after {
+                @include clearfix;
+            }
+        }
+
+        .notice-text {
+            float: none;
+            max-width: 100%;
+            padding-top: 0;
+        }
+
+        .actions {
+            text-align: left;
+        }
+    }
+}

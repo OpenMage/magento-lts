@@ -1,0 +1,115 @@
+//
+// OpenMage
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available at https://opensource.org/license/afl-3-0-php
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+// @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Account - Reviews
+ * ============================================ */
+
+.product-review {
+    .product-img-box {
+        p.label {
+            border-bottom: 1px solid $c-module-border;
+            font-size: $f-size-xl;
+            font-family: $f-stack-special;
+            margin-top: 20px;
+            padding-bottom: $gap;
+            text-transform: uppercase;
+        }
+
+        .rating-box {
+            margin: 15px 0;
+        }
+    }
+
+    .product-details {
+        h2 {
+            border-bottom: 1px solid $c-module-border;
+            color: #0472ad;
+            font-size: $f-size-xl;
+            font-weight: 600;
+            font-family: $f-stack-special;
+            padding-bottom: $gap;
+        }
+    }
+
+    .ratings-table {
+        font-family: $f-stack-special;
+
+        th {
+            padding-right: $gap;
+        }
+
+        tr {
+            float: left;
+            font-size: $f-size-xs;
+            margin-right: $gap;
+            text-transform: uppercase;
+        }
+    }
+
+    .ratings-description {
+        dt {
+            border-bottom: 1px solid $c-module-border;
+            font-size: $f-size-xl;
+            font-weight: 400;
+            font-family: $f-stack-special;
+            margin-top: 20px;
+            padding: $gap 0;
+            text-transform: uppercase;
+        }
+
+        dd {
+            color: #737373;
+            font-family: $f-stack-special;
+            font-size: $f-size-s;
+        }
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, $bp-medium + 1) {
+    .product-review {
+        .ratings-table {
+            tr {
+                float: none;
+            }
+        }
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, 1126px) {
+    .product-review {
+        .ratings-table {
+            tr {
+                float: left;
+                margin-right: 15px;
+            }
+        }
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(max-width, 320px) {
+    .product-review {
+        .ratings-table {
+            tr {
+                float: none;
+            }
+        }
+    }
+}
