@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -337,6 +338,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @var Mage_Review_Model_Review_Summary[]
      */
     protected $_reviewSummary = [];
+
+    protected ?string $locale = null;
 
     /**
      * Initialize resources
@@ -1680,7 +1683,18 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function formatUrlKey($str)
     {
-        return $this->getUrlModel()->formatUrlKey($str);
+        return $this->getUrlModel()->setLocale($this->getLocale())->formatUrlKey($str);
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
 
     /**
@@ -1739,7 +1753,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function fromArray($data)
     {
         if (isset($data['stock_item'])) {
-            if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
+            if ($this->isModuleEnabled('Mage_CatalogInventory', 'catalog')) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item')
                     ->setData($data['stock_item'])
                     ->setProduct($this);
@@ -1884,8 +1898,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get option from options array of product by given option id
      *
-     * @param int $optionId
-     * @return Mage_Catalog_Model_Product_Option | null
+     * @param string $optionId
+     * @return Mage_Catalog_Model_Product_Option|null
      */
     public function getOptionById($optionId)
     {
@@ -1983,7 +1997,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Check availability display product in category
      *
      * @param   int $categoryId
-     * @return  bool
+     * @return  string
      */
     public function canBeShowInCategory($categoryId)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -19,30 +20,9 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Product_Url extends Varien_Object
+class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
 {
     public const CACHE_TAG = 'url_rewrite';
-
-    /**
-     * URL instance
-     *
-     * @var Mage_Core_Model_Url
-     */
-    protected $_url;
-
-    /**
-     * URL Rewrite Instance
-     *
-     * @var Mage_Core_Model_Url_Rewrite
-     */
-    protected $_urlRewrite;
-
-    /**
-     * Factory instance
-     *
-     * @var Mage_Catalog_Model_Factory
-     */
-    protected $_factory;
 
     /**
      * @var Mage_Core_Model_Store
@@ -56,32 +36,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
         $this->_store = !empty($args['store']) ? $args['store'] : Mage::app()->getStore();
-    }
-
-    /**
-     * Retrieve URL Instance
-     *
-     * @return Mage_Core_Model_Url
-     */
-    public function getUrlInstance()
-    {
-        if ($this->_url === null) {
-            $this->_url = Mage::getModel('core/url');
-        }
-        return $this->_url;
-    }
-
-    /**
-     * Retrieve URL Rewrite Instance
-     *
-     * @return Mage_Core_Model_Url_Rewrite
-     */
-    public function getUrlRewrite()
-    {
-        if ($this->_urlRewrite === null) {
-            $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
-        }
-        return $this->_urlRewrite;
     }
 
     /**
@@ -129,21 +83,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
         }
 
         return $this->getUrl($product, $params);
-    }
-
-    /**
-     * Format Key for URL
-     *
-     * @param string $str
-     * @return string
-     */
-    public function formatUrlKey($str)
-    {
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-
-        return $urlKey;
     }
 
     /**
@@ -280,7 +219,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
         if ($rewrite->getId()) {
             return $rewrite->getRequestPath();
         }
-
         return false;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -72,6 +73,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             if (!$model = Mage::getStoreConfig($prefix . 'model', $store)) {
                 continue;
             }
+            /** @var Mage_Payment_Model_Method_Abstract|false $methodInstance */
             $methodInstance = Mage::getModel($model);
             if (!$methodInstance) {
                 continue;

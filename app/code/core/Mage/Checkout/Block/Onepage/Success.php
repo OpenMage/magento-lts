@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,11 +30,6 @@
  */
 class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
 {
-    /**
-     * @deprecated after 1.4.0.1
-     */
-    private $_order;
-
     /**
      * Check order print availability
      *

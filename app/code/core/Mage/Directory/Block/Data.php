@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,9 @@
 class Mage_Directory_Block_Data extends Mage_Core_Block_Template
 {
     /**
+     * @codeCoverageIgnore
      * @return string
+     * @deprecated
      */
     public function getLoadrRegionUrl()
     {
@@ -51,7 +54,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
      * @param string $name
      * @param string $id
      * @param string $title
-     * @return mixed
+     * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getCountryHtmlSelect($defValue = null, $name = 'country_id', $id = 'country', $title = 'Country')
@@ -83,7 +86,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return Mage_Directory_Model_Resource_Region_Collection
      */
     public function getRegionCollection()
     {
@@ -99,7 +102,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
+     * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
     public function getRegionHtmlSelect()

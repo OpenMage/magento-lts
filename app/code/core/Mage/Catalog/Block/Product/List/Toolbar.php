@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,7 +77,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * List of available view types
      *
-     * @var string
+     * @var array
      */
     protected $_availableMode       = [];
 
@@ -535,7 +536,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Retrieve availables view modes
      *
-     * @return string
+     * @return array
      */
     public function getModes()
     {
@@ -550,7 +551,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      */
     public function setModes($modes)
     {
-        if (!isset($this->_availableMode)) {
+        if (!$this->_availableMode) {
             $this->_availableMode = $modes;
         }
         return $this;
@@ -649,7 +650,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
             }
             return Mage::getStoreConfig('catalog/frontend/grid_per_page');
         }
-        return 0;
+        return '0';
     }
 
     /**

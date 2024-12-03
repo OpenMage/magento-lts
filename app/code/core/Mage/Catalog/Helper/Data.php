@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -44,7 +45,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Breadcrumb Path cache
      *
-     * @var string|array<string, array<string, string|null>>
+     * @var array<string, array<string, string|null>>
      */
     protected $_categoryPath;
 
@@ -78,7 +79,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * Return current category path or get it from current category
      * and creating array of categories|product paths for breadcrumbs
      *
-     * @return string
+     * @return array
      */
     public function getBreadcrumbPath()
     {
