@@ -45,47 +45,39 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'backButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('tax')->__('Back'),
-                    'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
-                    'class'     => 'back'
-                ])
-        );
-
-        $this->setChild(
-            'resetButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('tax')->__('Reset'),
-                    'onclick'   => 'window.location.reload()'
-                ])
-        );
-
-        $this->setChild(
-            'saveButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('tax')->__('Save Rate'),
-                    'onclick'   => 'wigetForm.submit();return false;',
-                    'class'     => 'save'
-                ])
-        );
-
-        $this->setChild(
-            'deleteButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('tax')->__('Delete Rate'),
-                    'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs(
-                        $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
-                    ),
-                    'class'     => 'delete'
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+        $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+    }
+
+    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonDeleteBlock($name, $attributes)
+            ->setLabel(Mage::helper('tax')->__('Delete Rate'))
+            ->setOnClickSetLocationJsUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')]);
+    }
+
+    public function getButtonResetBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonResetBlock($name, $attributes)
+            ->setOnClick('window.location.reload()');
+    }
+
+    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setLabel(Mage::helper('tax')->__('Save Rate'))
+            ->setOnClick('wigetForm.submit();return false;');
     }
 
     /**
@@ -97,6 +89,6 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
         if ((int) $this->getRequest()->getParam('rate') == 0) {
             return '';
         }
-        return $this->getChildHtml('deleteButton');
+        return parent::getDeleteButtonHtml();
     }
 }

@@ -33,47 +33,48 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'backButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Back'),
-                    'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
-                    'class' => 'back'
-                ])
-        );
-
-        $this->setChild(
-            'resetButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Reset'),
-                    'onclick'   => 'window.location.reload()'
-                ])
-        );
-
-        $this->setChild(
-            'saveButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Save Role'),
-                    'onclick'   => 'roleForm.submit();return false;',
-                    'class' => 'save'
-                ])
-        );
-
-        $this->setChild(
-            'deleteButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Delete Role'),
-                    'onclick'   => 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
-                        Mage::helper('adminhtml')->__('Are you sure you want to do this?')
-                    ) . '\')) roleForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;',
-                    'class' => 'delete'
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+        $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+    }
+
+    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBackBlock($name, $attributes)
+            ->setOnClick('window.location.href=\'' . $this->getUrl('*/*/') . '\'');
+    }
+
+    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonDeleteBlock($name, $attributes)
+            ->setLabel(Mage::helper('adminhtml')->__('Delete Role'))
+            ->setOnClick('if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
+                Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+            ) . '\')) roleForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;');
+    }
+
+    public function getButtonResetBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonResetBlock($name, $attributes)
+            ->setOnClick('window.location.reload()')
+            ->resetClass();
+    }
+
+    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setLabel(Mage::helper('adminhtml')->__('Save Role'))
+            ->setOnClick('roleForm.submit();return false;');
     }
 
     /**
@@ -84,7 +85,7 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
         if ((int) $this->getRequest()->getParam('rid') == 0) {
             return '';
         }
-        return $this->getChildHtml('deleteButton');
+        return parent::getDeleteButtonHtml();
     }
 
     public function getUser()

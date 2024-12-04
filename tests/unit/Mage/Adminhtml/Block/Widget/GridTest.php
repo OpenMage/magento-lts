@@ -20,17 +20,79 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget;
 use Generator;
 use Mage;
 use Mage_Adminhtml_Block_Widget_Grid;
+use Mage_Core_Model_Layout;
 use PHPUnit\Framework\TestCase;
 
 class GridTest extends TestCase
 {
-    public Mage_Adminhtml_Block_Widget_Grid $subject;
+    private static ?Mage_Adminhtml_Block_Widget_Grid $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_Widget_Grid();
+        self::$subject = new Mage_Adminhtml_Block_Widget_Grid();
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        self::$subject = null;
+    }
+
+    /**
+     * @covers Mage_Adminhtml_Block_Widget_Grid::getButtonExportlock()
+     * @group Mage_Adminhtml
+     * @group Mage_Adminhtml_Block
+     * @group Mage_Adminhtml_Block_Widget
+     * @group AdminhtmlButtons
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
+     */
+    public function testGetButtonExportlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+
+        $result = self::$subject->getButtonExportlock();
+        $this->assertSame('Export', $result->getLabel());
+        $this->assertStringEndsWith('.doExport()', $result->getOnClick());
+        $this->assertSame('task', $result->getClass());
+    }
+
+    /**
+     * @covers Mage_Adminhtml_Block_Widget_Grid::getButtonResetFilterBlock()
+     * @group Mage_Adminhtml
+     * @group Mage_Adminhtml_Block
+     * @group Mage_Adminhtml_Block_Widget
+     * @group AdminhtmlButtons
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
+     */
+    public function testGetButtonResetFilterBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+
+        $result = self::$subject->getButtonResetFilterBlock();
+        $this->assertSame('Reset Filter', $result->getLabel());
+        $this->assertStringEndsWith('.resetFilter()', $result->getOnClick());
+        $this->assertNull($result->getClass());
+    }
+
+    /**
+     * @covers Mage_Adminhtml_Block_Widget_Grid::getButtonSearchBlock()
+     * @group Mage_Adminhtml
+     * @group Mage_Adminhtml_Block
+     * @group Mage_Adminhtml_Block_Widget
+     * @group AdminhtmlButtons
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
+     */
+    public function testGetButtonSearchBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+
+        $result = self::$subject->getButtonSearchBlock();
+        $this->assertSame('Search', $result->getLabel());
+        $this->assertStringEndsWith('.doFilter()', $result->getOnClick());
+        $this->assertSame('task', $result->getClass());
     }
 
     /**
@@ -40,7 +102,7 @@ class GridTest extends TestCase
      */
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {
-        $this->assertSame($expectedResult, $this->subject->addColumnDefaultData($column));
+        $this->assertSame($expectedResult, self::$subject->addColumnDefaultData($column));
     }
 
     public function provideAddColumnDefaultData(): Generator

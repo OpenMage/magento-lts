@@ -29,20 +29,27 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
     {
         parent::_prepareLayout();
 
-        $this->setChild(
-            'upload_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData([
-                    'id'      => $this->getElementId(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX),
-                    'label'   => Mage::helper('uploader')->__('Upload Files'),
-                    'type'    => 'button',
-                ])
-        );
-
         $this->_addElementIdsMapping([
             'upload' => $this->_prepareElementsIds([self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX])
         ]);
 
+        $this->addButtons();
         return $this;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        parent::addButtons();
+        $this->setChild(self::BUTTON_UPLOAD, $this->getButtonUploadBlock());
+    }
+
+    public function getButtonUploadBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonUploadBlock($name, $attributes)
+            ->setId($this->getElementId(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX))
+            ->setType('button');
     }
 }

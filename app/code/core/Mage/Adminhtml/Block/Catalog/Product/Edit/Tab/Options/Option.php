@@ -109,15 +109,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
 
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Delete Option'),
-                    'class' => 'delete delete-product-option '
-                ])
-        );
-
         $path = 'global/catalog/product/options/custom/groups';
         foreach (Mage::getConfig()->getNode($path)->children() as $group) {
             $this->setChild(
@@ -128,7 +119,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             );
         }
 
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+    }
+
+    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonDeleteBlock($name, $attributes)
+            ->setLabel(Mage::helper('catalog')->__('Delete Option'))
+            ->addClass('delete-product-option');
     }
 
     public function getAddButtonId()

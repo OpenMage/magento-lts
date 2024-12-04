@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     public const BUTTON__CLASS_BACK         = 'back';
     public const BUTTON__CLASS_CANCEL       = 'cancel';
     public const BUTTON__CLASS_DELETE       = 'delete';
-    public const BUTTON__CLASS_RESET        = 'reeet';
+    public const BUTTON__CLASS_RESET        = 'reset';
     public const BUTTON__CLASS_SAVE         = 'save';
     public const BUTTON__CLASS_TASK         = 'task';
     public const BUTTON__CLASS_UPDATE       = 'update-button';
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     {
         return $this->createWidgetButtonBlock($name, $attributes)
             ->setLabel(Mage::helper('adminhtml')->__('Back'))
-            ->setOnClickSetLocationJsUrl()
+            ->setOnClick("window.location.href='" . $this->getUrl('*/*') . "'")
             ->setClass(self::BUTTON__CLASS_BACK);
     }
 
@@ -229,7 +229,6 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     {
         return $this->createWidgetButtonBlock($name, $attributes)
             ->setLabel(Mage::helper('adminhtml')->__('Save and Continue Edit'))
-            ->setOnClick(Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()))
             ->setClass(self::BUTTON__CLASS_SAVE);
     }
 

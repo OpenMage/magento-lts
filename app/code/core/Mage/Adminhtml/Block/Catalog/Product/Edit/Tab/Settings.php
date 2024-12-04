@@ -30,16 +30,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'continue_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Continue'),
-                    'onclick'   => "setSettings('" . $this->getContinueUrl() . "','attribute_set_id','product_type')",
-                    'class'     => 'save'
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_CONTINUE, $this->getButtonContinueBlock());
+    }
+
+    public function getButtonContinueBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock()
+            ->setLabel(Mage::helper('catalog')->__('Continue'))
+            ->setOnClick("setSettings('" . $this->getContinueUrl() . "','attribute_set_id','product_type')");
     }
 
     protected function _prepareForm()

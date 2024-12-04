@@ -122,46 +122,52 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Prepare layout, create buttons, set front-end elements ids
-     *
-     * @return Mage_Core_Block_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'browse_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData([
-                    // Workaround for IE9
-                    'before_html'   => sprintf(
-                        '<div style="display:inline-block;" id="%s">',
-                        $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX)
-                    ),
-                    'after_html'    => '</div>',
-                    'id'            => $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX . '_button'),
-                    'label'         => Mage::helper('uploader')->__('Browse Files...'),
-                    'type'          => 'button',
-                ])
-        );
-
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData([
-                    'id'      => '{{id}}',
-                    'class'   => 'delete',
-                    'type'    => 'button',
-                    'label'   => Mage::helper('uploader')->__('Remove')
-                ])
-        );
-
         $this->_addElementIdsMapping([
             'container'         => $this->getHtmlId(),
             'templateFile'      => $this->getElementId('template'),
             'browse'            => $this->_prepareElementsIds([self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX])
         ]);
 
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_BROWSE, $this->getButtonBrowseBlock());
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+    }
+
+    public function getButtonBrowseBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock($name, $attributes)
+            ->addData([
+                // Workaround for IE9
+                'before_html'   => sprintf(
+                    '<div style="display:inline-block;" id="%s">',
+                    $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX)
+                ),
+                'after_html'    => '</div>',
+                'id'            => $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX . '_button'),
+                'label'         => Mage::helper('uploader')->__('Browse Files...'),
+                'type'          => 'button',
+            ]);
+    }
+
+    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonDeleteBlock($name, $attributes)
+            ->setId('{{id}}')
+            ->setLabel(Mage::helper('uploader')->__('Remove'))
+            ->setOnClick('')
+            ->setType('button');
     }
 
     /**

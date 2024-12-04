@@ -33,25 +33,29 @@ class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_T
      */
     protected function _prepareLayout()
     {
-        $buttons = [
-            'backButton'    => [
-                'label'     => $this->__('Back'),
-                'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
-                'class'     => 'back'
-            ],
-            'saveButton'    => [
-                'label'     => $this->__('Save'),
-                'onclick'   => 'form.submit(); return false;',
-                'class'     => 'save'
-            ],
-        ];
-
-        foreach ($buttons as $name => $data) {
-            $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData($data);
-            $this->setChild($name, $button);
-        }
-
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+    }
+
+    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBackBlock($name, $attributes)
+            ->setOnClick(sprintf("window.location.href='%s';", $this->getUrl('*/*/')));
+    }
+
+    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setOnClick('form.submit(); return false;');
     }
 
     /**

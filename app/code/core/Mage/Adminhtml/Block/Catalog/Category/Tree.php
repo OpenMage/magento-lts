@@ -40,35 +40,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
     protected function _prepareLayout()
     {
-        $addUrl = $this->getUrl('*/*/add', [
-            '_current' => true,
-            'id' => null,
-            '_query' => false
-        ]);
-
-        $this->setChild(
-            self::BUTTON_ADD_SUB,
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Add Subcategory'),
-                    'onclick'   => "addNew('" . $addUrl . "', false)",
-                    'class'     => 'add',
-                    'id'        => 'add_subcategory_button',
-                    'style'     => $this->canAddSubCategory() ? '' : 'display: none;'
-                ])
-        );
+        $this->setChild(self::BUTTON_ADD_SUB, $this->getButtonAddSubBlock());
 
         if ($this->canAddRootCategory()) {
-            $this->setChild(
-                self::BUTTON_ADD_ROOT,
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'     => Mage::helper('catalog')->__('Add Root Category'),
-                        'onclick'   => "addNew('" . $addUrl . "', true)",
-                        'class'     => 'add',
-                        'id'        => 'add_root_category_button'
-                    ])
-            );
+            $this->setChild(self::BUTTON_ADD_ROOT, $this->getButtonAddRootBlock());
         }
 
         $this->setChild(
@@ -78,6 +53,23 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
                 ->setTemplate('store/switcher/enhanced.phtml')
         );
         return parent::_prepareLayout();
+    }
+
+    public function getButtonAddRootBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock()
+            ->setId('add_root_category_button')
+            ->setLabel(Mage::helper('catalog')->__('Add Root Category'))
+            ->setOnClick("addNew('" . $this->getAddUrl() . "', true)");
+    }
+
+    public function getButtonAddSubBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock()
+            ->setId('add_subcategory_button')
+            ->setLabel(Mage::helper('catalog')->__('Add Subcategory'))
+            ->setOnClick("addNew('" . $this->getAddUrl() . "', false)")
+            ->setStyle($this->canAddSubCategory() ? '' : 'display: none;');
     }
 
     protected function _getDefaultStoreId()
@@ -137,6 +129,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             $params['expand_all'] = true;
         }
         return $this->getUrl('*/*/categoriesJson', $params);
+    }
+
+    public function getAddUrl($expanded = null)
+    {
+        return $this->getUrl('*/*/add', [
+            '_current' => true,
+            'id' => null,
+            '_query' => false
+        ]);
     }
 
     public function getNodesUrl()

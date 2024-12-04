@@ -79,14 +79,13 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
      */
     public function getButtonHtml()
     {
-        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'id'        => 'synchronize_button',
-                'label'     => $this->helper('adminhtml')->__('Synchronize'),
-                'onclick'   => 'javascript:synchronize(); return false;'
-            ]);
-
-        return $button->toHtml();
+        /** @var Mage_Adminhtml_Block_Widget_Button $button */
+        $button = $this->getLayout()->createBlock('adminhtml/widget_button');
+        return $button
+            ->setId('synchronize_button')
+            ->setLabel($this->helper('adminhtml')->__('Synchronize'))
+            ->setOnClick('javascript:synchronize(); return false;')
+            ->toHtml();
     }
 
     /**

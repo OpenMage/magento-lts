@@ -40,44 +40,52 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'  => Mage::helper('customer')->__('Delete Address'),
-                    'name'   => 'delete_address',
-                    'element_name' => 'delete_address',
-                    'disabled' => $this->isReadonly(),
-                    'class'  => 'delete' . ($this->isReadonly() ? ' disabled' : '')
-                ])
-        );
-        $this->setChild(
-            'add_address_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'  => Mage::helper('customer')->__('Add New Address'),
-                    'id'     => 'add_address_button',
-                    'name'   => 'add_address_button',
-                    'element_name' => 'add_address_button',
-                    'disabled' => $this->isReadonly(),
-                    'class'  => 'add' . ($this->isReadonly() ? ' disabled' : ''),
-                    'onclick' => 'customerAddresses.addNewAddress()'
-                ])
-        );
-        $this->setChild(
-            'cancel_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'  => Mage::helper('customer')->__('Cancel'),
-                    'id'     => 'cancel_add_address' . $this->getTemplatePrefix(),
-                    'name'   => 'cancel_address',
-                    'element_name' => 'cancel_address',
-                    'class'  => 'cancel delete-address' . ($this->isReadonly() ? ' disabled' : ''),
-                    'disabled' => $this->isReadonly(),
-                    'onclick' => 'customerAddresses.cancelAdd(this)',
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+        $this->setChild(self::BUTTON_CANCEL, $this->getButtonCancelBlock());
+    }
+
+    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock($name, $attributes)
+            ->setId('add_address_button')
+            ->setLabel(Mage::helper('customer')->__('Add New Address'))
+            ->setOnClick('customerAddresses.addNewAddress()')
+            ->addClass($this->isReadonly() ? ' disabled' : '')
+            ->setDisabled($this->isReadonly())
+            ->setElementName('add_address_button')
+            ->setName('add_address_button');
+    }
+
+    public function getButtonCancelBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonCancelBlock($name, $attributes)
+            ->setId('cancel_add_address' . $this->getTemplatePrefix())
+            ->setLabel(Mage::helper('customer')->__('Cancel'))
+            ->setOnClick('customerAddresses.cancelAdd(this)')
+            ->addClass('delete-address' . ($this->isReadonly() ? ' disabled' : ''))
+            ->setDisabled($this->isReadonly())
+            ->setElementName('cancel_address')
+            ->setName('cancel_address');
+    }
+
+    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonDeleteBlock($name, $attributes)
+            ->setLabel(Mage::helper('customer')->__('Delete Address'))
+            ->addClass($this->isReadonly() ? ' disabled' : '')
+            ->setDisabled($this->isReadonly())
+            ->setElementName('delete_address')
+            ->setName('delete_address');
     }
 
     /**

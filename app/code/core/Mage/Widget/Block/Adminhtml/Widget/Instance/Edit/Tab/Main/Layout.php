@@ -248,13 +248,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
      */
     public function getAddLayoutButtonHtml()
     {
-        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'label'     => Mage::helper('widget')->__('Add Layout Update'),
-                'onclick'   => 'WidgetInstance.addPageGroup({})',
-                'class'     => 'add'
-            ]);
-        return $button->toHtml();
+        return parent::getButtonAddBlock()
+            ->setLabel(Mage::helper('widget')->__('Add Layout Update'))
+            ->setOnClick('WidgetInstance.addPageGroup({})')
+            ->toHtml();
     }
 
     /**
@@ -264,13 +261,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
      */
     public function getRemoveLayoutButtonHtml()
     {
-        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'label'     => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Remove Layout Update')),
-                'onclick'   => 'WidgetInstance.removePageGroup(this)',
-                'class'     => 'delete'
-            ]);
-        return $button->toHtml();
+        return parent::getButtonDeleteBlock()
+            ->setLabel($this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Remove Layout Update')))
+            ->setOnClick('WidgetInstance.removePageGroup(this)')
+            ->toHtml();
     }
 
     /**

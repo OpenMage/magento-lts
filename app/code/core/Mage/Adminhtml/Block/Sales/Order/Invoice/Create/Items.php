@@ -31,15 +31,21 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
      */
     protected function _beforeToHtml()
     {
-        $onclick = "submitAndReloadArea($('invoice_item_container'),'" . $this->getUpdateUrl() . "')";
-        $this->setChild(
-            'update_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'class'     => 'update-button',
-                'label'     => Mage::helper('sales')->__('Update Qty\'s'),
-                'onclick'   => $onclick,
-            ])
-        );
+        $this->addButtons();
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_UPDATE, $this->getButtonUpdateBlock());
+        $this->setChild(self::BUTTON_SUBMIT, $this->getButtonSubmitBlock());
+    }
+
+    public function getButtonSubmitBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
         $this->_disableSubmitButton = true;
         $submitButtonClass = ' disabled';
         foreach ($this->getInvoice()->getAllItems() as $item) {
@@ -57,17 +63,19 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
         } else {
             $submitLabel = Mage::helper('sales')->__('Submit Invoice');
         }
-        $this->setChild(
-            'submit_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => $submitLabel,
-                'class'     => 'save submit-button' . $submitButtonClass,
-                'onclick'   => 'disableElements(\'submit-button\');$(\'edit_form\').submit()',
-                'disabled'  => $this->_disableSubmitButton
-            ])
-        );
+        return parent::getButtonSaveBlock()
+            ->setLabel($submitLabel)
+            ->setOnClick('disableElements(\'submit-button\');$(\'edit_form\').submit()')
+            ->addClass('submit-button' . $submitButtonClass)
+            ->setDisabled($this->_disableSubmitButton);
+    }
 
-        return parent::_prepareLayout();
+    public function getButtonUpdateBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        $onclick = "submitAndReloadArea($('invoice_item_container'),'" . $this->getUpdateUrl() . "')";
+        return parent::getButtonUpdateBlock($name, $attributes)
+            ->setLabel(Mage::helper('sales')->__('Update Qty\'s'))
+            ->setOnClick($onclick);
     }
 
     /**
@@ -141,11 +149,6 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     public function formatPrice($price)
     {
         return $this->getInvoice()->getOrder()->formatPrice($price);
-    }
-
-    public function getUpdateButtonHtml()
-    {
-        return $this->getChildHtml('update_button');
     }
 
     public function getUpdateUrl()

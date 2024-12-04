@@ -22,28 +22,32 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking extends Mage_Adminhtml_Block_Template
 {
-    public function _construct()
-    {
-        $this->setTemplate('sales/order/invoice/create/tracking.phtml');
-    }
+    protected $_template = 'sales/order/invoice/create/tracking.phtml';
 
     /**
-     * Prepares layout of block
-     *
+     * @codeCoverageIgnore
      * @return $this
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'   => Mage::helper('sales')->__('Add Tracking Number'),
-                    'class'   => '',
-                    'onclick' => 'trackingControl.add()'
-                ])
-        );
+        $this->addButtons();
         return $this;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock($name, $attributes)
+            ->setLabel(Mage::helper('sales')->__('Add Tracking Number'))
+            ->setOnClick('trackingControl.add()')
+            ->resetClass();
     }
 
     /**

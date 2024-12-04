@@ -30,26 +30,31 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
      */
     protected function _prepareLayout()
     {
-        $onclick = "setSuperSettings('" . $this->getContinueUrl() . "','attribute-checkbox', 'attributes')";
-        $this->setChild(
-            'continue_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Continue'),
-                    'onclick'   => $onclick,
-                    'class'     => 'save'
-                ])
-        );
-
-        $backButton = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
-                'class'     => 'back'
-            ]);
-
-        $this->setChild('back_button', $backButton);
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_CONTINUE, $this->getButtonContinueBlock());
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+    }
+
+    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBackBlock($name, $attributes)
+            ->setOnClickSetLocationJsFullUrl($this->getBackUrl());
+    }
+
+    public function getButtonContinueBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        $onclick = "setSuperSettings('" . $this->getContinueUrl() . "','attribute-checkbox', 'attributes')";
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setLabel(Mage::helper('catalog')->__('Continue'))
+            ->setOnClick($onclick);
     }
 
     /**

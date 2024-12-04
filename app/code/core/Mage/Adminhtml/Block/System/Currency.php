@@ -22,9 +22,10 @@
  */
 class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
 {
-    public const BUTTON_IMPORT          = 'import_button';
     public const BLOCK_IMPORT_SERVICES  = 'import_services';
     public const BLOCK_RATE_MATRIX      = 'rates_matrix';
+
+    public const BUTTON_IMPORT          = 'import_button';
 
     protected $_template = 'system/currency/rates.phtml';
 
@@ -33,36 +34,6 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Save Currency Rates'),
-                    'onclick'   => 'currencyForm.submit();',
-                    'class'     => 'save'
-            ])
-        );
-
-        $this->setChild(
-            'reset_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Reset'),
-                    'onclick'   => 'document.location.reload()',
-                    'class'     => 'reset'
-            ])
-        );
-
-        $this->setChild(
-            'import_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Import'),
-                    'class'     => 'add',
-                    'type'      => 'submit',
-            ])
-        );
-
         $this->setChild(
             self::BLOCK_RATE_MATRIX,
             $this->getLayout()->createBlock('adminhtml/system_currency_rate_matrix')
@@ -73,7 +44,38 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/system_currency_rate_services')
         );
 
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+        $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+        $this->setChild(self::BUTTON_IMPORT, $this->getButtonImportBlock());
+    }
+
+    public function getButtonImportBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock($name, $attributes)
+            ->setLabel(Mage::helper('adminhtml')->__('Import'))
+            ->setType(Mage_Adminhtml_Block_Widget_Button::TYPE_SUBMIT);
+    }
+
+    public function getButtonResetBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonResetBlock($name, $attributes)
+            ->setOnClick('document.location.reload()');
+    }
+
+    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setLabel(Mage::helper('adminhtml')->__('Save Currency Rates'))
+            ->setOnClick('currencyForm.submit();');
     }
 
     protected function getHeader()

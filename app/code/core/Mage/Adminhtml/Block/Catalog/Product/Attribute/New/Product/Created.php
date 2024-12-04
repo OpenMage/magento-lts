@@ -38,15 +38,22 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
                 ->setGroupAttributes($this->_getGroupAttributes())
         );
 
-        $this->setChild(
-            'close_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'   => Mage::helper('catalog')->__('Close Window'),
-                    'onclick' => 'addAttribute(true)'
-                ])
-        );
+        $this->addButtons();
         return $this;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_CLOSE, $this->getButtonCloseBlock());
+    }
+
+    public function getButtonCloseBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonCloseBlock($name, $attributes)
+            ->setOnClick('addAttribute(true)');
     }
 
     /**

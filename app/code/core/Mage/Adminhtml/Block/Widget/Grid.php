@@ -237,33 +237,41 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'export_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Export'),
-                    'onclick'   => $this->getJsObjectName() . '.doExport()',
-                    'class'   => 'task'
-                ])
-        );
-        $this->setChild(
-            'reset_filter_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Reset Filter'),
-                    'onclick'   => $this->getJsObjectName() . '.resetFilter()',
-                ])
-        );
-        $this->setChild(
-            'search_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Search'),
-                    'onclick'   => $this->getJsObjectName() . '.doFilter()',
-                    'class'   => 'task'
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_EXPORT, $this->getButtonExportlock());
+        $this->setChild(self::BUTTON_RESET_FILTER, $this->getButtonResetFilterBlock());
+        $this->setChild(self::BUTTON_SEARCH, $this->getButtonSearchBlock());
+    }
+
+    public function getButtonExportlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('adminhtml')->__('Export'))
+            ->setOnClick($this->getJsObjectName() . '.doExport()')
+            ->setClass(self::BUTTON__CLASS_TASK);
+    }
+
+    public function getButtonResetFilterBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('adminhtml')->__('Reset Filter'))
+            ->setOnClick($this->getJsObjectName() . '.resetFilter()');
+    }
+
+    public function getButtonSearchBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('adminhtml')->__('Search'))
+            ->setOnClick($this->getJsObjectName() . '.doFilter()')
+            ->setClass(self::BUTTON__CLASS_TASK);
     }
 
     /**

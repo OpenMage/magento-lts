@@ -38,34 +38,46 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
      */
     protected function _prepareLayout()
     {
-        $buttons = [
-            'backButton'    => [
-                'label'     => Mage::helper('adminhtml')->__('Back'),
-                'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
-                'class'     => 'back'
-            ],
-            'resetButton'   => [
-                'label'     => Mage::helper('adminhtml')->__('Reset'),
-                'onclick'   => 'window.location.reload()'
-            ],
-            'saveButton'    => [
-                'label'     => Mage::helper('adminhtml')->__('Save Role'),
-                'onclick'   => 'roleForm.submit(); return false;',
-                'class'     => 'save'
-            ],
-            'deleteButton'  => [
-                'label'     => Mage::helper('adminhtml')->__('Delete Role'),
-                'onclick'   => '',  //roleId is not set at this moment, so we set script later
-                'class'     => 'delete'
-            ],
-        ];
-
-        foreach ($buttons as $name => $data) {
-            $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData($data);
-            $this->setChild($name, $button);
-        }
-
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+        $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+    }
+
+    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBackBlock($name, $attributes)
+            ->setOnClick(sprintf("window.location.href='%s';", $this->getUrl('*/*/')));
+    }
+
+    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonDeleteBlock($name, $attributes)
+            ->setLabel(Mage::helper('adminhtml')->__('Delete Role'))
+            ->setOnClick('window.location.reload()');
+    }
+
+    public function getButtonResetBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonResetBlock($name, $attributes)
+            ->setOnClick('window.location.reload()')
+            ->resetClass();
+    }
+
+    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setLabel(Mage::helper('adminhtml')->__('Save Role'))
+            ->setOnClick('roleForm.submit(); return false;');
     }
 
     /**
@@ -85,7 +97,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
             $this->getUrl('*/*/delete')
         ));
 
-        return $this->getChildHtml('deleteButton');
+        return parent::getDeleteButtonHtml();
     }
 
     /**

@@ -22,6 +22,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
+    public const BUTTON_SUBMIT_OFFLINE  = 'submit_offline';
+
     protected $_canReturnToStock;
     /**
      * Prepare child blocks
@@ -30,47 +32,42 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
      */
     protected function _prepareLayout()
     {
-        $onclick = "submitAndReloadArea($('creditmemo_item_container'),'" . $this->getUpdateUrl() . "')";
-        $this->setChild(
-            'update_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('sales')->__('Update Qty\'s'),
-                'class'     => 'update-button',
-                'onclick'   => $onclick,
-            ])
-        );
+        $this->setChild(self::BUTTON_UPDATE, $this->getButtonUpdateBlock());
 
         if ($this->getCreditmemo()->canRefund()) {
             if ($this->getCreditmemo()->getInvoice() && $this->getCreditmemo()->getInvoice()->getTransactionId()) {
-                $this->setChild(
-                    'submit_button',
-                    $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                        'label'     => Mage::helper('sales')->__('Refund'),
-                        'class'     => 'save submit-button',
-                        'onclick'   => 'disableElements(\'submit-button\');submitCreditMemo()',
-                    ])
-                );
+                $this->setChild(self::BUTTON_SUBMIT, $this->getButtonRefundBlock());
             }
-            $this->setChild(
-                'submit_offline',
-                $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                    'label'     => Mage::helper('sales')->__('Refund Offline'),
-                    'class'     => 'save submit-button',
-                    'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ])
-            );
+            $this->setChild(self::BUTTON_SUBMIT_OFFLINE, $this->getButtonRefundOfflineBlock());
         } else {
-            $this->setChild(
-                'submit_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                    'label'     => Mage::helper('sales')->__('Refund Offline'),
-                    'class'     => 'save submit-button',
-                    'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ])
-            );
+            $this->setChild(self::BUTTON_SUBMIT, $this->getButtonRefundOfflineBlock());
         }
 
         return parent::_prepareLayout();
+    }
+
+    public function getButtonUpdateBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        $onclick = "submitAndReloadArea($('creditmemo_item_container'),'" . $this->getUpdateUrl() . "')";
+        return parent::getButtonUpdateBlock($name, $attributes)
+            ->setLabel(Mage::helper('sales')->__('Update Qty\'s'))
+            ->setOnClick($onclick);
+    }
+
+    public function getButtonRefundBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setLabel(Mage::helper('sales')->__('Refund'))
+            ->setOnClick('disableElements(\'submit-button\');submitCreditMemo()')
+            ->addClass('submit-button');
+    }
+
+    public function getButtonRefundOfflineBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setLabel(Mage::helper('sales')->__('Refund Offline'))
+            ->setOnClick('disableElements(\'submit-button\');submitCreditMemoOffline()')
+            ->addClass('submit-button');
     }
 
     /**
@@ -137,11 +134,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
             return $this->getCreditmemo()->getOrder()->getPayment()->canRefundPartialPerInvoice();
         }
         return true;
-    }
-
-    public function getUpdateButtonHtml()
-    {
-        return $this->getChildHtml('update_button');
     }
 
     public function getUpdateUrl()

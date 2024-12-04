@@ -45,28 +45,31 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
             $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid', 'newsletter.problem.grid')
         );
 
-        $this->setChild(
-            'deleteButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button', 'del.button')
-                ->setData(
-                    [
-                        'label' => Mage::helper('newsletter')->__('Delete Selected Problems'),
-                        'onclick' => 'problemController.deleteSelected();'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'unsubscribeButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button', 'unsubscribe.button')
-                ->setData(
-                    [
-                        'label' => Mage::helper('newsletter')->__('Unsubscribe Selected'),
-                        'onclick' => 'problemController.unsubscribe();'
-                    ]
-                )
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+        $this->setChild(self::BUTTON_UNSUBSCRIBE, $this->getButtonUnsubscribeBlock());
+    }
+
+    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonDeleteBlock('del.button')
+            ->setLabel(Mage::helper('newsletter')->__('Delete Selected Problems'))
+            ->setOnClick('problemController.deleteSelected();');
+    }
+
+    public function getButtonUnsubscribeBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock('unsubscribe.button')
+            ->setLabel(Mage::helper('newsletter')->__('Unsubscribe Selected'))
+            ->setOnClick('problemController.unsubscribe();');
     }
 
     public function getUnsubscribeButtonHtml()

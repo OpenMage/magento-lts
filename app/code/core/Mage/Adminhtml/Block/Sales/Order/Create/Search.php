@@ -22,11 +22,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setId('sales_order_create_search');
-    }
+    protected $_idFieldName = 'sales_order_create_search';
 
     /**
      * @return string
@@ -41,12 +37,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search extends Mage_Adminhtml_Bloc
      */
     public function getButtonsHtml()
     {
-        $addButtonData = [
-            'label' => Mage::helper('sales')->__('Add Selected Product(s) to Order'),
-            'onclick' => 'order.productGridAddSelected()',
-            'class' => 'add',
-        ];
-        return $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
+        return parent::getButtonAddBlock()
+            ->setLabel(Mage::helper('sales')->__('Add Selected Product(s) to Order'))
+            ->setOnClick('order.productGridAddSelected()')
+            ->toHtml();
     }
 
     /**

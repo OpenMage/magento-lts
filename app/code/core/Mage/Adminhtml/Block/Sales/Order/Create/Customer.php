@@ -22,11 +22,7 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setId('sales_order_create_customer');
-    }
+    protected $_idFieldName = 'sales_order_create_customer';
 
     /**
      * @return string
@@ -41,22 +37,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Bl
      */
     public function getButtonsHtml()
     {
-        $html = '';
+        $customer = parent::getButtonAddBlock()
+            ->setLabel(Mage::helper('sales')->__('Create New Customer'))
+            ->setOnClick('order.setCustomerId(false)')
+            ->toHtml();
 
-        $addButtonData = [
-            'label'     => Mage::helper('sales')->__('Create New Customer'),
-            'onclick'   => 'order.setCustomerId(false)',
-            'class'     => 'add',
-        ];
-        $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
+        $guest = parent::getButtonAddBlock()
+            ->setLabel(Mage::helper('sales')->__('Create Guest Order'))
+            ->setOnClick('order.setCustomerIsGuest()')
+            ->toHtml();
 
-        $addButtonData = [
-            'label'     => Mage::helper('sales')->__('Create Guest Order'),
-            'onclick'   => 'order.setCustomerIsGuest()',
-            'class'     => 'add',
-        ];
-        $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
-
-        return $html;
+        return $customer . $guest;
     }
 }

@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -88,17 +88,23 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 ->setTemplate('report/store/switcher.phtml')
         );
 
-        $this->setChild(
-            'refresh_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Refresh'),
-                    'onclick'   => $this->getRefreshButtonCallback(),
-                    'class'   => 'task'
-                ])
-        );
-        parent::_prepareLayout();
-        return $this;
+        $this->addButtons();
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        parent::addButtons();
+        $this->setChild(self::BUTTON_REFRESH, $this->getButtonRefreshBlock());
+    }
+
+    public function getButtonRefreshBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonRefreshBlock($name, $attributes)
+            ->setOnClick($this->getRefreshButtonCallback());
     }
 
     /**
@@ -170,12 +176,13 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
          * Getting and saving store ids for website & group
          */
         $storeIds = [];
-        if ($this->getRequest()->getParam('store')) {
+        $request  = $this->getRequest();
+        if ($request->getParam('store')) {
             $storeIds = [$this->getParam('store')];
-        } elseif ($this->getRequest()->getParam('website')) {
-            $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-        } elseif ($this->getRequest()->getParam('group')) {
-            $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
+        } elseif ($request->getParam('website')) {
+            $storeIds = Mage::app()->getWebsite($request->getParam('website'))->getStoreIds();
+        } elseif ($request->getParam('group')) {
+            $storeIds = Mage::app()->getGroup($request->getParam('group'))->getStoreIds();
         }
 
         // By default storeIds array contains only allowed stores

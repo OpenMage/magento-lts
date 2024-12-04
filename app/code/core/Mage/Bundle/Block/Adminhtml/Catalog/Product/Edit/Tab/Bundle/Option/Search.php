@@ -72,13 +72,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
      */
     public function getButtonsHtml()
     {
-        $addButtonData = [
-            'id'    => 'add_button_' . $this->getIndex(),
-            'label' => Mage::helper('sales')->__('Add Selected Product(s) to Option'),
-            'onclick' => 'bSelection.productGridAddSelected(event)',
-            'class' => 'add',
-        ];
-        return $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
+        return parent::getButtonAddBlock()
+            ->setId('add_button_' . $this->getIndex())
+            ->setLabel(Mage::helper('sales')->__('Add Selected Product(s) to Option'))
+            ->setOnClick('bSelection.productGridAddSelected(event)')
+            ->toHtml();
     }
 
     /**

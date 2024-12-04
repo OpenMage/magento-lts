@@ -30,29 +30,35 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
     protected function _prepareLayout()
     {
         $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Save Attribute Set'),
-                    'onclick'   => 'if (addSet.submit()) disableElements(\'save\');',
-                    'class' => 'save'
-            ])
-        );
-        $this->setChild(
-            'back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
-                    'class' => 'back'
-            ])
-        );
-
-        $this->setChild(
             self::BLOCK_FORM,
             $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset')
         );
+
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveGroupBlock());
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+    }
+
+    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBackBlock($name, $attributes)
+            ->setOnClickSetLocationJsFullUrl($this->getUrl('*/*/'));
+    }
+
+    public function getButtonSaveGroupBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock()
+            ->setLabel(Mage::helper('catalog')->__('Save Attribute Set'))
+            ->setOnClick('if (addSet.submit()) disableElements(\'save\');')
+            ->resetClass();
     }
 
     /**

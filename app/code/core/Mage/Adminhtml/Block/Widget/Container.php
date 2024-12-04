@@ -192,7 +192,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      */
     protected function _addButtonChildBlock($childId)
     {
-        $block = $this->getLayout()->createBlock('adminhtml/widget_button');
+        $block = parent::getButtonBlock();
         $this->setChild($childId, $block);
         return $block;
     }

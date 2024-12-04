@@ -22,6 +22,9 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    public const BLOCK_GRID                 = 'grid';
+    public const BLOCK_SIMPLE               = 'simple';
+
     public const BUTTON_CREATE_EMPTY        = 'create_empty';
     public const BUTTON_CREATE_CONFIGURABLE = 'create_from_configurable';
 
@@ -85,44 +88,42 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     protected function _prepareLayout()
     {
         $this->setChild(
-            'grid',
+            self::BLOCK_GRID,
             $this->getLayout()->createBlock(
                 'adminhtml/catalog_product_edit_tab_super_config_grid',
                 'admin.product.edit.tab.super.config.grid'
             )
         );
 
-        $this->setChild(
-            'create_empty',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Create Empty'),
-                    'class' => 'add',
-                    'onclick' => 'superProduct.createEmptyProduct()'
-                ])
-        );
+        $this->setChild(self::BUTTON_CREATE_EMPTY, $this->getButtonCreateEmptyBlock());
 
         if ($this->_getProduct()->getId()) {
             $this->setChild(
-                'simple',
+                self::BLOCK_SIMPLE,
                 $this->getLayout()->createBlock(
                     'adminhtml/catalog_product_edit_tab_super_config_simple',
                     'catalog.product.edit.tab.super.config.simple'
                 )
             );
 
-            $this->setChild(
-                'create_from_configurable',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label' => Mage::helper('catalog')->__('Copy From Configurable'),
-                        'class' => 'add',
-                        'onclick' => 'superProduct.createNewProduct()'
-                    ])
-            );
+            $this->setChild(self::BUTTON_CREATE_CONFIGURABLE, $this->getButtonCreateFromConfigurableBlock());
         }
 
         return parent::_prepareLayout();
+    }
+
+    public function getButtonCreateEmptyBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock()
+            ->setLabel(Mage::helper('catalog')->__('Create Empty'))
+            ->setOnClick('superProduct.createEmptyProduct()');
+    }
+
+    public function getButtonCreateFromConfigurableBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock()
+            ->setLabel(Mage::helper('catalog')->__('Copy From Configurable'))
+            ->setOnClick('superProduct.createNewProduct()');
     }
 
     /**
@@ -218,7 +219,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function getGridHtml()
     {
-        return $this->getChildHtml('grid');
+        return $this->getChildHtml(self::BLOCK_GRID);
     }
 
     /**
@@ -228,7 +229,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
      */
     public function getGridJsObject()
     {
-        return $this->getChild('grid')->getJsObjectName();
+        return $this->getChild(self::BLOCK_GRID)->getJsObjectName();
     }
 
     /**

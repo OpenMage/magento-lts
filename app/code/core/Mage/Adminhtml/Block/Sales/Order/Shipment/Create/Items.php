@@ -57,16 +57,17 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
      */
     protected function _beforeToHtml()
     {
-        $this->setChild(
-            'submit_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('sales')->__('Submit Shipment'),
-                'class'     => 'save submit-button',
-                'onclick'   => 'submitShipment(this);',
-            ])
-        );
+        $this->setChild(self::BUTTON_SUBMIT, $this->getButtonSubmitBlock());
 
         return parent::_beforeToHtml();
+    }
+
+    public function getButtonSubmitBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock()
+            ->setLabel(Mage::helper('sales')->__('Submit Shipment'))
+            ->setOnClick('submitShipment(this);')
+            ->addClass('submit-button');
     }
 
     /**
@@ -78,16 +79,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
     public function formatPrice($price)
     {
         return $this->getShipment()->getOrder()->formatPrice($price);
-    }
-
-    /**
-     * Retrieve HTML of update button
-     *
-     * @return string
-     */
-    public function getUpdateButtonHtml()
-    {
-        return $this->getChildHtml('update_button');
     }
 
     /**

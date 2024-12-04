@@ -40,13 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
             'submit',
             'note',
             [
-                'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Add Group'),
-                    'onclick'   => 'this.form.submit();',
-                    'class'     => 'add'
-                ])
-                ->toHtml(),
+                'text' => $this->getButtonAddBlock()->toHtml(),
             ]
         );
 
@@ -64,6 +58,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
         $form->setAction($this->getUrl('*/catalog_product_group/save'));
         $this->setForm($form);
         return $this;
+    }
+
+    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock($name, $attributes)
+            ->setLabel(Mage::helper('catalog')->__('Add Group'))
+            ->setOnClick('this.form.submit();');
     }
 
     protected function _getSetId()

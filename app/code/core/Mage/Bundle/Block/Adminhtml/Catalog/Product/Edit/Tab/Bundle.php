@@ -57,24 +57,30 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
     {
         $this->setChild(
             self::BLOCK_OPTION_BOX,
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('bundle')->__('Add New Option'),
-                    'class' => 'add',
-                    'id'    => 'add_new_option',
-                    'on_click' => 'bOption.add()'
-                ])
-        );
-
-        $this->setChild(
-            self::BLOCK_OPTION_BOX,
             $this->getLayout()->createBlock(
                 'bundle/adminhtml_catalog_product_edit_tab_bundle_option',
                 'adminhtml.catalog.product.edit.tab.bundle.option'
             )
         );
 
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock($name, $attributes)
+            ->setId('add_new_option')
+            ->setLabel(Mage::helper('bundle')->__('Add New Option'))
+            ->setOnClick('bOption.add();');
     }
 
     /**

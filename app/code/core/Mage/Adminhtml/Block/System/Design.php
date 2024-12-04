@@ -32,17 +32,24 @@ class Mage_Adminhtml_Block_System_Design extends Mage_Adminhtml_Block_Template
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'add_new_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Add Design Change'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/new')),
-                    'class'     => 'add'
-                ])
-        );
+        $this->setChild(self::BLOCK_GRID, $this->getLayout()->createBlock('adminhtml/system_design_grid', 'design.grid'));
 
-        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/system_design_grid', 'design.grid'));
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock($name, $attributes)
+            ->setLabel(Mage::helper('catalog')->__('Add Design Change'))
+            ->setOnClickSetLocationJsUrl('*/*/new');
     }
 }

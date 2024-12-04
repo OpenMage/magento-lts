@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Uploader\Block;
 
 use Mage;
+use Mage_Core_Model_Layout;
 use Mage_Uploader_Block_Abstract;
 use Mage_Uploader_Model_Config_Browsebutton;
 use Mage_Uploader_Model_Config_Misc;
@@ -32,6 +33,46 @@ class AbstractTest extends TestCase
     {
         Mage::app();
         $this->subject = $this->getMockForAbstractClass(Mage_Uploader_Block_Abstract::class);
+    }
+
+    /**
+     * @covers Mage_Uploader_Block_Abstract::getButtonBrowseBlock()
+     * @group Mage_Uploader
+     * @group Mage_Uploader_Block
+     * @group AdminhtmlButtons
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
+     */
+    public function testGetButtonBrowseBlock(): void
+    {
+        $this->subject->setLayout(new Mage_Core_Model_Layout());
+
+        $result = $this->subject->getButtonBrowseBlock();
+        $this->assertStringStartsWith('id_', $result->getId());
+        $this->assertSame('Browse Files...', $result->getLabel());
+        $this->assertNull($result->getOnClick());
+        $this->assertSame('button', $result->getType());
+        $this->assertNull($result->getClass());
+    }
+
+    /**
+     * @covers Mage_Uploader_Block_Abstract::getButtonDeleteBlock()
+     * @group Mage_Uploader
+     * @group Mage_Uploader_Block
+     * @group AdminhtmlButtons
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
+     */
+    public function testGetButtonDeleteBlock(): void
+    {
+        $this->subject->setLayout(new Mage_Core_Model_Layout());
+
+        $result = $this->subject->getButtonDeleteBlock();
+        $this->assertSame('{{id}}', $result->getId());
+        $this->assertSame('Remove', $result->getLabel());
+        $this->assertNull($result->getOnClick());
+        $this->assertSame('button', $result->getType());
+        $this->assertSame('delete', $result->getClass());
     }
 
     /**

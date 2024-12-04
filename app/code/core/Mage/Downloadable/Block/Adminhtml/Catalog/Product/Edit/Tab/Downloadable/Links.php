@@ -99,13 +99,14 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getAddButtonHtml()
     {
-        $addButton = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'label' => Mage::helper('downloadable')->__('Add New Row'),
-                'id'    => 'add_link_item',
-                'class' => 'add'
-            ]);
-        return $addButton->toHtml();
+        return $this->getButtonAddBlock()->toHtml();
+    }
+
+    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock()
+            ->setId('add_link_item')
+            ->setLabel(Mage::helper('downloadable')->__('Add New Row'));
     }
 
     /**
@@ -248,20 +249,31 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
-        $this->setChild(
-            'upload_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->addData([
-               'id'      => '',
-               'label'   => Mage::helper('adminhtml')->__('Upload Files'),
-               'type'    => 'button',
-               'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')'
-            ])
-        );
+
         $this->_addElementIdsMapping([
            'container' => $this->getHtmlId() . '-new',
            'delete'    => $this->getHtmlId() . '-delete'
         ]);
+
+        $this->addButtons();
         return $this;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_UPLOAD, $this->getButtonUploadBlock());
+    }
+
+    public function getButtonUploadBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonUploadBlock($name, $attributes)
+            ->addData([
+                'id'      => '',
+                'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')'
+            ]);
     }
 
     /**

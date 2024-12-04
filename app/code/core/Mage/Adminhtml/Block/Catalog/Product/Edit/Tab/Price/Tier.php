@@ -77,15 +77,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
      */
     protected function _prepareLayout()
     {
-        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'label' => Mage::helper('catalog')->__('Add Tier'),
-                'onclick' => 'return tierPriceControl.addItem()',
-                'class' => 'add'
-            ]);
-        $button->setName('add_tier_price_item_button');
-
-        $this->setChild('add_button', $button);
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock($name, $attributes)
+            ->setLabel(Mage::helper('catalog')->__('Add Tier'))
+            ->setOnClick('return tierPriceControl.addItem()')
+            ->setName('add_tier_price_item_button');
     }
 }

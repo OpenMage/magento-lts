@@ -43,27 +43,33 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends 
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'add_select_row_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Add New Row'),
-                    'class' => 'add add-select-row',
-                    'id'    => 'add_select_row_button_{{option_id}}'
-                ])
-        );
-
-        $this->setChild(
-            'delete_select_row_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Delete Row'),
-                    'class' => 'delete delete-select-row icon-btn',
-                    'id'    => 'delete_select_row_button'
-                ])
-        );
-
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+    }
+
+    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock($name, $attributes)
+            ->setId('add_select_row_button_{{option_id}}')
+            ->setLabel(Mage::helper('catalog')->__('Add New Row'))
+            ->addClass('add-select-row');
+    }
+
+    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonDeleteBlock($name, $attributes)
+            ->setId('delete_select_row_button')
+            ->setLabel(Mage::helper('catalog')->__('Delete Row'))
+            ->addClass('delete-select-row icon-btn');
     }
 
     public function getPriceTypeSelectHtml()

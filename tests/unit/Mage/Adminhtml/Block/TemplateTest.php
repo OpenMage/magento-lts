@@ -29,7 +29,6 @@ class TemplateTest extends TestCase
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->subject = new Mage_Adminhtml_Block_Template();
     }
 

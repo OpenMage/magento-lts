@@ -22,23 +22,30 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+    public const BUTTON_BOTTOM  = 'bottom_button';
+    public const BUTTON_TOP     = 'top_button';
+
     protected function _prepareLayout()
     {
         if ($this->getCustomerId()) {
-            $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label' => Mage::helper('sales')->__('Update Changes'),
-                'onclick' => 'order.sidebarApplyChanges()',
-                'before_html' => '<div class="sub-btn-set">',
-                'after_html' => '</div>'
-            ]);
-            $this->setChild('top_button', $button);
+            $button = $this->getButtonTopBlock();
+            $this->setChild(self::BUTTON_TOP, $button);
 
             $button = clone $button;
             $button->unsId();
-            $this->setChild('bottom_button', $button);
+            $this->setChild(self::BUTTON_BOTTOM, $button);
         }
 
         return parent::_prepareLayout();
+    }
+
+    public function getButtonTopBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('sales')->__('Update Changes'))
+            ->setOnClick('order.sidebarApplyChanges()')
+            ->setBeforeHtml('<div class="sub-btn-set">')
+            ->setAfterHtml('</div>');
     }
 
     public function canDisplay($child)

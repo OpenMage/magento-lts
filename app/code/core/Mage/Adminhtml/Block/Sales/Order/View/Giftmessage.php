@@ -67,16 +67,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     protected function _prepareLayout()
     {
         if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
-            $this->setChild(
-                'save_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
-                        'class'   => 'save'
-                    ])
-            );
+            $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
         }
         return $this;
+    }
+
+    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setLabel(Mage::helper('giftmessage')->__('Save Gift Message'));
     }
 
     /**
@@ -85,11 +84,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     public function getSaveButtonHtml()
     {
-        $this->getChild('save_button')->setOnclick(
-            'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')'
-        );
-
-        return $this->getChildHtml('save_button');
+        $this->getChild(self::BUTTON_SAVE)
+            ->setOnClick(
+                'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')'
+            );
+        return parent::getSaveButtonHtml();
     }
 
     /**

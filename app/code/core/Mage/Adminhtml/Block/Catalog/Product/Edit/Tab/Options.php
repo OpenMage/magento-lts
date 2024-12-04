@@ -30,20 +30,26 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options extends Mage_Adminht
     {
         $this->setChild(
             self::BLOCK_OPTION_BOX,
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Add New Option'),
-                    'class' => 'add',
-                    'id'    => 'add_new_defined_option'
-                ])
-        );
-
-        $this->setChild(
-            'options_box',
             $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_options_option')
         );
 
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonAddBlock($name, $attributes)
+            ->setId('add_new_defined_option')
+            ->setLabel(Mage::helper('catalog')->__('Add New Option'));
     }
 
     public function getOptionsBoxHtml()

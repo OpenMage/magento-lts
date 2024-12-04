@@ -23,43 +23,53 @@
  */
 class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Block_Template
 {
+    public const DATA_ID = 'group_id';
+
+    public const BUTTON_CONFIRM_DELETE  = 'confirm_deletion_button';
+
+    protected $_template = 'system/store/delete_group.phtml';
+
     /**
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $itemId = $this->getRequest()->getParam('group_id');
-
-        $this->setTemplate('system/store/delete_group.phtml');
+        $itemId = $this->getRequest()->getParam(self::DATA_ID);
         $this->setAction($this->getUrl('*/*/deleteGroupPost', ['group_id' => $itemId]));
-        $this->setChild(
-            'confirm_deletion_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('core')->__('Delete Store'),
-                    'onclick'   => 'deleteForm.submit()',
-                    'class'     => 'cancel'
-                ])
-        );
-        $onClick = Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/editGroup', ['group_id' => $itemId]));
-        $this->setChild(
-            'cancel_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('core')->__('Cancel'),
-                    'onclick'   => $onClick,
-                    'class'     => 'cancel'
-                ])
-        );
-        $this->setChild(
-            'back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('core')->__('Back'),
-                    'onclick'   => $onClick,
-                    'class'     => 'cancel'
-                ])
-        );
+
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_CONFIRM_DELETE, $this->getButtonConfirmDeleteBlock());
+        $this->setChild(self::BUTTON_CANCEL, $this->getButtonCancelBlock());
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+    }
+
+    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        $itemId = $this->getRequest()->getParam(self::DATA_ID);
+        return parent::getButtonBackBlock($name, $attributes)
+            ->setOnClickSetLocationJsUrl('*/*/editGroup', [self::DATA_ID => $itemId])
+            ->setClass(self::BUTTON__CLASS_CANCEL);
+    }
+
+    public function getButtonCancelBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        $itemId = $this->getRequest()->getParam(self::DATA_ID);
+        return parent::getButtonCancelBlock($name, $attributes)
+            ->setOnClickSetLocationJsUrl('*/*/editGroup', [self::DATA_ID => $itemId]);
+    }
+
+    public function getButtonConfirmDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonCancelBlock($name, $attributes)
+            ->setLabel(Mage::helper('core')->__('Delete Store'))
+            ->setOnClick('deleteForm.submit()');
     }
 }

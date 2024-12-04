@@ -29,17 +29,24 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
      */
     protected function _prepareLayout()
     {
-        $onclick = "submitAndReloadArea($('shipment_tracking_info').parentNode, '" . $this->getSubmitUrl() . "')";
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'   => Mage::helper('sales')->__('Add'),
-                    'class'   => 'save',
-                    'onclick' => $onclick
-                ])
-        );
+        $this->addButtons();
         return $this;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+    }
+
+    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        $onclick = "submitAndReloadArea($('shipment_tracking_info').parentNode, '" . $this->getSubmitUrl() . "')";
+        return parent::getButtonSaveBlock($name, $attributes)
+            ->setLabel(Mage::helper('sales')->__('Add'))
+            ->setOnClick($onclick);
     }
 
     /**
@@ -60,16 +67,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
     public function getSubmitUrl()
     {
         return $this->getUrl('*/*/addTrack/', ['shipment_id' => $this->getShipment()->getId()]);
-    }
-
-    /**
-     * Retrieve save button html
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
     }
 
     /**
