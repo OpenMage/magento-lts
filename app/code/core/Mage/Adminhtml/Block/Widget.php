@@ -21,7 +21,7 @@
  * @package    Mage_Adminhtml
  *
  * @method $this setHeaderCss(string $value)
- * @method $this setTitle(string $value)
+ * @method $this setTitle(string $title)
  */
 class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
 {

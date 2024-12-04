@@ -20,12 +20,17 @@
  */
 class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Template
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('permissions/userinfo.phtml');
-    }
+    public const BUTTON_BACK    = 'backButton';
+    public const BUTTON_DELETE  = 'deleteButton';
+    public const BUTTON_RESET   = 'resetButton';
+    public const BUTTON_SAVE    = 'saveButton';
 
+    protected $_template = 'permissions/userinfo.phtml';
+
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -71,25 +76,13 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
         return parent::_prepareLayout();
     }
 
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('backButton');
-    }
-
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('resetButton');
-    }
-
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('saveButton');
-    }
-
+    /**
+     * @inheritDoc
+     */
     public function getDeleteButtonHtml()
     {
         if ((int) $this->getRequest()->getParam('rid') == 0) {
-            return;
+            return '';
         }
         return $this->getChildHtml('deleteButton');
     }

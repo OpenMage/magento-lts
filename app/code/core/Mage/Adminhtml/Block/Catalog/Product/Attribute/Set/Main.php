@@ -22,13 +22,14 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Adminhtml_Block_Template
 {
-    /**
-     * Initialize template
-     */
-    protected function _construct()
-    {
-        $this->setTemplate('catalog/product/attribute/set/main.phtml');
-    }
+    public const BLOCK_EDIT_SET_FORM    = 'edit_set_form';
+    public const BLOCK_GROUP_TREE       = 'group_tree';
+
+    public const BUTTON_ADD_GROUP       = 'add_group_button';
+    public const BUTTON_DELETE_GROUP    = 'delete_group_button';
+    public const BUTTON_RENAME          = 'rename_button';
+
+    protected $_template = 'catalog/product/attribute/set/main.phtml';
 
     /**
      * Prepare Global Layout
@@ -40,12 +41,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         $setId = $this->_getSetId();
 
         $this->setChild(
-            'group_tree',
+            self::BLOCK_GROUP_TREE,
             $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_tree_group')
         );
 
         $this->setChild(
-            'edit_set_form',
+            self::BLOCK_EDIT_SET_FORM,
             $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset')
         );
 
@@ -123,7 +124,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      */
     public function getGroupTreeHtml()
     {
-        return $this->getChildHtml('group_tree');
+        return $this->getChildHtml(self::BLOCK_GROUP_TREE);
     }
 
     /**
@@ -133,7 +134,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      */
     public function getSetFormHtml()
     {
-        return $this->getChildHtml('edit_set_form');
+        return $this->getChildHtml(self::BLOCK_EDIT_SET_FORM);
     }
 
     /**
@@ -283,39 +284,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
     }
 
     /**
-     * Retrieve Back Button HTML
-     *
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('back_button');
-    }
-
-    /**
-     * Retrieve Reset Button HTML
-     *
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
-    }
-
-    /**
-     * Retrieve Save Button HTML
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
-    }
-
-    /**
-     * Retrieve Delete Button HTML
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getDeleteButtonHtml()
     {
@@ -332,7 +301,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      */
     public function getDeleteGroupButton()
     {
-        return $this->getChildHtml('delete_group_button');
+        return $this->getChildHtml(self::BUTTON_DELETE_GROUP);
     }
 
     /**
@@ -342,7 +311,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      */
     public function getAddGroupButton()
     {
-        return $this->getChildHtml('add_group_button');
+        return $this->getChildHtml(self::BUTTON_ADD_GROUP);
     }
 
     /**
@@ -352,7 +321,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
      */
     public function getRenameButton()
     {
-        return $this->getChildHtml('rename_button');
+        return $this->getChildHtml(self::BUTTON_RENAME);
     }
 
     /**

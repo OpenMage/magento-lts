@@ -23,12 +23,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Widget
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('catalog/product/edit.phtml');
-        $this->setId('product_edit');
-    }
+    protected $_idFieldName = 'product_edit';
+    protected $_template    = 'catalog/product/edit.phtml';
 
     /**
      * Retrieve currently edited product object
@@ -126,54 +122,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         }
 
         return parent::_prepareLayout();
-    }
-
-    /**
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('back_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getCancelButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSaveAndEditButtonHtml()
-    {
-        return $this->getChildHtml('save_and_edit_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getDuplicateButtonHtml()
-    {
-        return $this->getChildHtml('duplicate_button');
     }
 
     /**

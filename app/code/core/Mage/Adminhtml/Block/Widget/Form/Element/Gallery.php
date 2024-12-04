@@ -24,10 +24,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
 {
     protected $_element = null;
 
-    public function __construct()
-    {
-        $this->setTemplate('widget/form/element/gallery.phtml');
-    }
+    protected $_template = 'widget/form/element/gallery.phtml';
 
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
@@ -51,6 +48,10 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
         return $this->getElement()->getValue();
     }
 
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -73,11 +74,6 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
             ])
         );
         return parent::_prepareLayout();
-    }
-
-    public function getAddButtonHtml()
-    {
-        return $this->getChildHtml('add_button');
     }
 
     public function getDeleteButtonHtml($image)

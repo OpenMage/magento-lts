@@ -27,11 +27,12 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     protected $_tabs;
 
+    protected $_idFieldName = 'system_config_tabs';
+    protected $_template    = 'system/config/tabs.phtml';
+
     protected function _construct()
     {
-        $this->setId('system_config_tabs');
         $this->setTitle(Mage::helper('adminhtml')->__('Configuration'));
-        $this->setTemplate('system/config/tabs.phtml');
     }
 
     /**
@@ -54,16 +55,16 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
         $configFields = Mage::getSingleton('adminhtml/config');
         $sections = $configFields->getSections($current);
-        $tabs     = (array)$configFields->getTabs()->children();
+        $tabs     = (array) $configFields->getTabs()->children();
 
-        $sections = (array)$sections;
+        $sections = (array) $sections;
 
         usort($sections, [$this, '_sort']);
         usort($tabs, [$this, '_sort']);
 
         foreach ($tabs as $tab) {
             $helperName = $configFields->getAttributeModule($tab);
-            $label = Mage::helper($helperName)->__((string)$tab->label);
+            $label = Mage::helper($helperName)->__((string) $tab->label);
 
             $this->addTab($tab->getName(), [
                 'label' => $label,
@@ -86,7 +87,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
             $helperName = $configFields->getAttributeModule($section);
 
-            $label = Mage::helper($helperName)->__((string)$section->label);
+            $label = Mage::helper($helperName)->__((string) $section->label);
 
             if ($code == $current) {
                 if (!$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store')) {
@@ -96,8 +97,8 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                 }
             }
             if ($sectionAllowed && $hasChildren) {
-                $this->addSection($code, (string)$section->tab, [
-                    'class'     => (string)$section->class,
+                $this->addSection($code, (string) $section->tab, [
+                    'class'     => (string) $section->class,
                     'label'     => $label,
                     'url'       => $url->getUrl('*/*/*', ['_current' => true, 'section' => $code]),
                 ]);

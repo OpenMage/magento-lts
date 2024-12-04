@@ -244,16 +244,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     }
 
     /**
-     * Retrieve 'add group price item' button HTML
-     *
-     * @return string
-     */
-    public function getAddButtonHtml()
-    {
-        return $this->getChildHtml('add_button');
-    }
-
-    /**
      * Retrieve customized price column header
      *
      * @param string $default

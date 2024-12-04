@@ -25,6 +25,10 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 {
+    public const BUTTON_EXPORT          = 'export_button';
+    public const BUTTON_RESET_FILTER    = 'reset_filter_button';
+    public const BUTTON_SEARCH          = 'search_button';
+
     /**
      * Columns array
      *
@@ -214,6 +218,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected ?array $defaultColumnSettings = null;
 
+    protected $_template = 'widget/grid.phtml';
+
     /**
      * Mage_Adminhtml_Block_Widget_Grid constructor.
      * @param array $attributes
@@ -221,12 +227,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
-        $this->setTemplate('widget/grid.phtml');
         $this->setRowClickCallback('openGridRow');
         $this->_emptyText = Mage::helper('adminhtml')->__('No records found.');
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -265,7 +271,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getExportButtonHtml()
     {
-        return $this->getChildHtml('export_button');
+        return $this->getChildHtml(self::BUTTON_EXPORT);
     }
 
     /**
@@ -273,7 +279,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getResetFilterButtonHtml()
     {
-        return $this->getChildHtml('reset_filter_button');
+        return $this->getChildHtml(self::BUTTON_RESET_FILTER);
     }
 
     /**
@@ -281,7 +287,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getSearchButtonHtml()
     {
-        return $this->getChildHtml('search_button');
+        return $this->getChildHtml(self::BUTTON_SEARCH);
     }
 
     /**

@@ -22,14 +22,7 @@
  */
 class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples extends Mage_Uploader_Block_Single
 {
-    /**
-     * Class constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('downloadable/product/edit/downloadable/samples.phtml');
-    }
+    protected $_template = 'downloadable/product/edit/downloadable/samples.phtml';
 
     /**
      * Get model of the product that is being edited
@@ -133,8 +126,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
     }
 
     /**
-     * Prepare layout
-     *
+     * @$this
      */
     protected function _prepareLayout()
     {
@@ -164,7 +156,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
      */
     public function getUploadButtonHtml()
     {
-        return $this->getChild('upload_button')->toHtml();
+        return $this->getChild(self::BUTTON_UPLOAD)->toHtml();
     }
 
     /**
@@ -191,7 +183,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
      */
     public function getBrowseButtonHtml()
     {
-        return $this->getChild('browse_button')
+        return $this->getChild(self::BUTTON_BROWSE)
             // Workaround for IE9
             ->setBeforeHtml('<div style="display:inline-block; " id="downloadable_sample_{{id}}_file-browse">')
             ->setAfterHtml('</div>')
@@ -204,7 +196,9 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
      */
     public function getDeleteButtonHtml()
     {
-        return $this->getChild('delete_button')
+        /** @var Mage_Adminhtml_Block_Widget_Button $block */
+        $block = $this->getChild(self::BUTTON_DELETE);
+        return $block
             ->setLabel('')
             ->setId('downloadable_sample_{{id}}_file-delete')
             ->setStyle('display:none; width:31px;')

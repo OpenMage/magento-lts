@@ -22,6 +22,9 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Template
 {
+    public const BUTTON_PREVIEW           = 'preview_button';
+    public const BUTTON_SAVE_AND_CONTINUE = 'save_and_resume';
+
     /**
      * Check for template Id in request
      */
@@ -156,37 +159,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
      */
     public function getPreviewButtonHtml()
     {
-        return $this->getChildHtml('preview_button');
-    }
-
-    /**
-     * Retrieve Save Button HTML
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
-    }
-
-    /**
-     * Retrieve Reset Button HTML
-     *
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
-    }
-
-    /**
-     * Retrieve Back Button HTML
-     *
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('back_button');
+        return $this->getChildHtml(self::BUTTON_PREVIEW);
     }
 
     /**
@@ -196,7 +169,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
      */
     public function getResumeButtonHtml()
     {
-        return $this->getChildHtml('save_and_resume');
+        return $this->getChildHtml(self::BUTTON_SAVE_AND_CONTINUE);
     }
 
     /**

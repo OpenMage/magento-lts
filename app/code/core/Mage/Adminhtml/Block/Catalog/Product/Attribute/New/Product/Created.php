@@ -22,14 +22,9 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends Mage_Adminhtml_Block_Widget
 {
-    /**
-     * Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('catalog/product/attribute/new/created.phtml');
-    }
+    public const BLOCK_ATTRIBUTES = 'attributes';
+
+    protected $_template = 'catalog/product/attribute/new/created.phtml';
 
     /**
      * @return $this
@@ -38,7 +33,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
     protected function _prepareLayout()
     {
         $this->setChild(
-            'attributes',
+            self::BLOCK_ATTRIBUTES,
             $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_new_product_attributes')
                 ->setGroupAttributes($this->_getGroupAttributes())
         );
@@ -74,20 +69,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
 
     /**
      * @return string
-     */
-    public function getCloseButtonHtml()
-    {
-        return $this->getChildHtml('close_button');
-    }
-
-    /**
-     * @return string
      * @throws Exception
      */
     public function getAttributesBlockJson()
     {
         $result = [
-            $this->getRequest()->getParam('tab') => $this->getChildHtml('attributes')
+            $this->getRequest()->getParam('tab') => $this->getChildHtml(self::BLOCK_ATTRIBUTES)
         ];
 
         return Mage::helper('core')->jsonEncode($result);

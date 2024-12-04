@@ -22,6 +22,10 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Adminhtml_Block_Widget
 {
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -78,36 +82,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
     protected function _getHelper()
     {
         return $this->helper('adminhtml/catalog_product_edit_action_attribute');
-    }
-
-    /**
-     * Retrieve back button html code
-     *
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('back_button');
-    }
-
-    /**
-     * Retrieve cancel button html code
-     *
-     * @return string
-     */
-    public function getCancelButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
-    }
-
-    /**
-     * Retrieve save button html code
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
     }
 
     /**

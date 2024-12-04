@@ -22,15 +22,10 @@
  */
 abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends Mage_Adminhtml_Block_Widget
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('eav/attribute/options.phtml');
-    }
+    protected $_template = 'eav/attribute/options.phtml';
 
     /**
-     * Preparing layout, adding buttons
-     *
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -57,23 +52,13 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     }
 
     /**
-     * Retrieve HTML of delete button
-     *
-     * @return string
-     */
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
-    }
-
-    /**
      * Retrieve HTML of add button
      *
      * @return string
      */
     public function getAddNewButtonHtml()
     {
-        return $this->getChildHtml('add_button');
+        return $this->getChildHtml(self::BUTTON_ADD);
     }
 
     /**

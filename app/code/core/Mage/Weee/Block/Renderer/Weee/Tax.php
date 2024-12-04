@@ -43,13 +43,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
      */
     protected $_websites = null;
 
-    /**
-     * Public constructor
-     */
-    public function __construct()
-    {
-        $this->setTemplate('weee/renderer/tax.phtml');
-    }
+    protected $_template = 'weee/renderer/tax.phtml';
 
     /**
      * Retrieve product in question
@@ -212,7 +206,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     protected function _setAddButton()
     {
         $this->setChild(
-            'add_button',
+            self::BUTTON_ADD,
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(['id' => 'add_tax_' . $this->getElement()->getHtmlId(),
                 'label' => Mage::helper('catalog')->__('Add Tax'),
@@ -220,15 +214,5 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
                 'class' => 'add'
                 ])
         );
-    }
-
-    /**
-     * Retrieve add button html
-     *
-     * @return string
-     */
-    public function getAddButtonHtml()
-    {
-        return $this->getChildHtml('add_button');
     }
 }

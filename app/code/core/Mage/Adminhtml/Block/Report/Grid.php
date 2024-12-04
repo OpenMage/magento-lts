@@ -24,6 +24,8 @@
  */
 class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    public const BLOCK_STORE_SWITCHER = 'store_switcher';
+
     protected $_storeSwitcherVisibility = true;
 
     protected $_dateFilterVisibility = true;
@@ -35,8 +37,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     protected $_filters = [];
 
     protected $_defaultFilters = [
-            'report_from' => '',
-            'report_to' => '',
+            'report_from'   => '',
+            'report_to'     => '',
             'report_period' => 'day'
     ];
 
@@ -59,6 +61,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /** @todo OM: check */
     protected $_filterValues;
 
+    protected $_template = 'report/grid.phtml';
+
     /**
      * Mage_Adminhtml_Block_Report_Grid constructor.
      */
@@ -67,7 +71,6 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         parent::__construct();
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
-        $this->setTemplate('report/grid.phtml');
         $this->setUseAjax(false);
         $this->setCountTotals(true);
     }
@@ -78,7 +81,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     protected function _prepareLayout()
     {
         $this->setChild(
-            'store_switcher',
+            self::BLOCK_STORE_SWITCHER,
             $this->getLayout()->createBlock('adminhtml/store_switcher')
                 ->setUseConfirm(false)
                 ->setSwitchUrl($this->getUrl('*/*/*', ['store' => null]))
@@ -115,7 +118,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareCollection()
     {
-        $filter = $this->getParam($this->getVarNameFilter(), null);
+        $filter = $this->getParam($this->getVarNameFilter());
 
         if (is_null($filter)) {
             $filter = $this->_defaultFilter;
@@ -241,7 +244,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getStoreSwitcherHtml()
     {
-        return $this->getChildHtml('store_switcher');
+        return $this->getChildHtml(self::BLOCK_STORE_SWITCHER);
     }
 
     /**
@@ -319,7 +322,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getRefreshButtonHtml()
     {
-        return $this->getChildHtml('refresh_button');
+        return $this->getChildHtml(self::BUTTON_REFRESH);
     }
 
     public function setFilter($name, $value)

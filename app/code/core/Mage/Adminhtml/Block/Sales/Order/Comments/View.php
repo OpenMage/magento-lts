@@ -35,6 +35,7 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()

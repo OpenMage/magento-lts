@@ -23,7 +23,7 @@
 class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Zend_Validate_InArray
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected $_messageTemplates;
 

@@ -22,10 +22,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
 {
-    public function __construct()
-    {
-        $this->setTemplate('catalog/product/edit/price/tier.phtml');
-    }
+    protected $_template = 'catalog/product/edit/price/tier.phtml';
 
     /**
      * Retrieve list of initial customer groups
@@ -75,6 +72,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
      * Prepare global layout
      * Add "Add tier" button to layout
      *
+     * @codeCoverageIgnore
      * @return $this
      */
     protected function _prepareLayout()

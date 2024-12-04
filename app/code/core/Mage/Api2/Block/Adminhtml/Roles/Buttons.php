@@ -25,15 +25,15 @@
  */
 class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Template
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('api2/role/buttons.phtml');
-    }
+    public const BUTTON_BACK    = 'backButton';
+    public const BUTTON_DELETE  = 'deleteButton';
+    public const BUTTON_RESET   = 'resetButton';
+    public const BUTTON_SAVE    = 'saveButton';
+
+    protected $_template = 'api2/role/buttons.phtml';
 
     /**
-     * Preparing global layout
-     *
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -69,39 +69,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
     }
 
     /**
-     * Get back button HTML
-     *
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('backButton');
-    }
-
-    /**
-     * Get reset button HTML
-     *
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('resetButton');
-    }
-
-    /**
-     * Get save button HTML
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('saveButton');
-    }
-
-    /**
-     * Get delete button HTML
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getDeleteButtonHtml()
     {
@@ -111,7 +79,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
             return '';
         }
 
-        $this->getChild('deleteButton')->setData('onclick', sprintf(
+        $this->getChild(self::BUTTON_DELETE)->setData('onclick', sprintf(
             "if(confirm('%s')) roleForm.submit('%s'); return false;",
             Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Are you sure you want to do this?')),
             $this->getUrl('*/*/delete')

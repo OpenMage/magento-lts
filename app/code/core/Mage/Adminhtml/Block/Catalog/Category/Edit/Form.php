@@ -22,6 +22,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
+    public const BLOCK_TABS = 'tabs';
+
     /**
      * Additional buttons on category page
      *
@@ -29,19 +31,18 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
      */
     protected $_additionalButtons = [];
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('catalog/category/edit/form.phtml');
-    }
+    protected $_template = 'catalog/category/edit/form.phtml';
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $category = $this->getCategory();
+        $category   = $this->getCategory();
         $categoryId = (int) $category->getId(); // 0 when we create category, otherwise some value for editing category
 
         $this->setChild(
-            'tabs',
+            self::BLOCK_TABS,
             $this->getLayout()->createBlock('adminhtml/catalog_category_tabs', 'tabs')
         );
 
@@ -100,15 +101,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         return $this->getUrl('*/system_store', $params);
     }
 
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
-    }
-
     public function getSaveButtonHtml()
     {
         if ($this->hasStoreRootCategory()) {
-            return $this->getChildHtml('save_button');
+            return $this->getChildHtml(self::BUTTON_SAVE);
         }
         return '';
     }
@@ -116,7 +112,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     public function getResetButtonHtml()
     {
         if ($this->hasStoreRootCategory()) {
-            return $this->getChildHtml('reset_button');
+            return $this->getChildHtml(self::BUTTON_RESET);
         }
         return '';
     }
@@ -173,7 +169,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
 
     public function getTabsHtml()
     {
-        return $this->getChildHtml('tabs');
+        return $this->getChildHtml(self::BLOCK_TABS);
     }
 
     public function getHeader()

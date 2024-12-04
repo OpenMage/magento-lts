@@ -22,11 +22,18 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Template
 {
+    public const BLOCK_GRID = 'grid';
+
+    public const BUTTON_DELETE      = 'deleteButton';
+    public const BUTTON_UNSUBSCRIBE = 'unsubscribeButton';
+
+    protected $_template = 'newsletter/problem/list.phtml';
+
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('newsletter/problem/list.phtml');
-        $collection = Mage::getResourceSingleton('newsletter/problem_collection')
+
+        Mage::getResourceSingleton('newsletter/problem_collection')
             ->addSubscriberInfo()
             ->addQueueInfo();
     }
@@ -34,7 +41,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
     protected function _prepareLayout()
     {
         $this->setChild(
-            'grid',
+            self::BLOCK_GRID,
             $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid', 'newsletter.problem.grid')
         );
 
@@ -64,12 +71,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
 
     public function getUnsubscribeButtonHtml()
     {
-        return $this->getChildHtml('unsubscribeButton');
-    }
-
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('deleteButton');
+        return $this->getChildHtml(self::BUTTON_UNSUBSCRIBE);
     }
 
     public function getShowButtons()

@@ -22,11 +22,14 @@
  */
 class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Block_Widget
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('system/email/template/edit.phtml');
-    }
+    public const BLOCK_FORM         = 'form';
+    public const BUTTON_LOAD        = 'load_button';
+    public const BUTTON_PREVIEW     = 'preview_button';
+    public const BUTTON_TO_HTML     = 'to_html_button';
+    public const BUTTON_TO_PLAIN    = 'to_plain_button';
+    public const BUTTON_TOGGLE      = 'toggle_button';
+
+    protected $_template = 'system/email/template/edit.phtml';
 
     /**
      * @inheritDoc
@@ -142,7 +145,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         );
 
         $this->setChild(
-            'form',
+            self::BLOCK_FORM,
             $this->getLayout()->createBlock('adminhtml/system_email_template_edit_form')
         );
         return parent::_prepareLayout();
@@ -161,15 +164,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getToggleButtonHtml()
     {
-        return $this->getChildHtml('toggle_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
+        return $this->getChildHtml(self::BUTTON_TOGGLE);
     }
 
     /**
@@ -177,7 +172,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getToPlainButtonHtml()
     {
-        return $this->getChildHtml('to_plain_button');
+        return $this->getChildHtml(self::BUTTON_TO_PLAIN);
     }
 
     /**
@@ -185,15 +180,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getToHtmlButtonHtml()
     {
-        return $this->getChildHtml('to_html_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
+        return $this->getChildHtml(self::BUTTON_TO_HTML);
     }
 
     /**
@@ -201,15 +188,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getPreviewButtonHtml()
     {
-        return $this->getChildHtml('preview_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
+        return $this->getChildHtml(self::BUTTON_PREVIEW);
     }
 
     /**
@@ -217,7 +196,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getLoadButtonHtml()
     {
-        return $this->getChildHtml('load_button');
+        return $this->getChildHtml(self::BUTTON_LOAD);
     }
 
     /**
@@ -250,7 +229,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getFormHtml()
     {
-        return $this->getChildHtml('form');
+        return $this->getChildHtml(self::BLOCK_FORM);
     }
 
     /**

@@ -21,13 +21,17 @@
  */
 class Mage_Adminhtml_Block_System_Design extends Mage_Adminhtml_Block_Template
 {
+    public const BLOCK_GRID = 'grid';
+
+    public const BUTTON_ADD = 'add_new_button';
+
+    protected $_template = 'system/design/index.phtml';
+
     /**
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setTemplate('system/design/index.phtml');
-
         $this->setChild(
             'add_new_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')

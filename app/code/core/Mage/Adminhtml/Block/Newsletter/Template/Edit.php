@@ -22,6 +22,11 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block_Widget
 {
+    public const BUTTON_PREVIEW  = 'preview_button';
+    public const BUTTON_SAVE_AS  = 'save_as_button';
+    public const BUTTON_TO_HTML  = 'to_html_button';
+    public const BUTTON_TO_PLAIN = 'to_plain_button';
+
     /**
      * Edit Block model
      *
@@ -45,7 +50,9 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     protected function _prepareLayout()
     {
         // Load Wysiwyg on demand and Prepare layout
-        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled() && ($block = $this->getLayout()->getBlock('head'))) {
+        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()
+            && ($block = $this->getLayout()->getBlock('head'))
+        ) {
             $block->setCanLoadTinyMce(true);
         }
 
@@ -135,33 +142,13 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
     }
 
     /**
-     * Retrieve Back Button HTML
-     *
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('back_button');
-    }
-
-    /**
-     * Retrieve Reset Button HTML
-     *
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
-    }
-
-    /**
      * Retrieve Convert To Plain Button HTML
      *
      * @return string
      */
     public function getToPlainButtonHtml()
     {
-        return $this->getChildHtml('to_plain_button');
+        return $this->getChildHtml(self::BUTTON_TO_PLAIN);
     }
 
     /**
@@ -171,17 +158,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
      */
     public function getToHtmlButtonHtml()
     {
-        return $this->getChildHtml('to_html_button');
-    }
-
-    /**
-     * Retrieve Save Button HTML
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
+        return $this->getChildHtml(self::BUTTON_TO_HTML);
     }
 
     /**
@@ -191,17 +168,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
      */
     public function getPreviewButtonHtml()
     {
-        return $this->getChildHtml('preview_button');
-    }
-
-    /**
-     * Retrieve Delete Button HTML
-     *
-     * @return string
-     */
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
+        return $this->getChildHtml(self::BUTTON_PREVIEW);
     }
 
     /**
@@ -211,7 +178,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
      */
     public function getSaveAsButtonHtml()
     {
-        return $this->getChildHtml('save_as_button');
+        return $this->getChildHtml(self::BUTTON_SAVE_AS);
     }
 
     /**

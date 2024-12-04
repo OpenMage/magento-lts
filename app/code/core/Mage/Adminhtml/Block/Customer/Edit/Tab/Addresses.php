@@ -22,14 +22,9 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Block_Widget_Form
 {
-    /**
-     * Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('customer/tab/addresses.phtml');
-    }
+    public const BUTTON_ADD = 'add_address_button';
+
+    protected $_template = 'customer/tab/addresses.phtml';
 
     /**
      * @return string
@@ -40,6 +35,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -93,14 +89,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     {
         $customer = Mage::registry('current_customer');
         return $customer->isReadonly();
-    }
-
-    /**
-     * @return string
-     */
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
     }
 
     /**
@@ -214,17 +202,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * @return string
      */
-    public function getCancelButtonHtml()
-    {
-        return $this->getChildHtml('cancel_button');
-    }
-
-    /**
-     * @return string
-     */
     public function getAddNewButtonHtml()
     {
-        return $this->getChildHtml('add_address_button');
+        return $this->getChildHtml(self::BUTTON_ADD);
     }
 
     /**

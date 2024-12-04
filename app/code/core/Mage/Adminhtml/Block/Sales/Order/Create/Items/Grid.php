@@ -29,14 +29,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     protected $_moveToCustomerStorage = true;
 
-    /**
-     * Class constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setId('sales_order_create_search_grid');
-    }
+    protected $_idFieldName = 'sales_order_create_search_grid';
 
     /**
      * Returns the items

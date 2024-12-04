@@ -22,17 +22,19 @@
  */
 class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
 {
+    protected $_template = 'system/cache/edit.phtml';
+
     /**
      * Mage_Adminhtml_Block_System_Cache_Edit constructor.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('system/cache/edit.phtml');
         $this->setTitle('Cache Management');
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -47,14 +49,6 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                 ])
         );
         return parent::_prepareLayout();
-    }
-
-    /**
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
     }
 
     /**

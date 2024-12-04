@@ -26,6 +26,8 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
 
     protected $_section;
 
+    protected $_template = 'system/config/edit.phtml';
+
     /**
      * Mage_Adminhtml_Block_System_Config_Edit constructor.
      * @throws Exception
@@ -33,7 +35,6 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('system/config/edit.phtml');
 
         $sectionCode = $this->getRequest()->getParam('section');
         $sections = Mage::getSingleton('adminhtml/config')->getSections();
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -59,14 +61,6 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
                 ])
         );
         return parent::_prepareLayout();
-    }
-
-    /**
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
     }
 
     /**

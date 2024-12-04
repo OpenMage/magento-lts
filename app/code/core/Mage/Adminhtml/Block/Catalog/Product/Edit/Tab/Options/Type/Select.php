@@ -22,17 +22,25 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract
 {
+    public const BUTTON_ADD     = 'add_select_row_button';
+    public const BUTTON_DELETE  = 'delete_select_row_button';
+
+    protected $_template = 'catalog/product/edit/options/type/select.phtml';
+
     /**
      * Class constructor
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('catalog/product/edit/options/type/select.phtml');
         $this->setCanEditPrice(true);
         $this->setCanReadPrice(true);
     }
 
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -56,16 +64,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends 
         );
 
         return parent::_prepareLayout();
-    }
-
-    public function getAddButtonHtml()
-    {
-        return $this->getChildHtml('add_select_row_button');
-    }
-
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_select_row_button');
     }
 
     public function getPriceTypeSelectHtml()

@@ -62,7 +62,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _convert($currencyFrom, $currencyTo)
     {

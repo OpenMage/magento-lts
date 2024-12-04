@@ -30,13 +30,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
 
     protected $_itemCount = 1;
 
+    protected $_template = 'catalog/product/edit/options/option.phtml';
+
     /**
      * Class constructor
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('catalog/product/edit/options/option.phtml');
         $this->setCanReadPrice(true);
         $this->setCanEditPrice(true);
     }
@@ -118,7 +119,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         );
 
         $path = 'global/catalog/product/options/custom/groups';
-
         foreach (Mage::getConfig()->getNode($path)->children() as $group) {
             $this->setChild(
                 $group->getName() . '_option_type',
@@ -134,13 +134,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     public function getAddButtonId()
     {
         return $this->getLayout()
-                ->getBlock('admin.product.options')
-                ->getChild('add_button')->getId();
-    }
-
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
+            ->getBlock('admin.product.options')
+            ->getChild(self::BUTTON_ADD)->getId();
     }
 
     public function getTypeSelectHtml()

@@ -12,6 +12,8 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Mage_Adminhtml_Block_Widget_Form_Element_Gallery $this */
 ?>
 <tr>
 <td colspan="2">
@@ -28,7 +30,7 @@
 
 <tfoot class="gallery">
 <tr class="gallery">
-<td class="gallery v-middle a-left"colspan="5"><?php echo $this->getAddButtonHtml() ?></td>
+<td class="gallery v-middle a-left" colspan="5"><?php echo $this->getAddButtonHtml() ?></td>
 </tr>
 </tfoot>
 
@@ -77,7 +79,7 @@ function addNewImage()
     new_row_input.value = '0';
 
     // Delete button
-    new_row_button = '<?php echo $this->getDeleteButtonHtml("this") ?>';
+    new_row_button = '<?php echo $this->getDeleteImageButtonHtml('this') ?>';
 
     table = document.getElementById( "gallery" );
 

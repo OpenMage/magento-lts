@@ -28,13 +28,11 @@
  * @method $this setCacheLifetime(int|false $value)
  * @method $this setCacheKey(string $value)
  * @method $this setCacheTags(array $value)
- * @method $this setClass(string $value)
+ * @method $this setClass(string $class)
  * @method $this setDisabled(bool $value)
- * @method $this setLabel(string $value)
- * @method $this setOnclick(string $value)
  * @method string getPosition()
  * @method $this setTemplate(string $value)
- * @method $this setType(string $value)
+ * @method $this setType(string $type)
  * @method bool hasWrapperMustBeVisible()
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
@@ -300,7 +298,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Preparing global layout
+     * Preparing global layout, adding buttons
      *
      * You can redefine this method in child classes for changing layout
      *

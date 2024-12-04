@@ -33,13 +33,14 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     protected $_purchasedSeparatelyAttribute = null;
 
+    protected $_template = 'downloadable/product/edit/downloadable/links.phtml';
+
     /**
      * Class constructor
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('downloadable/product/edit/downloadable/links.phtml');
         $this->setCanEditPrice(true);
         $this->setCanReadPrice(true);
     }
@@ -242,8 +243,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * Prepare block Layout
-     *
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -271,7 +271,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getUploadButtonHtml()
     {
-        return $this->getChild('upload_button')->toHtml();
+        return $this->getChild(self::BUTTON_UPLOAD)->toHtml();
     }
 
     /**
@@ -300,7 +300,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getBrowseButtonHtml($type = '')
     {
-        return $this->getChild('browse_button')
+        return $this->getChild(self::BUTTON_BROWSE)
             // Workaround for IE9
             ->setBeforeHtml(
                 '<div style="display:inline-block; " id="downloadable_link_{{id}}_' . $type . 'file-browse">'
@@ -316,7 +316,9 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getDeleteButtonHtml($type = '')
     {
-        return $this->getChild('delete_button')
+        /** @var Mage_Adminhtml_Block_Widget_Button $block */
+        $block = $this->getChild(self::BUTTON_DELETE);
+        return $block
             ->setLabel('')
             ->setId('downloadable_link_{{id}}_' . $type . 'file-delete')
             ->setStyle('display:none; width:31px;')

@@ -22,6 +22,8 @@
  */
 abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
 {
+    public const BUTTON_BROWSE = 'browse_button';
+
     /**
      * Template used for uploader
      *
@@ -169,17 +171,7 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
      */
     public function getBrowseButtonHtml()
     {
-        return $this->getChildHtml('browse_button');
-    }
-
-    /**
-     * Get delete button html
-     *
-     * @return string
-     */
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
+        return $this->getChildHtml(self::BUTTON_BROWSE);
     }
 
     /**

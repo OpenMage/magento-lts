@@ -62,7 +62,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _convert($currencyFrom, $currencyTo)
     {

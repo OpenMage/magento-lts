@@ -27,11 +27,10 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search extends Mage_Adminhtml_Block_Widget
 {
-    protected function _construct()
-    {
-        $this->setId('bundle_option_selection_search');
-        $this->setTemplate('bundle/product/edit/bundle/option/search.phtml');
-    }
+    public const BLOCK_GRID = 'grid';
+
+    protected $_idFieldName = 'bundle_option_selection_search';
+    protected $_template    = 'bundle/product/edit/bundle/option/search.phtml';
 
     /**
      * @return string
@@ -47,7 +46,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
     protected function _prepareLayout()
     {
         $this->setChild(
-            'grid',
+            self::BLOCK_GRID,
             $this->getLayout()->createBlock(
                 'bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid',
                 'adminhtml.catalog.product.edit.tab.bundle.option.search.grid'
@@ -61,7 +60,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
      */
     protected function _beforeToHtml()
     {
-        $this->getChild('grid')->setIndex($this->getIndex())
+        $this->getChild(self::BLOCK_GRID)
+            ->setIndex($this->getIndex())
             ->setFirstShow($this->getFirstShow());
 
         return parent::_beforeToHtml();

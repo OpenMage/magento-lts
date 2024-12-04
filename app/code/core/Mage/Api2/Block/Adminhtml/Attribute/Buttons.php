@@ -22,16 +22,14 @@
  */
 class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_Template
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('api2/attribute/buttons.phtml');
-    }
+    public const BUTTON_BACK    = 'backButton';
+    public const BUTTON_SAVE    = 'saveButton';
+
+    protected $_template = 'api2/attribute/buttons.phtml';
 
     /**
-     * Prepare global layout
-     *
-     * @return Mage_Core_Block_Abstract
+     * @codeCoverageIgnore
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -54,36 +52,6 @@ class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_T
         }
 
         return parent::_prepareLayout();
-    }
-
-    /**
-     * Get back button HTML
-     *
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('backButton');
-    }
-
-    /**
-     * Get reset button HTML
-     *
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('resetButton');
-    }
-
-    /**
-     * Get save button HTML
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('saveButton');
     }
 
     /**

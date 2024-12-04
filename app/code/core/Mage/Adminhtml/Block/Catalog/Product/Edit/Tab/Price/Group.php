@@ -22,13 +22,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
 {
-    /**
-     * Initialize block
-     */
-    public function __construct()
-    {
-        $this->setTemplate('catalog/product/edit/price/group.phtml');
-    }
+    protected $_template = 'catalog/product/edit/price/group.phtml';
 
     /**
      * Sort values
@@ -61,11 +55,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adm
     }
 
     /**
-     * Prepare global layout
-     *
-     * Add "Add Group Price" button to layout
-     *
-     * @return $this
+     * @codeCoverageIgnore
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {

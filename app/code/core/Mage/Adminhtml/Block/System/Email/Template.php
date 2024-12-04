@@ -22,14 +22,9 @@
  */
 class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Template
 {
-    /**
-     * Set transactional emails grid template
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('system/email/template/list.phtml');
-    }
+    public const BLOCK_GRID = 'grid';
+
+    protected $_template = 'system/email/template/list.phtml';
 
     /**
      * @inheritDoc
@@ -67,15 +62,5 @@ class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Te
     public function getHeaderText()
     {
         return Mage::helper('adminhtml')->__('Transactional Emails');
-    }
-
-    /**
-     * Get Add New Template button html
-     *
-     * @return string
-     */
-    protected function getAddButtonHtml()
-    {
-        return $this->getChildHtml('add_button');
     }
 }

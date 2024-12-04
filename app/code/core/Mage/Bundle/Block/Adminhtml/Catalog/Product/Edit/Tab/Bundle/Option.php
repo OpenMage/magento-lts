@@ -27,6 +27,12 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends Mage_Adminhtml_Block_Widget
 {
+    public const BLOCK_SELCTION_TEMPLATE = 'selection_template';
+
+    public const BUTTON_ADD_SELECTION   = 'add_selection_button';
+    public const BUTTON_CLOSE_SEARCH    = 'close_search_button';
+    public const BUTTON_OPTION_DELETE   = 'option_delete_button';
+
     /**
      * Form element
      *
@@ -57,6 +63,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     protected $_options = null;
 
+    protected $_template = 'bundle/product/edit/bundle/option.phtml';
+
     /**
      * Bundle option renderer class constructor
      *
@@ -64,7 +72,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function __construct()
     {
-        $this->setTemplate('bundle/product/edit/bundle/option.phtml');
         $this->setCanReadPrice(true);
         $this->setCanEditPrice(true);
     }
@@ -138,7 +145,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     protected function _prepareLayout()
     {
         $this->setChild(
-            'add_selection_button',
+            self::BLOCK_SELCTION_TEMPLATE,
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'id'    => $this->getFieldId() . '_{{index}}_add_button',
@@ -190,7 +197,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getCloseSearchButtonHtml()
     {
-        return $this->getChildHtml('close_search_button');
+        return $this->getChildHtml(self::BUTTON_CLOSE_SEARCH);
     }
 
     /**
@@ -198,7 +205,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getAddSelectionButtonHtml()
     {
-        return $this->getChildHtml('add_selection_button');
+        return $this->getChildHtml(self::BUTTON_ADD_SELECTION);
     }
 
     /**
@@ -249,7 +256,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     {
         return $this->getLayout()
                 ->getBlock('admin.product.bundle.items')
-                ->getChild('add_button')->getId();
+                ->getChild(self::BUTTON_ADD)->getId();
     }
 
     /**
@@ -257,7 +264,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getOptionDeleteButtonHtml()
     {
-        return $this->getChildHtml('option_delete_button');
+        return $this->getChildHtml(self::BUTTON_OPTION_DELETE);
     }
 
     /**
@@ -265,7 +272,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getSelectionHtml()
     {
-        return $this->getChildHtml('selection_template');
+        return $this->getChildHtml(self::BLOCK_SELCTION_TEMPLATE);
     }
 
     /**

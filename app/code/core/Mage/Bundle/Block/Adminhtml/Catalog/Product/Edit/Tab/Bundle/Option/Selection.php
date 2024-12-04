@@ -27,12 +27,15 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection extends Mage_Adminhtml_Block_Widget
 {
+    public const BUTTON_SELECTION_DELETE = 'selection_delete_button';
+
+    protected $_template = 'bundle/product/edit/bundle/option/selection.phtml';
+
     /**
      * Initialize bundle option selection block
      */
     public function __construct()
     {
-        $this->setTemplate('bundle/product/edit/bundle/option/selection.phtml');
         $this->setCanReadPrice(true);
         $this->setCanEditPrice(true);
     }
@@ -58,8 +61,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     }
 
     /**
-     * Prepare block layout
-     *
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -83,7 +85,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
      */
     public function getSelectionDeleteButtonHtml()
     {
-        return $this->getChildHtml('selection_delete_button');
+        return $this->getChildHtml(self::BUTTON_SELECTION_DELETE);
     }
 
     /**

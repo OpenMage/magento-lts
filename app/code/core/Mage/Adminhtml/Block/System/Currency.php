@@ -22,11 +22,15 @@
  */
 class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
 {
-    protected function _construct()
-    {
-        $this->setTemplate('system/currency/rates.phtml');
-    }
+    public const BUTTON_IMPORT          = 'import_button';
+    public const BLOCK_IMPORT_SERVICES  = 'import_services';
+    public const BLOCK_RATE_MATRIX      = 'rates_matrix';
 
+    protected $_template = 'system/currency/rates.phtml';
+
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -60,12 +64,12 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
         );
 
         $this->setChild(
-            'rates_matrix',
+            self::BLOCK_RATE_MATRIX,
             $this->getLayout()->createBlock('adminhtml/system_currency_rate_matrix')
         );
 
         $this->setChild(
-            'import_services',
+            self::BLOCK_IMPORT_SERVICES,
             $this->getLayout()->createBlock('adminhtml/system_currency_rate_services')
         );
 
@@ -77,29 +81,19 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
         return Mage::helper('adminhtml')->__('Manage Currency Rates');
     }
 
-    protected function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
-    }
-
-    protected function getResetButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
-    }
-
     protected function getImportButtonHtml()
     {
-        return $this->getChildHtml('import_button');
+        return $this->getChildHtml(self::BUTTON_IMPORT);
     }
 
     protected function getServicesHtml()
     {
-        return $this->getChildHtml('import_services');
+        return $this->getChildHtml(self::BLOCK_IMPORT_SERVICES);
     }
 
     protected function getRatesMatrixHtml()
     {
-        return $this->getChildHtml('rates_matrix');
+        return $this->getChildHtml(self::BLOCK_RATE_MATRIX);
     }
 
     protected function getImportFormAction()

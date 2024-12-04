@@ -20,10 +20,9 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mage_Adminhtml_Block_Template
 {
-    protected function _construct()
-    {
-        $this->setTemplate('catalog/product/attribute/set/toolbar/add.phtml');
-    }
+    public const BLOCK_FORM = 'setForm';
+
+    protected $_template = 'catalog/product/attribute/set/toolbar/add.phtml';
 
     /**
      * @inheritDoc
@@ -50,7 +49,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
         );
 
         $this->setChild(
-            'setForm',
+            self::BLOCK_FORM,
             $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset')
         );
         return parent::_prepareLayout();
@@ -67,29 +66,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
     /**
      * @return string
      */
-    protected function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
-    }
-
-    /**
-     * @return string
-     */
-    protected function getBackButtonHtml()
-    {
-        return $this->getChildHtml('back_button');
-    }
-
-    /**
-     * @return string
-     */
     protected function getFormHtml()
     {
-        return $this->getChildHtml('setForm');
+        return $this->getChildHtml(self::BLOCK_FORM);
     }
 
     protected function getFormId()
     {
-        return $this->getChild('setForm')->getForm()->getId();
+        return $this->getChild(self::BLOCK_FORM)->getForm()->getId();
     }
 }

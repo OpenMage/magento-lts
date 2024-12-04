@@ -23,6 +23,8 @@
  */
 class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_Container
 {
+    public const BUTTON_SKIP_CATEGORIES = 'skip_categories';
+
     /**
      * Part for building some blocks names
      *
@@ -90,7 +92,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree')
                 );
                 $this->setChild(
-                    'skip_categories',
+                    self::BUTTON_SKIP_CATEGORIES,
                     $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                         'label'   => Mage::helper('adminhtml')->__('Skip Category Selection'),
                         'onclick' => 'window.location = \'' . Mage::helper('adminhtml')->getUrl('*/*/*', [

@@ -74,7 +74,7 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function preDispatch()
     {

@@ -22,8 +22,11 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
+    public const BUTTON_CONTINUE = 'continue_button';
+
     /**
-     * Prepare block children and data
+     * @codeCoverageIgnore
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
