@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Mage_Oauth2>
+      <active>true</active>
+      <codePool>core</codePool>
+      <depends>
+        <Mage_Core/>
+      </depends>
+    </Mage_Oauth2>
+  </modules>
+</config>

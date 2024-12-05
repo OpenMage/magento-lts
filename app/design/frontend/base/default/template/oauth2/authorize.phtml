@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
+ *
+ * @category   Mage
+ * @package    Mage_Oauth2
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+
+/**
+ * @var Mage_Oauth2_Block_Authorize $this
+ */
+?>
+
+<form action="<?php echo $this->getFormActionUrl(); ?>" method="post">
+    <?php echo $this->getBlockHtml('formkey') ?>
+    <input type="hidden" name="client_id" value="<?php echo $this->htmlEscape($this->getClient()->getId()); ?>" />
+    <input type="hidden" name="redirect_uri" value="<?php echo $this->htmlEscape($this->getRedirectUri()); ?>" />
+    <h1><?php echo $this->__('Authorize %s', $this->htmlEscape($this->getClient()->getName())); ?></h1>
+    <div class="form-buttons">
+        <button type="submit" name="authorized" value="yes"><?php echo $this->__('Allow'); ?></button>
+        <button type="submit" name="authorized" value="no"><?php echo $this->__('Deny'); ?></button>
+    </div>
+</form>
