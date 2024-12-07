@@ -181,16 +181,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
 		-
-			message: "#^Parameter \\#1 \\$from of method Mage_Reports_Model_Resource_Report_Collection\\:\\:setInterval\\(\\) expects int, Zend_Date given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
-			message: "#^Parameter \\#2 \\$to of method Mage_Reports_Model_Resource_Report_Collection\\:\\:setInterval\\(\\) expects int, Zend_Date given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:getCollection\\(\\) should return Mage_Core_Model_Resource_Db_Collection_Abstract\\|Mage_Reports_Model_Grouped_Collection but returns Varien_Data_Collection_Db\\|null\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
@@ -484,11 +474,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$classTypeId of method Mage_Tax_Model_Resource_Class_Collection\\:\\:setClassTypeFilter\\(\\) expects int, string given\\.$#"
 			count: 2
 			path: app/code/core/Mage/Adminhtml/Block/Tax/Rule/Grid.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Container\\:\\:_addButtonChildBlock\\(\\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Container.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
@@ -4526,16 +4511,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
 
 		-
-			message: "#^Property Mage_Reports_Model_Resource_Report_Collection\\:\\:\\$_from \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
-
-		-
-			message: "#^Property Mage_Reports_Model_Resource_Report_Collection\\:\\:\\$_to \\(string\\) does not accept int\\.$#"
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
-
-		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
@@ -5796,11 +5771,6 @@ parameters:
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Layout.php
 
 		-
-			message: "#^Variable \\$productsOptions might not be defined\\.$#"
-			count: 1
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Tab/Main/Layout.php
-
-		-
 			message: "#^Cannot call method toOptionArray\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Options.php
@@ -6669,11 +6639,6 @@ parameters:
 			message: "#^Variable \\$formBlock might not be defined\\.$#"
 			count: 1
 			path: app/design/adminhtml/default/default/template/widget/form/element.phtml
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 23
-			path: app/design/adminhtml/default/default/template/widget/form/element/gallery.phtml
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:getEmptyCellColspan\\(\\) invoked with 1 parameter, 0 required\\.$#"

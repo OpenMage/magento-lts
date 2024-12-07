@@ -167,7 +167,6 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     {
         return $this->createWidgetButtonBlock($name, $attributes)
             ->setLabel(Mage::helper('adminhtml')->__('Delete'))
-            #->setOnClick(Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()))
             ->setClass(self::BUTTON__CLASS_DELETE);
     }
 
@@ -248,15 +247,31 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
         return $this->createWidgetUpdateButtonBlock($name, $attributes);
     }
 
-    private function createWidgetUploadButtonBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    /**
+     * @param self::BUTTON_* $type
+     */
+    private function createWidgetButtonBlockByType(string $type, string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->createWidgetButtonBlock($name, $attributes)
-            ->setLabel(Mage::helper('adminhtml')->__('Upload Files'));
+        $button = $this->createWidgetButtonBlock($name, $attributes);
+
+        switch ($type) {
+            case self::BUTTON_UPDATE:
+                $button->setClass(self::BUTTON__CLASS_UPDATE);
+                break;
+            case self::BUTTON_UPLOAD:
+                $button->setLabel(Mage::helper('adminhtml')->__('Upload Files'));
+                break;
+        }
+
+        return $button;
     }
 
-    public function getButtonUploadBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    /**
+     * @param self::BUTTON_* $type
+     */
+    public function getButtonBlockByType(string $type, string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->createWidgetUploadButtonBlock($name, $attributes);
+        return $this->createWidgetButtonBlockByType($type, $name, $attributes);
     }
 
     /**

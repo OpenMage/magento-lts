@@ -49,15 +49,16 @@ class ItemsTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonUpdateBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonUpdateBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonUpdateBlock();
 //        $this->assertSame('Update Qty\'s', $result->getLabel());
 //        $this->assertStringStartsWith("submitAndReloadArea($('creditmemo_item_container'),'", $result->getOnClick());
 //        $this->assertSame('update-button', $result->getClass());
-//    }
+    }
 
     /**
      * @covers Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items::getButtonRefundBlock()
@@ -68,15 +69,16 @@ class ItemsTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonRefundBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonRefundBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonRefundBlock();
 //        $this->assertSame('Update Qty\'s', $result->getLabel());
 //        $this->assertStringStartsWith("submitAndReloadArea($('creditmemo_item_container'),'", $result->getOnClick());
 //        $this->assertSame('update-button', $result->getClass());
-//    }
+    }
 
     /**
      * @covers Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items::getButtonRefundOfflineBlock()
@@ -87,13 +89,14 @@ class ItemsTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function getButtonRefundOfflineBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function getButtonRefundOfflineBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonRefundOfflineBlock();
 //        $this->assertSame('Update Qty\'s', $result->getLabel());
 //        $this->assertStringStartsWith("submitAndReloadArea($('creditmemo_item_container'),'", $result->getOnClick());
 //        $this->assertSame('update-button', $result->getClass());
-//    }
+    }
 }

@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Tax\Rat\Toolbar;
+namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Tax\Rate\Toolbar;
 
 use Mage;
 use Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save;
@@ -46,15 +46,16 @@ class SaveTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonBackBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonBackBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonBackBlock();
 //        $this->assertSame('Back', $result->getLabel());
 //        $this->assertStringStartsWith('window.location.href=', $result->getOnClick());
 //        $this->assertSame('back', $result->getClass());
-//    }
+    }
 
     /**
      * @covers Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save::getButtonDeleteBlock()
@@ -65,15 +66,16 @@ class SaveTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonDeleteBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonDeleteBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonDeleteBlock();
 //        $this->assertSame('Delete Rate', $result->getLabel());
 //        $this->assertStringStartsWith('setLocation(', $result->getOnClick());
 //        $this->assertSame('delete', $result->getClass());
-//    }
+    }
 
     /**
      * @covers Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save::getButtonResetBlock()
@@ -84,15 +86,16 @@ class SaveTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonResetBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonResetBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonResetBlock();
 //        $this->assertSame('Reset', $result->getLabel());
 //        $this->assertSame('window.location.reload()', $result->getOnClick());
 //        $this->assertNull($result->getClass());
-//    }
+    }
 
     /**
      * @covers Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save::getButtonSaveBlock()
@@ -103,13 +106,14 @@ class SaveTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonSaveBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonSaveBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonSaveBlock();
 //        $this->assertSame('Save Rate', $result->getLabel());
 //        $this->assertSame('window.location.reload()', $result->getOnClick());
 //        $this->assertSame('save', $result->getClass());
-//    }
+    }
 }

@@ -45,15 +45,16 @@ class SamplesTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonUploadBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonUploadBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonUploadBlock();
 //        $this->assertSame('', $result->getId());
 //        $this->assertSame('Upload Files', $result->getLabel());
 //        $this->assertSame('Downloadable.massUploadByType(\'samples\')', $result->getOnClick());
 //        $this->assertNull($result->getClass());
 //        $this->assertSame('button', $result->getType());
-//    }
+    }
 }

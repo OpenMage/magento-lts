@@ -46,15 +46,16 @@ class ConfigTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonCreateEmptyBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonCreateEmptyBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonCreateEmptyBlock();
 //        $this->assertSame('Create Empty', $result->getLabel());
 //        $this->assertSame('superProduct.createEmptyProduct()', $result->getOnClick());
 //        $this->assertSame('add', $result->getClass());
-//    }
+    }
 
     /**
      * @covers Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config::getButtonCreateFromConfigurableBlock()
@@ -65,13 +66,14 @@ class ConfigTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonCreateFromConfigurableBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonCreateFromConfigurableBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonCreateFromConfigurableBlock();
 //        $this->assertSame('Copy From Configurable', $result->getLabel());
 //        $this->assertSame('superProduct.createNewProduct()', $result->getOnClick());
 //        $this->assertSame('add', $result->getClass());
-//    }
+    }
 }

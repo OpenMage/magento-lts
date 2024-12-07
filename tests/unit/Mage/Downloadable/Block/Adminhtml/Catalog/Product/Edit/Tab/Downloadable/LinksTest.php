@@ -26,16 +26,16 @@ class LinksTest extends TestCase
 {
     private static ?Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links $subject;
 
-//    public static function setUpBeforeClass(): void
-//    {
-//        Mage::app();
-//        self::$subject = new Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links();
-//    }
+    public static function setUpBeforeClass(): void
+    {
+        Mage::app();
+        self::$subject = new Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links();
+    }
 
-//    public static function tearDownAfterClass(): void
-//    {
-//        self::$subject = null;
-//    }
+    public static function tearDownAfterClass(): void
+    {
+        self::$subject = null;
+    }
 
     /**
      * @covers Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links::getButtonAddBlock()
@@ -45,14 +45,15 @@ class LinksTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonAddBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
-//
+    public function testGetButtonAddBlock(): void
+    {
+        self::$subject->setLayout(new Mage_Core_Model_Layout());
+        $this->markTestIncomplete();
+
 //        $result = self::$subject->getButtonAddBlock();
 //        $this->assertSame('add_link_item', $result->getId());
 //        $this->assertSame('Add New Row', $result->getLabel());
 //        $this->assertNull($result->getOnClick());
 //        $this->assertSame('add', $result->getClass());
-//    }
+    }
 }

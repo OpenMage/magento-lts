@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Tax\Rat\Toolbar;
+namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Tax\Rate\Toolbar;
 
 use Mage;
 use Mage_Adminhtml_Block_Tax_Rate_Toolbar_Add;
