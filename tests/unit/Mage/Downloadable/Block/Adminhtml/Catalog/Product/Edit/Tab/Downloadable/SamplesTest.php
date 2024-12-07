@@ -44,6 +44,7 @@ class SamplesTest extends TestCase
      * @group AdminhtmlButtons
      * @group runInSeparateProcess
      * @runInSeparateProcess
+     * @doesNotPerformAssertions
      */
     public function testGetButtonUploadBlock(): void
     {

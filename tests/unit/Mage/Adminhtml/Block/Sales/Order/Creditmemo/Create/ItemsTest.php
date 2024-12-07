@@ -48,6 +48,7 @@ class ItemsTest extends TestCase
      * @group AdminhtmlButtons
      * @group runInSeparateProcess
      * @runInSeparateProcess
+     * @doesNotPerformAssertions
      */
     public function testGetButtonUpdateBlock(): void
     {
@@ -68,6 +69,7 @@ class ItemsTest extends TestCase
      * @group AdminhtmlButtons
      * @group runInSeparateProcess
      * @runInSeparateProcess
+     * @doesNotPerformAssertions
      */
     public function testGetButtonRefundBlock(): void
     {

@@ -45,6 +45,7 @@ class ConfigTest extends TestCase
      * @group AdminhtmlButtons
      * @group runInSeparateProcess
      * @runInSeparateProcess
+     * @doesNotPerformAssertions
      */
     public function testGetButtonCreateEmptyBlock(): void
     {
@@ -65,6 +66,7 @@ class ConfigTest extends TestCase
      * @group AdminhtmlButtons
      * @group runInSeparateProcess
      * @runInSeparateProcess
+     * @doesNotPerformAssertions
      */
     public function testGetButtonCreateFromConfigurableBlock(): void
     {

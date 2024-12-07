@@ -44,6 +44,7 @@ class LinksTest extends TestCase
      * @group AdminhtmlButtons
      * @group runInSeparateProcess
      * @runInSeparateProcess
+     * @doesNotPerformAssertions
      */
     public function testGetButtonAddBlock(): void
     {
