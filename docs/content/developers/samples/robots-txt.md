@@ -1,3 +1,11 @@
+---
+hide:
+  - toc
+---
+
+# robots.txt
+
+```text
 ############################################
 ## For more information about the robots.txt standard visit
 ## http://www.robotstxt.org/orig.html
@@ -99,3 +107,4 @@ Disallow: /*?SID=
 # Disallow: /
 # Disallow: */media/
 # Disallow: */skin/
+```
