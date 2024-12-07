@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,9 +47,11 @@ class Mage_Catalog_Model_Factory extends Mage_Core_Model_Factory
      */
     public function getCategoryUrlRewriteHelper()
     {
-        return $this->getHelper(
+        /** @var Mage_Catalog_Helper_Category_Url_Rewrite_Interface $model */
+        $model = $this->getHelper(
             (string)$this->_config->getNode(self::XML_PATH_CATEGORY_URL_REWRITE_HELPER_CLASS)
         );
+        return $model;
     }
 
     /**
@@ -58,9 +61,11 @@ class Mage_Catalog_Model_Factory extends Mage_Core_Model_Factory
      */
     public function getProductUrlRewriteHelper()
     {
-        return $this->getHelper(
+        /** @var Mage_Catalog_Helper_Product_Url_Rewrite_Interface $model */
+        $model = $this->getHelper(
             (string)$this->_config->getNode(self::XML_PATH_PRODUCT_URL_REWRITE_HELPER_CLASS)
         );
+        return $model;
     }
 
     /**
@@ -70,9 +75,11 @@ class Mage_Catalog_Model_Factory extends Mage_Core_Model_Factory
      */
     public function getProductUrlInstance()
     {
-        return $this->getModel(
+        /** @var Mage_Catalog_Model_Product_Url $model */
+        $model = $this->getModel(
             (string)$this->_config->getNode(self::XML_PATH_PRODUCT_URL_MODEL)
         );
+        return $model;
     }
 
     /**
@@ -82,8 +89,10 @@ class Mage_Catalog_Model_Factory extends Mage_Core_Model_Factory
      */
     public function getCategoryUrlInstance()
     {
-        return $this->getModel(
+        /** @var Mage_Catalog_Model_Category_Url $model */
+        $model = $this->getModel(
             (string)$this->_config->getNode(self::XML_PATH_CATEGORY_URL_MODEL)
         );
+        return $model;
     }
 }

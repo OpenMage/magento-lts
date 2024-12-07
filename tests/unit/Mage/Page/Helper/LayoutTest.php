@@ -32,11 +32,12 @@ class LayoutTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
      * @group Mage_Page
      * @group Mage_Page_Helper
      */
-//    public function testApplyTemplate(): void
-//    {
-//        $this->assertInstanceOf(Mage_Page_Helper_Layout::class, $this->subject->applyTemplate());
-//    }
+    public function testApplyTemplate(): void
+    {
+        $this->assertTrue($this->subject->isModuleEnabled());
+    }
 }

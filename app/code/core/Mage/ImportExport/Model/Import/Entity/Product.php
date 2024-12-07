@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -1206,7 +1207,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $linkRows,
                     ['link_id']
                 );
-                $adapter->changeTableAutoIncrement($mainTable, $nextLinkId);
+                $adapter->changeTableAutoIncrement($mainTable, (string)$nextLinkId);
             }
             if ($positionRows) { // process linked product positions
                 $adapter->insertOnDuplicate(
@@ -1559,7 +1560,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($attrValue));
             } elseif ($attribute->getAttributeCode() === 'url_key') {
                 if (empty($attrValue)) {
-                    $attrValue = $product->formatUrlKey($product->getName());
+                    $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
+                    $attrValue = $product->setLocale($locale)->formatUrlKey($product->getName());
                 }
             } elseif ($backModel) {
                 $attribute->getBackend()->beforeSave($product);

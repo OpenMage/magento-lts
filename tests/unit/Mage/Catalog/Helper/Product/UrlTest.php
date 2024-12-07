@@ -33,16 +33,40 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Catalog_Helper_Product_Url::getConvertTable()
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
      */
     public function testGetConvertTable(): void
     {
-        $this->assertIsArray($this->subject->getConvertTable());
-        $this->assertSame(317, count($this->subject->getConvertTable()));
+        $result = $this->subject->getConvertTable();
+        $this->assertCount(317, $result);
     }
 
     /**
+     * @covers Mage_Catalog_Helper_Product_Url::getConvertTableCustom()
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Helper
+     */
+    public function testGetConvertTableCustom(): void
+    {
+        $result = $this->subject->getConvertTableCustom();
+        $this->assertCount(0, $result);
+    }
+
+    /**
+     * @covers Mage_Catalog_Helper_Product_Url::getConvertTableShort()
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Helper
+     */
+    public function testGetConvertTableShort(): void
+    {
+        $result = $this->subject->getConvertTableShort();
+        $this->assertCount(4, $result);
+    }
+
+    /**
+     * @covers Mage_Catalog_Helper_Product_Url::format()
      * @dataProvider provideFormat
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
@@ -56,13 +80,17 @@ class UrlTest extends TestCase
     {
         yield 'null' => [
             '',
-            null
+            null,
         ];
-        yield '&amp;' => [
-            'and',
-            '&amp;',
+        yield 'string' => [
+            'string',
+            'string',
         ];
-        yield '@' => [
+        yield 'umlauts' => [
+            'string with aou',
+            'string with ÄÖÜ',
+        ];
+        yield 'at' => [
             'at',
             '@',
         ];

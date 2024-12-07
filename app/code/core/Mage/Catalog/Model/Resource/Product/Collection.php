@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -1229,7 +1230,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
             return $this;
         }
-        if (!Mage::helper('catalog')->isModuleEnabled('Mage_CatalogRule')) {
+        if (!$this->isModuleEnabled('Mage_CatalogRule', 'catalog')) {
             return $this;
         }
         $wId = Mage::app()->getWebsite()->getId();

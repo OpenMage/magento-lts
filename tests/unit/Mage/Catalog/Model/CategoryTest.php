@@ -17,13 +17,18 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
+use Generator;
 use Mage;
 use Mage_Catalog_Model_Category;
+use Mage_Catalog_Model_Category_Url;
 use Mage_Catalog_Model_Resource_Product_Collection;
+use Mage_Catalog_Model_Url;
 use PHPUnit\Framework\TestCase;
 
 class CategoryTest extends TestCase
 {
+    public const TEST_STRING = 'a & B, x%, ä, ö, ü';
+
     public Mage_Catalog_Model_Category $subject;
 
     public function setUp(): void
@@ -84,5 +89,51 @@ class CategoryTest extends TestCase
     public function testAfterCommitCallback(): void
     {
         $this->assertInstanceOf(Mage_Catalog_Model_Category::class, $this->subject->afterCommitCallback());
+    }
+
+    /**
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testGetUrlModel(): void
+    {
+        $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());
+        $this->assertInstanceOf(Mage_Catalog_Model_Category_Url::class, $this->subject->getUrlModel());
+    }
+
+    /**
+     * @dataProvider provideFormatUrlKey
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     * @runInSeparateProcess
+     */
+//    public function testGetCategoryIdUrl($expectedResult, ?string $locale): void
+//    {
+//        $this->subject->setName(self::TEST_STRING);
+//        $this->subject->setLocale($locale);
+//        $this->assertSame($expectedResult, $this->subject->getCategoryIdUrl());
+//    }
+
+    /**
+     * @dataProvider provideFormatUrlKey
+     * @group Mage_Catalog
+     * @group Mage_Catalog_Model
+     */
+    public function testFormatUrlKey($expectedResult, ?string $locale): void
+    {
+        $this->subject->setLocale($locale);
+        $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
+    }
+
+    public function provideFormatUrlKey(): Generator
+    {
+        yield 'null locale' => [
+            'a-b-x-a-o-u',
+            null,
+        ];
+        yield 'de_DE' => [
+            'a-und-b-x-prozent-ae-oe-ue',
+            'de_DE',
+        ];
     }
 }

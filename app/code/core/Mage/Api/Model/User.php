@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -262,6 +263,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     public function login($username, $apiKey)
     {
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $apiKey = new Mage_Core_Model_Security_Obfuscated($apiKey);
+
         $sessId = $this->getSessid();
         if ($this->authenticate($username, $apiKey)) {
             $this->setSessid($sessId);

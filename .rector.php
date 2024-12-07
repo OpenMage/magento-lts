@@ -39,4 +39,23 @@ return RectorConfig::configure()
         DeadCode\ClassMethod\RemoveUselessReturnTagRector::class,
         DeadCode\Property\RemoveUselessVarTagRector::class,
         TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
-    ]);
+    ])
+    ->withPreparedSets(
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+    );

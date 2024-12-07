@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -370,7 +371,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                 if (!$skipUnmatched) {
                     $eventProcessIds = $event->getProcessIds();
                     if (!isset($eventProcessIds[$this->getId()])) {
-                        $event->addProcessId($this->getId(), null);
+                        $event->addProcessId($this->getId());
                     }
                 }
             } catch (Exception $e) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -316,7 +317,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
                         $selection['selection_id'] = $selectionModel->getSelectionId();
 
-                        if ($selectionModel->getSelectionId()) {
+                        if ($selectionModel->getSelectionId() && !$selectionModel->isDeleted()) {
                             $excludeSelectionIds[] = $selectionModel->getSelectionId();
                             $usedProductIds[] = $selectionModel->getProductId();
                         }

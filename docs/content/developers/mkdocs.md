@@ -22,6 +22,10 @@ tags:
     pip3 install mkdocs mkdocs-material mkdocs-minify-plugin mkdocs-redirects
     ```
 
+!!! danger
+
+      Do not use unmaintained `apt` packages.
+
 ## Commands
 
 Create a new project
@@ -66,4 +70,3 @@ docs_includes/             # Need to stay outside "docs"
 ```
 
 [^1]: see https://realpython.com/installing-python/
-[^2]: do not use unmaintained `apt` packages
