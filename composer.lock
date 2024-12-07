@@ -3785,12 +3785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/dev-translations.git",
-                "reference": "668a04605a09945f1e40d555293553c31fb339b3"
+                "reference": "609f0aca73d32883d128400b8b2763c13b95ad6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/668a04605a09945f1e40d555293553c31fb339b3",
-                "reference": "668a04605a09945f1e40d555293553c31fb339b3",
+                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/609f0aca73d32883d128400b8b2763c13b95ad6a",
+                "reference": "609f0aca73d32883d128400b8b2763c13b95ad6a",
                 "shasum": ""
             },
             "require": {
@@ -3813,7 +3813,7 @@
                 "issues": "https://github.com/OpenMage/dev-translations/issues",
                 "source": "https://github.com/OpenMage/dev-translations/tree/main"
             },
-            "time": "2024-11-25T12:50:51+00:00"
+            "time": "2024-12-07T17:45:49+00:00"
         },
         {
             "name": "pdepend/pdepend",
