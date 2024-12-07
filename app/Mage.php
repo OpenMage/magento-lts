@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,15 +38,15 @@ $paths[] = BP . DS . 'lib';
 
 $appPath = implode(PS, $paths);
 set_include_path($appPath . PS . Mage::registry('original_include_path'));
-include_once "Mage/Core/functions.php";
-include_once "Varien/Autoload.php";
+include_once 'Mage/Core/functions.php';
+include_once 'Varien/Autoload.php';
 
 Varien_Autoload::register();
 
 /** AUTOLOADER PATCH **/
 $autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
 if (!$autoloaderPath) {
-    $autoloaderPath = dirname(BP) . DS .  'vendor';
+    $autoloaderPath = dirname(BP) . DS . 'vendor';
     if (!is_dir($autoloaderPath)) {
         $autoloaderPath = BP . DS . 'vendor';
     }
@@ -150,7 +151,7 @@ final class Mage
     public static function getVersion()
     {
         $i = self::getVersionInfo();
-        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : "")
+        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : '')
                         . "-{$i['stability']}{$i['number']}", '.-');
     }
 
