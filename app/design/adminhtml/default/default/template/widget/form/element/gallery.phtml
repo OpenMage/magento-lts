@@ -46,7 +46,7 @@
             <input type="file" name="<?php echo $this->getElement()->getName() ?>_<?php echo $type ?>[<?php echo $image->getValueId() ?>]" size="1"></td>
         <?php endforeach ?>
         <td class="gallery" align="center" style="vertical-align:bottom;"><input type="input" name="<?php echo $this->getElement()->getParentName() ?>[position][<?php echo $image->getValueId() ?>]" value="<?php echo $image->getPosition() ?>" id="<?php echo $this->getElement()->getHtmlId() ?>_position_<?php echo $image->getValueId() ?>" size="3"/></td>
-        <td class="gallery" align="center" style="vertical-align:bottom;"><?php echo $this->getDeleteButtonHtml($image->getValueId()) ?><input type="hidden" name="<?php echo $this->getElement()->getParentName() ?>[delete][<?php echo $image->getValueId() ?>]" id="<?php echo $this->getElement()->getHtmlId() ?>_delete_<?php echo $image->getValueId() ?>"/></td>
+        <td class="gallery" align="center" style="vertical-align:bottom;"><?php echo $this->getDeleteImageButtonHtml($image->getValueId()) ?><input type="hidden" name="<?php echo $this->getElement()->getParentName() ?>[delete][<?php echo $image->getValueId() ?>]" id="<?php echo $this->getElement()->getHtmlId() ?>_delete_<?php echo $image->getValueId() ?>"/></td>
         </tr>
     <?php endforeach ?>
 <?php endif ?>
