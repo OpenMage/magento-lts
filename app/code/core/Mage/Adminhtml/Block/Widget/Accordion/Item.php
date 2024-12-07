@@ -39,9 +39,8 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
     {
         $title  = $this->getData('title');
         $url    = $this->getContentUrl() ? $this->getContentUrl() : '#';
-        $title  = '<a href="' . $url . '" class="' . $this->getTarget() . '">' . $title . '</a>';
 
-        return $title;
+        return '<a href="' . $url . '" class="' . $this->getTarget() . '">' . $title . '</a>';
     }
 
     public function getContent()
@@ -73,7 +72,6 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
         $html .= '</dt>';
         $html .= '<dd id="dd-' . $this->getHtmlId() . '" class="' . $this->getClass() . '">';
         $html .= $content;
-        $html .= '</dd>';
-        return $html;
+        return $html . '</dd>';
     }
 }

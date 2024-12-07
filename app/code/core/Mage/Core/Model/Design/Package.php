@@ -847,9 +847,8 @@ class Mage_Core_Model_Design_Package
         $contents = preg_replace_callback($cssImport, [$this, '_cssMergerImportCallback'], $contents);
 
         $cssUrl = '/url\\(\\s*(?![\\\'\\"]?data:)([^\\)\\s]+)\\s*\\)?/';
-        $contents = preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
 
-        return $contents;
+        return preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
     }
 
     /**

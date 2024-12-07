@@ -788,8 +788,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($shippingAddress && $shippingAddress->getQuote() && $shippingAddress->getQuote()->getBillingAddress()) {
             $billingAddress = $shippingAddress->getQuote()->getBillingAddress();
         }
-
-        $price = $this->getPrice(
+        return $this->getPrice(
             $pseudoProduct,
             $price,
             $includingTax,
@@ -799,7 +798,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             $store,
             $this->shippingPriceIncludesTax($store)
         );
-        return $price;
     }
 
     /**

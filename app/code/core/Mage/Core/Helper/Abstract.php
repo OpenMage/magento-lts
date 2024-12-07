@@ -430,8 +430,7 @@ abstract class Mage_Core_Helper_Abstract
         $url = $this->urlDecode($url);
         $quote = ['\'', '"'];
         $replace = ['%27', '%22'];
-        $url = str_replace($quote, $replace, $url);
-        return $url;
+        return str_replace($quote, $replace, $url);
     }
 
     /**

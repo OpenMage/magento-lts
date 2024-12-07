@@ -1315,9 +1315,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             '',
             html_entity_decode($name)
         );
-        $name = str_replace('*', '', $name);
 
-        return $name;
+        return str_replace('*', '', $name);
     }
 
     /**
@@ -1380,9 +1379,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $xml->addChild('WaiverOfSignature', $packageParams->getDeliveryConfirmation());
         $xml->addChild('POZipCode');
         $xml->addChild('ImageType', 'PDF');
-
-        $xml = $xmlWrap->{$rootNode}->asXML();
-        return $xml;
+        return $xmlWrap->{$rootNode}->asXML();
     }
 
     /**
@@ -1466,9 +1463,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $xml->addChild('ServiceType', $serviceType);
         $xml->addChild('WaiverOfSignature', $packageParams->getDeliveryConfirmation());
         $xml->addChild('ImageType', 'PDF');
-
-        $xml = $xmlWrap->{$rootNode}->asXML();
-        return $xml;
+        return $xmlWrap->{$rootNode}->asXML();
     }
 
     /**
@@ -1720,9 +1715,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         if ($girth) {
             $xml->addChild('Girth', $girth);
         }
-
-        $xml = $xmlWrap->{$rootNode}->asXML();
-        return $xml;
+        return $xmlWrap->{$rootNode}->asXML();
     }
 
     /**

@@ -30,12 +30,10 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
 
     public function getRunButtonHtml()
     {
-        $html = $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
+        return $this->getLayout()->createBlock('adminhtml/widget_button')->setType('button')
             ->setClass('save')->setLabel($this->__('Run Profile in Popup'))
             ->setOnClick('runProfile(true)')
             ->toHtml();
-
-        return $html;
     }
 
     public function getProfileId()

@@ -146,8 +146,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
         foreach ($this->getItems() as $item) {
             $attributeIds[] = $item->getAttributeId();
         }
-        $attributeIds = array_unique($attributeIds);
 
-        return $attributeIds;
+        return array_unique($attributeIds);
     }
 }

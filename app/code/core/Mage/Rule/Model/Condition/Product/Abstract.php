@@ -88,9 +88,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         }
 
         $value = array_map('trim', $value);
-        $value = array_filter($value, 'is_numeric');
 
-        return $value;
+        return array_filter($value, 'is_numeric');
     }
 
     /**

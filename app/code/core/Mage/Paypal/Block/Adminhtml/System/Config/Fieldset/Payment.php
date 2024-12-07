@@ -99,16 +99,14 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment extends Mage_Ad
         }
         $html .= '</div>';
 
-        $html .= '<div class="button-container"><button type="button"'
+        return $html . ('<div class="button-container"><button type="button"'
             . ($this->_isPaymentEnabled($element) ? '' : ' disabled="disabled"') . ' class="button'
             . (empty($groupConfig['paypal_ec_separate']) ? '' : ' paypal-ec-separate')
             . ($this->_isPaymentEnabled($element) ? '' : ' disabled') . '" id="' . $element->getHtmlId()
             . '-head" onclick="paypalToggleSolution.call(this, \'' . $element->getHtmlId() . '\', \''
             . $this->getUrl('*/*/state') . '\'); return false;"><span class="state-closed">'
             . $this->__('Configure') . '</span><span class="state-opened">'
-            . $this->__('Close') . '</span></button></div></div>';
-
-        return $html;
+            . $this->__('Close') . '</span></button></div></div>');
     }
 
     /**

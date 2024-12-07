@@ -86,9 +86,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
             }
             $code .= $char;
         }
-
-        $code = $prefix . $code . $suffix;
-        return $code;
+        return $prefix . $code . $suffix;
     }
 
     /**

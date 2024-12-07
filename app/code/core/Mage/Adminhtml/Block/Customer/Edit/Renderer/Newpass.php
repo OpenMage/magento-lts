@@ -52,8 +52,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass extends Mage_Adminhtml
         $html .= '<label for="account-send-pass">'
             . Mage::helper('customer')->__('Email Link to Set Password')
             . '</label></td>';
-        $html .= '</tr>' . "\n";
 
-        return $html;
+        return $html . ('</tr>' . "\n");
     }
 }

@@ -64,9 +64,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
             $html .= $field->toHtml();
         }
 
-        $html .= $this->_getFooterHtml($element);
-
-        return $html;
+        return $html . $this->_getFooterHtml($element);
     }
 
     protected function _getHeaderHtml($element)
@@ -83,9 +81,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
         if (!$default) {
             $html .= '<colgroup class="use-default" />';
         }
-        $html .= '<tbody>';
 
-        return $html;
+        return $html . '<tbody>';
     }
 
     protected function _getFooterHtml($element)

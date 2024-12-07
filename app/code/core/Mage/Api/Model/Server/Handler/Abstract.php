@@ -606,13 +606,12 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     public function processingRow($row)
     {
-        $row = preg_replace_callback(
+        return preg_replace_callback(
             '/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]/u',
             function ($matches) {
                 return '&#' . Mage::helper('core/string')->uniOrd($matches[0]) . ';';
             },
             $row
         );
-        return $row;
     }
 }

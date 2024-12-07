@@ -72,12 +72,10 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
                 ';
         }
 
-        $html .= '
+        return $html . '
             Calendar.setup(calendarSetupObject);
         //]]>
         </script>';
-
-        return $html;
     }
 
     /**

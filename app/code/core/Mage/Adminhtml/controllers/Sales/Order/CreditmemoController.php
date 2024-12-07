@@ -31,9 +31,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         if (!$data) {
             $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
         }
-
-        $qtys = $data['items'] ?? [];
-        return $qtys;
+        return $data['items'] ?? [];
     }
 
     /**

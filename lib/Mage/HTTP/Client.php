@@ -45,8 +45,7 @@ class Mage_HTTP_Client
         }
 
         $class = __CLASS__ . '_' . str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $frontend)));
-        $obj = new $class();
-        return $obj;
+        return new $class();
     }
 
     /**

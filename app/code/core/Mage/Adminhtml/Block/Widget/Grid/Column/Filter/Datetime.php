@@ -125,7 +125,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
             . '</div></div>';
         $html .= '<input type="hidden" name="' . $this->_getHtmlName() . '[locale]"'
             . ' value="' . $this->getLocale()->getLocaleCode() . '"/>';
-        $html .= '<script type="text/javascript">
+        return $html . ('<script type="text/javascript">
             Calendar.setup({
                 inputField : "' . $htmlId . '_from",
                 ifFormat : "' . $format . '",
@@ -142,8 +142,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
                 align : "Bl",
                 singleClick : true
             });
-        </script>';
-        return $html;
+        </script>');
     }
 
     /**

@@ -110,7 +110,6 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             $html .= '<input type="hidden" name="' . $regionIdHtmlName . '" id="' . $regionIdHtmlId . '" value=""/>';
             $html .= '</td>' . "\n";
         }
-        $html .= '</tr>' . "\n";
-        return $html;
+        return $html . ('</tr>' . "\n");
     }
 }

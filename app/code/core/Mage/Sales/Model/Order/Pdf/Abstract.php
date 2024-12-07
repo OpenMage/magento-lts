@@ -602,8 +602,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         }
 
         $this->y -= 20;
-        $page = $this->drawLineBlocks($page, [$lineBlock]);
-        return $page;
+        return $this->drawLineBlocks($page, [$lineBlock]);
     }
 
     /**

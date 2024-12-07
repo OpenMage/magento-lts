@@ -196,8 +196,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
                 );
             }
         }
-        $html .= '</select>';
-        return $html;
+        return $html . '</select>';
     }
 
     /**

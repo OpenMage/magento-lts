@@ -938,9 +938,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $finalPrice = min($finalPrice, $rulePrice);
         }
 
-        $finalPrice = max($finalPrice, 0);
-
-        return $finalPrice;
+        return max($finalPrice, 0);
     }
 
     /**

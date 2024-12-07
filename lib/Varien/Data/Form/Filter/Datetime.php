@@ -44,8 +44,7 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
         ]);
 
         $value = $filterInput->filter($value);
-        $value = $filterInternal->filter($value);
-        return $value;
+        return $filterInternal->filter($value);
     }
 
     /**
@@ -70,7 +69,6 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
         ]);
 
         $value = $filterInput->filter($value);
-        $value = $filterInternal->filter($value);
-        return $value;
+        return $filterInternal->filter($value);
     }
 }

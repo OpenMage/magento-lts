@@ -74,7 +74,6 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
         foreach ($attributes as $key => $value) {
             $data[] = $key . $valueSeparator . $quote . $value . $quote;
         }
-        $res = implode($fieldSeparator, $data);
-        return $res;
+        return implode($fieldSeparator, $data);
     }
 }

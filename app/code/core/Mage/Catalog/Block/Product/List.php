@@ -178,8 +178,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
                 return $block;
             }
         }
-        $block = $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
-        return $block;
+        return $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
     }
 
     /**

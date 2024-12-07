@@ -88,9 +88,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     {
         $string = preg_replace('#[^0-9a-z]+#i', '-', $string);
         $string = strtolower($string);
-        $string = trim($string, '-');
 
-        return $string;
+        return trim($string, '-');
     }
 
     /**
@@ -118,9 +117,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
                 $arrQueryParams[] = $key . '=' . $value;
             }
         }
-        $url .= $startDelimiter . implode('&', $arrQueryParams);
 
-        return $url;
+        return $url . ($startDelimiter . implode('&', $arrQueryParams));
     }
 
     /**

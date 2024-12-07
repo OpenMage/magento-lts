@@ -60,7 +60,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty extends M
         if ($isInactive) {
             $html .= 'disabled="disabled" ';
         }
-        $html .= 'class="input-text ' . $this->getColumn()->getInlineCss() . ($isInactive ? ' input-inactive' : '') . '" />';
-        return $html;
+        return $html . ('class="input-text ' . $this->getColumn()->getInlineCss() . ($isInactive ? ' input-inactive' : '') . '" />');
     }
 }

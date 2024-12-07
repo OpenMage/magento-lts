@@ -53,8 +53,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
         </script>
 EndHTML;
 
-        $html .= parent::getElementHtml();
-
-        return $html;
+        return $html . parent::getElementHtml();
     }
 }

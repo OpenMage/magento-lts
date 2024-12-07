@@ -52,8 +52,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio extends Mage_Adminh
             $checked = ($value === $this->getColumn()->getValue()) ? ' checked="checked"' : '';
         }
         $html = '<input type="radio" name="' . $this->getColumn()->getHtmlName() . '" ';
-        $html .= 'value="' . $row->getId() . '" class="radio"' . $checked . '/>';
-        return $html;
+        return $html . ('value="' . $row->getId() . '" class="radio"' . $checked . '/>');
     }
 
     /*

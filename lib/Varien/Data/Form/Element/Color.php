@@ -67,7 +67,6 @@ class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
             . '/>' . "\n";
 
         $this->addClass('input-color');
-        $html .= parent::getElementHtml();
-        return $html;
+        return $html . parent::getElementHtml();
     }
 }

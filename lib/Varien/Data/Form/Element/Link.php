@@ -43,8 +43,7 @@ class Varien_Data_Form_Element_Link extends Varien_Data_Form_Element_Abstract
     {
         $html = $this->getBeforeElementHtml();
         $html .= '<a id="' . $this->getHtmlId() . '" ' . $this->serialize($this->getHtmlAttributes()) . '>' . $this->getEscapedValue() . "</a>\n";
-        $html .= $this->getAfterElementHtml();
-        return $html;
+        return $html . $this->getAfterElementHtml();
     }
 
     /**

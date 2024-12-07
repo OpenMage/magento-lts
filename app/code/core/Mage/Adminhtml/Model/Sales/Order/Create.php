@@ -1027,8 +1027,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _parseCustomPrice($price)
     {
         $price = Mage::app()->getLocale()->getNumber($price);
-        $price = $price > 0 ? $price : 0;
-        return $price;
+        return $price > 0 ? $price : 0;
     }
 
     /**

@@ -30,8 +30,7 @@ class Mage_Adminhtml_Model_Newsletter_Renderer_Text implements Varien_Data_Form_
         }
         $html .= '</td><td class="value">
 <iframe src="' . $element->getValue() . '" id="' . $element->getHtmlId() . '" frameborder="0" class="template-preview"> </iframe>';
-        $html .= '</td><td></td></tr>' . "\n";
 
-        return $html;
+        return $html . ('</td><td></td></tr>' . "\n");
     }
 }

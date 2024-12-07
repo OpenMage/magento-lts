@@ -34,7 +34,6 @@ class Varien_Filter_Sprintf implements Zend_Filter_Interface
         if (!is_null($this->_decimals)) {
             $value = number_format($value, $this->_decimals, $this->_decPoint, $this->_thousandsSep);
         }
-        $value = sprintf($this->_format, $value);
-        return $value;
+        return sprintf($this->_format, $value);
     }
 }

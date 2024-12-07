@@ -29,6 +29,7 @@ return RectorConfig::configure()
         CodeQuality\Foreach_\UnusedForeachValueToArrayKeysRector::class,
         CodeQuality\FuncCall\ChangeArrayPushToArrayAssignRector::class,
         CodeQuality\FuncCall\CompactToVariablesRector::class,
+        CodeQuality\FunctionLike\SimplifyUselessVariableRector::class,
         CodeQuality\Identical\SimplifyArraySearchRector::class,
         CodeQuality\Identical\SimplifyConditionsRector::class,
         CodeQuality\Identical\StrlenZeroToIdenticalEmptyStringRector::class,

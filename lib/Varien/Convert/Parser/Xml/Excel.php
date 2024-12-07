@@ -151,7 +151,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $sheetName = 'Sheet 1';
         }
         $sheetName = htmlspecialchars($sheetName);
-        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
+        return '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
             . '><Workbook'
             . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
             . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
@@ -167,7 +167,6 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             . '</ExcelWorkbook>'
             . '<Worksheet ss:Name="' . $sheetName . '">'
             . '<Table>';
-        return $xml;
     }
 
     /**

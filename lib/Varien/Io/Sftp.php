@@ -121,8 +121,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                     }
                 }
             }
-            $no_errors = $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
-            return $no_errors;
+            return $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
         } else {
             return $this->_connection->rmdir($dir);
         }
@@ -214,8 +213,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     public function rawls()
     {
-        $list = $this->_connection->rawlist();
-        return $list;
+        return $this->_connection->rawlist();
     }
 
     /**

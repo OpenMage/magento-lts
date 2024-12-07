@@ -56,7 +56,6 @@ class Mage_CatalogRule_Model_Rule_Action_Product extends Mage_Rule_Model_Action_
     public function asHtml()
     {
         $html = $this->getTypeElement()->getHtml() . Mage::helper('catalogrule')->__("Update product's %s %s: %s", $this->getAttributeElement()->getHtml(), $this->getOperatorElement()->getHtml(), $this->getValueElement()->getHtml());
-        $html .= $this->getRemoveLinkHtml();
-        return $html;
+        return $html . $this->getRemoveLinkHtml();
     }
 }

@@ -1359,9 +1359,8 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     {
         $categoriesIds = $this->getChildren($category);
         $myId = [$category->getId()];
-        $categoriesIds = array_merge($myId, $categoriesIds);
 
-        return $categoriesIds;
+        return array_merge($myId, $categoriesIds);
     }
 
     /**

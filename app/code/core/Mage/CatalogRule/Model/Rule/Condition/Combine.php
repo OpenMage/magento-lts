@@ -40,11 +40,10 @@ class Mage_CatalogRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Cond
             $attributes[] = ['value' => 'catalogrule/rule_condition_product|' . $code, 'label' => $label];
         }
         $conditions = parent::getNewChildSelectOptions();
-        $conditions = array_merge_recursive($conditions, [
+        return array_merge_recursive($conditions, [
             ['value' => 'catalogrule/rule_condition_combine', 'label' => Mage::helper('catalogrule')->__('Conditions Combination')],
             ['label' => Mage::helper('catalogrule')->__('Product Attribute'), 'value' => $attributes],
         ]);
-        return $conditions;
     }
 
     /**

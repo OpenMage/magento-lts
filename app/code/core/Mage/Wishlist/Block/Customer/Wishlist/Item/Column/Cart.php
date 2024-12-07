@@ -69,8 +69,6 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
                 }
             }
         ";
-
-        $js .= parent::getJs();
-        return $js;
+        return $js . parent::getJs();
     }
 }

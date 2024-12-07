@@ -45,9 +45,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
             }
             $html .= $this->_getFieldHtml($element, $moduleName);
         }
-        $html .= $this->_getFooterHtml($element);
 
-        return $html;
+        return $html . $this->_getFooterHtml($element);
     }
 
     protected function _getDummyElement()

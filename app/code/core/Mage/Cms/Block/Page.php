@@ -119,7 +119,6 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         $helper = Mage::helper('cms');
         $processor = $helper->getPageTemplateProcessor();
         $html = $processor->filter($this->getPage()->getContent());
-        $html = $this->getMessagesBlock()->toHtml() . $html;
-        return $html;
+        return $this->getMessagesBlock()->toHtml() . $html;
     }
 }

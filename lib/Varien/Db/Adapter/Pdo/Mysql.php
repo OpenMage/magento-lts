@@ -1790,15 +1790,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         $comment = uc_words($columnData['COLUMN_NAME'], ' ');
 
-        $result = [
+        return [
             'name'      => $columnData['COLUMN_NAME'],
             'type'      => $type,
             'length'    => $columnData['LENGTH'],
             'options'   => $options,
             'comment'   => $comment
         ];
-
-        return $result;
     }
 
     /**
@@ -2084,9 +2082,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
         // execute the statement and return the number of affected rows
         $stmt   = $this->query($insertSql, array_values($bind));
-        $result = $stmt->rowCount();
 
-        return $result;
+        return $stmt->rowCount();
     }
 
     /**
@@ -2146,9 +2143,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         // execute the statement and return the number of affected rows
         $stmt   = $this->query($insertQuery, $bind);
-        $result = $stmt->rowCount();
 
-        return $result;
+        return $stmt->rowCount();
     }
 
     /**
@@ -2201,8 +2197,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $bind = array_values($bind);
         }
         $stmt = $this->query($sql, $bind);
-        $result = $stmt->rowCount();
-        return $result;
+        return $stmt->rowCount();
     }
 
     /**
@@ -3421,8 +3416,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $diff        = strlen($hash) + strlen($prefix) -  $maxCharacters;
         $superfluous = $diff / 2;
         $odd         = $diff % 2;
-        $hash        = substr($hash, $superfluous, - ($superfluous + $odd));
-        return $hash;
+        return substr($hash, $superfluous, - ($superfluous + $odd));
     }
 
     /**
@@ -3794,9 +3788,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $select->reset(Zend_Db_Select::DISTINCT);
         $select->reset(Zend_Db_Select::COLUMNS);
 
-        $query = sprintf('DELETE %s %s', $this->quoteIdentifier($table), $select->assemble());
-
-        return $query;
+        return sprintf('DELETE %s %s', $this->quoteIdentifier($table), $select->assemble());
     }
 
     /**
@@ -3905,9 +3897,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $columns   = implode(',', $columns);
         $values    = implode(', ', $values);
 
-        $insertSql = sprintf('INSERT INTO %s (%s) VALUES %s', $tableName, $columns, $values);
-
-        return $insertSql;
+        return sprintf('INSERT INTO %s (%s) VALUES %s', $tableName, $columns, $values);
     }
 
     /**

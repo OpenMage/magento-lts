@@ -910,6 +910,7 @@
     - any-glob-to-any-file: [
       .phpunit*,
       tests/*,
+      tests/**/*,
       .github/workflows/phpunit.yml
     ]
 

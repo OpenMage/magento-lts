@@ -142,9 +142,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                 }
                 $selectHtml .= '</li>';
             }
-            $selectHtml .= '</ul>';
 
-            return $selectHtml;
+            return $selectHtml . '</ul>';
         }
     }
 }

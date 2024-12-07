@@ -36,9 +36,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         if ($this->getDisplayCurrencySelect()) {
             $html .= '<div class="range-line"><span class="label">' . Mage::helper('adminhtml')->__('In') . '</span>' . $this->_getCurrencySelectHtml() . '</div>';
         }
-        $html .= '</div>';
 
-        return $html;
+        return $html . '</div>';
     }
 
     public function getDisplayCurrencySelect()
@@ -81,8 +80,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
             $html .= '<option value="' . $currency . '" ' . ($currency == $value ? 'selected="selected"' : '') . '>'
                 . $currency . '</option>';
         }
-        $html .= '</select>';
-        return $html;
+        return $html . '</select>';
     }
 
     protected function _getCurrencyList()

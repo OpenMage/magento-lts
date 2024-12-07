@@ -298,8 +298,7 @@ class Mage_Core_Model_Translate
     {
         //$file = Mage::getConfig()->getModuleDir('locale', $module);
         $file = Mage::getBaseDir('locale');
-        $file .= DS . $this->getLocale() . DS . $fileName;
-        return $file;
+        return $file . (DS . $this->getLocale() . DS . $fileName);
     }
 
     /**
@@ -532,8 +531,7 @@ class Mage_Core_Model_Translate
         if (!$data) {
             return false;
         }
-        $data = unserialize($data, ['allowed_classes' => false]);
-        return $data;
+        return unserialize($data, ['allowed_classes' => false]);
     }
 
     /**

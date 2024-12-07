@@ -77,8 +77,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
                 $html .= $this->_renderOption($option, $value);
             }
         }
-        $html .= '</select>';
-        return $html;
+        return $html . '</select>';
     }
 
     /**
