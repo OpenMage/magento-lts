@@ -22,42 +22,45 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Adminhtml_Block_Widget
 {
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs(
-                        $this->getUrl(
-                            '*/catalog_product/',
-                            ['store' => $this->getRequest()->getParam('store', 0)]
-                        )
-                    ),
-                    'class' => 'back'
-                ])
-        );
+        $this->addButtons();
+        return parent::_prepareLayout();
+    }
 
-        $this->setChild(
-            'reset_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Reset'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
-                ])
-        );
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+        $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+    }
 
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Save'),
-                    'onclick'   => 'attributesForm.submit()',
-                    'class'     => 'save'
-                ])
-        );
-        return $this;
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_BACK)
+            ->setOnClickSetLocationJsUrl('*/catalog_product/', [
+                'store' => $this->getRequest()->getParam('store', 0)
+            ]);
+    }
+
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
+            ->setOnClickSetLocationJsUrl('*/*/*', ['_current' => true])
+            ->resetClass();
+    }
+
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setOnClick('attributesForm.submit()');
     }
 
     /**
@@ -78,36 +81,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
     protected function _getHelper()
     {
         return $this->helper('adminhtml/catalog_product_edit_action_attribute');
-    }
-
-    /**
-     * Retrieve back button html code
-     *
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('back_button');
-    }
-
-    /**
-     * Retrieve cancel button html code
-     *
-     * @return string
-     */
-    public function getCancelButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
-    }
-
-    /**
-     * Retrieve save button html code
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
     }
 
     /**

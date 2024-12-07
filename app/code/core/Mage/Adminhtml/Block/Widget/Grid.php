@@ -25,6 +25,10 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 {
+    public const BUTTON_EXPORT          = 'export_button';
+    public const BUTTON_RESET_FILTER    = 'reset_filter_button';
+    public const BUTTON_SEARCH          = 'search_button';
+
     /**
      * Columns array
      *
@@ -214,6 +218,8 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected ?array $defaultColumnSettings = null;
 
+    protected $_template = 'widget/grid.phtml';
+
     /**
      * Mage_Adminhtml_Block_Widget_Grid constructor.
      * @param array $attributes
@@ -221,43 +227,51 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function __construct($attributes = [])
     {
         parent::__construct($attributes);
-        $this->setTemplate('widget/grid.phtml');
         $this->setRowClickCallback('openGridRow');
         $this->_emptyText = Mage::helper('adminhtml')->__('No records found.');
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'export_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Export'),
-                    'onclick'   => $this->getJsObjectName() . '.doExport()',
-                    'class'   => 'task'
-                ])
-        );
-        $this->setChild(
-            'reset_filter_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Reset Filter'),
-                    'onclick'   => $this->getJsObjectName() . '.resetFilter()',
-                ])
-        );
-        $this->setChild(
-            'search_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Search'),
-                    'onclick'   => $this->getJsObjectName() . '.doFilter()',
-                    'class'   => 'task'
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_EXPORT, $this->getButtonExportlock());
+        $this->setChild(self::BUTTON_RESET_FILTER, $this->getButtonResetFilterBlock());
+        $this->setChild(self::BUTTON_SEARCH, $this->getButtonSearchBlock());
+    }
+
+    public function getButtonExportlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('adminhtml')->__('Export'))
+            ->setOnClick($this->getJsObjectName() . '.doExport()')
+            ->setClass(self::BUTTON__CLASS_TASK);
+    }
+
+    public function getButtonResetFilterBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('adminhtml')->__('Reset Filter'))
+            ->setOnClick($this->getJsObjectName() . '.resetFilter()');
+    }
+
+    public function getButtonSearchBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('adminhtml')->__('Search'))
+            ->setOnClick($this->getJsObjectName() . '.doFilter()')
+            ->setClass(self::BUTTON__CLASS_TASK);
     }
 
     /**
@@ -265,7 +279,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getExportButtonHtml()
     {
-        return $this->getChildHtml('export_button');
+        return $this->getChildHtml(self::BUTTON_EXPORT);
     }
 
     /**
@@ -273,7 +287,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getResetFilterButtonHtml()
     {
-        return $this->getChildHtml('reset_filter_button');
+        return $this->getChildHtml(self::BUTTON_RESET_FILTER);
     }
 
     /**
@@ -281,7 +295,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getSearchButtonHtml()
     {
-        return $this->getChildHtml('search_button');
+        return $this->getChildHtml(self::BUTTON_SEARCH);
     }
 
     /**

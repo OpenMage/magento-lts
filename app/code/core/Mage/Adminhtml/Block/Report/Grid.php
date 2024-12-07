@@ -24,6 +24,8 @@
  */
 class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    public const BLOCK_STORE_SWITCHER = 'store_switcher';
+
     protected $_storeSwitcherVisibility = true;
 
     protected $_dateFilterVisibility = true;
@@ -35,8 +37,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     protected $_filters = [];
 
     protected $_defaultFilters = [
-            'report_from' => '',
-            'report_to' => '',
+            'report_from'   => '',
+            'report_to'     => '',
             'report_period' => 'day'
     ];
 
@@ -59,6 +61,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /** @todo OM: check */
     protected $_filterValues;
 
+    protected $_template = 'report/grid.phtml';
+
     /**
      * Mage_Adminhtml_Block_Report_Grid constructor.
      */
@@ -67,35 +71,40 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         parent::__construct();
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
-        $this->setTemplate('report/grid.phtml');
         $this->setUseAjax(false);
         $this->setCountTotals(true);
     }
 
     /**
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
         $this->setChild(
-            'store_switcher',
+            self::BLOCK_STORE_SWITCHER,
             $this->getLayout()->createBlock('adminhtml/store_switcher')
                 ->setUseConfirm(false)
                 ->setSwitchUrl($this->getUrl('*/*/*', ['store' => null]))
                 ->setTemplate('report/store/switcher.phtml')
         );
 
-        $this->setChild(
-            'refresh_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Refresh'),
-                    'onclick'   => $this->getRefreshButtonCallback(),
-                    'class'   => 'task'
-                ])
-        );
-        parent::_prepareLayout();
-        return $this;
+        $this->addButtons();
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        parent::addButtons();
+        $this->setChild(self::BUTTON_REFRESH, $this->getButtonRefreshBlock());
+    }
+
+    public function getButtonRefreshBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_REFRESH)
+            ->setOnClick($this->getRefreshButtonCallback());
     }
 
     /**
@@ -115,7 +124,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareCollection()
     {
-        $filter = $this->getParam($this->getVarNameFilter(), null);
+        $filter = $this->getParam($this->getVarNameFilter());
 
         if (is_null($filter)) {
             $filter = $this->_defaultFilter;
@@ -167,12 +176,13 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
          * Getting and saving store ids for website & group
          */
         $storeIds = [];
-        if ($this->getRequest()->getParam('store')) {
+        $request  = $this->getRequest();
+        if ($request->getParam('store')) {
             $storeIds = [$this->getParam('store')];
-        } elseif ($this->getRequest()->getParam('website')) {
-            $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-        } elseif ($this->getRequest()->getParam('group')) {
-            $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
+        } elseif ($request->getParam('website')) {
+            $storeIds = Mage::app()->getWebsite($request->getParam('website'))->getStoreIds();
+        } elseif ($request->getParam('group')) {
+            $storeIds = Mage::app()->getGroup($request->getParam('group'))->getStoreIds();
         }
 
         // By default storeIds array contains only allowed stores
@@ -241,7 +251,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getStoreSwitcherHtml()
     {
-        return $this->getChildHtml('store_switcher');
+        return $this->getChildHtml(self::BLOCK_STORE_SWITCHER);
     }
 
     /**
@@ -319,7 +329,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getRefreshButtonHtml()
     {
-        return $this->getChildHtml('refresh_button');
+        return $this->getChildHtml(self::BUTTON_REFRESH);
     }
 
     public function setFilter($name, $value)

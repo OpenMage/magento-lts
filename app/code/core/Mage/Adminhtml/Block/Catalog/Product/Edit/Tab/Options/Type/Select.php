@@ -22,50 +22,54 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract
 {
+    public const BUTTON_ADD     = 'add_select_row_button';
+    public const BUTTON_DELETE  = 'delete_select_row_button';
+
+    protected $_template = 'catalog/product/edit/options/type/select.phtml';
+
     /**
      * Class constructor
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('catalog/product/edit/options/type/select.phtml');
         $this->setCanEditPrice(true);
         $this->setCanReadPrice(true);
     }
 
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'add_select_row_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Add New Row'),
-                    'class' => 'add add-select-row',
-                    'id'    => 'add_select_row_button_{{option_id}}'
-                ])
-        );
-
-        $this->setChild(
-            'delete_select_row_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Delete Row'),
-                    'class' => 'delete delete-select-row icon-btn',
-                    'id'    => 'delete_select_row_button'
-                ])
-        );
-
+        $this->addButtons();
         return parent::_prepareLayout();
     }
 
-    public function getAddButtonHtml()
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
     {
-        return $this->getChildHtml('add_select_row_button');
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
     }
 
-    public function getDeleteButtonHtml()
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->getChildHtml('delete_select_row_button');
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setId('add_select_row_button_{{option_id}}')
+            ->setLabel(Mage::helper('catalog')->__('Add New Row'))
+            ->addClass('add-select-row');
+    }
+
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setId('delete_select_row_button')
+            ->setLabel(Mage::helper('catalog')->__('Delete Row'))
+            ->addClass('delete-select-row icon-btn');
     }
 
     public function getPriceTypeSelectHtml()

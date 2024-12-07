@@ -22,39 +22,38 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options extends Mage_Adminhtml_Block_Widget
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('catalog/product/edit/options.phtml');
-    }
+    public const BLOCK_OPTION_BOX = 'options_box';
+
+    protected $_template = 'catalog/product/edit/options.phtml';
 
     protected function _prepareLayout()
     {
         $this->setChild(
-            'add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Add New Option'),
-                    'class' => 'add',
-                    'id'    => 'add_new_defined_option'
-                ])
-        );
-
-        $this->setChild(
-            'options_box',
+            self::BLOCK_OPTION_BOX,
             $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_options_option')
         );
 
+        $this->addButtons();
         return parent::_prepareLayout();
     }
 
-    public function getAddButtonHtml()
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
     {
-        return $this->getChildHtml('add_button');
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setId('add_new_defined_option')
+            ->setLabel(Mage::helper('catalog')->__('Add New Option'));
     }
 
     public function getOptionsBoxHtml()
     {
-        return $this->getChildHtml('options_box');
+        return $this->getChildHtml(self::BLOCK_OPTION_BOX);
     }
 }

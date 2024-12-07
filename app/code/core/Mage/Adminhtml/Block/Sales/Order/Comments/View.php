@@ -35,19 +35,28 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'id'      => 'submit_comment_button',
-                'label'   => Mage::helper('sales')->__('Submit Comment'),
-                'class'   => 'save'
-            ]);
-        $this->setChild('submit_button', $button);
-
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_SUBMIT, $this->getButtonSaveBlock());
+    }
+
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setId('submit_comment_button')
+            ->setLabel(Mage::helper('sales')->__('Submit Comment'));
     }
 
     public function getSubmitUrl()

@@ -22,6 +22,29 @@
  */
 class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
 {
+    public const BUTTON_ADD                         = 'add_button';
+    public const BUTTON_BACK                        = 'back_button';
+    public const BUTTON_CANCEL                      = 'cancel_button';
+    public const BUTTON_CLOSE                       = 'close_button';
+    public const BUTTON_DELETE                      = 'delete_button';
+    public const BUTTON_DUPLICATE                   = 'duplicate_button';
+    public const BUTTON_RESET                       = 'reset_button';
+    public const BUTTON_REFRESH                     = 'refresh_button';
+    public const BUTTON_SAVE                        = 'save_button';
+    public const BUTTON_SAVE_AND_CONTINUE           = 'save_and_edit_button';
+    public const BUTTON_SUBMIT                      = 'submit_button';
+    public const BUTTON_UPDATE                      = 'update_button';
+    public const BUTTON_UPLOAD                      = 'upload_button';
+
+    public const BUTTON__CLASS_ADD                  = 'add';
+    public const BUTTON__CLASS_BACK                 = 'back';
+    public const BUTTON__CLASS_CANCEL               = 'cancel';
+    public const BUTTON__CLASS_DELETE               = 'delete';
+    public const BUTTON__CLASS_RESET                = 'reset';
+    public const BUTTON__CLASS_SAVE                 = 'save';
+    public const BUTTON__CLASS_TASK                 = 'task';
+    public const BUTTON__CLASS_UPDATE               = 'update-button';
+
     /**
      * @return string
      */
@@ -71,5 +94,182 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     public function maliciousCodeFilter($html)
     {
         return Mage::getSingleton('core/input_filter_maliciousCode')->filter($html);
+    }
+
+    private function createWidgetButtonBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        /** @var Mage_Adminhtml_Block_Widget_Button $block */
+        $block = $this->getLayout()->createBlock('adminhtml/widget_button', $name, $attributes);
+        return $block;
+    }
+
+    public function getButtonBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return $this->createWidgetButtonBlock($name, $attributes);
+    }
+
+    private function createWidgetButtonBlockByType(string $type, string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        $button = $this->createWidgetButtonBlock($name, $attributes);
+
+        switch ($type) {
+            case static::BUTTON_ADD:
+                $button->setLabel(Mage::helper('adminhtml')->__('Add'));
+                $button->setClass(static::BUTTON__CLASS_ADD);
+                break;
+            case static::BUTTON_BACK:
+                $button->setLabel(Mage::helper('adminhtml')->__('Back'));
+                $button->setOnClick("window.location.href='" . $this->getUrl('*/*') . "'");
+                $button->setClass(static::BUTTON__CLASS_BACK);
+                break;
+            case static::BUTTON_CANCEL:
+                $button->setLabel(Mage::helper('adminhtml')->__('Cancel'));
+                $button->setOnClick('window.close()');
+                $button->setClass(static::BUTTON__CLASS_CANCEL);
+                break;
+            case static::BUTTON_CLOSE:
+                $button->setLabel(Mage::helper('adminhtml')->__('Close Window'));
+                $button->setOnClick('window.close()');
+                break;
+            case static::BUTTON_DELETE:
+                $button->setLabel(Mage::helper('adminhtml')->__('Delete'));
+                $button->setClass(static::BUTTON__CLASS_DELETE);
+                break;
+            case static::BUTTON_REFRESH:
+                $button->setLabel(Mage::helper('adminhtml')->__('Refresh'));
+                $button->setClass(static::BUTTON__CLASS_TASK);
+                break;
+            case static::BUTTON_RESET:
+                $button->setLabel(Mage::helper('adminhtml')->__('Reset'));
+                $button->setOnClick('window.location.href = window.location.href');
+                $button->setClass(static::BUTTON__CLASS_RESET);
+                break;
+            case static::BUTTON_SAVE:
+                $button->setLabel(Mage::helper('adminhtml')->__('Save'));
+                $button->setClass(static::BUTTON__CLASS_SAVE);
+                break;
+            case static::BUTTON_SAVE_AND_CONTINUE:
+                $button->setLabel(Mage::helper('adminhtml')->__('Save and Continue Edit'));
+                $button->setClass(static::BUTTON__CLASS_SAVE);
+                break;
+            case static::BUTTON_UPDATE:
+                $button->setClass(static::BUTTON__CLASS_UPDATE);
+                break;
+            case static::BUTTON_UPLOAD:
+                $button->setLabel(Mage::helper('adminhtml')->__('Upload Files'));
+                break;
+        }
+
+        return $button;
+    }
+
+    public function getButtonBlockByType(string $type, string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return $this->createWidgetButtonBlockByType($type, $name, $attributes);
+    }
+
+    /**
+     * Retrieve Add Button HTML
+     *
+     *  @return string
+     */
+    public function getAddButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_ADD);
+    }
+
+    /**
+     * Retrieve Back Button HTML
+     *
+     *  @return string
+     */
+    public function getBackButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_BACK);
+    }
+
+    /**
+     * Retrieve Cancel Button HTML
+     *
+     *  @return string
+     */
+    public function getCancelButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_RESET);
+    }
+
+    /**
+     * Retrieve Close Button HTML
+     *
+     *  @return string
+     */
+    public function getCloseButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_CLOSE);
+    }
+
+    /**
+     * Retrieve Delete Button HTML
+     *
+     * @return string
+     */
+    public function getDeleteButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_DELETE);
+    }
+
+    /**
+     * Retrieve Delete Button HTML
+     *
+     * @return string
+     */
+    public function getDuplicateButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_DUPLICATE);
+    }
+
+    /**
+     * Retrieve Reset Button HTML
+     *
+     * @return string
+     */
+    public function getResetButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_RESET);
+    }
+
+    /**
+     * Retrieve Save Button HTML
+     *
+     * @return string
+     */
+    public function getSaveButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_SAVE);
+    }
+
+    public function getSaveAndEditButtonHtml(): string
+    {
+        return $this->getChildHtml(static::BUTTON_SAVE_AND_CONTINUE);
+    }
+
+    /**
+     * Retrieve Update Button HTML
+     *
+     * @return string
+     */
+    public function getUpdateButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_UPDATE);
+    }
+
+    /**
+     * Retrieve Upload Button HTML
+     *
+     * @return string
+     */
+    public function getUploadButtonHtml()
+    {
+        return $this->getChildHtml(static::BUTTON_UPLOAD);
     }
 }

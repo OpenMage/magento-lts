@@ -30,13 +30,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
 
     protected $_itemCount = 1;
 
+    protected $_template = 'catalog/product/edit/options/option.phtml';
+
     /**
      * Class constructor
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('catalog/product/edit/options/option.phtml');
         $this->setCanReadPrice(true);
         $this->setCanEditPrice(true);
     }
@@ -108,17 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
 
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Delete Option'),
-                    'class' => 'delete delete-product-option '
-                ])
-        );
-
         $path = 'global/catalog/product/options/custom/groups';
-
         foreach (Mage::getConfig()->getNode($path)->children() as $group) {
             $this->setChild(
                 $group->getName() . '_option_type',
@@ -128,19 +119,30 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             );
         }
 
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+    }
+
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setLabel(Mage::helper('catalog')->__('Delete Option'))
+            ->addClass('delete-product-option');
     }
 
     public function getAddButtonId()
     {
         return $this->getLayout()
-                ->getBlock('admin.product.options')
-                ->getChild('add_button')->getId();
-    }
-
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
+            ->getBlock('admin.product.options')
+            ->getChild(self::BUTTON_ADD)->getId();
     }
 
     public function getTypeSelectHtml()

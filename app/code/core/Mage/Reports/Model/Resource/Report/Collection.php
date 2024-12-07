@@ -90,8 +90,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set interval
      *
-     * @param int $from
-     * @param int $to
+     * @param Zend_Date|int $from
+     * @param Zend_Date|int $to
      * @return $this
      */
     public function setInterval($from, $to)

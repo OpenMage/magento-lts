@@ -161,12 +161,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         }
 
         $buttons = $config->getButtons();
-        $chooseButton = $this->getLayout()->createBlock('adminhtml/widget_button')
+        $chooseButton = parent::getButtonBlock()
             ->setType('button')
             ->setId($chooserId . 'control')
-            ->setClass('btn-chooser')
             ->setLabel($buttons['open'])
-            ->setOnclick($chooserId . '.choose()')
+            ->setOnClick($chooserId . '.choose()')
+            ->addClass('btn-chooser')
             ->setDisabled($element->getReadonly());
         $chooser->setData('after_element_html', $hiddenHtml . $chooseButton->toHtml());
 

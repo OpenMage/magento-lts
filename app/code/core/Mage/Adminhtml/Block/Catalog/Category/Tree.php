@@ -22,56 +22,54 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
+    public const BLOCK_STORE_SWITCHER = 'store_switcher';
+
+    public const BUTTON_ADD_ROOT    = 'add_root_button';
+    public const BUTTON_ADD_SUB     = 'add_sub_button';
+
     protected $_withProductCount;
+
+    protected $_template = 'catalog/category/tree.phtml';
 
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('catalog/category/tree.phtml');
         $this->setUseAjax(true);
         $this->_withProductCount = true;
     }
 
     protected function _prepareLayout()
     {
-        $addUrl = $this->getUrl('*/*/add', [
-            '_current' => true,
-            'id' => null,
-            '_query' => false
-        ]);
-
-        $this->setChild(
-            'add_sub_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Add Subcategory'),
-                    'onclick'   => "addNew('" . $addUrl . "', false)",
-                    'class'     => 'add',
-                    'id'        => 'add_subcategory_button',
-                    'style'     => $this->canAddSubCategory() ? '' : 'display: none;'
-                ])
-        );
+        $this->setChild(self::BUTTON_ADD_SUB, $this->getButtonAddSubBlock());
 
         if ($this->canAddRootCategory()) {
-            $this->setChild(
-                'add_root_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'     => Mage::helper('catalog')->__('Add Root Category'),
-                        'onclick'   => "addNew('" . $addUrl . "', true)",
-                        'class'     => 'add',
-                        'id'        => 'add_root_category_button'
-                    ])
-            );
+            $this->setChild(self::BUTTON_ADD_ROOT, $this->getButtonAddRootBlock());
         }
 
         $this->setChild(
-            'store_switcher',
+            self::BLOCK_STORE_SWITCHER,
             $this->getLayout()->createBlock('adminhtml/store_switcher')
                 ->setSwitchUrl($this->getUrl('*/*/*', ['_current' => true, '_query' => false, 'store' => null]))
                 ->setTemplate('store/switcher/enhanced.phtml')
         );
         return parent::_prepareLayout();
+    }
+
+    public function getButtonAddRootBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setId('add_root_category_button')
+            ->setLabel(Mage::helper('catalog')->__('Add Root Category'))
+            ->setOnClick("addNew('" . $this->getAddUrl() . "', true)");
+    }
+
+    public function getButtonAddSubBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setId('add_subcategory_button')
+            ->setLabel(Mage::helper('catalog')->__('Add Subcategory'))
+            ->setOnClick("addNew('" . $this->getAddUrl() . "', false)")
+            ->setStyle($this->canAddSubCategory() ? '' : 'display: none;');
     }
 
     protected function _getDefaultStoreId()
@@ -84,9 +82,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         $storeId = $this->getRequest()->getParam('store', $this->_getDefaultStoreId());
         $collection = $this->getData('category_collection');
         if (is_null($collection)) {
+            /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
             $collection = Mage::getModel('catalog/category')->getCollection();
-
-            /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection $collection */
             $collection->addAttributeToSelect('name')
                 ->addAttributeToSelect('is_active')
                 ->setProductStoreId($storeId)
@@ -100,12 +97,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
     public function getAddRootButtonHtml()
     {
-        return $this->getChildHtml('add_root_button');
+        return $this->getChildHtml(self::BUTTON_ADD_ROOT);
     }
 
     public function getAddSubButtonHtml()
     {
-        return $this->getChildHtml('add_sub_button');
+        return $this->getChildHtml(self::BUTTON_ADD_SUB);
     }
 
     public function getExpandButtonHtml()
@@ -120,7 +117,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
     public function getStoreSwitcherHtml()
     {
-        return $this->getChildHtml('store_switcher');
+        return $this->getChildHtml(self::BLOCK_STORE_SWITCHER);
     }
 
     public function getLoadTreeUrl($expanded = null)
@@ -132,6 +129,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
             $params['expand_all'] = true;
         }
         return $this->getUrl('*/*/categoriesJson', $params);
+    }
+
+    public function getAddUrl($expanded = null)
+    {
+        return $this->getUrl('*/*/add', [
+            '_current' => true,
+            'id' => null,
+            '_query' => false
+        ]);
     }
 
     public function getNodesUrl()
