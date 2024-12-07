@@ -1085,6 +1085,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
             // collect errors instead of throwing first one
             if ($item->getHasError()) {
+                /** @var string $message */
                 $message = $item->getMessage();
                 if (!in_array($message, $errors)) { // filter duplicate messages
                     $errors[] = $message;

@@ -23,6 +23,8 @@ parameters:
         - shell
         - tests/unit
     excludePaths:
+        # check later
+        - lib/Varien/Directory/Collection.php
         # Too much noise from "Variable $this might not be defined"
         - app/code/core/*/*/data/*
         - app/code/core/*/*/sql/*

@@ -267,7 +267,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Before save object attribute
      *
-     * @param string $attribute
+     * @param array|string $attribute
      * @return $this
      */
     protected function _beforeSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)
@@ -275,8 +275,8 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
         if ($this->_eventObject && $this->_eventPrefix) {
             Mage::dispatchEvent($this->_eventPrefix . '_save_attribute_before', [
                 $this->_eventObject => $this,
-                'object' => $object,
-                'attribute' => $attribute
+                'object'            => $object,
+                'attribute'         => $attribute
             ]);
         }
         return $this;
@@ -285,7 +285,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * After save object attribute
      *
-     * @param string $attribute
+     * @param array|string $attribute
      * @return $this
      */
     protected function _afterSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)
@@ -293,8 +293,8 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
         if ($this->_eventObject && $this->_eventPrefix) {
             Mage::dispatchEvent($this->_eventPrefix . '_save_attribute_after', [
                 $this->_eventObject => $this,
-                'object' => $object,
-                'attribute' => $attribute
+                'object'            => $object,
+                'attribute'         => $attribute
             ]);
         }
         return $this;
