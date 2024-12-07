@@ -571,6 +571,11 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Controller/Report/Abstract.php
 
 		-
+			message: "#^Warning\\: Declaration of Mage_Adminhtml_Controller_Rss_Abstract\\:\\:_getHelper\\(\\$name\\) should be compatible with Mage_Adminhtml_Controller_Action\\:\\:_getHelper\\(\\)$#"
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Controller/Rss/Abstract.php
+
+		-
 			message: "#^Parameter \\#1 \\$creditmemos of method Mage_Sales_Model_Order_Pdf_Creditmemo\\:\\:getPdf\\(\\) expects array\\<Mage_Sales_Model_Order_Creditmemo\\>, Mage_Sales_Model_Resource_Order_Creditmemo_Collection given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php
@@ -1746,6 +1751,26 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
 
 		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
+
+		-
+			message: "#^Parameter \\#4 \\$mon of function mktime expects int, string given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
+
+		-
+			message: "#^Parameter \\#5 \\$day of function mktime expects int, string given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
+
+		-
+			message: "#^Parameter \\#6 \\$year of function mktime expects int, string given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
+
+		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Option_Interface\\:\\:getId\\(\\)\\.$#"
 			count: 2
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
@@ -2361,6 +2386,26 @@ parameters:
 			path: app/code/core/Mage/Centinel/Helper/Data.php
 
 		-
+			message: "#^Method Mage_Centinel_Model_Api\\:\\:callLookup\\(\\) should return \\$this\\(Mage_Centinel_Model_Api\\) but returns Varien_Object\\.$#"
+			count: 1
+			path: app/code/core/Mage/Centinel/Model/Api.php
+
+		-
+			message: "#^Property Mage_Centinel_Model_Api\\:\\:\\$_clientInstance \\(Mage_Centinel_Model_Api_Client\\) in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Centinel/Model/Api.php
+
+		-
+			message: "#^Access to an undefined property XMLParser\\:\\:\\$deserializedResponse\\.$#"
+			count: 1
+			path: app/code/core/Mage/Centinel/Model/Api/Client.php
+
+		-
+			message: "#^Parameter \\#3 \\$value of function curl_setopt expects bool, int given\\.$#"
+			count: 3
+			path: app/code/core/Mage/Centinel/Model/Api/Client.php
+
+		-
 			message: "#^Cannot call method setItem\\(\\) on array\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Cart/Abstract.php
@@ -2891,6 +2936,21 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Locale.php
 
 		-
+			message: "#^Method Mage_Core_Model_Mysql4_Design_Theme_Collection\\:\\:setData\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of method Mage_Core_Model_Mysql4_Design_Theme_Collection\\:\\:setData\\(\\) expects array, string given\\.$#"
+			count: 1
+			path: app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+
+		-
+			message: "#^Warning\\: Declaration of Mage_Core_Model_Mysql4_Design_Theme_Collection\\:\\:load\\(\\) should be compatible with Varien_Data_Collection\\:\\:load\\(\\$printQuery \\= false, \\$logQuery \\= false\\)$#"
+			count: 1
+			path: app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+
+		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Type_Abstract\\:\\:getConnection\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource.php
@@ -3344,6 +3404,11 @@ parameters:
 			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Container_Interface\\:\\:getName\\(\\)\\.$#"
 			count: 2
 			path: app/code/core/Mage/Dataflow/Model/Convert/Container/Collection.php
+
+		-
+			message: "#^Call to an undefined method Mage_Dataflow_Model_Session_Adapter_Iterator\\:\\:__\\(\\)\\.$#"
+			count: 10
+			path: app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
 
 		-
 			message: "#^Method Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:getBatchImportModel\\(\\) has invalid return type Mage_Dataflow_Model_Import_Export\\.$#"
@@ -4344,6 +4409,11 @@ parameters:
 			message: "#^Property Mage_Paypal_Model_Pro\\:\\:\\$_config \\(Mage_Paypal_Model_Config\\) does not accept Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Pro.php
+
+		-
+			message: "#^Variable \\$line in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Report/Settlement.php
 
 		-
 			message: "#^Method Varien_Data_Collection\\:\\:toOptionArray\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -8606,6 +8676,436 @@ parameters:
 			path: lib/Varien/Db/Statement/Pdo/Mysql.php
 
 		-
+			message: "#^Default value of the parameter \\#2 \\$isRecursion \\(string\\) of method Varien_Directory_Collection\\:\\:setPath\\(\\) is incompatible with type bool\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:__construct\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:__toXml\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:__toXml\\(\\) should return none but returns string\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:_renderFilters\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:_renderFilters\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:addFilter\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:addFilter\\(\\) should return none but returns \\$this\\(Varien_Directory_Collection\\)\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:addItem\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:addItem\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:getDirsName\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:getDirsName\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:getFilesName\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:getFilesName\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:getFilesObj\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:getFilesObj\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:getFilesPaths\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:getFilesPaths\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:parseDir\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:parseDir\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:setFilesFilter\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:setFilesFilter\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:setPath\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:setPath\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:setRecursion\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:setRecursion\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:setRecursionLevel\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:setRecursionLevel\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:toArray\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:toArray\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:toXml\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:toXml\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:useFilter\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:useFilter\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$files$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$is_recursion$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$path$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Parameter \\#1 \\$item of method Varien_Directory_Collection\\:\\:addItem\\(\\) expects IFactory, IFactor given\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of static method Varien_Directory_Factory\\:\\:getFactory\\(\\) expects array, SplFileInfo\\|string given\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Parameter \\#3 \\$addOpenTag of method Varien_Directory_Collection\\:\\:toXml\\(\\) expects bool, string given\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Return type \\(none\\) of method Varien_Directory_Collection\\:\\:toArray\\(\\) should be compatible with return type \\(array\\) of method Varien_Data_Collection\\:\\:toArray\\(\\)$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Return type \\(none\\) of method Varien_Directory_Collection\\:\\:toXml\\(\\) should be compatible with return type \\(string\\) of method Varien_Data_Collection\\:\\:toXml\\(\\)$#"
+			count: 1
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Warning\\: Declaration of Varien_Directory_Collection\\:\\:addFilter\\(\\$field, \\$value\\) should be compatible with Varien_Data_Collection\\:\\:addFilter\\(\\$field, \\$value, \\$type \\= 'and'\\)$#"
+			count: 3
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Warning\\: Declaration of Varien_Directory_Collection\\:\\:addItem\\(IFactory \\$item\\) should be compatible with Varien_Data_Collection\\:\\:addItem\\(Varien_Object \\$item\\)$#"
+			count: 3
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Warning\\: Declaration of Varien_Directory_Collection\\:\\:toArray\\(&\\$arr\\) should be compatible with Varien_Data_Collection\\:\\:toArray\\(\\$arrRequiredFields \\= Array\\)$#"
+			count: 3
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Warning\\: Declaration of Varien_Directory_Collection\\:\\:toXml\\(&\\$xml, \\$recursionLevel \\= 0, \\$addOpenTag \\= true, \\$rootName \\= 'Struct'\\) should be compatible with Varien_Data_Collection\\:\\:toXml\\(\\)$#"
+			count: 3
+			path: lib/Varien/Directory/Collection.php
+
+		-
+			message: "#^Method Varien_Directory_Factory\\:\\:getFactory\\(\\) has invalid return type IFactor\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Factory.php
+
+		-
+			message: "#^Method Varien_Directory_Factory\\:\\:getFactory\\(\\) should return IFactor but returns Varien_Directory_Collection\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Factory.php
+
+		-
+			message: "#^Method Varien_Directory_Factory\\:\\:getFactory\\(\\) should return IFactor but returns Varien_File_Object\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Factory.php
+
+		-
+			message: "#^Parameter \\#1 \\$filename of function is_dir expects string, array given\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Factory.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of class Varien_Directory_Collection constructor expects string, array given\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Factory.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of class Varien_File_Object constructor expects string, array given\\.$#"
+			count: 1
+			path: lib/Varien/Directory/Factory.php
+
+		-
+			message: "#^Binary operation \"\\.\\=\" between array and non\\-falsy\\-string results in an error\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_Directory_Collection\\:\\:lastDir\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:__construct\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:addFilter\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:addFilter\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getDirName\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getDirName\\(\\) should return none but returns string\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getDirsName\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getDirsName\\(\\) should return none but returns string\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFileName\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFileName\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFilePath\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFilePath\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFilesName\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFilesName\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFilesObj\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFilesObj\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFilesPaths\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:getFilesPaths\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:renderFilter\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:renderFilter\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:setFilesFilter\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:setFilesFilter\\(\\) should return none but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:toArray\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:toArray\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:toXml\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:toXml\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:useFilter\\(\\) has invalid return type none\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Method Varien_File_Object\\:\\:useFilter\\(\\) should return none but return statement is missing\\.$#"
+			count: 2
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$dirs$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$paths$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Parameter &\\$files by\\-ref type of method Varien_File_Object\\:\\:getFilesName\\(\\) expects array, array\\|null given\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Return type \\(none\\) of method Varien_File_Object\\:\\:getFileName\\(\\) should be compatible with return type \\(string\\) of method SplFileInfo\\:\\:getFilename\\(\\)$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: "#^Static call to instance method Varien_Directory_Collection\\:\\:lastDir\\(\\)\\.$#"
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
 			message: "#^Right side of && is always false\\.$#"
 			count: 1
 			path: lib/Varien/Filter/Template/Tokenizer/Parameter.php
@@ -8631,6 +9131,21 @@ parameters:
 			path: lib/Varien/Http/Adapter/Curl.php
 
 		-
+			message: "#^Instantiated class Varien_Image_Adapter_Gd not found\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter.php
+
+		-
+			message: "#^Instantiated class Varien_Image_Adapter_Imagemagic not found\\.$#"
+			count: 1
+			path: lib/Varien/Image/Adapter.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 4
+			path: lib/Varien/Image/Adapter.php
+
+		-
 			message: "#^Property Varien_Image_Adapter_Abstract\\:\\:\\$_imageHandler has unknown class GdImage as its type\\.$#"
 			count: 1
 			path: lib/Varien/Image/Adapter/Abstract.php
@@ -8649,6 +9164,16 @@ parameters:
 			message: "#^Parameter \\#1 \\$prefix of function uniqid expects string, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: lib/Varien/Io/Ftp.php
+
+		-
+			message: "#^Method Varien_Io_Sftp\\:\\:open\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: lib/Varien/Io/Sftp.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$args with type int is incompatible with native type array\\.$#"
+			count: 1
+			path: lib/Varien/Io/Sftp.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:setNode\\(\\)\\.$#"
