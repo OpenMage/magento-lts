@@ -55,6 +55,7 @@ class FormTest extends TestCase
      * @group AdminhtmlButtons
      * @group runInSeparateProcess
      * @runInSeparateProcess
+     * @doesNotPerformAssertions
      */
     public function testGetButtonDeleteBlock(): void
     {
@@ -76,6 +77,7 @@ class FormTest extends TestCase
      * @group AdminhtmlButtons
      * @group runInSeparateProcess
      * @runInSeparateProcess
+     * @doesNotPerformAssertions
      */
     public function testGetButtonDeleteResetBlock(): void
     {
