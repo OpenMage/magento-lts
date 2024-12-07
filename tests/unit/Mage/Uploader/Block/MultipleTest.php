@@ -18,8 +18,8 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Uploader\Block;
 
 use Mage;
-use Mage_Uploader_Block_Multiple;
 use Mage_Core_Model_Layout;
+use Mage_Uploader_Block_Multiple;
 use PHPUnit\Framework\TestCase;
 
 class MultipleTest extends TestCase

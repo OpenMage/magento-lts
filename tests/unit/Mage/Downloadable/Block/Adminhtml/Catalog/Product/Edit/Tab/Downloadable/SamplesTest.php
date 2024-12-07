@@ -18,8 +18,8 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Block\Adminhtml\Catalog\Product\Edit\Tab\Downloadable;
 
 use Mage;
-use Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples;
 use Mage_Core_Model_Layout;
+use Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples;
 use PHPUnit\Framework\TestCase;
 
 class SamplesTest extends TestCase
