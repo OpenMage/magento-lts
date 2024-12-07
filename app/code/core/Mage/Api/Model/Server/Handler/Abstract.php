@@ -204,10 +204,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Login user and Retrieve session id
      *
      * @param string $username
-     * @param string|null $apiKey
+     * @param string $apiKey
      * @return stdClass|string|void
      */
-    public function login($username, $apiKey = null)
+    public function login($username, $apiKey)
     {
         if (empty($username) || empty($apiKey)) {
             $this->_fault('invalid_request_param');
