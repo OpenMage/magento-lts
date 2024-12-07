@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48b5b873837c9c834006808dd52de6a1",
+    "content-hash": "d8524b4845c0044328961f6ac9cd0662",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -2674,16 +2674,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "7.5.1",
+            "version": "6.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "3ba28fd6a4037849dbdaf7f6341493b23db9e13c"
+                "reference": "2819a5e54764de177980ddc4180d9765b737f7f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/3ba28fd6a4037849dbdaf7f6341493b23db9e13c",
-                "reference": "3ba28fd6a4037849dbdaf7f6341493b23db9e13c",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/2819a5e54764de177980ddc4180d9765b737f7f5",
+                "reference": "2819a5e54764de177980ddc4180d9765b737f7f5",
                 "shasum": ""
             },
             "type": "component",
@@ -2708,7 +2708,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0-or-later"
+                "MIT-only"
             ],
             "description": "Web based JavaScript HTML WYSIWYG editor control.",
             "homepage": "https://www.tiny.cloud/",
@@ -2727,9 +2727,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/7.5.1"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/6.8.5"
             },
-            "time": "2024-11-13T03:16:27+00:00"
+            "time": "2024-10-10T06:06:02+00:00"
         }
     ],
     "packages-dev": [

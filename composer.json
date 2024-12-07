@@ -43,7 +43,7 @@
         "symfony/polyfill-php84": "^1.31",
         "symfony/string": "^5.4",
         "symfony/translation-contracts": "^2.5",
-        "tinymce/tinymce": "^7.5"
+        "tinymce/tinymce": "^6.8.5"
     },
     "require-dev": {
         "ext-xmlreader": "*",
