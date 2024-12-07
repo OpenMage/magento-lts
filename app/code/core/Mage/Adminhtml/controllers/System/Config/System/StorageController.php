@@ -51,7 +51,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
     /**
      * Synchronize action between storages
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function synchronizeAction()
     {

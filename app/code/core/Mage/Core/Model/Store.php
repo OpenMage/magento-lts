@@ -539,7 +539,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve default base path
      *
      * @return string
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getDefaultBasePath()
     {
@@ -629,7 +629,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @param   string $url
      * @return  string
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _updatePathUseRewrites($url)
     {

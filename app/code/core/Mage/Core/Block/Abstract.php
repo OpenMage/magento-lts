@@ -1174,8 +1174,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @return string
      *
-     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function __()
     {
@@ -1207,6 +1207,22 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function escapeHtml($data, $allowedTags = null)
     {
         return $this->helper('core')->escapeHtml($data, $allowedTags);
+    }
+
+    /**
+     * Escape html entities array
+     */
+    public function escapeHtmlArray(array $data, ?array $allowedTags = null): ?array
+    {
+        return $this->escapeHtml($data, $allowedTags);
+    }
+
+    /**
+     * Escape html entities string
+     */
+    public function escapeHtmlString(string $data, ?array $allowedTags = null): ?string
+    {
+        return $this->escapeHtml($data, $allowedTags);
     }
 
     /**

@@ -70,7 +70,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      *
      * @param callable $callback
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function addCommitCallback($callback)
     {
@@ -83,7 +83,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      * Commit resource transaction
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function commit()
     {
@@ -108,7 +108,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      * Roll back resource transaction
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function rollBack()
     {

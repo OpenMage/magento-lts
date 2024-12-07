@@ -334,7 +334,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      * Retrieve country model
      *
      * @return Mage_Directory_Model_Country
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getCountryModel()
     {
@@ -351,7 +351,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @param int|null $region
      * @return Mage_Directory_Model_Country
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getRegionModel($region = null)
     {

@@ -40,7 +40,7 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
      * @param array $args
      * @return bool|mixed|Varien_Object
      * @throws Varien_Exception
-     * @SuppressWarnings(PHPMD.DevelopmentCodeFragment)
+     * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
     public function __call($method, $args)
     {

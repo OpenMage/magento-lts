@@ -407,7 +407,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * @return array list of files
      * @throws Mage_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _unpackCurrentTar($destination)
     {

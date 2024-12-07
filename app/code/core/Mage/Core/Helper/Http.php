@@ -36,7 +36,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Validate and retrieve user and password from HTTP
      * @param array|null $headers
      * @return array
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function authValidate($headers = null)
     {
@@ -81,7 +81,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Send auth failed Headers and exit
      *
      * @return void
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function authFailed()
     {
@@ -116,7 +116,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      *
      * @param bool $ipToLong converting IP to long format
      * @return false|string IPv4|long
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getRemoteAddr($ipToLong = false)
     {

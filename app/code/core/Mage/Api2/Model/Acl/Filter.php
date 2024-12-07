@@ -161,7 +161,7 @@ class Mage_Api2_Model_Acl_Filter
      * Filter data for write operations
      *
      * @return array
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function in(array $requestData)
     {

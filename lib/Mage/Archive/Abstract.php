@@ -46,7 +46,7 @@ class Mage_Archive_Abstract
      * @return string
      * @throws Mage_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _readFile($source)
     {

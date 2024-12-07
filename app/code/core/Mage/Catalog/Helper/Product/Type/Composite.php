@@ -31,7 +31,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * @param float $price
      * @param bool $isPercent
      * @param null|int $storeId
-     * @return mixed
+     * @return string
      */
     public function preparePrice($product, $price, $isPercent = false, $storeId = null)
     {
@@ -49,7 +49,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * @param float $price
      * @param bool $isPercent
      * @param null|int $storeId
-     * @return mixed
+     * @return string
      */
     public function prepareOldPrice($product, $price, $isPercent = false, $storeId = null)
     {
@@ -68,7 +68,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      */
     public function registerJsPrice($price)
     {
-        return str_replace(',', '.', $price);
+        return str_replace(',', '.', (string) $price);
     }
 
     /**

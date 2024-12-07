@@ -140,7 +140,6 @@ class Mage_Api2_Model_Server
     /**
      * Set auth user
      *
-     * @throws Exception
      * @return $this
      */
     protected function _setAuthUser(Mage_Api2_Model_Auth_User_Abstract $authUser)

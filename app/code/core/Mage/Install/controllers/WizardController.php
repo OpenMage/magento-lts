@@ -75,7 +75,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
      * Checking installation status
      *
      * @return bool
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _checkIfInstalled()
     {

@@ -50,7 +50,7 @@ class Mage_SalesRule_Model_Observer
      *
      * @deprecated process call moved to total model
      * @param Varien_Event_Observer $observer
-     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_quote_address_discount_item($observer)
@@ -64,7 +64,7 @@ class Mage_SalesRule_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_order_afterPlace($observer)
@@ -132,7 +132,7 @@ class Mage_SalesRule_Model_Observer
      * Registered callback: called after an order payment is canceled
      *
      * @param Varien_Event_Observer $observer
-     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function sales_order_paymentCancel($observer)

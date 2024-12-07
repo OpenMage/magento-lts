@@ -538,7 +538,7 @@ class Mage_Core_Model_App
      *
      * @param string $type
      * @return $this
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _checkGetStore($type)
     {
@@ -1299,7 +1299,7 @@ class Mage_Core_Model_App
 
     /**
      * @return bool
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function isCurrentlySecure()
     {

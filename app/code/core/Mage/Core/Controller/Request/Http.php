@@ -319,8 +319,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @param bool $trimPort
      * @return false|string
      *
-     * @SuppressWarnings(PHPMD.ExitExpression)
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.ExitExpression")
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getHttpHost($trimPort = true)
     {
@@ -348,7 +348,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      * @param string|array $key
      * @param mixed $value
      * @return $this
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function setPost($key, $value = null)
     {
