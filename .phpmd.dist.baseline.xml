@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <phpmd-baseline>
-  <violation rule="PHPMD\Rule\UnusedPrivateMethod" file="app/code/core/Mage/Admin/Model/Resource/User.php" method="_encryptPassword"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/Admin/Model/Session.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/Adminhtml/Block/Report/Sales/Grid/Column/Renderer/Date.php"/>
   <violation rule="PHPMD\Rule\UnusedPrivateMethod" file="app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php" method="_sortHistoryByTimestamp"/>
@@ -9,16 +8,11 @@
   <violation rule="PHPMD\Rule\Design\CountInLoopExpression" file="app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/Catalog/Model/Product/Api.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/Catalog/Model/Product/Api/V2.php"/>
-  <violation rule="PHPMD\Rule\UnusedPrivateMethod" file="app/code/core/Mage/Checkout/Block/Cart/Sidebar.php" method="_addTax"/>
-  <violation rule="PHPMD\Rule\UnusedPrivateField" file="app/code/core/Mage/Checkout/Block/Onepage/Success.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/Core/Model/Cache.php"/>
   <violation rule="PHPMD\Rule\Design\CountInLoopExpression" file="app/code/core/Mage/Core/Model/Layout.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/GiftMessage/Model/Observer.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/GiftMessage/controllers/IndexController.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="app/code/core/Mage/ImportExport/Model/Resource/Helper/Mysql4.php"/>
-  <violation rule="PHPMD\Rule\UnusedPrivateMethod" file="app/code/core/Mage/Log/Model/Aggregation.php" method="_removeEmpty"/>
-  <violation rule="PHPMD\Rule\UnusedPrivateMethod" file="app/code/core/Mage/Paypal/Model/Config.php" method="_matchBnCountryCode"/>
   <violation rule="PHPMD\Rule\Design\CountInLoopExpression" file="app/code/core/Mage/Paypal/Model/Report/Settlement.php"/>
-  <violation rule="PHPMD\Rule\UnusedPrivateField" file="app/code/core/Mage/Sales/Model/Order/Status/History.php"/>
   <violation rule="PHPMD\Rule\Design\CountInLoopExpression" file="app/code/core/Mage/Usa/Model/Shipping/Carrier/Usps.php"/>
 </phpmd-baseline>

@@ -1,3 +1,11 @@
+---
+hide:
+  - toc
+---
+
+# php.ini
+
+```ini
 ; This file is for CGI/FastCGI installations
 ; Try copying it to php7.ini or php8 if it doesn't work
 
@@ -29,3 +37,4 @@ extension=mcrypt.so
 ; Disable PHP errors, notices and warnings output in production mode to prevent exposing sensitive information
 
 display_errors = Off
+```
