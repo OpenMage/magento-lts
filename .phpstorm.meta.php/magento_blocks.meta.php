@@ -1053,6 +1053,7 @@ namespace PHPSTORM_META {
             'install/locale' => \Mage_Install_Block_Locale::class,
             'install/state' => \Mage_Install_Block_State::class,
             'newsletter/subscribe' => \Mage_Newsletter_Block_Subscribe::class,
+            'newsletter/widget_subscribe' => \Mage_Newsletter_Block_Widget_Subscribe::class,
             'oauth/adminhtml_oauth_admin_token' => \Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token::class,
             'oauth/adminhtml_oauth_admin_token_grid' => \Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid::class,
             'oauth/adminhtml_oauth_authorize' => \Mage_Oauth_Block_Adminhtml_Oauth_Authorize::class,
