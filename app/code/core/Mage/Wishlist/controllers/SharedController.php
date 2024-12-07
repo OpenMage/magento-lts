@@ -45,7 +45,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
             return false;
         }
 
-        Mage::getSingleton('checkout/session')->setSharedWishlist($code);
+        $this->getCheckoutSession()->setSharedWishlist($code);
 
         return $wishlist;
     }
@@ -57,7 +57,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
     public function indexAction()
     {
         $wishlist   = $this->_getWishlist();
-        $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+        $customerId = $this->getCustomerSession()->getCustomerId();
 
         if ($wishlist && $wishlist->getCustomerId() && $wishlist->getCustomerId() == $customerId) {
             $this->_redirectUrl(Mage::helper('wishlist')->getListUrl($wishlist->getId()));
@@ -67,8 +67,8 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         Mage::register('shared_wishlist', $wishlist);
 
         $this->loadLayout();
-        $this->_initLayoutMessages('checkout/session');
-        $this->_initLayoutMessages('wishlist/session');
+        $this->_initLayoutMessages($this->getCheckoutSessionStorage());
+        $this->_initLayoutMessages($this->getWishlistSessionStorage());
         $this->renderLayout();
     }
 
@@ -89,8 +89,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($code);
         $redirectUrl = Mage::getUrl('*/*/index', ['code' => $code]);
 
-        /** @var Mage_Wishlist_Model_Session $session */
-        $session    = Mage::getSingleton('wishlist/session');
+        $session    = $this->getWishlistSession();
         $cart       = Mage::getSingleton('checkout/cart');
 
         try {
@@ -110,12 +109,12 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
             } elseif ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT) {
                 if (!$wishlist->getItemsCount()) {
                     $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
-                    $session = Mage::getSingleton('catalog/session');
+                    $session = $this->getCatalogSession();
                 }
                 $message = Mage::helper('wishlist')->__('Cannot add the selected product to shopping cart because the product was removed from the wishlist');
                 $session->addNotice($message);
             } else {
-                Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
+                $this->getCatalogSession()->addNotice($e->getMessage());
                 $redirectUrl = $item->getProductUrl();
             }
         } catch (Exception $e) {

@@ -27,7 +27,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function saveAction()
     {
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
         if (!$customerSession->authenticate($this)) {
             return;
         }
@@ -35,7 +35,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
         $productId  = (int)$this->getRequest()->getParam('product');
 
         if (strlen($tagName) && $productId) {
-            $session = Mage::getSingleton('catalog/session');
+            $session = $this->getCatalogSession();
             $product = Mage::getModel('catalog/product')
                 ->load($productId);
             if (!$product->getId()) {
@@ -116,7 +116,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
      */
     protected function _fillMessageBox($counter)
     {
-        $session = Mage::getSingleton('catalog/session');
+        $session = $this->getCatalogSession();
         $helper = Mage::helper('core');
 
         if (count($counter[Mage_Tag_Model_Tag::ADD_STATUS_NEW])) {

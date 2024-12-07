@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Persistent
  */
-class Mage_Persistent_Model_Observer
+class Mage_Persistent_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Whether set quote to be persistent in workflow
@@ -38,7 +38,7 @@ class Mage_Persistent_Model_Observer
     public function applyPersistentData($observer)
     {
         if (!Mage::helper('persistent')->canProcess($observer)
-            || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()
+            || !$this->_getPersistentHelper()->isPersistent() || $this->getCustomerSession()->isLoggedIn()
         ) {
             return $this;
         }
@@ -56,7 +56,7 @@ class Mage_Persistent_Model_Observer
      */
     public function applyBlockPersistentData($observer)
     {
-        if (!$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if (!$this->_getPersistentHelper()->isPersistent() || $this->getCustomerSession()->isLoggedIn()) {
             return $this;
         }
 
@@ -164,7 +164,7 @@ class Mage_Persistent_Model_Observer
         ];
 
         if (!Mage::helper('persistent')->canProcess($observer)
-            || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()
+            || !$this->_getPersistentHelper()->isPersistent() || $this->getCustomerSession()->isLoggedIn()
         ) {
             return;
         }
@@ -177,7 +177,7 @@ class Mage_Persistent_Model_Observer
             return;
         }
 
-        $checkoutSession = Mage::getSingleton('checkout/session');
+        $checkoutSession = $this->getCheckoutSession();
         if ($this->_isShoppingCartPersist()) {
             $checkoutSession->setCustomer($this->_getPersistentCustomer());
             if (!$checkoutSession->hasQuote()) {
@@ -283,8 +283,7 @@ class Mage_Persistent_Model_Observer
      */
     public function customerAuthenticatedEvent($observer)
     {
-        /** @var Mage_Customer_Model_Session $customerSession */
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
         $customerSession->setCustomerId(null)->setCustomerGroupId(null);
 
         if (Mage::app()->getRequest()->getParam('context') != 'checkout') {
@@ -307,8 +306,7 @@ class Mage_Persistent_Model_Observer
         }
 
         $this->_getPersistentHelper()->getSession()->removePersistentCookie();
-        /** @var Mage_Customer_Model_Session $customerSession */
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
         if (!$customerSession->isLoggedIn()) {
             $customerSession->setCustomerId(null)->setCustomerGroupId(null);
         }
@@ -342,12 +340,12 @@ class Mage_Persistent_Model_Observer
         /** @var Mage_Core_Controller_Front_Action $controllerAction */
         $controllerAction = $observer->getEvent()->getControllerAction();
         if (method_exists($controllerAction, 'redirectLogin')) {
-            Mage::getSingleton('core/session')->addNotice(
+            $this->getCoreSession()->addNotice(
                 Mage::helper('persistent')->__('To proceed to Checkout, please log in using your email address.')
             );
             $controllerAction->redirectLogin();
             if ($controllerAction instanceof Mage_Paypal_Controller_Express_Abstract) {
-                Mage::getSingleton('customer/session')
+                $this->getCustomerSession()
                     ->setBeforeAuthUrl(Mage::getUrl('persistent/index/expressCheckout'));
             }
         }
@@ -414,7 +412,7 @@ class Mage_Persistent_Model_Observer
      */
     protected function _isLoggedOut()
     {
-        return $this->_isPersistent() && !Mage::getSingleton('customer/session')->isLoggedIn();
+        return $this->_isPersistent() && !$this->getCustomerSession()->isLoggedIn();
     }
 
     /**
@@ -435,10 +433,10 @@ class Mage_Persistent_Model_Observer
     public function setQuoteGuest($checkQuote = false)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        $quote = $this->getCheckoutSession()->getQuote();
         if ($quote && $quote->getId()) {
             if ($checkQuote && !Mage::helper('persistent')->isShoppingCartPersist() && !$quote->getIsPersistent()) {
-                Mage::getSingleton('checkout/session')->unsetAll();
+                $this->getCheckoutSession()->unsetAll();
                 return;
             }
 
@@ -473,12 +471,12 @@ class Mage_Persistent_Model_Observer
             return;
         }
 
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
 
         if (Mage::helper('persistent')->isEnabled()
             && !$this->_isPersistent()
             && !$customerSession->isLoggedIn()
-            && Mage::getSingleton('checkout/session')->getQuoteId()
+            && $this->getCheckoutSession()->getQuoteId()
             && !($observer->getControllerAction() instanceof Mage_Checkout_OnepageController)
             // persistent session does not expire on onepage checkout page to not spoil customer group id
         ) {
@@ -492,8 +490,7 @@ class Mage_Persistent_Model_Observer
      */
     protected function _expirePersistentSession()
     {
-        /** @var Mage_Checkout_Model_Session $checkoutSession */
-        $checkoutSession = Mage::getSingleton('checkout/session');
+        $checkoutSession = $this->getCheckoutSession();
 
         $quote = $checkoutSession->setLoadInactive()->getQuote();
         if ($quote->getIsActive() && $quote->getCustomerId()) {
@@ -536,7 +533,7 @@ class Mage_Persistent_Model_Observer
         if (Mage::helper('persistent')->canProcess($observer) && $layout && Mage::helper('persistent')->isEnabled()
             && Mage::helper('persistent/session')->isPersistent()
         ) {
-            $handle = (Mage::getSingleton('customer/session')->isLoggedIn())
+            $handle = ($this->getCustomerSession()->isLoggedIn())
                 ? Mage_Persistent_Helper_Data::LOGGED_IN_LAYOUT_HANDLE
                 : Mage_Persistent_Helper_Data::LOGGED_OUT_LAYOUT_HANDLE;
             $layout->getUpdate()->addHandle($handle);
@@ -579,7 +576,7 @@ class Mage_Persistent_Model_Observer
             $customer = Mage::getModel('customer/customer')->load(
                 $this->_getPersistentHelper()->getSession()->getCustomerId()
             );
-            Mage::getSingleton('customer/session')
+            $this->getCustomerSession()
                 ->setCustomerId($customer->getId())
                 ->setCustomerGroupId($customer->getGroupId());
         }

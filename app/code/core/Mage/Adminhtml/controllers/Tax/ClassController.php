@@ -36,21 +36,21 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
                 $classType  = $model->getClassType();
                 $classUrl   = '*/tax_class_' . strtolower($classType);
 
-                Mage::getSingleton('adminhtml/session')->addSuccess(
+                $this->getAdminhtmlSession()->addSuccess(
                     Mage::helper('tax')->__('The tax class has been saved.')
                 );
                 $this->_redirect($classUrl);
 
                 return;
             } catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                Mage::getSingleton('adminhtml/session')->setClassData($postData);
+                $this->getAdminhtmlSession()->addError($e->getMessage());
+                $this->getAdminhtmlSession()->setClassData($postData);
                 $this->_redirectReferer();
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError(
+                $this->getAdminhtmlSession()->addError(
                     Mage::helper('tax')->__('An error occurred while saving this tax class.')
                 );
-                Mage::getSingleton('adminhtml/session')->setClassData($postData);
+                $this->getAdminhtmlSession()->setClassData($postData);
                 $this->_redirectReferer();
             }
 
@@ -82,7 +82,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/tax/classes_product')
-            || Mage::getSingleton('admin/session')->isAllowed('sales/tax/classes_customer');
+        return $this->getAdminSession()->isAllowed('sales/tax/classes_product')
+            || $this->getAdminSession()->isAllowed('sales/tax/classes_customer');
     }
 }

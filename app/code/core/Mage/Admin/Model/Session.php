@@ -165,7 +165,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $this->setUser($user);
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
                 if ($backendLocale = $user->getBackendLocale()) {
-                    Mage::getSingleton('adminhtml/session')->setLocale($backendLocale);
+                    $this->getAdminhtmlSession()->setLocale($backendLocale);
                 }
 
                 $alternativeUrl = $this->_getRequestUri($request);
@@ -218,8 +218,8 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Check current user permission on resource and privilege
      *
-     * Mage::getSingleton('admin/session')->isAllowed('admin/catalog')
-     * Mage::getSingleton('admin/session')->isAllowed('catalog')
+     * $this->getAdminSession()->isAllowed('admin/catalog')
+     * $this->getAdminSession()->isAllowed('catalog')
      *
      * @param   string $resource
      * @param   string $privilege
@@ -320,7 +320,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         }
 
         if ($request && !$request->getParam('messageSent')) {
-            Mage::getSingleton('adminhtml/session')->addError($message);
+            $this->getAdminhtmlSession()->addError($message);
             $request->setParam('messageSent', true);
         }
     }

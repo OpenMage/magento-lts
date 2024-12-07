@@ -158,7 +158,7 @@ class Mage_Paypal_Model_Express_Checkout
             throw new Exception('Config instance is required.');
         }
         $this->_customerSession = isset($params['session']) && $params['session'] instanceof Mage_Customer_Model_Session
-            ? $params['session'] : Mage::getSingleton('customer/session');
+            ? $params['session'] : $this->getCustomerSession();
     }
 
     /**

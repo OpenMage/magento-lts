@@ -66,8 +66,8 @@ gtag('config', '{$this->jsQuoteEscape($accountId)}', {'debug_mode':true});
         }
 
         //add user_id
-        if ($this->helper('googleanalytics')->isUserIdEnabled() && Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $customer = Mage::getSingleton('customer/session')->getCustomer();
+        if ($this->helper('googleanalytics')->isUserIdEnabled() && $this->getCustomerSession()->isLoggedIn()) {
+            $customer = $this->getCustomerSession()->getCustomer();
             $trackingCode .= "
 gtag('set', 'user_id', '{$customer->getId()}');
 ";
@@ -139,7 +139,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
          *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#remove_from_cart
          */
-        $removedProducts = Mage::getSingleton('core/session')->getRemovedProductsForAnalytics();
+        $removedProducts = $this->getCoreSession()->getRemovedProductsForAnalytics();
         if ($removedProducts) {
             foreach ($removedProducts as $removedProduct) {
                 $eventData = [];
@@ -157,7 +157,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 $eventData['items'][] = $_item;
                 $result[] = ['remove_from_cart', $eventData];
             }
-            Mage::getSingleton('core/session')->unsRemovedProductsForAnalytics();
+            $this->getCoreSession()->unsRemovedProductsForAnalytics();
         }
 
         /**
@@ -165,7 +165,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
          *
          * @link https://developers.google.com/tag-platform/gtagjs/reference/events#add_to_cart
          */
-        $addedProducts = Mage::getSingleton('core/session')->getAddedProductsForAnalytics();
+        $addedProducts = $this->getCoreSession()->getAddedProductsForAnalytics();
         if ($addedProducts) {
             foreach ($addedProducts as $_addedProduct) {
                 $eventData = [];
@@ -182,7 +182,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 ];
                 $eventData['items'][] = $_item;
                 $result[] = ['add_to_cart', $eventData];
-                Mage::getSingleton('core/session')->unsAddedProductsForAnalytics();
+                $this->getCoreSession()->unsAddedProductsForAnalytics();
             }
         }
 
@@ -251,7 +251,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
         } elseif ($moduleName == 'checkout' && $controllerName == 'cart') {
             // This event signifies that a user viewed his cart.
             // @see https://developers.google.com/tag-platform/gtagjs/reference/events#view_cart
-            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+            $productCollection = $this->getCheckoutSession()->getQuote()->getAllItems();
             $eventData = [];
             $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();
             $eventData['value'] = 0.00;
@@ -283,7 +283,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
         } elseif ($moduleName == static::CHECKOUT_MODULE_NAME && $controllerName == static::CHECKOUT_CONTROLLER_NAME) {
             // This event signifies that a user has begun a checkout.
             // @see https://developers.google.com/tag-platform/gtagjs/reference/events#begin_checkout
-            $productCollection = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+            $productCollection = $this->getCheckoutSession()->getQuote()->getAllItems();
             if ($productCollection) {
                 $eventData = [];
                 $eventData['currency'] = Mage::app()->getStore()->getCurrentCurrencyCode();

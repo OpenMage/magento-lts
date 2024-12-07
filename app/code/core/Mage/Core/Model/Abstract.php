@@ -30,6 +30,8 @@
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Prefix of model events names
      *

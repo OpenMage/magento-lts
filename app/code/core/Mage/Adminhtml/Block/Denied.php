@@ -22,7 +22,7 @@ class Mage_Adminhtml_Block_Denied extends Mage_Adminhtml_Block_Template
 {
     public function hasAvailaleResources()
     {
-        $user = Mage::getSingleton('admin/session')->getUser();
+        $user = $this->getAdminSession()->getUser();
         if ($user && $user->hasAvailableResources()) {
             return true;
         }

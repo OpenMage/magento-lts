@@ -32,10 +32,12 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      * Session getter
      *
      * @return Mage_Adminhtml_Model_Session
+     * @deprecated
+     * @see getAdminhtmlSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('adminhtml/session');
+        return $this->getAdminhtmlSession();
     }
 
     /**
@@ -148,8 +150,8 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         $widgetInstance = $this->_initWidgetInstance();
         $result = $widgetInstance->validate();
         if ($result !== true && is_string($result)) {
-            $this->_getSession()->addError($result);
-            $this->_initLayoutMessages('adminhtml/session');
+            $this->getAdminhtmlSession()->addError($result);
+            $this->_initLayoutMessages($this->getAdminhtmlSessionStorage());
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
         }

@@ -38,10 +38,12 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Retrieve customer session model object
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**
@@ -102,8 +104,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     public function indexAction()
     {
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
 
         $this->getLayout()->getBlock('content')->append(
             $this->getLayout()->createBlock('customer/account_dashboard')
@@ -123,8 +125,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
         $this->getResponse()->setHeader('Login-Required', 'true');
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
         $this->getLayout()->getBlock('head')->setTitle($this->__('Customer Login'));
         $this->renderLayout();
     }
@@ -261,7 +263,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
         $this->renderLayout();
     }
 
@@ -687,7 +689,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->getLayout()->getBlock('accountConfirmation')
             ->setEmail($this->getRequest()->getParam('email', $email));
 
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
         $this->renderLayout();
     }
 
@@ -715,7 +717,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         );
         $this->_getSession()->unsForgottenEmail();
 
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
         $this->renderLayout();
     }
 
@@ -944,8 +946,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     public function editAction()
     {
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
 
         $block = $this->getLayout()->getBlock('customer_edit');
         if ($block) {

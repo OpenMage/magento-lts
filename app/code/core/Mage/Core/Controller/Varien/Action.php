@@ -24,6 +24,8 @@
  */
 abstract class Mage_Core_Controller_Varien_Action
 {
+    use Mage_Core_Trait_Session;
+
     public const FLAG_NO_CHECK_INSTALLATION    = 'no-install-check';
     public const FLAG_NO_DISPATCH              = 'no-dispatch';
     public const FLAG_NO_PRE_DISPATCH          = 'no-preDispatch';
@@ -900,7 +902,7 @@ abstract class Mage_Core_Controller_Varien_Action
     protected function _validateFormKey()
     {
         if (!($formKey = $this->getRequest()->getParam('form_key', null))
-            || $formKey != Mage::getSingleton('core/session')->getFormKey()
+            || $formKey != $this->getCoreSession()->getFormKey()
         ) {
             return false;
         }
@@ -1044,7 +1046,7 @@ abstract class Mage_Core_Controller_Varien_Action
         $contentType = 'application/octet-stream',
         $contentLength = null
     ) {
-        $session = Mage::getSingleton('admin/session');
+        $session = $this->getAdminSession();
         if ($session->isFirstPageAfterLogin()) {
             $this->_redirect($session->getUser()->getStartupPageUrl());
             return $this;

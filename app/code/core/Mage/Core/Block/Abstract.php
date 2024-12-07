@@ -39,6 +39,8 @@
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Prefix for cache key
      */
@@ -52,6 +54,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Cache tags data key
      */
     public const CACHE_TAGS_DATA_KEY = 'cache_tags';
+
+    public const SESSION_CATALOG    = 'catalog/session';
+    public const SESSION_CHECKOUT   = 'checkout/session';
+    public const SESSION_CORE       = 'core/session';
+    public const SESSION_CUSTOMER   = 'customer/session';
 
     /**
      * Block name in layout
@@ -215,6 +222,46 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         /**
          * Please override this one instead of overriding real __construct constructor
          */
+    }
+
+    /**
+     * Retrieve core session model object
+     */
+    final protected function getCatalogSession(): Mage_Catalog_Model_Session
+    {
+        /** @var Mage_Catalog_Model_Session $session */
+        $session = Mage::getSingleton(self::SESSION_CATALOG);
+        return $session;
+    }
+
+    /**
+     * Retrieve core session model object
+     */
+    final protected function getCheckoutSession(): Mage_Checkout_Model_Session
+    {
+        /** @var Mage_Checkout_Model_Session $session */
+        $session = Mage::getSingleton(self::SESSION_CHECKOUT);
+        return $session;
+    }
+
+    /**
+     * Retrieve core session model object
+     */
+    final protected function getCoreSession(): Mage_Core_Model_Session
+    {
+        /** @var Mage_Core_Model_Session $session */
+        $session = Mage::getSingleton(self::SESSION_CORE);
+        return $session;
+    }
+
+    /**
+     * Retrieve core session model object
+     */
+    final protected function getCustomerSession(): Mage_Customer_Model_Session
+    {
+        /** @var Mage_Customer_Model_Session $session */
+        $session = Mage::getSingleton(self::SESSION_CUSTOMER);
+        return $session;
     }
 
     /**
@@ -1461,7 +1508,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function getFormKey()
     {
-        return Mage::getSingleton('core/session')->getFormKey();
+        return $this->getCoreSession()->getFormKey();
     }
 
     /**
@@ -1475,8 +1522,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             return false;
         }
         $cacheKey = $this->getCacheKey();
-        /** @var Mage_Core_Model_Session $session */
-        $session = Mage::getSingleton('core/session');
+        $session = $this->getCoreSession();
         $cacheData = $this->_getApp()->loadCache($cacheKey);
         if ($cacheData) {
             $cacheData = str_replace(
@@ -1500,8 +1546,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             return false;
         }
         $cacheKey = $this->getCacheKey();
-        /** @var Mage_Core_Model_Session $session */
-        $session = Mage::getSingleton('core/session');
+        $session = $this->getCoreSession();
         $data = str_replace(
             $session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(),
             $this->_getSidPlaceholder($cacheKey),

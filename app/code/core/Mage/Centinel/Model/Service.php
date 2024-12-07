@@ -22,6 +22,8 @@
  */
 class Mage_Centinel_Model_Service extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Cmpi public keys
      */
@@ -63,10 +65,12 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Return validation session object
      *
      * @return Mage_Centinel_Model_Session
+     * @deprecated
+     * @see getCentinalSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('centinel/session');
+        return $this->getCentinalSession();
     }
 
     /**
@@ -108,7 +112,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
         $params = [
             '_secure'  => true,
             '_current' => $current,
-            'form_key' => Mage::getSingleton('core/session')->getFormKey(),
+            'form_key' => $this->getCoreSession()->getFormKey(),
             'isIframe' => true
         ];
         if (Mage::app()->getStore()->isAdmin()) {

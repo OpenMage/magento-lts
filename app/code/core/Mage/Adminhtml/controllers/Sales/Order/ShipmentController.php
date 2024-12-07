@@ -154,7 +154,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         if ($shipment = $this->_initShipment()) {
             $this->_title($this->__('New Shipment'));
 
-            $comment = Mage::getSingleton('adminhtml/session')->getCommentText(true);
+            $comment = $this->getAdminhtmlSession()->getCommentText(true);
             if ($comment) {
                 $shipment->setCommentText($comment);
             }
@@ -175,7 +175,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     {
         $data = $this->getRequest()->getPost('shipment');
         if (!empty($data['comment_text'])) {
-            Mage::getSingleton('adminhtml/session')->setCommentText($data['comment_text']);
+            $this->getAdminhtmlSession()->setCommentText($data['comment_text']);
         }
 
         $shipment = $this->_initShipment();
@@ -218,9 +218,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $shipmentCreatedMessage = $this->__('The shipment has been created.');
             $labelCreatedMessage    = $this->__('The shipping label has been created.');
 
-            $this->_getSession()->addSuccess($isNeedCreateLabel ? $shipmentCreatedMessage . ' ' . $labelCreatedMessage
+            $this->getAdminhtmlSession()->addSuccess($isNeedCreateLabel ? $shipmentCreatedMessage . ' ' . $labelCreatedMessage
                 : $shipmentCreatedMessage);
-            Mage::getSingleton('adminhtml/session')->getCommentText(true);
+            $this->getAdminhtmlSession()->getCommentText(true);
         } catch (Mage_Core_Exception $e) {
             if ($isNeedCreateLabel) {
                 $responseAjax->setError(true);

@@ -43,7 +43,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         if (!Mage::helper('catalog/category')->canShow($category)) {
             return false;
         }
-        Mage::getSingleton('catalog/session')->setLastVisitedCategoryId($category->getId());
+        $this->getCatalogSession()->setLastVisitedCategoryId($category->getId());
         Mage::register('current_category', $category);
         Mage::register('current_entity_key', $category->getPath());
 
@@ -126,7 +126,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                 $design->applyCustomDesign($settings->getCustomDesign());
             }
 
-            Mage::getSingleton('catalog/session')->setLastViewedCategoryId($category->getId());
+            $this->getCatalogSession()->setLastViewedCategoryId($category->getId());
 
             $update = $this->getLayout()->getUpdate();
             $update->addHandle('default');
@@ -162,8 +162,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                     ->addBodyClass('category-' . $category->getUrlKey());
             }
 
-            $this->_initLayoutMessages('catalog/session');
-            $this->_initLayoutMessages('checkout/session');
+            $this->_initLayoutMessages($this->getCatalogSessionStorage());
+            $this->_initLayoutMessages($this->getCheckoutSessionStorage());
             $this->renderLayout();
         } elseif (!$this->getResponse()->isRedirect()) {
             $this->_forward('noRoute');

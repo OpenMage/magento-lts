@@ -103,7 +103,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         $isActive = $this->_getData('is_wishlist_active');
         if ($isActive === null) {
             $isActive = Mage::getStoreConfig('wishlist/general/active')
-                && Mage::getSingleton('customer/session')->isLoggedIn();
+                && $this->getCustomerSession()->isLoggedIn();
             $this->setIsWishlistActive($isActive);
         }
         return $isActive;
@@ -134,7 +134,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
     {
         $url = $this->getData('continue_shopping_url');
         if (is_null($url)) {
-            $url = Mage::getSingleton('checkout/session')->getContinueShoppingUrl(true);
+            $url = $this->getCheckoutSession()->getContinueShoppingUrl(true);
             if (!$url) {
                 $url = Mage::getUrl();
             }

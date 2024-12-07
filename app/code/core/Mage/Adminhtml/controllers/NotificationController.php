@@ -36,7 +36,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
     public function markAsReadAction()
     {
         if ($id = $this->getRequest()->getParam('id')) {
-            $session = Mage::getSingleton('adminhtml/session');
+            $session = $this->getAdminhtmlSession();
             $model = Mage::getModel('adminnotification/inbox')
                 ->load($id);
 
@@ -64,7 +64,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
 
     public function massMarkAsReadAction()
     {
-        $session = Mage::getSingleton('adminhtml/session');
+        $session = $this->getAdminhtmlSession();
         $ids = $this->getRequest()->getParam('notification');
         if (!is_array($ids)) {
             $session->addError(Mage::helper('adminnotification')->__('Please select messages.'));
@@ -93,7 +93,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
     public function removeAction()
     {
         if ($id = $this->getRequest()->getParam('id')) {
-            $session = Mage::getSingleton('adminhtml/session');
+            $session = $this->getAdminhtmlSession();
             $model = Mage::getModel('adminnotification/inbox')
                 ->load($id);
 
@@ -120,7 +120,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
 
     public function massRemoveAction()
     {
-        $session = Mage::getSingleton('adminhtml/session');
+        $session = $this->getAdminhtmlSession();
         $ids = $this->getRequest()->getParam('notification');
         if (!is_array($ids)) {
             $session->addError(Mage::helper('adminnotification')->__('Please select messages.'));
@@ -166,6 +166,6 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
             default:
                 $acl = 'system/adminnotification/show_list';
         }
-        return Mage::getSingleton('admin/session')->isAllowed($acl);
+        return $this->getAdminSession()->isAllowed($acl);
     }
 }

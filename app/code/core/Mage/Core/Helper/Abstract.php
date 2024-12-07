@@ -22,6 +22,8 @@
  */
 abstract class Mage_Core_Helper_Abstract
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Helper module name
      *

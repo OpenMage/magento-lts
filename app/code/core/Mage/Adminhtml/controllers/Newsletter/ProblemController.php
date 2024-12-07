@@ -38,7 +38,7 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
         }
 
         $this->getLayout()->getMessagesBlock()->setMessages(
-            Mage::getSingleton('adminhtml/session')->getMessages(true)
+            $this->getAdminhtmlSession()->getMessages(true)
         );
         $this->loadLayout();
 
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
                 $collection->walk('unsubscribe');
             }
 
-            Mage::getSingleton('adminhtml/session')
+            $this->getAdminhtmlSession()
                 ->addSuccess(Mage::helper('newsletter')->__('Selected problem subscribers have been unsubscribed.'));
         }
 
@@ -87,10 +87,10 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
                 $collection->walk('delete');
             }
 
-            Mage::getSingleton('adminhtml/session')
+            $this->getAdminhtmlSession()
                 ->addSuccess(Mage::helper('newsletter')->__('Selected problems have been deleted.'));
         }
-        $this->getLayout()->getMessagesBlock()->setMessages(Mage::getSingleton('adminhtml/session')->getMessages(true));
+        $this->getLayout()->getMessagesBlock()->setMessages($this->getAdminhtmlSession()->getMessages(true));
 
         $grid = $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid');
         $this->getResponse()->setBody($grid->toHtml());

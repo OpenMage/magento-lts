@@ -1477,7 +1477,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getParam($paramName, $default = null)
     {
-        $session = Mage::getSingleton('adminhtml/session');
+        $session = $this->getAdminhtmlSession();
         $sessionParamName = $this->getId() . $paramName;
         if ($this->getRequest()->has($paramName)) {
             $param = $this->getRequest()->getParam($paramName);
@@ -1506,7 +1506,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     public function resetSavedParametersInSession()
     {
-        $session = Mage::getSingleton('adminhtml/session');
+        $session = $this->getAdminhtmlSession();
 
         $params = [
            $this->_varNameLimit,

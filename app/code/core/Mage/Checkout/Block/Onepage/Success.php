@@ -87,7 +87,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      */
     protected function _prepareLastOrder()
     {
-        $orderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+        $orderId = $this->getCheckoutSession()->getLastOrderId();
         if ($orderId) {
             $order = Mage::getModel('sales/order')->load($orderId);
             if ($order->getId()) {
@@ -100,7 +100,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
                     'view_order_id' => $this->getUrl('sales/order/view/', ['order_id' => $orderId]),
                     'print_url' => $this->getUrl('sales/order/print', ['order_id' => $orderId]),
                     'can_print_order' => $isVisible,
-                    'can_view_order'  => Mage::getSingleton('customer/session')->isLoggedIn() && $isVisible,
+                    'can_view_order'  => $this->getCustomerSession()->isLoggedIn() && $isVisible,
                     'order_id'  => $order->getIncrementId(),
                     'order' => $order,
                 ]);
@@ -113,8 +113,8 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      */
     protected function _prepareLastBillingAgreement()
     {
-        $agreementId = Mage::getSingleton('checkout/session')->getLastBillingAgreementId();
-        $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+        $agreementId = $this->getCheckoutSession()->getLastBillingAgreementId();
+        $customerId = $this->getCustomerSession()->getCustomerId();
         if ($agreementId && $customerId) {
             $agreement = Mage::getModel('sales/billing_agreement')->load($agreementId);
             if ($agreement->getId() && $customerId == $agreement->getCustomerId()) {
@@ -135,7 +135,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      */
     protected function _prepareLastRecurringProfiles()
     {
-        $profileIds = Mage::getSingleton('checkout/session')->getLastRecurringProfileIds();
+        $profileIds = $this->getCheckoutSession()->getLastRecurringProfileIds();
         if ($profileIds && is_array($profileIds)) {
             $collection = Mage::getModel('sales/recurring_profile')->getCollection()
                 ->addFieldToFilter('profile_id', ['in' => $profileIds])
@@ -146,7 +146,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
             }
             if ($profiles) {
                 $this->setRecurringProfiles($profiles);
-                if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+                if ($this->getCustomerSession()->isLoggedIn()) {
                     $this->setCanViewProfiles(true);
                 }
             }

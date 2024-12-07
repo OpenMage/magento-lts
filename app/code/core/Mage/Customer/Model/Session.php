@@ -249,7 +249,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         $this->setCustomer($customer);
         $this->renewSession();
-        Mage::getSingleton('core/session')->renewFormKey();
+        $this->getCoreSession()->renewFormKey();
         Mage::dispatchEvent('customer_login', ['customer' => $customer]);
         return $this;
     }
@@ -319,7 +319,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     protected function _setAuthUrl($key, $url)
     {
         $url = Mage::helper('core/url')
-            ->removeRequestParam($url, Mage::getSingleton('core/session')->getSessionIdQueryParam());
+            ->removeRequestParam($url, $this->getCoreSession()->getSessionIdQueryParam());
         // Add correct session ID to URL if needed
         $url = Mage::getModel('core/url')->getRebuiltUrl($url);
         return $this->setData($key, $url);
@@ -335,7 +335,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         $this->setId(null);
         $this->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         $this->getCookie()->delete($this->getSessionName());
-        Mage::getSingleton('core/session')->renewFormKey();
+        $this->getCoreSession()->renewFormKey();
         return $this;
     }
 
@@ -369,7 +369,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     public function renewSession()
     {
         parent::renewSession();
-        Mage::getSingleton('core/session')->unsSessionHosts();
+        $this->getCoreSession()->unsSessionHosts();
 
         return $this;
     }

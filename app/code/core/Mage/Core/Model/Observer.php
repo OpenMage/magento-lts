@@ -22,6 +22,8 @@
  */
 class Mage_Core_Model_Observer
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Check if synchronize process is finished and generate notification message
      *
@@ -29,7 +31,7 @@ class Mage_Core_Model_Observer
      */
     public function addSynchronizeNotification(Varien_Event_Observer $observer)
     {
-        $adminSession = Mage::getSingleton('admin/session');
+        $adminSession = $this->getAdminSession();
         if (!$adminSession->hasSyncProcessStopWatch()) {
             $flag = Mage::getSingleton('core/file_storage')->getSyncFlag();
             $state = $flag->getState();

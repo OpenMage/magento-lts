@@ -70,12 +70,12 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     protected function _cleanup()
     {
         Mage::dispatchEvent('persistent_session_expired');
-        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession = $this->getCustomerSession();
         $customerSession
             ->setCustomerId(null)
             ->setCustomerGroupId(null);
         if ($this->_clearCheckoutSession) {
-            Mage::getSingleton('checkout/session')->unsetAll();
+            $this->getCheckoutSession()->unsetAll();
         }
         $this->_getHelper()->getSession()->removePersistentCookie();
         return $this;
@@ -88,8 +88,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     {
         if ($this->_getHelper()->isPersistent()) {
             $this->_getHelper()->getSession()->removePersistentCookie();
-            /** @var Mage_Customer_Model_Session $customerSession */
-            $customerSession = Mage::getSingleton('customer/session');
+            $customerSession = $this->getCustomerSession();
             if (!$customerSession->isLoggedIn()) {
                 $customerSession->setCustomerId(null)
                     ->setCustomerGroupId(null);
@@ -108,7 +107,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function expressCheckoutAction()
     {
-        Mage::getSingleton('core/session')->addNotice(
+        $this->getCoreSession()->addNotice(
             Mage::helper('persistent')->__('Shopping cart has been updated with appropriate prices')
         );
         $this->_redirect('checkout/cart');

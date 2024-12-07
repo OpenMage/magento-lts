@@ -22,6 +22,8 @@
  */
 class Mage_Checkout_Model_Type_Onepage
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Checkout types: Checkout as Guest, Register, Logged In Customer
      */
@@ -64,8 +66,8 @@ class Mage_Checkout_Model_Type_Onepage
     {
         $this->_helper = Mage::helper('checkout');
         $this->_customerEmailExistsMessage = Mage::helper('checkout')->__('There is already a customer registered using this email address. Please login using this email address or enter a different email address to register your account.');
-        $this->_checkoutSession = Mage::getSingleton('checkout/session');
-        $this->_customerSession = Mage::getSingleton('customer/session');
+        $this->_checkoutSession = $this->getCheckoutSession();
+        $this->_customerSession = $this->getCustomerSession();
     }
 
     /**

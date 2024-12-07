@@ -46,7 +46,7 @@ class Mage_Sales_Block_Order_Info_Buttons extends Mage_Core_Block_Template
      */
     public function getPrintUrl($order)
     {
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if (!$this->getCustomerSession()->isLoggedIn()) {
             return $this->getUrl('sales/guest/print', ['order_id' => $order->getId()]);
         }
         return $this->getUrl('sales/order/print', ['order_id' => $order->getId()]);
@@ -60,7 +60,7 @@ class Mage_Sales_Block_Order_Info_Buttons extends Mage_Core_Block_Template
      */
     public function getReorderUrl($order)
     {
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if (!$this->getCustomerSession()->isLoggedIn()) {
             return $this->getUrl('sales/guest/reorder', ['order_id' => $order->getId()]);
         }
         return $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]);

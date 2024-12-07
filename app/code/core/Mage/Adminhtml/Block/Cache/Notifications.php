@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Cache_Notifications extends Mage_Adminhtml_Block_Temp
      */
     protected function _toHtml()
     {
-        if (Mage::getSingleton('admin/session')->isAllowed('system/cache')) {
+        if ($this->getAdminSession()->isAllowed('system/cache')) {
             return parent::_toHtml();
         }
         return '';
