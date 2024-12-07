@@ -2536,11 +2536,6 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Front/Action.php
 
 		-
-			message: "#^Call to an undefined method Zend_Controller_Router_Interface\\:\\:addRoute\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Front/Router.php
-
-		-
 			message: "#^Constructor of class Mage_Core_Controller_Varien_Action has an unused parameter \\$invokeArgs\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Varien/Action.php
