@@ -258,7 +258,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
      * @param string $dir
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function createDirIfNotExists($dir)
     {

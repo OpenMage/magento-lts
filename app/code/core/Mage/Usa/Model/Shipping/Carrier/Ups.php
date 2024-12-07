@@ -2312,7 +2312,7 @@ XMLAuth;
     /**
      * Prepare shipping rate result based on response
      * @return Mage_Shipping_Model_Rate_Result
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _parseRestResponse(string $rateResponse)
     {

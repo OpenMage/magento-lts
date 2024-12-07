@@ -257,7 +257,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
      * @param string $alias
      * @param string $relatedAlias
      * @return Varien_Db_Select
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     protected function _getTableDateRangeRelatedSelect(
         $table,

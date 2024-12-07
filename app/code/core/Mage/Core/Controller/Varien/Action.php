@@ -466,7 +466,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * Dispatch event before action
      *
      * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function preDispatch()
     {
@@ -1036,7 +1036,7 @@ abstract class Mage_Core_Controller_Varien_Action
      * @param string $contentType
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
      * @return $this
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _prepareDownloadResponse(
         $fileName,

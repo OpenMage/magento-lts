@@ -172,7 +172,7 @@ class Mage_Paypal_Model_Ipn
      *
      * @return Mage_Sales_Model_Order
      * @throws Exception
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _getOrder()
     {

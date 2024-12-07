@@ -93,7 +93,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      *
      * @param stdClass|string|null $sessionId
      * @return $this
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _instaLogin(&$sessionId)
     {

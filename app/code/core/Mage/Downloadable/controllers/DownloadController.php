@@ -83,7 +83,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     /**
      * Download sample action
      *
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function sampleAction()
     {
@@ -119,7 +119,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     /**
      * Download link's sample action
      *
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function linkSampleAction()
     {
@@ -156,7 +156,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
      * Download link action
      *
      * @return Mage_Core_Controller_Varien_Action|void
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function linkAction()
     {

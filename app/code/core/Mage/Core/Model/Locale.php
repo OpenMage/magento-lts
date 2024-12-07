@@ -582,7 +582,7 @@ class Mage_Core_Model_Locale
      * @param   mixed $store
      * @return  int
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function storeTimeStamp($store = null)
     {
@@ -599,7 +599,7 @@ class Mage_Core_Model_Locale
      *
      * @param   string $currency
      * @return  Zend_Currency
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function currency($currency)
     {

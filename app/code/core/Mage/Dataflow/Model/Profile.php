@@ -84,7 +84,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _beforeSave()
     {
@@ -141,7 +141,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _afterSave()
     {

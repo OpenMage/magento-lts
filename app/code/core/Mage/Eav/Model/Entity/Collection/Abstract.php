@@ -188,7 +188,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @param Mage_Eav_Model_Entity_Abstract $entity
      * @throws Mage_Eav_Exception
      * @return $this
-     * @SuppressWarnings(PHPMD.DevelopmentCodeFragment)
+     * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
     public function setEntity($entity)
     {
