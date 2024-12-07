@@ -30,12 +30,12 @@ class Mage_Downloadable_Model_System_Config_Source_Orderitemstatus
         return [
             [
                 'value' => Mage_Sales_Model_Order_Item::STATUS_PENDING,
-                'label' => Mage::helper('downloadable')->__('Pending')
+                'label' => Mage::helper('downloadable')->__('Pending'),
             ],
             [
                 'value' => Mage_Sales_Model_Order_Item::STATUS_INVOICED,
-                'label' => Mage::helper('downloadable')->__('Invoiced')
-            ]
+                'label' => Mage::helper('downloadable')->__('Invoiced'),
+            ],
         ];
     }
 }

@@ -68,7 +68,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
                     $emailInfo->getToEmails(),
                     $emailInfo->getToNames(),
                     $this->getTemplateParams(),
-                    $this->getStoreId()
+                    $this->getStoreId(),
                 );
         }
         return $this;

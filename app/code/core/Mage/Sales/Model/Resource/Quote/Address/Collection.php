@@ -60,7 +60,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model
         parent::_afterLoad();
 
         Mage::dispatchEvent($this->_eventPrefix . '_load_after', [
-            $this->_eventObject => $this
+            $this->_eventObject => $this,
         ]);
 
         return $this;

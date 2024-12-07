@@ -43,7 +43,7 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
         $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $helper->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment()),
         );
 
         return parent::_prepareLayout();

@@ -39,12 +39,12 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
         $model = Mage::registry('tag_tag');
 
         $form = new Varien_Data_Form(
-            ['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']
+            ['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'],
         );
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend' => Mage::helper('tag')->__('General Information')]
+            ['legend' => Mage::helper('tag')->__('General Information')],
         );
 
         if ($model->getTagId()) {
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
 
         $fieldset->addField('store_id', 'hidden', [
             'name'  => 'store_id',
-            'value' => (int)$this->getRequest()->getParam('store')
+            'value' => (int) $this->getRequest()->getParam('store'),
         ]);
 
         $fieldset->addField('name', 'text', [

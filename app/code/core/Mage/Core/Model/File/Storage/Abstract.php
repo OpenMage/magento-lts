@@ -82,7 +82,7 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
             'filename'      => basename($path),
             'content'       => @file_get_contents($fullPath),
             'update_time'   => Mage::getSingleton('core/date')->date(),
-            'directory'     => $directory
+            'directory'     => $directory,
         ];
     }
 }

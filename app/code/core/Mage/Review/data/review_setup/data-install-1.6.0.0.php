@@ -32,12 +32,12 @@ foreach ($reviewEntityCodes as $entityCode) {
 $reviewStatuses = [
     Mage_Review_Model_Review::STATUS_APPROVED       => 'Approved',
     Mage_Review_Model_Review::STATUS_PENDING        => 'Pending',
-    Mage_Review_Model_Review::STATUS_NOT_APPROVED   => 'Not Approved'
+    Mage_Review_Model_Review::STATUS_NOT_APPROVED   => 'Not Approved',
 ];
 foreach ($reviewStatuses as $k => $v) {
     $bind = [
         'status_id'     => $k,
-        'status_code'   => $v
+        'status_code'   => $v,
     ];
     $installer->getConnection()->insertForce($installer->getTable('review/review_status'), $bind);
 }

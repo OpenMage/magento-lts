@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Api2_Product_Image_Rest_Customer_V1 extends Mage_Catalog_Model_Api2_Product_Image_Rest
-{
-}
+class Mage_Catalog_Model_Api2_Product_Image_Rest_Customer_V1 extends Mage_Catalog_Model_Api2_Product_Image_Rest {}

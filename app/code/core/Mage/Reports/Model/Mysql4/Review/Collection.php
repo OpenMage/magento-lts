@@ -21,6 +21,4 @@
  * @package    Mage_Reports
  * @deprecated
  */
-class Mage_Reports_Model_Mysql4_Review_Collection extends Mage_Reports_Model_Resource_Review_Collection
-{
-}
+class Mage_Reports_Model_Mysql4_Review_Collection extends Mage_Reports_Model_Resource_Review_Collection {}

@@ -189,7 +189,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
         $currencyNumber = self::$_iso4217Currencies[$currencyCode] ?? '';
         if (!$currencyNumber) {
             return $result->setErrorNo(1)->setErrorDesc(
-                Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode)
+                Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode),
             );
         }
 
@@ -199,7 +199,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
             'CardNumber' =>  $data->getCardNumber(),
             'CardExpMonth' => $month,
             'CardExpYear' =>  $data->getCardExpYear(),
-            'OrderNumber' => $data->getOrderNumber()
+            'OrderNumber' => $data->getOrderNumber(),
         ]);
 
         $result->setErrorNo($clientResponse->getValue('ErrorNo'));

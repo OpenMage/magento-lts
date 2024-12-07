@@ -60,7 +60,7 @@ foreach ($result as $row) {
         'input_filter'              => $_inputFilter,
         'lines_to_divide_multiline' => $_linesToDivideMultiline,
         'min_text_length'           => $_minLength,
-        'max_text_length'           => $_maxLength
+        'max_text_length'           => $_maxLength,
     ];
     $installer->getConnection()->insert($table, $attributes);
 }

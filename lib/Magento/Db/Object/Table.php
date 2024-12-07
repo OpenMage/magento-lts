@@ -46,7 +46,7 @@ class Magento_Db_Object_Table extends Magento_Db_Object implements Magento_Db_Ob
     public function createFromSource(Zend_Db_Select $source)
     {
         $this->_adapter->query(
-            'CREATE ' . $this->getDbType() . ' ' . $this->_objectName . ' AS ' . $source
+            'CREATE ' . $this->getDbType() . ' ' . $this->_objectName . ' AS ' . $source,
         );
         return $this;
     }

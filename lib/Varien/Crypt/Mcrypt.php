@@ -63,7 +63,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
             if (MCRYPT_MODE_CBC == $this->getMode()) {
                 $this->setInitVector(substr(
                     md5(mcrypt_create_iv(mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND)),
-                    - mcrypt_enc_get_iv_size($this->getHandler())
+                    - mcrypt_enc_get_iv_size($this->getHandler()),
                 ));
             } else {
                 $this->setInitVector(mcrypt_create_iv(mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND));

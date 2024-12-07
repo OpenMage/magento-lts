@@ -44,8 +44,8 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             [
                 'gift_message_from' => 'gift_message.sender',
                 'gift_message_to'   => 'gift_message.recipient',
-                'gift_message_body' => 'gift_message.message'
-            ]
+                'gift_message_body' => 'gift_message.message',
+            ],
         );
 
         return $this;
@@ -61,7 +61,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         $collection->getSelect()->joinLeft(
             ['payment_method' => $collection->getTable('sales/order_payment')],
             'main_table.entity_id = payment_method.parent_id',
-            ['payment_method' => 'payment_method.method']
+            ['payment_method' => 'payment_method.method'],
         );
 
         return $this;
@@ -86,7 +86,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             $collection->getSelect()->joinLeft(
                 ['order_tax' => $collection->getTable('sales/order_tax')],
                 'main_table.entity_id = order_tax.order_id',
-                $taxInfoFields
+                $taxInfoFields,
             );
             $collection->getSelect()->group('main_table.entity_id');
         }

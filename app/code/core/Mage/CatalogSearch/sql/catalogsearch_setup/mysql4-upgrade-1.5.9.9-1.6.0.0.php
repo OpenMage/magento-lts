@@ -23,17 +23,17 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('catalogsearch/search_query'),
-    'FK_CATALOGSEARCH_QUERY_STORE'
+    'FK_CATALOGSEARCH_QUERY_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('catalogsearch/result'),
-    'FK_CATALOGSEARCH_RESULT_CATALOG_PRODUCT'
+    'FK_CATALOGSEARCH_RESULT_CATALOG_PRODUCT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('catalogsearch/result'),
-    'FK_CATALOGSEARCH_RESULT_QUERY'
+    'FK_CATALOGSEARCH_RESULT_QUERY',
 );
 
 /**
@@ -41,37 +41,37 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('catalogsearch/fulltext'),
-    'PRIMARY'
+    'PRIMARY',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('catalogsearch/fulltext'),
-    'data_index'
+    'data_index',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('catalogsearch/search_query'),
-    'FK_CATALOGSEARCH_QUERY_STORE'
+    'FK_CATALOGSEARCH_QUERY_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('catalogsearch/search_query'),
-    'IDX_SEARCH_QUERY'
+    'IDX_SEARCH_QUERY',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('catalogsearch/result'),
-    'IDX_QUERY'
+    'IDX_QUERY',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('catalogsearch/result'),
-    'IDX_PRODUCT'
+    'IDX_PRODUCT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('catalogsearch/result'),
-    'IDX_RELEVANCE'
+    'IDX_RELEVANCE',
 );
 
 /*
@@ -86,67 +86,67 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Query ID'
+                'comment'   => 'Query ID',
             ],
             'query_text' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Query text'
+                'comment'   => 'Query text',
             ],
             'num_results' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Num results'
+                'comment'   => 'Num results',
             ],
             'popularity' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Popularity'
+                'comment'   => 'Popularity',
             ],
             'redirect' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Redirect'
+                'comment'   => 'Redirect',
             ],
             'synonym_for' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Synonym for'
+                'comment'   => 'Synonym for',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store ID'
+                'comment'   => 'Store ID',
             ],
             'display_in_terms' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Display in terms'
+                'comment'   => 'Display in terms',
             ],
             'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'default'   => '1',
-                'comment'   => 'Active status'
+                'comment'   => 'Active status',
             ],
             'is_processed' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'default'   => '0',
-                'comment'   => 'Processed status'
+                'comment'   => 'Processed status',
             ],
             'updated_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Updated at'
-            ]
+                'comment'   => 'Updated at',
+            ],
         ],
-        'comment' => 'Catalog search query table'
+        'comment' => 'Catalog search query table',
     ],
     $installer->getTable('catalogsearch/result') => [
         'columns' => [
@@ -155,14 +155,14 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Query ID'
+                'comment'   => 'Query ID',
             ],
             'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Product ID'
+                'comment'   => 'Product ID',
             ],
             'relevance' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -170,10 +170,10 @@ $tables = [
                 'precision' => 20,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Relevance'
-            ]
+                'comment'   => 'Relevance',
+            ],
         ],
-        'comment' => 'Catalog search result table'
+        'comment' => 'Catalog search result table',
     ],
     $installer->getTable('catalogsearch/fulltext') => [
         'columns' => [
@@ -181,22 +181,22 @@ $tables = [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Product ID'
+                'comment'   => 'Product ID',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Store ID'
+                'comment'   => 'Store ID',
             ],
             'data_index' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '4g',
-                'comment'   => 'Data index'
-            ]
+                'comment'   => 'Data index',
+            ],
         ],
-        'comment' => 'Catalog search result table'
-    ]
+        'comment' => 'Catalog search result table',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -213,8 +213,8 @@ $installer->getConnection()->addColumn(
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        'comment'   => 'Entity ID'
-    ]
+        'comment'   => 'Entity ID',
+    ],
 );
 
 /**
@@ -225,10 +225,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalogsearch/fulltext',
         ['product_id', 'store_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_id', 'store_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
@@ -236,34 +236,34 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalogsearch/fulltext',
         ['data_index'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT
+        Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT,
     ),
     ['data_index'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT
+    Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalogsearch/search_query'),
     $installer->getIdxName('catalogsearch/search_query', ['query_text', 'store_id', 'popularity']),
-    ['query_text', 'store_id', 'popularity']
+    ['query_text', 'store_id', 'popularity'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalogsearch/search_query'),
     $installer->getIdxName('catalogsearch/search_query', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalogsearch/result'),
     $installer->getIdxName('catalogsearch/result', ['query_id']),
-    ['query_id']
+    ['query_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('catalogsearch/result'),
     $installer->getIdxName('catalogsearch/result', ['product_id']),
-    ['product_id']
+    ['product_id'],
 );
 
 /**
@@ -274,7 +274,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('catalogsearch/search_query'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -282,7 +282,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('catalogsearch/result'),
     'query_id',
     $installer->getTable('catalogsearch/search_query'),
-    'query_id'
+    'query_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -290,7 +290,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('catalogsearch/result'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->endSetup();

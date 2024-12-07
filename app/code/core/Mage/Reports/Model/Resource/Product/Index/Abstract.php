@@ -76,7 +76,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
                 $data  = [
                     'customer_id'   => $object->getCustomerId(),
                     'store_id'      => $object->getStoreId(),
-                    'added_at'      => Varien_Date::now()
+                    'added_at'      => Varien_Date::now(),
                 ];
             }
 
@@ -100,7 +100,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
         }
 
         $bind   = ['visitor_id'      => null];
-        $where  = ['customer_id = ?' => (int)$object->getCustomerId()];
+        $where  = ['customer_id = ?' => (int) $object->getCustomerId()];
         $this->_getWriteAdapter()->update($this->getMainTable(), $bind, $where);
 
         return $this;
@@ -132,7 +132,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
         $helper->mergeVisitorProductIndex(
             $this->getMainTable(),
             $data,
-            $matchFields
+            $matchFields,
         );
 
         $this->unserializeFields($object);
@@ -154,7 +154,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
                 ->joinLeft(
                     ['visitor_table' => $this->getTable('log/visitor')],
                     'main_table.visitor_id = visitor_table.visitor_id',
-                    []
+                    [],
                 )
                 ->where('main_table.visitor_id > ?', 0)
                 ->where('visitor_table.visitor_id IS NULL')
@@ -167,7 +167,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
 
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $indexIds)
+                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $indexIds),
             );
         }
         return $this;
@@ -207,7 +207,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             $helper->mergeVisitorProductIndex(
                 $this->getMainTable(),
                 $row,
-                $matchFields
+                $matchFields,
             );
         }
         return $this;

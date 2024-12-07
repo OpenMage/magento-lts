@@ -21,6 +21,4 @@
  * @package    Mage_Core
  * @deprecated
  */
-class Mage_Core_Model_Mysql4_Store_Group extends Mage_Core_Model_Resource_Store_Group
-{
-}
+class Mage_Core_Model_Mysql4_Store_Group extends Mage_Core_Model_Resource_Store_Group {}

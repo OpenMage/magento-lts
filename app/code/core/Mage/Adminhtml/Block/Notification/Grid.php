@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         $this->addColumn('date_added', [
             'header'    => Mage::helper('adminnotification')->__('Date Added'),
             'index'     => 'date_added',
-            'type'      => 'datetime'
+            'type'      => 'datetime',
         ]);
 
         $this->addColumn('title', [
@@ -92,13 +92,13 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         $this->getMassactionBlock()->setFormFieldName('notification');
 
         $this->getMassactionBlock()->addItem(MassAction::MARK_AS_READ, [
-             'label'    => Mage::helper('adminnotification')->__('Mark as Read'),
-             'url'      => $this->getUrl('*/*/massMarkAsRead', ['_current' => true]),
+            'label'    => Mage::helper('adminnotification')->__('Mark as Read'),
+            'url'      => $this->getUrl('*/*/massMarkAsRead', ['_current' => true]),
         ]);
 
         $this->getMassactionBlock()->addItem(MassAction::REMOVE, [
-             'label'    => Mage::helper('adminnotification')->__('Remove'),
-             'url'      => $this->getUrl('*/*/massRemove')
+            'label'    => Mage::helper('adminnotification')->__('Remove'),
+            'url'      => $this->getUrl('*/*/massRemove'),
         ]);
 
         return $this;

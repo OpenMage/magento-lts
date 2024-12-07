@@ -70,12 +70,12 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                     }
                     $this->_rates[$website->getId()] = [
                         'code' => $website->getBaseCurrencyCode(),
-                        'rate' => $rate
+                        'rate' => $rate,
                     ];
                 } else {
                     $this->_rates[$website->getId()] = [
                         'code' => $baseCurrency,
-                        'rate' => 1
+                        'rate' => 1,
                     ];
                 }
             }
@@ -128,7 +128,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             }
             $compare = implode('-', array_merge(
                 [$priceRow['website_id'], $priceRow['cust_group']],
-                $this->_getAdditionalUniqueFields($priceRow)
+                $this->_getAdditionalUniqueFields($priceRow),
             ));
             if (isset($duplicates[$compare])) {
                 Mage::throwException($this->_getDuplicateErrorMessage());
@@ -144,7 +144,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                 if ($price['website_id'] == 0) {
                     $compare = implode('-', array_merge(
                         [$price['website_id'], $price['cust_group']],
-                        $this->_getAdditionalUniqueFields($price)
+                        $this->_getAdditionalUniqueFields($price),
                     ));
                     $duplicates[$compare] = true;
                 }
@@ -164,7 +164,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
 
             $globalCompare = implode('-', array_merge(
                 [0, $priceRow['cust_group']],
-                $this->_getAdditionalUniqueFields($priceRow)
+                $this->_getAdditionalUniqueFields($priceRow),
             ));
             $websiteCurrency = $rates[$priceRow['website_id']]['code'];
 
@@ -278,7 +278,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             if ($data['website_id'] > 0 || ($data['website_id'] == '0' && $isGlobal)) {
                 $key = implode('-', array_merge(
                     [$data['website_id'], $data['cust_group']],
-                    $this->_getAdditionalUniqueFields($data)
+                    $this->_getAdditionalUniqueFields($data),
                 ));
                 $old[$key] = $data;
             }
@@ -300,13 +300,13 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             if ($this->getAttribute()->isScopeGlobal() && $data['website_id'] > 0) {
                 continue;
             }
-            if (!$isGlobal && (int)$data['website_id'] == 0) {
+            if (!$isGlobal && (int) $data['website_id'] == 0) {
                 continue;
             }
 
             $key = implode('-', array_merge(
                 [$data['website_id'], $data['cust_group']],
-                $this->_getAdditionalUniqueFields($data)
+                $this->_getAdditionalUniqueFields($data),
             ));
 
             $useForAllGroups = $data['cust_group'] == Mage_Customer_Model_Group::CUST_GROUP_ALL;
@@ -351,7 +351,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                     $price = new Varien_Object([
                         'value_id'   => $old[$k]['price_id'],
                         'value'      => $v['value'],
-                        'is_percent' => $v['is_percent']
+                        'is_percent' => $v['is_percent'],
                     ]);
                     $this->_getResource()->savePriceData($price);
 

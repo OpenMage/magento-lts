@@ -30,9 +30,7 @@ class Mage_CatalogIndex_Model_Resource_Abstract extends Mage_Core_Model_Resource
      * Initialize model
      *
      */
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * storeId setter

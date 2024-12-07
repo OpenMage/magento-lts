@@ -13,8 +13,6 @@ jobs:
     strategy:
       matrix:
         rules:
-          - label: Default
-            path: .phpcs.dist.xml
           - label: Ecg
             path: .phpcs.dist.ecg.xml
           - label: PhpCompatibility

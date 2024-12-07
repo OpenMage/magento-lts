@@ -72,7 +72,7 @@ class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abs
     {
         return array_merge(
             parent::getCacheTags(),
-            $this->getItemsTags($this->getItemsCollection())
+            $this->getItemsTags($this->getItemsCollection()),
         );
     }
 }

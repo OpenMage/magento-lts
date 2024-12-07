@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
             'html_name' => 'roles[]',
             'values'    => $this->_getSelectedRoles(),
             'align'     => 'center',
-            'index'     => 'role_id'
+            'index'     => 'role_id',
         ]);
 
         /*$this->addColumn('role_id', array(
@@ -80,7 +80,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
 
         $this->addColumn('role_name', [
             'header'    => Mage::helper('adminhtml')->__('Role Name'),
-            'index'     => 'role_name'
+            'index'     => 'role_name',
         ]);
 
         return parent::_prepareColumns();
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
             foreach ($uRoles as $urid) {
                 $jsonRoles[$urid] = 0;
             }
-            return Mage::helper('core')->jsonEncode((object)$jsonRoles);
+            return Mage::helper('core')->jsonEncode((object) $jsonRoles);
         } else {
             return $uRoles;
         }

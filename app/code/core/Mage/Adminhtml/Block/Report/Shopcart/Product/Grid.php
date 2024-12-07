@@ -42,12 +42,12 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('reports')->__('ID'),
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $currencyCode = $this->getCurrentCurrencyCode();
@@ -63,14 +63,14 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
             'header'    => Mage::helper('reports')->__('Carts'),
             'width'     => '80px',
             'align'     => 'right',
-            'index'     => 'carts'
+            'index'     => 'carts',
         ]);
 
         $this->addColumn('orders', [
             'header'    => Mage::helper('reports')->__('Orders'),
             'width'     => '80px',
             'align'     => 'right',
-            'index'     => 'orders'
+            'index'     => 'orders',
         ]);
 
         $this->setFilterVisibility(false);

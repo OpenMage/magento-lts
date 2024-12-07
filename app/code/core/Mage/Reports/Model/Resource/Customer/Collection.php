@@ -117,7 +117,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
             ->joinLeft(
                 ['orders' => $this->getTable('sales/order')],
                 'orders.customer_id = e.entity_id' . $dateFilter,
-                []
+                [],
             );
 
         return $this;
@@ -187,7 +187,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     public function addOrdersStatistics($isFilter = false)
     {
         $this->_addOrderStatistics          = true;
-        $this->_addOrderStatisticsIsFilter  = (bool)$isFilter;
+        $this->_addOrderStatisticsIsFilter  = (bool) $isFilter;
         return $this;
     }
 
@@ -214,7 +214,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
                 'orders_avg_amount' => "AVG({$totalExpr})",
                 'orders_sum_amount' => "SUM({$totalExpr})",
                 'orders_count' => 'COUNT(orders.entity_id)',
-                'customer_id'
+                'customer_id',
             ])->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
               ->where('orders.customer_id IN(?)', $customerIds)
               ->group('orders.customer_id');

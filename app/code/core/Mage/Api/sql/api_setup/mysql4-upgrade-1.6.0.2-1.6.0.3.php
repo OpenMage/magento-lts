@@ -25,8 +25,8 @@ $this->getConnection()->changeColumn(
         'unsigned' => true,
         'nullable' => false,
         'default' => '0',
-        'comment' => 'Quantity of log ins'
-    ]
+        'comment' => 'Quantity of log ins',
+    ],
 );
 
 $this->endSetup();

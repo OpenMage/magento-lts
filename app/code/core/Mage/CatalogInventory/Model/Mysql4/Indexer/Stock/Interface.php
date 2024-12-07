@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  */
-interface Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Interface extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
-{
-}
+interface Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Interface extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface {}

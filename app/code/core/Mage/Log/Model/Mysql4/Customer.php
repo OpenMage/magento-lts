@@ -21,6 +21,4 @@
  * @package    Mage_Log
  * @deprecated
  */
-class Mage_Log_Model_Mysql4_Customer extends Mage_Log_Model_Resource_Customer
-{
-}
+class Mage_Log_Model_Mysql4_Customer extends Mage_Log_Model_Resource_Customer {}

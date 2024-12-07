@@ -267,7 +267,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
         Mage::getModel('core/email_template')
             ->setDesignConfig([
                 'area'  => 'frontend',
-                'store' => $storeId
+                'store' => $storeId,
             ])->sendTransactional(
                 $templateId,
                 Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId),
@@ -275,8 +275,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
                 $this->_customer->getName(),
                 [
                     'customerName'  => $this->_customer->getName(),
-                    'alertGrid'     => $block
-                ]
+                    'alertGrid'     => $block,
+                ],
             );
 
         return true;

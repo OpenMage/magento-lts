@@ -47,7 +47,7 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
             'id'                => $uniqId,
             'use_massaction' => $massAction,
             'product_type_id' => $productTypeId,
-            'category_id'       => $this->getRequest()->getParam('category_id')
+            'category_id'       => $this->getRequest()->getParam('category_id'),
         ]);
 
         $html = $productsGrid->toHtml();
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
             $categoriesTree = $this->getLayout()->createBlock('adminhtml/catalog_category_widget_chooser', '', [
                 'id'                  => $uniqId . 'Tree',
                 'node_click_listener' => $productsGrid->getCategoryClickListenerJs(),
-                'with_empty_node'     => true
+                'with_empty_node'     => true,
             ]);
 
             $html = $this->getLayout()->createBlock('adminhtml/catalog_product_widget_chooser_container')

@@ -197,7 +197,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             if ($isDigit) {
                 $mixed = $this->packArrayToObject($mixed);
             } else {
-                $mixed = (object)$mixed;
+                $mixed = (object) $mixed;
             }
         }
         if (is_object($mixed) && isset($mixed->complexObjectArray)) {
@@ -377,6 +377,6 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
             $uri->setPath($request->getBaseUrl() . $request->getPathInfo());
         }
 
-        return $htmlSpecialChars === true ? htmlspecialchars($uri) : (string)$uri;
+        return $htmlSpecialChars === true ? htmlspecialchars($uri) : (string) $uri;
     }
 }

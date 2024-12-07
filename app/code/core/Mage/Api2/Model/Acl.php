@@ -140,7 +140,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
                     $role = $this->_getRolesCollection()->getItemById($rule->getRoleId());
                     $privileges = $this->_getConfig()->getResourceUserPrivileges(
                         $this->_resourceType,
-                        $role->getConfigNodeName()
+                        $role->getConfigNodeName(),
                     );
 
                     if (!array_key_exists($this->_operation, $privileges)) {

@@ -38,12 +38,12 @@ class Mage_Reports_Model_Resource_Invoiced_Collection extends Mage_Sales_Model_E
             ->addExpressionAttributeToSelect(
                 'orders',
                 'COUNT({{base_total_invoiced}})',
-                ['base_total_invoiced']
+                ['base_total_invoiced'],
             )
             ->addExpressionAttributeToSelect(
                 'orders_invoiced',
                 "SUM({$orderInvoicedExpr})",
-                ['base_total_invoiced']
+                ['base_total_invoiced'],
             )
             ->addAttributeToFilter('state', ['neq' => Mage_Sales_Model_Order::STATE_CANCELED])
             ->getSelect()
@@ -66,37 +66,37 @@ class Mage_Reports_Model_Resource_Invoiced_Collection extends Mage_Sales_Model_E
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->addAttributeToFilter('store_id', ['in' => (array)$storeIds])
+            $this->addAttributeToFilter('store_id', ['in' => (array) $storeIds])
             ->addExpressionAttributeToSelect(
                 'invoiced',
                 'SUM({{base_total_invoiced}})',
-                ['base_total_invoiced']
+                ['base_total_invoiced'],
             )
             ->addExpressionAttributeToSelect(
                 'invoiced_captured',
                 'SUM({{base_total_paid}})',
-                ['base_total_paid']
+                ['base_total_paid'],
             )
             ->addExpressionAttributeToSelect(
                 'invoiced_not_captured',
                 'SUM({{base_total_invoiced}}-{{base_total_paid}})',
-                ['base_total_invoiced', 'base_total_paid']
+                ['base_total_invoiced', 'base_total_paid'],
             );
         } else {
             $this->addExpressionAttributeToSelect(
                 'invoiced',
                 'SUM({{base_total_invoiced}}*{{base_to_global_rate}})',
-                ['base_total_invoiced', 'base_to_global_rate']
+                ['base_total_invoiced', 'base_to_global_rate'],
             )
             ->addExpressionAttributeToSelect(
                 'invoiced_captured',
                 'SUM({{base_total_paid}}*{{base_to_global_rate}})',
-                ['base_total_paid', 'base_to_global_rate']
+                ['base_total_paid', 'base_to_global_rate'],
             )
             ->addExpressionAttributeToSelect(
                 'invoiced_not_captured',
                 'SUM(({{base_total_invoiced}}-{{base_total_paid}})*{{base_to_global_rate}})',
-                ['base_total_invoiced', 'base_to_global_rate', 'base_total_paid']
+                ['base_total_invoiced', 'base_to_global_rate', 'base_total_paid'],
             );
         }
 

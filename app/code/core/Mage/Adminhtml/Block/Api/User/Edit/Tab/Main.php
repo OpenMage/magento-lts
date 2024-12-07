@@ -76,11 +76,11 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
         ]);
 
         $fieldset->addField('current_password', 'obscure', [
-                'name'  => 'current_password',
-                'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
-                'title' => Mage::helper('adminhtml')->__('Current Admin Password'),
-                'required' => true,
-            ]);
+            'name'  => 'current_password',
+            'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
+            'title' => Mage::helper('adminhtml')->__('Current Admin Password'),
+            'required' => true,
+        ]);
 
         $minPasswordLength = Mage::getModel('customer/customer')->getMinPasswordLength();
         if ($model->getUserId()) {

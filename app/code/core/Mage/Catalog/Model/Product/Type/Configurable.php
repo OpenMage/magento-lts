@@ -613,7 +613,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $_result = $subProduct->getTypeInstance(true)->_prepareProduct(
                         $buyRequest,
                         $subProduct,
-                        $processMode
+                        $processMode,
                     );
                     if (is_string($_result) && !is_array($_result)) {
                         return $_result;

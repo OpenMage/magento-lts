@@ -64,16 +64,16 @@ class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Co
         if (!$this->_initDone) {
             $dimHelper = Mage::helper('configurableswatches/swatchdimensions');
             $this->setSwatchInnerWidth(
-                $dimHelper->getInnerWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER)
+                $dimHelper->getInnerWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER),
             );
             $this->setSwatchInnerHeight(
-                $dimHelper->getInnerHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER)
+                $dimHelper->getInnerHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER),
             );
             $this->setSwatchOuterWidth(
-                $dimHelper->getOuterWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER)
+                $dimHelper->getOuterWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER),
             );
             $this->setSwatchOuterHeight(
-                $dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER)
+                $dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER),
             );
 
             $swatchUrl = Mage::helper('configurableswatches/productimg')
@@ -81,7 +81,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Co
                     $filter,
                     $this->stripTags($filter->getLabel()),
                     $this->getSwatchInnerWidth(),
-                    $this->getSwatchInnerHeight()
+                    $this->getSwatchInnerHeight(),
                 );
             $this->setSwatchUrl($swatchUrl);
 

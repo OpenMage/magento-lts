@@ -222,7 +222,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 '<link rel="stylesheet" href="%s"%s >' . PHP_EOL,
                 empty($items['js_css']) ? [] : $items['js_css'],
                 empty($items['skin_css']) ? [] : $items['skin_css'],
-                $shouldMergeCss ? [Mage::getDesign(), 'getMergedCssUrl'] : null
+                $shouldMergeCss ? [Mage::getDesign(), 'getMergedCssUrl'] : null,
             );
 
             // static and skin javascripts
@@ -230,7 +230,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 '<script src="%s"%s></script>' . PHP_EOL,
                 empty($items['js']) ? [] : $items['js'],
                 empty($items['skin_js']) ? [] : $items['skin_js'],
-                $shouldMergeJs ? [Mage::getDesign(), 'getMergedJsUrl'] : null
+                $shouldMergeJs ? [Mage::getDesign(), 'getMergedJsUrl'] : null,
             );
 
             // other stuff
@@ -254,12 +254,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param callable $mergeCallback
      * @return string
      */
-    protected function &_prepareStaticAndSkinElements(
-        $format,
-        array $staticItems,
-        array $skinItems,
-        $mergeCallback = null
-    ) {
+    protected function &_prepareStaticAndSkinElements($format, array $staticItems, array $skinItems, $mergeCallback = null)
+    {
         $designPackage = Mage::getDesign();
         $baseJsUrl = Mage::getBaseUrl('js');
         $items = [];
@@ -323,7 +319,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 $lines[$itemIf]['other'][] = sprintf(
                     '<link href="%s"%s rel="alternate" type="application/rss+xml">',
                     $href,
-                    $params
+                    $params,
                 );
                 break;
             case 'link_rel':

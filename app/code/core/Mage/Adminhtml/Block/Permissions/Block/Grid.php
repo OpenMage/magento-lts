@@ -51,12 +51,12 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
-            'index'     => 'block_id'
+            'index'     => 'block_id',
         ]);
 
         $this->addColumn('block_name', [
             'header'    => Mage::helper('adminhtml')->__('Block Name'),
-            'index'     => 'block_name'
+            'index'     => 'block_name',
         ]);
 
         $this->addColumn('is_allowed', [

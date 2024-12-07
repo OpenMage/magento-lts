@@ -124,7 +124,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
 
         $this->_initReportAction([
             $gridBlock,
-            $filterFormBlock
+            $filterFormBlock,
         ]);
 
         $this->renderLayout();

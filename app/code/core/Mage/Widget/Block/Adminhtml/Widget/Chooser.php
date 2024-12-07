@@ -76,7 +76,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         // chooser control buttons
         $buttons = [
             'open'  => Mage::helper('widget')->__('Choose...'),
-            'close' => Mage::helper('widget')->__('Close')
+            'close' => Mage::helper('widget')->__('Close'),
         ];
         if (isset($configArray['button']) && is_array($configArray['button'])) {
             foreach ($configArray['button'] as $id => $label) {
@@ -128,7 +128,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
      */
     public function getHiddenEnabled()
     {
-        return $this->hasData('hidden_enabled') ? (bool)$this->_getData('hidden_enabled') : true;
+        return $this->hasData('hidden_enabled') ? (bool) $this->_getData('hidden_enabled') : true;
     }
 
     /**

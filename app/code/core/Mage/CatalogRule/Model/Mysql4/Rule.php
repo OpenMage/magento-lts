@@ -21,6 +21,4 @@
  * @package    Mage_CatalogRule
  * @deprecated
  */
-class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_CatalogRule_Model_Resource_Rule
-{
-}
+class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_CatalogRule_Model_Resource_Rule {}

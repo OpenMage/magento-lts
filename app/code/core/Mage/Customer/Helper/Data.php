@@ -258,7 +258,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         $params = [];
         if ($this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)) {
             $params = [
-                self::REFERER_QUERY_PARAM_NAME => $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)
+                self::REFERER_QUERY_PARAM_NAME => $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME),
             ];
         }
         return $this->_getUrl('customer/account/loginPost', $params);
@@ -386,7 +386,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function getNamePrefixOptions($store = null)
     {
         return $this->_prepareNamePrefixSuffixOptions(
-            Mage::helper('customer/address')->getConfig('prefix_options', $store)
+            Mage::helper('customer/address')->getConfig('prefix_options', $store),
         );
     }
 
@@ -399,7 +399,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function getNameSuffixOptions($store = null)
     {
         return $this->_prepareNamePrefixSuffixOptions(
-            Mage::helper('customer/address')->getConfig('suffix_options', $store)
+            Mage::helper('customer/address')->getConfig('suffix_options', $store),
         );
     }
 
@@ -524,7 +524,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             self::VAT_CLASS_DOMESTIC => self::XML_PATH_CUSTOMER_VIV_DOMESTIC_GROUP,
             self::VAT_CLASS_INTRA_UNION => self::XML_PATH_CUSTOMER_VIV_INTRA_UNION_GROUP,
             self::VAT_CLASS_INVALID => self::XML_PATH_CUSTOMER_VIV_INVALID_GROUP,
-            self::VAT_CLASS_ERROR => self::XML_PATH_CUSTOMER_VIV_ERROR_GROUP
+            self::VAT_CLASS_ERROR => self::XML_PATH_CUSTOMER_VIV_ERROR_GROUP,
         ];
 
         if (isset($vatClassToGroupXmlPathMap[$vatClass])) {
@@ -551,13 +551,13 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             'is_valid' => false,
             'request_date' => '',
             'request_identifier' => '',
-            'request_success' => false
+            'request_success' => false,
         ]);
 
         if (!extension_loaded('soap')) {
             Mage::logException(Mage::exception(
                 'Mage_Core',
-                Mage::helper('core')->__('PHP SOAP extension is required.')
+                Mage::helper('core')->__('PHP SOAP extension is required.'),
             ));
             return $gatewayResponse;
         }
@@ -690,7 +690,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif ($validationResult->getRequestSuccess()) {
             $message = sprintf(
                 $this->__('The VAT ID entered (%s) is not a valid VAT ID.') . ' ',
-                $this->escapeHtml($customerAddress->getVatId())
+                $this->escapeHtml($customerAddress->getVatId()),
             );
             if (!$groupAutoAssignDisabled && !$customerGroupAutoAssignDisabled) {
                 $message .= $willChargeTaxMessage;
@@ -698,7 +698,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         } else {
             $contactUsMessage = sprintf(
                 $this->__('If you believe this is an error, please contact us at %s'),
-                Mage::getStoreConfig(self::XML_PATH_SUPPORT_EMAIL)
+                Mage::getStoreConfig(self::XML_PATH_SUPPORT_EMAIL),
             );
 
             $message = $this->__('Your Tax ID cannot be validated.') . ' '

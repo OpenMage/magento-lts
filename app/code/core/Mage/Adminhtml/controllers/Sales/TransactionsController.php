@@ -30,7 +30,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
     protected function _initTransaction()
     {
         $txn = Mage::getModel('sales/order_payment_transaction')->load(
-            $this->getRequest()->getParam('txn_id')
+            $this->getRequest()->getParam('txn_id'),
         );
 
         if (!$txn->getId()) {
@@ -42,7 +42,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         $orderId = $this->getRequest()->getParam('order_id');
         if ($orderId) {
             $txn->setOrderUrl(
-                $this->getUrl('*/sales_order/view', ['order_id' => $orderId])
+                $this->getUrl('*/sales_order/view', ['order_id' => $orderId]),
             );
         }
 
@@ -102,13 +102,13 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
                 ->importTransactionInfo($txn);
             $txn->save();
             Mage::getSingleton('adminhtml/session')->addSuccess(
-                Mage::helper('adminhtml')->__('The transaction details have been updated.')
+                Mage::helper('adminhtml')->__('The transaction details have been updated.'),
             );
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError(
-                Mage::helper('adminhtml')->__('Unable to update transaction details.')
+                Mage::helper('adminhtml')->__('Unable to update transaction details.'),
             );
             Mage::logException($e);
         }

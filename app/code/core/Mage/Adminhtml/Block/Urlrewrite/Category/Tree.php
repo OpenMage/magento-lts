@@ -104,13 +104,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     protected function _getNodesArray($node)
     {
         $result = [
-            'id'             => (int)$node->getId(),
-            'parent_id'      => (int)$node->getParentId(),
-            'children_count' => (int)$node->getChildrenCount(),
-            'is_active'      => (bool)$node->getIsActive(),
+            'id'             => (int) $node->getId(),
+            'parent_id'      => (int) $node->getParentId(),
+            'children_count' => (int) $node->getChildrenCount(),
+            'is_active'      => (bool) $node->getIsActive(),
             'name'           => $this->escapeHtml($node->getName()),
-            'level'          => (int)$node->getLevel(),
-            'product_count'  => (int)$node->getProductCount()
+            'level'          => (int) $node->getLevel(),
+            'product_count'  => (int) $node->getProductCount(),
         ];
 
         if (is_array($this->_allowedCategoryIds) && !in_array($result['id'], $this->_allowedCategoryIds)) {

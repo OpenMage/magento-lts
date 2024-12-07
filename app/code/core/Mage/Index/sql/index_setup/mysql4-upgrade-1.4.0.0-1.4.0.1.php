@@ -20,5 +20,5 @@ $installer = $this;
 $installer->getConnection()->addColumn(
     $this->getTable('index/process'),
     'mode',
-    "enum('real_time','manual') DEFAULT 'real_time' NOT NULL after `ended_at`"
+    "enum('real_time','manual') DEFAULT 'real_time' NOT NULL after `ended_at`",
 );

@@ -75,13 +75,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
         $this->addColumn('add_date', [
             'header'    => Mage::helper('catalog')->__('Date Subscribed'),
             'index'     => 'add_date',
-            'type'      => 'date'
+            'type'      => 'date',
         ]);
 
         $this->addColumn('send_date', [
             'header'    => Mage::helper('catalog')->__('Last Notification'),
             'index'     => 'send_date',
-            'type'      => 'date'
+            'type'      => 'date',
         ]);
 
         $this->addColumn('send_count', [
@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
         }
         return $this->getUrl('*/catalog_product/alertsStockGrid', [
             'id'    => $productId,
-            'store' => $storeId
+            'store' => $storeId,
         ]);
     }
 }

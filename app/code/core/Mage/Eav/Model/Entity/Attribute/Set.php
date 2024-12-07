@@ -182,7 +182,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
         if (!$this->_getResource()->validate($this, $this->getAttributeSetName())) {
             throw Mage::exception(
                 'Mage_Eav',
-                Mage::helper('eav')->__('Attribute set with the "%s" name already exists.', $this->getAttributeSetName())
+                Mage::helper('eav')->__('Attribute set with the "%s" name already exists.', $this->getAttributeSetName()),
             );
         }
 

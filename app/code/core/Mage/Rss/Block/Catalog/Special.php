@@ -60,7 +60,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 
         $fields = [
             'final_price',
-            'price'
+            'price',
         ];
         $specials = $product->setStoreId($storeId)->getResourceCollection()
             ->addPriceDataFieldFilter('%s < %s', $fields)
@@ -69,9 +69,9 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                 [
                     'name', 'short_description', 'description', 'price', 'thumbnail',
                     'special_price', 'special_to_date',
-                    'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
+                    'msrp_enabled', 'msrp_display_actual_price_type', 'msrp',
                 ],
-                'left'
+                'left',
             )
             ->addAttributeToSort('name', 'asc')
         ;
@@ -82,10 +82,10 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 
         $rssObj = Mage::getModel('rss/rss');
         $data = ['title' => $title,
-                'description' => $title,
-                'link'        => $newurl,
-                'charset'     => 'UTF-8',
-                'language'    => $lang
+            'description' => $title,
+            'link'        => $newurl,
+            'charset'     => 'UTF-8',
+            'language'    => $lang,
         ];
         $rssObj->_addHeader($data);
 
@@ -99,7 +99,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $specials->getSelect(),
             [[$this, 'addSpecialXmlCallback']],
-            ['rssObj' => $rssObj, 'results' => &$results]
+            ['rssObj' => $rssObj, 'results' => &$results],
         );
 
         if (count($results)) {
@@ -120,8 +120,8 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                     $outputHelper->productAttribute(
                         $product,
                         $product->getDescription(),
-                        'description'
-                    )
+                        'description',
+                    ),
                 );
 
                 // add price data if needed
@@ -138,7 +138,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                             '<p>%s %s%s</p>',
                             Mage::helper('catalog')->__('Price: %s', Mage::helper('core')->currency($result['price'])),
                             Mage::helper('catalog')->__('Special Price: %s', Mage::helper('core')->currency($result['final_price'])),
-                            $special
+                            $special,
                         );
                     }
                 }
@@ -148,7 +148,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
                 $rssObj->_addEntry([
                     'title'       => $product->getName(),
                     'link'        => $product->getProductUrl(),
-                    'description' => $html
+                    'description' => $html,
                 ]);
             }
         }

@@ -79,7 +79,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
         $adapter = $this->_getReadAdapter();
         $behaviors = array_unique($adapter->fetchCol(
             $adapter->select()
-                ->from($this->getMainTable(), ['behavior'])
+                ->from($this->getMainTable(), ['behavior']),
         ));
         if (count($behaviors) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: behaviors are mixed'));
@@ -98,7 +98,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
         $adapter = $this->_getReadAdapter();
         $entityCodes = array_unique($adapter->fetchCol(
             $adapter->select()
-                ->from($this->getMainTable(), ['entity'])
+                ->from($this->getMainTable(), ['entity']),
         ));
         if (count($entityCodes) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: entity codes are mixed'));
@@ -139,7 +139,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     {
         return $this->_getWriteAdapter()->insert(
             $this->getMainTable(),
-            ['behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data)]
+            ['behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data)],
         );
     }
 }

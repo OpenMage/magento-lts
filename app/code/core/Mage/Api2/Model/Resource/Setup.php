@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Api2
  */
-class Mage_Api2_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
-{
-}
+class Mage_Api2_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup {}

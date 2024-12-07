@@ -123,18 +123,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
                 'name'              => 'in_products',
                 'values'            => $this->_getSelectedProducts(),
                 'align'             => 'center',
-                'index'             => 'entity_id'
+                'index'             => 'entity_id',
             ]);
         }
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('type', [
@@ -177,7 +177,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         $this->addColumn('sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
             'width'     => 80,
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
 
         $this->addColumn('price', [
@@ -194,7 +194,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'index'                     => 'position',
             'editable'                  => !$this->isReadonly(),
             'edit_only'                 => !$this->_getProduct()->getId(),
-            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback']
+            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback'],
         ]);
 
         return parent::_prepareColumns();

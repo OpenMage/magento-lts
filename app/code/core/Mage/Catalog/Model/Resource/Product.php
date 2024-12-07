@@ -76,7 +76,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
         $select = $adapter->select()
             ->from($this->_productWebsiteTable, 'website_id')
-            ->where('product_id = ?', (int)$productId);
+            ->where('product_id = ?', (int) $productId);
 
         return $adapter->fetchCol($select);
     }
@@ -116,7 +116,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
         $select = $adapter->select()
             ->from($this->_productCategoryTable, 'category_id')
-            ->where('product_id = ?', (int)$product->getId());
+            ->where('product_id = ?', (int) $product->getId());
 
         return $adapter->fetchCol($select);
     }
@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->from($this->getEntityTable(), 'entity_id')
             ->where('sku = :sku');
 
-        $bind = [':sku' => (string)$sku];
+        $bind = [':sku' => (string) $sku];
 
         return $adapter->fetchOne($select, $bind);
     }
@@ -160,7 +160,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
          */
         if ($object->hasCategoryIds()) {
             $categoryIds = Mage::getResourceSingleton('catalog/category')->verifyIds(
-                $object->getCategoryIds()
+                $object->getCategoryIds(),
             );
             $object->setCategoryIds($categoryIds);
         }
@@ -206,8 +206,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             $data = [];
             foreach ($insert as $websiteId) {
                 $data[] = [
-                    'product_id' => (int)$product->getId(),
-                    'website_id' => (int)$websiteId
+                    'product_id' => (int) $product->getId(),
+                    'website_id' => (int) $websiteId,
                 ];
             }
             $adapter->insertMultiple($this->_productWebsiteTable, $data);
@@ -216,8 +216,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         if (!empty($delete)) {
             foreach ($delete as $websiteId) {
                 $condition = [
-                    'product_id = ?' => (int)$product->getId(),
-                    'website_id = ?' => (int)$websiteId,
+                    'product_id = ?' => (int) $product->getId(),
+                    'website_id = ?' => (int) $websiteId,
                 ];
 
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
@@ -261,9 +261,9 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     continue;
                 }
                 $data[] = [
-                    'category_id' => (int)$categoryId,
-                    'product_id'  => (int)$object->getId(),
-                    'position'    => 1
+                    'category_id' => (int) $categoryId,
+                    'product_id'  => (int) $object->getId(),
+                    'position'    => 1,
                 ];
             }
             if ($data) {
@@ -274,8 +274,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         if (!empty($delete)) {
             foreach ($delete as $categoryId) {
                 $where = [
-                    'product_id = ?'  => (int)$object->getId(),
-                    'category_id = ?' => (int)$categoryId,
+                    'product_id = ?'  => (int) $object->getId(),
+                    'category_id = ?' => (int) $categoryId,
                 ];
 
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
@@ -309,7 +309,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         /**
          * Clear previous index data related with product
          */
-        $condition = ['product_id = ?' => (int)$product->getId()];
+        $condition = ['product_id = ?' => (int) $product->getId()];
         $writeAdapter->delete($this->getTable('catalog/category_product_index'), $condition);
 
         /** @var Mage_Catalog_Model_Resource_Category $categoryObject */
@@ -382,7 +382,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $indexTable = $this->getTable('catalog/product_enabled_index');
         if (is_null($store) && is_null($product)) {
             Mage::throwException(
-                Mage::helper('catalog')->__('To reindex the enabled product(s), the store or product must be specified')
+                Mage::helper('catalog')->__('To reindex the enabled product(s), the store or product must be specified'),
             );
         } elseif (is_null($product) || is_array($product)) {
             $storeId    = $store->getId();
@@ -396,7 +396,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
             $selectFields = [
                 't_v_default.entity_id',
-                new Zend_Db_Expr((string)$storeId),
+                new Zend_Db_Expr((string) $storeId),
                 $adapter->getCheckSql('t_v.value_id > 0', 't_v.value', 't_v_default.value'),
             ];
 
@@ -404,9 +404,9 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 ['w' => $this->getTable('catalog/product_website')],
                 $adapter->quoteInto(
                     'w.product_id = t_v_default.entity_id AND w.website_id = ?',
-                    $websiteId
+                    $websiteId,
                 ),
-                []
+                [],
             );
         } elseif ($store === null) {
             foreach ($product->getStoreIds() as $storeId) {
@@ -419,14 +419,14 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             $storeId   = is_numeric($store) ? $store : $store->getId();
 
             $condition = [
-                'product_id = ?' => (int)$productId,
-                'store_id   = ?' => (int)$storeId,
+                'product_id = ?' => (int) $productId,
+                'store_id   = ?' => (int) $storeId,
             ];
 
             $selectFields = [
                 new Zend_Db_Expr($productId),
-                new Zend_Db_Expr((string)$storeId),
-                $adapter->getCheckSql('t_v.value_id > 0', 't_v.value', 't_v_default.value')
+                new Zend_Db_Expr((string) $storeId),
+                $adapter->getCheckSql('t_v.value_id > 0', 't_v.value', 't_v_default.value'),
             ];
 
             $select->where('t_v_default.entity_id = ?', $productId);
@@ -445,7 +445,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select->joinLeft(
             ['t_v' => $visibilityTable],
             implode(' AND ', $visibilityTableJoinCond),
-            []
+            [],
         );
 
         $defaultStatusJoinCond = [
@@ -457,7 +457,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select->joinInner(
             ['t_s_default' => $statusTable],
             implode(' AND ', $defaultStatusJoinCond),
-            []
+            [],
         );
 
         $statusJoinCond = [
@@ -469,7 +469,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select->joinLeft(
             ['t_s' => $statusTable],
             implode(' AND ', $statusJoinCond),
-            []
+            [],
         );
 
         $valueCondition = $adapter->getCheckSql('t_s.value_id > 0', 't_s.value', 't_s_default.value');
@@ -501,9 +501,9 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 'catalog/category_product',
                 'product_id',
                 'category_id = entity_id',
-                null
+                null,
             )
-            ->addFieldToFilter('product_id', (int)$product->getId());
+            ->addFieldToFilter('product_id', (int) $product->getId());
     }
 
     /**
@@ -518,7 +518,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         // fetching all parent IDs, including those are higher on the tree
         $select = $this->_getReadAdapter()->select()->distinct()
             ->from($this->getTable('catalog/category_product_index'), ['category_id'])
-            ->where('product_id = ? AND is_parent = 1', (int)$object->getEntityId());
+            ->where('product_id = ? AND is_parent = 1', (int) $object->getEntityId());
 
         return $this->_getReadAdapter()->fetchCol($select);
     }
@@ -544,8 +544,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('catalog/category_product_index'), 'product_id')
-            ->where('product_id = ?', (int)$product->getId())
-            ->where('category_id = ?', (int)$categoryId);
+            ->where('product_id = ?', (int) $product->getId())
+            ->where('category_id = ?', (int) $categoryId);
 
         return $this->_getReadAdapter()->fetchOne($select);
     }
@@ -574,7 +574,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     'attribute_id',
                     'store_id',
                     'entity_id' => new Zend_Db_Expr($adapter->quote($newId)),
-                    'value'
+                    'value',
                 ])
                 ->where('entity_id = ?', $oldId)
                 ->where('store_id > ?', 0);
@@ -587,9 +587,9 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     'attribute_id',
                     'store_id',
                     'entity_id',
-                    'value'
+                    'value',
                 ],
-                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE
+                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE,
             ));
         }
 
@@ -603,7 +603,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $adapter->update(
             $statusAttributeTable,
             ['value' => Mage_Catalog_Model_Product_Status::STATUS_DISABLED],
-            $updateCond
+            $updateCond,
         );
 
         return $this;
@@ -675,12 +675,12 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $select    = $read->select()
             ->from(
                 ['images' => $mainTable],
-                ['value as filepath', 'store_id']
+                ['value as filepath', 'store_id'],
             )
             ->joinLeft(
                 ['attr' => $this->getTable('eav/attribute')],
                 'images.attribute_id = attr.attribute_id',
-                ['attribute_code']
+                ['attribute_code'],
             )
             ->where('entity_id = ?', $product->getId())
             ->where('store_id IN (?)', $storeIds)
@@ -700,16 +700,16 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $selectRootCategories = $this->_getReadAdapter()->select()
             ->from(
                 [$this->getTable('catalog/category')],
-                ['entity_id']
+                ['entity_id'],
             )
             ->where('level <= 1');
         $rootIds = $this->_getReadAdapter()->fetchCol($selectRootCategories);
         $select = $this->_getReadAdapter()->select()
             ->from(
                 [$this->getTable('catalog/category_product_index')],
-                ['category_id']
+                ['category_id'],
             )
-            ->where('product_id = ?', (int)$object->getEntityId())
+            ->where('product_id = ?', (int) $object->getEntityId())
             ->where('category_id NOT IN(?)', $rootIds);
 
         return $this->_getReadAdapter()->fetchCol($select);

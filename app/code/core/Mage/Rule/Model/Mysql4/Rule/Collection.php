@@ -21,6 +21,4 @@
  * @package    Mage_Rule
  * @deprecated
  */
-class Mage_Rule_Model_Mysql4_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection
-{
-}
+class Mage_Rule_Model_Mysql4_Rule_Collection extends Mage_Rule_Model_Resource_Rule_Collection {}

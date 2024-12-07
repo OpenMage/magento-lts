@@ -84,7 +84,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
      */
     public function getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        $configValue = (string)$element->getValue();
+        $configValue = (string) $element->getValue();
         if ($configValue) {
             $element->setChecked(true);
         } else {
@@ -97,7 +97,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
         $hidden = new Varien_Data_Form_Element_Hidden([
             'html_id' => $element->getHtmlId() . '_value',
             'name' => $element->getName(),
-            'value' => '0'
+            'value' => '0',
         ]);
         $hidden->setForm($element->getForm());
         return $hidden->getElementHtml() . $element->getElementHtml();
@@ -152,7 +152,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
      */
     public function hasInheritElement(Varien_Data_Form_Element_Abstract $element)
     {
-        return (bool)$element->getCanUseDefaultValue();
+        return (bool) $element->getCanUseDefaultValue();
     }
 
     /**
@@ -168,7 +168,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
             'name' => preg_replace('/\[value\](\[\])?$/', '[inherit]', $element->getName()),
             'value' => '1',
             'class' => 'checkbox config-inherit',
-            'onclick' => 'toggleValueElements(this, $(\'' . $elementId . '\').up())'
+            'onclick' => 'toggleValueElements(this, $(\'' . $elementId . '\').up())',
         ]);
         if ($element->getInherit()) {
             $inheritCheckbox->setChecked(true);
@@ -189,7 +189,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
             '<label for="%s" class="inherit" title="%s">%s</label>',
             $element->getHtmlId() . '_inherit',
             $element->getDefaultValue(),
-            Mage::helper('adminhtml')->__('Use Default')
+            Mage::helper('adminhtml')->__('Use Default'),
         );
     }
 
@@ -203,7 +203,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
         return sprintf(
             '<span id="%s">%s</span>',
             $element->getHtmlId() . '_label_text',
-            $this->escapeHtml($this->getElementLabel($element))
+            $this->escapeHtml($this->getElementLabel($element)),
         );
     }
 

@@ -21,13 +21,13 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('core_email_variable'),
     'is_html',
-    "tinyint(1) NOT NULL DEFAULT '0'"
+    "tinyint(1) NOT NULL DEFAULT '0'",
 );
 $installer->getConnection()->changeColumn(
     $installer->getTable('core_email_variable_value'),
     'value',
     'value',
-    'TEXT NOT NULL'
+    'TEXT NOT NULL',
 );
 
 $installer->endSetup();

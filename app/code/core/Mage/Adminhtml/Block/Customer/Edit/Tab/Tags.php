@@ -50,22 +50,22 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('customer')->__('ID'),
             'align'     => 'center',
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('customer')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
         $this->addColumn('email', [
             'header'    => Mage::helper('customer')->__('Email'),
             'width'     => 40,
             'align'     => 'center',
-            'index'     => 'email'
+            'index'     => 'email',
         ]);
         $this->addColumn('telephone', [
             'header'    => Mage::helper('customer')->__('Telephone'),
             'align'     => 'center',
-            'index'     => 'billing_telephone'
+            'index'     => 'billing_telephone',
         ]);
         $this->addColumn('billing_postcode', [
             'header'    => Mage::helper('customer')->__('ZIP/Post Code'),
@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
             'type'      => 'action',
             'align'     => 'center',
             'format'    => '<a href="' . $this->getUrl('*/sales/edit/id/$entity_id') . '">' . Mage::helper('customer')->__('Edit') . '</a>',
-            'is_system' => true
+            'is_system' => true,
         ]);
 
         $this->setColumnFilter('entity_id')

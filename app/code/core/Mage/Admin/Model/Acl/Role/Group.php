@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Admin
  */
-class Mage_Admin_Model_Acl_Role_Group extends Mage_Admin_Model_Acl_Role_Generic
-{
-}
+class Mage_Admin_Model_Acl_Role_Group extends Mage_Admin_Model_Acl_Role_Generic {}

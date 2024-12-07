@@ -18,6 +18,4 @@
  * @category   Mage
  * @package    Mage_Shipping
  */
-class Mage_Shipping_Block_Tracking_Ajax extends Mage_Core_Block_Template
-{
-}
+class Mage_Shipping_Block_Tracking_Ajax extends Mage_Core_Block_Template {}

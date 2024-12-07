@@ -37,29 +37,29 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
                 'order_address/firstname',
                 'shipping_address_id',
                 null,
-                'left'
+                'left',
             )
             ->joinAttribute(
                 'shipping_middlename',
                 'order_address/middlename',
                 'shipping_address_id',
                 null,
-                'left'
+                'left',
             )
             ->joinAttribute(
                 'shipping_lastname',
                 'order_address/lastname',
                 'shipping_address_id',
                 null,
-                'left'
+                'left',
             )
             ->addAttributeToFilter(
                 'customer_id',
-                Mage::getSingleton('customer/session')->getCustomer()->getId()
+                Mage::getSingleton('customer/session')->getCustomer()->getId(),
             )
             ->addAttributeToFilter(
                 'state',
-                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
+                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()],
             )
             ->addAttributeToSort('created_at', 'desc')
             ->setPageSize(5)

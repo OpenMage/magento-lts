@@ -43,32 +43,32 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         return [
             [
                 'value' => '',
-                'label' => Mage::helper('eav')->__('None')
+                'label' => Mage::helper('eav')->__('None'),
             ],
             [
                 'value' => 'validate-number',
-                'label' => Mage::helper('eav')->__('Decimal Number')
+                'label' => Mage::helper('eav')->__('Decimal Number'),
             ],
             [
                 'value' => 'validate-digits',
-                'label' => Mage::helper('eav')->__('Integer Number')
+                'label' => Mage::helper('eav')->__('Integer Number'),
             ],
             [
                 'value' => 'validate-email',
-                'label' => Mage::helper('eav')->__('Email')
+                'label' => Mage::helper('eav')->__('Email'),
             ],
             [
                 'value' => 'validate-url',
-                'label' => Mage::helper('eav')->__('URL')
+                'label' => Mage::helper('eav')->__('URL'),
             ],
             [
                 'value' => 'validate-alpha',
-                'label' => Mage::helper('eav')->__('Letters')
+                'label' => Mage::helper('eav')->__('Letters'),
             ],
             [
                 'value' => 'validate-alphanum',
-                'label' => Mage::helper('eav')->__('Letters (a-z, A-Z) or Numbers (0-9)')
-            ]
+                'label' => Mage::helper('eav')->__('Letters (a-z, A-Z) or Numbers (0-9)'),
+            ],
         ];
     }
 
@@ -84,7 +84,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         if (isset($this->_entityTypeFrontendClasses[$entityTypeCode])) {
             return array_merge(
                 $_defaultClasses,
-                $this->_entityTypeFrontendClasses[$entityTypeCode]
+                $this->_entityTypeFrontendClasses[$entityTypeCode],
             );
         }
         $_entityTypeClasses = Mage::app()->getConfig()
@@ -92,13 +92,13 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         if ($_entityTypeClasses) {
             foreach ($_entityTypeClasses->children() as $item) {
                 $this->_entityTypeFrontendClasses[$entityTypeCode][] = [
-                    'value' => (string)$item->value,
-                    'label' => (string)$item->label
+                    'value' => (string) $item->value,
+                    'label' => (string) $item->label,
                 ];
             }
             return array_merge(
                 $_defaultClasses,
-                $this->_entityTypeFrontendClasses[$entityTypeCode]
+                $this->_entityTypeFrontendClasses[$entityTypeCode],
             );
         }
         return $_defaultClasses;
@@ -121,7 +121,7 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
         $_data = Mage::app()->getConfig()->getNode('global/eav_attributes/' . $entityTypeCode);
         if ($_data) {
             foreach ($_data->children() as $attribute) {
-                $this->_attributesLockedFields[$entityTypeCode][(string)$attribute->code] =
+                $this->_attributesLockedFields[$entityTypeCode][(string) $attribute->code] =
                     array_keys($attribute->locked_fields->asArray());
             }
             return $this->_attributesLockedFields[$entityTypeCode];

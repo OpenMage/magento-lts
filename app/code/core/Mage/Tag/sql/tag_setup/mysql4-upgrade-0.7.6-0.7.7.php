@@ -22,5 +22,5 @@ $installer->getConnection()
         $this->getTable('tag/relation'),
         'UNQ_TAG_CUSTOMER_PRODUCT_STORE',
         ['tag_id', 'customer_id', 'product_id', 'store_id'],
-        'unique'
+        'unique',
     );

@@ -268,7 +268,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         return array_merge(
             parent::getCacheTags(),
             (!$quoteTags) ? [] : $quoteTags,
-            $this->getItemsTags($items)
+            $this->getItemsTags($items),
         );
     }
 
@@ -288,7 +288,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             [
                 'block' => $this,
                 'transport' => $transport,
-            ]
+            ],
         );
         return $transport->getHtml();
     }

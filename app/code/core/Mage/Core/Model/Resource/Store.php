@@ -36,7 +36,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $this->_uniqueFields = [[
             'field' => 'code',
-            'title' => Mage::helper('core')->__('Store with the same code')
+            'title' => Mage::helper('core')->__('Store with the same code'),
         ]];
         return $this;
     }
@@ -51,7 +51,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         if (!preg_match('/^[a-z]+[a-z0-9_\-]*$/', $model->getCode())) {
             Mage::throwException(
-                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9), underscore(_) or dash(-), the first character must be a letter')
+                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9), underscore(_) or dash(-), the first character must be a letter'),
             );
         }
 
@@ -83,12 +83,12 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $where = [
             'scope = ?'    => 'stores',
-            'scope_id = ?' => $model->getStoreId()
+            'scope_id = ?' => $model->getStoreId(),
         ];
 
         $this->_getWriteAdapter()->delete(
             $this->getTable('core/config_data'),
-            $where
+            $where,
         );
         return $this;
     }
@@ -104,15 +104,15 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $adapter    = $this->_getWriteAdapter();
 
-        $bindValues = ['group_id' => (int)$groupId];
+        $bindValues = ['group_id' => (int) $groupId];
         $select = $adapter->select()
             ->from($this->getMainTable(), ['count' => 'COUNT(*)'])
             ->where('group_id = :group_id');
         $count  = $adapter->fetchOne($select, $bindValues);
 
         if ($count == 1) {
-            $bind  = ['default_store_id' => (int)$storeId];
-            $where = ['group_id = ?' => (int)$groupId];
+            $bind  = ['default_store_id' => (int) $storeId];
+            $where = ['group_id = ?' => (int) $groupId];
             $adapter->update($this->getTable('core/store_group'), $bind, $where);
         }
 

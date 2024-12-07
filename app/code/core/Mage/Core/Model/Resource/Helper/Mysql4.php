@@ -42,7 +42,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      */
     public function prepareColumn($column, $groupAliasName = null, $orderBy = null)
     {
-        return new Zend_Db_Expr((string)$column);
+        return new Zend_Db_Expr((string) $column);
     }
 
     /**
@@ -181,7 +181,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         $havings = [];
         $columns = $select->getPart(Zend_Db_Select::COLUMNS);
         foreach ($columns as $columnEntry) {
-            $correlationName = (string)$columnEntry[1];
+            $correlationName = (string) $columnEntry[1];
             $column          = $columnEntry[2];
             foreach ($selectHavings as $having) {
                 /**
@@ -255,7 +255,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
             list($correlationName, $column, $alias) = $columnEntry;
             if ($column instanceof Zend_Db_Expr) {
                 if ($alias !== null) {
-                    if (preg_match('/(^|[^a-zA-Z_])^(SELECT)?(SUM|MIN|MAX|AVG|COUNT)\s*\(/i', (string)$column, $matches)) {
+                    if (preg_match('/(^|[^a-zA-Z_])^(SELECT)?(SUM|MIN|MAX|AVG|COUNT)\s*\(/i', (string) $column, $matches)) {
                         $column = $this->prepareColumn($column, $groupByCondition);
                     }
                     $preparedColumns[strtoupper($alias)] = [null, $column, $alias];

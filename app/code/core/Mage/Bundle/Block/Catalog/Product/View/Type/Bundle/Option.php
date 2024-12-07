@@ -86,7 +86,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
             }
         } elseif (!$this->_showSingle() || $inPreConfigured) {
             $_defaultQty = $this->_getSelectedQty();
-            $_canChangeQty = (bool)$_defaultQty;
+            $_canChangeQty = (bool) $_defaultQty;
         } else {
             $_defaultQty = $selections[0]->getSelectionQty() * 1;
             $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
@@ -148,7 +148,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     protected function _getSelectedQty()
     {
         if ($this->getProduct()->hasPreconfiguredValues()) {
-            $selectedQty = (float)$this->getProduct()->getPreconfiguredValues()
+            $selectedQty = (float) $this->getProduct()->getPreconfiguredValues()
                 ->getData('bundle_option_qty/' . $this->getOption()->getId());
             if ($selectedQty < 0) {
                 $selectedQty = 0;

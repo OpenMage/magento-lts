@@ -57,13 +57,13 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
         $this->addColumn('coupon_code', [
             'header'    => Mage::helper('salesrule')->__('Coupon Code'),
             'sortable'  => false,
-            'index'     => 'coupon_code'
+            'index'     => 'coupon_code',
         ]);
 
         $this->addColumn('rule_name', [
             'header'    => Mage::helper('salesrule')->__('Shopping Cart Price Rule'),
             'sortable'  => false,
-            'index'     => 'rule_name'
+            'index'     => 'rule_name',
         ]);
 
         $this->addColumn('coupon_uses', [
@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
             'sortable'  => false,
             'index'     => 'coupon_uses',
             'total'     => 'sum',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {

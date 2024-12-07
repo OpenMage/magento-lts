@@ -60,7 +60,7 @@ class CatalogTest extends TestCase
     {
         $assert = [
             'available' => [
-                'any_path'  => '/*/*.xml'
+                'any_path'  => '/*/*.xml',
             ],
             'protected' => [
                 'app'       => '/app/*/*',

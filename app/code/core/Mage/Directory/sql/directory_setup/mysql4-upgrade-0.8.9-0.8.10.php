@@ -37,7 +37,7 @@ $regionsToIns = [
     ['RO', 'OT', 'Olt'], ['RO', 'PH', 'Prahova'], ['RO', 'SM', 'Satu-Mare'],
     ['RO', 'SJ', 'Sălaj'], ['RO', 'SB', 'Sibiu'], ['RO', 'SV', 'Suceava'],
     ['RO', 'TR', 'Teleorman'], ['RO', 'TM', 'Timiş'], ['RO', 'TL', 'Tulcea'],
-    ['RO', 'VS', 'Vaslui'], ['RO', 'VL', 'Vâlcea'], ['RO', 'VN', 'Vrancea']
+    ['RO', 'VS', 'Vaslui'], ['RO', 'VL', 'Vâlcea'], ['RO', 'VN', 'Vrancea'],
 ];
 
 foreach ($regionsToIns as $row) {
@@ -47,7 +47,7 @@ foreach ($regionsToIns as $row) {
         $connection->insert($regNameTable, [
             'locale'    => 'en_US',
             'region_id' => $regionId,
-            'name'      => $row[2]
+            'name'      => $row[2],
         ]);
     }
 }

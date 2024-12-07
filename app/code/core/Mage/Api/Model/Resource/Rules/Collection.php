@@ -39,7 +39,7 @@ class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_
      */
     public function getByRoles($id)
     {
-        $this->getSelect()->where('role_id = ?', (int)$id);
+        $this->getSelect()->where('role_id = ?', (int) $id);
         return $this;
     }
 

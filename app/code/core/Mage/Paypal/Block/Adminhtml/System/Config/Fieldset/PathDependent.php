@@ -31,7 +31,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_PathDependent extends M
     public function hasActivePathDependencies($groupConfig)
     {
         $activityPath = $groupConfig['hide_case_path'] ?? '';
-        return !empty($activityPath) && (bool)(string)$this->_getConfigDataModel()->getConfigDataValue($activityPath);
+        return !empty($activityPath) && (bool) (string) $this->_getConfigDataModel()->getConfigDataValue($activityPath);
     }
 
     /**

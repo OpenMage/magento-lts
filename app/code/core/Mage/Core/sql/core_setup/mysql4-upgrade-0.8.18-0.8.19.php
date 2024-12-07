@@ -31,14 +31,14 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('core/variable_value'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 $installer->getConnection()->addConstraint(
     'FK_CORE_VARIABLE_VALUE_VARIABLE_ID',
     $installer->getTable('core/variable_value'),
     'variable_id',
     $installer->getTable('core/variable'),
-    'variable_id'
+    'variable_id',
 );
 
 $installer->endSetup();

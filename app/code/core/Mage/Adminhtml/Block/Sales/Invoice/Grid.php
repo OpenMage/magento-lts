@@ -114,11 +114,11 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
                     [
                         'caption' => Mage::helper('sales')->__('View'),
                         'url'     => ['base' => '*/sales_invoice/view'],
-                        'field'   => 'invoice_id'
-                    ]
+                        'field'   => 'invoice_id',
+                    ],
                 ],
-                'is_system' => true
-            ]
+                'is_system' => true,
+            ],
         );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
@@ -137,8 +137,8 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         $this->getMassactionBlock()->setUseSelectAll(false);
 
         $this->getMassactionBlock()->addItem(MassAction::PDF_INVOICE_ORDER, [
-             'label' => Mage::helper('sales')->__('PDF Invoices'),
-             'url'  => $this->getUrl('*/sales_invoice/pdfinvoices'),
+            'label' => Mage::helper('sales')->__('PDF Invoices'),
+            'url'  => $this->getUrl('*/sales_invoice/pdfinvoices'),
         ]);
 
         return $this;
@@ -158,7 +158,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             '*/sales_invoice/view',
             [
                 'invoice_id' => $row->getId(),
-            ]
+            ],
         );
     }
 

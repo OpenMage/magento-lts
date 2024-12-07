@@ -33,7 +33,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_Search_Type
         foreach ($types as $k => $v) {
             $options[] = [
                 'value' => $k,
-                'label' => $v
+                'label' => $v,
             ];
         }
         return $options;

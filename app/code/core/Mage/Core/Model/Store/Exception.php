@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Model_Store_Exception extends Mage_Core_Exception
-{
-}
+class Mage_Core_Model_Store_Exception extends Mage_Core_Exception {}

@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Customer
  */
-class Mage_Customer_Model_Entity_Group extends Mage_Customer_Model_Resource_Group
-{
-}
+class Mage_Customer_Model_Entity_Group extends Mage_Customer_Model_Resource_Group {}

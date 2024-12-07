@@ -28,7 +28,7 @@ $connection->addConstraint(
     $installer->getTable('core/website'),
     'website_id',
     'cascade',
-    'cascade'
+    'cascade',
 );
 
 $installer->endSetup();

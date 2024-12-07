@@ -18,6 +18,4 @@
  * @category   Mage
  * @package    Mage_Shipping
  */
-class Mage_Shipping_Exception extends Zend_Exception
-{
-}
+class Mage_Shipping_Exception extends Zend_Exception {}

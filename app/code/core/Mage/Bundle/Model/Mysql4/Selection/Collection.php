@@ -21,6 +21,4 @@
  * @package    Mage_Bundle
  * @deprecated
  */
-class Mage_Bundle_Model_Mysql4_Selection_Collection extends Mage_Bundle_Model_Resource_Selection_Collection
-{
-}
+class Mage_Bundle_Model_Mysql4_Selection_Collection extends Mage_Bundle_Model_Resource_Selection_Collection {}

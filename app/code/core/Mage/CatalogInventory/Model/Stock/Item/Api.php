@@ -58,7 +58,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
                     'product_id'    => $product->getId(),
                     'sku'           => $product->getSku(),
                     'qty'           => $product->getStockItem()->getQty(),
-                    'is_in_stock'   => $product->getStockItem()->getIsInStock()
+                    'is_in_stock'   => $product->getStockItem()->getIsInStock(),
                 ];
             }
         }

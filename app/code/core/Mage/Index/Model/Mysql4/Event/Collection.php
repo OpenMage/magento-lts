@@ -19,6 +19,4 @@
  * @package    Mage_Index
  * @deprecated
  */
-class Mage_Index_Model_Mysql4_Event_Collection extends Mage_Index_Model_Resource_Event_Collection
-{
-}
+class Mage_Index_Model_Mysql4_Event_Collection extends Mage_Index_Model_Resource_Event_Collection {}

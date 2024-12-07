@@ -89,7 +89,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
             /** @var Mage_Catalog_Model_Product $currentProduct */
             $currentProduct = Mage::registry('current_product');
             if (!is_null($currentProduct)) {
-                $price = (float)$currentProduct->getFinalPrice();
+                $price = (float) $currentProduct->getFinalPrice();
                 $typeInstance = $currentProduct->getTypeInstance();
                 if (empty($price) && !$currentProduct->isSuper() && !$typeInstance->canConfigure($currentProduct)) {
                     $this->_shouldRender = false;
@@ -137,8 +137,8 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
             $this->setConfirmationUrl(
                 $this->getUrl(
                     $this->_startAction,
-                    [Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT => 1]
-                )
+                    [Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT => 1],
+                ),
             );
             $this->setConfirmationMessage(Mage::helper('paypal')->__('Would you like to sign a billing agreement to streamline further purchases with PayPal?'));
         }

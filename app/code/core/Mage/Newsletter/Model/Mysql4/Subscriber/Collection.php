@@ -21,6 +21,4 @@
  * @package    Mage_Newsletter
  * @deprecated
  */
-class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Newsletter_Model_Resource_Subscriber_Collection
-{
-}
+class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Newsletter_Model_Resource_Subscriber_Collection {}

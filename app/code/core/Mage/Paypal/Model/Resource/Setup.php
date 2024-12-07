@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Paypal
  */
-class Mage_Paypal_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
-{
-}
+class Mage_Paypal_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup {}

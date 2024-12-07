@@ -170,7 +170,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                             $this->getProductCollection(),
                             $attribute,
                             $value,
-                            $rate
+                            $rate,
                         )
                     ) {
                         $hasConditions = true;
@@ -183,7 +183,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         ->addIndexableAttributeModifiedFilter(
                             $this->getProductCollection(),
                             $attribute,
-                            $value
+                            $value,
                         )
                     ) {
                         $hasConditions = true;
@@ -242,7 +242,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         $value = sprintf(
                             '%s - %s',
                             ($currencyModel ? $from : $value['from']),
-                            ($currencyModel ? $to : $value['to'])
+                            ($currencyModel ? $to : $value['to']),
                         );
                     } elseif (strlen($value['from']) > 0) {
                         // and more
@@ -327,7 +327,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             ->addTaxPercents()
             ->addStoreFilter()
             ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
             ]);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
 

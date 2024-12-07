@@ -135,7 +135,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             'hidden',
             [
                 'name' =>  $this->_getFieldName('type'),
-            ]
+            ],
         );
 
         $form->setHtmlIdPrefix($this->_getFieldIdPrefix());
@@ -179,23 +179,23 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             'sender',
             'hidden',
             [
-                'name' => $this->_getFieldName('sender')
-            ]
+                'name' => $this->_getFieldName('sender'),
+            ],
         );
         $fieldset->addField(
             'recipient',
             'hidden',
             [
-                'name' => $this->_getFieldName('recipient')
-            ]
+                'name' => $this->_getFieldName('recipient'),
+            ],
         );
 
         $fieldset->addField(
             'message',
             'hidden',
             [
-                'name' => $this->_getFieldName('message')
-            ]
+                'name' => $this->_getFieldName('message'),
+            ],
         );
         return $this;
     }
@@ -215,8 +215,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             [
                 'name'     => $this->_getFieldName('sender'),
                 'label'    => Mage::helper('sales')->__('From'),
-                'required' => $this->getMessage()->getMessage() ? true : false
-            ]
+                'required' => $this->getMessage()->getMessage() ? true : false,
+            ],
         );
         $fieldset->addField(
             'recipient',
@@ -224,8 +224,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             [
                 'name'     => $this->_getFieldName('recipient'),
                 'label'    => Mage::helper('sales')->__('To'),
-                'required' => $this->getMessage()->getMessage() ? true : false
-            ]
+                'required' => $this->getMessage()->getMessage() ? true : false,
+            ],
         );
 
         $fieldset->addField(
@@ -236,7 +236,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
                 'label'     => Mage::helper('sales')->__('Message'),
                 'rows'      => '5',
                 'cols'      => '20',
-            ]
+            ],
         );
         return $this;
     }

@@ -25,7 +25,7 @@ $installer->run("
 $installer->addAttribute('catalog_product', 'has_options', [
     'type' => 'static',
     'visible' => false,
-    'default' => false
+    'default' => false,
 ]);
 $installer->run("
     UPDATE `{$installer->getTable('catalog/product')}` SET `has_options` = '1'

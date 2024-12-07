@@ -69,12 +69,12 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     {
         $this->addColumn('subscriber_id', [
             'header'    => Mage::helper('newsletter')->__('ID'),
-            'index'     => 'subscriber_id'
+            'index'     => 'subscriber_id',
         ]);
 
         $this->addColumn('email', [
             'header'    => Mage::helper('newsletter')->__('Email'),
-            'index'     => 'subscriber_email'
+            'index'     => 'subscriber_email',
         ]);
 
         $this->addColumn('type', [
@@ -83,26 +83,26 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
             'type'      => 'options',
             'options'   => [
                 1  => Mage::helper('newsletter')->__('Guest'),
-                2  => Mage::helper('newsletter')->__('Customer')
-            ]
+                2  => Mage::helper('newsletter')->__('Customer'),
+            ],
         ]);
 
         $this->addColumn('firstname', [
             'header'    => Mage::helper('newsletter')->__('Customer First Name'),
             'index'     => 'customer_firstname',
-            'default'   =>    '----'
+            'default'   =>    '----',
         ]);
 
         $this->addColumn('middlename', [
             'header'    => Mage::helper('newsletter')->__('Customer Middle Name'),
             'index'     => 'customer_middlename',
-            'default'   =>    '----'
+            'default'   =>    '----',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('newsletter')->__('Customer Last Name'),
             'index'     => 'customer_lastname',
-            'default'   =>    '----'
+            'default'   =>    '----',
         ]);
 
         $this->addColumn('status', [
@@ -114,28 +114,28 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
                 Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED   => Mage::helper('newsletter')->__('Subscribed'),
                 Mage_Newsletter_Model_Subscriber::STATUS_UNSUBSCRIBED => Mage::helper('newsletter')->__('Unsubscribed'),
                 Mage_Newsletter_Model_Subscriber::STATUS_UNCONFIRMED => Mage::helper('newsletter')->__('Unconfirmed'),
-            ]
+            ],
         ]);
 
         $this->addColumn('website', [
             'header'    => Mage::helper('newsletter')->__('Website'),
             'index'     => 'website_id',
             'type'      => 'options',
-            'options'   => $this->_getWebsiteOptions()
+            'options'   => $this->_getWebsiteOptions(),
         ]);
 
         $this->addColumn('group', [
             'header'    => Mage::helper('newsletter')->__('Store'),
             'index'     => 'group_id',
             'type'      => 'options',
-            'options'   => $this->_getStoreGroupOptions()
+            'options'   => $this->_getStoreGroupOptions(),
         ]);
 
         $this->addColumn('store', [
             'header'    => Mage::helper('newsletter')->__('Store View'),
             'index'     => 'store_id',
             'type'      => 'options',
-            'options'   => $this->_getStoreOptions()
+            'options'   => $this->_getStoreOptions(),
         ]);
 
         $this->addExportType('*/*/exportCsv', Mage::helper('customer')->__('CSV'));
@@ -198,13 +198,13 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         $this->getMassactionBlock()->setUseSelectAll(false);
 
         $this->getMassactionBlock()->addItem(MassAction::UNSUBSCRIBE, [
-             'label'        => Mage::helper('newsletter')->__('Unsubscribe'),
-             'url'          => $this->getUrl('*/*/massUnsubscribe')
+            'label'        => Mage::helper('newsletter')->__('Unsubscribe'),
+            'url'          => $this->getUrl('*/*/massUnsubscribe'),
         ]);
 
         $this->getMassactionBlock()->addItem(MassAction::DELETE, [
-             'label'        => Mage::helper('newsletter')->__('Delete'),
-             'url'          => $this->getUrl('*/*/massDelete')
+            'label'        => Mage::helper('newsletter')->__('Delete'),
+            'url'          => $this->getUrl('*/*/massDelete'),
         ]);
 
         return $this;

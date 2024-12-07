@@ -80,55 +80,55 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
         $this->addColumn('agreement_id', [
             'header'            => Mage::helper('sales')->__('ID'),
             'index'             => 'agreement_id',
-            'type'              => 'text'
+            'type'              => 'text',
         ]);
 
         $this->addColumn('customer_email', [
             'header'            => Mage::helper('sales')->__('Customer Email'),
             'index'             => 'customer_email',
             'type'              => 'text',
-            'escape'            => true
+            'escape'            => true,
         ]);
 
         $this->addColumn('customer_firstname', [
             'header'            => Mage::helper('sales')->__('Customer Name'),
             'index'             => 'customer_firstname',
             'type'              => 'text',
-            'escape'            => true
+            'escape'            => true,
         ]);
 
         $this->addColumn('customer_middlename', [
             'header'            => Mage::helper('sales')->__('Customer Middle Name'),
             'index'             => 'customer_middlename',
             'type'              => 'text',
-            'escape'            => true
+            'escape'            => true,
         ]);
 
         $this->addColumn('customer_lastname', [
             'header'            => Mage::helper('sales')->__('Customer Last Name'),
             'index'             => 'customer_lastname',
             'type'              => 'text',
-            'escape'            => true
+            'escape'            => true,
         ]);
 
         $this->addColumn('method_code', [
             'header'            => Mage::helper('sales')->__('Payment Method'),
             'index'             => 'method_code',
             'type'              => 'options',
-            'options'           => Mage::helper('payment')->getAllBillingAgreementMethods()
+            'options'           => Mage::helper('payment')->getAllBillingAgreementMethods(),
         ]);
 
         $this->addColumn('reference_id', [
             'header'            => Mage::helper('sales')->__('Reference ID'),
             'index'             => 'reference_id',
-            'type'              => 'text'
+            'type'              => 'text',
         ]);
 
         $this->addColumn('status', [
             'header'            => Mage::helper('sales')->__('Status'),
             'index'             => 'status',
             'type'              => 'options',
-            'options'           => Mage::getSingleton('sales/billing_agreement')->getStatusesArray()
+            'options'           => Mage::getSingleton('sales/billing_agreement')->getStatusesArray(),
         ]);
 
         $this->addColumn('created_at', [
@@ -137,7 +137,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
             'type'              => 'datetime',
             'align'             => 'center',
             'default'           => $this->__('N/A'),
-            'html_decorators'   => ['nobr']
+            'html_decorators'   => ['nobr'],
         ]);
 
         $this->addColumn('updated_at', [
@@ -146,7 +146,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_Grid extends Mage_Adminhtml_B
             'type'              => 'datetime',
             'align'             => 'center',
             'default'           => $this->__('N/A'),
-            'html_decorators'   => ['nobr']
+            'html_decorators'   => ['nobr'],
         ]);
 
         return parent::_prepareColumns();

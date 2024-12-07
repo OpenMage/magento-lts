@@ -37,7 +37,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     {
         $this->getSelect()->joinLeft(
             ['tax_class_group' => $this->getTable('tax/tax_class_group')],
-            'tax_class_group.class_group_id = main_table.customer_group_id'
+            'tax_class_group.class_group_id = main_table.customer_group_id',
         );
         $this->addFieldToFilter('tax_class_group.class_parent_id', $classId);
         return $this;
@@ -76,7 +76,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     {
         $this->getSelect()->joinLeft(
             ['tax_class_table' => $this->getTable('tax/tax_class')],
-            'main_table.tax_class_id = tax_class_table.class_id'
+            'main_table.tax_class_id = tax_class_table.class_id',
         );
         return $this;
     }

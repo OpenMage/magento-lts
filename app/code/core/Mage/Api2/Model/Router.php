@@ -76,7 +76,7 @@ class Mage_Api2_Model_Router
         if (!$request->getResourceType() || !$request->getModel()) {
             throw new Mage_Api2_Exception(
                 'Matched resource is not properly set.',
-                Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR
+                Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
             );
         }
         return $request;

@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
         $this->addColumn('class_name', [
             'header' => Mage::helper('customer')->__('Tax Class'),
             'index' => 'class_name',
-            'width' => '200px'
+            'width' => '200px',
         ]);
 
         return parent::_prepareColumns();

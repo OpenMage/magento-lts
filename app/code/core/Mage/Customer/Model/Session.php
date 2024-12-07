@@ -201,7 +201,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function isLoggedIn()
     {
-        return (bool)$this->getId() && (bool)$this->checkCustomerId($this->getId());
+        return (bool) $this->getId() && (bool) $this->checkCustomerId($this->getId());
     }
 
     /**
@@ -302,7 +302,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         } else {
             $action->setRedirectWithCookieCheck(
                 Mage_Customer_Helper_Data::ROUTE_ACCOUNT_LOGIN,
-                Mage::helper('customer')->getLoginUrlParams()
+                Mage::helper('customer')->getLoginUrlParams(),
             );
         }
 

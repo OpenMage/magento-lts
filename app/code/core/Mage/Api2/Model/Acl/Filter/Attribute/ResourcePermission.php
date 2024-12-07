@@ -67,7 +67,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     if ($rule->getAllowedAttributes() !== null) {
                         $allowedAttributes[$rule->getResourceId()][$rule->getOperation()] = explode(
                             ',',
-                            $rule->getAllowedAttributes()
+                            $rule->getAllowedAttributes(),
                         );
                     }
                 }
@@ -112,7 +112,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                                 }
                                 $availableAttributes = $resourceModel->getAvailableAttributes(
                                     $this->_userType,
-                                    $operation
+                                    $operation,
                                 );
                                 asort($availableAttributes);
                                 foreach ($availableAttributes as $attribute => $attributeLabel) {
@@ -123,7 +123,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
 
                                     $rulesPairs[$resource]['operations'][$operation]['attributes'][$attribute] = [
                                         'status'    => $status,
-                                        'title'     => $attributeLabel
+                                        'title'     => $attributeLabel,
                                     ];
                                 }
                             }

@@ -89,7 +89,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
         $this->_updateRoleUsersAcl($role);
         Mage::app()->getCache()->clean(
             Zend_Cache::CLEANING_MODE_MATCHING_TAG,
-            [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS]
+            [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS],
         );
         return $this;
     }
@@ -137,7 +137,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
             $rowsCount = $this->_getWriteAdapter()->update(
                 $this->_usersTable,
                 ['reload_acl_flag' => 1],
-                ['user_id IN (?)' => $users]
+                ['user_id IN (?)' => $users],
             );
         }
 

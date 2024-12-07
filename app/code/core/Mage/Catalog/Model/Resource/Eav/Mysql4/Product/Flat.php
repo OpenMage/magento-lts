@@ -21,6 +21,4 @@
  * @package    Mage_Catalog
  * @deprecated
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat extends Mage_Catalog_Model_Resource_Product_Flat
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat extends Mage_Catalog_Model_Resource_Product_Flat {}

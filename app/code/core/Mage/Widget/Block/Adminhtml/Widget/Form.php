@@ -30,7 +30,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
         $form = new Varien_Data_Form();
 
         $fieldset = $form->addFieldset('base_fieldset', [
-            'legend'    => $this->helper('widget')->__('Widget')
+            'legend'    => $this->helper('widget')->__('Widget'),
         ]);
 
         $select = $fieldset->addField('select_widget_type', 'select', [

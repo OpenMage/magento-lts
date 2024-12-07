@@ -54,11 +54,11 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create extends Mage_Adminhtml_Blo
         return ($this->getInvoice()->getOrder()->getForcedDoShipmentWithInvoice())
             ? Mage::helper('sales')->__(
                 'New Invoice and Shipment for Order #%s',
-                $this->escapeHtml($this->getInvoice()->getOrder()->getRealOrderId())
+                $this->escapeHtml($this->getInvoice()->getOrder()->getRealOrderId()),
             )
             : Mage::helper('sales')->__(
                 'New Invoice for Order #%s',
-                $this->escapeHtml($this->getInvoice()->getOrder()->getRealOrderId())
+                $this->escapeHtml($this->getInvoice()->getOrder()->getRealOrderId()),
             );
     }
 

@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'skipAllStoresLabel'    => true,
                 'index'                 => 'stores',
                 'sortable'              => false,
-                'store_view'            => true
+                'store_view'            => true,
             ]);
         }
 
@@ -121,8 +121,8 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->getMassactionBlock()->setFormFieldName('tag');
 
         $this->getMassactionBlock()->addItem(MassAction::DELETE, [
-             'label'    => Mage::helper('tag')->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDelete')
+            'label'    => Mage::helper('tag')->__('Delete'),
+            'url'      => $this->getUrl('*/*/massDelete'),
         ]);
 
         /** @var Mage_Tag_Helper_Data $helper */
@@ -140,9 +140,9 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     'type'     => 'select',
                     'class'    => 'required-entry',
                     'label'    => Mage::helper('tag')->__('Status'),
-                    'values'   => $statuses
-                ]
-            ]
+                    'values'   => $statuses,
+                ],
+            ],
         ]);
 
         return $this;

@@ -27,7 +27,7 @@ class Mage_Sales_Model_Entity_Order_Invoice extends Mage_Eav_Model_Entity_Abstra
         $resource = Mage::getSingleton('core/resource');
         $this->setType('invoice')->setConnection(
             $resource->getConnection('sales_read'),
-            $resource->getConnection('sales_write')
+            $resource->getConnection('sales_write'),
         );
     }
 }

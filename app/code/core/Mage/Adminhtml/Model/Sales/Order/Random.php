@@ -78,7 +78,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 ->addAttributeToSelect('sku')
                 ->addAttributeToFilter('type_id', Mage_Catalog_Model_Product_Type::TYPE_SIMPLE)
                 ->addAttributeToFilter('status', [
-                    'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
+                    'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
                 ])
                 ->load();
         }

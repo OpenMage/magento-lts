@@ -77,8 +77,8 @@ class Mage_Catalog_Model_Mysql4_Convert
         $write = $this->getConnection();
         $table = $this->getTable('catalog/product_store');
         try {
-            if (!$write->fetchOne("select * from $table where product_id=" . (int)$productId . ' and store_id=' . (int)$storeId)) {
-                $write->query("insert into $table (product_id, store_id) values (" . (int)$productId . ',' . (int)$storeId . ')');
+            if (!$write->fetchOne("select * from $table where product_id=" . (int) $productId . ' and store_id=' . (int) $storeId)) {
+                $write->query("insert into $table (product_id, store_id) values (" . (int) $productId . ',' . (int) $storeId . ')');
             }
         } catch (Exception $e) {
             throw $e;
@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             $select->joinLeft(
                 [$storeName => $this->getTable('eav/attribute_option_value')],
                 "$storeName.option_id=ao.option_id and $storeName.store_id=" . $storeConfig->descend('system/store/id'),
-                [$storeName => "$storeName.value"]
+                [$storeName => "$storeName.value"],
             );
         }
 

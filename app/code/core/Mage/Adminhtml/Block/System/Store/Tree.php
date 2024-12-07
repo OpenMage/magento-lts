@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
             $data[$websiteId] = [
                 'object' => $website,
                 'storeGroups' => [],
-                'count' => 0
+                'count' => 0,
             ];
             $defaultGroupId = $website->getDefaultGroupId();
             foreach ($groupCollection as $storeGroup) {
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
                 $data[$websiteId]['storeGroups'][$storeGroup->getId()] = [
                     'object' => $storeGroup,
                     'stores' => [],
-                    'count' => $storeGroupCount
+                    'count' => $storeGroupCount,
                 ];
                 $data[$websiteId]['count'] += $storeGroupCount;
                 if ($storeGroup->getId() == $defaultGroupId) {
@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
                 foreach ($storeCollection as $store) {
                     /** @var Mage_Core_Model_Store $store */
                     $data[$websiteId]['storeGroups'][$storeGroup->getId()]['stores'][$store->getId()] = [
-                        'object' => $store
+                        'object' => $store,
                     ];
                     if ($store->getId() == $defaultStoreId) {
                         $store->setData('is_default', true);

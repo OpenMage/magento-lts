@@ -81,28 +81,28 @@ class SwitchTest extends TestCase
      * @group Mage_Page
      * @group Mage_Page_Block
      */
-//    public function testGetRawStores(): void
-//    {
-//        $this->assertIsArray($this->subject->getRawStores());
-//    }
+    //    public function testGetRawStores(): void
+    //    {
+    //        $this->assertIsArray($this->subject->getRawStores());
+    //    }
 
     /**
      * @group Mage_Page
      * @group Mage_Page_Block
      */
-//    public function testGetGroups(): void
-//    {
-//        $this->assertIsArray($this->subject->getGroups());
-//    }
+    //    public function testGetGroups(): void
+    //    {
+    //        $this->assertIsArray($this->subject->getGroups());
+    //    }
 
     /**
      * @group Mage_Page
      * @group Mage_Page_Block
      */
-//    public function testGetStores(): void
-//    {
-//        $this->assertIsArray($this->subject->getStores());
-//    }
+    //    public function testGetStores(): void
+    //    {
+    //        $this->assertIsArray($this->subject->getStores());
+    //    }
 
     /**
      * @group Mage_Page

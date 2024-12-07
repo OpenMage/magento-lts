@@ -147,7 +147,7 @@ class Mage_Eav_Model_Config
             $storeId = $this->_storeId();
         } else {
             // ensure store id is consistent
-            $storeId = (int)$storeId;
+            $storeId = (int) $storeId;
         }
         if (isset($this->_storeInitialized[$storeId]) && $this->_storeInitialized[$storeId]) {
             return;
@@ -241,7 +241,7 @@ class Mage_Eav_Model_Config
                 if (!isset($entityAttributeData[$key])) {
                     continue;
                 }
-                $entityAttributeData[$key] = (int)$entityAttributeData[$key];
+                $entityAttributeData[$key] = (int) $entityAttributeData[$key];
             }
 
             $this->_entityTypeAttributes[$storeId][$entityType->getId()][$attributeId] = $entityAttributeData;
@@ -331,7 +331,7 @@ class Mage_Eav_Model_Config
         Mage::app()->saveCache(
             serialize($cacheData),
             self::ENTITIES_CACHE_ID . '_' . $storeId,
-            ['eav', self::ENTITIES_CACHE_ID, Mage_Eav_Model_Entity_Attribute::CACHE_TAG]
+            ['eav', self::ENTITIES_CACHE_ID, Mage_Eav_Model_Entity_Attribute::CACHE_TAG],
         );
     }
 

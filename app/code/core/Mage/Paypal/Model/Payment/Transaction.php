@@ -84,7 +84,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_by_txn_id_before',
-            $this->_getEventData() + ['txn_id' => $txnId]
+            $this->_getEventData() + ['txn_id' => $txnId],
         );
         return $this;
     }
@@ -99,7 +99,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         $this->_beforeLoadByTxnId($txnId);
         $this->getResource()->loadObjectByTxnId(
             $this,
-            $txnId
+            $txnId,
         );
         $this->_afterLoadByTxnId();
         return $this;
@@ -185,7 +185,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if ($setFailsafe === null) {
             return $this->_isFailsafe;
         }
-        $this->_isFailsafe = (bool)$setFailsafe;
+        $this->_isFailsafe = (bool) $setFailsafe;
         return $this;
     }
 

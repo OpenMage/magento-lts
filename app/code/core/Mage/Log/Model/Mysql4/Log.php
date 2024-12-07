@@ -21,6 +21,4 @@
  * @package    Mage_Log
  * @deprecated
  */
-class Mage_Log_Model_Mysql4_Log extends Mage_Log_Model_Resource_Log
-{
-}
+class Mage_Log_Model_Mysql4_Log extends Mage_Log_Model_Resource_Log {}

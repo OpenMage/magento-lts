@@ -32,7 +32,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_
         $form = new Varien_Data_Form([
             'id'     => 'edit_form',
             'action' => $this->getUrl('*/*/getFilter'),
-            'method' => 'post'
+            'method' => 'post',
         ]);
         $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('importexport')->__('Export Settings')]);
         $fieldset->addField('entity', 'select', [
@@ -41,14 +41,14 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_
             'label'    => Mage::helper('importexport')->__('Entity Type'),
             'required' => false,
             'onchange' => 'editForm.getFilter();',
-            'values'   => Mage::getModel('importexport/source_export_entity')->toOptionArray()
+            'values'   => Mage::getModel('importexport/source_export_entity')->toOptionArray(),
         ]);
         $fieldset->addField('file_format', 'select', [
             'name'     => 'file_format',
             'title'    => Mage::helper('importexport')->__('Export File Format'),
             'label'    => Mage::helper('importexport')->__('Export File Format'),
             'required' => false,
-            'values'   => Mage::getModel('importexport/source_export_format')->toOptionArray()
+            'values'   => Mage::getModel('importexport/source_export_format')->toOptionArray(),
         ]);
 
         $form->setUseContainer(true);

@@ -35,7 +35,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
             $validate = array_map('trim', explode(' ', $config->validate));
         }
 
-        if (!(string)$this->getValue() && !in_array('required-entry', $validate)) {
+        if (!(string) $this->getValue() && !in_array('required-entry', $validate)) {
             return $this;
         }
 
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
             $errorMessage = 'Color must be in hexadecimal format without the hash character';
         }
 
-        if (!(bool)preg_match($regex, (string)$this->getValue())) {
+        if (!(bool) preg_match($regex, (string) $this->getValue())) {
             Mage::throwException(Mage::helper('adminhtml')->__($errorMessage));
         }
 

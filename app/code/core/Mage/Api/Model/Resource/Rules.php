@@ -51,7 +51,7 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
                             'api_privileges'    => null,
                             'assert_id'     => 0,
                             'role_id'       => $roleId,
-                            'api_permission'    => $permission
+                            'api_permission'    => $permission,
                         ]);
                     }
                     if ($resName == 'all' && $permission == 'allow') {

@@ -50,7 +50,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     public function deleteByRuleId($ruleId)
     {
         $conn = $this->_getWriteAdapter();
-        $where = $conn->quoteInto('tax_calculation_rule_id = ?', (int)$ruleId);
+        $where = $conn->quoteInto('tax_calculation_rule_id = ?', (int) $ruleId);
         $conn->delete($this->getMainTable(), $where);
 
         return $this;
@@ -67,7 +67,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     {
         $select = $this->_getReadAdapter()->select();
         $select->from($this->getMainTable(), $field)
-            ->where('tax_calculation_rule_id = ?', (int)$ruleId);
+            ->where('tax_calculation_rule_id = ?', (int) $ruleId);
 
         return $this->_getReadAdapter()->fetchCol($select);
     }
@@ -212,7 +212,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             $strlen = $len;
         }
 
-        $strArr = [(string)$postcode, $postcode . '*'];
+        $strArr = [(string) $postcode, $postcode . '*'];
         if ($strlen > 1) {
             for ($i = 1; $i < $strlen; $i++) {
                 $strArr[] = sprintf('%s*', mb_substr($postcode, 0, - $i));
@@ -236,7 +236,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $customerClassId = $request->getCustomerClassId();
         $countryId = $request->getCountryId();
         $regionId = $request->getRegionId();
-        $postcode = trim((string)$request->getPostcode());
+        $postcode = trim((string) $request->getPostcode());
 
         // Process productClassId as it can be array or usual value. Form best key for cache.
         $productClassId = $request->getProductClassId();
@@ -258,26 +258,26 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 ->from(
                     ['main_table' => $this->getMainTable()],
                     ['tax_calculation_rate_id',
-                      'tax_calculation_rule_id',
-                      'customer_tax_class_id',
-                      'product_tax_class_id'
-                    ]
+                        'tax_calculation_rule_id',
+                        'customer_tax_class_id',
+                        'product_tax_class_id',
+                    ],
                 )
-                ->where('customer_tax_class_id = ?', (int)$customerClassId);
+                ->where('customer_tax_class_id = ?', (int) $customerClassId);
             if ($productClassId) {
                 $select->where('product_tax_class_id IN (?)', $productClassId);
             }
             $ifnullTitleValue = $this->_getReadAdapter()->getCheckSql(
                 'title_table.value IS NULL',
                 'rate.code',
-                'title_table.value'
+                'title_table.value',
             );
             $ruleTableAliasName = $this->_getReadAdapter()->quoteIdentifier('rule.tax_calculation_rule_id');
             $select
                 ->join(
                     ['rule' => $this->getTable('tax/tax_calculation_rule')],
                     $ruleTableAliasName . ' = main_table.tax_calculation_rule_id',
-                    ['rule.priority', 'rule.position', 'rule.calculate_subtotal']
+                    ['rule.priority', 'rule.position', 'rule.calculate_subtotal'],
                 )
                 ->join(
                     ['rate' => $this->getTable('tax/tax_calculation_rate')],
@@ -288,17 +288,17 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                         'rate.tax_region_id',
                         'rate.tax_postcode',
                         'rate.tax_calculation_rate_id',
-                        'rate.code'
-                    ]
+                        'rate.code',
+                    ],
                 )
                 ->joinLeft(
                     ['title_table' => $this->getTable('tax/tax_calculation_rate_title')],
                     'rate.tax_calculation_rate_id = title_table.tax_calculation_rate_id '
                     . "AND title_table.store_id = '{$storeId}'",
-                    ['title' => $ifnullTitleValue]
+                    ['title' => $ifnullTitleValue],
                 )
                 ->where('rate.tax_country_id = ?', $countryId)
-                ->where('rate.tax_region_id IN(?)', [0, (int)$regionId]);
+                ->where('rate.tax_region_id IN(?)', [0, (int) $regionId]);
             $postcodeIsNumeric = is_numeric($postcode);
             $postcodeIsRange = false;
             if (preg_match('/^(.+)-(.+)$/', $postcode, $matches)) {
@@ -321,7 +321,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 $select
                     ->where(
                         "rate.tax_postcode IS NULL OR rate.tax_postcode IN('*', '', ?)",
-                        $postcodeIsRange ? $postcode : $this->_createSearchPostCodeTemplates($postcode)
+                        $postcodeIsRange ? $postcode : $this->_createSearchPostCodeTemplates($postcode),
                     );
                 if ($postcodeIsNumeric) {
                     $selectClone
@@ -339,8 +339,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                 $select = $this->_getReadAdapter()->select()->union(
                     [
                         '(' . $select . ')',
-                        '(' . $selectClone . ')'
-                    ]
+                        '(' . $selectClone . ')',
+                    ],
                 );
             }
 
@@ -372,15 +372,15 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $select = $this->_getReadAdapter()->select()
             ->from(['rate' => $this->getTable('tax/tax_calculation_rate')], ['tax_calculation_rate_id'])
             ->where('rate.tax_country_id = ?', $countryId)
-            ->where('rate.tax_region_id IN(?)', [0, (int)$regionId]);
+            ->where('rate.tax_region_id IN(?)', [0, (int) $regionId]);
 
         $expr = $this->_getWriteAdapter()->getCheckSql(
             'zip_is_range is NULL',
             $this->_getWriteAdapter()->quoteInto(
                 "rate.tax_postcode IS NULL OR rate.tax_postcode IN('*', '', ?)",
-                $this->_createSearchPostCodeTemplates($postcode)
+                $this->_createSearchPostCodeTemplates($postcode),
             ),
-            $this->_getWriteAdapter()->quoteInto('? BETWEEN rate.zip_from AND rate.zip_to', $postcode)
+            $this->_getWriteAdapter()->quoteInto('? BETWEEN rate.zip_from AND rate.zip_to', $postcode),
         );
         $select->where($expr);
         $select->order('tax_calculation_rate_id');
@@ -456,14 +456,14 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     public function getRatesByCustomerTaxClass($customerTaxClass, $productTaxClass = null)
     {
         $adapter = $this->_getReadAdapter();
-        $customerTaxClassId = (int)$customerTaxClass;
+        $customerTaxClassId = (int) $customerTaxClass;
         $calcJoinConditions = [
             'calc_table.tax_calculation_rate_id = main_table.tax_calculation_rate_id',
             $adapter->quoteInto('calc_table.customer_tax_class_id = ?', $customerTaxClassId),
 
         ];
         if ($productTaxClass !== null) {
-            $productTaxClassId = (int)$productTaxClass;
+            $productTaxClassId = (int) $productTaxClass;
             $calcJoinConditions[] = $adapter->quoteInto('calc_table.product_tax_class_id = ?', $productTaxClassId);
         }
 
@@ -471,17 +471,17 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $selectCSP
             ->from(
                 ['main_table' => $this->getTable('tax/tax_calculation_rate')],
-                ['country' => 'tax_country_id', 'region_id' => 'tax_region_id', 'postcode' => 'tax_postcode']
+                ['country' => 'tax_country_id', 'region_id' => 'tax_region_id', 'postcode' => 'tax_postcode'],
             )
             ->joinInner(
                 ['calc_table' => $this->getTable('tax/tax_calculation')],
                 implode(' AND ', $calcJoinConditions),
-                ['product_class' => 'calc_table.product_tax_class_id']
+                ['product_class' => 'calc_table.product_tax_class_id'],
             )
             ->joinLeft(
                 ['state_table' => $this->getTable('directory/country_region')],
                 'state_table.region_id = main_table.tax_region_id',
-                ['region_code' => 'state_table.code']
+                ['region_code' => 'state_table.code'],
             )
             ->distinct(true);
 

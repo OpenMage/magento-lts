@@ -62,7 +62,7 @@ class Mage_Core_Model_Resource_Config_Data extends Mage_Core_Model_Resource_Db_A
         $bind   = [
             'scope'     => $object->getScope(),
             'scope_id'  => $object->getScopeId(),
-            'path'      => $object->getPath()
+            'path'      => $object->getPath(),
         ];
 
         $configId = $this->_getReadAdapter()->fetchOne($select, $bind);

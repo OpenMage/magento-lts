@@ -52,7 +52,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
             'description' => $title,
             'link'        => $newurl,
             'charset'     => 'UTF-8',
-            'language'    => $lang
+            'language'    => $lang,
         ];
         $rssObj->_addHeader($data);
 
@@ -70,7 +70,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
             $resourceHelper->getQueryUsingAnalyticFunction($collection->getSelect()),
             [[$this, 'addTaggedItemXml']],
             ['rssObj' => $rssObj, 'product' => $product],
-            $collection->getSelect()->getAdapter()
+            $collection->getSelect()->getAdapter(),
         );
 
         return $rssObj->createRssXml();

@@ -49,10 +49,10 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
                 [
-                     'type' => self::TYPE_LOGIN, 'value' => $login, 'count' => 1,
-                     'updated_at' => Mage::getSingleton('core/date')->gmtDate()
+                    'type' => self::TYPE_LOGIN, 'value' => $login, 'count' => 1,
+                    'updated_at' => Mage::getSingleton('core/date')->gmtDate(),
                 ],
-                ['count' => new Zend_Db_Expr('count+1'), 'updated_at']
+                ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
             );
         }
         $ip = Mage::helper('core/http')->getRemoteAddr();
@@ -60,10 +60,10 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
                 [
-                     'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $ip, 'count' => 1,
-                     'updated_at' => Mage::getSingleton('core/date')->gmtDate()
+                    'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $ip, 'count' => 1,
+                    'updated_at' => Mage::getSingleton('core/date')->gmtDate(),
                 ],
-                ['count' => new Zend_Db_Expr('count+1'), 'updated_at']
+                ['count' => new Zend_Db_Expr('count+1'), 'updated_at'],
             );
         }
         return $this;
@@ -80,14 +80,14 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
         if ($login != null) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                ['type = ?' => self::TYPE_LOGIN, 'value = ?' => $login]
+                ['type = ?' => self::TYPE_LOGIN, 'value = ?' => $login],
             );
         }
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                ['type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip]
+                ['type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip],
             );
         }
 
@@ -135,7 +135,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     {
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60 * 30)]
+            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60 * 30)],
         );
     }
 }

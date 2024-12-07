@@ -79,7 +79,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     protected $_messageVariables = [
         'min'  => '_min',
         'max'  => '_max',
-        'name' => '_name'
+        'name' => '_name',
     ];
 
     /**

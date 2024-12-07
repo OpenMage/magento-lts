@@ -128,7 +128,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      */
     public function setRangeDelimiter($value)
     {
-        $this->_rangeDelimiter = (string)$value;
+        $this->_rangeDelimiter = (string) $value;
         return $this;
     }
 }

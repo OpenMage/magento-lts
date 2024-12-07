@@ -60,16 +60,16 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_View_Type_Configurable_Swa
 
             $dimHelper = Mage::helper('configurableswatches/swatchdimensions');
             $this->setSwatchInnerWidth(
-                $dimHelper->getInnerWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_DETAIL)
+                $dimHelper->getInnerWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_DETAIL),
             );
             $this->setSwatchInnerHeight(
-                $dimHelper->getInnerHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_DETAIL)
+                $dimHelper->getInnerHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_DETAIL),
             );
             $this->setSwatchOuterWidth(
-                $dimHelper->getOuterWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_DETAIL)
+                $dimHelper->getOuterWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_DETAIL),
             );
             $this->setSwatchOuterHeight(
-                $dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_DETAIL)
+                $dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_DETAIL),
             );
 
             $this->_initDone = true;

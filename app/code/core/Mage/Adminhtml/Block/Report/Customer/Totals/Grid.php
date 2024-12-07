@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
         $this->addColumn('name', [
             'header'    => $this->__('Customer Name'),
             'sortable'  => false,
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('orders_count', [
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
             'sortable'  => false,
             'index'     => 'orders_count',
             'total'     => 'sum',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $baseCurrencyCode = $this->getCurrentCurrencyCode();

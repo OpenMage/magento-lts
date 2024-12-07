@@ -51,14 +51,14 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
     {
         $this->addColumn(
             'template_code',
-            ['header' => Mage::helper('newsletter')->__('ID'), 'align' => 'center', 'index' => 'template_id']
+            ['header' => Mage::helper('newsletter')->__('ID'), 'align' => 'center', 'index' => 'template_id'],
         );
         $this->addColumn(
             'code',
             [
                 'header' => Mage::helper('newsletter')->__('Template Name'),
-                   'index' => 'template_code'
-            ]
+                'index' => 'template_code',
+            ],
         );
 
         $this->addColumn(
@@ -67,8 +67,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
                 'header' => Mage::helper('newsletter')->__('Date Added'),
                 'index' => 'added_at',
                 'gmtoffset' => true,
-                'type' => 'datetime'
-            ]
+                'type' => 'datetime',
+            ],
         );
 
         $this->addColumn(
@@ -77,16 +77,16 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
                 'header' => Mage::helper('newsletter')->__('Date Updated'),
                 'index' => 'modified_at',
                 'gmtoffset' => true,
-                'type' => 'datetime'
-            ]
+                'type' => 'datetime',
+            ],
         );
 
         $this->addColumn(
             'subject',
             [
                 'header' => Mage::helper('newsletter')->__('Subject'),
-                'index' => 'template_subject'
-            ]
+                'index' => 'template_subject',
+            ],
         );
 
         $this->addColumn(
@@ -94,8 +94,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
             [
                 'header' => Mage::helper('newsletter')->__('Sender'),
                 'index' => 'template_sender_email',
-                'renderer' => 'adminhtml/newsletter_template_grid_renderer_sender'
-            ]
+                'renderer' => 'adminhtml/newsletter_template_grid_renderer_sender',
+            ],
         );
 
         $this->addColumn(
@@ -106,9 +106,9 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
                 'type' => 'options',
                 'options' => [
                     Mage_Core_Model_Template::TYPE_HTML => 'html',
-                    Mage_Core_Model_Template::TYPE_TEXT => 'text'
+                    Mage_Core_Model_Template::TYPE_TEXT => 'text',
                 ],
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -118,8 +118,8 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
                 'index'     => 'template_id',
                 'no_link'   => true,
                 'width'     => '170',
-                'renderer'  => 'adminhtml/newsletter_template_grid_renderer_action'
-            ]
+                'renderer'  => 'adminhtml/newsletter_template_grid_renderer_action',
+            ],
         );
 
         return $this;

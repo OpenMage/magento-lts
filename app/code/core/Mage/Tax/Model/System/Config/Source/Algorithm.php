@@ -27,15 +27,15 @@ class Mage_Tax_Model_System_Config_Source_Algorithm
         $this->_options = [
             [
                 'value' => Mage_Tax_Model_Calculation::CALC_UNIT_BASE,
-                'label' => Mage::helper('tax')->__('Unit Price')
+                'label' => Mage::helper('tax')->__('Unit Price'),
             ],
             [
                 'value' => Mage_Tax_Model_Calculation::CALC_ROW_BASE,
-                'label' => Mage::helper('tax')->__('Row Total')
+                'label' => Mage::helper('tax')->__('Row Total'),
             ],
             [
                 'value' => Mage_Tax_Model_Calculation::CALC_TOTAL_BASE,
-                'label' => Mage::helper('tax')->__('Total')
+                'label' => Mage::helper('tax')->__('Total'),
             ],
         ];
     }

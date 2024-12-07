@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
             ->setData([
                 'label'   => Mage::helper('sales')->__('Submit Comment'),
                 'class'   => 'save',
-                'onclick' => $onclick
+                'onclick' => $onclick,
             ]);
         $this->setChild('submit_button', $button);
         return parent::_prepareLayout();

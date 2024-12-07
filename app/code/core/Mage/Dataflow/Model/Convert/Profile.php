@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Dataflow
  */
-class Mage_Dataflow_Model_Convert_Profile extends Mage_Dataflow_Model_Convert_Profile_Abstract
-{
-}
+class Mage_Dataflow_Model_Convert_Profile extends Mage_Dataflow_Model_Convert_Profile_Abstract {}

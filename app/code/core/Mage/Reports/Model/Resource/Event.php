@@ -44,12 +44,12 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
         if ($types) {
             $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
-                ['subject_id' => (int)$customerId, 'subtype' => 0],
+                ['subject_id' => (int) $customerId, 'subtype' => 0],
                 [
-                    'subject_id = ?'      => (int)$visitorId,
+                    'subject_id = ?'      => (int) $visitorId,
                     'subtype = ?'         => 1,
-                    'event_type_id IN(?)' => $types
-                ]
+                    'event_type_id IN(?)' => $types,
+                ],
             );
         }
         return $this;
@@ -78,17 +78,17 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
         $derivedSelect = $this->getReadConnection()->select()
             ->from(
                 $this->getTable('reports/event'),
-                ['event_id' => new Zend_Db_Expr('MAX(event_id)'), 'object_id']
+                ['event_id' => new Zend_Db_Expr('MAX(event_id)'), 'object_id'],
             )
-            ->where('event_type_id = ?', (int)$eventTypeId)
-            ->where('subject_id = ?', (int)$eventSubjectId)
-            ->where('subtype = ?', (int)$subtype)
+            ->where('event_type_id = ?', (int) $eventTypeId)
+            ->where('subject_id = ?', (int) $eventSubjectId)
+            ->where('subtype = ?', (int) $subtype)
             ->where('store_id IN(?)', $this->getCurrentStoreIds())
             ->group('object_id');
 
         if ($skipIds) {
             if (!is_array($skipIds)) {
-                $skipIds = [(int)$skipIds];
+                $skipIds = [(int) $skipIds];
             }
             $derivedSelect->where('object_id NOT IN(?)', $skipIds);
         }
@@ -97,7 +97,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
             ->joinInner(
                 ['evt' => new Zend_Db_Expr("({$derivedSelect})")],
                 "{$idFieldName} = evt.object_id",
-                []
+                [],
             )
             ->order('evt.event_id ' . Varien_Db_Select::SQL_DESC);
 
@@ -140,7 +140,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
             }
         }
         foreach ($stores as $key => $store) {
-            $stores[$key] = (int)$store;
+            $stores[$key] = (int) $store;
         }
 
         return $stores;
@@ -159,7 +159,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
                 ->joinLeft(
                     ['visitor_table' => $this->getTable('log/visitor')],
                     'event_table.subject_id = visitor_table.visitor_id',
-                    []
+                    [],
                 )
                 ->where('visitor_table.visitor_id IS NULL')
                 ->where('event_table.subtype = ?', 1)

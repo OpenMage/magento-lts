@@ -31,7 +31,7 @@ class Varien_Convert_Mapper_Column extends Varien_Convert_Mapper_Abstract
         } else {
             $attributesToSelect = [];
         }
-        $onlySpecified = (bool)$this->getVar('_only_specified') === true;
+        $onlySpecified = (bool) $this->getVar('_only_specified') === true;
         $mappedData = [];
         foreach ($data as $i => $row) {
             $newRow = [];

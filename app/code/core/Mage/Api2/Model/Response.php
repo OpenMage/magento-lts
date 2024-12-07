@@ -77,7 +77,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      */
     public function hasMessages()
     {
-        return (bool)count($this->_messages) > 0;
+        return (bool) count($this->_messages) > 0;
     }
 
     /**

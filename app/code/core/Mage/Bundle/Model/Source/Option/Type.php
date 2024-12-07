@@ -35,7 +35,7 @@ class Mage_Bundle_Model_Source_Option_Type
             $labelPath = self::BUNDLE_OPTIONS_TYPES_PATH . '/' . $type->getName() . '/label';
             $types[] = [
                 'label' => (string) Mage::getConfig()->getNode($labelPath),
-                'value' => $type->getName()
+                'value' => $type->getName(),
             ];
         }
 

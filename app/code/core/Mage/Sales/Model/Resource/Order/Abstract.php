@@ -89,12 +89,12 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
 
         if (!in_array($alias, $this->getGridColumns())) {
             Mage::throwException(
-                Mage::helper('sales')->__('Please specify a valid grid column alias name that exists in grid table.')
+                Mage::helper('sales')->__('Please specify a valid grid column alias name that exists in grid table.'),
             );
         }
 
         $this->_virtualGridColumns[$alias] = [
-            $table, $joinCondition, $column
+            $table, $joinCondition, $column,
         ];
 
         return $this;
@@ -124,7 +124,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
         $this->_virtualGridColumns = [];
         if ($this->_eventPrefix && $this->_eventObject) {
             Mage::dispatchEvent($this->_eventPrefix . '_init_virtual_grid_columns', [
-                $this->_eventObject => $this
+                $this->_eventObject => $this,
             ]);
         }
         return $this;
@@ -176,7 +176,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     {
         $flatColumns = array_keys($this->_getReadAdapter()
             ->describeTable(
-                $this->getMainTable()
+                $this->getMainTable(),
             ));
 
         if ($gridColumns === null) {
@@ -211,10 +211,10 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             $joinConditionExpr = [];
             foreach ($joinCondition as $fkField => $pkField) {
                 $pkField = $adapter->quoteIdentifier(
-                    $tableAlias . '.' . $pkField
+                    $tableAlias . '.' . $pkField,
                 );
                 $fkField = $adapter->quoteIdentifier(
-                    $mainTableAlias . '.' . $fkField
+                    $mainTableAlias . '.' . $fkField,
                 );
                 $joinConditionExpr[] = $fkField . '=' . $pkField;
             }
@@ -222,7 +222,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             $select->joinLeft(
                 [$tableAlias => $table],
                 implode(' AND ', $joinConditionExpr),
-                [$alias => str_replace('{{table}}', $tableAlias, $column)]
+                [$alias => str_replace('{{table}}', $tableAlias, $column)],
             );
 
             $columnsToSelect[] = $alias;
@@ -241,7 +241,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
         if ($this->_gridColumns === null) {
             if ($this->_grid) {
                 $this->_gridColumns = array_keys(
-                    $this->_getReadAdapter()->describeTable($this->getGridTable())
+                    $this->_getReadAdapter()->describeTable($this->getGridTable()),
                 );
             } else {
                 $this->_gridColumns = [];
@@ -276,7 +276,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             Mage::dispatchEvent($this->_eventPrefix . '_save_attribute_before', [
                 $this->_eventObject => $this,
                 'object' => $object,
-                'attribute' => $attribute
+                'attribute' => $attribute,
             ]);
         }
         return $this;
@@ -294,7 +294,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             Mage::dispatchEvent($this->_eventPrefix . '_save_attribute_after', [
                 $this->_eventObject => $this,
                 'object' => $object,
-                'attribute' => $attribute
+                'attribute' => $attribute,
             ]);
         }
         return $this;
@@ -373,7 +373,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             $this->_getWriteAdapter()->update(
                 $table,
                 $data,
-                [$this->getIdFieldName() . '=?' => (int) $object->getId()]
+                [$this->getIdFieldName() . '=?' => (int) $object->getId()],
             );
             $object->addData($data);
         }
@@ -427,7 +427,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
             $adapter->update(
                 $this->getGridTable(),
                 $fieldsToUpdate,
-                $adapter->quoteInto($this->getGridTable() . '.' . $field . ' = ?', $entityId)
+                $adapter->quoteInto($this->getGridTable() . '.' . $field . ' = ?', $entityId),
             );
         }
         return $this;

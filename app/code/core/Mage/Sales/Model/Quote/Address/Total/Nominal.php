@@ -33,7 +33,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
     {
         $collector = Mage::getSingleton(
             'sales/quote_address_total_nominal_collector',
-            ['store' => $address->getQuote()->getStore()]
+            ['store' => $address->getQuote()->getStore()],
         );
 
         // invoke nominal totals
@@ -55,7 +55,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
                 } else {
                     $isCompounded = false;
                 }
-                if ((float)$itemRowTotal > 0 && $label = $model->getLabel()) {
+                if ((float) $itemRowTotal > 0 && $label = $model->getLabel()) {
                     $totalDetails[] = new Varien_Object([
                         'label'  => $label,
                         'amount' => $itemRowTotal,

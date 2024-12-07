@@ -31,8 +31,8 @@ if (!$connection->tableColumnExists($table, $column)) {
             'length'    => 2,
             'nullable'  => false,
             'default'   => 0,
-            'comment'   => 'Agreement Position'
-        ]
+            'comment'   => 'Agreement Position',
+        ],
     );
 }
 

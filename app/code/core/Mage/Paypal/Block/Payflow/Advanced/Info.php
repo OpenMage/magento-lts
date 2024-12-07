@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Paypal
  */
-class Mage_Paypal_Block_Payflow_Advanced_Info extends Mage_Paypal_Block_Payflow_Link_Info
-{
-}
+class Mage_Paypal_Block_Payflow_Advanced_Info extends Mage_Paypal_Block_Payflow_Link_Info {}

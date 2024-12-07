@@ -260,6 +260,6 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     public function getAttribute($name, $namespace = '')
     {
         $attrs = $this->attributes($namespace);
-        return isset($attrs[$name]) ? (string)$attrs[$name] : null;
+        return isset($attrs[$name]) ? (string) $attrs[$name] : null;
     }
 }

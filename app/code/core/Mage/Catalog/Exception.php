@@ -18,6 +18,4 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Exception extends Zend_Exception
-{
-}
+class Mage_Catalog_Exception extends Zend_Exception {}

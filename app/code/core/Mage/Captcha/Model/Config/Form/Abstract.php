@@ -41,7 +41,7 @@ abstract class Mage_Captcha_Model_Config_Form_Abstract extends Mage_Core_Model_C
             foreach ($backendNode->children() as $formNode) {
                 /** @var Mage_Core_Model_Config_Element $formNode */
                 if (!empty($formNode->label)) {
-                    $optionArray[] = ['label' => (string)$formNode->label, 'value' => $formNode->getName()];
+                    $optionArray[] = ['label' => (string) $formNode->label, 'value' => $formNode->getName()];
                 }
             }
         }

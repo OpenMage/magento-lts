@@ -39,14 +39,14 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      */
     protected $_matchedEntities = [
         Category::ENTITY => [
-            Event::TYPE_SAVE
+            Event::TYPE_SAVE,
         ],
         Store::ENTITY => [
             Event::TYPE_SAVE,
-            Event::TYPE_DELETE
+            Event::TYPE_DELETE,
         ],
         StoreGroup::ENTITY => [
-            Event::TYPE_SAVE
+            Event::TYPE_SAVE,
         ],
     ];
 

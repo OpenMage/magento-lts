@@ -122,9 +122,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Constructor
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Set headers from hash
@@ -404,7 +402,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $line = explode(' ', trim($data), 3);
 
             $this->validateHttpVersion($line);
-            $this->_responseStatus = (int)$line[1];
+            $this->_responseStatus = (int) $line[1];
         } else {
             //var_dump($data);
             $name = $value = '';

@@ -72,8 +72,8 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Actions extends Mage_Adminhtml
         $form->setHtmlIdPrefix('rule_');
 
         $fieldset = $form->addFieldset('action_fieldset', [
-                'legend' => Mage::helper('catalogrule')->__('Update Prices Using the Following Information')
-            ]);
+            'legend' => Mage::helper('catalogrule')->__('Update Prices Using the Following Information'),
+        ]);
 
         $fieldset->addField('simple_action', 'select', [
             'label'     => Mage::helper('catalogrule')->__('Apply'),
@@ -100,8 +100,8 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Actions extends Mage_Adminhtml
             'onchange'  => 'hideShowSubproductOptions(this);',
             'values'    => [
                 0 => Mage::helper('catalogrule')->__('No'),
-                1 => Mage::helper('catalogrule')->__('Yes')
-            ]
+                1 => Mage::helper('catalogrule')->__('Yes'),
+            ],
         ]);
 
         $fieldset->addField('sub_simple_action', 'select', [

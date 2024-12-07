@@ -47,7 +47,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
         'quote'         => 'sales/quote',
         'quote_item'    => 'sales/quote_item',
         'quote_address' => 'sales/quote_address',
-        'quote_address_item' => 'sales/quote_address_item'
+        'quote_address_item' => 'sales/quote_address_item',
     ];
 
     protected function _construct()

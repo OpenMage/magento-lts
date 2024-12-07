@@ -66,7 +66,7 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
         $this->getSelect()->join(
             ['selection' => $this->_selectionTable],
             'selection.product_id = e.entity_id',
-            ['*']
+            ['*'],
         );
 
         return $this;
@@ -84,21 +84,21 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
         $priceType = $adapter->getCheckSql(
             'price.selection_price_type IS NOT NULL',
             'price.selection_price_type',
-            'selection.selection_price_type'
+            'selection.selection_price_type',
         );
         $priceValue = $adapter->getCheckSql(
             'price.selection_price_value IS NOT NULL',
             'price.selection_price_value',
-            'selection.selection_price_value'
+            'selection.selection_price_value',
         );
         $this->getSelect()->joinLeft(
             ['price' => $this->getTable('bundle/selection_price')],
-            'selection.selection_id = price.selection_id AND price.website_id = ' . (int)$websiteId,
+            'selection.selection_id = price.selection_id AND price.website_id = ' . (int) $websiteId,
             [
                 'selection_price_type' => $priceType,
                 'selection_price_value' => $priceValue,
-                'price_scope' => 'price.website_id'
-            ]
+                'price_scope' => 'price.website_id',
+            ],
         );
         return $this;
     }

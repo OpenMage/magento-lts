@@ -158,7 +158,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
      */
     public function getProtectCode()
     {
-        return (string)$this->getOrder()->getProtectCode();
+        return (string) $this->getOrder()->getProtectCode();
     }
 
     /**
@@ -206,7 +206,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     {
         if ($this->getId()) {
             Mage::throwException(
-                Mage::helper('sales')->__('Cannot register existing shipment')
+                Mage::helper('sales')->__('Cannot register existing shipment'),
             );
         }
 
@@ -495,11 +495,11 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams([
-                'order'        => $order,
-                'shipment'     => $this,
-                'comment'      => $comment,
-                'billing'      => $order->getBillingAddress(),
-                'payment_html' => $paymentBlockHtml
+            'order'        => $order,
+            'shipment'     => $this,
+            'comment'      => $comment,
+            'billing'      => $order->getBillingAddress(),
+            'payment_html' => $paymentBlockHtml,
         ]);
         $mailer->send();
 
@@ -565,10 +565,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams([
-                'order'    => $order,
-                'shipment' => $this,
-                'comment'  => $comment,
-                'billing'  => $order->getBillingAddress()
+            'order'    => $order,
+            'shipment' => $this,
+            'comment'  => $comment,
+            'billing'  => $order->getBillingAddress(),
         ]);
         $mailer->send();
 
@@ -597,7 +597,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     {
         if ((!$this->getId() || $this->_items !== null) && !count($this->getAllItems())) {
             Mage::throwException(
-                Mage::helper('sales')->__('Cannot create an empty shipment.')
+                Mage::helper('sales')->__('Cannot create an empty shipment.'),
             );
         }
 

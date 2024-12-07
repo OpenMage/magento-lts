@@ -170,8 +170,8 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
         if ($isAll) {
             $resources = [
                 Mage_Api2_Model_Acl_Global_Rule::RESOURCE_ALL => [
-                    null => $allow
-                ]
+                    null => $allow,
+                ],
             ];
         } else {
             $resources = [];
@@ -212,7 +212,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                             $attributeName = str_replace(
                                 $nameResource . self::ID_SEPARATOR . $operationName . self::ID_SEPARATOR,
                                 '',
-                                $name
+                                $name,
                             );
                             $resources[$nameResource][$operationName][$attributeName] = $allow;
                         } else {

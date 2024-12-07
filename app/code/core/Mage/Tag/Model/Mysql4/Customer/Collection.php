@@ -21,6 +21,4 @@
  * @package    Mage_Tag
  * @deprecated
  */
-class Mage_Tag_Model_Mysql4_Customer_Collection extends Mage_Tag_Model_Resource_Customer_Collection
-{
-}
+class Mage_Tag_Model_Mysql4_Customer_Collection extends Mage_Tag_Model_Resource_Customer_Collection {}

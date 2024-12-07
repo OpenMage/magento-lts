@@ -66,31 +66,31 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'width'     => '40px',
             'type'      => 'number',
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'customer_id'
+            'index'     => 'customer_id',
         ]);
 
         $this->addColumn('firstname', [
             'header'    => Mage::helper('customer')->__('First Name'),
             'default'   => Mage::helper('customer')->__('Guest'),
-            'index'     => 'customer_firstname'
+            'index'     => 'customer_firstname',
         ]);
 
         $this->addColumn('middlename', [
             'header'    => Mage::helper('customer')->__('Middle Name'),
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'customer_middlename'
+            'index'     => 'customer_middlename',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('customer')->__('Last Name'),
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'customer_lastname'
+            'index'     => 'customer_lastname',
         ]);
 
         $this->addColumn('email', [
             'header'    => Mage::helper('customer')->__('Email'),
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'customer_email'
+            'index'     => 'customer_email',
         ]);
 
         $this->addColumn('ip_address', [
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'index'     => 'remote_addr',
             'renderer'  => 'adminhtml/customer_online_grid_renderer_ip',
             'filter'    => false,
-            'sort'      => false
+            'sort'      => false,
         ]);
 
         $this->addColumn('session_start_time', [
@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'align'     => 'left',
             'type'      => 'datetime',
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'first_visit_at'
+            'index'     => 'first_visit_at',
         ]);
 
         $this->addColumn('last_activity', [
@@ -115,7 +115,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'align'     => 'left',
             'type'      => 'datetime',
             'default'   => Mage::helper('customer')->__('n/a'),
-            'index'     => 'last_visit_at'
+            'index'     => 'last_visit_at',
         ]);
 
         $typeOptions = [
@@ -127,7 +127,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'header'    => Mage::helper('customer')->__('Type'),
             'type'      => 'options',
             'options'   => $typeOptions,
-            'index'     => 'visitor_type'
+            'index'     => 'visitor_type',
         ]);
 
         $this->addColumn('last_url', [
@@ -136,7 +136,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'lineLength' => '60',
             'default'   => Mage::helper('customer')->__('n/a'),
             'renderer'  => 'adminhtml/customer_online_grid_renderer_url',
-            'index'     => 'last_url'
+            'index'     => 'last_url',
         ]);
 
         return parent::_prepareColumns();

@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Reports
  */
-abstract class Mage_Reports_Model_Mysql4_Product_Index_Abstract extends Mage_Reports_Model_Resource_Product_Index_Abstract
-{
-}
+abstract class Mage_Reports_Model_Mysql4_Product_Index_Abstract extends Mage_Reports_Model_Resource_Product_Index_Abstract {}

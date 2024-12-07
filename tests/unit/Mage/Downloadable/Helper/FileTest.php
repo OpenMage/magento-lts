@@ -49,27 +49,27 @@ class FileTest extends TestCase
         yield 'strings path and strings file' => [
             'path' . DS . 'file',
             'path',
-            'file'
+            'file',
         ];
         yield 'strings path and strings file with slash' => [
             'path' . DS . 'file',
             'path',
-            '/file'
+            '/file',
         ];
         yield 'string path and null file' => [
             'path' . DS,
             'path',
-            null
+            null,
         ];
         yield 'string path and empty file' => [
             'path' . DS,
             'path',
-            ''
+            '',
         ];
         yield 'strings path and strings file named 0' => [
             'path' . DS . '0',
             'path',
-            '0'
+            '0',
         ];
     }
 }

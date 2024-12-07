@@ -130,8 +130,8 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      */
     public function setLimits($lowerLimit = null, $upperLimit = null)
     {
-        $this->_lowerLimit = empty($lowerLimit) ? null : (float)$lowerLimit;
-        $this->_upperLimit = empty($upperLimit) ? null : (float)$upperLimit;
+        $this->_lowerLimit = empty($lowerLimit) ? null : (float) $lowerLimit;
+        $this->_upperLimit = empty($upperLimit) ? null : (float) $upperLimit;
         return $this;
     }
 
@@ -204,7 +204,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             $intervalsNumber = $priceRange * pow($count, 1 / 3) / (3.5 * $standardDeviation);
         }
         $this->_intervalsNumber = max(ceil($intervalsNumber), self::MIN_INTERVALS_NUMBER);
-        $this->_intervalsNumber = (int)min($this->_intervalsNumber, self::MAX_INTERVALS_NUMBER);
+        $this->_intervalsNumber = (int) min($this->_intervalsNumber, self::MAX_INTERVALS_NUMBER);
 
         return $this;
     }
@@ -303,7 +303,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             if (array_key_exists($roundingFactor, $oldRoundPrices)) {
                 $oldRoundPrices[$roundingFactor] = array_unique(array_merge(
                     $oldRoundPrices[$roundingFactor],
-                    $roundPriceValues
+                    $roundPriceValues,
                 ));
             } else {
                 $oldRoundPrices[$roundingFactor] = $roundPriceValues;
@@ -335,7 +335,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             $prices = array_slice(
                 $this->_prices,
                 $this->_lastPriceLimiter[0] + $offset - $this->_quantileInterval[0],
-                -$offset
+                -$offset,
             );
             $offset = 0;
         }
@@ -348,7 +348,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                 $intervalPricesCount + 1,
                 $offset,
                 $lowerPrice,
-                $this->_upperLimit
+                $this->_upperLimit,
             ));
         }
         $lastPrice = $prices[$intervalPricesCount - 1];
@@ -363,7 +363,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                     $bestRoundPrice = $this->_findRoundPrice(
                         $prices[0] + Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE / 10,
                         $lastPrice,
-                        false
+                        false,
                     );
                 }
             }
@@ -375,7 +375,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                     $additionalPrices = $this->_pricesModel->loadNextPrices(
                         $lastPrice,
                         $this->_count - $quantileInterval[0] - count($prices),
-                        $this->_upperLimit
+                        $this->_upperLimit,
                     );
                 }
                 if ($additionalPrices) {
@@ -387,7 +387,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                     $upperBestRoundPrice = $this->_findRoundPrice(
                         $lastPrice + Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE / 10,
                         $prices[count($prices) - 1],
-                        false
+                        false,
                     );
                     $this->_mergeRoundPrices($bestRoundPrice, $upperBestRoundPrice);
                 }
@@ -395,7 +395,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         } else {
             $bestRoundPrice = $this->_findRoundPrice(
                 $prices[0] + Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE / 10,
-                $lastPrice
+                $lastPrice,
             );
         }
 
@@ -473,7 +473,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                     $lowerPrice,
                     $upperPrice,
                     $returnEmpty,
-                    $roundingFactorCoefficient
+                    $roundingFactorCoefficient,
                 );
                 if ($roundPrices) {
                     $index = round($roundingFactorCoefficient
@@ -565,7 +565,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                             $bestSeparator[0],
                             $separatorData,
                             $bestSeparator[1],
-                            $this->_prices[$bestSeparator[2]]
+                            $this->_prices[$bestSeparator[2]],
                         ];
                     }
                 }

@@ -66,28 +66,28 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
             ->join(
                 ['cis' => $this->getTable('cataloginventory/stock')],
                 '',
-                ['stock_id']
+                ['stock_id'],
             )
             ->joinLeft(
                 ['bs' => $this->getTable('bundle/selection')],
                 'bs.option_id = bo.option_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['i' => $idxTable],
                 'i.product_id = bs.product_id AND i.website_id = cw.website_id AND i.stock_id = cis.stock_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['e' => $this->getTable('catalog/product')],
                 'e.entity_id = bs.product_id',
-                []
+                [],
             )
             ->where('cw.website_id != 0')
             ->group(['bo.parent_id', 'cw.website_id', 'cis.stock_id', 'bo.option_id'])
             ->columns([
                 'option_id' => 'bo.option_id',
-                'status'    => $status
+                'status'    => $status,
             ]);
 
         if (!is_null($entityIds)) {
@@ -129,17 +129,17 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
             ->join(
                 ['cis' => $this->getTable('cataloginventory/stock')],
                 '',
-                ['stock_id']
+                ['stock_id'],
             )
             ->joinLeft(
                 ['cisi' => $this->getTable('cataloginventory/stock_item')],
                 'cisi.stock_id = cis.stock_id AND cisi.product_id = e.entity_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['o' => $this->_getBundleOptionTable()],
                 'o.entity_id = e.entity_id AND o.website_id = cw.website_id AND o.stock_id = cis.stock_id',
-                []
+                [],
             )
             ->columns(['qty' => new Zend_Db_Expr('0')])
             ->where('cw.website_id != 0')
@@ -154,13 +154,13 @@ class Mage_Bundle_Model_Resource_Indexer_Stock extends Mage_CatalogInventory_Mod
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
                 '1',
-                'cisi.is_in_stock'
+                'cisi.is_in_stock',
             );
         } else {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
                 'cisi.is_in_stock',
-                '1'
+                '1',
             );
         }
 

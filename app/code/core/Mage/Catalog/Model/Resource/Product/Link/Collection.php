@@ -140,7 +140,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
                 [$alias => $table],
                 $aliasInCondition . '.link_id = main_table.link_id AND '
                     . $aliasInCondition . '.product_link_attribute_id = ' . (int) $attribute['id'],
-                [$attribute['code'] => 'value']
+                [$attribute['code'] => 'value'],
             );
         }
 

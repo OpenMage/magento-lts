@@ -73,6 +73,4 @@
  * @method $this setPackageWeight(float $value)
  * @method float getPackageWeight()
  */
-class Mage_Shipping_Model_Shipment_Return extends Varien_Object
-{
-}
+class Mage_Shipping_Model_Shipment_Return extends Varien_Object {}

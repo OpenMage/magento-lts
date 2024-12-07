@@ -53,7 +53,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             if (!isset($drawItems[$optionId])) {
                 $drawItems[$optionId] = [
                     'lines'  => [],
-                    'height' => 15
+                    'height' => 15,
                 ];
             }
 
@@ -62,12 +62,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                     $line[0] = [
                         'font'  => 'italic',
                         'text'  => Mage::helper('core/string')->str_split($attributes['option_label'], 60, true, true),
-                        'feed'  => 60
+                        'feed'  => 60,
                     ];
 
                     $drawItems[$optionId] = [
                         'lines'  => [$line],
-                        'height' => 15
+                        'height' => 15,
                     ];
 
                     $line = [];
@@ -92,7 +92,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
 
             $line[] = [
                 'text'  => $qty,
-                'feed'  => 35
+                'feed'  => 35,
             ];
 
             // draw Name
@@ -109,7 +109,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             }
             $line[] = [
                 'text'  => $text,
-                'feed'  => $feed
+                'feed'  => $feed,
             ];
 
             // draw SKUs
@@ -119,7 +119,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             }
             $line[] = [
                 'text'  => $text,
-                'feed'  => 440
+                'feed'  => 440,
             ];
 
             $drawItems[$optionId]['lines'][] = $line;
@@ -134,7 +134,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                     $lines[][] = [
                         'text'  => Mage::helper('core/string')->str_split(strip_tags($option['label']), 70, true, true),
                         'font'  => 'italic',
-                        'feed'  => 60
+                        'feed'  => 60,
                     ];
 
                     if ($option['value']) {
@@ -149,13 +149,13 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
 
                         $lines[][] = [
                             'text'  => $text,
-                            'feed'  => 65
+                            'feed'  => 65,
                         ];
                     }
 
                     $drawItems[] = [
                         'lines'  => $lines,
-                        'height' => 15
+                        'height' => 15,
                     ];
                 }
             }

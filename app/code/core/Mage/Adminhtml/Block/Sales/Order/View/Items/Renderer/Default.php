@@ -182,7 +182,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
         return $this->getUrl('*/sales_order_view_giftmessage/save', [
             'entity'    => $this->getItem()->getId(),
             'type'      => 'order_item',
-            'reload'    => true
+            'reload'    => true,
         ]);
     }
 
@@ -213,7 +213,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
         return $helper->getIsMessagesAvailable(
             $helper::TYPE_ORDER_ITEM,
             $this->getItem(),
-            $this->getItem()->getOrder()->getStoreId()
+            $this->getItem()->getOrder()->getStoreId(),
         );
     }
 
@@ -229,7 +229,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
         $helper = $this->helper('checkout');
         return $this->displayPrices(
             $helper->getBaseSubtotalInclTax($item),
-            $helper->getSubtotalInclTax($item)
+            $helper->getSubtotalInclTax($item),
         );
     }
 
@@ -244,7 +244,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
         $helper = $this->helper('checkout');
         return $this->displayPrices(
             $helper->getBasePriceInclTax($item),
-            $helper->getPriceInclTax($item)
+            $helper->getPriceInclTax($item),
         );
     }
 }

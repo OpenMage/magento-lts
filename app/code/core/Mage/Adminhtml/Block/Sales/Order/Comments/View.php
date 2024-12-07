@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
             ->setData([
                 'id'      => 'submit_comment_button',
                 'label'   => Mage::helper('sales')->__('Submit Comment'),
-                'class'   => 'save'
+                'class'   => 'save',
             ]);
         $this->setChild('submit_button', $button);
 
@@ -60,15 +60,15 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
         switch ($this->getParentType()) {
             case 'invoice':
                 return Mage::helper('sales')->canSendInvoiceCommentEmail(
-                    $this->getEntity()->getOrder()->getStore()->getId()
+                    $this->getEntity()->getOrder()->getStore()->getId(),
                 );
             case 'shipment':
                 return Mage::helper('sales')->canSendShipmentCommentEmail(
-                    $this->getEntity()->getOrder()->getStore()->getId()
+                    $this->getEntity()->getOrder()->getStore()->getId(),
                 );
             case 'creditmemo':
                 return Mage::helper('sales')->canSendCreditmemoCommentEmail(
-                    $this->getEntity()->getOrder()->getStore()->getId()
+                    $this->getEntity()->getOrder()->getStore()->getId(),
                 );
         }
 

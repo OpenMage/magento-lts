@@ -33,11 +33,11 @@ class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Bl
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
             'action' => $this->getUrl('*/*/save', ['block_id' => (int) $this->getRequest()->getParam('block_id')]),
-            'method' => 'post'
+            'method' => 'post',
         ]);
         $fieldset = $form->addFieldset(
             'block_details',
-            ['legend' => $this->__('Block Details')]
+            ['legend' => $this->__('Block Details')],
         );
 
         $fieldset->addField('block_name', 'text', [
@@ -49,11 +49,11 @@ class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Bl
         $yesno = [
             [
                 'value' => 0,
-                'label' => $this->__('No')
+                'label' => $this->__('No'),
             ],
             [
                 'value' => 1,
-                'label' => $this->__('Yes')
+                'label' => $this->__('Yes'),
             ]];
 
         $fieldset->addField('is_allowed', 'select', [

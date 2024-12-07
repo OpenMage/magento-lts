@@ -53,25 +53,25 @@ class ObjectTest extends TestCase
             ['empty_key' => ['empty_value']],
             'empty_key',
             ['empty_value'],
-            ''
+            '',
         ];
         yield 'string' => [
             'value',
             'string',
             'value',
-            'string'
+            'string',
         ];
         yield 'int' => [
             1,
             'int',
             1,
-            'int'
+            'int',
         ];
         yield 'numeric' => [
             '1',
             'numeric',
             '1',
-            'numeric'
+            'numeric',
         ];
         yield 'array' => [
             ['string', 1],

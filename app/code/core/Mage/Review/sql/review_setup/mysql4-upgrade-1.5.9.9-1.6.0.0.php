@@ -23,47 +23,47 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('review/review'),
-    'FK_REVIEW_ENTITY'
+    'FK_REVIEW_ENTITY',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('review/review'),
-    'FK_REVIEW_STATUS'
+    'FK_REVIEW_STATUS',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('review/review_detail'),
-    'FK_REVIEW_DETAIL_CUSTOMER'
+    'FK_REVIEW_DETAIL_CUSTOMER',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('review/review_detail'),
-    'FK_REVIEW_DETAIL_REVIEW'
+    'FK_REVIEW_DETAIL_REVIEW',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('review/review_detail'),
-    'FK_REVIEW_DETAIL_STORE'
+    'FK_REVIEW_DETAIL_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('review/review_aggregate'),
-    'FK_REVIEW_ENTITY_SUMMARY_STORE'
+    'FK_REVIEW_ENTITY_SUMMARY_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('review/review_store'),
-    'FK_REVIEW_STORE_REVIEW'
+    'FK_REVIEW_STORE_REVIEW',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('review/review_store'),
-    'FK_REVIEW_STORE_STORE'
+    'FK_REVIEW_STORE_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('review/review_store'),
-    'REVIEW_STORE_IBFK_1'
+    'REVIEW_STORE_IBFK_1',
 );
 
 /**
@@ -71,42 +71,42 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('review/review'),
-    'FK_REVIEW_ENTITY'
+    'FK_REVIEW_ENTITY',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('review/review'),
-    'FK_REVIEW_STATUS'
+    'FK_REVIEW_STATUS',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('review/review'),
-    'FK_REVIEW_PARENT_PRODUCT'
+    'FK_REVIEW_PARENT_PRODUCT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('review/review_detail'),
-    'FK_REVIEW_DETAIL_REVIEW'
+    'FK_REVIEW_DETAIL_REVIEW',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('review/review_detail'),
-    'FK_REVIEW_DETAIL_STORE'
+    'FK_REVIEW_DETAIL_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('review/review_detail'),
-    'FK_REVIEW_DETAIL_CUSTOMER'
+    'FK_REVIEW_DETAIL_CUSTOMER',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('review/review_store'),
-    'FK_REVIEW_STORE_STORE'
+    'FK_REVIEW_STORE_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('review/review_aggregate'),
-    'FK_REVIEW_ENTITY_SUMMARY_STORE'
+    'FK_REVIEW_ENTITY_SUMMARY_STORE',
 );
 
 /**
@@ -121,36 +121,36 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Review id'
+                'comment'   => 'Review id',
             ],
             'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Review create date'
+                'comment'   => 'Review create date',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity id'
+                'comment'   => 'Entity id',
             ],
             'entity_pk_value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Product id'
+                'comment'   => 'Product id',
             ],
             'status_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Status code'
-            ]
+                'comment'   => 'Status code',
+            ],
         ],
-        'comment' => 'Review base information'
+        'comment' => 'Review base information',
     ],
     $installer->getTable('review/review_detail') => [
         'columns' => [
@@ -160,46 +160,46 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Review detail id'
+                'comment'   => 'Review detail id',
             ],
             'review_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Review id'
+                'comment'   => 'Review id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
-                'comment'   => 'Store id'
+                'comment'   => 'Store id',
             ],
             'title' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Title'
+                'comment'   => 'Title',
             ],
             'detail' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'nullable'  => false,
-                'comment'   => 'Detail description'
+                'comment'   => 'Detail description',
             ],
             'nickname' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 128,
                 'nullable'  => false,
-                'comment'   => 'User nickname'
+                'comment'   => 'User nickname',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Customer Id'
-            ]
+                'comment'   => 'Customer Id',
+            ],
         ],
-        'comment' => 'Review detail information'
+        'comment' => 'Review detail information',
     ],
     $installer->getTable('review/review_status') => [
         'columns' => [
@@ -209,16 +209,16 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Status id'
+                'comment'   => 'Status id',
             ],
             'status_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'nullable'  => false,
-                'comment'   => 'Status code'
-            ]
+                'comment'   => 'Status code',
+            ],
         ],
-        'comment' => 'Review statuses'
+        'comment' => 'Review statuses',
     ],
     $installer->getTable('review/review_entity') => [
         'columns' => [
@@ -228,16 +228,16 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Review entity id'
+                'comment'   => 'Review entity id',
             ],
             'entity_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'nullable'  => false,
-                'comment'   => 'Review entity code'
-            ]
+                'comment'   => 'Review entity code',
+            ],
         ],
-        'comment' => 'Review entities'
+        'comment' => 'Review entities',
     ],
     $installer->getTable('review/review_aggregate') => [
         'columns' => [
@@ -246,41 +246,41 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Summary review entity id'
+                'comment'   => 'Summary review entity id',
             ],
             'entity_pk_value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Product id'
+                'comment'   => 'Product id',
             ],
             'entity_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity type id'
+                'comment'   => 'Entity type id',
             ],
             'reviews_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Qty of reviews'
+                'comment'   => 'Qty of reviews',
             ],
             'rating_summary' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Summarized rating'
+                'comment'   => 'Summarized rating',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store id'
-            ]
+                'comment'   => 'Store id',
+            ],
         ],
-        'comment' => 'Review aggregates'
+        'comment' => 'Review aggregates',
     ],
     $installer->getTable('review/review_store') => [
         'columns' => [
@@ -290,7 +290,7 @@ $tables = [
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
-                'comment'   => 'Review Id'
+                'comment'   => 'Review Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
@@ -298,11 +298,11 @@ $tables = [
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
-                'comment'   => 'Store Id'
-            ]
+                'comment'   => 'Store Id',
+            ],
         ],
-        'comment' => 'Review Store'
-    ]
+        'comment' => 'Review Store',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -313,49 +313,49 @@ $installer->getConnection()->modifyTables($tables);
 $installer->getConnection()->addIndex(
     $installer->getTable('review/review'),
     $installer->getIdxName('review/review', ['entity_id']),
-    ['entity_id']
+    ['entity_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('review/review'),
     $installer->getIdxName('review/review', ['status_id']),
-    ['status_id']
+    ['status_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('review/review'),
     $installer->getIdxName('review/review', ['entity_pk_value']),
-    ['entity_pk_value']
+    ['entity_pk_value'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('review/review_detail'),
     $installer->getIdxName('review/review_detail', ['review_id']),
-    ['review_id']
+    ['review_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('review/review_detail'),
     $installer->getIdxName('review/review_detail', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('review/review_detail'),
     $installer->getIdxName('review/review_detail', ['customer_id']),
-    ['customer_id']
+    ['customer_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('review/review_aggregate'),
     $installer->getIdxName('review/review_aggregate', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('review/review_store'),
     $installer->getIdxName('review/review_store', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 /**
@@ -366,7 +366,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('review/review'),
     'entity_id',
     $installer->getTable('review/review_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -376,7 +376,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('review/review_status'),
     'status_id',
     Varien_Db_Ddl_Table::ACTION_NO_ACTION,
-    Varien_Db_Ddl_Table::ACTION_NO_ACTION
+    Varien_Db_Ddl_Table::ACTION_NO_ACTION,
 );
 
 $installer->getConnection()->addForeignKey(
@@ -385,7 +385,7 @@ $installer->getConnection()->addForeignKey(
     'customer_id',
     $installer->getTable('customer/entity'),
     'entity_id',
-    Varien_Db_Ddl_Table::ACTION_SET_NULL
+    Varien_Db_Ddl_Table::ACTION_SET_NULL,
 );
 
 $installer->getConnection()->addForeignKey(
@@ -393,7 +393,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('review/review_detail'),
     'review_id',
     $installer->getTable('review/review'),
-    'review_id'
+    'review_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -402,7 +402,7 @@ $installer->getConnection()->addForeignKey(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    Varien_Db_Ddl_Table::ACTION_SET_NULL
+    Varien_Db_Ddl_Table::ACTION_SET_NULL,
 );
 
 $installer->getConnection()->addForeignKey(
@@ -410,7 +410,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('review/review_aggregate'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -418,7 +418,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('review/review_store'),
     'review_id',
     $installer->getTable('review/review'),
-    'review_id'
+    'review_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -426,7 +426,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('review/review_store'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

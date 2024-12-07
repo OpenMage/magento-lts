@@ -68,9 +68,9 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         }
 
         $this->addColumn('package', [
-                'header'    => Mage::helper('catalog')->__('Design'),
-                'width'     => '150px',
-                'index'     => 'design',
+            'header'    => Mage::helper('catalog')->__('Design'),
+            'width'     => '150px',
+            'index'     => 'design',
         ]);
         $this->addColumn('date_from', [
             'header'    => Mage::helper('catalogrule')->__('Date From'),

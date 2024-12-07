@@ -105,34 +105,34 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
         $select = $write->select()
             ->from(
                 ['i' => $this->_getDefaultFinalPriceTable()],
-                ['entity_id', 'customer_group_id', 'website_id']
+                ['entity_id', 'customer_group_id', 'website_id'],
             )
             ->join(
                 ['dl' => $dlType->getBackend()->getTable()],
                 "dl.entity_id = i.entity_id AND dl.attribute_id = {$dlType->getAttributeId()}"
                     . ' AND dl.store_id = 0',
-                []
+                [],
             )
             ->join(
                 ['dll' => $this->getTable('downloadable/link')],
                 'dll.product_id = i.entity_id',
-                []
+                [],
             )
             ->join(
                 ['dlpd' => $this->getTable('downloadable/link_price')],
                 'dll.link_id = dlpd.link_id AND dlpd.website_id = 0',
-                []
+                [],
             )
             ->joinLeft(
                 ['dlpw' => $this->getTable('downloadable/link_price')],
                 'dlpd.link_id = dlpw.link_id AND dlpw.website_id = i.website_id',
-                []
+                [],
             )
             ->where('dl.value = ?', 1)
             ->group(['i.entity_id', 'i.customer_group_id', 'i.website_id'])
             ->columns([
                 'min_price' => new Zend_Db_Expr('MIN(' . $ifPrice . ')'),
-                'max_price' => new Zend_Db_Expr('SUM(' . $ifPrice . ')')
+                'max_price' => new Zend_Db_Expr('SUM(' . $ifPrice . ')'),
             ]);
 
         $query = $select->insertFromSelect($table);
@@ -146,7 +146,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
                 ['id' => $table],
                 'i.entity_id = id.entity_id AND i.customer_group_id = id.customer_group_id'
                     . ' AND i.website_id = id.website_id',
-                []
+                [],
             )
             ->columns([
                 'min_price'   => new Zend_Db_Expr('i.min_price + id.min_price'),

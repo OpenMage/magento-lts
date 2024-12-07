@@ -46,7 +46,7 @@ class Varien_Event_Observer extends Varien_Object
         $callback = $this->getCallback();
         $this->setEvent($event);
 
-        $profilerKey = 'OBSERVER: ' . (is_object($callback[0]) ? get_class($callback[0]) : (string)$callback[0]) . ' -> ' . $callback[1];
+        $profilerKey = 'OBSERVER: ' . (is_object($callback[0]) ? get_class($callback[0]) : (string) $callback[0]) . ' -> ' . $callback[1];
         Varien_Profiler::start($profilerKey);
         call_user_func($callback, $this);
         Varien_Profiler::stop($profilerKey);

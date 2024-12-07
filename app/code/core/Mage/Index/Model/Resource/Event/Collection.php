@@ -102,7 +102,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
             $this->getSelect()->join(
                 ['process_event' => $this->getTable('index/process_event')],
                 'process_event.event_id=main_table.event_id',
-                ['process_event_status' => 'status']
+                ['process_event_status' => 'status'],
             );
             $this->setFlag('process_event_table_joined', true);
         }

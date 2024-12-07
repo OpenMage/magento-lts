@@ -53,12 +53,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom extends Mage_Co
             Mage::getConfig()->deleteConfig(
                 Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::XML_PATH_SECURE_BASE_URL,
                 Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE,
-                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID,
             );
             Mage::getConfig()->deleteConfig(
                 Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::XML_PATH_UNSECURE_BASE_URL,
                 Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE,
-                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID
+                Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom::CONFIG_SCOPE_ID,
             );
         }
 

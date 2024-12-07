@@ -44,13 +44,13 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
             $weeeDiscountAmount = $creditmemo->roundPrice(
                 $weeeRowDiscountAmount / $orderItemQty * $item->getQty(),
                 'regular',
-                true
+                true,
             );
             $baseWeeeRowDiscountAmount = $orderItem->getBaseDiscountAppliedForWeeeTax();
             $baseWeeeDiscountAmount = $creditmemo->roundPrice(
                 $baseWeeeRowDiscountAmount / $orderItemQty * $item->getQty(),
                 'base',
-                true
+                true,
             );
 
             $weeeAmountExclTax = (Mage::helper('weee')->getWeeeTaxInclTax($item)

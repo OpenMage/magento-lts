@@ -48,14 +48,14 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta extends Mage_Adminhtml_Block_W
             'name' => 'meta_keywords',
             'label' => Mage::helper('cms')->__('Keywords'),
             'title' => Mage::helper('cms')->__('Meta Keywords'),
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $fieldset->addField('meta_description', 'textarea', [
             'name' => 'meta_description',
             'label' => Mage::helper('cms')->__('Description'),
             'title' => Mage::helper('cms')->__('Meta Description'),
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         Mage::dispatchEvent('adminhtml_cms_page_edit_tab_meta_prepare_form', ['form' => $form]);

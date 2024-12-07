@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Boolean extends Varien_Data_For
             [
                 'label' => Mage::helper('adminhtml')->__('Yes'),
                 'value' => 1,
-            ]
+            ],
         ]);
     }
 }

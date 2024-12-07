@@ -29,8 +29,8 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
         'website' => [
             'associations_table' => 'catalogrule/website',
             'rule_id_field'      => 'rule_id',
-            'entity_id_field'    => 'website_id'
-        ]
+            'entity_id_field'    => 'website_id',
+        ],
     ];
 
     /**

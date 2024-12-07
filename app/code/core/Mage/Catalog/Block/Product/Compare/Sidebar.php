@@ -104,7 +104,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
         foreach ($this->getItems() as $product) {
             $this->addModelTags($product);
             $this->addModelTags(
-                $compareItem->setId($product->getCatalogCompareItemId())
+                $compareItem->setId($product->getCatalogCompareItemId()),
             );
         }
         return parent::getCacheTags();

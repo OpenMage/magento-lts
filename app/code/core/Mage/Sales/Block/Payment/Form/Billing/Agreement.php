@@ -46,7 +46,7 @@ class Mage_Sales_Block_Payment_Form_Billing_Agreement extends Mage_Payment_Block
             return $data;
         }
         $collection = Mage::getModel('sales/billing_agreement')->getAvailableCustomerBillingAgreements(
-            $quote->getCustomer()->getId()
+            $quote->getCustomer()->getId(),
         );
 
         foreach ($collection as $item) {

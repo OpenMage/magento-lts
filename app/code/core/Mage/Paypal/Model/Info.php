@@ -142,7 +142,7 @@ class Mage_Paypal_Model_Info
     protected $_paymentPublicMap = [
         'paypal_payer_email',
         self::BUYER_TAX_ID,
-        self::BUYER_TAX_ID_TYPE
+        self::BUYER_TAX_ID_TYPE,
     ];
 
     /**
@@ -212,7 +212,7 @@ class Mage_Paypal_Model_Info
         Varien_Object_Mapper::accumulateByMap(
             [$payment, 'getAdditionalInformation'],
             $to,
-            $map ? $map : array_flip($fullMap)
+            $map ? $map : array_flip($fullMap),
         );
         return $to;
     }
@@ -265,7 +265,7 @@ class Mage_Paypal_Model_Info
         if (in_array($paymentStatus, [
             self::PAYMENTSTATUS_COMPLETED, self::PAYMENTSTATUS_INPROGRESS, self::PAYMENTSTATUS_REFUNDED,
             self::PAYMENTSTATUS_REFUNDEDPART, self::PAYMENTSTATUS_UNREVERSED, self::PAYMENTSTATUS_PROCESSED,
-            ])
+        ])
         ) {
             return true;
         }
@@ -472,7 +472,7 @@ class Mage_Paypal_Model_Info
         $labels = [
             'chargeback' => Mage::helper('paypal')->__('Chargeback'),
             'complaint'  => Mage::helper('paypal')->__('Complaint'),
-            'dispute'    => Mage::helper('paypal')->__('Dispute')
+            'dispute'    => Mage::helper('paypal')->__('Dispute'),
         ];
         return (array_key_exists($key, $labels) && !empty($labels[$key])) ? $labels[$key] : '';
     }

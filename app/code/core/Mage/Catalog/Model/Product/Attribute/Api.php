@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
                     'code' => $attribute->getAttributeCode(),
                     'type' => $attribute->getFrontendInput(),
                     'required' => $attribute->getIsRequired(),
-                    'scope' => $scope
+                    'scope' => $scope,
                 ];
             }
         }
@@ -105,7 +105,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
                 } else {
                     $options[] = [
                         'value' => $optionId,
-                        'label' => $optionValue
+                        'label' => $optionValue,
                     ];
                 }
             }
@@ -257,13 +257,13 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $frontendLabels = [
             [
                 'store_id' => 0,
-                'label' => $model->getFrontendLabel()
-            ]
+                'label' => $model->getFrontendLabel(),
+            ],
         ];
         foreach ($model->getStoreLabels() as $storeId => $label) {
             $frontendLabels[] = [
                 'store_id' => $storeId,
-                'label' => $label
+                'label' => $label,
             ];
         }
 
@@ -282,7 +282,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             'is_used_for_promo_rules' => $model->getIsUsedForPromoRules(),
             'is_visible_on_front' => $model->getIsVisibleOnFront(),
             'used_in_product_listing' => $model->getUsedInProductListing(),
-            'frontend_label' => $frontendLabels
+            'frontend_label' => $frontendLabels,
         ];
         if ($model->getFrontendInput() != 'price') {
             $result['scope'] = $scope;
@@ -294,7 +294,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
                 $result['additional_fields'] = [
                     'frontend_class' => $model->getFrontendClass(),
                     'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                    'used_for_sort_by' => $model->getUsedForSortBy()
+                    'used_for_sort_by' => $model->getUsedForSortBy(),
                 ];
                 break;
             case 'textarea':
@@ -306,14 +306,14 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             case 'date':
             case 'boolean':
                 $result['additional_fields'] = [
-                    'used_for_sort_by' => $model->getUsedForSortBy()
+                    'used_for_sort_by' => $model->getUsedForSortBy(),
                 ];
                 break;
             case 'multiselect':
                 $result['additional_fields'] = [
                     'is_filterable' => $model->getIsFilterable(),
                     'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                    'position' => $model->getPosition()
+                    'position' => $model->getPosition(),
                 ];
                 break;
             case 'select':
@@ -322,7 +322,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
                     'is_filterable' => $model->getIsFilterable(),
                     'is_filterable_in_search' => $model->getIsFilterableInSearch(),
                     'position' => $model->getPosition(),
-                    'used_for_sort_by' => $model->getUsedForSortBy()
+                    'used_for_sort_by' => $model->getUsedForSortBy(),
                 ];
                 break;
             default:
@@ -380,12 +380,12 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $modelData = [
             'option' => [
                 'value' => [
-                    'option_1' => $optionLabels
+                    'option_1' => $optionLabels,
                 ],
                 'order' => [
-                    'option_1' => (int) $data['order']
-                ]
-            ]
+                    'option_1' => (int) $data['order'],
+                ],
+            ],
         ];
         if ($data['is_default']) {
             $modelData['default'][] = 'option_1';
@@ -422,12 +422,12 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $modelData = [
             'option' => [
                 'value' => [
-                    $optionId => []
+                    $optionId => [],
                 ],
                 'delete' => [
-                    $optionId => '1'
-                ]
-            ]
+                    $optionId => '1',
+                ],
+            ],
         ];
         $model->addData($modelData);
         try {

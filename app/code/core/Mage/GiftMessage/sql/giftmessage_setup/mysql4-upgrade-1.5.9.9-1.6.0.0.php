@@ -30,84 +30,84 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'GiftMessage Id'
+                'comment'   => 'GiftMessage Id',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Customer id'
+                'comment'   => 'Customer id',
             ],
             'sender' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Sender'
+                'comment'   => 'Sender',
             ],
             'recipient' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Recipient'
+                'comment'   => 'Recipient',
             ],
             'message' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'comment'   => 'Message'
-            ]
+                'comment'   => 'Message',
+            ],
         ],
-        'comment' => 'Gift Message'
+        'comment' => 'Gift Message',
     ],
     $installer->getTable('sales/quote') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/quote_address') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/quote_item') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/quote_address_item') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/order') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/order_item') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
+                'comment'   => 'Gift Message Id',
             ],
             'gift_message_available' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Available'
-            ]
-        ]
-    ]
+                'comment'   => 'Gift Message Available',
+            ],
+        ],
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);

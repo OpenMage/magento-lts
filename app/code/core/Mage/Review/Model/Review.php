@@ -235,7 +235,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     {
         $store = Mage::app()->getStore($store);
         if ($store) {
-            return in_array($store->getId(), (array)$this->getStores());
+            return in_array($store->getId(), (array) $this->getStores());
         }
 
         return false;

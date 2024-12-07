@@ -23,27 +23,27 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('wishlist/wishlist'),
-    'FK_WISHLIST_CUSTOMER'
+    'FK_WISHLIST_CUSTOMER',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('wishlist/item'),
-    'FK_WISHLIST_ITEM_PRODUCT'
+    'FK_WISHLIST_ITEM_PRODUCT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('wishlist/item'),
-    'FK_WISHLIST_ITEM_STORE'
+    'FK_WISHLIST_ITEM_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('wishlist/item'),
-    'FK_WISHLIST_ITEM_WISHLIST'
+    'FK_WISHLIST_ITEM_WISHLIST',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('wishlist/item_option'),
-    'FK_WISHLIST_ITEM_OPTION_ITEM_ID'
+    'FK_WISHLIST_ITEM_OPTION_ITEM_ID',
 );
 
 /**
@@ -51,32 +51,32 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('wishlist/wishlist'),
-    'UNQ_CUSTOMER'
+    'UNQ_CUSTOMER',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('wishlist/wishlist'),
-    'IDX_IS_SHARED'
+    'IDX_IS_SHARED',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('wishlist/item'),
-    'IDX_WISHLIST'
+    'IDX_WISHLIST',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('wishlist/item'),
-    'IDX_PRODUCT'
+    'IDX_PRODUCT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('wishlist/item'),
-    'IDX_STORE'
+    'IDX_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('wishlist/item_option'),
-    'FK_WISHLIST_ITEM_OPTION_ITEM_ID'
+    'FK_WISHLIST_ITEM_OPTION_ITEM_ID',
 );
 
 /**
@@ -91,33 +91,33 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Wishlist ID'
+                'comment'   => 'Wishlist ID',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Customer ID'
+                'comment'   => 'Customer ID',
             ],
             'shared' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Sharing flag (0 or 1)'
+                'comment'   => 'Sharing flag (0 or 1)',
             ],
             'sharing_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
-                'comment'   => 'Sharing encrypted code'
+                'comment'   => 'Sharing encrypted code',
             ],
             'updated_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Last updated date'
-            ]
+                'comment'   => 'Last updated date',
+            ],
         ],
-        'comment' => 'Wishlist main Table'
+        'comment' => 'Wishlist main Table',
     ],
     $installer->getTable('wishlist/item') => [
         'columns' => [
@@ -127,45 +127,45 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Wishlist item ID'
+                'comment'   => 'Wishlist item ID',
             ],
             'wishlist_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Wishlist ID'
+                'comment'   => 'Wishlist ID',
             ],
             'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Product ID'
+                'comment'   => 'Product ID',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
-                'comment'   => 'Store ID'
+                'comment'   => 'Store ID',
             ],
             'added_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Add date and time'
+                'comment'   => 'Add date and time',
             ],
             'description' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Short description of wish list item'
+                'comment'   => 'Short description of wish list item',
             ],
             'qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
-                'comment'   => 'Qty'
-            ]
+                'comment'   => 'Qty',
+            ],
         ],
-        'comment' => 'Wishlist items'
+        'comment' => 'Wishlist items',
     ],
     $installer->getTable('wishlist/item_option') => [
         'columns' => [
@@ -175,35 +175,35 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Option Id'
+                'comment'   => 'Option Id',
             ],
             'wishlist_item_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Wishlist Item Id'
+                'comment'   => 'Wishlist Item Id',
             ],
             'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Product Id'
+                'comment'   => 'Product Id',
             ],
             'code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Code'
+                'comment'   => 'Code',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'nullable'  => true,
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Wishlist Item Option Table'
-    ]
+        'comment' => 'Wishlist Item Option Table',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -216,34 +216,34 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'wishlist/wishlist',
         ['customer_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['customer_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('wishlist/wishlist'),
     $installer->getIdxName('wishlist/wishlist', ['shared']),
-    ['shared']
+    ['shared'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('wishlist/item'),
     $installer->getIdxName('wishlist/item', ['wishlist_id']),
-    ['wishlist_id']
+    ['wishlist_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('wishlist/item'),
     $installer->getIdxName('wishlist/item', ['product_id']),
-    ['product_id']
+    ['product_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('wishlist/item'),
     $installer->getIdxName('wishlist/item', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 /**
@@ -254,7 +254,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('wishlist/wishlist'),
     'customer_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -262,7 +262,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('wishlist/item'),
     'wishlist_id',
     $installer->getTable('wishlist/wishlist'),
-    'wishlist_id'
+    'wishlist_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -270,7 +270,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('wishlist/item'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -279,7 +279,7 @@ $installer->getConnection()->addForeignKey(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    Varien_Db_Ddl_Table::ACTION_SET_NULL
+    Varien_Db_Ddl_Table::ACTION_SET_NULL,
 );
 
 $installer->getConnection()->addForeignKey(
@@ -287,7 +287,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('wishlist/item_option'),
     'wishlist_item_id',
     $installer->getTable('wishlist/item'),
-    'wishlist_item_id'
+    'wishlist_item_id',
 );
 
 $installer->endSetup();

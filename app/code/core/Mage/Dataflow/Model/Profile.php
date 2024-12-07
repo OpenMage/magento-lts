@@ -208,8 +208,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                             Mage::throwException(
                                 Mage::helper('Dataflow')->__(
                                     'Upload failed. Wrong data format in file: %s.',
-                                    $uploadFile
-                                )
+                                    $uploadFile,
+                                ),
                             );
                         }
                     }
@@ -229,8 +229,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                             Mage::helper('Dataflow')->__(
                                 'Upload failed. Can not find required columns: %s in file %s.',
                                 implode(', ', $colsAbsent),
-                                $uploadFile
-                            )
+                                $uploadFile,
+                            ),
                         );
                     }
                     if ($uploadFile) {

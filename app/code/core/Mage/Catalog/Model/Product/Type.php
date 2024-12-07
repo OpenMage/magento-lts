@@ -135,8 +135,8 @@ class Mage_Catalog_Model_Product_Type
         $res[] = ['value' => '', 'label' => ''];
         foreach (self::getOptionArray() as $index => $value) {
             $res[] = [
-               'value' => $index,
-               'label' => $value
+                'value' => $index,
+                'label' => $value,
             ];
         }
         return $res;
@@ -150,8 +150,8 @@ class Mage_Catalog_Model_Product_Type
         $res = [];
         foreach (self::getOptionArray() as $index => $value) {
             $res[] = [
-               'value' => $index,
-               'label' => $value
+                'value' => $index,
+                'label' => $value,
             ];
         }
         return $res;

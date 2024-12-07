@@ -28,11 +28,11 @@ class Mage_Paygate_Model_Authorizenet_Source_PaymentAction
         return [
             [
                 'value' => Mage_Paygate_Model_Authorizenet::ACTION_AUTHORIZE,
-                'label' => Mage::helper('paygate')->__('Authorize Only')
+                'label' => Mage::helper('paygate')->__('Authorize Only'),
             ],
             [
                 'value' => Mage_Paygate_Model_Authorizenet::ACTION_AUTHORIZE_CAPTURE,
-                'label' => Mage::helper('paygate')->__('Authorize and Capture')
+                'label' => Mage::helper('paygate')->__('Authorize and Capture'),
             ],
         ];
     }

@@ -19,16 +19,16 @@ $installer  = $this;
 $installer->startSetup();
 
 $installer->addAttribute('catalog_product', 'media_gallery', [
-        'group'         => 'Images',
-        'label'         => 'Media Gallery',
-        'input'         => 'gallery',
-        'backend'       => 'catalog/product_attribute_backend_media',
-        'class'         => '',
-        'global'        => true,
-        'visible'       => true,
-        'required'      => false,
-        'user_defined'  => false,
-        'visible_on_front' => false
+    'group'         => 'Images',
+    'label'         => 'Media Gallery',
+    'input'         => 'gallery',
+    'backend'       => 'catalog/product_attribute_backend_media',
+    'class'         => '',
+    'global'        => true,
+    'visible'       => true,
+    'required'      => false,
+    'user_defined'  => false,
+    'visible_on_front' => false,
 ]);
 $installer->run("
     DROP TABLE IF EXISTS `{$this->getTable('catalog_product_entity_media_gallery')}`;

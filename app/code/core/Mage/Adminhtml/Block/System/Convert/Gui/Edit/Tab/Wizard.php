@@ -207,7 +207,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         if (!$this->_filterStores) {
             $this->_filterStores = [];
             foreach (Mage::getConfig()->getNode('stores')->children() as $storeNode) {
-                $this->_filterStores[$storeNode->getName()] = (string)$storeNode->system->store->name;
+                $this->_filterStores[$storeNode->getName()] = (string) $storeNode->system->store->name;
             }
         }
         return $this->_filterStores;
@@ -282,7 +282,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     {
         if (!$this->_shortDateFormat) {
             $this->_shortDateFormat = Mage::app()->getLocale()->getDateStrFormat(
-                Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+                Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
             );
         }
         return $this->_shortDateFormat;

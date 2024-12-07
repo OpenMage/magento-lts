@@ -42,7 +42,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
      */
     public function setColumnGroupBy($column)
     {
-        $this->_columnGroupBy = (string)$column;
+        $this->_columnGroupBy = (string) $column;
         return $this;
     }
 

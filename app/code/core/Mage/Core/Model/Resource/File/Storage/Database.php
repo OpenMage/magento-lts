@@ -50,33 +50,33 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'primary'   => true
+                'primary'   => true,
             ], 'File Id')
             ->addColumn('content', Varien_Db_Ddl_Table::TYPE_VARBINARY, Varien_Db_Ddl_Table::MAX_VARBINARY_SIZE, [
-                'nullable' => false
+                'nullable' => false,
             ], 'File Content')
             ->addColumn('upload_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
                 'nullable' => false,
-                'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
+                'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
             ], 'Upload Timestamp')
             ->addColumn('filename', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
-                'nullable' => false
+                'nullable' => false,
             ], 'Filename')
             ->addColumn('directory_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
                 'unsigned' => true,
-                'default' => null
+                'default' => null,
             ], 'Identifier of Directory where File is Located')
             ->addColumn('directory', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
-                'default' => null
+                'default' => null,
             ], 'Directory Path')
             ->addIndex(
                 $adapter->getIndexName(
                     $table,
                     ['filename', 'directory_id'],
-                    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+                    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
                 ),
                 ['filename', 'directory_id'],
-                ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+                ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
             )
             ->addIndex($adapter->getIndexName($table, ['directory_id']), ['directory_id'])
             ->addForeignKey(
@@ -85,7 +85,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
                 $dirStorageTable,
                 'directory_id',
                 Varien_Db_Ddl_Table::ACTION_CASCADE,
-                Varien_Db_Ddl_Table::ACTION_CASCADE
+                Varien_Db_Ddl_Table::ACTION_CASCADE,
             )
             ->setComment('File Storage');
 
@@ -172,7 +172,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
         $select = $adapter->select()
             ->from(
                 ['e' => $this->getMainTable()],
-                ['filename', 'content', 'directory']
+                ['filename', 'content', 'directory'],
             )
             ->order('file_id')
             ->limit($count, $offset);
@@ -198,7 +198,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
             'upload_time'    => $file['update_time'],
             'filename'       => $file['filename'],
             'directory_id'   => $file['directory_id'],
-            'directory'      => $file['directory']
+            'directory'      => $file['directory'],
         ];
 
         $adapter->insertOnDuplicate($this->getMainTable(), $data, ['content', 'upload_time']);
@@ -281,7 +281,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
             ->limit(1);
 
         $data = $adapter->fetchRow($select);
-        return (bool)$data;
+        return (bool) $data;
     }
 
     /**
@@ -336,8 +336,8 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
                 [
                     'filename',
                     'directory',
-                    'content'
-                ]
+                    'content',
+                ],
             )
             ->where($adapter->prepareSqlCondition('directory', ['seq' => $directory]))
             ->order('file_id');

@@ -20,13 +20,13 @@ $installer = $this;
 $installer->getConnection()->addColumn(
     $installer->getTable('sales/shipping_aggregated_order'),
     'total_shipping_actual',
-    "decimal(12,4) NOT NULL default '0.0000'"
+    "decimal(12,4) NOT NULL default '0.0000'",
 );
 
 $installer->getConnection()->addColumn(
     $installer->getTable('sales/shipping_aggregated'),
     'total_shipping_actual',
-    "decimal(12,4) NOT NULL default '0.0000'"
+    "decimal(12,4) NOT NULL default '0.0000'",
 );
 
 $installer->run("

@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             'label'     => Mage::helper('cms')->__('Page Title'),
             'title'     => Mage::helper('cms')->__('Page Title'),
             'required'  => true,
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $fieldset->addField('identifier', 'text', [
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             'required'  => true,
             'class'     => 'validate-identifier',
             'note'      => Mage::helper('cms')->__('Relative to Website Base URL'),
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         /**
@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
         } else {
             $fieldset->addField('store_id', 'hidden', [
                 'name'      => 'stores[]',
-                'value'     => Mage::app()->getStore(true)->getId()
+                'value'     => Mage::app()->getStore(true)->getId(),
             ]);
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }

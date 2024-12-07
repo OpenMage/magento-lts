@@ -95,9 +95,7 @@ class Mage_Core_Model_Translate
      */
     protected $_canUseInline = true;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Initialization translation data

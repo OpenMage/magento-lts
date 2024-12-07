@@ -63,7 +63,7 @@ class Varien_File_Transfer_Adapter_Http
         'psd' => 'image/vnd.adobe.photoshop',
         'ai' => 'application/postscript',
         'eps' => 'application/postscript',
-        'ps' => 'application/postscript'
+        'ps' => 'application/postscript',
     ];
 
     /**
@@ -90,7 +90,7 @@ class Varien_File_Transfer_Adapter_Http
 
         $response = new Zend_Controller_Response_Http();
 
-        $response->setHeader('Content-length', (string)filesize($filepath));
+        $response->setHeader('Content-length', (string) filesize($filepath));
         $response->setHeader('Content-Type', $mimeType);
 
         $response->sendHeaders();

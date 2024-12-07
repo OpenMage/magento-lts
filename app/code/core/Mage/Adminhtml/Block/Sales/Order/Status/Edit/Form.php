@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Edit_Form extends Mage_Adminhtml_B
         $form->getElement('base_fieldset')->removeField('is_new');
         $form->getElement('base_fieldset')->removeField('status');
         $form->setAction(
-            $this->getUrl('*/sales_order_status/save', ['status' => $this->getRequest()->getParam('status')])
+            $this->getUrl('*/sales_order_status/save', ['status' => $this->getRequest()->getParam('status')]),
         );
         return $this;
     }

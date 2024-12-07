@@ -93,7 +93,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
             ->setBatchId($this->getBatchModel()->getId())
             ->getIdCollection();
 
-        $onlySpecified = (bool)$this->getVar('_only_specified') === true;
+        $onlySpecified = (bool) $this->getVar('_only_specified') === true;
 
         if (!$onlySpecified) {
             foreach ($batchExportIds as $batchExportId) {

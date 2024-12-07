@@ -36,7 +36,7 @@ $installer->addAttribute('catalog_product', 'page_layout', [
     'comparable'        => false,
     'visible_on_front'  => false,
     'unique'            => false,
-    'group'             => 'Design'
+    'group'             => 'Design',
 ]);
 
 $installer->endSetup();

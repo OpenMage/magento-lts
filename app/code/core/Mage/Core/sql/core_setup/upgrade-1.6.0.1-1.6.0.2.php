@@ -20,7 +20,7 @@ $installer->startSetup();
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/cache_tag'),
-    $installer->getFkName('core/cache_tag', 'cache_id', 'core/cache', 'id')
+    $installer->getFkName('core/cache_tag', 'cache_id', 'core/cache', 'id'),
 );
 
 $installer->endSetup();

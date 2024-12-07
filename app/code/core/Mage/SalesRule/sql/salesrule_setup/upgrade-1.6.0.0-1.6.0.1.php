@@ -20,5 +20,5 @@ $installer = $this;
 $connection = $installer->getConnection();
 $connection->createTable($connection->createTableByDdl(
     $installer->getTable('salesrule/coupon_aggregated'),
-    $installer->getTable('salesrule/coupon_aggregated_updated')
+    $installer->getTable('salesrule/coupon_aggregated_updated'),
 ));

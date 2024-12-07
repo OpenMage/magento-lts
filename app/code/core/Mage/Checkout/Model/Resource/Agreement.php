@@ -57,7 +57,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
         $condition = ['agreement_id = ?' => $object->getId()];
         $this->_getWriteAdapter()->delete($this->getTable('checkout/agreement_store'), $condition);
 
-        foreach ((array)$object->getData('stores') as $store) {
+        foreach ((array) $object->getData('stores') as $store) {
             $storeArray = [];
             $storeArray['agreement_id'] = $object->getId();
             $storeArray['store_id'] = $store;
@@ -99,7 +99,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
         if ($object->getStoreId()) {
             $select->join(
                 ['cps' => $this->getTable('checkout/agreement_store')],
-                $this->getMainTable() . '.agreement_id = cps.agreement_id'
+                $this->getMainTable() . '.agreement_id = cps.agreement_id',
             )
             ->where('is_active=1')
             ->where('cps.store_id IN (0, ?)', $object->getStoreId())

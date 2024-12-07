@@ -55,17 +55,17 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
         $priceExpr = $adapter->getCheckSql(
             'store_value_price.price IS NULL',
             'default_value_price.price',
-            'store_value_price.price'
+            'store_value_price.price',
         );
         $priceTypeExpr = $adapter->getCheckSql(
             'store_value_price.price_type IS NULL',
             'default_value_price.price_type',
-            'store_value_price.price_type'
+            'store_value_price.price_type',
         );
         $titleExpr = $adapter->getCheckSql(
             'store_value_title.title IS NULL',
             'default_value_title.title',
-            'store_value_title.title'
+            'store_value_title.title',
         );
         $joinExprDefaultPrice = 'default_value_price.option_type_id = main_table.option_type_id AND '
                   . $adapter->quoteInto('default_value_price.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
@@ -80,7 +80,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
             ->joinLeft(
                 ['default_value_price' => $optionTypePriceTable],
                 $joinExprDefaultPrice,
-                ['default_price' => 'price','default_price_type' => 'price_type']
+                ['default_price' => 'price','default_price_type' => 'price_type'],
             )
             ->joinLeft(
                 ['store_value_price' => $optionTypePriceTable],
@@ -89,20 +89,20 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
                     'store_price'       => 'price',
                     'store_price_type'  => 'price_type',
                     'price'             => $priceExpr,
-                    'price_type'        => $priceTypeExpr
-                ]
+                    'price_type'        => $priceTypeExpr,
+                ],
             )
             ->join(
                 ['default_value_title' => $optionTitleTable],
                 'default_value_title.option_type_id = main_table.option_type_id',
-                ['default_title' => 'title']
+                ['default_title' => 'title'],
             )
             ->joinLeft(
                 ['store_value_title' => $optionTitleTable],
                 $joinExprTitle,
                 [
                     'store_title' => 'title',
-                    'title'       => $titleExpr]
+                    'title'       => $titleExpr],
             )
             ->where('default_value_title.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
@@ -127,15 +127,15 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
             ->join(
                 ['default_value_title' => $optionTitleTable],
                 'default_value_title.option_type_id = main_table.option_type_id',
-                ['default_title' => 'title']
+                ['default_title' => 'title'],
             )
             ->joinLeft(
                 ['store_value_title' => $optionTitleTable],
                 $joinExpr,
                 [
                     'store_title'   => 'title',
-                    'title'         => $titleExpr
-                ]
+                    'title'         => $titleExpr,
+                ],
             )
             ->where('default_value_title.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
@@ -157,7 +157,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
             ->getCheckSql(
                 'store_value_price.price_type IS NULL',
                 'default_value_price.price_type',
-                'store_value_price.price_type'
+                'store_value_price.price_type',
             );
 
         $joinExprDefault = 'default_value_price.option_type_id = main_table.option_type_id AND '
@@ -170,8 +170,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
                 $joinExprDefault,
                 [
                     'default_price' => 'price',
-                    'default_price_type' => 'price_type'
-                ]
+                    'default_price_type' => 'price_type',
+                ],
             )
             ->joinLeft(
                 ['store_value_price' => $optionTypeTable],
@@ -180,8 +180,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
                     'store_price'       => 'price',
                     'store_price_type'  => 'price_type',
                     'price'             => $priceExpr,
-                    'price_type'        => $priceTypeExpr
-                ]
+                    'price_type'        => $priceTypeExpr,
+                ],
             );
 
         return $this;

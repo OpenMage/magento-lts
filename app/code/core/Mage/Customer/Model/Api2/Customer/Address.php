@@ -84,7 +84,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
 
         $id = $collection->getResource()->getReadConnection()->fetchOne($collection->getSelect());
 
-        return $id ? (int)$id : $region;
+        return $id ? (int) $id : $region;
     }
 
     /**

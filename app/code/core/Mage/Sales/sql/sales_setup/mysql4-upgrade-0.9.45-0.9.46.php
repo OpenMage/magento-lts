@@ -25,12 +25,12 @@ $attributesToModify = [
     $installer->getAttribute($orderEntityTypeId, 'store_to_base_rate'),
     $installer->getAttribute($orderEntityTypeId, 'store_to_order_rate'),
     $installer->getAttribute($orderEntityTypeId, 'base_to_global_rate'),
-    $installer->getAttribute($orderEntityTypeId, 'base_to_order_rate')
+    $installer->getAttribute($orderEntityTypeId, 'base_to_order_rate'),
 ];
 
 $attributesToMove = [
     $installer->getAttribute($orderEntityTypeId, 'status'),
-    $installer->getAttribute($orderEntityTypeId, 'state')
+    $installer->getAttribute($orderEntityTypeId, 'state'),
 ];
 
 // modify existing attributes in sales/order table
@@ -91,7 +91,7 @@ $installer->getConnection()->addConstraint(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    'SET NULL'
+    'SET NULL',
 );
 
 $this->endSetup();

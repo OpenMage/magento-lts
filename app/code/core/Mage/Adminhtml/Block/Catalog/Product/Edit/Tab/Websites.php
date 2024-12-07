@@ -131,6 +131,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
             }
             $this->_storeFromHtml .= '</select>';
         }
-        return str_replace('__store_identifier__', (string)$storeTo->getId(), $this->_storeFromHtml);
+        return str_replace('__store_identifier__', (string) $storeTo->getId(), $this->_storeFromHtml);
     }
 }

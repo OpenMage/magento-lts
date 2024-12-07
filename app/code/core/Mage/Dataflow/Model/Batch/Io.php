@@ -123,7 +123,7 @@ class Mage_Dataflow_Model_Batch_Io
     {
         $mode = $write ? 'w+' : 'r+';
         $ioConfig = [
-            'path' => $this->getPath()
+            'path' => $this->getPath(),
         ];
         $this->getIoAdapter()->setAllowCreateFolders(true);
         $this->getIoAdapter()->open($ioConfig);

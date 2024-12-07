@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
         $this->addColumn('queue_id', [
             'header'    =>  Mage::helper('newsletter')->__('ID'),
             'index'     =>  'queue_id',
-            'width'     =>  10
+            'width'     =>  10,
         ]);
 
         $this->addColumn('start_at', [
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
             'type'      =>  'datetime',
             'index'     =>  'queue_start_at',
             'gmtoffset' => true,
-            'default'   =>  ' ---- '
+            'default'   =>  ' ---- ',
         ]);
 
         $this->addColumn('finish_at', [
@@ -63,12 +63,12 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
             'type'      =>  'datetime',
             'index'     =>  'queue_finish_at',
             'gmtoffset' => true,
-            'default'   =>  ' ---- '
+            'default'   =>  ' ---- ',
         ]);
 
         $this->addColumn('newsletter_subject', [
             'header'    =>  Mage::helper('newsletter')->__('Subject'),
-            'index'     =>  'newsletter_subject'
+            'index'     =>  'newsletter_subject',
         ]);
 
         $this->addColumn('status', [
@@ -83,25 +83,25 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
                 Mage_Newsletter_Model_Queue::STATUS_PAUSE   => Mage::helper('newsletter')->__('Paused'),
             ],
             'width'     => '100px',
-         ]);
+        ]);
 
         $this->addColumn('subscribers_sent', [
             'header'    =>  Mage::helper('newsletter')->__('Processed'),
-               'type'       => 'number',
-            'index'     => 'subscribers_sent'
+            'type'       => 'number',
+            'index'     => 'subscribers_sent',
         ]);
 
         $this->addColumn('subscribers_total', [
             'header'    =>  Mage::helper('newsletter')->__('Recipients'),
             'type'      => 'number',
-            'index'     => 'subscribers_total'
+            'index'     => 'subscribers_total',
         ]);
 
         $this->addColumn('action', [
             'type'      => 'action',
             'no_link'   => true,
             'width'     => '100',
-            'renderer'  =>  'adminhtml/newsletter_queue_grid_renderer_action'
+            'renderer'  =>  'adminhtml/newsletter_queue_grid_renderer_action',
         ]);
 
         return parent::_prepareColumns();

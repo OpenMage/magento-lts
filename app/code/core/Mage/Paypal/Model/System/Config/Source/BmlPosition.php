@@ -31,7 +31,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
     {
         return [
             '0' => Mage::helper('paypal')->__('Header (center)'),
-            '1' => Mage::helper('paypal')->__('Sidebar (right)')
+            '1' => Mage::helper('paypal')->__('Sidebar (right)'),
         ];
     }
 
@@ -44,7 +44,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
     {
         return [
             '0' => Mage::helper('paypal')->__('Header (center)'),
-            '1' => Mage::helper('paypal')->__('Sidebar (right)')
+            '1' => Mage::helper('paypal')->__('Sidebar (right)'),
         ];
     }
 
@@ -57,7 +57,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
     {
         return [
             '0' => Mage::helper('paypal')->__('Header (center)'),
-            '1' => Mage::helper('paypal')->__('Near Paypal Credit checkout button')
+            '1' => Mage::helper('paypal')->__('Near Paypal Credit checkout button'),
         ];
     }
 
@@ -70,7 +70,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
     {
         return [
             '0' => Mage::helper('paypal')->__('Header (center)'),
-            '1' => Mage::helper('paypal')->__('Near Paypal Credit checkout button')
+            '1' => Mage::helper('paypal')->__('Near Paypal Credit checkout button'),
         ];
     }
 }

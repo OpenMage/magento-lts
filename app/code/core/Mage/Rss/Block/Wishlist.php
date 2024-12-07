@@ -108,7 +108,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
 
         if ($this->_getWishlist()->getId()) {
             $newUrl = Mage::getUrl('wishlist/shared/index', [
-                'code'  => $this->_getWishlist()->getSharingCode()
+                'code'  => $this->_getWishlist()->getSharingCode(),
             ]);
 
             $title  = $this->_getTitle();
@@ -119,7 +119,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 'description'   => $title,
                 'link'          => $newUrl,
                 'charset'       => 'UTF-8',
-                'language'      => $lang
+                'language'      => $lang,
             ]);
 
             /** @var Mage_Wishlist_Model_Item $wishlistItem */
@@ -204,7 +204,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
         if ($type) {
             $this->_priceBlockTypes[$type] = [
                 'block' => $block,
-                'template' => $template
+                'template' => $template,
             ];
         }
     }

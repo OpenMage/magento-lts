@@ -134,7 +134,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
             $this->setData('qty', $qty);
         } else {
             Mage::throwException(
-                Mage::helper('sales')->__('Invalid qty to ship for item "%s"', $this->getName())
+                Mage::helper('sales')->__('Invalid qty to ship for item "%s"', $this->getName()),
             );
         }
         return $this;
@@ -148,7 +148,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     public function register()
     {
         $this->getOrderItem()->setQtyShipped(
-            $this->getOrderItem()->getQtyShipped() + $this->getQty()
+            $this->getOrderItem()->getQtyShipped() + $this->getQty(),
         );
         return $this;
     }

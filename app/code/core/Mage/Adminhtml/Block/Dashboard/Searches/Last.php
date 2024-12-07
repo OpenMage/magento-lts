@@ -67,14 +67,14 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
             'header'    => $this->__('Results'),
             'sortable'  => false,
             'index'     => 'num_results',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addColumn('popularity', [
             'header'    => $this->__('Number of Uses'),
             'sortable'  => false,
             'index'     => 'popularity',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->setFilterVisibility(false);

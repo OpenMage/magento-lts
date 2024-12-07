@@ -21,7 +21,7 @@ $installer->startSetup();
 $installer->getConnection()->dropForeignKey($installer->getTable('design_change'), 'FK_DESIGN_CHANGE_STORE');
 
 $storeIds = $installer->getConnection()->fetchCol(
-    "SELECT store_id FROM {$installer->getTable('core_store')}"
+    "SELECT store_id FROM {$installer->getTable('core_store')}",
 );
 
 if (!empty($storeIds)) {
@@ -34,7 +34,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('design_change'),
     'store_id',
     $installer->getTable('core_store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

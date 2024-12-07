@@ -85,7 +85,7 @@ class Mage_Paypal_Model_Observer
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
-                    Zend_Json::TYPE_ARRAY
+                    Zend_Json::TYPE_ARRAY,
                 );
 
                 if (empty($result['error'])) {
@@ -93,7 +93,7 @@ class Mage_Paypal_Model_Observer
                     $html = $controller->getLayout()->getBlock('paypal.iframe')->toHtml();
                     $result['update_section'] = [
                         'name' => 'paypaliframe',
-                        'html' => $html
+                        'html' => $html,
                     ];
                     $result['redirect'] = false;
                     $result['success'] = false;
@@ -123,8 +123,8 @@ class Mage_Paypal_Model_Observer
 
         $payments = $paymentGroups->xpath('paypal_payments/*');
         foreach ($payments as $payment) {
-            if ((int)$payment->include) {
-                $fields = $paymentGroups->xpath((string)$payment->group . '/fields');
+            if ((int) $payment->include) {
+                $fields = $paymentGroups->xpath((string) $payment->group . '/fields');
                 if (isset($fields[0])) {
                     $fields[0]->appendChild($payment, true);
                 }
@@ -141,7 +141,7 @@ class Mage_Paypal_Model_Observer
         $transaction = $observer->getEvent()->getTransaction();
         $transaction->setHtmlTxnId(Mage::helper('paypal')->getHtmlTransactionId(
             $observer->getEvent()->getPayment()->getMethodInstance()->getCode(),
-            $transaction->getTxnId()
+            $transaction->getTxnId(),
         ));
     }
 }

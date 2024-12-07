@@ -160,11 +160,11 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                 'sample_file' => $item->getSampleFile(),
                 'sample_url' => $item->getSampleUrl(),
                 'sample_type' => $item->getSampleType(),
-                'sort_order' => $item->getSortOrder()
+                'sort_order' => $item->getSortOrder(),
             ];
             $file = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBasePath(),
-                $item->getLinkFile()
+                $item->getLinkFile(),
             );
 
             if ($item->getLinkFile() && !is_file($file)) {
@@ -178,12 +178,12 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                         'file' => $item->getLinkFile(),
                         'name' => $name,
                         'size' => filesize($file),
-                        'status' => 'old'
+                        'status' => 'old',
                     ]];
             }
             $sampleFile = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBaseSamplePath(),
-                $item->getSampleFile()
+                $item->getSampleFile(),
             );
             if ($item->getSampleFile() && is_file($sampleFile)) {
                 $tmpLinkItem['sample_file_save'] = [
@@ -191,7 +191,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                         'file' => $item->getSampleFile(),
                         'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
                         'size' => filesize($sampleFile),
-                        'status' => 'old'
+                        'status' => 'old',
                     ]];
             }
             if ($item->getNumberOfDownloads() == '0') {

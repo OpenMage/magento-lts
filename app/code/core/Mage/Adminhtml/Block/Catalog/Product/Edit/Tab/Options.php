@@ -36,13 +36,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options extends Mage_Adminht
                 ->setData([
                     'label' => Mage::helper('catalog')->__('Add New Option'),
                     'class' => 'add',
-                    'id'    => 'add_new_defined_option'
-                ])
+                    'id'    => 'add_new_defined_option',
+                ]),
         );
 
         $this->setChild(
             'options_box',
-            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_options_option')
+            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_options_option'),
         );
 
         return parent::_prepareLayout();

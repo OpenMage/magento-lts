@@ -42,7 +42,7 @@ class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
                 'group_id'    => $store->getGroupId(),
                 'name'        => $store->getName(),
                 'sort_order'  => $store->getSortOrder(),
-                'is_active'   => $store->getIsActive()
+                'is_active'   => $store->getIsActive(),
             ];
         }
 

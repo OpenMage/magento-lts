@@ -198,15 +198,15 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $sendTo = [
             [
                 'email' => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/email', $checkout->getStoreId()),
-                'name'  => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/name', $checkout->getStoreId())
-            ]
+                'name'  => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/name', $checkout->getStoreId()),
+            ],
         ];
 
         if ($copyTo && $copyMethod == 'copy') {
             foreach ($copyTo as $email) {
                 $sendTo[] = [
                     'email' => $email,
-                    'name'  => null
+                    'name'  => null,
                 ];
             }
         }
@@ -249,7 +249,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                         'paymentMethod'   => Mage::getStoreConfig('payment/' . $paymentMethod . '/title'),
                         'items'           => nl2br($items),
                         'total'           => $total,
-                    ]
+                    ],
                 );
         }
 
@@ -315,7 +315,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::dispatchEvent('checkout_allow_guest', [
                 'quote'  => $quote,
                 'store'  => $store,
-                'result' => $result
+                'result' => $result,
             ]);
 
             $guestCheckout = $result->getIsAllowed();

@@ -157,7 +157,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function getRegionId()
     {
-        return (int)$this->getData('region_id');
+        return (int) $this->getData('region_id');
     }
 
     /**
@@ -168,7 +168,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function setRegionId($regionId)
     {
-        $this->setData('region_id', (int)$regionId);
+        $this->setData('region_id', (int) $regionId);
         return $this;
     }
 }

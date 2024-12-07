@@ -40,8 +40,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label' => Mage::helper('eav')->__('Delete'),
-                    'class' => 'delete delete-option'
-                ])
+                    'class' => 'delete delete-option',
+                ]),
         );
 
         $this->setChild(
@@ -50,8 +50,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->setData([
                     'label' => Mage::helper('eav')->__('Add Option'),
                     'class' => 'add',
-                    'id'    => 'add_new_option_button'
-                ])
+                    'id'    => 'add_new_option_button',
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -104,7 +104,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         $attributeType = $this->getAttributeObject()->getFrontendInput();
         $defaultValues = $this->getAttributeObject()->getDefaultValue();
         if ($attributeType === 'select' || $attributeType === 'multiselect') {
-            $defaultValues = explode(',', (string)$defaultValues);
+            $defaultValues = explode(',', (string) $defaultValues);
         } else {
             $defaultValues = [];
         }

@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
     protected function _prepareForm()
     {
         $this->setFormExcludedFieldList([
-            'tier_price','gallery', 'media_gallery', 'recurring_profile', 'group_price'
+            'tier_price','gallery', 'media_gallery', 'recurring_profile', 'group_price',
         ]);
         Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', ['object' => $this]);
 
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
             'price' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
             'weight' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_weight'),
             'image' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
-            'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
+            'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean'),
         ];
     }
 

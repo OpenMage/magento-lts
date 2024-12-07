@@ -21,6 +21,4 @@
  * @package    Mage_Catalog
  * @deprecated
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Attribute_Source_Layout extends Mage_Catalog_Model_Resource_Category_Attribute_Source_Layout
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Attribute_Source_Layout extends Mage_Catalog_Model_Resource_Category_Attribute_Source_Layout {}

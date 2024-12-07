@@ -42,7 +42,7 @@ class Mage_Adminhtml_Helper_Dashboard_Order extends Mage_Adminhtml_Helper_Dashbo
         } elseif (!$this->_collection->isLive()) {
             $this->_collection->addFieldToFilter(
                 'store_id',
-                ['eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId()]
+                ['eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId()],
             );
         }
 

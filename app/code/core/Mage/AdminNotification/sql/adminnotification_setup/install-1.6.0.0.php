@@ -55,15 +55,15 @@ $table = $installer->getConnection()
     ], 'Flag if notification might be removed')
     ->addIndex(
         $installer->getIdxName('adminnotification/inbox', ['severity']),
-        ['severity']
+        ['severity'],
     )
     ->addIndex(
         $installer->getIdxName('adminnotification/inbox', ['is_read']),
-        ['is_read']
+        ['is_read'],
     )
     ->addIndex(
         $installer->getIdxName('adminnotification/inbox', ['is_remove']),
-        ['is_remove']
+        ['is_remove'],
     )
     ->setComment('Adminnotification Inbox');
 $installer->getConnection()->createTable($table);

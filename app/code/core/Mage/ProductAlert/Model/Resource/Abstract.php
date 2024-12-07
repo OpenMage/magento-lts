@@ -39,7 +39,7 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
             $bind = [
                 ':customer_id' => $object->getCustomerId(),
                 ':product_id'  => $object->getProductId(),
-                ':website_id'  => $object->getWebsiteId()
+                ':website_id'  => $object->getWebsiteId(),
             ];
             return $adapter->fetchRow($select, $bind);
         }

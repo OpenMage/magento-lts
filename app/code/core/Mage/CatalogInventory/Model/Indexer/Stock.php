@@ -45,25 +45,25 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected $_matchedEntities = [
         Mage_CatalogInventory_Model_Stock_Item::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_MASS_ACTION,
-            Mage_Index_Model_Event::TYPE_DELETE
+            Mage_Index_Model_Event::TYPE_DELETE,
         ],
         Mage_Core_Model_Store::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Core_Model_Store_Group::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Core_Model_Config_Data::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
-        ]
+            Mage_Index_Model_Event::TYPE_SAVE,
+        ],
     ];
 
     /**
@@ -73,7 +73,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected $_relatedConfigSettings = [
         Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
-        Mage_CatalogInventory_Helper_Data::XML_PATH_SHOW_OUT_OF_STOCK
+        Mage_CatalogInventory_Helper_Data::XML_PATH_SHOW_OUT_OF_STOCK,
     ];
 
     protected function _construct()
@@ -243,7 +243,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
             Mage::getSingleton('index/indexer')->logEvent(
                 $massObject,
                 Mage_Catalog_Model_Product::ENTITY,
-                Mage_Index_Model_Event::TYPE_MASS_ACTION
+                Mage_Index_Model_Event::TYPE_MASS_ACTION,
             );
         }
 
@@ -277,7 +277,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
     {
         $actionObject = $event->getDataObject();
         $attributes   = [
-            'status'
+            'status',
         ];
         $reindexStock = false;
 

@@ -84,7 +84,7 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
             $bind = [
                 'template_id'     => $template->getId(),
                 'template_code'   => $template->getTemplateCode(),
-                'template_actual' => 1
+                'template_actual' => 1,
             ];
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getMainTable(), new Zend_Db_Expr('COUNT(template_id)'))

@@ -42,20 +42,20 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     {
         $this->setChild(
             'uploader',
-            $this->getLayout()->createBlock($this->_uploaderType)
+            $this->getLayout()->createBlock($this->_uploaderType),
         );
 
         $this->getUploader()->getUploaderConfig()
             ->setFileParameterName('image')
             ->setTarget(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl(
                 '*/catalog_product_gallery/upload',
-                ['_query' => false]
+                ['_query' => false],
             ));
 
         $browseConfig = $this->getUploader()->getButtonConfig();
         $browseConfig
             ->setAttributes([
-                'accept' => $browseConfig->getMimeTypesByExtensions(Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS)
+                'accept' => $browseConfig->getMimeTypesByExtensions(Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS),
             ]);
 
         Mage::dispatchEvent('catalog_product_gallery_prepare_layout', ['block' => $this]);
@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
             Mage::helper('catalog')->__('Add New Images'),
             $this->getJsObjectName() . '.showUploader()',
             'add',
-            $this->getHtmlId() . '_add_images_button'
+            $this->getHtmlId() . '_add_images_button',
         );
     }
 
@@ -147,7 +147,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
             $imageTypes[$attribute->getAttributeCode()] = [
                 'label' => $attribute->getFrontend()->getLabel() . ' '
                          . Mage::helper('catalog')->__($this->getElement()->getScopeLabel($attribute)),
-                'field' => $this->getElement()->getAttributeFieldName($attribute)
+                'field' => $this->getElement()->getAttributeFieldName($attribute),
             ];
         }
         return $imageTypes;

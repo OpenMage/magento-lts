@@ -21,6 +21,4 @@
  * @package    Mage_Bundle
  * @deprecated
  */
-class Mage_Bundle_Model_Mysql4_Bundle extends Mage_Bundle_Model_Resource_Bundle
-{
-}
+class Mage_Bundle_Model_Mysql4_Bundle extends Mage_Bundle_Model_Resource_Bundle {}

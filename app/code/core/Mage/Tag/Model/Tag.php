@@ -92,7 +92,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this,
             self::ENTITY,
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         );
         return $this;
     }
@@ -454,7 +454,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             $relationModel->getProductId(),
             $this->getId(),
             $relationModel->getCustomerId(),
-            $relationModel->getStoreId()
+            $relationModel->getStoreId(),
         );
     }
 

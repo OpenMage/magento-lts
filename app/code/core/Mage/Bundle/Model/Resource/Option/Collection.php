@@ -60,14 +60,14 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
             ->joinLeft(
                 ['option_value_default' => $this->getTable('bundle/option_value')],
                 'main_table.option_id = option_value_default.option_id and option_value_default.store_id = 0',
-                []
+                [],
             )
             ->columns(['default_title' => 'option_value_default.title']);
 
         $title = $this->getConnection()->getCheckSql(
             'option_value.title IS NOT NULL',
             'option_value.title',
-            'option_value_default.title'
+            'option_value_default.title',
         );
         if ($storeId !== null) {
             $this->getSelect()
@@ -76,9 +76,9 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
                     ['option_value' => $this->getTable('bundle/option_value')],
                     $this->getConnection()->quoteInto(
                         'main_table.option_id = option_value.option_id and option_value.store_id = ?',
-                        $storeId
+                        $storeId,
                     ),
-                    []
+                    [],
                 );
         }
         return $this;

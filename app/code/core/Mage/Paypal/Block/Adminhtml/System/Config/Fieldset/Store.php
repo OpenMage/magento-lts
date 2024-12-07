@@ -53,7 +53,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store extends Mage_Admi
             'wpp'       => 'payment/paypal_direct/active',
             'wpppe'     => 'payment/paypaluk_direct/active',
             'verisign'  => 'payment/verisign/active',
-            'expresspe' => 'payment/paypaluk_express/active'
+            'expresspe' => 'payment/paypaluk_express/active',
         ];
         // Retrieve a code of the current website
         $website = $this->getRequest()->getParam('website');

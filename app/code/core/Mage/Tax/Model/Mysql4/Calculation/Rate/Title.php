@@ -21,6 +21,4 @@
  * @package    Mage_Tax
  * @deprecated
  */
-class Mage_Tax_Model_Mysql4_Calculation_Rate_Title extends Mage_Tax_Model_Resource_Calculation_Rate_Title
-{
-}
+class Mage_Tax_Model_Mysql4_Calculation_Rate_Title extends Mage_Tax_Model_Resource_Calculation_Rate_Title {}

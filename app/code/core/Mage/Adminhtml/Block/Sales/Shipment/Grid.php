@@ -109,11 +109,11 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
                     [
                         'caption' => Mage::helper('sales')->__('View'),
                         'url'     => ['base' => '*/sales_shipment/view'],
-                        'field'   => 'shipment_id'
-                    ]
+                        'field'   => 'shipment_id',
+                    ],
                 ],
-                'is_system' => true
-            ]
+                'is_system' => true,
+            ],
         );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
@@ -149,13 +149,13 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         $this->getMassactionBlock()->setUseSelectAll(false);
 
         $this->getMassactionBlock()->addItem(MassAction::PDF_SHIPMENTS_ORDER, [
-             'label' => Mage::helper('sales')->__('PDF Packingslips'),
-             'url'  => $this->getUrl('*/sales_shipment/pdfshipments'),
+            'label' => Mage::helper('sales')->__('PDF Packingslips'),
+            'url'  => $this->getUrl('*/sales_shipment/pdfshipments'),
         ]);
 
         $this->getMassactionBlock()->addItem(MassAction::PRINT_SHIPMENT_LABEL, [
-             'label' => Mage::helper('sales')->__('Print Shipping Labels'),
-             'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
+            'label' => Mage::helper('sales')->__('Print Shipping Labels'),
+            'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
         ]);
 
         return $this;

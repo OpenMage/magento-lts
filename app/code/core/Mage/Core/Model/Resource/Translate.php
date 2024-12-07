@@ -56,8 +56,8 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
             ->order('store_id');
 
         $bind = [
-            ':locale'   => (string)$locale,
-            ':store_id' => $storeId
+            ':locale'   => (string) $locale,
+            ':store_id' => $storeId,
         ];
 
         return $adapter->fetchPairs($select, $bind);
@@ -89,7 +89,7 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
         }
 
         $bind = [
-            ':store_id'   => $storeId
+            ':store_id'   => $storeId,
         ];
         $select = $adapter->select()
             ->from($this->getMainTable(), ['string', 'translate'])

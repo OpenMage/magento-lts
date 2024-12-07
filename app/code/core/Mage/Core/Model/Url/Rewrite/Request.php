@@ -156,7 +156,7 @@ class Mage_Core_Model_Url_Rewrite_Request
 
         $this->_request->setAlias(
             Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            $this->_rewrite->getRequestPath()
+            $this->_rewrite->getRequestPath(),
         );
         $this->_processRedirectOptions();
 
@@ -228,8 +228,8 @@ class Mage_Core_Model_Url_Rewrite_Request
             return false;
         }
         foreach ($config->children() as $rewrite) {
-            $from = (string)$rewrite->from;
-            $to = (string)$rewrite->to;
+            $from = (string) $rewrite->from;
+            $to = (string) $rewrite->to;
             if (empty($from) || empty($to)) {
                 continue;
             }

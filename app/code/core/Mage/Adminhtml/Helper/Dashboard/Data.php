@@ -63,7 +63,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
             '7d'  => $this->__('Last 7 Days'),
             '1m'  => $this->__('Current Month'),
             '1y'  => $this->__('YTD'),
-            '2y'  => $this->__('2YTD')
+            '2y'  => $this->__('2YTD'),
         ];
     }
 
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      */
     public function getChartDataHash($data)
     {
-        $secret = (string)Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);
+        $secret = (string) Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);
         return md5($data . $secret);
     }
 }

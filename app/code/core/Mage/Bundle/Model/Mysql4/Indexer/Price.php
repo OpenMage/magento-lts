@@ -21,6 +21,4 @@
  * @package    Mage_Bundle
  * @deprecated
  */
-class Mage_Bundle_Model_Mysql4_Indexer_Price extends Mage_Bundle_Model_Resource_Indexer_Price
-{
-}
+class Mage_Bundle_Model_Mysql4_Indexer_Price extends Mage_Bundle_Model_Resource_Indexer_Price {}

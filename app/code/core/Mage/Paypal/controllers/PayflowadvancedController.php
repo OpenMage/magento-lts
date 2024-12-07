@@ -70,7 +70,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
             if ($order && $order->getIncrementId() == $session->getLastRealOrderId()) {
                 $allowedOrderStates = [
                     Mage_Sales_Model_Order::STATE_PROCESSING,
-                    Mage_Sales_Model_Order::STATE_COMPLETE
+                    Mage_Sales_Model_Order::STATE_COMPLETE,
                 ];
                 if (in_array($order->getState(), $allowedOrderStates)) {
                     $session->unsLastRealOrderId();
@@ -79,8 +79,8 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
                     $gotoSection = $this->_cancelPayment(
                         Mage::helper('core')
                             ->stripTags(
-                                (string) $this->getRequest()->getParam('RESPMSG')
-                            )
+                                (string) $this->getRequest()->getParam('RESPMSG'),
+                            ),
                     );
                     $redirectBlock->setGotoSection($gotoSection);
                     $redirectBlock->setErrorMsg($this->__('Payment has been declined. Please try again.'));

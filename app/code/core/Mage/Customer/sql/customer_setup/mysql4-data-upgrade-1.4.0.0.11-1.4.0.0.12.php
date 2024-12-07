@@ -18,7 +18,7 @@
 $installer = $this;
 
 $attributes = [
-    'prefix', 'firstname', 'middlename', 'lastname', 'suffix'
+    'prefix', 'firstname', 'middlename', 'lastname', 'suffix',
 ];
 
 foreach ($attributes as $attributeCode) {

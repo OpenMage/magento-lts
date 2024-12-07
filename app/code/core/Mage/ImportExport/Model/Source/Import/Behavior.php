@@ -32,16 +32,16 @@ class Mage_ImportExport_Model_Source_Import_Behavior
         return [
             [
                 'value' => Mage_ImportExport_Model_Import::BEHAVIOR_APPEND,
-                'label' => Mage::helper('importexport')->__('Append Complex Data')
+                'label' => Mage::helper('importexport')->__('Append Complex Data'),
             ],
             [
                 'value' => Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE,
-                'label' => Mage::helper('importexport')->__('Replace Existing Complex Data')
+                'label' => Mage::helper('importexport')->__('Replace Existing Complex Data'),
             ],
             [
                 'value' => Mage_ImportExport_Model_Import::BEHAVIOR_DELETE,
-                'label' => Mage::helper('importexport')->__('Delete Entities')
-            ]
+                'label' => Mage::helper('importexport')->__('Delete Entities'),
+            ],
         ];
     }
 }

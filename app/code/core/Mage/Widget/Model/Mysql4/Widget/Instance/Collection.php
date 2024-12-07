@@ -21,6 +21,4 @@
  * @package    Mage_Widget
  * @deprecated
  */
-class Mage_Widget_Model_Mysql4_Widget_Instance_Collection extends Mage_Widget_Model_Resource_Widget_Instance_Collection
-{
-}
+class Mage_Widget_Model_Mysql4_Widget_Instance_Collection extends Mage_Widget_Model_Resource_Widget_Instance_Collection {}

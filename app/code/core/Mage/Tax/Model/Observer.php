@@ -67,7 +67,7 @@ class Mage_Tax_Model_Observer
                     $ratesIdQuoteItemId[$rates['id']][] = [
                         'id'        => $quoteItemId,
                         'percent'   => $rates['percent'],
-                        'code'      => $rates['rates'][0]['code']
+                        'code'      => $rates['rates'][0]['code'],
                     ];
                 } else {
                     $percentDelta   = $rates['percent'];
@@ -76,7 +76,7 @@ class Mage_Tax_Model_Observer
                         $ratesIdQuoteItemId[$rates['id']][] = [
                             'id'        => $quoteItemId,
                             'percent'   => $rate['percent'],
-                            'code'      => $rate['code']
+                            'code'      => $rate['code'],
                         ];
                         $percentSum += $rate['percent'];
                     }
@@ -129,7 +129,7 @@ class Mage_Tax_Model_Observer
                                 $data = [
                                     'item_id'       => $item->getId(),
                                     'tax_id'        => $result->getTaxId(),
-                                    'tax_percent'   => $quoteItemId['percent']
+                                    'tax_percent'   => $quoteItemId['percent'],
                                 ];
                                 Mage::getModel('tax/sales_order_tax_item')->setData($data)->save();
                             }
@@ -157,7 +157,7 @@ class Mage_Tax_Model_Observer
         $additionalCalculations = $response->getAdditionalCalculations();
         $calculation = Mage::helper('tax')->getPriceTaxSql(
             $table . '.min_price',
-            $table . '.tax_class_id'
+            $table . '.tax_class_id',
         );
 
         if (!empty($calculation)) {

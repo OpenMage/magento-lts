@@ -20,6 +20,4 @@
  * @category   Varien
  * @package    Varien_Convert
  */
-class Varien_Convert_Action extends Varien_Convert_Action_Abstract
-{
-}
+class Varien_Convert_Action extends Varien_Convert_Action_Abstract {}

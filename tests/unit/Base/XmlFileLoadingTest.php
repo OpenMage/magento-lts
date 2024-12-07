@@ -34,7 +34,7 @@ class XmlFileLoadingTest extends TestCase
         $simplexml = simplexml_load_file(
             $filepath,
             SimpleXMLElement::class,
-            LIBXML_PEDANTIC //not needed by OpenMage, but good to test more strictly
+            LIBXML_PEDANTIC, //not needed by OpenMage, but good to test more strictly
         );
         $this->assertNotEmpty($simplexml->asXML());
     }
@@ -56,7 +56,7 @@ class XmlFileLoadingTest extends TestCase
         $root = realpath(__DIR__ . '/../../../') . '/';
 
         yield 'file from vendor directory' => [
-            $root . 'vendor/shardj/zf1-future/library/Zend/Locale/Data/es_419.xml'
+            $root . 'vendor/shardj/zf1-future/library/Zend/Locale/Data/es_419.xml',
         ];
     }
 }

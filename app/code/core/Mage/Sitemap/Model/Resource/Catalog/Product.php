@@ -45,11 +45,11 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
             ->join(
                 ['w' => $this->getTable('catalog/product_website')],
                 'main_table.entity_id = w.product_id',
-                []
+                [],
             )
             ->where('w.website_id=?', $store->getWebsiteId());
 
-        $storeId = (int)$store->getId();
+        $storeId = (int) $store->getId();
 
         $urlRewrite = $this->_factory->getProductUrlRewriteHelper();
         $urlRewrite->joinTableToSelect($this->_select, $storeId);
@@ -58,13 +58,13 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
             $storeId,
             'visibility',
             Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds(),
-            'in'
+            'in',
         );
         $this->_addFilter(
             $storeId,
             'status',
             Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
-            'in'
+            'in',
         );
 
         return $this->_loadEntities();
@@ -109,7 +109,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
             'attribute_id'   => $attribute->getId(),
             'table'          => $attribute->getBackend()->getTable(),
             'is_global'      => $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-            'backend_type'   => $attribute->getBackendType()
+            'backend_type'   => $attribute->getBackendType(),
         ];
         return $this;
     }

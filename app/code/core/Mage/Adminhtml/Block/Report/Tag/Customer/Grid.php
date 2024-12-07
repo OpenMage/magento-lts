@@ -44,24 +44,24 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('reports')->__('ID'),
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('firstname', [
             'header'    => Mage::helper('reports')->__('First Name'),
-            'index'     => 'firstname'
+            'index'     => 'firstname',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('reports')->__('Last Name'),
-            'index'     => 'lastname'
+            'index'     => 'lastname',
         ]);
 
         $this->addColumn('taged', [
             'header'    => Mage::helper('reports')->__('Total Tags'),
             'width'     => '50px',
             'align'     => 'right',
-            'index'     => 'taged'
+            'index'     => 'taged',
         ]);
 
         $this->addColumn(
@@ -74,14 +74,14 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
                     [
                         'caption' => Mage::helper('catalog')->__('Show Tags'),
                         'url'     => [
-                            'base' => '*/*/customerDetail'
+                            'base' => '*/*/customerDetail',
                         ],
-                        'field'   => 'id'
-                    ]
+                        'field'   => 'id',
+                    ],
                 ],
                 'is_system' => true,
                 'index'     => 'stores',
-            ]
+            ],
         );
 
         $this->setFilterVisibility(false);

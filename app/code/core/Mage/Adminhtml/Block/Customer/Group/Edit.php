@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         if (!Mage::getSingleton('adminhtml/url')->useSecretKey()) {
             return $this->getUrl('*/*/delete', [
                 $this->_objectId => $this->getRequest()->getParam($this->_objectId),
-                'form_key' => Mage::getSingleton('core/session')->getFormKey()
+                'form_key' => Mage::getSingleton('core/session')->getFormKey(),
             ]);
         } else {
             return parent::getDeleteUrl();

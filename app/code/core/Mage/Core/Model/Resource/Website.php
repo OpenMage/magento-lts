@@ -36,7 +36,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
     {
         $this->_uniqueFields = [[
             'field' => 'code',
-            'title' => Mage::helper('core')->__('Website with the same code')
+            'title' => Mage::helper('core')->__('Website with the same code'),
         ]];
         return $this;
     }
@@ -80,7 +80,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
     {
         $where = [
             'scope = ?'    => 'websites',
-            'scope_id = ?' => $model->getWebsiteId()
+            'scope_id = ?' => $model->getWebsiteId(),
         ];
 
         $this->_getWriteAdapter()->delete($this->getTable('core/config_data'), $where);
@@ -102,13 +102,13 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
         $select = $this->_getReadAdapter()->select()
             ->from(
                 ['website_table' => $this->getTable('core/website')],
-                ['website_id']
+                ['website_id'],
             )
             ->joinLeft(
                 ['store_group_table' => $this->getTable('core/store_group')],
                 'website_table.website_id=store_group_table.website_id'
                     . ' AND website_table.default_group_id = store_group_table.group_id',
-                ['store_id' => $ifNull]
+                ['store_id' => $ifNull],
             );
         if (!$withDefault) {
             $select->where('website_table.website_id <> ?', 0);

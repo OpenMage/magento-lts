@@ -14,6 +14,4 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Varien_Db_Tree_NodeSet_Exception extends Varien_Db_Tree_Exception
-{
-}
+class Varien_Db_Tree_NodeSet_Exception extends Varien_Db_Tree_Exception {}

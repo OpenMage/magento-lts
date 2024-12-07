@@ -21,6 +21,4 @@
  * @package    Mage_Newsletter
  * @deprecated
  */
-class Mage_Newsletter_Model_Mysql4_Problem_Collection extends Mage_Newsletter_Model_Resource_Problem_Collection
-{
-}
+class Mage_Newsletter_Model_Mysql4_Problem_Collection extends Mage_Newsletter_Model_Resource_Problem_Collection {}

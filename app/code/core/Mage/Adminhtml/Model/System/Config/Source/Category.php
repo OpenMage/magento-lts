@@ -37,13 +37,13 @@ class Mage_Adminhtml_Model_System_Config_Source_Category
         if ($addEmpty) {
             $options[] = [
                 'label' => Mage::helper('adminhtml')->__('-- Please Select a Category --'),
-                'value' => ''
+                'value' => '',
             ];
         }
         foreach ($collection as $category) {
             $options[] = [
-               'label' => $category->getName(),
-               'value' => $category->getId()
+                'label' => $category->getName(),
+                'value' => $category->getId(),
             ];
         }
 

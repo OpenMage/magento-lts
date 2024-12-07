@@ -206,7 +206,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
             $this->setData('qty', $qty);
         } else {
             Mage::throwException(
-                Mage::helper('sales')->__('Invalid qty to refund item "%s"', $this->getName())
+                Mage::helper('sales')->__('Invalid qty to refund item "%s"', $this->getName()),
             );
         }
         return $this;
@@ -240,15 +240,15 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     public function cancel()
     {
         $this->getOrderItem()->setQtyRefunded(
-            $this->getOrderItem()->getQtyRefunded() - $this->getQty()
+            $this->getOrderItem()->getQtyRefunded() - $this->getQty(),
         );
         $this->getOrderItem()->setTaxRefunded(
             $this->getOrderItem()->getTaxRefunded()
-                - $this->getOrderItem()->getBaseTaxAmount() * $this->getQty() / $this->getOrderItem()->getQtyOrdered()
+                - $this->getOrderItem()->getBaseTaxAmount() * $this->getQty() / $this->getOrderItem()->getQtyOrdered(),
         );
         $this->getOrderItem()->setHiddenTaxRefunded(
             $this->getOrderItem()->getHiddenTaxRefunded()
-                - $this->getOrderItem()->getHiddenTaxAmount() * $this->getQty() / $this->getOrderItem()->getQtyOrdered()
+                - $this->getOrderItem()->getHiddenTaxAmount() * $this->getQty() / $this->getOrderItem()->getQtyOrdered(),
         );
         return $this;
     }
@@ -280,10 +280,10 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
         if ($rowTotalInclTax && $baseRowTotalInclTax) {
             $orderItemQty = $orderItem->getQtyOrdered();
             $this->setRowTotalInclTax(
-                $creditmemo->roundPrice($rowTotalInclTax / $orderItemQty * $this->getQty(), 'including')
+                $creditmemo->roundPrice($rowTotalInclTax / $orderItemQty * $this->getQty(), 'including'),
             );
             $this->setBaseRowTotalInclTax(
-                $creditmemo->roundPrice($baseRowTotalInclTax / $orderItemQty * $this->getQty(), 'including_base')
+                $creditmemo->roundPrice($baseRowTotalInclTax / $orderItemQty * $this->getQty(), 'including_base'),
             );
         }
         return $this;
@@ -297,7 +297,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     public function isLast()
     {
         $orderItem = $this->getOrderItem();
-        if ((string)(float)$this->getQty() == (string)(float)$orderItem->getQtyToRefund()
+        if ((string) (float) $this->getQty() == (string) (float) $orderItem->getQtyToRefund()
                 && !$orderItem->getQtyToInvoice()
         ) {
             return true;

@@ -40,7 +40,7 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
 
         if (!is_uploaded_file($value['tmp_name']) || !$imageProp) {
             return [
-                Mage::helper('eav')->__('"%s" is not a valid file', $label)
+                Mage::helper('eav')->__('"%s" is not a valid file', $label),
             ];
         }
 
@@ -48,12 +48,12 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
             1   => 'gif',
             2   => 'jpg',
             3   => 'png',
-            18  => 'webp'
+            18  => 'webp',
         ];
 
         if (!isset($allowImageTypes[$imageProp[2]])) {
             return [
-                Mage::helper('eav')->__('"%s" is not a valid image format', $label)
+                Mage::helper('eav')->__('"%s" is not a valid image format', $label),
             ];
         }
 

@@ -21,5 +21,5 @@ $installer->getConnection()->changeColumn(
     $this->getTable('index/process'),
     'status',
     'status',
-    "enum('pending','working','require_reindex') DEFAULT 'pending' NOT NULL"
+    "enum('pending','working','require_reindex') DEFAULT 'pending' NOT NULL",
 );

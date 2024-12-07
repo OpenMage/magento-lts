@@ -28,5 +28,5 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('sales_flat_quote_address_item'),
     'parent_item_id',
     $installer->getTable('sales_flat_quote_address_item'),
-    'address_item_id'
+    'address_item_id',
 );

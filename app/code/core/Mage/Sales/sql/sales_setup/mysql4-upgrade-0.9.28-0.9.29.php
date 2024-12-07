@@ -68,7 +68,7 @@ $preparedSql = 'CREATE TEMPORARY TABLE ' . $installer->getConnection()->quoteIde
     $baseDiscountAttributeTable,
     $baseDiscountAttributeId,
     $entityTypeId,
-    $orderAttributeId
+    $orderAttributeId,
 );
 
 $installer->getConnection()->query($preparedSql);
@@ -78,16 +78,16 @@ $select->join(
     'to_update.order_id = main_table.entity_id',
     [
         'discount_refunded' => 'order_discount',
-        'base_discount_refunded' => 'order_base_discount'
-    ]
+        'base_discount_refunded' => 'order_base_discount',
+    ],
 );
 
 $installer->getConnection()->query(
-    $select->crossUpdateFromSelect(['main_table' => $ordersTable])
+    $select->crossUpdateFromSelect(['main_table' => $ordersTable]),
 );
 
 $installer->getConnection()->query(
-    'DROP TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTableName)
+    'DROP TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTableName),
 );
 
 // Update discount_invoiced (base_discount_invoiced)
@@ -107,7 +107,7 @@ $preparedSql = 'CREATE TEMPORARY TABLE ' . $installer->getConnection()->quoteIde
     $baseDiscountAttributeTable,
     $baseDiscountAttributeId,
     $entityTypeId,
-    $orderAttributeId
+    $orderAttributeId,
 );
 
 $installer->getConnection()->query($preparedSql);
@@ -117,16 +117,16 @@ $select->join(
     'to_update.order_id = main_table.entity_id',
     [
         'discount_invoiced' => 'order_discount',
-        'base_discount_invoiced' => 'order_base_discount'
-    ]
+        'base_discount_invoiced' => 'order_base_discount',
+    ],
 );
 
 $installer->getConnection()->query(
-    $select->crossUpdateFromSelect(['main_table' => $ordersTable])
+    $select->crossUpdateFromSelect(['main_table' => $ordersTable]),
 );
 
 $installer->getConnection()->query(
-    'DROP TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTableName)
+    'DROP TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTableName),
 );
 
 // Update discount_canceled (base_discount_canceled)
@@ -137,7 +137,7 @@ $statusAttributeTable = $installer->getTable($ordersTable . '_varchar');
 $select = $installer->getConnection()->select();
 $select->from(
     ['s' => $statusAttributeTable],
-    ['order_id' => 's.entity_id']
+    ['order_id' => 's.entity_id'],
 )
     ->where('s.attribute_id=?', $statusAttributeId)
     ->where('s.value=?', Mage_Sales_Model_Order::STATE_CANCELED);

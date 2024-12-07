@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
             'header'    => Mage::helper('reports')->__('Number Of Reviews'),
             'width'     => '40px',
             'align'     => 'right',
-            'index'     => 'review_cnt'
+            'index'     => 'review_cnt',
         ]);
 
         $this->addColumn('action', [
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
             'width'     => '100',
             'align'     => 'center',
             'renderer'  => 'adminhtml/report_grid_column_renderer_customer',
-            'is_system' => true
+            'is_system' => true,
         ]);
 
         $this->setFilterVisibility(false);

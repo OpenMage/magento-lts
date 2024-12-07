@@ -55,17 +55,17 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
     {
         $this->addColumn('firstname', [
             'header'    => Mage::helper('reports')->__('First Name'),
-            'index'     => 'firstname'
+            'index'     => 'firstname',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('reports')->__('Last Name'),
-            'index'     => 'lastname'
+            'index'     => 'lastname',
         ]);
 
         $this->addColumn('product', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'product_name'
+            'index'     => 'product_name',
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {

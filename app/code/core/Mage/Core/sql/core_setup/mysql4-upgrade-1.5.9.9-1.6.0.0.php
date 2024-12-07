@@ -19,7 +19,7 @@ $installer = $this;
 $installer->startSetup();
 
 $usedDatabaseStorage = $installer->getConnection()->isTableExists(
-    $installer->getTable('core/file_storage')
+    $installer->getTable('core/file_storage'),
 );
 
 /**
@@ -27,83 +27,83 @@ $usedDatabaseStorage = $installer->getConnection()->isTableExists(
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/layout_link'),
-    'FK_CORE_LAYOUT_LINK_STORE'
+    'FK_CORE_LAYOUT_LINK_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/layout_link'),
-    'FK_CORE_LAYOUT_LINK_UPDATE'
+    'FK_CORE_LAYOUT_LINK_UPDATE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/store'),
-    'FK_STORE_GROUP_STORE'
+    'FK_STORE_GROUP_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/store'),
-    'FK_STORE_WEBSITE'
+    'FK_STORE_WEBSITE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/session'),
-    'FK_SESSION_WEBSITE'
+    'FK_SESSION_WEBSITE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/store_group'),
-    'FK_STORE_GROUP_WEBSITE'
+    'FK_STORE_GROUP_WEBSITE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/translate'),
-    'FK_CORE_TRANSLATE_STORE'
+    'FK_CORE_TRANSLATE_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/url_rewrite'),
-    'CORE_URL_REWRITE_IBFK_1'
+    'CORE_URL_REWRITE_IBFK_1',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/url_rewrite'),
-    'FK_CORE_URL_REWRITE_CATEGORY'
+    'FK_CORE_URL_REWRITE_CATEGORY',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/url_rewrite'),
-    'FK_CORE_URL_REWRITE_PRODUCT'
+    'FK_CORE_URL_REWRITE_PRODUCT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/url_rewrite'),
-    'FK_CORE_URL_REWRITE_STORE'
+    'FK_CORE_URL_REWRITE_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/variable_value'),
-    'FK_CORE_VARIABLE_VALUE_STORE_ID'
+    'FK_CORE_VARIABLE_VALUE_STORE_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/variable_value'),
-    'FK_CORE_VARIABLE_VALUE_VARIABLE_ID'
+    'FK_CORE_VARIABLE_VALUE_VARIABLE_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('core/design_change'),
-    'FK_DESIGN_CHANGE_STORE'
+    'FK_DESIGN_CHANGE_STORE',
 );
 
 if ($usedDatabaseStorage) {
     $installer->getConnection()->dropForeignKey(
         $installer->getTable('core/file_storage'),
-        'FK_FILE_DIRECTORY'
+        'FK_FILE_DIRECTORY',
     );
 
     $installer->getConnection()->dropForeignKey(
         $installer->getTable('core/directory_storage'),
-        'FK_DIRECTORY_PARENT_ID'
+        'FK_DIRECTORY_PARENT_ID',
     );
 }
 
@@ -112,198 +112,198 @@ if ($usedDatabaseStorage) {
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/cache'),
-    'IDX_EXPIRE_TIME'
+    'IDX_EXPIRE_TIME',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/cache_tag'),
-    'IDX_CACHE_ID'
+    'IDX_CACHE_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/config_data'),
-    'CONFIG_SCOPE'
+    'CONFIG_SCOPE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/email_template'),
-    'TEMPLATE_CODE'
+    'TEMPLATE_CODE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/email_template'),
-    'ADDED_AT'
+    'ADDED_AT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/email_template'),
-    'MODIFIED_AT'
+    'MODIFIED_AT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/flag'),
-    'LAST_UPDATE'
+    'LAST_UPDATE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/layout_link'),
-    'STORE_ID'
+    'STORE_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/layout_link'),
-    'FK_CORE_LAYOUT_LINK_UPDATE'
+    'FK_CORE_LAYOUT_LINK_UPDATE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/layout_update'),
-    'HANDLE'
+    'HANDLE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/store'),
-    'CODE'
+    'CODE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/store'),
-    'FK_STORE_WEBSITE'
+    'FK_STORE_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/store'),
-    'IS_ACTIVE'
+    'IS_ACTIVE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/store'),
-    'FK_STORE_GROUP'
+    'FK_STORE_GROUP',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/store_group'),
-    'FK_STORE_GROUP_WEBSITE'
+    'FK_STORE_GROUP_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/store_group'),
-    'DEFAULT_STORE_ID'
+    'DEFAULT_STORE_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/translate'),
-    'IDX_CODE'
+    'IDX_CODE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/translate'),
-    'FK_CORE_TRANSLATE_STORE'
+    'FK_CORE_TRANSLATE_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/session'),
-    'FK_SESSION_WEBSITE'
+    'FK_SESSION_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/url_rewrite'),
-    'UNQ_REQUEST_PATH'
+    'UNQ_REQUEST_PATH',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/url_rewrite'),
-    'UNQ_PATH'
+    'UNQ_PATH',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/url_rewrite'),
-    'FK_CORE_URL_REWRITE_STORE'
+    'FK_CORE_URL_REWRITE_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/url_rewrite'),
-    'FK_CORE_URL_REWRITE_CATEGORY'
+    'FK_CORE_URL_REWRITE_CATEGORY',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/url_rewrite'),
-    'FK_CORE_URL_REWRITE_PRODUCT'
+    'FK_CORE_URL_REWRITE_PRODUCT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/url_rewrite'),
-    'IDX_ID_PATH'
+    'IDX_ID_PATH',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/url_rewrite'),
-    'IDX_CATEGORY_REWRITE'
+    'IDX_CATEGORY_REWRITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/url_rewrite'),
-    'IDX_TARGET_PATH'
+    'IDX_TARGET_PATH',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/variable'),
-    'IDX_CODE'
+    'IDX_CODE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/variable_value'),
-    'IDX_VARIABLE_STORE'
+    'IDX_VARIABLE_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/variable_value'),
-    'IDX_VARIABLE_ID'
+    'IDX_VARIABLE_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/variable_value'),
-    'IDX_STORE_ID'
+    'IDX_STORE_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/website'),
-    'CODE'
+    'CODE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/website'),
-    'SORT_ORDER'
+    'SORT_ORDER',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/website'),
-    'DEFAULT_GROUP_ID'
+    'DEFAULT_GROUP_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('core/design_change'),
-    'FK_DESIGN_CHANGE_STORE'
+    'FK_DESIGN_CHANGE_STORE',
 );
 
 if ($usedDatabaseStorage) {
     $installer->getConnection()->dropIndex(
         $installer->getTable('core/file_storage'),
-        'IDX_FILENAME'
+        'IDX_FILENAME',
     );
 
     $installer->getConnection()->dropIndex(
         $installer->getTable('core/file_storage'),
-        'directory_id'
+        'directory_id',
     );
 
     $installer->getConnection()->dropIndex(
         $installer->getTable('core/directory_storage'),
-        'IDX_DIRECTORY_PATH'
+        'IDX_DIRECTORY_PATH',
     );
 
     $installer->getConnection()->dropIndex(
         $installer->getTable('core/directory_storage'),
-        'parent_id'
+        'parent_id',
     );
 }
 
@@ -319,35 +319,35 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Config Id'
+                'comment'   => 'Config Id',
             ],
             'scope' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 8,
                 'nullable'  => false,
                 'default'   => 'default',
-                'comment'   => 'Config Scope'
+                'comment'   => 'Config Scope',
             ],
             'scope_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Config Scope Id'
+                'comment'   => 'Config Scope Id',
             ],
             'path' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'default'   => 'general',
-                'comment'   => 'Config Path'
+                'comment'   => 'Config Path',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Config Value'
-            ]
+                'comment'   => 'Config Value',
+            ],
         ],
-        'comment' => 'Config Data'
+        'comment' => 'Config Data',
     ],
     $installer->getTable('core/website') => [
         'columns' => [
@@ -357,40 +357,40 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
-                'comment'   => 'Code'
+                'comment'   => 'Code',
             ],
             'name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
-                'comment'   => 'Website Name'
+                'comment'   => 'Website Name',
             ],
             'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Sort Order'
+                'comment'   => 'Sort Order',
             ],
             'default_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Default Group Id'
+                'comment'   => 'Default Group Id',
             ],
             'is_default' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '0',
-                'comment'   => 'Defines Is Website Default'
-            ]
+                'comment'   => 'Defines Is Website Default',
+            ],
         ],
-        'comment' => 'Websites'
+        'comment' => 'Websites',
     ],
     $installer->getTable('core/store') => [
         'columns' => [
@@ -400,49 +400,49 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
-                'comment'   => 'Code'
+                'comment'   => 'Code',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Group Id'
+                'comment'   => 'Group Id',
             ],
             'name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Store Name'
+                'comment'   => 'Store Name',
             ],
             'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store Sort Order'
+                'comment'   => 'Store Sort Order',
             ],
             'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store Activity'
-            ]
+                'comment'   => 'Store Activity',
+            ],
         ],
-        'comment' => 'Stores'
+        'comment' => 'Stores',
     ],
     $installer->getTable('core/resource') => [
         'columns' => [
@@ -451,20 +451,20 @@ $tables = [
                 'length'    => 50,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Resource Code'
+                'comment'   => 'Resource Code',
             ],
             'version' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
-                'comment'   => 'Resource Version'
+                'comment'   => 'Resource Version',
             ],
             'data_version' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
-                'comment'   => 'Data Version'
-            ]
+                'comment'   => 'Data Version',
+            ],
         ],
-        'comment' => 'Resources'
+        'comment' => 'Resources',
     ],
     $installer->getTable('core/cache') => [
         'columns' => [
@@ -473,27 +473,27 @@ $tables = [
                 'length'    => 200,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Cache Id'
+                'comment'   => 'Cache Id',
             ],
             'data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BLOB,
                 'length'    => '2M',
-                'comment'   => 'Cache Data'
+                'comment'   => 'Cache Data',
             ],
             'create_time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Cache Creation Time'
+                'comment'   => 'Cache Creation Time',
             ],
             'update_time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Time of Cache Updating'
+                'comment'   => 'Time of Cache Updating',
             ],
             'expire_time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Cache Expiration Time'
-            ]
+                'comment'   => 'Cache Expiration Time',
+            ],
         ],
-        'comment' => 'Caches'
+        'comment' => 'Caches',
     ],
     $installer->getTable('core/cache_tag') => [
         'columns' => [
@@ -502,17 +502,17 @@ $tables = [
                 'length'    => 100,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Tag'
+                'comment'   => 'Tag',
             ],
             'cache_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 200,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Cache Id'
-            ]
+                'comment'   => 'Cache Id',
+            ],
         ],
-        'comment' => 'Tag Caches'
+        'comment' => 'Tag Caches',
     ],
     $installer->getTable('core/cache_option') => [
         'columns' => [
@@ -521,14 +521,14 @@ $tables = [
                 'length'    => 32,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Code'
+                'comment'   => 'Code',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Cache Options'
+        'comment' => 'Cache Options',
     ],
     $installer->getTable('core/store_group') => [
         'columns' => [
@@ -538,37 +538,37 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Group Id'
+                'comment'   => 'Group Id',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Store Group Name'
+                'comment'   => 'Store Group Name',
             ],
             'root_category_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Root Category Id'
+                'comment'   => 'Root Category Id',
             ],
             'default_store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Default Store Id'
-            ]
+                'comment'   => 'Default Store Id',
+            ],
         ],
-        'comment' => 'Store Groups'
+        'comment' => 'Store Groups',
     ],
     $installer->getTable('core/email_template') => [
         'columns' => [
@@ -578,66 +578,66 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Template Id'
+                'comment'   => 'Template Id',
             ],
             'template_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 150,
                 'nullable'  => false,
-                'comment'   => 'Template Name'
+                'comment'   => 'Template Name',
             ],
             'template_text' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'nullable'  => false,
-                'comment'   => 'Template Content'
+                'comment'   => 'Template Content',
             ],
             'template_styles' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Templste Styles'
+                'comment'   => 'Templste Styles',
             ],
             'template_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Template Type'
+                'comment'   => 'Template Type',
             ],
             'template_subject' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 200,
                 'nullable'  => false,
-                'comment'   => 'Template Subject'
+                'comment'   => 'Template Subject',
             ],
             'template_sender_name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 200,
-                'comment'   => 'Template Sender Name'
+                'comment'   => 'Template Sender Name',
             ],
             'template_sender_email' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 200,
-                'comment'   => 'Template Sender Email'
+                'comment'   => 'Template Sender Email',
             ],
             'added_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Date of Template Creation'
+                'comment'   => 'Date of Template Creation',
             ],
             'modified_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Date of Template Modification'
+                'comment'   => 'Date of Template Modification',
             ],
             'orig_template_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 200,
-                'comment'   => 'Original Template Code'
+                'comment'   => 'Original Template Code',
             ],
             'orig_template_variables' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Original Template Variables'
-            ]
+                'comment'   => 'Original Template Variables',
+            ],
         ],
-        'comment' => 'Email Templates'
+        'comment' => 'Email Templates',
     ],
     $installer->getTable('core/variable') => [
         'columns' => [
@@ -647,20 +647,20 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Variable Id'
+                'comment'   => 'Variable Id',
             ],
             'code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Variable Code'
+                'comment'   => 'Variable Code',
             ],
             'name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Variable Name'
-            ]
+                'comment'   => 'Variable Name',
+            ],
         ],
-        'comment' => 'Variables'
+        'comment' => 'Variables',
     ],
     $installer->getTable('core/variable_value') => [
         'columns' => [
@@ -670,34 +670,34 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Variable Value Id'
+                'comment'   => 'Variable Value Id',
             ],
             'variable_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Variable Id'
+                'comment'   => 'Variable Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'plain_value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Plain Text Value'
+                'comment'   => 'Plain Text Value',
             ],
             'html_value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Html Value'
-            ]
+                'comment'   => 'Html Value',
+            ],
         ],
-        'comment' => 'Variable Value'
+        'comment' => 'Variable Value',
     ],
     $installer->getTable('core/translate') => [
         'columns' => [
@@ -707,36 +707,36 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Key Id of Translation'
+                'comment'   => 'Key Id of Translation',
             ],
             'string' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'default'   => Mage_Core_Model_Translate::DEFAULT_STRING,
-                'comment'   => 'Translation String'
+                'comment'   => 'Translation String',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'translate' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Translate'
+                'comment'   => 'Translate',
             ],
             'locale' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 20,
                 'nullable'  => false,
                 'default'   => 'en_US',
-                'comment'   => 'Locale'
-            ]
+                'comment'   => 'Locale',
+            ],
         ],
-        'comment' => 'Translations'
+        'comment' => 'Translations',
     ],
     $installer->getTable('core/session') => [
         'columns' => [
@@ -745,23 +745,23 @@ $tables = [
                 'length'    => 255,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Session Id'
+                'comment'   => 'Session Id',
             ],
             'session_expires' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Date of Session Expiration'
+                'comment'   => 'Date of Session Expiration',
             ],
             'session_data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BLOB,
                 'length'    => '2M',
                 'nullable'  => false,
-                'comment'   => 'Session Data'
-            ]
+                'comment'   => 'Session Data',
+            ],
         ],
-        'comment' => 'Database Sessions Storage'
+        'comment' => 'Database Sessions Storage',
     ],
     $installer->getTable('core/layout_update') => [
         'columns' => [
@@ -771,26 +771,26 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Layout Update Id'
+                'comment'   => 'Layout Update Id',
             ],
             'handle' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Handle'
+                'comment'   => 'Handle',
             ],
             'xml' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Xml'
+                'comment'   => 'Xml',
             ],
             'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Sort Order'
-            ]
+                'comment'   => 'Sort Order',
+            ],
         ],
-        'comment' => 'Layout Updates'
+        'comment' => 'Layout Updates',
     ],
     $installer->getTable('core/layout_link') => [
         'columns' => [
@@ -800,39 +800,39 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Link Id'
+                'comment'   => 'Link Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'area' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
-                'comment'   => 'Area'
+                'comment'   => 'Area',
             ],
             'package' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
-                'comment'   => 'Package'
+                'comment'   => 'Package',
             ],
             'theme' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
-                'comment'   => 'Theme'
+                'comment'   => 'Theme',
             ],
             'layout_update_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Layout Update Id'
-            ]
+                'comment'   => 'Layout Update Id',
+            ],
         ],
-        'comment' => 'Layout Link'
+        'comment' => 'Layout Link',
     ],
     $installer->getTable('core/url_rewrite') => [
         'columns' => [
@@ -842,48 +842,48 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Rewrite Id'
+                'comment'   => 'Rewrite Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'id_path' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Id Path'
+                'comment'   => 'Id Path',
             ],
             'request_path' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Request Path'
+                'comment'   => 'Request Path',
             ],
             'target_path' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Target Path'
+                'comment'   => 'Target Path',
             ],
             'is_system' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'default'   => '1',
-                'comment'   => 'Defines is Rewrite System'
+                'comment'   => 'Defines is Rewrite System',
             ],
             'options' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Options'
+                'comment'   => 'Options',
             ],
             'description' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Deascription'
-            ]
+                'comment'   => 'Deascription',
+            ],
         ],
-        'comment' => 'Url Rewrites'
+        'comment' => 'Url Rewrites',
     ],
     $installer->getTable('core/design_change') => [
         'columns' => [
@@ -892,30 +892,30 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Design Change Id'
+                'comment'   => 'Design Change Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'design' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Design'
+                'comment'   => 'Design',
             ],
             'date_from' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
-                'comment'   => 'First Date of Design Activity'
+                'comment'   => 'First Date of Design Activity',
             ],
             'date_to' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
-                'comment'   => 'Last Date of Design Activity'
-            ]
+                'comment'   => 'Last Date of Design Activity',
+            ],
         ],
-        'comment' => 'Design Changes'
+        'comment' => 'Design Changes',
     ],
     $installer->getTable('core/flag') => [
         'columns' => [
@@ -925,35 +925,35 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Flag Id'
+                'comment'   => 'Flag Id',
             ],
             'flag_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Flag Code'
+                'comment'   => 'Flag Code',
             ],
             'state' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Flag State'
+                'comment'   => 'Flag State',
             ],
             'flag_data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Flag Data'
+                'comment'   => 'Flag Data',
             ],
             'last_update' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'default'   => Varien_Db_Ddl_Table::TIMESTAMP_INIT_UPDATE,
-                'comment'   => 'Date of Last Flag Update'
-            ]
+                'comment'   => 'Date of Last Flag Update',
+            ],
         ],
-        'comment' => 'Flag'
-    ]
+        'comment' => 'Flag',
+    ],
 ];
 
 if ($usedDatabaseStorage) {
@@ -966,40 +966,40 @@ if ($usedDatabaseStorage) {
                     'unsigned'  => true,
                     'nullable'  => false,
                     'primary'   => true,
-                    'comment'   => 'File Id'
+                    'comment'   => 'File Id',
                 ],
                 'content' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_VARBINARY,
                     'length'    => Varien_Db_Ddl_Table::MAX_VARBINARY_SIZE,
                     'nullable'  => false,
-                    'comment'   => 'File Content'
+                    'comment'   => 'File Content',
                 ],
                 'upload_time' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                     'nullable'  => false,
                     'default'   => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
-                    'comment'   => 'Upload Timestamp'
+                    'comment'   => 'Upload Timestamp',
                 ],
                 'filename' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'length'    => 100,
                     'nullable'  => false,
-                    'comment'   => 'Filename'
+                    'comment'   => 'Filename',
                 ],
                 'directory_id' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                     'unsigned'  => true,
                     'default'   => null,
-                    'comment'   => 'Identifier of Directory where File is Located'
+                    'comment'   => 'Identifier of Directory where File is Located',
                 ],
                 'directory' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'length'    => 255,
                     'default'   => null,
-                    'comment'   => 'Directory Path'
-                ]
+                    'comment'   => 'Directory Path',
+                ],
             ],
-            'comment' => 'File Storage'
+            'comment' => 'File Storage',
         ],
         $installer->getTable('core/directory_storage') => [
             'columns' => [
@@ -1009,35 +1009,35 @@ if ($usedDatabaseStorage) {
                     'unsigned'  => true,
                     'nullable'  => false,
                     'primary'   => true,
-                    'comment'   => 'Directory Id'
+                    'comment'   => 'Directory Id',
                 ],
                 'name' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'length'    => 100,
                     'nullable'  => false,
-                    'comment'   => 'Directory Name'
+                    'comment'   => 'Directory Name',
                 ],
                 'path' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'length'    => 255,
                     'default'   => null,
-                    'comment'   => 'Path to the Directory'
+                    'comment'   => 'Path to the Directory',
                 ],
                 'upload_time' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                     'nullable'  => false,
                     'default'   => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
-                    'comment'   => 'Upload Timestamp'
+                    'comment'   => 'Upload Timestamp',
                 ],
                 'parent_id' => [
                     'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                     'unsigned'  => true,
                     'default'   => null,
-                    'comment'   => 'Parent Directory Id'
-                ]
+                    'comment'   => 'Parent Directory Id',
+                ],
             ],
-            'comment' => 'Directory Storage'
-        ]
+            'comment' => 'Directory Storage',
+        ],
     ];
     $tables = array_merge($tables, $storageTables);
 }
@@ -1046,7 +1046,7 @@ $installer->getConnection()->modifyTables($tables);
 
 $installer->getConnection()->dropColumn(
     $installer->getTable('core/session'),
-    'website_id'
+    'website_id',
 );
 
 /**
@@ -1057,10 +1057,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/variable',
         ['code'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['code'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
@@ -1068,34 +1068,34 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/variable_value',
         ['variable_id', 'store_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['variable_id', 'store_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/variable_value'),
     $installer->getIdxName('core/variable_value', ['variable_id']),
-    ['variable_id']
+    ['variable_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/variable_value'),
     $installer->getIdxName('core/variable_value', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/cache'),
     $installer->getIdxName('core/cache', ['expire_time']),
-    ['expire_time']
+    ['expire_time'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/cache_tag'),
     $installer->getIdxName('core/cache_tag', ['cache_id']),
-    ['cache_id']
+    ['cache_id'],
 );
 
 $installer->getConnection()->addIndex(
@@ -1103,10 +1103,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/config_data',
         ['scope', 'scope_id', 'path'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['scope', 'scope_id', 'path'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
@@ -1114,28 +1114,28 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/email_template',
         ['template_code'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['template_code'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/email_template'),
     $installer->getIdxName('core/email_template', ['added_at']),
-    ['added_at']
+    ['added_at'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/email_template'),
     $installer->getIdxName('core/email_template', ['modified_at']),
-    ['modified_at']
+    ['modified_at'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/flag'),
     $installer->getIdxName('core/flag', ['last_update']),
-    ['last_update']
+    ['last_update'],
 );
 
 $installer->getConnection()->addIndex(
@@ -1143,22 +1143,22 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/layout_link',
         ['store_id', 'package', 'theme', 'layout_update_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['store_id', 'package', 'theme', 'layout_update_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/layout_link'),
     $installer->getIdxName('core/layout_link', ['layout_update_id']),
-    ['layout_update_id']
+    ['layout_update_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/layout_update'),
     $installer->getIdxName('core/layout_update', ['handle']),
-    ['handle']
+    ['handle'],
 );
 
 $installer->getConnection()->addIndex(
@@ -1166,40 +1166,40 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/store',
         ['code'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['code'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/store'),
     $installer->getIdxName('core/store', ['website_id']),
-    ['website_id']
+    ['website_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/store'),
     $installer->getIdxName('core/store', ['is_active', 'sort_order']),
-    ['is_active', 'sort_order']
+    ['is_active', 'sort_order'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/store'),
     $installer->getIdxName('core/store', ['group_id']),
-    ['group_id']
+    ['group_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/store_group'),
     $installer->getIdxName('core/store_group', ['website_id']),
-    ['website_id']
+    ['website_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/store_group'),
     $installer->getIdxName('core/store_group', ['default_store_id']),
-    ['default_store_id']
+    ['default_store_id'],
 );
 
 $installer->getConnection()->addIndex(
@@ -1207,16 +1207,16 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/translate',
         ['store_id', 'locale', 'string'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['store_id', 'locale', 'string'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/translate'),
     $installer->getIdxName('core/translate', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
@@ -1224,10 +1224,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/url_rewrite',
         ['request_path', 'store_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['request_path', 'store_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
@@ -1235,28 +1235,28 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/url_rewrite',
         ['id_path', 'is_system', 'store_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['id_path', 'is_system', 'store_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/url_rewrite'),
     $installer->getIdxName('core/url_rewrite', ['target_path', 'store_id']),
-    ['target_path', 'store_id']
+    ['target_path', 'store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/url_rewrite'),
     $installer->getIdxName('core/url_rewrite', ['id_path']),
-    ['id_path']
+    ['id_path'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/url_rewrite'),
     $installer->getIdxName('core/url_rewrite', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
@@ -1264,28 +1264,28 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'core/website',
         ['code'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['code'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/website'),
     $installer->getIdxName('core/website', ['sort_order']),
-    ['sort_order']
+    ['sort_order'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/website'),
     $installer->getIdxName('core/website', ['default_group_id']),
-    ['default_group_id']
+    ['default_group_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('core/design_change'),
     $installer->getIdxName('core/design_change', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 if ($usedDatabaseStorage) {
@@ -1294,16 +1294,16 @@ if ($usedDatabaseStorage) {
         $installer->getIdxName(
             'core/file_storage',
             ['filename', 'directory_id'],
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
         ),
         ['filename', 'directory_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     );
 
     $installer->getConnection()->addIndex(
         $installer->getTable('core/file_storage'),
         $installer->getIdxName('core/file_storage', ['directory_id']),
-        ['directory_id']
+        ['directory_id'],
     );
 
     $installer->getConnection()->addIndex(
@@ -1311,16 +1311,16 @@ if ($usedDatabaseStorage) {
         $installer->getIdxName(
             'core/directory_storage',
             ['name', 'parent_id'],
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
         ),
         ['name', 'parent_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     );
 
     $installer->getConnection()->addIndex(
         $installer->getTable('core/directory_storage'),
         $installer->getIdxName('core/directory_storage', ['parent_id']),
-        ['parent_id']
+        ['parent_id'],
     );
 }
 
@@ -1333,7 +1333,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/layout_link'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1341,7 +1341,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/layout_link'),
     'layout_update_id',
     $installer->getTable('core/layout_update'),
-    'layout_update_id'
+    'layout_update_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1349,7 +1349,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/store'),
     'group_id',
     $installer->getTable('core/store_group'),
-    'group_id'
+    'group_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1357,7 +1357,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/store'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1365,7 +1365,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/store_group'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1373,7 +1373,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/translate'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1381,7 +1381,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/url_rewrite'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1389,7 +1389,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/url_rewrite'),
     'category_id',
     $installer->getTable('catalog/category'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1397,7 +1397,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/url_rewrite'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1405,7 +1405,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/variable_value'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1413,7 +1413,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/variable_value'),
     'variable_id',
     $installer->getTable('core/variable'),
-    'variable_id'
+    'variable_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -1421,7 +1421,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('core/design_change'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 if ($usedDatabaseStorage) {
@@ -1430,7 +1430,7 @@ if ($usedDatabaseStorage) {
         $installer->getTable('core/file_storage'),
         'directory_id',
         $installer->getTable('core/directory_storage'),
-        'directory_id'
+        'directory_id',
     );
 
     $installer->getConnection()->addForeignKey(
@@ -1438,7 +1438,7 @@ if ($usedDatabaseStorage) {
         $installer->getTable('core/directory_storage'),
         'parent_id',
         $installer->getTable('core/directory_storage'),
-        'directory_id'
+        'directory_id',
     );
 }
 

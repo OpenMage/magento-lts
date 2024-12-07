@@ -80,12 +80,12 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         }
 
         list($index, $range) = $filter;
-        if ((int)$index && (int)$range) {
-            $this->setRange((int)$range);
+        if ((int) $index && (int) $range) {
+            $this->setRange((int) $range);
 
             $this->_getResource()->applyFilterToCollection($this, $range, $index);
             $this->getLayer()->getState()->addFilter(
-                $this->_createItem($this->_renderItemLabel($range, $index), $filter)
+                $this->_createItem($this->_renderItemLabel($range, $index), $filter),
             );
 
             $this->_items = [];

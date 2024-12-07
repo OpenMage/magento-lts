@@ -50,7 +50,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
             foreach ($insert as $childId) {
                 $insertData[] = [
                     'parent_id' => $parentId,
-                    'child_id'  => $childId
+                    'child_id'  => $childId,
                 ];
             }
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
         if (!empty($delete)) {
             $where = implode(' AND ', [
                 $this->_getWriteAdapter()->quoteInto('parent_id = ?', $parentId),
-                $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $delete)
+                $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $delete),
             ]);
             $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         }

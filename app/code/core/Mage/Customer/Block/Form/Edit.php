@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Customer
  */
-class Mage_Customer_Block_Form_Edit extends Mage_Customer_Block_Account_Dashboard
-{
-}
+class Mage_Customer_Block_Form_Edit extends Mage_Customer_Block_Account_Dashboard {}

@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier extends Mage_Admi
             ->setData([
                 'label' => Mage::helper('catalog')->__('Add Tier'),
                 'onclick' => 'return tierPriceControl.addItem()',
-                'class' => 'add'
+                'class' => 'add',
             ]);
         $button->setName('add_tier_price_item_button');
 

@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
      */
     public function setStoreId($storeId)
     {
-        $this->_storeId = (int)$storeId;
+        $this->_storeId = (int) $storeId;
         return $this;
     }
 
@@ -91,14 +91,14 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
             ->from(['main_table' => $this->getTable('eav/attribute')])
             ->join(
                 ['additional_table' => $this->getTable('catalog/eav_attribute')],
-                'main_table.attribute_id = additional_table.attribute_id'
+                'main_table.attribute_id = additional_table.attribute_id',
             )
             ->joinLeft(
                 ['al' => $this->getTable('eav/attribute_label')],
-                'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int)$this->getStoreId(),
-                ['store_label' => $storeLabelExpr]
+                'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $this->getStoreId(),
+                ['store_label' => $storeLabelExpr],
             )
-            ->where('main_table.entity_type_id = ?', (int)$this->getEntityTypeId())
+            ->where('main_table.entity_type_id = ?', (int) $this->getEntityTypeId())
             ->where('additional_table.used_in_product_listing = ?', 1);
 
         return $adapter->fetchAll($select);
@@ -118,14 +118,14 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
             ->join(
                 ['additional_table' => $this->getTable('catalog/eav_attribute')],
                 'main_table.attribute_id = additional_table.attribute_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['al' => $this->getTable('eav/attribute_label')],
-                'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int)$this->getStoreId(),
-                ['store_label' => $storeLabelExpr]
+                'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $this->getStoreId(),
+                ['store_label' => $storeLabelExpr],
             )
-            ->where('main_table.entity_type_id = ?', (int)$this->getEntityTypeId())
+            ->where('main_table.entity_type_id = ?', (int) $this->getEntityTypeId())
             ->where('additional_table.used_for_sort_by = ?', 1);
 
         return $adapter->fetchAll($select);

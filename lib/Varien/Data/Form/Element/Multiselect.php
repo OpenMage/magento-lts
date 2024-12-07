@@ -68,7 +68,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
 
         $value = $this->getValue();
         if (!is_array($value)) {
-            $value = explode(',', (string)$value);
+            $value = explode(',', (string) $value);
         }
 
         if ($values = $this->getValues()) {
@@ -157,7 +157,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         $html = '<option value="' . $this->_escape($option['value']) . '"';
         $html .= isset($option['title']) ? 'title="' . $this->_escape($option['title']) . '"' : '';
         $html .= isset($option['style']) ? 'style="' . $option['style'] . '"' : '';
-        if (in_array((string)$option['value'], $selected)) {
+        if (in_array((string) $option['value'], $selected)) {
             $html .= ' selected="selected"';
         }
         $html .= '>' . $this->_escape($option['label']) . '</option>' . "\n";

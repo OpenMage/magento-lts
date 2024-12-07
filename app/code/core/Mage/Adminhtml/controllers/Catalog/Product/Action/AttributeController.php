@@ -86,10 +86,10 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     if ($attribute->getBackendType() == 'datetime') {
                         if (!empty($value)) {
                             $filterInput    = new Zend_Filter_LocalizedToNormalized([
-                                'date_format' => $dateFormat
+                                'date_format' => $dateFormat,
                             ]);
                             $filterInternal = new Zend_Filter_NormalizedToLocalized([
-                                'date_format' => Varien_Date::DATE_INTERNAL_FORMAT
+                                'date_format' => Varien_Date::DATE_INTERNAL_FORMAT,
                             ]);
                             $value = $filterInternal->filter($filterInput->filter($value));
                         } else {
@@ -98,7 +98,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                         $attributesData[$attributeCode] = $value;
                     } elseif ($attribute->getFrontendInput() == 'multiselect') {
                         // Check if 'Change' checkbox has been checked by admin for this attribute
-                        $isChanged = (bool)$this->getRequest()->getPost($attributeCode . '_checkbox');
+                        $isChanged = (bool) $this->getRequest()->getPost($attributeCode . '_checkbox');
                         if (!$isChanged) {
                             unset($attributesData[$attributeCode]);
                             continue;
@@ -142,7 +142,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 if ($stockItemSaved) {
                     Mage::getSingleton('index/indexer')->indexEvents(
                         Mage_CatalogInventory_Model_Stock_Item::ENTITY,
-                        Mage_Index_Model_Event::TYPE_SAVE
+                        Mage_Index_Model_Event::TYPE_SAVE,
                     );
 
                     Mage::dispatchEvent('catalog_product_stock_item_mass_change', [
@@ -164,17 +164,17 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 }
 
                 Mage::dispatchEvent('catalog_product_to_website_change', [
-                    'products' => $productIds
+                    'products' => $productIds,
                 ]);
 
                 $notice = Mage::getConfig()->getNode('adminhtml/messages/website_chnaged_indexers/label');
                 if ($notice) {
-                    $this->_getSession()->addNotice($this->__((string)$notice, $this->getUrl('adminhtml/process/list')));
+                    $this->_getSession()->addNotice($this->__((string) $notice, $this->getUrl('adminhtml/process/list')));
                 }
             }
 
             $this->_getSession()->addSuccess(
-                $this->__('Total of %d record(s) were updated', count($this->_getHelper()->getProductIds()))
+                $this->__('Total of %d record(s) were updated', count($this->_getHelper()->getProductIds())),
             );
         } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
             $this->_getSession()->addError($attributeName . ': ' . $e->getMessage());

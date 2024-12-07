@@ -19,6 +19,4 @@
  * @package    Mage_Index
  * @deprecated
  */
-class Mage_Index_Model_Mysql4_Process_Collection extends Mage_Index_Model_Resource_Process_Collection
-{
-}
+class Mage_Index_Model_Mysql4_Process_Collection extends Mage_Index_Model_Resource_Process_Collection {}

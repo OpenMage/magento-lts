@@ -91,7 +91,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
             ->join(
                 ['detail' => $this->_reviewDetailTable],
                 'main_table.review_id = detail.review_id',
-                ['detail_id', 'title', 'detail', 'nickname', 'customer_id']
+                ['detail_id', 'title', 'detail', 'nickname', 'customer_id'],
             );
         return $this;
     }
@@ -105,7 +105,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
         $this->addFilter(
             'customer',
             $this->getConnection()->quoteInto('detail.customer_id=?', $customerId),
-            'string'
+            'string',
         );
         return $this;
     }
@@ -122,7 +122,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
         $this->getSelect()->join(
             ['store' => $this->_reviewStoreTable],
             'main_table.review_id=store.review_id',
-            []
+            [],
         );
         $this->getSelect()->where($inCond);
         return $this;
@@ -152,26 +152,26 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
             $this->addFilter(
                 'entity',
                 $this->getConnection()->quoteInto('main_table.entity_id=?', $entity),
-                'string'
+                'string',
             );
         } elseif (is_string($entity)) {
             $this->_select->join(
                 $this->_reviewEntityTable,
                 'main_table.entity_id=' . $this->_reviewEntityTable . '.entity_id',
-                ['entity_code']
+                ['entity_code'],
             );
 
             $this->addFilter(
                 'entity',
                 $this->getConnection()->quoteInto($this->_reviewEntityTable . '.entity_code=?', $entity),
-                'string'
+                'string',
             );
         }
 
         $this->addFilter(
             'entity_pk_value',
             $this->getConnection()->quoteInto('main_table.entity_pk_value=?', $pkValue),
-            'string'
+            'string',
         );
 
         return $this;
@@ -193,7 +193,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
             $this->addFilter(
                 'status',
                 $this->getConnection()->quoteInto('main_table.status_id=?', $status),
-                'string'
+                'string',
             );
         }
         return $this;
@@ -241,7 +241,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
         $this->_select->joinLeft(
             ['r' => $this->_reviewTable],
             'main_table.entity_pk_value = r.entity_pk_value',
-            ['total_reviews' => new Zend_Db_Expr('COUNT(r.review_id)')]
+            ['total_reviews' => new Zend_Db_Expr('COUNT(r.review_id)')],
         )
         ->group('main_table.review_id');
 

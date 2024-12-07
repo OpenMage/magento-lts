@@ -22,13 +22,13 @@ $installer->getConnection()->changeColumn(
     $this->getTable('catalogrule'),
     'conditions_serialized',
     'conditions_serialized',
-    'mediumtext CHARACTER SET utf8 NOT NULL'
+    'mediumtext CHARACTER SET utf8 NOT NULL',
 );
 $installer->getConnection()->changeColumn(
     $this->getTable('catalogrule'),
     'actions_serialized',
     'actions_serialized',
-    'mediumtext CHARACTER SET utf8 NOT NULL'
+    'mediumtext CHARACTER SET utf8 NOT NULL',
 );
 
 $installer->endSetup();

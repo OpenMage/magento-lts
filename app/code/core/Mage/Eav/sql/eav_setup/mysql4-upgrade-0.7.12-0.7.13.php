@@ -26,7 +26,7 @@ $installer->getConnection()->addConstraint(
     'attribute_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 
 $installer->endSetup();

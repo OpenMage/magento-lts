@@ -64,7 +64,7 @@ class DataTest extends TestCase
             '7d'  => $this->subject->__('Last 7 Days'),
             '1m'  => $this->subject->__('Current Month'),
             '1y'  => $this->subject->__('YTD'),
-            '2y'  => $this->subject->__('2YTD')
+            '2y'  => $this->subject->__('2YTD'),
         ];
         $this->assertSame($expectedResult, $this->subject->getDatePeriods());
     }

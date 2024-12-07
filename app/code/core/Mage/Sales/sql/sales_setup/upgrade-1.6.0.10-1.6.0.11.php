@@ -31,7 +31,7 @@ if (!isset($keyList['IDX_SALES_FLAT_ORDER_CUSTOMER_EMAIL'])) {
 $this->getConnection()->addIndex(
     $installer->getTable('sales/order_item'),
     'IDX_SALES_FLAT_ORDER_ITEM_PRODUCT_ID',
-    ['product_id']
+    ['product_id'],
 );
 
 $installer->endSetup();

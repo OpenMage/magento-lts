@@ -21,5 +21,5 @@ $installer->updateAttribute(
     'catalog_product',
     'custom_layout_update',
     'is_global',
-    Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE
+    Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
 );

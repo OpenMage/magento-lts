@@ -327,10 +327,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'currency' => $order->getBaseCurrencyCode(),
                     'transaction_id' => $order->getIncrementId(),
                     'value' => $helper->formatPrice($order->getBaseGrandTotal()),
-                    'coupon' => strtoupper((string)$order->getCouponCode()),
+                    'coupon' => strtoupper((string) $order->getCouponCode()),
                     'shipping' => $helper->formatPrice($order->getBaseShippingAmount()),
                     'tax' => $helper->formatPrice($order->getBaseTaxAmount()),
-                    'items' => []
+                    'items' => [],
                 ];
 
                 /** @var Mage_Sales_Model_Order_Item $item */
@@ -344,7 +344,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                         'item_name' => $item->getName(),
                         'quantity' => (int) $item->getQtyOrdered(),
                         'price' => $helper->formatPrice($item->getBasePrice()),
-                        'discount' => $helper->formatPrice($item->getBaseDiscountAmount())
+                        'discount' => $helper->formatPrice($item->getBaseDiscountAmount()),
                     ];
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');

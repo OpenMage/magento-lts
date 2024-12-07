@@ -62,11 +62,11 @@ class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implem
             $options = [];
             $options[] = [
                 'value' => 'email',
-                'label' => 'Email Address'
+                'label' => 'Email Address',
             ];
             $options[] = [
                 'value' => 'zip',
-                'label' => 'ZIP Code'
+                'label' => 'ZIP Code',
             ];
             $this->setData('identifymeby_options', $options);
         }

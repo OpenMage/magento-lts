@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Block_Product_View_Type_Simple extends Mage_Catalog_Block_Product_View_Abstract
-{
-}
+class Mage_Catalog_Block_Product_View_Type_Simple extends Mage_Catalog_Block_Product_View_Abstract {}

@@ -108,7 +108,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
         if ($match) {
             $this->setCreatedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
-            $this->setScheduledAt(date('Y-m-d H:i:00', (int)$time));
+            $this->setScheduledAt(date('Y-m-d H:i:00', (int) $time));
         }
         return $match;
     }

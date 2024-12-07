@@ -41,13 +41,13 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
 
         $this->_tabs[] = [
             'alias' => $alias,
-            'title' => $title
+            'title' => $title,
         ];
 
         $this->setChild(
             $alias,
             $this->getLayout()->createBlock($block, $alias)
-                ->setTemplate($template)
+                ->setTemplate($template),
         );
     }
 

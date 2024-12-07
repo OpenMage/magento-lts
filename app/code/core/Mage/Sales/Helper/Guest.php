@@ -138,15 +138,15 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             [
                 'label' => $this->__('Home'),
                 'title' => $this->__('Go to Home Page'),
-                'link'  => Mage::getBaseUrl()
-            ]
+                'link'  => Mage::getBaseUrl(),
+            ],
         );
         $breadcrumbs->addCrumb(
             'cms_page',
             [
                 'label' => $this->__('Order Information'),
-                'title' => $this->__('Order Information')
-            ]
+                'title' => $this->__('Order Information'),
+            ],
         );
     }
 

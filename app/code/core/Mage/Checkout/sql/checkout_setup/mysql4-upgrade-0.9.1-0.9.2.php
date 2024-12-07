@@ -21,7 +21,7 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('checkout_agreement'),
     'content_height',
-    'varchar(25) NULL DEFAULT NULL AFTER `content`'
+    'varchar(25) NULL DEFAULT NULL AFTER `content`',
 );
 
 $installer->endSetup();

@@ -98,7 +98,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         return Mage::getUrl('tag/index/save', [
             'product' => $this->getProductId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl(),
-            '_secure' => $this->_isSecure()
+            '_secure' => $this->_isSecure(),
         ]);
     }
 
@@ -118,7 +118,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 $pattern,
                 $tag->getTaggedProductsUrl(),
                 $this->escapeHtml($tag->getName()),
-                $tag->getProducts()
+                $tag->getProducts(),
             );
         }
         return implode($glue, $out);

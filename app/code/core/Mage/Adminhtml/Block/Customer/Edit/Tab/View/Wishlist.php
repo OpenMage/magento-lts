@@ -61,13 +61,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
             'header'    => Mage::helper('customer')->__('Product ID'),
             'index'     => 'product_id',
             'type'      => 'number',
-            'width'     => '100px'
+            'width'     => '100px',
         ]);
 
         $this->addColumn('product_name', [
             'header'    => Mage::helper('customer')->__('Product Name'),
             'index'     => 'product_name',
-            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
+            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item',
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {

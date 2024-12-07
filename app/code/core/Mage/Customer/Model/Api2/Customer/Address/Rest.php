@@ -116,8 +116,8 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
     protected function _getDefaultAddressesInfo(Mage_Customer_Model_Address $address)
     {
         return [
-            'is_default_billing'  => (int)$this->_isDefaultBillingAddress($address),
-            'is_default_shipping' => (int)$this->_isDefaultShippingAddress($address)
+            'is_default_billing'  => (int) $this->_isDefaultBillingAddress($address),
+            'is_default_shipping' => (int) $this->_isDefaultShippingAddress($address),
         ];
     }
 
@@ -143,7 +143,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         if (isset($data['region'])) {
             $data['region'] = $this->_getRegionIdByNameOrCode(
                 $data['region'],
-                $data['country_id'] ?? $address->getCountryId()
+                $data['country_id'] ?? $address->getCountryId(),
             );
             $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
         }
@@ -169,7 +169,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         if ($this->_isDefaultBillingAddress($address) || $this->_isDefaultShippingAddress($address)) {
             $this->_critical(
                 'Address is default for customer so is not allowed to be deleted',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
         try {

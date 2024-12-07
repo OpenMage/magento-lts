@@ -19,6 +19,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Setup extends Mage_Sales_Model_Resource_Setup
-{
-}
+class Mage_Sales_Model_Mysql4_Setup extends Mage_Sales_Model_Resource_Setup {}

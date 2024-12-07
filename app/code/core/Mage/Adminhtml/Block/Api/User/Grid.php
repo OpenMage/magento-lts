@@ -44,29 +44,29 @@ class Mage_Adminhtml_Block_Api_User_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
-            'index'     => 'user_id'
+            'index'     => 'user_id',
         ]);
 
         $this->addColumn('username', [
             'header'    => Mage::helper('adminhtml')->__('User Name'),
-            'index'     => 'username'
+            'index'     => 'username',
         ]);
 
         $this->addColumn('firstname', [
             'header'    => Mage::helper('adminhtml')->__('First Name'),
-            'index'     => 'firstname'
+            'index'     => 'firstname',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('adminhtml')->__('Last Name'),
-            'index'     => 'lastname'
+            'index'     => 'lastname',
         ]);
 
         $this->addColumn('email', [
             'header'    => Mage::helper('adminhtml')->__('Email'),
             'width'     => 40,
             'align'     => 'left',
-            'index'     => 'email'
+            'index'     => 'email',
         ]);
 
         $this->addColumn('is_active', [

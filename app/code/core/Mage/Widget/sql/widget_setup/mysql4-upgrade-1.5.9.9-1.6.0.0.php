@@ -23,17 +23,17 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('widget/widget_instance_page'),
-    'FK_WIDGET_WIDGET_INSTANCE_ID'
+    'FK_WIDGET_WIDGET_INSTANCE_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('widget/widget_instance_page_layout'),
-    'FK_WIDGET_WIDGET_INSTANCE_LAYOUT_UPDATE_ID'
+    'FK_WIDGET_WIDGET_INSTANCE_LAYOUT_UPDATE_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('widget/widget_instance_page_layout'),
-    'FK_WIDGET_WIDGET_INSTANCE_PAGE_ID'
+    'FK_WIDGET_WIDGET_INSTANCE_PAGE_ID',
 );
 
 /**
@@ -41,27 +41,27 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('widget/widget'),
-    'IDX_CODE'
+    'IDX_CODE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('widget/widget_instance_page'),
-    'IDX_WIDGET_WIDGET_INSTANCE_ID'
+    'IDX_WIDGET_WIDGET_INSTANCE_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('widget/widget_instance_page_layout'),
-    'PAGE_ID'
+    'PAGE_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('widget/widget_instance_page_layout'),
-    'IDX_WIDGET_WIDGET_INSTANCE_PAGE_ID'
+    'IDX_WIDGET_WIDGET_INSTANCE_PAGE_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('widget/widget_instance_page_layout'),
-    'IDX_WIDGET_WIDGET_INSTANCE_LAYOUT_UPDATE_ID'
+    'IDX_WIDGET_WIDGET_INSTANCE_LAYOUT_UPDATE_ID',
 );
 
 /**
@@ -76,15 +76,15 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Widget Id'
+                'comment'   => 'Widget Id',
             ],
             'parameters' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Parameters'
-            ]
+                'comment'   => 'Parameters',
+            ],
         ],
-        'comment' => 'Preconfigured Widgets'
+        'comment' => 'Preconfigured Widgets',
     ],
     $installer->getTable('widget/widget_instance') => [
         'columns' => [
@@ -94,39 +94,39 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Instance Id'
+                'comment'   => 'Instance Id',
             ],
             'package_theme' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Package Theme'
+                'comment'   => 'Package Theme',
             ],
             'title' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Widget Title'
+                'comment'   => 'Widget Title',
             ],
             'store_ids' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store ids'
+                'comment'   => 'Store ids',
             ],
             'widget_parameters' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Widget parameters'
+                'comment'   => 'Widget parameters',
             ],
             'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Sort order'
-            ]
+                'comment'   => 'Sort order',
+            ],
         ],
-        'comment' => 'Instances of Widget for Package Theme'
+        'comment' => 'Instances of Widget for Package Theme',
     ],
     $installer->getTable('widget/widget_instance_page') => [
         'columns' => [
@@ -136,32 +136,32 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Page Id'
+                'comment'   => 'Page Id',
             ],
             'instance_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Instance Id'
+                'comment'   => 'Instance Id',
             ],
             'layout_handle' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Layout Handle'
+                'comment'   => 'Layout Handle',
             ],
             'block_reference' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Block Reference'
+                'comment'   => 'Block Reference',
             ],
             'entities' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Catalog entities (comma separated)'
-            ]
+                'comment'   => 'Catalog entities (comma separated)',
+            ],
         ],
-        'comment' => 'Instance of Widget on Page'
+        'comment' => 'Instance of Widget on Page',
     ],
     $installer->getTable('widget/widget_instance_page_layout') => [
         'columns' => [
@@ -171,7 +171,7 @@ $tables = [
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
-                'comment'   => 'Page Id'
+                'comment'   => 'Page Id',
             ],
             'layout_update_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
@@ -179,11 +179,11 @@ $tables = [
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
-                'comment'   => 'Layout Update Id'
-            ]
+                'comment'   => 'Layout Update Id',
+            ],
         ],
-        'comment' => 'Layout updates'
-    ]
+        'comment' => 'Layout updates',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -195,8 +195,8 @@ $installer->getConnection()->changeColumn(
     [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length'    => 255,
-        'comment'   => 'Widget code for template directive'
-    ]
+        'comment'   => 'Widget code for template directive',
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -206,8 +206,8 @@ $installer->getConnection()->changeColumn(
     [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length'    => 255,
-        'comment'   => 'Widget Type'
-    ]
+        'comment'   => 'Widget Type',
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -217,8 +217,8 @@ $installer->getConnection()->changeColumn(
     [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length'    => 255,
-        'comment'   => 'Instance Type'
-    ]
+        'comment'   => 'Instance Type',
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -228,8 +228,8 @@ $installer->getConnection()->changeColumn(
     [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length'    => 25,
-        'comment'   => 'Block Group Type'
-    ]
+        'comment'   => 'Block Group Type',
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -239,8 +239,8 @@ $installer->getConnection()->changeColumn(
     [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length'    => 25,
-        'comment'   => 'For instance entities'
-    ]
+        'comment'   => 'For instance entities',
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -250,8 +250,8 @@ $installer->getConnection()->changeColumn(
     [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length'    => 255,
-        'comment'   => 'Path to widget template'
-    ]
+        'comment'   => 'Path to widget template',
+    ],
 );
 
 /**
@@ -260,13 +260,13 @@ $installer->getConnection()->changeColumn(
 $installer->getConnection()->addIndex(
     $installer->getTable('widget/widget'),
     $installer->getIdxName('widget/widget', ['widget_code']),
-    ['widget_code']
+    ['widget_code'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('widget/widget_instance_page'),
     $installer->getIdxName('widget/widget_instance_page', ['instance_id']),
-    ['instance_id']
+    ['instance_id'],
 );
 
 $installer->getConnection()->addIndex(
@@ -274,22 +274,22 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'widget/widget_instance_page_layout',
         ['layout_update_id', 'page_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['layout_update_id', 'page_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('widget/widget_instance_page_layout'),
     $installer->getIdxName('widget/widget_instance_page_layout', ['page_id']),
-    ['page_id']
+    ['page_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('widget/widget_instance_page_layout'),
     $installer->getIdxName('widget/widget_instance_page_layout', ['layout_update_id']),
-    ['layout_update_id']
+    ['layout_update_id'],
 );
 
 /**
@@ -300,12 +300,12 @@ $installer->getConnection()->addForeignKey(
         'widget/widget_instance_page',
         'instance_id',
         'widget/widget_instance',
-        'instance_id'
+        'instance_id',
     ),
     $installer->getTable('widget/widget_instance_page'),
     'instance_id',
     $installer->getTable('widget/widget_instance'),
-    'instance_id'
+    'instance_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -313,12 +313,12 @@ $installer->getConnection()->addForeignKey(
         'widget/widget_instance_page_layout',
         'page_id',
         'widget/widget_instance_page',
-        'page_id'
+        'page_id',
     ),
     $installer->getTable('widget/widget_instance_page_layout'),
     'page_id',
     $installer->getTable('widget/widget_instance_page'),
-    'page_id'
+    'page_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -326,12 +326,12 @@ $installer->getConnection()->addForeignKey(
         'widget/widget_instance_page_layout',
         'layout_update_id',
         'core/layout_update',
-        'layout_update_id'
+        'layout_update_id',
     ),
     $installer->getTable('widget/widget_instance_page_layout'),
     'layout_update_id',
     $installer->getTable('core/layout_update'),
-    'layout_update_id'
+    'layout_update_id',
 );
 
 $installer->endSetup();

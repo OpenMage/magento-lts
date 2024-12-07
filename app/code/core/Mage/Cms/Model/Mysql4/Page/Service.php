@@ -25,6 +25,4 @@ declare(strict_types=1);
  * @see Mage_Cms_Model_Resource_Page_Service
  */
 // phpcs:ignore: Ecg.Classes.Mysql4.Found
-class Mage_Cms_Model_Mysql4_Page_Service extends Mage_Cms_Model_Resource_Page_Service
-{
-}
+class Mage_Cms_Model_Mysql4_Page_Service extends Mage_Cms_Model_Resource_Page_Service {}

@@ -50,7 +50,7 @@ $categories = $installer->getConnection()->fetchAll(
     $installer->getConnection()->select()
         ->from($installer->getTable('catalog_category_entity'))
         ->order('level')
-        ->order('path')
+        ->order('path'),
 );
 
 // $installer->run("

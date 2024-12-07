@@ -18,9 +18,9 @@
 $installer = $this;
 
 foreach ([
-        'sales/order', 'sales/order_grid', 'sales/creditmemo', 'sales/creditmemo_grid',
-        'sales/invoice', 'sales/invoice_grid', 'sales/shipment','sales/shipment_grid',
-         ] as $table
+    'sales/order', 'sales/order_grid', 'sales/creditmemo', 'sales/creditmemo_grid',
+    'sales/invoice', 'sales/invoice_grid', 'sales/shipment','sales/shipment_grid',
+] as $table
 ) {
     $tableName = $installer->getTable($table);
     $installer->getConnection()->dropKey($tableName, 'IDX_INCREMENT_ID');

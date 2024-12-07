@@ -55,7 +55,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
         $select = $adapter->select()
             ->from(
                 $tableName,
-                new Zend_Db_Expr('DISTINCT rule_name')
+                new Zend_Db_Expr('DISTINCT rule_name'),
             )
             ->where('rule_name IS NOT NULL')
             ->where('rule_name <> ""')

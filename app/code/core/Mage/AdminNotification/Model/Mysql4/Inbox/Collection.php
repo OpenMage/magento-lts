@@ -21,6 +21,4 @@
  * @package    Mage_AdminNotification
  * @deprecated
  */
-class Mage_AdminNotification_Model_Mysql4_Inbox_Collection extends Mage_AdminNotification_Model_Resource_Inbox_Collection
-{
-}
+class Mage_AdminNotification_Model_Mysql4_Inbox_Collection extends Mage_AdminNotification_Model_Resource_Inbox_Collection {}

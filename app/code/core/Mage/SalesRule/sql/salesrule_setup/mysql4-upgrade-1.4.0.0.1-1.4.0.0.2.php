@@ -26,7 +26,7 @@ $tableSalesruleCoupon = $installer->getTable('salesrule/coupon');
 $connection->addColumn(
     $tableSalesrule,
     'coupon_type',
-    'smallint unsigned NOT NULL DEFAULT "' . Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON . '"'
+    'smallint unsigned NOT NULL DEFAULT "' . Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON . '"',
 );
 
 /**

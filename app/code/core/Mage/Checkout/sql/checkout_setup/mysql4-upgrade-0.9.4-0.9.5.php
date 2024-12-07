@@ -34,7 +34,7 @@ if ($data) {
         foreach ($data as $value) {
             $bind = [
                 'path'  => 'checkout/options/onepage_checkout_enabled',
-                'value' => !((bool)$value['value'])
+                'value' => !((bool) $value['value']),
             ];
             $where = 'config_id = ' . $value['config_id'];
             $connection->update($table, $bind, $where);

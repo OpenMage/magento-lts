@@ -43,7 +43,7 @@ foreach (['daily', 'monthly', 'yearly'] as $frequency) {
         'store_id',
         $installer->getTable('core/store'),
         'store_id',
-        'SET NULL'
+        'SET NULL',
     );
 
     $installer->getConnection()->addConstraint(
@@ -52,6 +52,6 @@ foreach (['daily', 'monthly', 'yearly'] as $frequency) {
         'product_id',
         $installer->getTable('catalog/product'),
         'entity_id',
-        'SET NULL'
+        'SET NULL',
     );
 }

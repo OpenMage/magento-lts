@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
         $this->addColumn('url_rewrite_id', [
             'header'    => $this->__('ID'),
             'width'     => '50px',
-            'index'     => 'url_rewrite_id'
+            'index'     => 'url_rewrite_id',
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -57,27 +57,27 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
             'type'      => 'options',
             'options'   => [
                 1 => $this->__('System'),
-                0 => $this->__('Custom')
+                0 => $this->__('Custom'),
             ],
         ]);
 
         $this->addColumn('id_path', [
             'header'    => $this->__('ID Path'),
             'width'     => '50px',
-            'index'     => 'id_path'
+            'index'     => 'id_path',
         ]);
         $this->addColumn('request_path', [
             'header'    => $this->__('Request Path'),
-            'index'     => 'request_path'
+            'index'     => 'request_path',
         ]);
         $this->addColumn('target_path', [
             'header'    => $this->__('Target Path'),
-            'index'     => 'target_path'
+            'index'     => 'target_path',
         ]);
         $this->addColumn('options', [
             'header'    => $this->__('Options'),
             'width'     => '50px',
-            'index'     => 'options'
+            'index'     => 'options',
         ]);
         $this->addColumn('actions', [
             'type'      => 'action',
@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
                     'url'       => $this->getUrl('*/*/edit') . 'id/$url_rewrite_id',
                     'caption'   => $this->__('Edit'),
                 ],
-            ]
+            ],
         ]);
         //$this->addExportType('*/*/exportCsv', $this->__('CSV'));
         //$this->addExportType('*/*/exportXml', $this->__('XML'));

@@ -37,19 +37,19 @@ while ($row = $query->fetch()) {
         $row['category_id'],
         $row['product_id'],
         $row['is_parent'],
-        $row['store_id']
+        $row['store_id'],
     ]);
 }
 
 $installer->getConnection()->dropKey(
     $installer->getTable('catalog/category_product_index'),
-    'UNQ_CATEGORY_PRODUCT'
+    'UNQ_CATEGORY_PRODUCT',
 );
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/category_product_index'),
     'UNQ_CATEGORY_PRODUCT',
     ['category_id', 'product_id', 'is_parent', 'store_id'],
-    'unique'
+    'unique',
 );
 
 $installer->endSetup();

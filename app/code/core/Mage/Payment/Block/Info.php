@@ -132,7 +132,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     public function getIsSecureMode()
     {
         if ($this->hasIsSecureMode()) {
-            return (bool)(int)$this->_getData('is_secure_mode');
+            return (bool) (int) $this->_getData('is_secure_mode');
         }
         if (!$payment = $this->getInfo()) {
             return true;

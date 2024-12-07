@@ -119,7 +119,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     public function getStoreId()
     {
         if ($this->hasData('store_id')) {
-            return (int)$this->getData('store_id');
+            return (int) $this->getData('store_id');
         }
         return Mage::app()->getStore()->getId();
     }

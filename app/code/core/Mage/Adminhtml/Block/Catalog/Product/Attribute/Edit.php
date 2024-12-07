@@ -37,8 +37,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
                     'label'     => Mage::helper('catalog')->__('Close Window'),
                     'class'     => 'cancel',
                     'onclick'   => 'window.close()',
-                    'level'     => -1
-                ]
+                    'level'     => -1,
+                ],
             );
         } else {
             $this->_addButton(
@@ -46,9 +46,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
                 [
                     'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
                     'onclick'   => 'saveAndContinueEdit()',
-                    'class'     => 'save'
+                    'class'     => 'save',
                 ],
-                100
+                100,
             );
         }
 

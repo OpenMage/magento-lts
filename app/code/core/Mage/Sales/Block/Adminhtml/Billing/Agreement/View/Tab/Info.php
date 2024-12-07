@@ -99,14 +99,14 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
         $this->setReferenceId($agreement->getReferenceId());
         $customer = Mage::getModel('customer/customer')->load($agreement->getCustomerId());
         $this->setCustomerUrl(
-            $this->getUrl('*/customer/edit', ['id' => $customer->getId()])
+            $this->getUrl('*/customer/edit', ['id' => $customer->getId()]),
         );
         $this->setCustomerEmail($customer->getEmail());
         $this->setStatus($agreement->getStatusLabel());
         $this->setCreatedAt($this->formatDate($agreement->getCreatedAt(), 'short', true));
         $this->setUpdatedAt(
             ($agreement->getUpdatedAt())
-                ? $this->formatDate($agreement->getUpdatedAt(), 'short', true) : $this->__('N/A')
+                ? $this->formatDate($agreement->getUpdatedAt(), 'short', true) : $this->__('N/A'),
         );
 
         return parent::_toHtml();

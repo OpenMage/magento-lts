@@ -678,7 +678,7 @@ class Mage_Paypal_Model_Config
      */
     public function setStoreId($storeId)
     {
-        $this->_storeId = (int)$storeId;
+        $this->_storeId = (int) $storeId;
         return $this;
     }
 
@@ -1077,7 +1077,7 @@ class Mage_Paypal_Model_Config
         return sprintf(
             'https://www.%spaypal.com/cgi-bin/webscr%s',
             $this->sandboxFlag ? 'sandbox.' : '',
-            $params ? '?' . http_build_query($params) : ''
+            $params ? '?' . http_build_query($params) : '',
         );
     }
 
@@ -1127,7 +1127,7 @@ class Mage_Paypal_Model_Config
         }
         return sprintf(
             'https://www.paypal.com/%s/i/btn/btn_xpressCheckout.gif',
-            $this->_getSupportedLocaleCode($localeCode)
+            $this->_getSupportedLocaleCode($localeCode),
         );
     }
 
@@ -1167,7 +1167,7 @@ class Mage_Paypal_Model_Config
         return sprintf(
             'https://www.paypal.com/%s/i/logo/PayPal_mark_%s.gif',
             $this->_getSupportedLocaleCode($localeCode),
-            $staticSize
+            $staticSize,
         );
     }
 
@@ -1192,7 +1192,7 @@ class Mage_Paypal_Model_Config
         }
         return sprintf(
             'https://www.paypal.com/%s/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside',
-            strtolower($countryCode)
+            strtolower($countryCode),
         );
     }
 
@@ -1210,7 +1210,7 @@ class Mage_Paypal_Model_Config
             'https://www.paypal.com/%s/i/bnr/%s_solution_PP%s.gif',
             $this->_getSupportedLocaleCode($localeCode),
             $isVertical ? 'vertical' : 'horizontal',
-            $isEcheck ? 'eCheck' : ''
+            $isEcheck ? 'eCheck' : '',
         );
     }
 
@@ -1342,7 +1342,7 @@ class Mage_Paypal_Model_Config
     {
         $paymentActions = [
             self::PAYMENT_ACTION_AUTH => Mage::helper('paypal')->__('Authorization'),
-            self::PAYMENT_ACTION_SALE => Mage::helper('paypal')->__('Sale')
+            self::PAYMENT_ACTION_SALE => Mage::helper('paypal')->__('Sale'),
         ];
         if (!is_null($this->_methodCode) && $this->_methodCode == self::METHOD_WPP_EXPRESS) {
             $paymentActions[self::PAYMENT_ACTION_ORDER] = Mage::helper('paypal')->__('Order');
@@ -1418,7 +1418,7 @@ class Mage_Paypal_Model_Config
         return [
             self::EC_BA_SIGNUP_AUTO  => Mage::helper('paypal')->__('Auto'),
             self::EC_BA_SIGNUP_ASK   => Mage::helper('paypal')->__('Ask Customer'),
-            self::EC_BA_SIGNUP_NEVER => Mage::helper('paypal')->__('Never')
+            self::EC_BA_SIGNUP_NEVER => Mage::helper('paypal')->__('Never'),
         ];
     }
 
@@ -1576,7 +1576,7 @@ class Mage_Paypal_Model_Config
         return sprintf(
             'https://fpdbs%s.paypal.com/dynamicimageweb?%s',
             $this->sandboxFlag ? '.sandbox' : '',
-            http_build_query($params)
+            http_build_query($params),
         );
     }
 
@@ -1881,7 +1881,7 @@ class Mage_Paypal_Model_Config
     {
         return [
             '0' => Mage::helper('paypal')->__('API Signature'),
-            '1' => Mage::helper('paypal')->__('API Certificate')
+            '1' => Mage::helper('paypal')->__('API Certificate'),
         ];
     }
 

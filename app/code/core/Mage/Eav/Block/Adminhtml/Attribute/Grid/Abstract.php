@@ -41,12 +41,12 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
 
         $this->addColumn('frontend_label', [
             'header' => Mage::helper('eav')->__('Attribute Label'),
-            'index' => 'frontend_label'
+            'index' => 'frontend_label',
         ]);
 
         $this->addColumn('attribute_code', [
             'header' => Mage::helper('eav')->__('Attribute Code'),
-            'index' => 'attribute_code'
+            'index' => 'attribute_code',
         ]);
 
         $this->addColumn('is_required', [

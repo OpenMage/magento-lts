@@ -42,7 +42,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource extends Mage_Adminhtml_Bl
 
         $this->_treeModel = Mage::getModel(
             'api2/acl_global_rule_tree',
-            ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE]
+            ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE],
         );
 
         /** @var Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission $permissions */

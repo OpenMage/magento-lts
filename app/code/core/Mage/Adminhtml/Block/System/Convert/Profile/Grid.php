@@ -69,9 +69,9 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Bl
             'actions'   => [
                 [
                     'url'       => $this->getUrl('*/*/edit') . 'id/$profile_id',
-                    'caption'   => Mage::helper('adminhtml')->__('Edit')
-                ]
-            ]
+                    'caption'   => Mage::helper('adminhtml')->__('Edit'),
+                ],
+            ],
         ]);
 
         return parent::_prepareColumns();

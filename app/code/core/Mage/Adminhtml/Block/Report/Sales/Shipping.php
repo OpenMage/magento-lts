@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping extends Mage_Adminhtml_Block_Wi
         $this->_removeButton('add');
         $this->addButton('filter_form_submit', [
             'label'     => Mage::helper('reports')->__('Show Report'),
-            'onclick'   => 'filterFormSubmit()'
+            'onclick'   => 'filterFormSubmit()',
         ]);
     }
 

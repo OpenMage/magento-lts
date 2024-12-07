@@ -83,7 +83,7 @@ class Mage_Api2_Model_Observer
             && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
                 $apiKey,
                 $model->getApiKey(),
-                Mage_Core_Model_Encryption::HASH_VERSION_SHA256
+                Mage_Core_Model_Encryption::HASH_VERSION_SHA256,
             )
         ) {
             Mage::getModel('api/user')->load($model->getId())->setNewApiKey($apiKey)->save();

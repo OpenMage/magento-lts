@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Block_System_Currency_Edit_Tab_Rates extends Mage_Adminhtml_Block_Widget_Form
-{
-}
+class Mage_Adminhtml_Block_System_Currency_Edit_Tab_Rates extends Mage_Adminhtml_Block_Widget_Form {}

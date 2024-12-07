@@ -77,11 +77,11 @@ class DataTest extends TestCase
     {
         yield 'valid' => [
             true,
-            'valid.log'
+            'valid.log',
         ];
         yield 'invalid' => [
             false,
-            'invalid.file'
+            'invalid.file',
         ];
     }
 }

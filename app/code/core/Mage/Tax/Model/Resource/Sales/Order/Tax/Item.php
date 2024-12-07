@@ -41,7 +41,7 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Item extends Mage_Core_Model_Resou
             ->join(
                 ['tax' => $this->getTable('tax/sales_order_tax')],
                 'item.tax_id = tax.tax_id',
-                ['title', 'percent', 'base_amount']
+                ['title', 'percent', 'base_amount'],
             )
             ->where('item_id = ?', $itemId);
 

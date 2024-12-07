@@ -19,6 +19,4 @@
  * @package    Mage_Weee
  * @deprecated
  */
-class Mage_Weee_Model_Mysql4_Tax extends Mage_Weee_Model_Resource_Tax
-{
-}
+class Mage_Weee_Model_Mysql4_Tax extends Mage_Weee_Model_Resource_Tax {}

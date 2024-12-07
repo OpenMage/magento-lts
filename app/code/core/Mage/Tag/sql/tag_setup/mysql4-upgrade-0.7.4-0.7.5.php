@@ -27,7 +27,7 @@ $select = $installer->getConnection()->select()
     ->joinInner(
         ['relation_table' => new Zend_Db_Expr("({$groupedTags->__toString()})")],
         'relation_table.tag_id = main_table.tag_id',
-        null
+        null,
     )
     ->columns(['first_store_id' => 'store_id']);
 

@@ -52,7 +52,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
         if ($element->getCanUseDefaultValue()) {
             $defaultConfigNode = Mage::getConfig()->getNode(null, 'default');
             if ($defaultConfigNode) {
-                $this->_defaultCountry = (string)$defaultConfigNode->descend('paypal/general/merchant_country');
+                $this->_defaultCountry = (string) $defaultConfigNode->descend('paypal/general/merchant_country');
             }
             if (!$this->_defaultCountry) {
                 $this->_defaultCountry = Mage::helper('core')->getDefaultCountry();

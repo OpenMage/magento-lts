@@ -101,10 +101,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             ->addAttributeToSelect('gift_message_available')
             ->addStoreFilter()
             ->addAttributeToFilter('type_id', array_keys(
-                Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()
+                Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray(),
             ))
             ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
             ]);
 
         $this->setCollection($collection);
@@ -118,17 +118,17 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('sales')->__('ID'),
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_product',
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
         $this->addColumn('sku', [
             'header'    => Mage::helper('sales')->__('SKU'),
             'width'     => '80',
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
         $this->addColumn('price', [
             'column_css_class' => 'price',

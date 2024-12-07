@@ -392,7 +392,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             || !$response->isValidHash($this->getConfigData($hashConfigKey), $this->getConfigData('login'))
         ) {
             Mage::throwException(
-                Mage::helper('authorizenet')->__('Response hash validation failed. Transaction declined.')
+                Mage::helper('authorizenet')->__('Response hash validation failed. Transaction declined.'),
             );
         }
         return true;
@@ -407,7 +407,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     public function process(array $responseData)
     {
         $debugData = [
-            'response' => $responseData
+            'response' => $responseData,
         ];
         $this->_debug($debugData);
 
@@ -429,7 +429,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             $payment = $order->getPayment();
             if (!$payment || $payment->getMethod() != $this->getCode()) {
                 Mage::throwException(
-                    Mage::helper('authorizenet')->__('Payment error. Order was not found.')
+                    Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
                 );
             }
             if ($order->getId() &&  $order->getState() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
@@ -446,7 +446,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             Mage::throwException(
                 ($responseText && !$response->isApproved()) ?
                 $responseText :
-                Mage::helper('authorizenet')->__('Payment error. Order was not found.')
+                Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
             );
         }
     }
@@ -498,7 +498,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     {
         if (!$this->getResponse()->getXTransId() && ($this->getResponse()->getXTransId() !== '0')) {
             Mage::throwException(
-                Mage::helper('authorizenet')->__('Payment authorization error. Transacion id is empty.')
+                Mage::helper('authorizenet')->__('Payment authorization error. Transacion id is empty.'),
             );
         }
         return true;

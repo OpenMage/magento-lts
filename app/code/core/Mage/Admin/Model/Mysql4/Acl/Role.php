@@ -21,6 +21,4 @@
  * @package    Mage_Admin
  * @deprecated
  */
-class Mage_Admin_Model_Mysql4_Acl_Role extends Mage_Admin_Model_Resource_Acl_Role
-{
-}
+class Mage_Admin_Model_Mysql4_Acl_Role extends Mage_Admin_Model_Resource_Acl_Role {}

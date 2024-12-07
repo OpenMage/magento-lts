@@ -139,7 +139,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             $object->getDestanationDimensions()->getWidth(),
             $object->getDestanationDimensions()->getHeight(),
             $object->getDimensions()->getWidth(),
-            $object->getDimensions()->getHeight()
+            $object->getDimensions()->getHeight(),
         );
 
         return $this;

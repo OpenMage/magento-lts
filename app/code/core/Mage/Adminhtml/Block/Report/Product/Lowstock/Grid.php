@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } elseif ($this->getRequest()->getParam('store')) {
-            $storeId = (int)$this->getRequest()->getParam('store');
+            $storeId = (int) $this->getRequest()->getParam('store');
         } else {
             $storeId = '';
         }
@@ -66,13 +66,13 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
             'sortable'  => false,
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('sku', [
             'header'    => Mage::helper('reports')->__('Product SKU'),
             'sortable'  => false,
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
 
         $this->addColumn('qty', [
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             'sortable'  => false,
             'filter'    => 'adminhtml/widget_grid_column_filter_range',
             'index'     => 'qty',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addExportType('*/*/exportLowstockCsv', Mage::helper('reports')->__('CSV'));

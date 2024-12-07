@@ -65,7 +65,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                     'created_at',
                     'updated_at',
                     $from,
-                    $to
+                    $to,
                 );
             } else {
                 $subSelect = null;
@@ -78,8 +78,8 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                     ['e' => $this->getTable('sales/order')],
                     'e.' . $aggregationField,
                     $from,
-                    $to
-                )
+                    $to,
+                ),
             );
 
             $columns = [
@@ -89,7 +89,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 'order_status'          => 'e.status',
                 'percent'               => 'MAX(tax.' . $writeAdapter->quoteIdentifier('percent') . ')',
                 'orders_count'          => 'COUNT(DISTINCT e.entity_id)',
-                'tax_base_amount_sum'   => 'SUM(tax.base_amount * e.base_to_global_rate)'
+                'tax_base_amount_sum'   => 'SUM(tax.base_amount * e.base_to_global_rate)',
             ];
 
             $select = $writeAdapter->select();
@@ -99,7 +99,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
 
             $select->where('e.state NOT IN (?)', [
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                Mage_Sales_Model_Order::STATE_NEW
+                Mage_Sales_Model_Order::STATE_NEW,
             ]);
 
             if ($subSelect !== null) {
@@ -120,7 +120,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 'order_status'          => 'order_status',
                 'percent'               => 'MAX(' . $writeAdapter->quoteIdentifier('percent') . ')',
                 'orders_count'          => 'SUM(orders_count)',
-                'tax_base_amount_sum'   => 'SUM(tax_base_amount_sum)'
+                'tax_base_amount_sum'   => 'SUM(tax_base_amount_sum)',
             ];
 
             $select

@@ -46,7 +46,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         $rolesArr = $adapter->fetchAll(
             $adapter->select()
                 ->from($this->getTable('api/role'))
-                ->order(['tree_level', 'role_type'])
+                ->order(['tree_level', 'role_type']),
         );
         $this->loadRoles($acl, $rolesArr);
 
@@ -56,8 +56,8 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 ->joinLeft(
                     ['a' => $this->getTable('api/assert')],
                     'a.assert_id=r.assert_id',
-                    ['assert_type', 'assert_data']
-                )
+                    ['assert_type', 'assert_data'],
+                ),
         );
         $this->loadRules($acl, $rulesArr);
         return $acl;

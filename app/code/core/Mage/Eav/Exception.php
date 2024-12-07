@@ -18,6 +18,4 @@
  * @category   Mage
  * @package    Mage_Eav
  */
-class Mage_Eav_Exception extends Mage_Core_Exception
-{
-}
+class Mage_Eav_Exception extends Mage_Core_Exception {}

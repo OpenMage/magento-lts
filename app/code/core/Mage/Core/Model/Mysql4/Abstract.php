@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Core
  */
-abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_Db_Abstract
-{
-}
+abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_Db_Abstract {}

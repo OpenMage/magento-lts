@@ -54,9 +54,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
                 [
                     'label'     => Mage::helper('widget')->__('Save and Continue Edit'),
                     'class'     => 'save',
-                    'onclick'   => 'saveAndContinueEdit()'
+                    'onclick'   => 'saveAndContinueEdit()',
                 ],
-                100
+                100,
             );
         } else {
             $this->removeButton('save');

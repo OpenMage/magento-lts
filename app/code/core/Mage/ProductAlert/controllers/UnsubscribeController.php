@@ -79,7 +79,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         try {
             Mage::getModel('productalert/price')->deleteCustomer(
                 $session->getCustomerId(),
-                Mage::app()->getStore()->getWebsiteId()
+                Mage::app()->getStore()->getWebsiteId(),
             );
             $session->addSuccess($this->__('You will no longer receive price alerts for this product.'));
         } catch (Exception $e) {
@@ -129,7 +129,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         try {
             Mage::getModel('productalert/stock')->deleteCustomer(
                 $session->getCustomerId(),
-                Mage::app()->getStore()->getWebsiteId()
+                Mage::app()->getStore()->getWebsiteId(),
             );
             $session->addSuccess($this->__('You will no longer receive stock alerts.'));
         } catch (Exception $e) {

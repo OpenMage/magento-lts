@@ -30,7 +30,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('sales_flat_quote'),
     'store_id',
     $installer->getTable('core_store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

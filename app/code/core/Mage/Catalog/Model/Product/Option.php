@@ -328,7 +328,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             } else {
                 $this->setId($this->getData('option_id'));
             }
-            $isEdit = (bool)$this->getId() ? true : false;
+            $isEdit = (bool) $this->getId() ? true : false;
 
             if ($this->getData('is_delete') == '1') {
                 if ($isEdit) {

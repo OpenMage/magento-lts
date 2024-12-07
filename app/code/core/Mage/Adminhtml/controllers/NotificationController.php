@@ -79,7 +79,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                     }
                 }
                 $this->_getSession()->addSuccess(
-                    Mage::helper('adminnotification')->__('Total of %d record(s) have been marked as read.', count($ids))
+                    Mage::helper('adminnotification')->__('Total of %d record(s) have been marked as read.', count($ids)),
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
@@ -135,7 +135,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                     }
                 }
                 $this->_getSession()->addSuccess(
-                    Mage::helper('adminnotification')->__('Total of %d record(s) have been removed.', count($ids))
+                    Mage::helper('adminnotification')->__('Total of %d record(s) have been removed.', count($ids)),
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());

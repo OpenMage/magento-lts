@@ -91,7 +91,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
         $requestParam = Mage_Paypal_Block_Adminhtml_System_Config_Field_Country::REQUEST_PARAM_COUNTRY;
         $countryCode  = Mage::app()->getRequest()->getParam($requestParam);
         if (is_null($countryCode) || preg_match('/^[a-zA-Z]{2}$/', $countryCode) == 0) {
-            $countryCode = (string)Mage::getSingleton('adminhtml/config_data')
+            $countryCode = (string) Mage::getSingleton('adminhtml/config_data')
                 ->getConfigDataValue(self::MERCHANT_COUNTRY_CONFIG_PATH);
         }
         if (empty($countryCode)) {
@@ -114,7 +114,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
             Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS,
             Mage_Paypal_Model_Config::METHOD_HOSTEDPRO,
             Mage_Paypal_Model_Config::METHOD_WPS,
-            ])
+        ])
         ) {
             /** @var Mage_Paypal_Model_Config $config */
             $config = Mage::getModel('paypal/config')->setMethod($methodCode);

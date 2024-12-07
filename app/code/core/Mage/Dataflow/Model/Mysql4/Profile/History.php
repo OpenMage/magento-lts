@@ -21,6 +21,4 @@
  * @package    Mage_Dataflow
  * @deprecated
  */
-class Mage_Dataflow_Model_Mysql4_Profile_History extends Mage_Dataflow_Model_Resource_Profile_History
-{
-}
+class Mage_Dataflow_Model_Mysql4_Profile_History extends Mage_Dataflow_Model_Resource_Profile_History {}

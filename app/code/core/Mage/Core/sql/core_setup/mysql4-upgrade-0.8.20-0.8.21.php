@@ -25,5 +25,5 @@ $installer->getConnection()->addColumn($installer->getTable('core/resource'), 'd
  */
 $installer->getConnection()->update(
     $this->getTable('core/resource'),
-    ['data_version' => new Zend_Db_Expr('version')]
+    ['data_version' => new Zend_Db_Expr('version')],
 );

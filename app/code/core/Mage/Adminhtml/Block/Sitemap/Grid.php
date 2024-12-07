@@ -42,17 +42,17 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('sitemap_id', [
             'header'    => Mage::helper('sitemap')->__('ID'),
             'width'     => '50px',
-            'index'     => 'sitemap_id'
+            'index'     => 'sitemap_id',
         ]);
 
         $this->addColumn('sitemap_filename', [
             'header'    => Mage::helper('sitemap')->__('Filename'),
-            'index'     => 'sitemap_filename'
+            'index'     => 'sitemap_filename',
         ]);
 
         $this->addColumn('sitemap_path', [
             'header'    => Mage::helper('sitemap')->__('Path'),
-            'index'     => 'sitemap_path'
+            'index'     => 'sitemap_path',
         ]);
 
         $this->addColumn('link', [
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('action', [
             'type'     => 'action',
             'width'    => '100',
-            'renderer' => 'adminhtml/sitemap_grid_renderer_action'
+            'renderer' => 'adminhtml/sitemap_grid_renderer_action',
         ]);
 
         return parent::_prepareColumns();

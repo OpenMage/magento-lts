@@ -58,7 +58,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
             $value = Mage::getConfig()->getNode(
                 Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE,
                 $this->getScope(),
-                $this->getScopeId()
+                $this->getScopeId(),
             );
         }
         return (string) $value;
@@ -75,7 +75,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
             $value = Mage::getConfig()->getNode(
                 Mage_Directory_Model_Currency::XML_PATH_CURRENCY_DEFAULT,
                 $this->getScope(),
-                $this->getScopeId()
+                $this->getScopeId(),
             );
         }
         return (string) $value;

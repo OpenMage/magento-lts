@@ -52,12 +52,12 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create extends Mage_Adminhtml_
         if ($this->getCreditmemo()->getInvoice()) {
             $header = Mage::helper('sales')->__(
                 'New Credit Memo for Invoice #%s',
-                $this->escapeHtml($this->getCreditmemo()->getInvoice()->getIncrementId())
+                $this->escapeHtml($this->getCreditmemo()->getInvoice()->getIncrementId()),
             );
         } else {
             $header = Mage::helper('sales')->__(
                 'New Credit Memo for Order #%s',
-                $this->escapeHtml($this->getCreditmemo()->getOrder()->getRealOrderId())
+                $this->escapeHtml($this->getCreditmemo()->getOrder()->getRealOrderId()),
             );
         }
 

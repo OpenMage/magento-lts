@@ -35,7 +35,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         $this->_urls = [
             'base'      => Mage::getBaseUrl('web'),
             'baseSecure' => Mage::getBaseUrl('web', true),
-            'current'   => $this->getRequest()->getRequestUri()
+            'current'   => $this->getRequest()->getRequestUri(),
         ];
 
         $action = Mage::app()->getFrontController()->getAction();

@@ -41,7 +41,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     {
         $this->_uniqueFields = [[
             'field' => ['attribute_code', 'entity_type_id'],
-            'title' => Mage::helper('eav')->__('Attribute with the same code')
+            'title' => Mage::helper('eav')->__('Attribute with the same code'),
         ]];
         return $this;
     }
@@ -103,7 +103,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             $adapter = $this->_getReadAdapter();
             $bind = [
                 ':attribute_set_id'   => $object->getAttributeSetId(),
-                ':attribute_group_id' => $object->getAttributeGroupId()
+                ':attribute_group_id' => $object->getAttributeGroupId(),
             ];
             $select = $adapter->select()
                 ->from($this->getTable('eav/entity_attribute'), new Zend_Db_Expr('MAX(sort_order)'))
@@ -128,7 +128,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
         }
 
         $this->_getWriteAdapter()->delete($this->getTable('eav/entity_attribute'), [
-            'entity_attribute_id = ?' => $object->getEntityAttributeId()
+            'entity_attribute_id = ?' => $object->getEntityAttributeId(),
         ]);
 
         return $this;
@@ -198,7 +198,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 $bind = [
                     'attribute_id' => $object->getId(),
                     'store_id'     => $storeId,
-                    'value'        => $label
+                    'value'        => $label,
                 ];
                 $adapter->insert($this->getTable('eav/attribute_label'), $bind);
             }
@@ -255,12 +255,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 'attribute_set_id'   => $setId,
                 'attribute_group_id' => $groupId,
                 'attribute_id'       => $attributeId,
-                'sort_order'         => $sortOrder
+                'sort_order'         => $sortOrder,
             ];
 
             $where = [
                 'attribute_id =?'     => $attributeId,
-                'attribute_set_id =?' => $setId
+                'attribute_set_id =?' => $setId,
             ];
 
             $adapter->delete($table, $where);
@@ -304,8 +304,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                     $sortOrder = !empty($option['order'][$optionId]) ? $option['order'][$optionId] : 0;
                     if (!$intOptionId) {
                         $data = [
-                           'attribute_id'  => $object->getId(),
-                           'sort_order'    => $sortOrder
+                            'attribute_id'  => $object->getId(),
+                            'sort_order'    => $sortOrder,
                         ];
                         $adapter->insert($optionTable, $data);
                         $intOptionId = $adapter->lastInsertId($optionTable);
@@ -349,7 +349,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                             $data = [
                                 'option_id' => $intOptionId,
                                 'value'     => $option['swatch'][$optionId],
-                                'filename'  => Mage::helper('configurableswatches')->getHyphenatedString($values[0]) . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_FILE_EXT
+                                'filename'  => Mage::helper('configurableswatches')->getHyphenatedString($values[0]) . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_FILE_EXT,
                             ];
                             $adapter->insertOnDuplicate($optionSwatchTable, $data);
                         } else {
@@ -381,14 +381,14 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
         $adapter = $this->_getReadAdapter();
         $bind    = [
             ':entity_type_code' => $entityType,
-            ':attribute_code'   => $code
+            ':attribute_code'   => $code,
         ];
         $select = $adapter->select()
             ->from(['a' => $this->getTable('eav/attribute')], ['a.attribute_id'])
             ->join(
                 ['t' => $this->getTable('eav/entity_type')],
                 'a.entity_type_id = t.entity_type_id',
-                []
+                [],
             )
             ->where('t.entity_type_code = :entity_type_code')
             ->where('a.attribute_code = :attribute_code');
@@ -433,7 +433,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             't1',
             't1',
             't1',
-            Mage_Core_Model_App::ADMIN_STORE_ID
+            Mage_Core_Model_App::ADMIN_STORE_ID,
         );
         if ($attribute->getFlatAddChildData()) {
             $joinCondition .= ' AND e.child_id = t1.entity_id';
@@ -445,12 +445,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             ->joinLeft(
                 ['t1' => $attribute->getBackend()->getTable()],
                 $joinCondition,
-                []
+                [],
             )
             ->joinLeft(
                 ['t2' => $attribute->getBackend()->getTable()],
                 sprintf($joinConditionTemplate, 'e', 't2', 't2', 't2', 't2', $storeId),
-                [$attribute->getAttributeCode() => $valueExpr]
+                [$attribute->getAttributeCode() => $valueExpr],
             );
         if ($attribute->getFlatAddChildData()) {
             $select->where('e.is_child = ?', 0);

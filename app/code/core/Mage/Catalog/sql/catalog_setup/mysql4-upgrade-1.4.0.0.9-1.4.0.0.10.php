@@ -23,7 +23,7 @@ $table = $this->getTable('catalog/category_product_index');
  * Remove data duplicates
  */
 $stmt = $installer->getConnection()->query(
-    'SELECT * FROM ' . $table . ' GROUP BY category_id, product_id, store_id HAVING count(*)>1'
+    'SELECT * FROM ' . $table . ' GROUP BY category_id, product_id, store_id HAVING count(*)>1',
 );
 
 while ($row = $stmt->fetch()) {
@@ -37,5 +37,5 @@ $installer->getConnection()->addKey(
     $table,
     'UNQ_CATEGORY_PRODUCT',
     ['category_id', 'product_id', 'store_id'],
-    'unique'
+    'unique',
 );

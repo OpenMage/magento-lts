@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->addColumn('identifier', [
             'header'    => Mage::helper('cms')->__('URL Key'),
             'align'     => 'left',
-            'index'     => 'identifier'
+            'index'     => 'identifier',
         ]);
 
         $this->addColumn('root_template', [
@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'header'    => Mage::helper('cms')->__('Status'),
             'index'     => 'is_active',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('cms/page')->getAvailableStatuses()
+            'options'   => Mage::getSingleton('cms/page')->getAvailableStatuses(),
         ]);
 
         $this->addColumn('creation_time', [

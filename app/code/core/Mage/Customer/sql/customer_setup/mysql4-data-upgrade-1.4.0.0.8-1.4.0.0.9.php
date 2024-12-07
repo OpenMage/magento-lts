@@ -37,7 +37,7 @@ foreach ($websites as $website) {
         'suffix',
         'dob',
         'taxvat',
-        'gender'
+        'gender',
     ];
 
     foreach ($attributes as $attributeCode) {

@@ -48,7 +48,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection e
         $this->getSelect()->join(
             ['link_table' => $this->_linkTable],
             'link_table.product_id = e.entity_id',
-            ['parent_id']
+            ['parent_id'],
         );
 
         return $this;

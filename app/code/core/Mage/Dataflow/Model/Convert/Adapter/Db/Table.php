@@ -30,11 +30,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Db_Table extends Mage_Dataflow_Model_C
         return $this->_resource;
     }
 
-    public function load()
-    {
-    }
+    public function load() {}
 
-    public function save()
-    {
-    }
+    public function save() {}
 }

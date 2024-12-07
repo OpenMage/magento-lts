@@ -59,12 +59,12 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
             'width'     => '50px',
             'filter'    => false,
             'index'     => 'query_id',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addColumn('query_text', [
             'header'    => Mage::helper('reports')->__('Search Query'),
-            'index'     => 'query_text'
+            'index'     => 'query_text',
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
                 'index'         => 'store_id',
                 'type'          => 'store',
                 'store_view'    => true,
-                'sortable'      => false
+                'sortable'      => false,
             ]);
         }
 
@@ -81,14 +81,14 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
             'header'    => Mage::helper('reports')->__('Results'),
             'width'     => '50px',
             'type'      => 'number',
-            'index'     => 'num_results'
+            'index'     => 'num_results',
         ]);
 
         $this->addColumn('popularity', [
             'header'    => Mage::helper('reports')->__('Hits'),
             'width'     => '50px',
             'type'      => 'number',
-            'index'     => 'popularity'
+            'index'     => 'popularity',
         ]);
 
         $this->addExportType('*/*/exportSearchCsv', Mage::helper('reports')->__('CSV'));

@@ -63,7 +63,7 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
             'customer_group' => $groupId,
             'price_attribute' => $attrPriceId,
             'tier_price_attribute' => $attrTierPriceId,
-            'qty'   => $qty
+            'qty'   => $qty,
         ];
 
         $price = $adapter->fetchCol($select, $bind);
@@ -92,17 +92,17 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
         $select = $adapter->select()
             ->from(
                 ['tbl_selection' => $this->getMainTable()],
-                ['product_id', 'parent_product_id', 'option_id']
+                ['product_id', 'parent_product_id', 'option_id'],
             )
             ->join(
                 ['e' => $this->getTable('catalog/product')],
                 'e.entity_id = tbl_selection.product_id AND e.required_options=0',
-                []
+                [],
             )
             ->join(
                 ['tbl_option' => $this->getTable('bundle/option')],
                 'tbl_option.option_id = tbl_selection.option_id',
-                ['required']
+                ['required'],
             )
             ->where('tbl_selection.parent_product_id = :parent_id');
         foreach ($adapter->fetchAll($select, ['parent_id' => $parentId]) as $row) {
@@ -161,20 +161,20 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
                 $this->getTable('bundle/selection_price'),
                 [
                     'selection_id = ?' => $item->getSelectionId(),
-                    'website_id = ?'   => $item->getWebsiteId()
-                ]
+                    'website_id = ?'   => $item->getWebsiteId(),
+                ],
             );
         } else {
             $values = [
                 'selection_id' => $item->getSelectionId(),
                 'website_id'   => $item->getWebsiteId(),
                 'selection_price_type' => $item->getSelectionPriceType(),
-                'selection_price_value' => $item->getSelectionPriceValue()
-             ];
+                'selection_price_value' => $item->getSelectionPriceValue(),
+            ];
             $write->insertOnDuplicate(
                 $this->getTable('bundle/selection_price'),
                 $values,
-                ['selection_price_type', 'selection_price_value']
+                ['selection_price_type', 'selection_price_value'],
             );
         }
     }

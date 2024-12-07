@@ -80,8 +80,8 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
             ],
             [
                 'wishlist_id'               => $wishlist->getId(),
-                'store_id'                  => ['in' => $wishlist->getSharedStoreIds()]
-            ]
+                'store_id'                  => ['in' => $wishlist->getSharedStoreIds()],
+            ],
         );
 
         $this->_productLimitationFilters['store_table']  = $this->_wishlistItemTableAlias;
@@ -139,7 +139,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
             'days_in_wishlist',
             'wishlist/item',
             $resourceHelper->getDateDiff($this->_wishlistItemTableAlias . '.added_at', $nowDate),
-            'wishlist_item_id=wishlist_item_id'
+            'wishlist_item_id=wishlist_item_id',
         );
 
         return $this;

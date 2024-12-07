@@ -135,12 +135,12 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
                 $params['action'],
                 $params['controller'],
                 $params['module'],
-                $this->getRequest()->getParams()
+                $this->getRequest()->getParams(),
             );
         } else {
             $result = [
                 'error_messages' => $this->__('Please, choose payment method'),
-                'goto_section'   => 'payment'
+                'goto_section'   => 'payment',
             ];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }

@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View extends Mage_Adminht
 
         $fieldset = $form->addFieldset('base_fieldset', [
             'legend' => Mage::helper('adminhtml')->__('View Actions XML'),
-            'class' => 'fieldset-wide'
+            'class' => 'fieldset-wide',
         ]);
 
         $fieldset->addField('actions_xml', 'textarea', [

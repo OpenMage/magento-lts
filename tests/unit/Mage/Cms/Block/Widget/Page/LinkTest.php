@@ -54,8 +54,8 @@ class LinkTest extends TestCase
      * @group Mage_Cms
      * @group Mage_Cms_Block
      */
-//    public function testGetAnchorText(): void
-//    {
-//        $this->assertIsString($this->subject->getAnchorText());
-//    }
+    //    public function testGetAnchorText(): void
+    //    {
+    //        $this->assertIsString($this->subject->getAnchorText());
+    //    }
 }

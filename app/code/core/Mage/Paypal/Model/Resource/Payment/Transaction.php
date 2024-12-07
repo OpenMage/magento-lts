@@ -29,7 +29,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      * @var array
      */
     protected $_serializableFields   = [
-        'additional_information' => [null, []]
+        'additional_information' => [null, []],
     ];
 
     /**
@@ -88,7 +88,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
 
         // make sure unique key won't cause trouble
         if ($transaction->isFailsafe()) {
-            $autoincrementId = (int)$this->_lookupByTxnId($txnId, $idFieldName);
+            $autoincrementId = (int) $this->_lookupByTxnId($txnId, $idFieldName);
             if ($autoincrementId) {
                 $transaction->setData($idFieldName, $autoincrementId)->isObjectNew(false);
             }

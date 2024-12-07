@@ -47,27 +47,27 @@ class LocaleTest extends TestCase
     {
         yield 'array' => [
             1.0,
-            [1]
+            [1],
         ];
         yield 'int' => [
             1.0,
-            1
+            1,
         ];
         yield 'string' => [
             1.0,
-            '1'
+            '1',
         ];
         yield 'string comma' => [
             1.0,
-            '1,0'
+            '1,0',
         ];
         yield 'string dot' => [
             1.0,
-            '1.0'
+            '1.0',
         ];
         yield 'null' => [
             null,
-            null
+            null,
         ];
     }
 }

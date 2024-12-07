@@ -32,29 +32,29 @@ $installer->getConnection()->changeColumn(
     $installer->getTable('customer/eav_attribute'),
     'lines_to_divide_multiline',
     'multiline_count',
-    'TINYINT UNSIGNED NOT NULL DEFAULT 1'
+    'TINYINT UNSIGNED NOT NULL DEFAULT 1',
 );
 $installer->getConnection()->dropColumn($installer->getTable('customer/eav_attribute'), 'min_text_length');
 $installer->getConnection()->dropColumn($installer->getTable('customer/eav_attribute'), 'max_text_length');
 $installer->getConnection()->modifyColumn(
     $installer->getTable('customer/eav_attribute'),
     'input_filter',
-    'varchar(255) DEFAULT NULL'
+    'varchar(255) DEFAULT NULL',
 );
 $installer->getConnection()->addColumn(
     $installer->getTable('customer/eav_attribute'),
     'validate_rules',
-    'text DEFAULT NULL'
+    'text DEFAULT NULL',
 );
 $installer->getConnection()->addColumn(
     $installer->getTable('customer/eav_attribute'),
     'is_system',
-    'TINYINT UNSIGNED NOT NULL DEFAULT 0'
+    'TINYINT UNSIGNED NOT NULL DEFAULT 0',
 );
 $installer->getConnection()->addColumn(
     $installer->getTable('customer/eav_attribute'),
     'sort_order',
-    'INT UNSIGNED NOT NULL DEFAULT 0'
+    'INT UNSIGNED NOT NULL DEFAULT 0',
 );
 
 $installer->updateEntityType('customer', 'attribute_model', 'customer/attribute');

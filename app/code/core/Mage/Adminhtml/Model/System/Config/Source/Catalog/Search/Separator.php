@@ -30,11 +30,11 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_Search_Separator
         return [
             [
                 'value' => 'OR',
-                'label' => 'OR (default)'
+                'label' => 'OR (default)',
             ], [
                 'value' => 'AND',
-                'label' => 'AND'
-            ]
+                'label' => 'AND',
+            ],
         ];
     }
 }

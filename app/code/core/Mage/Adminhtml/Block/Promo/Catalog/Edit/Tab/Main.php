@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend ' => Mage::helper('catalogrule')->__('General Information')]
+            ['legend ' => Mage::helper('catalogrule')->__('General Information')],
         );
 
         $fieldset->addField('auto_apply', 'hidden', [
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             $websiteId = Mage::app()->getStore(true)->getWebsiteId();
             $fieldset->addField('website_ids', 'hidden', [
                 'name'     => 'website_ids[]',
-                'value'    => $websiteId
+                'value'    => $websiteId,
             ]);
             $model->setWebsiteIds($websiteId);
         } else {
@@ -126,7 +126,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
                 'label'     => Mage::helper('catalogrule')->__('Websites'),
                 'title'     => Mage::helper('catalogrule')->__('Websites'),
                 'required' => true,
-                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm()
+                'values'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm(),
             ]);
             $renderer = $this->getStoreSwitcherRenderer();
             $field->setRenderer($renderer);
@@ -137,7 +137,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             'label'     => Mage::helper('catalogrule')->__('Customer Groups'),
             'title'     => Mage::helper('catalogrule')->__('Customer Groups'),
             'required'  => true,
-            'values'    => Mage::getResourceModel('customer/group_collection')->toOptionArray()
+            'values'    => Mage::getResourceModel('customer/group_collection')->toOptionArray(),
         ]);
 
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
@@ -147,7 +147,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             'title'  => Mage::helper('catalogrule')->__('From Date'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-            'format'       => $dateFormatIso
+            'format'       => $dateFormatIso,
         ]);
         $fieldset->addField('to_date', 'date', [
             'name'   => 'to_date',
@@ -155,7 +155,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             'title'  => Mage::helper('catalogrule')->__('To Date'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-            'format'       => $dateFormatIso
+            'format'       => $dateFormatIso,
         ]);
 
         $fieldset->addField('sort_order', 'text', [

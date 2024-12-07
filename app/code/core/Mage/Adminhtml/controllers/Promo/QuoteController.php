@@ -42,10 +42,10 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         $this->_title($this->__('Promotions'))->_title($this->__('Shopping Cart Price Rules'));
 
         Mage::register('current_promo_quote_rule', Mage::getModel('salesrule/rule'));
-        $id = (int)$this->getRequest()->getParam('id');
+        $id = (int) $this->getRequest()->getParam('id');
 
         if (!$id && $this->getRequest()->getParam('rule_id')) {
-            $id = (int)$this->getRequest()->getParam('rule_id');
+            $id = (int) $this->getRequest()->getParam('rule_id');
         }
 
         if ($id) {
@@ -85,7 +85,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
             $model->load($id);
             if (!$model->getRuleId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('salesrule')->__('This rule no longer exists.')
+                    Mage::helper('salesrule')->__('This rule no longer exists.'),
                 );
                 $this->_redirect('*/*');
                 return;
@@ -113,7 +113,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $id ? Mage::helper('salesrule')->__('Edit Rule')
                     : Mage::helper('salesrule')->__('New Rule'),
                 $id ? Mage::helper('salesrule')->__('Edit Rule')
-                : Mage::helper('salesrule')->__('New Rule')
+                : Mage::helper('salesrule')->__('New Rule'),
             )
             ->renderLayout();
     }
@@ -130,7 +130,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $model = Mage::getModel('salesrule/rule');
                 Mage::dispatchEvent(
                     'adminhtml_controller_salesrule_prepare_save',
-                    ['request' => $this->getRequest()]
+                    ['request' => $this->getRequest()],
                 );
                 $data = $this->getRequest()->getPost();
                 if (Mage::helper('adminhtml')->hasTags($data['rule'], ['attribute'], false)) {
@@ -171,7 +171,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 unset($data['rule']);
                 $model->loadPost($data);
 
-                $useAutoGeneration = (int)!empty($data['use_auto_generation']);
+                $useAutoGeneration = (int) !empty($data['use_auto_generation']);
                 $model->setUseAutoGeneration($useAutoGeneration);
 
                 $session->setPageData($model->getData());
@@ -187,7 +187,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-                $id = (int)$this->getRequest()->getParam('rule_id');
+                $id = (int) $this->getRequest()->getParam('rule_id');
                 if (!empty($id)) {
                     $this->_redirect('*/*/edit', ['id' => $id]);
                 } else {
@@ -196,7 +196,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 return;
             } catch (Exception $e) {
                 $this->_getSession()->addError(
-                    Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.')
+                    Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.'),
                 );
                 Mage::logException($e);
                 Mage::getSingleton('adminhtml/session')->setPageData($data);
@@ -216,7 +216,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
                 if (!$model->getRuleId()) {
                     Mage::getSingleton('adminhtml/session')->addError(
-                        Mage::helper('catalogrule')->__('Unable to find a rule to delete.')
+                        Mage::helper('catalogrule')->__('Unable to find a rule to delete.'),
                     );
                     $this->_redirect('*/*/');
                     return;
@@ -224,7 +224,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('salesrule')->__('The rule has been deleted.')
+                    Mage::helper('salesrule')->__('The rule has been deleted.'),
                 );
                 $this->_redirect('*/*/');
                 return;
@@ -232,7 +232,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addError($e->getMessage());
             } catch (Exception $e) {
                 $this->_getSession()->addError(
-                    Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.')
+                    Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.'),
                 );
                 Mage::logException($e);
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
@@ -240,7 +240,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
             }
         }
         Mage::getSingleton('adminhtml/session')->addError(
-            Mage::helper('salesrule')->__('Unable to find a rule to delete.')
+            Mage::helper('salesrule')->__('Unable to find a rule to delete.'),
         );
         $this->_redirect('*/*/');
     }
@@ -440,7 +440,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
     {
         $uniqId = $this->getRequest()->getParam('uniq_id');
         $chooserBlock = $this->getLayout()->createBlock('adminhtml/promo_widget_chooser', '', [
-            'id' => $uniqId
+            'id' => $uniqId,
         ]);
         $this->getResponse()->setBody($chooserBlock->toHtml());
     }

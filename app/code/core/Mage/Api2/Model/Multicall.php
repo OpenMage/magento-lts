@@ -61,14 +61,14 @@ class Mage_Api2_Model_Multicall
     {
         $bodyParams = $this->_getRequest()->getBodyParams();
         // check if subresource data exists in request
-        $requestParamName = (string)$subresource->request_param_name;
+        $requestParamName = (string) $subresource->request_param_name;
         if (!(is_array($bodyParams) && array_key_exists($requestParamName, $bodyParams)
             && is_array($bodyParams[$requestParamName]))
         ) {
             return $this;
         }
         // make internal call
-        $subresourceType = (string)$subresource->type;
+        $subresourceType = (string) $subresource->type;
         $requestData = $bodyParams[$requestParamName];
         switch ($subresourceType) {
             case 'collection':
@@ -97,13 +97,13 @@ class Mage_Api2_Model_Multicall
             if (!is_array($requestData)) {
                 throw new Mage_Api2_Exception('Invalid data format', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
-            $subresourceIdKey = (string)$subresource->id_param_name;
+            $subresourceIdKey = (string) $subresource->id_param_name;
             /** @var Mage_Api2_Model_Server $server */
             $server = Mage::getSingleton('api2/server');
 
             // create subresource item before linking it to main resource
             if (!array_key_exists($subresourceIdKey, $requestData)) {
-                $subresourceCreateResourceName = (string)$subresource->create_resource_name;
+                $subresourceCreateResourceName = (string) $subresource->create_resource_name;
                 $internalRequest = $this->_prepareRequest($subresourceCreateResourceName, $requestData);
                 /** @var Mage_Api2_Model_Response $internalCreateResponse */
                 $internalCreateResponse = Mage::getModel('api2/response');
@@ -112,15 +112,15 @@ class Mage_Api2_Model_Multicall
                 if (empty($createdSubresourceInstanceId)) {
                     throw new Mage_Api2_Exception(
                         'Error during subresource creation',
-                        Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR
+                        Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
                     );
                 }
                 $requestData[$subresourceIdKey] = $createdSubresourceInstanceId;
             }
 
             // link subresource to main resource
-            $subresourceName = (string)$subresource->name;
-            $parentResourceIdFieldName = (string)$subresource->parent_resource_id_field_name;
+            $subresourceName = (string) $subresource->name;
+            $parentResourceIdFieldName = (string) $subresource->parent_resource_id_field_name;
             $internalRequest = $this->_prepareRequest($subresourceName, $requestData, $parentResourceIdFieldName);
 
             /** @var Mage_Api2_Model_Response $internalResponse */
@@ -176,7 +176,7 @@ class Mage_Api2_Model_Multicall
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
-            new Zend_Controller_Router_Route($this->_getConfig()->getMainRoute($subresourceName))
+            new Zend_Controller_Router_Route($this->_getConfig()->getMainRoute($subresourceName)),
         );
         $params = [];
         $params['api_type'] = 'rest';

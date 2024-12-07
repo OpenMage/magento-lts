@@ -21,6 +21,4 @@
  * @package    Mage_Paypal
  * @deprecated
  */
-class Mage_Paypal_Model_Mysql4_Cert extends Mage_Paypal_Model_Resource_Cert
-{
-}
+class Mage_Paypal_Model_Mysql4_Cert extends Mage_Paypal_Model_Resource_Cert {}

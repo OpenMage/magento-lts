@@ -637,7 +637,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     {
         $nodes = Mage::getConfig()->getNode('global/mime/types');
         if ($nodes) {
-            $nodes = (array)$nodes;
+            $nodes = (array) $nodes;
             foreach ($nodes as $key => $value) {
                 $this->_mimeTypes[$key] = $value;
             }

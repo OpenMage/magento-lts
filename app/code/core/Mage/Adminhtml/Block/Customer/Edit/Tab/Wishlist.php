@@ -107,13 +107,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         $this->addColumn('product_name', [
             'header'    => Mage::helper('catalog')->__('Product Name'),
             'index'     => 'product_name',
-            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
+            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item',
         ]);
 
         $this->addColumn('description', [
             'header'    => Mage::helper('wishlist')->__('User Description'),
             'index'     => 'description',
-            'renderer'  => 'adminhtml/customer_edit_tab_wishlist_grid_renderer_description'
+            'renderer'  => 'adminhtml/customer_edit_tab_wishlist_grid_renderer_description',
         ]);
 
         $this->addColumn('qty', [
@@ -133,13 +133,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
             'header'    => Mage::helper('wishlist')->__('Date Added'),
             'index'     => 'added_at',
             'gmtoffset' => true,
-            'type'      => 'date'
+            'type'      => 'date',
         ]);
 
         $this->addColumn('days', [
             'header'    => Mage::helper('wishlist')->__('Days in Wishlist'),
             'index'     => 'days_in_wishlist',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addColumn('action', [
@@ -151,14 +151,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
                     'caption'   => Mage::helper('customer')->__('Configure'),
                     'url'       => 'javascript:void(0)',
                     'process'   => 'configurable',
-                    'control_object' => 'wishlistControl'
+                    'control_object' => 'wishlistControl',
                 ],
                 [
                     'caption'   => Mage::helper('customer')->__('Delete'),
                     'url'       => '#',
-                    'onclick'   => 'return wishlistControl.removeItem($wishlist_item_id);'
-                ]
-            ]
+                    'onclick'   => 'return wishlistControl.removeItem($wishlist_item_id);',
+                ],
+            ],
         ]);
 
         return parent::_prepareColumns();

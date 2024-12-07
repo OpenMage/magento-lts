@@ -37,7 +37,7 @@ $installer->getConnection()->changeColumn($installer->getTable('sales_flat_order
 $installer->getConnection()->addColumn($installer->getTable('sales_order'), 'base_total_invoiced_cost', 'DECIMAL( 12, 4 ) NULL DEFAULT NULL');
 
 $installer->addAttribute('order', 'base_total_invoiced_cost', [
-    'type'              => 'static'
+    'type'              => 'static',
 ]);
 
 $installer->updateAttribute('order_item', 'cost', ['attribute_code' => 'base_cost']);

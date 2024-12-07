@@ -121,7 +121,7 @@ jobs:
 
   rector:
     name: Rector
-    needs: [check, phpcs, php-cs-fixer]
+    needs: [check, php-cs-fixer]
     if: |
       needs.check.outputs.php > 0 ||
       needs.check.outputs.workflow > 0

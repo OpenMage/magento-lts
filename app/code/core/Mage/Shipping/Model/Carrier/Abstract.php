@@ -428,7 +428,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getFinalPriceWithHandlingFee($cost)
     {
-        $handlingFee = (float)$this->getConfigData('handling_fee');
+        $handlingFee = (float) $this->getConfigData('handling_fee');
         $handlingType = $this->getConfigData('handling_type');
         if (!$handlingType) {
             $handlingType = self::HANDLING_TYPE_FIXED;
@@ -501,7 +501,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         */
         $this->_numBoxes = 1;
         $weight = $this->convertWeightToLbs($weight);
-        $maxPackageWeight = (float)$this->getConfigData('max_package_weight');
+        $maxPackageWeight = (float) $this->getConfigData('max_package_weight');
         if ($weight > $maxPackageWeight && $maxPackageWeight != 0) {
             $this->_numBoxes = ceil($weight / $maxPackageWeight);
             $weight = $weight / $this->_numBoxes;

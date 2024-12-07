@@ -31,7 +31,7 @@ $installer->getConnection()->addConstraint(
     'entity_id',
     'SET NULL',
     'CASCADE',
-    true
+    true,
 );
 
 $installer->endSetup();

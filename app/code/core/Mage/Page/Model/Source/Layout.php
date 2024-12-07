@@ -68,7 +68,7 @@ class Mage_Page_Model_Source_Layout
         foreach ($this->getOptions() as $value => $label) {
             $options[] = [
                 'label' => $label,
-                'value' => $value
+                'value' => $value,
             ];
         }
 

@@ -52,8 +52,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Back'),
                         'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store', 0)])),
-                        'class'     => 'back'
-                    ])
+                        'class'     => 'back',
+                    ]),
             );
         } else {
             $this->setChild(
@@ -62,8 +62,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Close Window'),
                         'onclick'   => 'window.close()',
-                        'class'     => 'cancel'
-                    ])
+                        'class'     => 'cancel',
+                    ]),
             );
         }
 
@@ -73,8 +73,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
-                    ])
+                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])),
+                    ]),
             );
 
             $this->setChild(
@@ -83,8 +83,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Save'),
                         'onclick'   => 'productForm.submit()',
-                        'class'     => 'save'
-                    ])
+                        'class'     => 'save',
+                    ]),
             );
         }
 
@@ -96,8 +96,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                         ->setData([
                             'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
                             'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
-                            'class'     => 'save'
-                        ])
+                            'class'     => 'save',
+                        ]),
                 );
             }
             if ($this->getProduct()->isDeleteable()) {
@@ -107,8 +107,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                         ->setData([
                             'label'     => Mage::helper('catalog')->__('Delete'),
                             'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()),
-                            'class'     => 'delete'
-                        ])
+                            'class'     => 'delete',
+                        ]),
                 );
             }
 
@@ -119,8 +119,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Duplicate'),
                         'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl()),
-                        'class'     => 'add'
-                    ])
+                        'class'     => 'add',
+                    ]),
                 );
             }
         }
@@ -201,7 +201,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
             '_current'   => true,
             'back'       => 'edit',
             'tab'        => '{{tab_id}}',
-            'active_tab' => null
+            'active_tab' => null,
         ]);
     }
 

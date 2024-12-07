@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Admi
             'label'     => Mage::helper('catalog')->__('Properties'),
             'title'     => Mage::helper('catalog')->__('Properties'),
             'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tab_main')->toHtml(),
-            'active'    => true
+            'active'    => true,
         ]);
 
         $model = Mage::registry('entity_attribute');

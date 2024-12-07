@@ -42,12 +42,12 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
             'action' => $this->getData('action'),
-            'method' => 'post'
+            'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset('base', [
             'legend' => Mage::helper('adminhtml')->__('Variable'),
-            'class' => 'fieldset-wide'
+            'class' => 'fieldset-wide',
         ]);
 
         $fieldset->addField('code', 'text', [
@@ -55,23 +55,23 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
             'label'    => Mage::helper('adminhtml')->__('Variable Code'),
             'title'    => Mage::helper('adminhtml')->__('Variable Code'),
             'required' => true,
-            'class'    => 'validate-xml-identifier'
+            'class'    => 'validate-xml-identifier',
         ]);
 
         $fieldset->addField('name', 'text', [
             'name'     => 'name',
             'label'    => Mage::helper('adminhtml')->__('Variable Name'),
             'title'    => Mage::helper('adminhtml')->__('Variable Name'),
-            'required' => true
+            'required' => true,
         ]);
 
         $useDefault = false;
         if ($this->getVariable()->getId() && $this->getVariable()->getStoreId()) {
             $useDefault = !(
-                (bool)$this->getVariable()->getStoreHtmlValue()
-                || (bool)$this->getVariable()->getStorePlainValue()
+                (bool) $this->getVariable()->getStoreHtmlValue()
+                || (bool) $this->getVariable()->getStorePlainValue()
             );
-            $this->getVariable()->setUseDefaultValue((int)$useDefault);
+            $this->getVariable()->setUseDefaultValue((int) $useDefault);
             $fieldset->addField('use_default_value', 'select', [
                 'name'   => 'use_default_value',
                 'label'  => Mage::helper('adminhtml')->__('Use Default Variable Values'),
@@ -79,8 +79,8 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
                 'onchange' => 'toggleValueElement(this);',
                 'values' => [
                     0 => Mage::helper('adminhtml')->__('No'),
-                    1 => Mage::helper('adminhtml')->__('Yes')
-                ]
+                    1 => Mage::helper('adminhtml')->__('Yes'),
+                ],
             ]);
         }
 
@@ -88,14 +88,14 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
             'name'     => 'html_value',
             'label'    => Mage::helper('adminhtml')->__('Variable HTML Value'),
             'title'    => Mage::helper('adminhtml')->__('Variable HTML Value'),
-            'disabled' => $useDefault
+            'disabled' => $useDefault,
         ]);
 
         $fieldset->addField('plain_value', 'textarea', [
             'name'     => 'plain_value',
             'label'    => Mage::helper('adminhtml')->__('Variable Plain Value'),
             'title'    => Mage::helper('adminhtml')->__('Variable Plain Value'),
-            'disabled' => $useDefault
+            'disabled' => $useDefault,
         ]);
 
         $form->setValues($this->getVariable()->getData())

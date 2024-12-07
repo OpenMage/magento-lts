@@ -38,7 +38,7 @@ abstract class Mage_Oauth_Block_AuthorizeBaseAbstract extends Mage_Oauth_Block_A
     {
         return $this->getUrl(
             $this->getRejectUrlPath() . ($this->getIsSimple() ? 'Simple' : ''),
-            ['_query' => ['oauth_token' => $this->getToken()]]
+            ['_query' => ['oauth_token' => $this->getToken()]],
         );
     }
 

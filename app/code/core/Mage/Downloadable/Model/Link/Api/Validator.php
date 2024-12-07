@@ -53,16 +53,16 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
             'sample' => [
                 'type' => 'UploadType',                 // file|url (file) $6
                 'file' => 'File',                       // array(name, base64_content) $7
-                'url' => 'Url'                          // URL $8
-            ]
+                'url' => 'Url',                          // URL $8
+            ],
         ],
         'sample' => [
             'title' => 'Title',                         // $1
             'type' => 'UploadType',                     // file|url (file) $6
             'file' => 'File',                           // array(name, base64_content) $7
             'sample_url' => 'Url',                      // URL $8
-            'sort_order' => 'Order'                     // int (0) $9
-        ]
+            'sort_order' => 'Order',                     // int (0) $9
+        ],
     ];
 
     /**

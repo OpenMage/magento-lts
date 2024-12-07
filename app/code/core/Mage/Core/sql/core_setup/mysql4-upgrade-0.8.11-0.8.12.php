@@ -23,7 +23,7 @@ $installer->getConnection()->changeColumn(
     'name',
     'name',
     'varchar(255) not null',
-    true
+    true,
 );
 
 $installer->getConnection()->changeColumn(
@@ -31,7 +31,7 @@ $installer->getConnection()->changeColumn(
     'name',
     'name',
     'varchar(255) not null',
-    true
+    true,
 );
 
 $installer->endSetup();

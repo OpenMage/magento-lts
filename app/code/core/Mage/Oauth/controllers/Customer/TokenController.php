@@ -164,7 +164,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
                 $name = $model->getName();
                 $model->delete();
                 $this->_session->addSuccess(
-                    $this->__('Application "%s" has been deleted.', $name)
+                    $this->__('Application "%s" has been deleted.', $name),
                 );
             } else {
                 $this->_session->addError($this->__('Application not found.'));

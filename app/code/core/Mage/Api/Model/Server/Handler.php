@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Api
  */
-class Mage_Api_Model_Server_Handler extends Mage_Api_Model_Server_Handler_Abstract
-{
-}
+class Mage_Api_Model_Server_Handler extends Mage_Api_Model_Server_Handler_Abstract {}

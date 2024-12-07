@@ -189,7 +189,7 @@ class Mage_Catalog_Model_Observer
         $this->_addCategoriesToMenu(
             Mage::helper('catalog/category')->getStoreCategories(),
             $observer->getMenu(),
-            $block
+            $block,
         );
     }
 
@@ -221,14 +221,14 @@ class Mage_Catalog_Model_Observer
                 'name' => $category->getName(),
                 'id' => $nodeId,
                 'url' => Mage::helper('catalog/category')->getCategoryUrl($category),
-                'is_active' => $this->_isActiveMenuCategory($category)
+                'is_active' => $this->_isActiveMenuCategory($category),
             ];
             $categoryNode = new Varien_Data_Tree_Node($categoryData, 'id', $tree, $parentCategoryNode);
             $parentCategoryNode->addChild($categoryNode);
 
             $flatHelper = Mage::helper('catalog/category_flat');
             if ($flatHelper->isEnabled() && $flatHelper->isBuilt(true)) {
-                $subcategories = (array)$category->getChildrenNodes();
+                $subcategories = (array) $category->getChildrenNodes();
             } else {
                 $subcategories = $category->getChildren();
             }
@@ -275,7 +275,7 @@ class Mage_Catalog_Model_Observer
         $product = Mage::getModel('catalog/product');
         if ($product->isReservedAttribute($attribute)) {
             throw new Mage_Core_Exception(
-                Mage::helper('catalog')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code', $attribute->getAttributeCode())
+                Mage::helper('catalog')->__('The attribute code \'%s\' is reserved by system. Please try another attribute code', $attribute->getAttributeCode()),
             );
         }
     }

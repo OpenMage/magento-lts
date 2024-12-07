@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
         if ($this->getColumn()->getWithEmpty()) {
             array_unshift($options, [
                 'value' => '',
-                'label' => ''
+                'label' => '',
             ]);
         }
         return sprintf('<select name="%s" id="%s" class="no-changes">', $this->_getHtmlName(), $this->_getHtmlId())

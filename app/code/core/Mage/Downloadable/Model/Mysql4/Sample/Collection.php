@@ -21,6 +21,4 @@
  * @package    Mage_Downloadable
  * @deprecated
  */
-class Mage_Downloadable_Model_Mysql4_Sample_Collection extends Mage_Downloadable_Model_Resource_Sample_Collection
-{
-}
+class Mage_Downloadable_Model_Mysql4_Sample_Collection extends Mage_Downloadable_Model_Resource_Sample_Collection {}

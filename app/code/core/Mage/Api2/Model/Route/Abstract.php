@@ -41,7 +41,7 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
         self::PARAM_DEFAULTS   => [],
         self::PARAM_REQS       => [],
         self::PARAM_TRANSLATOR => null,
-        self::PARAM_LOCALE     => null
+        self::PARAM_LOCALE     => null,
     ];
 
     /**
@@ -54,7 +54,7 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
             $this->_getArgumentValue(self::PARAM_DEFAULTS, $arguments),
             $this->_getArgumentValue(self::PARAM_REQS, $arguments),
             $this->_getArgumentValue(self::PARAM_TRANSLATOR, $arguments),
-            $this->_getArgumentValue(self::PARAM_LOCALE, $arguments)
+            $this->_getArgumentValue(self::PARAM_LOCALE, $arguments),
         );
     }
 

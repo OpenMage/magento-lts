@@ -21,6 +21,4 @@
  * @package    Mage_Log
  * @deprecated
  */
-class Mage_Log_Model_Mysql4_Visitor_Collection extends Mage_Log_Model_Resource_Visitor_Collection
-{
-}
+class Mage_Log_Model_Mysql4_Visitor_Collection extends Mage_Log_Model_Resource_Visitor_Collection {}

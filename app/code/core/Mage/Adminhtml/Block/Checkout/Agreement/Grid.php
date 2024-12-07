@@ -58,8 +58,8 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
                 'header' => Mage::helper('checkout')->__('ID'),
                 'align' => 'right',
                 'width' => '50px',
-                'index' => 'agreement_id'
-            ]
+                'index' => 'agreement_id',
+            ],
         );
 
         $this->addColumn('position', [
@@ -74,8 +74,8 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
             'name',
             [
                 'header' => Mage::helper('checkout')->__('Condition Name'),
-                'index' => 'name'
-            ]
+                'index' => 'name',
+            ],
         );
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
             'type'      => 'options',
             'options'   => [
                 0 => Mage::helper('adminhtml')->__('Disabled'),
-                1 => Mage::helper('adminhtml')->__('Enabled')
+                1 => Mage::helper('adminhtml')->__('Enabled'),
             ],
         ]);
 

@@ -45,7 +45,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $helper->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment()),
         );
 
         return parent::_prepareLayout();
@@ -80,7 +80,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         $this->_links[$name] = new Varien_Object([
             'name' => $name,
             'label' => $label,
-            'url' => empty($path) ? '' : Mage::getUrl($path, ['order_id' => $this->getOrder()->getId()])
+            'url' => empty($path) ? '' : Mage::getUrl($path, ['order_id' => $this->getOrder()->getId()]),
         ]);
         return $this;
     }

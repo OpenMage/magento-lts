@@ -39,7 +39,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
                     ->join(
                         ['e' => $this->getTable('catalog/product')],
                         'e.entity_id = l.product_id AND e.required_options = 0',
-                        []
+                        [],
                     )
                     ->where('parent_id IN (?)', $parentId);
 

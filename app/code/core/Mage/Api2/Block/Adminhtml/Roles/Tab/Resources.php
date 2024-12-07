@@ -51,7 +51,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
 
         $this->_treeModel = Mage::getModel(
             'api2/acl_global_rule_tree',
-            ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE]
+            ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_PRIVILEGE],
         );
     }
 

@@ -168,7 +168,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $templateText = Mage::app()->getTranslator()->getTemplateFile(
             $data['file'],
             'email',
-            $locale
+            $locale,
         );
 
         if (preg_match('/<!--@subject\s*(.*?)\s*@-->/u', $templateText, $matches)) {
@@ -219,7 +219,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     public static function getDefaultTemplatesAsOptionsArray()
     {
         $options = [
-            ['value' => '', 'label' => '']
+            ['value' => '', 'label' => ''],
         ];
 
         $idLabel = [];
@@ -377,8 +377,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             return false;
         }
 
-        $emails = array_values((array)$email);
-        $names = is_array($name) ? $name : (array)$name;
+        $emails = array_values((array) $email);
+        $names = is_array($name) ? $name : (array) $name;
         $names = array_values($names);
         foreach ($emails as $key => $email) {
             if (!isset($names[$key])) {
@@ -411,13 +411,13 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $emailQueue->clearRecipients();
             $emailQueue->setMessageBody($text);
             $emailQueue->setMessageParameters([
-                    'subject'           => $subject,
-                    'return_path_email' => $returnPathEmail,
-                    'is_plain'          => $this->isPlain(),
-                    'from_email'        => $this->getSenderEmail(),
-                    'from_name'         => $this->getSenderName(),
-                    'reply_to'          => $this->getMail()->getReplyTo(),
-                    'return_to'         => $this->getMail()->getReturnPath(),
+                'subject'           => $subject,
+                'return_path_email' => $returnPathEmail,
+                'is_plain'          => $this->isPlain(),
+                'from_email'        => $this->getSenderEmail(),
+                'from_name'         => $this->getSenderName(),
+                'reply_to'          => $this->getMail()->getReplyTo(),
+                'return_to'         => $this->getMail()->getReturnPath(),
             ])
                 ->addRecipients($emails, $names, Mage_Core_Model_Email_Queue::EMAIL_TYPE_TO)
                 ->addRecipients($this->_bccEmails, [], Mage_Core_Model_Email_Queue::EMAIL_TYPE_BCC);
@@ -456,7 +456,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                 'mail'      => $mail,
                 'template'  => $this,
                 'transport' => $transport,
-                'variables' => $variables
+                'variables' => $variables,
             ]);
 
             if ($transport->getTransport()) {
@@ -471,7 +471,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                     'html'       => !$this->isPlain(),
                     'subject'    => $subject,
                     'template'   => $this->getTemplateId(),
-                    'email_body' => $text
+                    'email_body' => $text,
                 ]);
             }
             $this->_mail = null;
@@ -631,13 +631,13 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             foreach ($variables as $value => $label) {
                 $optionArray[] = [
                     'value' => '{{' . $value . '}}',
-                    'label' => Mage::helper('core')->__('%s', $label)
+                    'label' => Mage::helper('core')->__('%s', $label),
                 ];
             }
             if ($withGroup) {
                 $optionArray = [
                     'label' => Mage::helper('core')->__('Template Variables'),
-                    'value' => $optionArray
+                    'value' => $optionArray,
                 ];
             }
         }

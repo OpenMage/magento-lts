@@ -74,9 +74,9 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
         $selres = $this->getSelectedResources();
 
         if ($level != 0) {
-            $item['text'] = (string)$node->title;
-            $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
-            $item['id']  = (string)$node->attributes()->aclpath;
+            $item['text'] = (string) $node->title;
+            $item['sort_order'] = isset($node->sort_order) ? (string) $node->sort_order : 0;
+            $item['id']  = (string) $node->attributes()->aclpath;
 
             if (in_array($item['id'], $selres)) {
                 $item['checked'] = true;

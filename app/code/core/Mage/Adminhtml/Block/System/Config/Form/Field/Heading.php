@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Heading extends Mage_Adminht
             '<tr class="system-fieldset-sub-head" id="row_%s"><td colspan="5"><h4 id="%s">%s</h4></td></tr>',
             $element->getHtmlId(),
             $element->getHtmlId(),
-            $element->getLabel()
+            $element->getLabel(),
         );
     }
 }

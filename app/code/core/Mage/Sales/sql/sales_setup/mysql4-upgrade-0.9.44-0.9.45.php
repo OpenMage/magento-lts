@@ -24,7 +24,7 @@ $attributes = [
     $installer->getAttribute($orderEntityTypeId, 'store_to_base_rate'),
     $installer->getAttribute($orderEntityTypeId, 'store_to_order_rate'),
     $installer->getAttribute($orderEntityTypeId, 'base_to_global_rate'),
-    $installer->getAttribute($orderEntityTypeId, 'base_to_order_rate')
+    $installer->getAttribute($orderEntityTypeId, 'base_to_order_rate'),
 ];
 
 foreach ($attributes as $attribute) {

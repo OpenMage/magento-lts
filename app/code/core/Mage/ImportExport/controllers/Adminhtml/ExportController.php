@@ -70,7 +70,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                 return $this->_prepareDownloadResponse(
                     $model->getFileName(),
                     $result,
-                    $model->getContentType()
+                    $model->getContentType(),
                 );
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -113,8 +113,8 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
 
                 $export->filterAttributeCollection(
                     $attrFilterBlock->prepareCollection(
-                        $export->setData($data)->getEntityAttributeCollection()
-                    )
+                        $export->setData($data)->getEntityAttributeCollection(),
+                    ),
                 );
                 return $this->renderLayout();
             } catch (Exception $e) {

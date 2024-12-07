@@ -58,7 +58,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
             $item->getQty() * 1,
             $this->getSelectionQty($item->getProduct(), $selectionProduct->getSelectionId()),
             false,
-            true
+            true,
         );
     }
 
@@ -92,7 +92,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
             if (!empty($bundleSelectionIds)) {
                 $selectionsCollection = $typeInstance->getSelectionsByIds(
                     unserialize($selectionsQuoteItemOption->getValue(), ['allowed_classes' => false]),
-                    $product
+                    $product,
                 );
 
                 /** @var Mage_Bundle_Model_Option[] $bundleOptions */
@@ -101,7 +101,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                     if ($bundleOption->getSelections()) {
                         $option = [
                             'label' => $bundleOption->getTitle(),
-                            'value' => []
+                            'value' => [],
                         ];
 
                         $bundleSelections = $bundleOption->getSelections();
@@ -111,7 +111,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                             if ($qty) {
                                 $option['value'][] = $qty . ' x ' . $this->escapeHtml($bundleSelection->getName())
                                     . ' ' . Mage::helper('core')->currency(
-                                        $this->getSelectionFinalPrice($item, $bundleSelection)
+                                        $this->getSelectionFinalPrice($item, $bundleSelection),
                                     );
                             }
                         }
@@ -136,7 +136,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
     {
         return array_merge(
             $this->getBundleOptions($item),
-            Mage::helper('catalog/product_configuration')->getCustomOptions($item)
+            Mage::helper('catalog/product_configuration')->getCustomOptions($item),
         );
     }
 }

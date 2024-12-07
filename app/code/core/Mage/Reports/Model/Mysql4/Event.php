@@ -21,6 +21,4 @@
  * @package    Mage_Reports
  * @deprecated
  */
-class Mage_Reports_Model_Mysql4_Event extends Mage_Reports_Model_Resource_Event
-{
-}
+class Mage_Reports_Model_Mysql4_Event extends Mage_Reports_Model_Resource_Event {}

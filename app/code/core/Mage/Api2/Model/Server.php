@@ -263,7 +263,7 @@ class Mage_Api2_Model_Server
             $response->setHeader('Content-Type', sprintf(
                 '%s; charset=%s',
                 $renderer->getMimeType(),
-                Mage_Api2_Model_Response::RESPONSE_CHARSET
+                Mage_Api2_Model_Response::RESPONSE_CHARSET,
             ));
         } catch (Exception $e) {
             //tunnelling of 406(Not acceptable) error

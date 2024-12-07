@@ -35,11 +35,11 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         $this->_uniqueFields = [
             [
                 'field' => 'email',
-                'title' => Mage::helper('adminhtml')->__('Email')
+                'title' => Mage::helper('adminhtml')->__('Email'),
             ],
             [
                 'field' => 'username',
-                'title' => Mage::helper('adminhtml')->__('User Name')
+                'title' => Mage::helper('adminhtml')->__('User Name'),
             ],
         ];
         return $this;
@@ -56,7 +56,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
 
         $data = [
             'logdate' => Varien_Date::now(),
-            'lognum'  => $user->getLognum() + 1
+            'lognum'  => $user->getLognum() + 1,
         ];
 
         $condition = [
@@ -83,7 +83,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             ->where('username=:username');
 
         $binds = [
-            'username' => $username
+            'username' => $username,
         ];
 
         return $adapter->fetchRow($select, $binds);
@@ -176,7 +176,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         $adapter->beginTransaction();
         try {
             $conditions = [
-                'user_id = ?' => $uid
+                'user_id = ?' => $uid,
             ];
 
             $adapter->delete($this->getMainTable(), $conditions);
@@ -225,7 +225,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                     'sort_order' => 0,
                     'role_type'  => Mage_Admin_Model_Acl::ROLE_TYPE_USER,
                     'user_id'    => $user->getId(),
-                    'role_name'  => $user->getFirstname()
+                    'role_name'  => $user->getFirstname(),
                 ]);
 
                 $insertData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
@@ -266,7 +266,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                     ->joinLeft(
                         ['ar' => $table],
                         "(ar.role_id = {$table}.parent_id and ar.role_type = 'G')",
-                        ['role_id']
+                        ['role_id'],
                     )
                     ->where("{$table}.user_id = :user_id");
 
@@ -296,7 +296,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             foreach ($aRoles as $idx => $data) {
                 $dbh->delete(
                     $this->getTable('admin/role'),
-                    ['role_id = ?' => $data['role_id']]
+                    ['role_id = ?' => $data['role_id']],
                 );
             }
         }
@@ -313,7 +313,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             'sort_order' => 0,
             'role_type'  => Mage_Admin_Model_Acl::ROLE_TYPE_USER,
             'user_id'    => $user->getUserId(),
-            'role_name'  => $user->getFirstname()
+            'role_name'  => $user->getFirstname(),
         ]);
 
         $insertData = $this->_prepareDataForTable($data, $this->getTable('admin/role'));
@@ -415,7 +415,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 ['extra' => $data],
-                ['user_id = ?' => (int) $object->getId()]
+                ['user_id = ?' => (int) $object->getId()],
             );
         }
 
@@ -435,13 +435,13 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 ['reload_acl_flag' => $flag],
-                ['user_id = ?' => (int) $object->getId()]
+                ['user_id = ?' => (int) $object->getId()],
             );
             if ($flag) {
                 // refresh cache menu
                 Mage::app()->getCache()->clean(
                     Zend_Cache::CLEANING_MODE_MATCHING_TAG,
-                    [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS]
+                    [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS],
                 );
             }
         }

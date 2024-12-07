@@ -48,14 +48,14 @@ class ConfigTest extends TestCase
         yield 'null' => [
             [
                 'color' => [
-                    'backend_model' => 'adminhtml/system_config_backend_color'
-                ]
+                    'backend_model' => 'adminhtml/system_config_backend_color',
+                ],
             ],
             null,
         ];
         yield 'color' => [
             [
-                'backend_model' => 'adminhtml/system_config_backend_color'
+                'backend_model' => 'adminhtml/system_config_backend_color',
             ],
             'color',
         ];

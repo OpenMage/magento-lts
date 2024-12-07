@@ -55,7 +55,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
         $select = $this->getSelect()->joinInner(
             ['ce' => $this->getTable('customer/entity')],
             'ce.entity_id = main_table.customer_id',
-            ['customer_email' => 'email']
+            ['customer_email' => 'email'],
         );
 
         $customer = Mage::getResourceSingleton('customer/customer');
@@ -68,7 +68,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
         $select->joinLeft(
             ['firstname' => $attr->getBackend()->getTable()],
             $joinExpr,
-            ['customer_firstname' => 'value']
+            ['customer_firstname' => 'value'],
         );
 
         $attr     = $customer->getAttribute('middlename');
@@ -79,7 +79,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
         $select->joinLeft(
             ['middlename' => $attr->getBackend()->getTable()],
             $joinExpr,
-            ['customer_middlename' => 'value']
+            ['customer_middlename' => 'value'],
         );
 
         $attr = $customer->getAttribute('lastname');
@@ -90,7 +90,7 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
         $select->joinLeft(
             ['lastname' => $attr->getBackend()->getTable()],
             $joinExpr,
-            ['customer_lastname' => 'value']
+            ['customer_lastname' => 'value'],
         );
         return $this;
     }

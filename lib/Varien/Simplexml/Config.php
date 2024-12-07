@@ -503,7 +503,7 @@ class Varien_Simplexml_Config
         }
 
         foreach ($targets as $target) {
-            $sources = $this->getXpath((string)$target['extends']);
+            $sources = $this->getXpath((string) $target['extends']);
             if ($sources) {
                 foreach ($sources as $source) {
                     $target->extend($source);

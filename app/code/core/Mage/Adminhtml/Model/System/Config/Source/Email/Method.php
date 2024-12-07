@@ -27,11 +27,11 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Method
         return [
             [
                 'value' => 'bcc',
-                'label' => Mage::helper('adminhtml')->__('Bcc')
+                'label' => Mage::helper('adminhtml')->__('Bcc'),
             ],
             [
                 'value' => 'copy',
-                'label' => Mage::helper('adminhtml')->__('Separate Email')
+                'label' => Mage::helper('adminhtml')->__('Separate Email'),
             ],
         ];
     }

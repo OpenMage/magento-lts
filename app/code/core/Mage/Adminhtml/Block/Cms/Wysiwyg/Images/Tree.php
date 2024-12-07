@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
             $jsonArray[] = [
                 'text'  => $helper->getShortFilename($item->getBasename(), 20),
                 'id'    => $helper->convertPathToId($item->getFilename()),
-                'cls'   => 'folder'
+                'cls'   => 'folder',
             ];
         }
         return Zend_Json::encode($jsonArray);

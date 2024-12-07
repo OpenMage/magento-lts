@@ -128,9 +128,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      *
      * @return void
      */
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * Retrieve main table
@@ -304,7 +302,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             foreach ($field as $key => $value) {
                 $this->addFieldToSelect(
                     $value,
-                    (is_string($key) ? $key : null)
+                    (is_string($key) ? $key : null),
                 );
             }
 
@@ -532,7 +530,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             return $helper->getQueryUsingAnalyticFunction($select);
         }
 
-        return (string)$select;
+        return (string) $select;
     }
     /**
      * Join table to collection select
@@ -558,7 +556,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             $this->getSelect()->join(
                 [$alias => $this->getTable($table)],
                 $cond,
-                $cols
+                $cols,
             );
             $this->_joinedTables[$alias] = true;
         }
@@ -576,7 +574,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         Mage::dispatchEvent('core_collection_abstract_load_before', ['collection' => $this]);
         if ($this->_eventPrefix && $this->_eventObject) {
             Mage::dispatchEvent($this->_eventPrefix . '_load_before', [
-                $this->_eventObject => $this
+                $this->_eventObject => $this,
             ]);
         }
         return $this;
@@ -590,7 +588,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     public function setResetItemsDataChanged($flag)
     {
-        $this->_resetItemsDataChanged = (bool)$flag;
+        $this->_resetItemsDataChanged = (bool) $flag;
         return $this;
     }
 
@@ -627,7 +625,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         Mage::dispatchEvent('core_collection_abstract_load_after', ['collection' => $this]);
         if ($this->_eventPrefix && $this->_eventObject) {
             Mage::dispatchEvent($this->_eventPrefix . '_load_after', [
-                $this->_eventObject => $this
+                $this->_eventObject => $this,
             ]);
         }
         return $this;

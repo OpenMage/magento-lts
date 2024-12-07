@@ -38,7 +38,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
         foreach ($this->getMethods() as $method) {
             $this->setChild(
                 'payment.method.' . $method->getCode(),
-                $helper->getMethodFormBlock($method)
+                $helper->getMethodFormBlock($method),
             );
         }
 

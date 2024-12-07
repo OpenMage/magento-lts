@@ -38,10 +38,10 @@ $table = $installer->getConnection()
         $installer->getIdxName(
             'paypal/payment_transaction',
             ['txn_id'],
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
         ),
         ['txn_id'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('PayPal Payflow Link Payment Transaction');
 $installer->getConnection()->createTable($table);

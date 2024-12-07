@@ -18,6 +18,4 @@
  * @category   Mage
  * @package    Mage_Eav
  */
-interface Mage_Eav_Model_Entity_Attribute_Interface
-{
-}
+interface Mage_Eav_Model_Entity_Attribute_Interface {}

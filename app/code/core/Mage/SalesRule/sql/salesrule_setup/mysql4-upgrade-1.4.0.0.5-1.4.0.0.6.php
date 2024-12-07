@@ -20,12 +20,12 @@ $installer->startSetup();
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('salesrule/coupon_usage'),
-    'FK_SALESRULE_COUPON_CUSTOMER_COUPON_ID_CUSTOMER_ENTITY'
+    'FK_SALESRULE_COUPON_CUSTOMER_COUPON_ID_CUSTOMER_ENTITY',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('salesrule/coupon_usage'),
-    'FK_SALESRULE_COUPON_CUSTOMER_CUSTOMER_ID_CUSTOMER_ENTITY'
+    'FK_SALESRULE_COUPON_CUSTOMER_CUSTOMER_ID_CUSTOMER_ENTITY',
 );
 
 $installer->getConnection()->addConstraint(
@@ -33,7 +33,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('salesrule/coupon_usage'),
     'coupon_id',
     $installer->getTable('salesrule/coupon'),
-    'coupon_id'
+    'coupon_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -41,7 +41,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('salesrule/coupon_usage'),
     'customer_id',
     $installer->getTable('customer_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->endSetup();

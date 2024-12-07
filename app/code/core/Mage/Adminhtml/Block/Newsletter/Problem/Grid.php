@@ -46,45 +46,45 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('checkbox', [
-             'sortable'     => false,
+            'sortable'     => false,
             'filter'    => 'adminhtml/newsletter_problem_grid_filter_checkbox',
             'renderer'  => 'adminhtml/newsletter_problem_grid_renderer_checkbox',
-            'width'     => '20px'
+            'width'     => '20px',
         ]);
 
         $this->addColumn('problem_id', [
             'header' => Mage::helper('newsletter')->__('ID'),
             'index'  => 'problem_id',
-            'width'  => '50px'
+            'width'  => '50px',
         ]);
 
         $this->addColumn('subscriber', [
             'header' => Mage::helper('newsletter')->__('Subscriber'),
             'index'  => 'subscriber_id',
-            'format' => '#$subscriber_id $customer_name ($subscriber_email)'
+            'format' => '#$subscriber_id $customer_name ($subscriber_email)',
         ]);
 
         $this->addColumn('queue_start', [
             'header' => Mage::helper('newsletter')->__('Queue Date Start'),
             'index'  => 'queue_start_at',
             'gmtoffset' => true,
-            'type'   => 'datetime'
+            'type'   => 'datetime',
         ]);
 
         $this->addColumn('queue', [
             'header' => Mage::helper('newsletter')->__('Queue Subject'),
-            'index'  => 'template_subject'
+            'index'  => 'template_subject',
         ]);
 
         $this->addColumn('problem_code', [
             'header' => Mage::helper('newsletter')->__('Error Code'),
             'index'  => 'problem_error_code',
-            'type'   => 'number'
+            'type'   => 'number',
         ]);
 
         $this->addColumn('problem_text', [
             'header' => Mage::helper('newsletter')->__('Error Text'),
-            'index'  => 'problem_error_text'
+            'index'  => 'problem_error_text',
         ]);
         return parent::_prepareColumns();
     }

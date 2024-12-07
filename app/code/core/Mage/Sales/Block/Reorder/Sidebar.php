@@ -51,7 +51,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
             ->addAttributeToFilter('customer_id', $customerId)
             ->addAttributeToFilter(
                 'state',
-                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
+                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()],
             )
             ->addAttributeToSort('created_at', 'desc')
             ->setPage(1, 1);
@@ -153,7 +153,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     {
         return array_merge(
             parent::getCacheTags(),
-            $this->getItemsTags($this->_getItemProducts())
+            $this->getItemsTags($this->_getItemProducts()),
         );
     }
 

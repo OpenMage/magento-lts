@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Tierprice extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
-{
-}
+class Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Tierprice extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract {}

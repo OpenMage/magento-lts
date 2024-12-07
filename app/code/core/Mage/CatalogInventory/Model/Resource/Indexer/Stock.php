@@ -289,7 +289,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             ->join(
                 ['e' => $this->getTable('catalog/product')],
                 'l.parent_id=e.entity_id',
-                ['e.type_id']
+                ['e.type_id'],
             )
             ->where('l.child_id = :child_id');
         return $write->fetchPairs($select, [':child_id' => $childId]);

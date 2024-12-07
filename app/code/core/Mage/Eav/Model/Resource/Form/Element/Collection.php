@@ -98,7 +98,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
         $this->getSelect()->join(
             ['eav_attribute' => $this->getTable('eav/attribute')],
             'main_table.attribute_id = eav_attribute.attribute_id',
-            ['attribute_code', 'entity_type_id']
+            ['attribute_code', 'entity_type_id'],
         );
 
         return $this;

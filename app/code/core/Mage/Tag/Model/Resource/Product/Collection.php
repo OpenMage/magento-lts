@@ -253,7 +253,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         $tagRelationTable = $this->getTable('tag/relation');
 
         $condition = [
-            'prelation.product_id=e.entity_id'
+            'prelation.product_id=e.entity_id',
         ];
 
         if (!is_null($storeId)) {
@@ -263,7 +263,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         $innerSelect = $this->getConnection()->select()
             ->from(
                 ['relation' => $tagRelationTable],
-                ['product_id', 'store_id', 'popularity' => 'COUNT(DISTINCT relation.tag_relation_id)']
+                ['product_id', 'store_id', 'popularity' => 'COUNT(DISTINCT relation.tag_relation_id)'],
             )
             ->where('relation.tag_id = ?', $tagId)
             ->group(['product_id', 'store_id']);
@@ -272,7 +272,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
             ->joinLeft(
                 ['prelation' => $innerSelect],
                 $condition,
-                ['popularity' => 'prelation.popularity']
+                ['popularity' => 'prelation.popularity'],
             );
 
         $this->_tagIdFilter = $tagId;
@@ -382,9 +382,9 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
                     'store_id'   => $this->getConnection()->getCheckSql(
                         't.first_store_id = 0',
                         'relation.store_id',
-                        't.first_store_id'
-                    )
-                ]
+                        't.first_store_id',
+                    ),
+                ],
             );
 
         return $this;
@@ -405,7 +405,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
 
         if (count($this) > 0) {
             Mage::dispatchEvent('tag_tag_product_collection_load_after', [
-                'collection' => $this
+                'collection' => $this,
             ]);
         }
 
@@ -456,7 +456,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
 
             $appliedOrders = [];
             foreach ($orders as $order) {
-                $appliedOrders[(string)$order[0]] = true;
+                $appliedOrders[(string) $order[0]] = true;
             }
 
             foreach ($this->_orders as $field => $direction) {

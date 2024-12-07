@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Dataflow
  */
-abstract class Mage_Dataflow_Model_Mysql4_Batch_Abstract extends Mage_Dataflow_Model_Resource_Batch_Abstract
-{
-}
+abstract class Mage_Dataflow_Model_Mysql4_Batch_Abstract extends Mage_Dataflow_Model_Resource_Batch_Abstract {}

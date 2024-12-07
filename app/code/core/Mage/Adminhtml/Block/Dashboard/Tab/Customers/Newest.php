@@ -58,17 +58,17 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
         $this->addColumn('name', [
             'header'    => $this->__('Customer Name'),
             'sortable'  => false,
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('orders_count', [
             'header'    => $this->__('Number of Orders'),
             'sortable'  => false,
             'index'     => 'orders_count',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
-        $baseCurrencyCode = (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode();
+        $baseCurrencyCode = (string) Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode();
 
         $this->addColumn('orders_avg_amount', [
             'header'    => $this->__('Average Order Amount'),
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_avg_amount',
-            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency',
         ]);
 
         $this->addColumn('orders_sum_amount', [
@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'orders_sum_amount',
-            'renderer'  => 'adminhtml/report_grid_column_renderer_currency'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_currency',
         ]);
 
         $this->setFilterVisibility(false);

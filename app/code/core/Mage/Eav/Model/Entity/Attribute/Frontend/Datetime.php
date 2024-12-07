@@ -30,7 +30,7 @@ class Mage_Eav_Model_Entity_Attribute_Frontend_Datetime extends Mage_Eav_Model_E
         $data = '';
         $value = parent::getValue($object);
         $format = Mage::app()->getLocale()->getDateFormat(
-            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM
+            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
         );
 
         if ($value) {

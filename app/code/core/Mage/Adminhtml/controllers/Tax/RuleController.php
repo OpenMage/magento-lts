@@ -87,7 +87,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         $this->_initAction()
             ->_addBreadcrumb(
                 $taxRuleId ? Mage::helper('tax')->__('Edit Rule') : Mage::helper('tax')->__('New Rule'),
-                $taxRuleId ? Mage::helper('tax')->__('Edit Rule') : Mage::helper('tax')->__('New Rule')
+                $taxRuleId ? Mage::helper('tax')->__('Edit Rule') : Mage::helper('tax')->__('New Rule'),
             )
             ->_addContent($this->getLayout()->createBlock('adminhtml/tax_rule_edit')
                 ->setData('action', $this->getUrl('*/tax_rule/save')))
@@ -104,7 +104,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             return $this->getResponse()->setRedirect($this->getUrl('*/tax_rule'));
         }
 
-        $ruleId = (int)$this->getRequest()->getParam('tax_calculation_rule_id');
+        $ruleId = (int) $this->getRequest()->getParam('tax_calculation_rule_id');
         $ruleModel = $this->_getSingletonModel('tax/calculation_rule')->load($ruleId);
         $ruleModel->setData($postData);
         $ruleModel->setCalculateSubtotal($this->getRequest()->getParam('calculate_subtotal', 0));
@@ -147,7 +147,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         $existingRules = $ruleModel->fetchRuleCodes(
             $ruleModel->getTaxRate(),
             $ruleModel->getTaxCustomerClass(),
-            $ruleModel->getTaxProductClass()
+            $ruleModel->getTaxProductClass(),
         );
 
         /** @var Mage_Adminhtml_Model_Session $session */
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         if (count($existingRules) > 0) {
             $ruleCodes = implode(',', $existingRules);
             $session->addError(
-                $this->_getHelperModel('tax')->__('Rules (%s) already exist for the specified Tax Rate, Customer Tax Class and Product Tax Class combinations', $ruleCodes)
+                $this->_getHelperModel('tax')->__('Rules (%s) already exist for the specified Tax Rate, Customer Tax Class and Product Tax Class combinations', $ruleCodes),
             );
             return false;
         }
@@ -172,7 +172,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
      */
     public function deleteAction()
     {
-        $ruleId = (int)$this->getRequest()->getParam('rule');
+        $ruleId = (int) $this->getRequest()->getParam('rule');
         $ruleModel = Mage::getSingleton('tax/calculation_rule')
             ->load($ruleId);
         if (!$ruleModel->getId()) {

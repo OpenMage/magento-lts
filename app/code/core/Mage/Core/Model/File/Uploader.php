@@ -73,7 +73,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
         if (is_null($flag)) {
             return $this->_skipDbProcessing;
         }
-        $this->_skipDbProcessing = (bool)$flag;
+        $this->_skipDbProcessing = (bool) $flag;
         return $this;
     }
 
@@ -110,7 +110,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
         $fileName = $newFileName ?? $this->_file['name'];
         if (strlen($fileName) > $this->_fileNameMaxLength) {
             throw new Exception(
-                Mage::helper('core')->__('File name is too long. Maximum length is %s.', $this->_fileNameMaxLength)
+                Mage::helper('core')->__('File name is too long. Maximum length is %s.', $this->_fileNameMaxLength),
             );
         }
         return parent::save($destinationFolder, $newFileName);

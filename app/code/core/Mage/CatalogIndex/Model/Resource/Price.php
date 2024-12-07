@@ -218,7 +218,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $collection->getSelect()->joinLeft(
             [$tableName => $this->getMainTable()],
             $tableName . '.entity_id=e.entity_id',
-            []
+            [],
         );
 
         $response = new Varien_Object();
@@ -258,7 +258,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $select = $this->_getReadAdapter()->select();
         $select->from(
             ['price_table' => $this->getTable('catalogindex/minimal_price')],
-            ['price_table.entity_id', 'value' => '(price_table.value)', 'tax_class_id' => '(price_table.tax_class_id)']
+            ['price_table.entity_id', 'value' => '(price_table.value)', 'tax_class_id' => '(price_table.tax_class_id)'],
         )
             ->where('price_table.entity_id in (?)', $ids)
             ->where('price_table.website_id = ?', $this->getWebsiteId())

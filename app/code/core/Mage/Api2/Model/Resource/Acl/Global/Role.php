@@ -43,7 +43,7 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
             || Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID == $roleId
         ) {
             Mage::throwException(
-                Mage::helper('api2')->__('The role is a special one and not for assigning it to admin users.')
+                Mage::helper('api2')->__('The role is a special one and not for assigning it to admin users.'),
             );
         }
 
@@ -78,7 +78,7 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
 
         $where = [
             'role_id = ?' => $roleId,
-            'admin_id = ?' => $adminId
+            'admin_id = ?' => $adminId,
         ];
 
         $write->delete($table, $where);

@@ -127,12 +127,12 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
             $extraColumns[$columnName] = $columnName;
         }
 
-        $this->addBindParam('mt_entity_type_id', (int)$entityType->getId());
+        $this->addBindParam('mt_entity_type_id', (int) $entityType->getId());
         $select
             ->join(
                 ['additional_table' => $this->getTable($extraTable)],
                 'additional_table.attribute_id = main_table.attribute_id',
-                $extraColumns
+                $extraColumns,
             )
             ->where('main_table.entity_type_id = :mt_entity_type_id');
 
@@ -150,9 +150,9 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
                     $expression = $connection->getCheckSql(
                         'main_table.%s IS NULL',
                         'scope_table.%s',
-                        'main_table.%s'
+                        'main_table.%s',
                     );
-                    $expression = sprintf((string)$expression, $columnName, $columnName, $columnName);
+                    $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
                     $this->addFilterToMap($columnName, $expression);
                     $scopeColumns[$alias] = $columnName;
                 } elseif (isset($extraColumns[$columnName])) {
@@ -160,9 +160,9 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
                     $expression = $connection->getCheckSql(
                         'additional_table.%s IS NULL',
                         'scope_table.%s',
-                        'additional_table.%s'
+                        'additional_table.%s',
                     );
-                    $expression = sprintf((string)$expression, $columnName, $columnName, $columnName);
+                    $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
                     $this->addFilterToMap($columnName, $expression);
                     $scopeColumns[$alias] = $columnName;
                 }
@@ -172,9 +172,9 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         $select->joinLeft(
             ['scope_table' => $this->_getEavWebsiteTable()],
             'scope_table.attribute_id = main_table.attribute_id AND scope_table.website_id = :scope_website_id',
-            $scopeColumns
+            $scopeColumns,
         );
-        $websiteId = $this->getWebsite() ? (int)$this->getWebsite()->getId() : 0;
+        $websiteId = $this->getWebsite() ? (int) $this->getWebsite()->getId() : 0;
         $this->addBindParam('scope_website_id', $websiteId);
 
         return $this;

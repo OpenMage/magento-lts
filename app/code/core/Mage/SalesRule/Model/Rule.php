@@ -201,7 +201,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      */
     protected function _afterSave()
     {
-        $couponCode = trim((string)$this->getCouponCode());
+        $couponCode = trim((string) $this->getCouponCode());
         if (strlen($couponCode)
             && $this->getCouponType() == self::COUPON_TYPE_SPECIFIC
             && !$this->getUseAutoGeneration()
@@ -303,7 +303,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         if (!$this->hasCustomerGroupIds()) {
             $customerGroupIds = $this->_getResource()->getCustomerGroupIds($this->getId());
-            $this->setData('customer_group_ids', (array)$customerGroupIds);
+            $this->setData('customer_group_ids', (array) $customerGroupIds);
         }
         return $this->_getData('customer_group_ids');
     }
@@ -318,7 +318,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getStoreLabel($store = null)
     {
         $storeId = Mage::app()->getStore($store)->getId();
-        $labels = (array)$this->getStoreLabels();
+        $labels = (array) $this->getStoreLabels();
 
         if (isset($labels[$storeId])) {
             return $labels[$storeId];
@@ -373,7 +373,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
             ];
             $transport = new Varien_Object([
                 'coupon_types'                => $this->_couponTypes,
-                'is_coupon_type_auto_visible' => false
+                'is_coupon_type_auto_visible' => false,
             ]);
             Mage::dispatchEvent('salesrule_rule_get_coupon_types', ['transport' => $transport]);
             $this->_couponTypes = $transport->getCouponTypes();
@@ -424,7 +424,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                     $coupon->setCode(
                         $couponCode .
                         self::getCouponCodeGenerator()->getDelimiter() .
-                        sprintf('%04u', rand(0, 9999))
+                        sprintf('%04u', rand(0, 9999)),
                     );
                     continue;
                 }

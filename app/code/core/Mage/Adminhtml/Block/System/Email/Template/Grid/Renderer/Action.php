@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
         $actions[] = [
             'url'       =>  $this->getUrl('*/*/preview', ['id' => $row->getId()]),
             'popup'     =>  true,
-            'caption'   =>  $this->__('Preview')
+            'caption'   =>  $this->__('Preview'),
         ];
 
         $this->getColumn()->setActions($actions);

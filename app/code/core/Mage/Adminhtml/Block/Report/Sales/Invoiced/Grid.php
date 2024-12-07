@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Blo
             'index'     => 'orders_count',
             'type'      => 'number',
             'total'     => 'sum',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('orders_invoiced', [
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Blo
             'index'     => 'orders_invoiced',
             'type'      => 'number',
             'total'     => 'sum',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {

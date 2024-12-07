@@ -134,9 +134,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
                 $this->getAddress(),
                 null,
                 //We should send exact quote store to prevent fetching default config for admin store.
-                $this->getAddress()->getQuote()->getStore()
+                $this->getAddress()->getQuote()->getStore(),
             ),
-            true
+            true,
         );
     }
 }

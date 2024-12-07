@@ -281,19 +281,19 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
         $attrFilterArray ['group']                      = 'eq';
         $attrFilterArray ['customer_address/telephone'] = [
             'type'  => 'like',
-            'bind'  => $addressType
+            'bind'  => $addressType,
         ];
         $attrFilterArray ['customer_address/postcode']  = [
             'type'  => 'like',
-            'bind'  => $addressType
+            'bind'  => $addressType,
         ];
         $attrFilterArray ['customer_address/country']   = [
             'type'  => 'eq',
-            'bind'  => $addressType
+            'bind'  => $addressType,
         ];
         $attrFilterArray ['customer_address/region']    = [
             'type'  => 'like',
-            'bind'  => $addressType
+            'bind'  => $addressType,
         ];
         $attrFilterArray ['created_at']                 = 'datetimeFromTo';
 
@@ -319,7 +319,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             if ($websiteId) {
                 $this->_filter[] = [
                     'attribute' => 'website_id',
-                    'eq'        => $websiteId
+                    'eq'        => $websiteId,
                 ];
             }
         }
@@ -373,7 +373,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     {
         $stores = [];
         foreach (Mage::getConfig()->getNode('stores')->children() as $storeNode) {
-            $stores[(int)$storeNode->system->store->id] = $storeNode->getName();
+            $stores[(int) $storeNode->system->store->id] = $storeNode->getName();
         }
 
         $collections = $this->getData();
@@ -408,7 +408,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                 if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
                     $this->addException(
                         Mage::helper('customer')->__('An error occurred while saving the collection, aborting. Error: %s', $e->getMessage()),
-                        Mage_Dataflow_Model_Convert_Exception::FATAL
+                        Mage_Dataflow_Model_Convert_Exception::FATAL,
                     );
                 }
             }

@@ -66,7 +66,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             }
             try {
                 $importModel = Mage::getModel(
-                    Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray()
+                    Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray(),
                 );
             } catch (Exception $e) {
                 Mage::throwException(Mage::helper('adminhtml')->__('Unable to initialize import model'));

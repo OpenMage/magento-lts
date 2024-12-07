@@ -23,6 +23,4 @@ require_once 'Mage/Bundle/controllers/Adminhtml/Bundle/Product/EditController.ph
  * @package    Mage_Bundle
  * @deprecated  after 1.4.2.0 Mage_Bundle_Adminhtml_Product_EditController is used
  */
-class Mage_Bundle_Product_EditController extends Mage_Bundle_Adminhtml_Bundle_Product_EditController
-{
-}
+class Mage_Bundle_Product_EditController extends Mage_Bundle_Adminhtml_Bundle_Product_EditController {}

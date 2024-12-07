@@ -127,11 +127,11 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         $_supportedEmailTypes = [
             self::EMAIL_TYPE_TO,
             self::EMAIL_TYPE_CC,
-            self::EMAIL_TYPE_BCC
+            self::EMAIL_TYPE_BCC,
         ];
         $type = !in_array($type, $_supportedEmailTypes) ? self::EMAIL_TYPE_TO : $type;
-        $emails = array_values((array)$emails);
-        $names = is_array($names) ? $names : (array)$names;
+        $emails = array_values((array) $emails);
+        $names = is_array($names) ? $names : (array) $names;
         $names = array_values($names);
         foreach ($emails as $key => $email) {
             $this->_recipients[] = [$email, $names[$key] ?? '', $type];
@@ -232,7 +232,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                     Mage::dispatchEvent('email_queue_send_before', [
                         'mail'      => $mailer,
                         'message'   => $message,
-                        'transport' => $transport
+                        'transport' => $transport,
                     ]);
 
                     if ($transport->getTransport()) {
@@ -253,7 +253,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                             'to'         => $email,
                             'html'       => !$parameters->getIsPlain(),
                             'subject'    => $parameters->getSubject(),
-                            'email_body' => $message->getMessageBody()
+                            'email_body' => $message->getMessageBody(),
                         ]);
                     }
                 } catch (Exception $e) {

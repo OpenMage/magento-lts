@@ -58,14 +58,14 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content extends Mage_Adminhtml_Bloc
         $fieldset = $form->addFieldset('content_fieldset', ['legend' => Mage::helper('cms')->__('Content'),'class' => 'fieldset-wide']);
 
         $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(
-            ['tab_id' => $this->getTabId()]
+            ['tab_id' => $this->getTabId()],
         );
 
         $fieldset->addField('content_heading', 'text', [
             'name'      => 'content_heading',
             'label'     => Mage::helper('cms')->__('Content Heading'),
             'title'     => Mage::helper('cms')->__('Content Heading'),
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $contentField = $fieldset->addField('content', 'editor', [
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content extends Mage_Adminhtml_Bloc
             'style'     => 'height:36em;',
             'required'  => true,
             'disabled'  => $isElementDisabled,
-            'config'    => $wysiwygConfig
+            'config'    => $wysiwygConfig,
         ]);
 
         // Setting custom renderer for content field to remove label column

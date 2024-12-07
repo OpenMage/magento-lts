@@ -54,7 +54,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
         $this->_itemRenders[$type] = [
             'block'     => $block,
             'template'  => $template,
-            'renderer'  => null
+            'renderer'  => null,
         ];
 
         return $this;

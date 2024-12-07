@@ -53,14 +53,14 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
             $firstnameField = 'value';
             $firstnameCondition[] = $adapter->quoteInto(
                 'table_customer_firstname.attribute_id = ?',
-                (int) $firstnameAttr->getAttributeId()
+                (int) $firstnameAttr->getAttributeId(),
             );
         }
 
         $this->getSelect()->joinInner(
             ['table_customer_firstname' => $firstnameAttr->getBackend()->getTable()],
             implode(' AND ', $firstnameCondition),
-            []
+            [],
         );
 
         $middlenameCondition = ['table_customer_middlename.entity_id = detail.customer_id'];
@@ -71,14 +71,14 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
             $middlenameField = 'value';
             $middlenameCondition[] = $adapter->quoteInto(
                 'table_customer_middlename.attribute_id = ?',
-                (int) $middlenameAttr->getAttributeId()
+                (int) $middlenameAttr->getAttributeId(),
             );
         }
 
         $this->getSelect()->joinInner(
             ['table_customer_middlename' => $middlenameAttr->getBackend()->getTable()],
             implode(' AND ', $middlenameCondition),
-            []
+            [],
         );
 
         $lastnameCondition  = ['table_customer_lastname.entity_id = detail.customer_id'];
@@ -88,7 +88,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
             $lastnameField = 'value';
             $lastnameCondition[] = $adapter->quoteInto(
                 'table_customer_lastname.attribute_id = ?',
-                (int) $lastnameAttr->getAttributeId()
+                (int) $lastnameAttr->getAttributeId(),
             );
         }
 
@@ -96,13 +96,13 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         $customerFullname = $adapter->getConcatSql([
             "table_customer_firstname.{$firstnameField}",
             "table_customer_middlename.{$middlenameField}",
-            "table_customer_lastname.{$lastnameField}"
+            "table_customer_lastname.{$lastnameField}",
         ], ' ');
         $this->getSelect()->reset(Zend_Db_Select::COLUMNS)
             ->joinInner(
                 ['table_customer_lastname' => $lastnameAttr->getBackend()->getTable()],
                 implode(' AND ', $lastnameCondition),
-                []
+                [],
             )
             ->columns([
                 'customer_id' => 'detail.customer_id',

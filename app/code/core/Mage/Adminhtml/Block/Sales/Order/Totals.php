@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales
             'value'     => $this->getSource()->getTotalPaid(),
             'base_value' => $this->getSource()->getBaseTotalPaid(),
             'label'     => $this->helper('sales')->__('Total Paid'),
-            'area'      => 'footer'
+            'area'      => 'footer',
         ]);
         $this->_totals['refunded'] = new Varien_Object([
             'code'      => 'refunded',
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales
             'value'     => $this->getSource()->getTotalRefunded(),
             'base_value' => $this->getSource()->getBaseTotalRefunded(),
             'label'     => $this->helper('sales')->__('Total Refunded'),
-            'area'      => 'footer'
+            'area'      => 'footer',
         ]);
         $this->_totals['due'] = new Varien_Object([
             'code'      => 'due',
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales
             'value'     => $this->getSource()->getTotalDue(),
             'base_value' => $this->getSource()->getBaseTotalDue(),
             'label'     => $this->helper('sales')->__('Total Due'),
-            'area'      => 'footer'
+            'area'      => 'footer',
         ]);
         return $this;
     }

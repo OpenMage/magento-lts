@@ -202,10 +202,10 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
             new Zend_Db_Expr(
                 $resourceHelper->getFieldOrderExpression(
                     'e.' . $this->getResource()->getIdFieldName(),
-                    $foundIds
+                    $foundIds,
                 )
-                . ' ' . Zend_Db_Select::SQL_ASC
-            )
+                . ' ' . Zend_Db_Select::SQL_ASC,
+            ),
         );
 
         return $this;

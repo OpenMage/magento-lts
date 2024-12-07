@@ -21,6 +21,4 @@
  * @package    Mage_Tag
  * @deprecated
  */
-class Mage_Tag_Model_Mysql4_Tag extends Mage_Tag_Model_Resource_Tag
-{
-}
+class Mage_Tag_Model_Mysql4_Tag extends Mage_Tag_Model_Resource_Tag {}

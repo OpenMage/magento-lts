@@ -143,7 +143,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
         $initialDesign = Mage::getDesign()->setAllGetOld([
             'package' => $this->_getStoreConfig('design/package/name', $storeId),
             'store'   => $storeId,
-            'area'    => $area
+            'area'    => $area,
         ]);
         Mage::getDesign()->setTheme('');
         Mage::getDesign()->setPackageName('');

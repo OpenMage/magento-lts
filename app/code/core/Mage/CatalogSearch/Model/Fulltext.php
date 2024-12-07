@@ -70,7 +70,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     {
         Mage::dispatchEvent('catalogsearch_index_process_start', [
             'store_id'      => $storeId,
-            'product_ids'   => $productIds
+            'product_ids'   => $productIds,
         ]);
 
         $this->getResource()->rebuildIndex($storeId, $productIds);

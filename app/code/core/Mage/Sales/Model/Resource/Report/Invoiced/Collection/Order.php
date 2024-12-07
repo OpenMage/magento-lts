@@ -71,7 +71,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced_Collection_Order extends Mage_Sa
                 'orders_invoiced'       => 'SUM(orders_invoiced)',
                 'invoiced'              => 'SUM(invoiced)',
                 'invoiced_captured'     => 'SUM(invoiced_captured)',
-                'invoiced_not_captured' => 'SUM(invoiced_not_captured)'
+                'invoiced_not_captured' => 'SUM(invoiced_not_captured)',
             ];
         }
 

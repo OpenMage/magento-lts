@@ -84,17 +84,17 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
             'header'    => $this->__('Items'),
             'type'      => 'number',
             'sortable'  => false,
-            'index'     => 'items_count'
+            'index'     => 'items_count',
         ]);
 
-        $baseCurrencyCode = Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode();
+        $baseCurrencyCode = Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode();
 
         $this->addColumn('total', [
             'header'    => $this->__('Grand Total'),
             'sortable'  => false,
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
-            'index'     => 'revenue'
+            'index'     => 'revenue',
         ]);
 
         $this->setFilterVisibility(false);

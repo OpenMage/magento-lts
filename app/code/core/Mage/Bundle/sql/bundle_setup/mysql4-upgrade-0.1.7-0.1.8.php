@@ -21,6 +21,6 @@ $installer->getConnection()->addKey(
     $installer->getTable('bundle/option_value'),
     'UNQ_OPTION_STORE',
     ['option_id', 'store_id'],
-    'unique'
+    'unique',
 );
 $installer->endSetup();

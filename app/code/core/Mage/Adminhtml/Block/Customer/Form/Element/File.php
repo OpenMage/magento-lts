@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
             $this->getName(),
             $this->serialize($this->getHtmlAttributes()),
             $this->getAfterElementHtml(),
-            $this->_getHiddenInput()
+            $this->_getHiddenInput(),
         );
 
         return $this->_getPreviewHtml() . $element . $this->_getDeleteCheckboxHtml();
@@ -73,10 +73,10 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
                 'name'  => sprintf('%s[delete]', $this->getName()),
                 'value' => '1',
                 'class' => 'checkbox',
-                'id'    => $checkboxId
+                'id'    => $checkboxId,
             ];
             $label      = [
-                'for'   => $checkboxId
+                'for'   => $checkboxId,
             ];
             if ($this->getDisabled()) {
                 $checkbox['disabled'] = 'disabled';
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
                 'alt'   => Mage::helper('adminhtml')->__('Download'),
                 'title' => Mage::helper('adminhtml')->__('Download'),
                 'src'   => Mage::getDesign()->getSkinUrl('images/fam_bullet_disk.gif'),
-                'class' => 'v-middle'
+                'class' => 'v-middle',
             ];
             $url = $this->_getPreviewUrl();
             $html .= '<span>';
@@ -146,7 +146,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
             'type'  => 'hidden',
             'name'  => sprintf('%s[value]', $this->getName()),
             'id'    => sprintf('%s_value', $this->getHtmlId()),
-            'value' => $this->getEscapedValue()
+            'value' => $this->getEscapedValue(),
         ]);
     }
 

@@ -47,7 +47,7 @@ $table = $installer->getConnection()
     ], 'Type')
     ->addIndex(
         $installer->getIdxName('bundle/option', ['parent_id']),
-        ['parent_id']
+        ['parent_id'],
     )
     ->addForeignKey(
         $installer->getFkName('bundle/option', 'parent_id', 'catalog/product', 'entity_id'),
@@ -55,7 +55,7 @@ $table = $installer->getConnection()
         $installer->getTable('catalog/product'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Catalog Product Bundle Option');
 $installer->getConnection()->createTable($table);
@@ -84,7 +84,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('bundle/option_value', ['option_id', 'store_id'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         ['option_id', 'store_id'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->addForeignKey(
         $installer->getFkName('bundle/option_value', 'option_id', 'bundle/option', 'option_id'),
@@ -92,7 +92,7 @@ $table = $installer->getConnection()
         $installer->getTable('bundle/option'),
         'option_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Catalog Product Bundle Option Value');
 $installer->getConnection()->createTable($table);
@@ -147,11 +147,11 @@ $table = $installer->getConnection()
     ], 'Selection Can Change Qty')
     ->addIndex(
         $installer->getIdxName('bundle/selection', ['option_id']),
-        ['option_id']
+        ['option_id'],
     )
     ->addIndex(
         $installer->getIdxName('bundle/selection', ['product_id']),
-        ['product_id']
+        ['product_id'],
     )
     ->addForeignKey(
         $installer->getFkName('bundle/selection', 'option_id', 'bundle/option', 'option_id'),
@@ -159,7 +159,7 @@ $table = $installer->getConnection()
         $installer->getTable('bundle/option'),
         'option_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('bundle/selection', 'product_id', 'catalog/product', 'entity_id'),
@@ -167,7 +167,7 @@ $table = $installer->getConnection()
         $installer->getTable('catalog/product'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Catalog Product Bundle Selection');
 $installer->getConnection()->createTable($table);
@@ -198,7 +198,7 @@ $table = $installer->getConnection()
     ], 'Selection Price Value')
     ->addIndex(
         $installer->getIdxName('bundle/selection_price', ['website_id']),
-        ['website_id']
+        ['website_id'],
     )
     ->addForeignKey(
         $installer->getFkName('bundle/selection_price', 'website_id', 'core/website', 'website_id'),
@@ -206,7 +206,7 @@ $table = $installer->getConnection()
         $installer->getTable('core/website'),
         'website_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('bundle/selection_price', 'selection_id', 'bundle/selection', 'selection_id'),
@@ -214,7 +214,7 @@ $table = $installer->getConnection()
         $installer->getTable('bundle/selection'),
         'selection_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Catalog Product Bundle Selection Price');
 $installer->getConnection()->createTable($table);
@@ -247,11 +247,11 @@ $table = $installer->getConnection()
     ], 'Max Price')
     ->addIndex(
         $installer->getIdxName('bundle/price_index', ['website_id']),
-        ['website_id']
+        ['website_id'],
     )
     ->addIndex(
         $installer->getIdxName('bundle/price_index', ['customer_group_id']),
-        ['customer_group_id']
+        ['customer_group_id'],
     )
     ->addForeignKey(
         $installer->getFkName('bundle/price_index', 'customer_group_id', 'customer/customer_group', 'customer_group_id'),
@@ -259,7 +259,7 @@ $table = $installer->getConnection()
         $installer->getTable('customer/customer_group'),
         'customer_group_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('bundle/price_index', 'entity_id', 'catalog/product', 'entity_id'),
@@ -267,7 +267,7 @@ $table = $installer->getConnection()
         $installer->getTable('catalog/product'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('bundle/price_index', 'website_id', 'core/website', 'website_id'),
@@ -275,7 +275,7 @@ $table = $installer->getConnection()
         $installer->getTable('core/website'),
         'website_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Catalog Product Bundle Price Index');
 $installer->getConnection()->createTable($table);
@@ -582,118 +582,118 @@ $installer->getConnection()->createTable($table);
  * Add attributes to the eav/attribute
  */
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'price_type', [
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => '',
-        'input'             => '',
-        'class'             => '',
-        'source'            => '',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => false,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'used_in_product_listing' => true,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
+    'type'              => 'int',
+    'backend'           => '',
+    'frontend'          => '',
+    'label'             => '',
+    'input'             => '',
+    'class'             => '',
+    'source'            => '',
+    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible'           => false,
+    'required'          => true,
+    'user_defined'      => false,
+    'default'           => '',
+    'searchable'        => false,
+    'filterable'        => false,
+    'comparable'        => false,
+    'visible_on_front'  => false,
+    'used_in_product_listing' => true,
+    'unique'            => false,
+    'apply_to'          => 'bundle',
+    'is_configurable'   => false,
 ]);
 
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'sku_type', [
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => '',
-        'input'             => '',
-        'class'             => '',
-        'source'            => '',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => false,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
+    'type'              => 'int',
+    'backend'           => '',
+    'frontend'          => '',
+    'label'             => '',
+    'input'             => '',
+    'class'             => '',
+    'source'            => '',
+    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible'           => false,
+    'required'          => true,
+    'user_defined'      => false,
+    'default'           => '',
+    'searchable'        => false,
+    'filterable'        => false,
+    'comparable'        => false,
+    'visible_on_front'  => false,
+    'unique'            => false,
+    'apply_to'          => 'bundle',
+    'is_configurable'   => false,
 ]);
 
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'weight_type', [
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => '',
-        'input'             => '',
-        'class'             => '',
-        'source'            => '',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => false,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'used_in_product_listing' => true,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
+    'type'              => 'int',
+    'backend'           => '',
+    'frontend'          => '',
+    'label'             => '',
+    'input'             => '',
+    'class'             => '',
+    'source'            => '',
+    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible'           => false,
+    'required'          => true,
+    'user_defined'      => false,
+    'default'           => '',
+    'searchable'        => false,
+    'filterable'        => false,
+    'comparable'        => false,
+    'visible_on_front'  => false,
+    'used_in_product_listing' => true,
+    'unique'            => false,
+    'apply_to'          => 'bundle',
+    'is_configurable'   => false,
 ]);
 
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'price_view', [
-        'group'             => 'Prices',
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => 'Price View',
-        'input'             => 'select',
-        'class'             => '',
-        'source'            => 'bundle/product_attribute_source_price_view',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => true,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'used_in_product_listing' => true,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
+    'group'             => 'Prices',
+    'type'              => 'int',
+    'backend'           => '',
+    'frontend'          => '',
+    'label'             => 'Price View',
+    'input'             => 'select',
+    'class'             => '',
+    'source'            => 'bundle/product_attribute_source_price_view',
+    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible'           => true,
+    'required'          => true,
+    'user_defined'      => false,
+    'default'           => '',
+    'searchable'        => false,
+    'filterable'        => false,
+    'comparable'        => false,
+    'visible_on_front'  => false,
+    'used_in_product_listing' => true,
+    'unique'            => false,
+    'apply_to'          => 'bundle',
+    'is_configurable'   => false,
 ]);
 
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'shipment_type', [
-        'type'              => 'int',
-        'backend'           => '',
-        'frontend'          => '',
-        'label'             => 'Shipment',
-        'input'             => '',
-        'class'             => '',
-        'source'            => '',
-        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
-        'visible'           => false,
-        'required'          => true,
-        'user_defined'      => false,
-        'default'           => '',
-        'searchable'        => false,
-        'filterable'        => false,
-        'comparable'        => false,
-        'visible_on_front'  => false,
-        'used_in_product_listing' => true,
-        'unique'            => false,
-        'apply_to'          => 'bundle',
-        'is_configurable'   => false
+    'type'              => 'int',
+    'backend'           => '',
+    'frontend'          => '',
+    'label'             => 'Shipment',
+    'input'             => '',
+    'class'             => '',
+    'source'            => '',
+    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
+    'visible'           => false,
+    'required'          => true,
+    'user_defined'      => false,
+    'default'           => '',
+    'searchable'        => false,
+    'filterable'        => false,
+    'comparable'        => false,
+    'visible_on_front'  => false,
+    'used_in_product_listing' => true,
+    'unique'            => false,
+    'apply_to'          => 'bundle',
+    'is_configurable'   => false,
 ]);
 
 $installer->endSetup();

@@ -54,7 +54,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         try {
             Mage::dispatchEvent(
                 'checkout_controller_onepage_save_shipping_method',
-                ['request' => $request, 'quote' => $quote]
+                ['request' => $request, 'quote' => $quote],
             );
             return ['entityId' => $entityId, 'result' => true, 'error' => ''];
         } catch (Exception $e) {

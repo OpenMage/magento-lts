@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
         if (!empty($delete)) {
             $where = [
                 'parent_id = ?'     => $mainProductId,
-                'product_id IN(?)'  => $delete
+                'product_id IN(?)'  => $delete,
             ];
             $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         }
@@ -69,8 +69,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
             $data = [];
             foreach ($insert as $childId) {
                 $data[] = [
-                    'product_id' => (int)$childId,
-                    'parent_id'  => (int)$mainProductId
+                    'product_id' => (int) $childId,
+                    'parent_id'  => (int) $mainProductId,
                 ];
             }
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $data);
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
             ->join(
                 ['e' => $this->getTable('catalog/product')],
                 'e.entity_id = l.product_id AND e.required_options = 0',
-                []
+                [],
             )
             ->where('parent_id = ?', $parentId);
 
@@ -147,7 +147,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
             $select = $this->_getReadAdapter()->select()
                 ->from(
                     [
-                        'super_attribute'       => $this->getTable('catalog/product_super_attribute')
+                        'super_attribute'       => $this->getTable('catalog/product_super_attribute'),
                     ],
                     [
                         'sku'                   => 'entity.sku',
@@ -155,29 +155,29 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
                         'attribute_code'        => 'attribute.attribute_code',
                         'option_title'          => 'option_value.value',
                         'pricing_value'         => 'attribute_pricing.pricing_value',
-                        'pricing_is_percent'    => 'attribute_pricing.is_percent'
-                    ]
+                        'pricing_is_percent'    => 'attribute_pricing.is_percent',
+                    ],
                 )->joinInner(
                     [
-                        'product_link'          => $this->getTable('catalog/product_super_link')
+                        'product_link'          => $this->getTable('catalog/product_super_link'),
                     ],
                     'product_link.parent_id = super_attribute.product_id',
-                    []
+                    [],
                 )->joinInner(
                     [
-                        'attribute'             => $this->getTable('eav/attribute')
+                        'attribute'             => $this->getTable('eav/attribute'),
                     ],
                     'attribute.attribute_id = super_attribute.attribute_id',
-                    []
+                    [],
                 )->joinInner(
                     [
-                        'entity'                => $this->getTable('catalog/product')
+                        'entity'                => $this->getTable('catalog/product'),
                     ],
                     'entity.entity_id = product_link.product_id',
-                    []
+                    [],
                 )->joinInner(
                     [
-                        'entity_value'          => $superAttribute->getBackendTable()
+                        'entity_value'          => $superAttribute->getBackendTable(),
                     ],
                     implode(
                         ' AND ',
@@ -186,28 +186,28 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
                                 ->quoteInto('entity_value.entity_type_id = ?', $product->getEntityTypeId()),
                             'entity_value.attribute_id = super_attribute.attribute_id',
                             'entity_value.store_id = 0',
-                            'entity_value.entity_id = product_link.product_id'
-                        ]
+                            'entity_value.entity_id = product_link.product_id',
+                        ],
                     ),
-                    []
+                    [],
                 )->joinLeft(
                     [
-                        'option_value'          => $this->getTable('eav/attribute_option_value')
+                        'option_value'          => $this->getTable('eav/attribute_option_value'),
                     ],
                     implode(' AND ', [
                         'option_value.option_id = entity_value.value',
                         'option_value.store_id = ' . Mage_Core_Model_App::ADMIN_STORE_ID,
                     ]),
-                    []
+                    [],
                 )->joinLeft(
                     [
-                        'attribute_pricing'     => $this->getTable('catalog/product_super_attribute_pricing')
+                        'attribute_pricing'     => $this->getTable('catalog/product_super_attribute_pricing'),
                     ],
                     implode(' AND ', [
                         'super_attribute.product_super_attribute_id = attribute_pricing.product_super_attribute_id',
-                        'entity_value.value = attribute_pricing.value_index'
+                        'entity_value.value = attribute_pricing.value_index',
                     ]),
-                    []
+                    [],
                 )->where('super_attribute.product_id = ?', $product->getId());
 
             $attributesOptionsData[$superAttribute->getAttributeId()] = $this->_getReadAdapter()->fetchAll($select);

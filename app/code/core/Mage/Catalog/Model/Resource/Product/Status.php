@@ -105,7 +105,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             'attribute_id'   => $statusAttributeId,
             'store_id'       => $storeId,
             'entity_id'      => $productId,
-            'value'          => $value
+            'value'          => $value,
         ]);
 
         $data = $this->_prepareDataForTable($data, $statusTable);
@@ -170,13 +170,13 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             $select = $adapter->select()
                 ->from(
                     ['t1' => $attributeTable],
-                    ['entity_id' => 't1.entity_id', 'value' => $valueCheckSql]
+                    ['entity_id' => 't1.entity_id', 'value' => $valueCheckSql],
                 )
                 ->joinLeft(
                     ['t2' => $attributeTable],
                     't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = '
-                        . (int)$storeId,
-                    ['']
+                        . (int) $storeId,
+                    [''],
                 )
                 ->where('t1.store_id = ?', Mage_Core_Model_App::ADMIN_STORE_ID)
                 ->where('t1.attribute_id = ?', $attribute->getAttributeId())

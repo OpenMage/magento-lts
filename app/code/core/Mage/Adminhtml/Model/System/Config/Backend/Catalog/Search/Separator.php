@@ -33,7 +33,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Separator extend
         $oldValue = Mage::getConfig()->getNode(
             Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_SEPARATOR,
             $this->getScope(),
-            $this->getScopeId()
+            $this->getScopeId(),
         );
         if ($newValue != $oldValue) {
             Mage::getSingleton('catalogsearch/fulltext')->resetSearchResults();

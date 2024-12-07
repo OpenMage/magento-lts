@@ -21,6 +21,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Order_Creditmemo extends Mage_Sales_Model_Resource_Order_Creditmemo
-{
-}
+class Mage_Sales_Model_Mysql4_Order_Creditmemo extends Mage_Sales_Model_Resource_Order_Creditmemo {}

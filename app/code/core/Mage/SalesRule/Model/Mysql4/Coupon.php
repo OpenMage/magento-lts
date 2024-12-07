@@ -21,6 +21,4 @@
  * @package    Mage_SalesRule
  * @deprecated
  */
-class Mage_SalesRule_Model_Mysql4_Coupon extends Mage_SalesRule_Model_Resource_Coupon
-{
-}
+class Mage_SalesRule_Model_Mysql4_Coupon extends Mage_SalesRule_Model_Resource_Coupon {}

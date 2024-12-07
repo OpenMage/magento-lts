@@ -93,17 +93,17 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
 
         $this->_addLeft(
-            $this->getLayout()->createBlock('adminhtml/api_editroles')
+            $this->getLayout()->createBlock('adminhtml/api_editroles'),
         );
         $resources = Mage::getModel('api/roles')->getResourcesList();
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/api_buttons')
                 ->setRoleId($roleId)
                 ->setRoleInfo(Mage::getModel('api/roles')->load($roleId))
-                ->setTemplate('api/roleinfo.phtml')
+                ->setTemplate('api/roleinfo.phtml'),
         );
         $this->_addJs(
-            $this->getLayout()->createBlock('adminhtml/template')->setTemplate('api/role_users_grid_js.phtml')
+            $this->getLayout()->createBlock('adminhtml/template')->setTemplate('api/role_users_grid_js.phtml'),
         );
         $this->renderLayout();
     }

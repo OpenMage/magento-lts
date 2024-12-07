@@ -71,7 +71,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         foreach ($this->getNode('adapter_aliases')->children() as $alias => $adapter) {
             $aliases[$alias] = [
                 (string) $adapter->suggest_class, // model class name
-                (string) $adapter->suggest_method // model method name
+                (string) $adapter->suggest_method, // model method name
             ];
         }
         return $aliases;
@@ -240,7 +240,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         foreach ($faultsNode->children() as $faultName => $fault) {
             $faults[$faultName] = [
                 'code'    => (string) $fault->code,
-                'message' => Mage::helper($translateModule)->__((string)$fault->message)
+                'message' => Mage::helper($translateModule)->__((string) $fault->message),
             ];
         }
 

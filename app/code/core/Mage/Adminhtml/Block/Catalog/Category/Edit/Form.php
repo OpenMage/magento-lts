@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
 
         $this->setChild(
             'tabs',
-            $this->getLayout()->createBlock('adminhtml/catalog_category_tabs', 'tabs')
+            $this->getLayout()->createBlock('adminhtml/catalog_category_tabs', 'tabs'),
         );
 
         // Save button
@@ -53,8 +53,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Save Category'),
                         'onclick'   => "categorySubmit('" . $this->getSaveUrl() . "', true)",
-                        'class' => 'save'
-                    ])
+                        'class' => 'save',
+                    ]),
             );
         }
 
@@ -66,8 +66,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Delete Category'),
                         'onclick'   => "categoryDelete('" . $this->getUrl('*/*/delete', ['_current' => true]) . "', true, {$categoryId})",
-                        'class' => 'delete'
-                    ])
+                        'class' => 'delete',
+                    ]),
             );
         }
 
@@ -79,8 +79,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => "categoryReset('" . $this->getUrl($resetPath, ['_current' => true]) . "',true)"
-                    ])
+                        'onclick'   => "categoryReset('" . $this->getUrl($resetPath, ['_current' => true]) . "',true)",
+                    ]),
             );
         }
 
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         }
         $this->setChild(
             $alias . '_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config)
+            $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config),
         );
         $this->_additionalButtons[$alias] = $alias . '_button';
         return $this;

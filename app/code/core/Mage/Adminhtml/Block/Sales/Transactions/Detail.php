@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $this->_addButton('back', [
             'label'   => Mage::helper('sales')->__('Back'),
             'onclick' => Mage::helper('core/js')->getSetLocationJs($backUrl),
-            'class'   => 'back'
+            'class'   => 'back',
         ]);
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
             $this->_addButton('fetch', [
                 'label'   => Mage::helper('sales')->__('Fetch'),
                 'onclick' => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/fetch', ['_current' => true])),
-                'class'   => 'button'
+                'class'   => 'button',
             ]);
         }
     }
@@ -70,8 +70,8 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
             $this->formatDate(
                 $this->_txn->getCreatedAt(),
                 Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
-                true
-            )
+                true,
+            ),
         );
     }
 
@@ -82,15 +82,15 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
     {
         $this->setTxnIdHtml(Mage::helper('adminhtml/sales')->escapeHtmlWithLinks(
             $this->_txn->getHtmlTxnId(),
-            ['a']
+            ['a'],
         ));
 
         $this->setParentTxnIdUrlHtml(
-            $this->escapeHtml($this->getUrl('*/sales_transactions/view', ['txn_id' => $this->_txn->getParentId()]))
+            $this->escapeHtml($this->getUrl('*/sales_transactions/view', ['txn_id' => $this->_txn->getParentId()])),
         );
 
         $this->setParentTxnIdHtml(
-            $this->escapeHtml($this->_txn->getParentTxnId())
+            $this->escapeHtml($this->_txn->getParentTxnId()),
         );
 
         $this->setOrderIncrementIdHtml($this->escapeHtml($this->_txn->getOrder()->getIncrementId()));
@@ -98,11 +98,11 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $this->setTxnTypeHtml($this->escapeHtml($this->_txn->getTxnType()));
 
         $this->setOrderIdUrlHtml(
-            $this->escapeHtml($this->getUrl('*/sales_order/view', ['order_id' => $this->_txn->getOrderId()]))
+            $this->escapeHtml($this->getUrl('*/sales_order/view', ['order_id' => $this->_txn->getOrderId()])),
         );
 
         $this->setIsClosedHtml(
-            ($this->_txn->getIsClosed()) ? Mage::helper('sales')->__('Yes') : Mage::helper('sales')->__('No')
+            ($this->_txn->getIsClosed()) ? Mage::helper('sales')->__('Yes') : Mage::helper('sales')->__('No'),
         );
 
         $createdAt = (strtotime($this->_txn->getCreatedAt()))

@@ -45,12 +45,12 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
         $this->_uniqueFields = [
             [
                 'field' => ['id_path','store_id','is_system'],
-                'title' => Mage::helper('core')->__('ID Path for Specified Store')
+                'title' => Mage::helper('core')->__('ID Path for Specified Store'),
             ],
             [
-                 'field' => ['request_path','store_id'],
-                 'title' => Mage::helper('core')->__('Request Path for Specified Store'),
-            ]
+                'field' => ['request_path','store_id'],
+                'title' => Mage::helper('core')->__('Request Path for Specified Store'),
+            ],
         ];
         return $this;
     }
@@ -86,9 +86,9 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
     public function getRequestPathByIdPath($idPath, $store)
     {
         if ($store instanceof Mage_Core_Model_Store) {
-            $storeId = (int)$store->getId();
+            $storeId = (int) $store->getId();
         } else {
-            $storeId = (int)$store;
+            $storeId = (int) $store;
         }
 
         $select = $this->_getReadAdapter()->select();
@@ -99,7 +99,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
 
         $bind = [
             'store_id' => $storeId,
-            'id_path'  => $idPath
+            'id_path'  => $idPath,
         ];
 
         return $this->_getReadAdapter()->fetchOne($select, $bind);
@@ -127,7 +127,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
         $select  = $adapter->select()
             ->from($this->getMainTable())
             ->where('request_path IN (:' . implode(', :', array_flip($pathBind)) . ')')
-            ->where('store_id IN(?)', [Mage_Core_Model_App::ADMIN_STORE_ID, (int)$object->getStoreId()]);
+            ->where('store_id IN(?)', [Mage_Core_Model_App::ADMIN_STORE_ID, (int) $object->getStoreId()]);
 
         $items = $adapter->fetchAll($select, $pathBind);
 

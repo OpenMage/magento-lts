@@ -131,7 +131,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
             switch ($addressMode) {
                 case self::ADDRESS_BILLING:
                     if (!$quote->isVirtual()) {
-                        $usingCase = isset($addressItem['use_for_shipping']) ? (int)$addressItem['use_for_shipping'] : 0;
+                        $usingCase = isset($addressItem['use_for_shipping']) ? (int) $addressItem['use_for_shipping'] : 0;
                         switch ($usingCase) {
                             case 0:
                                 $shippingAddress = $quote->getShippingAddress();

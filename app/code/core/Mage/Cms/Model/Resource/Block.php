@@ -66,7 +66,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
         $oldStores = $this->lookupStoreIds($object->getId());
-        $newStores = (array)$object->getStores();
+        $newStores = (array) $object->getStores();
 
         $table  = $this->getTable('cms/block_store');
         $insert = array_diff($newStores, $oldStores);
@@ -75,7 +75,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         if ($delete) {
             $where = [
                 'block_id = ?'     => (int) $object->getId(),
-                'store_id IN (?)' => $delete
+                'store_id IN (?)' => $delete,
             ];
 
             $this->_getWriteAdapter()->delete($table, $where);
@@ -87,7 +87,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             foreach ($insert as $storeId) {
                 $data[] = [
                     'block_id'  => (int) $object->getId(),
-                    'store_id' => (int) $storeId
+                    'store_id' => (int) $storeId,
                 ];
             }
 
@@ -144,7 +144,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             $select->join(
                 ['cbs' => $this->getTable('cms/block_store')],
                 $this->getMainTable() . '.block_id = cbs.block_id',
-                ['store_id']
+                ['store_id'],
             )->where('is_active = ?', 1)
             ->where('cbs.store_id in (?) ', $stores)
             ->order('store_id DESC')
@@ -164,7 +164,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         if (Mage::app()->isSingleStoreMode()) {
             $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
         } else {
-            $stores = (array)$object->getData('stores');
+            $stores = (array) $object->getData('stores');
         }
 
         $select = $this->_getReadAdapter()->select()
@@ -172,7 +172,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             ->join(
                 ['cbs' => $this->getTable('cms/block_store')],
                 'cb.block_id = cbs.block_id',
-                []
+                [],
             )->where('cb.identifier = ?', $object->getData('identifier'))
             ->where('cbs.store_id IN (?)', $stores);
 
@@ -202,7 +202,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
             ->where('block_id = :block_id');
 
         $binds = [
-            ':block_id' => (int) $id
+            ':block_id' => (int) $id,
         ];
 
         return $adapter->fetchCol($select, $binds);

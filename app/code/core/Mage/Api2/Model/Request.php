@@ -134,7 +134,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public function getBodyParams()
     {
         if ($this->_bodyParams == null) {
-            $this->_bodyParams = $this->_getInterpreter()->interpret((string)$this->getRawBody());
+            $this->_bodyParams = $this->_getInterpreter()->interpret((string) $this->getRawBody());
         }
         return $this->_bodyParams;
     }
@@ -159,7 +159,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if (isset($matches[2]) && self::REQUEST_CHARSET != strtolower($matches[2])) {
             throw new Mage_Api2_Exception(
                 'UTF-8 is the only supported charset',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
         return $matches[1];
@@ -202,7 +202,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             'GET'    => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
             'POST'   => Mage_Api2_Model_Resource::OPERATION_CREATE,
             'PUT'    => Mage_Api2_Model_Resource::OPERATION_UPDATE,
-            'DELETE' => Mage_Api2_Model_Resource::OPERATION_DELETE
+            'DELETE' => Mage_Api2_Model_Resource::OPERATION_DELETE,
         ];
 
         return $operationByMethod[$this->getMethod()];

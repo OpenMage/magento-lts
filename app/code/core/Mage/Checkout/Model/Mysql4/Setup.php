@@ -21,6 +21,4 @@
  * @package    Mage_Checkout
  * @deprecated
  */
-class Mage_Checkout_Model_Mysql4_Setup extends Mage_Checkout_Model_Resource_Setup
-{
-}
+class Mage_Checkout_Model_Mysql4_Setup extends Mage_Checkout_Model_Resource_Setup {}

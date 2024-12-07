@@ -42,12 +42,12 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             $productId = $product;
         }
         $select = $read->select()->from($this->getMainTable())
-            ->where('product_id = ?', (int)$productId);
+            ->where('product_id = ?', (int) $productId);
 
         if ($object->getCustomerId()) {
-            $select->where('customer_id = ?', (int)$object->getCustomerId());
+            $select->where('customer_id = ?', (int) $object->getCustomerId());
         } else {
-            $select->where('visitor_id = ?', (int)$object->getVisitorId());
+            $select->where('visitor_id = ?', (int) $object->getVisitorId());
         }
 
         $data = $read->fetchRow($select);
@@ -71,11 +71,11 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
      */
     public function getCount($customerId, $visitorId)
     {
-        $bind = ['visitore_id' => (int)$visitorId];
+        $bind = ['visitore_id' => (int) $visitorId];
         $select = $this->_getReadAdapter()->select()->from($this->getMainTable(), 'COUNT(*)')
             ->where('visitor_id = :visitore_id');
         if ($customerId) {
-            $bind['customer_id'] = (int)$customerId;
+            $bind['customer_id'] = (int) $customerId;
             $select->where('customer_id = :customer_id');
         }
         return $this->_getReadAdapter()->fetchOne($select, $bind);
@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
                 ->joinLeft(
                     ['visitor_table' => $this->getTable('log/visitor')],
                     'visitor_table.visitor_id=compare_table.visitor_id AND compare_table.customer_id IS NULL',
-                    []
+                    [],
                 )
                 ->where('compare_table.visitor_id > ?', 0)
                 ->where('visitor_table.visitor_id IS NULL')
@@ -107,7 +107,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
 
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                $this->_getWriteAdapter()->quoteInto('catalog_compare_item_id IN(?)', $itemIds)
+                $this->_getWriteAdapter()->quoteInto('catalog_compare_item_id IN(?)', $itemIds),
             );
         }
 
@@ -170,7 +170,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
                 'store_id'      => $row['store_id'],
                 'customer_id'   => $object->getCustomerId(),
                 'visitor_id'    => $object->getVisitorId(),
-                'product_id'    => $row['product_id']
+                'product_id'    => $row['product_id'],
             ];
             $update[$row[$this->getIdFieldName()]] = $row['product_id'];
         }
@@ -183,7 +183,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
                     'store_id'      => $row['store_id'],
                     'customer_id'   => $object->getCustomerId(),
                     'visitor_id'    => $object->getVisitorId(),
-                    'product_id'    => $row['product_id']
+                    'product_id'    => $row['product_id'],
                 ];
             }
         }
@@ -191,7 +191,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
         if ($delete) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $delete)
+                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $delete),
             );
         }
         if ($update) {
@@ -200,7 +200,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
                 $this->_getWriteAdapter()->update(
                     $this->getMainTable(),
                     $bind,
-                    $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId)
+                    $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId),
                 );
             }
         }
@@ -219,11 +219,11 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     {
         $where = [];
         if ($customerId) {
-            $customerId = (int)$customerId;
+            $customerId = (int) $customerId;
             $where[] = $this->_getWriteAdapter()->quoteInto('customer_id = ?', $customerId);
         }
         if ($visitorId) {
-            $visitorId = (int)$visitorId;
+            $visitorId = (int) $visitorId;
             $where[] = $this->_getWriteAdapter()->quoteInto('visitor_id = ?', $visitorId);
         }
         if (!$where) {

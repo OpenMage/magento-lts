@@ -208,13 +208,13 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
 
         $joinCondition = [
             'links.linked_product_id = e.entity_id',
-            $adapter->quoteInto('links.link_type_id = ?', $this->_linkTypeId)
+            $adapter->quoteInto('links.link_type_id = ?', $this->_linkTypeId),
         ];
         $joinType = 'join';
         if ($this->getProduct() && $this->getProduct()->getId()) {
             $productId = $this->getProduct()->getId();
             if ($this->_isStrongMode) {
-                $this->getSelect()->where('links.product_id = ?', (int)$productId);
+                $this->getSelect()->where('links.product_id = ?', (int) $productId);
             } else {
                 $joinType = 'joinLeft';
                 $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
@@ -227,7 +227,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             $select->$joinType(
                 ['links' => $this->getTable('catalog/product_link')],
                 implode(' AND ', $joinCondition),
-                ['link_id']
+                ['link_id'],
             );
             $this->joinAttributes();
         }
@@ -260,7 +260,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             ->joinLeft(
                 ['set' => $this->getTable('eav/attribute_set')],
                 'e.attribute_set_id = set.attribute_set_id',
-                ['attribute_set_name']
+                ['attribute_set_name'],
             )
             ->order('set.attribute_set_name ' . $dir);
         return $this;
@@ -297,12 +297,12 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
 
             $joinCondiotion = [
                 "{$alias}.link_id = links.link_id",
-                $this->getSelect()->getAdapter()->quoteInto("{$alias}.product_link_attribute_id = ?", $attribute['id'])
+                $this->getSelect()->getAdapter()->quoteInto("{$alias}.product_link_attribute_id = ?", $attribute['id']),
             ];
             $this->getSelect()->joinLeft(
                 [$alias => $table],
                 implode(' AND ', $joinCondiotion),
-                [$attribute['code'] => 'value']
+                [$attribute['code'] => 'value'],
             );
         }
 

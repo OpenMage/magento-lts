@@ -41,7 +41,7 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
                     'adminhtml/promo_widget_chooser_sku',
                     'promo_widget_chooser_sku',
                     ['js_form_object' => $request->getParam('form'),
-                    ]
+                    ],
                 );
                 break;
 
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
                 $block = $this->getLayout()->createBlock(
                     'adminhtml/catalog_category_checkboxes_tree',
                     'promo_widget_chooser_category_ids',
-                    ['js_form_object' => $request->getParam('form')]
+                    ['js_form_object' => $request->getParam('form')],
                 )
                     ->setCategoryIds($ids)
                 ;
@@ -92,7 +92,7 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
             }
             $this->getResponse()->setBody(
                 $this->getLayout()->createBlock('adminhtml/catalog_category_tree')
-                    ->getTreeJson($category)
+                    ->getTreeJson($category),
             );
         }
     }

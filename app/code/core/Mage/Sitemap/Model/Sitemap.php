@@ -145,15 +145,15 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate categories sitemap
          */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/category/priority', $storeId);
+        $changefreq = (string) Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
+        $priority   = (string) Mage::getStoreConfig('sitemap/category/priority', $storeId);
         $lastmod    = Mage::getStoreConfigFlag('sitemap/category/lastmod', $storeId) ? $date : '';
         $collection = Mage::getResourceModel('sitemap/catalog_category')->getCollection($storeId);
         $categories = new Varien_Object();
         $categories->setItems($collection);
         Mage::dispatchEvent('sitemap_categories_generating_before', [
             'collection' => $categories,
-            'store_id' => $storeId
+            'store_id' => $storeId,
         ]);
         foreach ($categories->getItems() as $item) {
             $xml = $this->getSitemapRow($baseUrl . $item->getUrl(), $lastmod, $changefreq, $priority);
@@ -164,15 +164,15 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate products sitemap
          */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/product/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/product/priority', $storeId);
+        $changefreq = (string) Mage::getStoreConfig('sitemap/product/changefreq', $storeId);
+        $priority   = (string) Mage::getStoreConfig('sitemap/product/priority', $storeId);
         $lastmod    = Mage::getStoreConfigFlag('sitemap/product/lastmod', $storeId) ? $date : '';
         $collection = Mage::getResourceModel('sitemap/catalog_product')->getCollection($storeId);
         $products = new Varien_Object();
         $products->setItems($collection);
         Mage::dispatchEvent('sitemap_products_generating_before', [
             'collection' => $products,
-            'store_id' => $storeId
+            'store_id' => $storeId,
         ]);
         foreach ($products->getItems() as $item) {
             $xml = $this->getSitemapRow($baseUrl . $item->getUrl(), $lastmod, $changefreq, $priority);
@@ -183,16 +183,16 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         /**
          * Generate cms pages sitemap
          */
-        $homepage = (string)Mage::getStoreConfig('web/default/cms_home_page', $storeId);
-        $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/page/priority', $storeId);
+        $homepage = (string) Mage::getStoreConfig('web/default/cms_home_page', $storeId);
+        $changefreq = (string) Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
+        $priority   = (string) Mage::getStoreConfig('sitemap/page/priority', $storeId);
         $lastmod    = Mage::getStoreConfigFlag('sitemap/page/lastmod', $storeId) ? $date : '';
         $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
         $pages = new Varien_Object();
         $pages->setItems($collection);
         Mage::dispatchEvent('sitemap_cms_pages_generating_before', [
             'collection' => $pages,
-            'store_id' => $storeId
+            'store_id' => $storeId,
         ]);
         foreach ($pages->getItems() as $item) {
             $url = $item->getUrl();
@@ -209,14 +209,14 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
             'file'      => $io ,
             'base_url'  => $baseUrl ,
             'date'      => $date,
-            'store_id'  => $storeId
+            'store_id'  => $storeId,
         ]);
 
         $io->streamWrite('</urlset>');
         $io->streamClose();
 
         $this->setSitemapTime(
-            Mage::getSingleton('core/date')->gmtDate(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT)
+            Mage::getSingleton('core/date')->gmtDate(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT),
         );
         $this->save();
 

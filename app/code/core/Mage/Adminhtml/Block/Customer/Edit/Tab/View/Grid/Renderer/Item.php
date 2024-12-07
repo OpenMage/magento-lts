@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
     protected function getFormattedOptionValue($option)
     {
         $params = [
-            'max_length' => 55
+            'max_length' => 55,
         ];
         return Mage::helper('catalog/product_configuration')->getFormattedOptionValue($option, $params);
     }

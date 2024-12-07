@@ -66,13 +66,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
                 self::XML_PATH_SECURE_BASE_URL,
                 $value,
                 self::CONFIG_SCOPE,
-                self::CONFIG_SCOPE_ID
+                self::CONFIG_SCOPE_ID,
             );
             Mage::getConfig()->saveConfig(
                 self::XML_PATH_UNSECURE_BASE_URL,
                 $value,
                 self::CONFIG_SCOPE,
-                self::CONFIG_SCOPE_ID
+                self::CONFIG_SCOPE_ID,
             );
         }
 

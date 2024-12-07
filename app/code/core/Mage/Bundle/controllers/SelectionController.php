@@ -23,6 +23,4 @@ require_once 'Mage/Bundle/controllers/Adminhtml/Bundle/SelectionController.php';
  * @package    Mage_Bundle
  * @deprecated  after 1.4.2.0 Mage_Bundle_Adminhtml_Bundle_SelectionController is used
  */
-class Mage_Bundle_SelectionController extends Mage_Bundle_Adminhtml_Bundle_SelectionController
-{
-}
+class Mage_Bundle_SelectionController extends Mage_Bundle_Adminhtml_Bundle_SelectionController {}

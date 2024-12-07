@@ -62,7 +62,7 @@ class Mage_Persistent_Model_Persistent_Config
                 $io = new Varien_Io_File();
                 Mage::throwException(Mage::helper('persistent')->__(
                     'Cannot load configuration from file %s.',
-                    $io->getFilteredPath($filePath)
+                    $io->getFilteredPath($filePath),
                 ));
             }
             $xml = file_get_contents($filePath);

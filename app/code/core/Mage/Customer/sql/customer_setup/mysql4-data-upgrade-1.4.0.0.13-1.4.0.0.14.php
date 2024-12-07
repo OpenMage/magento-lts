@@ -69,13 +69,13 @@ foreach ($attributes as $attributeCode => $data) {
 // update customer address system attributes used_in_forms data
 $attributes = [
     'prefix', 'firstname', 'middlename', 'lastname', 'suffix', 'company', 'street', 'city', 'country_id',
-    'region', 'region_id', 'postcode', 'telephone', 'fax'
+    'region', 'region_id', 'postcode', 'telephone', 'fax',
 ];
 
 $defaultUsedInForms = [
     'adminhtml_customer_address',
     'customer_address_edit',
-    'customer_register_address'
+    'customer_register_address',
 ];
 
 foreach ($attributes as $attributeCode) {

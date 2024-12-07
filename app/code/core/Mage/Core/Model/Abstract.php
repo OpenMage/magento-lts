@@ -419,7 +419,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($flag !== null) {
             $this->_isObjectNew = $flag;
         }
-        return $this->_isObjectNew ?? !(bool)$this->getId();
+        return $this->_isObjectNew ?? !(bool) $this->getId();
     }
 
     /**

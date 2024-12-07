@@ -238,7 +238,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     public function process($responseData)
     {
         $debugData = [
-            'response' => $responseData
+            'response' => $responseData,
         ];
         $this->_debug($debugData);
 
@@ -428,7 +428,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     {
         $response = $this->getResponse();
         if ($response->getUser1()) {
-            return (int)$response->getUser1();
+            return (int) $response->getUser1();
         }
 
         return Mage::app()->getStore($this->getStore())->getId();
@@ -556,9 +556,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param Varien_Object $payment
      * @param string $txnId
      */
-    protected function _addTransaction($payment, $txnId)
-    {
-    }
+    protected function _addTransaction($payment, $txnId) {}
 
     /**
      * Initialize request
@@ -578,9 +576,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @deprecated since 1.6.2.0
      * @param string $token
      */
-    public function prepareOrderReview($token = null)
-    {
-    }
+    public function prepareOrderReview($token = null) {}
 
     /**
      * Additional authorization logic for Account Verification
@@ -601,9 +597,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @deprecated since 1.6.2.0
      */
-    protected function _process(Varien_Object $document)
-    {
-    }
+    protected function _process(Varien_Object $document) {}
 
     /**
      * Check Transaction
@@ -652,7 +646,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             $website = Mage::getModel('core/website')->load($request->getParam('website'));
             $secure = Mage::getStoreConfigFlag(
                 Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
-                $website->getDefaultStore()
+                $website->getDefaultStore(),
             );
             $path = $secure
                 ? Mage_Core_Model_Store::XML_PATH_SECURE_BASE_LINK_URL

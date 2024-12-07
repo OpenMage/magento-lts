@@ -27,7 +27,7 @@ $conn->addConstraint(
     $installer->getTable('downloadable/link_purchased'),
     'order_item_id',
     $installer->getTable('sales/order_item'),
-    'item_id'
+    'item_id',
 );
 
 $select = $installer->getConnection()->select()
@@ -41,7 +41,7 @@ foreach ($result as $row) {
     $installer->getConnection()->update(
         $installer->getTable('downloadable/link_purchased'),
         ['order_item_id' => $row['order_item_id']],
-        $installer->getConnection()->quoteInto('purchased_id = ?', $row['purchased_id'])
+        $installer->getConnection()->quoteInto('purchased_id = ?', $row['purchased_id']),
     );
 }
 

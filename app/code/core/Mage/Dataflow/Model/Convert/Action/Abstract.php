@@ -169,13 +169,13 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     public function importXml(Varien_Simplexml_Element $actionNode)
     {
         foreach ($actionNode->attributes() as $key => $value) {
-            $this->setParam($key, (string)$value);
+            $this->setParam($key, (string) $value);
         }
 
         if ($actionNode['use']) {
-            $container = $this->getProfile()->getContainer((string)$actionNode['use']);
+            $container = $this->getProfile()->getContainer((string) $actionNode['use']);
         } else {
-            $this->setParam('class', $this->getClassNameByType((string)$actionNode['type']));
+            $this->setParam('class', $this->getClassNameByType((string) $actionNode['type']));
             $container = $action->getContainer();
         }
         $this->setContainer($container);
@@ -183,7 +183,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
             $this->getProfile()->addContainer($this->getParam('name'), $container);
         }
         foreach ($actionNode->var as $varNode) {
-            $container->setVar((string)$varNode['name'], (string)$varNode);
+            $container->setVar((string) $varNode['name'], (string) $varNode);
         }
         foreach ($actionNode->action as $actionSubnode) {
             $action = $this->addAction();
@@ -204,7 +204,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
             if (!method_exists($this->getContainer(), $method)) {
                 $this->getContainer()->addException(
                     'Unable to run action method: ' . $method,
-                    Mage_Dataflow_Model_Convert_Exception::FATAL
+                    Mage_Dataflow_Model_Convert_Exception::FATAL,
                 );
             }
 

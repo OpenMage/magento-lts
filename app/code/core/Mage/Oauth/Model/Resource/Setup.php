@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Oauth
  */
-class Mage_Oauth_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
-{
-}
+class Mage_Oauth_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup {}

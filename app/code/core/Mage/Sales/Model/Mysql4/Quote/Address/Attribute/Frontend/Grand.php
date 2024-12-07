@@ -19,6 +19,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Quote_Address_Attribute_Frontend_Grand extends Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Grand
-{
-}
+class Mage_Sales_Model_Mysql4_Quote_Address_Attribute_Frontend_Grand extends Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Grand {}

@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Report_Sales_Sales extends Mage_Adminhtml_Block_Widge
         $this->_removeButton('add');
         $this->addButton('filter_form_submit', [
             'label'     => Mage::helper('reports')->__('Show Report'),
-            'onclick'   => 'filterFormSubmit()'
+            'onclick'   => 'filterFormSubmit()',
         ]);
     }
 

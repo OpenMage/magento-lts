@@ -35,8 +35,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
                 ->setData([
                     'label'   => Mage::helper('sales')->__('Add Tracking Number'),
                     'class'   => '',
-                    'onclick' => 'trackingControl.add()'
-                ])
+                    'onclick' => 'trackingControl.add()',
+                ]),
         );
         return $this;
     }
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
     {
         $carriers = [];
         $carrierInstances = Mage::getSingleton('shipping/config')->getAllCarriers(
-            $this->getShipment()->getStoreId()
+            $this->getShipment()->getStoreId(),
         );
         $carriers['custom'] = Mage::helper('sales')->__('Custom Value');
         foreach ($carrierInstances as $code => $carrier) {

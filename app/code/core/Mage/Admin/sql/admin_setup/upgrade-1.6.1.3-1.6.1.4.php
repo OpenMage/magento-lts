@@ -32,12 +32,12 @@ $obsoleteAcl = [
     'admin/xmlconnect/admin_connect',
     'admin/xmlconnect/queue',
     'admin/xmlconnect/history',
-    'admin/xmlconnect/templates'
+    'admin/xmlconnect/templates',
 ];
 
 $installer->getConnection()->delete(
     $installer->getTable('admin/rule'),
-    ['resource_id IN (?)' => $obsoleteAcl]
+    ['resource_id IN (?)' => $obsoleteAcl],
 );
 
 $installer->endSetup();

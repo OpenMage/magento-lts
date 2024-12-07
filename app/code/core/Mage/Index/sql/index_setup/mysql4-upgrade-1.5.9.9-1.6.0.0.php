@@ -23,12 +23,12 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('index_process_event'),
-    'FK_INDEX_EVNT_PROCESS'
+    'FK_INDEX_EVNT_PROCESS',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('index/process_event'),
-    'FK_INDEX_PROCESS_EVENT'
+    'FK_INDEX_PROCESS_EVENT',
 );
 
 /**
@@ -36,17 +36,17 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('index/event'),
-    'IDX_UNIQUE_EVENT'
+    'IDX_UNIQUE_EVENT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('index/process'),
-    'IDX_CODE'
+    'IDX_CODE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('index/process_event'),
-    'FK_INDEX_EVNT_PROCESS'
+    'FK_INDEX_EVNT_PROCESS',
 );
 
 /**
@@ -61,41 +61,41 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Event Id'
+                'comment'   => 'Event Id',
             ],
             'type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'nullable'  => false,
-                'comment'   => 'Type'
+                'comment'   => 'Type',
             ],
             'entity' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'nullable'  => false,
-                'comment'   => 'Entity'
+                'comment'   => 'Entity',
             ],
             'entity_pk' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
-                'comment'   => 'Entity Primary Key'
+                'comment'   => 'Entity Primary Key',
             ],
             'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Creation Time'
+                'comment'   => 'Creation Time',
             ],
             'old_data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '2M',
-                'comment'   => 'Old Data'
+                'comment'   => 'Old Data',
             ],
             'new_data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '2M',
-                'comment'   => 'New Data'
-            ]
+                'comment'   => 'New Data',
+            ],
         ],
-        'comment' => 'Index Event'
+        'comment' => 'Index Event',
     ],
     $installer->getTable('index/process') => [
         'columns' => [
@@ -105,38 +105,38 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Process Id'
+                'comment'   => 'Process Id',
             ],
             'indexer_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'nullable'  => false,
-                'comment'   => 'Indexer Code'
+                'comment'   => 'Indexer Code',
             ],
             'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 15,
                 'nullable'  => false,
                 'default'   => 'pending',
-                'comment'   => 'Status'
+                'comment'   => 'Status',
             ],
             'started_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Started At'
+                'comment'   => 'Started At',
             ],
             'ended_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Ended At'
+                'comment'   => 'Ended At',
             ],
             'mode' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 9,
                 'nullable'  => false,
                 'default'   => 'real_time',
-                'comment'   => 'Mode'
-            ]
+                'comment'   => 'Mode',
+            ],
         ],
-        'comment' => 'Index Process'
+        'comment' => 'Index Process',
     ],
     $installer->getTable('index/process_event') => [
         'columns' => [
@@ -145,25 +145,25 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Process Id'
+                'comment'   => 'Process Id',
             ],
             'event_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Event Id'
+                'comment'   => 'Event Id',
             ],
             'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 7,
                 'nullable'  => false,
                 'default'   => 'new',
-                'comment'   => 'Status'
-            ]
+                'comment'   => 'Status',
+            ],
         ],
-        'comment' => 'Index Process Event'
-    ]
+        'comment' => 'Index Process Event',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -176,10 +176,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'index/event',
         ['type', 'entity', 'entity_pk'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['type', 'entity', 'entity_pk'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
@@ -187,16 +187,16 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'index/process',
         ['indexer_code'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['indexer_code'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('index/process_event'),
     $installer->getIdxName('index/process_event', ['event_id']),
-    ['event_id']
+    ['event_id'],
 );
 
 /**
@@ -207,7 +207,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('index/process_event'),
     'event_id',
     $installer->getTable('index/event'),
-    'event_id'
+    'event_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -215,7 +215,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('index/process_event'),
     'process_id',
     $installer->getTable('index/process'),
-    'process_id'
+    'process_id',
 );
 
 $installer->endSetup();

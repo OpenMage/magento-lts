@@ -23,17 +23,17 @@ $installer = $this;
 $installer->getConnection()->addColumn(
     $this->getTable('sales/quote'),
     'global_currency_code',
-    'varchar(255) NULL AFTER `store_to_quote_rate`'
+    'varchar(255) NULL AFTER `store_to_quote_rate`',
 );
 $installer->getConnection()->addColumn(
     $this->getTable('sales/quote'),
     'base_to_quote_rate',
-    'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+    'decimal(12,4) NULL AFTER `store_to_quote_rate`',
 );
 $installer->getConnection()->addColumn(
     $this->getTable('sales/quote'),
     'base_to_global_rate',
-    'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+    'decimal(12,4) NULL AFTER `store_to_quote_rate`',
 );
 
 $installer->addAttribute('quote', 'global_currency_code', ['type' => 'static']);

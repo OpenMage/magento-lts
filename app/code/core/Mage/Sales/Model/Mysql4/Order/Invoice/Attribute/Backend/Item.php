@@ -19,6 +19,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Order_Invoice_Attribute_Backend_Item extends Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Item
-{
-}
+class Mage_Sales_Model_Mysql4_Order_Invoice_Attribute_Backend_Item extends Mage_Sales_Model_Resource_Order_Invoice_Attribute_Backend_Item {}

@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
             'header'    => Mage::helper('sales')->__('Product Name'),
             'index'     => 'product_name',
             'type'      => 'string',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
             'index'     => 'qty_ordered',
             'type'      => 'number',
             'total'     => 'sum',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addExportType('*/*/exportBestsellersCsv', Mage::helper('adminhtml')->__('CSV'));

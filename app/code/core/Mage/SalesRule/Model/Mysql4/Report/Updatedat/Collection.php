@@ -21,6 +21,4 @@
  * @package    Mage_SalesRule
  * @deprecated
  */
-class Mage_SalesRule_Model_Mysql4_Report_Updatedat_Collection extends Mage_SalesRule_Model_Resource_Report_Updatedat_Collection
-{
-}
+class Mage_SalesRule_Model_Mysql4_Report_Updatedat_Collection extends Mage_SalesRule_Model_Resource_Report_Updatedat_Collection {}

@@ -100,7 +100,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
             $storeId = is_object($store) ? $store->getId() : $store;
             $this->_designConfig = new Varien_Object([
                 'area' => Mage::getDesign()->getArea(),
-                'store' => $storeId
+                'store' => $storeId,
             ]);
         }
         return $this->_designConfig;

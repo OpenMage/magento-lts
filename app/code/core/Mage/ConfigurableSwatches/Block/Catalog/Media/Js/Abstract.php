@@ -82,7 +82,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
 
             $fallbacks[$product->getId()] = [
                 'product' => $product,
-                'image_fallback' => $this->_getJsImageFallbackString($imageFallback)
+                'image_fallback' => $this->_getJsImageFallbackString($imageFallback),
             ];
         }
 

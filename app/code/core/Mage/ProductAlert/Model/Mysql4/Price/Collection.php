@@ -21,6 +21,4 @@
  * @package    Mage_ProductAlert
  * @deprecated
  */
-class Mage_ProductAlert_Model_Mysql4_Price_Collection extends Mage_ProductAlert_Model_Resource_Price_Collection
-{
-}
+class Mage_ProductAlert_Model_Mysql4_Price_Collection extends Mage_ProductAlert_Model_Resource_Price_Collection {}

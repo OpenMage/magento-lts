@@ -36,8 +36,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Save Attribute Set'),
                     'onclick'   => 'if (addSet.submit()) disableElements(\'save\');',
-                    'class' => 'save'
-            ])
+                    'class' => 'save',
+                ]),
         );
         $this->setChild(
             'back_button',
@@ -45,13 +45,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Back'),
                     'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
-                    'class' => 'back'
-            ])
+                    'class' => 'back',
+                ]),
         );
 
         $this->setChild(
             'setForm',
-            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset')
+            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset'),
         );
         return parent::_prepareLayout();
     }

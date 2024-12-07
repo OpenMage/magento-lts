@@ -21,6 +21,4 @@
  * @package    Mage_Rating
  * @deprecated
  */
-class Mage_Rating_Model_Mysql4_Rating_Option_Vote extends Mage_Rating_Model_Resource_Rating_Option_Vote
-{
-}
+class Mage_Rating_Model_Mysql4_Rating_Option_Vote extends Mage_Rating_Model_Resource_Rating_Option_Vote {}

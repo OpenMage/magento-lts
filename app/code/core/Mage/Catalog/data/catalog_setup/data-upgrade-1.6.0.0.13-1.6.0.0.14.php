@@ -39,7 +39,7 @@ if ($attributeTableOld != $attributeTableNew) {
 
     $query = $select->insertFromSelect(
         $attributeTableNew,
-        ['entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value']
+        ['entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value'],
     );
 
     $connection->query($query);
@@ -47,7 +47,7 @@ if ($attributeTableOld != $attributeTableNew) {
     $connection->delete(
         $attributeTableOld,
         $connection->quoteInto('entity_type_id = ?', $entityTypeId)
-            . $connection->quoteInto(' AND attribute_id = ?', $attributeId)
+            . $connection->quoteInto(' AND attribute_id = ?', $attributeId),
     );
 
     $connection->enableTableKeys($attributeTableOld)

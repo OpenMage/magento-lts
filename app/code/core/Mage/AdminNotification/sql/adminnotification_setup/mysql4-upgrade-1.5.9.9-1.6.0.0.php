@@ -23,17 +23,17 @@ $installer->startSetup();
  */
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('adminnotification/inbox'),
-    'IDX_SEVERITY'
+    'IDX_SEVERITY',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('adminnotification/inbox'),
-    'IDX_IS_READ'
+    'IDX_IS_READ',
 );
 
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('adminnotification/inbox'),
-    'IDX_IS_REMOVE'
+    'IDX_IS_REMOVE',
 );
 
 /**
@@ -48,53 +48,53 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Notification id'
+                'comment'   => 'Notification id',
             ],
             'severity' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Problem type'
+                'comment'   => 'Problem type',
             ],
             'date_added' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Create date'
+                'comment'   => 'Create date',
             ],
             'title' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Title'
+                'comment'   => 'Title',
             ],
             'description' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Description'
+                'comment'   => 'Description',
             ],
             'url' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Url'
+                'comment'   => 'Url',
             ],
             'is_read' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Flag if notification read'
+                'comment'   => 'Flag if notification read',
             ],
             'is_remove' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Flag if notification might be removed'
-            ]
+                'comment'   => 'Flag if notification might be removed',
+            ],
         ],
-        'comment' => 'Adminnotification Inbox'
-    ]
+        'comment' => 'Adminnotification Inbox',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -105,19 +105,19 @@ $installer->getConnection()->modifyTables($tables);
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('adminnotification/inbox'),
     $installer->getIdxName('adminnotification/inbox', ['severity']),
-    ['severity']
+    ['severity'],
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('adminnotification/inbox'),
     $installer->getIdxName('adminnotification/inbox', ['is_read']),
-    ['is_read']
+    ['is_read'],
 );
 
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('adminnotification/inbox'),
     $installer->getIdxName('adminnotification/inbox', ['is_remove']),
-    ['is_remove']
+    ['is_remove'],
 );
 
 $installer->endSetup();

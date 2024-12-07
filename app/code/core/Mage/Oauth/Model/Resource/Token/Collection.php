@@ -43,7 +43,7 @@ class Mage_Oauth_Model_Resource_Token_Collection extends Mage_Core_Model_Resourc
         $select->joinLeft(
             ['c' => $this->getTable('oauth/consumer')],
             'c.entity_id = main_table.consumer_id',
-            'name'
+            'name',
         );
 
         return $this;

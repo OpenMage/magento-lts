@@ -62,19 +62,19 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             self::EVENT_TYPE_REINDEX_PRICE,
         ],
         Mage_Core_Model_Config_Data::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Customer_Model_Group::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
-        ]
+            Mage_Index_Model_Event::TYPE_SAVE,
+        ],
     ];
 
     protected $_relatedConfigSettings = [
         Mage_Catalog_Helper_Data::XML_PATH_PRICE_SCOPE,
-        Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK
+        Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
     ];
 
     protected function _construct()
@@ -117,7 +117,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             'tax_class_id',
             'status',
             'required_options',
-            'force_reindex_required'
+            'force_reindex_required',
         ];
     }
 

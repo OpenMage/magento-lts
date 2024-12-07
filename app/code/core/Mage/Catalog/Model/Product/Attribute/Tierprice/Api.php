@@ -152,7 +152,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
                 'website_id' => $tierPrice['website'],
                 'cust_group' => $tierPrice['customer_group_id'],
                 'price_qty'  => $tierPrice['qty'],
-                'price'      => $tierPrice['price']
+                'price'      => $tierPrice['price'],
             ];
         }
 

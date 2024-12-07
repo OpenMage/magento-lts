@@ -21,6 +21,4 @@
  * @package    Mage_Catalog
  * @deprecated
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Catalog_Model_Resource_Url
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Catalog_Model_Resource_Url {}

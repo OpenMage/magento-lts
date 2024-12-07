@@ -219,14 +219,14 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                     Mage::helper('sales')->__('Customs Value'),
                     $itemCollsX[++$i] + $txtIndent,
                     $this->y,
-                    'UTF-8'
+                    'UTF-8',
                 );
             }
             $page->drawText(
                 Mage::helper('sales')->__('Qty Ordered'),
                 $itemCollsX[++$i] + $txtIndent,
                 $this->y,
-                'UTF-8'
+                'UTF-8',
             );
             $page->drawText(Mage::helper('sales')->__('Qty'), $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8');
 
@@ -252,14 +252,14 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                         $packaging->displayPrice($item->getCustomsValue()),
                         $itemCollsX[++$i] + $txtIndent,
                         $this->y,
-                        'UTF-8'
+                        'UTF-8',
                     );
                 }
                 $page->drawText(
                     $packaging->getQtyOrderedItem($item->getOrderItemId()),
                     $itemCollsX[++$i] + $txtIndent,
                     $this->y,
-                    'UTF-8'
+                    'UTF-8',
                 );
                 $page->drawText($item->getQty() * 1, $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8');
             }

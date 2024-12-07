@@ -59,8 +59,8 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Delete'),
                     'onclick'   => 'deleteImage(#image#)',
-                    'class' => 'delete'
-            ])
+                    'class' => 'delete',
+                ]),
         );
 
         $this->setChild(
@@ -69,8 +69,8 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Add New Image'),
                     'onclick'   => 'addNewImage()',
-                    'class' => 'add'
-            ])
+                    'class' => 'add',
+                ]),
         );
         return parent::_prepareLayout();
     }

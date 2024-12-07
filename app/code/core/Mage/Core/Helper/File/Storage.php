@@ -37,7 +37,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $_internalStorageList = [
-        Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM
+        Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM,
     ];
 
     /**

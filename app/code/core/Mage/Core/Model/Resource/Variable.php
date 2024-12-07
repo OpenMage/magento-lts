@@ -75,21 +75,21 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
                 $this->getTable('core/variable_value'),
                 [
                     'variable_id = ?' => $object->getId(),
-                    'store_id = ?' => $object->getStoreId()
-                ]
+                    'store_id = ?' => $object->getStoreId(),
+                ],
             );
         } else {
             $data =  [
                 'variable_id' => $object->getId(),
                 'store_id'    => $object->getStoreId(),
                 'plain_value' => $object->getPlainValue(),
-                'html_value'  => $object->getHtmlValue()
+                'html_value'  => $object->getHtmlValue(),
             ];
             $data = $this->_prepareDataForTable(new Varien_Object($data), $this->getTable('core/variable_value'));
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getTable('core/variable_value'),
                 $data,
-                ['plain_value', 'html_value']
+                ['plain_value', 'html_value'],
             );
         }
         return $this;
@@ -121,18 +121,18 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
         $select->joinLeft(
             ['def' => $this->getTable('core/variable_value')],
             'def.variable_id = ' . $this->getMainTable() . '.variable_id AND def.store_id = 0',
-            []
+            [],
         )
             ->joinLeft(
                 ['store' => $this->getTable('core/variable_value')],
                 'store.variable_id = def.variable_id AND store.store_id = ' . $adapter->quote($storeId),
-                []
+                [],
             )
             ->columns([
                 'plain_value'       => $ifNullPlainValue,
                 'html_value'        => $ifNullHtmlValue,
                 'store_plain_value' => 'store.plain_value',
-                'store_html_value'  => 'store.html_value'
+                'store_html_value'  => 'store.html_value',
             ]);
 
         return $this;

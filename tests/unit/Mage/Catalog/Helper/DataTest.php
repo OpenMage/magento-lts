@@ -54,10 +54,10 @@ class DataTest extends TestCase
         yield 'test #2 w/ length' => [
             [
                 '10',
-                '0'
+                '0',
             ],
             '100',
-            2
+            2,
         ];
     }
 

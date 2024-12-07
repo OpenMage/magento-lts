@@ -28,7 +28,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
      * @var array
      */
     protected $_particularAttributes = [
-        '_associated_sku', '_associated_default_qty', '_associated_position'
+        '_associated_sku', '_associated_default_qty', '_associated_position',
     ];
 
     /**
@@ -73,12 +73,12 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
             ->from($resource->getTable('catalog/product_link_attribute'), [
                 'id'   => 'product_link_attribute_id',
                 'code' => 'product_link_attribute_code',
-                'type' => 'data_type'
+                'type' => 'data_type',
             ])->where('link_type_id = ?', $groupedLinkId);
         foreach ($connection->fetchAll($select) as $row) {
             $attributes[$row['code']] = [
                 'id' => $row['id'],
-                'table' => $resource->getAttributeTypeTable($row['type'])
+                'table' => $resource->getAttributeTypeTable($row['type']),
             ];
         }
         while ($bunch = $this->_entityModel->getNextBunch()) {
@@ -88,7 +88,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 'attr_product_ids' => [],
                 'position'         => [],
                 'qty'              => [],
-                'relation'         => []
+                'relation'         => [],
             ];
             foreach ($bunch as $rowNum => $rowData) {
                 if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)
@@ -128,13 +128,13 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     if ($pos) {
                         $linksData['position']["{$productId} {$linkedProductId}"] = [
                             'product_link_attribute_id' => $attributes['position']['id'],
-                            'value' => $pos
+                            'value' => $pos,
                         ];
                     }
                     if ($qty) {
                         $linksData['qty']["{$productId} {$linkedProductId}"] = [
                             'product_link_attribute_id' => $attributes['qty']['id'],
-                            'value' => $qty
+                            'value' => $qty,
                         ];
                     }
                 }
@@ -145,8 +145,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     $mainTable,
                     $connection->quoteInto(
                         'product_id IN (?) AND link_type_id = ' . $groupedLinkId,
-                        array_keys($linksData['product_ids'])
-                    )
+                        array_keys($linksData['product_ids']),
+                    ),
                 );
             }
             if ($linksData['links']) {
@@ -157,7 +157,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                         $mainData[] = [
                             'product_id'        => $productId,
                             'linked_product_id' => $linkedId,
-                            'link_type_id'      => $linkType
+                            'link_type_id'      => $linkType,
                         ];
                     }
                 }
@@ -168,11 +168,11 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
             if ($linksData['attr_product_ids']) {
                 $savedData = $connection->fetchPairs($connection->select()
                     ->from($mainTable, [
-                        new Zend_Db_Expr('CONCAT_WS(" ", product_id, linked_product_id)'), 'link_id'
+                        new Zend_Db_Expr('CONCAT_WS(" ", product_id, linked_product_id)'), 'link_id',
                     ])
                     ->where(
                         'product_id IN (?) AND link_type_id = ' . $groupedLinkId,
-                        array_keys($linksData['attr_product_ids'])
+                        array_keys($linksData['attr_product_ids']),
                     ));
                 foreach ($savedData as $pseudoKey => $linkId) {
                     if (isset($linksData['position'][$pseudoKey])) {

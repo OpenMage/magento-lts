@@ -163,7 +163,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
         return $this->getUrl('*/sales_order_view_giftmessage/save', [
             'entity'    => $this->getItem()->getId(),
             'type'      => 'order_item',
-            'reload'    => true
+            'reload'    => true,
         ]);
     }
 

@@ -25,7 +25,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('sales_flat_quote_item'),
     'parent_item_id',
     $installer->getTable('sales_flat_quote_item'),
-    'item_id'
+    'item_id',
 );
 
 $installer->endSetup();

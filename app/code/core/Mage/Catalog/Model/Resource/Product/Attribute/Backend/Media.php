@@ -47,12 +47,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         $eventObjectWrapper = new Varien_Object(
             [
                 'product' => $product,
-                'backend_attribute' => $object
-            ]
+                'backend_attribute' => $object,
+            ],
         );
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_gallery_before',
-            ['event_object_wrapper' => $eventObjectWrapper]
+            ['event_object_wrapper' => $eventObjectWrapper],
         );
 
         if ($eventObjectWrapper->hasProductIdsOverride()) {
@@ -184,7 +184,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             $data = [
                 'attribute_id' => $object->getAttribute()->getId(),
                 'entity_id'    => $newProductId,
-                'value'        => $newFiles[$row['value_id']] ?? $row['value']
+                'value'        => $newFiles[$row['value_id']] ?? $row['value'],
             ];
 
             $valueIdMap[$row['value_id']] = $this->insertGallery($data);
@@ -225,12 +225,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         return $adapter->select()
             ->from(
                 ['main' => $this->getMainTable()],
-                ['value_id', 'value AS file', 'product_id' => 'entity_id']
+                ['value_id', 'value AS file', 'product_id' => 'entity_id'],
             )
             ->joinLeft(
                 ['value' => $this->getTable(self::GALLERY_VALUE_TABLE)],
-                $adapter->quoteInto('main.value_id = value.value_id AND value.store_id = ?', (int)$storeId),
-                ['label','position','disabled']
+                $adapter->quoteInto('main.value_id = value.value_id AND value.store_id = ?', (int) $storeId),
+                ['label','position','disabled'],
             )
             ->joinLeft( // Joining default values
                 ['default_value' => $this->getTable(self::GALLERY_VALUE_TABLE)],
@@ -238,8 +238,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
                 [
                     'label_default' => 'label',
                     'position_default' => 'position',
-                    'disabled_default' => 'disabled'
-                ]
+                    'disabled_default' => 'disabled',
+                ],
             )
             ->where('main.attribute_id = ?', $attributeId)
             ->where('main.entity_id in (?)', $productIds)

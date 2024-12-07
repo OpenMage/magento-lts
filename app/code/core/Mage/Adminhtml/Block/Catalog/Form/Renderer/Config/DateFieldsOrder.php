@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_DateFieldsOrder extends 
         $_options = [
             'd' => Mage::helper('adminhtml')->__('Day'),
             'm' => Mage::helper('adminhtml')->__('Month'),
-            'y' => Mage::helper('adminhtml')->__('Year')
+            'y' => Mage::helper('adminhtml')->__('Year'),
         ];
 
         $element->setValues($_options)

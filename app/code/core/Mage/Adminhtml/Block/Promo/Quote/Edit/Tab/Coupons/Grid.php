@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     {
         $this->addColumn('code', [
             'header' => Mage::helper('salesrule')->__('Coupon Code'),
-            'index'  => 'code'
+            'index'  => 'code',
         ]);
 
         $this->addColumn('created_at', [
@@ -79,12 +79,12 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
             'type'     => 'options',
             'options'  => [
                 Mage::helper('adminhtml')->__('No'),
-                Mage::helper('adminhtml')->__('Yes')
+                Mage::helper('adminhtml')->__('Yes'),
             ],
             'renderer' => 'adminhtml/promo_quote_edit_tab_coupons_grid_column_renderer_used',
             'filter_condition_callback' => [
-                Mage::getResourceModel('salesrule/coupon_collection'), 'addIsUsedFilterCallback'
-            ]
+                Mage::getResourceModel('salesrule/coupon_collection'), 'addIsUsedFilterCallback',
+            ],
         ]);
 
         $this->addColumn('times_used', [
@@ -112,10 +112,10 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
         $this->getMassactionBlock()->setHideFormElement(true);
 
         $this->getMassactionBlock()->addItem(MassAction::DELETE, [
-             'label'    => Mage::helper('adminhtml')->__('Delete'),
-             'url'      => $this->getUrl('*/*/couponsMassDelete', ['_current' => true]),
-             'confirm'  => Mage::helper('salesrule')->__('Are you sure you want to delete the selected coupon(s)?'),
-             'complete' => 'refreshCouponCodesGrid'
+            'label'    => Mage::helper('adminhtml')->__('Delete'),
+            'url'      => $this->getUrl('*/*/couponsMassDelete', ['_current' => true]),
+            'confirm'  => Mage::helper('salesrule')->__('Are you sure you want to delete the selected coupon(s)?'),
+            'complete' => 'refreshCouponCodesGrid',
         ]);
 
         return $this;

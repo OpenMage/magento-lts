@@ -70,12 +70,12 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
             'html_name' => 'api2_roles[]',
             'values'    => $this->_getSelectedRoles(),
             'align'     => 'center',
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('role_name', [
             'header'    => $this->__('Role Name'),
-            'index'     => 'role_name'
+            'index'     => 'role_name',
         ]);
 
         return parent::_prepareColumns();
@@ -180,7 +180,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     {
         return $this->getUrl(
             '*/api2_role/rolesGrid',
-            ['user_id' => Mage::registry('permissions_user')->getUserId()]
+            ['user_id' => Mage::registry('permissions_user')->getUserId()],
         );
     }
 }

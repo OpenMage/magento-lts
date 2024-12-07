@@ -20,12 +20,12 @@ $connection = $installer->getConnection();
 $installer->startSetup();
 $data = [
     ['paypal_reversed', 'PayPal Reversed'],
-    ['paypal_canceled_reversal', 'PayPal Canceled Reversal']
+    ['paypal_canceled_reversal', 'PayPal Canceled Reversal'],
 ];
 $connection = $installer->getConnection()->insertArray(
     $installer->getTable('sales/order_status'),
     ['status', 'label'],
-    $data
+    $data,
 );
 /**
  * Set default value for "skip order review page" option for Express Checkout for new installations

@@ -44,7 +44,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
         $this->_select->join(
             ['country_table' => $this->getTable('directory/country')],
             'main_table.tax_country_id = country_table.country_id',
-            ['country_name' => 'iso2_code']
+            ['country_name' => 'iso2_code'],
         );
 
         return $this;
@@ -60,7 +60,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
         $this->_select->joinLeft(
             ['region_table' => $this->getTable('directory/country_region')],
             'main_table.tax_region_id = region_table.region_id',
-            ['region_name' => 'code']
+            ['region_name' => 'code'],
         );
         return $this;
     }
@@ -73,12 +73,12 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      */
     public function joinTitle($store = null)
     {
-        $storeId = (int)Mage::app()->getStore($store)->getId();
+        $storeId = (int) Mage::app()->getStore($store)->getId();
         $this->_select->joinLeft(
             ['title_table' => $this->getTable('tax/tax_calculation_rate_title')],
             $this->getConnection()->quoteInto('main_table.tax_calculation_rate_id = title_table.tax_calculation_rate_id'
                 . ' AND title_table.store_id = ?', $storeId),
-            ['title' => 'value']
+            ['title' => 'value'],
         );
 
         return $this;
@@ -96,12 +96,12 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
             $tableAlias    = sprintf('title_table_%s', $store->getId());
             $joinCondition = implode(' AND ', [
                 "main_table.tax_calculation_rate_id = {$tableAlias}.tax_calculation_rate_id",
-                $this->getConnection()->quoteInto($tableAlias . '.store_id = ?', $store->getId())
+                $this->getConnection()->quoteInto($tableAlias . '.store_id = ?', $store->getId()),
             ]);
             $this->_select->joinLeft(
                 [$tableAlias => $this->getTable('tax/tax_calculation_rate_title')],
                 $joinCondition,
-                [$tableAlias => 'value']
+                [$tableAlias => 'value'],
             );
         }
         return $this;
@@ -171,7 +171,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
             $this->getSelect()
                 ->from(
                     ['rates' => $this->getMainTable()],
-                    ['tax_calculation_rate_id', 'code']
+                    ['tax_calculation_rate_id', 'code'],
                 )
                 ->limit($size, $offset);
 

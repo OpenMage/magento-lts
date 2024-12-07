@@ -87,7 +87,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
 
         $this->getLayout()->getBlock('content')
             ->append($this->getLayout()->createBlock('adminhtml/customer_group_edit', 'group')
-                        ->setEditMode((bool)Mage::registry('current_group')->getId()));
+                        ->setEditMode((bool) Mage::registry('current_group')->getId()));
 
         $this->renderLayout();
     }
@@ -108,14 +108,14 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         $customerGroup = Mage::getModel('customer/group');
         $id = $this->getRequest()->getParam('id');
         if (!is_null($id)) {
-            $customerGroup->load((int)$id);
+            $customerGroup->load((int) $id);
         }
 
-        $taxClass = (int)$this->getRequest()->getParam('tax_class');
+        $taxClass = (int) $this->getRequest()->getParam('tax_class');
 
         if ($taxClass) {
             try {
-                $customerGroupCode = (string)$this->getRequest()->getParam('code');
+                $customerGroupCode = (string) $this->getRequest()->getParam('code');
 
                 if (!empty($customerGroupCode)) {
                     $customerGroup->setCode($customerGroupCode);
@@ -142,7 +142,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
     public function deleteAction()
     {
         $customerGroup = Mage::getModel('customer/group');
-        if ($id = (int)$this->getRequest()->getParam('id')) {
+        if ($id = (int) $this->getRequest()->getParam('id')) {
             try {
                 $customerGroup->load($id);
                 $customerGroup->delete();

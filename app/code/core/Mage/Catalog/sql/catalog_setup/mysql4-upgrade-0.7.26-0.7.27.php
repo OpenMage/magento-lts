@@ -59,14 +59,14 @@ $conn->addConstraint(
     $installer->getTable('core_url_rewrite'),
     'category_id',
     $installer->getTable('catalog_category_entity'),
-    'entity_id'
+    'entity_id',
 );
 $conn->addConstraint(
     'FK_CORE_URL_REWRITE_PRODUCT',
     $installer->getTable('core_url_rewrite'),
     'product_id',
     $installer->getTable('catalog_product_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->endSetup();

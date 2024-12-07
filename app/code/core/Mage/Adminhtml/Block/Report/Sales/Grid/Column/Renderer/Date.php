@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date extends Mage_A
 
                         default:
                             self::$_format = Mage::app()->getLocale()->getDateFormat(
-                                Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM
+                                Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
                             );
                             break;
                     }

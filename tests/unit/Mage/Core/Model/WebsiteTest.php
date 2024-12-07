@@ -134,14 +134,14 @@ class WebsiteTest extends TestCase
         $this->assertInstanceOf(Mage_Directory_Model_Currency::class, $this->subject->getBaseCurrency());
     }
 
-//    /**
-//     * @group Mage_Core
-//     */
-//    public function testGetDefaultStore(): void
-//    {
-//        $this->assertIsObject($this->subject->getDefaultStore());
-//        $this->assertInstanceOf(Mage_Core_Model_Store::class, $this->subject->getDefaultStore());
-//    }
+    //    /**
+    //     * @group Mage_Core
+    //     */
+    //    public function testGetDefaultStore(): void
+    //    {
+    //        $this->assertIsObject($this->subject->getDefaultStore());
+    //        $this->assertInstanceOf(Mage_Core_Model_Store::class, $this->subject->getDefaultStore());
+    //    }
 
     /**
      * @group Mage_Core

@@ -21,12 +21,12 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('core/layout_link'),
     'area',
-    "VARCHAR(64) NOT NULL DEFAULT '' AFTER `store_id`"
+    "VARCHAR(64) NOT NULL DEFAULT '' AFTER `store_id`",
 );
 
 $installer->getConnection()->update(
     $installer->getTable('core/layout_link'),
-    ['area' => Mage::getSingleton('core/design_package')->getArea()]
+    ['area' => Mage::getSingleton('core/design_package')->getArea()],
 );
 
 $installer->endSetup();

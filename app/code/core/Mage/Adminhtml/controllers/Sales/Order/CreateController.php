@@ -114,7 +114,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         //Notify other modules about the session quote
         Mage::dispatchEvent(
             'create_order_session_quote_initialized',
-            ['session_quote' => $this->_getSession()]
+            ['session_quote' => $this->_getSession()],
         );
 
         return $this;
@@ -181,7 +181,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             ) {
                 $this->_getOrderCreateModel()->setShippingAsBilling(1);
             } else {
-                $this->_getOrderCreateModel()->setShippingAsBilling((int)$syncFlag);
+                $this->_getOrderCreateModel()->setShippingAsBilling((int) $syncFlag);
             }
         }
 
@@ -302,7 +302,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         if (!empty($couponCode)) {
             if ($this->_getQuote()->getCouponCode() !== $couponCode) {
                 $this->_getSession()->addError(
-                    $this->__('"%s" coupon code is not valid.', $this->_getHelper()->escapeHtml($couponCode))
+                    $this->__('"%s" coupon code is not valid.', $this->_getHelper()->escapeHtml($couponCode)),
                 );
             } else {
                 $this->_getSession()->addSuccess($this->__('The coupon code has been accepted.'));
@@ -465,7 +465,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         if ($orderId = $this->_getSession()->getReordered()) {
             $this->_getSession()->clear();
             $this->_redirect('*/sales_order/view', [
-                'order_id' => $orderId
+                'order_id' => $orderId,
             ]);
         } else {
             $this->_getSession()->clear();

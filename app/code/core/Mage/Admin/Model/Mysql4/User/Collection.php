@@ -21,6 +21,4 @@
  * @package    Mage_Admin
  * @deprecated
  */
-class Mage_Admin_Model_Mysql4_User_Collection extends Mage_Admin_Model_Resource_User_Collection
-{
-}
+class Mage_Admin_Model_Mysql4_User_Collection extends Mage_Admin_Model_Resource_User_Collection {}

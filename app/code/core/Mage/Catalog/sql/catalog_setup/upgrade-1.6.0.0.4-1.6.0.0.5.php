@@ -25,6 +25,6 @@ $installer->getConnection()->modifyColumn(
         'unsigned'  => false,
         'nullable'  => true,
         'default'   => null,
-        'comment'   => 'Position'
-    ]
+        'comment'   => 'Position',
+    ],
 );

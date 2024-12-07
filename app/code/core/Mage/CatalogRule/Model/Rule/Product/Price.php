@@ -71,7 +71,7 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
             $customerGroupId,
             $websiteId,
             $updateFields,
-            $websiteDate
+            $websiteDate,
         );
 
         return $this;

@@ -47,7 +47,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('index/event', ['type', 'entity', 'entity_pk'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         ['type', 'entity', 'entity_pk'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('Index Event');
 $installer->getConnection()->createTable($table);
@@ -81,7 +81,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('index/process', ['indexer_code'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         ['indexer_code'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('Index Process');
 $installer->getConnection()->createTable($table);
@@ -107,7 +107,7 @@ $table = $installer->getConnection()
     ], 'Status')
     ->addIndex(
         $installer->getIdxName('index/process_event', ['event_id']),
-        ['event_id']
+        ['event_id'],
     )
     ->addForeignKey(
         $installer->getFkName('index/process_event', 'event_id', 'index/event', 'event_id'),
@@ -115,7 +115,7 @@ $table = $installer->getConnection()
         $installer->getTable('index/event'),
         'event_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('index/process_event', 'process_id', 'index/process', 'process_id'),
@@ -123,7 +123,7 @@ $table = $installer->getConnection()
         $installer->getTable('index/process'),
         'process_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Index Process Event');
 $installer->getConnection()->createTable($table);

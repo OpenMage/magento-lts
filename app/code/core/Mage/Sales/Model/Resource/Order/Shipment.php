@@ -66,7 +66,7 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
             $adapter->quote(' '),
             $checkedMidllename,
             $adapter->quote(' '),
-            $checkedLastname
+            $checkedLastname,
         ]);
         $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
 
@@ -74,19 +74,19 @@ class Mage_Sales_Model_Resource_Order_Shipment extends Mage_Sales_Model_Resource
             'shipping_name',
             'sales/order_address',
             ['shipping_address_id' => 'entity_id'],
-            $concatName
+            $concatName,
         )
         ->addVirtualGridColumn(
             'order_increment_id',
             'sales/order',
             ['order_id' => 'entity_id'],
-            'increment_id'
+            'increment_id',
         )
         ->addVirtualGridColumn(
             'order_created_at',
             'sales/order',
             ['order_id' => 'entity_id'],
-            'created_at'
+            'created_at',
         );
 
         return $this;

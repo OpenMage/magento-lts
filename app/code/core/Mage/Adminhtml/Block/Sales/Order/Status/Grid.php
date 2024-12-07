@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
             'type'  => 'text',
             'index' => 'state',
             'width'     => '250px',
-            'frame_callback' => [$this, 'decorateState']
+            'frame_callback' => [$this, 'decorateState'],
         ]);
 
         $this->addColumn('unassign', [
@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         if (!empty($state)) {
             $url = $this->getUrl(
                 '*/*/unassign',
-                ['status' => $row->getStatus(), 'state' => $row->getState()]
+                ['status' => $row->getStatus(), 'state' => $row->getState()],
             );
             $label = Mage::helper('sales')->__('Unassign');
             $cell = '<a href="' . $url . '">' . $label . '</a>';

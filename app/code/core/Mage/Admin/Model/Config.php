@@ -63,7 +63,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
                 Mage::app()->saveCache(
                     $adminhtmlConfig->getXmlString(),
                     $this->getCacheId(),
-                    [Mage_Core_Model_Config::CACHE_TAG]
+                    [Mage_Core_Model_Config::CACHE_TAG],
                 );
             }
         }
@@ -162,8 +162,8 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         $moduleName = 'adminhtml';
         $menuNode = $this->getAdminhtmlConfig()->getNode('menu/' . str_replace('/', '/children/', trim($path, '/')));
         if ($menuNode->getAttribute('module')) {
-            $moduleName = (string)$menuNode->getAttribute('module');
+            $moduleName = (string) $menuNode->getAttribute('module');
         }
-        return Mage::helper($moduleName)->__((string)$menuNode->title);
+        return Mage::helper($moduleName)->__((string) $menuNode->title);
     }
 }

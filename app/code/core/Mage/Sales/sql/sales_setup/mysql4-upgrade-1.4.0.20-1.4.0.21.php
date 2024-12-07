@@ -21,7 +21,7 @@ $installer = $this;
 $frequencies = [
     Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_DAILY,
     Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_MONTHLY,
-    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_YEARLY
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_YEARLY,
 ];
 
 $foreignKeys = [
@@ -29,14 +29,14 @@ $foreignKeys = [
         'name' => 'FK_PRODUCT_ORDERED_AGGREGATED_%s_STORE_ID',
         'column' => 'store_id',
         'refTable' => 'core/store',
-        'refColumn' => 'store_id'
+        'refColumn' => 'store_id',
     ],
     [
         'name' => 'FK_PRODUCT_ORDERED_AGGREGATED_%s_PRODUCT_ID',
         'column' => 'product_id',
         'refTable' => 'catalog/product',
-        'refColumn' => 'entity_id'
-    ]
+        'refColumn' => 'entity_id',
+    ],
 ];
 
 /*
@@ -53,7 +53,7 @@ foreach ($frequencies as $frequency) {
             $tableName,
             $fkInfo['column'],
             $installer->getTable($fkInfo['refTable']),
-            $fkInfo['refColumn']
+            $fkInfo['refColumn'],
         );
     }
 

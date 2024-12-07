@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adm
             ->setData([
                 'label' => Mage::helper('catalog')->__('Add Group Price'),
                 'onclick' => 'return groupPriceControl.addItem()',
-                'class' => 'add'
+                'class' => 'add',
             ]);
         $button->setName('add_group_price_item_button');
 

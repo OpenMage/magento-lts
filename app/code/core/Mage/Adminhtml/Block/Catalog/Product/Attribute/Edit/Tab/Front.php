@@ -36,11 +36,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
         $yesno = [
             [
                 'value' => 0,
-                'label' => Mage::helper('catalog')->__('No')
+                'label' => Mage::helper('catalog')->__('No'),
             ],
             [
                 'value' => 1,
-                'label' => Mage::helper('catalog')->__('Yes')
+                'label' => Mage::helper('catalog')->__('Yes'),
             ]];
 
         $fieldset->addField('is_searchable', 'select', [

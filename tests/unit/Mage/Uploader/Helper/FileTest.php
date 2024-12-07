@@ -54,15 +54,15 @@ class FileTest extends TestCase
     {
         yield 'string exists' => [
             [
-                0 => 'application/vnd.lotus-1-2-3'
+                0 => 'application/vnd.lotus-1-2-3',
             ],
-            '123'
+            '123',
         ];
         yield 'string not exists' => [
             [
-                0 => 'application/octet-stream'
+                0 => 'application/octet-stream',
             ],
-            'not-exists'
+            'not-exists',
         ];
         yield 'array' => [
             [
@@ -74,7 +74,7 @@ class FileTest extends TestCase
                 '123',
                 'not-exists',
                 'test-new-node',
-            ]
+            ],
         ];
     }
 
@@ -130,19 +130,19 @@ class FileTest extends TestCase
     {
         yield 'no unit' => [
             1024,
-            '1024'
+            '1024',
         ];
         yield 'kilobyte' => [
             1024,
-            '1K'
+            '1K',
         ];
         yield 'megabyte' => [
             1048576,
-            '1M'
+            '1M',
         ];
         yield 'gigabyte' => [
             1073741824,
-            '1G'
+            '1G',
         ];
     }
 }

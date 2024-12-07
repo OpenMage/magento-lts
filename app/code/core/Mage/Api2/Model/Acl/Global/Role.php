@@ -78,7 +78,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName()))
+                Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName())),
             );
         }
 
@@ -98,7 +98,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName()))
+                Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName())),
             );
         }
 
@@ -128,7 +128,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     {
         return [
             self::ROLE_GUEST_ID,
-            self::ROLE_CUSTOMER_ID
+            self::ROLE_CUSTOMER_ID,
         ];
     }
 

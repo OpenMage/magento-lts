@@ -87,7 +87,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
             'type' => $fileInfo['type'] ?? self::DEFAULT_FILE_TYPE,
             'tmp_name' => $tmpFileName,
             'error' => 0,
-            'size' => filesize($tmpFileName)
+            'size' => filesize($tmpFileName),
         ];
     }
 

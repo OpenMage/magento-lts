@@ -144,7 +144,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     [
                         'website_id' => $website->getId(),
                         'product_id' => $product->getId(),
-                    ]
+                    ],
                 );
             } catch (Mage_Api2_Exception $e) {
                 // pre-validation errors are already added
@@ -155,7 +155,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                         [
                             'website_id' => $singleData['website_id'] ?? null,
                             'product_id' => $product->getId(),
-                        ]
+                        ],
                     );
                 }
             } catch (Exception $e) {
@@ -165,7 +165,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     [
                         'website_id' => $singleData['website_id'] ?? null,
                         'product_id' => $product->getId(),
-                    ]
+                    ],
                 );
             }
         }
@@ -224,12 +224,12 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
-            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
+            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType())),
         );
         $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'product_id' => $this->getRequest()->getParam('product_id'),
-            'website_id' => $website->getId()
+            'website_id' => $website->getId(),
         ];
         $uri = $chain->assemble($params);
 

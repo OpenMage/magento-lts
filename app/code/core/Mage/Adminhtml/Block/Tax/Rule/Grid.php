@@ -91,7 +91,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'align' => 'left',
                 'index' => 'code',
                 'filter_index' => 'code',
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'show_missing_option_values' => true,
                 'options' => Mage::getModel('tax/class')->getCollection()
                     ->setClassTypeFilter(Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER)->toOptionHash(),
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -121,7 +121,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'show_missing_option_values' => true,
                 'options' => Mage::getModel('tax/class')->getCollection()
                     ->setClassTypeFilter(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)->toOptionHash(),
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -135,7 +135,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'type'    => 'options',
                 'show_missing_option_values' => true,
                 'options' => Mage::getModel('tax/calculation_rate')->getCollection()->toOptionHashOptimized(),
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -143,8 +143,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             [
                 'header' => Mage::helper('tax')->__('Priority'),
                 'width' => '50px',
-                'index' => 'priority'
-            ]
+                'index' => 'priority',
+            ],
         );
 
         $this->addColumn(
@@ -152,8 +152,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             [
                 'header' => Mage::helper('tax')->__('Subtotal only'),
                 'width' => '50px',
-                'index' => 'calculate_subtotal'
-            ]
+                'index' => 'calculate_subtotal',
+            ],
         );
 
         $this->addColumn(
@@ -161,8 +161,8 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
             [
                 'header' => Mage::helper('tax')->__('Sort Order'),
                 'width' => '50px',
-                'index' => 'position'
-            ]
+                'index' => 'position',
+            ],
         );
 
         $actionsUrl = $this->getUrl('*/*/');

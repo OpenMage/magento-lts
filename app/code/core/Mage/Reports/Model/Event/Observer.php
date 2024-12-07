@@ -147,7 +147,7 @@ class Mage_Reports_Model_Event_Observer
 
         return $this->_event(
             Mage_Reports_Model_Event::EVENT_PRODUCT_SEND,
-            $observer->getEvent()->getProduct()->getId()
+            $observer->getEvent()->getProduct()->getId(),
         );
     }
 
@@ -238,7 +238,7 @@ class Mage_Reports_Model_Event_Observer
 
         return $this->_event(
             Mage_Reports_Model_Event::EVENT_PRODUCT_TO_WISHLIST,
-            $observer->getEvent()->getProduct()->getId()
+            $observer->getEvent()->getProduct()->getId(),
         );
     }
 
@@ -255,7 +255,7 @@ class Mage_Reports_Model_Event_Observer
 
         return $this->_event(
             Mage_Reports_Model_Event::EVENT_WISHLIST_SHARE,
-            $observer->getEvent()->getWishlist()->getId()
+            $observer->getEvent()->getWishlist()->getId(),
         );
     }
 

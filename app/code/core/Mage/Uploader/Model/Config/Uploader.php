@@ -108,7 +108,7 @@ class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abs
             ->setWithCredentials(false)
             ->setForceChunkSize(false)
             ->setQuery([
-                'form_key' => Mage::getSingleton('core/session')->getFormKey()
+                'form_key' => Mage::getSingleton('core/session')->getFormKey(),
             ])
             ->setMethod(self::UPLOAD_TYPE)
             ->setSimultaneousUploads(1)

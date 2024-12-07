@@ -21,6 +21,4 @@
  * @package    Mage_SalesRule
  * @deprecated
  */
-class Mage_SalesRule_Model_Mysql4_Rule extends Mage_SalesRule_Model_Resource_Rule
-{
-}
+class Mage_SalesRule_Model_Mysql4_Rule extends Mage_SalesRule_Model_Resource_Rule {}

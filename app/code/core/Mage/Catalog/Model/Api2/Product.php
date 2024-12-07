@@ -77,6 +77,6 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
                 $isAttributeVisible = true;
             }
         }
-        return (bool)$isAttributeVisible;
+        return (bool) $isAttributeVisible;
     }
 }

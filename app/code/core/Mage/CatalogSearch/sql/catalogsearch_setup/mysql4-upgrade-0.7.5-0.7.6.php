@@ -51,14 +51,14 @@ $connection->addConstraint(
     $installer->getTable('catalogsearch_query'),
     'store_id',
     $installer->getTable('core_store'),
-    'store_id'
+    'store_id',
 );
 $connection->addColumn($installer->getTable('catalogsearch_query'), 'is_active', 'tinyint(1) DEFAULT 1 AFTER `display_in_terms`');
 $connection->addColumn($installer->getTable('catalogsearch_query'), 'is_processed', 'tinyint(1) DEFAULT 0 AFTER `is_active`');
 
 $connection->dropKey($installer->getTable('catalogsearch_query'), 'search_query');
 $connection->addKey($installer->getTable('catalogsearch_query'), 'IDX_SEARCH_QUERY', [
-    'query_text', 'store_id', 'popularity'
+    'query_text', 'store_id', 'popularity',
 ]);
 
 $installer->endSetup();

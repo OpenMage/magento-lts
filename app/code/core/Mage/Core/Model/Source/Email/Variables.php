@@ -34,56 +34,56 @@ class Mage_Core_Model_Source_Email_Variables
         $this->_configVariables = [
             [
                 'value' => Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL,
-                'label' => Mage::helper('core')->__('Base Unsecure URL')
+                'label' => Mage::helper('core')->__('Base Unsecure URL'),
             ],
             [
                 'value' => Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL,
-                'label' => Mage::helper('core')->__('Base Secure URL')
+                'label' => Mage::helper('core')->__('Base Secure URL'),
             ],
             [
                 'value' => 'trans_email/ident_general/name',
-                'label' => Mage::helper('core')->__('General Contact Name')
+                'label' => Mage::helper('core')->__('General Contact Name'),
             ],
             [
                 'value' => 'trans_email/ident_general/email',
-                'label' => Mage::helper('core')->__('General Contact Email')
+                'label' => Mage::helper('core')->__('General Contact Email'),
             ],
             [
                 'value' => 'trans_email/ident_sales/name',
-                'label' => Mage::helper('core')->__('Sales Representative Contact Name')
+                'label' => Mage::helper('core')->__('Sales Representative Contact Name'),
             ],
             [
                 'value' => 'trans_email/ident_sales/email',
-                'label' => Mage::helper('core')->__('Sales Representative Contact Email')
+                'label' => Mage::helper('core')->__('Sales Representative Contact Email'),
             ],
             [
                 'value' => 'trans_email/ident_custom1/name',
-                'label' => Mage::helper('core')->__('Custom1 Contact Name')
+                'label' => Mage::helper('core')->__('Custom1 Contact Name'),
             ],
             [
                 'value' => 'trans_email/ident_custom1/email',
-                'label' => Mage::helper('core')->__('Custom1 Contact Email')
+                'label' => Mage::helper('core')->__('Custom1 Contact Email'),
             ],
             [
                 'value' => 'trans_email/ident_custom2/name',
-                'label' => Mage::helper('core')->__('Custom2 Contact Name')
+                'label' => Mage::helper('core')->__('Custom2 Contact Name'),
             ],
             [
                 'value' => 'trans_email/ident_custom2/email',
-                'label' => Mage::helper('core')->__('Custom2 Contact Email')
+                'label' => Mage::helper('core')->__('Custom2 Contact Email'),
             ],
             [
                 'value' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_NAME,
-                'label' => Mage::helper('core')->__('Store Name')
+                'label' => Mage::helper('core')->__('Store Name'),
             ],
             [
                 'value' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
-                'label' => Mage::helper('core')->__('Store Contact Telephone')
+                'label' => Mage::helper('core')->__('Store Contact Telephone'),
             ],
             [
                 'value' => 'general/store_information/address',
-                'label' => Mage::helper('core')->__('Store Contact Address')
-            ]
+                'label' => Mage::helper('core')->__('Store Contact Address'),
+            ],
         ];
     }
 
@@ -99,13 +99,13 @@ class Mage_Core_Model_Source_Email_Variables
         foreach ($this->_configVariables as $variable) {
             $optionArray[] = [
                 'value' => '{{config path="' . $variable['value'] . '"}}',
-                'label' => $variable['label']
+                'label' => $variable['label'],
             ];
         }
         if ($withGroup && $optionArray) {
             $optionArray = [
                 'label' => Mage::helper('core')->__('Store Contact Information'),
-                'value' => $optionArray
+                'value' => $optionArray,
             ];
         }
         return $optionArray;

@@ -44,7 +44,7 @@ $installer->getConnection()->addConstraint(
     $tablePaymentTransaction,
     'parent_id',
     $tablePaymentTransaction,
-    'transaction_id'
+    'transaction_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -52,7 +52,7 @@ $installer->getConnection()->addConstraint(
     $tablePaymentTransaction,
     'order_id',
     $tableOrders,
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -60,5 +60,5 @@ $installer->getConnection()->addConstraint(
     $tablePaymentTransaction,
     'payment_id',
     $tableOrderPayment,
-    'entity_id'
+    'entity_id',
 );

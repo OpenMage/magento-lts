@@ -53,7 +53,7 @@ class Magento_Db_Sql_Trigger
      */
     protected $_timeTypes = [
         self::SQL_TIME_AFTER,
-        self::SQL_TIME_BEFORE
+        self::SQL_TIME_BEFORE,
     ];
 
     /**
@@ -64,7 +64,7 @@ class Magento_Db_Sql_Trigger
     protected $_eventTypes = [
         self::SQL_EVENT_INSERT,
         self::SQL_EVENT_UPDATE,
-        self::SQL_EVENT_DELETE
+        self::SQL_EVENT_DELETE,
     ];
 
     /**
@@ -78,7 +78,7 @@ class Magento_Db_Sql_Trigger
         self::TIME      => self::SQL_TIME_AFTER,
         self::EVENT     => null,
         self::SCOPE     => self::SQL_FOR_EACH_ROW,
-        self::BODY      => []
+        self::BODY      => [],
     ];
 
     /**

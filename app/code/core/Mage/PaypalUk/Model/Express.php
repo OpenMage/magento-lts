@@ -71,7 +71,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
         $payment->setTransactionId($api->getPaypalTransactionId())->setIsTransactionClosed(0)
             ->setAdditionalInformation(
                 Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT,
-                $api->getRedirectRequired() || $api->getRedirectRequested()
+                $api->getRedirectRequired() || $api->getRedirectRequested(),
             )
             ->setIsTransactionPending($api->getIsPaymentPending())
             ->setTransactionAdditionalInfo(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID, $api->getTransactionId())

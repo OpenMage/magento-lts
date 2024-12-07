@@ -63,9 +63,9 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     protected function _getLinkSettings()
     {
         return [
-                    'table' => 'catalog/product_super_link',
-                    'parent_field' => 'parent_id',
-                    'child_field' => 'product_id',
+            'table' => 'catalog/product_super_link',
+            'parent_field' => 'parent_id',
+            'child_field' => 'product_id',
         ];
     }
 }

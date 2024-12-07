@@ -22,6 +22,4 @@
  *
  * @method int getId()
  */
-class Mage_Customer_Model_Entity_Attribute extends Mage_Customer_Model_Resource_Attribute
-{
-}
+class Mage_Customer_Model_Entity_Attribute extends Mage_Customer_Model_Resource_Attribute {}

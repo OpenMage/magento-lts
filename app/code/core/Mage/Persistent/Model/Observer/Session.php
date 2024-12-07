@@ -64,7 +64,7 @@ class Mage_Persistent_Model_Observer_Session
             Mage::getSingleton('core/cookie')->set(
                 Mage_Persistent_Model_Session::COOKIE_NAME,
                 $sessionModel->getKey(),
-                $persistentLifeTime
+                $persistentLifeTime,
             );
         }
     }
@@ -127,11 +127,11 @@ class Mage_Persistent_Model_Observer_Session
         $controllerAction = $observer->getEvent()->getControllerAction();
         if ($controllerAction) {
             $rememberMeCheckbox = $controllerAction->getRequest()->getPost('persistent_remember_me');
-            Mage::helper('persistent/session')->setRememberMeChecked((bool)$rememberMeCheckbox);
+            Mage::helper('persistent/session')->setRememberMeChecked((bool) $rememberMeCheckbox);
             if ($controllerAction->getFullActionName() == 'checkout_onepage_saveBilling'
                     || $controllerAction->getFullActionName() == 'customer_account_createpost'
             ) {
-                Mage::getSingleton('checkout/session')->setRememberMeChecked((bool)$rememberMeCheckbox);
+                Mage::getSingleton('checkout/session')->setRememberMeChecked((bool) $rememberMeCheckbox);
             }
         }
     }
@@ -154,7 +154,7 @@ class Mage_Persistent_Model_Observer_Session
         ) {
             Mage::getSingleton('core/cookie')->renew(
                 Mage_Persistent_Model_Session::COOKIE_NAME,
-                Mage::helper('persistent')->getLifeTime()
+                Mage::helper('persistent')->getLifeTime(),
             );
         }
     }

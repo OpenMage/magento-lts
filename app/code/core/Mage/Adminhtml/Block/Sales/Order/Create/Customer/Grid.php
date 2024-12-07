@@ -57,17 +57,17 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
         $this->addColumn('email', [
             'header'    => Mage::helper('sales')->__('Email'),
             'width'     => '150px',
-            'index'     => 'email'
+            'index'     => 'email',
         ]);
         $this->addColumn('Telephone', [
             'header'    => Mage::helper('sales')->__('Telephone'),
             'width'     => '100px',
-            'index'     => 'billing_telephone'
+            'index'     => 'billing_telephone',
         ]);
         $this->addColumn('billing_postcode', [
             'header'    => Mage::helper('sales')->__('ZIP/Post Code'),

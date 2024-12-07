@@ -82,7 +82,7 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
     {
         return array_merge(
             parent::getCacheTags(),
-            $this->getItemsTags($this->getItemsCollection())
+            $this->getItemsTags($this->getItemsCollection()),
         );
     }
 }

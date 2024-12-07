@@ -29,6 +29,6 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Simple extends Mage_Imp
      */
     protected $_forcedAttributesCodes = [
         'related_tgtr_position_behavior', 'related_tgtr_position_limit',
-        'upsell_tgtr_position_behavior', 'upsell_tgtr_position_limit'
+        'upsell_tgtr_position_behavior', 'upsell_tgtr_position_limit',
     ];
 }

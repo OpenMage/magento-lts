@@ -149,7 +149,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     public function canPerformAction($customerIdSession)
     {
         // Get the customer id from billing agreement and compare to logged in customer id
-        return (int)$this->getCustomerId() === (int)$customerIdSession;
+        return (int) $this->getCustomerId() === (int) $customerIdSession;
     }
 
     /**
@@ -204,7 +204,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     {
         return [
             self::STATUS_ACTIVE     => Mage::helper('sales')->__('Active'),
-            self::STATUS_CANCELED   => Mage::helper('sales')->__('Canceled')
+            self::STATUS_CANCELED   => Mage::helper('sales')->__('Canceled'),
         ];
     }
 

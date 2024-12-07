@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
             ->setData([
                 'id'        => 'synchronize_button',
                 'label'     => $this->helper('adminhtml')->__('Synchronize'),
-                'onclick'   => 'javascript:synchronize(); return false;'
+                'onclick'   => 'javascript:synchronize(); return false;',
             ]);
 
         return $button->toHtml();
@@ -119,7 +119,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
 
         return [
             'storage_type'      => $storageType,
-            'connection_name'   => $connectionName
+            'connection_name'   => $connectionName,
         ];
     }
 }

@@ -32,7 +32,7 @@ $installer->addAttribute($entityTypeId, 'custom_use_parent_settings', [
     'required'      => 0,
     'group'         => 'Custom Design',
     'sort_order'    => '5',
-    'global'        => 0
+    'global'        => 0,
 ]);
 $installer->addAttribute($entityTypeId, 'custom_apply_to_products', [
     'type'          => 'int',
@@ -42,7 +42,7 @@ $installer->addAttribute($entityTypeId, 'custom_apply_to_products', [
     'required'      => 0,
     'group'         => 'Custom Design',
     'sort_order'    => '6',
-    'global'        => 0
+    'global'        => 0,
 ]);
 $useParentSettingsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_use_parent_settings');
 $applyToProductsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_apply_to_products');
@@ -50,7 +50,7 @@ $applyToProductsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_
 $attributeIdExpr = new Zend_Db_Expr(
     'IF (e_a.attribute_id = e.attribute_id,' .
     $useParentSettingsAttributeId . ', ' .
-    $applyToProductsAttributeId . ')'
+    $applyToProductsAttributeId . ')',
 );
 $productValueExpr = new Zend_Db_Expr('IF (e.value IN (1,3), 1, 0)');
 $valueExpr = new Zend_Db_Expr('IF (e_a.attribute_id = e.attribute_id, 1, ' . $productValueExpr . ')');
@@ -62,12 +62,12 @@ $select = $installer->getConnection()->select()
             'attribute_id' => $attributeIdExpr,
             'store_id',
             'entity_id',
-            'value' => $valueExpr
-        ]
+            'value' => $valueExpr,
+        ],
     )
     ->joinCross(
         ['e_a' => $eavAttributeTable],
-        []
+        [],
     )
     ->where('e_a.attribute_id IN (?)', [$designApplyAttributeId, $designAttributeId])
     ->where('e.attribute_id = ?', $designApplyAttributeId)
@@ -78,7 +78,7 @@ $insertArray = [
     'attribute_id',
     'store_id',
     'entity_id',
-    'value'
+    'value',
 ];
 
 $sqlQuery = $select->insertFromSelect($catalogCategoryEntityIntTable, $insertArray, false);

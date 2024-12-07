@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
         /** @var Mage_Newsletter_Model_Template $template */
         $template = Mage::getModel('newsletter/template');
 
-        if ($id = (int)$this->getRequest()->getParam('id')) {
+        if ($id = (int) $this->getRequest()->getParam('id')) {
             $template->load($id);
         } else {
             $template->setTemplateType($this->getRequest()->getParam('type'));
@@ -35,13 +35,13 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
             $template->setTemplateStyles($this->getRequest()->getParam('styles'));
         }
         $template->setTemplateStyles(
-            $this->maliciousCodeFilter((string)$template->getTemplateStyles())
+            $this->maliciousCodeFilter((string) $template->getTemplateStyles()),
         );
         $template->setTemplateText(
-            $this->maliciousCodeFilter($template->getTemplateText())
+            $this->maliciousCodeFilter($template->getTemplateText()),
         );
 
-        $storeId = (int)$this->getRequest()->getParam('store_id');
+        $storeId = (int) $this->getRequest()->getParam('store_id');
         if (!$storeId) {
             $storeId = Mage::app()->getAnyStoreView()->getId();
         }

@@ -46,8 +46,8 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
         $this->_wsdlVariables = new Varien_Object(
             [
                 'name' => 'OpenMage',
-                'url'  => Mage::helper('api')->getServiceUrl('*/*/*', ['_query' => $queryParams], true)
-            ]
+                'url'  => Mage::helper('api')->getServiceUrl('*/*/*', ['_query' => $queryParams], true),
+            ],
         );
         parent::__construct($sourceData);
     }

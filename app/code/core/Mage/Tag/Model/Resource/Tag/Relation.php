@@ -43,14 +43,14 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
             $read = $this->_getReadAdapter();
             $bind = [
                 'tag_id'      => $model->getTagId(),
-                'customer_id' => $model->getCustomerId()
+                'customer_id' => $model->getCustomerId(),
             ];
 
             $select = $read->select()
                 ->from($this->getMainTable())
                 ->join(
                     $this->getTable('tag/tag'),
-                    $this->getTable('tag/tag') . '.tag_id = ' . $this->getMainTable() . '.tag_id'
+                    $this->getTable('tag/tag') . '.tag_id = ' . $this->getMainTable() . '.tag_id',
                 )
                 ->where($this->getMainTable() . '.tag_id = :tag_id')
                 ->where('customer_id = :customer_id');
@@ -80,7 +80,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     public function getProductIds($model)
     {
         $bind = [
-            'tag_id' => $model->getTagId()
+            'tag_id' => $model->getTagId(),
         ];
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'product_id')
@@ -99,7 +99,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
         if (!is_null($model->getStatusFilter())) {
             $select->join(
                 $this->getTable('tag/tag'),
-                $this->getTable('tag/tag') . '.tag_id = ' . $this->getMainTable() . '.tag_id'
+                $this->getTable('tag/tag') . '.tag_id = ' . $this->getMainTable() . '.tag_id',
             )
             ->where($this->getTable('tag/tag') . '.status = :t_status');
             $bind['t_status'] = $model->getStatusFilter();
@@ -135,7 +135,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
     {
         $condition = [
             'tag_id = ?'      => $tagId,
-            'customer_id = ?' => $customerId
+            'customer_id = ?' => $customerId,
         ];
 
         $data = ['active' => Mage_Tag_Model_Tag_Relation::STATUS_NOT_ACTIVE];
@@ -155,7 +155,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
 
         $bind = [
             'tag_id'   => $model->getTagId(),
-            'store_id' => $model->getStoreId()
+            'store_id' => $model->getStoreId(),
         ];
         $write = $this->_getWriteAdapter();
 
@@ -176,7 +176,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
                     'store_id'      => $model->getStoreId(),
                     'product_id'    => $value,
                     'customer_id'   => $model->getCustomerId(),
-                    'created_at'    => $this->formatDate(time())
+                    'created_at'    => $this->formatDate(time()),
                 ];
             }
             $write->insertMultiple($this->getMainTable(), $insertData);

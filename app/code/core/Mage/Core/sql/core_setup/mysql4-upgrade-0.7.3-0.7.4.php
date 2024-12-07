@@ -26,7 +26,7 @@ $rows = $installer->getConnection()->fetchAll(
     'carriers/dhl/password', 'carriers/dhl/shipping_key', 'carriers/dhl/shipping_intlkey',
     'carriers/fedex/account', 'carriers/ups/account_license_number', 'carriers/ups/username',
     'carriers/usps/userid', 'payment/authorizenet/login', 'payment/authorizenet/trans_key',
-    'payment/verisign/pwd', 'payment/verisign/user')"
+    'payment/verisign/pwd', 'payment/verisign/user')",
 );
 
 $hlp = Mage::helper('core');

@@ -39,7 +39,7 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
      */
     public function setHref($href, $type = null)
     {
-        $type = (string)$type;
+        $type = (string) $type;
         if (empty($type)) {
             $type = 'skin';
         }

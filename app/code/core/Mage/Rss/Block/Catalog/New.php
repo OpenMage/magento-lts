@@ -22,9 +22,7 @@
  */
 class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 {
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * @return string
@@ -46,7 +44,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
             'description' => $title,
             'link'        => $newurl,
             'charset'     => 'UTF-8',
-            'language'    => $lang
+            'language'    => $lang,
         ];
         $rssObj->_addHeader($data);
 
@@ -65,26 +63,26 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
             ->addStoreFilter()
             ->addAttributeToFilter('news_from_date', ['or' => [
                 0 => ['date' => true, 'to' => $todayEndOfDayDate],
-                1 => ['is' => new Zend_Db_Expr('null')]]
+                1 => ['is' => new Zend_Db_Expr('null')]],
             ], 'left')
             ->addAttributeToFilter('news_to_date', ['or' => [
                 0 => ['date' => true, 'from' => $todayStartOfDayDate],
-                1 => ['is' => new Zend_Db_Expr('null')]]
+                1 => ['is' => new Zend_Db_Expr('null')]],
             ], 'left')
             ->addAttributeToFilter(
                 [
                     ['attribute' => 'news_from_date', 'is' => new Zend_Db_Expr('not null')],
-                    ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')]
-                ]
+                    ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')],
+                ],
             )
             ->addAttributeToSort('news_from_date', 'desc')
             ->addAttributeToSelect(['name', 'short_description', 'description', 'thumbnail'], 'inner')
             ->addAttributeToSelect(
                 [
                     'price', 'special_price', 'special_from_date', 'special_to_date',
-                    'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
+                    'msrp_enabled', 'msrp_display_actual_price_type', 'msrp',
                 ],
-                'left'
+                'left',
             )
             ->applyFrontendPriceLimitations()
         ;
@@ -98,7 +96,7 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $products->getSelect(),
             [[$this, 'addNewItemXmlCallback']],
-            ['rssObj' => $rssObj, 'product' => $product]
+            ['rssObj' => $rssObj, 'product' => $product],
         );
 
         return $rssObj->createRssXml();
@@ -143,9 +141,9 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 
         $rssObj = $args['rssObj'];
         $data = [
-                'title'         => $product->getName(),
-                'link'          => $product->getProductUrl(),
-                'description'   => $description,
+            'title'         => $product->getName(),
+            'link'          => $product->getProductUrl(),
+            'description'   => $description,
         ];
         $rssObj->_addEntry($data);
     }

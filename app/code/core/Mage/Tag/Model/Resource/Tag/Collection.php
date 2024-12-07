@@ -43,7 +43,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      */
     public $_map               = [
         'fields' => [
-            'tag_id' => 'main_table.tag_id'
+            'tag_id' => 'main_table.tag_id',
         ],
     ];
 
@@ -144,12 +144,12 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             ->joinLeft(
                 ['relation' => $this->getTable('tag/relation')],
                 'main_table.tag_id = relation.tag_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['summary' => $this->getTable('tag/summary')],
                 'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id',
-                ['popularity']
+                ['popularity'],
             )
             ->group('main_table.tag_id');
 
@@ -184,8 +184,8 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
                 ->joinLeft(
                     [$tableAlias => $this->getTable('tag/summary')],
                     'main_table.tag_id = ' . $tableAlias . '.tag_id' . $joinCondition,
-                    ['store_id','popularity', 'customers', 'products'
-                    ]
+                    ['store_id','popularity', 'customers', 'products',
+                    ],
                 );
 
             $this->addFilterToMap('store_id', $tableAlias . '.store_id');
@@ -257,7 +257,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->getFlag('relation') && $field == 'popularity') {
             // TOFIX
             $this->getSelect()->having(
-                $this->_getConditionSql('COUNT(relation.tag_relation_id)', $condition)
+                $this->_getConditionSql('COUNT(relation.tag_relation_id)', $condition),
             );
         } elseif ($this->getFlag('summary')
             && in_array($field, ['customers', 'products', 'uses', 'historical_uses', 'popularity'])
@@ -297,7 +297,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if (!$this->getFlag('store_filter')) {
             $this->getSelect()->joinLeft(
                 ['summary_store' => $this->getTable('tag/summary')],
-                'main_table.tag_id = summary_store.tag_id'
+                'main_table.tag_id = summary_store.tag_id',
             );
 
             $this->getSelect()->where('summary_store.store_id IN (?)', $storeId);
@@ -404,7 +404,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         $this->setFlag('relation', true);
         $this->getSelect()->joinLeft(
             ['relation' => $this->getTable('tag/relation')],
-            'main_table.tag_id=relation.tag_id'
+            'main_table.tag_id=relation.tag_id',
         );
         return $this;
     }

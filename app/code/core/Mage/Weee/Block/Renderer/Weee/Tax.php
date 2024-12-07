@@ -180,7 +180,7 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
         $websites = [];
         $websites[0] = [
             'name' => $this->__('All Websites'),
-            'currency' => Mage::app()->getBaseCurrencyCode()
+            'currency' => Mage::app()->getBaseCurrencyCode(),
         ];
 
         if (!Mage::app()->isSingleStoreMode() && !$this->getElement()->getEntityAttribute()->isScopeGlobal()) {
@@ -215,10 +215,10 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
             'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(['id' => 'add_tax_' . $this->getElement()->getHtmlId(),
-                'label' => Mage::helper('catalog')->__('Add Tax'),
-                'onclick' => "weeeTaxControl.addItem('" . $this->getElement()->getHtmlId() . "')",
-                'class' => 'add'
-                ])
+                    'label' => Mage::helper('catalog')->__('Add Tax'),
+                    'onclick' => "weeeTaxControl.addItem('" . $this->getElement()->getHtmlId() . "')",
+                    'class' => 'add',
+                ]),
         );
     }
 

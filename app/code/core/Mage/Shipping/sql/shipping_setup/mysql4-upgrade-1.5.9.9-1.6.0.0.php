@@ -23,7 +23,7 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('shipping/tablerate'),
-    'DEST_COUNTRY'
+    'DEST_COUNTRY',
 );
 
 /**
@@ -38,39 +38,39 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Primary key'
+                'comment'   => 'Primary key',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'dest_country_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 4,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Destination coutry ISO/2 or ISO/3 code'
+                'comment'   => 'Destination coutry ISO/2 or ISO/3 code',
             ],
             'dest_region_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Destination Region Id'
+                'comment'   => 'Destination Region Id',
             ],
             'dest_zip' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 10,
                 'nullable'  => false,
                 'default'   => '*',
-                'comment'   => 'Destination Post Code (Zip)'
+                'comment'   => 'Destination Post Code (Zip)',
             ],
             'condition_name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 20,
                 'nullable'  => false,
-                'comment'   => 'Rate Condition name'
+                'comment'   => 'Rate Condition name',
             ],
             'condition_value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -78,7 +78,7 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Rate condition value'
+                'comment'   => 'Rate condition value',
             ],
             'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -86,7 +86,7 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Price'
+                'comment'   => 'Price',
             ],
             'cost' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -94,11 +94,11 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Cost'
-            ]
+                'comment'   => 'Cost',
+            ],
         ],
-        'comment' => 'Shipping Tablerate'
-    ]
+        'comment' => 'Shipping Tablerate',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -111,10 +111,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'shipping/tablerate',
         ['website_id', 'dest_country_id', 'dest_region_id', 'dest_zip', 'condition_name', 'condition_value'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['website_id', 'dest_country_id', 'dest_region_id', 'dest_zip', 'condition_name', 'condition_value'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->endSetup();
