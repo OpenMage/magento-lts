@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -44,7 +45,7 @@ Varien_Autoload::register();
 /** AUTOLOADER PATCH **/
 $autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
 if (!$autoloaderPath) {
-    $autoloaderPath = dirname($bp) . $ds .  'vendor';
+    $autoloaderPath = dirname($bp) . $ds . 'vendor';
     if (!is_dir($autoloaderPath)) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
@@ -173,7 +174,6 @@ function sendNotFoundPage()
  * Check resource by whitelist
  *
  * @param string $resource
- * @param array $allowedResources
  */
 function checkResource($resource, array $allowedResources)
 {

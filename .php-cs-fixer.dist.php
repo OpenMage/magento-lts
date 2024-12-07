@@ -107,15 +107,7 @@ return $config
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->in([
-                'app/code/core/Mage/',
-                'errors/',
-                'lib/Mage/',
-                'lib/Magento/',
-                'lib/Varien/',
-                'shell/',
-                'tests/unit/',
-            ])
+            ->in(__DIR__)
             ->name('*.php')
             ->ignoreDotFiles(true)
             ->ignoreVCS(true)
