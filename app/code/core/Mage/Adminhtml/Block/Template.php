@@ -132,8 +132,8 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
                 $button->setOnClick('window.close()');
                 break;
             case static::BUTTON_DELETE:
-                 $button->setLabel(Mage::helper('adminhtml')->__('Delete'));
-                 $button->setClass(static::BUTTON__CLASS_DELETE);
+                $button->setLabel(Mage::helper('adminhtml')->__('Delete'));
+                $button->setClass(static::BUTTON__CLASS_DELETE);
                 break;
             case static::BUTTON_REFRESH:
                 $button->setLabel(Mage::helper('adminhtml')->__('Refresh'));
