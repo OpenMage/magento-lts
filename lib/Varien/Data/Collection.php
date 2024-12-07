@@ -347,7 +347,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Adding item to item array
      *
-     * @param Varien_Object $item
      * @return  $this
      */
     public function addItem(Varien_Object $item)
