@@ -1,42 +1,45 @@
 ---
+title: Images
 tags:
 - Modules
 ---
 
-# Images
+# Image modules
 
 ## `anhuy1989/html5upload`
-Html 5 Upload Image product and cms.
+HTML5 Upload Image product and cms.
 
-This Plugin enable the upload image width html5 it's possible upload multiple image.
+This Plugin enable the upload image width HTML5 it's possible upload multiple image.
 
-#### Source
-- https://github.com/anhuy1989/html5upload
+!!! warning ""
+
+    No composer install available. [^1]
 
 ## `colinmollenhour/Perfect_Watermarks`
-A replacement for Magento's GD2 image adapter with imagemagick.
+Replacement for OpenMage's GD2 image adapter with ImageMagick.
 
-#### Install
+#### Install [^2]
 ```bash
 composer require colinmollenhour/perfect_watermarks
 ```
 
-#### Source
-- https://github.com/colinmollenhour/Perfect_Watermarks
-
 ## `fballiano/openmage-image-cleaner`
-- Identify and remove orphan **category images** (reading data from the default "image" attribute and **all custom attributes** of type "image").
-- Identify and remove orphan **product images** (reading data from media_gallery) and **product images cache**.
-- Identify and remove orphan **WYSIWYG images and files** (reading used images/files from cms_block, cms_page, core_email_template tables and all /skin/frontend CSS files).
-- Check before delete: you can review (and download) the identified images before removing them.
-- Possibility to **blacklist folders and/or files** (with wildcard support) not to ever identify them as orphans.
-- Possibility to **flush media/import, media/tmp, var/export, var/importexport**.
-- Compatible with **Magento 1.9, OpenMage 19 and OpenMage 20 on PHP >= 7.4**.
+Image cleaner module for OpenMage (and Magento 1.9).
 
-#### Install
+#### Install [^3]
 ```bash
 composer require fballiano/openmage-image-cleaner
 ```
 
-#### Source
-- https://github.com/fballiano/openmage-image-cleaner
+## `yireo/magento1-webp`
+Add WebP image support to your Magento pages.
+
+#### Install [^4]
+```bash
+composer require yireo/magento1-webp
+```
+
+[^1]: https://github.com/anhuy1989/html5upload
+[^2]: https://github.com/colinmollenhour/Perfect_Watermarks
+[^3]: https://github.com/fballiano/openmage-image-cleaner
+[^4]: https://github.com/yireo-magento1/Yireo_Webp
