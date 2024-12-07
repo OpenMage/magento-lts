@@ -32,11 +32,11 @@ composer config extra.magento-root-dir pub
 
 ## Require `magento-core-composer-installer`
 
-=== "PHP 7/8"
+=== "PHP 8"
 
-    For PHP 7 and 8[^1]
+    Only for PHP 8[^1]
     ``` bash
-    composer require "aydin-hassan/magento-core-composer-installer":"~2.0.0 || ^2.1.0"
+    composer require "aydin-hassan/magento-core-composer-installer":"~2.1.0"
     ```
 
 === "PHP 7"
@@ -46,11 +46,11 @@ composer config extra.magento-root-dir pub
     composer require "aydin-hassan/magento-core-composer-installer":"^2.0.0"
     ```
 
-=== "PHP 8"
+=== "PHP 7/8"
 
-    Only for PHP 8[^1]
+    For PHP 7 and 8[^1]
     ``` bash
-    composer require "aydin-hassan/magento-core-composer-installer":"~2.1.0"
+    composer require "aydin-hassan/magento-core-composer-installer":"~2.0.0 || ^2.1.0"
     ```
 
 ## Require `magento-lts`

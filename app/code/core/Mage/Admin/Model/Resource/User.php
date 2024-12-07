@@ -125,17 +125,6 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
     }
 
     /**
-     * Encrypt password
-     *
-     * @param string $pwStr
-     * @return string
-     */
-    private function _encryptPassword($pwStr)
-    {
-        return Mage::helper('core')->getHash($pwStr, Mage_Admin_Model_User::HASH_SALT_LENGTH);
-    }
-
-    /**
      * Set created/modified values before user save
      *
      * @param Mage_Admin_Model_User $user

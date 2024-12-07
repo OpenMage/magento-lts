@@ -1655,43 +1655,6 @@ class Mage_Paypal_Model_Config
     }
 
     /**
-     * Check whether specified country code is supported by build notation codes for specific countries
-     *
-     * @param string $code
-     * @return string|null
-     */
-    private function _matchBnCountryCode($code)
-    {
-        switch ($code) {
-            // GB == UK
-            case 'GB':
-                return 'UK';
-                // Australia, Austria, Belgium, Canada, China, France, Germany, Hong Kong, Italy
-            case 'AU':
-            case 'AT':
-            case 'BE':
-            case 'CA':
-            case 'CN':
-            case 'FR':
-            case 'DE':
-            case 'HK':
-            case 'IT':
-                // Japan, Mexico, Netherlands, Poland, Singapore, Spain, Switzerland, United Kingdom, United States
-            case 'JP':
-            case 'MX':
-            case 'NL':
-            case 'PL':
-            case 'SG':
-            case 'ES':
-            case 'CH':
-            case 'UK':
-            case 'US':
-                return $code;
-        }
-        return null;
-    }
-
-    /**
      * Map PayPal Standard config fields
      *
      * @param string $fieldName
