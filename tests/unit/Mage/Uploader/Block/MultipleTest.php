@@ -38,6 +38,7 @@ class MultipleTest extends TestCase
     }
 
     /**
+     * @covers Mage_Uploader_Block_Multiple::getButtonUploadBlock()
      * @group Mage_Uploader
      * @group Mage_Uploader_Block
      * @group AdminhtmlButtons

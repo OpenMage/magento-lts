@@ -56,7 +56,7 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
      */
     public function getSaveButtonHtml()
     {
-        return parent::getButtonSaveBlock()
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('currencysymbol')->__('Save Currency Symbols'))
             ->setOnClick('currencySymbolsForm.submit();')
             ->toHtml();

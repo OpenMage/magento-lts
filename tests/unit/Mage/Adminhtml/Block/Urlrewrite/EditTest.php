@@ -36,7 +36,11 @@ class EditTest extends TestCase
         if (!Mage::registry('current_product')) {
             Mage::register('current_product', new Mage_Catalog_Model_Product());
         }
-        Mage::register('current_category', new Mage_Catalog_Model_Category());
+
+        if (!Mage::registry('current_category')) {
+            Mage::register('current_category', new Mage_Catalog_Model_Category());
+        }
+
         Mage::register('current_urlrewrite', new Mage_Core_Model_Url_Rewrite());
 
         self::$subject = new Mage_Adminhtml_Block_Urlrewrite_Edit();

@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search extends Mage_Adminhtml_Bloc
      */
     public function getButtonsHtml()
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('sales')->__('Add Selected Product(s) to Order'))
             ->setOnClick('order.productGridAddSelected()')
             ->toHtml();

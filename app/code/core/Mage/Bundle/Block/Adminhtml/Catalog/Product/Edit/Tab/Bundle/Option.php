@@ -165,7 +165,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
 
     public function getButtonAddSelectionBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setId($this->getFieldId() . '_{{index}}_add_button')
             ->setLabel(Mage::helper('bundle')->__('Add Selection'))
             ->setOnClick('bSelection.showSearch(event)');
@@ -173,7 +173,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
 
     public function getButtonCloseSearchBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonCloseBlock()
+        return parent::getButtonBlockByType(self::BUTTON_CLOSE)
             ->setId($this->getFieldId() . '_{{index}}_close_button')
             ->setLabel(Mage::helper('bundle')->__('Close'))
             ->setOnClick('bSelection.closeSearch(event)')
@@ -184,7 +184,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
 
     public function getButtonOptionDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock()
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setLabel(Mage::helper('catalog')->__('Delete Option'))
             ->setOnClick('bOption.remove(event)')
             ->addClass('delete-product-option');

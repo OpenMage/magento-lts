@@ -51,7 +51,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
      */
     public function getAddButtonHtml()
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setId('add_sample_item')
             ->setLabel(Mage::helper('downloadable')->__('Add New Row'))
             ->toHtml();

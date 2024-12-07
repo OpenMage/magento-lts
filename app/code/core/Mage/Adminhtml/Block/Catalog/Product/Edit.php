@@ -68,50 +68,50 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         return parent::_prepareLayout();
     }
 
-    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonBackBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_BACK)
             ->setOnClickSetLocationJsUrl('*/*/', [
                 'store' => $this->getRequest()->getParam('store', 0),
             ]);
     }
 
 
-    public function getButtonBackPopupBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonBackPopupBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonBackPopupBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_CANCEL)
             ->setLabel(Mage::helper('catalog')->__('Close Window'));
     }
 
-    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setOnClick(Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()));
     }
 
-    public function getButtonDuplicateBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonDuplicateBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDuplicateBlock($name, $attributes)
-            ->setOnClick(Mage::helper('core/js')->getConfirmSetLocationJs($this->getDuplicateUrl()))
-            ->setClass(self::BUTTON__CLASS_ADD);
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setLabel(Mage::helper('adminhtml')->__('Duplicate'))
+            ->setOnClick(Mage::helper('core/js')->getConfirmSetLocationJs($this->getDuplicateUrl()));
     }
 
-    public function getButtonResetBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonResetBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
             ->setOnClick(Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])))
             ->resetClass();
     }
 
-    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setOnClick('productForm.submit()');
     }
 
-    public function getButtonSaveAndContinueBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonSaveAndContinueBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveAndContinueBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE_AND_CONTINUE)
             ->setOnClick(Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()));
     }
 

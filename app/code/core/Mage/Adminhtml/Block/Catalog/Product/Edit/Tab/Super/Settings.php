@@ -43,16 +43,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
     }
 
-    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonBackBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_BACK)
             ->setOnClickSetLocationJsFullUrl($this->getBackUrl());
     }
 
-    public function getButtonContinueBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonContinueBlock(): Mage_Adminhtml_Block_Widget_Button
     {
         $onclick = "setSuperSettings('" . $this->getContinueUrl() . "','attribute-checkbox', 'attributes')";
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('catalog')->__('Continue'))
             ->setOnClick($onclick);
     }

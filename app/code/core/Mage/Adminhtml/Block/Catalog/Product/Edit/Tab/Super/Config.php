@@ -114,14 +114,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 
     public function getButtonCreateEmptyBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('catalog')->__('Create Empty'))
             ->setOnClick('superProduct.createEmptyProduct()');
     }
 
     public function getButtonCreateFromConfigurableBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('catalog')->__('Copy From Configurable'))
             ->setOnClick('superProduct.createNewProduct()');
     }

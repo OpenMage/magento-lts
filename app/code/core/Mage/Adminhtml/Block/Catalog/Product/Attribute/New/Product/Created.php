@@ -50,9 +50,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
         $this->setChild(self::BUTTON_CLOSE, $this->getButtonCloseBlock());
     }
 
-    public function getButtonCloseBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonCloseBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonCloseBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_CLOSE)
             ->setOnClick('addAttribute(true)');
     }
 

@@ -51,9 +51,9 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
         $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
     }
 
-    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('adminhtml')->__('Save Cache Settings'))
             ->setOnClick('configForm.submit()');
     }

@@ -101,9 +101,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setChild(self::BUTTON_REFRESH, $this->getButtonRefreshBlock());
     }
 
-    public function getButtonRefreshBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonRefreshBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonRefreshBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_REFRESH)
             ->setOnClick($this->getRefreshButtonCallback());
     }
 

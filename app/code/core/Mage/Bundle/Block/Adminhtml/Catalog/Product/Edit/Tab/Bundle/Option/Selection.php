@@ -80,7 +80,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
 
     public function getButtonSelectionDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock()
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setOnClick('bSelection.remove(event)')
             ->addClass('icon-btn');
     }

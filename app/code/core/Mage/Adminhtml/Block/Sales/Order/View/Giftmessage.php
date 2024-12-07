@@ -72,9 +72,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
         return $this;
     }
 
-    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('giftmessage')->__('Save Gift Message'));
     }
 

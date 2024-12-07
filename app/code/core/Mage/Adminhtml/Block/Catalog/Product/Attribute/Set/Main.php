@@ -66,22 +66,22 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         $this->setChild(self::BUTTON_RENAME, $this->getButtonRenameBlock());
     }
 
-    public function getButtonAddGroupBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonAddGroupBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('catalog')->__('Add New'))
             ->setOnClick('editSet.addGroup();');
     }
 
-    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonBackBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_BACK)
             ->setOnClickSetLocationJsUrl();
     }
 
-    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setLabel(Mage::helper('catalog')->__('Delete Attribute Set'))
             ->setOnClick(Mage::helper('core/js')->getDeleteConfirmJs(
                 $this->getUrlSecure('*/*/delete', ['id' => $this->_getSetId()]),
@@ -89,9 +89,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             ));
     }
 
-    public function getButtonDeleteGroupBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonDeleteGroupBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setLabel(Mage::helper('catalog')->__('Delete Selected Group'))
             ->setOnClick('editSet.submit();');
     }
@@ -103,16 +103,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             ->setOnClick('editSet.rename()');
     }
 
-    public function getButtonResetBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonResetBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
             ->setOnClick('window.location.reload()')
             ->resetClass();
     }
 
-    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('catalog')->__('Save Attribute Set'))
             ->setOnClick('editSet.save();');
     }

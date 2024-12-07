@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
 
     public function getButtonContinueBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock()
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('catalog')->__('Continue'))
             ->setOnClick("setSettings('" . $this->getContinueUrl() . "','attribute_set_id','product_type')");
     }

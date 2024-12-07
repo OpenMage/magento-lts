@@ -106,11 +106,11 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
         $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
     }
 
-    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
     {
         $route = $this->getTemplateId() ? '*/newsletter_template/' : '*/*';
-        return parent::getButtonBackBlock($name, $attributes)
-            ->setOnClick("window.location.href = '" . $this->getUrl($route) . "'");
+        return parent::getButtonBlockByType(self::BUTTON_BACK)
+            ->setOnClick("window.location.href='" . $this->getUrl($route) . "'");
     }
 
     public function getButtonPreviewBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
@@ -121,22 +121,22 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
             ->setClass(self::BUTTON__CLASS_TASK);
     }
 
-    public function getButtonResetBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonResetBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
             ->setOnClick('window.location = window.location');
     }
 
-    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('newsletter')->__('Save Newsletter'))
             ->setOnClick('queueControl.save()');
     }
 
-    public function getButtonSaveAndContinueBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonSaveAndContinueBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveAndContinueBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE_AND_CONTINUE)
             ->setLabel(Mage::helper('newsletter')->__('Save and Resume'))
             ->setOnClick('queueControl.resume()');
     }

@@ -277,7 +277,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
     public function getButtonDeleteStoreViewBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock()
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setLabel(Mage::helper('adminhtml')->__('Delete Store View'))
             ->setOnClick("location.href='" . $this->getUrl('*/system_store/delete', ['store' => $this->getRequest()->getParam('store')]) . "'");
     }
@@ -291,14 +291,14 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
     public function getButtonNewStoreViewBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('adminhtml')->__('New Store View'))
             ->setOnClick("location.href='" . $this->getUrl('*/system_store/new', ['website' => $this->getRequest()->getParam('website')]) . "'");
     }
 
     public function getButtonDeleteWebsiteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock()
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setLabel(Mage::helper('adminhtml')->__('Delete Website'))
             ->setOnClick("location.href='" . $this->getUrl('*/system_website/delete', ['website' => $this->getRequest()->getParam('website')]) . "'");
     }
@@ -312,7 +312,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
     public function getButtonNewWebsiteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('adminhtml')->__('New Website'))
             ->setOnClick("location.href='" . $this->getUrl('*/system_website/new') . "'");
     }

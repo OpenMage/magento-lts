@@ -24,17 +24,17 @@ use PHPUnit\Framework\TestCase;
 
 class SamplesTest extends TestCase
 {
-    private static ?Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples $subject;
+//    private static ?Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        self::$subject = new Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples();
+//        Mage::app();
+//        self::$subject = new Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples();
     }
 
     public static function tearDownAfterClass(): void
     {
-        self::$subject = null;
+//        self::$subject = null;
     }
 
     /**
@@ -48,9 +48,10 @@ class SamplesTest extends TestCase
      */
     public function testGetButtonUploadBlock(): void
     {
-        self::$subject->setLayout(new Mage_Core_Model_Layout());
         $this->markTestIncomplete();
 
+//        self::$subject->setLayout(new Mage_Core_Model_Layout());
+//
 //        $result = self::$subject->getButtonUploadBlock();
 //        $this->assertSame('', $result->getId());
 //        $this->assertSame('Upload Files', $result->getLabel());

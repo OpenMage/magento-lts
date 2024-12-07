@@ -72,7 +72,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
      */
     public function getButtonsHtml()
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setId('add_button_' . $this->getIndex())
             ->setLabel(Mage::helper('sales')->__('Add Selected Product(s) to Option'))
             ->setOnClick('bSelection.productGridAddSelected(event)')

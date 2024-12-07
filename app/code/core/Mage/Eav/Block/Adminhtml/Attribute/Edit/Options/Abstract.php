@@ -43,16 +43,16 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
     }
 
-    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setId('add_new_option_button')
             ->setLabel(Mage::helper('eav')->__('Add Option'));
     }
 
-    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->addClass('delete-option');
     }
 

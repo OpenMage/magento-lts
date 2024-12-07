@@ -102,9 +102,9 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         return $this->getButtonAddBlock()->toHtml();
     }
 
-    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setId('add_link_item')
             ->setLabel(Mage::helper('downloadable')->__('Add New Row'));
     }

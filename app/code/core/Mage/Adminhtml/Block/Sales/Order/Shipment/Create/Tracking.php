@@ -41,9 +41,9 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
         $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
     }
 
-    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('sales')->__('Add Tracking Number'))
             ->setOnClick('trackingControl.add()')
             ->resetClass();

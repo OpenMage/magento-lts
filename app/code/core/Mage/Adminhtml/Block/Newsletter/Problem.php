@@ -58,9 +58,9 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
         $this->setChild(self::BUTTON_UNSUBSCRIBE, $this->getButtonUnsubscribeBlock());
     }
 
-    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock('del.button')
+        return parent::getButtonBlockByType(self::BUTTON_DELETE, 'del.button')
             ->setLabel(Mage::helper('newsletter')->__('Delete Selected Problems'))
             ->setOnClick('problemController.deleteSelected();');
     }

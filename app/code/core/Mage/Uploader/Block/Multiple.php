@@ -46,9 +46,9 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
         $this->setChild(self::BUTTON_UPLOAD, $this->getButtonUploadBlock());
     }
 
-    public function getButtonUploadBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonUploadBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonUploadBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_UPLOAD)
             ->setId($this->getElementId(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX))
             ->setType('button');
     }

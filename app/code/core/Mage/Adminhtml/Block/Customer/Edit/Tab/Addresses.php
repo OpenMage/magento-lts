@@ -54,9 +54,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         $this->setChild(self::BUTTON_CANCEL, $this->getButtonCancelBlock());
     }
 
-    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setId('add_address_button')
             ->setLabel(Mage::helper('customer')->__('Add New Address'))
             ->setOnClick('customerAddresses.addNewAddress()')
@@ -66,9 +66,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             ->setName('add_address_button');
     }
 
-    public function getButtonCancelBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonCancelBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonCancelBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_CANCEL)
             ->setId('cancel_add_address' . $this->getTemplatePrefix())
             ->setLabel(Mage::helper('customer')->__('Cancel'))
             ->setOnClick('customerAddresses.cancelAdd(this)')
@@ -78,9 +78,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             ->setName('cancel_address');
     }
 
-    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setLabel(Mage::helper('customer')->__('Delete Address'))
             ->addClass($this->isReadonly() ? ' disabled' : '')
             ->setDisabled($this->isReadonly())

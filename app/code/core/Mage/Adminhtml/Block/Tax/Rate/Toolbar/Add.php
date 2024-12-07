@@ -44,9 +44,9 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Add extends Mage_Adminhtml_Block_Tem
         $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
     }
 
-    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('tax')->__('Add New Tax Rate'))
             ->setOnClick('window.location.href=\'' . $this->getUrl('*/tax_rate/add') . '\'');
     }

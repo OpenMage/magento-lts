@@ -58,22 +58,22 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
         $this->setChild(self::BUTTON_IMPORT, $this->getButtonImportBlock());
     }
 
-    public function getButtonImportBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonImportBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('adminhtml')->__('Import'))
             ->setType(Mage_Adminhtml_Block_Widget_Button::TYPE_SUBMIT);
     }
 
-    public function getButtonResetBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonResetBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
             ->setOnClick('document.location.reload()');
     }
 
-    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('adminhtml')->__('Save Currency Rates'))
             ->setOnClick('currencyForm.submit();');
     }

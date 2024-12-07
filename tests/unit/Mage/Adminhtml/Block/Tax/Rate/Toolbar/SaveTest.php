@@ -24,17 +24,17 @@ use PHPUnit\Framework\TestCase;
 
 class SaveTest extends TestCase
 {
-    private static ?Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save $subject;
+//    private static ?Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        self::$subject = new Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save();
+//        Mage::app();
+//        self::$subject = new Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save();
     }
 
     public static function tearDownAfterClass(): void
     {
-        self::$subject = null;
+//        self::$subject = null;
     }
 
     /**
@@ -49,9 +49,10 @@ class SaveTest extends TestCase
      */
     public function testGetButtonBackBlock(): void
     {
-        self::$subject->setLayout(new Mage_Core_Model_Layout());
         $this->markTestIncomplete();
 
+//        self::$subject->setLayout(new Mage_Core_Model_Layout());
+//
 //        $result = self::$subject->getButtonBackBlock();
 //        $this->assertSame('Back', $result->getLabel());
 //        $this->assertStringStartsWith('window.location.href=', $result->getOnClick());
@@ -70,9 +71,10 @@ class SaveTest extends TestCase
      */
     public function testGetButtonDeleteBlock(): void
     {
-        self::$subject->setLayout(new Mage_Core_Model_Layout());
         $this->markTestIncomplete();
 
+//        self::$subject->setLayout(new Mage_Core_Model_Layout());
+//
 //        $result = self::$subject->getButtonDeleteBlock();
 //        $this->assertSame('Delete Rate', $result->getLabel());
 //        $this->assertStringStartsWith('setLocation(', $result->getOnClick());
@@ -91,9 +93,10 @@ class SaveTest extends TestCase
      */
     public function testGetButtonResetBlock(): void
     {
-        self::$subject->setLayout(new Mage_Core_Model_Layout());
         $this->markTestIncomplete();
 
+//        self::$subject->setLayout(new Mage_Core_Model_Layout());
+//
 //        $result = self::$subject->getButtonResetBlock();
 //        $this->assertSame('Reset', $result->getLabel());
 //        $this->assertSame('window.location.reload()', $result->getOnClick());
@@ -112,9 +115,10 @@ class SaveTest extends TestCase
      */
     public function testGetButtonSaveBlock(): void
     {
-        self::$subject->setLayout(new Mage_Core_Model_Layout());
         $this->markTestIncomplete();
 
+//        self::$subject->setLayout(new Mage_Core_Model_Layout());
+//
 //        $result = self::$subject->getButtonSaveBlock();
 //        $this->assertSame('Save Rate', $result->getLabel());
 //        $this->assertSame('window.location.reload()', $result->getOnClick());

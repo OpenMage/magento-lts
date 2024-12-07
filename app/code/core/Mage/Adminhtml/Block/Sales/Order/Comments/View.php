@@ -52,9 +52,9 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
         $this->setChild(self::BUTTON_SUBMIT, $this->getButtonSaveBlock());
     }
 
-    public function getButtonSaveBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setId('submit_comment_button')
             ->setLabel(Mage::helper('sales')->__('Submit Comment'));
     }

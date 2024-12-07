@@ -248,7 +248,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
      */
     public function getAddLayoutButtonHtml()
     {
-        return parent::getButtonAddBlock()
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('widget')->__('Add Layout Update'))
             ->setOnClick('WidgetInstance.addPageGroup({})')
             ->toHtml();
@@ -261,7 +261,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
      */
     public function getRemoveLayoutButtonHtml()
     {
-        return parent::getButtonDeleteBlock()
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setLabel($this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Remove Layout Update')))
             ->setOnClick('WidgetInstance.removePageGroup(this)')
             ->toHtml();

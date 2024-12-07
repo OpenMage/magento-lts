@@ -52,7 +52,7 @@ class EditTest extends TestCase
 
         $result = self::$subject->getButtonBackBlock();
         $this->assertSame('Back', $result->getLabel());
-        $this->assertStringStartsWith('window.location.href = ', $result->getOnClick());
+        $this->assertStringStartsWith('window.location.href=', $result->getOnClick());
         $this->assertSame('back', $result->getClass());
     }
 

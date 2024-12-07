@@ -121,7 +121,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
 
     public function getButtonSkipCategoriesBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock()
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('adminhtml')->__('Skip Category Selection'))
             ->setOnClick('window.location = \'' . Mage::helper('adminhtml')->getUrl('*/*/*', [
                     'product' => $this->getProductId()

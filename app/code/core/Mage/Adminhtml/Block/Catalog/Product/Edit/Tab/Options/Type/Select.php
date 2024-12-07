@@ -56,17 +56,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends 
         $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
     }
 
-    public function getButtonAddBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonAddBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setId('add_select_row_button_{{option_id}}')
             ->setLabel(Mage::helper('catalog')->__('Add New Row'))
             ->addClass('add-select-row');
     }
 
-    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setId('delete_select_row_button')
             ->setLabel(Mage::helper('catalog')->__('Delete Row'))
             ->addClass('delete-select-row icon-btn');

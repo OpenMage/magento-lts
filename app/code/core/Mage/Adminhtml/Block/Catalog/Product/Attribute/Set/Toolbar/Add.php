@@ -47,15 +47,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
         $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
     }
 
-    public function getButtonBackBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonBackBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_BACK)
             ->setOnClickSetLocationJsFullUrl($this->getUrl('*/*/'));
     }
 
     public function getButtonSaveGroupBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock()
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('catalog')->__('Save Attribute Set'))
             ->setOnClick('if (addSet.submit()) disableElements(\'save\');')
             ->resetClass();

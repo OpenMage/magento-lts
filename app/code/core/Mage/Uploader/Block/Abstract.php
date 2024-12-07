@@ -161,9 +161,9 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
             ]);
     }
 
-    public function getButtonDeleteBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonDeleteBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
             ->setId('{{id}}')
             ->setLabel(Mage::helper('uploader')->__('Remove'))
             ->setOnClick('')

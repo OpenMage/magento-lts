@@ -30,8 +30,14 @@ class FormTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         Mage::app();
-        Mage::register('category', new Mage_Catalog_Model_Category());
-        Mage::register('current_category', new Mage_Catalog_Model_Category());
+
+        if (!Mage::registry('category')) {
+            Mage::register('category', new Mage_Catalog_Model_Category());
+        }
+
+        if (!Mage::registry('current_category')) {
+            Mage::register('current_category', new Mage_Catalog_Model_Category());
+        }
 
         self::$subject = new Mage_Adminhtml_Block_Catalog_Category_Edit_Form();
     }
@@ -50,15 +56,17 @@ class FormTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonDeleteBlock(): void
-//    {
+    public function testGetButtonDeleteBlock(): void
+    {
+        $this->markTestSkipped();
+
 //        self::$subject->setLayout(new Mage_Core_Model_Layout());
 //
 //        $result = self::$subject->getButtonDeleteBlock();
 //        $this->assertSame('Delete Category', $result->getLabel());
 //        $this->assertStringStartsWith("categoryDelete('", $result->getOnClick());
 //        $this->assertSame('delete', $result->getClass());
-//    }
+    }
 
     /**
      * @covers Mage_Adminhtml_Block_Catalog_Category_Edit_Form::getButtonResetBlock()
@@ -69,15 +77,17 @@ class FormTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-//    public function testGetButtonDeleteResetBlock(): void
-//    {
-//        self::$subject->setLayout(new Mage_Core_Model_Layout());
+    public function testGetButtonDeleteResetBlock(): void
+    {
+        $this->markTestSkipped();
+
+        //        self::$subject->setLayout(new Mage_Core_Model_Layout());
 //
 //        $result = self::$subject->getButtonResetBlock();
 //        $this->assertSame('Reset', $result->getLabel());
 //        $this->assertStringStartsWith("categoryReset('", $result->getOnClick());
 //        $this->assertSame('', $result->getClass());
-//    }
+    }
 
     /**
      * @covers Mage_Adminhtml_Block_Catalog_Category_Edit_Form::getButtonSaveBlock()

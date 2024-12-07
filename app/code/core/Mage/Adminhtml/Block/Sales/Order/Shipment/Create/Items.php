@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
 
     public function getButtonSubmitBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock()
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('sales')->__('Submit Shipment'))
             ->setOnClick('submitShipment(this);')
             ->addClass('submit-button');

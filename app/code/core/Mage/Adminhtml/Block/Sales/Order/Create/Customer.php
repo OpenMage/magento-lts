@@ -37,12 +37,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Bl
      */
     public function getButtonsHtml()
     {
-        $customer = parent::getButtonAddBlock()
+        $customer = parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('sales')->__('Create New Customer'))
             ->setOnClick('order.setCustomerId(false)')
             ->toHtml();
 
-        $guest = parent::getButtonAddBlock()
+        $guest = parent::getButtonBlockByType(self::BUTTON_ADD)
             ->setLabel(Mage::helper('sales')->__('Create Guest Order'))
             ->setOnClick('order.setCustomerIsGuest()')
             ->toHtml();

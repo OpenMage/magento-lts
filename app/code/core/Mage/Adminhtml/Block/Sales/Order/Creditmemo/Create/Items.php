@@ -46,25 +46,25 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
         return parent::_prepareLayout();
     }
 
-    public function getButtonUpdateBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonUpdateBlock(): Mage_Adminhtml_Block_Widget_Button
     {
         $onclick = "submitAndReloadArea($('creditmemo_item_container'),'" . $this->getUpdateUrl() . "')";
-        return parent::getButtonUpdateBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_UPDATE)
             ->setLabel(Mage::helper('sales')->__('Update Qty\'s'))
             ->setOnClick($onclick);
     }
 
-    public function getButtonRefundBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonRefundBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('sales')->__('Refund'))
             ->setOnClick('disableElements(\'submit-button\');submitCreditMemo()')
             ->addClass('submit-button');
     }
 
-    public function getButtonRefundOfflineBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    public function getButtonRefundOfflineBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return parent::getButtonSaveBlock($name, $attributes)
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
             ->setLabel(Mage::helper('sales')->__('Refund Offline'))
             ->setOnClick('disableElements(\'submit-button\');submitCreditMemoOffline()')
             ->addClass('submit-button');
