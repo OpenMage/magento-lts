@@ -1,9 +1,12 @@
 ---
 tags:
 - Development
+- SCSS
 ---
 
 # PhpStorm
+
+See: https://www.jetbrains.com/phpstorm/
 
 ## Metadata Factory Helper
 
@@ -14,10 +17,6 @@ and run command:
 ```bash
 n98-magerun.phar dev:ide:phpstorm:meta
 ```
-
-You can add additional meta files in this directory to cover your own project files. See
-[PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
-for more information.
 
 You can add additional meta files in this directory to cover your own project files. See
 [PhpStorm advanced metadata](https://www.jetbrains.com/help/phpstorm/ide-advanced-metadata.html)
