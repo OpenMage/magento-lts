@@ -9,7 +9,6 @@
 /.all-contributorsrc export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
-/.gitpod.yml export-ignore
 
 /.php-cs-fixer.dist.php export-ignore
 /.phpcs.ecg.xml.dist export-ignore
