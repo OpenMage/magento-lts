@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48b5b873837c9c834006808dd52de6a1",
+    "content-hash": "44734bd293947e65642df49415578991",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -603,16 +603,16 @@
         },
         {
             "name": "openmage/composer-plugin",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/composer-plugin.git",
-                "reference": "70d8eb2c4c77078151959adc9b1e8afe37ae7099"
+                "reference": "43369ebbfea5cd6dd07fcaf2d20bcbd4153c7f7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/70d8eb2c4c77078151959adc9b1e8afe37ae7099",
-                "reference": "70d8eb2c4c77078151959adc9b1e8afe37ae7099",
+                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/43369ebbfea5cd6dd07fcaf2d20bcbd4153c7f7c",
+                "reference": "43369ebbfea5cd6dd07fcaf2d20bcbd4153c7f7c",
                 "shasum": ""
             },
             "require": {
@@ -651,9 +651,9 @@
             ],
             "support": {
                 "issues": "https://github.com/OpenMage/composer-plugin/issues",
-                "source": "https://github.com/OpenMage/composer-plugin/tree/v1.0.0"
+                "source": "https://github.com/OpenMage/composer-plugin/tree/v1.1.0"
             },
-            "time": "2024-11-23T02:06:03+00:00"
+            "time": "2024-12-08T23:05:54+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
