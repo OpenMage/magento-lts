@@ -597,6 +597,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             return false;
         }
 
+        $aclResource = trim((string)$field->acl_rescource);
+        if ($aclResource && !Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
+            return false;
+        }
+
         switch ($this->getScope()) {
             case self::SCOPE_DEFAULT:
                 return (bool)(int)$field->show_in_default;
