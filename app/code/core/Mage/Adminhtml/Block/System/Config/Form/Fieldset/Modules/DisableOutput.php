@@ -28,17 +28,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
     {
         $html = $this->_getHeaderHtml($element);
 
-        $modules = array_keys((array)Mage::getConfig()->getNode('modules')->children());
-
-        $dispatchResult = new Varien_Object($modules);
-        Mage::dispatchEvent(
-            'adminhtml_system_config_advanced_disableoutput_render_before',
-            ['modules' => $dispatchResult]
-        );
-        $modules = $dispatchResult->toArray();
-
-        sort($modules);
-
+        $modules = $this->getModules();
         foreach ($modules as $moduleName) {
             if ($moduleName === 'Mage_Adminhtml') {
                 continue;
@@ -48,6 +38,28 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
         $html .= $this->_getFooterHtml($element);
 
         return $html;
+    }
+
+    public function getModules(): array
+    {
+        $modules = (array)Mage::getConfig()->getNode('modules')->children();
+
+        $dispatchResult = new Varien_Object($modules);
+        Mage::dispatchEvent(
+            'adminhtml_system_config_advanced_disableoutput_module_config_after',
+            ['modules' => $dispatchResult]
+        );
+
+        $modules = array_keys($dispatchResult->toArray());
+        sort($modules);
+
+        $dispatchResult = new Varien_Object($modules);
+        Mage::dispatchEvent(
+            'adminhtml_system_config_advanced_disableoutput_render_before',
+            ['modules' => $dispatchResult]
+        );
+
+        return $dispatchResult->toArray();
     }
 
     protected function _getDummyElement()
