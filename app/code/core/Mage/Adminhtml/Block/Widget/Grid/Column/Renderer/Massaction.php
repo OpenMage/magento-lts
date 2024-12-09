@@ -43,8 +43,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction extends Mage_A
     {
         $out = parent::renderProperty();
         $out = preg_replace('/class=".*?"/i', '', $out);
-        $out .= ' class="a-center"';
-        return $out;
+        return $out . ' class="a-center"';
     }
 
     /**
@@ -70,7 +69,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction extends Mage_A
     protected function _getCheckboxHtml($value, $checked)
     {
         $html = '<input type="checkbox" name="' . $this->getColumn()->getName() . '" ';
-        $html .= 'value="' . $this->escapeHtml($value) . '" class="massaction-checkbox"' . $checked . '/>';
-        return $html;
+        return $html . ('value="' . $this->escapeHtml($value) . '" class="massaction-checkbox"' . $checked . '/>');
     }
 }

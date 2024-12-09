@@ -333,9 +333,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         $html[] = '</li>';
-
-        $html = implode("\n", $html);
-        return $html;
+        return implode("\n", $html);
     }
 
     /**
@@ -410,9 +408,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 }
             }
         }
-        $html .= '</li>' . "\n";
 
-        return $html;
+        return $html . ('</li>' . "\n");
     }
 
     /**
