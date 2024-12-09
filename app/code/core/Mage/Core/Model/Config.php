@@ -1306,8 +1306,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Retrieve class name from config.xml node
+     *
+     * @return string|false
      */
-    public function getNodeClassName(string $path): string
+    public function getNodeClassName(string $path)
     {
         $config = Mage::getConfig()->getNode($path);
         if (!$config) {
@@ -1425,8 +1427,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Retrieve helper instance
+     *
+     * @return Mage_Core_Helper_Abstract|false
      */
-    public function getHelperInstance(string $helperAlias): Mage_Core_Helper_Abstract|false
+    public function getHelperInstance(string $helperAlias)
     {
         $className = $this->getHelperClassName($helperAlias);
         if (!class_exists($className)) {
@@ -1523,10 +1527,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve resource helper instance
      *
-     * @param string $moduleAlias
      * @return Mage_Core_Model_Resource_Helper_Abstract|false
      */
-    public function getResourceHelperInstance(string $moduleAlias): Mage_Core_Model_Resource_Helper_Abstract|false
+    public function getResourceHelperInstance(string $moduleAlias)
     {
         $className = $this->getResourceHelperClassName($moduleAlias);
         if ($className === false || !class_exists($className)) {
