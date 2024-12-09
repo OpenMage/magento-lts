@@ -22,17 +22,11 @@ See: https://docs.openmage.org/
 
 ## Public Communication
 
-* [Discord](https://discord.gg/EV8aNbU) (maintained by Flyingmana)
+* [Discord](https://discord.gg/EV8aNbU) (maintained by [Daniel Fahlke](https://github.com/Flyingmana))
 
-## Maintainers
+## Sponsorship
 
-* [Daniel Fahlke](https://github.com/Flyingmana)
-* [David Robinson](https://github.com/drobinson)
-* [Fabrizio Balliano](https://github.com/fballiano)
-* [Lee Saferite](https://github.com/LeeSaferite)
-* [Mohamed Elidrissi](https://github.com/elidrissidev)
-* [Ng Kiat Siong](https://github.com/kiatng)
-* [Tymoteusz Motylewski](https://github.com/tmotyl)
+* [opencollective](https://opencollective.com/openmage) (maintained by [Daniel Fahlke](https://github.com/Flyingmana) and [Colin Mollenhour](https://github.com/colinmollenhour))
 
 ## License
 
