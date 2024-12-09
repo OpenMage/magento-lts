@@ -97,6 +97,12 @@
                     <enabled>1</enabled>
                     <order>10</order>
                 </oauth>
+                <oauth2 module="api2" translate="label">
+                    <model>api2/auth_adapter_oauth2</model>
+                    <label>OAuth2</label>
+                    <enabled>1</enabled>
+                    <order>20</order>
+                </oauth2>
             </auth_adapters>
             <user_types>
                 <admin>
