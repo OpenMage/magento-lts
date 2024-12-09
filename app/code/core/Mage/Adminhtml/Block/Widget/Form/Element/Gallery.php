@@ -24,10 +24,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
 {
     protected $_element = null;
 
-    public function __construct()
-    {
-        $this->setTemplate('widget/form/element/gallery.phtml');
-    }
+    protected $_template = 'widget/form/element/gallery.phtml';
 
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
@@ -51,37 +48,40 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
         return $this->getElement()->getValue();
     }
 
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Delete'),
-                    'onclick'   => 'deleteImage(#image#)',
-                    'class' => 'delete'
-            ])
-        );
-
-        $this->setChild(
-            'add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Add New Image'),
-                    'onclick'   => 'addNewImage()',
-                    'class' => 'add'
-            ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
     }
 
-    public function getAddButtonHtml()
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
     {
-        return $this->getChildHtml('add_button');
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
     }
 
-    public function getDeleteButtonHtml($image)
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return str_replace('#image#', $image, $this->getChildHtml('delete_button'));
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setLabel(Mage::helper('adminhtml')->__('Add New Image'))
+            ->setOnClick('addNewImage()');
+    }
+
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setOnClick('deleteImage(#image#)');
+    }
+
+    public function getDeleteImageButtonHtml($image)
+    {
+        return str_replace('#image#', $image, $this->getChildHtml(self::BUTTON_DELETE));
     }
 }

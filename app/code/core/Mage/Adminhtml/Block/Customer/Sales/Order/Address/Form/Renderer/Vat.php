@@ -29,13 +29,7 @@ class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat extend
      */
     protected $_validateButton = null;
 
-    /**
-     * Set custom template for 'VAT number'
-     */
-    protected function _construct()
-    {
-        $this->setTemplate('customer/sales/order/create/address/form/renderer/vat.phtml');
-    }
+    protected $_template = 'customer/sales/order/create/address/form/renderer/vat.phtml';
 
     /**
      * Retrieve validate button block
@@ -75,14 +69,10 @@ class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat extend
             $optionsVarName = $this->getJsVariablePrefix() . 'VatParameters';
             $beforeHtml = '<script type="text/javascript">var ' . $optionsVarName . ' = ' . $vatValidateOptions
                 . ';</script>';
-
-            /** @var Mage_Adminhtml_Block_Widget_Button $block */
-            $block = $this->getLayout()->createBlock('adminhtml/widget_button');
-            $this->_validateButton = $block->setData([
-                'label'       => Mage::helper('customer')->__('Validate VAT Number'),
-                'before_html' => $beforeHtml,
-                'onclick'     => 'order.validateVat(' . $optionsVarName . ')'
-            ]);
+            $this->_validateButton = parent::getButtonBlock()
+                ->setLabel(Mage::helper('customer')->__('Validate VAT Number'))
+                ->setOnClick('order.validateVat(' . $optionsVarName . ')')
+                ->setBeforeHtml($beforeHtml);
         }
         return $this->_validateButton;
     }

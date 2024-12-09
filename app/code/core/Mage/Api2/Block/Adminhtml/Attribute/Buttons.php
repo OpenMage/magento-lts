@@ -22,68 +22,39 @@
  */
 class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_Template
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('api2/attribute/buttons.phtml');
-    }
+    public const BUTTON_BACK    = 'backButton';
+    public const BUTTON_SAVE    = 'saveButton';
+
+    protected $_template = 'api2/attribute/buttons.phtml';
 
     /**
-     * Prepare global layout
-     *
-     * @return Mage_Core_Block_Abstract
+     * @codeCoverageIgnore
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $buttons = [
-            'backButton'    => [
-                'label'     => $this->__('Back'),
-                'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
-                'class'     => 'back'
-            ],
-            'saveButton'    => [
-                'label'     => $this->__('Save'),
-                'onclick'   => 'form.submit(); return false;',
-                'class'     => 'save'
-            ],
-        ];
-
-        foreach ($buttons as $name => $data) {
-            $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData($data);
-            $this->setChild($name, $button);
-        }
-
+        $this->addButtons();
         return parent::_prepareLayout();
     }
 
     /**
-     * Get back button HTML
-     *
-     * @return string
+     * @codeCoverageIgnore
      */
-    public function getBackButtonHtml()
+    protected function addButtons(): void
     {
-        return $this->getChildHtml('backButton');
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
     }
 
-    /**
-     * Get reset button HTML
-     *
-     * @return string
-     */
-    public function getResetButtonHtml()
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->getChildHtml('resetButton');
+        return parent::getButtonBlockByType(self::BUTTON_BACK);
     }
 
-    /**
-     * Get save button HTML
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->getChildHtml('saveButton');
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setOnClick('form.submit(); return false;');
     }
 
     /**

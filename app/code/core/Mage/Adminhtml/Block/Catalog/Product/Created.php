@@ -25,28 +25,30 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     protected $_configurableProduct;
     protected $_product;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('catalog/product/created.phtml');
-    }
+    protected $_template = 'catalog/product/created.phtml';
 
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'close_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'   => Mage::helper('catalog')->__('Close Window'),
-                    'onclick' => 'addProduct(true)'
-                ])
-        );
-        return $this;
+        $this->addButtons();
+        return parent::_prepareLayout();
     }
 
-    public function getCloseButtonHtml()
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
     {
-        return $this->getChildHtml('close_button');
+        $this->setChild(self::BUTTON_CLOSE, $this->getButtonCloseBlock());
+    }
+
+    public function getButtonCloseBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_CLOSE)
+            ->setOnClick('addProduct(true)');
     }
 
     public function getProductId()

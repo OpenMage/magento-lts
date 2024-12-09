@@ -22,14 +22,9 @@
  */
 class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Template
 {
-    /**
-     * Set transactional emails grid template
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('system/email/template/list.phtml');
-    }
+    public const BLOCK_GRID = 'grid';
+
+    protected $_template = 'system/email/template/list.phtml';
 
     /**
      * @inheritDoc
@@ -37,16 +32,27 @@ class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Te
     protected function _prepareLayout()
     {
         $this->setChild(
-            'add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Add New Template'),
-                    'onclick'   => "window.location='" . $this->getCreateUrl() . "'",
-                    'class'     => 'add'
-            ])
+            self::BLOCK_GRID,
+            $this->getLayout()->createBlock('adminhtml/system_email_template_grid', 'email.template.grid')
         );
-        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/system_email_template_grid', 'email.template.grid'));
+
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setLabel(Mage::helper('adminhtml')->__('Add New Template'))
+            ->setOnClick("window.location='" . $this->getCreateUrl() . "'");
     }
 
     /**
@@ -67,15 +73,5 @@ class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Te
     public function getHeaderText()
     {
         return Mage::helper('adminhtml')->__('Transactional Emails');
-    }
-
-    /**
-     * Get Add New Template button html
-     *
-     * @return string
-     */
-    protected function getAddButtonHtml()
-    {
-        return $this->getChildHtml('add_button');
     }
 }

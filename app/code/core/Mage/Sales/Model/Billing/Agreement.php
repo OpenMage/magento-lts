@@ -73,7 +73,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     /**
      * Set created_at parameter
      *
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _beforeSave()
     {

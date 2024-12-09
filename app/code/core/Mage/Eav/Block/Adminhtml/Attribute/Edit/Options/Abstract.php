@@ -22,48 +22,38 @@
  */
 abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends Mage_Adminhtml_Block_Widget
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('eav/attribute/options.phtml');
-    }
+    protected $_template = 'eav/attribute/options.phtml';
 
     /**
-     * Preparing layout, adding buttons
-     *
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('eav')->__('Delete'),
-                    'class' => 'delete delete-option'
-                ])
-        );
-
-        $this->setChild(
-            'add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('eav')->__('Add Option'),
-                    'class' => 'add',
-                    'id'    => 'add_new_option_button'
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
     }
 
     /**
-     * Retrieve HTML of delete button
-     *
-     * @return string
+     * @codeCoverageIgnore
      */
-    public function getDeleteButtonHtml()
+    protected function addButtons(): void
     {
-        return $this->getChildHtml('delete_button');
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setId('add_new_option_button')
+            ->setLabel(Mage::helper('eav')->__('Add Option'));
+    }
+
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->addClass('delete-option');
     }
 
     /**
@@ -73,7 +63,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
      */
     public function getAddNewButtonHtml()
     {
-        return $this->getChildHtml('add_button');
+        return $this->getChildHtml(self::BUTTON_ADD);
     }
 
     /**

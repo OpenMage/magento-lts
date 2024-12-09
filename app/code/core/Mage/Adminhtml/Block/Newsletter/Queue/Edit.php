@@ -22,6 +22,9 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Template
 {
+    public const BUTTON_PREVIEW           = 'preview_button';
+    public const BUTTON_SAVE_AND_CONTINUE = 'save_and_resume';
+
     /**
      * Check for template Id in request
      */
@@ -80,63 +83,62 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     {
         // Load Wysiwyg on demand and Prepare layout
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
-            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+            /** @var Mage_Page_Block_Html_Head $head */
+            $head = $this->getLayout()->getBlock('head');
+            if ($head) {
+                $head->setCanLoadTinyMce(true);
+            }
         }
 
-        $this->setChild(
-            'preview_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Preview Template'),
-                    'onclick'   => 'queueControl.preview();',
-                    'class'     => 'task'
-                ])
-        );
-
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Save Newsletter'),
-                    'onclick'   => 'queueControl.save()',
-                    'class'     => 'save'
-                ])
-        );
-
-        $this->setChild(
-            'save_and_resume',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Save and Resume'),
-                    'onclick'   => 'queueControl.resume()',
-                    'class'     => 'save'
-                ])
-        );
-
-        $this->setChild(
-            'reset_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Reset'),
-                    'onclick'   => 'window.location = window.location'
-                ])
-        );
-
-        $this->setChild(
-            'back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('newsletter')->__('Back'),
-                        'onclick' => "window.location.href = '" . $this->getUrl((
-                            $this->getTemplateId() ? '*/newsletter_template/' : '*/*'
-                        )) . "'",
-                        'class'   => 'back'
-                    ]
-                )
-        );
-
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_PREVIEW, $this->getButtonPreviewBlock());
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+        $this->setChild(self::BUTTON_SAVE_AND_CONTINUE, $this->getButtonSaveAndContinueBlock());
+        $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+    }
+
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        $route = $this->getTemplateId() ? '*/newsletter_template/' : '*/*';
+        return parent::getButtonBlockByType(self::BUTTON_BACK)
+            ->setOnClick("window.location.href='" . $this->getUrl($route) . "'");
+    }
+
+    public function getButtonPreviewBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock($name, $attributes)
+            ->setLabel(Mage::helper('newsletter')->__('Preview Template'))
+            ->setOnClick('queueControl.preview();')
+            ->setClass(self::BUTTON__CLASS_TASK);
+    }
+
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
+            ->setOnClick('window.location = window.location');
+    }
+
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setLabel(Mage::helper('newsletter')->__('Save Newsletter'))
+            ->setOnClick('queueControl.save()');
+    }
+
+    public function getButtonSaveAndContinueBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE_AND_CONTINUE)
+            ->setLabel(Mage::helper('newsletter')->__('Save and Resume'))
+            ->setOnClick('queueControl.resume()');
     }
 
     /**
@@ -156,37 +158,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
      */
     public function getPreviewButtonHtml()
     {
-        return $this->getChildHtml('preview_button');
-    }
-
-    /**
-     * Retrieve Save Button HTML
-     *
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
-    }
-
-    /**
-     * Retrieve Reset Button HTML
-     *
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
-    }
-
-    /**
-     * Retrieve Back Button HTML
-     *
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('back_button');
+        return $this->getChildHtml(self::BUTTON_PREVIEW);
     }
 
     /**
@@ -196,7 +168,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
      */
     public function getResumeButtonHtml()
     {
-        return $this->getChildHtml('save_and_resume');
+        return $this->getChildHtml(self::BUTTON_SAVE_AND_CONTINUE);
     }
 
     /**

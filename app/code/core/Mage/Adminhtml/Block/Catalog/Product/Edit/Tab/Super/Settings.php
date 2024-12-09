@@ -22,31 +22,39 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
+    public const BUTTON_CONTINUE = 'continue_button';
+
     /**
-     * Prepare block children and data
+     * @codeCoverageIgnore
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $onclick = "setSuperSettings('" . $this->getContinueUrl() . "','attribute-checkbox', 'attributes')";
-        $this->setChild(
-            'continue_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Continue'),
-                    'onclick'   => $onclick,
-                    'class'     => 'save'
-                ])
-        );
-
-        $backButton = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
-                'class'     => 'back'
-            ]);
-
-        $this->setChild('back_button', $backButton);
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_CONTINUE, $this->getButtonContinueBlock());
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+    }
+
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_BACK)
+            ->setOnClickSetLocationJsFullUrl($this->getBackUrl());
+    }
+
+    public function getButtonContinueBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        $onclick = "setSuperSettings('" . $this->getContinueUrl() . "','attribute-checkbox', 'attributes')";
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setLabel(Mage::helper('catalog')->__('Continue'))
+            ->setOnClick($onclick);
     }
 
     /**

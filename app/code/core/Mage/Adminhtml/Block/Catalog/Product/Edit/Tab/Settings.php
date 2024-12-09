@@ -22,18 +22,31 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
+    public const BUTTON_CONTINUE = 'continue_button';
+
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'continue_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Continue'),
-                    'onclick'   => "setSettings('" . $this->getContinueUrl() . "','attribute_set_id','product_type')",
-                    'class'     => 'save'
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_CONTINUE, $this->getButtonContinueBlock());
+    }
+
+    public function getButtonContinueBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setLabel(Mage::helper('catalog')->__('Continue'))
+            ->setOnClick("setSettings('" . $this->getContinueUrl() . "','attribute_set_id','product_type')");
     }
 
     protected function _prepareForm()
@@ -63,8 +76,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
             'values' => Mage::getModel('catalog/product_type')->getOptionArray()
         ]);
 
-        $fieldset->addField('continue_button', 'note', [
-            'text' => $this->getChildHtml('continue_button'),
+        $fieldset->addField(self::BUTTON_CONTINUE, 'note', [
+            'text' => $this->getChildHtml(self::BUTTON_CONTINUE),
         ]);
 
         $this->setForm($form);

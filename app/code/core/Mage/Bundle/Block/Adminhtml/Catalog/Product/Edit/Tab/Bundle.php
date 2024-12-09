@@ -22,12 +22,16 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    public const BLOCK_OPTION_BOX = 'options_box';
+
     protected $_product = null;
+
+    protected $_template = 'bundle/product/edit/bundle.phtml';
+
     public function __construct()
     {
         parent::__construct();
         $this->setSkipGenerateContent(true);
-        $this->setTemplate('bundle/product/edit/bundle.phtml');
     }
 
     /**
@@ -47,32 +51,36 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
     }
 
     /**
-     * Prepare layout
-     *
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
         $this->setChild(
-            'add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('bundle')->__('Add New Option'),
-                    'class' => 'add',
-                    'id'    => 'add_new_option',
-                    'on_click' => 'bOption.add()'
-                ])
-        );
-
-        $this->setChild(
-            'options_box',
+            self::BLOCK_OPTION_BOX,
             $this->getLayout()->createBlock(
                 'bundle/adminhtml_catalog_product_edit_tab_bundle_option',
                 'adminhtml.catalog.product.edit.tab.bundle.option'
             )
         );
 
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setId('add_new_option')
+            ->setLabel(Mage::helper('bundle')->__('Add New Option'))
+            ->setOnClick('bOption.add();');
     }
 
     /**
@@ -88,17 +96,9 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
     /**
      * @return string
      */
-    public function getAddButtonHtml()
-    {
-        return $this->getChildHtml('add_button');
-    }
-
-    /**
-     * @return string
-     */
     public function getOptionsBoxHtml()
     {
-        return $this->getChildHtml('options_box');
+        return $this->getChildHtml(self::BLOCK_OPTION_BOX);
     }
 
     /**

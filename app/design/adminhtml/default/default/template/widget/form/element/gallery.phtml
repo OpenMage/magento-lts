@@ -12,6 +12,8 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Mage_Adminhtml_Block_Widget_Form_Element_Gallery $this */
 ?>
 <tr>
 <td colspan="2">
@@ -28,7 +30,7 @@
 
 <tfoot class="gallery">
 <tr class="gallery">
-<td class="gallery v-middle a-left"colspan="5"><?php echo $this->getAddButtonHtml() ?></td>
+<td class="gallery v-middle a-left" colspan="5"><?php echo $this->getAddButtonHtml() ?></td>
 </tr>
 </tfoot>
 
@@ -44,7 +46,7 @@
             <input type="file" name="<?php echo $this->getElement()->getName() ?>_<?php echo $type ?>[<?php echo $image->getValueId() ?>]" size="1"></td>
         <?php endforeach ?>
         <td class="gallery" align="center" style="vertical-align:bottom;"><input type="input" name="<?php echo $this->getElement()->getParentName() ?>[position][<?php echo $image->getValueId() ?>]" value="<?php echo $image->getPosition() ?>" id="<?php echo $this->getElement()->getHtmlId() ?>_position_<?php echo $image->getValueId() ?>" size="3"/></td>
-        <td class="gallery" align="center" style="vertical-align:bottom;"><?php echo $this->getDeleteButtonHtml($image->getValueId()) ?><input type="hidden" name="<?php echo $this->getElement()->getParentName() ?>[delete][<?php echo $image->getValueId() ?>]" id="<?php echo $this->getElement()->getHtmlId() ?>_delete_<?php echo $image->getValueId() ?>"/></td>
+        <td class="gallery" align="center" style="vertical-align:bottom;"><?php echo $this->getDeleteImageButtonHtml($image->getValueId()) ?><input type="hidden" name="<?php echo $this->getElement()->getParentName() ?>[delete][<?php echo $image->getValueId() ?>]" id="<?php echo $this->getElement()->getHtmlId() ?>_delete_<?php echo $image->getValueId() ?>"/></td>
         </tr>
     <?php endforeach ?>
 <?php endif ?>
@@ -77,7 +79,7 @@ function addNewImage()
     new_row_input.value = '0';
 
     // Delete button
-    new_row_button = '<?php echo $this->getDeleteButtonHtml("this") ?>';
+    new_row_button = '<?php echo $this->getDeleteImageButtonHtml('this') ?>';
 
     table = document.getElementById( "gallery" );
 

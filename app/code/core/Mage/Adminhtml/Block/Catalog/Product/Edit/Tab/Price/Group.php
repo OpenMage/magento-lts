@@ -22,13 +22,7 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstract
 {
-    /**
-     * Initialize block
-     */
-    public function __construct()
-    {
-        $this->setTemplate('catalog/product/edit/price/group.phtml');
-    }
+    protected $_template = 'catalog/product/edit/price/group.phtml';
 
     /**
      * Sort values
@@ -61,24 +55,29 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adm
     }
 
     /**
-     * Prepare global layout
-     *
-     * Add "Add Group Price" button to layout
-     *
-     * @return $this
+     * @codeCoverageIgnore
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'label' => Mage::helper('catalog')->__('Add Group Price'),
-                'onclick' => 'return groupPriceControl.addItem()',
-                'class' => 'add'
-            ]);
-        $button->setName('add_group_price_item_button');
-
-        $this->setChild('add_button', $button);
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setLabel(Mage::helper('catalog')->__('Add Group Price'))
+            ->setOnClick('return groupPriceControl.addItem()')
+            ->setName('add_group_price_item_button');
     }
 
     /**

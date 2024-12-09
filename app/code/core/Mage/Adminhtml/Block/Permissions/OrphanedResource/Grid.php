@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {

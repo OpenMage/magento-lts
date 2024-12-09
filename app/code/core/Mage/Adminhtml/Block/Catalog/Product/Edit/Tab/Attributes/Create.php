@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     {
         $this->setId('create_attribute_' . $this->getConfig()->getGroupId())
             ->setOnClick($this->getJsObjectName() . '.create();')
-            ->setType('button')
+            ->setType(self::TYPE_BUTTON)
             ->setClass('add')
             ->setLabel(Mage::helper('adminhtml')->__('Create New Attribute'));
 

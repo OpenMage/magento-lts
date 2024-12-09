@@ -27,12 +27,15 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection extends Mage_Adminhtml_Block_Widget
 {
+    public const BUTTON_SELECTION_DELETE = 'selection_delete_button';
+
+    protected $_template = 'bundle/product/edit/bundle/option/selection.phtml';
+
     /**
      * Initialize bundle option selection block
      */
     public function __construct()
     {
-        $this->setTemplate('bundle/product/edit/bundle/option/selection.phtml');
         $this->setCanReadPrice(true);
         $this->setCanEditPrice(true);
     }
@@ -58,22 +61,28 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     }
 
     /**
-     * Prepare block layout
-     *
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'selection_delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Delete'),
-                    'class' => 'delete icon-btn',
-                    'on_click' => 'bSelection.remove(event)'
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_SELECTION_DELETE, $this->getButtonSelectionDeleteBlock());
+    }
+
+    public function getButtonSelectionDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setOnClick('bSelection.remove(event)')
+            ->addClass('icon-btn');
     }
 
     /**
@@ -83,7 +92,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
      */
     public function getSelectionDeleteButtonHtml()
     {
-        return $this->getChildHtml('selection_delete_button');
+        return $this->getChildHtml(self::BUTTON_SELECTION_DELETE);
     }
 
     /**

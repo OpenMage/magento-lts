@@ -23,12 +23,8 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Widget
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('catalog/product/edit.phtml');
-        $this->setId('product_edit');
-    }
+    protected $_idFieldName = 'product_edit';
+    protected $_template    = 'catalog/product/edit.phtml';
 
     /**
      * Retrieve currently edited product object
@@ -46,134 +42,77 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     protected function _prepareLayout()
     {
         if (!$this->getRequest()->getParam('popup')) {
-            $this->setChild(
-                'back_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'     => Mage::helper('catalog')->__('Back'),
-                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store', 0)])),
-                        'class'     => 'back'
-                    ])
-            );
+            $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
         } else {
-            $this->setChild(
-                'back_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'     => Mage::helper('catalog')->__('Close Window'),
-                        'onclick'   => 'window.close()',
-                        'class'     => 'cancel'
-                    ])
-            );
+            $this->setChild(self::BUTTON_BACK, $this->getButtonBackPopupBlock());
         }
 
         if (!$this->getProduct()->isReadonly()) {
-            $this->setChild(
-                'reset_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
-                    ])
-            );
-
-            $this->setChild(
-                'save_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'     => Mage::helper('catalog')->__('Save'),
-                        'onclick'   => 'productForm.submit()',
-                        'class'     => 'save'
-                    ])
-            );
+            $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+            $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
         }
 
         if (!$this->getRequest()->getParam('popup')) {
             if (!$this->getProduct()->isReadonly()) {
-                $this->setChild(
-                    'save_and_edit_button',
-                    $this->getLayout()->createBlock('adminhtml/widget_button')
-                        ->setData([
-                            'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
-                            'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
-                            'class'     => 'save'
-                        ])
-                );
+                $this->setChild(self::BUTTON_SAVE_AND_CONTINUE, $this->getButtonSaveAndContinueBlock());
             }
             if ($this->getProduct()->isDeleteable()) {
-                $this->setChild(
-                    'delete_button',
-                    $this->getLayout()->createBlock('adminhtml/widget_button')
-                        ->setData([
-                            'label'     => Mage::helper('catalog')->__('Delete'),
-                            'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()),
-                            'class'     => 'delete'
-                        ])
-                );
+                $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
             }
 
             if ($this->getProduct()->isDuplicable()) {
-                $this->setChild(
-                    'duplicate_button',
-                    $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'     => Mage::helper('catalog')->__('Duplicate'),
-                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl()),
-                        'class'     => 'add'
-                    ])
-                );
+                $this->setChild(self::BUTTON_DUPLICATE, $this->getButtonDuplicateBlock());
             }
         }
 
         return parent::_prepareLayout();
     }
 
-    /**
-     * @return string
-     */
-    public function getBackButtonHtml()
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->getChildHtml('back_button');
+        return parent::getButtonBlockByType(self::BUTTON_BACK)
+            ->setOnClickSetLocationJsUrl('*/*/', [
+                'store' => $this->getRequest()->getParam('store', 0),
+            ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getCancelButtonHtml()
+
+    public function getButtonBackPopupBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->getChildHtml('reset_button');
+        return parent::getButtonBlockByType(self::BUTTON_CANCEL)
+            ->setLabel(Mage::helper('catalog')->__('Close Window'));
     }
 
-    /**
-     * @return string
-     */
-    public function getSaveButtonHtml()
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->getChildHtml('save_button');
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setOnClick(Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()));
     }
 
-    /**
-     * @return string
-     */
-    public function getSaveAndEditButtonHtml()
+    public function getButtonDuplicateBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->getChildHtml('save_and_edit_button');
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setLabel(Mage::helper('adminhtml')->__('Duplicate'))
+            ->setOnClick(Mage::helper('core/js')->getConfirmSetLocationJs($this->getDuplicateUrl()));
     }
 
-    /**
-     * @return string
-     */
-    public function getDeleteButtonHtml()
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->getChildHtml('delete_button');
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
+            ->setOnClick(Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])))
+            ->resetClass();
     }
 
-    /**
-     * @return string
-     */
-    public function getDuplicateButtonHtml()
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
     {
-        return $this->getChildHtml('duplicate_button');
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setOnClick('productForm.submit()');
+    }
+
+    public function getButtonSaveAndContinueBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE_AND_CONTINUE)
+            ->setOnClick(Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()));
     }
 
     /**

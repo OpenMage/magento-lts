@@ -27,11 +27,12 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     protected $_tabs;
 
+    protected $_idFieldName = 'system_config_tabs';
+    protected $_template    = 'system/config/tabs.phtml';
+
     protected function _construct()
     {
-        $this->setId('system_config_tabs');
         $this->setTitle(Mage::helper('adminhtml')->__('Configuration'));
-        $this->setTemplate('system/config/tabs.phtml');
     }
 
     /**
@@ -54,16 +55,16 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
         $configFields = Mage::getSingleton('adminhtml/config');
         $sections = $configFields->getSections($current);
-        $tabs     = (array)$configFields->getTabs()->children();
+        $tabs     = (array) $configFields->getTabs()->children();
 
-        $sections = (array)$sections;
+        $sections = (array) $sections;
 
         usort($sections, [$this, '_sort']);
         usort($tabs, [$this, '_sort']);
 
         foreach ($tabs as $tab) {
             $helperName = $configFields->getAttributeModule($tab);
-            $label = Mage::helper($helperName)->__((string)$tab->label);
+            $label = Mage::helper($helperName)->__((string) $tab->label);
 
             $this->addTab($tab->getName(), [
                 'label' => $label,
@@ -86,7 +87,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
 
             $helperName = $configFields->getAttributeModule($section);
 
-            $label = Mage::helper($helperName)->__((string)$section->label);
+            $label = Mage::helper($helperName)->__((string) $section->label);
 
             if ($code == $current) {
                 if (!$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store')) {
@@ -96,8 +97,8 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                 }
             }
             if ($sectionAllowed && $hasChildren) {
-                $this->addSection($code, (string)$section->tab, [
-                    'class'     => (string)$section->class,
+                $this->addSection($code, (string) $section->tab, [
+                    'class'     => (string) $section->class,
                     'label'     => $label,
                     'url'       => $url->getUrl('*/*/*', ['_current' => true, 'section' => $code]),
                 ]);
@@ -254,45 +255,66 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     public function getStoreButtonsHtml()
     {
-        $curWebsite = $this->getRequest()->getParam('website');
-        $curStore = $this->getRequest()->getParam('store');
+        $request    = $this->getRequest();
+        $curWebsite = $request->getParam('website');
+        $curStore   = $request->getParam('store');
 
         $html = '';
 
         if (!$curWebsite && !$curStore) {
-            $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('adminhtml')->__('New Website'),
-                'onclick'   => "location.href='" . $this->getUrl('*/system_website/new') . "'",
-                'class'     => 'add',
-            ])->toHtml();
+            $html .= $this->getButtonNewWebsiteBlock()->toHtml();
         } elseif (!$curStore) {
-            $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('adminhtml')->__('Edit Website'),
-                'onclick'   => "location.href='" . $this->getUrl('*/system_website/edit', ['website' => $curWebsite]) . "'",
-            ])->toHtml();
-            $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('adminhtml')->__('New Store View'),
-                'onclick'   => "location.href='" . $this->getUrl('*/system_store/new', ['website' => $curWebsite]) . "'",
-                'class'     => 'add',
-            ])->toHtml();
-            $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('adminhtml')->__('Delete Website'),
-                'onclick'   => "location.href='" . $this->getUrl('*/system_website/delete', ['website' => $curWebsite]) . "'",
-                'class'     => 'delete',
-            ])->toHtml();
+            $html .= $this->getButtonEditWebsiteBlock()->toHtml();
+            $html .= $this->getButtonNewStoreViewBlock()->toHtml();
+            $html .= $this->getButtonDeleteWebsiteBlock()->toHtml();
         } else {
-            $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('adminhtml')->__('Edit Store View'),
-                'onclick'   => "location.href='" . $this->getUrl('*/system_store/edit', ['store' => $curStore]) . "'",
-            ])->toHtml();
-            $html .= $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('adminhtml')->__('Delete Store View'),
-                'onclick'   => "location.href='" . $this->getUrl('*/system_store/delete', ['store' => $curStore]) . "'",
-                'class'     => 'delete',
-            ])->toHtml();
+            $html .= $this->getButtonEditStoreViewBlock()->toHtml();
+            $html .= $this->getButtonDeleteStoreViewBlock()->toHtml();
         }
 
         return $html;
+    }
+
+    public function getButtonDeleteStoreViewBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setLabel(Mage::helper('adminhtml')->__('Delete Store View'))
+            ->setOnClick("location.href='" . $this->getUrl('*/system_store/delete', ['store' => $this->getRequest()->getParam('store')]) . "'");
+    }
+
+    public function getButtonEditStoreViewBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('adminhtml')->__('Edit Store View'))
+            ->setOnClick("location.href='" . $this->getUrl('*/system_store/edit', ['store' => $this->getRequest()->getParam('store')]) . "'");
+    }
+
+    public function getButtonNewStoreViewBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setLabel(Mage::helper('adminhtml')->__('New Store View'))
+            ->setOnClick("location.href='" . $this->getUrl('*/system_store/new', ['website' => $this->getRequest()->getParam('website')]) . "'");
+    }
+
+    public function getButtonDeleteWebsiteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setLabel(Mage::helper('adminhtml')->__('Delete Website'))
+            ->setOnClick("location.href='" . $this->getUrl('*/system_website/delete', ['website' => $this->getRequest()->getParam('website')]) . "'");
+    }
+
+    public function getButtonEditWebsiteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('adminhtml')->__('Edit Website'))
+            ->setOnClick("location.href='" . $this->getUrl('*/system_website/edit', ['website' => $this->getRequest()->getParam('website')]) . "'");
+    }
+
+    public function getButtonNewWebsiteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setLabel(Mage::helper('adminhtml')->__('New Website'))
+            ->setOnClick("location.href='" . $this->getUrl('*/system_website/new') . "'");
     }
 
     /**

@@ -22,11 +22,18 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Template
 {
+    public const BLOCK_GRID = 'grid';
+
+    public const BUTTON_DELETE      = 'deleteButton';
+    public const BUTTON_UNSUBSCRIBE = 'unsubscribeButton';
+
+    protected $_template = 'newsletter/problem/list.phtml';
+
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('newsletter/problem/list.phtml');
-        $collection = Mage::getResourceSingleton('newsletter/problem_collection')
+
+        Mage::getResourceSingleton('newsletter/problem_collection')
             ->addSubscriberInfo()
             ->addQueueInfo();
     }
@@ -34,42 +41,40 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
     protected function _prepareLayout()
     {
         $this->setChild(
-            'grid',
+            self::BLOCK_GRID,
             $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid', 'newsletter.problem.grid')
         );
 
-        $this->setChild(
-            'deleteButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button', 'del.button')
-                ->setData(
-                    [
-                        'label' => Mage::helper('newsletter')->__('Delete Selected Problems'),
-                        'onclick' => 'problemController.deleteSelected();'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'unsubscribeButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button', 'unsubscribe.button')
-                ->setData(
-                    [
-                        'label' => Mage::helper('newsletter')->__('Unsubscribe Selected'),
-                        'onclick' => 'problemController.unsubscribe();'
-                    ]
-                )
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+        $this->setChild(self::BUTTON_UNSUBSCRIBE, $this->getButtonUnsubscribeBlock());
+    }
+
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE, 'del.button')
+            ->setLabel(Mage::helper('newsletter')->__('Delete Selected Problems'))
+            ->setOnClick('problemController.deleteSelected();');
+    }
+
+    public function getButtonUnsubscribeBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock('unsubscribe.button')
+            ->setLabel(Mage::helper('newsletter')->__('Unsubscribe Selected'))
+            ->setOnClick('problemController.unsubscribe();');
     }
 
     public function getUnsubscribeButtonHtml()
     {
-        return $this->getChildHtml('unsubscribeButton');
-    }
-
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('deleteButton');
+        return $this->getChildHtml(self::BUTTON_UNSUBSCRIBE);
     }
 
     public function getShowButtons()

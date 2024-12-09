@@ -23,6 +23,8 @@
  */
 class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_Container
 {
+    public const BUTTON_SKIP_CATEGORIES = 'skip_categories';
+
     /**
      * Part for building some blocks names
      *
@@ -89,17 +91,8 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     'categories_tree',
                     $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree')
                 );
-                $this->setChild(
-                    'skip_categories',
-                    $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                        'label'   => Mage::helper('adminhtml')->__('Skip Category Selection'),
-                        'onclick' => 'window.location = \'' . Mage::helper('adminhtml')->getUrl('*/*/*', [
-                            'product' => $this->getProductId()
-                            ]) . '\'',
-                        'class'   => 'save',
-                        'level'   => -1
-                    ])
-                );
+                $this->setChild(self::BUTTON_SKIP_CATEGORIES, $this->getButtonSkipCategoriesBlock());
+
                 $this->_updateButton(
                     'back',
                     'onclick',
@@ -124,6 +117,16 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         }
 
         return parent::_prepareLayout();
+    }
+
+    public function getButtonSkipCategoriesBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setLabel(Mage::helper('adminhtml')->__('Skip Category Selection'))
+            ->setOnClick('window.location = \'' . Mage::helper('adminhtml')->getUrl('*/*/*', [
+                    'product' => $this->getProductId()
+                ]) . '\'')
+            ->setLevel(-1);
     }
 
     /**
@@ -255,8 +258,11 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     public function updateModeLayout($mode = null)
     {
         if (!$mode) {
-            $modes = array_keys(Mage::getBlockSingleton('adminhtml/urlrewrite_selector')->getModes());
-            $mode  = array_shift($modes);
+            $rewriteSelector = Mage::getBlockSingleton('adminhtml/urlrewrite_selector');
+            if ($rewriteSelector) {
+                $modes = array_keys($rewriteSelector->getModes());
+                $mode  = array_shift($modes);
+            }
         }
 
         // edit form for new custom urlrewrite

@@ -22,54 +22,60 @@
  */
 class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
 {
-    protected function _construct()
-    {
-        $this->setTemplate('system/currency/rates.phtml');
-    }
+    public const BLOCK_IMPORT_SERVICES  = 'import_services';
+    public const BLOCK_RATE_MATRIX      = 'rates_matrix';
 
+    public const BUTTON_IMPORT          = 'import_button';
+
+    protected $_template = 'system/currency/rates.phtml';
+
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Save Currency Rates'),
-                    'onclick'   => 'currencyForm.submit();',
-                    'class'     => 'save'
-            ])
-        );
-
-        $this->setChild(
-            'reset_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Reset'),
-                    'onclick'   => 'document.location.reload()',
-                    'class'     => 'reset'
-            ])
-        );
-
-        $this->setChild(
-            'import_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Import'),
-                    'class'     => 'add',
-                    'type'      => 'submit',
-            ])
-        );
-
-        $this->setChild(
-            'rates_matrix',
+            self::BLOCK_RATE_MATRIX,
             $this->getLayout()->createBlock('adminhtml/system_currency_rate_matrix')
         );
 
         $this->setChild(
-            'import_services',
+            self::BLOCK_IMPORT_SERVICES,
             $this->getLayout()->createBlock('adminhtml/system_currency_rate_services')
         );
 
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+        $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+        $this->setChild(self::BUTTON_IMPORT, $this->getButtonImportBlock());
+    }
+
+    public function getButtonImportBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setLabel(Mage::helper('adminhtml')->__('Import'))
+            ->setType(Mage_Adminhtml_Block_Widget_Button::TYPE_SUBMIT);
+    }
+
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
+            ->setOnClick('document.location.reload()');
+    }
+
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setLabel(Mage::helper('adminhtml')->__('Save Currency Rates'))
+            ->setOnClick('currencyForm.submit();');
     }
 
     protected function getHeader()
@@ -77,29 +83,19 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
         return Mage::helper('adminhtml')->__('Manage Currency Rates');
     }
 
-    protected function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
-    }
-
-    protected function getResetButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
-    }
-
     protected function getImportButtonHtml()
     {
-        return $this->getChildHtml('import_button');
+        return $this->getChildHtml(self::BUTTON_IMPORT);
     }
 
     protected function getServicesHtml()
     {
-        return $this->getChildHtml('import_services');
+        return $this->getChildHtml(self::BLOCK_IMPORT_SERVICES);
     }
 
     protected function getRatesMatrixHtml()
     {
-        return $this->getChildHtml('rates_matrix');
+        return $this->getChildHtml(self::BLOCK_RATE_MATRIX);
     }
 
     protected function getImportFormAction()

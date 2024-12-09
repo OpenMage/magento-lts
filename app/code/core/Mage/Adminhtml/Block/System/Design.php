@@ -21,24 +21,35 @@
  */
 class Mage_Adminhtml_Block_System_Design extends Mage_Adminhtml_Block_Template
 {
+    public const BLOCK_GRID = 'grid';
+
+    public const BUTTON_ADD = 'add_new_button';
+
+    protected $_template = 'system/design/index.phtml';
+
     /**
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setTemplate('system/design/index.phtml');
+        $this->setChild(self::BLOCK_GRID, $this->getLayout()->createBlock('adminhtml/system_design_grid', 'design.grid'));
 
-        $this->setChild(
-            'add_new_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Add Design Change'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/new')),
-                    'class'     => 'add'
-                ])
-        );
-
-        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/system_design_grid', 'design.grid'));
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+    }
+
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setLabel(Mage::helper('catalog')->__('Add Design Change'))
+            ->setOnClickSetLocationJsUrl('*/*/new');
     }
 }

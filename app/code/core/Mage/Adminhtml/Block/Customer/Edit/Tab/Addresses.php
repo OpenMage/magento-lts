@@ -22,14 +22,9 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Block_Widget_Form
 {
-    /**
-     * Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('customer/tab/addresses.phtml');
-    }
+    public const BUTTON_ADD = 'add_address_button';
+
+    protected $_template = 'customer/tab/addresses.phtml';
 
     /**
      * @return string
@@ -40,48 +35,57 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'  => Mage::helper('customer')->__('Delete Address'),
-                    'name'   => 'delete_address',
-                    'element_name' => 'delete_address',
-                    'disabled' => $this->isReadonly(),
-                    'class'  => 'delete' . ($this->isReadonly() ? ' disabled' : '')
-                ])
-        );
-        $this->setChild(
-            'add_address_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'  => Mage::helper('customer')->__('Add New Address'),
-                    'id'     => 'add_address_button',
-                    'name'   => 'add_address_button',
-                    'element_name' => 'add_address_button',
-                    'disabled' => $this->isReadonly(),
-                    'class'  => 'add' . ($this->isReadonly() ? ' disabled' : ''),
-                    'onclick' => 'customerAddresses.addNewAddress()'
-                ])
-        );
-        $this->setChild(
-            'cancel_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'  => Mage::helper('customer')->__('Cancel'),
-                    'id'     => 'cancel_add_address' . $this->getTemplatePrefix(),
-                    'name'   => 'cancel_address',
-                    'element_name' => 'cancel_address',
-                    'class'  => 'cancel delete-address' . ($this->isReadonly() ? ' disabled' : ''),
-                    'disabled' => $this->isReadonly(),
-                    'onclick' => 'customerAddresses.cancelAdd(this)',
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+        $this->setChild(self::BUTTON_ADD, $this->getButtonAddBlock());
+        $this->setChild(self::BUTTON_CANCEL, $this->getButtonCancelBlock());
+    }
+
+    public function getButtonAddBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setId('add_address_button')
+            ->setLabel(Mage::helper('customer')->__('Add New Address'))
+            ->setOnClick('customerAddresses.addNewAddress()')
+            ->addClass($this->isReadonly() ? ' disabled' : '')
+            ->setDisabled($this->isReadonly())
+            ->setElementName('add_address_button')
+            ->setName('add_address_button');
+    }
+
+    public function getButtonCancelBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_CANCEL)
+            ->setId('cancel_add_address' . $this->getTemplatePrefix())
+            ->setLabel(Mage::helper('customer')->__('Cancel'))
+            ->setOnClick('customerAddresses.cancelAdd(this)')
+            ->addClass('delete-address' . ($this->isReadonly() ? ' disabled' : ''))
+            ->setDisabled($this->isReadonly())
+            ->setElementName('cancel_address')
+            ->setName('cancel_address');
+    }
+
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setLabel(Mage::helper('customer')->__('Delete Address'))
+            ->addClass($this->isReadonly() ? ' disabled' : '')
+            ->setDisabled($this->isReadonly())
+            ->setElementName('delete_address')
+            ->setName('delete_address');
     }
 
     /**
@@ -93,14 +97,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     {
         $customer = Mage::registry('current_customer');
         return $customer->isReadonly();
-    }
-
-    /**
-     * @return string
-     */
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
     }
 
     /**
@@ -214,17 +210,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * @return string
      */
-    public function getCancelButtonHtml()
-    {
-        return $this->getChildHtml('cancel_button');
-    }
-
-    /**
-     * @return string
-     */
     public function getAddNewButtonHtml()
     {
-        return $this->getChildHtml('add_address_button');
+        return $this->getChildHtml(self::BUTTON_ADD);
     }
 
     /**

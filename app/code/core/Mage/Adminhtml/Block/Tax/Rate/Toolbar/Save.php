@@ -23,6 +23,13 @@
  */
 class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Template
 {
+    public const BUTTON_BACK    = 'backButton';
+    public const BUTTON_DELETE  = 'deleteButton';
+    public const BUTTON_RESET   = 'resetButton';
+    public const BUTTON_SAVE    = 'saveButton';
+
+    protected $_template = 'tax/toolbar/rate/save.phtml';
+
     /**
      * Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save constructor.
      */
@@ -30,91 +37,58 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
     {
         parent::__construct();
         $this->assign('createUrl', $this->getUrl('*/tax_rate/save'));
-        $this->setTemplate('tax/toolbar/rate/save.phtml');
+    }
+
+    /**
+     * @codeCoverageIgnore
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->addButtons();
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+        $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+    }
+
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setLabel(Mage::helper('tax')->__('Delete Rate'))
+            ->setOnClickSetLocationJsUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')]);
+    }
+
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
+            ->setOnClick('window.location.reload()');
+    }
+
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setLabel(Mage::helper('tax')->__('Save Rate'))
+            ->setOnClick('wigetForm.submit();return false;');
     }
 
     /**
      * @inheritDoc
      * @throws Exception
      */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'backButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('tax')->__('Back'),
-                    'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
-                    'class'     => 'back'
-                ])
-        );
-
-        $this->setChild(
-            'resetButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('tax')->__('Reset'),
-                    'onclick'   => 'window.location.reload()'
-                ])
-        );
-
-        $this->setChild(
-            'saveButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('tax')->__('Save Rate'),
-                    'onclick'   => 'wigetForm.submit();return false;',
-                    'class'     => 'save'
-                ])
-        );
-
-        $this->setChild(
-            'deleteButton',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('tax')->__('Delete Rate'),
-                    'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs(
-                        $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
-                    ),
-                    'class'     => 'delete'
-                ])
-        );
-        return parent::_prepareLayout();
-    }
-
-    /**
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('backButton');
-    }
-
-    /**
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('resetButton');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('saveButton');
-    }
-
-    /**
-     * @return string|void
-     * @throws Exception
-     */
     public function getDeleteButtonHtml()
     {
         if ((int) $this->getRequest()->getParam('rate') == 0) {
-            return;
+            return '';
         }
-        return $this->getChildHtml('deleteButton');
+        return parent::getDeleteButtonHtml();
     }
 }

@@ -27,6 +27,12 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends Mage_Adminhtml_Block_Widget
 {
+    public const BLOCK_SELCTION_TEMPLATE = 'selection_template';
+
+    public const BUTTON_ADD_SELECTION   = 'add_selection_button';
+    public const BUTTON_CLOSE_SEARCH    = 'close_search_button';
+    public const BUTTON_OPTION_DELETE   = 'option_delete_button';
+
     /**
      * Form element
      *
@@ -57,6 +63,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     protected $_options = null;
 
+    protected $_template = 'bundle/product/edit/bundle/option.phtml';
+
     /**
      * Bundle option renderer class constructor
      *
@@ -64,7 +72,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function __construct()
     {
-        $this->setTemplate('bundle/product/edit/bundle/option.phtml');
         $this->setCanReadPrice(true);
         $this->setCanEditPrice(true);
     }
@@ -138,51 +145,49 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     protected function _prepareLayout()
     {
         $this->setChild(
-            'add_selection_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'id'    => $this->getFieldId() . '_{{index}}_add_button',
-                    'label'     => Mage::helper('bundle')->__('Add Selection'),
-                    'on_click'   => 'bSelection.showSearch(event)',
-                    'class' => 'add'
-                ])
-        );
-
-        $this->setChild(
-            'close_search_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'id'    => $this->getFieldId() . '_{{index}}_close_button',
-                    'label'     => Mage::helper('bundle')->__('Close'),
-                    'on_click'   => 'bSelection.closeSearch(event)',
-                    'class' => 'back no-display'
-                ])
-        );
-
-        $this->setChild(
-            'option_delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Delete Option'),
-                    'class' => 'delete delete-product-option',
-                    'on_click' => 'bOption.remove(event)'
-                ])
-        );
-
-        $this->setChild(
-            'selection_template',
+            self::BLOCK_SELCTION_TEMPLATE,
             $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_selection')
         );
 
+        $this->addButtons();
         return parent::_prepareLayout();
     }
 
     /**
-     * @return string
+     * @codeCoverageIgnore
      */
-    public function getAddButtonHtml()
+    protected function addButtons(): void
     {
-        return $this->getChildHtml('add_button');
+        $this->setChild(self::BUTTON_ADD_SELECTION, $this->getButtonAddSelectionBlock());
+        $this->setChild(self::BUTTON_CLOSE_SEARCH, $this->getButtonCloseSearchBlock());
+        $this->setChild(self::BUTTON_OPTION_DELETE, $this->getButtonOptionDeleteBlock());
+    }
+
+    public function getButtonAddSelectionBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_ADD)
+            ->setId($this->getFieldId() . '_{{index}}_add_button')
+            ->setLabel(Mage::helper('bundle')->__('Add Selection'))
+            ->setOnClick('bSelection.showSearch(event)');
+    }
+
+    public function getButtonCloseSearchBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_CLOSE)
+            ->setId($this->getFieldId() . '_{{index}}_close_button')
+            ->setLabel(Mage::helper('bundle')->__('Close'))
+            ->setOnClick('bSelection.closeSearch(event)')
+            ->resetClass()
+            ->setClass(self::BUTTON__CLASS_BACK)
+            ->addClass('no-display');
+    }
+
+    public function getButtonOptionDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setLabel(Mage::helper('catalog')->__('Delete Option'))
+            ->setOnClick('bOption.remove(event)')
+            ->addClass('delete-product-option');
     }
 
     /**
@@ -190,7 +195,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getCloseSearchButtonHtml()
     {
-        return $this->getChildHtml('close_search_button');
+        return $this->getChildHtml(self::BUTTON_CLOSE_SEARCH);
     }
 
     /**
@@ -198,7 +203,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getAddSelectionButtonHtml()
     {
-        return $this->getChildHtml('add_selection_button');
+        return $this->getChildHtml(self::BUTTON_ADD_SELECTION);
     }
 
     /**
@@ -249,7 +254,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     {
         return $this->getLayout()
                 ->getBlock('admin.product.bundle.items')
-                ->getChild('add_button')->getId();
+                ->getChild(self::BUTTON_ADD)->getId();
     }
 
     /**
@@ -257,7 +262,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getOptionDeleteButtonHtml()
     {
-        return $this->getChildHtml('option_delete_button');
+        return $this->getChildHtml(self::BUTTON_OPTION_DELETE);
     }
 
     /**
@@ -265,7 +270,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getSelectionHtml()
     {
-        return $this->getChildHtml('selection_template');
+        return $this->getChildHtml(self::BLOCK_SELCTION_TEMPLATE);
     }
 
     /**

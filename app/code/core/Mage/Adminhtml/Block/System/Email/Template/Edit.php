@@ -22,11 +22,14 @@
  */
 class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Block_Widget
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('system/email/template/edit.phtml');
-    }
+    public const BLOCK_FORM         = 'form';
+    public const BUTTON_LOAD        = 'load_button';
+    public const BUTTON_PREVIEW     = 'preview_button';
+    public const BUTTON_TO_HTML     = 'to_html_button';
+    public const BUTTON_TO_PLAIN    = 'to_plain_button';
+    public const BUTTON_TOGGLE      = 'toggle_button';
+
+    protected $_template = 'system/email/template/edit.phtml';
 
     /**
      * @inheritDoc
@@ -34,126 +37,93 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     protected function _prepareLayout()
     {
         $this->setChild(
-            'back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('adminhtml')->__('Back'),
-                        'onclick' => "window.location.href = '" . $this->getUrl('*/*') . "'",
-                        'class'   => 'back'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'reset_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('adminhtml')->__('Reset'),
-                        'onclick' => 'window.location.href = window.location.href'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('adminhtml')->__('Delete Template'),
-                        'onclick' => 'templateControl.deleteTemplate();',
-                        'class'   => 'delete'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'to_plain_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('adminhtml')->__('Convert to Plain Text'),
-                        'onclick' => 'templateControl.stripTags();',
-                        'id'      => 'convert_button'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'to_html_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('adminhtml')->__('Return Html Version'),
-                        'onclick' => 'templateControl.unStripTags();',
-                        'id'      => 'convert_button_back',
-                        'style'   => 'display:none'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'toggle_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('adminhtml')->__('Toggle Editor'),
-                        'onclick' => 'templateControl.toggleEditor();',
-                        'id'      => 'toggle_button'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'preview_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('adminhtml')->__('Preview Template'),
-                        'onclick' => 'templateControl.preview();'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('adminhtml')->__('Save Template'),
-                        'onclick' => 'templateControl.save();',
-                        'class'   => 'save'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'load_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('adminhtml')->__('Load Template'),
-                        'onclick' => 'templateControl.load();',
-                        'type'    => 'button',
-                        'class'   => 'save'
-                    ]
-                )
-        );
-
-        $this->setChild(
-            'form',
+            self::BLOCK_FORM,
             $this->getLayout()->createBlock('adminhtml/system_email_template_edit_form')
         );
+
+        $this->addButtons();
         return parent::_prepareLayout();
     }
 
     /**
-     * @return string
+     * @codeCoverageIgnore
      */
-    public function getBackButtonHtml()
+    protected function addButtons(): void
     {
-        return $this->getChildHtml('back_button');
+        $this->setChild(self::BUTTON_BACK, $this->getButtonBackBlock());
+        $this->setChild(self::BUTTON_RESET, $this->getButtonResetBlock());
+        $this->setChild(self::BUTTON_DELETE, $this->getButtonDeleteBlock());
+        $this->setChild(self::BUTTON_TO_PLAIN, $this->getButtonToPlainBlock());
+        $this->setChild(self::BUTTON_TO_HTML, $this->getButtonToHtmllock());
+        $this->setChild(self::BUTTON_TOGGLE, $this->getButtonToggleBlock());
+        $this->setChild(self::BUTTON_PREVIEW, $this->getButtonPreviewBlock());
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+        $this->setChild(self::BUTTON_LOAD, $this->getButtonLoadBlock());
+    }
+
+    public function getButtonBackBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_BACK);
+    }
+
+    public function getButtonDeleteBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_DELETE)
+            ->setLabel(Mage::helper('adminhtml')->__('Delete Template'))
+            ->setOnClick('templateControl.deleteTemplate();');
+    }
+
+    public function getButtonLoadBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setLabel(Mage::helper('adminhtml')->__('Load Template'))
+            ->setOnClick('templateControl.load();')
+            ->setType('button');
+    }
+
+    public function getButtonPreviewBlock(string $name = '', array $attributes = []): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock($name, $attributes)
+            ->setLabel(Mage::helper('adminhtml')->__('Preview Template'))
+            ->setOnClick('templateControl.preview();');
+    }
+
+    public function getButtonResetBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_RESET)
+            ->resetClass();
+    }
+
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setLabel(Mage::helper('adminhtml')->__('Save Template'))
+            ->setOnClick('templateControl.save();');
+    }
+
+    public function getButtonToHtmllock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setId('convert_button_back')
+            ->setLabel(Mage::helper('adminhtml')->__('Return Html Version'))
+            ->setOnClick('templateControl.unStripTags();')
+            ->setStyle('display:none');
+    }
+
+    public function getButtonToPlainBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setId('convert_button')
+            ->setLabel(Mage::helper('adminhtml')->__('Convert to Plain Text'))
+            ->setOnClick('templateControl.stripTags();');
+    }
+
+    public function getButtonToggleBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlock()
+            ->setId('toggle_button')
+            ->setLabel(Mage::helper('adminhtml')->__('Toggle Editor'))
+            ->setOnClick('templateControl.toggleEditor();');
     }
 
     /**
@@ -161,15 +131,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getToggleButtonHtml()
     {
-        return $this->getChildHtml('toggle_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('reset_button');
+        return $this->getChildHtml(self::BUTTON_TOGGLE);
     }
 
     /**
@@ -177,7 +139,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getToPlainButtonHtml()
     {
-        return $this->getChildHtml('to_plain_button');
+        return $this->getChildHtml(self::BUTTON_TO_PLAIN);
     }
 
     /**
@@ -185,15 +147,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getToHtmlButtonHtml()
     {
-        return $this->getChildHtml('to_html_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('save_button');
+        return $this->getChildHtml(self::BUTTON_TO_HTML);
     }
 
     /**
@@ -201,15 +155,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getPreviewButtonHtml()
     {
-        return $this->getChildHtml('preview_button');
-    }
-
-    /**
-     * @return string
-     */
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('delete_button');
+        return $this->getChildHtml(self::BUTTON_PREVIEW);
     }
 
     /**
@@ -217,7 +163,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getLoadButtonHtml()
     {
-        return $this->getChildHtml('load_button');
+        return $this->getChildHtml(self::BUTTON_LOAD);
     }
 
     /**
@@ -250,7 +196,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getFormHtml()
     {
-        return $this->getChildHtml('form');
+        return $this->getChildHtml(self::BLOCK_FORM);
     }
 
     /**

@@ -26,6 +26,8 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
 
     protected $_section;
 
+    protected $_template = 'system/config/edit.phtml';
+
     /**
      * Mage_Adminhtml_Block_System_Config_Edit constructor.
      * @throws Exception
@@ -33,7 +35,6 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('system/config/edit.phtml');
 
         $sectionCode = $this->getRequest()->getParam('section');
         $sections = Mage::getSingleton('adminhtml/config')->getSections();
@@ -45,28 +46,28 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Save Config'),
-                    'onclick'   => 'configForm.submit()',
-                    'class' => 'save',
-                ])
-        );
+        $this->addButtons();
         return parent::_prepareLayout();
     }
 
     /**
-     * @return string
+     * @codeCoverageIgnore
      */
-    public function getSaveButtonHtml()
+    protected function addButtons(): void
     {
-        return $this->getChildHtml('save_button');
+        $this->setChild(self::BUTTON_SAVE, $this->getButtonSaveBlock());
+    }
+
+    public function getButtonSaveBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
+        return parent::getButtonBlockByType(self::BUTTON_SAVE)
+            ->setLabel(Mage::helper('adminhtml')->__('Save Config'))
+            ->setOnClick('configForm.submit()');
     }
 
     /**

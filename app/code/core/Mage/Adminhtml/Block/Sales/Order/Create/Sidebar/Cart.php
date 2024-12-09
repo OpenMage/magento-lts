@@ -22,6 +22,8 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
+    public const BUTTON_EMPTY_CUSTOMER_CART = 'empty_customer_cart_button';
+
     /**
      * Storage action on selected item
      *
@@ -29,10 +31,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
      */
     protected $_sidebarStorageAction = 'add_cart_item';
 
+    protected $_idFieldName = 'sales_order_create_sidebar_cart';
+
     protected function _construct()
     {
         parent::_construct();
-        $this->setId('sales_order_create_sidebar_cart');
         $this->setDataId('cart');
     }
 
@@ -90,20 +93,31 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
     }
 
     /**
+     * @codeCoverageIgnore
      * @inheritDoc
      */
     protected function _prepareLayout()
     {
+        $this->addButtons();
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function addButtons(): void
+    {
+        $this->setChild(self::BUTTON_EMPTY_CUSTOMER_CART, $this->getButtonEmptyCustomerCartBlock());
+    }
+
+    public function getButtonEmptyCustomerCartBlock(): Mage_Adminhtml_Block_Widget_Button
+    {
         $deleteAllConfirmString = Mage::helper('core')->jsQuoteEscape(
             Mage::helper('sales')->__('Are you sure you want to delete all items from shopping cart?')
         );
-        $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-            'label' => Mage::helper('sales')->__('Clear Shopping Cart'),
-            'onclick' => 'order.clearShoppingCart(\'' . $deleteAllConfirmString . '\')',
-            'style' => 'float: right;'
-        ]);
-        $this->setChild('empty_customer_cart_button', $button);
-
-        return parent::_prepareLayout();
+        return parent::getButtonBlock()
+            ->setLabel(Mage::helper('sales')->__('Clear Shopping Cart'))
+            ->setOnClick('order.clearShoppingCart(\'' . $deleteAllConfirmString . '\')')
+            ->setStyle('float: right;');
     }
 }
