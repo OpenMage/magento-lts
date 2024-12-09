@@ -1,21 +1,6 @@
-\--- layout: v1x\_rest title: Customers --- JSON responses on this page contributed by Tim Reynolds
+# Customers
 
-*   [REST API: Customers](#RESTAPI-Resource-Customers-RESTAPI-Customers)
-    *   [URI: /customers](#RESTAPI-Resource-Customers-URI--customers)
-        *   [HTTP Method: GET /customers](#RESTAPI-Resource-Customers-HTTPMethod-GET-customers)
-        *   [HTTP Method: POST /customers](#RESTAPI-Resource-Customers-HTTPMethod-POST-customers)
-        *   [HTTP Method: PUT /customers](#RESTAPI-Resource-Customers-HTTPMethod-PUT-customers)
-        *   [HTTP Method: DELETE /customers](#RESTAPI-Resource-Customers-HTTPMethod-DELETE-customers)
-*   [REST API: Customer](#RESTAPI-Resource-Customers-RESTAPI-Customer)
-    *   [URI: /customers/:customerId](#RESTAPI-Resource-Customers-URI--customers--customerId)
-        *   [HTTP Method: GET /customers/:customerId](#RESTAPI-Resource-Customers-HTTPMethod-GET-customers--customerId)
-        *   [HTTP Method: POST /customers/:customerId](#RESTAPI-Resource-Customers-HTTPMethod-POST-customers--customerId)
-        *   [HTTP Method: PUT /customers/:customerId](#RESTAPI-Resource-Customers-HTTPMethod-PUT-customers--customerId)
-        *   [HTTP Method: DELETE /customers/:customerId](#RESTAPI-Resource-Customers-HTTPMethod-DELETE-customers--customerId)
-
-## Customers
-
-#### URI: /customers
+## URI: /customers
 
 Allows you to create and retrieve customers.
 
@@ -164,9 +149,7 @@ If the customer was created successfully, we receive **Response HTTP Code** = 20
 
 **Description**: Not allowed
 
-## Customer
-
-#### URI: /customers/:customerId
+## URI: /customers/:customerId
 
 Allows you to manage existing customers.
 
@@ -187,40 +170,39 @@ Allows you to manage existing customers.
     GET http://om.ddev.site/api/rest/customers/2
     ```
 
-**Response Body**:
+**Response body: XML**
 
+```xml
 <?xml version="1.0"?>
-<magento\_api>
-<entity\_id>2</entity\_id>
-<website\_id>1</website\_id>
-<email>test@example.com</email>
-<group\_id>1</group\_id>
-<created\_at>2012-03-22 14:15:54</created\_at>
-<disable\_auto\_group\_change>1</disable\_auto\_group\_change>
-<created\_in>Default Store View</created\_in>
-<firstname>john</firstname>
-<lastname>Doe</lastname>
-<last\_logged\_in>2012-03-22 14:15:56</last\_logged\_in>
-</magento\_api>
+<magento_api>
+    <entity_id>2</entity_id>
+    <website_id>1</website_id>
+    <email>test@example.com</email>
+    <group_id>1</group_id>
+    <created_at>2012-03-22 14:15:54</created_at>
+    <disable_auto_group_change>1</disable_auto_group_change>
+    <created_in>Default Store View</created_in>
+    <firstname>john</firstname>
+    <lastname>Doe</lastname>
+    <last_logged_in>2012-03-22 14:15:56</last_logged_in>
+</magento_api>
+```
 
-**response example: json**
+**Response body: JSON**
 
-get [http://om.ddev.site/api/rest/customers/141](http://om.ddev.site/api/rest/customers)
-
-**response body**:
-
+```json
 {
-"entity\_id": "2",
-"website\_id": "1",
-"email": "test@example.com",
-"group\_id": "1",
-"created\_at": "2012-03-22 14:15:54",
-"disable\_auto\_group\_change": "1",
-"created\_in": "English",
-"firstname": "john",
-"lastname": "Doe"
+    "entity_id": "2",
+    "website_id": "1",
+    "email": "test@example.com",
+    "group_id": "1",
+    "created_at": "2012-03-22 14:15:54",
+    "disable_auto_group_change": "1",
+    "created_in": "English",
+    "firstname": "john",
+    "lastname": "Doe"
 }
-
+```
 
 ### HTTP Method POST
 
