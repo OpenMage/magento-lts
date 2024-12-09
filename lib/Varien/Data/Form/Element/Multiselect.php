@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,9 +86,8 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         }
 
         $html .= '</select>' . "\n";
-        $html .= $this->getAfterElementHtml();
 
-        return $html;
+        return $html . $this->getAfterElementHtml();
     }
 
     /**
@@ -134,9 +133,8 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         $result .= '         return false; ' . "\n";
         $result .= '     }' . "\n";
         $result .= '  }' . "\n";
-        $result .= "\n" . '</script>';
 
-        return $result;
+        return $result . ("\n" . '</script>');
     }
 
     /**
@@ -160,7 +158,6 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         if (in_array((string)$option['value'], $selected)) {
             $html .= ' selected="selected"';
         }
-        $html .= '>' . $this->_escape($option['label']) . '</option>' . "\n";
-        return $html;
+        return $html . ('>' . $this->_escape($option['label']) . '</option>' . "\n");
     }
 }

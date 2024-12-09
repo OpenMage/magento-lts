@@ -140,9 +140,8 @@
 		  $resultText  = "<CardinalMPI>";
 		  $resultText = $resultText."<ErrorNo>".($errorNo)."</ErrorNo>" ;
 		  $resultText = $resultText."<ErrorDesc>".($errorDesc)."</ErrorDesc>" ;
-		  $resultText  = $resultText."</CardinalMPI>";
 
-		  return $resultText;
+		  return $resultText."</CardinalMPI>";
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////
@@ -154,9 +153,8 @@
 		function escapeXML($elementValue){
 
 			$escapedValue = str_replace("&", "&amp;", $elementValue);
-			$escapedValue = str_replace("<", "&lt;", $escapedValue);
 
-			return $escapedValue;
+			return str_replace("<", "&lt;", $escapedValue);
 
 		}
 
