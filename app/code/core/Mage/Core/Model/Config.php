@@ -1537,7 +1537,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
         Varien_Profiler::start('CORE::create_object_of::' . $className);
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $obj = new $className();
+        $obj = new $className($moduleAlias);
         Varien_Profiler::stop('CORE::create_object_of::' . $className);
         return $obj;
     }

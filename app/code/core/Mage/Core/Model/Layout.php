@@ -497,7 +497,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @return Mage_Core_Block_Abstract
      * @throws Mage_Core_Exception
      */
-    protected function _getBlockInstance($block, array $attributes = [])
+    protected function _getBlockInstance($type, array $attributes = [])
     {
         $className = Mage::getConfig()->getBlockClassName($type);
         if ($className === false || !class_exists($className)) {
