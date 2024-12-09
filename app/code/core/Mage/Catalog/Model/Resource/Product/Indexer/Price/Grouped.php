@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,8 +80,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
             );
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
-        $minCheckSql = $write->getCheckSql('le.required_options = 0', 'i.min_price', 0);
-        $maxCheckSql = $write->getCheckSql('le.required_options = 0', 'i.max_price', 0);
+        $minCheckSql = $write->getCheckSql('le.required_options = 0', 'i.min_price', '0');
+        $maxCheckSql = $write->getCheckSql('le.required_options = 0', 'i.max_price', '0');
         $select->columns('website_id', 'cw')
             ->join(
                 ['le' => $this->getTable('catalog/product')],

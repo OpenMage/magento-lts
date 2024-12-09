@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -87,9 +88,8 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $value = $productValues[$storeId] ?? $defaultValue;
 
         $value = $this->_prepareDatetimeValue($value, $object);
-        $value = $this->_prepareMultiselectValue($value, $object);
 
-        return $value;
+        return $this->_prepareMultiselectValue($value, $object);
     }
 
     /**

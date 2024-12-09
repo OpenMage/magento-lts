@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -40,15 +41,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number extends Mage_Admin
             return $value ? $value : '0'; // fixed for showing zero in grid
         }
         return $this->getColumn()->getDefault();
-    }
-
-    /**
-     * Renders CSS
-     *
-     * @return string
-     */
-    public function renderCss()
-    {
-        return parent::renderCss() . ' a-right';
     }
 }

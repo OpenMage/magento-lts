@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -187,6 +188,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @param Mage_Eav_Model_Entity_Abstract $entity
      * @throws Mage_Eav_Exception
      * @return $this
+     * @SuppressWarnings(PHPMD.DevelopmentCodeFragment)
      */
     public function setEntity($entity)
     {
@@ -195,7 +197,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         } elseif (is_string($entity) || $entity instanceof Mage_Core_Model_Config_Element) {
             $this->_entity = Mage::getModel('eav/entity')->setType($entity);
         } else {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied: %s', print_r($entity, 1)));
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied: %s', print_r($entity, true)));
         }
         return $this;
     }
@@ -483,7 +485,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * @param string $alias
      * @param string $expression
-     * @param string $attribute
+     * @param string|array $attribute
      * @return $this
      */
     public function addExpressionAttributeToSelect($alias, $expression, $attribute)
@@ -743,7 +745,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @param array|string|Zend_Db_Expr $table
      * @param string $bind
      * @param string|array $fields
-     * @param null|array $cond
+     * @param string|array|null $cond
      * @param string $joinType
      * @return $this
      */
@@ -947,6 +949,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function save()
     {
         foreach ($this->getItems() as $item) {
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $item->save();
         }
         return $this;
@@ -960,6 +963,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function delete()
     {
         foreach ($this->getItems() as $k => $item) {
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $this->getEntity()->delete($item);
             unset($this->_items[$k]);
         }
@@ -1513,5 +1517,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         return (string)$select;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

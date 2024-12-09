@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -269,8 +270,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             }
         }
         $tarData = $header . $data . $sub;
-        $tarData = str_pad($tarData, (int) ((strlen($tarData) - 1) / 1536) * 1536, "\0");
-        return $tarData;
+        return str_pad($tarData, (int) ((strlen($tarData) - 1) / 1536) * 1536, "\0");
     }
 
     /**

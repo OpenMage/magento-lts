@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -551,8 +552,7 @@ class Varien_Object implements ArrayAccess
     protected function __toJson(array $arrAttributes = [])
     {
         $arrData = $this->toArray($arrAttributes);
-        $json = Zend_Json::encode($arrData);
-        return $json;
+        return Zend_Json::encode($arrData);
     }
 
     /**
@@ -611,35 +611,23 @@ class Varien_Object implements ArrayAccess
     {
         switch (substr($method, 0, 3)) {
             case 'get':
-                //Varien_Profiler::start('GETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $data = $this->getData($key, $args[0] ?? null);
-                //Varien_Profiler::stop('GETTER: '.get_class($this).'::'.$method);
-                return $data;
+                return $this->getData($key, $args[0] ?? null);
 
             case 'set':
-                //Varien_Profiler::start('SETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $result = $this->setData($key, $args[0] ?? null);
-                //Varien_Profiler::stop('SETTER: '.get_class($this).'::'.$method);
-                return $result;
+                return $this->setData($key, $args[0] ?? null);
 
             case 'uns':
-                //Varien_Profiler::start('UNS: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $result = $this->unsetData($key);
-                //Varien_Profiler::stop('UNS: '.get_class($this).'::'.$method);
-                return $result;
+                return $this->unsetData($key);
 
             case 'has':
-                //Varien_Profiler::start('HAS: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
         throw new Varien_Exception(
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, 1) . ')'
+            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')'
         );
     }
 

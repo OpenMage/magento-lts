@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -164,7 +165,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Set database connection adapter
      *
-     * @param Zend_Db_Adapter_Abstract $conn
+     * @param Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $conn
      * @return $this
      */
     public function setConnection($conn)
@@ -772,7 +773,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Fetch collection data
      *
-     * @param   Zend_Db_Select $select
+     * @param   Zend_Db_Select|string $select
      * @return  array
      */
     protected function _fetchAll($select)

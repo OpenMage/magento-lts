@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -131,8 +132,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
             'index'     => 'entity_id'
         ]);
         $this->addColumn('name', [
@@ -145,10 +144,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'index'     => 'sku'
         ]);
         $this->addColumn('price', [
-            'header'    => Mage::helper('catalog')->__('Price'),
             'type'      => 'currency',
-            'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
-            'index'     => 'price'
+            'currency_code' => Mage_Directory_Helper_Data::getConfigCurrencyBase(),
         ]);
 
         $this->addColumn('qty', [
@@ -157,7 +154,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'type'      => 'number',
             'validate_class' => 'validate-number',
             'index'     => 'qty',
-            'width'     => '1',
             'editable'  => true,
             'filter_condition_callback' => [$this, '_addLinkModelFilterCallback']
         ]);
@@ -175,8 +171,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         ]);
 
         $this->addColumn('action', [
-            'header'    => Mage::helper('catalog')->__('Action'),
-            'width'     => '50px',
             'type'      => 'action',
             'getter'    => 'getId',
             'actions'   => [
@@ -194,8 +188,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
                     ],
                 ],
             ],
-            'filter' => false,
-            'sortable' => false,
             'index' => 'stores',
         ]);
 

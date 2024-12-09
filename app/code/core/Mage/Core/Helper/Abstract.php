@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -41,6 +42,8 @@ abstract class Mage_Core_Helper_Abstract
      * @var Mage_Core_Model_Layout
      */
     protected $_layout;
+
+    protected array $modulesDisabled = [];
 
     /**
      * Retrieve request object
@@ -120,7 +123,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check whether or not the module output is enabled in Configuration
+     * Check whether the module output is enabled in Configuration
      *
      * @param string $moduleName Full module name
      * @return bool
@@ -135,10 +138,7 @@ abstract class Mage_Core_Helper_Abstract
             return false;
         }
 
-        if (Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName)) {
-            return false;
-        }
-        return true;
+        return !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
     }
 
     /**
@@ -153,21 +153,27 @@ abstract class Mage_Core_Helper_Abstract
             $moduleName = $this->_getModuleName();
         }
 
+        if (array_key_exists($moduleName, $this->modulesDisabled)) {
+            return $this->modulesDisabled[$moduleName];
+        }
+
         if (!Mage::getConfig()->getNode('modules/' . $moduleName)) {
-            return false;
+            return $this->modulesDisabled[$moduleName] = false;
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
         if (!$isActive || !in_array((string)$isActive, ['true', '1'])) {
-            return false;
+            return $this->modulesDisabled[$moduleName] = false;
         }
-        return true;
+        return $this->modulesDisabled[$moduleName] = true;
     }
 
     /**
      * Translate
      *
      * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function __()
     {
@@ -424,8 +430,7 @@ abstract class Mage_Core_Helper_Abstract
         $url = $this->urlDecode($url);
         $quote = ['\'', '"'];
         $replace = ['%27', '%22'];
-        $url = str_replace($quote, $replace, $url);
-        return $url;
+        return str_replace($quote, $replace, $url);
     }
 
     /**

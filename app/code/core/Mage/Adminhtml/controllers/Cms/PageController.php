@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -241,8 +242,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
      */
     protected function _filterPostData($data)
     {
-        $data = $this->_filterDates($data, ['custom_theme_from', 'custom_theme_to']);
-        return $data;
+        return $this->_filterDates($data, ['custom_theme_from', 'custom_theme_to']);
     }
 
     /**

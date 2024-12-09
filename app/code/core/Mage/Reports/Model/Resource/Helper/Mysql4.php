@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +28,7 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
      * @param string $mainTable
      * @param array $data
      * @param mixed $matchFields
-     * @return string
+     * @return int
      */
     public function mergeVisitorProductIndex($mainTable, $data, $matchFields)
     {
@@ -93,7 +94,7 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
                 [
                     't.store_id',
                     $periodCol,
-                    $adapter->getCheckSql($productTypesInExpr, 1, 0),
+                    $adapter->getCheckSql($productTypesInExpr, '1', '0'),
                     'total_qty DESC'
                 ]
             );

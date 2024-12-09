@@ -196,10 +196,13 @@ table.actions td                { vertical-align:top; }
 .grid tr.filter input.input-text { width:85%; }
 .grid tr.filter select           { width:100%; }
 .grid tr.filter .range .range-line { margin-bottom:3px; width:100px; }
+/*.grid tr.filter .range.filter-range .range-line { width: initial; }*/
 .grid tr.filter .range div.date  { min-width:121px; }
 .grid tr.filter .range input     { width:60px !important; margin-top:0; }
+.grid tr.filter .range input::placeholder { color: transparent; }
 .grid tr.filter .range select    { float:right; width:65px !important; margin-top:0; }
 .grid tr.filter .range .label    { display:block; width:30px; float:left; padding-right:3px; text-align:right; }
+/*.grid tr.filter .filter-range .label { display:none;}*/
 .grid tr.filter .date img        { width:15px; height:15px; cursor:pointer; vertical-align:middle; padding-left:3px; }
 .grid .head-massaction select    { width:auto !important; max-width:90px; }
 .grid select.select-export-filter,
@@ -332,7 +335,7 @@ table.form-edit                         { width:100%; }
 .box,
 .entry-edit fieldset,
 .entry-edit .fieldset                   { padding:10px 15px; margin-bottom:15px; }
-.entry-edit .entry-edit-head h4         { float:left; padding:0; background:none; margin:0; color:#fff; font-size:1em; line-height:18px; min-height:0; }
+.entry-edit .entry-edit-head h4         { float:left; padding:0; background:none; margin:0; color:#fff; font-size:1em; line-height:24px; min-height:0; }
 .entry-edit .entry-edit-head .tools     { float:right;}
 .entry-edit .entry-edit-head strong,
 .entry-edit .entry-edit-head a          { color:#fff; font-size:1em; line-height:18px; min-height:0; font-weight:bold}

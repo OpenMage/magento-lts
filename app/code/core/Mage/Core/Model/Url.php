@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -258,6 +259,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * @param string $key
      * @param string|null $prefix
      * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
      */
     public function getConfigData($key, $prefix = null)
     {
@@ -951,7 +953,7 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * @param string|null $routePath
      * @param array|null $routeParams
-     * @return  string
+     * @return string
      */
     public function getUrl($routePath = null, $routeParams = null)
     {
@@ -1109,8 +1111,7 @@ class Mage_Core_Model_Url extends Varien_Object
         $value = str_replace('"', '%22', $value);
         $value = str_replace("'", '%27', $value);
         $value = str_replace('>', '%3E', $value);
-        $value = str_replace('<', '%3C', $value);
-        return $value;
+        return str_replace('<', '%3C', $value);
     }
 
     /**

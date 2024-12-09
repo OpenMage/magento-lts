@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -53,8 +54,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
     public function addContainer($name, Mage_Dataflow_Model_Convert_Container_Interface $container)
     {
-        $container = $this->getContainers()->addItem($name, $container);
-        return $container;
+        return $this->getContainers()->addItem($name, $container);
     }
 
     public function getProfiles()
@@ -90,6 +90,9 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
         return $type;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     */
     public function importXml($xml)
     {
         if (is_string($xml)) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -95,8 +96,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
     public function getFormHtml()
     {
         $html = parent::getFormHtml();
-        $html .= $this->getLayout()->createBlock('adminhtml/catalog_product_composite_configure')->toHtml();
-        return $html;
+        return $html . $this->getLayout()->createBlock('adminhtml/catalog_product_composite_configure')->toHtml();
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -213,7 +214,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 'orders_invoiced'       => new Zend_Db_Expr(
                     sprintf(
                         'SUM(%s)',
-                        $adapter->getCheckSql('base_total_invoiced > 0', 1, 0)
+                        $adapter->getCheckSql('base_total_invoiced > 0', '1', '0')
                     )
                 ),
                 'invoiced'              => new Zend_Db_Expr(

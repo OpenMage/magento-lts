@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -201,8 +202,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 return false;
             }
         }
-        $tagRes = $this->_saveTags($id, $tags);
-        return $tagRes;
+        return $this->_saveTags($id, $tags);
     }
 
     /**

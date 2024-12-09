@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -138,8 +139,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $year = $first - $index;
             $years[$year] = $year;
         }
-        $years = [0 => $this->__('Year')] + $years;
-        return $years;
+        return [0 => $this->__('Year')] + $years;
     }
 
     /**

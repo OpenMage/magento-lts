@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -652,8 +653,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _filterPostData($data)
     {
-        $data = $this->_filterDates($data, ['dob']);
-        return $data;
+        return $this->_filterDates($data, ['dob']);
     }
 
     /**

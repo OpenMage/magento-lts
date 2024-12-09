@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -138,6 +139,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * @var array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_designAttributes  = [
         'custom_design',
         'custom_design_from',
@@ -160,6 +162,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @var Mage_Catalog_Model_Category_Url
      */
     protected $_urlModel;
+
+
+    protected ?string $locale = null;
 
     /**
      * Initialize resource mode
@@ -440,14 +445,14 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Return store id.
      *
-     * If store id is underfined for category return current active store id
+     * If store id is undefined for category return current active store id
      *
      * @return int
      */
     public function getStoreId()
     {
         if ($this->hasData('store_id')) {
-            return $this->_getData('store_id');
+            return (int)$this->_getData('store_id');
         }
         return Mage::app()->getStore()->getId();
     }
@@ -499,9 +504,10 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getCategoryIdUrl()
     {
         Varien_Profiler::start('REGULAR: ' . __METHOD__);
-        $urlKey = $this->getUrlKey() ? $this->getUrlKey() : $this->formatUrlKey($this->getName());
+        $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $this->getStoreId());
+        $urlKey = $this->getUrlKey() ? $this->getUrlKey() : $this->setLocale($locale)->formatUrlKey($this->getName());
         $url = $this->getUrlInstance()->getUrl('catalog/category/view', [
-            's' => $urlKey,
+            's'  => $urlKey,
             'id' => $this->getId(),
         ]);
         Varien_Profiler::stop('REGULAR: ' . __METHOD__);
@@ -516,11 +522,18 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function formatUrlKey($str)
     {
-        $str = Mage::helper('catalog/product_url')->format($str);
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', $str);
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-        return $urlKey;
+        return $this->getUrlModel()->setLocale($this->getLocale())->formatUrlKey($str);
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
 
     /**
@@ -629,6 +642,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @param string $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _getAttribute($attributeCode)
     {
         if (!$this->_useFlatResource) {
@@ -875,7 +889,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Return parent category of current category with own custom design settings
      *
-     * @return $this
+     * @return Mage_Catalog_Model_Category
      */
     public function getParentDesignCategory()
     {

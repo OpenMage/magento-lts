@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -71,9 +72,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
                 'header'    => Mage::helper('customer')->__('Bought From'),
-                'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view' => true
             ]);
         }
 
@@ -110,10 +109,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
 
         if (Mage::helper('sales/reorder')->isAllow()) {
             $this->addColumn('action', [
+                'type'      => 'action',
                 'header'    => ' ',
-                'filter'    => false,
-                'sortable'  => false,
-                'width'     => '100px',
+                'width'     => '100',
                 'renderer'  => 'adminhtml/sales_reorder_renderer_action'
             ]);
         }

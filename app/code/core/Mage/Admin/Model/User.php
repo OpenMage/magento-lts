@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -364,7 +365,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Authenticate user name and password and save loaded record
+     * Authenticate username and password and save loaded record
      *
      * @param string $username
      * @param string $password
@@ -373,6 +374,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function authenticate($username, $password)
     {
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         $config = Mage::getStoreConfigFlag('admin/security/use_case_sensitive_login');
         $result = false;
 
@@ -384,7 +388,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             $this->loadByUsername($username);
             $sensitive = ($config) ? $username == $this->getUsername() : true;
 
-            if ($sensitive && $this->getId() && Mage::helper('core')->validateHash($password, $this->getPassword())) {
+            if ($sensitive && $this->getId() && $this->validatePasswordHash($password, $this->getPassword())) {
                 if ($this->getIsActive() != '1') {
                     Mage::throwException(Mage::helper('adminhtml')->__('This account is inactive.'));
                 }
@@ -411,6 +415,11 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         return $result;
     }
 
+    public function validatePasswordHash(string $string1, string $string2): bool
+    {
+        return Mage::helper('core')->validateHash($string1, $string2);
+    }
+
     /**
      * Login user
      *
@@ -421,6 +430,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function login($username, $password)
     {
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         if ($this->authenticate($username, $password)) {
             $this->getResource()->recordLogin($this);
             Mage::getSingleton('core/session')->renewFormKey();

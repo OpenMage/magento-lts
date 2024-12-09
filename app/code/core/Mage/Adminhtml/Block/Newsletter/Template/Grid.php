@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -113,13 +114,11 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('newsletter')->__('Action'),
+                'type'      => 'action',
                 'index'     => 'template_id',
-                'sortable' => false,
-                'filter'   => false,
-                'no_link' => true,
-                'width'    => '170px',
-                'renderer' => 'adminhtml/newsletter_template_grid_renderer_action'
+                'no_link'   => true,
+                'width'     => '170',
+                'renderer'  => 'adminhtml/newsletter_template_grid_renderer_action'
             ]
         );
 

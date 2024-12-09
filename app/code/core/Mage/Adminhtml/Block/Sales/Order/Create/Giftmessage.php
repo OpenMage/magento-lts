@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -43,6 +44,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
      */
     public function getItems()
     {
+        if (!$this->isOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
 
@@ -51,7 +56,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
 
         foreach ($allItems as $item) {
             if ($this->_getGiftmessageSaveModel()->getIsAllowedQuoteItem($item)
-                && $helper->getIsMessagesAvailable('item', $item, $this->getStore())
+                && $helper->getIsMessagesAvailable($helper::TYPE_ITEM, $item, $this->getStore())
             ) {
                 // if item allowed
                 $items[] = $item;
@@ -73,5 +78,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
     protected function _getGiftmessageSaveModel()
     {
         return Mage::getSingleton('adminhtml/giftmessage_save');
+    }
+
+    public function canDisplayGiftmessage(): bool
+    {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->getIsMessagesAvailable($helper::TYPE_CONFIG, $this->getQuote(), $this->getStoreId());
     }
 }

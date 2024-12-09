@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,7 +33,7 @@
  * @method $this setAppliedRuleIds(string $value)
  *
  * @method bool hasBaseCalculationPrice()
- * @method $this setBaseCalculationPrice(float $value)
+ * @method $this setBaseCalculationPrice(float|null $value)
  * @method $this setBaseCustomPrice(float $value)
  * @method float getBaseDiscountAmount()
  * @method $this setBaseDiscountAmount(float $value)
@@ -75,7 +76,7 @@
  * @method int getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(int $value)
  *
- * @method $this setCalculationPrice(float $value)
+ * @method $this setCalculationPrice(float|null $value)
  * @method bool hasCustomPrice()
  * @method float getCustomPrice()
  *
@@ -676,7 +677,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
     /**
      * Set new value for converted price
-     * @param float $value
+     * @param float|null $value
      * @return $this
      */
     public function setConvertedPrice($value)
@@ -688,8 +689,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
     /**
      * Clone quote item
-     *
-     * @return $this
      */
     public function __clone()
     {
@@ -697,7 +696,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         $this->_parentItem  = null;
         $this->_children    = [];
         $this->_messages    = [];
-        return $this;
     }
 
     /**

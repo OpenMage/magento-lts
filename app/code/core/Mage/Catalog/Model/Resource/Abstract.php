@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -203,7 +204,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Insert or Update attribute data
      *
-     * @param Mage_Catalog_Model_Abstract $object
+     * @param Mage_Catalog_Model_Abstract|Varien_Object $object
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param mixed $value
      * @return Mage_Catalog_Model_Resource_Abstract
@@ -713,10 +714,10 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         // Ensure we have an associative array of attribute => values
         $values = is_array($value) ? $value : array_combine($attribute, [$value]);
 
-        foreach ($values as $_attribute => &$_value) {
+        foreach ($values as $_attribute => &$optionText) {
             $_attribute = (clone $this->getAttribute($_attribute))->setStoreId($store);
             if ($_attribute->getSourceModel() || $_attribute->getFrontendInput() === 'select' || $_attribute->getFrontendInput() === 'multiselect') {
-                $_value = $_attribute->getSource()->getOptionText($_value);
+                $optionText = $_attribute->getSource()->getOptionText($optionText);
             }
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -557,6 +558,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
 
             if ($website->getBaseCurrencyCode() != $baseCurrency) {
                 $rate = Mage::getModel('directory/currency')
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     ->load($baseCurrency)
                     ->getRate($website->getBaseCurrencyCode());
                 if (!$rate) {

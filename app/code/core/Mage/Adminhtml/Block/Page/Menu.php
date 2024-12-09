@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -233,9 +234,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _afterToHtml($html)
     {
-        $html = preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
-
-        return $html;
+        return preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
     }
 
     /**
@@ -280,9 +279,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
             $html .= '</li>' . PHP_EOL;
         }
-        $html .= '</ul>' . PHP_EOL;
 
-        return $html;
+        return $html . ('</ul>' . PHP_EOL);
     }
 
     /**

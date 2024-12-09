@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -363,9 +364,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         if (($entity === null) || ($entity->getType() !== $this->getEntity()->getType())) {
             $alias .= $this->getEntity()->getType() . '/';
         }
-        $alias .= $this->getAttributeCode();
 
-        return  $alias;
+        return  $alias . $this->getAttributeCode();
     }
 
     /**
@@ -902,7 +902,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return $this|Varien_Db_Select
+     * @return $this|Varien_Db_Select|null
      */
     public function getFlatUpdateSelect($store = null)
     {

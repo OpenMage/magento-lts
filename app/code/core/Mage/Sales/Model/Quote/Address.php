@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -27,8 +28,8 @@
  * @method string getAddressType()
  * @method $this setAddressType(string $value)
  * @method $this unsAddressType()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
+ * @method array getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(array $value)
  * @method bool getAppliedTaxesReset()
  * @method $this setAppliedTaxesReset(bool $value)
  *
@@ -590,9 +591,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
             $this->_nominalOnly = $wasNominal; // Restore original value before we changed it
         }
-
-        $items = $this->getData($key);
-        return $items;
+        return $this->getData($key);
     }
 
     /**

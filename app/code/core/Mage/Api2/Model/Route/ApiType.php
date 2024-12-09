@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -45,6 +46,7 @@ class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract imple
         ?Zend_Translate $translator = null,
         $locale = null
     ) {
+        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         parent::__construct([Mage_Api2_Model_Route_Abstract::PARAM_ROUTE => str_replace('.php', '', basename(getenv('SCRIPT_FILENAME'))) . '/:api_type']);
     }
 }

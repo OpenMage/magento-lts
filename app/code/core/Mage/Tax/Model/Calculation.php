@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -163,7 +164,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get customer object
      *
-     * @return  Mage_Customer_Model_Customer | false
+     * @return Mage_Customer_Model_Customer|false
      */
     public function getCustomer()
     {
@@ -297,9 +298,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     protected function _getRequestCacheKey($request)
     {
         $key = $request->getStore() ? $request->getStore()->getId() . '|' : '';
-        $key .= $request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
-            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode();
-        return $key;
+        return $key . ($request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
+            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode());
     }
 
     /**
@@ -671,8 +671,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function truncate($price, $precision = 4)
     {
         $exp = pow(10, $precision);
-        $price = floor($price * $exp) / $exp;
-        return $price;
+        return floor($price * $exp) / $exp;
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -152,7 +153,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
     public function getNewChildSelectOptions()
     {
         $conditions = parent::getNewChildSelectOptions();
-        $conditions = array_merge_recursive(
+        return array_merge_recursive(
             $conditions,
             [
                 [
@@ -173,7 +174,6 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
                 ]
             ]
         );
-        return $conditions;
     }
 
     /**

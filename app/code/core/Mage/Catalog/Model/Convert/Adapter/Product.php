@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -368,6 +369,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         $importIds = $batchImportModel->getIdCollection();
 
         foreach ($importIds as $importId) {
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $batchImportModel->load($importId);
             $importData = $batchImportModel->getBatchData();
 
@@ -511,6 +513,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                         // if product is new, create default values first
                         if (!$model->getId()) {
                             $new = true;
+                            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                             $model->save();
 
                             // if new product and then store is not default
@@ -520,6 +523,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                 $default = Mage::getModel('catalog/product');
                                 $default->setData($data);
                                 $default->setStoreId(0);
+                                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                                 $default->save();
                                 unset($default);
                             } // end
@@ -533,6 +537,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                     $storeId
                                 );
                             }
+                            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                             $model->save();
                         }
 
@@ -564,6 +569,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                     }
                                 }
                             }
+                            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                             $stockItem->save();
                             unset($data);
                             unset($stockItem);

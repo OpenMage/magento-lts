@@ -42,16 +42,16 @@ class StringTest extends TestCase
      */
     public function testTruncate(): void
     {
-        $this->assertEquals('', $this->subject->truncate(null));
-        $this->assertEquals('', $this->subject->truncate(self::TEST_STRING, 0));
+        $this->assertSame('', $this->subject->truncate(null));
+        $this->assertSame('', $this->subject->truncate(self::TEST_STRING, 0));
 
-        $this->assertEquals('', $this->subject->truncate(self::TEST_STRING, 3));
+        $this->assertSame('', $this->subject->truncate(self::TEST_STRING, 3));
 
         $remainder = '';
-        $this->assertEquals('12...', $this->subject->truncate(self::TEST_STRING, 5, '...', $remainder, false));
+        $this->assertSame('12...', $this->subject->truncate(self::TEST_STRING, 5, '...', $remainder, false));
 
         $resultString = $this->subject->truncate(self::TEST_STRING, 5, '...');
-        $this->assertEquals('12...', $resultString);
+        $this->assertSame('12...', $resultString);
     }
 
     /**
@@ -61,7 +61,7 @@ class StringTest extends TestCase
     public function testSubstr(): void
     {
         $resultString = $this->subject->substr(self::TEST_STRING, 2, 2);
-        $this->assertEquals('34', $resultString);
+        $this->assertSame('34', $resultString);
     }
 
     /**
@@ -71,7 +71,7 @@ class StringTest extends TestCase
     public function testSplitInjection(): void
     {
         $resultString = $this->subject->splitInjection(self::TEST_STRING, 1, '-', ' ');
-        #$this->assertEquals('1-2-3-4-5-6-7-8-9-0-', $resultString);
+        #$this->assertSame('1-2-3-4-5-6-7-8-9-0-', $resultString);
         $this->assertIsString($resultString);
     }
 
@@ -81,7 +81,7 @@ class StringTest extends TestCase
      */
     public function testStrlen(): void
     {
-        $this->assertEquals(10, $this->subject->strlen(self::TEST_STRING));
+        $this->assertSame(10, $this->subject->strlen(self::TEST_STRING));
     }
 
     /**

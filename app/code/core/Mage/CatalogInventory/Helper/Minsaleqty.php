@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -194,7 +195,6 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         if ($this->_isEncodedArrayFieldValue($value)) {
             $value = $this->_decodeArrayFieldValue($value);
         }
-        $value = $this->_serializeValue($value);
-        return $value;
+        return $this->_serializeValue($value);
     }
 }

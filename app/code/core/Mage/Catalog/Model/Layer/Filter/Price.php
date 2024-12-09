@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -217,9 +218,8 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             . '_LOC_'
         ;
         $taxReq = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
-        $key .= implode('_', $taxReq->getData());
 
-        return $key;
+        return $key . implode('_', $taxReq->getData());
     }
 
     /**

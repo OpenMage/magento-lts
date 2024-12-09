@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -204,8 +205,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 . ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText()
                 . '</' . $this->_messagesSecondLevelTagName . '>';
         }
-        $html .= '</' . $this->_messagesFirstLevelTagName . '>';
-        return $html;
+        return $html . ('</' . $this->_messagesFirstLevelTagName . '>');
     }
 
     /**

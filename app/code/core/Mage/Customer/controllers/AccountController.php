@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -1078,8 +1079,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function _filterPostData($data)
     {
-        $data = $this->_filterDates($data, ['dob']);
-        return $data;
+        return $this->_filterDates($data, ['dob']);
     }
 
     /**

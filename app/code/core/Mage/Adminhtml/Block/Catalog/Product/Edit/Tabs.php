@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,7 +71,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 ]);
             }
 
-            if (Mage::helper('core')->isModuleEnabled('Mage_CatalogInventory')) {
+            if ($this->isModuleEnabled('Mage_CatalogInventory')) {
                 $this->addTab('inventory', [
                     'label'     => Mage::helper('catalog')->__('Inventory'),
                     'content'   => $this->_translateHtml($this->getLayout()
@@ -130,7 +131,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
             }
 
             if ($this->getRequest()->getParam('id', false)) {
-                if (Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
+                if ($this->isModuleEnabled('Mage_Review', 'catalog')) {
                     if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')) {
                         $this->addTab('reviews', [
                             'label' => Mage::helper('catalog')->__('Product Reviews'),
@@ -139,7 +140,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                         ]);
                     }
                 }
-                if (Mage::helper('catalog')->isModuleEnabled('Mage_Tag')) {
+                if ($this->isModuleEnabled('Mage_Tag', 'catalog')) {
                     if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')) {
                         $this->addTab('tags', [
                          'label'     => Mage::helper('catalog')->__('Product Tags'),

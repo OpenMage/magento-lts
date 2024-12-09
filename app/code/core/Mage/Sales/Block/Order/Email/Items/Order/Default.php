@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -18,6 +19,7 @@
  *
  * @category   Mage
  * @package    Mage_Sales
+ * @method Mage_Sales_Model_Order_Item getItem()
  */
 class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_Template
 {
@@ -82,10 +84,24 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
     /**
      * Return product additional information block
      *
-     * @return Mage_Core_Block_Abstract
+     * TODO set return type
+     * @return Mage_Core_Block_Abstract|null
      */
     public function getProductAdditionalInformationBlock()
     {
         return $this->getLayout()->getBlock('additional.product.info');
+    }
+
+    public function getGiftMessage(): ?Mage_GiftMessage_Model_Message
+    {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return null;
+        }
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        if ($this->getItem()->getGiftMessageId()) {
+            return $helper->getGiftMessage($this->getItem()->getGiftMessageId());
+        }
+        return null;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -376,10 +377,10 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     }
 
     /**
-     * Get chlden categories count
+     * Get children categories count
      *
      * @param int $categoryId
-     * @return int
+     * @return string
      */
     public function getChildrenCount($categoryId)
     {
@@ -395,7 +396,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      * Check if category id exist
      *
      * @param int $entityId
-     * @return bool
+     * @return string
      */
     public function checkId($entityId)
     {
@@ -430,7 +431,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
      *
      * @param Mage_Catalog_Model_Category $category
      * @param bool $isActiveFlag
-     * @return int
+     * @return string
      */
     public function getChildrenAmount($category, $isActiveFlag = true)
     {
@@ -728,9 +729,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     {
         $children = $this->getChildren($category);
         $myId = [$category->getId()];
-        $children = array_merge($myId, $children);
 
-        return $children;
+        return array_merge($myId, $children);
     }
 
     /**
@@ -793,7 +793,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         Mage_Catalog_Model_Category $newParent,
         $afterCategoryId = null
     ) {
-        $childrenCount  = $this->getChildrenCount($category->getId()) + 1;
+        $childrenCount  = (int)$this->getChildrenCount($category->getId()) + 1;
         $table          = $this->getEntityTable();
         $adapter        = $this->_getWriteAdapter();
         $levelFiled     = $adapter->quoteIdentifier('level');
@@ -909,7 +909,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 ->where('parent_id = :parent_id');
             $position = $adapter->fetchOne($select, ['parent_id' => $newParent->getId()]);
         }
-        $position += 1;
+        ++$position;
 
         return $position;
     }

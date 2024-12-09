@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -758,9 +759,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             }
         }
 
-        $value = $value === null ? '' : preg_replace("#\s+#siu", ' ', trim(strip_tags($value)));
-
-        return $value;
+        return $value === null ? '' : preg_replace("#\s+#siu", ' ', trim(strip_tags($value)));
     }
 
     /**

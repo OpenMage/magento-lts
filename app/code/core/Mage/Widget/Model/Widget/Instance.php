@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -522,9 +523,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                     . '</action>';
             }
         }
-        $xml .= '</block></reference>';
 
-        return $xml;
+        return $xml . '</block></reference>';
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -542,8 +543,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($this->_getDependence()) {
             $html .= $this->_getDependence()->toHtml();
         }
-        $html = parent::_afterToHtml($html);
-        return $html;
+        return parent::_afterToHtml($html);
     }
 
     /**
@@ -592,7 +592,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected function _canShowField($field)
     {
         $ifModuleEnabled = trim((string)$field->if_module_enabled);
-        if ($ifModuleEnabled && !Mage::helper('Core')->isModuleEnabled($ifModuleEnabled)) {
+        if ($ifModuleEnabled && !$this->isModuleEnabled($ifModuleEnabled)) {
             return false;
         }
 

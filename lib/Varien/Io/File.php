@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -130,7 +131,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
 
         if (PHP_VERSION_ID < 80100 && !ini_get('auto_detect_line_endings')) {
-            ini_set('auto_detect_line_endings', 1);
+            ini_set('auto_detect_line_endings', '1');
         }
 
         if ($this->_cwd) {
@@ -242,7 +243,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             return false;
         }
 
-        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure);
+        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure, '\\');
     }
 
     /**

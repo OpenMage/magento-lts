@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget;
 
+use Generator;
 use Mage;
 use Mage_Cms_Block_Widget_Block;
 use PHPUnit\Framework\TestCase;
@@ -43,22 +44,17 @@ class BlockTest extends TestCase
             ->setMethods(['getBlockId'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getBlockId')->willReturn($blockId);
+        $mock->method('getBlockId')->willReturn($blockId);
         $this->assertIsArray($mock->getCacheKeyInfo());
     }
 
-    /**
-     * @return array[]
-     */
-    public function provideGetCacheKeyInfoData(): array
+    public function provideGetCacheKeyInfoData(): Generator
     {
-        return [
-            'valid block ID' => [
-                '2'
-            ],
-            'invalid block ID' => [
-                '0'
-            ]
+        yield 'valid block ID' => [
+            '2'
+        ];
+        yield 'invalid block ID' => [
+            '0'
         ];
     }
 

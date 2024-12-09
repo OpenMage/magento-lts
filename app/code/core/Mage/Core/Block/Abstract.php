@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -417,7 +418,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * Wrapper for method "setData"
      *
-     * @param   string $name
+     * @param   array|string $name
      * @param   mixed $value
      * @return  $this
      */
@@ -464,6 +465,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
         $block->setParentBlock($this);
         $block->setBlockAlias($alias);
+        $this->unsetChild($alias);
         $this->_children[$alias] = $block;
         return $this;
     }
@@ -482,7 +484,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             unset($this->_children[$alias]);
             $key = array_search($name, $this->_sortedChildren);
             if ($key !== false) {
-                unset($this->_sortedChildren[$key]);
+                array_splice($this->_sortedChildren, $key, 1);
             }
         }
 
@@ -521,7 +523,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             }
 
             Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($child, $callback, $params);
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             if ($result == call_user_func_array([&$child, $callback], $params)) {
                 $this->unsetChild($alias);
             }
@@ -741,7 +742,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function sortChildren($force = false)
     {
-        $this->_sortedChildren = array_values($this->_sortedChildren); // reset indexes which might have gaps after unsetting blocks
         foreach ($this->_sortInstructions as $name => $list) {
             list($siblingName, $after, $exists) = $list;
             if ($exists && !$force) {
@@ -947,9 +947,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             'core_block_abstract_to_html_after',
             ['block' => $this, 'transport' => self::$_transportObject]
         );
-        $html = self::$_transportObject->getHtml();
 
-        return $html;
+        return self::$_transportObject->getHtml();
     }
 
     /**
@@ -1086,7 +1085,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Return block helper
      *
      * @param string $type
-     * @return $this
+     * @return Mage_Core_Block_Abstract
      */
     public function getHelper($type)
     {
@@ -1110,17 +1109,32 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting date
      *
-     * @param   string $date
-     * @param   string $format
-     * @param   bool $showTime
-     * @param   bool $useTimezone
-     * @return  string
+     * @param string|int|Zend_Date|null $date
+     * @param string $format
+     * @param bool $showTime
+     * @return string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
         /** @var Mage_Core_Helper_Data $helper */
         $helper = $this->helper('core');
-        return $helper->formatDate($date, $format, $showTime, $useTimezone);
+        return $helper->formatDate($date, $format, $showTime);
+    }
+
+    /**
+     * Retrieve formatting timezone date
+     *
+     * @param string|int|Zend_Date|null $date
+     */
+    public function formatTimezoneDate(
+        $date = null,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = true
+    ): string {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->formatTimezoneDate($date, $format, $showTime, $useTimezone);
     }
 
     /**
@@ -1158,11 +1172,13 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Translate block sentence
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function __()
     {
         $args = func_get_args();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getModuleName());
         array_unshift($args, $expr);
         return $this->_getApp()->getTranslator()->translate($args);
@@ -1201,7 +1217,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function escapeHtmlAsObject(string $data, ?array $allowedTags = null): Mage_Core_Model_Security_HtmlEscapedString
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         return new Mage_Core_Model_Security_HtmlEscapedString($data, $allowedTags);
     }
 
@@ -1372,8 +1387,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         //ksort($key);  // ignore order
         $key = array_values($key); // ignore array keys
         $key = implode('|', $key);
-        $key = sha1($key);
-        return $key;
+        return sha1($key);
     }
 
     /**
@@ -1426,7 +1440,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Get block cache life time
+     * Get block cache lifetime
      *
      * @return int|null
      */
@@ -1513,8 +1527,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected function _getTagsCacheKey($cacheKey = null)
     {
         $cacheKey = !empty($cacheKey) ? $cacheKey : $this->getCacheKey();
-        $cacheKey = md5($cacheKey . '_tags');
-        return $cacheKey;
+        return md5($cacheKey . '_tags');
     }
 
     /**
@@ -1534,7 +1547,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
     /**
      * Collect and retrieve items tags.
-     * Item should implements Mage_Core_Model_Abstract::getCacheIdTags method
+     * Item should implement Mage_Core_Model_Abstract::getCacheIdTags method
      *
      * @param array|Varien_Data_Collection $items
      * @return array
@@ -1561,5 +1574,29 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected function _isSecure()
     {
         return $this->_getApp()->getFrontController()->getRequest()->isSecure();
+    }
+
+    public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
+    {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
+
+    /**
+     * Check whether the module output is enabled
+     *
+     * Because many module blocks belong to Adminhtml module,
+     * the feature "Disable module output" doesn't cover Admin area
+     */
+    public function isModuleOutputEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
+    {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
+        return Mage::helper($helperAlias)->isModuleOutputEnabled($moduleName);
     }
 }

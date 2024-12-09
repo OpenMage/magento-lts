@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -140,7 +141,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
         $adapter = $this->_getWriteAdapter();
-        $qtyExpr = $adapter->getCheckSql('cisi.qty > 0', 'cisi.qty', 0);
+        $qtyExpr = $adapter->getCheckSql('cisi.qty > 0', 'cisi.qty', '0');
         $select  = $adapter->select()
             ->from(['e' => $this->getTable('catalog/product')], ['entity_id']);
         $this->_addWebsiteJoinToSelect($select, true);
@@ -167,18 +168,18 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         if ($this->_isManageStock()) {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
-                1,
+                '1',
                 'cisi.is_in_stock'
             );
         } else {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
                 'cisi.is_in_stock',
-                1
+                '1'
             );
         }
 
-        $optExpr = $adapter->getCheckSql($psCondition, 1, 0);
+        $optExpr = $adapter->getCheckSql($psCondition, '1', '0');
         $stockStatusExpr = $adapter->getLeastSql([$optExpr, $statusExpr]);
 
         $select->columns(['status' => $stockStatusExpr]);

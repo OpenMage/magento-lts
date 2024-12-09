@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -160,8 +161,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
         $class = $this->getClassName();
         $class .= $this->showPrefix() ? '-prefix' : '';
         $class .= $this->showMiddlename() ? '-middlename' : '';
-        $class .= $this->showSuffix() ? '-suffix' : '';
-        return $class;
+        return $class . ($this->showSuffix() ? '-suffix' : '');
     }
 
     /**

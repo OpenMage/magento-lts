@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -193,9 +194,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
             'tags'   => implode(',', $tags),
         ];
         $res = $this->_filePutContents($file, serialize($metadatas) . "\n" . $data);
-        $res = $res && $this->_updateIdsTags([$id], $tags, 'merge');
 
-        return $res;
+        return $res && $this->_updateIdsTags([$id], $tags, 'merge');
     }
 
     /**

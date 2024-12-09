@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -142,7 +143,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'header'    => Mage::helper('review')->__('Visible In'),
                 'index'     => 'stores',
                 'type'      => 'store',
-                'store_view' => true,
             ]);
         }
 
@@ -174,8 +174,6 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('adminhtml')->__('Action'),
-                'width'     => '50px',
                 'type'      => 'action',
                 'getter'     => 'getReviewId',
                 'actions'   => [
@@ -192,12 +190,10 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                         'field'   => 'id'
                     ]
                 ],
-                'filter'    => false,
-                'sortable'  => false
             ]
         );
 
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_Rss') &&
+        if ($this->isModuleEnabled('Mage_Rss', 'catalog') &&
             Mage::helper('rss')->isRssAdminCatalogReviewEnabled()
         ) {
             $this->addRssList('rss/catalog/review', Mage::helper('catalog')->__('Pending Reviews RSS'));

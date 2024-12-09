@@ -9,7 +9,7 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -18,7 +18,7 @@
  * Multishipping checkout shipping template
  *
  * @see Mage_Checkout_Block_Multishipping_Shipping
- * @var $this Mage_Checkout_Block_Multishipping_Shipping
+ * @var Mage_Checkout_Block_Multishipping_Shipping $this
  */
 ?>
 <div class="multiple-checkout">
@@ -83,7 +83,9 @@
                 </div>
             </div>
             <div class="col-2 col-wide">
-                <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress_checkbox', $_address); ?>
+                <?php if ($this->helper('core')->isModuleOutputEnabled('Mage_GiftMessage')): ?>
+                    <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress_checkbox', $_address); ?>
+                <?php endif ?>
                 <h3><?php echo $this->__('Items') ?> <span class="separator">|</span> <a href="<?php echo $this->getItemsEditUrl($_address) ?>"><?php echo $this->__('Edit Items') ?></a></h3>
                 <table class="data-table" id="shipping-table-<?php echo $_address->getId() ?>">
                     <col />
@@ -106,7 +108,9 @@
                     </tbody>
                 </table>
                 <script type="text/javascript">decorateTable('shipping-table-<?php echo $_address->getId() ?>')</script>
-                <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress', $_address); ?>
+                <?php if ($this->helper('core')->isModuleOutputEnabled('Mage_GiftMessage')): ?>
+                    <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress', $_address); ?>
+                <?php endif ?>
             </div>
         </div>
         <?php endforeach ?>

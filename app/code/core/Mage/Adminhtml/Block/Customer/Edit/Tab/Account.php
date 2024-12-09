@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -96,7 +97,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             );
             // @codingStandardsIgnoreEnd
         }
-        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        $renderer = $this->getStoreSwitcherRenderer();
         $form->getElement('website_id')->setRenderer($renderer);
 
         $customerStoreId = null;
@@ -246,16 +247,16 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
         $prefix = $form->getHtmlIdPrefix();
         if ($sendEmail) {
-            $_disableStoreField = '';
+            $disableStoreField = '';
             if (!$isSingleMode) {
-                $_disableStoreField = "$('{$prefix}sendemail_store_id').disabled=(''==this.value || '0'==this.value);";
+                $disableStoreField = "$('{$prefix}sendemail_store_id').disabled=(''==this.value || '0'==this.value);";
             }
             $sendEmail->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
                 $('{$prefix}website_id').disableSendemail = function() {
                     $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);" .
-                    $_disableStoreField
+                    $disableStoreField
                 . "}.bind($('{$prefix}website_id'));
                 Event.observe('{$prefix}website_id', 'change', $('{$prefix}website_id').disableSendemail);
                 $('{$prefix}website_id').disableSendemail();

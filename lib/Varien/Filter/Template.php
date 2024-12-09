@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -164,9 +165,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             // If template preprocessing
             return $construction[0];
         }
-
-        $replacedValue = $this->_getVariable($construction[2], '');
-        return $replacedValue;
+        return $this->_getVariable($construction[2], '');
     }
 
     public function includeDirective($construction)

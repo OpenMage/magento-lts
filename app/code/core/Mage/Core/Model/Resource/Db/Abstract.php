@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -362,7 +363,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Load an object
      *
      * @param mixed $value
-     * @param string $field field to load by (defaults to model id)
+     * @param string|null $field field to load by (defaults to model id)
      * @return $this
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)

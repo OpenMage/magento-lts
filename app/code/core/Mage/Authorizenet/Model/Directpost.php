@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -66,6 +67,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Send capture request to gateway
      *
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      * @return $this
      * @throws Mage_Core_Exception
@@ -220,6 +222,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * refund the amount with transaction id
      *
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param string $amount
      * @return $this
      * @throws Mage_Core_Exception
@@ -323,7 +326,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         switch ($paymentAction) {
             case self::ACTION_AUTHORIZE:
             case self::ACTION_AUTHORIZE_CAPTURE:
-                /** @var Mage_Authorizenet_Model_Directpost $payment */
+                /** @var Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment $payment */
                 $payment = $this->getInfoInstance();
                 $order = $payment->getOrder();
                 $order->setCanSendNewEmailFlag(false);
@@ -638,7 +641,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Return additional information`s transaction_id value of parent transaction model
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param Mage_Sales_Model_Order_Payment|Varien_Object $payment
      * @return string
      */
     protected function _getRealParentTransactionId($payment)

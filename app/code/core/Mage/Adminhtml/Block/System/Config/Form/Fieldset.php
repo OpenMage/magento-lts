@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,9 +36,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
             $html .= $field->toHtml();
         }
 
-        $html .= $this->_getFooterHtml($element);
-
-        return $html;
+        return $html . $this->_getFooterHtml($element);
     }
 
     /**
@@ -68,9 +67,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
         if ($this->getRequest()->getParam('website') || $this->getRequest()->getParam('store')) {
             $html .= '<colgroup class="use-default" />';
         }
-        $html .= '<colgroup class="scope-label" /><colgroup class="" /><tbody>';
 
-        return $html;
+        return $html . '<colgroup class="scope-label" /><colgroup class="" /><tbody>';
     }
 
     /**
@@ -182,7 +180,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      * Collapsed or expanded fieldset when page loaded?
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return int|bool
+     * @return int|false
      */
     protected function _getCollapseState($element)
     {

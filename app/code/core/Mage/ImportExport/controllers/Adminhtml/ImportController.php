@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -100,6 +101,8 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Validate uploaded files action.
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function validateAction()
     {

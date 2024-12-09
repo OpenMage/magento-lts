@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -32,6 +33,10 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
      */
     protected static $_regionCollections;
 
+    /**
+     * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $html = '<tr>' . "\n";
@@ -105,7 +110,6 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             $html .= '<input type="hidden" name="' . $regionIdHtmlName . '" id="' . $regionIdHtmlId . '" value=""/>';
             $html .= '</td>' . "\n";
         }
-        $html .= '</tr>' . "\n";
-        return $html;
+        return $html . ('</tr>' . "\n");
     }
 }

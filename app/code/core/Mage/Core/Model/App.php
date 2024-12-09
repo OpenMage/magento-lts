@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -537,6 +538,7 @@ class Mage_Core_Model_App
      *
      * @param string $type
      * @return $this
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _checkGetStore($type)
     {
@@ -621,7 +623,7 @@ class Mage_Core_Model_App
 
     public function reinitStores()
     {
-        return $this->_initStores();
+        $this->_initStores();
     }
 
     /**
@@ -866,7 +868,7 @@ class Mage_Core_Model_App
             return $id;
         }
         if (!isset($id)) {
-            $this->throwStoreException();
+            $this->throwStoreException('Invalid store id requested.');
         }
 
         if (empty($this->_stores[$id])) {
@@ -879,7 +881,7 @@ class Mage_Core_Model_App
             }
 
             if (!$store->getCode()) {
-                $this->throwStoreException();
+                $this->throwStoreException('Invalid store code requested.');
             }
             $this->_stores[$store->getStoreId()] = $store;
             $this->_stores[$store->getCode()] = $store;
@@ -951,11 +953,11 @@ class Mage_Core_Model_App
      */
     public function getDefaultStoreView()
     {
-        foreach ($this->getWebsites() as $_website) {
-            if ($_website->getIsDefault()) {
-                $_defaultStore = $this->getGroup($_website->getDefaultGroupId())->getDefaultStore();
-                if ($_defaultStore) {
-                    return $_defaultStore;
+        foreach ($this->getWebsites() as $website) {
+            if ($website->getIsDefault()) {
+                $defaultStore = $this->getGroup($website->getDefaultGroupId())->getDefaultStore();
+                if ($defaultStore) {
+                    return $defaultStore;
                 }
             }
         }
@@ -1297,6 +1299,7 @@ class Mage_Core_Model_App
 
     /**
      * @return bool
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function isCurrentlySecure()
     {
@@ -1507,7 +1510,7 @@ class Mage_Core_Model_App
     /**
      * Get either default or any store view
      *
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store|void
      */
     public function getAnyStoreView()
     {
@@ -1644,8 +1647,7 @@ class Mage_Core_Model_App
     public function prepareCacheId($id)
     {
         $id = strtoupper($id);
-        $id = preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
-        return $id;
+        return preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
     }
 
     /**
