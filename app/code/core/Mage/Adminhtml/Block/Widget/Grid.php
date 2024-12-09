@@ -1323,8 +1323,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         if ($this->getCountTotals()) {
             $xml .= $this->getTotals()->toXml($indexes);
         }
-        $xml .= '</items>';
-        return $xml;
+        return $xml . '</items>';
     }
 
     /**

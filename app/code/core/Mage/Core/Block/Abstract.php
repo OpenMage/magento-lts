@@ -945,9 +945,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             'core_block_abstract_to_html_after',
             ['block' => $this, 'transport' => self::$_transportObject]
         );
-        $html = self::$_transportObject->getHtml();
 
-        return $html;
+        return self::$_transportObject->getHtml();
     }
 
     /**
@@ -1386,8 +1385,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         //ksort($key);  // ignore order
         $key = array_values($key); // ignore array keys
         $key = implode('|', $key);
-        $key = sha1($key);
-        return $key;
+        return sha1($key);
     }
 
     /**
@@ -1527,8 +1525,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected function _getTagsCacheKey($cacheKey = null)
     {
         $cacheKey = !empty($cacheKey) ? $cacheKey : $this->getCacheKey();
-        $cacheKey = md5($cacheKey . '_tags');
-        return $cacheKey;
+        return md5($cacheKey . '_tags');
     }
 
     /**

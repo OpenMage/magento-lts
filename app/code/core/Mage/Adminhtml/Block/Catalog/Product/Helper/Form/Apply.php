@@ -38,9 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply extends Varien_Data
               . '<option value="0">' . $this->getModeLabels('all') . '</option>'
               . '<option value="1" ' . ($this->getValue() == null ? '' : 'selected') . '>' . $this->getModeLabels('custom') . '</option>'
               . '</select><br /><br />';
-
-        $html .= parent::getElementHtml();
-        return $html;
+        return $html . parent::getElementHtml();
     }
 
     /**
