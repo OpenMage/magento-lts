@@ -310,7 +310,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
     }
-  
+
     /** @return list<string> */
     public function getTopCountryCodes(): array
     {
