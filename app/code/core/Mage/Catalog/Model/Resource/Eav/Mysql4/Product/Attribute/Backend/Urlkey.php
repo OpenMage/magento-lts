@@ -21,6 +21,4 @@
  * @package    Mage_Catalog
  * @deprecated
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Urlkey extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Urlkey extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Urlkey {}

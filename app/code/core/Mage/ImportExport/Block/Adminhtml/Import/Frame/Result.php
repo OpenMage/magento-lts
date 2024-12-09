@@ -34,7 +34,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
         'show'            => [], // show specified element
         'hide'            => [], // hide specified element
         'removeClassName' => [], // remove specified class name from element
-        'addClassName'    => []  // add specified class name to element
+        'addClassName'    => [],  // add specified class name to element
     ];
 
     /**
@@ -45,7 +45,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
     protected $_messages = [
         'error'   => [],
         'success' => [],
-        'notice'  => []
+        'notice'  => [],
     ];
 
     /**

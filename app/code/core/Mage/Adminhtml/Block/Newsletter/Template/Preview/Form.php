@@ -30,9 +30,9 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminht
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form([
-                'id' => 'preview_form',
-                'action' => $this->getUrl('*/*/drop', ['_current' => true]),
-                'method' => 'post'
+            'id' => 'preview_form',
+            'action' => $this->getUrl('*/*/drop', ['_current' => true]),
+            'method' => 'post',
         ]);
 
         if ($data = $this->getFormData()) {

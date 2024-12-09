@@ -300,7 +300,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
             ->setCreditCardType($payment->getCcType())
             ->setCreditCardNumber($payment->getCcNumber())
             ->setCreditCardExpirationDate(
-                $this->_getFormattedCcExpirationDate($payment->getCcExpMonth(), $payment->getCcExpYear())
+                $this->_getFormattedCcExpirationDate($payment->getCcExpMonth(), $payment->getCcExpYear()),
             )
             ->setCreditCardCvv2($payment->getCcCid())
             ->setMaestroSoloIssueNumber($payment->getCcSsIssue())
@@ -308,7 +308,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
         if ($payment->getCcSsStartMonth() && $payment->getCcSsStartYear()) {
             $year = sprintf('%02d', substr($payment->getCcSsStartYear(), -2, 2));
             $api->setMaestroSoloIssueDate(
-                $this->_getFormattedCcExpirationDate($payment->getCcSsStartMonth(), $year)
+                $this->_getFormattedCcExpirationDate($payment->getCcSsStartMonth(), $year),
             );
         }
         if ($this->getIsCentinelValidationEnabled()) {

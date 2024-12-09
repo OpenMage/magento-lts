@@ -32,7 +32,7 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
         $this->addData(['cache_lifetime' => false]);
         $this->addCacheTag([
             Mage_Core_Model_Store::CACHE_TAG,
-            Mage_Cms_Model_Block::CACHE_TAG
+            Mage_Cms_Model_Block::CACHE_TAG,
         ]);
     }
 
@@ -46,10 +46,10 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
         return [
             'PAGE_FOOTER',
             Mage::app()->getStore()->getId(),
-            (int)Mage::app()->getStore()->isCurrentlySecure(),
+            (int) Mage::app()->getStore()->isCurrentlySecure(),
             Mage::getDesign()->getPackageName(),
             Mage::getDesign()->getTheme('template'),
-            Mage::getSingleton('customer/session')->isLoggedIn()
+            Mage::getSingleton('customer/session')->isLoggedIn(),
         ];
     }
 

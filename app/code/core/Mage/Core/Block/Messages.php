@@ -219,7 +219,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
             Mage_Core_Model_Message::ERROR,
             Mage_Core_Model_Message::WARNING,
             Mage_Core_Model_Message::NOTICE,
-            Mage_Core_Model_Message::SUCCESS
+            Mage_Core_Model_Message::SUCCESS,
         ];
         $html = '';
         foreach ($types as $type) {
@@ -284,7 +284,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     public function getCacheKeyInfo()
     {
         return [
-            'storage_types' => serialize($this->_usedStorageTypes)
+            'storage_types' => serialize($this->_usedStorageTypes),
         ];
     }
 

@@ -52,7 +52,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     public function statusAction()
     {
         if ($this->isFeedEnable('order/status_notified')) {
-            $order = Mage::helper('rss/order')->getOrderByStatusUrlKey((string)$this->getRequest()->getParam('data'));
+            $order = Mage::helper('rss/order')->getOrderByStatusUrlKey((string) $this->getRequest()->getParam('data'));
             if (!is_null($order)) {
                 Mage::register('current_order', $order);
                 $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');

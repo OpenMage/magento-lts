@@ -19,6 +19,4 @@
  * @package    Mage_Log
  * @deprecated
  */
-class Mage_Log_Model_Mysql4_Aggregation extends Mage_Log_Model_Resource_Aggregation
-{
-}
+class Mage_Log_Model_Mysql4_Aggregation extends Mage_Log_Model_Resource_Aggregation {}

@@ -28,7 +28,7 @@ class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_
      * @var array
      */
     protected $_serializableFields   = [
-        'additional_information' => [null, []]
+        'additional_information' => [null, []],
     ];
 
     /**

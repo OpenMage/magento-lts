@@ -21,6 +21,4 @@
  * @package    Mage_Tax
  * @deprecated
  */
-class Mage_Tax_Model_Mysql4_Class extends Mage_Tax_Model_Resource_Class
-{
-}
+class Mage_Tax_Model_Mysql4_Class extends Mage_Tax_Model_Resource_Class {}

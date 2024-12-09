@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
                     'code'         => $attribute->getAttributeCode(),
                     'type'         => $attribute->getFrontendInput(),
                     'required'     => $attribute->getIsRequired(),
-                    'scope'        => $scope
+                    'scope'        => $scope,
                 ];
             }
         }
@@ -87,7 +87,7 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
                 } else {
                     $result[] = [
                         'value' => $optionId,
-                        'label' => $optionValue
+                        'label' => $optionValue,
                     ];
                 }
             }

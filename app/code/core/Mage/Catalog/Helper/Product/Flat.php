@@ -96,7 +96,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     public function getFlag()
     {
         if (is_null($this->_flagObject)) {
-            $className = (string)Mage::getConfig()->getNode(self::XML_PATH_FLAT_FLAG);
+            $className = (string) Mage::getConfig()->getNode(self::XML_PATH_FLAT_FLAG);
             /** @var Mage_Catalog_Model_Product_Flat_Flag $classInstance */
             $classInstance = Mage::getSingleton($className);
             $this->_flagObject = $classInstance;

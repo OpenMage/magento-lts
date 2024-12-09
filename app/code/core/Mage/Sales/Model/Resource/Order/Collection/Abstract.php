@@ -49,7 +49,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
             Mage::dispatchEvent($this->_eventPrefix . '_set_sales_order', [
                 'collection' => $this,
                 $this->_eventObject => $this,
-                'order' => $order
+                'order' => $order,
             ]);
         }
 

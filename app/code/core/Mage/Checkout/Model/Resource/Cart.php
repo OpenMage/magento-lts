@@ -56,7 +56,7 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
         $select = $read->select()
             ->from(
                 ['qi' => $this->getTable('sales/quote_item')],
-                ['id' => 'item_id', 'product_id', 'super_product_id', 'qty', 'created_at']
+                ['id' => 'item_id', 'product_id', 'super_product_id', 'qty', 'created_at'],
             )
             ->where('qi.quote_id = :quote_id');
 

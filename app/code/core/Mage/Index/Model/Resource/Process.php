@@ -40,7 +40,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
         $adapter = $this->_getWriteAdapter();
         $condition = [
             'process_id = ?' => $processId,
-            'event_id = ?'   => $eventId
+            'event_id = ?'   => $eventId,
         ];
         $adapter->update($this->getTable('index/process_event'), ['status' => $status], $condition);
         return $this;

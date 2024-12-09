@@ -44,18 +44,18 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
 
         $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Qty'),
-            'feed'  => 35
+            'feed'  => 35,
         ];
 
         $lines[0][] = [
             'text'  => Mage::helper('sales')->__('SKU'),
             'feed'  => 565,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         $lineBlock = [
             'lines'  => $lines,
-            'height' => 10
+            'height' => 10,
         ];
 
         $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
@@ -93,12 +93,12 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
             $this->insertOrder(
                 $page,
                 $shipment,
-                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID, $order->getStoreId())
+                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID, $order->getStoreId()),
             );
             /* Add document text and number */
             $this->insertDocumentNumber(
                 $page,
-                Mage::helper('sales')->__('Packingslip # ') . $shipment->getIncrementId()
+                Mage::helper('sales')->__('Packingslip # ') . $shipment->getIncrementId(),
             );
             /* Add table */
             $this->_drawHeader($page);

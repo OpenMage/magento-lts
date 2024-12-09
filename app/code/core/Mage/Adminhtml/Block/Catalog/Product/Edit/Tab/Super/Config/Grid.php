@@ -193,17 +193,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 'align'     => 'center',
                 'index'     => 'entity_id',
                 'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_checkbox',
-                'attributes' => $attributes
+                'attributes' => $attributes,
             ]);
         }
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $sets = Mage::getModel('eav/entity_attribute_set')->getCollection()
@@ -219,13 +219,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 'index' => 'attribute_set_id',
                 'type'  => 'options',
                 'options' => $sets,
-            ]
+            ],
         );
 
         $this->addColumn('sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
             'width'     => '80px',
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
 
         $this->addColumn('price', [
@@ -237,7 +237,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             'header'    => Mage::helper('catalog')->__('Inventory'),
             'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_inventory',
             'filter'    => 'adminhtml/catalog_product_edit_tab_super_config_grid_filter_inventory',
-            'index'     => 'is_saleable'
+            'index'     => 'is_saleable',
         ]);
 
         foreach ($attributes as $attribute) {
@@ -247,7 +247,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                 'header'    => $productAttribute->getFrontend()->getLabel(),
                 'index'     => $productAttribute->getAttributeCode(),
                 'type'      => $productAttribute->getSourceModel() ? 'options' : 'number',
-                'options'   => $productAttribute->getSourceModel() ? $this->getOptions($attribute) : ''
+                'options'   => $productAttribute->getSourceModel() ? $this->getOptions($attribute) : '',
             ]);
         }
 
@@ -261,10 +261,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
                         'caption' => Mage::helper('catalog')->__('Edit'),
                         'url'     => $this->getEditParamsForAssociated(),
                         'field'   => 'id',
-                        'onclick'  => 'superProduct.createPopup(this.href);return false;'
-                    ]
+                        'onclick'  => 'superProduct.createPopup(this.href);return false;',
+                    ],
                 ],
-             ]
+            ],
         );
 
         return parent::_prepareColumns();
@@ -280,8 +280,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             'params'    =>  [
                 'required' => $this->_getRequiredAttributesIds(),
                 'popup'    => 1,
-                'product'  => $this->_getProduct()->getId()
-            ]
+                'product'  => $this->_getProduct()->getId(),
+            ],
         ];
     }
 

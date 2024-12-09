@@ -69,7 +69,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
             if (is_string($v)) {
                 $values[] = [
                     'label' => $v,
-                    'value' => $k
+                    'value' => $k,
                 ];
             } elseif (isset($v['value'])) {
                 if (!isset($v['label'])) {
@@ -77,7 +77,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 }
                 $values[] = [
                     'label' => $v['label'],
-                    'value' => $v['value']
+                    'value' => $v['value'],
                 ];
             }
         }
@@ -176,13 +176,13 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         return;
     }
 
-//    public function getName($value)
-//    {
-//        if ($name = $this->getData('name')) {
-//            return str_replace('$value', $value, $name);
-//        }
-//        return ;
-//    }
+    //    public function getName($value)
+    //    {
+    //        if ($name = $this->getData('name')) {
+    //            return str_replace('$value', $value, $name);
+    //        }
+    //        return ;
+    //    }
 
     /**
      * @param array $option

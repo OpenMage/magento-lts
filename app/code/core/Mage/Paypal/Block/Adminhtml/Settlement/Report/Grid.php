@@ -62,39 +62,39 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
         $this->addColumn('report_date', [
             'header'    => $settlement->getFieldLabel('report_date'),
             'index'     => 'report_date',
-            'type'     => 'date'
+            'type'     => 'date',
         ]);
         $this->addColumn('account_id', [
             'header'    => $settlement->getFieldLabel('account_id'),
-            'index'     => 'account_id'
+            'index'     => 'account_id',
         ]);
         $this->addColumn('transaction_id', [
             'header'    => $settlement->getFieldLabel('transaction_id'),
-            'index'     => 'transaction_id'
+            'index'     => 'transaction_id',
         ]);
         $this->addColumn('invoice_id', [
             'header'    => $settlement->getFieldLabel('invoice_id'),
-            'index'     => 'invoice_id'
+            'index'     => 'invoice_id',
         ]);
         $this->addColumn('paypal_reference_id', [
             'header'    => $settlement->getFieldLabel('paypal_reference_id'),
-            'index'     => 'paypal_reference_id'
+            'index'     => 'paypal_reference_id',
         ]);
         $this->addColumn('transaction_event_code', [
             'header'    => $settlement->getFieldLabel('transaction_event'),
             'index'     => 'transaction_event_code',
             'type'      => 'options',
-            'options'   => Mage::getModel('paypal/report_settlement_row')->getTransactionEvents()
+            'options'   => Mage::getModel('paypal/report_settlement_row')->getTransactionEvents(),
         ]);
         $this->addColumn('transaction_initiation_date', [
             'header'    => $settlement->getFieldLabel('transaction_initiation_date'),
             'index'     => 'transaction_initiation_date',
-            'type'      => 'datetime'
+            'type'      => 'datetime',
         ]);
         $this->addColumn('transaction_completion_date', [
             'header'    => $settlement->getFieldLabel('transaction_completion_date'),
             'index'     => 'transaction_completion_date',
-            'type'      => 'datetime'
+            'type'      => 'datetime',
         ]);
         $this->addColumn('gross_transaction_amount', [
             'header'    => $settlement->getFieldLabel('gross_transaction_amount'),

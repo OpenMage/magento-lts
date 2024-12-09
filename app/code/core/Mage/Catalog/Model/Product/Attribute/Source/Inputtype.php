@@ -31,12 +31,12 @@ class Mage_Catalog_Model_Product_Attribute_Source_Inputtype extends Mage_Eav_Mod
         $inputTypes = [
             [
                 'value' => 'price',
-                'label' => Mage::helper('catalog')->__('Price')
+                'label' => Mage::helper('catalog')->__('Price'),
             ],
             [
                 'value' => 'media_image',
-                'label' => Mage::helper('catalog')->__('Media Image')
-            ]
+                'label' => Mage::helper('catalog')->__('Media Image'),
+            ],
         ];
 
         $response = new Varien_Object();

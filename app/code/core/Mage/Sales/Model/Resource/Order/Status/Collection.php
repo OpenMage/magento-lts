@@ -63,7 +63,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
             $this->getSelect()->joinLeft(
                 ['state_table' => $this->getTable('sales/order_status_state')],
                 'main_table.status=state_table.status',
-                ['state', 'is_default']
+                ['state', 'is_default'],
             );
             $this->setFlag('states_joined', true);
         }

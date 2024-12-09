@@ -25,6 +25,6 @@ if ($attribute) {
         $attribute['entity_type_id'],
         $attribute['attribute_id'],
         'frontend_input',
-        $attribute['attribute_code']
+        $attribute['attribute_code'],
     );
 }

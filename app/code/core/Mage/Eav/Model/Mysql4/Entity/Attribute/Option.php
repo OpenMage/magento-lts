@@ -21,6 +21,4 @@
  * @package    Mage_Eav
  * @deprecated
  */
-class Mage_Eav_Model_Mysql4_Entity_Attribute_Option extends Mage_Eav_Model_Resource_Entity_Attribute_Option
-{
-}
+class Mage_Eav_Model_Mysql4_Entity_Attribute_Option extends Mage_Eav_Model_Resource_Entity_Attribute_Option {}

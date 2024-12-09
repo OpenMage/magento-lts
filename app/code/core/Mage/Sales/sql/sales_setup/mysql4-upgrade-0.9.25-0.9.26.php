@@ -29,5 +29,5 @@ $installer->getConnection()->addConstraint(
     $this->getTable('sales_order_tax'),
     'order_id',
     $this->getTable('sales_order'),
-    'entity_id'
+    'entity_id',
 );

@@ -40,7 +40,7 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
         $this->getSelect()->joinLeft(
             [$alias => $this->getTable('tax/tax_calculation')],
             "main_table.tax_calculation_rule_id = {$alias}.tax_calculation_rule_id",
-            []
+            [],
         );
         $this->getSelect()->group('main_table.tax_calculation_rule_id');
 
@@ -68,12 +68,12 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
             $select = $this->getConnection()->select()
                 ->from(
                     ['calculation' => $this->getTable('tax/tax_calculation')],
-                    ['calculation.tax_calculation_rule_id']
+                    ['calculation.tax_calculation_rule_id'],
                 )
                 ->join(
                     ['item' => $this->getTable($itemTable)],
                     $joinCondition,
-                    ["item.{$titleField}", "item.{$secondaryJoinField}"]
+                    ["item.{$titleField}", "item.{$secondaryJoinField}"],
                 )
                 ->where('calculation.tax_calculation_rule_id IN (?)', array_keys($children))
                 ->distinct(true);

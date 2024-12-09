@@ -96,7 +96,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
         'customer_lastname'   => 'customer_lastname_table.value',
         'customer_email'      => 'customer_email_table.email',
         'customer_id'         => 'customer_table.customer_id',
-        'url'                 => 'url_info_table.url'
+        'url'                 => 'url_info_table.url',
     ];
 
     /**

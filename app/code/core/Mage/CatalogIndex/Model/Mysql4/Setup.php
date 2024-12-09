@@ -19,6 +19,4 @@
  * @package    Mage_CatalogIndex
  * @deprecated
  */
-class Mage_CatalogIndex_Model_Mysql4_Setup extends Mage_CatalogIndex_Model_Resource_Setup
-{
-}
+class Mage_CatalogIndex_Model_Mysql4_Setup extends Mage_CatalogIndex_Model_Resource_Setup {}

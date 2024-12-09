@@ -41,7 +41,7 @@ class Magento_Db_Object_View extends Magento_Db_Object implements Magento_Db_Obj
     {
         $this->_adapter->query(
             'CREATE ALGORITHM = ' . $algorithm . ' ' . $this->getDbType() . ' '
-                . $this->getObjectName() . ' AS ' . $source
+                . $this->getObjectName() . ' AS ' . $source,
         );
         return $this;
     }

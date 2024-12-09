@@ -19,6 +19,4 @@
  * @package    Mage_Api
  * @deprecated
  */
-class Mage_Api_Model_Mysql4_Permissions_Collection extends Mage_Api_Model_Resource_Permissions_Collection
-{
-}
+class Mage_Api_Model_Mysql4_Permissions_Collection extends Mage_Api_Model_Resource_Permissions_Collection {}

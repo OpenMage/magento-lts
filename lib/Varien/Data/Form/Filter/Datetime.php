@@ -36,11 +36,11 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
 
         $filterInput = new Zend_Filter_LocalizedToNormalized([
             'date_format'   => $this->_dateFormat,
-            'locale'        => $this->_locale
+            'locale'        => $this->_locale,
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([
             'date_format'   => Varien_Date::DATETIME_INTERNAL_FORMAT,
-            'locale'        => $this->_locale
+            'locale'        => $this->_locale,
         ]);
 
         $value = $filterInput->filter($value);
@@ -61,11 +61,11 @@ class Varien_Data_Form_Filter_Datetime extends Varien_Data_Form_Filter_Date
 
         $filterInput = new Zend_Filter_LocalizedToNormalized([
             'date_format'   => Varien_Date::DATETIME_INTERNAL_FORMAT,
-            'locale'        => $this->_locale
+            'locale'        => $this->_locale,
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([
             'date_format'   => $this->_dateFormat,
-            'locale'        => $this->_locale
+            'locale'        => $this->_locale,
         ]);
 
         $value = $filterInput->filter($value);

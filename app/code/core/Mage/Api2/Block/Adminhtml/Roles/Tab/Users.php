@@ -50,7 +50,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
         $collection->getSelect()->joinLeft(
             ['acl' => $collection->getTable('api2/acl_user')],
             'acl.admin_id = main_table.user_id',
-            'role_id'
+            'role_id',
         );
         if ($this->getRole() && $this->getRole()->getId()) {
             $collection->addFilter('acl.role_id', $this->getRole()->getId());
@@ -74,7 +74,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
             'name'      => 'filter_in_role_users',
             'values'    => $this->getUsers(),
             'align'     => 'center',
-            'index'     => 'user_id'
+            'index'     => 'user_id',
         ]);
 
         $this->addColumn('user_id', [
@@ -82,15 +82,15 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
         ]);
 
         $this->addColumn('username', [
-            'header' => Mage::helper('adminhtml')->__('User Name'), 'align' => 'left', 'index' => 'username'
+            'header' => Mage::helper('adminhtml')->__('User Name'), 'align' => 'left', 'index' => 'username',
         ]);
 
         $this->addColumn('firstname', [
-            'header' => Mage::helper('adminhtml')->__('First Name'), 'align' => 'left', 'index' => 'firstname'
+            'header' => Mage::helper('adminhtml')->__('First Name'), 'align' => 'left', 'index' => 'firstname',
         ]);
 
         $this->addColumn('lastname', [
-            'header' => Mage::helper('adminhtml')->__('Last Name'), 'align' => 'left', 'index' => 'lastname'
+            'header' => Mage::helper('adminhtml')->__('Last Name'), 'align' => 'left', 'index' => 'lastname',
         ]);
 
         return parent::_prepareColumns();

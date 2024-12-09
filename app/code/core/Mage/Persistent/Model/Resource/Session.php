@@ -49,7 +49,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
             $tableName = $this->getMainTable();
             $select->join(
                 ['customer' => $this->getTable('customer/entity')],
-                'customer.entity_id = ' . $tableName . '.customer_id'
+                'customer.entity_id = ' . $tableName . '.customer_id',
             )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
         }
 
@@ -95,7 +95,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
             [
                 'website_id = ?' => $websiteId,
                 'updated_at < ?' => $expiredBefore,
-            ]
+            ],
         );
         return $this;
     }

@@ -21,6 +21,4 @@
  * @package    Mage_ProductAlert
  * @deprecated
  */
-class Mage_ProductAlert_Model_Mysql4_Stock_Customer_Collection extends Mage_ProductAlert_Model_Resource_Stock_Customer_Collection
-{
-}
+class Mage_ProductAlert_Model_Mysql4_Stock_Customer_Collection extends Mage_ProductAlert_Model_Resource_Stock_Customer_Collection {}

@@ -84,7 +84,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      */
     protected static $_defaultAddressAttrMapping = [
         self::COL_NAME_DEFAULT_BILLING  => 'default_billing',
-        self::COL_NAME_DEFAULT_SHIPPING => 'default_shipping'
+        self::COL_NAME_DEFAULT_SHIPPING => 'default_shipping',
     ];
 
     /**
@@ -171,7 +171,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 if ($rowScope == Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_DEFAULT) {
                     $customerId = $this->_customer->getCustomerId(
                         $rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_EMAIL],
-                        $rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_WEBSITE]
+                        $rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_WEBSITE],
                     );
                 }
                 if ($rowScope != Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_OPTIONS) {
@@ -220,7 +220,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                         'entity_type_id' => $this->_entityTypeId,
                         'parent_id'      => $customerId,
                         'created_at'     => $now,
-                        'updated_at'     => $now
+                        'updated_at'     => $now,
                     ];
                     // attribute values
                     foreach ($this->_attributes as $attrAlias => $attrParams) {
@@ -293,7 +293,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     ? Mage::helper('core/unserializeArray')->unserialize($attribute->getValidateRules())
                     : null,
                 'type'        => Mage_ImportExport_Model_Import::getAttributeType($attribute),
-                'options'     => $this->getAttributeOptions($attribute)
+                'options'     => $this->getAttributeOptions($attribute),
             ];
         }
         return $this;
@@ -348,7 +348,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                         'entity_id'      => $addressId,
                         'entity_type_id' => $this->_entityTypeId,
                         'attribute_id'   => $attributeId,
-                        'value'          => $value
+                        'value'          => $value,
                     ];
                 }
             }
@@ -374,7 +374,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 }
                 $this->_connection->delete(
                     $this->_entityTable,
-                    $this->_connection->quoteInto('`parent_id` IN (?)', array_keys($customersToClean))
+                    $this->_connection->quoteInto('`parent_id` IN (?)', array_keys($customersToClean)),
                 );
             }
             $this->_connection->insertMultiple($this->_entityTable, $entityRows);
@@ -398,7 +398,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                         'entity_id'      => $customerId,
                         'entity_type_id' => $this->_customer->getEntityTypeId(),
                         'attribute_id'   => $attributeId,
-                        'value'          => $value
+                        'value'          => $value,
                     ];
                 }
             }
@@ -469,7 +469,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     $this->_customer->addRowError(
                         Mage_ImportExport_Model_Import_Entity_Customer::ERROR_VALUE_IS_REQUIRED,
                         $rowNum,
-                        $colName
+                        $colName,
                     );
                     $rowIsValid = false;
                 }

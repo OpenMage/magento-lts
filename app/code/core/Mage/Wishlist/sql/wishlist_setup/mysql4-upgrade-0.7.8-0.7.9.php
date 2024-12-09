@@ -36,7 +36,7 @@ $installer->getConnection()->addConstraint(
     $this->getTable('wishlist/item_option'),
     'wishlist_item_id',
     $this->getTable('wishlist/item'),
-    'wishlist_item_id'
+    'wishlist_item_id',
 );
 
 $installer->endSetup();

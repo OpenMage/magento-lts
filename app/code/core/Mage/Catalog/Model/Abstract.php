@@ -341,7 +341,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function setIsReadonly($value)
     {
-        $this->_isReadonly = (bool)$value;
+        $this->_isReadonly = (bool) $value;
         return $this;
     }
 }

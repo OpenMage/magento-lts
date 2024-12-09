@@ -60,21 +60,21 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
 
         $this->addColumn('name', [
             'header'        => Mage::helper('tag')->__('Tag'),
-            'index'         => 'name'
+            'index'         => 'name',
         ]);
 
         $this->addColumn('products', [
             'header'        => Mage::helper('tag')->__('Products'),
             'width'         => '140px',
             'index'         => 'products',
-            'type'          => 'number'
+            'type'          => 'number',
         ]);
 
         $this->addColumn('customers', [
             'header'        => Mage::helper('tag')->__('Customers'),
             'width'         => '140px',
             'index'         => 'customers',
-            'type'          => 'number'
+            'type'          => 'number',
         ]);
 
         // Collection for stores filters
@@ -130,8 +130,8 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         $this->getMassactionBlock()->setFormFieldName('tag');
 
         $this->getMassactionBlock()->addItem(MassAction::DELETE, [
-             'label' => Mage::helper('tag')->__('Delete'),
-             'url'  => $this->getUrl('*/*/massDelete', ['ret' => 'pending'])
+            'label' => Mage::helper('tag')->__('Delete'),
+            'url'  => $this->getUrl('*/*/massDelete', ['ret' => 'pending']),
         ]);
 
         /** @var Mage_Tag_Helper_Data $helper */
@@ -141,17 +141,17 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         array_unshift($statuses, ['label' => '', 'value' => '']);
 
         $this->getMassactionBlock()->addItem(MassAction::STATUS, [
-             'label' => Mage::helper('tag')->__('Change status'),
-             'url'  => $this->getUrl('*/*/massStatus', ['_current' => true, 'ret' => 'pending']),
-             'additional' => [
-                    'visibility' => [
-                         'name' => 'status',
-                         'type' => 'select',
-                         'class' => 'required-entry',
-                         'label' => Mage::helper('tag')->__('Status'),
-                         'values' => $statuses
-                    ]
-             ]
+            'label' => Mage::helper('tag')->__('Change status'),
+            'url'  => $this->getUrl('*/*/massStatus', ['_current' => true, 'ret' => 'pending']),
+            'additional' => [
+                'visibility' => [
+                    'name' => 'status',
+                    'type' => 'select',
+                    'class' => 'required-entry',
+                    'label' => Mage::helper('tag')->__('Status'),
+                    'values' => $statuses,
+                ],
+            ],
         ]);
 
         return $this;

@@ -94,7 +94,7 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
         $collection->getSelect()->join(
             [$alias => $this->getMainTable()],
             $alias . '.entity_id=e.entity_id',
-            []
+            [],
         )
         ->where($alias . '.store_id = ?', $this->getStoreId())
         ->where($alias . '.attribute_id = ?', $attribute->getId())

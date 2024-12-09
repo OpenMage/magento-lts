@@ -36,11 +36,11 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
                     'id'      => $this->getElementId(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX),
                     'label'   => Mage::helper('uploader')->__('Upload Files'),
                     'type'    => 'button',
-                ])
+                ]),
         );
 
         $this->_addElementIdsMapping([
-            'upload' => $this->_prepareElementsIds([self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX])
+            'upload' => $this->_prepareElementsIds([self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX]),
         ]);
 
         return $this;

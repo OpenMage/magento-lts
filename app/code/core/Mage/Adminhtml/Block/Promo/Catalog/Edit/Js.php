@@ -18,6 +18,4 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Block_Promo_Catalog_Edit_Js extends Mage_Adminhtml_Block_Template
-{
-}
+class Mage_Adminhtml_Block_Promo_Catalog_Edit_Js extends Mage_Adminhtml_Block_Template {}

@@ -135,7 +135,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
 
         return $this->process('productAttribute', $attributeHtml, [
             'product'   => $product,
-            'attribute' => $attributeName
+            'attribute' => $attributeName,
         ]);
     }
 
@@ -164,7 +164,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         }
         return $this->process('categoryAttribute', $attributeHtml, [
             'category'  => $category,
-            'attribute' => $attributeName
+            'attribute' => $attributeName,
         ]);
     }
 }

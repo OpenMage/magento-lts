@@ -19,7 +19,7 @@ $installer = $this;
 $installer->startSetup();
 
 $attributes = [
-    $installer->getAttributeId('catalog_product', 'cost')
+    $installer->getAttributeId('catalog_product', 'cost'),
 ];
 
 $sql    = $installer->getConnection()->quoteInto("SELECT * FROM `{$installer->getTable('catalog/eav_attribute')}` WHERE attribute_id IN (?)", $attributes);

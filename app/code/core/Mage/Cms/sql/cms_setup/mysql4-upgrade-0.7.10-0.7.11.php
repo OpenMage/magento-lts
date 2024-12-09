@@ -23,13 +23,13 @@ $pageTable = $installer->getTable('cms/page');
 $installer->getConnection()->addColumn(
     $pageTable,
     'custom_root_template',
-    "VARCHAR(255) NOT NULL DEFAULT '' AFTER `custom_theme`"
+    "VARCHAR(255) NOT NULL DEFAULT '' AFTER `custom_theme`",
 );
 
 $installer->getConnection()->addColumn(
     $pageTable,
     'custom_layout_update_xml',
-    'TEXT NULL AFTER `custom_root_template`'
+    'TEXT NULL AFTER `custom_root_template`',
 );
 
 $installer->endSetup();

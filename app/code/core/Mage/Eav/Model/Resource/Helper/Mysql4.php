@@ -40,7 +40,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
         Varien_Db_Ddl_Table::TYPE_DATETIME      => 'datetime',
         Varien_Db_Ddl_Table::TYPE_TEXT          => 'text',
         Varien_Db_Ddl_Table::TYPE_BLOB          => 'blob',
-        Varien_Db_Ddl_Table::TYPE_VARBINARY     => 'blob'
+        Varien_Db_Ddl_Table::TYPE_VARBINARY     => 'blob',
     ];
 
     /**

@@ -38,46 +38,46 @@ $table = $installer->getConnection()
     ], 'Item Id')
     ->addIndex(
         $installer->getIdxName('tax/sales_order_tax_item', ['tax_id']),
-        ['tax_id']
+        ['tax_id'],
     )
     ->addIndex(
         $installer->getIdxName('tax/sales_order_tax_item', ['item_id']),
-        ['item_id']
+        ['item_id'],
     )
     ->addIndex(
         $installer->getIdxName(
             'tax/sales_order_tax_item',
             ['tax_id', 'item_id'],
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
         ),
         ['tax_id', 'item_id'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->addForeignKey(
         $installer->getFkName(
             'tax/sales_order_tax_item',
             'tax_id',
             'tax/sales_order_tax',
-            'tax_id'
+            'tax_id',
         ),
         'tax_id',
         $installer->getTable('tax/sales_order_tax'),
         'tax_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName(
             'tax/sales_order_tax_item',
             'item_id',
             'sales_flat_order_item',
-            'item_id'
+            'item_id',
         ),
         'item_id',
         $installer->getTable('sales_flat_order_item'),
         'item_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Sales Order Tax Item');
 $installer->getConnection()->createTable($table);

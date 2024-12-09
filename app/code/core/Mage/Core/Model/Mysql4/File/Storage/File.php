@@ -21,6 +21,4 @@
  * @package    Mage_Core
  * @deprecated
  */
-class Mage_Core_Model_Mysql4_File_Storage_File extends Mage_Core_Model_Resource_File_Storage_File
-{
-}
+class Mage_Core_Model_Mysql4_File_Storage_File extends Mage_Core_Model_Resource_File_Storage_File {}

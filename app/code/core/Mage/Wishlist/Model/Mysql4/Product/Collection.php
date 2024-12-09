@@ -21,6 +21,4 @@
  * @package    Mage_Wishlist
  * @deprecated
  */
-class Mage_Wishlist_Model_Mysql4_Product_Collection extends Mage_Wishlist_Model_Resource_Product_Collection
-{
-}
+class Mage_Wishlist_Model_Mysql4_Product_Collection extends Mage_Wishlist_Model_Resource_Product_Collection {}
