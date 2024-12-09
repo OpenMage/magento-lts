@@ -170,9 +170,8 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         }
         $callbackUrl .= (strpos($callbackUrl, '?') === false ? '?' : '&');
         $callbackUrl .= 'oauth_token=' . $token->getToken() . '&';
-        $callbackUrl .= $rejected ? self::QUERY_PARAM_REJECTED . '=1' : 'oauth_verifier=' . $token->getVerifier();
 
-        return $callbackUrl;
+        return $callbackUrl . ($rejected ? self::QUERY_PARAM_REJECTED . '=1' : 'oauth_verifier=' . $token->getVerifier());
     }
 
     /**

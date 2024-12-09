@@ -629,9 +629,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         foreach ($this as $item) {
             $xml .= $item->toXml();
         }
-        $xml .= '</items>
+        return $xml . '</items>
         </collection>';
-        return $xml;
     }
 
     /**

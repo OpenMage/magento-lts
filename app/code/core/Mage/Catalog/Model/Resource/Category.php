@@ -729,9 +729,8 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     {
         $children = $this->getChildren($category);
         $myId = [$category->getId()];
-        $children = array_merge($myId, $children);
 
-        return $children;
+        return array_merge($myId, $children);
     }
 
     /**

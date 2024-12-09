@@ -111,8 +111,7 @@ class Varien_Profiler
                 return $sum;
 
             case 'count':
-                $count = self::$_timers[$timerName]['count'];
-                return $count;
+                return self::$_timers[$timerName]['count'];
 
             case 'realmem':
                 if (!isset(self::$_timers[$timerName]['realmem'])) {

@@ -88,7 +88,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
         $collection = Mage::getResourceModel('catalog/product_collection');
         $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
-        $collection = $this->_addProductAttributesAndPrices($collection)
+        return $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter()
             ->addAttributeToFilter('news_from_date', ['or' => [
                 0 => ['date' => true, 'to' => $todayEndOfDayDate],
@@ -106,10 +106,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
             )
             ->addAttributeToSort('news_from_date', 'desc')
             ->setPageSize($this->getProductsCount())
-            ->setCurPage(1)
-        ;
-
-        return $collection;
+            ->setCurPage(1);
     }
 
     /**

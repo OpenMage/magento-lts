@@ -68,8 +68,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_
             $selectId . '", ' . Mage::helper('directory')->getRegionJsonByStore($quoteStoreId) . ');' . "\n";
         $html .= '</script>' . "\n";
 
-        $html .= '</td></tr>' . "\n";
-
-        return $html;
+        return $html . ('</td></tr>' . "\n");
     }
 }
