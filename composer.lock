@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af2f1a89f41c33d8f756c32152ac217d",
+    "content-hash": "ca62c6b13e386b963f57e1f2ca1f6631",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -3515,45 +3515,6 @@
             "time": "2024-11-25T00:39:24+00:00"
         },
         {
-            "name": "macopedia/phpstan-magento1",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/macopedia/phpstan-magento1.git",
-                "reference": "01418cc9a536ffbf298fdf7ea3b9fac1f87a0508"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/01418cc9a536ffbf298fdf7ea3b9fac1f87a0508",
-                "reference": "01418cc9a536ffbf298fdf7ea3b9fac1f87a0508",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">= 7.4",
-                "phpstan/phpstan": "^1.12.11 | ^2.0.2"
-            },
-            "replace": {
-                "inviqa/phpstan-magento1": "0.1.5",
-                "vianetz/phpstan-magento1": "0.1.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "PHPStanMagento1\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Extension for PHPStan to allow analysis of Magento 1 code.",
-            "support": {
-                "issues": "https://github.com/macopedia/phpstan-magento1/issues",
-                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.1.0"
-            },
-            "time": "2024-11-19T10:50:38+00:00"
-        },
-        {
             "name": "magento-ecg/coding-standard",
             "version": "4.5.4",
             "source": {
@@ -3589,6 +3550,40 @@
                 "source": "https://github.com/magento-ecg/coding-standard/tree/v4.5.2"
             },
             "time": "2023-07-05T15:24:16+00:00"
+        },
+        {
+            "name": "mahocommerce/maho-phpstan-plugin",
+            "version": "dev-topic-v3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinbeaty/maho-phpstan-plugin.git",
+                "reference": "21667ad6c3a67850e5b68cdb86c0dd72847669f4"
+            },
+            "require": {
+                "php": ">= 8.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^2.0",
+                "phpstan/phpstan-strict-rules": "^2.0"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Maho\\PHPStanPlugin\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Extension for PHPStan to allow static analysis of Maho projects.",
+            "time": "2024-12-09T16:14:18+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -7339,7 +7334,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "mahocommerce/maho-phpstan-plugin": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
