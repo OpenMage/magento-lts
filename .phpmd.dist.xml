@@ -71,25 +71,25 @@
 
     <!-- NAMING
     [-] BooleanGetMethodName
-    [ ] ConstantNamingConventions
-    [ ] ConstructorWithNameAsEnclosingClass
+    [x] ConstantNamingConventions
+    [x] ConstructorWithNameAsEnclosingClass
     [-] LongClassName
-    [ ] ShortClassName
+    [x] ShortClassName
     [-] LongVariable
-    [?] ShortVariable - TMP disabled
-    [ ] ShortMethodName
+    [x] ShortVariable
+    [x] ShortMethodName - TMP disabled
     -->
-<!--    <rule ref="rulesets/naming.xml/ShortVariable">-->
-<!--        <properties>-->
-<!--            <property name="exceptions" value="a,b,e,id,idx,io,ip,to,x,y,x1,x2,y1,y2" />-->
-<!--        </properties>-->
-<!--    </rule>-->
     <rule ref="rulesets/naming.xml">
         <exclude name="BooleanGetMethodName" />
         <exclude name="LongClassName" />
         <exclude name="LongVariable" />
         <exclude name="ShortVariable" />
     </rule>
+<!--    <rule ref="rulesets/naming.xml/ShortVariable">-->
+<!--        <properties>-->
+<!--            <property name="exceptions" value="a,b,x,y,x1,x2,y1,y2" />-->
+<!--        </properties>-->
+<!--    </rule>-->
     <rule ref="rulesets/naming.xml/ShortMethodName" />
 
     <!-- DESIGN

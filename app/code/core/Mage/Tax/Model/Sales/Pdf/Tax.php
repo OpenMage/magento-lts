@@ -46,8 +46,6 @@ class Mage_Tax_Model_Sales_Pdf_Tax extends Mage_Sales_Model_Order_Pdf_Total_Defa
             $totals = $this->getFullTaxInfo();
         }
 
-        $totals = array_merge($totals, parent::getTotalsForDisplay());
-
-        return $totals;
+        return array_merge($totals, parent::getTotalsForDisplay());
     }
 }
