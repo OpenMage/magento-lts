@@ -310,4 +310,16 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
     }
+
+    /** @return list<string> */
+    public function getTopCountryCodes(): array
+    {
+        $topCountries = array_filter(explode(',', (string)Mage::getStoreConfig('general/country/top_countries')));
+
+        $transportObject = new Varien_Object();
+        $transportObject->setData('top_countries', $topCountries);
+        Mage::dispatchEvent('directory_get_top_countries', ['topCountries' => $transportObject]);
+
+        return $transportObject->getData('top_countries');
+    }
 }
