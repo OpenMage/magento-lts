@@ -1,5 +1,4 @@
 [![All Contributors](https://img.shields.io/github/all-contributors/openmage/magento-lts?color=ee8449)](#contributors)
-[![Version](http://poser.pugx.org/openmage/magento-lts/version)](https://packagist.org/packages/openmage/magento-lts)
 ![https://packagist.org/packages/openmage/magento-lts](https://poser.pugx.org/openmage/magento-lts/license.svg)
 ![https://packagist.org/packages/openmage/magento-lts](https://poser.pugx.org/openmage/magento-lts/d/total.svg)
 ![https://github.com/openmage/magento-lts/actions/workflows/security-php.yml](https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg)
