@@ -422,8 +422,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if (count($parts)) {
             $file .= DS . implode(DS, $parts);
         }
-        $file .= DS . uc_words($controller, DS) . 'Controller.php';
-        return $file;
+        return $file . (DS . uc_words($controller, DS) . 'Controller.php');
     }
 
     /**

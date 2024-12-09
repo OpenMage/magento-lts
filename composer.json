@@ -29,6 +29,8 @@
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
+        "mklkj/tinymce-i18n": "^24.11",
+        "openmage/composer-plugin": "^1.1.0",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
@@ -38,7 +40,10 @@
         "symfony/polyfill-php81": "^1.31",
         "symfony/polyfill-php82": "^1.31",
         "symfony/polyfill-php83": "^1.31",
-        "symfony/polyfill-php84": "^1.31"
+        "symfony/polyfill-php84": "^1.31",
+        "symfony/string": "^5.4",
+        "symfony/translation-contracts": "^2.5",
+        "tinymce/tinymce": "^7.5"
     },
     "require-dev": {
         "ext-xmlreader": "*",
@@ -126,9 +131,10 @@
     },
     "config": {
         "allow-plugins": {
-            "magento-hackathon/magento-composer-installer": true,
+            "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "cweagans/composer-patches": true
+            "magento-hackathon/magento-composer-installer": true,
+            "openmage/composer-plugin": true
         },
         "platform": {
             "php": "7.4"
