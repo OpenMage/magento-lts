@@ -80,8 +80,8 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/OpenMage/magento-lts
-    - icon: fontawesome/brands/discord
-      link: https://discord.gg/EV8aNbU
+#    - icon: fontawesome/brands/discord
+#      link: https://discord.gg/EV8aNbU
     - icon: fontawesome/brands/stack-overflow
       link: https://magento.stackexchange.com/tags/openmage
     - icon: fontawesome/brands/x-twitter

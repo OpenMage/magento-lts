@@ -20,10 +20,6 @@ See: https://docs.openmage.org/
 
 ---
 
-## Public Communication
-
-* [Discord](https://discord.gg/EV8aNbU) (maintained by [Daniel Fahlke](https://github.com/Flyingmana))
-
 ## Sponsorship
 
 * [opencollective](https://opencollective.com/openmage) (maintained by [Daniel Fahlke](https://github.com/Flyingmana) and [Colin Mollenhour](https://github.com/colinmollenhour))
