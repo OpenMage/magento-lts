@@ -61,8 +61,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
             'onclick',
             Mage::helper('core/js')->getDeleteConfirmJs(
                 $this->getCancelUrl(),
-                Mage::helper('sales')->__('Are you sure you want to cancel this order?')
-            )
+                Mage::helper('sales')->__('Are you sure you want to cancel this order?'),
+            ),
         );
     }
 
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
     {
         if ($this->_getSession()->getOrder()->getId()) {
             $url = $this->getUrl('*/sales_order/view', [
-                'order_id' => Mage::getSingleton('adminhtml/session_quote')->getOrder()->getId()
+                'order_id' => Mage::getSingleton('adminhtml/session_quote')->getOrder()->getId(),
             ]);
         } else {
             $url = $this->getUrl('*/*/cancel');

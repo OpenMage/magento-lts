@@ -21,6 +21,4 @@
  * @package    Mage_Eav
  * @deprecated
  */
-class Mage_Eav_Model_Mysql4_Form_Element extends Mage_Eav_Model_Resource_Form_Element
-{
-}
+class Mage_Eav_Model_Mysql4_Form_Element extends Mage_Eav_Model_Resource_Form_Element {}

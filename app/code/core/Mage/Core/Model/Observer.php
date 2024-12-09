@@ -69,8 +69,8 @@ class Mage_Core_Model_Observer
                         'title'         => $title,
                         'description'   => $description,
                         'url'           => '',
-                        'internal'      => true
-                    ]
+                        'internal'      => true,
+                    ],
                 ]);
 
                 $flag->setState(Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED)->save();

@@ -23,7 +23,7 @@ $select = $installer->getConnection()->select()
         'category_id',
         'product_id',
         'position',
-        'cnt' => 'COUNT(product_id)'
+        'cnt' => 'COUNT(product_id)',
     ])
     ->group('category_id')
     ->group('product_id')
@@ -34,11 +34,11 @@ foreach ($rowSet as $row) {
     $data = [
         'category_id'   => $row['category_id'],
         'product_id'    => $row['product_id'],
-        'position'      => $row['position']
+        'position'      => $row['position'],
     ];
     $installer->getConnection()->delete($installer->getTable('catalog_category_product'), [
         $installer->getConnection()->quoteInto('category_id = ?', $row['category_id']),
-        $installer->getConnection()->quoteInto('product_id = ?', $row['product_id'])
+        $installer->getConnection()->quoteInto('product_id = ?', $row['product_id']),
     ]);
     $installer->getConnection()->insert($installer->getTable('catalog_category_product'), $data);
 }

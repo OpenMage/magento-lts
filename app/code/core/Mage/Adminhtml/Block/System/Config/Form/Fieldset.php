@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
         $html .= $this->_getHeaderTitleHtml($element);
 
         $html .= '<input id="' . $element->getHtmlId() . '-state" name="config_state[' . $element->getId()
-            . ']" type="hidden" value="' . (int)$this->_getCollapseState($element) . '" />';
+            . ']" type="hidden" value="' . (int) $this->_getCollapseState($element) . '" />';
         $html .= '<fieldset class="' . $this->_getFieldsetCss($element) . '" id="' . $element->getHtmlId() . '">';
         $html .= '<legend>' . $element->getLegend() . '</legend>';
 
@@ -79,7 +79,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      */
     protected function _getFrontendClass($element)
     {
-        $frontendClass = (string)$this->getGroup($element)->frontend_class;
+        $frontendClass = (string) $this->getGroup($element)->frontend_class;
         return 'section-config' . (empty($frontendClass) ? '' : (' ' . $frontendClass));
     }
 
@@ -135,7 +135,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      */
     protected function _getFieldsetCss($element = null)
     {
-        $configCss = (string)$this->getGroup($element)->fieldset_css;
+        $configCss = (string) $this->getGroup($element)->fieldset_css;
         return 'config collapseable' . ($configCss ? ' ' . $configCss : '');
     }
 

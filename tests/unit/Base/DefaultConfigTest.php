@@ -39,7 +39,7 @@ class DefaultConfigTest extends TestCase
     {
         yield Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS => [
             '1',
-            Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS
+            Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS,
         ];
     }
 }

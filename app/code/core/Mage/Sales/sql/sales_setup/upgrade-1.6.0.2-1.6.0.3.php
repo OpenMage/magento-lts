@@ -21,5 +21,5 @@ $installer->getConnection()
     ->addColumn($installer->getTable('sales/shipment'), 'shipping_label', [
         'type'    => Varien_Db_Ddl_Table::TYPE_VARBINARY,
         'comment' => 'Shipping Label Content',
-        'length'  => '2m'
+        'length'  => '2m',
     ]);

@@ -76,8 +76,8 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
                 $this->getTable('newsletter/queue_link'),
                 [
                     'queue_id = ?' => $queue->getId(),
-                    'letter_sent_at IS NULL'
-                ]
+                    'letter_sent_at IS NULL',
+                ],
             );
 
             $adapter->commit();
@@ -96,7 +96,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
         $adapter = $this->_getWriteAdapter();
         $adapter->delete(
             $this->getTable('newsletter/queue_store_link'),
-            ['queue_id = ?' => $queue->getId()]
+            ['queue_id = ?' => $queue->getId()],
         );
 
         $stores = $queue->getStores();

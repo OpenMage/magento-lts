@@ -20,11 +20,11 @@ $connection = $installer->getConnection();
 $installer->startSetup();
 $data = [
     ['paypal_reversed', 'PayPal Reversed'],
-    ['paypal_canceled_reversal', 'PayPal Canceled Reversal']
+    ['paypal_canceled_reversal', 'PayPal Canceled Reversal'],
 ];
 $connection = $installer->getConnection()->insertArray(
     $installer->getTable('sales/order_status'),
     ['status', 'label'],
-    $data
+    $data,
 );
 $installer->endSetup();

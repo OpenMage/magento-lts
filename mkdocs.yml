@@ -186,6 +186,8 @@ nav:
           - api/rest/response_formats.md
           - api/rest/testing_rest_resources.md
   - 'Development':
+      - 'Coding Style':
+          - developers/coding-style/per-2.0.md
       - 'Events':
           - developers/events/list.md
       - 'Tools':

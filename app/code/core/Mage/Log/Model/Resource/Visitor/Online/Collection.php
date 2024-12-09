@@ -51,7 +51,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
             'customer_lastname'   => 'lastname',
             'customer_middlename' => 'middlename',
             'customer_firstname'  => 'firstname',
-            'customer_email'      => 'email'
+            'customer_email'      => 'email',
         ];
 
         foreach ($attributes as $alias => $attributeCode) {
@@ -64,7 +64,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
                 $this->getSelect()->joinLeft(
                     [$tableAlias => $attribute->getBackend()->getTable()],
                     sprintf('%s.entity_id=main_table.customer_id', $tableAlias),
-                    [$alias => $attribute->getAttributeCode()]
+                    [$alias => $attribute->getAttributeCode()],
                 );
 
                 $this->_fields[$alias] = sprintf('%s.%s', $tableAlias, $attribute->getAttributeCode());
@@ -73,13 +73,13 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
 
                 $joinConds  = [
                     sprintf('%s.entity_id=main_table.customer_id', $tableAlias),
-                    $this->getConnection()->quoteInto($tableAlias . '.attribute_id=?', $attribute->getAttributeId())
+                    $this->getConnection()->quoteInto($tableAlias . '.attribute_id=?', $attribute->getAttributeId()),
                 ];
 
                 $this->getSelect()->joinLeft(
                     [$tableAlias => $attribute->getBackend()->getTable()],
                     implode(' AND ', $joinConds),
-                    [$alias => 'value']
+                    [$alias => 'value'],
                 );
 
                 $this->_fields[$alias] = sprintf('%s.value', $tableAlias);

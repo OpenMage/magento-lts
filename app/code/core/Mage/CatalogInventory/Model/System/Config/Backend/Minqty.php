@@ -30,7 +30,7 @@ class Mage_CatalogInventory_Model_System_Config_Backend_Minqty extends Mage_Core
     protected function _beforeSave()
     {
         parent::_beforeSave();
-        $minQty = (int)$this->getValue() >= 0 ? (int)$this->getValue() : (int)$this->getOldValue();
+        $minQty = (int) $this->getValue() >= 0 ? (int) $this->getValue() : (int) $this->getOldValue();
         $this->setValue((string) $minQty);
         return $this;
     }

@@ -73,7 +73,7 @@ class Mage_Persistent_Model_Observer
         /** @var Mage_Persistent_Model_Persistent_Config $persistentConfig */
         $persistentConfig = Mage::getModel('persistent/persistent_config')
             ->setConfigFilePath(
-                $configFilePath ? $configFilePath : Mage::helper('persistent')->getPersistentConfigFilePath()
+                $configFilePath ? $configFilePath : Mage::helper('persistent')->getPersistentConfigFilePath(),
             );
 
         /** @var Varien_Simplexml_Element $persistentConfigInfo */
@@ -92,7 +92,7 @@ class Mage_Persistent_Model_Observer
     public function emulateWelcomeMessageBlock($block)
     {
         $block->setWelcome(
-            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName(), null))
+            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName(), null)),
         );
         return $this;
     }
@@ -135,7 +135,7 @@ class Mage_Persistent_Model_Observer
             Mage::helper('persistent')->getPersistentName(),
             false,
             [],
-            110
+            110,
         );
         $block->removeLinkByUrl(Mage::helper('customer')->getRegisterUrl());
         $block->removeLinkByUrl(Mage::helper('customer')->getLoginUrl());
@@ -160,7 +160,7 @@ class Mage_Persistent_Model_Observer
     {
         $stopActions = [
             'persistent_index_saveMethod',
-            'customer_account_createpost'
+            'customer_account_createpost',
         ];
 
         if (!Mage::helper('persistent')->canProcess($observer)
@@ -343,7 +343,7 @@ class Mage_Persistent_Model_Observer
         $controllerAction = $observer->getEvent()->getControllerAction();
         if (method_exists($controllerAction, 'redirectLogin')) {
             Mage::getSingleton('core/session')->addNotice(
-                Mage::helper('persistent')->__('To proceed to Checkout, please log in using your email address.')
+                Mage::helper('persistent')->__('To proceed to Checkout, please log in using your email address.'),
             );
             $controllerAction->redirectLogin();
             if ($controllerAction instanceof Mage_Paypal_Controller_Express_Abstract) {
@@ -361,7 +361,7 @@ class Mage_Persistent_Model_Observer
     protected function _getPersistentCustomer()
     {
         return Mage::getModel('customer/customer')->load(
-            $this->_getPersistentHelper()->getSession()->getCustomerId()
+            $this->_getPersistentHelper()->getSession()->getCustomerId(),
         );
     }
 
@@ -577,7 +577,7 @@ class Mage_Persistent_Model_Observer
         if ($this->_isLoggedOut()) {
             /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer')->load(
-                $this->_getPersistentHelper()->getSession()->getCustomerId()
+                $this->_getPersistentHelper()->getSession()->getCustomerId(),
             );
             Mage::getSingleton('customer/session')
                 ->setCustomerId($customer->getId())

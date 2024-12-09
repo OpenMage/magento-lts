@@ -20,7 +20,7 @@ $installer->startSetup();
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/sales_order_tax'),
-    'FK_SALES_ORDER_TAX_ORDER'
+    'FK_SALES_ORDER_TAX_ORDER',
 );
 
 $installer->endSetup();

@@ -51,10 +51,10 @@ class BlockTest extends TestCase
     public function provideGetCacheKeyInfoData(): Generator
     {
         yield 'valid block ID' => [
-            '2'
+            '2',
         ];
         yield 'invalid block ID' => [
-            '0'
+            '0',
         ];
     }
 

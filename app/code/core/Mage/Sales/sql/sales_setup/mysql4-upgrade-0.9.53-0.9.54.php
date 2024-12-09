@@ -21,7 +21,7 @@ $this->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('sales/order_aggregated_created'),
     'base_canceled_amount',
-    'decimal(12,4) NOT NULL DEFAULT \'0\''
+    'decimal(12,4) NOT NULL DEFAULT \'0\'',
 );
 
 $this->endSetup();

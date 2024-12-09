@@ -46,11 +46,11 @@ class Mage_Catalog_Model_Product_Type_Price
      */
     public function getBasePrice($product, $qty = null)
     {
-        $price = (float)$product->getPrice();
+        $price = (float) $product->getPrice();
         return min(
             $this->_applyGroupPrice($product, $price),
             $this->_applyTierPrice($product, $qty, $price),
-            $this->_applySpecialPrice($product, $price)
+            $this->_applySpecialPrice($product, $price),
         );
     }
 
@@ -274,7 +274,7 @@ class Mage_Catalog_Model_Product_Type_Price
             $product->getSpecialPrice(),
             $product->getSpecialFromDate(),
             $product->getSpecialToDate(),
-            $product->getStore()
+            $product->getStore(),
         );
     }
 
@@ -304,7 +304,7 @@ class Mage_Catalog_Model_Product_Type_Price
             foreach (array_keys($price) as $index) {
                 $price[$index]['formated_price'] = Mage::app()->getStore()->convertPrice(
                     $price[$index]['website_price'],
-                    true
+                    true,
                 );
             }
         } else {

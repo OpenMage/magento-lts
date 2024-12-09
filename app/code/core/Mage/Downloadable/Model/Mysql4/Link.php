@@ -21,6 +21,4 @@
  * @package    Mage_Downloadable
  * @deprecated
  */
-class Mage_Downloadable_Model_Mysql4_Link extends Mage_Downloadable_Model_Resource_Link
-{
-}
+class Mage_Downloadable_Model_Mysql4_Link extends Mage_Downloadable_Model_Resource_Link {}

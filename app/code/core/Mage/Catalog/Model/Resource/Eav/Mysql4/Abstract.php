@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Catalog_Model_Resource_Abstract
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Catalog_Model_Resource_Abstract {}

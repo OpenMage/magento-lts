@@ -111,7 +111,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         return array_merge(parent::getCacheKeyInfo(), [
             $this->getDisplayType(),
             $this->getProductsPerPage(),
-            (int) $this->getRequest()->getParam(self::PAGE_VAR_NAME)
+            (int) $this->getRequest()->getParam(self::PAGE_VAR_NAME),
         ]);
     }
 
@@ -164,7 +164,7 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
         if (!$this->hasData('show_pager')) {
             $this->setData('show_pager', self::DEFAULT_SHOW_PAGER);
         }
-        return (bool)$this->getData('show_pager');
+        return (bool) $this->getData('show_pager');
     }
 
     /**

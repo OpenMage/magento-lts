@@ -585,7 +585,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      */
     public function getIsNominal()
     {
-        return (int)$this->isNominal();
+        return (int) $this->isNominal();
     }
 
     /**
@@ -712,7 +712,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $calculate = $this->getProduct()->getPriceType();
         }
 
-        if (($calculate !== null) && (int)$calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+        if (($calculate !== null) && (int) $calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
             return true;
         }
         return false;
@@ -733,7 +733,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         }
 
         if (($shipmentType !== null) &&
-            (int)$shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+            (int) $shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
         ) {
             return true;
         }
@@ -862,7 +862,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $sAddress,
                 $bAddress,
                 $this->getQuote()->getCustomerTaxClassId(),
-                $store
+                $store,
             );
 
             $priceIncludingTax = Mage::helper('tax')->getPrice(
@@ -872,7 +872,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $sAddress,
                 $bAddress,
                 $this->getQuote()->getCustomerTaxClassId(),
-                $store
+                $store,
             );
 
             if ($saveTaxes) {
@@ -890,7 +890,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                         $sAddress,
                         $bAddress,
                         $this->getQuote()->getCustomerTaxClassId(),
-                        $store
+                        $store,
                     );
                     $rowTotalIncTax = Mage::helper('tax')->getPrice(
                         $this->getProduct()->setTaxPercent(null),
@@ -899,7 +899,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                         $sAddress,
                         $bAddress,
                         $this->getQuote()->getCustomerTaxClassId(),
-                        $store
+                        $store,
                     );
                     $totalBaseTax = $rowTotalIncTax - $rowTotalExcTax;
                     $this->setRowTotalExcTax($rowTotalExcTax);

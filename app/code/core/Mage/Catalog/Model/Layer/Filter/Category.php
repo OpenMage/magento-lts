@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
                 ->addCategoryFilter($this->_appliedCategory);
 
             $this->getLayer()->getState()->addFilter(
-                $this->_createItem($this->_appliedCategory->getName(), $filter)
+                $this->_createItem($this->_appliedCategory->getName(), $filter),
             );
         }
 

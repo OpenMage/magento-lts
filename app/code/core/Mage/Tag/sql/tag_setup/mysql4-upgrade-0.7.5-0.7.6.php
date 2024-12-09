@@ -22,17 +22,17 @@ $deprecatedComment = 'deprecated since 1.4.0.1';
 $installer->getConnection()->modifyColumn(
     $installer->getTable('tag/summary'),
     'uses',
-    "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'"
+    "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'",
 );
 $installer->getConnection()->modifyColumn(
     $installer->getTable('tag/summary'),
     'historical_uses',
-    "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'"
+    "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'",
 );
 $installer->getConnection()->modifyColumn(
     $installer->getTable('tag/summary'),
     'base_popularity',
-    "int(11) UNSIGNED DEFAULT '0' NOT NULL COMMENT '{$deprecatedComment}'"
+    "int(11) UNSIGNED DEFAULT '0' NOT NULL COMMENT '{$deprecatedComment}'",
 );
 
 $installer->run("
@@ -49,7 +49,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('tag/properties'),
     'tag_id',
     $installer->getTable('tag/tag'),
-    'tag_id'
+    'tag_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -57,5 +57,5 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('tag/properties'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );

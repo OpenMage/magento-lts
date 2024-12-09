@@ -46,30 +46,30 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
             'align'     => 'center',
             'width'     => '60px',
             'sortable'  => false,
-            'index'     => 'product_id'
+            'index'     => 'product_id',
         ]);
         $this->addColumn('sku', [
             'header'    => Mage::helper('tag')->__('SKU'),
             'align'     => 'center',
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('tag')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
         $this->addColumn('tags', [
             'header'    => Mage::helper('tag')->__('Tags'),
             'index'     => 'tags',
             'sortable'  => false,
             'filter'    => false,
-            'renderer'  => 'adminhtml/tag_grid_column_renderer_tags'
+            'renderer'  => 'adminhtml/tag_grid_column_renderer_tags',
         ]);
         $this->addColumn('action', [
             'type'      => 'action',
             'align'     => 'center',
             'width'     => '120',
             'format'    => '<a href="' . $this->getUrl('*/*/customers/product_id/$product_id') . '">' . Mage::helper('tag')->__('View Customers') . '</a>',
-            'is_system' => true
+            'is_system' => true,
         ]);
 
         return parent::_prepareColumns();

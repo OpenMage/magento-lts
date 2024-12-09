@@ -51,7 +51,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
      */
     public function getStoreId()
     {
-        return (int)$this->_quote->getStoreId();
+        return (int) $this->_quote->getStoreId();
     }
 
     /**
@@ -86,15 +86,15 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
         $this->getSelect()->reset()
             ->from(
                 ['qi' => $this->getResource()->getMainTable()],
-                ['item_id', 'qty', 'quote_id']
+                ['item_id', 'qty', 'quote_id'],
             )
             ->joinInner(
                 ['q' => $quotesTableName],
                 'qi.quote_id = q.entity_id',
-                ['store_id', 'items_qty', 'items_count']
+                ['store_id', 'items_qty', 'items_count'],
             );
         if ($productId) {
-            $this->getSelect()->where('qi.product_id = ?', (int)$productId);
+            $this->getSelect()->where('qi.product_id = ?', (int) $productId);
         }
         return $this;
     }
@@ -162,7 +162,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
 
         $productIds = [];
         foreach ($this as $item) {
-            $productIds[] = (int)$item->getProductId();
+            $productIds[] = (int) $item->getProductId();
         }
         $this->_productIds = array_merge($this->_productIds, $productIds);
 
@@ -180,7 +180,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
             'store_id'              => $this->getStoreId(),
         ]);
         Mage::dispatchEvent('sales_quote_item_collection_products_after_load', [
-            'product_collection'    => $productCollection
+            'product_collection'    => $productCollection,
         ]);
 
         $recollectQuote = false;
@@ -197,7 +197,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
                     $product->getTypeInstance(true)->assignProductToOption(
                         $productCollection->getItemById($option->getProductId()),
                         $option,
-                        $product
+                        $product,
                     );
 
                     if (is_object($option->getProduct()) && $option->getProduct()->getId() != $product->getId()) {

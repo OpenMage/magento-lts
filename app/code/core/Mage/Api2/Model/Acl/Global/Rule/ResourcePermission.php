@@ -70,8 +70,8 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Mo
 
             /** @var Varien_Simplexml_Element $node */
             foreach ($config->getResources() as $resourceType => $node) {
-                $resourceId = (string)$resourceType;
-                $allowedRoles = (array)$node->privileges;
+                $resourceId = (string) $resourceType;
+                $allowedRoles = (array) $node->privileges;
                 $allowedPrivileges = $allowedRoles[$roleConfigNodeName] ?? [];
                 foreach ($privileges as $privilege) {
                     if (empty($allowedPrivileges[$privilege])

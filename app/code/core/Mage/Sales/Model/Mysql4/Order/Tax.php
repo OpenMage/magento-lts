@@ -19,6 +19,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Order_Tax extends Mage_Sales_Model_Resource_Order_Tax
-{
-}
+class Mage_Sales_Model_Mysql4_Order_Tax extends Mage_Sales_Model_Resource_Order_Tax {}

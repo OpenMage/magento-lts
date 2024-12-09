@@ -161,7 +161,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
                         // Some chunk in chain was not found, we can not glue-up the data:
                         // clean the mess and return nothing
 
-                        $this->_cleanTheMess($id, (int)$chunks);
+                        $this->_cleanTheMess($id, (int) $chunks);
                         return false;
                     }
 

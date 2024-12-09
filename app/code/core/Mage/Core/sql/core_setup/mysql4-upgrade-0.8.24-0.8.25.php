@@ -21,7 +21,7 @@ $installer->startSetup();
 $installer->getConnection()->modifyColumn(
     $this->getTable('core/flag'),
     'flag_id',
-    'INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT'
+    'INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT',
 );
 
 $installer->endSetup();

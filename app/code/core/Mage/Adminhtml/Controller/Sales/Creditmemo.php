@@ -90,7 +90,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
 
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message was sent.'));
                 $this->_redirect('*/sales_order_creditmemo/view', [
-                    'creditmemo_id' => $creditmemoId
+                    'creditmemo_id' => $creditmemoId,
                 ]);
             }
         }

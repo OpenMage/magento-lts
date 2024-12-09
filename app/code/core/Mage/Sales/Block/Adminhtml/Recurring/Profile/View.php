@@ -46,7 +46,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
             $this->_addButton('cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
                 'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'cancel'])
+                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'cancel']),
                 ),
                 'class'     => 'delete',
             ]);
@@ -57,7 +57,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
             $this->_addButton('suspend', [
                 'label'     => Mage::helper('sales')->__('Suspend'),
                 'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'suspend'])
+                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'suspend']),
                 ),
                 'class'     => 'delete',
             ]);
@@ -68,7 +68,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
             $this->_addButton('activate', [
                 'label'     => Mage::helper('sales')->__('Activate'),
                 'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'activate'])
+                    $this->getUrl('*/*/updateState', ['profile' => $profile->getId(), 'action' => 'activate']),
                 ),
                 'class'     => 'add',
             ]);
@@ -79,7 +79,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View extends Mage_Adminhtml_B
             $this->_addButton('update', [
                 'label'     => Mage::helper('sales')->__('Get Update'),
                 'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
-                    $this->getUrl('*/*/updateProfile', ['profile' => $profile->getId()])
+                    $this->getUrl('*/*/updateProfile', ['profile' => $profile->getId()]),
                 ),
                 'class'     => 'add',
             ]);

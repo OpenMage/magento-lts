@@ -47,7 +47,7 @@ class Mage_Cron_Model_Resource_Schedule extends Mage_Core_Model_Resource_Db_Abst
         $result = $write->update(
             $this->getTable('cron/schedule'),
             ['status' => $newStatus],
-            ['schedule_id = ?' => $scheduleId, 'status = ?' => $currentStatus]
+            ['schedule_id = ?' => $scheduleId, 'status = ?' => $currentStatus],
         );
         if ($result == 1) {
             return true;

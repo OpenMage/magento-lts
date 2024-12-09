@@ -21,7 +21,7 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('checkout_agreement'),
     'is_html',
-    'tinyint(4) NOT NULL DEFAULT 0 AFTER `is_active`'
+    'tinyint(4) NOT NULL DEFAULT 0 AFTER `is_active`',
 );
 
 $installer->endSetup();

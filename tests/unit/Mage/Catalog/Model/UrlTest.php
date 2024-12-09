@@ -116,12 +116,12 @@ class UrlTest extends TestCase
             $product,
             $category,
         ];
-//        yield 'request w/o product' => [
-//            '-.html',
-//            'request',
-//            null,
-//            $category,
-//        ];
+        //        yield 'request w/o product' => [
+        //            '-.html',
+        //            'request',
+        //            null,
+        //            $category,
+        //        ];
         yield 'target category' => [
             'catalog/category/view/id/999',
             'target',
