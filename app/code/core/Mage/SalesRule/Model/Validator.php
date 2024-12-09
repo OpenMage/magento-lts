@@ -179,7 +179,9 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         return false;
                     }
                     // check coupon expiration
-                    if ($coupon->hasExpirationDate() && ($coupon->getExpirationDate() < Mage::getModel('core/date')->date())) {
+                    $couponExpirationDay = Mage::getModel('core/date')->date(Varien_Date::DATE_PHP_FORMAT, $coupon->getExpirationDate());
+                    $today = Mage::getModel('core/date')->date(Varien_Date::DATE_PHP_FORMAT);
+                    if ($coupon->hasExpirationDate() && ($couponExpirationDay < $today)) {
                         $rule->setIsValidForAddress($address, false);
                         return false;
                     }
