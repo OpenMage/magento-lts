@@ -26,11 +26,6 @@ parameters:
 			path: app/code/core/Mage/Admin/Model/Resource/Roles.php
 
 		-
-			message: "#^Method Mage_Admin_Model_Resource_User\\:\\:_encryptPassword\\(\\) is unused\\.$#"
-			count: 1
-			path: app/code/core/Mage/Admin/Model/Resource/User.php
-
-		-
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Roles\\:\\:update\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Admin/Model/Roles.php
@@ -2386,11 +2381,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Block/Cart/Shipping.php
 
 		-
-			message: "#^Method Mage_Checkout_Block_Cart_Sidebar\\:\\:_addTax\\(\\) is unused\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Cart/Sidebar.php
-
-		-
 			message: "#^Method Mage_Checkout_Block_Onepage_Billing\\:\\:_getTaxvat\\(\\) should return Mage_Customer_Block_Widget_Taxvat but returns Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Onepage/Billing.php
@@ -2404,11 +2394,6 @@ parameters:
 			message: "#^Method Mage_Checkout_Block_Onepage_Progress\\:\\:getShippingPriceInclTax\\(\\) should return float but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Onepage/Progress.php
-
-		-
-			message: "#^Property Mage_Checkout_Block_Onepage_Success\\:\\:\\$_order is unused\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Onepage/Success.php
 
 		-
 			message: "#^PHPDoc tag @var with type Mage_Sales_Model_Quote_Item is not subtype of native type null\\.$#"
@@ -2549,16 +2534,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method Zend_Controller_Response_Abstract\\:\\:setHeader\\(\\) expects string, int\\|false given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Front/Action.php
-
-		-
-			message: "#^Call to an undefined method Zend_Controller_Router_Interface\\:\\:addRoute\\(\\)\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Front/Router.php
-
-		-
-			message: "#^Parameter \\#1 \\$type of static method Mage\\:\\:getBaseUrl\\(\\) expects string, array given\\.$#"
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Front/Router.php
 
 		-
 			message: "#^Constructor of class Mage_Core_Controller_Varien_Action has an unused parameter \\$invokeArgs\\.$#"
@@ -4071,11 +4046,6 @@ parameters:
 			path: app/code/core/Mage/Log/Model/Aggregation.php
 
 		-
-			message: "#^Method Mage_Log_Model_Aggregation\\:\\:_removeEmpty\\(\\) is unused\\.$#"
-			count: 1
-			path: app/code/core/Mage/Log/Model/Aggregation.php
-
-		-
 			message: "#^Parameter \\#1 \\$id of method Mage_Log_Model_Aggregation\\:\\:_update\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Log/Model/Aggregation.php
@@ -4224,11 +4194,6 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Cart.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Config\\:\\:_matchBnCountryCode\\(\\) is unused\\.$#"
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Config.php
 
 		-
 			message: "#^Negated boolean expression is always true\\.$#"
@@ -4954,16 +4919,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$object of method Mage_Sales_Model_Order_Shipment_Api\\:\\:_getCarriers\\(\\) expects Mage_Eav_Model_Entity_Abstract, Mage_Sales_Model_Order given\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api/V2.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Order_Status_History\\:\\:getStatusLabel\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Status/History.php
-
-		-
-			message: "#^Property Mage_Sales_Model_Order_Status_History\\:\\:\\$_shouldSetOrderBeforeSave is never read, only written\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Status/History.php
 
 		-
 			message: "#^Parameter \\#2 \\$totalConfig of method Mage_Sales_Model_Config_Ordered\\:\\:_prepareConfigArray\\(\\) expects Mage_Core_Model_Config_Element, array given\\.$#"

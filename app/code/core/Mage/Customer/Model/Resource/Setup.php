@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,8 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _prepareValues($attr)
     {
         $data = parent::_prepareValues($attr);
-        $data = array_merge($data, [
+
+        return array_merge($data, [
             'is_visible'                => $this->_getValue($attr, 'visible', 1),
             'is_system'                 => $this->_getValue($attr, 'system', 1),
             'input_filter'              => $this->_getValue($attr, 'input_filter', null),
@@ -40,8 +41,6 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             'data_model'                => $this->_getValue($attr, 'data', null),
             'sort_order'                => $this->_getValue($attr, 'position', 0)
         ]);
-
-        return $data;
     }
 
     /**
