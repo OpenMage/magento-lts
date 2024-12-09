@@ -1165,31 +1165,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * Get module setup class instance.
-     *
-     * Defaults to Mage_Core_Setup
-     *
-     * @param string|Mage_Core_Model_Config_Element $module
-     * @return object
-     */
-    public function getModuleSetup($module = '')
-    {
-        $className = 'Mage_Core_Setup';
-        if ($module !== '') {
-            if (is_string($module)) {
-                $module = $this->getModuleConfig($module);
-            }
-            if (isset($module->setup)) {
-                $moduleClassName = $module->setup->getClassName();
-                if (!empty($moduleClassName)) {
-                    $className = $moduleClassName;
-                }
-            }
-        }
-        return new $className($module);
-    }
-
-    /**
      * Get base filesystem directory. depends on $type
      *
      * If $moduleName is specified retrieves specific value for the module.
@@ -1330,20 +1305,48 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
+     * Retrieve class name from config.xml node
+     */
+    public function getNodeClassName(string $path): string
+    {
+        $config = Mage::getConfig()->getNode($path);
+        if (!$config) {
+            return false;
+        }
+        return $config->getClassName();
+    }
+
+    /**
+     * Retrieve class instance from config.xml node
+     *
+     * @param string $path
+     * @return Mage_Core_Model_Abstract|false
+     */
+    public function getNodeClassInstance($path)
+    {
+        $className = $this->getNodeClassName($path);
+        if ($className === false || !class_exists($className)) {
+            return false;
+        }
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        return new $className();
+    }
+
+    /**
      * Retrieve class name by class group
      *
      * @param   string $groupType currently supported model, block, helper
-     * @param   string $classId slash separated class identifier, ex. group/class
+     * @param   string $classAlias slash separated class identifier, ex. group/class
      * @param   string $groupRootNode optional config path for group config
      * @return  string
      */
-    public function getGroupedClassName($groupType, $classId, $groupRootNode = null)
+    public function getGroupedClassName($groupType, $classAlias, $groupRootNode = null)
     {
         if (empty($groupRootNode)) {
             $groupRootNode = 'global/' . $groupType . 's';
         }
 
-        $classArr = explode('/', trim($classId));
+        $classArr = explode('/', trim($classAlias));
         $group = $classArr[0];
         $class = !empty($classArr[1]) ? $classArr[1] : null;
 
@@ -1395,8 +1398,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve block class name
      *
-     * @param   string $blockType
-     * @return  string
+     * @param string $blockType
+     * @return string
      */
     public function getBlockClassName($blockType)
     {
@@ -1409,109 +1412,144 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve helper class name
      *
-     * @param   string $helperName
-     * @return  string
+     * @param string $helperAlias
+     * @return string
      */
-    public function getHelperClassName($helperName)
+    public function getHelperClassName($helperAlias)
     {
-        if (!str_contains($helperName, '/')) {
-            $helperName .= '/data';
+        if (!str_contains($helperAlias, '/')) {
+            $helperAlias .= '/data';
         }
-        return $this->getGroupedClassName('helper', $helperName);
+        return $this->getGroupedClassName('helper', $helperAlias);
+    }
+
+    /**
+     * Retrieve helper instance
+     */
+    public function getHelperInstance(string $helperAlias): Mage_Core_Helper_Abstract|false
+    {
+        $className = $this->getHelperClassName($helperAlias);
+        if (!class_exists($className)) {
+            return false;
+        }
+        Varien_Profiler::start('CORE::create_object_of::' . $className);
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $obj = new $className();
+        Varien_Profiler::stop('CORE::create_object_of::' . $className);
+        return $obj;
+    }
+
+    /**
+     * Retrieve model class name
+     *
+     * @param string $modelAlias
+     * @return string
+     */
+    public function getModelClassName($modelAlias)
+    {
+        $modelAlias = trim($modelAlias);
+        if (!str_contains($modelAlias, '/')) {
+            return $modelAlias;
+        }
+        return $this->getGroupedClassName('model', $modelAlias);
+    }
+
+    /**
+     * Retrieve model instance
+     *
+     * @param string $modelAlias
+     * @param array|object $constructArguments
+     * @return Mage_Core_Model_Abstract|false
+     */
+    public function getModelInstance($modelAlias, $constructArguments = [])
+    {
+        $className = $this->getModelClassName($modelAlias);
+        if (!class_exists($className)) {
+            return false;
+        }
+        Varien_Profiler::start('CORE::create_object_of::' . $className);
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $obj = new $className($constructArguments);
+        Varien_Profiler::stop('CORE::create_object_of::' . $className);
+        return $obj;
+    }
+
+    /**
+     * Retrieve resource model class name
+     *
+     * @param string $modelAlias
+     * @return string|false
+     */
+    public function getResourceModelClassName($modelAlias)
+    {
+        $factoryName = $this->_getResourceModelFactoryClassName($modelAlias);
+        if ($factoryName) {
+            return $this->getModelClassName($factoryName);
+        }
+        return false;
+    }
+
+    /**
+     * Retrieve resource model instance
+     *
+     * @param string $modelAlias
+     * @param array $constructArguments
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     */
+    public function getResourceModelInstance($modelAlias, $constructArguments = [])
+    {
+        $className = $this->getResourceModelClassName($modelAlias);
+        if ($className === false || !class_exists($className)) {
+            return false;
+        }
+        Varien_Profiler::start('CORE::create_object_of::' . $className);
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $obj = new $className($constructArguments);
+        Varien_Profiler::stop('CORE::create_object_of::' . $className);
+        return $obj;
+    }
+
+    /**
+     * Retrieve resource helper class name
+     */
+    public function getResourceHelperClassName(string $moduleAlias): string|false
+    {
+        $connectionModel = $this->_getResourceConnectionModel($moduleAlias);
+        $modelClass = sprintf('%s/helper_%s', $moduleAlias, $connectionModel);
+
+        return $this->getResourceModelClassName($modelClass);
     }
 
     /**
      * Retrieve resource helper instance
      *
-     * Example:
-     * $config->getResourceHelper('cms')
-     * will instantiate Mage_Cms_Model_Resource_Helper_<db_adapter_name>
-     *
-     * @param string $moduleName
+     * @param string $moduleAlias
      * @return Mage_Core_Model_Resource_Helper_Abstract|false
      */
-    public function getResourceHelper($moduleName)
+    public function getResourceHelperInstance(string $moduleAlias): Mage_Core_Model_Resource_Helper_Abstract|false
     {
-        $connectionModel = $this->_getResourceConnectionModel($moduleName);
-        $helperClass     = sprintf('%s/helper_%s', $moduleName, $connectionModel);
-        $helperClassName = $this->_getResourceModelFactoryClassName($helperClass);
-        if ($helperClassName) {
-            return $this->getModelInstance($helperClassName, $moduleName);
-        }
-
-        return false;
-    }
-
-    /**
-     * Retrieve module class name
-     *
-     * @param   string $modelClass
-     * @return  string
-     */
-    public function getModelClassName($modelClass)
-    {
-        $modelClass = trim($modelClass);
-        if (!str_contains($modelClass, '/')) {
-            return $modelClass;
-        }
-        return $this->getGroupedClassName('model', $modelClass);
-    }
-
-    /**
-     * Get model class instance.
-     *
-     * Example:
-     * $config->getModelInstance('catalog/product')
-     *
-     * Will instantiate Mage_Catalog_Model_Resource_Product
-     *
-     * @param string $modelClass
-     * @param array|object $constructArguments
-     * @return Mage_Core_Model_Abstract|false
-     * @see Mage_Catalog_Model_Resource_Product
-     */
-    public function getModelInstance($modelClass = '', $constructArguments = [])
-    {
-        $className = $this->getModelClassName($modelClass);
-        if (class_exists($className)) {
-            Varien_Profiler::start('CORE::create_object_of::' . $className);
-            $obj = new $className($constructArguments);
-            Varien_Profiler::stop('CORE::create_object_of::' . $className);
-            return $obj;
-        } else {
+        $className = $this->getResourceHelperClassName($moduleAlias);
+        if ($className === false || !class_exists($className)) {
             return false;
         }
+        Varien_Profiler::start('CORE::create_object_of::' . $className);
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $obj = new $className();
+        Varien_Profiler::stop('CORE::create_object_of::' . $className);
+        return $obj;
     }
 
     /**
-     * @param string $path
-     * @return bool
-     */
-    public function getNodeClassInstance($path)
-    {
-        $config = Mage::getConfig()->getNode($path);
-        if (!$config) {
-            return false;
-        } else {
-            $className = $config->getClassName();
-            return new $className();
-        }
-    }
-
-    /**
-     * Get resource model object by alias
+     * Retrieve resource helper instance
      *
-     * @param   string $modelClass
-     * @param   array $constructArguments
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @param string $moduleAlias
+     * @return Mage_Core_Model_Resource_Helper_Abstract|false
+     * @deprecated Use getResourceHelperInstance() method instead
+     * @see Mage_Core_Model_Config::getResourceHelperInstance()
      */
-    public function getResourceModelInstance($modelClass = '', $constructArguments = [])
+    public function getResourceHelper($moduleAlias)
     {
-        $factoryName = $this->_getResourceModelFactoryClassName($modelClass);
-        if (!$factoryName) {
-            return false;
-        }
-        return $this->getModelInstance($factoryName, $constructArguments);
+        return $this->getResourceHelperInstance($moduleAlias);
     }
 
     /**
@@ -1772,21 +1810,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         return $resourceModel . '/' . $model;
-    }
-
-    /**
-     * Get a resource model class name
-     *
-     * @param string $modelClass
-     * @return string|false
-     */
-    public function getResourceModelClassName($modelClass)
-    {
-        $factoryName = $this->_getResourceModelFactoryClassName($modelClass);
-        if ($factoryName) {
-            return $this->getModelClassName($factoryName);
-        }
-        return false;
     }
 
     /**

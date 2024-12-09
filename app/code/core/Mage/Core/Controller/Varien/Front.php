@@ -18,7 +18,7 @@
  * @category   Mage
  * @package    Mage_Core
  *
- * @method Mage_Core_Controller_Varien_Action getAction()
+ * @method Mage_Core_Controller_Varien_Action|null getAction()
  * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
  * @method bool getNoRender()
  */
