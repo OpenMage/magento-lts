@@ -1262,9 +1262,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $dir .= DS . 'locale';
                 break;
         }
-
-        $dir = str_replace('/', DS, $dir);
-        return $dir;
+        return str_replace('/', DS, $dir);
     }
 
     /**

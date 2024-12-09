@@ -591,9 +591,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
             $this->_nominalOnly = $wasNominal; // Restore original value before we changed it
         }
-
-        $items = $this->getData($key);
-        return $items;
+        return $this->getData($key);
     }
 
     /**

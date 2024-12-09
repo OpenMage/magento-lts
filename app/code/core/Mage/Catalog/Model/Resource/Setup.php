@@ -31,7 +31,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _prepareValues($attr)
     {
         $data = parent::_prepareValues($attr);
-        $data = array_merge($data, [
+        return array_merge($data, [
             'frontend_input_renderer'       => $this->_getValue($attr, 'input_renderer'),
             'is_global'                     => $this->_getValue(
                 $attr,
@@ -54,7 +54,6 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             'is_configurable'               => $this->_getValue($attr, 'is_configurable', 1),
             'is_used_for_promo_rules'       => $this->_getValue($attr, 'used_for_promo_rules', 0),
         ]);
-        return $data;
     }
 
     /**

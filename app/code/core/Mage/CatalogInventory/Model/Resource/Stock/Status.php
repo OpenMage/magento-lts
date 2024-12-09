@@ -129,8 +129,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
             ->where('product_id IN(?)', $productIds)
             ->where('stock_id=?', (int) $stockId)
             ->where('website_id=?', (int) $websiteId);
-        $result = $this->_getReadAdapter()->fetchAssoc($select);
-        return $result;
+        return $this->_getReadAdapter()->fetchAssoc($select);
     }
 
     /**

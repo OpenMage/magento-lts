@@ -471,7 +471,6 @@ class Mage_Core_Model_Layout_Update
             }
             $layoutStr .= $fileXml->innerXml();
         }
-        $layoutXml = simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
-        return $layoutXml;
+        return simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
     }
 }

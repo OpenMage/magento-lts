@@ -144,8 +144,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 {jsObject}.categoryName = node.attributes.id != "none" ? node.text : false;
             }
         ';
-        $js = str_replace('{jsObject}', $this->getJsObjectName(), $js);
-        return $js;
+        return str_replace('{jsObject}', $this->getJsObjectName(), $js);
     }
 
     /**

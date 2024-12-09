@@ -39,8 +39,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main_Renderer_Checkbox extends M
             $element->getNote(),
         );
         $html  = '<td class="label">&nbsp;</td>';
-        $html .= '<td class="value">' . $elementHtml . '</td>';
 
-        return $html;
+        return $html . ('<td class="value">' . $elementHtml . '</td>');
     }
 }

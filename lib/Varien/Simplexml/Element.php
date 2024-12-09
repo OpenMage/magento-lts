@@ -312,13 +312,11 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
         $value = (string) $value;
 
-        $value = str_replace(
+        return str_replace(
             ['&', '"', "'", '<', '>'],
             ['&amp;', '&quot;', '&apos;', '&lt;', '&gt;'],
             $value,
         );
-
-        return $value;
     }
 
     /**

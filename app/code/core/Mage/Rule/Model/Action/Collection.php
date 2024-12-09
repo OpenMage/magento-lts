@@ -124,8 +124,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         foreach ($this->getActions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
-        $html .= '<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>';
-        return $html;
+        return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
     /**

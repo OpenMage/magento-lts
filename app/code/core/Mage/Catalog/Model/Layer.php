@@ -71,11 +71,9 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     public function getStateTags(array $additionalTags = [])
     {
-        $additionalTags = array_merge($additionalTags, [
+        return array_merge($additionalTags, [
             Mage_Catalog_Model_Category::CACHE_TAG . $this->getCurrentCategory()->getId(),
         ]);
-
-        return $additionalTags;
     }
 
     /**

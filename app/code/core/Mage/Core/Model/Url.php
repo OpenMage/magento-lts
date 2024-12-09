@@ -1111,8 +1111,7 @@ class Mage_Core_Model_Url extends Varien_Object
         $value = str_replace('"', '%22', $value);
         $value = str_replace("'", '%27', $value);
         $value = str_replace('>', '%3E', $value);
-        $value = str_replace('<', '%3C', $value);
-        return $value;
+        return str_replace('<', '%3C', $value);
     }
 
     /**

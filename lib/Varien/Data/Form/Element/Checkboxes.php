@@ -102,10 +102,9 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         foreach ($values as $value) {
             $html .= $this->_optionToHtml($value);
         }
-        $html .= '</ul>'
-            . $this->getAfterElementHtml();
 
-        return $html;
+        return $html . ('</ul>'
+            . $this->getAfterElementHtml());
     }
 
     /**
@@ -199,9 +198,8 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 $html .= ' ' . $attribute . '="' . $value . '"';
             }
         }
-        $html .= ' value="' . $option['value'] . '" />'
+        return $html . (' value="' . $option['value'] . '" />'
             . ' <label for="' . $id . '">' . $option['label'] . '</label></li>'
-            . "\n";
-        return $html;
+            . "\n");
     }
 }

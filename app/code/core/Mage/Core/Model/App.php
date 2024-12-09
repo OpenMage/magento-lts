@@ -1645,8 +1645,7 @@ class Mage_Core_Model_App
     public function prepareCacheId($id)
     {
         $id = strtoupper($id);
-        $id = preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
-        return $id;
+        return preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
     }
 
     /**

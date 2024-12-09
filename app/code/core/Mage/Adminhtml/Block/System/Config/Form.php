@@ -543,8 +543,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($this->_getDependence()) {
             $html .= $this->_getDependence()->toHtml();
         }
-        $html = parent::_afterToHtml($html);
-        return $html;
+        return parent::_afterToHtml($html);
     }
 
     /**

@@ -94,7 +94,6 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
         $path = Mage::getStoreConfig(self::XML_PATH_SITEMAP_VALID_PATHS);
         /** @var Mage_Core_Helper_Data $helper */
         $helper = Mage::helper('core');
-        $path = array_merge($path, $helper->getPublicFilesValidPath());
-        return $path;
+        return array_merge($path, $helper->getPublicFilesValidPath());
     }
 }
