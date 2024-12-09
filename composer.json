@@ -6,6 +6,9 @@
         "AFL-3.0"
     ],
     "type": "magento-source",
+    "repositories": [
+        { "type": "git", "url": "https://github.com/justinbeaty/maho-phpstan-plugin.git" }
+    ],
     "require": {
         "php": ">=7.4 <8.5",
         "ext-ctype": "*",
@@ -50,8 +53,8 @@
         "composer/composer": "^2.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.4",
-        "macopedia/phpstan-magento1": "^1.0.5",
         "magento-ecg/coding-standard": "^4.5",
+        "mahocommerce/maho-phpstan-plugin": "dev-topic-v3",
         "openmage/dev-meta-package": "^1.0.5",
         "perftools/php-profiler": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
