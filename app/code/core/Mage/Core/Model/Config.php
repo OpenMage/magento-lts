@@ -1515,8 +1515,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
     /**
      * Retrieve resource helper class name
+     *
+     * @return string|false
      */
-    public function getResourceHelperClassName(string $moduleAlias): string|false
+    public function getResourceHelperClassName(string $moduleAlias)
     {
         $connectionModel = $this->_getResourceConnectionModel($moduleAlias);
         $modelClass = sprintf('%s/helper_%s', $moduleAlias, $connectionModel);
