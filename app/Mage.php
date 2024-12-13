@@ -577,10 +577,10 @@ final class Mage
     }
 
     /**
-     * Retrieve resource vodel object singleton
+     * Retrieve resource model object singleton
      *
      * @param   string $modelClass
-     * @return  object
+     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = [])
     {
