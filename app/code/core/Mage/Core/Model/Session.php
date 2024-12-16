@@ -75,7 +75,7 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
         return ($formKey === $this->getFormKey());
     }
 
-    public function getOrderIds($clear = false): array
+    public function getOrderIds(bool $clear = false): array
     {
         return $this->getData('order_ids', $clear) ?? [];
     }
