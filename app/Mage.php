@@ -580,7 +580,7 @@ final class Mage
      * Retrieve resource model object singleton
      *
      * @param   string $modelClass
-     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @return  object
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = [])
     {
