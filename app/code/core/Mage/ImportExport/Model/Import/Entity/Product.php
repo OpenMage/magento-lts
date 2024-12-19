@@ -28,6 +28,11 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     public const CONFIG_KEY_PRODUCT_TYPES = 'global/importexport/import_product_types';
 
     /**
+     * Allowed column name format
+     */
+    private const COL_NAME_FORMAT = '/[\x00-\x1F\x7F]/';
+
+    /**
      * Size of bunch - part of products to save in one step.
      */
     public const BUNCH_SIZE = 20;
@@ -89,6 +94,12 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Col Sku
      */
     public const COL_SKU      = 'sku';
+
+    /**
+     * Col Name
+     */
+
+    public const COL_NAME = 'name';
 
     /**
      * Error codes.
@@ -1972,6 +1983,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         // Exceptions - for sku - put them back in
         if (!isset($rowData[self::COL_SKU])) {
             $rowData[self::COL_SKU] = null;
+        }
+        // Remove null byte character
+        if (!empty($rowData[self::COL_NAME])) {
+            $rowData[self::COL_NAME] = preg_replace(self::COL_NAME_FORMAT, '', $rowData[self::COL_NAME]);
         }
     }
 
