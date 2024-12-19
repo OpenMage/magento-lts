@@ -78,13 +78,13 @@ class Mage_Downloadable_Model_Observer
                     'downloadable_sales_copy_order',
                     'to_downloadable',
                     $orderItem->getOrder(),
-                    $linkPurchased
+                    $linkPurchased,
                 );
                 Mage::helper('core')->copyFieldset(
                     'downloadable_sales_copy_order_item',
                     'to_downloadable',
                     $orderItem,
-                    $linkPurchased
+                    $linkPurchased,
                 );
                 $linkSectionTitle = (
                     $product->getLinksTitle() ?
@@ -102,7 +102,7 @@ class Mage_Downloadable_Model_Observer
                             'downloadable_sales_copy_link',
                             'to_purchased',
                             $links[$linkId],
-                            $linkPurchasedItem
+                            $linkPurchasedItem,
                         );
                         $linkHash = strtr(base64_encode(microtime() . $linkPurchased->getId() . $orderItem->getId()
                             . $product->getId()), '+/=', '-_,');
@@ -170,13 +170,13 @@ class Mage_Downloadable_Model_Observer
             'expired'         => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_EXPIRED,
             'avail'           => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_AVAILABLE,
             'payment_pending' => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT,
-            'payment_review'  => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PAYMENT_REVIEW
+            'payment_review'  => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PAYMENT_REVIEW,
         ];
 
         $downloadableItemsStatuses = [];
         $orderItemStatusToEnable = Mage::getStoreConfig(
             Mage_Downloadable_Model_Link_Purchased_Item::XML_PATH_ORDER_ITEM_STATUS,
-            $order->getStoreId()
+            $order->getStoreId(),
         );
 
         if ($order->getState() == Mage_Sales_Model_Order::STATE_HOLDED) {

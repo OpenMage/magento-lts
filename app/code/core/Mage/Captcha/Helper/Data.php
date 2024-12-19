@@ -101,8 +101,8 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {
                 $fonts[$fontName] = [
-                   'label' => (string)$fontNode->label,
-                   'path' => Mage::getBaseDir('base') . DS . $fontNode->path
+                    'label' => (string) $fontNode->label,
+                    'path' => Mage::getBaseDir('base') . DS . $fontNode->path,
                 ];
             }
         }

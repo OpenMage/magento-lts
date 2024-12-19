@@ -23,7 +23,7 @@ $admGroupRole = Mage::getModel('admin/role')->setData([
     'sort_order'    => 1,
     'role_type'     => 'G',
     'user_id'       => 0,
-    'role_name'     => 'Administrators'
+    'role_name'     => 'Administrators',
 ])
     ->save();
 
@@ -33,6 +33,6 @@ Mage::getModel('admin/rules')->setData([
     'privileges'    => null,
     'assert_id'     => 0,
     'role_type'     => 'G',
-    'permission'    => 'allow'
+    'permission'    => 'allow',
 ])
     ->save();

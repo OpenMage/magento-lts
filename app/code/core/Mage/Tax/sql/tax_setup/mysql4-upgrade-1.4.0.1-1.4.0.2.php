@@ -22,7 +22,7 @@ $installer->getConnection()->changeColumn(
     $installer->getTable('tax/tax_calculation_rate'),
     'tax_postcode',
     'tax_postcode',
-    'VARCHAR(21) NULL DEFAULT NULL'
+    'VARCHAR(21) NULL DEFAULT NULL',
 );
 
 $installer->endSetup();

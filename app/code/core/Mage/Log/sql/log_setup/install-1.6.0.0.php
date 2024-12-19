@@ -47,7 +47,7 @@ $table = $installer->getConnection()
     ], 'Store ID')
     ->addIndex(
         $installer->getIdxName('log/customer', ['visitor_id']),
-        ['visitor_id']
+        ['visitor_id'],
     )
     ->setComment('Log Customers Table');
 $installer->getConnection()->createTable($table);
@@ -152,7 +152,7 @@ $table = $installer->getConnection()
     ], 'Visit Time')
     ->addIndex(
         $installer->getIdxName('log/url_table', ['visitor_id']),
-        ['visitor_id']
+        ['visitor_id'],
     )
     ->setComment('Log URL Table');
 $installer->getConnection()->createTable($table);
@@ -263,15 +263,15 @@ $table = $installer->getConnection()
     ], 'Last URL')
     ->addIndex(
         $installer->getIdxName('log/visitor_online', ['visitor_type']),
-        ['visitor_type']
+        ['visitor_type'],
     )
     ->addIndex(
         $installer->getIdxName('log/visitor_online', ['first_visit_at', 'last_visit_at']),
-        ['first_visit_at', 'last_visit_at']
+        ['first_visit_at', 'last_visit_at'],
     )
     ->addIndex(
         $installer->getIdxName('log/visitor_online', ['customer_id']),
-        ['customer_id']
+        ['customer_id'],
     )
     ->setComment('Log Visitor Online Table');
 $installer->getConnection()->createTable($table);

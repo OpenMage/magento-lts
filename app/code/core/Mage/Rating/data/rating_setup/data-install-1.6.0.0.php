@@ -21,15 +21,15 @@ $data = [
     Mage_Rating_Model_Rating::ENTITY_PRODUCT_CODE       => [
         [
             'rating_code'   => 'Quality',
-            'position'      => 0
+            'position'      => 0,
         ],
         [
             'rating_code'   => 'Value',
-            'position'      => 0
+            'position'      => 0,
         ],
         [
             'rating_code'   => 'Price',
-            'position'      => 0
+            'position'      => 0,
         ],
     ],
     Mage_Rating_Model_Rating::ENTITY_PRODUCT_REVIEW_CODE    => [
@@ -55,9 +55,9 @@ foreach ($data as $entityCode => $ratings) {
         for ($i = 1; $i <= 5; $i++) {
             $optionData[] = [
                 'rating_id' => $ratingId,
-                'code'      => (string)$i,
+                'code'      => (string) $i,
                 'value'     => $i,
-                'position'  => $i
+                'position'  => $i,
             ];
         }
         $installer->getConnection()->insertMultiple($installer->getTable('rating_option'), $optionData);

@@ -34,7 +34,7 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
             'widget_plugin_src'   => Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tinymce/plugins/openmagewidget.js',
             'widget_images_url'   => $this->getPlaceholderImagesBaseUrl(),
             'widget_placeholders' => $this->getAvailablePlaceholderFilenames(),
-            'widget_window_url'   => $this->getWidgetWindowUrl($config)
+            'widget_window_url'   => $this->getWidgetWindowUrl($config),
         ];
     }
 

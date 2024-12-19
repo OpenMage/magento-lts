@@ -105,7 +105,7 @@ class Mage_Core_Model_Locale_Config
         'VEF' /*Venezuelan bolívar fuerte*/,'VND' /*Vietnamese Dong*/,  'CHE' /*WIR Euro*/,                'CHW' /*WIR Franc*/,
         'XOF' /*West African CFA franc*/,'WST' /*Western Samoa Tala*/,'YER' /*Yemeni Rial*/,        'ZMK' /*Zambian Kwacha*/,
         'ZWD' /*Zimbabwe Dollar*/,'TRY' /*Turkish Lira*/,'AZM' /*Azerbaijani Manat (1993-2006)*/,   'ROL' /*Old Romanian Leu*/,
-        'TRL' /*Old Turkish Lira*/,'XPF' /*CFP Franc*/
+        'TRL' /*Old Turkish Lira*/,'XPF', /*CFP Franc*/
     ];
 
     /**

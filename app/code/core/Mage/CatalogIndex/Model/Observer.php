@@ -25,9 +25,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     protected $_parentProductIds = [];
     protected $_productIdsMassupdate = [];
 
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * Get indexer object
@@ -70,7 +68,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     {
         $this->_getIndexer()->plainReindex(
             null,
-            Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE
+            Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE,
         );
         $this->clearPriceAggregation();
         return $this;
@@ -117,7 +115,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         if ($configOption->isValueChanged()) {
             $this->_getIndexer()->plainReindex(
                 null,
-                Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE
+                Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE,
             );
             $this->clearPriceAggregation();
         }
@@ -138,7 +136,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         }
         $this->_getIndexer()->plainReindex(
             $eventProduct,
-            Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE
+            Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE,
         );
 
         $this->clearPriceAggregation();
@@ -176,7 +174,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
          */
         $attribute = $observer->getEvent()->getAttribute();
         $tags = [
-            Mage_Eav_Model_Entity_Attribute::CACHE_TAG . ':' . $attribute->getId()
+            Mage_Eav_Model_Entity_Attribute::CACHE_TAG . ':' . $attribute->getId(),
         ];
 
         if ($attribute->getOrigData('is_filterable') != $attribute->getIsFilterable()) {
@@ -260,7 +258,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
             return $this;
         }
         $tags = [
-            Mage_Catalog_Model_Category::CACHE_TAG . ':' . $category->getPath()
+            Mage_Catalog_Model_Category::CACHE_TAG . ':' . $category->getPath(),
         ];
         $this->_getAggregator()->clearCacheData($tags);
         return $this;
@@ -274,7 +272,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     public function clearPriceAggregation()
     {
         $this->_getAggregator()->clearCacheData([
-            Mage_Catalog_Model_Product_Type_Price::CACHE_TAG
+            Mage_Catalog_Model_Product_Type_Price::CACHE_TAG,
         ]);
         return $this;
     }
@@ -287,7 +285,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     public function clearSearchLayerCache()
     {
         $this->_getAggregator()->clearCacheData([
-            Mage_CatalogSearch_Model_Query::CACHE_TAG
+            Mage_CatalogSearch_Model_Query::CACHE_TAG,
         ]);
         return $this;
     }

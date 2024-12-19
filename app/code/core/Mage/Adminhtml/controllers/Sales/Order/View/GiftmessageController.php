@@ -50,11 +50,11 @@ class Mage_Adminhtml_Sales_Order_View_GiftmessageController extends Mage_Adminht
 
         if ($this->getRequest()->getParam('type') == 'order_item') {
             $this->getResponse()->setBody(
-                $this->_getGiftmessageSaveModel()->getSaved() ? 'YES' : 'NO'
+                $this->_getGiftmessageSaveModel()->getSaved() ? 'YES' : 'NO',
             );
         } else {
             $this->getResponse()->setBody(
-                Mage::helper('giftmessage')->__('The gift message has been saved.')
+                Mage::helper('giftmessage')->__('The gift message has been saved.'),
             );
         }
     }

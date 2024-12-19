@@ -66,7 +66,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         self::HOLD_ORDER,
         self::UNHOLD_ORDER,
         self::DELETE,
-        self::REMOVE
+        self::REMOVE,
     ];
 
     /**

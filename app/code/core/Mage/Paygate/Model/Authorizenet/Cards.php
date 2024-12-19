@@ -65,7 +65,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     public function registerCard($cardInfo = [])
     {
         $this->_isPaymentValid();
-        $cardId = md5((string)microtime(true));
+        $cardId = md5((string) microtime(true));
         $cardInfo[self::CARD_ID_KEY] = $cardId;
         $this->_cards[$cardId] = $cardInfo;
         $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, $this->_cards);

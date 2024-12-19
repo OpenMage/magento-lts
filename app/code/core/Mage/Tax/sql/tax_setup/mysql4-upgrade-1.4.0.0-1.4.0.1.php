@@ -28,5 +28,5 @@ $installer->getConnection()->addKey(
     $table,
     'UNQ_PERIOD_STORE_CODE_ORDER_STATUS',
     ['period', 'store_id', 'code', 'percent', 'order_status'],
-    'unique'
+    'unique',
 );

@@ -30,11 +30,7 @@ class Varien_Convert_Adapter_Db_Table extends Varien_Convert_Adapter_Abstract
         return $this->_resource;
     }
 
-    public function load()
-    {
-    }
+    public function load() {}
 
-    public function save()
-    {
-    }
+    public function save() {}
 }

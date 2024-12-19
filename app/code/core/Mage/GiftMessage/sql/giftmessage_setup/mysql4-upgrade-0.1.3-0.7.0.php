@@ -34,7 +34,7 @@ $this->startSetup()
         'required'      => false,
         'user_defined'  => false,
         'default'       => '2',
-        'visible_on_front' => false
+        'visible_on_front' => false,
     ])
     ->removeAttribute('catalog_product', 'gift_message_aviable')
     ->setConfigData('sales/gift_messages/allow', 1)

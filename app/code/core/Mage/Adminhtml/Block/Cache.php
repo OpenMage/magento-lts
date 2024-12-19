@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
             'label'     => Mage::helper('core')->__('Flush Cache Storage'),
             'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
                 $this->getFlushStorageUrl(),
-                Mage::helper('core')->__('Cache storage may contain additional data. Are you sure that you want flush it?')
+                Mage::helper('core')->__('Cache storage may contain additional data. Are you sure that you want flush it?'),
             ),
             'class'     => 'delete',
         ]);

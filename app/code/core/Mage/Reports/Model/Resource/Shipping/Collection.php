@@ -52,17 +52,17 @@ class Mage_Reports_Model_Resource_Shipping_Collection extends Mage_Sales_Model_E
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->addAttributeToFilter('store_id', ['in' => (array)$storeIds]);
+            $this->addAttributeToFilter('store_id', ['in' => (array) $storeIds]);
             $this->addExpressionAttributeToSelect(
                 'total',
                 'SUM({{base_shipping_amount}})',
-                ['base_shipping_amount']
+                ['base_shipping_amount'],
             );
         } else {
             $this->addExpressionAttributeToSelect(
                 'total',
                 'SUM({{base_shipping_amount}}*{{base_to_global_rate}})',
-                ['base_shipping_amount', 'base_to_global_rate']
+                ['base_shipping_amount', 'base_to_global_rate'],
             );
         }
 

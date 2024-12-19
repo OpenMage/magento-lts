@@ -20,17 +20,17 @@ $installer = $this;
 $installer->getConnection()->addColumn(
     $installer->getTable('salesrule/coupon_aggregated'),
     'subtotal_amount_actual',
-    "decimal(12,4) NOT NULL default '0.0000'"
+    "decimal(12,4) NOT NULL default '0.0000'",
 );
 
 $installer->getConnection()->addColumn(
     $installer->getTable('salesrule/coupon_aggregated'),
     'discount_amount_actual',
-    "decimal(12,4) NOT NULL default '0.0000'"
+    "decimal(12,4) NOT NULL default '0.0000'",
 );
 
 $installer->getConnection()->addColumn(
     $installer->getTable('salesrule/coupon_aggregated'),
     'total_amount_actual',
-    "decimal(12,4) NOT NULL default '0.0000'"
+    "decimal(12,4) NOT NULL default '0.0000'",
 );

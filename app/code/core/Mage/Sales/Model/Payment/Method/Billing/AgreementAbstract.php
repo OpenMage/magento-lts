@@ -50,7 +50,7 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
         if (is_null($this->_isAvailable)) {
             if (is_object($quote) && $quote->getCustomer()) {
                 $availableBA = Mage::getModel('sales/billing_agreement')->getAvailableCustomerBillingAgreements(
-                    $quote->getCustomer()->getId()
+                    $quote->getCustomer()->getId(),
                 );
                 $isAvailableBA = count($availableBA) > 0;
                 $this->_canUseForMultishipping = $this->_canUseCheckout = $this->_canUseInternal = $isAvailableBA;

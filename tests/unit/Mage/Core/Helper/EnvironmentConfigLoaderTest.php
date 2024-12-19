@@ -73,9 +73,9 @@ class EnvironmentConfigLoaderTest extends TestCase
         $xmlStruct = $this->getTestXml();
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
-        $this->assertSame('test_default', (string)$xml->getNode(self::XML_PATH_DEFAULT));
-        $this->assertSame('test_website', (string)$xml->getNode(self::XML_PATH_WEBSITE));
-        $this->assertSame('test_store', (string)$xml->getNode(self::XML_PATH_STORE));
+        $this->assertSame('test_default', (string) $xml->getNode(self::XML_PATH_DEFAULT));
+        $this->assertSame('test_website', (string) $xml->getNode(self::XML_PATH_WEBSITE));
+        $this->assertSame('test_store', (string) $xml->getNode(self::XML_PATH_STORE));
     }
 
     /**
@@ -97,7 +97,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         $loader->setEnvStore([
-            $config['env_path'] => $config['value']
+            $config['env_path'] => $config['value'],
         ]);
         $loader->overrideEnvironment($xml);
 
@@ -106,7 +106,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         $valueAfterOverride = $xml->getNode($configPath);
 
         // assert
-        $this->assertNotSame((string)$defaultValue, (string)$valueAfterOverride, 'Default value was not overridden.');
+        $this->assertNotSame((string) $defaultValue, (string) $valueAfterOverride, 'Default value was not overridden.');
     }
 
     public function envOverridesCorrectConfigKeysDataProvider(): Generator
@@ -127,55 +127,55 @@ class EnvironmentConfigLoaderTest extends TestCase
             'case'     => 'DEFAULT',
             'xml_path' => self::XML_PATH_DEFAULT,
             'env_path' => $defaultPath,
-            'value'    => 'default_new_value'
+            'value'    => 'default_new_value',
         ]];
         yield 'Case DEFAULT overrides #2.' => [[
             'case'     => 'DEFAULT',
             'xml_path' => 'default/general/foo-bar/name',
             'env_path' => $defaultPathWithDash,
-            'value'    => 'baz'
+            'value'    => 'baz',
         ]];
         yield 'Case DEFAULT overrides #3.' => [[
             'case'     => 'DEFAULT',
             'xml_path' => 'default/general/foo_bar/name',
             'env_path' => $defaultPathWithUnderscore,
-            'value'    => 'baz'
+            'value'    => 'baz',
         ]];
         yield 'Case STORE overrides #1.' => [[
             'case'     => 'STORE',
             'xml_path' => self::XML_PATH_STORE,
             'env_path' => $storePath,
-            'value'    => 'store_new_value'
+            'value'    => 'store_new_value',
         ]];
         yield 'Case STORE overrides #2.' => [[
             'case'     => 'STORE',
             'xml_path' => 'stores/german-at/general/store_information/name',
             'env_path' => $storeWithDashPath,
-            'value'    => 'store_new_value'
+            'value'    => 'store_new_value',
         ]];
         yield 'Case STORE overrides #3.' => [[
             'case'     => 'STORE',
             'xml_path' => 'stores/german_ch/general/store_information/name',
             'env_path' => $storeWithUnderscorePath,
-            'value'    => 'store_new_value'
+            'value'    => 'store_new_value',
         ]];
         yield 'Case WEBSITE overrides #1.' => [[
             'case'     => 'WEBSITE',
             'xml_path' => self::XML_PATH_WEBSITE,
             'env_path' => $websitePath,
-            'value'    => 'website_new_value'
+            'value'    => 'website_new_value',
         ]];
         yield 'Case WEBSITE overrides #2.' => [[
             'case'     => 'WEBSITE',
             'xml_path' => 'websites/base_ch/general/store_information/name',
             'env_path' => $websiteWithUnderscorePath,
-            'value'    => 'website_new_value'
+            'value'    => 'website_new_value',
         ]];
         yield 'Case WEBSITE overrides #3.' => [[
             'case'     => 'WEBSITE',
             'xml_path' => 'websites/base-at/general/store_information/name',
             'env_path' => $websiteWithDashPath,
-            'value'    => 'website_new_value'
+            'value'    => 'website_new_value',
         ]];
     }
 
@@ -195,16 +195,16 @@ class EnvironmentConfigLoaderTest extends TestCase
         $xml->loadString($xmlStruct);
 
         $defaultValue = 'test_default';
-        $this->assertSame($defaultValue, (string)$xml->getNode(self::XML_PATH_DEFAULT));
+        $this->assertSame($defaultValue, (string) $xml->getNode(self::XML_PATH_DEFAULT));
         $defaultWebsiteValue = 'test_website';
-        $this->assertSame($defaultWebsiteValue, (string)$xml->getNode(self::XML_PATH_WEBSITE));
+        $this->assertSame($defaultWebsiteValue, (string) $xml->getNode(self::XML_PATH_WEBSITE));
         $defaultStoreValue = 'test_store';
-        $this->assertSame($defaultStoreValue, (string)$xml->getNode(self::XML_PATH_STORE));
+        $this->assertSame($defaultStoreValue, (string) $xml->getNode(self::XML_PATH_STORE));
 
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         $loader->setEnvStore([
-            $config['path'] => $config['value']
+            $config['path'] => $config['value'],
         ]);
         $loader->overrideEnvironment($xml);
 
@@ -222,7 +222,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         }
 
         // assert
-        $this->assertFalse(str_contains('value_will_not_be_changed', (string)$valueAfterCheck), 'Default value was wrongfully overridden.');
+        $this->assertFalse(str_contains('value_will_not_be_changed', (string) $valueAfterCheck), 'Default value was wrongfully overridden.');
     }
 
     public function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator
@@ -234,17 +234,17 @@ class EnvironmentConfigLoaderTest extends TestCase
         yield 'Case DEFAULT with ' . $defaultPath . ' will not override.' => [[
             'case'  => 'DEFAULT',
             'path'  => $defaultPath,
-            'value' => 'default_value_will_not_be_changed'
+            'value' => 'default_value_will_not_be_changed',
         ]];
         yield 'Case WEBSITE with ' . $websitePath . ' will not override.' => [[
             'case'  => 'WEBSITE',
             'path'  => $storePath,
-            'value' => 'website_value_will_not_be_changed'
+            'value' => 'website_value_will_not_be_changed',
         ]];
         yield 'Case STORE with ' . $storePath . ' will not override.' => [[
             'case'  => 'STORE',
             'path'  => $storePath,
-            'value' => 'store_value_will_not_be_changed'
+            'value' => 'store_value_will_not_be_changed',
         ]];
     }
 

@@ -21,19 +21,19 @@ $installer->updateAttribute(
     Mage_Catalog_Model_Product::ENTITY,
     'url_key',
     'frontend_label',
-    'URL Key'
+    'URL Key',
 );
 
 $installer->updateAttribute(
     Mage_Catalog_Model_Category::ENTITY,
     'url_key',
     'frontend_label',
-    'URL Key'
+    'URL Key',
 );
 
 $installer->updateAttribute(
     Mage_Catalog_Model_Product::ENTITY,
     'options_container',
     'frontend_label',
-    'Display Product Options In'
+    'Display Product Options In',
 );

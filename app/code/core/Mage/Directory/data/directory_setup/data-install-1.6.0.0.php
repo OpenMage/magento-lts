@@ -82,7 +82,7 @@ $data = [
     ['VC', 'VC', 'VCT'], ['VE', 'VE', 'VEN'], ['VG', 'VG', 'VGB'], ['VI', 'VI', 'VIR'],
     ['VN', 'VN', 'VNM'], ['VU', 'VU', 'VUT'], ['WF', 'WF', 'WLF'], ['WS', 'WS', 'WSM'],
     ['YE', 'YE', 'YEM'], ['YT', 'YT', 'MYT'], ['ZA', 'ZA', 'ZAF'], ['ZM', 'ZM', 'ZMB'],
-    ['ZW', 'ZW', 'ZWE']
+    ['ZW', 'ZW', 'ZWE'],
 ];
 
 $columns = ['country_id', 'iso2_code', 'iso3_code'];
@@ -273,7 +273,7 @@ $data = [
     ['LT', 'LT-MR', 'Marijampolės Apskritis'], ['LT', 'LT-PN', 'Panevėžio Apskritis'],
     ['LT', 'LT-SA', 'Šiaulių Apskritis'], ['LT', 'LT-TA', 'Tauragės Apskritis'],
     ['LT', 'LT-TE', 'Telšių Apskritis'], ['LT', 'LT-UT', 'Utenos Apskritis'],
-    ['LT', 'LT-VL', 'Vilniaus Apskritis']
+    ['LT', 'LT-VL', 'Vilniaus Apskritis'],
 ];
 
 foreach ($data as $row) {
@@ -288,7 +288,7 @@ foreach ($data as $row) {
     $bind = [
         'locale'    => 'en_US',
         'region_id' => $regionId,
-        'name'      => $row[2]
+        'name'      => $row[2],
     ];
     $installer->getConnection()->insert($installer->getTable('directory/country_region_name'), $bind);
 }

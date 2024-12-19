@@ -256,7 +256,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
         if ($rootId) {
             $collection->addFieldToFilter([
                 ['attribute' => 'parent_id', 'eq' => $rootId],
-                ['attribute' => 'entity_id', 'in' => $categoryIds]
+                ['attribute' => 'entity_id', 'in' => $categoryIds],
             ]);
         } else {
             $collection->addFieldToFilter('entity_id', ['in' => $categoryIds]);

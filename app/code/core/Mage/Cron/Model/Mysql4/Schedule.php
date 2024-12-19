@@ -21,6 +21,4 @@
  * @package    Mage_Cron
  * @deprecated
  */
-class Mage_Cron_Model_Mysql4_Schedule extends Mage_Cron_Model_Resource_Schedule
-{
-}
+class Mage_Cron_Model_Mysql4_Schedule extends Mage_Cron_Model_Resource_Schedule {}

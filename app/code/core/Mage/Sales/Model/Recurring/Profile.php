@@ -294,7 +294,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             'customer_note_notify', 'customer_group_id',    'customer_note',        'shipping_method',
             'shipping_description', 'base_currency_code',   'global_currency_code', 'order_currency_code',
             'store_currency_code',  'base_to_global_rate',  'base_to_order_rate',   'store_to_base_rate',
-            'store_to_order_rate'
+            'store_to_order_rate',
         ];
 
         $orderInfo = $this->getOrderInfo();
@@ -596,7 +596,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $result = (!empty($this->_workflow[$state])) && in_array($againstState, $this->_workflow[$state]);
         if (!$soft && !$result) {
             Mage::throwException(
-                Mage::helper('sales')->__('This profile state cannot be changed to "%s".', $againstState)
+                Mage::helper('sales')->__('This profile state cannot be changed to "%s".', $againstState),
             );
         }
         return $result;
@@ -691,12 +691,12 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         $item = $this->_getRegularItem($itemInfo);
 
         $item->setName(
-            Mage::helper('sales')->__('Trial ') . $item->getName()
+            Mage::helper('sales')->__('Trial ') . $item->getName(),
         );
 
         $option = [
             'label' => Mage::helper('sales')->__('Payment type'),
-            'value' => Mage::helper('sales')->__('Trial period payment')
+            'value' => Mage::helper('sales')->__('Trial period payment'),
         ];
 
         $this->_addAdditionalOptionToItem($item, $option);
@@ -736,7 +736,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
 
         $option = [
             'label' => Mage::helper('sales')->__('Payment type'),
-            'value' => Mage::helper('sales')->__('Initial period payment')
+            'value' => Mage::helper('sales')->__('Initial period payment'),
         ];
 
         $this->_addAdditionalOptionToItem($item, $option);

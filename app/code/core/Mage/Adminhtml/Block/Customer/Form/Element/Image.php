@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
                 'class'  => 'small-image-preview v-middle',
                 'height' => 22,
                 'width'  => 22,
-                'id'     => $imageId
+                'id'     => $imageId,
             ];
             $link    = [
                 'href'      => $url,
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
             $html = sprintf(
                 '%s%s</a> ',
                 $this->_drawElementHtml('a', $link, false),
-                $this->_drawElementHtml('img', $image)
+                $this->_drawElementHtml('img', $image),
             );
         }
         return $html;

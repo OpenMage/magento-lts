@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Source_Mode extends Mage_Ea
                 [
                     'value' => Mage_Catalog_Model_Category::DM_MIXED,
                     'label' => Mage::helper('catalog')->__('Static block and products'),
-                ]
+                ],
             ];
         }
         return $this->_options;

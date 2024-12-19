@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Api_Editroles extends Mage_Adminhtml_Block_Widget_Tab
             'label'     => Mage::helper('adminhtml')->__('Role Info'),
             'title'     => Mage::helper('adminhtml')->__('Role Info'),
             'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_roleinfo')->setRole($role)->toHtml(),
-            'active'    => true
+            'active'    => true,
         ]);
 
         $this->addTab('account', [

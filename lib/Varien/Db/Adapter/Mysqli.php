@@ -62,7 +62,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             $this->_config['password'],
             $this->_config['dbname'],
             $port,
-            $socket
+            $socket,
         );
         if (!$connectionSuccessful) {
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());

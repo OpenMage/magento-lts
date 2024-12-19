@@ -19,13 +19,13 @@ $installer = $this;
 
 $data = [
     ['directory/country_region', 'default_name'],
-    ['directory/country_region_name', 'name']
+    ['directory/country_region_name', 'name'],
 ];
 
 foreach ($data as $row) {
     $installer->getConnection()->update(
         $installer->getTable($row[0]),
         [$row[1]          => 'Vorarlberg'],
-        [$row[1] . ' = ?' => 'Voralberg']
+        [$row[1] . ' = ?' => 'Voralberg'],
     );
 }

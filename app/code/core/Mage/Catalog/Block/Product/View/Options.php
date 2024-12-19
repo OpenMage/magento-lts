@@ -35,7 +35,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         $this->addOptionRenderer(
             'default',
             'catalog/product_view_options_type_default',
-            'catalog/product/view/options/type/default.phtml'
+            'catalog/product/view/options/type/default.phtml',
         );
     }
 
@@ -80,7 +80,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         $this->_optionRenders[$type] = [
             'block' => $block,
             'template' => $template,
-            'renderer' => null
+            'renderer' => null,
         ];
         return $this;
     }
@@ -182,7 +182,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     public function getOptionHtml(Mage_Catalog_Model_Product_Option $option)
     {
         $renderer = $this->getOptionRender(
-            $this->getGroupOfOption($option->getType())
+            $this->getGroupOfOption($option->getType()),
         );
         if (is_null($renderer['renderer'])) {
             $renderer['renderer'] = $this->getLayout()->createBlock($renderer['block'])

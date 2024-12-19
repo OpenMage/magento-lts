@@ -23,7 +23,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('catalogrule_product'),
     'product_id',
     $installer->getTable('catalog_product_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -31,7 +31,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('catalogrule_product_price'),
     'product_id',
     $installer->getTable('catalog_product_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->endSetup();

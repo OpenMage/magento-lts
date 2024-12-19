@@ -21,6 +21,4 @@
  * @package    Mage_Review
  * @deprecated
  */
-class Mage_Review_Model_Mysql4_Review extends Mage_Review_Model_Resource_Review
-{
-}
+class Mage_Review_Model_Mysql4_Review extends Mage_Review_Model_Resource_Review {}

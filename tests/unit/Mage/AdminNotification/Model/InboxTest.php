@@ -56,15 +56,15 @@ class InboxTest extends TestCase
                 Subject::SEVERITY_MINOR     => 'minor',
                 Subject::SEVERITY_NOTICE    => 'notice',
             ],
-            null
+            null,
         ];
         yield 'valid' => [
             'critical',
-            Subject::SEVERITY_CRITICAL
+            Subject::SEVERITY_CRITICAL,
         ];
         yield 'invalid' => [
             null,
-            0
+            0,
         ];
     }
 
@@ -91,7 +91,7 @@ class InboxTest extends TestCase
             Subject::SEVERITY_CRITICAL,
             self::TITLE,
             [__METHOD__],
-            self::URL
+            self::URL,
         ));
         $this->testLoadLatestNotice(true);
     }

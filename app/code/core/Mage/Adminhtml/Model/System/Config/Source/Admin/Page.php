@@ -89,10 +89,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
             $menuArr = [];
             $menuArr['label'] = $this->_getHelperValue($child);
 
-            $menuArr['sort_order'] = $child->sort_order ? (int)$child->sort_order : $sortOrder;
+            $menuArr['sort_order'] = $child->sort_order ? (int) $child->sort_order : $sortOrder;
 
             if ($child->action) {
-                $menuArr['url'] = (string)$child->action;
+                $menuArr['url'] = (string) $child->action;
             } else {
                 $menuArr['url'] = '';
             }
@@ -143,11 +143,11 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $titleNodeName      = 'title';
         $childAttributes    = $child->attributes();
         if (isset($childAttributes['module'])) {
-            $helperName     = (string)$childAttributes['module'];
+            $helperName     = (string) $childAttributes['module'];
         }
 
         $titleNodeName = 'title';
 
-        return Mage::helper($helperName)->__((string)$child->$titleNodeName);
+        return Mage::helper($helperName)->__((string) $child->$titleNodeName);
     }
 }

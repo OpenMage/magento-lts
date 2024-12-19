@@ -22,7 +22,7 @@ $connection = $installer->getConnection();
 
 $connection->delete(
     $this->getTable('eav/attribute'),
-    $connection->prepareSqlCondition('attribute_code', 'enable_googlecheckout')
+    $connection->prepareSqlCondition('attribute_code', 'enable_googlecheckout'),
 );
 
 $installer->endSetup();

@@ -225,7 +225,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                         if (!$periodTo || $dtTo->isEarlier($periodTo)) {
                             $selectUnions[] = $this->_makeBoundarySelect(
                                 $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat)
+                                $dtTo->toString($dtFormat),
                             );
 
                             // first day of the next year
@@ -246,7 +246,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                         if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
                             $selectUnions[] = $this->_makeBoundarySelect(
                                 $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat)
+                                $dtTo->toString($dtFormat),
                             );
 
                             // last day of the previous year
@@ -266,7 +266,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                         $dtTo = $periodTo->getDate();
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
-                            $dtTo->toString($dtFormat)
+                            $dtTo->toString($dtFormat),
                         );
 
                         $this->getSelect()->where('1<>1');
@@ -282,7 +282,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                         if (!$periodTo || $dtTo->isEarlier($periodTo)) {
                             $selectUnions[] = $this->_makeBoundarySelect(
                                 $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat)
+                                $dtTo->toString($dtFormat),
                             );
 
                             // first day of the next month
@@ -299,7 +299,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                         if (!$periodFrom || $dtFrom->isLater($periodFrom)) {
                             $selectUnions[] = $this->_makeBoundarySelect(
                                 $dtFrom->toString($dtFormat),
-                                $dtTo->toString($dtFormat)
+                                $dtTo->toString($dtFormat),
                             );
 
                             // last day of the previous month
@@ -317,7 +317,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                         $dtTo = $periodTo->getDate();
                         $selectUnions[] = $this->_makeBoundarySelect(
                             $dtFrom->toString($dtFormat),
-                            $dtTo->toString($dtFormat)
+                            $dtTo->toString($dtFormat),
                         );
 
                         $this->getSelect()->where('1<>1');
