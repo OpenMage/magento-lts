@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,7 +30,7 @@ $this->getConnection()->addForeignKey(
     'entity_id',
     Varien_Db_Adapter_Interface::FK_ACTION_CASCADE,
     Varien_Db_Adapter_Interface::FK_ACTION_CASCADE,
-    true
+    true,
 );
 
 $this->endSetup();
