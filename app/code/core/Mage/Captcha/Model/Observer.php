@@ -274,7 +274,7 @@ class Mage_Captcha_Model_Observer
     protected function _getCaptchaString($request, $formId)
     {
         $captchaParams = $request->getPost(Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE);
-        return $captchaParams[$formId];
+        return $captchaParams[$formId] ?? '';
     }
 
     /**
