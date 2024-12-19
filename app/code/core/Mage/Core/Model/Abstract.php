@@ -441,7 +441,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Get list of cache tags applied to model object.
      * Return false if cache tags are not supported by model
      *
-     * @return array | false
+     * @return array|false
      */
     public function getCacheTags()
     {
@@ -467,7 +467,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get cache tags associated with object id
      *
-     * @return array|bool
+     * @return array|false
      */
     public function getCacheIdTags()
     {

@@ -22,6 +22,7 @@
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getCollection()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Collection getResourceCollection()
  *
  * @method int getAttributeGroupId()
