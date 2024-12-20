@@ -577,7 +577,7 @@ final class Mage
     }
 
     /**
-     * Retrieve resource vodel object singleton
+     * Retrieve resource model object singleton
      *
      * @param   string $modelClass
      * @return  object
