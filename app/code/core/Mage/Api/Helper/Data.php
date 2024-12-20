@@ -370,7 +370,15 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $urlModel = Mage::getSingleton('core/url');
         $url = $urlModel->getUrl($routePath, $routeParams);
         $uri = Zend_Uri_Http::fromString($url);
-        $uri->setHost($request->getHttpHost());
+
+        // The service url determines where the SoapServer instance will load the WSDL from which
+        // should only be a trusted source, so we do not allow it to be manipulated by the Host header.
+        // However, we can be more lenient in developer mode to allow loading from alternate urls that don't
+        // match the server config.
+        if (Mage::getIsDeveloperMode()) {
+            $uri->setHost($request->getHttpHost());
+        }
+
         if (!$urlModel->getRouteFrontName()) {
             $uri->setPath('/' . trim($request->getBasePath() . '/' . basename(getenv('SCRIPT_FILENAME')), '/'));
         } else {
