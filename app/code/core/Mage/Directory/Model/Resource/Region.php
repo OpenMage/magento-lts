@@ -84,7 +84,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      * Load object by country id and code or default name
      *
      * @param Mage_Core_Model_Abstract $object
-     * @param int $countryId
+     * @param string $countryId
      * @param string $value
      * @param string $field
      *
