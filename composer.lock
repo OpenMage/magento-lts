@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "44734bd293947e65642df49415578991",
+    "content-hash": "726cec3c24c9211dd8f0eeeed8901420",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -603,16 +603,16 @@
         },
         {
             "name": "openmage/composer-plugin",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/composer-plugin.git",
-                "reference": "43369ebbfea5cd6dd07fcaf2d20bcbd4153c7f7c"
+                "reference": "edb40181d4351b46faa642479cab6a193a0f9977"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/43369ebbfea5cd6dd07fcaf2d20bcbd4153c7f7c",
-                "reference": "43369ebbfea5cd6dd07fcaf2d20bcbd4153c7f7c",
+                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/edb40181d4351b46faa642479cab6a193a0f9977",
+                "reference": "edb40181d4351b46faa642479cab6a193a0f9977",
                 "shasum": ""
             },
             "require": {
@@ -651,9 +651,9 @@
             ],
             "support": {
                 "issues": "https://github.com/OpenMage/composer-plugin/issues",
-                "source": "https://github.com/OpenMage/composer-plugin/tree/v1.1.0"
+                "source": "https://github.com/OpenMage/composer-plugin/tree/v1.1.1"
             },
-            "time": "2024-12-08T23:05:54+00:00"
+            "time": "2024-12-20T03:09:59+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -7489,7 +7489,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
