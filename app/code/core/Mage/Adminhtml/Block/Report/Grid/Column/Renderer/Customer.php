@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Customer extends Mage_Adm
         return sprintf(
             '<a href="%s">%s</a>',
             $this->getUrl('*/catalog_product_review', ['customerId' => $id]),
-            Mage::helper('adminhtml')->__('Show Reviews')
+            Mage::helper('adminhtml')->__('Show Reviews'),
         );
     }
 }

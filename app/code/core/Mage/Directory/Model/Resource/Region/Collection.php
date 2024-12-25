@@ -65,7 +65,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
         $this->getSelect()->joinLeft(
             ['rname' => $this->_regionNameTable],
             'main_table.region_id = rname.region_id AND rname.locale = :region_locale',
-            ['name']
+            ['name'],
         );
 
         return $this;
@@ -100,7 +100,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
         $this->getSelect()
             ->joinLeft(
                 ['country' => $this->_countryTable],
-                'main_table.country_id = country.country_id'
+                'main_table.country_id = country.country_id',
             )
             ->where('country.iso3_code = ?', $countryCode);
 
@@ -170,7 +170,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
             array_unshift($options, [
                 'title ' => null,
                 'value' => '',
-                'label' => Mage::helper('directory')->__('-- Please select --')
+                'label' => Mage::helper('directory')->__('-- Please select --'),
             ]);
         }
         return $options;

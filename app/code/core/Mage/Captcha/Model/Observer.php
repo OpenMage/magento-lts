@@ -274,7 +274,7 @@ class Mage_Captcha_Model_Observer
     protected function _getCaptchaString($request, $formId)
     {
         $captchaParams = $request->getPost(Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE);
-        return $captchaParams[$formId];
+        return $captchaParams[$formId] ?? '';
     }
 
     /**
@@ -294,7 +294,7 @@ class Mage_Captcha_Model_Observer
                 Mage::getSingleton('wishlist/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 Mage::getSingleton('wishlist/session')->setSharingForm($request->getPost());
-                $wishlistId = (int)$request->getParam('wishlist_id');
+                $wishlistId = (int) $request->getParam('wishlist_id');
                 $controller->getResponse()
                     ->setRedirect(Mage::getUrl('wishlist/index/share/wishlist_id/' . $wishlistId));
             }
@@ -319,10 +319,10 @@ class Mage_Captcha_Model_Observer
                 Mage::getSingleton('catalog/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 Mage::getSingleton('catalog/session')->setFormData($request->getPost());
-                $id = (int)$request->getParam('id');
+                $id = (int) $request->getParam('id');
                 $catId = $request->getParam('cat_id');
                 if ($catId !== null) {
-                    $id .= '/cat_id/' . (int)$catId;
+                    $id .= '/cat_id/' . (int) $catId;
                 }
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $id));
             }

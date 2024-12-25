@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     public function getStoreId()
     {
-        return (int)$this->_product->getStoreId();
+        return (int) $this->_product->getStoreId();
     }
 
     /**
@@ -158,13 +158,13 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
             $useDefaultCheck = $this->getConnection()->getCheckSql(
                 'store.use_default IS NULL',
                 'def.use_default',
-                'store.use_default'
+                'store.use_default',
             );
 
             $labelCheck = $this->getConnection()->getCheckSql(
                 'store.value IS NULL',
                 'def.value',
-                'store.value'
+                'store.value',
             );
 
             $select = $this->getConnection()->select()
@@ -173,12 +173,12 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                     ['store' => $this->_labelTable],
                     $this->getConnection()->quoteInto(
                         'store.product_super_attribute_id = def.product_super_attribute_id AND store.store_id = ?',
-                        $this->getStoreId()
+                        $this->getStoreId(),
                     ),
                     [
                         'use_default' => $useDefaultCheck,
-                        'label' => $labelCheck
-                    ]
+                        'label' => $labelCheck,
+                    ],
                 )
                 ->where('def.product_super_attribute_id IN (?)', array_keys($this->_items))
                 ->where('def.store_id = ?', 0);
@@ -201,13 +201,13 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     {
         if ($this->count()) {
             $pricings = [
-                0 => []
+                0 => [],
             ];
 
             if ($this->getHelper()->isPriceGlobal()) {
                 $websiteId = 0;
             } else {
-                $websiteId = (int)Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+                $websiteId = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
                 $pricing[$websiteId] = [];
             }
 
@@ -224,7 +224,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
             $query = $this->getConnection()->query($select);
 
             while ($row = $query->fetch()) {
-                $pricings[(int)$row['website_id']][] = $row;
+                $pricings[(int) $row['website_id']][] = $row;
             }
 
             $values = [];
@@ -262,7 +262,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                                 'is_percent'                 => 0,
                                 'pricing_value'              => null,
                                 'use_default_value'          => true,
-                                'order'                      => $optionsByValue[$optionValue]['order']
+                                'order'                      => $optionsByValue[$optionValue]['order'],
                             ];
                         }
                     }

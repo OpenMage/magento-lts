@@ -21,7 +21,7 @@ $installer->startSetup();
 $installer->getConnection()->modifyColumn(
     $installer->getTable('reports/compared_product_index'),
     'visitor_id',
-    'INT(10) UNSIGNED NULL'
+    'INT(10) UNSIGNED NULL',
 );
 
 $installer->endSetup();

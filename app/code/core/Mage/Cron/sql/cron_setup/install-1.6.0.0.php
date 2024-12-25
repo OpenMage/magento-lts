@@ -53,11 +53,11 @@ $table = $installer->getConnection()
     ], 'Finished At')
     ->addIndex(
         $installer->getIdxName('cron/schedule', ['job_code']),
-        ['job_code']
+        ['job_code'],
     )
     ->addIndex(
         $installer->getIdxName('cron/schedule', ['scheduled_at', 'status']),
-        ['scheduled_at', 'status']
+        ['scheduled_at', 'status'],
     )
     ->setComment('Cron Schedule');
 $installer->getConnection()->createTable($table);

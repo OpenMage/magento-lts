@@ -144,8 +144,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
                     'id'    => $this->getFieldId() . '_{{index}}_add_button',
                     'label'     => Mage::helper('bundle')->__('Add Selection'),
                     'on_click'   => 'bSelection.showSearch(event)',
-                    'class' => 'add'
-                ])
+                    'class' => 'add',
+                ]),
         );
 
         $this->setChild(
@@ -155,8 +155,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
                     'id'    => $this->getFieldId() . '_{{index}}_close_button',
                     'label'     => Mage::helper('bundle')->__('Close'),
                     'on_click'   => 'bSelection.closeSearch(event)',
-                    'class' => 'back no-display'
-                ])
+                    'class' => 'back no-display',
+                ]),
         );
 
         $this->setChild(
@@ -165,13 +165,13 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
                 ->setData([
                     'label' => Mage::helper('catalog')->__('Delete Option'),
                     'class' => 'delete delete-product-option',
-                    'on_click' => 'bOption.remove(event)'
-                ])
+                    'on_click' => 'bOption.remove(event)',
+                ]),
         );
 
         $this->setChild(
             'selection_template',
-            $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_selection')
+            $this->getLayout()->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_selection'),
         );
 
         return parent::_prepareLayout();
@@ -215,7 +215,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
 
             $productType->setStoreFilter(
                 $product->getStoreId(),
-                $product
+                $product,
             );
 
             /** @var Mage_Bundle_Model_Resource_Option_Collection $optionCollection */
@@ -224,7 +224,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
             /** @var Mage_Bundle_Model_Resource_Selection_Collection $selectionCollection */
             $selectionCollection = $productType->getSelectionsCollection(
                 $productType->getOptionsIds($product),
-                $product
+                $product,
             );
 
             $this->_options = $optionCollection->appendSelections($selectionCollection);
@@ -277,7 +277,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
             ->setData([
                 'id' => $this->getFieldId() . '_{{index}}_type',
                 'class' => 'select select-product-option-type required-option-select',
-                'extra_params' => 'onchange="bOption.changeType(event)"'
+                'extra_params' => 'onchange="bOption.changeType(event)"',
             ])
             ->setName($this->getFieldName() . '[{{index}}][type]')
             ->setOptions(Mage::getSingleton('bundle/source_option_type')->toOptionArray());
@@ -293,7 +293,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
                 'id' => $this->getFieldId() . '_{{index}}_required',
-                'class' => 'select'
+                'class' => 'select',
             ])
             ->setName($this->getFieldName() . '[{{index}}][required]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());

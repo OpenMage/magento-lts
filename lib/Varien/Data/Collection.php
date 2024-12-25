@@ -103,9 +103,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     protected $_flags = [];
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Add collection filter

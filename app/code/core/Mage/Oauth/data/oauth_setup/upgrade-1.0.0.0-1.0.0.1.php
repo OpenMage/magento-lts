@@ -22,14 +22,14 @@ $resourceIds = [
     'admin/system/api/consumer' => 'admin/system/api/oauth_consumer',
     'admin/system/api/consumer/delete' => 'admin/system/api/oauth_consumer/delete',
     'admin/system/api/consumer/edit' => 'admin/system/api/oauth_consumer/edit',
-    'admin/system/api/authorizedTokens' => 'admin/system/api/oauth_authorized_tokens'
+    'admin/system/api/authorizedTokens' => 'admin/system/api/oauth_authorized_tokens',
 ];
 
 foreach ($resourceIds as $oldId => $newId) {
     $installer->getConnection()->update(
         $table,
         ['resource_id' => $newId],
-        ['resource_id = ?' => $oldId]
+        ['resource_id = ?' => $oldId],
     );
 }
 

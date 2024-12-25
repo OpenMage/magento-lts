@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Category_Attribute_Api_V2 extends Mage_Catalog_Model_Category_Attribute_Api
-{
-}
+class Mage_Catalog_Model_Category_Attribute_Api_V2 extends Mage_Catalog_Model_Category_Attribute_Api {}

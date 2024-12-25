@@ -23,32 +23,32 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('productalert/price'),
-    'FK_PRODUCT_ALERT_PRICE_CUSTOMER'
+    'FK_PRODUCT_ALERT_PRICE_CUSTOMER',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('productalert/price'),
-    'FK_PRODUCT_ALERT_PRICE_PRODUCT'
+    'FK_PRODUCT_ALERT_PRICE_PRODUCT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('productalert/price'),
-    'FK_PRODUCT_ALERT_PRICE_WEBSITE'
+    'FK_PRODUCT_ALERT_PRICE_WEBSITE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('productalert/stock'),
-    'FK_PRODUCT_ALERT_STOCK_CUSTOMER'
+    'FK_PRODUCT_ALERT_STOCK_CUSTOMER',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('productalert/stock'),
-    'FK_PRODUCT_ALERT_STOCK_PRODUCT'
+    'FK_PRODUCT_ALERT_STOCK_PRODUCT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('productalert/stock'),
-    'FK_PRODUCT_ALERT_STOCK_WEBSITE'
+    'FK_PRODUCT_ALERT_STOCK_WEBSITE',
 );
 
 /**
@@ -56,32 +56,32 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('productalert/price'),
-    'FK_PRODUCT_ALERT_PRICE_CUSTOMER'
+    'FK_PRODUCT_ALERT_PRICE_CUSTOMER',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('productalert/price'),
-    'FK_PRODUCT_ALERT_PRICE_PRODUCT'
+    'FK_PRODUCT_ALERT_PRICE_PRODUCT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('productalert/price'),
-    'FK_PRODUCT_ALERT_PRICE_WEBSITE'
+    'FK_PRODUCT_ALERT_PRICE_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('productalert/stock'),
-    'FK_PRODUCT_ALERT_STOCK_CUSTOMER'
+    'FK_PRODUCT_ALERT_STOCK_CUSTOMER',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('productalert/stock'),
-    'FK_PRODUCT_ALERT_STOCK_PRODUCT'
+    'FK_PRODUCT_ALERT_STOCK_PRODUCT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('productalert/stock'),
-    'FK_PRODUCT_ALERT_STOCK_WEBSITE'
+    'FK_PRODUCT_ALERT_STOCK_WEBSITE',
 );
 
 /**
@@ -96,21 +96,21 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Product alert price id'
+                'comment'   => 'Product alert price id',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Customer id'
+                'comment'   => 'Customer id',
             ],
             'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Product id'
+                'comment'   => 'Product id',
             ],
             'price' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -118,40 +118,40 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Price amount'
+                'comment'   => 'Price amount',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Website id'
+                'comment'   => 'Website id',
             ],
             'add_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Product alert add date'
+                'comment'   => 'Product alert add date',
             ],
             'last_send_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Product alert last send date'
+                'comment'   => 'Product alert last send date',
             ],
             'send_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Product alert send count'
+                'comment'   => 'Product alert send count',
             ],
             'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Product alert status'
-            ]
+                'comment'   => 'Product alert status',
+            ],
         ],
-        'comment' => 'Product Alert Price'
+        'comment' => 'Product Alert Price',
     ],
     $installer->getTable('productalert/stock') => [
         'columns' => [
@@ -161,55 +161,55 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Product alert stock id'
+                'comment'   => 'Product alert stock id',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Customer id'
+                'comment'   => 'Customer id',
             ],
             'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Product id'
+                'comment'   => 'Product id',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Website id'
+                'comment'   => 'Website id',
             ],
             'add_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Product alert add date'
+                'comment'   => 'Product alert add date',
             ],
             'send_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Product alert send date'
+                'comment'   => 'Product alert send date',
             ],
             'send_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Send Count'
+                'comment'   => 'Send Count',
             ],
             'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Product alert status'
-            ]
+                'comment'   => 'Product alert status',
+            ],
         ],
-        'comment' => 'Product Alert Stock'
-    ]
+        'comment' => 'Product Alert Stock',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -220,37 +220,37 @@ $installer->getConnection()->modifyTables($tables);
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/price'),
     $installer->getIdxName('productalert/price', ['customer_id']),
-    ['customer_id']
+    ['customer_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/price'),
     $installer->getIdxName('productalert/price', ['product_id']),
-    ['product_id']
+    ['product_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/price'),
     $installer->getIdxName('productalert/price', ['website_id']),
-    ['website_id']
+    ['website_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/stock'),
     $installer->getIdxName('productalert/stock', ['customer_id']),
-    ['customer_id']
+    ['customer_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/stock'),
     $installer->getIdxName('productalert/stock', ['product_id']),
-    ['product_id']
+    ['product_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('productalert/stock'),
     $installer->getIdxName('productalert/stock', ['website_id']),
-    ['website_id']
+    ['website_id'],
 );
 
 /**
@@ -261,7 +261,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('productalert/price'),
     'customer_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -269,7 +269,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('productalert/price'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -277,7 +277,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('productalert/price'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -285,7 +285,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('productalert/stock'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -293,7 +293,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('productalert/stock'),
     'customer_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -301,7 +301,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('productalert/stock'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->endSetup();

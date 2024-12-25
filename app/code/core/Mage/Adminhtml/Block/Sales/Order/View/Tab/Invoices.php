@@ -111,8 +111,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
             '*/sales_order_invoice/view',
             [
                 'invoice_id' => $row->getId(),
-                'order_id'  => $row->getOrderId()
-            ]
+                'order_id'  => $row->getOrderId(),
+            ],
         );
     }
 

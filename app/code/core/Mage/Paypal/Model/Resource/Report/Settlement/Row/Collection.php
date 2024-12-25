@@ -43,7 +43,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_C
             ->join(
                 ['report' => $this->getTable('paypal/settlement_report')],
                 'report.report_id = main_table.report_id',
-                ['report.account_id', 'report.report_date']
+                ['report.account_id', 'report.report_date'],
             );
         return $this;
     }

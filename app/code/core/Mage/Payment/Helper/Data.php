@@ -83,7 +83,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                 /* if the payment method cannot be used at this time */
                 continue;
             }
-            $sortOrder = (int)$methodInstance->getConfigData('sort_order', $store);
+            $sortOrder = (int) $methodInstance->getConfigData('sort_order', $store);
             $methodInstance->setSortOrder($sortOrder);
             $res[] = $methodInstance;
         }
@@ -100,7 +100,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     protected function _sortMethods($a, $b)
     {
         if (is_object($a)) {
-            return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
+            return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
         }
         return 0;
     }

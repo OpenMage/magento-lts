@@ -68,15 +68,15 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
                 ->join(
                     ['tdv' => $this->_optionValueTable],
                     'tdv.option_id = main_table.option_id',
-                    ['default_value' => 'value']
+                    ['default_value' => 'value'],
                 )
                 ->joinLeft(
                     ['tsv' => $this->_optionValueTable],
                     $joinCondition,
                     [
                         'store_default_value' => 'value',
-                        'value'               => $adapter->getCheckSql('tsv.value_id > 0', 'tsv.value', 'tdv.value')
-                    ]
+                        'value'               => $adapter->getCheckSql('tsv.value_id > 0', 'tsv.value', 'tdv.value'),
+                    ],
                 )
                 ->where('tdv.store_id = ?', 0);
         } else {
@@ -84,7 +84,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
                 ->joinLeft(
                     ['tsv' => $this->_optionValueTable],
                     $joinCondition,
-                    'value'
+                    'value',
                 )
                 ->where('tsv.store_id = ?', $storeId);
         }
@@ -132,7 +132,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
                 ->joinLeft(
                     ['sort_alpha_value' => $this->_optionValueTable],
                     'sort_alpha_value.option_id = main_table.option_id AND sort_alpha_value.store_id = 0',
-                    ['value']
+                    ['value'],
                 );
             $this->setOrder('sort_alpha_value.value', $dir);
         }

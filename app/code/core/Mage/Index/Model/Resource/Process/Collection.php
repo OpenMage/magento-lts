@@ -60,8 +60,8 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
                 ['events' => $this->getConnection()->getCheckSql(
                     $this->getConnection()->prepareSqlCondition('e.events', ['null' => null]),
                     '0',
-                    'e.events'
-                )]
+                    'e.events',
+                )],
             );
         return $this;
     }

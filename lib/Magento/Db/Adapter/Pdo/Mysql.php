@@ -29,7 +29,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      */
     public function isTransaction()
     {
-        return (bool)$this->_transactionLevel;
+        return (bool) $this->_transactionLevel;
     }
 
     /**
@@ -53,7 +53,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         do {
             $select->limit($step, $limitOffset);
             $result = $this->query(
-                $this->insertFromSelect($select, $table, $fields, $mode)
+                $this->insertFromSelect($select, $table, $fields, $mode),
             );
 
             $affectedRows = $result->rowCount();

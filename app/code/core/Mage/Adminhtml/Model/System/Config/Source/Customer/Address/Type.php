@@ -31,7 +31,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Customer_Address_Type
     {
         return [
             Mage_Customer_Model_Address_Abstract::TYPE_BILLING => Mage::helper('adminhtml')->__('Billing Address'),
-            Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => Mage::helper('adminhtml')->__('Shipping Address')
+            Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => Mage::helper('adminhtml')->__('Shipping Address'),
         ];
     }
 }

@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
         $this->setChild(
             'attributes',
             $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_new_product_attributes')
-                ->setGroupAttributes($this->_getGroupAttributes())
+                ->setGroupAttributes($this->_getGroupAttributes()),
         );
 
         $this->setChild(
@@ -48,8 +48,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'   => Mage::helper('catalog')->__('Close Window'),
-                    'onclick' => 'addAttribute(true)'
-                ])
+                    'onclick' => 'addAttribute(true)',
+                ]),
         );
         return $this;
     }
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
     public function getAttributesBlockJson()
     {
         $result = [
-            $this->getRequest()->getParam('tab') => $this->getChildHtml('attributes')
+            $this->getRequest()->getParam('tab') => $this->getChildHtml('attributes'),
         ];
 
         return Mage::helper('core')->jsonEncode($result);

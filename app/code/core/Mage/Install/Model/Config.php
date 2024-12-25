@@ -49,8 +49,8 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
     public function getWizardSteps()
     {
         $steps = [];
-        foreach ((array)$this->getNode(self::XML_PATH_WIZARD_STEPS) as $stepName => $step) {
-            $stepObject = new Varien_Object((array)$step);
+        foreach ((array) $this->getNode(self::XML_PATH_WIZARD_STEPS) as $stepName => $step) {
+            $stepObject = new Varien_Object((array) $step);
             $stepObject->setName($stepName);
             $steps[] = $stepObject;
         }
@@ -96,7 +96,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
         $paths = [];
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
         foreach ($items as $nodeKey => $item) {
-            $value = (array)$item;
+            $value = (array) $item;
             if (isset($this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey])) {
                 $configKey = $this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey];
                 $value['path'] = Mage::app()->getConfig()->getOptions()->getData($configKey);

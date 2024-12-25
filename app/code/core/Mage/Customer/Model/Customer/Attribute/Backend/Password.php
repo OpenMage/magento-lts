@@ -40,7 +40,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Password extends Mage_Eav_M
             if ($len < $minPasswordLength) {
                 Mage::throwException(Mage::helper('customer')->__(
                     'The password must have at least %d characters. Leading or trailing spaces will be ignored.',
-                    $minPasswordLength
+                    $minPasswordLength,
                 ));
             }
             $object->setPasswordHash($object->hashPassword($password));

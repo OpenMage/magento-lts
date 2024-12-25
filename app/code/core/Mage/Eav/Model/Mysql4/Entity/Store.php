@@ -19,6 +19,4 @@
  * @package    Mage_Eav
  * @deprecated
  */
-class Mage_Eav_Model_Mysql4_Entity_Store extends Mage_Eav_Model_Resource_Entity_Store
-{
-}
+class Mage_Eav_Model_Mysql4_Entity_Store extends Mage_Eav_Model_Resource_Entity_Store {}

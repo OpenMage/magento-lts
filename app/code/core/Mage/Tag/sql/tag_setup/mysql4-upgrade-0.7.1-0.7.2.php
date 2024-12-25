@@ -20,32 +20,32 @@ $installer->startSetup();
 
 $purgeFk = [
     $installer->getTable('tag/relation') => [
-        'product_id', 'tag_id', 'customer_id', 'store_id'
+        'product_id', 'tag_id', 'customer_id', 'store_id',
     ],
     $installer->getTable('tag/summary') => [
-        'tag_id'
+        'tag_id',
     ],
 ];
 $purgeIndex = [
     [
         $installer->getTable('tag/relation'),
-        ['product_id']
+        ['product_id'],
     ],
     [
         $installer->getTable('tag/relation'),
-        ['tag_id']
+        ['tag_id'],
     ],
     [
         $installer->getTable('tag/relation'),
-        ['customer_id']
+        ['customer_id'],
     ],
     [
         $installer->getTable('tag/relation'),
-        ['store_id']
+        ['store_id'],
     ],
     [
         $installer->getTable('tag/summary'),
-        ['tag_id']
+        ['tag_id'],
     ],
 ];
 foreach ($purgeFk as $tableName => $columns) {
@@ -71,27 +71,27 @@ foreach ($purgeIndex as $prop) {
 $installer->getConnection()->addKey(
     $installer->getTable('tag/relation'),
     'IDX_PRODUCT',
-    'product_id'
+    'product_id',
 );
 $installer->getConnection()->addKey(
     $installer->getTable('tag/relation'),
     'IDX_TAG',
-    'tag_id'
+    'tag_id',
 );
 $installer->getConnection()->addKey(
     $installer->getTable('tag/relation'),
     'IDX_CUSTOMER',
-    'customer_id'
+    'customer_id',
 );
 $installer->getConnection()->addKey(
     $installer->getTable('tag/relation'),
     'IDX_STORE',
-    'store_id'
+    'store_id',
 );
 $installer->getConnection()->addKey(
     $installer->getTable('tag/summary'),
     'IDX_TAG',
-    'tag_id'
+    'tag_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -102,7 +102,7 @@ $installer->getConnection()->addConstraint(
     'entity_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_TAG_RELATION_TAG',
@@ -112,7 +112,7 @@ $installer->getConnection()->addConstraint(
     'tag_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_TAG_RELATION_CUSTOMER',
@@ -122,7 +122,7 @@ $installer->getConnection()->addConstraint(
     'entity_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_TAG_RELATION_STORE',
@@ -132,7 +132,7 @@ $installer->getConnection()->addConstraint(
     'store_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_TAG_SUMMARY_TAG',
@@ -142,6 +142,6 @@ $installer->getConnection()->addConstraint(
     'tag_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->endSetup();

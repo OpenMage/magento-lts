@@ -150,7 +150,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     protected function _toHtml()
     {
         Mage::dispatchEvent('payment_form_block_to_html_before', [
-            'block'     => $this
+            'block'     => $this,
         ]);
         return parent::_toHtml();
     }

@@ -43,11 +43,11 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
             ->reset()
             ->from(
                 ['tag_summary' => $this->getTable('tag/summary')],
-                ['popularity' => 'tag_summary.popularity']
+                ['popularity' => 'tag_summary.popularity'],
             )
             ->joinInner(
                 ['tag' => $this->getTable('tag/tag')],
-                'tag.tag_id = tag_summary.tag_id AND tag.status = ' . Mage_Tag_Model_Tag::STATUS_APPROVED
+                'tag.tag_id = tag_summary.tag_id AND tag.status = ' . Mage_Tag_Model_Tag::STATUS_APPROVED,
             )
             ->where('tag_summary.store_id = ?', $storeId)
             ->where('tag_summary.products > ?', 0)

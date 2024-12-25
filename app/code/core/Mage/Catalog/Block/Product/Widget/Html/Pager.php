@@ -75,7 +75,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     public function getCurrentPage()
     {
         if ($this->_currentPage === null) {
-            $page = abs((int)$this->getRequest()->getParam($this->getPageVarName()));
+            $page = abs((int) $this->getRequest()->getParam($this->getPageVarName()));
             if ($page > $this->getLastPageNum()) {
                 $this->_currentPage = $this->getLastPageNum();
             } elseif ($page > 0) {

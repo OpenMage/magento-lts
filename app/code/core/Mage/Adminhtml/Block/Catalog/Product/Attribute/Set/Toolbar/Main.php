@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main extends Ma
                     'label'     => Mage::helper('catalog')->__('Add New Set'),
                     'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/add')),
                     'class'     => 'add',
-                ])
+                ]),
         );
         return parent::_prepareLayout();
     }

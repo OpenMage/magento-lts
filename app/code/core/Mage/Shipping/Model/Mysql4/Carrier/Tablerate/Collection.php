@@ -21,6 +21,4 @@
  * @package    Mage_Shipping
  * @deprecated
  */
-class Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection extends Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection
-{
-}
+class Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection extends Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection {}

@@ -120,13 +120,13 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
                         [
                             'caption' => Mage::helper('sales')->__('View'),
                             'url'     => ['base' => '*/sales_order/view'],
-                            'field'   => 'order_id'
-                        ]
+                            'field'   => 'order_id',
+                        ],
                     ],
                     'index'     => 'stores',
                     'is_system' => true,
                     'data-column' => 'action',
-                ]
+                ],
             );
         }
 

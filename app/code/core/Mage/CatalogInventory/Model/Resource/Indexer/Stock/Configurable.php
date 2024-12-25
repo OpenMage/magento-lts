@@ -53,27 +53,27 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable extends Ma
             ->join(
                 ['cis' => $this->getTable('cataloginventory/stock')],
                 '',
-                ['stock_id']
+                ['stock_id'],
             )
             ->joinLeft(
                 ['cisi' => $this->getTable('cataloginventory/stock_item')],
                 'cisi.stock_id = cis.stock_id AND cisi.product_id = e.entity_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['l' => $this->getTable('catalog/product_super_link')],
                 'l.parent_id = e.entity_id',
-                []
+                [],
             )
             ->join(
                 ['le' => $this->getTable('catalog/product')],
                 'le.entity_id = l.product_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['i' => $idxTable],
                 'i.product_id = l.product_id AND cw.website_id = i.website_id AND cis.stock_id = i.stock_id',
-                []
+                [],
             )
             ->columns(['qty' => new Zend_Db_Expr('0')])
             ->where('cw.website_id != 0')
@@ -87,13 +87,13 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable extends Ma
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
                 '1',
-                'cisi.is_in_stock'
+                'cisi.is_in_stock',
             );
         } else {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
                 'cisi.is_in_stock',
-                '1'
+                '1',
             );
         }
 
@@ -101,7 +101,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable extends Ma
         $stockStatusExpr = $adapter->getLeastSql(["MAX({$optExpr})", "MIN({$statusExpr})"]);
 
         $select->columns([
-            'status' => $stockStatusExpr
+            'status' => $stockStatusExpr,
         ]);
 
         if (!is_null($entityIds)) {

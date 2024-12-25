@@ -73,7 +73,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
             $adapter->quote(' '),
             $ifnullMiddle,
             $adapter->quote(' '),
-            $ifnullLast
+            $ifnullLast,
         ]);
         $concatAddress = new Zend_Db_Expr("TRIM(REPLACE($concatAddress,'  ', ' '))");
 
@@ -81,13 +81,13 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
             'billing_name',
             'sales/order_address',
             ['billing_address_id' => 'entity_id'],
-            $concatAddress
+            $concatAddress,
         )
             ->addVirtualGridColumn(
                 'shipping_name',
                 'sales/order_address',
                 ['shipping_address_id' => 'entity_id'],
-                $concatAddress
+                $concatAddress,
             );
 
         return $this;
@@ -107,12 +107,12 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
         $select  = $adapter->select()
             ->from(
                 ['o' => $this->getTable('sales/order_item')],
-                ['o.product_type', new Zend_Db_Expr('COUNT(*)')]
+                ['o.product_type', new Zend_Db_Expr('COUNT(*)')],
             )
             ->joinInner(
                 ['p' => $this->getTable('catalog/product')],
                 'o.product_id=p.entity_id',
-                []
+                [],
             )
             ->where('o.order_id=?', $orderId)
             ->group('o.product_type')
@@ -120,7 +120,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
         if ($productTypeIds) {
             $select->where(
                 sprintf('(o.product_type %s (?))', ($isProductTypeIn ? 'IN' : 'NOT IN')),
-                $productTypeIds
+                $productTypeIds,
             );
         }
         return $adapter->fetchPairs($select);

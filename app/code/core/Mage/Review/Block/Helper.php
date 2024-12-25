@@ -28,7 +28,7 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
 {
     protected $_availableTemplates = [
         'default' => 'review/helper/summary.phtml',
-        'short'   => 'review/helper/summary_short.phtml'
+        'short'   => 'review/helper/summary_short.phtml',
     ];
 
     /**
@@ -79,8 +79,8 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
     public function getReviewsUrl()
     {
         return Mage::getUrl('review/product/list', [
-           'id'        => $this->getProduct()->getId(),
-           'category'  => $this->getProduct()->getCategoryId()
+            'id'        => $this->getProduct()->getId(),
+            'category'  => $this->getProduct()->getCategoryId(),
         ]);
     }
 

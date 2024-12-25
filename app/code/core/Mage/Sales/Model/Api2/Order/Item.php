@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Sales
  */
-class Mage_Sales_Model_Api2_Order_Item extends Mage_Api2_Model_Resource
-{
-}
+class Mage_Sales_Model_Api2_Order_Item extends Mage_Api2_Model_Resource {}

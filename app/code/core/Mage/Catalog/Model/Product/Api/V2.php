@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             'set'        => $product->getAttributeSetId(),
             'type'       => $product->getTypeId(),
             'categories' => $product->getCategoryIds(),
-            'websites'   => $product->getWebsiteIds()
+            'websites'   => $product->getWebsiteIds(),
         ];
 
         $allAttributes = [];
@@ -206,7 +206,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             $this->_fault('multi_update_not_match');
         }
 
-        $productData = (array)$productData;
+        $productData = (array) $productData;
         $failMessages = [];
 
         foreach ($productIds as $index => $productId) {
@@ -272,7 +272,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             if ($this->_isAllowedAttribute($attribute) && (isset($productData->$attributeCode))) {
                 $product->setData(
                     $attributeCode,
-                    $productData->$attributeCode
+                    $productData->$attributeCode,
                 );
             }
         }

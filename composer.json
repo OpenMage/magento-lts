@@ -30,7 +30,7 @@
         "ezyang/htmlpurifier": "^4.17",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "mklkj/tinymce-i18n": "^24.11",
-        "openmage/composer-plugin": "^1.1.0",
+        "openmage/composer-plugin": "^1.1.1",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
@@ -144,8 +144,6 @@
     "scripts": {
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
-        "phpcs": "vendor/bin/phpcs -s -p --standard=.phpcs.dist.xml,.phpcs.dist.php.xml --cache=.phpcs.result.cache --report=full,summary",
-        "phpcs:ecg": "vendor/bin/phpcs -s -p --standard=.phpcs.dist.ecg.xml --report=full,summary",
         "phpmd": "vendor/bin/phpmd app/code/core/Mage text .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml",
         "phpstan": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
         "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.neon",
@@ -158,8 +156,6 @@
     "scripts-descriptions": {
         "php-cs-fixer:test": "Run php-cs-fixer",
         "php-cs-fixer:fix": "Run php-cs-fixer and fix issues",
-        "phpcs": "Run phpcs",
-        "phpcs:ecg": "Run phcs with ECG standard",
         "phpmd": "Run phpmd",
         "phpstan": "Run phpstan",
         "phpstan:baseline": "Run phpstan and update baseline",

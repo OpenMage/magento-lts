@@ -21,6 +21,4 @@
  * @package    Mage_Sitemap
  * @deprecated
  */
-class Mage_Sitemap_Model_Mysql4_Sitemap extends Mage_Sitemap_Model_Resource_Sitemap
-{
-}
+class Mage_Sitemap_Model_Mysql4_Sitemap extends Mage_Sitemap_Model_Resource_Sitemap {}

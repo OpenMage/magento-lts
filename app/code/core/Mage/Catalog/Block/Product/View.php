@@ -137,7 +137,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         $compositeProductHelper = $this->helper('catalog/product_type_composite');
         $config = array_merge(
             $compositeProductHelper->prepareJsonGeneralConfig(),
-            $compositeProductHelper->prepareJsonProductConfig($product)
+            $compositeProductHelper->prepareJsonProductConfig($product),
         );
 
         $responseObject = new Varien_Object();

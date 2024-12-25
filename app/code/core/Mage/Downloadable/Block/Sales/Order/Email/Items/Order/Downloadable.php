@@ -64,7 +64,7 @@ class Mage_Downloadable_Block_Sales_Order_Email_Items_Order_Downloadable extends
             'id'        => $item->getLinkHash(),
             '_store'    => $this->getOrder()->getStore(),
             '_secure'   => true,
-            '_nosid'    => true
+            '_nosid'    => true,
         ]);
     }
 }

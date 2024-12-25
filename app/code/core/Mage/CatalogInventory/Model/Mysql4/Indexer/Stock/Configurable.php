@@ -21,6 +21,4 @@
  * @package    Mage_CatalogInventory
  * @deprecated
  */
-class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable
-{
-}
+class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable extends Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable {}

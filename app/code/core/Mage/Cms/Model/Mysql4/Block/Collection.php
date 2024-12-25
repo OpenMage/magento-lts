@@ -25,6 +25,4 @@ declare(strict_types=1);
  * @see Mage_Cms_Model_Resource_Block_Collection
  */
 // phpcs:ignore: Ecg.Classes.Mysql4.Found
-class Mage_Cms_Model_Mysql4_Block_Collection extends Mage_Cms_Model_Resource_Block_Collection
-{
-}
+class Mage_Cms_Model_Mysql4_Block_Collection extends Mage_Cms_Model_Resource_Block_Collection {}

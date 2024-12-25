@@ -30,26 +30,26 @@ class Mage_Adminhtml_Block_Customer_Online_Filter extends Mage_Adminhtml_Block_W
             'filter_value',
             'select',
             [
-                    'name' => 'filter_value',
-                    'onchange' => 'this.form.submit()',
-                    'values' => [
-                        [
-                            'label' => Mage::helper('customer')->__('All'),
-                            'value' => '',
-                        ],
-
-                        [
-                            'label' => Mage::helper('customer')->__('Customers Only'),
-                            'value' => 'filterCustomers',
-                        ],
-
-                        [
-                            'label' => Mage::helper('customer')->__('Visitors Only'),
-                            'value' => 'filterGuests',
-                        ]
+                'name' => 'filter_value',
+                'onchange' => 'this.form.submit()',
+                'values' => [
+                    [
+                        'label' => Mage::helper('customer')->__('All'),
+                        'value' => '',
                     ],
-                    'no_span' => true
-                ]
+
+                    [
+                        'label' => Mage::helper('customer')->__('Customers Only'),
+                        'value' => 'filterCustomers',
+                    ],
+
+                    [
+                        'label' => Mage::helper('customer')->__('Visitors Only'),
+                        'value' => 'filterGuests',
+                    ],
+                ],
+                'no_span' => true,
+            ],
         );
 
         $form->setUseContainer(true);

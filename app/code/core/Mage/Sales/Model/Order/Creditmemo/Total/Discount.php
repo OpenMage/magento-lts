@@ -65,12 +65,12 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Discount extends Mage_Sales_Model_
                     $discount = $creditmemo->roundPrice(
                         $discount / $availableQty * $item->getQty(),
                         'regular',
-                        true
+                        true,
                     );
                     $baseDiscount = $creditmemo->roundPrice(
                         $baseDiscount / $availableQty * $item->getQty(),
                         'base',
-                        true
+                        true,
                     );
                 }
 

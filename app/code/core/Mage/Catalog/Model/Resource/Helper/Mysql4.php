@@ -72,8 +72,8 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
 
         return ($describe['DATA_TYPE'] == $type)
             && ($describe['DEFAULT'] == $column['default'])
-            && ((bool)$describe['NULLABLE'] == (bool)$column['nullable'])
-            && ((bool)$describe['UNSIGNED'] == (bool)$column['unsigned'])
+            && ((bool) $describe['NULLABLE'] == (bool) $column['nullable'])
+            && ((bool) $describe['UNSIGNED'] == (bool) $column['unsigned'])
             && ($describe['LENGTH'] == $length)
             && ($describe['SCALE'] == $scale)
             && ($describe['PRECISION'] == $precision);

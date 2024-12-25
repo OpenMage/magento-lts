@@ -21,6 +21,4 @@
  * @package    Mage_Catalog
  * @deprecated
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option extends Mage_Catalog_Model_Resource_Product_Option
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option extends Mage_Catalog_Model_Resource_Product_Option {}

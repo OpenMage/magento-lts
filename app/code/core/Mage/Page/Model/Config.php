@@ -63,11 +63,11 @@ class Mage_Page_Model_Config
         }
         foreach (Mage::getConfig()->getNode($xmlPath)->children() as $layoutCode => $layoutConfig) {
             $this->_pageLayouts[$layoutCode] = new Varien_Object([
-                'label'         => Mage::helper('page')->__((string)$layoutConfig->label),
+                'label'         => Mage::helper('page')->__((string) $layoutConfig->label),
                 'code'          => $layoutCode,
-                'template'      => (string)$layoutConfig->template,
-                'layout_handle' => (string)$layoutConfig->layout_handle,
-                'is_default'    => (int)$layoutConfig->is_default,
+                'template'      => (string) $layoutConfig->template,
+                'layout_handle' => (string) $layoutConfig->layout_handle,
+                'is_default'    => (int) $layoutConfig->is_default,
             ]);
         }
         return $this;

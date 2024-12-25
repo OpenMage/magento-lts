@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -44,7 +45,7 @@ Varien_Autoload::register();
 /** AUTOLOADER PATCH **/
 $autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
 if (!$autoloaderPath) {
-    $autoloaderPath = dirname($bp) . $ds .  'vendor';
+    $autoloaderPath = dirname($bp) . $ds . 'vendor';
     if (!is_dir($autoloaderPath)) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
@@ -104,7 +105,7 @@ if (empty($mediaDirectory)) {
         $mageRunCode,
         $mageRunType,
         ['cache' => ['disallow_save' => true]],
-        $config['loaded_modules'] ?? ['Mage_Core']
+        $config['loaded_modules'] ?? ['Mage_Core'],
     );
 }
 

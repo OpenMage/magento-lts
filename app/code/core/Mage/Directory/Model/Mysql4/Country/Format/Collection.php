@@ -21,6 +21,4 @@
  * @package    Mage_Directory
  * @deprecated
  */
-class Mage_Directory_Model_Mysql4_Country_Format_Collection extends Mage_Directory_Model_Resource_Country_Format_Collection
-{
-}
+class Mage_Directory_Model_Mysql4_Country_Format_Collection extends Mage_Directory_Model_Resource_Country_Format_Collection {}

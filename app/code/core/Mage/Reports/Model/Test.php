@@ -107,7 +107,7 @@ class Mage_Reports_Model_Test extends Varien_Object
         $reset = 12;
 
         $newData  = [
-            ['time' => date('Y-m-d H:i', $startPoint), 'value' => rand(1, 100)]
+            ['time' => date('Y-m-d H:i', $startPoint), 'value' => rand(1, 100)],
         ];
 
         $startPoint += 30 * 60;

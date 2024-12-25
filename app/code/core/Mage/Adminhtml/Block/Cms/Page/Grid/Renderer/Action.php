@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid_Renderer_Action extends Mage_Adminhtml_
                 [
                     '_current' => false,
                     '_query'   => '___store=' . $row->getStoreCode(),
-                ]
+                ],
             );
         }
         return '<a href="' . $href . '" target="_blank">' . $this->__('Preview') . '</a>';
