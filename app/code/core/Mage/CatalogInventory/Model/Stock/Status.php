@@ -168,8 +168,8 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
             $productType    = $this->getProductType($productId);
         }
 
-        $status     = (int)$item->getIsInStock();
-        $qty        = (int)$item->getQty();
+        $status     = (int) $item->getIsInStock();
+        $qty        = (int) $item->getQty();
 
         $this->_processChildren($productId, $productType, $qty, $status, $item->getStockId());
         $this->_processParents($productId, $item->getStockId());
@@ -315,7 +315,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
                     }
                     $websiteStatus = $websiteStatus && $optionStatus;
                 }
-                $statuses[$websiteId] = (int)$websiteStatus;
+                $statuses[$websiteId] = (int) $websiteStatus;
             }
         }
 
@@ -449,7 +449,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         }
         if ($websiteId === null) {
             $websiteId = Mage::app()->getStore()->getWebsiteId();
-            if ((int)$websiteId == 0 && $productCollection->getStoreId()) {
+            if ((int) $websiteId == 0 && $productCollection->getStoreId()) {
                 $websiteId = Mage::app()->getStore($productCollection->getStoreId())->getWebsiteId();
             }
         }

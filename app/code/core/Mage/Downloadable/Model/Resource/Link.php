@@ -44,25 +44,25 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
             ->where('link_id=:link_id AND store_id=:store_id');
         $bind = [
             ':link_id'   => $linkObject->getId(),
-            ':store_id'  => (int)$linkObject->getStoreId()
+            ':store_id'  => (int) $linkObject->getStoreId(),
         ];
 
         if ($writeAdapter->fetchOne($select, $bind)) {
             $where = [
                 'link_id = ?'  => $linkObject->getId(),
-                'store_id = ?' => (int)$linkObject->getStoreId()
+                'store_id = ?' => (int) $linkObject->getStoreId(),
             ];
             if ($linkObject->getUseDefaultTitle()) {
                 $writeAdapter->delete(
                     $linkTitleTable,
-                    $where
+                    $where,
                 );
             } else {
                 $insertData = ['title' => $linkObject->getTitle()];
                 $writeAdapter->update(
                     $linkTitleTable,
                     $insertData,
-                    $where
+                    $where,
                 );
             }
         } else {
@@ -71,9 +71,9 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                     $linkTitleTable,
                     [
                         'link_id'   => $linkObject->getId(),
-                        'store_id'  => (int)$linkObject->getStoreId(),
+                        'store_id'  => (int) $linkObject->getStoreId(),
                         'title'     => $linkObject->getTitle(),
-                    ]
+                    ],
                 );
             }
         }
@@ -83,31 +83,31 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
             ->where('link_id=:link_id AND website_id=:website_id');
         $bind = [
             ':link_id'       => $linkObject->getId(),
-            ':website_id'    => (int)$linkObject->getWebsiteId(),
+            ':website_id'    => (int) $linkObject->getWebsiteId(),
         ];
         if ($writeAdapter->fetchOne($select, $bind)) {
             $where = [
                 'link_id = ?'    => $linkObject->getId(),
-                'website_id = ?' => $linkObject->getWebsiteId()
+                'website_id = ?' => $linkObject->getWebsiteId(),
             ];
             if ($linkObject->getUseDefaultPrice()) {
                 $writeAdapter->delete(
                     $linkPriceTable,
-                    $where
+                    $where,
                 );
             } else {
                 $writeAdapter->update(
                     $linkPriceTable,
                     ['price' => $linkObject->getPrice()],
-                    $where
+                    $where,
                 );
             }
         } else {
             if (!$linkObject->getUseDefaultPrice()) {
                 $dataToInsert[] = [
                     'link_id'    => $linkObject->getId(),
-                    'website_id' => (int)$linkObject->getWebsiteId(),
-                    'price'      => (float)$linkObject->getPrice()
+                    'website_id' => (int) $linkObject->getWebsiteId(),
+                    'price'      => (float) $linkObject->getPrice(),
                 ];
                 if ($linkObject->getOrigData('link_id') != $linkObject->getLinkId()) {
                     $_isNew = true;
@@ -129,8 +129,8 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                         $newPrice = $linkObject->getPrice() * $rate;
                         $dataToInsert[] = [
                             'link_id'       => $linkObject->getId(),
-                            'website_id'    => (int)$websiteId,
-                            'price'         => $newPrice
+                            'website_id'    => (int) $websiteId,
+                            'price'         => $newPrice,
                         ];
                     }
                 }
@@ -160,15 +160,15 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
         if ($where) {
             $writeAdapter->delete(
                 $this->getMainTable(),
-                $where
+                $where,
             );
             $writeAdapter->delete(
                 $this->getTable('downloadable/link_title'),
-                $where
+                $where,
             );
             $writeAdapter->delete(
                 $this->getTable('downloadable/link_price'),
-                $where
+                $where,
             );
         }
         return $this;
@@ -190,17 +190,17 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
             ->join(
                 ['s' => $this->getTable('downloadable/link_title')],
                 's.link_id=m.link_id AND s.store_id=0',
-                []
+                [],
             )
             ->joinLeft(
                 ['st' => $this->getTable('downloadable/link_title')],
                 'st.link_id=m.link_id AND st.store_id=:store_id',
-                ['title' => $ifNullDefaultTitle]
+                ['title' => $ifNullDefaultTitle],
             )
             ->where('m.product_id=:product_id');
         $bind = [
-            ':store_id'   => (int)$storeId,
-            ':product_id' => $productId
+            ':store_id'   => (int) $storeId,
+            ':product_id' => $productId,
         ];
 
         return $adapter->fetchCol($select, $bind);

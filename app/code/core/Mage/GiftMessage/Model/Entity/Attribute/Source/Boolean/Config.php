@@ -34,16 +34,16 @@ class Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config extends Mage
             $this->_options = [
                 [
                     'label' => Mage::helper('giftmessage')->__('Yes'),
-                    'value' =>  1
+                    'value' =>  1,
                 ],
                 [
                     'label' => Mage::helper('giftmessage')->__('No'),
-                    'value' =>  0
+                    'value' =>  0,
                 ],
                 [
                     'label' => Mage::helper('giftmessage')->__('Use config'),
-                    'value' =>  2
-                ]
+                    'value' =>  2,
+                ],
             ];
         }
         return $this->_options;

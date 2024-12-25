@@ -37,7 +37,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle exte
             foreach ($option->getSelections() as $selection) {
                 $options[$optionId]['selections'][$selection->getSelectionId()] = [
                     'can_change_qty' => $selection->getSelectionCanChangeQty(),
-                    'default_qty'    => $selection->getSelectionQty()
+                    'default_qty'    => $selection->getSelectionQty(),
                 ];
             }
         }

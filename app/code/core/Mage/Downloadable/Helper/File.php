@@ -72,7 +72,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
                     $fileName = $this->_moveFileFromTmp(
                         $baseTmpPath,
                         $basePath,
-                        $file[0]['file']
+                        $file[0]['file'],
                     );
                 } catch (Exception $e) {
                     Mage::throwException(Mage::helper('downloadable')->__('An error occurred while saving the file(s).'));
@@ -111,12 +111,12 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
 
         Mage::helper('core/file_storage_database')->copyFile(
             $this->getFilePath($baseTmpPath, $file),
-            $this->getFilePath($basePath, $destFile)
+            $this->getFilePath($basePath, $destFile),
         );
 
         $result = $ioObject->mv(
             $this->getFilePath($baseTmpPath, $file),
-            $this->getFilePath($basePath, $destFile)
+            $this->getFilePath($basePath, $destFile),
         );
         return str_replace($ioObject->dirsep(), '/', $destFile);
     }
@@ -164,9 +164,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     {
         $file = '';
 
-        $file = substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
-
-        return $file;
+        return substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
     }
 
     /**

@@ -50,7 +50,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                         $select->joinLeft(
                             ['t2' => $table],
                             $conn->quoteInto($onCondition, $storeId),
-                            []
+                            [],
                         );
                         $select->where('t1.store_id = ?', 0);
                         $select->where('t1.attribute_id = ?', $attributeId);

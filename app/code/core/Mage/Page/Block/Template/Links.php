@@ -129,7 +129,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     {
         $block = $this->getLayout()->getBlock($blockName);
         if ($block) {
-            $position = (int)$block->getPosition();
+            $position = (int) $block->getPosition();
             $this->_addIntoPosition($block, $position);
         }
         return $this;
@@ -187,8 +187,8 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             }
             $this->_cacheKeyInfo = parent::getCacheKeyInfo() + [
                 'links' => base64_encode(serialize($links)),
-                'name' => $this->getNameInLayout()
-                ];
+                'name' => $this->getNameInLayout(),
+            ];
         }
 
         return $this->_cacheKeyInfo;

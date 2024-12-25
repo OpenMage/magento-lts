@@ -21,6 +21,4 @@
  * @package    Mage_Reports
  * @deprecated
  */
-class Mage_Reports_Model_Mysql4_Entity_Summary_Collection_Abstract extends Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract
-{
-}
+class Mage_Reports_Model_Mysql4_Entity_Summary_Collection_Abstract extends Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract {}

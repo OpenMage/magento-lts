@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Carts extends Mage_Adminhtml_Block_
             $block = $this->getLayout()->createBlock(
                 'adminhtml/customer_edit_tab_cart',
                 $blockName,
-                ['website_id' => $websiteId]
+                ['website_id' => $websiteId],
             );
             if ($isShared) {
                 $block->setCartHeader($this->__('Shopping Cart from %s', Mage::app()->getWebsite($websiteId)->getName()));

@@ -86,9 +86,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
             }
             $code .= $char;
         }
-
-        $code = $prefix . $code . $suffix;
-        return $code;
+        return $prefix . $code . $suffix;
     }
 
     /**
@@ -136,7 +134,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
         }
 
         $now = $this->getResource()->formatDate(
-            Mage::getSingleton('core/date')->gmtTimestamp()
+            Mage::getSingleton('core/date')->gmtTimestamp(),
         );
 
         for ($i = 0; $i < $size; $i++) {
@@ -179,7 +177,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     {
         return !empty($data) && !empty($data['qty']) && !empty($data['rule_id'])
             && !empty($data['length']) && !empty($data['format'])
-            && (int)$data['qty'] > 0 && (int) $data['rule_id'] > 0
+            && (int) $data['qty'] > 0 && (int) $data['rule_id'] > 0
             && (int) $data['length'] > 0;
     }
 

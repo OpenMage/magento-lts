@@ -92,7 +92,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (is_string($layoutHandle)) {
             $layoutHandle = explode(',', $layoutHandle);
         }
-        $this->_layoutHandle = array_merge(['default'], (array)$layoutHandle);
+        $this->_layoutHandle = array_merge(['default'], (array) $layoutHandle);
         return $this;
     }
 
@@ -174,13 +174,13 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
             $this->_layoutHandlesXml = $update->getFileLayoutUpdatesXml(
                 $this->getArea(),
                 $this->getPackage(),
-                $this->getTheme()
+                $this->getTheme(),
             );
             $this->_collectLayoutHandles();
             $this->_collectBlocks();
             array_unshift($this->_blocks, [
                 'value' => '',
-                'label' => Mage::helper('widget')->__('-- Please Select --')
+                'label' => Mage::helper('widget')->__('-- Please Select --'),
             ]);
         }
         return $this->_blocks;
@@ -208,7 +208,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         foreach ($this->_layoutHandlesXml->{$handle} as $updateXml) {
             foreach ($updateXml->children() as $child) {
                 if (strtolower($child->getName()) == 'update' && isset($child['handle'])) {
-                    $this->_mergeLayoutHandles((string)$child['handle']);
+                    $this->_mergeLayoutHandles((string) $child['handle']);
                 }
             }
             $this->_layoutHandleUpdates[] = $updateXml->asNiceXml();
@@ -223,9 +223,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if ($blocks = $this->_layoutHandleUpdatesXml->xpath('//block/label/..')) {
             /** @var Mage_Core_Model_Layout_Element $block */
             foreach ($blocks as $block) {
-                if ((string)$block->getAttribute('name') && $this->_filterBlock($block)) {
+                if ((string) $block->getAttribute('name') && $this->_filterBlock($block)) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($block));
-                    $this->_blocks[(string)$block->getAttribute('name')] = $helper->__((string)$block->label);
+                    $this->_blocks[(string) $block->getAttribute('name')] = $helper->__((string) $block->label);
                 }
             }
         }
@@ -243,7 +243,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (!$this->getAllowedBlocks()) {
             return true;
         }
-        if (in_array((string)$block->getAttribute('name'), $this->getAllowedBlocks())) {
+        if (in_array((string) $block->getAttribute('name'), $this->getAllowedBlocks())) {
             return true;
         }
         return false;

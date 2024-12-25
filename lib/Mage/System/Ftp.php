@@ -493,7 +493,7 @@ class Mage_System_Ftp
                     'size'   => (int) $info[4],
                     'chmod'  => self::chmodnum($info[0]),
                     'rawdata' => $info,
-                    'raw'     => $rawfile
+                    'raw'     => $rawfile,
                 ];
             }
         }
@@ -509,8 +509,7 @@ class Mage_System_Ftp
     public function correctFilePath($str)
     {
         $str = str_replace('\\', '/', $str);
-        $str = preg_replace("/^.\//", '', $str);
-        return $str;
+        return preg_replace("/^.\//", '', $str);
     }
 
     /**

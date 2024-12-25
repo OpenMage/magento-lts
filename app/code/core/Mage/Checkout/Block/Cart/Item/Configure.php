@@ -37,8 +37,8 @@ class Mage_Checkout_Block_Cart_Item_Configure extends Mage_Core_Block_Template
         if ($block) {
             $block->setSubmitRouteData([
                 'route' => 'checkout/cart/updateItemOptions',
-                'params' => ['id' => $this->getRequest()->getParam('id')]
-             ]);
+                'params' => ['id' => $this->getRequest()->getParam('id')],
+            ]);
         }
 
         // Set custom template with 'Update Cart' button

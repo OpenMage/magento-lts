@@ -21,6 +21,4 @@
  * @package    Mage_Weee
  * @deprecated
  */
-class Mage_Weee_Model_Mysql4_Setup extends Mage_Weee_Model_Resource_Setup
-{
-}
+class Mage_Weee_Model_Mysql4_Setup extends Mage_Weee_Model_Resource_Setup {}

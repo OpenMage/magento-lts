@@ -21,28 +21,28 @@ $installer->updateAttribute(
     'catalog_product',
     'gift_message_available',
     'source_model',
-    'eav/entity_attribute_source_boolean'
+    'eav/entity_attribute_source_boolean',
 );
 
 $installer->updateAttribute(
     'catalog_product',
     'gift_message_available',
     'backend_model',
-    'catalog/product_attribute_backend_boolean'
+    'catalog/product_attribute_backend_boolean',
 );
 
 $installer->updateAttribute(
     'catalog_product',
     'gift_message_available',
     'frontend_input_renderer',
-    'adminhtml/catalog_product_helper_form_config'
+    'adminhtml/catalog_product_helper_form_config',
 );
 
 $installer->updateAttribute(
     'catalog_product',
     'gift_message_available',
     'default_value',
-    ''
+    '',
 );
 
 /*
@@ -57,6 +57,6 @@ $installer->getConnection()->update(
     [
         'entity_type_id =?' => $entityTypeId,
         'attribute_id =?' => $attributeId,
-        'value =?' => '2'
-    ]
+        'value =?' => '2',
+    ],
 );

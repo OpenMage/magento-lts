@@ -128,7 +128,7 @@ class Mage_Sales_Billing_AgreementController extends Mage_Core_Controller_Front_
                     ->setCustomer(Mage::getSingleton('customer/session')->getCustomer())
                     ->place();
                 $this->_getSession()->addSuccess(
-                    $this->__('The billing agreement "%s" has been created.', $agreement->getReferenceId())
+                    $this->__('The billing agreement "%s" has been created.', $agreement->getReferenceId()),
                 );
                 $this->_redirect('*/*/view', ['agreement' => $agreement->getId()]);
                 return;

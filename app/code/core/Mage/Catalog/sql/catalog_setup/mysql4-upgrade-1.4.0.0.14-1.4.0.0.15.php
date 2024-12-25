@@ -21,7 +21,7 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('catalog/eav_attribute'),
     'is_wysiwyg_enabled',
-    "TINYINT(1) UNSIGNED NOT NULL DEFAULT '0'"
+    "TINYINT(1) UNSIGNED NOT NULL DEFAULT '0'",
 );
 
 $installer->endSetup();

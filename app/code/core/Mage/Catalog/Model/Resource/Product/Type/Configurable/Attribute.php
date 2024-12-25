@@ -96,8 +96,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
             ->where('product_super_attribute_id = :product_super_attribute_id')
             ->where('store_id = :store_id');
         $bind = [
-            'product_super_attribute_id' => (int)$attribute->getId(),
-            'store_id'                   => (int)$attribute->getStoreId()
+            'product_super_attribute_id' => (int) $attribute->getId(),
+            'store_id'                   => (int) $attribute->getStoreId(),
         ];
         $valueId = $adapter->fetchOne($select, $bind);
         if ($valueId) {
@@ -105,9 +105,9 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                 $this->_labelTable,
                 [
                     'use_default' => (int) $attribute->getUseDefault(),
-                    'value'       => $attribute->getLabel()
+                    'value'       => $attribute->getLabel(),
                 ],
-                $adapter->quoteInto('value_id = ?', (int) $valueId)
+                $adapter->quoteInto('value_id = ?', (int) $valueId),
             );
         } else {
             $adapter->insert(
@@ -116,8 +116,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                     'product_super_attribute_id' => (int) $attribute->getId(),
                     'store_id' => (int) $attribute->getStoreId(),
                     'use_default' => (int) $attribute->getUseDefault(),
-                    'value' => $attribute->getLabel()
-                ]
+                    'value' => $attribute->getLabel(),
+                ],
             );
         }
         return $this;
@@ -136,7 +136,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
         if ($this->getCatalogHelper()->isPriceGlobal()) {
             $websiteId = 0;
         } else {
-            $websiteId = (int)Mage::app()->getStore($attribute->getStoreId())->getWebsite()->getId();
+            $websiteId = (int) Mage::app()->getStore($attribute->getStoreId())->getWebsite()->getId();
         }
 
         $values     = $attribute->getValues();
@@ -154,8 +154,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
             ->where('website_id = :website_id');
 
         $bind = [
-            'product_super_attribute_id' => (int)$attribute->getId(),
-            'website_id'                   => $websiteId
+            'product_super_attribute_id' => (int) $attribute->getId(),
+            'website_id'                   => $websiteId,
         ];
         $rowSet = $write->fetchAll($select, $bind);
         foreach ($rowSet as $row) {
@@ -180,7 +180,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                 'pricing_value' => $v['pricing_value'],
                 'is_percent'    => $v['is_percent'],
                 'website_id'    => $websiteId,
-                'use_default'   => !empty($v['use_default_value']) ? true : false
+                'use_default'   => !empty($v['use_default_value']) ? true : false,
             ];
         }
 
@@ -230,13 +230,13 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
                     'value_index'                => $v['value_index'],
                     'is_percent'                 => $v['is_percent'],
                     'pricing_value'              => $v['pricing_value'],
-                    'website_id'                 => $websiteId
+                    'website_id'                 => $websiteId,
                 ];
             }
             if ($needUpdate) {
                 $update[$old[$k]['value_id']] = [
                     'is_percent'    => $v['is_percent'],
-                    'pricing_value' => $v['pricing_value']
+                    'pricing_value' => $v['pricing_value'],
                 ];
             }
             if ($needDelete) {
@@ -276,7 +276,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
             ->join(
                 ['a' => $this->getMainTable()],
                 'e.entity_id = a.product_id',
-                ['attribute_id']
+                ['attribute_id'],
             )
             ->where('e.attribute_set_id = :attribute_set_id')
             ->where('e.type_id = :type_id');

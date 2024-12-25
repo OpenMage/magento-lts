@@ -3073,18 +3073,6 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Front/Action.php
 
 		-
-			message: '#^Call to an undefined method Zend_Controller_Router_Interface\:\:addRoute\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Front/Router.php
-
-		-
-			message: '#^Parameter \#1 \$type of static method Mage\:\:getBaseUrl\(\) expects string, array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Front/Router.php
-
-		-
 			message: '#^Constructor of class Mage_Core_Controller_Varien_Action has an unused parameter \$invokeArgs\.$#'
 			identifier: constructor.unusedParameter
 			count: 1
@@ -3177,12 +3165,6 @@ parameters:
 		-
 			message: '#^Method Mage_Core_Helper_Abstract\:\:_getRequest\(\) should return Mage_Core_Controller_Request_Http but returns Zend_Controller_Request_Http\.$#'
 			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Abstract.php
-
-		-
-			message: '#^Parameter \#3 \$encoding of function htmlspecialchars expects string, null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Helper/Abstract.php
 
@@ -10072,6 +10054,12 @@ parameters:
 			message: '#^Empty array passed to foreach\.$#'
 			identifier: foreach.emptyArray
 			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$input of function array_sum expects an array of values castable to number, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 3
 			path: lib/Mage/System/Ftp.php
 
 		-

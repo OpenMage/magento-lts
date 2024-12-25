@@ -19,6 +19,4 @@
  * @package    Mage_Paypal
  * @deprecated
  */
-class Mage_Paypal_Model_Mysql4_Report_Settlement extends Mage_Paypal_Model_Resource_Report_Settlement
-{
-}
+class Mage_Paypal_Model_Mysql4_Report_Settlement extends Mage_Paypal_Model_Resource_Report_Settlement {}

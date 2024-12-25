@@ -103,7 +103,7 @@ class Mage_Core_Model_Cookie
      */
     public function getConfigDomain()
     {
-        return (string)Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
+        return (string) Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
     }
 
     /**
@@ -146,7 +146,7 @@ class Mage_Core_Model_Cookie
      */
     public function setLifetime($lifetime)
     {
-        $this->_lifetime = (int)$lifetime;
+        $this->_lifetime = (int) $lifetime;
         return $this;
     }
 
@@ -161,7 +161,7 @@ class Mage_Core_Model_Cookie
         if (is_null($httponly)) {
             return null;
         }
-        return (bool)$httponly;
+        return (bool) $httponly;
     }
 
     /**
@@ -173,7 +173,7 @@ class Mage_Core_Model_Cookie
         if (is_null($sameSite)) {
             return 'None';
         }
-        return (string)$sameSite;
+        return (string) $sameSite;
     }
 
     /**
@@ -257,8 +257,8 @@ class Mage_Core_Model_Cookie
                 'domain'   => $domain,
                 'secure'   => $secure,
                 'httponly' => $httponly,
-                'samesite' => $sameSite
-            ]
+                'samesite' => $sameSite,
+            ],
         );
 
         return $this;

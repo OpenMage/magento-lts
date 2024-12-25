@@ -42,7 +42,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
                 if (!str_contains($code, 'pending')) {
                     $values[] = [
                         'label' => Mage::helper('reports')->__($label),
-                        'value' => $code
+                        'value' => $code,
                     ];
                 }
             }
@@ -51,8 +51,8 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
                 'name'      => 'show_order_statuses',
                 'label'     => Mage::helper('reports')->__('Order Status'),
                 'options'   => [
-                        '0' => Mage::helper('reports')->__('Any'),
-                        '1' => Mage::helper('reports')->__('Specified'),
+                    '0' => Mage::helper('reports')->__('Any'),
+                    '1' => Mage::helper('reports')->__('Specified'),
                 ],
                 'note'      => Mage::helper('reports')->__('Applies to Any of the Specified Order Statuses'),
             ], 'to');
@@ -60,7 +60,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
             $fieldset->addField('order_statuses', 'multiselect', [
                 'name'      => 'order_statuses',
                 'values'    => $values,
-                'display'   => 'none'
+                'display'   => 'none',
             ], 'show_order_statuses');
 
             // define field dependencies

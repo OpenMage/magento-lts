@@ -142,7 +142,7 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
                 . sprintf(
                     Mage::getStoreConfig(self::XML_SEVERITY_ICONS_URL_PATH),
                     Mage::getVersion(),
-                    $this->getNoticeSeverity()
+                    $this->getNoticeSeverity(),
                 )
             ;
         }

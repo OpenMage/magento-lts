@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_ImportExport
  */
-class Mage_ImportExport_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
-{
-}
+class Mage_ImportExport_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup {}

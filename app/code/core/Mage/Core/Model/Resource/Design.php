@@ -49,12 +49,12 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             $object->getStoreId(),
             $dateFrom,
             $dateTo,
-            $object->getId()
+            $object->getId(),
         );
 
         if ($check) {
             Mage::throwException(
-                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.')
+                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.'),
             );
         }
 
@@ -118,8 +118,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $bind = [
-            'store_id'   => (int)$storeId,
-            'current_id' => (int)$currentId,
+            'store_id'   => (int) $storeId,
+            'current_id' => (int) $currentId,
         ];
 
         if (!empty($dateTo)) {
@@ -152,8 +152,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             ->where('date_to >= :required_date or date_to IS NULL');
 
         $bind = [
-            'store_id'      => (int)$storeId,
-            'required_date' => $date
+            'store_id'      => (int) $storeId,
+            'required_date' => $date,
         ];
 
         return $this->_getReadAdapter()->fetchRow($select, $bind);

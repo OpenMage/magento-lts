@@ -51,7 +51,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
         $compositeProductHelper = $this->helper('catalog/product_type_composite');
 
         $config = [
-            'generalConfig' => $compositeProductHelper->prepareJsonGeneralConfig()
+            'generalConfig' => $compositeProductHelper->prepareJsonGeneralConfig(),
         ];
         foreach ($this->getProducts() as $product) {
             /** @var Mage_Catalog_Model_Product $product */

@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                 'title' => Mage::helper('adminhtml')->__('User Name'),
                 'class' => 'required-entry',
                 'required' => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                 'title' => Mage::helper('adminhtml')->__('First Name'),
                 'class' => 'required-entry',
                 'required' => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                 'title' => Mage::helper('adminhtml')->__('Last Name'),
                 'class' => 'required-entry',
                 'required' => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
             [
                 'name'  => 'user_id',
                 'id'    => 'user_id',
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                 'title' => Mage::helper('adminhtml')->__('User Email'),
                 'class' => 'required-entry validate-email',
                 'required' => true,
-            ]
+            ],
         );
 
         $minPasswordLength = Mage::getModel('customer/customer')->getMinPasswordLength();
@@ -102,7 +102,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                     'class' => 'input-text validate-password min-pass-length-' . $minPasswordLength,
                     'note' => Mage::helper('adminhtml')
                         ->__('Password must be at least of %d characters.', $minPasswordLength),
-                ]
+                ],
             );
 
             $fieldset->addField(
@@ -113,7 +113,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                     'label' => Mage::helper('adminhtml')->__('Password Confirmation'),
                     'id'    => 'confirmation',
                     'class' => 'input-text validate-cpassword',
-                ]
+                ],
             );
         } else {
             $fieldset->addField(
@@ -128,7 +128,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                     'required' => true,
                     'note' => Mage::helper('adminhtml')
                         ->__('Password must be at least of %d characters.', $minPasswordLength),
-                ]
+                ],
             );
             $fieldset->addField(
                 'confirmation',
@@ -140,7 +140,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                     'title' => Mage::helper('adminhtml')->__('Password Confirmation'),
                     'class' => 'input-text required-entry validate-cpassword',
                     'required' => true,
-                ]
+                ],
             );
         }
 
@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
                         'value' => '0',
                     ],
                 ],
-            ]
+            ],
         );
 
         $data = $user->getData();

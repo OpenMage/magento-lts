@@ -198,10 +198,10 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
             'export' => 'store-operations/data-export.html',
         ],
         'Mage_Connect_Adminhtml' => [
-            'extension_custom/edit' => 'magento/magento-connect.html'
+            'extension_custom/edit' => 'magento/magento-connect.html',
         ],
         'Mage_Index_Adminhtml' => [
-            'process/list' => 'system-operations/index-management.html'
+            'process/list' => 'system-operations/index-management.html',
         ],
     ];
 

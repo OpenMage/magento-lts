@@ -94,17 +94,17 @@ class Mage_Log_Model_Resource_Customer extends Mage_Core_Model_Resource_Db_Abstr
                 ->joinInner(
                     ['lvt' => $this->_visitorTable],
                     "lvt.visitor_id = {$table}.visitor_id",
-                    ['last_visit_at']
+                    ['last_visit_at'],
                 )
                 ->joinInner(
                     ['lvit' => $this->_visitorInfoTable],
                     'lvt.visitor_id = lvit.visitor_id',
-                    ['http_referer', 'remote_addr']
+                    ['http_referer', 'remote_addr'],
                 )
                 ->joinInner(
                     ['luit' => $this->_urlInfoTable],
                     'luit.url_id = lvt.last_url_id',
-                    ['url']
+                    ['url'],
                 )
                 ->order("{$table}.login_at DESC")
                 ->limit(1);

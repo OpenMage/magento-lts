@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/review_collection')
-            ->addProductFilter((int)$this->getRequest()->getParam('id'));
+            ->addProductFilter((int) $this->getRequest()->getParam('id'));
         $this->setCollection($collection);
         parent::_prepareCollection();
         return $this;
@@ -49,25 +49,25 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
         $this->addColumn('nickname', [
             'header'    => Mage::helper('reports')->__('Customer'),
             'width'     => '100px',
-            'index'     => 'nickname'
+            'index'     => 'nickname',
         ]);
 
         $this->addColumn('title', [
             'header'    => Mage::helper('reports')->__('Title'),
             'width'     => '150px',
-            'index'     => 'title'
+            'index'     => 'title',
         ]);
 
         $this->addColumn('detail', [
             'header'    => Mage::helper('reports')->__('Detail'),
-            'index'     => 'detail'
+            'index'     => 'detail',
         ]);
 
         $this->addColumn('created_at', [
             'header'    => Mage::helper('reports')->__('Created At'),
             'index'     => 'created_at',
             'width'     => '200px',
-            'type'      => 'datetime'
+            'type'      => 'datetime',
         ]);
 
         $this->setFilterVisibility(false);

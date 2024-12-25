@@ -146,7 +146,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      */
     public function hasOption($key)
     {
-        $optArr = explode(',', (string)$this->getOptions());
+        $optArr = explode(',', (string) $this->getOptions());
 
         return in_array($key, $optArr);
     }

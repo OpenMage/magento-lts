@@ -269,8 +269,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function getBaseUrl($raw = false)
     {
         $url = parent::getBaseUrl($raw);
-        $url = str_replace('\\', '/', $url);
-        return $url;
+        return str_replace('\\', '/', $url);
     }
 
     /**
@@ -516,7 +515,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 'params' => $this->getParams(),
                 'action_name' => $this->getActionName(),
                 'controller_name' => $this->getControllerName(),
-                'module_name' => $this->getModuleName()
+                'module_name' => $this->getModuleName(),
             ];
         }
 
@@ -580,7 +579,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function setInternallyForwarded($flag = true)
     {
-        $this->_internallyForwarded = (bool)$flag;
+        $this->_internallyForwarded = (bool) $flag;
         return $this;
     }
 

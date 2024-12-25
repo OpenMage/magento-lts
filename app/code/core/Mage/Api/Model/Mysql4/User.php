@@ -21,6 +21,4 @@
  * @package    Mage_Api
  * @deprecated
  */
-class Mage_Api_Model_Mysql4_User extends Mage_Api_Model_Resource_User
-{
-}
+class Mage_Api_Model_Mysql4_User extends Mage_Api_Model_Resource_User {}

@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         if (empty($ids)) {
             $ids = [];
         } elseif (!is_array($ids)) {
-            $ids = [(int)$ids];
+            $ids = [(int) $ids];
         }
         $this->_selectedIds = $ids;
         return $this;
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
             }
         }
 
-        if (empty($item['children']) && (int)$node->getChildrenCount() > 0) {
+        if (empty($item['children']) && (int) $node->getChildrenCount() > 0) {
             $item['children'] = [];
         }
 

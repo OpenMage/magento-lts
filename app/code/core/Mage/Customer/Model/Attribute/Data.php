@@ -21,6 +21,4 @@
  * @category   Mage
  * @package    Mage_Customer
  */
-class Mage_Customer_Model_Attribute_Data extends Mage_Eav_Model_Attribute_Data
-{
-}
+class Mage_Customer_Model_Attribute_Data extends Mage_Eav_Model_Attribute_Data {}

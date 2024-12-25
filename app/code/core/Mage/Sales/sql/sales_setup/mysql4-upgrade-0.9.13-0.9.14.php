@@ -21,7 +21,7 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('sales_flat_quote'),
     'customer_taxvat',
-    'varchar(255) NULL DEFAULT NULL AFTER `customer_is_guest`'
+    'varchar(255) NULL DEFAULT NULL AFTER `customer_is_guest`',
 );
 $installer->addAttribute('quote', 'customer_taxvat', ['type' => 'static', 'visible' => false]);
 

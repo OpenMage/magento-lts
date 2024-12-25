@@ -21,5 +21,5 @@ $installer->updateAttribute(
     Mage_Catalog_Model_Product::ENTITY,
     'special_price',
     'note',
-    'The Special Price is active only when lower than the Actual Price'
+    'The Special Price is active only when lower than the Actual Price',
 );

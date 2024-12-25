@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_System_Store_Delete extends Mage_Adminhtml_Block_Widg
         return Mage::helper('adminhtml')->__(
             "Delete %s '%s'",
             $this->getStoreTypeTitle(),
-            $this->escapeHtml($this->getChild('form')->getDataObject()->getName())
+            $this->escapeHtml($this->getChild('form')->getDataObject()->getName()),
         );
     }
 

@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
             $this->_critical(sprintf(
                 'Product #%d is already assigned to category #%d',
                 $product->getId(),
-                $category->getId()
+                $category->getId(),
             ), Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         if ($category->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
             $this->_critical(sprintf(
                 'Product #%d isn\'t assigned to category #%d',
                 $product->getId(),
-                $category->getId()
+                $category->getId(),
             ), Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
 
@@ -128,12 +128,12 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(new Zend_Controller_Router_Route(
-            $this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType())
+            $this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()),
         ));
         $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'id' => $this->getRequest()->getParam('id'),
-            'category_id' => $resource->getId()
+            'category_id' => $resource->getId(),
         ];
         $uri = $chain->assemble($params);
 

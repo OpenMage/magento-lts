@@ -147,9 +147,9 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                     ['t2' => $table],
                     $this->getConnection()->quoteInto(
                         't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = ?',
-                        $this->getStoreId()
+                        $this->getStoreId(),
                     ),
-                    []
+                    [],
                 )
                 ->where('t1.attribute_id IN (?)', $attributeIds)
                 ->where('t1.store_id = ?', 0)
@@ -160,9 +160,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         if ($sql) {
             $selects[] = "SELECT * FROM ({$sql}) AS inoptionsql"; // inheritant unions may be inside
         }
-
-        $sql = $this->getConnection()->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
-        return $sql;
+        return $this->getConnection()->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
     }
 
     /**
@@ -175,7 +173,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
     {
         $attributeIds    = [];
         $attributeTables = [];
-        $storeId = (int)$this->getStoreId();
+        $storeId = (int) $this->getStoreId();
 
         /**
          * Collect attributes with options
@@ -205,19 +203,19 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
             ->from(
                 ['d' => $optionValueTable],
                 ['option_id',
-                      'o.attribute_id',
-                      'store_id' => $ifStoreId,
-                      'a.frontend_input']
+                    'o.attribute_id',
+                    'store_id' => $ifStoreId,
+                    'a.frontend_input'],
             )
             ->joinLeft(
                 ['s' => $optionValueTable],
                 $this->getConnection()->quoteInto('s.option_id = d.option_id AND s.store_id=?', $storeId),
-                []
+                [],
             )
             ->join(
                 ['o' => $optionTable],
                 'o.option_id=d.option_id',
-                []
+                [],
             )
             ->join(['a' => $attributesTable], 'o.attribute_id=a.attribute_id', [])
             ->where('d.store_id=0')
@@ -243,7 +241,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
                     }
                 }
                 if ($where) {
-                    $selects[$frontendInput] = (string)$this->getConnection()->select()
+                    $selects[$frontendInput] = (string) $this->getConnection()->select()
                         ->from($attributeTables[$frontendInput], 'entity_id')
                         ->where(implode(' OR ', $where));
                 }
@@ -256,7 +254,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
             $where[] = sprintf('(attribute_id=%d AND value=%d)', $option['attribute_id'], $option['option_id']);
         }
         if ($where) {
-            $selects[] = (string)$this->getConnection()->select()
+            $selects[] = (string) $this->getConnection()->select()
                 ->from($resource->getTableName('catalogindex/eav'), 'entity_id')
                 ->where(implode(' OR ', $where))
                 ->where("store_id={$storeId}");

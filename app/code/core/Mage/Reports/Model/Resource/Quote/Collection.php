@@ -102,8 +102,8 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->from(
                 ['oi' => $this->getTable('sales/order_item')],
                 [
-                   'orders' => new Zend_Db_Expr('COUNT(1)'),
-                'product_id']
+                    'orders' => new Zend_Db_Expr('COUNT(1)'),
+                    'product_id'],
             )
             ->group('oi.product_id');
 
@@ -113,27 +113,27 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->joinInner(
                 ['quote_items' => $this->getTable('sales/quote_item')],
                 'quote_items.quote_id = main_table.entity_id',
-                null
+                null,
             )
             ->joinInner(
                 ['e' => $this->getTable('catalog/product')],
                 'e.entity_id = quote_items.product_id',
-                null
+                null,
             )
             ->joinInner(
                 ['product_name' => $productAttrNameTable],
                 "product_name.entity_id = e.entity_id AND product_name.attribute_id = {$productAttrNameId}",
-                ['name' => 'product_name.value']
+                ['name' => 'product_name.value'],
             )
             ->joinInner(
                 ['product_price' => $productAttrPriceTable],
                 "product_price.entity_id = e.entity_id AND product_price.attribute_id = {$productAttrPriceId}",
-                ['price' => new Zend_Db_Expr('product_price.value * main_table.base_to_global_rate')]
+                ['price' => new Zend_Db_Expr('product_price.value * main_table.base_to_global_rate')],
             )
             ->joinLeft(
                 ['order_items' => new Zend_Db_Expr(sprintf('(%s)', $ordersSubSelect))],
                 'order_items.product_id = e.entity_id',
-                []
+                [],
             )
             ->columns('e.*')
             ->columns(['carts' => new Zend_Db_Expr('COUNT(quote_items.item_id)')])
@@ -186,7 +186,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
             ->joinLeft(
                 ['cust_email' => $attrEmailTableName],
                 'cust_email.entity_id = main_table.customer_id',
-                ['email' => 'cust_email.email']
+                ['email' => 'cust_email.email'],
             )
             ->joinLeft(
                 ['cust_fname' => $attrFirstnameTableName],
@@ -194,7 +194,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                     'cust_fname.entity_id = main_table.customer_id',
                     $adapter->quoteInto('cust_fname.attribute_id = ?', (int) $attrFirstnameId),
                 ]),
-                ['firstname' => 'cust_fname.value']
+                ['firstname' => 'cust_fname.value'],
             )
             ->joinLeft(
                 ['cust_mname' => $attrMiddlenameTableName],
@@ -202,18 +202,18 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                     'cust_mname.entity_id = main_table.customer_id',
                     $adapter->quoteInto('cust_mname.attribute_id = ?', (int) $attrMiddlenameId),
                 ]),
-                ['middlename' => 'cust_mname.value']
+                ['middlename' => 'cust_mname.value'],
             )
             ->joinLeft(
                 ['cust_lname' => $attrLastnameTableName],
                 implode(' AND ', [
                     'cust_lname.entity_id = main_table.customer_id',
-                     $adapter->quoteInto('cust_lname.attribute_id = ?', (int) $attrLastnameId)
+                    $adapter->quoteInto('cust_lname.attribute_id = ?', (int) $attrLastnameId),
                 ]),
                 [
                     'lastname'      => 'cust_lname.value',
-                    'customer_name' => $customerName
-                ]
+                    'customer_name' => $customerName,
+                ],
             );
 
         $this->_joinedFields['customer_name'] = $customerName;
@@ -244,7 +244,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
     {
         if (is_array($storeIds)) {
             $this->getSelect()->columns([
-                'subtotal' => '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)'
+                'subtotal' => '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)',
             ]);
             $this->_joinedFields['subtotal'] =
                 '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)';
@@ -258,14 +258,14 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 $this->getSelect()->where(
                     $this->_joinedFields['subtotal'] . ' >= ?',
                     $filter['subtotal']['from'],
-                    Zend_Db::FLOAT_TYPE
+                    Zend_Db::FLOAT_TYPE,
                 );
             }
             if (isset($filter['subtotal']['to'])) {
                 $this->getSelect()->where(
                     $this->_joinedFields['subtotal'] . ' <= ?',
                     $filter['subtotal']['to'],
-                    Zend_Db::FLOAT_TYPE
+                    Zend_Db::FLOAT_TYPE,
                 );
             }
         }

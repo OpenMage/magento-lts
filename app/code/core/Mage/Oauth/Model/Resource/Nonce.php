@@ -40,7 +40,7 @@ class Mage_Oauth_Model_Resource_Nonce extends Mage_Core_Model_Resource_Db_Abstra
 
             return $adapter->delete(
                 $this->getMainTable(),
-                $adapter->quoteInto('timestamp <= ?', time() - $minutes * 60, Zend_Db::INT_TYPE)
+                $adapter->quoteInto('timestamp <= ?', time() - $minutes * 60, Zend_Db::INT_TYPE),
             );
         } else {
             return 0;

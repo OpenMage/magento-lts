@@ -46,7 +46,7 @@ foreach ($attributes as $attribute) {
 
         $query = $select->insertFromSelect(
             $attributeTableNew,
-            ['entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value']
+            ['entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value'],
         );
 
         $connection->query($query);
@@ -54,7 +54,7 @@ foreach ($attributes as $attribute) {
         $connection->delete(
             $attributeTableOld,
             $connection->quoteInto('entity_type_id = ?', $entityTypeId)
-            . $connection->quoteInto(' AND attribute_id = ?', $attributeId)
+            . $connection->quoteInto(' AND attribute_id = ?', $attributeId),
         );
 
         $connection->enableTableKeys($attributeTableOld)

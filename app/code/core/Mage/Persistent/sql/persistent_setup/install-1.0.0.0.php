@@ -54,14 +54,14 @@ $table = $installer->getConnection()
         'customer_id',
         $installer->getTable('customer/entity'),
         'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('persistent/session', 'website_id', 'core/website', 'website_id'),
         'website_id',
         $installer->getTable('core/website'),
         'website_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Persistent Session');
 
@@ -80,7 +80,7 @@ $installer->getConnection()
             'unsigned' => true,
             'default'  => '0',
             'comment'  => 'Is Quote Persistent',
-        ]
+        ],
     );
 
 $installer->endSetup();

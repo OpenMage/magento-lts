@@ -48,8 +48,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Logo extends Mage_Adminht
     {
         $uploadDir  = $this->_appendScopeInfo(self::UPLOAD_DIR);
         $uploadRoot = $this->_getUploadRoot(self::UPLOAD_ROOT_TOKEN);
-        $uploadDir  = $uploadRoot . DS . $uploadDir;
-        return $uploadDir;
+        return $uploadRoot . DS . $uploadDir;
     }
 
     /**
