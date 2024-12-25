@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,8 +45,6 @@ class Mage_Api2_Model_Acl_Filter
 
     /**
      * Object constructor
-     *
-     * @param Mage_Api2_Model_Resource $resource
      */
     public function __construct(Mage_Api2_Model_Resource $resource)
     {
@@ -115,13 +114,13 @@ class Mage_Api2_Model_Acl_Filter
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
                 $this->_allowedAttributes = array_keys($this->_resource->getAvailableAttributes(
                     $this->_resource->getUserType(),
-                    $operationType
+                    $operationType,
                 ));
             } else {
                 $this->_allowedAttributes = $helper->getAllowedAttributes(
                     $this->_resource->getUserType(),
                     $this->_resource->getResourceType(),
-                    $operationType
+                    $operationType,
                 );
             }
             // force attributes to be no filtered
@@ -161,8 +160,8 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Filter data for write operations
      *
-     * @param array $requestData
      * @return array
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function in(array $requestData)
     {
@@ -174,7 +173,6 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Filter data before output
      *
-     * @param array $retrievedData
      * @return array
      */
     public function out(array $retrievedData)

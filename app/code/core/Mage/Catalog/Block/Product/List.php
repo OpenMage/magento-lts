@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -157,7 +158,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
 
         $this->setChild('toolbar', $toolbar);
         Mage::dispatchEvent('catalog_block_product_list_collection', [
-            'collection' => $this->_getProductCollection()
+            'collection' => $this->_getProductCollection(),
         ]);
 
         $this->_getProductCollection()->load();
@@ -177,8 +178,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
                 return $block;
             }
         }
-        $block = $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
-        return $block;
+        return $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
     }
 
     /**
@@ -275,7 +275,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     {
         return array_merge(
             parent::getCacheTags(),
-            $this->getItemsTags($this->_getProductCollection())
+            $this->getItemsTags($this->_getProductCollection()),
         );
     }
 }

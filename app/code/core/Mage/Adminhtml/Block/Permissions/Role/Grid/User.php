@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,40 +69,39 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
             'name'      => 'in_role_users',
             'values'    => $this->_getUsers(),
             'align'     => 'center',
-            'index'     => 'user_id'
+            'index'     => 'user_id',
         ]);
 
         $this->addColumn('role_user_id', [
             'header'    => Mage::helper('adminhtml')->__('User ID'),
             'width'     => 5,
             'align'     => 'left',
-            'sortable'  => true,
-            'index'     => 'user_id'
+            'index'     => 'user_id',
         ]);
 
         $this->addColumn('role_user_username', [
             'header'    => Mage::helper('adminhtml')->__('User Name'),
             'align'     => 'left',
-            'index'     => 'username'
+            'index'     => 'username',
         ]);
 
         $this->addColumn('role_user_firstname', [
             'header'    => Mage::helper('adminhtml')->__('First Name'),
             'align'     => 'left',
-            'index'     => 'firstname'
+            'index'     => 'firstname',
         ]);
 
         $this->addColumn('role_user_lastname', [
             'header'    => Mage::helper('adminhtml')->__('Last Name'),
             'align'     => 'left',
-            'index'     => 'lastname'
+            'index'     => 'lastname',
         ]);
 
         $this->addColumn('role_user_email', [
             'header'    => Mage::helper('adminhtml')->__('Email'),
             'width'     => 40,
             'align'     => 'left',
-            'index'     => 'email'
+            'index'     => 'email',
         ]);
 
         $this->addColumn('role_user_is_active', [
@@ -152,7 +152,7 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
                 foreach ($users as $usrid) {
                     $jsonUsers[$usrid] = 0;
                 }
-                return Mage::helper('core')->jsonEncode((object)$jsonUsers);
+                return Mage::helper('core')->jsonEncode((object) $jsonUsers);
             } else {
                 return array_values($users);
             }

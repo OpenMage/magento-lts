@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Errors
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,7 +102,7 @@ class Error_Processor
             }
         }
 
-        $reportId = (isset($_GET['id'])) ? (int)$_GET['id'] : null;
+        $reportId = (isset($_GET['id'])) ? (int) $_GET['id'] : null;
         if ($reportId) {
             $this->loadReport($reportId);
         }
@@ -236,23 +237,23 @@ class Error_Processor
         $config->skin           = self::DEFAULT_SKIN;
 
         //combine xml data to one object
-        if ($design !== null && ($skin = (string)$design->skin)) {
+        if ($design !== null && ($skin = (string) $design->skin)) {
             $this->_setSkin($skin, $config);
         }
         if ($local !== null) {
-            if ($action = (string)$local->report->action) {
+            if ($action = (string) $local->report->action) {
                 $config->action = $action;
             }
-            if ($subject = (string)$local->report->subject) {
+            if ($subject = (string) $local->report->subject) {
                 $config->subject = $subject;
             }
-            if ($emailAddress = (string)$local->report->email_address) {
+            if ($emailAddress = (string) $local->report->email_address) {
                 $config->email_address = $emailAddress;
             }
-            if ($trash = (string)$local->report->trash) {
+            if ($trash = (string) $local->report->trash) {
                 $config->trash = $trash;
             }
-            if ($localSkin = (string)$local->skin) {
+            if ($localSkin = (string) $local->skin) {
                 $this->_setSkin($localSkin, $config);
             }
         }
@@ -310,7 +311,6 @@ class Error_Processor
     /**
      * Find file path
      *
-     * @param string $file
      * @param array|null $directories
      * @return string|null
      */
@@ -336,7 +336,6 @@ class Error_Processor
     /**
      * Find template path
      *
-     * @param string $template
      * @return string|null
      */
     protected function _getTemplatePath(string $template)
@@ -382,7 +381,7 @@ class Error_Processor
     public function saveReport(array $reportData)
     {
         $this->reportData = $reportData;
-        $this->reportId   = abs((int)(microtime(true) * random_int(100, 1000)));
+        $this->reportId   = abs((int) (microtime(true) * random_int(100, 1000)));
         $this->_reportFile = $this->_reportDir . '/' . $this->reportId;
         $this->_setReportData($reportData);
 
@@ -491,7 +490,7 @@ class Error_Processor
     {
         $email = preg_match(
             '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/',
-            $this->postData['email']
+            $this->postData['email'],
         );
         return ($this->postData['firstName'] && $this->postData['lastName'] && $email);
     }
@@ -523,7 +522,7 @@ class Error_Processor
             $this->reportUrl = sprintf(
                 '%serrors/report.php?%s',
                 $this->getBaseUrl(true),
-                http_build_query(['id' => $this->reportId, 'skin' => $this->_config->skin])
+                http_build_query(['id' => $this->reportId, 'skin' => $this->_config->skin]),
             );
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,14 +28,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
         $this->addOptionRenderer(
             'default',
             'catalog/product_view_options_type_default',
-            'catalog/product/composite/fieldset/options/type/default.phtml'
+            'catalog/product/composite/fieldset/options/type/default.phtml',
         );
     }
 
     /**
      * Get option html block
      *
-     * @param Mage_Catalog_Model_Product_Option $option
      *
      * @return string
      */
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
             $option['file_extension'] = $this->escapeHtml($option['file_extension']);
         }
         $renderer = $this->getOptionRender(
-            $this->getGroupOfOption($option->getType())
+            $this->getGroupOfOption($option->getType()),
         );
         if (is_null($renderer['renderer'])) {
             $renderer['renderer'] = $this->getLayout()->createBlock($renderer['block'])

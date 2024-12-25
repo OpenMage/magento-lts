@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,7 +23,6 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
     /**
      * Weee tax collector
      *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
      * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
@@ -46,13 +46,13 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
             $weeeDiscountAmount = $invoice->roundPrice(
                 $weeeRowDiscountAmount / $orderItemQty * $item->getQty(),
                 'regular',
-                true
+                true,
             );
             $baseWeeeRowDiscountAmount = $orderItem->getBaseDiscountAppliedForWeeeTax();
             $baseWeeeDiscountAmount = $invoice->roundPrice(
                 $baseWeeeRowDiscountAmount / $orderItemQty * $item->getQty(),
                 'base',
-                true
+                true,
             );
             $weeeTaxAmount = $item->getWeeeTaxAppliedAmount() * $item->getQty();
             $baseWeeeTaxAmount = $item->getBaseWeeeTaxAppliedAmount() * $item->getQty();

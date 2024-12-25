@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,7 +87,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
                 $data->setCustomerData(1);
             }
             if (isset($data['region_id'])) {
-                $data['region_id'] = (int)$data['region_id'];
+                $data['region_id'] = (int) $data['region_id'];
             }
             if ($data->getDob()) {
                 $dob = $data->getYear() . '-' . $data->getMonth() . '-' . $data->getDay();
@@ -135,7 +136,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function isNewsletterEnabled()
     {
-        return Mage::helper('core')->isModuleOutputEnabled('Mage_Newsletter');
+        return $this->isModuleOutputEnabled('Mage_Newsletter');
     }
 
     /**
@@ -156,7 +157,6 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      * Restore entity data from session
      * Entity and form code must be defined for the form
      *
-     * @param Mage_Customer_Model_Form $form
      * @param string|null $scope
      * @return $this
      */

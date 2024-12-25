@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Simplexml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,7 +86,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function getAttribute($name)
     {
         $attrs = $this->attributes();
-        return isset($attrs[$name]) ? (string)$attrs[$name] : null;
+        return isset($attrs[$name]) ? (string) $attrs[$name] : null;
     }
 
     /*
@@ -165,7 +166,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 $attributeValue = trim($attributeValue, '"');
                 $found = false;
                 foreach ($desc->$nodeName as $subdesc) {
-                    if ((string)$subdesc[$attributeName] === $attributeValue) {
+                    if ((string) $subdesc[$attributeName] === $attributeValue) {
                         $found = true;
                         $desc = $subdesc;
                         break;
@@ -216,7 +217,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             // add attributes
             foreach ($this->attributes() as $attributeName => $attribute) {
                 if ($attribute) {
-                    $result['@'][$attributeName] = (string)$attribute;
+                    $result['@'][$attributeName] = (string) $attribute;
                 }
             }
         }
@@ -258,7 +259,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
 
         if ($attributes = $this->attributes()) {
             foreach ($attributes as $key => $value) {
-                $out .= ' ' . $key . '="' . str_replace('"', '\"', (string)$value) . '"';
+                $out .= ' ' . $key . '="' . str_replace('"', '\"', (string) $value) . '"';
             }
         }
 
@@ -269,7 +270,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             }
             $out .= $pad . '</' . $this->getName() . '>' . $nl;
         } else {
-            $value = (string)$this;
+            $value = (string) $this;
             if (strlen($value)) {
                 $out .= '>' . $this->xmlentities($value) . '</' . $this->getName() . '>' . $nl;
             } else {
@@ -309,15 +310,13 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         if (is_null($value)) {
             $value = $this;
         }
-        $value = (string)$value;
+        $value = (string) $value;
 
-        $value = str_replace(
+        return str_replace(
             ['&', '"', "'", '<', '>'],
             ['&amp;', '&quot;', '&apos;', '&lt;', '&gt;'],
-            $value
+            $value,
         );
-
-        return $value;
     }
 
     /**

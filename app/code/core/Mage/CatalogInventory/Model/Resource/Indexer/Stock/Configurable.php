@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,27 +53,27 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable extends Ma
             ->join(
                 ['cis' => $this->getTable('cataloginventory/stock')],
                 '',
-                ['stock_id']
+                ['stock_id'],
             )
             ->joinLeft(
                 ['cisi' => $this->getTable('cataloginventory/stock_item')],
                 'cisi.stock_id = cis.stock_id AND cisi.product_id = e.entity_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['l' => $this->getTable('catalog/product_super_link')],
                 'l.parent_id = e.entity_id',
-                []
+                [],
             )
             ->join(
                 ['le' => $this->getTable('catalog/product')],
                 'le.entity_id = l.product_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['i' => $idxTable],
                 'i.product_id = l.product_id AND cw.website_id = i.website_id AND cis.stock_id = i.stock_id',
-                []
+                [],
             )
             ->columns(['qty' => new Zend_Db_Expr('0')])
             ->where('cw.website_id != 0')
@@ -85,22 +86,22 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Configurable extends Ma
         if ($this->_isManageStock()) {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
-                1,
-                'cisi.is_in_stock'
+                '1',
+                'cisi.is_in_stock',
             );
         } else {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
                 'cisi.is_in_stock',
-                1
+                '1',
             );
         }
 
-        $optExpr = $adapter->getCheckSql("{$psCond} AND le.required_options = 0", 'i.stock_status', 0);
+        $optExpr = $adapter->getCheckSql("{$psCond} AND le.required_options = 0", 'i.stock_status', '0');
         $stockStatusExpr = $adapter->getLeastSql(["MAX({$optExpr})", "MIN({$statusExpr})"]);
 
         $select->columns([
-            'status' => $stockStatusExpr
+            'status' => $stockStatusExpr,
         ]);
 
         if (!is_null($entityIds)) {

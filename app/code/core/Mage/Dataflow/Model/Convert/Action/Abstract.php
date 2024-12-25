@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -136,7 +137,6 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set action's container
      *
-     * @param Mage_Dataflow_Model_Convert_Container_Interface $container
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
     public function setContainer(Mage_Dataflow_Model_Convert_Container_Interface $container)
@@ -169,13 +169,13 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     public function importXml(Varien_Simplexml_Element $actionNode)
     {
         foreach ($actionNode->attributes() as $key => $value) {
-            $this->setParam($key, (string)$value);
+            $this->setParam($key, (string) $value);
         }
 
         if ($actionNode['use']) {
-            $container = $this->getProfile()->getContainer((string)$actionNode['use']);
+            $container = $this->getProfile()->getContainer((string) $actionNode['use']);
         } else {
-            $this->setParam('class', $this->getClassNameByType((string)$actionNode['type']));
+            $this->setParam('class', $this->getClassNameByType((string) $actionNode['type']));
             $container = $action->getContainer();
         }
         $this->setContainer($container);
@@ -183,7 +183,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
             $this->getProfile()->addContainer($this->getParam('name'), $container);
         }
         foreach ($actionNode->var as $varNode) {
-            $container->setVar((string)$varNode['name'], (string)$varNode);
+            $container->setVar((string) $varNode['name'], (string) $varNode);
         }
         foreach ($actionNode->action as $actionSubnode) {
             $action = $this->addAction();
@@ -204,7 +204,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
             if (!method_exists($this->getContainer(), $method)) {
                 $this->getContainer()->addException(
                     'Unable to run action method: ' . $method,
-                    Mage_Dataflow_Model_Convert_Exception::FATAL
+                    Mage_Dataflow_Model_Convert_Exception::FATAL,
                 );
             }
 

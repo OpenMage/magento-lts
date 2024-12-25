@@ -4,6 +4,9 @@ includes:
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
     magentoRootPath: %currentWorkingDirectory%
+    fileExtensions:
+      - php
+      - phtml
     paths:
         - api.php
         - cron.php
@@ -12,11 +15,13 @@ parameters:
         - install.php
         - app/Mage.php
         - app/code/core/Mage
+        - app/design/
         - errors
         - lib/Mage
         - lib/Magento
         - lib/Varien
         - shell
+        - tests/unit
     excludePaths:
         #incompatible interfaces
         - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
@@ -64,13 +69,10 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
-    level: 4
+    tmpDir: .phpstan.cache
+    level: 5
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
     treatPhpDocTypesAsCertain: false
-    # For v1.12+ with "bleeding edge"
-    ignoreErrors:
-        -
-            identifier: missingType.iterableValue
 #    universalObjectCratesClasses:
 #        - Varien_Object

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -111,7 +112,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     {
         // Check if discount amount not negative
         if ($this->hasDiscountAmount()) {
-            if ((int)$this->getDiscountAmount() < 0) {
+            if ((int) $this->getDiscountAmount() < 0) {
                 Mage::throwException(Mage::helper('rule')->__('Invalid discount amount.'));
             }
         }
@@ -284,7 +285,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Initialize rule model data from array
      *
-     * @param array $data
      *
      * @return Mage_Rule_Model_Abstract
      */
@@ -306,7 +306,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Set conditions and actions recursively.
      * Convert dates into Zend_Date.
      *
-     * @param array $data
      *
      * @return array
      */
@@ -317,9 +316,9 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             if (($key === 'conditions' || $key === 'actions') && is_array($value)) {
                 foreach ($value as $id => $data) {
                     $path = explode('--', $id);
-                    $node =& $arr;
+                    $node = & $arr;
                     for ($i = 0, $l = count($path); $i < $l; $i++) {
-                        $node =& $node[$key][$path[$i]] ?? [];
+                        $node = & $node[$key][$path[$i]] ?? [];
                     }
                     foreach ($data as $k => $v) {
                         $node[$k] = $v;
@@ -334,7 +333,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                         $value,
                         Varien_Date::DATE_INTERNAL_FORMAT,
                         null,
-                        false
+                        false,
                     );
                 }
                 $this->setData($key, $value);
@@ -347,7 +346,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Validate rule conditions to determine if rule can run
      *
-     * @param Varien_Object $object
      *
      * @return bool
      */
@@ -359,7 +357,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Validate rule data
      *
-     * @param Varien_Object $object
      *
      * @return bool|array - return true if validation passed successfully. Array with errors description otherwise
      */
@@ -453,7 +450,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     {
         if (!$this->hasWebsiteIds()) {
             $websiteIds = $this->_getResource()->getWebsiteIds($this->getId());
-            $this->setData('website_ids', (array)$websiteIds);
+            $this->setData('website_ids', (array) $websiteIds);
         }
         return $this->_getData('website_ids');
     }
@@ -485,7 +482,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @deprecated since 1.7.0.0
      *
-     * @param array $arrAttributes
      *
      * @return array
      */

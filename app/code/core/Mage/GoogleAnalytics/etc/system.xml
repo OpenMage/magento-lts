@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -46,6 +46,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </container_id>
                     </fields>
                 </gtm>
@@ -74,6 +75,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>The tracking code to use.</comment>
+                            <depends><active>1</active></depends>
                         </type>
                         <account translate="label">
                             <label>Account Number</label>
@@ -81,6 +83,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><active>1</active></depends>
                         </account>
                         <user_id translate="label comment">
                             <label>User ID tracking</label>
@@ -92,7 +95,8 @@
                             <show_in_store>1</show_in_store>
                             <comment>Enable GA4 User_id tracking for logged in customers.</comment>
                             <depends>
-                              <type>analytics4</type>
+                                <active>1</active>
+                                <type>analytics4</type>
                             </depends>
                         </user_id>
                         <debug translate="label comment">
@@ -105,7 +109,8 @@
                             <show_in_store>1</show_in_store>
                             <comment>Enable GA4 Debug Real Time view for Development IP.</comment>
                             <depends>
-                              <type>analytics4</type>
+                                <active>1</active>
+                                <type>analytics4</type>
                             </depends>
                         </debug>
                     </fields>

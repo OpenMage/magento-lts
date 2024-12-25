@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -205,7 +206,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         try {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    ['locale' => Mage::app()->getLocale()->getLocaleCode()]
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()],
                 );
                 $params['qty'] = $filter->filter($params['qty']);
             }
@@ -235,7 +236,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
              */
             Mage::dispatchEvent(
                 'checkout_cart_add_product_complete',
-                ['product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse()]
+                ['product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse()],
             );
 
             if (!$this->_getSession()->getNoCartRedirect(true)) {
@@ -362,7 +363,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         try {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    ['locale' => Mage::app()->getLocale()->getLocaleCode()]
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()],
                 );
                 $params['qty'] = $filter->filter($params['qty']);
             }
@@ -391,7 +392,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             Mage::dispatchEvent(
                 'checkout_cart_update_item_complete',
-                ['item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse()]
+                ['item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse()],
             );
             if (!$this->_getSession()->getNoCartRedirect(true)) {
                 if (!$cart->getQuote()->getHasError()) {
@@ -434,7 +435,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        $updateAction = (string)$this->getRequest()->getParam('update_cart_action');
+        $updateAction = (string) $this->getRequest()->getParam('update_cart_action');
 
         switch ($updateAction) {
             case 'empty_cart':
@@ -459,7 +460,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $cartData = $this->getRequest()->getParam('cart');
             if (is_array($cartData)) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
-                    ['locale' => Mage::app()->getLocale()->getLocaleCode()]
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()],
                 );
                 foreach ($cartData as $index => $data) {
                     if (isset($data['qty'])) {
@@ -504,7 +505,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     public function deleteAction()
     {
         if ($this->_validateFormKey()) {
-            $id = (int)$this->getRequest()->getParam('id');
+            $id = (int) $this->getRequest()->getParam('id');
             if ($id) {
                 try {
                     $this->_getCart()->removeItem($id)
@@ -545,7 +546,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             'postcode'   => $postcode,
             'city'       => $city,
             'region_id'  => $regionId,
-            'region'     => $region
+            'region'     => $region,
         ]);
         $this->_goBack();
     }
@@ -598,12 +599,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             if ($codeLength) {
                 if ($isCodeLengthValid && $couponCode == $this->_getQuote()->getCouponCode()) {
                     $this->_getSession()->addSuccess(
-                        $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
+                        $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode)),
                     );
                     $this->_getSession()->setCartCouponCode($couponCode);
                 } else {
                     $this->_getSession()->addError(
-                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
+                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode)),
                     );
                 }
             } else {
@@ -660,7 +661,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         if (!$this->_validateFormKey()) {
             Mage::throwException('Invalid form key');
         }
-        $id = (int)$this->getRequest()->getParam('id');
+        $id = (int) $this->getRequest()->getParam('id');
         $qty = $this->getRequest()->getParam('qty');
         $result = [];
         if ($id) {
@@ -668,7 +669,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $cart = $this->_getCart();
                 if (isset($qty)) {
                     $filter = new Zend_Filter_LocalizedToNormalized(
-                        ['locale' => Mage::app()->getLocale()->getLocaleCode()]
+                        ['locale' => Mage::app()->getLocale()->getLocaleCode()],
                     );
                     $qty = $filter->filter($qty);
                 }
@@ -718,8 +719,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Set product form data in checkout session for populating the product form
      * in case of errors in add to cart process.
-     *
-     * @return void
      */
     protected function _setProductBuyRequest(): void
     {

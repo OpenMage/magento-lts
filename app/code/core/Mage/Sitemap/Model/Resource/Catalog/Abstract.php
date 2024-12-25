@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sitemap
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,8 +45,6 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
 
     /**
      * Initialize factory instance
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -99,7 +98,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
             $this->_select->join(
                 ['t1_' . $attributeCode => $attribute['table']],
                 'main_table.entity_id=t1_' . $attributeCode . '.entity_id AND t1_' . $attributeCode . '.store_id=0',
-                []
+                [],
             )
                 ->where('t1_' . $attributeCode . '.attribute_id=?', $attribute['attribute_id']);
 
@@ -109,7 +108,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
                 $ifCase = $this->_select->getAdapter()->getCheckSql(
                     't2_' . $attributeCode . '.value_id > 0',
                     't2_' . $attributeCode . '.value',
-                    't1_' . $attributeCode . '.value'
+                    't1_' . $attributeCode . '.value',
                 );
                 $this->_select->joinLeft(
                     ['t2_' . $attributeCode => $attribute['table']],
@@ -117,9 +116,9 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
                         't1_' . $attributeCode . '.entity_id = t2_' . $attributeCode . '.entity_id AND t1_'
                             . $attributeCode . '.attribute_id = t2_' . $attributeCode . '.attribute_id AND t2_'
                             . $attributeCode . '.store_id = ?',
-                        $storeId
+                        $storeId,
                     ),
-                    []
+                    [],
                 )
                 ->where('(' . $ifCase . ')' . $conditionRule, $value);
             }
@@ -131,7 +130,6 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
     /**
      * Prepare catalog object
      *
-     * @param array $row
      * @return Varien_Object
      */
     protected function _prepareObject(array $row)

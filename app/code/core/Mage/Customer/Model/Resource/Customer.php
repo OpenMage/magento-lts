@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +42,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             'updated_at',
             'increment_id',
             'store_id',
-            'website_id'
+            'website_id',
         ];
     }
 
@@ -67,11 +68,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             ->from($this->getEntityTable(), [$this->getEntityIdField()])
             ->where('email = :email');
         if ($customer->getSharingConfig()->isWebsiteScope()) {
-            $bind['website_id'] = (int)$customer->getWebsiteId();
+            $bind['website_id'] = (int) $customer->getWebsiteId();
             $select->where('website_id = :website_id');
         }
         if ($customer->getId()) {
-            $bind['entity_id'] = (int)$customer->getId();
+            $bind['entity_id'] = (int) $customer->getId();
             $select->where('entity_id != :entity_id');
         }
 
@@ -80,7 +81,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             throw Mage::exception(
                 'Mage_Customer',
                 Mage::helper('customer')->__('This customer email already exists'),
-                Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS
+                Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS,
             );
         }
 
@@ -101,7 +102,6 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Save customer addresses and set default addresses in attributes backend
      *
-     * @param Varien_Object $customer
      * @return Mage_Eav_Model_Entity_Abstract
      */
     protected function _afterSave(Varien_Object $customer)
@@ -113,7 +113,6 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Save/delete customer address
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
@@ -176,7 +175,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     {
         $select = parent::_getLoadRowSelect($object, $rowId);
         if ($object->getWebsiteId() && $object->getSharingConfig()->isWebsiteScope()) {
-            $select->where('website_id =?', (int)$object->getWebsiteId());
+            $select->where('website_id =?', (int) $object->getWebsiteId());
         }
 
         return $select;
@@ -187,7 +186,6 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @throws Mage_Core_Exception
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @param string $email
      * @param bool $testOnly
      * @return $this
@@ -203,10 +201,10 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         if ($customer->getSharingConfig()->isWebsiteScope()) {
             if (!$customer->hasData('website_id')) {
                 Mage::throwException(
-                    Mage::helper('customer')->__('Customer website ID must be specified when using the website scope')
+                    Mage::helper('customer')->__('Customer website ID must be specified when using the website scope'),
                 );
             }
-            $bind['website_id'] = (int)$customer->getWebsiteId();
+            $bind['website_id'] = (int) $customer->getWebsiteId();
             $select->where('website_id = :website_id');
         }
 
@@ -223,7 +221,6 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Change customer password
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @param string $newPassword
      * @return $this
      */
@@ -264,7 +261,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     public function checkCustomerId($customerId)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = ['entity_id' => (int)$customerId];
+        $bind    = ['entity_id' => (int) $customerId];
         $select  = $adapter->select()
             ->from($this->getTable('customer/entity'), 'entity_id')
             ->where('entity_id = :entity_id')
@@ -281,12 +278,12 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Get customer website id
      *
      * @param int $customerId
-     * @return int
+     * @return string
      */
     public function getWebsiteId($customerId)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = ['entity_id' => (int)$customerId];
+        $bind    = ['entity_id' => (int) $customerId];
         $select  = $adapter->select()
             ->from($this->getTable('customer/entity'), 'website_id')
             ->where('entity_id = :entity_id');
@@ -297,7 +294,6 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Custom setter of increment ID if its needed
      *
-     * @param Varien_Object $object
      * @return $this
      */
     public function setNewIncrementId(Varien_Object $object)
@@ -313,7 +309,6 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * Stores new reset password link token and its creation time
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @param string $newResetPasswordLinkToken
      * @return $this
      */
@@ -334,7 +329,6 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * Stores new reset password link customer Id
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @param string $newResetPasswordLinkCustomerId
      * @return $this
      * @throws Exception
@@ -365,12 +359,12 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             ->joinLeft(
                 ['t1' => $this->getTable('eav/attribute')],
                 't0.entity_type_id = t1.entity_type_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['t2' => $this->getTable(['customer/entity', 'int'])],
                 't1.attribute_id = t2.attribute_id AND t2.entity_id = t0.entity_id',
-                []
+                [],
             )
             ->where('t0.entity_id = ?', $customerId)
             ->where('t1.attribute_code = ?', 'password_created_at');

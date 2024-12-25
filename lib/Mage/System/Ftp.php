@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_System
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -97,6 +98,9 @@ class Mage_System_Ftp
      */
     public function login($login = 'anonymous', $password = 'test@gmail.com')
     {
+        $login = new Mage_Core_Model_Security_Obfuscated($login);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         $this->checkConnected();
         $res = @ftp_login($this->_conn, $login, $password);
         if (!$res) {
@@ -227,7 +231,7 @@ class Mage_System_Ftp
     /**
      * Upload local file to remote
      *
-     * Can be used for relative and absoulte remote paths
+     * Can be used for relative and absolute remote paths
      * Relative: use chdir before calling this
      *
      * @param string $remote
@@ -489,7 +493,7 @@ class Mage_System_Ftp
                     'size'   => (int) $info[4],
                     'chmod'  => self::chmodnum($info[0]),
                     'rawdata' => $info,
-                    'raw'     => $rawfile
+                    'raw'     => $rawfile,
                 ];
             }
         }
@@ -505,8 +509,7 @@ class Mage_System_Ftp
     public function correctFilePath($str)
     {
         $str = str_replace('\\', '/', $str);
-        $str = preg_replace("/^.\//", '', $str);
-        return $str;
+        return preg_replace("/^.\//", '', $str);
     }
 
     /**

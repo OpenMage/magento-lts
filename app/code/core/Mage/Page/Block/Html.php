@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +35,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         $this->_urls = [
             'base'      => Mage::getBaseUrl('web'),
             'baseSecure' => Mage::getBaseUrl('web', true),
-            'current'   => $this->getRequest()->getRequestUri()
+            'current'   => $this->getRequest()->getRequestUri(),
         ];
 
         $action = Mage::app()->getFrontController()->getAction();
@@ -95,7 +96,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
             }
         }
 
-        // buld url
+        // build url
         if (!empty($logo)) {
             $logo = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_MEDIA_URL) . $logo;
         } else {

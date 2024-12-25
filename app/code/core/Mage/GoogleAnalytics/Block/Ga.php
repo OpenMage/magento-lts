@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -204,7 +205,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
             if ($productViewed->getAttributeText('manufacturer')) {
                 $_item['item_brand'] = $productViewed->getAttributeText('manufacturer');
             }
-            array_push($eventData['items'], $_item);
+            $eventData['items'][] = $_item;
             $result[] = ['view_item', $eventData];
         } elseif ($moduleName == 'catalog' && $controllerName == 'category') {
             // Log this event when the user has been presented with a list of items of a certain category.
@@ -241,7 +242,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 if ($productViewed->getCategory()->getName()) {
                     $_item['item_category'] = $productViewed->getCategory()->getName();
                 }
-                array_push($eventData['items'], $_item);
+                $eventData['items'][] = $_item;
                 $index++;
                 $eventData['value'] += $productViewed->getFinalPrice();
             }
@@ -274,7 +275,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                 if ($itemCategory) {
                     $_item['item_category'] = $itemCategory;
                 }
-                array_push($eventData['items'], $_item);
+                $eventData['items'][] = $_item;
                 $eventData['value'] += $_product->getFinalPrice() * $productInCart->getQty();
             }
             $eventData['value'] = $helper->formatPrice($eventData['value']);
@@ -306,7 +307,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     if ($itemCategory) {
                         $_item['item_category'] = $itemCategory;
                     }
-                    array_push($eventData['items'], $_item);
+                    $eventData['items'][] = $_item;
                     $eventData['value'] += $_product->getFinalPrice();
                 }
                 $eventData['value'] = $helper->formatPrice($eventData['value']);
@@ -326,10 +327,10 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     'currency' => $order->getBaseCurrencyCode(),
                     'transaction_id' => $order->getIncrementId(),
                     'value' => $helper->formatPrice($order->getBaseGrandTotal()),
-                    'coupon' => strtoupper((string)$order->getCouponCode()),
+                    'coupon' => strtoupper((string) $order->getCouponCode()),
                     'shipping' => $helper->formatPrice($order->getBaseShippingAmount()),
                     'tax' => $helper->formatPrice($order->getBaseTaxAmount()),
-                    'items' => []
+                    'items' => [],
                 ];
 
                 /** @var Mage_Sales_Model_Order_Item $item */
@@ -343,7 +344,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                         'item_name' => $item->getName(),
                         'quantity' => (int) $item->getQtyOrdered(),
                         'price' => $helper->formatPrice($item->getBasePrice()),
-                        'discount' => $helper->formatPrice($item->getBaseDiscountAmount())
+                        'discount' => $helper->formatPrice($item->getBaseDiscountAmount()),
                     ];
                     if ($_product->getAttributeText('manufacturer')) {
                         $_item['item_brand'] = $_product->getAttributeText('manufacturer');
@@ -352,7 +353,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
                     if ($itemCategory) {
                         $_item['item_category'] = $itemCategory;
                     }
-                    array_push($orderData['items'], $_item);
+                    $orderData['items'][] = $_item;
                 }
                 $result[] = ['purchase', $orderData];
             }

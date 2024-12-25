@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -197,10 +198,10 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
             'export' => 'store-operations/data-export.html',
         ],
         'Mage_Connect_Adminhtml' => [
-            'extension_custom/edit' => 'magento/magento-connect.html'
+            'extension_custom/edit' => 'magento/magento-connect.html',
         ],
         'Mage_Index_Adminhtml' => [
-            'process/list' => 'system-operations/index-management.html'
+            'process/list' => 'system-operations/index-management.html',
         ],
     ];
 

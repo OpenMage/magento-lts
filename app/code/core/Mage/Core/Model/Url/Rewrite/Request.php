@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,8 +71,6 @@ class Mage_Core_Model_Url_Rewrite_Request
      *   config   - Mage_Core_Model_Config
      *   factory  - Mage_Core_Model_Factory
      *   routers  - array
-     *
-     * @param array $args
      */
     public function __construct(array $args)
     {
@@ -157,7 +156,7 @@ class Mage_Core_Model_Url_Rewrite_Request
 
         $this->_request->setAlias(
             Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            $this->_rewrite->getRequestPath()
+            $this->_rewrite->getRequestPath(),
         );
         $this->_processRedirectOptions();
 
@@ -229,8 +228,8 @@ class Mage_Core_Model_Url_Rewrite_Request
             return false;
         }
         foreach ($config->children() as $rewrite) {
-            $from = (string)$rewrite->from;
-            $to = (string)$rewrite->to;
+            $from = (string) $rewrite->from;
+            $to = (string) $rewrite->to;
             if (empty($from) || empty($to)) {
                 continue;
             }
@@ -282,6 +281,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      *
      * @param string $url
      * @param bool $isPermanent
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     protected function _sendRedirectHeaders($url, $isPermanent = false)
     {
@@ -299,6 +299,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * Prepare and return QUERY_STRING
      *
      * @return bool|string
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function _getQueryString()
     {

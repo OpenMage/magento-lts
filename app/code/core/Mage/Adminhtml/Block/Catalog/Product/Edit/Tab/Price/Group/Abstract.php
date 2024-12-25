@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +56,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Render HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -67,7 +67,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     /**
      * Set form element instance
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return $this
      */
     public function setElement(Varien_Data_Form_Element_Abstract $element)
@@ -129,7 +128,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     public function getCustomerGroups($groupId = null)
     {
         if ($this->_customerGroups === null) {
-            if (!Mage::helper('catalog')->isModuleEnabled('Mage_Customer')) {
+            if (!$this->isModuleEnabled('Mage_Customer', 'catalog')) {
                 return [];
             }
             $collection = Mage::getModel('customer/group')->getCollection();
@@ -192,8 +191,8 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         $this->_websites = [
             0 => [
                 'name' => Mage::helper('catalog')->__('All Websites'),
-                'currency' => Mage::app()->getBaseCurrencyCode()
-            ]
+                'currency' => Mage::app()->getBaseCurrencyCode(),
+            ],
         ];
 
         if (!$this->isScopeGlobal() && $this->getProduct()->getStoreId()) {
@@ -202,7 +201,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
 
             $this->_websites[$website->getId()] = [
                 'name' => $website->getName(),
-                'currency' => $website->getBaseCurrencyCode()
+                'currency' => $website->getBaseCurrencyCode(),
             ];
         } elseif (!$this->isScopeGlobal()) {
             $websites = Mage::app()->getWebsites(false);
@@ -213,7 +212,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
                 }
                 $this->_websites[$website->getId()] = [
                     'name' => $website->getName(),
-                    'currency' => $website->getBaseCurrencyCode()
+                    'currency' => $website->getBaseCurrencyCode(),
                 ];
             }
         }

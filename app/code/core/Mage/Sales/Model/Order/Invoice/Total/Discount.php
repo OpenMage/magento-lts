@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,7 +21,6 @@
 class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Order_Invoice_Total_Abstract
 {
     /**
-     * @param Mage_Sales_Model_Order_Invoice $invoice
      * @return $this
      */
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
@@ -62,10 +62,10 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
                 /**
                  * Resolve rounding problems
                  *
-                 * We dont want to include the weee discount amount as the right amount
+                 * We don't want to include the weee discount amount as the right amount
                  * is added when calculating the taxes.
                  *
-                 * Also the subtotal is without weee
+                 * Also, the subtotal is without weee
                  */
 
                 $discount = $orderItemDiscount - $orderItem->getDiscountInvoiced();

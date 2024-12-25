@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,12 +10,12 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Grid colum filter block
+ * Grid column filter block
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -80,7 +81,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
      */
     public function getEscapedValue($index = null)
     {
-        return htmlspecialchars((string)$this->getValue($index));
+        return htmlspecialchars((string) $this->getValue($index));
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +62,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             $this->_config['password'],
             $this->_config['dbname'],
             $port,
-            $socket
+            $socket,
         );
         if (!$connectionSuccessful) {
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
@@ -243,8 +244,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($this->tableColumnExists($tableName, $columnName)) {
             return true;
         }
-        $result = $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
-        return $result;
+        return $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
     }
 
     public function dropColumn($tableName, $columnName)

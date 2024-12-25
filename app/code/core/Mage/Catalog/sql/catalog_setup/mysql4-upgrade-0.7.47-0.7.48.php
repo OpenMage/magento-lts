@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,7 @@ $installer->run("
 $installer->addAttribute('catalog_product', 'has_options', [
     'type' => 'static',
     'visible' => false,
-    'default' => false
+    'default' => false,
 ]);
 $installer->run("
     UPDATE `{$installer->getTable('catalog/product')}` SET `has_options` = '1'

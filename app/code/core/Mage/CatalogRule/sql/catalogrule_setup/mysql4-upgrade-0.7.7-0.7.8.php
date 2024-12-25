@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +36,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('catalogrule/rule'),
     'rule_id',
     'CASCADE',
-    'CASCADE'
+    'CASCADE',
 );
 $installer->getConnection()->addConstraint(
     'FK_CATALOGRULE_GROUP_WEBSITE_GROUP',
@@ -44,7 +45,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('customer/customer_group'),
     'customer_group_id',
     'CASCADE',
-    'CASCADE'
+    'CASCADE',
 );
 $installer->getConnection()->addConstraint(
     'FK_CATALOGRULE_GROUP_WEBSITE_WEBSITE',
@@ -53,11 +54,11 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('core/website'),
     'website_id',
     'CASCADE',
-    'CASCADE'
+    'CASCADE',
 );
 
 $installer->run(
-    "ALTER TABLE `{$ruleGroupWebsiteTable}` ADD PRIMARY KEY ( `rule_id` , `customer_group_id`, `website_id` )"
+    "ALTER TABLE `{$ruleGroupWebsiteTable}` ADD PRIMARY KEY ( `rule_id` , `customer_group_id`, `website_id` )",
 );
 
 $installer->endSetup();

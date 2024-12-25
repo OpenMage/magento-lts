@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,8 +51,8 @@ class Varien_Io_File extends Varien_Io_Abstract
     public const GREP_DIRS = 'dirs_only';
 
     /**
-     * If this variable is set to TRUE, our library will be able to automaticaly create
-     * non-existant directories.
+     * If this variable is set to TRUE, our library will be able to automatically create
+     * non-existent directories.
      *
      * @var bool
      * @access protected
@@ -130,7 +131,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
 
         if (PHP_VERSION_ID < 80100 && !ini_get('auto_detect_line_endings')) {
-            ini_set('auto_detect_line_endings', 1);
+            ini_set('auto_detect_line_endings', '1');
         }
 
         if ($this->_cwd) {
@@ -231,11 +232,9 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Format line as CSV and write to file pointer
      *
-     * @param array $row
      * @param string $delimiter
      * @param string $enclosure
      * @return bool|int
-     *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function streamWriteCsv(array $row, $delimiter = ',', $enclosure = '"')
@@ -244,7 +243,7 @@ class Varien_Io_File extends Varien_Io_Abstract
             return false;
         }
 
-        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure);
+        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure, '\\');
     }
 
     /**
@@ -309,7 +308,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Possible arguments:
      * - path     default current path
      *
-     * @param array $args
      * @return boolean
      */
     public function open(array $args = [])

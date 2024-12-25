@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +35,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
     {
         $this->setChild(
             'grid',
-            $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid', 'newsletter.problem.grid')
+            $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid', 'newsletter.problem.grid'),
         );
 
         $this->setChild(
@@ -43,9 +44,9 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
                 ->setData(
                     [
                         'label' => Mage::helper('newsletter')->__('Delete Selected Problems'),
-                        'onclick' => 'problemController.deleteSelected();'
-                    ]
-                )
+                        'onclick' => 'problemController.deleteSelected();',
+                    ],
+                ),
         );
 
         $this->setChild(
@@ -54,9 +55,9 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
                 ->setData(
                     [
                         'label' => Mage::helper('newsletter')->__('Unsubscribe Selected'),
-                        'onclick' => 'problemController.unsubscribe();'
-                    ]
-                )
+                        'onclick' => 'problemController.unsubscribe();',
+                    ],
+                ),
         );
         return parent::_prepareLayout();
     }

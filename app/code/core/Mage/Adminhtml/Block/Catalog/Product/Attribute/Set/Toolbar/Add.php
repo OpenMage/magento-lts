@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,8 +36,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Save Attribute Set'),
                     'onclick'   => 'if (addSet.submit()) disableElements(\'save\');',
-                    'class' => 'save'
-            ])
+                    'class' => 'save',
+                ]),
         );
         $this->setChild(
             'back_button',
@@ -44,13 +45,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add extends Mag
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Back'),
                     'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
-                    'class' => 'back'
-            ])
+                    'class' => 'back',
+                ]),
         );
 
         $this->setChild(
             'setForm',
-            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset')
+            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset'),
         );
         return parent::_prepareLayout();
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,7 +78,6 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
     /**
      * Set loading mode subscribers by queue
      *
-     * @param Mage_Newsletter_Model_Queue $queue
      * @return $this
      */
     public function useQueue(Mage_Newsletter_Model_Queue $queue)
@@ -121,19 +121,19 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
                 ['customer_lastname_table' => $lastname->getBackend()->getTable()],
                 $adapter->quoteInto('customer_lastname_table.entity_id=main_table.customer_id
                     AND customer_lastname_table.attribute_id = ?', (int) $lastname->getAttributeId()),
-                ['customer_lastname' => 'value']
+                ['customer_lastname' => 'value'],
             )
             ->joinLeft(
                 ['customer_middlename_table' => $middlename->getBackend()->getTable()],
                 $adapter->quoteInto('customer_middlename_table.entity_id=main_table.customer_id
                     AND customer_middlename_table.attribute_id = ?', (int) $middlename->getAttributeId()),
-                ['customer_middlename' => 'value']
+                ['customer_middlename' => 'value'],
             )
             ->joinLeft(
                 ['customer_firstname_table' => $firstname->getBackend()->getTable()],
                 $adapter->quoteInto('customer_firstname_table.entity_id=main_table.customer_id
                     AND customer_firstname_table.attribute_id = ?', (int) $firstname->getAttributeId()),
-                ['customer_firstname' => 'value']
+                ['customer_firstname' => 'value'],
             );
 
         return $this;
@@ -161,7 +161,7 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
         $this->getSelect()->join(
             ['store' => $this->_storeTable],
             'store.store_id = main_table.store_id',
-            ['group_id', 'website_id']
+            ['group_id', 'website_id'],
         );
 
         return $this;

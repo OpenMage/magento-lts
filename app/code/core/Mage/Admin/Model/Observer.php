@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +43,7 @@ class Mage_Admin_Model_Observer
             'resetpassword',
             'resetpasswordpost',
             'logout',
-            'refresh' // captcha refresh
+            'refresh', // captcha refresh
         ];
         if (in_array($requestedActionName, $openActions)) {
             $request->setDispatched(true);
@@ -64,7 +65,7 @@ class Mage_Admin_Model_Observer
                     } else {
                         if (!$request->getParam('messageSent')) {
                             Mage::getSingleton('adminhtml/session')->addError(
-                                Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.')
+                                Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.'),
                             );
                             $request->setParam('messageSent', true);
                         }
@@ -105,9 +106,7 @@ class Mage_Admin_Model_Observer
      * @deprecated after 1.4.0.1, logic moved to admin session
      * @param Varien_Event_Observer $event
      */
-    public function actionPostDispatchAdmin($event)
-    {
-    }
+    public function actionPostDispatchAdmin($event) {}
 
     /**
      * Validate admin password and upgrade hash version
@@ -128,7 +127,7 @@ class Mage_Admin_Model_Observer
             && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
                 $password,
                 $user->getPassword(),
-                Mage_Core_Model_Encryption::HASH_VERSION_SHA256
+                Mage_Core_Model_Encryption::HASH_VERSION_SHA256,
             )
         ) {
             $user

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,9 +92,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Destruct method on shutdown
      */
-    public function destruct()
-    {
-    }
+    public function destruct() {}
 
     /**
      * Method called as last step of object instance creation. Can be overridden in child classes.
@@ -117,7 +116,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
             $this->_colNames,
             count($this->_currentRow) != $this->_colQuantity
                     ? array_pad($this->_currentRow, $this->_colQuantity, '')
-                    : $this->_currentRow
+                    : $this->_currentRow,
         );
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,7 +84,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Object constructor.
      *
-     * @param array $params
      * @throws Exception
      */
     final public function __construct(array $params)
@@ -172,10 +172,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                             'is_static'        => $attribute->isStatic(),
                             'apply_to'         => $attribute->getApplyTo(),
                             'type'             => Mage_ImportExport_Model_Import::getAttributeType($attribute),
-                            'default_value'    => strlen($attribute->getDefaultValue())
+                            'default_value'    => strlen($attribute->getDefaultValue() ?? '')
                                                   ? $attribute->getDefaultValue() : null,
                             'options'          => $this->_entityModel
-                                                      ->getAttributeOptions($attribute, $this->_indexValueAttributes)
+                                                      ->getAttributeOptions($attribute, $this->_indexValueAttributes),
                         ];
                     }
                     $this->_addAttributeParams($attributeSet->getAttributeSetName(), $attributesCache[$attributeId]);
@@ -199,7 +199,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Validate particular attributes columns.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @return bool
      */
@@ -232,7 +231,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Validate row attributes. Pass VALID row data ONLY as argument.
      *
-     * @param array $rowData
      * @param int $rowNum
      * @param bool $isNewProduct OPTIONAL.
      * @return bool
@@ -258,7 +256,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                         $this->_entityModel->addRowError(
                             Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
                             $rowNum,
-                            $attrCode
+                            $attrCode,
                         );
                         $error = true;
                     }
@@ -283,7 +281,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     /**
      * Prepare attributes values for save: remove non-existent, remove empty values, remove static.
      *
-     * @param array $rowData
      * @param bool $withDefaultValue
      * @return array
      */

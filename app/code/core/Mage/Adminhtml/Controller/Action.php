@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -159,10 +160,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         Mage::getDesign()
             ->setArea($this->_currentArea)
-            ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
-            ->setTheme((string)$theme);
+            ->setPackageName((string) Mage::getConfig()->getNode('stores/admin/design/package/name'))
+            ->setTheme((string) $theme);
         foreach (['layout', 'template', 'skin', 'locale'] as $type) {
-            if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
+            if ($value = (string) Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
                 Mage::getDesign()->setTheme($type, $value);
             }
         }
@@ -171,29 +172,29 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         Mage::dispatchEvent('adminhtml_controller_action_predispatch_start', []);
         parent::preDispatch();
-        $_isValidFormKey = true;
-        $_isValidSecretKey = true;
-        $_keyErrorMsg = '';
+        $isValidFormKey = true;
+        $isValidSecretKey = true;
+        $keyErrorMsg = '';
         if (Mage::getSingleton('admin/session')->isLoggedIn()) {
             if ($this->getRequest()->isPost() || $this->_checkIsForcedFormKeyAction()) {
-                $_isValidFormKey = $this->_validateFormKey();
-                $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.');
+                $isValidFormKey = $this->_validateFormKey();
+                $keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.');
             } elseif (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
-                $_isValidSecretKey = $this->_validateSecretKey();
-                $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Secret Key. Please refresh the page.');
+                $isValidSecretKey = $this->_validateSecretKey();
+                $keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Secret Key. Please refresh the page.');
             }
         }
-        if (!$_isValidFormKey || !$_isValidSecretKey) {
+        if (!$isValidFormKey || !$isValidSecretKey) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
             if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
                     'error' => true,
-                    'message' => $_keyErrorMsg
+                    'message' => $keyErrorMsg,
                 ]));
             } else {
-                if (!$_isValidFormKey) {
-                    Mage::getSingleton('adminhtml/session')->addError($_keyErrorMsg);
+                if (!$isValidFormKey) {
+                    Mage::getSingleton('adminhtml/session')->addError($keyErrorMsg);
                 }
                 $this->_redirect(Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl());
             }
@@ -239,16 +240,16 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         $configData = Mage::getModel('core/config_data');
 
-        $defaultUnsecure = (string)Mage::getConfig()->getNode(
-            'default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL
+        $defaultUnsecure = (string) Mage::getConfig()->getNode(
+            'default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL,
         );
-        $defaultSecure = (string)Mage::getConfig()->getNode(
-            'default/' . Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL
+        $defaultSecure = (string) Mage::getConfig()->getNode(
+            'default/' . Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL,
         );
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
             $this->_getSession()->addNotice(
-                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section' => 'web']))
+                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section' => 'web'])),
             );
             return $this;
         }
@@ -269,7 +270,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
             if ($url) {
                 $this->_getSession()->addNotice(
-                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $url)
+                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $url),
                 );
                 return $this;
             }
@@ -329,6 +330,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * Translate a phrase
      *
      * @return string
+     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings(PHPMD.ShortMethodName)
      */
     public function __()
     {
@@ -339,9 +342,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * Set referer url for redirect in responce
+     * Set referer url for redirect in response
      *
-     * Is overriden here to set defaultUrl to admin url
+     * Is overridden here to set defaultUrl to admin url
      *
      * @param   string $defaultUrl
      * @return  Mage_Adminhtml_Controller_Action
@@ -354,7 +357,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * Set redirect into responce
+     * Set redirect into response
      *
      * @param string $path
      * @param array $arguments
@@ -426,7 +429,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         return in_array(
             strtolower($this->getRequest()->getActionName()),
-            array_map('strtolower', $this->_forcedFormKeyActions)
+            array_map('strtolower', $this->_forcedFormKeyActions),
         );
     }
 
@@ -438,7 +441,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _setForcedFormKeyActions($actionNames)
     {
         if (!Mage::helper('adminhtml')->isEnabledSecurityKeyUrl()) {
-            $actionNames = (is_array($actionNames)) ? $actionNames : (array)$actionNames;
+            $actionNames = (is_array($actionNames)) ? $actionNames : (array) $actionNames;
             $actionNames = array_merge($this->_forcedFormKeyActions, $actionNames);
             $actionNames = array_unique($actionNames);
             $this->_forcedFormKeyActions = $actionNames;

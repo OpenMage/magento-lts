@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -127,8 +128,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 
     /**
      * Initialize tax helper
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -139,7 +138,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Specify customer object which can be used for rate calculation
      *
-     * @param   Mage_Customer_Model_Customer $customer
      * @return  Mage_Tax_Model_Calculation
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
@@ -166,7 +164,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get customer object
      *
-     * @return  Mage_Customer_Model_Customer | false
+     * @return Mage_Customer_Model_Customer|false
      */
     public function getCustomer()
     {
@@ -300,9 +298,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     protected function _getRequestCacheKey($request)
     {
         $key = $request->getStore() ? $request->getStore()->getId() . '|' : '';
-        $key .= $request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
-            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode();
-        return $key;
+        return $key . ($request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
+            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode());
     }
 
     /**
@@ -440,12 +437,12 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
                 $address
                     ->setCountryId(Mage::getStoreConfig(
                         Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY,
-                        $store
+                        $store,
                     ))
                     ->setRegionId(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_REGION, $store))
                     ->setPostcode(Mage::getStoreConfig(
                         Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_POSTCODE,
-                        $store
+                        $store,
                     ));
                 break;
         }
@@ -483,7 +480,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     {
         $country = $first->getCountryId() == $second->getCountryId();
         // "0" support for admin dropdown with --please select--
-        $region  = (int)$first->getRegionId() == (int)$second->getRegionId();
+        $region  = (int) $first->getRegionId() == (int) $second->getRegionId();
         $postcode = $first-> getPostcode() == $second-> getPostcode();
         $taxClass = $first-> getCustomerClassId() == $second-> getCustomerClassId();
 
@@ -674,8 +671,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function truncate($price, $precision = 4)
     {
         $exp = pow(10, $precision);
-        $price = floor($price * $exp) / $exp;
-        return $price;
+        return floor($price * $exp) / $exp;
     }
 
     /**

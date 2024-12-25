@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,7 +106,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
         $model = Mage::getModel($class);
         if (!$model instanceof Mage_Sales_Model_Quote_Address_Total_Abstract) {
             Mage::throwException(
-                Mage::helper('sales')->__('The address total model should be extended from Mage_Sales_Model_Quote_Address_Total_Abstract.')
+                Mage::helper('sales')->__('The address total model should be extended from Mage_Sales_Model_Quote_Address_Total_Abstract.'),
             );
         }
 
@@ -113,7 +114,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
         $this->_modelsConfig[$totalCode] = $this->_prepareConfigArray($totalCode, $totalConfig);
         $this->_modelsConfig[$totalCode] = $model->processConfigArray(
             $this->_modelsConfig[$totalCode],
-            $this->_store
+            $this->_store,
         );
 
         return $model;

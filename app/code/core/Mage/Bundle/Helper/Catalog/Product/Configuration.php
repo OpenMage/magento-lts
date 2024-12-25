@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +44,6 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
     /**
      * Obtain final price of selection in a bundle product
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @param Mage_Catalog_Model_Product $selectionProduct
      * @return float
      */
@@ -58,7 +58,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
             $item->getQty() * 1,
             $this->getSelectionQty($item->getProduct(), $selectionProduct->getSelectionId()),
             false,
-            true
+            true,
         );
     }
 
@@ -68,7 +68,6 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
      * Returns array of options objects.
      * Each option object will contain array of selections objects
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return array
      */
     public function getBundleOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
@@ -93,7 +92,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
             if (!empty($bundleSelectionIds)) {
                 $selectionsCollection = $typeInstance->getSelectionsByIds(
                     unserialize($selectionsQuoteItemOption->getValue(), ['allowed_classes' => false]),
-                    $product
+                    $product,
                 );
 
                 /** @var Mage_Bundle_Model_Option[] $bundleOptions */
@@ -102,7 +101,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                     if ($bundleOption->getSelections()) {
                         $option = [
                             'label' => $bundleOption->getTitle(),
-                            'value' => []
+                            'value' => [],
                         ];
 
                         $bundleSelections = $bundleOption->getSelections();
@@ -112,7 +111,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                             if ($qty) {
                                 $option['value'][] = $qty . ' x ' . $this->escapeHtml($bundleSelection->getName())
                                     . ' ' . Mage::helper('core')->currency(
-                                        $this->getSelectionFinalPrice($item, $bundleSelection)
+                                        $this->getSelectionFinalPrice($item, $bundleSelection),
                                     );
                             }
                         }
@@ -131,14 +130,13 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
     /**
      * Retrieves product options list
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return array
      */
     public function getOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
     {
         return array_merge(
             $this->getBundleOptions($item),
-            Mage::helper('catalog/product_configuration')->getCustomOptions($item)
+            Mage::helper('catalog/product_configuration')->getCustomOptions($item),
         );
     }
 }

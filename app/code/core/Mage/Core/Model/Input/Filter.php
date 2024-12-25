@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -151,7 +152,6 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      *          'key2' => $filters
      *      )
      *
-     * @param array $filters
      * @return $this
      */
     public function addFilters(array $filters)
@@ -163,7 +163,6 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Set filters
      *
-     * @param array $filters
      * @return $this
      */
     public function setFilters(array $filters)
@@ -201,7 +200,6 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Recursive filtering
      *
-     * @param array $data
      * @param array|null $filters
      * @param bool $isFilterListSimple
      * @param-out array $filters
@@ -243,8 +241,6 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Call specified helper method for $value filtration
      *
      * @param mixed $value
-     * @param Mage_Core_Helper_Abstract $helper
-     * @param array $filterData
      * @return mixed
      */
     protected function _applyFiltrationWithHelper($value, Mage_Core_Helper_Abstract $helper, array $filterData)

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +40,7 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
 
         if (!is_uploaded_file($value['tmp_name']) || !$imageProp) {
             return [
-                Mage::helper('eav')->__('"%s" is not a valid file', $label)
+                Mage::helper('eav')->__('"%s" is not a valid file', $label),
             ];
         }
 
@@ -47,12 +48,12 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
             1   => 'gif',
             2   => 'jpg',
             3   => 'png',
-            18  => 'webp'
+            18  => 'webp',
         ];
 
         if (!isset($allowImageTypes[$imageProp[2]])) {
             return [
-                Mage::helper('eav')->__('"%s" is not a valid image format', $label)
+                Mage::helper('eav')->__('"%s" is not a valid image format', $label),
             ];
         }
 

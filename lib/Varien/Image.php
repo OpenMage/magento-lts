@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Image
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -214,9 +215,7 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function process()
-    {
-    }
+    public function process() {}
 
     /**
      * instruction
@@ -224,9 +223,7 @@ class Varien_Image
      * @access public
      * @return void
      */
-    public function instruction()
-    {
-    }
+    public function instruction() {}
 
     /**
      * Set image background color
@@ -277,7 +274,7 @@ class Varien_Image
     }
 
     /**
-     * Set watermark heigth
+     * Set watermark height
      *
      * @param int $heigth
      * @return Varien_Image
