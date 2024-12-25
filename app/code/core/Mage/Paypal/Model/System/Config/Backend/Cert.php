@@ -26,7 +26,7 @@ class Mage_Paypal_Model_System_Config_Backend_Cert extends Mage_Core_Model_Confi
      * Process additional data before save config
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _beforeSave()
     {
