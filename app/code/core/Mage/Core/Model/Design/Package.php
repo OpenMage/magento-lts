@@ -608,8 +608,8 @@ class Mage_Core_Model_Design_Package
      * @param string $regexpsConfigPath
      * @return false|string
      *
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName))
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName"))
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _checkUserAgentAgainstRegexps($regexpsConfigPath)
     {
@@ -647,9 +647,9 @@ class Mage_Core_Model_Design_Package
      * @param string $regexpsConfigPath
      * @return bool|string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {

@@ -81,7 +81,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  float $fontSize Font size in points
      * @return float
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function widthForStringUsingFontSize($string, $font, $fontSize)
     {

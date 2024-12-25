@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
             }
 
             if (!isset($tierPrice->website) || $tierPrice->website == 'all') {
-                $tierPrice->website = 0; // @phpstan-ignore-line
+                $tierPrice->website = 0;
             } else {
                 try {
                     $tierPrice->website = Mage::app()->getWebsite($tierPrice->website)->getId();
@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2 extends Mage_Catalog
             }
 
             if (!isset($tierPrice->customer_group_id)) {
-                $tierPrice->customer_group_id = 'all'; // @phpstan-ignore-line
+                $tierPrice->customer_group_id = 'all';
             }
 
             if ($tierPrice->customer_group_id == 'all') {

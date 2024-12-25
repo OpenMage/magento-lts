@@ -259,7 +259,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * @param string $key
      * @param string|null $prefix
      * @return string
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getConfigData($key, $prefix = null)
     {

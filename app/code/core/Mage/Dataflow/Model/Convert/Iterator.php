@@ -117,4 +117,12 @@ function updateProgress(sessionId, idx, time, memory) {
         }
         return [$model, $method];
     }
+
+    public function load()
+    {
+    }
+
+    public function save()
+    {
+    }
 }

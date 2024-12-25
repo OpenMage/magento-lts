@@ -142,7 +142,7 @@ abstract class Varien_Image_Adapter_Abstract
     abstract public function checkDependencies();
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getMimeType()
     {

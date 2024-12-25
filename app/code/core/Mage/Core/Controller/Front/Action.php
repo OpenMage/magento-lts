@@ -77,8 +77,8 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * Translate a phrase
      *
      * @return string
-     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function __()
     {
@@ -97,7 +97,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
      * @param string $contentType
      * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
      * @return $this
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _prepareDownloadResponse(
         $fileName,

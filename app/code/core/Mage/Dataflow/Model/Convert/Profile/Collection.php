@@ -91,7 +91,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function importXml($xml)
     {

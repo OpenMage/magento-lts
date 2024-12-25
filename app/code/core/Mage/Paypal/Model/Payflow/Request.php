@@ -29,7 +29,7 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
      * @param   string $method
      * @param   array $args
      * @return  mixed
-     * @SuppressWarnings(PHPMD.DevelopmentCodeFragment)
+     * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
     public function __call($method, $args)
     {
