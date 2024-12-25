@@ -151,12 +151,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Online/Grid/Renderer/Ip.php
-
-		-
 			message: '#^Access to an undefined property Mage_Adminhtml_Block_Notification_Window\:\:\$_aclResourcePath\.$#'
 			identifier: property.notFound
 			count: 1
@@ -299,12 +293,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Report/Tag/Popular/Grid.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCasePropertyName\)\)\: Unexpected token "\.CamelCasePropertyName\)", expected ''\)'' at offset 131 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Wishlist.php
 
 		-
 			message: '#^Return type \(int\) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type\:\:getCondition\(\) should be compatible with return type \(array\|null\) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select\:\:getCondition\(\)$#'
@@ -565,12 +553,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 56 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/System/Email/Template/Grid/Renderer/Type.php
-
-		-
 			message: '#^Method Mage_Core_Model_Email_Template\:\:getProcessedTemplate\(\) invoked with 2 parameters, 0\-1 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -649,12 +631,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Currency.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 97 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Ip.php
-
-		-
 			message: '#^Binary operation "\*" between string and 1 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
@@ -695,18 +671,6 @@ parameters:
 			identifier: parameter.notFound
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseMethodName\)\)\: Unexpected token "\.CamelCaseMethodName\)", expected ''\)'' at offset 89 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Controller/Action.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ShortMethodName\)\)\: Unexpected token "\.ShortMethodName\)", expected ''\)'' at offset 141 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Controller/Action.php
 
 		-
 			message: '#^Parameter \#1 \$ids of method Mage_Adminhtml_Controller_Action\:\:loadLayout\(\) expects bool\|string\|null, array\<int, string\> given\.$#'
@@ -763,12 +727,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Config/Data.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 56 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/Customer/Renderer/Region.php
-
-		-
 			message: '#^Method Mage_Eav_Model_Entity_Abstract\:\:load\(\) invoked with 1 parameter, 2\-3 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -805,18 +763,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 148 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Observer.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 115 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
-
-		-
 			message: '#^Comparison operation "\=\=" between \(Varien_Simplexml_Element\|null\) and 1 results in an error\.$#'
 			identifier: equal.invalid
 			count: 1
@@ -833,12 +779,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Model/System/Config/Source/Country.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 83 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/AjaxController.php
 
 		-
 			message: '#^Return type \(Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute\) of method Mage_Adminhtml_Catalog_Product_Action_AttributeController\:\:_getHelper\(\) should be compatible with return type \(Mage_Adminhtml_Helper_Data\) of method Mage_Adminhtml_Controller_Action\:\:_getHelper\(\)$#'
@@ -881,12 +821,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Customer/Wishlist/Product/Composite/WishlistController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/CustomerController.php
 
 		-
 			message: '#^Parameter \#2 \$timestamp of function date expects int, array\|bool given\.$#'
@@ -1021,18 +955,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 84 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/Config/System/StorageController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 67 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/System/ConfigController.php
-
-		-
 			message: '#^Variable \$data in isset\(\) always exists and is not nullable\.$#'
 			identifier: isset.variable
 			count: 1
@@ -1053,18 +975,6 @@ parameters:
 		-
 			message: '#^Method Mage_Directory_Model_Country\:\:loadByCode\(\) invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 85 on line 4$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
 
@@ -1141,12 +1051,6 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 128 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
-
-		-
 			message: '#^Parameter \#1 \$code of class SoapFault constructor expects string, int given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1175,12 +1079,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 153 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Handler/Abstract.php
 
 		-
 			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, null given\.$#'
@@ -1307,12 +1205,6 @@ parameters:
 			identifier: method.childParameterType
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Acl.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ShortMethodName\)\)\: Unexpected token "\.ShortMethodName\)", expected ''\)'' at offset 102 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Acl/Filter.php
 
 		-
 			message: '#^Parameter \#1 \$role of method Zend_Acl\:\:hasRole\(\) expects string\|Zend_Acl_Role_Interface, int given\.$#'
@@ -1879,12 +1771,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Product/Type/Composite.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCasePropertyName\)\)\: Unexpected token "\.CamelCasePropertyName\)", expected ''\)'' at offset 108 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/View.php
-
-		-
 			message: '#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\:\:setStoreId\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -1907,12 +1793,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api/Resource.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 128 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Api2/Product/Image/Rest/Admin/V1.php
 
 		-
 			message: '#^If condition is always false\.$#'
@@ -1979,12 +1859,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Api.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 156 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Category/Attribute/Backend/Image.php
 
 		-
 			message: '#^Call to an undefined method Mage_Catalog_Model_Config\:\:_init\(\)\.$#'
@@ -2173,18 +2047,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 290 on line 12$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 302 on line 11$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
-
-		-
 			message: '#^Parameter \#1 \$data \(stdClass\) of method Mage_Catalog_Model_Product_Attribute_Media_Api_V2\:\:_prepareImageData\(\) should be compatible with parameter \$data \(array\) of method Mage_Catalog_Model_Product_Attribute_Media_Api\:\:_prepareImageData\(\)$#'
 			identifier: method.childParameterType
 			count: 1
@@ -2247,24 +2109,6 @@ parameters:
 		-
 			message: '#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Option_Interface\:\:setValue\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 114 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 172 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 156 on line 6$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/File.php
 
@@ -2545,12 +2389,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 155 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Image.php
-
-		-
 			message: '#^Method Mage_Catalog_Model_Url\:\:refreshProductRewrites\(\) invoked with 3 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -2723,18 +2561,6 @@ parameters:
 			identifier: nullCoalesce.property
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Url.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 68 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/ProductController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 76 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Catalog/controllers/ProductController.php
 
 		-
 			message: '#^Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute\:\:checkCount\(\)\.$#'
@@ -3169,28 +2995,10 @@ parameters:
 			path: app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 115 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Cms/Controller/Router.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 233 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Cms/Model/Wysiwyg/Images/Storage.php
-
-		-
 			message: '#^Parameter \#1 \$attr of method Mage_ConfigurableSwatches_Helper_Data\:\:attrIsSwatchType\(\) expects int\|Mage_Eav_Model_Attribute, Mage_Catalog_Model_Resource_Eav_Attribute given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Block/Catalog/Layer/State/Swatch.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 135 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Helper/Data.php
 
 		-
 			message: '#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\:\:getAllOptions\(\) invoked with 2 parameters, 0 required\.$#'
@@ -3223,18 +3031,6 @@ parameters:
 			path: app/code/core/Mage/Core/Block/Abstract.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseMethodName\)\)\: Unexpected token "\.CamelCaseMethodName\)", expected ''\)'' at offset 102 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ShortMethodName\)\)\: Unexpected token "\.ShortMethodName\)", expected ''\)'' at offset 154 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Block/Abstract.php
-
-		-
 			message: '#^Parameter \#3 \$value of static method Zend_Locale_Data\:\:getContent\(\) expects array\|bool\|string, int given\.$#'
 			identifier: argument.type
 			count: 1
@@ -3247,86 +3043,14 @@ parameters:
 			path: app/code/core/Mage/Core/Block/Messages.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.DevelopmentCodeFragment\)\)\: Unexpected token "\.DevelopmentCodeFragment\)", expected ''\)'' at offset 56 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Block/Profiler.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Css/Admin.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.DevelopmentCodeFragment\)\)\: Unexpected token "\.DevelopmentCodeFragment\)", expected ''\)'' at offset 82 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Block/Text/Tag/Debug.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseMethodName\)\)\: Unexpected token "\.CamelCaseMethodName\)", expected ''\)'' at offset 89 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Front/Action.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 458 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Front/Action.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ShortMethodName\)\)\: Unexpected token "\.ShortMethodName\)", expected ''\)'' at offset 141 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Front/Action.php
-
-		-
 			message: '#^Parameter \#2 \$value of method Zend_Controller_Response_Abstract\:\:setHeader\(\) expects string, int\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Front/Action.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 131 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Request/Http.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 167 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Request/Http.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 178 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Request/Http.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 120 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Response/Http.php
-
-		-
 			message: '#^Constructor of class Mage_Core_Controller_Varien_Action has an unused parameter \$invokeArgs\.$#'
 			identifier: constructor.unusedParameter
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Action.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 458 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Action.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 97 on line 5$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Varien/Action.php
 
@@ -3373,24 +3097,6 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Varien/Front.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 251 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Front.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 304 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Front.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 119 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Admin.php
-
-		-
 			message: '#^Parameter \#2 \$useRouterName \(bool\) of method Mage_Core_Controller_Varien_Router_Admin\:\:collectRoutes\(\) should be compatible with parameter \$useRouterName \(string\) of method Mage_Core_Controller_Varien_Router_Standard\:\:collectRoutes\(\)$#'
 			identifier: method.childParameterType
 			count: 1
@@ -3405,12 +3111,6 @@ parameters:
 		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 242 on line 7$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
 
@@ -3445,58 +3145,10 @@ parameters:
 			path: app/code/core/Mage/Core/Helper/Abstract.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseMethodName\)\)\: Unexpected token "\.CamelCaseMethodName\)", expected ''\)'' at offset 80 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ShortMethodName\)\)\: Unexpected token "\.ShortMethodName\)", expected ''\)'' at offset 132 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 125 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Data.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 753 on line 18$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Data.php
-
-		-
 			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(string\)\: bool\)\|null, ''trim'' given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Helper/EnvironmentConfigLoader.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 102 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Http.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 146 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Http.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 175 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Http.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseMethodName\)\)\: Unexpected token "\.CamelCaseMethodName\)", expected ''\)'' at offset 425 on line 13$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Helper/String.php
 
 		-
 			message: '#^Parameter \#2 \$arguments of static method Mage\:\:getResourceModel\(\) expects array, object given\.$#'
@@ -3519,18 +3171,6 @@ parameters:
 		-
 			message: '#^Method Mage_Core_Model_App\:\:getResponse\(\) should return Mage_Core_Controller_Response_Http but returns Zend_Controller_Response_Http\.$#'
 			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 112 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 54 on line 3$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
 
@@ -3571,18 +3211,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Cache.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 281 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 105 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
 			message: '#^Parameter \#1 \$options of method Mage_Core_Model_Config\:\:reinit\(\) expects array, Mage_Core_Model_Config_Options given\.$#'
 			identifier: argument.type
 			count: 1
@@ -3619,18 +3247,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ShortMethodName\)\)\: Unexpected token "\.ShortMethodName\)", expected ''\)'' at offset 113 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config/Element.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 87 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config/Options.php
-
-		-
 			message: '#^Comparison operation "\>\=" between int\<70400, 80499\> and 70300 is always true\.$#'
 			identifier: greaterOrEqual.alwaysTrue
 			count: 1
@@ -3645,12 +3261,6 @@ parameters:
 		-
 			message: '#^Binary operation "\-" between string and string results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Core/Model/Date.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 165 on line 7$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Core/Model/Date.php
 
@@ -3685,36 +3295,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Design/Fallback.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\)\: Unexpected token "\.CamelCaseVariableName\)\)", expected ''\)'' at offset 333 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 279 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 226 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 333 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 388 on line 11$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
 			message: '#^Property Mage_Core_Model_Design_Package\:\:\$_store \(int\|Mage_Core_Model_Store\|string\) on left side of \?\? is not nullable\.$#'
 			identifier: nullCoalesce.property
 			count: 1
@@ -3729,12 +3309,6 @@ parameters:
 		-
 			message: '#^Method Zend_Mail\:\:addBcc\(\) invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email/Queue.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 204 on line 8$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Core/Model/Email/Queue.php
 
@@ -3785,12 +3359,6 @@ parameters:
 			identifier: booleanOr.alwaysFalse
 			count: 1
 			path: app/code/core/Mage/Core/Model/File/Storage.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 284 on line 14$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/File/Storage/Abstract.php
 
 		-
 			message: '#^Parameter \#1 \$params of method Mage_Core_Model_File_Storage_Database_Abstract\:\:__construct\(\) expects array, string\|null given\.$#'
@@ -3889,18 +3457,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Layout.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 158 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Locale.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 191 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Locale.php
-
-		-
 			message: '#^Parameter \#3 \$value of method Zend_Locale\:\:getTranslationList\(\) expects string\|null, int given\.$#'
 			identifier: argument.type
 			count: 1
@@ -3941,24 +3497,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 100 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 148 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 97 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Abstract.php
 
 		-
 			message: '#^Method Mage_Core_Model_Resource_Db_Abstract\:\:_getConnection\(\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\|false\.$#'
@@ -4027,36 +3565,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/File/Storage/Directory/Database.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 127 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 142 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 182 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 213 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 263 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
 			message: '#^PHPDoc tag @param for parameter \$callbacks with type array\|string is not subtype of native type array\.$#'
 			identifier: parameter.phpDocType
 			count: 1
@@ -4067,36 +3575,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Iterator.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 132 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 2
-			path: app/code/core/Mage/Core/Model/Resource/Resource.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 154 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Resource.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 159 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Resource.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 559 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Resource.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ShortMethodName\)\)\: Unexpected token "\.ShortMethodName\)", expected ''\)'' at offset 130 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Session.php
 
 		-
 			message: '#^Parameter \#6 \$gc of function session_set_save_handler expects callable\(string\)\: bool, array\{\$this\(Mage_Core_Model_Resource_Session\), ''gc''\} given\.$#'
@@ -4135,70 +3613,10 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource/Type/Db/Mysqli.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 250 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 94 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract.php
-
-		-
 			message: '#^Parameter \#1 \$host of method Mage_Core_Model_Session_Abstract\:\:addHost\(\) expects string, true given\.$#'
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Core/Model/Session/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 223 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 109 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 135 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 163 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 178 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 221 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 55 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 82 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Session/Abstract/Varien.php
 
 		-
 			message: '#^Parameter \#2 \$clear \(bool\) of method Mage_Core_Model_Session_Abstract_Varien\:\:getData\(\) should be compatible with parameter \$index \(int\|string\) of method Varien_Object\:\:getData\(\)$#'
@@ -4225,18 +3643,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 173 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 97 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
 			message: '#^PHPDoc type bool of property Mage_Core_Model_Store\:\:\$_cacheTag is not covariant with PHPDoc type string\|true of overridden property Mage_Core_Model_Abstract\:\:\$_cacheTag\.$#'
 			identifier: property.phpDocType
 			count: 1
@@ -4247,12 +3653,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 109 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Translate.php
 
 		-
 			message: '#^Parameter \#1 \$options of class Zend_Translate constructor expects array\|Zend_Config\|Zend_Translate_Adapter, string given\.$#'
@@ -4279,32 +3679,8 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Url.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 158 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 254 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 202 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 245 on line 7$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
 
@@ -4339,18 +3715,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 159 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 107 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
 			message: '#^Parameter \#3 \$period of method Mage_Core_Model_Cookie\:\:set\(\) expects int\|null, true given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4361,30 +3725,6 @@ parameters:
 			identifier: deadCode.unreachable
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 126 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/functions.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 56 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/functions.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 71 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/functions.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ShortMethodName\)\)\: Unexpected token "\.ShortMethodName\)", expected ''\)'' at offset 93 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Core/functions.php
 
 		-
 			message: '#^Parameter \#1 \$prefix of function uniqid expects string, int\<0, max\> given\.$#'
@@ -4477,18 +3817,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Helper/Data.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 115 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Address/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 146 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Address/Abstract.php
-
-		-
 			message: '#^Parameter \#1 \$entity of method Mage_Customer_Model_Api_Resource\:\:getAllowedAttributes\(\) expects Mage_Eav_Model_Entity_Abstract, Mage_Customer_Model_Address given\.$#'
 			identifier: argument.type
 			count: 4
@@ -4565,12 +3893,6 @@ parameters:
 			identifier: deadCode.unreachable
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseVariableName\)\)\: Unexpected token "\.CamelCaseVariableName\)", expected ''\)'' at offset 85 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Group.php
 
 		-
 			message: '#^Parameter \#1 \$customer of method Mage_Customer_Model_Resource_Customer\:\:_saveAddresses\(\) expects Mage_Customer_Model_Customer, Varien_Object given\.$#'
@@ -4669,30 +3991,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 66 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 113 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 81 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Adapter/Http.php
-
-		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
 			count: 1
@@ -4723,34 +4021,10 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCasePropertyName\)\)\: Unexpected token "\.CamelCasePropertyName\)", expected ''\)'' at offset 82 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
-
-		-
 			message: '#^Undefined variable\: \$profile$#'
 			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Collection.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
 			message: '#^Parameter \#2 \$class_name of function simplexml_load_string expects string, null given\.$#'
@@ -4799,24 +4073,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Directory/Model/Currency/Filter.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 55 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Currency/Import/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 135 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Currency/Import/Currencyconverterapi.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 135 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Currency/Import/Fixerio.php
 
 		-
 			message: '#^Variable \$response might not be defined\.$#'
@@ -4869,12 +4125,6 @@ parameters:
 		-
 			message: '#^Cannot call method streamStat\(\) on resource\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Downloadable/Helper/Download.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 92 on line 4$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
@@ -4933,12 +4183,6 @@ parameters:
 			path: app/code/core/Mage/Downloadable/Model/Sales/Order/Pdf/Items/Invoice.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 69 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Downloadable/controllers/Adminhtml/Downloadable/Product/EditController.php
-
-		-
 			message: '#^Parameter \#2 \$loginUrl of method Mage_Customer_Model_Session\:\:authenticate\(\) expects bool\|null, string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4953,24 +4197,6 @@ parameters:
 		-
 			message: '#^Method Mage_Customer_Model_Session\:\:setBeforeAuthUrl\(\) invoked with 2 parameters, 1 required\.$#'
 			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Downloadable/controllers/DownloadController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 124 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Downloadable/controllers/DownloadController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 71 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Downloadable/controllers/DownloadController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 78 on line 4$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Downloadable/controllers/DownloadController.php
 
@@ -5015,18 +4241,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Attribute/Data/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 125 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Attribute/Data/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 175 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Attribute/Data/Image.php
 
 		-
 			message: '#^Method Mage_Eav_Model_Config\:\:getAttribute\(\) should return Mage_Eav_Model_Entity_Attribute_Abstract\|false but returns Mage_Eav_Model_Entity_Attribute_Interface\.$#'
@@ -5205,12 +4419,6 @@ parameters:
 		-
 			message: '#^Constructor of class Mage_Eav_Model_Entity_Collection_Abstract has an unused parameter \$resource\.$#'
 			identifier: constructor.unusedParameter
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.DevelopmentCodeFragment\)\)\: Unexpected token "\.DevelopmentCodeFragment\)", expected ''\)'' at offset 189 on line 7$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
@@ -5509,12 +4717,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 177 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import.php
-
-		-
 			message: '#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\:\:getAllOptions\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -5533,12 +4735,6 @@ parameters:
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 91 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
-
-		-
 			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(mixed\)\: bool\)\|null, Closure\(mixed\)\: int\<0, max\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -5549,12 +4745,6 @@ parameters:
 			identifier: booleanOr.alwaysTrue
 			count: 1
 			path: app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 80 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/ImportExport/controllers/Adminhtml/ImportController.php
 
 		-
 			message: '#^Parameter \#3 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, array\<string, int\|string\>\|null given\.$#'
@@ -5641,18 +4831,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Installer/Console.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 91 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Console.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 121 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Console.php
-
-		-
 			message: '#^Call to an undefined method Mage_Install_Model_Installer_Db_Abstract\:\:getVersion\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -5683,12 +4861,6 @@ parameters:
 			path: app/code/core/Mage/Install/Model/Installer/Db/Abstract.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 97 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Install/controllers/WizardController.php
-
-		-
 			message: '#^Method Mage_Log_Model_Aggregation\:\:_date\(\) never returns false so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
@@ -5713,34 +4885,10 @@ parameters:
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 103 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
 			message: '#^Call to function is_null\(\) with bool will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
 			path: app/code/core/Mage/Newsletter/Model/Subscriber.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 104 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Oauth/Model/Observer.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 107 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Oauth/Model/Observer.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 95 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Oauth/Model/Observer.php
 
 		-
 			message: '#^Parameter \#2 \$idFieldName of method Mage_Core_Model_Resource_Db_Abstract\:\:_init\(\) expects string, null given\.$#'
@@ -5759,12 +4907,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/ConsumerController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExcessiveParameterList\)\)\: Unexpected token "\.ExcessiveParameterList\)", expected ''\)'' at offset 397 on line 15$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Page/Block/Template/Links.php
 
 		-
 			message: '#^Call to an undefined method Mage_Payment_Model_Method_Abstract\:\:isPartialAuthorization\(\)\.$#'
@@ -5983,12 +5125,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Ipn.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 176 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
 			message: '#^Parameter \#1 \$amount of method Mage_Sales_Model_Order_Payment\:\:registerCaptureNotification\(\) expects float, array\|string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -6011,12 +5147,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Observer.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.DevelopmentCodeFragment\)\)\: Unexpected token "\.DevelopmentCodeFragment\)", expected ''\)'' at offset 206 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Payflow/Request.php
 
 		-
 			message: '#^Return type \(bool\) of method Mage_Paypal_Model_Payflowlink\:\:validate\(\) should be compatible with return type \(\$this\(Mage_Payment_Model_Method_Cc\)\) of method Mage_Payment_Model_Method_Cc\:\:validate\(\)$#'
@@ -6085,12 +5215,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Pro.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 112 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/System/Config/Backend/Cert.php
-
-		-
 			message: '#^Method Varien_Data_Collection\:\:toOptionArray\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -6101,18 +5225,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 97 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Paypal/controllers/IpnController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 84 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Paypal/controllers/StandardController.php
 
 		-
 			message: '#^Return type \(void\) of method Mage_PaypalUk_Model_Pro\:\:fetchTransactionInfo\(\) should be compatible with return type \(array\) of method Mage_Paypal_Model_Pro\:\:fetchTransactionInfo\(\)$#'
@@ -6311,12 +5423,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExcessiveParameterList\)\)\: Unexpected token "\.ExcessiveParameterList\)", expected ''\)'' at offset 436 on line 15$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Abstract.php
 
 		-
 			message: '#^Parameter \#1 \$datetime of method Mage_Reports_Model_Resource_Report_Collection\:\:timeShift\(\) expects string, int given\.$#'
@@ -6663,12 +5769,6 @@ parameters:
 		-
 			message: '#^Method Mage_Sales_Model_Order_Pdf_Abstract\:\:getAlignRight\(\) should return int but returns float\.$#'
 			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 602 on line 15$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
 
@@ -7069,40 +6169,10 @@ parameters:
 			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 175 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/DownloadController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 79 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Sales/controllers/DownloadController.php
-
-		-
 			message: '#^Parameter \#2 \$loginUrl of method Mage_Customer_Model_Session\:\:authenticate\(\) expects bool\|null, string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/controllers/OrderController.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseMethodName\)\)\: Unexpected token "\.CamelCaseMethodName\)", expected ''\)'' at offset 157 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Observer.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseMethodName\)\)\: Unexpected token "\.CamelCaseMethodName\)", expected ''\)'' at offset 168 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Observer.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCaseMethodName\)\)\: Unexpected token "\.CamelCaseMethodName\)", expected ''\)'' at offset 191 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/SalesRule/Model/Observer.php
 
 		-
 			message: '#^Parameter \#1 \$combine of method Mage_SalesRule_Model_Observer\:\:_removeAttributeFromConditions\(\) expects Mage_Rule_Model_Condition_Combine, Mage_Rule_Model_Action_Collection given\.$#'
@@ -7165,12 +6235,6 @@ parameters:
 			path: app/code/core/Mage/SalesRule/Model/Validator.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCasePropertyName\)\)\: Unexpected token "\.CamelCasePropertyName\)", expected ''\)'' at offset 167 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Shipping/Block/Tracking/Popup.php
-
-		-
 			message: '#^Call to an undefined method Mage_Shipping_Model_Carrier_Abstract\:\:_getQuotes\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -7213,22 +6277,10 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.CamelCasePropertyName\)\)\: Unexpected token "\.CamelCasePropertyName\)", expected ''\)'' at offset 129 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
 			message: '#^Parameter \#1 \$hash of method Mage_Shipping_Helper_Data\:\:decodeTrackingHash\(\) expects string, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Shipping/Model/Info.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.Superglobals\)\)\: Unexpected token "\.Superglobals\)", expected ''\)'' at offset 151 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
 			message: '#^Comparison operation "\<" between \(array\|float\|int\) and float results in an error\.$#'
@@ -7513,12 +6565,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.DevelopmentCodeFragment\)\)\: Unexpected token "\.DevelopmentCodeFragment\)", expected ''\)'' at offset 252 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Uploader/Model/Config/Abstract.php
-
-		-
 			message: '#^Parameter \#2 \$type of class Zend_Measure_Length constructor expects int\|null, string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -7657,12 +6703,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ShortMethodName\)\)\: Unexpected token "\.ShortMethodName\)", expected ''\)'' at offset 129 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
-
-		-
 			message: '#^Parameter \#1 \$pt of method Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder\:\:_x\(\) expects int, float given\.$#'
 			identifier: argument.type
 			count: 1
@@ -7721,12 +6761,6 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 135 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
 			message: '#^Parameter \#1 \$error of method Mage_Shipping_Model_Rate_Result\:\:setError\(\) expects bool, string given\.$#'
@@ -7997,12 +7031,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Wishlist.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ExitExpression\)\)\: Unexpected token "\.ExitExpression\)", expected ''\)'' at offset 92 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
 			message: '#^Parameter \#1 \$qty of method Mage_Wishlist_Model_Item\:\:setQty\(\) expects int, float given\.$#'
@@ -10987,104 +10015,8 @@ parameters:
 			path: lib/Mage/Archive.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 202 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Archive/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 143 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Archive/Helper/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 151 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Archive/Helper/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 59 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Archive/Helper/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 130 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Archive/Helper/File/Bz.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 133 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Archive/Helper/File/Bz.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 87 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Archive/Helper/File/Gz.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 88 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Archive/Helper/File/Gz.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 309 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Archive/Tar.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: lib/Mage/Cache/Backend/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 1197 on line 21$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Cache/Backend/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 137 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Cache/Backend/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 149 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Cache/Backend/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 158 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Cache/Backend/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 163 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Cache/Backend/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 206 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/Cache/Backend/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 259 on line 9$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: lib/Mage/Cache/Backend/File.php
 
@@ -11101,30 +10033,6 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 208 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/DB/Mysqli.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 144 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/HTTP/Client/Socket.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 59 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/HTTP/Client/Socket.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 70 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/HTTP/Client/Socket.php
-
-		-
 			message: '#^Property Mage_HTTP_Client_Socket\:\:\$_postFields is never read, only written\.$#'
 			identifier: property.onlyWritten
 			count: 1
@@ -11137,98 +10045,8 @@ parameters:
 			path: lib/Mage/HTTP/Client/Socket.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 2
-			path: lib/Mage/System/Dirs.php
-
-		-
 			message: '#^Empty array passed to foreach\.$#'
 			identifier: foreach.emptyArray
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 114 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 117 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 118 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 119 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 2
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 122 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 139 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 145 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 152 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 157 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 211 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 232 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 247 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 92 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 96 on line 6$#'
-			identifier: phpDoc.parseError
 			count: 1
 			path: lib/Mage/System/Ftp.php
 
@@ -11437,12 +10255,6 @@ parameters:
 			path: lib/Varien/Data/Tree/Node/Collection.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 194 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
 			message: '#^Variable \$result might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -11521,12 +10333,6 @@ parameters:
 			path: lib/Varien/Db/Statement/Pdo/Mysql.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/File/Uploader.php
-
-		-
 			message: '#^Right side of && is always false\.$#'
 			identifier: booleanAnd.rightAlwaysFalse
 			count: 1
@@ -11557,142 +10363,10 @@ parameters:
 			path: lib/Varien/Http/Adapter/Curl.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Image/Adapter/Abstract.php
-
-		-
 			message: '#^Property Varien_Image_Adapter_Abstract\:\:\$_imageHandler has unknown class GdImage as its type\.$#'
 			identifier: class.notFound
 			count: 1
 			path: lib/Varien/Image/Adapter/Abstract.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 81 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Image/Adapter/Gd2.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 122 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 123 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 2
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 128 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 129 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 130 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 132 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 140 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 143 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 155 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 162 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 168 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 170 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 172 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 180 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 181 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 205 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 211 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 222 on line 9$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 2
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 340 on line 11$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/File.php
 
 		-
 			message: '#^Parameter \#1 \$groupname of function posix_getgrnam expects string, int\|false given\.$#'
@@ -11705,66 +10379,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 107 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 123 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 2
-			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 137 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 168 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 170 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 224 on line 10$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 228 on line 8$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 34 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 440 on line 16$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 97 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Io/Ftp.php
 
 		-
 			message: '#^Parameter \#1 \$prefix of function uniqid expects string, int\<0, max\> given\.$#'
@@ -11809,12 +10423,6 @@ parameters:
 			path: lib/Varien/Simplexml/Config.php
 
 		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 171 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Simplexml/Config.php
-
-		-
 			message: '#^Parameter \#1 \$data of function simplexml_load_string expects string, true given\.$#'
 			identifier: argument.type
 			count: 1
@@ -11831,18 +10439,6 @@ parameters:
 			identifier: identical.alwaysFalse
 			count: 1
 			path: lib/Varien/Simplexml/Config.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 118 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Simplexml/Config/Cache/File.php
-
-		-
-			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.ErrorControlOperator\)\)\: Unexpected token "\.ErrorControlOperator\)", expected ''\)'' at offset 120 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: lib/Varien/Simplexml/Config/Cache/File.php
 
 		-
 			message: '#^Parameter \#1 \$filename of method Varien_Simplexml_Element\:\:asNiceXml\(\) expects string, int given\.$#'
