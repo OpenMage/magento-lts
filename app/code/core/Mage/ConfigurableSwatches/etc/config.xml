@@ -17,10 +17,9 @@
 <config>
     <modules>
         <Mage_ConfigurableSwatches>
-            <version>1.3.1</version>
+            <version>1.3.1.1</version>
         </Mage_ConfigurableSwatches>
     </modules>
-
     <global>
         <blocks>
             <configurableswatches>
@@ -36,13 +35,19 @@
                 <class>Mage_ConfigurableSwatches_Model_Resource</class>
             </configurableswatches_resource>
         </models>
+        <resources>
+            <configurableswatches_setup>
+                <setup>
+                    <module>Mage_ConfigurableSwatches</module>
+                </setup>
+            </configurableswatches_setup>
+        </resources>
         <helpers>
             <configurableswatches>
                 <class>Mage_ConfigurableSwatches_Helper</class>
             </configurableswatches>
         </helpers>
     </global>
-
     <frontend>
         <layout>
             <updates>
@@ -107,7 +112,6 @@
             </configurable>
         </product>
     </frontend>
-
     <adminhtml>
         <translate>
             <modules>
@@ -119,7 +123,6 @@
             </modules>
         </translate>
     </adminhtml>
-
     <default>
         <configswatches>
             <general>
