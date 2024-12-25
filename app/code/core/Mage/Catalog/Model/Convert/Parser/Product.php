@@ -185,7 +185,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             } catch (Exception $e) {
                 $this->addException(
                     Mage::helper('catalog')->__('Invalid store specified'),
-                    Varien_Convert_Exception::FATAL
+                    Varien_Convert_Exception::FATAL,
                 );
                 throw $e;
             }
@@ -269,7 +269,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 if (empty($row['sku'])) {
                     $this->addException(
                         Mage::helper('catalog')->__('Missing SKU, skipping the record.'),
-                        Mage_Dataflow_Model_Convert_Exception::ERROR
+                        Mage_Dataflow_Model_Convert_Exception::ERROR,
                     );
                     continue;
                 }
@@ -289,7 +289,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 if (!$row['attribute_set_id']) {
                     $this->addException(
                         Mage::helper('catalog')->__('Invalid attribute set specified, skipping the record.'),
-                        Mage_Dataflow_Model_Convert_Exception::ERROR
+                        Mage_Dataflow_Model_Convert_Exception::ERROR,
                     );
                     continue;
                 }
@@ -302,7 +302,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 if (!$row['type_id']) {
                     $this->addException(
                         Mage::helper('catalog')->__('Invalid product type specified, skipping the record.'),
-                        Mage_Dataflow_Model_Convert_Exception::ERROR
+                        Mage_Dataflow_Model_Convert_Exception::ERROR,
                     );
                     continue;
                 }
@@ -312,7 +312,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 if (!$storeIds) {
                     $this->addException(
                         Mage::helper('catalog')->__('Invalid store specified, skipping the record.'),
-                        Mage_Dataflow_Model_Convert_Exception::ERROR
+                        Mage_Dataflow_Model_Convert_Exception::ERROR,
                     );
                     continue;
                 }
@@ -346,7 +346,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                                 $rowError = true;
                                 $this->addException(
                                     Mage::helper('catalog')->__('Invalid attribute option specified for attribute %s (%s), skipping the record.', $field, $value),
-                                    Mage_Dataflow_Model_Convert_Exception::ERROR
+                                    Mage_Dataflow_Model_Convert_Exception::ERROR,
                                 );
                                 continue;
                             }
@@ -364,7 +364,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
                     $this->addException(
                         Mage::helper('catalog')->__('Error during retrieval of option value: %s', $e->getMessage()),
-                        Mage_Dataflow_Model_Convert_Exception::FATAL
+                        Mage_Dataflow_Model_Convert_Exception::FATAL,
                     );
                 }
             }
@@ -420,10 +420,10 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 'websites'      => '',
                 'attribute_set' => $this->getAttributeSetName(
                     $product->getEntityTypeId(),
-                    $product->getAttributeSetId()
+                    $product->getAttributeSetId(),
                 ),
                 'type'          => $product->getTypeId(),
-                'category_ids' => implode(',', $product->getCategoryIds())
+                'category_ids' => implode(',', $product->getCategoryIds()),
             ];
 
             if ($this->getStore()->getCode() == Mage_Core_Model_Store::ADMIN_CODE) {
@@ -455,7 +455,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     if ($value && empty($option) && $option != '0') {
                         $this->addException(
                             Mage::helper('catalog')->__('Invalid option ID specified for %s (%s), skipping the record.', $field, $value),
-                            Mage_Dataflow_Model_Convert_Exception::ERROR
+                            Mage_Dataflow_Model_Convert_Exception::ERROR,
                         );
                         continue;
                     }
@@ -507,7 +507,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $baseRowData = [
                 'store'     => $row['store'],
                 'website'   => $row['websites'],
-                'sku'       => $row['sku']
+                'sku'       => $row['sku'],
             ];
             unset($row);
 
@@ -520,7 +520,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     '_media_image'          => $image['file'],
                     '_media_lable'          => $image['label'],
                     '_media_position'       => $image['position'],
-                    '_media_is_disabled'    => $image['disabled']
+                    '_media_is_disabled'    => $image['disabled'],
                 ];
                 $rowMediaGallery = array_merge($baseRowData, $rowMediaGallery);
 

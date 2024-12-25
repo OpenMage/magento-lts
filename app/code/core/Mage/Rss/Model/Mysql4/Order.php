@@ -21,6 +21,4 @@
  * @package    Mage_Rss
  * @deprecated
  */
-class Mage_Rss_Model_Mysql4_Order extends Mage_Rss_Model_Resource_Order
-{
-}
+class Mage_Rss_Model_Mysql4_Order extends Mage_Rss_Model_Resource_Order {}

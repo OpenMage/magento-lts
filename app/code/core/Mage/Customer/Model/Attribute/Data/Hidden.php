@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Customer
  */
-class Mage_Customer_Model_Attribute_Data_Hidden extends Mage_Eav_Model_Attribute_Data_Hidden
-{
-}
+class Mage_Customer_Model_Attribute_Data_Hidden extends Mage_Eav_Model_Attribute_Data_Hidden {}

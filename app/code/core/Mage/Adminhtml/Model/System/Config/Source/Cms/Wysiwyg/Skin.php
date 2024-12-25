@@ -26,20 +26,20 @@ class Mage_Adminhtml_Model_System_Config_Source_Cms_Wysiwyg_Skin
         return [
             [
                 'value' => 'oxide',
-                'label' => 'Oxide'
+                'label' => 'Oxide',
             ],
             [
                 'value' => 'oxide-dark',
-                'label' => 'Oxide Dark'
+                'label' => 'Oxide Dark',
             ],
             [
                 'value' => 'tinymce-5',
-                'label' => 'Tinymce 5'
+                'label' => 'Tinymce 5',
             ],
             [
                 'value' => 'tinymce-5-dark',
-                'label' => 'Tinymce 5 Dark'
-            ]
+                'label' => 'Tinymce 5 Dark',
+            ],
         ];
     }
 }

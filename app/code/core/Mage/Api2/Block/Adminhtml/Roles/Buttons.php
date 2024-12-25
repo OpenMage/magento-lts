@@ -42,21 +42,21 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
             'backButton'    => [
                 'label'     => Mage::helper('adminhtml')->__('Back'),
                 'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
-                'class'     => 'back'
+                'class'     => 'back',
             ],
             'resetButton'   => [
                 'label'     => Mage::helper('adminhtml')->__('Reset'),
-                'onclick'   => 'window.location.reload()'
+                'onclick'   => 'window.location.reload()',
             ],
             'saveButton'    => [
                 'label'     => Mage::helper('adminhtml')->__('Save Role'),
                 'onclick'   => 'roleForm.submit(); return false;',
-                'class'     => 'save'
+                'class'     => 'save',
             ],
             'deleteButton'  => [
                 'label'     => Mage::helper('adminhtml')->__('Delete Role'),
                 'onclick'   => '',  //roleId is not set at this moment, so we set script later
-                'class'     => 'delete'
+                'class'     => 'delete',
             ],
         ];
 
@@ -114,7 +114,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
         $this->getChild('deleteButton')->setData('onclick', sprintf(
             "if(confirm('%s')) roleForm.submit('%s'); return false;",
             Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Are you sure you want to do this?')),
-            $this->getUrl('*/*/delete')
+            $this->getUrl('*/*/delete'),
         ));
 
         return $this->getChildHtml('deleteButton');

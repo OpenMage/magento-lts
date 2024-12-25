@@ -74,7 +74,7 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
         Mage::getSingleton('core/resource_iterator')->walk(
             $collection->getSelect(),
             [[$this, 'addReviewItemXmlCallback']],
-            ['rssObj' => $rssObj, 'reviewModel' => $reviewModel]
+            ['rssObj' => $rssObj, 'reviewModel' => $reviewModel],
         );
         return $rssObj->createRssXml();
     }
@@ -94,7 +94,7 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
         $productUrl = $urlModel->getUrl('catalog/product/view', ['id' => $row['entity_id']]);
         $reviewUrl = Mage::helper('adminhtml')->getUrl(
             'adminhtml/catalog_product_review/edit/',
-            ['id' => $row['review_id'], '_secure' => true, '_nosecret' => true]
+            ['id' => $row['review_id'], '_secure' => true, '_nosecret' => true],
         );
         $storeName = $store->getName();
 

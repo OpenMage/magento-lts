@@ -71,7 +71,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
                 $processor = $helper->getBlockTemplateProcessor();
                 if ($this->isRequestFromAdminArea()) {
                     $this->setText($processor->filter(
-                        Mage::getSingleton('core/input_filter_maliciousCode')->filter($block->getContent())
+                        Mage::getSingleton('core/input_filter_maliciousCode')->filter($block->getContent()),
                     ));
                 } else {
                     $this->setText($processor->filter($block->getContent()));

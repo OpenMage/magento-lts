@@ -19,6 +19,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Report extends Mage_Sales_Model_Resource_Report
-{
-}
+class Mage_Sales_Model_Mysql4_Report extends Mage_Sales_Model_Resource_Report {}

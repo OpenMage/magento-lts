@@ -66,7 +66,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
                     continue;
                 }
                 $this->_calculator->processFreeShipping($item);
-                $isItemFree = (bool)$item->getFreeShipping();
+                $isItemFree = (bool) $item->getFreeShipping();
                 $isAllFree = $isAllFree && $isItemFree;
                 if ($item->getHasChildren() && $item->isChildrenCalculated()) {
                     foreach ($item->getChildren() as $child) {

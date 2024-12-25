@@ -21,6 +21,4 @@
  * @package    Mage_Tag
  * @deprecated
  */
-class Mage_Tag_Model_Mysql4_Indexer_Summary extends Mage_Tag_Model_Resource_Indexer_Summary
-{
-}
+class Mage_Tag_Model_Mysql4_Indexer_Summary extends Mage_Tag_Model_Resource_Indexer_Summary {}

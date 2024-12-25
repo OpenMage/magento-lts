@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Wishlist
  */
-class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Image extends Mage_Wishlist_Block_Customer_Wishlist_Item_Column
-{
-}
+class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Image extends Mage_Wishlist_Block_Customer_Wishlist_Item_Column {}

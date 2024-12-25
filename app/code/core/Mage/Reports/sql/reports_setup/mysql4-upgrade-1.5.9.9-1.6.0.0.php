@@ -24,42 +24,42 @@ $installer->startSetup();
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('reports/compared_product_index'),
-    'FK_REPORT_COMPARED_PRODUCT_INDEX_CUSTOMER'
+    'FK_REPORT_COMPARED_PRODUCT_INDEX_CUSTOMER',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('reports/compared_product_index'),
-    'FK_REPORT_COMPARED_PRODUCT_INDEX_PRODUCT'
+    'FK_REPORT_COMPARED_PRODUCT_INDEX_PRODUCT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('reports/compared_product_index'),
-    'FK_REPORT_COMPARED_PRODUCT_INDEX_STORE'
+    'FK_REPORT_COMPARED_PRODUCT_INDEX_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('reports/event'),
-    'FK_REPORT_EVENT_STORE'
+    'FK_REPORT_EVENT_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('reports/event'),
-    'FK_REPORT_EVENT_TYPE'
+    'FK_REPORT_EVENT_TYPE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('reports/viewed_product_index'),
-    'FK_REPORT_VIEWED_PRODUCT_INDEX_CUSTOMER'
+    'FK_REPORT_VIEWED_PRODUCT_INDEX_CUSTOMER',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('reports/viewed_product_index'),
-    'FK_REPORT_VIEWED_PRODUCT_INDEX_PRODUCT'
+    'FK_REPORT_VIEWED_PRODUCT_INDEX_PRODUCT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('reports/viewed_product_index'),
-    'FK_REPORT_VIEWED_PRODUCT_INDEX_STORE'
+    'FK_REPORT_VIEWED_PRODUCT_INDEX_STORE',
 );
 
 /**
@@ -67,77 +67,77 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/compared_product_index'),
-    'UNQ_BY_VISITOR'
+    'UNQ_BY_VISITOR',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/compared_product_index'),
-    'UNQ_BY_CUSTOMER'
+    'UNQ_BY_CUSTOMER',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/compared_product_index'),
-    'IDX_STORE'
+    'IDX_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/compared_product_index'),
-    'IDX_SORT_ADDED_AT'
+    'IDX_SORT_ADDED_AT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/compared_product_index'),
-    'PRODUCT_ID'
+    'PRODUCT_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/event'),
-    'IDX_EVENT_TYPE'
+    'IDX_EVENT_TYPE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/event'),
-    'IDX_SUBJECT'
+    'IDX_SUBJECT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/event'),
-    'IDX_OBJECT'
+    'IDX_OBJECT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/event'),
-    'IDX_SUBTYPE'
+    'IDX_SUBTYPE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/event'),
-    'FK_REPORT_EVENT_STORE'
+    'FK_REPORT_EVENT_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/viewed_product_index'),
-    'UNQ_BY_VISITOR'
+    'UNQ_BY_VISITOR',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/viewed_product_index'),
-    'UNQ_BY_CUSTOMER'
+    'UNQ_BY_CUSTOMER',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/viewed_product_index'),
-    'IDX_STORE'
+    'IDX_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/viewed_product_index'),
-    'IDX_SORT_ADDED_AT'
+    'IDX_SORT_ADDED_AT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('reports/viewed_product_index'),
-    'PRODUCT_ID'
+    'PRODUCT_ID',
 );
 
 /**
@@ -152,49 +152,49 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Event Id'
+                'comment'   => 'Event Id',
             ],
             'logged_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Logged At'
+                'comment'   => 'Logged At',
             ],
             'event_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Event Type Id'
+                'comment'   => 'Event Type Id',
             ],
             'object_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Object Id'
+                'comment'   => 'Object Id',
             ],
             'subject_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Subject Id'
+                'comment'   => 'Subject Id',
             ],
             'subtype' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Subtype'
+                'comment'   => 'Subtype',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Store Id'
-            ]
+                'comment'   => 'Store Id',
+            ],
         ],
-        'comment' => 'Reports Event Table'
+        'comment' => 'Reports Event Table',
     ],
     $installer->getTable('reports/event_type') => [
         'columns' => [
@@ -204,23 +204,23 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Event Type Id'
+                'comment'   => 'Event Type Id',
             ],
             'event_name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'nullable'  => false,
-                'comment'   => 'Event Name'
+                'comment'   => 'Event Name',
             ],
             'customer_login' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Customer Login'
-            ]
+                'comment'   => 'Customer Login',
+            ],
         ],
-        'comment' => 'Reports Event Type Table'
+        'comment' => 'Reports Event Type Table',
     ],
     $installer->getTable('reports/compared_product_index') => [
         'columns' => [
@@ -230,36 +230,36 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Index Id'
+                'comment'   => 'Index Id',
             ],
             'visitor_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Visitor Id'
+                'comment'   => 'Visitor Id',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Customer Id'
+                'comment'   => 'Customer Id',
             ],
             'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Product Id'
+                'comment'   => 'Product Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'added_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Added At'
-            ]
+                'comment'   => 'Added At',
+            ],
         ],
-        'comment' => 'Reports Compared Product Index Table'
+        'comment' => 'Reports Compared Product Index Table',
     ],
     $installer->getTable('reports/viewed_product_index') => [
         'columns' => [
@@ -269,37 +269,37 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Index Id'
+                'comment'   => 'Index Id',
             ],
             'visitor_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Visitor Id'
+                'comment'   => 'Visitor Id',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Customer Id'
+                'comment'   => 'Customer Id',
             ],
             'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Product Id'
+                'comment'   => 'Product Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'added_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Added At'
-            ]
+                'comment'   => 'Added At',
+            ],
         ],
-        'comment' => 'Reports Viewed Product Index Table'
-    ]
+        'comment' => 'Reports Viewed Product Index Table',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -312,10 +312,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'reports/compared_product_index',
         ['visitor_id', 'product_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['visitor_id', 'product_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
@@ -323,58 +323,58 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'reports/compared_product_index',
         ['customer_id', 'product_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['customer_id', 'product_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/compared_product_index'),
     $installer->getIdxName('reports/compared_product_index', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/compared_product_index'),
     $installer->getIdxName('reports/compared_product_index', ['added_at']),
-    ['added_at']
+    ['added_at'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/compared_product_index'),
     $installer->getIdxName('reports/compared_product_index', ['product_id']),
-    ['product_id']
+    ['product_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
     $installer->getIdxName('reports/event', ['event_type_id']),
-    ['event_type_id']
+    ['event_type_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
     $installer->getIdxName('reports/event', ['subject_id']),
-    ['subject_id']
+    ['subject_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
     $installer->getIdxName('reports/event', ['object_id']),
-    ['object_id']
+    ['object_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
     $installer->getIdxName('reports/event', ['subtype']),
-    ['subtype']
+    ['subtype'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
     $installer->getIdxName('reports/event', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
@@ -382,10 +382,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'reports/viewed_product_index',
         ['visitor_id', 'product_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['visitor_id', 'product_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
@@ -393,28 +393,28 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'reports/viewed_product_index',
         ['customer_id', 'product_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['customer_id', 'product_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/viewed_product_index'),
     $installer->getIdxName('reports/viewed_product_index', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/viewed_product_index'),
     $installer->getIdxName('reports/viewed_product_index', ['added_at']),
-    ['added_at']
+    ['added_at'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/viewed_product_index'),
     $installer->getIdxName('reports/viewed_product_index', ['product_id']),
-    ['product_id']
+    ['product_id'],
 );
 
 /**
@@ -425,7 +425,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('reports/compared_product_index'),
     'customer_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -433,7 +433,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('reports/compared_product_index'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -442,7 +442,7 @@ $installer->getConnection()->addForeignKey(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    Varien_Db_Ddl_Table::ACTION_SET_NULL
+    Varien_Db_Ddl_Table::ACTION_SET_NULL,
 );
 
 $installer->getConnection()->addForeignKey(
@@ -450,7 +450,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('reports/event'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -458,7 +458,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('reports/event'),
     'event_type_id',
     $installer->getTable('reports/event_type'),
-    'event_type_id'
+    'event_type_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -466,7 +466,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('reports/viewed_product_index'),
     'customer_id',
     $installer->getTable('customer/entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -474,7 +474,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('reports/viewed_product_index'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -483,7 +483,7 @@ $installer->getConnection()->addForeignKey(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    Varien_Db_Ddl_Table::ACTION_SET_NULL
+    Varien_Db_Ddl_Table::ACTION_SET_NULL,
 );
 
 $installer->endSetup();

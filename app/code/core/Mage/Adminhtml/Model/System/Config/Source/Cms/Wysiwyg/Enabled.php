@@ -27,16 +27,16 @@ class Mage_Adminhtml_Model_System_Config_Source_Cms_Wysiwyg_Enabled
         return [
             [
                 'value' => Mage_Cms_Model_Wysiwyg_Config::WYSIWYG_ENABLED,
-                'label' => Mage::helper('cms')->__('Enabled by Default')
+                'label' => Mage::helper('cms')->__('Enabled by Default'),
             ],
             [
                 'value' => Mage_Cms_Model_Wysiwyg_Config::WYSIWYG_HIDDEN,
-                'label' => Mage::helper('cms')->__('Disabled by Default')
+                'label' => Mage::helper('cms')->__('Disabled by Default'),
             ],
             [
                 'value' => Mage_Cms_Model_Wysiwyg_Config::WYSIWYG_DISABLED,
-                'label' => Mage::helper('cms')->__('Disabled Completely')
-            ]
+                'label' => Mage::helper('cms')->__('Disabled Completely'),
+            ],
         ];
     }
 }

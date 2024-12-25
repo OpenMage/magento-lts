@@ -158,7 +158,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
             if (isset($postData['tag_assigned_products'])) {
                 $productIds = Mage::helper('adminhtml/js')->decodeGridSerializedInput(
-                    $postData['tag_assigned_products']
+                    $postData['tag_assigned_products'],
                 );
                 $model->setData('tag_assigned_products', $productIds);
             }
@@ -285,7 +285,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                     $tag->delete();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    $this->__('Total of %d record(s) have been deleted.', count($tagIds))
+                    $this->__('Total of %d record(s) have been deleted.', count($tagIds)),
                 );
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -302,7 +302,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function massStatusAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
-        $storeId = (int)$this->getRequest()->getParam('store', 0);
+        $storeId = (int) $this->getRequest()->getParam('store', 0);
         if (!is_array($tagIds)) {
             // No products selected
             Mage::getSingleton('adminhtml/session')->addError($this->__('Please select tag(s).'));
@@ -315,7 +315,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                     $tag->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    $this->__('Total of %d record(s) have been updated.', count($tagIds))
+                    $this->__('Total of %d record(s) have been updated.', count($tagIds)),
                 );
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());

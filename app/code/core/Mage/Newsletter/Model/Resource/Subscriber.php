@@ -117,7 +117,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
 
         $result = $this->_read->fetchRow(
             $select,
-            ['subscriber_email' => $customer->getEmail(), 'store_id' => $customer->getStoreId()]
+            ['subscriber_email' => $customer->getEmail(), 'store_id' => $customer->getStoreId()],
         );
 
         if ($result) {
@@ -149,7 +149,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
             $data['letter_sent_at'] = Mage::getSingleton('core/date')->gmtDate();
             $this->_write->update($this->_subscriberLinkTable, $data, [
                 'subscriber_id = ?' => $subscriber->getId(),
-                'queue_id = ?' => $queue->getId()
+                'queue_id = ?' => $queue->getId(),
             ]);
             $this->_write->commit();
         } catch (Exception $e) {

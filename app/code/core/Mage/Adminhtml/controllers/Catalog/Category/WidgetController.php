@@ -34,7 +34,7 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
     public function chooserAction()
     {
         $this->getResponse()->setBody(
-            $this->_getCategoryTreeBlock()->toHtml()
+            $this->_getCategoryTreeBlock()->toHtml(),
         );
     }
 
@@ -50,7 +50,7 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
                 Mage::register('current_category', $category);
             }
             $this->getResponse()->setBody(
-                $this->_getCategoryTreeBlock()->getTreeJson($category)
+                $this->_getCategoryTreeBlock()->getTreeJson($category),
             );
         }
     }
@@ -59,7 +59,7 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
     {
         return $this->getLayout()->createBlock('adminhtml/catalog_category_widget_chooser', '', [
             'id' => $this->getRequest()->getParam('uniq_id'),
-            'use_massaction' => $this->getRequest()->getParam('use_massaction', false)
+            'use_massaction' => $this->getRequest()->getParam('use_massaction', false),
         ]);
     }
 }

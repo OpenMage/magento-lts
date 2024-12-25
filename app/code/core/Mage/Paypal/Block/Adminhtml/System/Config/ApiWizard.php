@@ -61,7 +61,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
         $elementHtmlId = $element->getHtmlId();
         $this->addData(array_merge(
             $this->_getButtonData($elementHtmlId, $originalData),
-            $this->_getSandboxButtonData($elementHtmlId, $originalData)
+            $this->_getSandboxButtonData($elementHtmlId, $originalData),
         ));
         return $this->_toHtml();
     }

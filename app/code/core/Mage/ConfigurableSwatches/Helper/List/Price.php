@@ -64,23 +64,23 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
                             $product,
                             $attributePrice['pricing_value'],
                             $attributePrice['is_percent'],
-                            $storeId
-                        )
+                            $storeId,
+                        ),
                     );
                     Mage::dispatchEvent(
                         'catalog_product_type_configurable_price',
-                        ['product' => $product]
+                        ['product' => $product],
                     );
                     $configurablePrice = $product->getConfigurablePrice();
                     $cofigurableSwatchesHelper = Mage::helper('configurableswatches');
                     $result[$cofigurableSwatchesHelper::normalizeKey($attributePrice['store_label'])] = [
-                       'price' => $configurablePrice,
-                    'oldPrice' => $this->_getHelper()->prepareOldPrice(
-                        $product,
-                        $attributePrice['pricing_value'],
-                        $attributePrice['is_percent'],
-                        $storeId
-                    ),
+                        'price' => $configurablePrice,
+                        'oldPrice' => $this->_getHelper()->prepareOldPrice(
+                            $product,
+                            $attributePrice['pricing_value'],
+                            $attributePrice['is_percent'],
+                            $storeId,
+                        ),
                     ];
                 }
             }

@@ -109,8 +109,8 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     public function addProductFilter($customerId)
     {
         $this->getSelect()
-             ->where('relation.product_id = ?', (int)$customerId);
-        $this->_customerFilterId = (int)$customerId;
+             ->where('relation.product_id = ?', (int) $customerId);
+        $this->_customerFilterId = (int) $customerId;
         return $this;
     }
 
@@ -144,12 +144,12 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
             ->join(
                 ['relation' => $this->getTable('tag/relation')],
                 'relation.product_id = e.entity_id',
-                []
+                [],
             )
             ->join(
                 ['t' => $this->getTable('tag/tag')],
                 't.tag_id = relation.tag_id',
-                ['tag_id',  'status', 'tag_name' => 'name']
+                ['tag_id',  'status', 'tag_name' => 'name'],
             );
 
         return $this;

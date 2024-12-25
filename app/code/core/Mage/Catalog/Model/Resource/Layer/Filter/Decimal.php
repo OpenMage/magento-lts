@@ -44,13 +44,13 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
         $conditions = [
             "{$tableAlias}.entity_id = e.entity_id",
             $connection->quoteInto("{$tableAlias}.attribute_id = ?", $attribute->getAttributeId()),
-            $connection->quoteInto("{$tableAlias}.store_id = ?", $collection->getStoreId())
+            $connection->quoteInto("{$tableAlias}.store_id = ?", $collection->getStoreId()),
         ];
 
         $collection->getSelect()->join(
             [$tableAlias => $this->getMainTable()],
             implode(' AND ', $conditions),
-            []
+            [],
         );
 
         $collection->getSelect()
@@ -108,7 +108,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
             'e.entity_id = decimal_index.entity_id' .
             ' AND ' . $this->_getReadAdapter()->quoteInto('decimal_index.attribute_id = ?', $attributeId) .
             ' AND ' . $this->_getReadAdapter()->quoteInto('decimal_index.store_id = ?', $storeId),
-            []
+            [],
         );
 
         return $select;
@@ -131,7 +131,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
 
         $select->columns([
             'decimal_range' => $rangeExpr,
-            'count' => $countExpr
+            'count' => $countExpr,
         ]);
         $select->group($rangeExpr);
 

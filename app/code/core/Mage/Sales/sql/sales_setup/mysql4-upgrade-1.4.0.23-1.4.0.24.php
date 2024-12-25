@@ -20,5 +20,5 @@ $installer = $this;
 $installer->getConnection()->addColumn(
     $installer->getTable('sales/invoice'),
     'base_total_refunded',
-    'decimal(12,4) default NULL'
+    'decimal(12,4) default NULL',
 );

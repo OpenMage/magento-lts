@@ -41,7 +41,7 @@ class Mage_Dataflow_Model_Resource_Profile_History_Collection extends Mage_Core_
         $this->getSelect()->join(
             ['u' => $this->getTable('admin/user')],
             'u.user_id=main_table.user_id',
-            ['firstname', 'lastname']
+            ['firstname', 'lastname'],
         );
         return $this;
     }

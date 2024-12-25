@@ -31,8 +31,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extend
             $this->getLayout()->createBlock('adminhtml/html_select')
                 ->setData([
                     'id' => 'product_option_{{option_id}}_price_type',
-                    'class' => 'select product-option-price-type'
-                ])
+                    'class' => 'select product-option-price-type',
+                ]),
         );
 
         $this->getChild('option_price_type')->setName('product[options][{{option_id}}][price_type]')

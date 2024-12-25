@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
         $this->addTab('account', [
             'label'     => Mage::helper('customer')->__('Account Information'),
             'content'   => $block->initForm()->toHtml(),
-            'active'    => Mage::registry('current_customer')->getId() ? false : true
+            'active'    => Mage::registry('current_customer')->getId() ? false : true,
         ]);
 
         /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses $block */
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
                 $this->addTab('newsletter', [
                     'label'     => Mage::helper('customer')->__('Newsletter'),
-                    'content'   => $block->initForm()->toHtml()
+                    'content'   => $block->initForm()->toHtml(),
                 ]);
             }
 

@@ -38,7 +38,7 @@ class Mage_Sales_Model_Entity_Order_Collection extends Mage_Eav_Model_Entity_Col
         $this->getSelect()->join(
             ['items' => $orderTable],
             'items.parent_id=e.entity_id and items.entity_type_id=' . $orderItemEntityTypeId,
-            ['items_count' => new Zend_Db_Expr('COUNT(items.entity_id)')]
+            ['items_count' => new Zend_Db_Expr('COUNT(items.entity_id)')],
         )
             ->group('e.entity_id');
         return $this;

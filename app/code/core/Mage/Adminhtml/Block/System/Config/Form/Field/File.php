@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_File extends Varien_Data_For
     protected function _getDeleteCheckbox()
     {
         $html = '';
-        if ((string)$this->getValue()) {
+        if ((string) $this->getValue()) {
             $label = Mage::helper('adminhtml')->__('Delete File');
             $html .= '<div>' . Mage::helper('adminhtml')->escapeHtml($this->getValue()) . ' ';
             $html .= '<input type="checkbox" name="' . parent::getName() . '[delete]" value="1" class="checkbox" id="' . $this->getHtmlId() . '_delete"' . ($this->getDisabled() ? ' disabled="disabled"' : '') . '/>';

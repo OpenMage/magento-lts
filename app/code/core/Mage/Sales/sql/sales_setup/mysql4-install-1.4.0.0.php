@@ -1187,11 +1187,11 @@ $constraints = [
     ],
     'sales_flat_shipment' => [
         'parent' => ['order_id', 'sales_flat_order', 'entity_id'],
-        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
     ],
     'sales_flat_shipment_grid' => [
         'parent' => ['entity_id', 'sales_flat_shipment', 'entity_id'],
-        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
     ],
     'sales_flat_shipment_track' => [
         'parent' => ['parent_id', 'sales_flat_shipment', 'entity_id'],
@@ -1204,11 +1204,11 @@ $constraints = [
     ],
     'sales_flat_invoice' => [
         'parent' => ['order_id', 'sales_flat_order', 'entity_id'],
-        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
     ],
     'sales_flat_invoice_grid' => [
         'parent' => ['entity_id', 'sales_flat_invoice', 'entity_id'],
-        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
     ],
     'sales_flat_invoice_item' => [
         'parent' => ['parent_id', 'sales_flat_invoice', 'entity_id'],
@@ -1218,11 +1218,11 @@ $constraints = [
     ],
     'sales_flat_creditmemo' => [
         'parent' => ['order_id', 'sales_flat_order', 'entity_id'],
-        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
     ],
     'sales_flat_creditmemo_grid' => [
         'parent' => ['entity_id', 'sales_flat_creditmemo', 'entity_id'],
-        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
     ],
     'sales_flat_creditmemo_item' => [
         'parent' => ['parent_id', 'sales_flat_creditmemo', 'entity_id'],
@@ -1255,7 +1255,7 @@ $constraints = [
     ],
     'sales_shipping_aggregated_order' => [
         'store' => ['store_id', 'core_store', 'store_id', 'set null'],
-    ]
+    ],
 ];
 
 foreach ($constraints as $table => $list) {
@@ -1273,28 +1273,28 @@ $installer->addEntityType('order', [
     'entity_model'          => 'sales/order',
     'table'                 => 'sales/order',
     'increment_model'       => 'eav/entity_increment_numeric',
-    'increment_per_store'   => true
+    'increment_per_store'   => true,
 ]);
 
 $installer->addEntityType('invoice', [
     'entity_model'          => 'sales/order_invoice',
     'table'                 => 'sales/invoice',
     'increment_model'       => 'eav/entity_increment_numeric',
-    'increment_per_store'   => true
+    'increment_per_store'   => true,
 ]);
 
 $installer->addEntityType('creditmemo', [
     'entity_model'          => 'sales/order_creditmemo',
     'table'                 => 'sales/creditmemo',
     'increment_model'       => 'eav/entity_increment_numeric',
-    'increment_per_store'   => true
+    'increment_per_store'   => true,
 ]);
 
 $installer->addEntityType('shipment', [
     'entity_model'          => 'sales/order_shipment',
     'table'                 => 'sales/shipment',
     'increment_model'       => 'eav/entity_increment_numeric',
-    'increment_per_store'   => true
+    'increment_per_store'   => true,
 ]);
 
 $installer->endSetup();

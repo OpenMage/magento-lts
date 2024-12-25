@@ -48,16 +48,16 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
             $this->_options = [
                 [
                     'label' => Mage::helper('catalog')->__('Yes'),
-                    'value' => self::MSRP_ENABLE_YES
+                    'value' => self::MSRP_ENABLE_YES,
                 ],
                 [
                     'label' => Mage::helper('catalog')->__('No'),
-                    'value' => self::MSRP_ENABLE_NO
+                    'value' => self::MSRP_ENABLE_NO,
                 ],
                 [
                     'label' => Mage::helper('catalog')->__('Use config'),
-                    'value' => self::MSRP_ENABLE_USE_CONFIG
-                ]
+                    'value' => self::MSRP_ENABLE_USE_CONFIG,
+                ],
             ];
         }
         return $this->_options;
@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
         $column = [
             'unsigned'  => false,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {

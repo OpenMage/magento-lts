@@ -50,6 +50,4 @@
  * @category  Mage
  * @package   Mage_Cache
  */
-class Mage_Cache_Backend_Redis extends Cm_Cache_Backend_Redis
-{
-}
+class Mage_Cache_Backend_Redis extends Cm_Cache_Backend_Redis {}

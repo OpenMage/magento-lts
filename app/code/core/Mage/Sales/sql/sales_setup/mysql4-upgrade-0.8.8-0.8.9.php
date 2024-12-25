@@ -47,7 +47,7 @@ $installer->getConnection()->addConstraint(
     'store_id',
     $this->getTable('core_store'),
     'store_id',
-    'SET NULL'
+    'SET NULL',
 );
 
 $installer->installEntities();

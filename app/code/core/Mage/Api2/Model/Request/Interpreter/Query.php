@@ -43,7 +43,7 @@ class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Reque
         if (!$this->_validateQuery($body)) {
             throw new Mage_Api2_Exception(
                 'Invalid data type. Check Content-Type.',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
 

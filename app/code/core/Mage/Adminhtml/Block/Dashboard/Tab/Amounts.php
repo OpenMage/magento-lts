@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Amounts extends Mage_Adminhtml_Block_Da
         $this->setDataRows('revenue');
         $this->_axisMaps = [
             'x' => 'range',
-            'y' => 'revenue'
+            'y' => 'revenue',
         ];
 
         parent::_prepareData();

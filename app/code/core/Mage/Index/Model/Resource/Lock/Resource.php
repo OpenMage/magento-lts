@@ -77,7 +77,7 @@ class Mage_Index_Model_Resource_Lock_Resource extends Mage_Core_Model_Resource
             }
         }
 
-        $connection = $this->_newConnection((string)$connConfig->type, $connConfig);
+        $connection = $this->_newConnection((string) $connConfig->type, $connConfig);
         if ($connection) {
             if (Mage::app()->getIsCacheLocked()) {
                 $this->_skippedConnections[$index] = true;

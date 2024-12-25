@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Weee
  */
-class Mage_Weee_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
-{
-}
+class Mage_Weee_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup {}

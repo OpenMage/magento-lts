@@ -23,6 +23,9 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
+# TinyMCE library
+/js/tinymce
+
 # Add development environment setup files and README
 # https://github.com/OpenMage/magento-lts/pull/1012
 /dev/openmage/docker-magento

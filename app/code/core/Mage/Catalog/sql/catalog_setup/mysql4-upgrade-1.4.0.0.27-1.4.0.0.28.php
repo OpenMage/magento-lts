@@ -39,7 +39,7 @@ $installer->addAttribute('catalog_product', 'is_recurring', [
     'visible_on_front'  => false,
     'unique'            => false,
     'apply_to'          => 'simple,virtual',
-    'is_configurable'   => false
+    'is_configurable'   => false,
 ]);
 
 // recurring payment profile
@@ -63,5 +63,5 @@ $installer->addAttribute('catalog_product', 'recurring_profile', [
     'visible_on_front'  => false,
     'unique'            => false,
     'apply_to'          => 'simple,virtual',
-    'is_configurable'   => false
+    'is_configurable'   => false,
 ]);

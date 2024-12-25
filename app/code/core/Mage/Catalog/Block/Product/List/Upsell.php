@@ -51,7 +51,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if ($this->isModuleEnabled('Mage_Checkout', 'catalog')) {
             Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter(
                 $this->_itemCollection,
-                Mage::getSingleton('checkout/session')->getQuoteId()
+                Mage::getSingleton('checkout/session')->getQuoteId(),
             );
 
             $this->_addProductAttributesAndPrices($this->_itemCollection);
@@ -70,7 +70,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         Mage::dispatchEvent('catalog_product_upsell', [
             'product'       => $product,
             'collection'    => $this->_itemCollection,
-            'limit'         => $this->getItemLimit()
+            'limit'         => $this->getItemLimit(),
         ]);
 
         foreach ($this->_itemCollection as $product) {

@@ -33,11 +33,11 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
             $this->_options = [
                 [
                     'label' => Mage::helper('bundle')->__('As Low as'),
-                    'value' =>  1
+                    'value' =>  1,
                 ],
                 [
                     'label' => Mage::helper('bundle')->__('Price Range'),
-                    'value' =>  0
+                    'value' =>  0,
                 ],
             ];
         }
@@ -72,7 +72,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
         $column = [
             'unsigned'  => false,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {

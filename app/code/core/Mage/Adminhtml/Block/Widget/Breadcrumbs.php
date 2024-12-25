@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
         $this->_links[] = [
             'label' => $label,
             'title' => $title,
-            'url'   => $url
+            'url'   => $url,
         ];
         return $this;
     }

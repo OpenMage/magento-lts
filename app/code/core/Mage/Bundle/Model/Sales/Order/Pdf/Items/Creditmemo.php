@@ -53,7 +53,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             if (!isset($drawItems[$optionId])) {
                 $drawItems[$optionId] = [
                     'lines'  => [],
-                    'height' => 15
+                    'height' => 15,
                 ];
             }
 
@@ -63,12 +63,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                     $line[0] = [
                         'font'  => 'italic',
                         'text'  => Mage::helper('core/string')->str_split($attributes['option_label'], 38, true, true),
-                        'feed'  => $x
+                        'feed'  => $x,
                     ];
 
                     $drawItems[$optionId] = [
                         'lines'  => [$line],
-                        'height' => 15
+                        'height' => 15,
                     ];
 
                     $line = [];
@@ -87,7 +87,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
 
             $line[] = [
                 'text'  => Mage::helper('core/string')->str_split($name, 35, true, true),
-                'feed'  => $feed
+                'feed'  => $feed,
             ];
 
             $x += 220;
@@ -100,7 +100,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 }
                 $line[] = [
                     'text'  => $text,
-                    'feed'  => $x
+                    'feed'  => $x,
                 ];
             }
 
@@ -115,7 +115,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                     'feed'  => $x,
                     'font'  => 'bold',
                     'align' => 'right',
-                    'width' => 50
+                    'width' => 50,
                 ];
                 $x += 50;
 
@@ -126,7 +126,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                     'feed'  => $x,
                     'font'  => 'bold',
                     'align' => 'right',
-                    'width' => 50
+                    'width' => 50,
                 ];
                 $x += 50;
 
@@ -137,7 +137,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                     'feed'  => $x,
                     'font'  => 'bold',
                     'align' => 'center',
-                    'width' => 30
+                    'width' => 30,
                 ];
                 $x += 30;
 
@@ -148,13 +148,13 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                     'feed'  => $x,
                     'font'  => 'bold',
                     'align' => 'right',
-                    'width' => 45
+                    'width' => 45,
                 ];
                 $x += 45;
 
                 // draw Total(inc)
                 $text = $order->formatPriceTxt(
-                    $orderItem->getRowTotal() + $orderItem->getTaxAmount() - $orderItem->getDiscountAmount()
+                    $orderItem->getRowTotal() + $orderItem->getTaxAmount() - $orderItem->getDiscountAmount(),
                 );
                 $line[] = [
                     'text'  => $text,
@@ -176,7 +176,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                     $lines[][] = [
                         'text'  => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, true, true),
                         'font'  => 'italic',
-                        'feed'  => $leftBound
+                        'feed'  => $leftBound,
                     ];
 
                     if ($option['value']) {
@@ -191,13 +191,13 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
 
                         $lines[][] = [
                             'text'  => $text,
-                            'feed'  => $leftBound + 5
+                            'feed'  => $leftBound + 5,
                         ];
                     }
 
                     $drawItems[] = [
                         'lines'  => $lines,
-                        'height' => 15
+                        'height' => 15,
                     ];
                 }
             }

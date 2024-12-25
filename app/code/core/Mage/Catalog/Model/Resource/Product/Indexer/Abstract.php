@@ -60,7 +60,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
                 [$alias => $attributeTable],
                 "{$alias}.entity_id = {$entity} AND {$alias}.attribute_id = {$attributeId}"
                     . " AND {$alias}.store_id = 0",
-                []
+                [],
             );
             $expression = new Zend_Db_Expr("{$alias}.value");
         } else {
@@ -71,18 +71,18 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
                 [$dAlias => $attributeTable],
                 "{$dAlias}.entity_id = {$entity} AND {$dAlias}.attribute_id = {$attributeId}"
                     . " AND {$dAlias}.store_id = 0",
-                []
+                [],
             );
             $select->joinLeft(
                 [$sAlias => $attributeTable],
                 "{$sAlias}.entity_id = {$entity} AND {$sAlias}.attribute_id = {$attributeId}"
                     . " AND {$sAlias}.store_id = {$store}",
-                []
+                [],
             );
             $expression = $adapter->getCheckSql(
                 $adapter->getIfNullSql("{$sAlias}.value_id", -1) . ' > 0',
                 "{$sAlias}.value",
-                "{$dAlias}.value"
+                "{$dAlias}.value",
             );
         }
 
@@ -115,19 +115,19 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
         $select->join(
             ['cw' => $this->getTable('core/website')],
             $joinCondition,
-            []
+            [],
         );
 
         if ($store) {
             $select->join(
                 ['csg' => $this->getTable('core/store_group')],
                 'csg.group_id = cw.default_group_id',
-                []
+                [],
             )
             ->join(
                 ['cs' => $this->getTable('core/store')],
                 'cs.store_id = csg.default_store_id',
-                []
+                [],
             );
         }
 
@@ -148,7 +148,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
         $select->join(
             ['pw' => $this->getTable('catalog/product_website')],
             "pw.product_id = {$product} AND pw.website_id = {$website}",
-            []
+            [],
         );
 
         return $this;

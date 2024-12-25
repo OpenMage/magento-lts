@@ -28,7 +28,6 @@
  * @method $this setCurrencyCode(string $value)
  * @method $this setFormData(array $value)
  * @method int getJustVotedPoll()
- * @method array getOrderIds()
  * @method $this setOrderIds(array $value)
  * @method $this setJustVotedPoll(int $value)
  * @method $this setLastUrl(string $value)
@@ -74,5 +73,10 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
     public function validateFormKey($formKey)
     {
         return ($formKey === $this->getFormKey());
+    }
+
+    public function getOrderIds(bool $clear = false): array
+    {
+        return $this->getData('order_ids', $clear) ?? [];
     }
 }

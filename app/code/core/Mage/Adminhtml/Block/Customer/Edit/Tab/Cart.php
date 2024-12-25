@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Product Name'),
             'index'     => 'name',
-            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item'
+            'renderer'  => 'adminhtml/customer_edit_tab_view_grid_renderer_item',
         ]);
 
         $this->addColumn('sku', [
@@ -123,14 +123,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
                     'caption'           => Mage::helper('customer')->__('Configure'),
                     'url'               => 'javascript:void(0)',
                     'process'           => 'configurable',
-                    'control_object'    => $this->getJsObjectName() . 'cartControl'
+                    'control_object'    => $this->getJsObjectName() . 'cartControl',
                 ],
                 [
                     'caption'   => Mage::helper('customer')->__('Delete'),
                     'url'       => '#',
-                    'onclick'   => 'return ' . $this->getJsObjectName() . 'cartControl.removeItem($item_id);'
-                ]
-            ]
+                    'onclick'   => 'return ' . $this->getJsObjectName() . 'cartControl.removeItem($item_id);',
+                ],
+            ],
         ]);
 
         return parent::_prepareColumns();

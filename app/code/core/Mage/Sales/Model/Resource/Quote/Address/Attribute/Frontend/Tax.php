@@ -34,7 +34,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Tax extends Mag
             $address->addTotal([
                 'code'  => 'tax',
                 'title' => Mage::helper('sales')->__('Tax'),
-                'value' => $amount
+                'value' => $amount,
             ]);
         }
         return $this;

@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         $result = [
             'price'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
             'image'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
-            'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
+            'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean'),
         ];
 
         $response = new Varien_Object();

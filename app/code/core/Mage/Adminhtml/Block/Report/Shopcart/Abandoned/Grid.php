@@ -67,13 +67,13 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         $this->addColumn('customer_name', [
             'header'    => Mage::helper('reports')->__('Customer Name'),
             'index'     => 'customer_name',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('email', [
             'header'    => Mage::helper('reports')->__('Email'),
             'index'     => 'email',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('items_count', [
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
             'width'     => '80px',
             'index'     => 'items_count',
             'sortable'  => false,
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addColumn('items_qty', [
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
             'width'     => '80px',
             'index'     => 'items_qty',
             'sortable'  => false,
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         if ($this->getRequest()->getParam('website')) {
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         } elseif ($this->getRequest()->getParam('group')) {
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
         } elseif ($this->getRequest()->getParam('store')) {
-            $storeIds = [(int)$this->getRequest()->getParam('store')];
+            $storeIds = [(int) $this->getRequest()->getParam('store')];
         } else {
             $storeIds = [];
         }
@@ -119,7 +119,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
             'header'    => Mage::helper('reports')->__('Applied Coupon'),
             'width'     => '80px',
             'index'     => 'coupon_code',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('created_at', [
@@ -128,7 +128,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
             'type'      => 'datetime',
             'index'     => 'created_at',
             'filter_index' => 'main_table.created_at',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('updated_at', [
@@ -137,14 +137,14 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
             'type'      => 'datetime',
             'index'     => 'updated_at',
             'filter_index' => 'main_table.updated_at',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('remote_ip', [
             'header'    => Mage::helper('reports')->__('IP Address'),
             'width'     => '80px',
             'index'     => 'remote_ip',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addExportType('*/*/exportAbandonedCsv', Mage::helper('reports')->__('CSV'));

@@ -62,7 +62,7 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
             ->joinLeft(
                 [$alias => $this->_currencyRateTable],
                 "{$alias}.currency_to = main_table.currency_code AND {$alias}.currency_from=:{$alias}",
-                'rate'
+                'rate',
             );
 
         return $this;
