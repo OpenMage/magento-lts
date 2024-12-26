@@ -1,11 +1,9 @@
 includes:
-    - vendor/mahocommerce/maho-phpstan-plugin/extension.neon
+    - vendor/macopedia/phpstan-magento1/extension.neon
     - .phpstan.dist.baseline.neon
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
     magentoRootPath: %currentWorkingDirectory%
-    bootstrapFiles:
-        - app/Mage.php
     fileExtensions:
       - php
       - phtml
