@@ -1,0 +1,38 @@
+//
+// OpenMage
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available at https://opensource.org/license/afl-3-0-php
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+// @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+// =============================================
+// Mixin - Image Replacement
+// =============================================
+
+// http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+// http://nicolasgallagher.com/another-css-image-replacement-technique/
+// https://github.com/h5bp/html5-boilerplate/issues/1005#issuecomment-4947702
+
+@mixin image-replacement {
+    // Note: this technique has issues on Android 3.x
+    // An alternative that requires the :before generated content was added to H5BP
+    // See: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
+
+    //color:transparent; font:0/0 a; text-shadow:none; vertical-align:middle;
+
+    // The simplest option remains using text-indent:-9999px despite the performance drawback
+    text-indent: -9999px;
+}
+
+// Undo the replacement for child elements
+
+@mixin image-replacement-override {
+    text-indent: 0;
+}
