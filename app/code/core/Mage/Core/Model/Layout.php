@@ -594,7 +594,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     /**
      * @param string $type
-     * @return Mage_Core_Block_Abstract
+     * @return Mage_Core_Block_Abstract|object
      */
     public function getBlockSingleton($type)
     {
@@ -604,7 +604,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
             }
 
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $helper = new $className();
             if ($helper) {
                 if ($helper instanceof Mage_Core_Block_Abstract) {
