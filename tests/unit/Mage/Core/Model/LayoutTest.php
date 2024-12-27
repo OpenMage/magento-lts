@@ -96,7 +96,7 @@ class LayoutTest extends TestCase
         $ignoredClasses = array_merge(
             $this->getAbstractBlockClasses(),
             $this->getBlockClassesToMock(),
-            #$this->getBlockClassesWithErrors(),
+            $this->getBlockClassesWithErrors(),
             $this->getBlockClassesWithSessions(),
         );
 

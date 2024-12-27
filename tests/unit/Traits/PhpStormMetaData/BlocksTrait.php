@@ -1503,17 +1503,26 @@ trait BlocksTrait
     {
         # exeption thrown ... check
         return [
+            # Error: Call to undefined method Mage_Api_Model_Resource_Roles_User_Collection::setUserFilter()
             \Mage_Adminhtml_Block_Api_Tab_Userroles::class,
+            # ArgumentCountError: Too few arguments to function Varien_Data_Form_Element_Image::__construct(), 0 passed
             \Mage_Adminhtml_Block_Catalog_Category_Helper_Image::class,
+            #ArgumentCountError: Too few arguments to function Varien_Data_Form_Element_Image::__construct(), 0 passed
             \Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Image::class,
+            # include(/var/www/html/app/design/frontend/base/default/template/dashboard/graph.phtml): failed to open stream: No such file or directory
             \Mage_Adminhtml_Block_Dashboard::class,
+            # include(/var/www/html/app/design/frontend/base/default/template/dashboard/graph.phtml): failed to open stream: No such file or directory
             \Mage_Adminhtml_Block_Dashboard_Diagrams::class,
+            # Error: Class 'Mage__Helper_Data' not found
             \Mage_Adminhtml_Block_Dashboard_Graph::class,
+            # Error: Call to undefined method Mage_Admin_Model_Resource_Roles_User_Collection::setUserFilter()
             \Mage_Adminhtml_Block_Permissions_Tab_Userroles::class,
+            # ArgumentCountError: Too few arguments to function Varien_Data_Form_Element_Image::__construct(), 0 passed
             \Mage_Adminhtml_Block_System_Config_Form_Field_Image::class,
+            # ArgumentCountError: Too few arguments to function Mage_Adminhtml_Block_System_Config_Form_Field_Import::__construct(), 0 passed
             \Mage_Adminhtml_Block_System_Config_Form_Field_Import::class,
+            # Exception: Unknown user type.
             \Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource::class,
-            \Mage_Checkout_Block_Multishipping_Payment_Info::class,
         ];
     }
 
@@ -1653,6 +1662,7 @@ trait BlocksTrait
             \Mage_CatalogSearch_Block_Layer::class,
             \Mage_Catalog_Block_Layer_View::class,
             \Mage_Checkout_Block_Multishipping_Billing::class,
+            \Mage_Checkout_Block_Multishipping_Payment_Info::class,
             \Mage_Checkout_Block_Onepage_Billing::class,
             \Mage_Checkout_Block_Onepage_Login::class,
             \Mage_Checkout_Block_Onepage_Payment::class,
