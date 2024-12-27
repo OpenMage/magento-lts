@@ -503,12 +503,12 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 }
             }
             if (class_exists($block, false) || mageFindClassFile($block)) {
-                // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
                 $block = new $block($attributes);
             }
         }
         if (!$block instanceof Mage_Core_Block_Abstract) {
-            Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
+            $block = is_object($block) ? get_class($block) : $block;
+            Mage::throwException(Mage::helper('core')->__('Invalid block type: %s (not instance of Mage_Core_Block_Abstract)', $block));
         }
         return $block;
     }
