@@ -746,7 +746,6 @@ trait BlocksTrait
             'adminhtml/widget_form_renderer_fieldset' => \Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset::class,
             'adminhtml/widget_form_renderer_fieldset_element' => \Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element::class,
             'adminhtml/widget_grid' => \Mage_Adminhtml_Block_Widget_Grid::class,
-            'adminhtml/widget_grid_block' => \Mage_Adminhtml_Block_Widget_Grid_Block::class,
             'adminhtml/widget_grid_column' => \Mage_Adminhtml_Block_Widget_Grid_Column::class,
             'adminhtml/widget_grid_column_filter_abstract' => \Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract::class,
             'adminhtml/widget_grid_column_filter_checkbox' => \Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox::class,
@@ -1503,7 +1502,7 @@ trait BlocksTrait
     public function getBlockClassesWithErrors(): array
     {
         # exeption thrown ... check
-        $exception = [
+        return [
             \Mage_Adminhtml_Block_Api_Tab_Userroles::class,
             \Mage_Adminhtml_Block_Catalog_Category_Helper_Image::class,
             \Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Image::class,
@@ -1516,13 +1515,6 @@ trait BlocksTrait
             \Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource::class,
             \Mage_Checkout_Block_Multishipping_Payment_Info::class,
         ];
-
-        # php fatal error ... check
-        $fatal = [
-            \Mage_Adminhtml_Block_Widget_Grid_Block::class,
-        ];
-
-        return array_merge($exception, $fatal);
     }
 
     public function getBlockClassesWithSessions(): array
