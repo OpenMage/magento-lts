@@ -595,8 +595,15 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     public function getBlockSingleton($type)
     {
         if (!isset($this->_helpers[$type])) {
-            $helper = $this->_getBlockInstance($type);
-            $helper->setLayout($this);
+            $className = Mage::getConfig()->getBlockClassName($type);
+            if ($className === false || !class_exists($className)) {
+                Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
+            }
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+            $helper = new $className();
+            if ($helper instanceof Mage_Core_Block_Abstract) {
+                $helper->setLayout($this);
+            }
             $this->_helpers[$type] = $helper;
         }
         return $this->_helpers[$type];
