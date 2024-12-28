@@ -4105,12 +4105,6 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Observer.php
 
 		-
-			message: '#^Parameter \#2 \$countryId of method Mage_Directory_Model_Resource_Region\:\:_loadByCountry\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Directory/Model/Resource/Region.php
-
-		-
 			message: '#^Left side of && is always true\.$#'
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
