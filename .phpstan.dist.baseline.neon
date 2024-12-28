@@ -3416,11 +3416,6 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Observer.php
 
 		-
-			message: "#^Parameter \\#2 \\$countryId of method Mage_Directory_Model_Resource_Region\\:\\:_loadByCountry\\(\\) expects int, string given\\.$#"
-			count: 2
-			path: app/code/core/Mage/Directory/Model/Resource/Region.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
