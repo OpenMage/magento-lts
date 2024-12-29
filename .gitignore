@@ -24,6 +24,9 @@
 /lib/Credis
 
 # TinyMCE library
+/js/chartjs
+
+# TinyMCE library
 /js/tinymce
 
 # Add development environment setup files and README
