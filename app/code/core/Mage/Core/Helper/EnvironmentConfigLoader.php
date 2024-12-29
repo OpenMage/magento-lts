@@ -70,15 +70,32 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 case static::CONFIG_KEY_DEFAULT:
                     [$unused1, $unused2, $section, $group, $field] = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
-                    $xmlConfig->setNode($this->buildNodePath($scope, $path), $value);
+                    $nodePath = $this->buildNodePath($scope, $path);
+                    $xmlConfig->setNode($nodePath, $value);
+                    try {
+                        $store = Mage::app()->getStore(0);
+                        $this->setCache($store, $value, $path);
+                    } catch (Throwable $exception) {
+                        Mage::logException($exception);
+                    }
                     break;
 
                 case static::CONFIG_KEY_WEBSITES:
                 case static::CONFIG_KEY_STORES:
                     [$unused1, $unused2, $code, $section, $group, $field] = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
-                    $nodePath = sprintf('%s/%s/%s', strtolower($scope), strtolower($code), $path);
+                    $storeCode = strtolower($storeCode);
+                    $scope = strtolower($scope);
+                    $nodePath = sprintf('%s/%s/%s', $scope, $storeCode, $path);
                     $xmlConfig->setNode($nodePath, $value);
+                    try {
+                        if (!str_contains($nodePath, 'websites')) {
+                            $store = Mage::app()->getStore($storeCode);
+                            $this->setCache($store, $value, $path);
+                        }
+                    } catch (Throwable $exception) {
+                        Mage::logException($exception);
+                    }
                     break;
             }
         }
@@ -99,6 +116,16 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         }
 
         return $this->envStore;
+    }
+
+    protected function setCache(Mage_Core_Model_Store $store, $value, string $path): void
+    {
+        $refObject = new ReflectionObject($store);
+        $refProperty = $refObject->getProperty('_configCache');
+        $refProperty->setAccessible(true);
+        $configCache = $refProperty->getValue($store);
+        $configCache[$path] = $value;
+        $refProperty->setValue($store, $configCache);
     }
 
     protected function getConfigKey(string $configKey): array
