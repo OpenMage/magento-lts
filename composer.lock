@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f20404c1b40f510573c633f35e53d8b2",
+    "content-hash": "689ffb893fb70fc552c372e7de4481f6",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -183,16 +183,16 @@
         },
         {
             "name": "components/jquery",
-            "version": "v3.7.1",
+            "version": "1.12.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/jquery.git",
-                "reference": "8edc7785239bb8c2ad2b83302b856a1d61de60e7"
+                "reference": "5dd7297d7603e11e53bdcca2a71074d92de37b8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/8edc7785239bb8c2ad2b83302b856a1d61de60e7",
-                "reference": "8edc7785239bb8c2ad2b83302b856a1d61de60e7",
+                "url": "https://api.github.com/repos/components/jquery/zipball/5dd7297d7603e11e53bdcca2a71074d92de37b8f",
+                "reference": "5dd7297d7603e11e53bdcca2a71074d92de37b8f",
                 "shasum": ""
             },
             "type": "component",
@@ -201,9 +201,8 @@
                     "files": [
                         "jquery.min.js",
                         "jquery.min.map",
-                        "jquery.slim.js",
-                        "jquery.slim.min.js",
-                        "jquery.slim.min.map"
+                        "jquery-migrate.js",
+                        "jquery-migrate.min.js"
                     ],
                     "scripts": [
                         "jquery.js"
@@ -216,7 +215,8 @@
             ],
             "authors": [
                 {
-                    "name": "JS Foundation and other contributors"
+                    "name": "John Resig",
+                    "email": "jeresig@gmail.com"
                 }
             ],
             "description": "jQuery JavaScript Library",
@@ -224,11 +224,11 @@
             "support": {
                 "forum": "http://forum.jquery.com",
                 "irc": "irc://irc.freenode.org/jquery",
-                "issues": "https://github.com/jquery/jquery/issues",
+                "issues": "http://bugs.jquery.com",
                 "source": "https://github.com/jquery/jquery",
                 "wiki": "http://docs.jquery.com/"
             },
-            "time": "2023-09-22T01:43:46+00:00"
+            "time": "2016-05-25T06:50:04+00:00"
         },
         {
             "name": "cweagans/composer-patches",
@@ -656,12 +656,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/composer-plugin.git",
-                "reference": "edb40181d4351b46faa642479cab6a193a0f9977"
+                "reference": "2e4f4a99d9297ac56cbaa768594221e5589d7c7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/edb40181d4351b46faa642479cab6a193a0f9977",
-                "reference": "edb40181d4351b46faa642479cab6a193a0f9977",
+                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/2e4f4a99d9297ac56cbaa768594221e5589d7c7e",
+                "reference": "2e4f4a99d9297ac56cbaa768594221e5589d7c7e",
                 "shasum": ""
             },
             "require": {
@@ -701,9 +701,9 @@
             ],
             "support": {
                 "issues": "https://github.com/OpenMage/composer-plugin/issues",
-                "source": "https://github.com/OpenMage/composer-plugin/tree/v1.1.1"
+                "source": "https://github.com/OpenMage/composer-plugin/tree/main"
             },
-            "time": "2024-12-20T03:09:59+00:00"
+            "time": "2024-12-30T09:24:04+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",

@@ -26,7 +26,7 @@
         "ext-zlib": "*",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
-        "components/jquery": "^3.7",
+        "components/jquery": "1.12.4",
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
