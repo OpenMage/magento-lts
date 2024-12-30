@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      *
      * @var string
      */
-    protected $_height = '498px';
+    protected $_height = '350px';
 
     /**
      * Html identifier
