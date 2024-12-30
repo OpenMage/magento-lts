@@ -23,7 +23,7 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
-# TinyMCE library
+# ChartJs library
 /js/chartjs
 
 # TinyMCE library
