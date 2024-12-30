@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "726cec3c24c9211dd8f0eeeed8901420",
+    "content-hash": "637bdcb23971cd3c7048f1af60c2baf7",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -3796,42 +3796,18 @@
         },
         {
             "name": "macopedia/phpstan-magento1",
-            "version": "v1.1.0",
+            "version": "dev-topic-om",
             "source": {
                 "type": "git",
-                "url": "https://github.com/macopedia/phpstan-magento1.git",
-                "reference": "01418cc9a536ffbf298fdf7ea3b9fac1f87a0508"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/macopedia/phpstan-magento1/zipball/01418cc9a536ffbf298fdf7ea3b9fac1f87a0508",
-                "reference": "01418cc9a536ffbf298fdf7ea3b9fac1f87a0508",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">= 7.4",
-                "phpstan/phpstan": "^1.12.11 | ^2.0.2"
-            },
-            "replace": {
-                "inviqa/phpstan-magento1": "0.1.5",
-                "vianetz/phpstan-magento1": "0.1.5"
+                "url": "https://github.com/justinbeaty/maho-phpstan-plugin.git",
+                "reference": "topic-om"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "PHPStanMagento1\\": "src/"
                 }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Extension for PHPStan to allow analysis of Magento 1 code.",
-            "support": {
-                "issues": "https://github.com/macopedia/phpstan-magento1/issues",
-                "source": "https://github.com/macopedia/phpstan-magento1/tree/v1.1.0"
-            },
-            "time": "2024-11-19T10:50:38+00:00"
+            }
         },
         {
             "name": "magento-ecg/coding-standard",
@@ -7489,7 +7465,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "macopedia/phpstan-magento1": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
