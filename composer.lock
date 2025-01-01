@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5da1c89ce6454593b0b955d80babbc0e",
+    "content-hash": "8ab5b0a7d21ed992d661f401b45576d2",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -4485,16 +4485,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.0.4",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "50d276fc3bf1430ec315f2f109bbde2769821524"
+                "reference": "2392d360fdf54ea253aa6c68cad1d4ba2e54e927"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/50d276fc3bf1430ec315f2f109bbde2769821524",
-                "reference": "50d276fc3bf1430ec315f2f109bbde2769821524",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2392d360fdf54ea253aa6c68cad1d4ba2e54e927",
+                "reference": "2392d360fdf54ea253aa6c68cad1d4ba2e54e927",
                 "shasum": ""
             },
             "require": {
@@ -4539,7 +4539,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-17T17:14:01+00:00"
+            "time": "2024-12-31T07:30:03+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5595,21 +5595,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.0.3",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "3f27091368bd935dbbaa8387099792fb20f65f68"
+                "reference": "f3354fbbdbeb090a53f5260fa5841d373540a831"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/3f27091368bd935dbbaa8387099792fb20f65f68",
-                "reference": "3f27091368bd935dbbaa8387099792fb20f65f68",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/f3354fbbdbeb090a53f5260fa5841d373540a831",
+                "reference": "f3354fbbdbeb090a53f5260fa5841d373540a831",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.0.1"
+                "phpstan/phpstan": "^2.1.0"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -5642,7 +5642,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.0.3"
+                "source": "https://github.com/rectorphp/rector/tree/2.0.5"
             },
             "funding": [
                 {
@@ -5650,7 +5650,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-12T15:22:19+00:00"
+            "time": "2024-12-31T13:11:55+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -7489,7 +7489,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

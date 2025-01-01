@@ -4951,6 +4951,12 @@ parameters:
 			path: app/code/core/Mage/Payment/Model/Method/Abstract.php
 
 		-
+			message: '#^Loose comparison using \!\= between ''''\|''OT'' and ''SS'' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: app/code/core/Mage/Payment/Model/Method/Cc.php
+
+		-
 			message: '#^Method Mage_Payment_Model_Recurring_Profile\:\:exportStartDatetime\(\) should return string\|Zend_Date but empty return statement found\.$#'
 			identifier: return.empty
 			count: 1
@@ -5147,6 +5153,12 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Payflowlink.php
+
+		-
+			message: '#^Loose comparison using \!\= between float and \(float\|false\) will always evaluate to false\.$#'
+			identifier: notEqual.alwaysFalse
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Payflowpro.php
 
 		-
 			message: '#^Parameter \#1 \$payment of method Mage_Paypal_Model_Payflowpro\:\:_buildBasicRequest\(\) expects Mage_Sales_Model_Order_Payment, Mage_Payment_Model_Info given\.$#'
