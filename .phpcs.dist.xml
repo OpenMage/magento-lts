@@ -145,9 +145,7 @@
         <exclude name="Squiz.PHP.Eval.Discouraged"/>
     </rule>
 
-    <rule ref="PHPCompatibility">
-        <exclude name="PHPCompatibility.Keywords.ForbiddenNamesAsDeclared.resourceFound"/>
-    </rule>
+    <rule ref="PHPCompatibility" />
     <rule ref="PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore">
         <exclude-pattern>*/Varien/Object.php*</exclude-pattern>
         <exclude-pattern>*/Varien/Data/Form/Abstract.php*</exclude-pattern>
