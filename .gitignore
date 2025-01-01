@@ -23,6 +23,9 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
+# jQuery library
+/js/lib/jquery/jquery*
+
 # TinyMCE library
 /js/tinymce
 
