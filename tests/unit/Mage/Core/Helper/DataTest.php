@@ -93,9 +93,9 @@ class DataTest extends TestCase
     public function provideFormatTimezoneDate(): Generator
     {
         $date           = date_create()->getTimestamp();
-        $dateShort      = date('m/j/Y', $date);
+        $dateShort      = date('n/j/Y', $date);
         $dateLong       = date('F j, Y', $date);
-        $dateShortTime  = date('m/j/Y g:i A', $date);
+        $dateShortTime  = date('n/j/Y g:i A', $date);
 
         yield 'null' => [
             $dateShort,
