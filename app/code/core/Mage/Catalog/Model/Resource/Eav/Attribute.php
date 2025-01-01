@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Retrieve store id
      *
-     * @return int
+     * @return int|null
      */
     public function getStoreId()
     {
@@ -223,7 +223,9 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         if ($dataObject) {
             return $dataObject->getStoreId();
         }
-        return (int) $this->getData('store_id');
+
+        $storeId = $this->getData('store_id');
+        return is_null($storeId) ? null : (int) $storeId;
     }
 
     /**
