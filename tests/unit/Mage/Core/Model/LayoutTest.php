@@ -100,13 +100,13 @@ class LayoutTest extends TestCase
             $this->getBlockClassesWithSessions(),
         );
 
-        #$allBlock = $this->getAllBlockClasses();
-        $allBlock = [
+        #$allBlocks = $this->getAllBlockClasses();
+        $allBlocks = [
             'adminhtml/api_buttons' => \Mage_Adminhtml_Block_Api_Buttons::class,
             'adminhtml/catalog_category_helper_pricestep' => \Mage_Adminhtml_Block_Catalog_Category_Helper_Pricestep::class,
         ];
 
-        foreach ($allBlock as $alias => $className) {
+        foreach ($allBlocks as $alias => $className) {
             if (!in_array($className, $ignoredClasses)) {
                 yield $className => [
                     $className,
