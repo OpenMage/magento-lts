@@ -322,8 +322,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      *
      * @param Mage_Core_Controller_Request_Http $request
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _checkBaseUrl($request)
     {

@@ -35,7 +35,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
 
     /**
      * @return string
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {

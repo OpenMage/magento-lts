@@ -23,8 +23,8 @@
 class Mage_Dataflow_Model_Convert_Iterator_Http extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
     /**
-     * @SuppressWarnings(PHPMD.ExitExpression)
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.ExitExpression")
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function load()
     {

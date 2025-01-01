@@ -381,7 +381,7 @@ class Mage_Core_Model_Translate
      *
      * @param   array $args
      * @return  string
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function translate($args)
     {
