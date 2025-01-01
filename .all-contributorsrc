@@ -6,11 +6,13 @@
   "files": [
     "README.md"
   ],
-  "imageSize": 100,
+  "imageSize": 35,
   "commit": true,
   "commitConvention": "none",
+  "contributorsPerLine": 20
   "contributorTemplate": "<a href=\"<%= contributor.profile %>\"><img src=\"<%= contributor.avatar_url %>\" loading=\"lazy\" width=\"<%= options.imageSize %>\" alt=\"\"/><br /><sub><b><%= contributor.name %></b></sub></a>",
   "badgeTemplate": "<a href=\"#contributors-\"><img src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg\" alt=\"All Contributors\"></a>",
+  "wrapperTemplate": "\n<table>\n  <tbody><%= bodyContent %>  </tbody>\n<%= tableFooterContent %></table>\n\n",
   "contributors": [
     {
       "login": "sreichel",

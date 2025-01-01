@@ -17,13 +17,14 @@
 
 ### Related Pull Requests
 <!-- related pull request placeholder -->
+- see OpenMage/magento-lts#<issue_number>
 
 ### Fixed Issues (if relevant)
 <!---
     If relevant, please provide a list of fixed issues in the format OpenMage/magento-lts#<issue_number>.
     There could be 1 or more issues linked here and it will help us find some more information about the reasoning behind this change.
 -->
-1. Fixes OpenMage/magento-lts#<issue_number>
+- fixes OpenMage/magento-lts#<issue_number>
 
 ### Manual testing scenarios (*)
 <!---
@@ -43,11 +44,3 @@
  - [ ] Pull request has a meaningful description of its purpose
  - [ ] All commits are accompanied by meaningful commit messages
  - [ ] All automated tests passed successfully (all builds are green)
- - [ ] Add yourself to contributors list
- <!--- 
-    Install: `yarn add --dev all-contributors-cli`
-    Add yourself: `yarn all-contributors add @YOUR_NAME <types>`
-    This updates `.all-contributorsrc, README.md` and commits this changes automatically
-    contribution types: code, doc, design
-    See other contributions type at https://allcontributors.org/docs/en/emoji-key
- -->
