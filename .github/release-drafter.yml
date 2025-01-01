@@ -10,7 +10,10 @@ categories:
       - 'fix'
       - 'bugfix'
       - 'bug'
-  - title: '↗️ Dependiencies'
+  - title: '📖 Documentation'
+    labels:
+      - 'Documentation'
+  - title: '↗️ Dependencies'
     labels:
       - 'dependencies'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
