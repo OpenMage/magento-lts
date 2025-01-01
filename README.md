@@ -3,7 +3,7 @@
 ![https://packagist.org/packages/openmage/magento-lts](https://poser.pugx.org/openmage/magento-lts/d/total.svg)
 ![https://github.com/openmage/magento-lts/actions/workflows/security-php.yml](https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg)
 ![https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml](https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml/badge.svg)
-![https://www.php-fig.org/per/coding-style/](https://img.shields.io/badge/Coding%20standard-PER2.0-white.svg)
+![https://www.php-fig.org/per/coding-style/](https://img.shields.io/badge/Code-PER2.0-white.svg)
 
 # Magento - Long Term Support
 
