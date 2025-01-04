@@ -18,13 +18,13 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Cms\Model;
 
 use Mage;
-use Mage_Cms_Model_Page;
+use Mage_Cms_Model_Page as Subject;
 use Mage_Core_Model_Resource_Db_Collection_Abstract;
 use PHPUnit\Framework\TestCase;
 
 class PageTest extends TestCase
 {
-    public Mage_Cms_Model_Page $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -38,8 +38,8 @@ class PageTest extends TestCase
      */
     public function testLoad(): void
     {
-        $this->assertInstanceOf(Mage_Cms_Model_Page::class, $this->subject->load(null));
-        $this->assertInstanceOf(Mage_Cms_Model_Page::class, $this->subject->load(2));
+        $this->assertInstanceOf(Subject::class, $this->subject->load(null));
+        $this->assertInstanceOf(Subject::class, $this->subject->load(2));
     }
 
     /**

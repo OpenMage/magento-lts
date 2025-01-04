@@ -19,18 +19,17 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget;
 
 use Generator;
 use Mage;
-use Mage_Adminhtml_Block_Widget_Grid;
+use Mage_Adminhtml_Block_Widget_Grid as Subject;
 use PHPUnit\Framework\TestCase;
 
 class GridTest extends TestCase
 {
-    public Mage_Adminhtml_Block_Widget_Grid $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_Widget_Grid();
+        $this->subject = new Subject();
     }
 
     /**
