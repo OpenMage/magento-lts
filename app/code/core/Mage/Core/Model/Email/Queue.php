@@ -120,7 +120,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * @param array|string|null $names
      * @param int $type
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function addRecipients($emails, $names = null, $type = self::EMAIL_TYPE_TO)
     {
