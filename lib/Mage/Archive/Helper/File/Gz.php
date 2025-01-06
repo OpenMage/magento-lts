@@ -39,7 +39,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_open()
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _open($mode)
     {
@@ -53,7 +53,7 @@ class Mage_Archive_Helper_File_Gz extends Mage_Archive_Helper_File
     /**
      * @see Mage_Archive_Helper_File::_write()
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _write($data)
     {

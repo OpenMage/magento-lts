@@ -24,7 +24,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
      * Log out user and redirect him to new admin custom url
      *
      * @param Varien_Event_Observer $observer
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function afterCustomUrlChanged($observer)
     {

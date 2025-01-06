@@ -784,7 +784,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function viewfileAction()
     {
