@@ -566,16 +566,16 @@
         },
         {
             "name": "mklkj/tinymce-i18n",
-            "version": "24.12.9",
+            "version": "24.12.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mklkj/tinymce-i18n.git",
-                "reference": "cdd87e928a8d54b8d598dc000b058d4103688732"
+                "reference": "5bb5d9b172b5dbfe05607a6d4c7988d2844fa8c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/cdd87e928a8d54b8d598dc000b058d4103688732",
-                "reference": "cdd87e928a8d54b8d598dc000b058d4103688732",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/5bb5d9b172b5dbfe05607a6d4c7988d2844fa8c9",
+                "reference": "5bb5d9b172b5dbfe05607a6d4c7988d2844fa8c9",
                 "shasum": ""
             },
             "type": "library",
@@ -597,9 +597,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mklkj/tinymce-i18n/issues",
-                "source": "https://github.com/mklkj/tinymce-i18n/tree/24.12.9"
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/24.12.30"
             },
-            "time": "2024-12-09T10:24:23+00:00"
+            "time": "2024-12-30T10:42:10+00:00"
         },
         {
             "name": "openmage/composer-plugin",
