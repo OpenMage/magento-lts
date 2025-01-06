@@ -19,7 +19,7 @@
  *
  * @category   Mage
  * @package    Mage_Shipping
- * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings("PHPMD.CamelCasePropertyName")
  */
 class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
