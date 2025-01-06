@@ -21,7 +21,7 @@ use Generator;
 
 trait CatalogTrait
 {
-    private static string $testSting = '--a & B, x% @ ä ö ü ™--';
+    public static string $testSting = '--a & B, x% @ ä ö ü ™--';
 
     public function provideFormatUrlKey(): Generator
     {

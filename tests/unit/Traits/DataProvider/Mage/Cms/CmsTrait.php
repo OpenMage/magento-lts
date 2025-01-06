@@ -22,7 +22,7 @@ use Mage_Cms_Helper_Page;
 
 trait CmsTrait
 {
-    private static string $testString = '0123456789';
+    public static string $testString = '0123456789';
 
     public function provideGetUsedInStoreConfigPaths(): Generator
     {
