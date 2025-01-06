@@ -14,6 +14,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
 use Mage_Customer_Helper_Data as Helper;
 
 /**
@@ -295,7 +296,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             if (empty($errors)) {
                 $customer->cleanPasswordsValidationData();
-                $customer->setPasswordCreatedAt(time());
+                $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
                 $customer->save();
                 $this->_dispatchRegisterSuccess($customer);
                 $this->_successProcessRegistration($customer);
@@ -873,7 +874,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer->setRpToken(null);
             $customer->setRpTokenCreatedAt(null);
             $customer->cleanPasswordsValidationData();
-            $customer->setPasswordCreatedAt(time());
+            $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
             $customer->setRpCustomerId(null);
             $customer->setConfirmation(null); // Set email is confirmed.
             $customer->save();
@@ -1041,7 +1042,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
             try {
                 $customer->cleanPasswordsValidationData();
-                $customer->setPasswordCreatedAt(time());
+                $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
 
                 // Reset all password reset tokens if all data was sufficient and correct on email change
                 if ($customer->getIsChangeEmail()) {

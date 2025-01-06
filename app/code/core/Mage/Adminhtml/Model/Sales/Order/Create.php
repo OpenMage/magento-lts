@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Order create model
  *
@@ -1653,7 +1655,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $host = $this->getSession()
                 ->getStore()
                 ->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
-            $account = $customer->getIncrementId() ? $customer->getIncrementId() : time();
+            $account = $customer->getIncrementId() ? $customer->getIncrementId() : Varien_Date::toTimestamp(true);
             $email = $account . '@' . $host;
             $account = $this->getData('account');
             $account['email'] = $email;

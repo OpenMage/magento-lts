@@ -43,7 +43,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Store rule combine conditions model
      *
-     * @var Mage_Rule_Model_Condition_Combine
+     * @var Mage_Rule_Model_Condition_Combine|null
      */
     protected $_conditions;
 
@@ -94,6 +94,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @param int $storeId
      * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     public function getProductFlatSelect($storeId)
     {
@@ -318,7 +319,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     $path = explode('--', $id);
                     $node = & $arr;
                     for ($i = 0, $l = count($path); $i < $l; $i++) {
-                        $node = & $node[$key][$path[$i]] ?? [];
+                        $var = $node[$key][$path[$i]] ?? [];
+                        $node = &$var;
                     }
                     foreach ($data as $k => $v) {
                         $node[$k] = $v;
@@ -445,6 +447,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Get rule associated website Ids
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getWebsiteIds()
     {

@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Class Mage_Rule_Model_Environment
  *
@@ -32,7 +34,7 @@ class Mage_Rule_Model_Environment extends Varien_Object
      */
     public function collect()
     {
-        $this->setNow(time());
+        $this->setNow(Carbon::now()->getTimestamp());
 
         Mage::dispatchEvent('rule_environment_collect', ['env' => $this]);
 

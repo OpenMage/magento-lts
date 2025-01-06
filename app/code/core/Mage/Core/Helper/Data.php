@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Core data helper
  *
@@ -208,7 +210,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         $locale = Mage::app()->getLocale();
         if (is_null($time)) {
-            $date = $locale->date(time());
+            $date = $locale->date(Carbon::now()->getTimestamp());
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {

@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Log Attempts resource
  *
@@ -135,7 +137,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     {
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60 * 30)],
+            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, Carbon::now()->subSeconds(60 * 30)->getTimestamp())],
         );
     }
 }

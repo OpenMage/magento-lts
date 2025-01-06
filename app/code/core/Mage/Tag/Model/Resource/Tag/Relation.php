@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Tag Relation resource model
  *
@@ -176,7 +178,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
                     'store_id'      => $model->getStoreId(),
                     'product_id'    => $value,
                     'customer_id'   => $model->getCustomerId(),
-                    'created_at'    => $this->formatDate(time()),
+                    'created_at'    => $this->formatDate(Carbon::now()->getTimestamp()),
                 ];
             }
             $write->insertMultiple($this->getMainTable(), $insertData);

@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Persistent Session Model
  *
@@ -88,7 +90,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     {
         return gmdate(
             Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT,
-            time() - Mage::helper('persistent')->getLifeTime($store),
+            Carbon::now()->subSeconds(Mage::helper('persistent')->getLifeTime($store))->getTimestamp(),
         );
     }
 
@@ -216,7 +218,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if ($lifetime) {
             $this->getResource()->deleteExpired(
                 $websiteId,
-                gmdate(Varien_Date::DATETIME_PHP_FORMAT, time() - $lifetime),
+                gmdate(Varien_Date::DATETIME_PHP_FORMAT, Carbon::now()->subSeconds($lifetime->__toString())->getTimestamp()),
             );
         }
 

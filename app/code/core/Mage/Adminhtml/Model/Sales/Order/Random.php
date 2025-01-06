@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Create random order
  *
@@ -145,8 +147,14 @@ class Mage_Adminhtml_Model_Sales_Order_Random
 
     protected function _getRandomDate()
     {
-        $timestamp = mktime(rand(0, 23), rand(0, 59), 0, rand(1, 11), rand(1, 28), rand(2006, 2007));
-        return date(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
+        return Carbon::now()
+            ->setHour(rand(0, 23))
+            ->setMinute(rand(0, 59))
+            ->setSecond(rand(0, 0))
+            ->setMonth(rand(1, 11))
+            ->setDay(rand(1, 28))
+            ->setYear(rand(2006, 2007))
+            ->format(Varien_Date::DATETIME_PHP_FORMAT);
     }
 
     public function save()

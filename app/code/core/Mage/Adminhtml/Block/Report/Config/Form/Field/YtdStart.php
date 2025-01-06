@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Dashboard Year-To-Date Month and Day starts Field Renderer
  *
@@ -27,7 +29,7 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
         $_months = [];
         for ($i = 1; $i <= 12; $i++) {
             $_months[$i] = Mage::app()->getLocale()
-                ->date(mktime(0, 0, 0, $i))
+                ->date(Carbon::now()->setHour(0)->setMinute(0)->setSecond(0)->setMonth($i))
                 ->get(Zend_Date::MONTH_NAME);
         }
 

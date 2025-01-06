@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Implementation of Zend_Captcha
  *
@@ -457,7 +459,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         if (!is_array($sessionData)) {
             return null;
         }
-        return time() < $sessionData['expires'] ? $sessionData['data'] : null;
+        return Varien_Date::toTimestamp(true) < $sessionData['expires'] ? $sessionData['data'] : null;
     }
 
     /**
@@ -470,7 +472,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
-            ['data' => $word, 'expires' => time() + $this->getTimeout()],
+            ['data' => $word, 'expires' => Carbon::now()->addSeconds($this->getTimeout())->getTimestamp()],
         );
         $this->_word = $word;
         return $this;

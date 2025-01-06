@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * AdminNotification Feed model
  *
@@ -60,7 +62,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function checkUpdate()
     {
-        if (($this->getFrequency() + $this->getLastUpdate()) > time()) {
+        if (($this->getFrequency() + $this->getLastUpdate()) > Carbon::now()->getTimestamp()) {
             return $this;
         }
 
@@ -126,7 +128,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function setLastUpdate()
     {
-        Mage::app()->saveCache(time(), 'admin_notifications_lastcheck');
+        Mage::app()->saveCache(Varien_Date::toTimestamp(true), 'admin_notifications_lastcheck');
         return $this;
     }
 

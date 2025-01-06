@@ -69,7 +69,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
     /**
      * Add order filter
      *
-     * @param int|Mage_Sales_Model_Order $order
+     * @param array|int|Mage_Sales_Model_Order $order
      * @return $this
      */
     public function setOrderFilter($order)

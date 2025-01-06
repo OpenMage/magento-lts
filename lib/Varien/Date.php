@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Converter of date formats
  * Internal dates
@@ -117,7 +119,7 @@ class Varien_Date
         }
 
         if ($date === true) {
-            return time();
+            return Carbon::now()->getTimestamp();
         }
 
         return strtotime($date);
@@ -126,7 +128,7 @@ class Varien_Date
     /**
      * Retrieve current date in internal format
      *
-     * @param boolean $withoutTime day only flag
+     * @param bool $withoutTime day only flag
      * @return string
      */
     public static function now($withoutTime = false)

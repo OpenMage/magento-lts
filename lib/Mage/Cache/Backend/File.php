@@ -70,7 +70,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Prevents unnecessary checks
      *
-     *  @var boolean
+     *  @var bool
      */
     protected $_isTagDirChecked;
 
@@ -135,7 +135,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
             return false;
         }
         list($metadatas, $data) = $cache;
-        if (!$doNotTestCacheValidity && time() > $metadatas['expire']) {
+        if (!$doNotTestCacheValidity && Varien_Date::toTimestamp(true) > $metadatas['expire']) {
             // ?? $this->remove($id);
             return false;
         }
@@ -189,7 +189,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
         $metadatas = [
             'hash'   => $hash,
-            'mtime'  => time(),
+            'mtime'  => Varien_Date::toTimestamp(true),
             'expire' => $this->_expireTime($this->getLifetime($specificLifetime)),
             'tags'   => implode(',', $tags),
         ];
@@ -349,12 +349,12 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
             return false;
         }
         list($metadatas, $data) = $cache;
-        if (time() > $metadatas['expire']) {
+        if (Varien_Date::toTimestamp(true) > $metadatas['expire']) {
             return false;
         }
         $newMetadatas = [
             'hash'   => $metadatas['hash'],
-            'mtime'  => time(),
+            'mtime'  => Varien_Date::toTimestamp(true),
             'expire' => $metadatas['expire'] + $extraLifetime,
             'tags'   => $metadatas['tags'],
         ];
@@ -506,7 +506,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                     continue;
                 }
                 if ($mode == Zend_Cache::CLEANING_MODE_OLD) {
-                    if (time() > $metadatas['expire']) {
+                    if (Varien_Date::toTimestamp(true) > $metadatas['expire']) {
                         $result = $this->_remove($file) && $result;
                         $result = $this->_updateIdsTags([$id], explode(',', $metadatas['tags']), 'diff') && $result;
                     }

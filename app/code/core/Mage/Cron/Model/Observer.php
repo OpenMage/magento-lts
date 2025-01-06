@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Crontab observer
  *
@@ -112,7 +114,7 @@ class Mage_Cron_Model_Observer
          * check if schedule generation is needed
          */
         $lastRun = Mage::app()->loadCache(self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT);
-        if ($lastRun > time() - Mage::getStoreConfig(self::XML_PATH_SCHEDULE_GENERATE_EVERY) * 60) {
+        if ($lastRun > Carbon::now()->subMinutes(Mage::getStoreConfig(self::XML_PATH_SCHEDULE_GENERATE_EVERY))->getTimestamp()) {
             return $this;
         }
 
@@ -141,7 +143,7 @@ class Mage_Cron_Model_Observer
         /**
          * save time schedules generation was ran with no expiration
          */
-        Mage::app()->saveCache(time(), self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT, ['crontab'], null);
+        Mage::app()->saveCache(Varien_Date::toTimestamp(true), self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT, ['crontab'], null);
 
         return $this;
     }
@@ -170,7 +172,7 @@ class Mage_Cron_Model_Observer
                 continue;
             }
 
-            $now = time();
+            $now = Varien_Date::toTimestamp(true);
             $timeAhead = $now + $scheduleAheadFor;
             $schedule->setJobCode($jobCode)
                 ->setCronExpr($cronExpr)
@@ -201,7 +203,7 @@ class Mage_Cron_Model_Observer
     {
         // check if history cleanup is needed
         $lastCleanup = Mage::app()->loadCache(self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT);
-        if ($lastCleanup > time() - Mage::getStoreConfig(self::XML_PATH_HISTORY_CLEANUP_EVERY) * 60) {
+        if ($lastCleanup > Carbon::now()->subMinutes(Mage::getStoreConfig(self::XML_PATH_HISTORY_CLEANUP_EVERY))->getTimestamp()) {
             return $this;
         }
 
@@ -219,7 +221,7 @@ class Mage_Cron_Model_Observer
             Mage_Cron_Model_Schedule::STATUS_ERROR => Mage::getStoreConfig(self::XML_PATH_HISTORY_FAILURE) * 60,
         ];
 
-        $now = time();
+        $now = Varien_Date::toTimestamp(true);
         foreach ($history->getIterator() as $record) {
             if (empty($record->getExecutedAt())
                 || (strtotime($record->getExecutedAt()) < $now - $historyLifetimes[$record->getStatus()])
@@ -229,7 +231,7 @@ class Mage_Cron_Model_Observer
         }
 
         // save time history cleanup was ran with no expiration
-        Mage::app()->saveCache(time(), self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT, ['crontab'], null);
+        Mage::app()->saveCache(Varien_Date::toTimestamp(true), self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT, ['crontab'], null);
 
         return $this;
     }
@@ -273,7 +275,7 @@ class Mage_Cron_Model_Observer
         $runConfig = $jobConfig->run;
         if (!$isAlways) {
             $scheduleLifetime = Mage::getStoreConfig(self::XML_PATH_SCHEDULE_LIFETIME) * 60;
-            $now = time();
+            $now = Varien_Date::toTimestamp(true);
             $time = strtotime($schedule->getScheduledAt());
             if ($time > $now) {
                 return;
@@ -348,7 +350,7 @@ class Mage_Cron_Model_Observer
         /** @var Mage_Cron_Model_Schedule $schedule */
         $schedule = Mage::getModel('cron/schedule')->load($jobCode, 'job_code');
         if ($schedule->getId() === null) {
-            $ts = date('Y-m-d H:i:00');
+            $ts = Carbon::now()->format('Y-m-d H:i:00');
             $schedule->setJobCode($jobCode)
                 ->setCreatedAt($ts)
                 ->setScheduledAt($ts);

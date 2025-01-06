@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Fedex shipping implementation
  *
@@ -312,7 +314,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             'Version' => $this->getVersionInfo(),
             'RequestedShipment' => [
                 'DropoffType'   => $r->getDropoffType(),
-                'ShipTimestamp' => date('c'),
+                'ShipTimestamp' => Carbon::now()->format('c'),
                 'PackagingType' => $r->getPackaging(),
                 'TotalInsuredValue' => [
                     'Amount'  => $r->getValue(),
@@ -602,7 +604,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $requestHeader->addChild('AccountNumber', $r->getAccount());
         $requestHeader->addChild('MeterNumber', '0');
 
-        $xml->addChild('ShipDate', date('Y-m-d'));
+        $xml->addChild('ShipDate', Carbon::now()->format('Y-m-d'));
         $xml->addChild('DropoffType', $r->getDropoffType());
         if ($r->hasService()) {
             $xml->addChild('Service', $r->getService());
@@ -1343,10 +1345,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $paymentType = $request->getIsReturn() ? 'RECIPIENT' : 'SENDER';
         $requestClient = [
             'RequestedShipment' => [
-                'ShipTimestamp' => time(),
+                'ShipTimestamp' => Varien_Date::toTimestamp(true),
                 'DropoffType'   => $this->getConfigData('dropoff'),
                 'PackagingType' => $request->getPackagingType(),
-                'ServiceType' => $request->getShippingMethod(),
+                'ServiceType'   => $request->getShippingMethod(),
                 'Shipper' => [
                     'Contact' => [
                         'PersonName' => $request->getShipperContactPersonName(),

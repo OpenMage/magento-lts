@@ -14,7 +14,9 @@
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
-<config>
+<config
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../dev/shemas/module.xsd">
     <modules>
         <Mage_Admin>
             <active>true</active>

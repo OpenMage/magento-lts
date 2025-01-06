@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Model  for flex reports
  *
@@ -79,7 +81,7 @@ class Mage_Reports_Model_Test extends Varien_Object
     {
         $session = Mage::getModel('review/session');
 
-        $startPoint = time() - 24 * 60 * 60;
+        $startPoint = Carbon::now()->subDay()->getTimestamp();
 
         $allData = [];
         $countOfStartData = 12;

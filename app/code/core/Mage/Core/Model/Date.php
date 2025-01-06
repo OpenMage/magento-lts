@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Date conversion model
  *
@@ -75,7 +77,7 @@ class Mage_Core_Model_Date
         }
 
         if ($result === true) {
-            $offset = (int) date('Z');
+            $offset = (int) Carbon::now()->format('Z');
         }
 
         if (!is_null($timezone)) {
@@ -170,7 +172,7 @@ class Mage_Core_Model_Date
         }
 
         $date      = Mage::app()->getLocale()->date($result);
-        $timestamp = $date->get(Zend_Date::TIMESTAMP) + $date->get(Zend_Date::TIMEZONE_SECS);
+        $timestamp = (int) $date->get(Zend_Date::TIMESTAMP) + (int) $date->get(Zend_Date::TIMEZONE_SECS);
 
         unset($date);
         return $timestamp;

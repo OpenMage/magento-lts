@@ -61,7 +61,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $lastDateRecord = null;
         $start          = $this->_lastRecord;
-        $end            = time();
+        $end            = Varien_Date::toTimestamp(true);
         $date           = $start;
 
         while ($date < $end) {

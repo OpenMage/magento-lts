@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Lock model
  *
@@ -293,7 +295,7 @@ class Mage_Index_Model_Lock
                 self::$_lockFileResource[$lockName] = null;
                 throw new Exception(sprintf('Unable to open lock file \'%s\': %s', $file, error_get_last()));
             }
-            fwrite(self::$_lockFileResource[$lockName], date('r'));
+            fwrite(self::$_lockFileResource[$lockName], Carbon::now()->format('r'));
         }
         return self::$_lockFileResource[$lockName];
     }

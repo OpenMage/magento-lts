@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Recurring payment profile
  * Extends from Mage_Core_Abstract for a reason: to make descendants have its own resource
@@ -303,8 +305,8 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     {
         // TODO: implement proper logic with invoking payment method instance
         $date = $minAllowed;
-        if (!$date || $date->getTimestamp() < time()) {
-            $date = new Zend_Date(time());
+        if (!$date || $date->getTimestamp() < Carbon::now()->getTimestamp()) {
+            $date = new Zend_Date(Carbon::now()->getTimestamp());
         }
         $this->setStartDatetime($date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
         return $this;

@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Convert profile resource model
  *
@@ -35,9 +37,9 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getCreatedAt()) {
-            $object->setCreatedAt($this->formatDate(time()));
+            $object->setCreatedAt($this->formatDate(Carbon::now()->getTimestamp()));
         }
-        $object->setUpdatedAt($this->formatDate(time()));
+        $object->setUpdatedAt($this->formatDate(Carbon::now()->getTimestamp()));
         return parent::_beforeSave($object);
     }
 

@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Store controller
  *
@@ -467,7 +469,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         try {
             $backupDb = Mage::getModel('backup/db');
             $backup   = Mage::getModel('backup/backup')
-                ->setTime(time())
+                ->setTime(Carbon::now()->getTimestamp())
                 ->setType('db')
                 ->setPath(Mage::getBaseDir('var') . DS . 'backups');
 
