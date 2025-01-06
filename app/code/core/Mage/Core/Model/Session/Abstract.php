@@ -358,7 +358,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Specify session identifier
      *
      * @inheritDoc
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function setSessionId($id = null)
     {
@@ -426,7 +426,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @param string $urlHost can be host or url
      * @return string {session_id_key}={session_id_encrypted}
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getSessionIdForHost($urlHost)
     {
