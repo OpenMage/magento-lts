@@ -126,7 +126,7 @@ class LayoutTest extends TestCase
     {
         $this->expectException(\Error::class);
         $this->markTestIncomplete();
-        $this->expectExceptionMessage('Class "Mage_Invalid_Block_Type" not found');
+        # $this->expectExceptionMessage('Class "Mage_Invalid_Block_Type" not found');
 
         $this->subject->getBlockSingleton('invalid/type');
     }
