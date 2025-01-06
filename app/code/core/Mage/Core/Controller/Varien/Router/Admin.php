@@ -57,7 +57,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * checking if we installed or not and doing redirect
      *
      * @return bool
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _afterModuleMatch()
     {
