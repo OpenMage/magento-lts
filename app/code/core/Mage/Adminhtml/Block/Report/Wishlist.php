@@ -19,7 +19,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings("PHPMD.CamelCasePropertyName")
  */
 class Mage_Adminhtml_Block_Report_Wishlist extends Mage_Adminhtml_Block_Template
 {

@@ -24,7 +24,7 @@
 /lib/Credis
 
 # ChartJs library
-/js/chartjs
+/js/lib/chartjs
 
 # TinyMCE library
 /js/tinymce

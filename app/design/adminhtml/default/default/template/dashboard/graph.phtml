@@ -41,7 +41,7 @@
                     return;
                 }
                 const script = document.createElement('script');
-                script.src = '<?php echo $this->getJsUrl('chartjs/Chart.min.js') ?>';
+                script.src = '<?php echo $this->getJsUrl('lib/chartjs/chart.umd.js') ?>';
                 script.async = true;
                 script.onload = () => {
                     window.chartsLoaded = true;
