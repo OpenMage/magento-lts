@@ -5,7 +5,7 @@ includes:
 parameters:
     phpVersion:
         min: 70433
-        max: 80400
+        max: 80499
     magentoRootPath: %currentWorkingDirectory%
     fileExtensions:
       - php
