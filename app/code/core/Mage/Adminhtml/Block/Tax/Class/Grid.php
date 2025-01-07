@@ -46,8 +46,8 @@ class Mage_Adminhtml_Block_Tax_Class_Grid extends Mage_Adminhtml_Block_Widget_Gr
             [
                 'header'    => Mage::helper('tax')->__('Class Name'),
                 'align'     => 'left',
-                'index'     => 'class_name'
-            ]
+                'index'     => 'class_name',
+            ],
         );
 
         return parent::_prepareColumns();

@@ -23,8 +23,8 @@ $connection = $installer->getConnection();
 $connection->delete(
     $this->getTable('core_config_data'),
     $connection->prepareSqlCondition('path', [
-        'like' => 'payment/ccsave/active'
-    ])
+        'like' => 'payment/ccsave/active',
+    ]),
 );
 
 $installer->endSetup();

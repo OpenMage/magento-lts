@@ -21,6 +21,4 @@
  * @package    Mage_Catalog
  * @deprecated
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Status extends Mage_Catalog_Model_Resource_Product_Status
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Status extends Mage_Catalog_Model_Resource_Product_Status {}

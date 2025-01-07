@@ -38,15 +38,15 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
         return [
             [
                 'label' => Mage::helper('adminhtml')->__('Any'),
-                'value' => ''
+                'value' => '',
             ],
             [
                 'label' => Mage::helper('adminhtml')->__('Yes'),
-                'value' => 1
+                'value' => 1,
             ],
             [
                 'label' => Mage::helper('adminhtml')->__('No'),
-                'value' => 0
+                'value' => 0,
             ],
         ];
     }
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
         } else {
             return [
                 ['neq' => $this->getColumn()->getValue()],
-                ['is' => new Zend_Db_Expr('NULL')]
+                ['is' => new Zend_Db_Expr('NULL')],
             ];
         }
     }

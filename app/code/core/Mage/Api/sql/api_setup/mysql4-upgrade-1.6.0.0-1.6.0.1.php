@@ -24,8 +24,8 @@ $this->getConnection()->changeColumn(
     [
         'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length' => 100,
-        'comment' => 'Api key'
-    ]
+        'comment' => 'Api key',
+    ],
 );
 
 $this->endSetup();

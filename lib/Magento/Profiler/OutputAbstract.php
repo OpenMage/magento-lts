@@ -83,7 +83,7 @@ abstract class Magento_Profiler_OutputAbstract
         if ($columnId == 'timer_id') {
             return $this->_renderTimerId($timerId);
         }
-        $value = (float)Magento_Profiler::fetch($timerId, $columnId);
+        $value = (float) Magento_Profiler::fetch($timerId, $columnId);
         if (in_array($columnId, [Magento_Profiler::FETCH_TIME, Magento_Profiler::FETCH_AVG])) {
             $value = number_format($value, 6);
         } else {
@@ -193,8 +193,7 @@ abstract class Magento_Profiler_OutputAbstract
     protected function _renderCaption()
     {
         $result = 'Code Profiler (Memory usage: real - %s, emalloc - %s)';
-        $result = sprintf($result, memory_get_usage(true), memory_get_usage());
-        return $result;
+        return sprintf($result, memory_get_usage(true), memory_get_usage());
     }
 
     /**

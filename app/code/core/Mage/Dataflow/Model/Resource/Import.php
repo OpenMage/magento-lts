@@ -57,8 +57,8 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
         $bind = [
             'status'     => 0,
             'session_id' => $sessionId,
-            'min_id'     => (int)$min,
-            'max_id'     => (int)$max,
+            'min_id'     => (int) $min,
+            'max_id'     => (int) $max,
         ];
         $read = $this->_getReadAdapter();
         $select = $read->select()
@@ -80,13 +80,13 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
     {
         $bind = [
             'status'    => 0,
-            'session_id' => $sessionId
+            'session_id' => $sessionId,
         ];
         $read = $this->_getReadAdapter();
         $select = $read->select()
             ->from(
                 $this->getTable('dataflow/import'),
-                ['max' => 'max(import_id)', 'min' => 'min(import_id)', 'cnt' => 'count(*)']
+                ['max' => 'max(import_id)', 'min' => 'min(import_id)', 'cnt' => 'count(*)'],
             )
             ->where('status = :status')
             ->where('session_id = :$session_id');
@@ -103,7 +103,7 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
     {
         $bind = [
             'status'    => 0,
-            'import_id' => $importId
+            'import_id' => $importId,
         ];
         $read = $this->_getReadAdapter();
         $select = $read->select()

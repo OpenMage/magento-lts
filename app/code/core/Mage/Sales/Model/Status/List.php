@@ -46,7 +46,7 @@ class Mage_Sales_Model_Status_List
             'origin' => $origin,
             'code' => $code,
             'message' => $message,
-            'additionalData' => $additionalData
+            'additionalData' => $additionalData,
         ];
         return $this;
     }

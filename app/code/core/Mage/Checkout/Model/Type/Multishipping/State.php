@@ -51,19 +51,19 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         parent::__construct();
         $this->_steps = [
             self::STEP_SELECT_ADDRESSES => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Select Addresses')
+                'label' => Mage::helper('checkout')->__('Select Addresses'),
             ]),
             self::STEP_SHIPPING => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Shipping Information')
+                'label' => Mage::helper('checkout')->__('Shipping Information'),
             ]),
             self::STEP_BILLING => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Billing Information')
+                'label' => Mage::helper('checkout')->__('Billing Information'),
             ]),
             self::STEP_OVERVIEW => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Place Order')
+                'label' => Mage::helper('checkout')->__('Place Order'),
             ]),
             self::STEP_SUCCESS => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Order Success')
+                'label' => Mage::helper('checkout')->__('Order Success'),
             ]),
         ];
 
@@ -173,21 +173,13 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         return $this;
     }
 
-    public function canSelectAddresses()
-    {
-    }
+    public function canSelectAddresses() {}
 
-    public function canInputShipping()
-    {
-    }
+    public function canInputShipping() {}
 
-    public function canSeeOverview()
-    {
-    }
+    public function canSeeOverview() {}
 
-    public function canSuccess()
-    {
-    }
+    public function canSuccess() {}
 
     /**
      * Retrieve checkout session

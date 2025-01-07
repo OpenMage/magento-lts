@@ -55,7 +55,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      */
     public function setLoadDefault($loadDefault)
     {
-        $this->setFlag('load_default_website', (bool)$loadDefault);
+        $this->setFlag('load_default_website', (bool) $loadDefault);
         return $this;
     }
 
@@ -139,11 +139,11 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
             $this->getSelect()->joinLeft(
                 ['group_table' => $this->getTable('core/store_group')],
                 'main_table.website_id = group_table.website_id',
-                ['group_id' => 'group_id', 'group_title' => 'name']
+                ['group_id' => 'group_id', 'group_title' => 'name'],
             )->joinLeft(
                 ['store_table' => $this->getTable('core/store')],
                 'group_table.group_id = store_table.group_id',
-                ['store_id' => 'store_id', 'store_title' => 'name']
+                ['store_id' => 'store_id', 'store_title' => 'name'],
             );
             $this->addOrder('group_table.name', Varien_Db_Select::SQL_ASC)       // store name
                 ->addOrder('CASE WHEN store_table.store_id = 0 THEN 0 ELSE 1 END', Varien_Db_Select::SQL_ASC) // view is admin

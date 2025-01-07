@@ -28,7 +28,7 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
      * @throws Mage_Exception
      * @param string $mode
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _open($mode)
     {
@@ -45,7 +45,7 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
      * @throws Mage_Exception
      * @param $data
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _write($data)
     {

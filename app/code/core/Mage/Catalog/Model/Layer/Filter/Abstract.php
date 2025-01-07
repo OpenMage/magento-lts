@@ -144,7 +144,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
             $items[] = $this->_createItem(
                 $itemData['label'],
                 $itemData['value'],
-                $itemData['count']
+                $itemData['count'],
             );
         }
         $this->_items = $items;

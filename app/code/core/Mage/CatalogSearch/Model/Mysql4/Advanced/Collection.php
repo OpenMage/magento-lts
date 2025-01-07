@@ -19,6 +19,4 @@
  * @package    Mage_CatalogSearch
  * @deprecated
  */
-class Mage_CatalogSearch_Model_Mysql4_Advanced_Collection extends Mage_CatalogSearch_Model_Resource_Advanced_Collection
-{
-}
+class Mage_CatalogSearch_Model_Mysql4_Advanced_Collection extends Mage_CatalogSearch_Model_Resource_Advanced_Collection {}

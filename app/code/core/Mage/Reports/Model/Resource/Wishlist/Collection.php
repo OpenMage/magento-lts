@@ -72,7 +72,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
         $countSelect->joinLeft(
             ['wt' => $this->getWishlistTable()],
             'wt.customer_id = e.entity_id',
-            []
+            [],
         )
             ->group('wt.wishlist_id');
         $count = $collection->count();
@@ -96,7 +96,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
         $countSelect->joinLeft(
             ['wt' => $this->getWishlistTable()],
             'wt.customer_id=e.entity_id',
-            []
+            [],
         )
             ->where('wt.shared=1')
             ->group('wt.wishlist_id');

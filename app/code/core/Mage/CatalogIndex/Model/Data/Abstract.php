@@ -194,9 +194,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         $this->setMinimalPriceData($data);
         $eventData = ['indexer' => $this, 'product_ids' => $products, 'store' => $store];
         Mage::dispatchEvent('catalogindex_get_minimal_price', $eventData);
-        $data = $this->getMinimalPriceData();
 
-        return $data;
+        return $this->getMinimalPriceData();
     }
 
     /**

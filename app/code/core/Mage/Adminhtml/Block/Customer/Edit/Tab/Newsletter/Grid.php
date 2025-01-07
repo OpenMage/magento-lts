@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
             'header'    => Mage::helper('customer')->__('ID'),
             'align'     => 'left',
             'index'     => 'queue_id',
-            'width'     => 10
+            'width'     => 10,
         ]);
 
         $this->addColumn('start_at', [
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
             'type'      => 'datetime',
             'align'     => 'center',
             'index'     => 'queue_start_at',
-            'default'   => ' ---- '
+            'default'   => ' ---- ',
         ]);
 
         $this->addColumn('finish_at', [
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
             'align'     => 'center',
             'index'     => 'queue_finish_at',
             'gmtoffset' => true,
-            'default'   => ' ---- '
+            'default'   => ' ---- ',
         ]);
 
         $this->addColumn('letter_sent_at', [
@@ -82,13 +82,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
             'align'     => 'center',
             'index'     => 'letter_sent_at',
             'gmtoffset' => true,
-            'default'   =>  ' ---- '
+            'default'   =>  ' ---- ',
         ]);
 
         $this->addColumn('template_subject', [
             'header'    => Mage::helper('customer')->__('Subject'),
             'align'     => 'center',
-            'index'     => 'template_subject'
+            'index'     => 'template_subject',
         ]);
 
         $this->addColumn('status', [
@@ -96,13 +96,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
             'align'     => 'center',
             'filter'    => 'adminhtml/customer_edit_tab_newsletter_grid_filter_status',
             'index'     => 'queue_status',
-            'renderer'  => 'adminhtml/customer_edit_tab_newsletter_grid_renderer_status'
-         ]);
+            'renderer'  => 'adminhtml/customer_edit_tab_newsletter_grid_renderer_status',
+        ]);
 
         $this->addColumn('action', [
             'type'      => 'action',
             'align'     => 'center',
-            'renderer'  => 'adminhtml/customer_edit_tab_newsletter_grid_renderer_action'
+            'renderer'  => 'adminhtml/customer_edit_tab_newsletter_grid_renderer_action',
         ]);
 
         return parent::_prepareColumns();

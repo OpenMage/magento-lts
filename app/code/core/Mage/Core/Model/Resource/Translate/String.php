@@ -92,7 +92,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
 
         $bind = [
             'string'   => $object->getString(),
-            'store_id' => Mage_Core_Model_App::ADMIN_STORE_ID
+            'store_id' => Mage_Core_Model_App::ADMIN_STORE_ID,
         ];
 
         $object->setId($adapter->fetchOne($select, $bind));
@@ -118,21 +118,21 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
                 if (is_null($translate) || $translate == '') {
                     $where = [
                         'store_id = ?'    => $storeId,
-                        'string = ?'      => $object->getString()
-                     ];
+                        'string = ?'      => $object->getString(),
+                    ];
                     $adapter->delete($this->getMainTable(), $where);
                 } else {
                     $data = [
-                       'store_id'  => $storeId,
-                       'string'    => $object->getString(),
-                       'translate' => $translate,
+                        'store_id'  => $storeId,
+                        'string'    => $object->getString(),
+                        'translate' => $translate,
                     ];
 
                     if (isset($stores[$storeId])) {
                         $adapter->update(
                             $this->getMainTable(),
                             $data,
-                            ['key_id = ?' => $stores[$storeId]]
+                            ['key_id = ?' => $stores[$storeId]],
                         );
                     } else {
                         $adapter->insert($this->getMainTable(), $data);
@@ -159,7 +159,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
 
         $where = [
             'locale = ?' => $locale,
-            'string = ?' => $string
+            'string = ?' => $string,
         ];
 
         if ($storeId === false) {

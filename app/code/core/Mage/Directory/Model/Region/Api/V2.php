@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Directory
  */
-class Mage_Directory_Model_Region_Api_V2 extends Mage_Directory_Model_Region_Api
-{
-}
+class Mage_Directory_Model_Region_Api_V2 extends Mage_Directory_Model_Region_Api {}

@@ -118,8 +118,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
                     'base_lifetime' => new Zend_Db_Expr('SUM(sales.base_grand_total * sales.base_to_global_rate)'),
                     'avgsale'       => new Zend_Db_Expr('AVG(sales.base_grand_total)'),
                     'base_avgsale'  => new Zend_Db_Expr('AVG(sales.base_grand_total * sales.base_to_global_rate)'),
-                    'num_orders'    => new Zend_Db_Expr('COUNT(sales.base_grand_total)')
-                ]
+                    'num_orders'    => new Zend_Db_Expr('COUNT(sales.base_grand_total)'),
+                ],
             )
             ->group('sales.store_id');
 

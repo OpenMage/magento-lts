@@ -80,7 +80,7 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
         return implode(' ', [
             $this->getChildHtml('add_new_website'),
             $this->getChildHtml('add_new_group'),
-            $this->getChildHtml('add_new_store')
+            $this->getChildHtml('add_new_store'),
         ]);
     }
 }

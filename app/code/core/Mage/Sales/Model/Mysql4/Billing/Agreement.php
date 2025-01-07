@@ -21,6 +21,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Billing_Agreement extends Mage_Sales_Model_Resource_Billing_Agreement
-{
-}
+class Mage_Sales_Model_Mysql4_Billing_Agreement extends Mage_Sales_Model_Resource_Billing_Agreement {}

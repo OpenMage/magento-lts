@@ -67,11 +67,11 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
      */
     public function getBlockName()
     {
-        $tagName = (string)$this->getName();
+        $tagName = (string) $this->getName();
         if ($tagName !== 'block' && $tagName !== 'reference' || empty($this['name'])) {
             return false;
         }
-        return (string)$this['name'];
+        return (string) $this['name'];
     }
 
     /**
@@ -80,10 +80,10 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
      */
     public function prepareBlock($args)
     {
-        $type = (string)$this['type'];
-        $name = (string)$this['name'];
+        $type = (string) $this['type'];
+        $name = (string) $this['name'];
 
-        $className = (string)$this['class'];
+        $className = (string) $this['class'];
         if (!$className) {
             $className = Mage::getConfig()->getBlockClassName($type);
             $this->addAttribute('class', $className);
@@ -91,7 +91,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
 
         $parent = $this->getParent();
         if (isset($parent['name']) && !isset($this['parent'])) {
-            $this->addAttribute('parent', (string)$parent['name']);
+            $this->addAttribute('parent', (string) $parent['name']);
         }
 
         return $this;
@@ -113,7 +113,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     public function prepareAction($args)
     {
         $parent = $this->getParent();
-        $this->addAttribute('block', (string)$parent['name']);
+        $this->addAttribute('block', (string) $parent['name']);
 
         return $this;
     }

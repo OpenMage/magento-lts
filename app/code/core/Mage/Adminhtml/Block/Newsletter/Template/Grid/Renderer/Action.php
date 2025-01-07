@@ -33,14 +33,14 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Action extends Mage
         if ($row->isValidForSend()) {
             $actions[] = [
                 'url' => $this->getUrl('*/newsletter_queue/edit', ['template_id' => $row->getId()]),
-                'caption' => Mage::helper('newsletter')->__('Queue Newsletter...')
+                'caption' => Mage::helper('newsletter')->__('Queue Newsletter...'),
             ];
         }
 
         $actions[] = [
             'url'     => $this->getUrl('*/*/preview', ['id' => $row->getId()]),
             'popup'   => true,
-            'caption' => Mage::helper('newsletter')->__('Preview')
+            'caption' => Mage::helper('newsletter')->__('Preview'),
         ];
 
         $this->getColumn()->setActions($actions);

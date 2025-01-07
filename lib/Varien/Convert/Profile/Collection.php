@@ -48,8 +48,7 @@ class Varien_Convert_Profile_Collection
 
     public function addContainer($name, Varien_Convert_Container_Interface $container)
     {
-        $container = $this->getContainers()->addItem($name, $container);
-        return $container;
+        return $this->getContainers()->addItem($name, $container);
     }
 
     public function getProfiles()
@@ -99,10 +98,10 @@ class Varien_Convert_Profile_Collection
             if (!$containerNode['name'] || !$containerNode['type']) {
                 continue;
             }
-            $class = $this->getClassNameByType((string)$containerNode['type']);
-            $container = $this->addContainer((string)$containerNode['name'], new $class());
+            $class = $this->getClassNameByType((string) $containerNode['type']);
+            $container = $this->addContainer((string) $containerNode['name'], new $class());
             foreach ($containerNode->var as $varNode) {
-                $container->setVar((string)$varNode['name'], (string)$varNode);
+                $container->setVar((string) $varNode['name'], (string) $varNode);
             }
         }
         return $this;
@@ -124,13 +123,13 @@ class Varien_Convert_Profile_Collection
         foreach ($profileNode->action as $actionNode) {
             $action = $profile->addAction();
             foreach ($actionNode->attributes() as $key => $value) {
-                $action->setParam($key, (string)$value);
+                $action->setParam($key, (string) $value);
             }
 
             if ($actionNode['use']) {
-                $container = $profile->getContainer((string)$actionNode['use']);
+                $container = $profile->getContainer((string) $actionNode['use']);
             } else {
-                $action->setParam('class', $this->getClassNameByType((string)$actionNode['type']));
+                $action->setParam('class', $this->getClassNameByType((string) $actionNode['type']));
                 $container = $action->getContainer();
             }
             $action->setContainer($container);
@@ -138,7 +137,7 @@ class Varien_Convert_Profile_Collection
                 $this->addContainer($action->getParam('name'), $container);
             }
             foreach ($actionNode->var as $varNode) {
-                $container->setVar((string)$varNode['name'], (string)$varNode);
+                $container->setVar((string) $varNode['name'], (string) $varNode);
             }
         }
 

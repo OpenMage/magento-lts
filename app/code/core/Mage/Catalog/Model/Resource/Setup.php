@@ -31,12 +31,12 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     protected function _prepareValues($attr)
     {
         $data = parent::_prepareValues($attr);
-        $data = array_merge($data, [
+        return array_merge($data, [
             'frontend_input_renderer'       => $this->_getValue($attr, 'input_renderer'),
             'is_global'                     => $this->_getValue(
                 $attr,
                 'global',
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
+                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
             ),
             'is_visible'                    => $this->_getValue($attr, 'visible', 1),
             'is_searchable'                 => $this->_getValue($attr, 'searchable', 0),
@@ -52,9 +52,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             'apply_to'                      => $this->_getValue($attr, 'apply_to'),
             'position'                      => $this->_getValue($attr, 'position', 0),
             'is_configurable'               => $this->_getValue($attr, 'is_configurable', 1),
-            'is_used_for_promo_rules'       => $this->_getValue($attr, 'used_for_promo_rules', 0)
+            'is_used_for_promo_rules'       => $this->_getValue($attr, 'used_for_promo_rules', 0),
         ]);
-        return $data;
     }
 
     /**
@@ -350,7 +349,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'group'                      => 'Display Settings',
                     ],
-                ]
+                ],
             ],
             'catalog_product'                => [
                 'entity_model'                   => 'catalog/product',
@@ -827,8 +826,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'                 => 20,
                         'visible'                    => false,
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -864,7 +863,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     ->update(
                         $this->getTable('catalog/category'),
                         ['path' => $path],
-                        ['entity_id = ?' => $category['entity_id']]
+                        ['entity_id = ?' => $category['entity_id']],
                     );
             }
         }
@@ -927,7 +926,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             $adapter->update(
                 $this->getTable('catalog/category'),
                 ['level' => $level],
-                ['entity_id = ?' => $category['entity_id']]
+                ['entity_id = ?' => $category['entity_id']],
             );
         }
         return $this;

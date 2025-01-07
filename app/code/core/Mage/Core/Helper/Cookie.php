@@ -134,7 +134,7 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
      */
     public function getCookieRestrictionLifetime()
     {
-        return (int)$this->_currentStore->getConfig(self::XML_PATH_COOKIE_RESTRICTION_LIFETIME);
+        return (int) $this->_currentStore->getConfig(self::XML_PATH_COOKIE_RESTRICTION_LIFETIME);
     }
 
     /**

@@ -35,23 +35,23 @@ class Mage_Install_Model_Wizard
 
         foreach ($this->_steps as $index => $step) {
             $this->_steps[$index]->setUrl(
-                $this->_getUrl($this->_steps[$index]->getController(), $this->_steps[$index]->getAction())
+                $this->_getUrl($this->_steps[$index]->getController(), $this->_steps[$index]->getAction()),
             );
 
             if (isset($this->_steps[$index + 1])) {
                 $this->_steps[$index]->setNextUrl(
-                    $this->_getUrl($this->_steps[$index + 1]->getController(), $this->_steps[$index + 1]->getAction())
+                    $this->_getUrl($this->_steps[$index + 1]->getController(), $this->_steps[$index + 1]->getAction()),
                 );
                 $this->_steps[$index]->setNextUrlPath(
-                    $this->_getUrlPath($this->_steps[$index + 1]->getController(), $this->_steps[$index + 1]->getAction())
+                    $this->_getUrlPath($this->_steps[$index + 1]->getController(), $this->_steps[$index + 1]->getAction()),
                 );
             }
             if (isset($this->_steps[$index - 1])) {
                 $this->_steps[$index]->setPrevUrl(
-                    $this->_getUrl($this->_steps[$index - 1]->getController(), $this->_steps[$index - 1]->getAction())
+                    $this->_getUrl($this->_steps[$index - 1]->getController(), $this->_steps[$index - 1]->getAction()),
                 );
                 $this->_steps[$index]->setPrevUrlPath(
-                    $this->_getUrlPath($this->_steps[$index - 1]->getController(), $this->_steps[$index - 1]->getAction())
+                    $this->_getUrlPath($this->_steps[$index - 1]->getController(), $this->_steps[$index - 1]->getAction()),
                 );
             }
         }

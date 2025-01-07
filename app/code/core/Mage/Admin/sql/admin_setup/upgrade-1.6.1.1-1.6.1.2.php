@@ -38,7 +38,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('admin/permission_variable', ['variable_name'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         ['variable_name'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('System variables that can be processed via content filter');
 $installer->getConnection()->createTable($table);
@@ -61,7 +61,7 @@ $installer->getConnection()->insertMultiple(
         ['variable_name' => 'general/store_information/name', 'is_allowed' => 1],
         ['variable_name' => 'general/store_information/phone','is_allowed'  => 1],
         ['variable_name' => 'general/store_information/address', 'is_allowed' => 1],
-    ]
+    ],
 );
 
 $table = $installer->getConnection()
@@ -83,7 +83,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('admin/permission_block', ['block_name'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         ['block_name'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('System blocks that can be processed via content filter');
 $installer->getConnection()->createTable($table);
@@ -93,7 +93,7 @@ $installer->getConnection()->insertMultiple(
     [
         ['block_name' => 'core/template', 'is_allowed' => 1],
         ['block_name' => 'catalog/product_new', 'is_allowed' => 1],
-    ]
+    ],
 );
 
 $installer->endSetup();

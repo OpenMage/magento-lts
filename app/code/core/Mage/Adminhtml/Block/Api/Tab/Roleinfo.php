@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
                 'id'    => 'role_name',
                 'class' => 'required-entry',
                 'required' => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -54,8 +54,8 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
                 'name'  => 'current_password',
                 'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'title' => Mage::helper('adminhtml')->__('Current Admin Password'),
-                'required' => true
-            ]
+                'required' => true,
+            ],
         );
 
         $fieldset->addField(
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
             [
                 'name'  => 'role_id',
                 'id'    => 'role_id',
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Api_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_
             [
                 'name'  => 'in_role_user',
                 'id'    => 'in_role_userz',
-            ]
+            ],
         );
 
         $fieldset->addField('in_role_user_old', 'hidden', ['name' => 'in_role_user_old']);

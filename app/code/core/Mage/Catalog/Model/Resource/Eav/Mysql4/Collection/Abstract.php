@@ -22,6 +22,4 @@
  * @package    Mage_Catalog
  * @deprecated
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Catalog_Model_Resource_Collection_Abstract
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Catalog_Model_Resource_Collection_Abstract {}

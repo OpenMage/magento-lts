@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Abstract extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
-{
-}
+abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Abstract extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract {}

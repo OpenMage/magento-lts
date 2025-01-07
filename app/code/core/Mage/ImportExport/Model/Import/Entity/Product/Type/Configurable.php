@@ -39,7 +39,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
         self::ERROR_ATTRIBUTE_CODE_IS_NOT_SUPER => 'Attribute with this code is not super',
         self::ERROR_INVALID_PRICE_CORRECTION    => 'Super attribute price correction value is invalid',
         self::ERROR_INVALID_OPTION_VALUE        => 'Invalid option value',
-        self::ERROR_INVALID_WEBSITE             => 'Invalid website code for super attribute'
+        self::ERROR_INVALID_WEBSITE             => 'Invalid website code for super attribute',
     ];
 
     /**
@@ -49,7 +49,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
      */
     protected $_particularAttributes = [
         '_super_products_sku', '_super_attribute_code', '_super_attribute_option',
-        '_super_attribute_price_corr', '_super_attribute_price_website'
+        '_super_attribute_price_corr', '_super_attribute_price_website',
     ];
 
     /**
@@ -234,7 +234,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
 
                         $data = array_intersect_key(
                             $product->getData(),
-                            $this->_superAttributes
+                            $this->_superAttributes,
                         );
                         foreach ($data as $attrCode => $value) {
                             $attrId = $this->_superAttributes[$attrCode]['id'];
@@ -265,7 +265,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                         ['p' => $priceTable],
                         $connection->quoteIdentifier('p.product_super_attribute_id') . ' = '
                         . $connection->quoteIdentifier('m.product_super_attribute_id'),
-                        ['value_index']
+                        ['value_index'],
                     );
 
             foreach ($connection->fetchAll($select) as $row) {
@@ -313,10 +313,10 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                     $usedCombs[$comb] = true;
                 }
                 $superAttributes['super_link'][] = [
-                    'product_id' => $assocId, 'parent_id' => $superData['product_id']
+                    'product_id' => $assocId, 'parent_id' => $superData['product_id'],
                 ];
                 $superAttributes['relation'][] = [
-                    'parent_id' => $superData['product_id'], 'child_id' => $assocId
+                    'parent_id' => $superData['product_id'], 'child_id' => $assocId,
                 ];
             }
             // clean up unused values pricing
@@ -372,7 +372,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                 'labels'     => [],
                 'pricing'    => [],
                 'super_link' => [],
-                'relation'   => []
+                'relation'   => [],
             ];
             foreach ($bunch as $rowNum => $rowData) {
                 if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)) {
@@ -396,7 +396,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                         'attr_set_code'   => $productData['attr_set_code'],
                         'used_attributes' => empty($this->_skuSuperData[$productId])
                                              ? [] : $this->_skuSuperData[$productId],
-                        'assoc_ids'       => []
+                        'assoc_ids'       => [],
                     ];
                 } elseif ($productData === null) {
                     continue;
@@ -418,13 +418,13 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                 } elseif (!isset($superAttributes['attributes'][$productId][$attrParams['id']])) {
                     $productSuperAttrId = $nextAttrId++;
                     $superAttributes['attributes'][$productId][$attrParams['id']] = [
-                        'product_super_attribute_id' => $productSuperAttrId, 'position' => 0
+                        'product_super_attribute_id' => $productSuperAttrId, 'position' => 0,
                     ];
                     $superAttributes['labels'][] = [
                         'product_super_attribute_id' => $productSuperAttrId,
                         'store_id'    => 0,
                         'use_default' => 1,
-                        'value'       => $attrParams['frontend_label']
+                        'value'       => $attrParams['frontend_label'],
                     ];
                 }
                 if (isset($rowData['_super_attribute_option']) && strlen($rowData['_super_attribute_option'])) {
@@ -439,7 +439,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                             'value_index'   => $optionId,
                             'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) === '%',
                             'pricing_value' => (float) rtrim($rowData['_super_attribute_price_corr'], '%'),
-                            'website_id'    => 0
+                            'website_id'    => 0,
                         ];
                     }
                 }
@@ -475,7 +475,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                 $connection->insertOnDuplicate(
                     $priceTable,
                     $superAttributes['pricing'],
-                    ['is_percent', 'pricing_value']
+                    ['is_percent', 'pricing_value'],
                 );
             }
             if ($superAttributes['super_link']) {

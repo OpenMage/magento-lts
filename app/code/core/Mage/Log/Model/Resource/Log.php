@@ -37,7 +37,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
         $cleanTime = $object->getLogCleanTime();
 
         Mage::dispatchEvent('log_log_clean_before', [
-            'log'   => $object
+            'log'   => $object,
         ]);
 
         $this->_cleanVisitors($cleanTime);
@@ -45,7 +45,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
         $this->_cleanUrls();
 
         Mage::dispatchEvent('log_log_clean_after', [
-            'log'   => $object
+            'log'   => $object,
         ]);
 
         return $this;
@@ -68,12 +68,12 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             $select = $readAdapter->select()
                 ->from(
                     ['visitor_table' => $this->getTable('log/visitor')],
-                    ['visitor_id' => 'visitor_table.visitor_id']
+                    ['visitor_id' => 'visitor_table.visitor_id'],
                 )
                 ->joinLeft(
                     ['customer_table' => $this->getTable('log/customer')],
                     'visitor_table.visitor_id = customer_table.visitor_id AND customer_table.log_id IS NULL',
-                    []
+                    [],
                 )
                 ->where('visitor_table.last_visit_at < ?', $timeLimit)
                 ->limit(100);
@@ -121,7 +121,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
                 ->from($this->getTable('log/customer'), 'log_id')
                 ->where('login_at < ?', $timeLimit)
                 ->order('log_id DESC')
-                ->limit(1)
+                ->limit(1),
         );
 
         if (!$lastLogId) {
@@ -132,13 +132,13 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
         $select = $readAdapter->select()
             ->from(
                 ['log_customer_main' => $this->getTable('log/customer')],
-                ['log_id']
+                ['log_id'],
             )
             ->joinLeft(
                 ['log_customer' => $this->getTable('log/customer')],
                 'log_customer_main.customer_id = log_customer.customer_id '
                     . 'AND log_customer_main.log_id < log_customer.log_id',
-                []
+                [],
             )
             ->where('log_customer.customer_id IS NULL')
             ->where('log_customer_main.log_id < ?', $lastLogId + 1);
@@ -155,7 +155,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/customer'),
-                    ['log_id', 'visitor_id']
+                    ['log_id', 'visitor_id'],
                 )
                 ->where('log_id > ?', $customerLogId)
                 ->where('log_id < ?', $lastLogId + 1)
@@ -217,12 +217,12 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             $select = $readAdapter->select()
                 ->from(
                     ['url_info_table' => $this->getTable('log/url_info_table')],
-                    ['url_id']
+                    ['url_id'],
                 )
                 ->joinLeft(
                     ['url_table' => $this->getTable('log/url_table')],
                     'url_info_table.url_id = url_table.url_id',
-                    []
+                    [],
                 )
                 ->where('url_table.url_id IS NULL')
                 ->limit(100);
@@ -235,7 +235,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
 
             $writeAdapter->delete(
                 $this->getTable('log/url_info_table'),
-                ['url_id IN (?)' => $urlIds]
+                ['url_id IN (?)' => $urlIds],
             );
         }
 

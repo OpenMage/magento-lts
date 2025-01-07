@@ -24,6 +24,6 @@ class Mage_Adminhtml_Model_System_Config_Source_Order_Status_Newprocessing exten
 {
     protected $_stateStatuses = [
         Mage_Sales_Model_Order::STATE_NEW,
-        Mage_Sales_Model_Order::STATE_PROCESSING
+        Mage_Sales_Model_Order::STATE_PROCESSING,
     ];
 }

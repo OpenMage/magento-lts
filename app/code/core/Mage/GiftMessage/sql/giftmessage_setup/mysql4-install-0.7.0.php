@@ -42,16 +42,16 @@ $installer->addAttribute('order', 'gift_message_id', ['type' => 'int', 'visible'
 $installer->addAttribute('order_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
 $installer->addAttribute('order_item', 'gift_message_available', ['type' => 'int', 'visible' => false, 'required' => false]);
 $installer->addAttribute('catalog_product', 'gift_message_available', [
-        'backend'       => 'giftmessage/entity_attribute_backend_boolean_config',
-        'frontend'      => '',
-        'label'         => 'Allow Gift Message',
-        'input'         => 'select',
-        'class'         => '',
-        'source'        => 'giftmessage/entity_attribute_source_boolean_config',
-        'global'        => true,
-        'visible'       => true,
-        'required'      => false,
-        'user_defined'  => false,
-        'default'       => '2',
-        'visible_on_front' => false
+    'backend'       => 'giftmessage/entity_attribute_backend_boolean_config',
+    'frontend'      => '',
+    'label'         => 'Allow Gift Message',
+    'input'         => 'select',
+    'class'         => '',
+    'source'        => 'giftmessage/entity_attribute_source_boolean_config',
+    'global'        => true,
+    'visible'       => true,
+    'required'      => false,
+    'user_defined'  => false,
+    'default'       => '2',
+    'visible_on_front' => false,
 ]);

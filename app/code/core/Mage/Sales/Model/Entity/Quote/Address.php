@@ -27,7 +27,7 @@ class Mage_Sales_Model_Entity_Quote_Address extends Mage_Eav_Model_Entity_Abstra
         $resource = Mage::getSingleton('core/resource');
         $this->setType('quote_address')->setConnection(
             $resource->getConnection('sales_read'),
-            $resource->getConnection('sales_write')
+            $resource->getConnection('sales_write'),
         );
     }
 

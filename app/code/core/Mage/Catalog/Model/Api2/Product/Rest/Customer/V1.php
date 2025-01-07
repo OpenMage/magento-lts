@@ -57,7 +57,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Customer_V1 extends Mage_Catalog_Mode
             $withTax,
             $customer->getPrimaryShippingAddress(),
             $customer->getPrimaryBillingAddress(),
-            $customer->getTaxClassId()
+            $customer->getTaxClassId(),
         );
         $session->setCustomerId(null);
 

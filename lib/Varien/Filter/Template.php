@@ -165,9 +165,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             // If template preprocessing
             return $construction[0];
         }
-
-        $replacedValue = $this->_getVariable($construction[2], '');
-        return $replacedValue;
+        return $this->_getVariable($construction[2], '');
     }
 
     public function includeDirective($construction)
@@ -282,7 +280,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         for ($i = 0; $i < count($stackVars); $i++) {
             if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
                 // Getting of template value
-                $stackVars[$i]['variable'] =& $this->_templateVars[$stackVars[$i]['name']];
+                $stackVars[$i]['variable'] = & $this->_templateVars[$stackVars[$i]['name']];
             } elseif (isset($stackVars[$i - 1]['variable']) && $stackVars[$i - 1]['variable'] instanceof Varien_Object) {
                 // If object calling methods or getting properties
                 if ($stackVars[$i]['type'] == 'property') {
@@ -301,7 +299,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                         }
                         $stackVars[$i]['variable'] = call_user_func_array(
                             [$stackVars[$i - 1]['variable'], $stackVars[$i]['name']],
-                            !$isEncrypted ? $stackVars[$i]['args'] : [null]
+                            !$isEncrypted ? $stackVars[$i]['args'] : [null],
                         );
                     }
                 }

@@ -303,7 +303,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
         if (!empty($this->_resourcePrefix)) {
             $this->_connections[$connectionName] = $this->_resources->getConnection(
-                $this->_resourcePrefix . '_' . $connectionName
+                $this->_resourcePrefix . '_' . $connectionName,
             );
         } else {
             $this->_connections[$connectionName] = $this->_resources->getConnection($connectionName);
@@ -507,7 +507,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $this->_beforeDelete($object);
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $object->getId())
+            $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $object->getId()),
         );
         $this->_afterDelete($object);
         return $this;
@@ -636,8 +636,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
                 $this->_uniqueFields = [
                     [
                         'field' => $fields,
-                        'title' => $fields
-                    ]
+                        'title' => $fields,
+                    ],
                 ];
             }
 
@@ -650,10 +650,10 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
                 if (is_array($unique['field'])) {
                     foreach ($unique['field'] as $field) {
-                        $select->where($field . '=?', trim((string)$data->getData($field)));
+                        $select->where($field . '=?', trim((string) $data->getData($field)));
                     }
                 } else {
-                    $select->where($unique['field'] . '=?', trim((string)$data->getData($unique['field'])));
+                    $select->where($unique['field'] . '=?', trim((string) $data->getData($unique['field'])));
                 }
 
                 if ($object->getId() || $object->getId() === '0') {

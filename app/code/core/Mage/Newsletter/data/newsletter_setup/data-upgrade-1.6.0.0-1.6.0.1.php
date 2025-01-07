@@ -24,10 +24,10 @@ $select = $installer->getConnection()->select()
     ->join(
         ['customer' => $installer->getTable('customer/entity')],
         'main_table.customer_id = customer.entity_id',
-        ['website_id']
+        ['website_id'],
     )
     ->where('customer.website_id = 0');
 
 $installer->getConnection()->query(
-    $installer->getConnection()->deleteFromSelect($select, 'main_table')
+    $installer->getConnection()->deleteFromSelect($select, 'main_table'),
 );

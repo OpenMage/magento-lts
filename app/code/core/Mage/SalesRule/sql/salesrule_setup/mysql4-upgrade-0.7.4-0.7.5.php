@@ -37,7 +37,7 @@ foreach ($rows as $r) {
     $conn->update(
         $this->getTable('salesrule'),
         ['website_ids' => implode(',', array_keys($websiteIds))],
-        'rule_id=' . $r['rule_id']
+        'rule_id=' . $r['rule_id'],
     );
 }
 $conn->dropColumn($this->getTable('salesrule'), 'store_ids');

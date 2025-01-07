@@ -264,7 +264,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if ($type) {
             $this->_priceBlockTypes[$type] = [
                 'block' => $block,
-                'template' => $template
+                'template' => $template,
             ];
         }
     }
@@ -419,13 +419,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
                     $price['savePercent'] = ceil(100 - round((100 / $_productPrice) * $price['price']));
 
                     $tierPrice = Mage::app()->getStore()->convertPrice(
-                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                        Mage::helper('tax')->getPrice($product, $price['website_price']),
                     );
                     $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
                     $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
                         Mage::app()->getStore()->convertPrice(
-                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
-                        )
+                            Mage::helper('tax')->getPrice($product, $price['website_price'], true),
+                        ),
                     );
 
                     if (Mage::helper('catalog')->canApplyMsrp($product)) {
@@ -532,7 +532,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             if ($pageLayout && $this->getColumnCountLayoutDepend($pageLayout->getCode())) {
                 $this->setData(
                     'column_count',
-                    $this->getColumnCountLayoutDepend($pageLayout->getCode())
+                    $this->getColumnCountLayoutDepend($pageLayout->getCode()),
                 );
             } else {
                 $this->setData('column_count', $this->_defaultColumnCount);
@@ -613,7 +613,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     {
         $statusInfo = new Varien_Object(['display_status' => true]);
         Mage::dispatchEvent('catalog_block_product_status_display', ['status' => $statusInfo]);
-        return (bool)$statusInfo->getDisplayStatus();
+        return (bool) $statusInfo->getDisplayStatus();
     }
 
     /**
@@ -696,7 +696,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if ($addFormKey) {
             $additional = array_merge(
                 $additional,
-                [Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()]
+                [Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()],
             );
         }
         if (!isset($additional['_escape'])) {

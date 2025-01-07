@@ -32,12 +32,12 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Uplo
             ->setTarget(
                 Mage::getModel('adminhtml/url')->addSessionParam()->getUrl(
                     '*/*/upload',
-                    ['type' => $type, '_query' => false]
-                )
+                    ['type' => $type, '_query' => false],
+                ),
             );
         $this->getButtonConfig()
             ->setAttributes([
-                'accept' => $this->getButtonConfig()->getMimeTypesByExtensions($allowed)
+                'accept' => $this->getButtonConfig()->getMimeTypesByExtensions($allowed),
             ]);
     }
 
