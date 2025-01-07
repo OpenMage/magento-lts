@@ -7,18 +7,8 @@ on:
 
 jobs:
   phpcs:
-    name: ${{ matrix.rules.label }}
+    name: Validation
     runs-on: [ubuntu-latest]
-
-    strategy:
-      matrix:
-        rules:
-          - label: Default
-            path: .phpcs.dist.xml
-          - label: Ecg
-            path: .phpcs.dist.ecg.xml
-          - label: PhpCompatibility
-            path: .phpcs.dist.php.xml
 
     steps:
       - name: Setup PHP
@@ -44,4 +34,4 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
       - name: PHPCodeSniffer
-        run: php vendor/bin/phpcs -s -p --report=full --standard=${{ matrix.rules.path }}
+        run: php vendor/bin/phpcs -s -p --report=full --standard=.phpcs.dist.xml

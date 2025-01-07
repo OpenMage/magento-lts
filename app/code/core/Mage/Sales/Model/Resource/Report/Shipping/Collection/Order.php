@@ -94,18 +94,18 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
     {
         $this->getSelect()->from(
             $this->getResource()->getMainTable(),
-            $this->_getSelectedColumns()
+            $this->_getSelectedColumns(),
         );
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
             $this->getSelect()->group([
                 $this->_periodFormat,
-                'shipping_description'
+                'shipping_description',
             ]);
         }
         if ($this->isSubTotals()) {
             $this->getSelect()->group([
-                $this->_periodFormat
+                $this->_periodFormat,
             ]);
         }
         return $this;

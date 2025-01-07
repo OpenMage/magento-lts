@@ -102,7 +102,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             ->setData([
                 'label' => Mage::helper('downloadable')->__('Add New Row'),
                 'id'    => 'add_link_item',
-                'class' => 'add'
+                'class' => 'add',
             ]);
         return $addButton->toHtml();
     }
@@ -169,7 +169,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             if ($item->getLinkFile()) {
                 $file = Mage::helper('downloadable/file')->getFilePath(
                     Mage_Downloadable_Model_Link::getBasePath(),
-                    $item->getLinkFile()
+                    $item->getLinkFile(),
                 );
                 if (!is_file($file)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
@@ -178,22 +178,22 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     $name = '<a href="'
                         . $this->getUrl('*/downloadable_product_edit/link', [
                             'id' => $item->getId(),
-                            '_secure' => true
+                            '_secure' => true,
                         ]) . '">' . Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) . '</a>';
                     $tmpLinkItem['file_save'] = [
                         [
                             'file' => $item->getLinkFile(),
                             'name' => $name,
                             'size' => filesize($file),
-                            'status' => 'old'
-                        ]
+                            'status' => 'old',
+                        ],
                     ];
                 }
             }
             if ($item->getSampleFile()) {
                 $sampleFile = Mage::helper('downloadable/file')->getFilePath(
                     Mage_Downloadable_Model_Link::getBaseSamplePath(),
-                    $item->getSampleFile()
+                    $item->getSampleFile(),
                 );
                 if (is_file($sampleFile)) {
                     $tmpLinkItem['sample_file_save'] = [
@@ -201,8 +201,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                             'file' => $item->getSampleFile(),
                             'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
                             'size' => filesize($sampleFile),
-                            'status' => 'old'
-                        ]
+                            'status' => 'old',
+                        ],
                     ];
                 }
             }
@@ -251,15 +251,15 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         $this->setChild(
             'upload_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->addData([
-               'id'      => '',
-               'label'   => Mage::helper('adminhtml')->__('Upload Files'),
-               'type'    => 'button',
-               'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')'
-            ])
+                'id'      => '',
+                'label'   => Mage::helper('adminhtml')->__('Upload Files'),
+                'type'    => 'button',
+                'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')',
+            ]),
         );
         $this->_addElementIdsMapping([
-           'container' => $this->getHtmlId() . '-new',
-           'delete'    => $this->getHtmlId() . '-delete'
+            'container' => $this->getHtmlId() . '-new',
+            'delete'    => $this->getHtmlId() . '-delete',
         ]);
         return $this;
     }
@@ -286,7 +286,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             ->setFileParameterName($type)
             ->setTarget(
                 Mage::getModel('adminhtml/url')
-                    ->getUrl('*/downloadable_file/upload', ['type' => $type, '_secure' => true])
+                    ->getUrl('*/downloadable_file/upload', ['type' => $type, '_secure' => true]),
             );
         $this->getMiscConfig()
             ->setReplaceBrowseWithRemove(true)
@@ -303,7 +303,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         return $this->getChild('browse_button')
             // Workaround for IE9
             ->setBeforeHtml(
-                '<div style="display:inline-block; " id="downloadable_link_{{id}}_' . $type . 'file-browse">'
+                '<div style="display:inline-block; " id="downloadable_link_{{id}}_' . $type . 'file-browse">',
             )
             ->setAfterHtml('</div>')
             ->setId('downloadable_link_{{id}}_' . $type . 'file-browse_button')

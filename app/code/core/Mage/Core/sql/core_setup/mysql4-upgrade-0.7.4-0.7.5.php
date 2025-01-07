@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,7 +85,7 @@ foreach ($websiteRows as $websiteRow) {
     } elseif (isset($rootCategoryIds['default'][0])) {
         $rootCategoryId = $rootCategoryIds['default'][0];
     }
-    $defaultStoreId = (int)$installer->getConnection()
+    $defaultStoreId = (int) $installer->getConnection()
         ->fetchOne($installer->getConnection()
             ->select()
             ->from($this->getTable('core_store'))
@@ -97,7 +97,7 @@ foreach ($websiteRows as $websiteRow) {
         'website_id'        => $websiteRow['website_id'],
         'name'              => $websiteRow['name'] . ' Store',
         'root_category_id'  => $rootCategoryId,
-        'default_store_id'  => $defaultStoreId
+        'default_store_id'  => $defaultStoreId,
     ]);
     $groupId = $installer->getConnection()->lastInsertId();
     // set group for store(s)
@@ -105,14 +105,14 @@ foreach ($websiteRows as $websiteRow) {
         ->update(
             $this->getTable('core_store'),
             ['group_id' => $groupId],
-            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
+            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id']),
         );
     // set created group as default for website
     $installer->getConnection()
         ->update(
             $this->getTable('core_website'),
             ['default_group_id' => $groupId],
-            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
+            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id']),
         );
 }
 

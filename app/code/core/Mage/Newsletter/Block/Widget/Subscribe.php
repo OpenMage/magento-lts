@@ -23,6 +23,4 @@
  * @method string getErrorMessage()
  * @method string getFormActionUrl()
  */
-class Mage_Newsletter_Block_Widget_Subscribe extends Mage_Newsletter_Block_Subscribe implements Mage_Widget_Block_Interface
-{
-}
+class Mage_Newsletter_Block_Widget_Subscribe extends Mage_Newsletter_Block_Subscribe implements Mage_Widget_Block_Interface {}

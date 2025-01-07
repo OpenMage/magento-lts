@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,29 +32,29 @@ $installer->getConnection()->changeColumn(
     $installer->getTable('customer/eav_attribute'),
     'lines_to_divide_multiline',
     'multiline_count',
-    'TINYINT UNSIGNED NOT NULL DEFAULT 1'
+    'TINYINT UNSIGNED NOT NULL DEFAULT 1',
 );
 $installer->getConnection()->dropColumn($installer->getTable('customer/eav_attribute'), 'min_text_length');
 $installer->getConnection()->dropColumn($installer->getTable('customer/eav_attribute'), 'max_text_length');
 $installer->getConnection()->modifyColumn(
     $installer->getTable('customer/eav_attribute'),
     'input_filter',
-    'varchar(255) DEFAULT NULL'
+    'varchar(255) DEFAULT NULL',
 );
 $installer->getConnection()->addColumn(
     $installer->getTable('customer/eav_attribute'),
     'validate_rules',
-    'text DEFAULT NULL'
+    'text DEFAULT NULL',
 );
 $installer->getConnection()->addColumn(
     $installer->getTable('customer/eav_attribute'),
     'is_system',
-    'TINYINT UNSIGNED NOT NULL DEFAULT 0'
+    'TINYINT UNSIGNED NOT NULL DEFAULT 0',
 );
 $installer->getConnection()->addColumn(
     $installer->getTable('customer/eav_attribute'),
     'sort_order',
-    'INT UNSIGNED NOT NULL DEFAULT 0'
+    'INT UNSIGNED NOT NULL DEFAULT 0',
 );
 
 $installer->updateEntityType('customer', 'attribute_model', 'customer/attribute');

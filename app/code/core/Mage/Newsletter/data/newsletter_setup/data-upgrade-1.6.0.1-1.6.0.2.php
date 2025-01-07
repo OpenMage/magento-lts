@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -265,7 +265,7 @@ $data = [
     'template_sender_email' => Mage::getStoreConfig('trans_email/ident_general/email'),
     'template_actual' => 1,
     'added_at' => Mage::getSingleton('core/date')->gmtDate(),
-    'modified_at' => Mage::getSingleton('core/date')->gmtDate()
+    'modified_at' => Mage::getSingleton('core/date')->gmtDate(),
 ];
 
 $model = Mage::getModel('newsletter/template')->setData($data);

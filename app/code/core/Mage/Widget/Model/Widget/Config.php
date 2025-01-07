@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
             'widget_plugin_src'   => Mage::getBaseUrl('js') . 'mage/adminhtml/wysiwyg/tinymce/plugins/openmagewidget.js',
             'widget_images_url'   => $this->getPlaceholderImagesBaseUrl(),
             'widget_placeholders' => $this->getAvailablePlaceholderFilenames(),
-            'widget_window_url'   => $this->getWidgetWindowUrl($config)
+            'widget_window_url'   => $this->getWidgetWindowUrl($config),
         ];
     }
 

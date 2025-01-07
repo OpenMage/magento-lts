@@ -60,7 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             ->join(
                 ['e' => $this->getTable('catalog/product')],
                 'l.parent_id = e.entity_id',
-                ['e.type_id']
+                ['e.type_id'],
             )
             ->where('l.child_id = ?', $childId);
 
@@ -273,12 +273,12 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             $select = $write->select()
                 ->from(
                     ['l' => $this->getTable('catalog/product_relation')],
-                    'parent_id'
+                    'parent_id',
                 )
                 ->join(
                     ['e' => $this->getTable('catalog/product')],
                     'e.entity_id = l.parent_id',
-                    ['type_id']
+                    ['type_id'],
                 )
                 ->where('l.child_id IN(?)', $notCompositeIds);
             $pairs  = $write->fetchPairs($select);
@@ -412,22 +412,22 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         $select = $write->select()
             ->from(
                 ['tp' => $this->getValueTable('catalog/product', 'tier_price')],
-                ['entity_id']
+                ['entity_id'],
             )
             ->join(
                 ['cg' => $this->getTable('customer/customer_group')],
                 'tp.all_groups = 1 OR (tp.all_groups = 0 AND tp.customer_group_id = cg.customer_group_id)',
-                ['customer_group_id']
+                ['customer_group_id'],
             )
             ->join(
                 ['cw' => $this->getTable('core/website')],
                 'tp.website_id = 0 OR tp.website_id = cw.website_id',
-                ['website_id']
+                ['website_id'],
             )
             ->join(
                 ['cwd' => $this->_getWebsiteDateTable()],
                 'cw.website_id = cwd.website_id',
-                []
+                [],
             )
             ->where('cw.website_id != 0')
             ->columns(new Zend_Db_Expr("MIN({$websiteExpression})"))
@@ -459,22 +459,22 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         $select = $write->select()
             ->from(
                 ['gp' => $this->getValueTable('catalog/product', 'group_price')],
-                ['entity_id']
+                ['entity_id'],
             )
             ->join(
                 ['cg' => $this->getTable('customer/customer_group')],
                 'gp.all_groups = 1 OR (gp.all_groups = 0 AND gp.customer_group_id = cg.customer_group_id)',
-                ['customer_group_id']
+                ['customer_group_id'],
             )
             ->join(
                 ['cw' => $this->getTable('core/website')],
                 'gp.website_id = 0 OR gp.website_id = cw.website_id',
-                ['website_id']
+                ['website_id'],
             )
             ->join(
                 ['cwd' => $this->_getWebsiteDateTable()],
                 'cw.website_id = cwd.website_id',
-                []
+                [],
             )
             ->where('cw.website_id != 0')
             ->columns(new Zend_Db_Expr("MIN({$websiteExpression})"))
@@ -543,12 +543,12 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         $select = $write->select()
             ->from(
                 ['cw' => $this->getTable('core/website')],
-                ['website_id']
+                ['website_id'],
             )
             ->join(
                 ['csg' => $this->getTable('core/store_group')],
                 'cw.default_group_id = csg.group_id',
-                ['store_id' => 'default_store_id']
+                ['store_id' => 'default_store_id'],
             )
             ->where('cw.website_id != 0');
 
@@ -574,7 +574,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
                 $data[] = [
                     'website_id' => $website->getId(),
                     'website_date'       => $this->formatDate($timestamp, false),
-                    'rate'       => $rate
+                    'rate'       => $rate,
                 ];
             }
         }

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sitemap
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +23,7 @@ $installer->startSetup();
  */
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('sitemap/sitemap'),
-    'FK_SITEMAP_STORE'
+    'FK_SITEMAP_STORE',
 );
 
 /**
@@ -31,7 +31,7 @@ $connection = $installer->getConnection()->dropForeignKey(
  */
 $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('sitemap/sitemap'),
-    'FK_SITEMAP_STORE'
+    'FK_SITEMAP_STORE',
 );
 
 /**
@@ -46,37 +46,37 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Sitemap Id'
+                'comment'   => 'Sitemap Id',
             ],
             'sitemap_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
-                'comment'   => 'Sitemap Type'
+                'comment'   => 'Sitemap Type',
             ],
             'sitemap_filename' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
-                'comment'   => 'Sitemap Filename'
+                'comment'   => 'Sitemap Filename',
             ],
             'sitemap_path' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Sitemap Path'
+                'comment'   => 'Sitemap Path',
             ],
             'sitemap_time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Sitemap Time'
+                'comment'   => 'Sitemap Time',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Store id'
-            ]
+                'comment'   => 'Store id',
+            ],
         ],
-        'comment' => 'Google Sitemap'
-    ]
+        'comment' => 'Google Sitemap',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -87,7 +87,7 @@ $installer->getConnection()->modifyTables($tables);
 $connection = $installer->getConnection()->addIndex(
     $installer->getTable('sitemap/sitemap'),
     $installer->getIdxName('sitemap/sitemap', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 /**
@@ -98,7 +98,7 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('sitemap/sitemap'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

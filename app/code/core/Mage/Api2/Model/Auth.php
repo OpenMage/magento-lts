@@ -49,7 +49,7 @@ class Mage_Api2_Model_Auth
         if (!isset($userTypes[$userParamsObj->type])) {
             throw new Mage_Api2_Exception(
                 'Invalid user type or type is not allowed',
-                Mage_Api2_Model_Server::HTTP_UNAUTHORIZED
+                Mage_Api2_Model_Server::HTTP_UNAUTHORIZED,
             );
         }
         /** @var Mage_Api2_Model_Auth_User_Abstract $userModel */

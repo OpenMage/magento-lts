@@ -101,7 +101,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
         $select->join(
             ['default_label' => $this->getTable('eav/form_fieldset_label')],
             'main_table.fieldset_id = default_label.fieldset_id AND default_label.store_id = 0',
-            []
+            [],
         );
         if ($this->getStoreId() == 0) {
             $select->columns('label', 'default_label');
@@ -111,12 +111,12 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
             $joinCondition = $this->getConnection()
                 ->quoteInto(
                     'main_table.fieldset_id = store_label.fieldset_id AND store_label.store_id = ?',
-                    (int)$this->getStoreId()
+                    (int) $this->getStoreId(),
                 );
             $select->joinLeft(
                 ['store_label' => $this->getTable('eav/form_fieldset_label')],
                 $joinCondition,
-                ['label' => $labelExpr]
+                ['label' => $labelExpr],
             );
         }
 

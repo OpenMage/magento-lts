@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,14 +59,14 @@ $conn->addConstraint(
     $installer->getTable('core_url_rewrite'),
     'category_id',
     $installer->getTable('catalog_category_entity'),
-    'entity_id'
+    'entity_id',
 );
 $conn->addConstraint(
     'FK_CORE_URL_REWRITE_PRODUCT',
     $installer->getTable('core_url_rewrite'),
     'product_id',
     $installer->getTable('catalog_product_entity'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->endSetup();

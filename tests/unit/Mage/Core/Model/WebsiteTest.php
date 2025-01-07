@@ -37,6 +37,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testLoad(): void
     {
@@ -46,6 +47,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testLoadConfig(): void
     {
@@ -55,6 +57,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetStoreCollection(): void
     {
@@ -63,6 +66,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetGroupCollection(): void
     {
@@ -71,6 +75,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetStores(): void
     {
@@ -79,6 +84,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetStoreIds(): void
     {
@@ -87,6 +93,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetStoreCodes(): void
     {
@@ -95,6 +102,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetStoresCount(): void
     {
@@ -103,6 +111,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetGroups(): void
     {
@@ -111,6 +120,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetGroupIds(): void
     {
@@ -119,6 +129,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetGroupsCount(): void
     {
@@ -127,6 +138,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testGetBaseCurrency(): void
     {
@@ -134,14 +146,15 @@ class WebsiteTest extends TestCase
         $this->assertInstanceOf(Mage_Directory_Model_Currency::class, $this->subject->getBaseCurrency());
     }
 
-//    /**
-//     * @group Mage_Core
-//     */
-//    public function testGetDefaultStore(): void
-//    {
-//        $this->assertIsObject($this->subject->getDefaultStore());
-//        $this->assertInstanceOf(Mage_Core_Model_Store::class, $this->subject->getDefaultStore());
-//    }
+    //    /**
+    //     * @group Mage_Core
+    //     * @group Mage_Core_Model
+    //     */
+    //    public function testGetDefaultStore(): void
+    //    {
+    //        $this->assertIsObject($this->subject->getDefaultStore());
+    //        $this->assertInstanceOf(Mage_Core_Model_Store::class, $this->subject->getDefaultStore());
+    //    }
 
     /**
      * @group Mage_Core
@@ -154,6 +167,7 @@ class WebsiteTest extends TestCase
 
     /**
      * @group Mage_Core
+     * @group Mage_Core_Model
      */
     public function testIsReadOnly(): void
     {

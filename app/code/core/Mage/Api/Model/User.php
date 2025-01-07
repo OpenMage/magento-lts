@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,10 +77,10 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     {
         $this->_beforeSave();
         $data = [
-                'firstname' => $this->getFirstname(),
-                'lastname'  => $this->getLastname(),
-                'email'     => $this->getEmail(),
-                'modified'  => Mage::getSingleton('core/date')->gmtDate()
+            'firstname' => $this->getFirstname(),
+            'lastname'  => $this->getLastname(),
+            'email'     => $this->getEmail(),
+            'modified'  => Mage::getSingleton('core/date')->gmtDate(),
         ];
 
         if ($this->getId() > 0) {
@@ -273,8 +273,8 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
                 ->recordLogin($this)
                 ->recordSession($this);
             Mage::dispatchEvent('api_user_authenticated', [
-               'model'    => $this,
-               'api_key'  => $apiKey,
+                'model'    => $this,
+                'api_key'  => $apiKey,
             ]);
         }
 

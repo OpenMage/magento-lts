@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,10 +38,10 @@ $table = $installer->getConnection()
         $installer->getIdxName(
             'paypal/payment_transaction',
             ['txn_id'],
-            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
         ),
         ['txn_id'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('PayPal Payflow Link Payment Transaction');
 $installer->getConnection()->createTable($table);

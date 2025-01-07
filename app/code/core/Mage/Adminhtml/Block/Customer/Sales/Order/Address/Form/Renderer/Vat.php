@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat extend
                     . "\n" . $groupSuggestionMessage,
                 'vatValidationFailedMessage'    => Mage::helper('customer')->__('There was an error validating the VAT ID. The customer would belong to Customer Group %s.')
                     . "\n" . $groupSuggestionMessage,
-                'vatErrorMessage' => Mage::helper('customer')->__('There was an error validating the VAT ID.')
+                'vatErrorMessage' => Mage::helper('customer')->__('There was an error validating the VAT ID.'),
             ]);
 
             $optionsVarName = $this->getJsVariablePrefix() . 'VatParameters';
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat extend
             $this->_validateButton = $block->setData([
                 'label'       => Mage::helper('customer')->__('Validate VAT Number'),
                 'before_html' => $beforeHtml,
-                'onclick'     => 'order.validateVat(' . $optionsVarName . ')'
+                'onclick'     => 'order.validateVat(' . $optionsVarName . ')',
             ]);
         }
         return $this->_validateButton;

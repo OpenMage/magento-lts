@@ -45,26 +45,26 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('reports')->__('ID'),
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('utaged', [
             'header'    => Mage::helper('reports')->__('Number of Unique Tags'),
             'width'     => '50px',
             'align'     => 'right',
-            'index'     => 'utaged'
+            'index'     => 'utaged',
         ]);
 
         $this->addColumn('taged', [
             'header'    => Mage::helper('reports')->__('Number of Total Tags'),
             'width'     => '50px',
             'align'     => 'right',
-            'index'     => 'taged'
+            'index'     => 'taged',
         ]);
 
         $this->addColumn(
@@ -77,14 +77,14 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
                     [
                         'caption' => Mage::helper('catalog')->__('Show Tags'),
                         'url'     => [
-                            'base' => '*/*/productDetail'
+                            'base' => '*/*/productDetail',
                         ],
-                        'field'   => 'id'
-                    ]
+                        'field'   => 'id',
+                    ],
                 ],
                 'is_system' => true,
                 'index'     => 'stores',
-            ]
+            ],
         );
 
         $this->setFilterVisibility(false);

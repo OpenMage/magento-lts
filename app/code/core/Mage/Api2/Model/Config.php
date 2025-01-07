@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,7 +90,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         if (!$helper->isApiTypeSupported($apiType)) {
             throw new Mage_Api2_Exception(
                 sprintf('API type "%s" is not supported', $apiType),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
 
@@ -103,12 +103,12 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
             /** @var Varien_Simplexml_Element $route */
             foreach ($resource->routes->children() as $route) {
                 $arguments = [
-                    Mage_Api2_Model_Route_Abstract::PARAM_ROUTE    => (string)$route->route,
+                    Mage_Api2_Model_Route_Abstract::PARAM_ROUTE    => (string) $route->route,
                     Mage_Api2_Model_Route_Abstract::PARAM_DEFAULTS => [
-                        'model'       => (string)$resource->model,
-                        'type'        => (string)$resourceKey,
-                        'action_type' => (string)$route->action_type
-                    ]
+                        'model'       => (string) $resource->model,
+                        'type'        => (string) $resourceKey,
+                        'action_type' => (string) $route->action_type,
+                    ],
                 ];
 
                 $routes[] = Mage::getModel('api2/route_' . $apiType, $arguments);
@@ -322,7 +322,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getResourceWorkingModel($node)
     {
-        return (string)$this->getNode('resources/' . $node . '/working_model');
+        return (string) $this->getNode('resources/' . $node . '/working_model');
     }
 
     /**
@@ -337,11 +337,11 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         $element = $this->getNode('resources/' . $node . '/versions');
         if (!$element) {
             throw new Exception(
-                sprintf('Resource "%s" does not have node <versions> in config.', htmlspecialchars($node))
+                sprintf('Resource "%s" does not have node <versions> in config.', htmlspecialchars($node)),
             );
         }
 
-        $versions = explode(',', (string)$element);
+        $versions = explode(',', (string) $element);
         if (count(array_filter($versions, 'is_numeric')) != count($versions)) {
             throw new Exception(sprintf('Invalid resource "%s" versions in config.', htmlspecialchars($node)));
         }
@@ -359,7 +359,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getResourceModel($node)
     {
-        return (string)$this->getNode('resources/' . $node . '/model');
+        return (string) $this->getNode('resources/' . $node . '/model');
     }
 
     /**
@@ -420,7 +420,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
-        return (int)$useVersion;
+        return (int) $useVersion;
     }
 
     /**
@@ -431,6 +431,6 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getRouteWithEntityTypeAction($node)
     {
-        return (string)$this->getNode('resources/' . $node . '/routes/route_entity/route');
+        return (string) $this->getNode('resources/' . $node . '/routes/route_entity/route');
     }
 }

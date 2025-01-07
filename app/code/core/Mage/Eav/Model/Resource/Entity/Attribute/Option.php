@@ -45,24 +45,24 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
         ;
         $tableJoinCond2 = $adapter->quoteInto(
             "{$optionTable2}.option_id={$valueExpr} AND {$optionTable2}.store_id=?",
-            $collection->getStoreId()
+            $collection->getStoreId(),
         );
         $valueExpr      = $adapter->getCheckSql(
             "{$optionTable2}.value_id IS NULL",
             "{$optionTable1}.value",
-            "{$optionTable2}.value"
+            "{$optionTable2}.value",
         );
 
         $collection->getSelect()
             ->joinLeft(
                 [$optionTable1 => $this->getTable('eav/attribute_option_value')],
                 $tableJoinCond1,
-                []
+                [],
             )
             ->joinLeft(
                 [$optionTable2 => $this->getTable('eav/attribute_option_value')],
                 $tableJoinCond2,
-                [$attributeCode => $valueExpr]
+                [$attributeCode => $valueExpr],
             );
 
         return $this;
@@ -95,7 +95,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
             't1',
             't1',
             't1',
-            Mage_Core_Model_App::ADMIN_STORE_ID
+            Mage_Core_Model_App::ADMIN_STORE_ID,
         );
         if ($attribute->getFlatAddChildData()) {
             $joinCondition .= ' AND e.child_id = t1.entity_id';
@@ -107,7 +107,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
             ->joinLeft(
                 ['t2' => $attributeTable],
                 sprintf($joinConditionTemplate, 'e', 't2', 't2', 't2', 't2', $store),
-                [$attributeCode => $valueExpr]
+                [$attributeCode => $valueExpr],
             );
 
         if (($attribute->getFrontend()->getInputType() != 'multiselect') && $hasValueField) {
@@ -116,12 +116,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
                 ->joinLeft(
                     ['to1' => $this->getTable('eav/attribute_option_value')],
                     "to1.option_id = {$valueExpr} AND to1.store_id = 0",
-                    []
+                    [],
                 )
                 ->joinLeft(
                     ['to2' => $this->getTable('eav/attribute_option_value')],
                     $adapter->quoteInto("to2.option_id = {$valueExpr} AND to2.store_id = ?", $store),
-                    [$attributeCode . '_value' => $valueIdExpr]
+                    [$attributeCode . '_value' => $valueIdExpr],
                 );
         }
 

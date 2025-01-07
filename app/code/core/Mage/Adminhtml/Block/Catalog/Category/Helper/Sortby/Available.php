@@ -61,9 +61,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Available extends Vari
         $html .= ' onclick="toggleValueElements(this, this.parentNode);" class="checkbox" type="checkbox" />';
         $html .= ' <label for="' . $htmlId . '" class="normal">'
             . Mage::helper('adminhtml')->__('Use All Available Attributes') . '</label>';
-        $html .= '<script type="text/javascript">toggleValueElements($(\'' . $htmlId . '\'), $(\'' . $htmlId
-            . '\').parentNode);</script>';
 
-        return $html;
+        return $html . ('<script type="text/javascript">toggleValueElements($(\'' . $htmlId . '\'), $(\'' . $htmlId
+            . '\').parentNode);</script>');
     }
 }

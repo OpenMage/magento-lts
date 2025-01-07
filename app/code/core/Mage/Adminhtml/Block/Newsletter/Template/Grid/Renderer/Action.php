@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,14 +33,14 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Action extends Mage
         if ($row->isValidForSend()) {
             $actions[] = [
                 'url' => $this->getUrl('*/newsletter_queue/edit', ['template_id' => $row->getId()]),
-                'caption' => Mage::helper('newsletter')->__('Queue Newsletter...')
+                'caption' => Mage::helper('newsletter')->__('Queue Newsletter...'),
             ];
         }
 
         $actions[] = [
             'url'     => $this->getUrl('*/*/preview', ['id' => $row->getId()]),
             'popup'   => true,
-            'caption' => Mage::helper('newsletter')->__('Preview')
+            'caption' => Mage::helper('newsletter')->__('Preview'),
         ];
 
         $this->getColumn()->setActions($actions);

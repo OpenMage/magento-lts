@@ -95,7 +95,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
         $adapter = $this->_getWriteAdapter();
 
         $conds   = [
-            $adapter->quoteInto('entity_id = ?', $productId)
+            $adapter->quoteInto('entity_id = ?', $productId),
         ];
 
         if (!is_null($websiteId)) {

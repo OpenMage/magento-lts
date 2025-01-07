@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +79,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         try {
             Mage::getModel('productalert/price')->deleteCustomer(
                 $session->getCustomerId(),
-                Mage::app()->getStore()->getWebsiteId()
+                Mage::app()->getStore()->getWebsiteId(),
             );
             $session->addSuccess($this->__('You will no longer receive price alerts for this product.'));
         } catch (Exception $e) {
@@ -129,7 +129,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         try {
             Mage::getModel('productalert/stock')->deleteCustomer(
                 $session->getCustomerId(),
-                Mage::app()->getStore()->getWebsiteId()
+                Mage::app()->getStore()->getWebsiteId(),
             );
             $session->addSuccess($this->__('You will no longer receive stock alerts.'));
         } catch (Exception $e) {

@@ -82,39 +82,39 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
             'name'      => 'in_role_users',
             'values'    => $this->_getUsers(),
             'align'     => 'center',
-            'index'     => 'user_id'
+            'index'     => 'user_id',
         ]);
 
         $this->addColumn('role_user_id', [
             'header'    => Mage::helper('adminhtml')->__('User ID'),
             'width'     => 5,
             'align'     => 'left',
-            'index'     => 'user_id'
+            'index'     => 'user_id',
         ]);
 
         $this->addColumn('role_user_username', [
             'header'    => Mage::helper('adminhtml')->__('User Name'),
             'align'     => 'left',
-            'index'     => 'username'
+            'index'     => 'username',
         ]);
 
         $this->addColumn('role_user_firstname', [
             'header'    => Mage::helper('adminhtml')->__('First Name'),
             'align'     => 'left',
-            'index'     => 'firstname'
+            'index'     => 'firstname',
         ]);
 
         $this->addColumn('role_user_lastname', [
             'header'    => Mage::helper('adminhtml')->__('Last Name'),
             'align'     => 'left',
-            'index'     => 'lastname'
+            'index'     => 'lastname',
         ]);
 
         $this->addColumn('role_user_email', [
             'header'    => Mage::helper('adminhtml')->__('Email'),
             'width'     => 40,
             'align'     => 'left',
-            'index'     => 'email'
+            'index'     => 'email',
         ]);
 
         $this->addColumn('role_user_is_active', [
@@ -146,7 +146,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
     protected function _getUsers($json = false)
     {
         if ($this->getRequest()->getParam('in_role_user') != '') {
-            return (int)$this->getRequest()->getParam('in_role_user');
+            return (int) $this->getRequest()->getParam('in_role_user');
         }
         $roleId = ($this->getRequest()->getParam('rid') > 0) ? $this->getRequest()->getParam('rid') : Mage::registry('RID');
         $users  = Mage::getModel('api/roles')->setId($roleId)->getRoleUsers();
@@ -156,7 +156,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
                 foreach ($users as $usrid) {
                     $jsonUsers[$usrid] = 0;
                 }
-                return Mage::helper('core')->jsonEncode((object)$jsonUsers);
+                return Mage::helper('core')->jsonEncode((object) $jsonUsers);
             }
 
             return array_values($users);

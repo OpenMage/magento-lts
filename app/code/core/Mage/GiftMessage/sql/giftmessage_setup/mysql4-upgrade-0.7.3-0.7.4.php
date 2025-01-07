@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,28 +21,28 @@ $installer->updateAttribute(
     'catalog_product',
     'gift_message_available',
     'source_model',
-    'eav/entity_attribute_source_boolean'
+    'eav/entity_attribute_source_boolean',
 );
 
 $installer->updateAttribute(
     'catalog_product',
     'gift_message_available',
     'backend_model',
-    'catalog/product_attribute_backend_boolean'
+    'catalog/product_attribute_backend_boolean',
 );
 
 $installer->updateAttribute(
     'catalog_product',
     'gift_message_available',
     'frontend_input_renderer',
-    'adminhtml/catalog_product_helper_form_config'
+    'adminhtml/catalog_product_helper_form_config',
 );
 
 $installer->updateAttribute(
     'catalog_product',
     'gift_message_available',
     'default_value',
-    ''
+    '',
 );
 
 /*
@@ -57,6 +57,6 @@ $installer->getConnection()->update(
     [
         'entity_type_id =?' => $entityTypeId,
         'attribute_id =?' => $attributeId,
-        'value =?' => '2'
-    ]
+        'value =?' => '2',
+    ],
 );

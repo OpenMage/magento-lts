@@ -158,7 +158,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
 
         $this->setChild('toolbar', $toolbar);
         Mage::dispatchEvent('catalog_block_product_list_collection', [
-            'collection' => $this->_getProductCollection()
+            'collection' => $this->_getProductCollection(),
         ]);
 
         $this->_getProductCollection()->load();
@@ -178,8 +178,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
                 return $block;
             }
         }
-        $block = $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
-        return $block;
+        return $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
     }
 
     /**
@@ -276,7 +275,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     {
         return array_merge(
             parent::getCacheTags(),
-            $this->getItemsTags($this->_getProductCollection())
+            $this->getItemsTags($this->_getProductCollection()),
         );
     }
 }

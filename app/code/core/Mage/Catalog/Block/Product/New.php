@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,13 +59,13 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     public function getCacheKeyInfo()
     {
         return [
-           'CATALOG_PRODUCT_NEW',
-           Mage::app()->getStore()->getId(),
-           Mage::getDesign()->getPackageName(),
-           Mage::getDesign()->getTheme('template'),
-           Mage::getSingleton('customer/session')->getCustomerGroupId(),
-           'template' => $this->getTemplate(),
-           $this->getProductsCount()
+            'CATALOG_PRODUCT_NEW',
+            Mage::app()->getStore()->getId(),
+            Mage::getDesign()->getPackageName(),
+            Mage::getDesign()->getTheme('template'),
+            Mage::getSingleton('customer/session')->getCustomerGroupId(),
+            'template' => $this->getTemplate(),
+            $this->getProductsCount(),
         ];
     }
 
@@ -88,28 +88,25 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
         $collection = Mage::getResourceModel('catalog/product_collection');
         $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
-        $collection = $this->_addProductAttributesAndPrices($collection)
+        return $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter()
             ->addAttributeToFilter('news_from_date', ['or' => [
                 0 => ['date' => true, 'to' => $todayEndOfDayDate],
-                1 => ['is' => new Zend_Db_Expr('null')]]
+                1 => ['is' => new Zend_Db_Expr('null')]],
             ], 'left')
             ->addAttributeToFilter('news_to_date', ['or' => [
                 0 => ['date' => true, 'from' => $todayStartOfDayDate],
-                1 => ['is' => new Zend_Db_Expr('null')]]
+                1 => ['is' => new Zend_Db_Expr('null')]],
             ], 'left')
             ->addAttributeToFilter(
                 [
                     ['attribute' => 'news_from_date', 'is' => new Zend_Db_Expr('not null')],
-                    ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')]
-                ]
+                    ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')],
+                ],
             )
             ->addAttributeToSort('news_from_date', 'desc')
             ->setPageSize($this->getProductsCount())
-            ->setCurPage(1)
-        ;
-
-        return $collection;
+            ->setCurPage(1);
     }
 
     /**

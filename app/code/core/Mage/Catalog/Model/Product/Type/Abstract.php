@@ -336,7 +336,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
 
                         $buyRequest->setData('super_product_config', [
                             'product_type' => $productType,
-                            'product_id'   => $superProduct->getId()
+                            'product_id'   => $superProduct->getId(),
                         ]);
                     }
                 }
@@ -529,7 +529,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         Mage::dispatchEvent($eventName, [
             'transport'   => $transport,
             'buy_request' => $buyRequest,
-            'product' => $product
+            'product' => $product,
         ]);
         return $transport->options;
     }
@@ -565,7 +565,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     if (!$customOption || $customOption->getValue() === null || (string) $customOption->getValue() === '') {
                         $this->getProduct($product)->setSkipCheckRequiredOption(true);
                         Mage::throwException(
-                            Mage::helper('catalog')->__('The product has required options')
+                            Mage::helper('catalog')->__('The product has required options'),
                         );
                     }
                 }
@@ -607,7 +607,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         'option_id' => $option->getId(),
                         'option_type' => $option->getType(),
                         'option_value' => $confItemOption->getValue(),
-                        'custom_view' => $group->isCustomizedView()
+                        'custom_view' => $group->isCustomizedView(),
                     ];
                 }
             }
@@ -617,7 +617,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $optionArr['super_product_config'] = [
                 'product_code'  => $productTypeConfig->getCode(),
                 'product_type'  => $productTypeConfig->getValue(),
-                'product_id'    => $productTypeConfig->getProductId()
+                'product_id'    => $productTypeConfig->getProductId(),
             ];
         }
 
@@ -743,7 +743,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         $this->getProduct($product)
                                 ->setHasError(true)
                                 ->setMessage(
-                                    $group->getListener()->getMessage()
+                                    $group->getListener()->getMessage(),
                                 );
                     }
                 }

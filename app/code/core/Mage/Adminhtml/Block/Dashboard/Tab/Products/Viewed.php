@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } else {
-            $storeId = (int)$this->getParam('store');
+            $storeId = (int) $this->getParam('store');
         }
         $collection = Mage::getResourceModel('reports/product_collection')
             ->addAttributeToSelect('*')
@@ -55,12 +55,12 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
             'sortable'  => false,
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('price', [
             'type'      => 'currency',
-            'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
+            'currency_code' => (string) Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode(),
             'sortable'  => false,
         ]);
 
@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
             'width'     => '120px',
             'align'     => 'right',
             'sortable'  => false,
-            'index'     => 'views'
+            'index'     => 'views',
         ]);
 
         $this->setFilterVisibility(false);

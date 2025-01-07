@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
      */
     public function render(Varien_Object $row)
     {
-        if ($data = (string)$row->getData($this->getColumn()->getIndex())) {
+        if ($data = (string) $row->getData($this->getColumn()->getIndex())) {
             $currencyCode = $this->_getCurrencyCode($row);
 
             if (!$currencyCode) {
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
             }
 
             $data = (float) $data * $this->_getRate($row);
-            $sign = (bool)(int)$this->getColumn()->getShowNumberSign() && ($data > 0) ? '+' : '';
+            $sign = (bool) (int) $this->getColumn()->getShowNumberSign() && ($data > 0) ? '+' : '';
             $data = sprintf('%F', $data);
             $data = Mage::app()->getLocale()->currency($currencyCode)->toCurrency($data);
             return $sign . $data;

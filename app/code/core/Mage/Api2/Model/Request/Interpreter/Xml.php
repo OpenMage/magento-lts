@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,7 +78,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
         // Search for parent node values
         if (count($xmlObject->attributes()) > 0) {
             foreach ($xmlObject->attributes() as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
                 if (array_key_exists($key, $config)) {
                     if (!is_array($config[$key])) {
                         $config[$key] = [$config[$key]];
@@ -98,7 +98,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
                 } elseif (count($value->attributes()) > 0) {
                     $attributes = $value->attributes();
                     if (isset($attributes['value'])) {
-                        $value = (string)$attributes['value'];
+                        $value = (string) $attributes['value'];
                     } else {
                         $value = $this->_toArray($value);
                     }

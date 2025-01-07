@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +72,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
             $total = new Varien_Object([
                 'code'  => 'adjustment_positive',
                 'value' => $this->getSource()->getAdjustmentPositive(),
-                'label' => $this->__('Adjustment Refund')
+                'label' => $this->__('Adjustment Refund'),
             ]);
             $this->addTotal($total);
         }
@@ -80,7 +80,7 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
             $total = new Varien_Object([
                 'code'  => 'adjustment_negative',
                 'value' => $this->getSource()->getAdjustmentNegative(),
-                'label' => $this->__('Adjustment Fee')
+                'label' => $this->__('Adjustment Fee'),
             ]);
             $this->addTotal($total);
         }

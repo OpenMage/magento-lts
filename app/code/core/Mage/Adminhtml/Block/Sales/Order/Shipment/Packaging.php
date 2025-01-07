@@ -232,7 +232,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $address = $order->getShippingAddress();
         $shipperAddressCountryCode = Mage::getStoreConfig(
             Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID,
-            $storeId
+            $storeId,
         );
         $recipientAddressCountryCode = $address->getCountryId();
         if ($shipperAddressCountryCode != $recipientAddressCountryCode) {
@@ -270,7 +270,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             ->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'   => Mage::helper('sales')->__('Print'),
-                'onclick' => Mage::helper('core/js')->getSetLocationJs($url)
+                'onclick' => Mage::helper('core/js')->getSetLocationJs($url),
             ])
             ->toHtml();
     }
