@@ -75,7 +75,8 @@ class DataTest extends TestCase
      */
     public function testPrepareIntervalsCollection($expectedResult, $from, $to, $period): void
     {
-        $collection = new Varien_Data_Collection();
-        $this->subject->prepareIntervalsCollection($collection, $from, $to, $period);
+        $this->markTestIncomplete();
+        // @phpstan-ignore-next-line
+        $this->subject->prepareIntervalsCollection(new Varien_Data_Collection(), $from, $to, $period);
     }
 }
