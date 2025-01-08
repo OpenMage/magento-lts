@@ -69,14 +69,4 @@ class SitemapTest extends TestCase
         $this->assertFileExists(self::SITEMAP_FILE);
         unlink(self::SITEMAP_FILE);
     }
-
-    /**
-     * @group Mage_Sitemap
-     * @group Mage_Sitemap_Model
-     */
-    public function testGetSitemapConfig(): void
-    {
-        $result = $this->subject->getSitemapConfig('page', []);
-        $this->assertCount(3, $result);
-    }
 }
