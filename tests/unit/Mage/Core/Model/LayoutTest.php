@@ -125,9 +125,11 @@ class LayoutTest extends TestCase
     public function testGetBlockSingletonError(): void
     {
         $this->expectException(\Error::class);
-        $this->markTestIncomplete();
-        // @phpstan-ignore-next-line
-        $this->expectExceptionMessage('Class "Mage_Invalid_Block_Type" not found');
+        if (PHP_VERSION_ID >= 80000) {
+            $this->expectExceptionMessage('Class "Mage_Invalid_Block_Type" not found');
+        } else {
+            $this->expectExceptionMessage("Class 'Mage_Invalid_Block_Type' not found");
+        }
 
         $this->subject->getBlockSingleton('invalid/type');
     }
