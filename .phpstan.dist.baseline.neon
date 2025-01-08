@@ -5437,18 +5437,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
 
 		-
-			message: '#^Property Mage_Reports_Model_Resource_Report_Collection\:\:\$_from \(string\) does not accept int\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
-
-		-
-			message: '#^Property Mage_Reports_Model_Resource_Report_Collection\:\:\$_to \(string\) does not accept int\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
-
-		-
 			message: '#^Comparison operation "\!\=" between array\|int and 0 results in an error\.$#'
 			identifier: notEqual.invalid
 			count: 1
