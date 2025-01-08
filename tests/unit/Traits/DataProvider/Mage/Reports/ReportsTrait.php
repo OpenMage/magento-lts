@@ -114,19 +114,19 @@ trait ReportsTrait
         $prefix = Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_YEAR . ': ';
 
         yield $prefix . 'same year' => [
-            0,
+            1,
             '2025-01-01',
             '2025-12-31',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_YEAR,
         ];
         yield $prefix . 'year 2025 and next' => [
-            1,
+            2,
             '2025-01-15',
             '2026-12-31',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_YEAR,
         ];
         yield $prefix . 'year 2025, half december 2026' => [
-            1,
+            2,
             '2025-01-01',
             '2026-12-15',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_YEAR,
