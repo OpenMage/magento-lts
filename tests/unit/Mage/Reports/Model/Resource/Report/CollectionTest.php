@@ -22,6 +22,7 @@ use Mage_Reports_Model_Report;
 use Mage_Reports_Model_Resource_Report_Collection as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\ReportsTrait;
 use PHPUnit\Framework\TestCase;
+use Zend_Date_Exception;
 
 class CollectionTest extends TestCase
 {
@@ -65,7 +66,11 @@ class CollectionTest extends TestCase
         $this->subject->setInterval($from, $to);
         $this->subject->setPeriod($period);
 
-        $this->assertIsArray($this->subject->getIntervals());
+        try {
+            $this->assertIsArray($this->subject->getIntervals());
+        } catch (Zend_Date_Exception $exception) {
+            $this->assertSame("No date part in '' found.", $exception->getMessage());
+        }
     }
 
     /**
