@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Rule\Model;
 
+use Composer\InstalledVersions;
 use Error;
 use Mage;
 use Mage_Core_Exception;
@@ -134,6 +135,9 @@ class AbstractTest extends TestCase
      */
     public function testValidateData($expectedResul, ?array $data = null): void
     {
+        if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
+            $this->markTestSkipped();
+        }
         $object = new Varien_Object($data);
         $this->assertSame($expectedResul, $this->subject->validateData($object));
     }
