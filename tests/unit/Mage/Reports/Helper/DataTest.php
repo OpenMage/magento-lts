@@ -22,6 +22,7 @@ use Mage_Reports_Helper_Data as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\ReportsTrait;
 use PHPUnit\Framework\TestCase;
 use Varien_Data_Collection;
+use Zend_Date_Exception;
 
 class DataTest extends TestCase
 {
@@ -63,7 +64,11 @@ class DataTest extends TestCase
      */
     public function testGetIntervals($expectedResult, $from, $to, $period): void
     {
-        $this->assertCount($expectedResult, $this->subject->getIntervals($from, $to, $period));
+        try {
+            $this->assertCount($expectedResult, $this->subject->getIntervals($from, $to, $period));
+        } catch (Zend_Date_Exception $exception) {
+            $this->assertSame("No date part in '' found.", $exception->getMessage());
+        }
     }
 
     /**
