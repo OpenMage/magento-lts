@@ -60,9 +60,11 @@ class CollectionTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Model
      */
-    public function testGetIntervals(): void
+    public function testGetIntervals($expectedResult, $from, $to, $period): void
     {
-        $this->subject->setInterval(1, 1);
+        $this->subject->setInterval($from, $to);
+        $this->subject->setPeriod($period);
+
         $this->assertIsArray($this->subject->getIntervals());
     }
 
