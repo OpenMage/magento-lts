@@ -22,7 +22,8 @@ return RectorConfig::configure()
         CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
         CodeQuality\If_\SimplifyIfReturnBoolRector::class,
         __DIR__ . '/shell/translations.php',
-        __DIR__ . '/shell/update-copyright.php.php'
+        __DIR__ . '/shell/update-copyright.php.php',
+        __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
     ])
     ->withRules([
         CodeQuality\BooleanNot\ReplaceMultipleBooleanNotRector::class,
@@ -56,7 +57,5 @@ return RectorConfig::configure()
         true,
         false,
         false,
-        false,
-        false,
-        true,
+        false
     );
