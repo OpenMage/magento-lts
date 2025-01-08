@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Webservice api session
  *
@@ -36,7 +38,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function start($sessionName = null)
     {
-        $this->_currentSessId = md5(Varien_Date::toTimestamp(true) . uniqid('', true) . $sessionName);
+        $this->_currentSessId = md5(Carbon::now()->getTimestamp() . uniqid('', true) . $sessionName);
         $this->sessionIds[] = $this->getSessionId();
         return $this;
     }
@@ -218,7 +220,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!$user->getId()) {
             return true;
         }
-        $timeout = strtotime(Varien_Date::now()) - strtotime($user->getLogdate());
+        $timeout = strtotime(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT)) - strtotime($user->getLogdate());
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
 

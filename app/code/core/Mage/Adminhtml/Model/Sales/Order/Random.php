@@ -154,7 +154,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
             ->setMonth(rand(1, 11))
             ->setDay(rand(1, 28))
             ->setYear(rand(2006, 2007))
-            ->format(Varien_Date::DATETIME_PHP_FORMAT);
+            ->format(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT);
     }
 
     public function save()

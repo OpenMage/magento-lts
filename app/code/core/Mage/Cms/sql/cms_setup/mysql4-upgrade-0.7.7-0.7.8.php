@@ -15,13 +15,16 @@
  */
 
 /** @var Mage_Core_Model_Resource_Setup $installer */
+
+use Carbon\Carbon;
+
 $installer  = $this;
 $installer->startSetup();
 
 /** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
 
-$now = Varien_Date::now();
+$now = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
 $connection->insert($installer->getTable('cms/page'), [
     'title'             => 'Enable Cookies',
     'root_template'     => 'one_column',

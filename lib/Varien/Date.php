@@ -22,6 +22,9 @@ use Carbon\Carbon;
  *
  * @category Varien
  * @package  Varien_Date
+ * @deprecated
+ * @see Carbon
+ * @see Mage_Core_Helper_Date
  */
 class Varien_Date
 {
@@ -130,6 +133,7 @@ class Varien_Date
      *
      * @param bool $withoutTime day only flag
      * @return string
+     * @deprecated replaced by carbon
      */
     public static function now($withoutTime = false)
     {

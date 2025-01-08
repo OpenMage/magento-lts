@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Sales abstract resource model
  *
@@ -29,7 +31,7 @@ abstract class Mage_Sales_Model_Resource_Abstract extends Mage_Core_Model_Resour
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
     {
-        $currentTime = Varien_Date::now();
+        $currentTime = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
         if ((!$object->getId() || $object->isObjectNew()) && !$object->getCreatedAt()) {
             $object->setCreatedAt($currentTime);
         }

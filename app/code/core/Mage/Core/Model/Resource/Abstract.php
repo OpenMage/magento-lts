@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Abstract resource model
  *
@@ -142,7 +144,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     public function mktime($str)
     {
-        return Varien_Date::toTimestamp($str);
+        return Carbon::now()->setTimeFromTimeString($str)->getTimestamp();
     }
 
     /**

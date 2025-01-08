@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Adminhtml account controller
  *
@@ -64,7 +66,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         $flag = $this->_getSyncFlag();
         if ($flag && $flag->getState() == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING
             && $flag->getLastUpdate()
-            && Varien_Date::toTimestamp(true) <= (strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+            && Carbon::now()->lessThanOrEqualTo(strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
         ) {
             return;
         }
@@ -73,7 +75,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         Mage::getSingleton('admin/session')->setSyncProcessStopWatch(false);
 
         $storage = ['type' => (int) $_REQUEST['storage']];
-        if (isset($_REQUEST['connection']) && !empty($_REQUEST['connection'])) {
+        if (!empty($_REQUEST['connection'])) {
             $storage['connection'] = $_REQUEST['connection'];
         }
 
@@ -102,7 +104,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                 case Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE:
                     $flagData = $flag->getFlagData();
                     if (is_array($flagData)) {
-                        if (isset($flagData['destination']) && !empty($flagData['destination'])) {
+                        if (!empty($flagData['destination'])) {
                             $result['destination'] = $flagData['destination'];
                         }
                     }
@@ -111,13 +113,10 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                     break;
                 case Mage_Core_Model_File_Storage_Flag::STATE_RUNNING:
                     if (!$flag->getLastUpdate()
-                        || Varien_Date::toTimestamp(true) <= (strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+                        || Carbon::now()->lessThanOrEqualTo(strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
                     ) {
                         $flagData = $flag->getFlagData();
-                        if (is_array($flagData)
-                            && isset($flagData['source']) && !empty($flagData['source'])
-                            && isset($flagData['destination']) && !empty($flagData['destination'])
-                        ) {
+                        if (is_array($flagData) && !empty($flagData['source']) && !empty($flagData['destination'])) {
                             $result['message'] = Mage::helper('adminhtml')->__('Synchronizing %s to %s', $flagData['source'], $flagData['destination']);
                         } else {
                             $result['message'] = Mage::helper('adminhtml')->__('Synchronizing...');

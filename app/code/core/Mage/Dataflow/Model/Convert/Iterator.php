@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * @category   Mage
  * @package    Mage_Dataflow
@@ -62,7 +64,7 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
 <script type="text/javascript">
 function updateProgress(sessionId, idx, time, memory) {
     var total_rows = ' . $totalRows . ';
-    var elapsed_time = time-' . Varien_Date::toTimestamp(true) . ';
+    var elapsed_time = time-' . Carbon::now()->getTimestamp() . ';
     var total_time = Math.round(elapsed_time*total_rows/idx);
     var eta = total_time-elapsed_time;
     var eta_str = "";
@@ -98,7 +100,7 @@ function updateProgress(sessionId, idx, time, memory) {
     {
         $memory = !empty($args['memory']) ? $args['memory'] : '';
         echo '<script type="text/javascript">updateProgress("'
-            . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . Varien_Date::toTimestamp(true) . '", "' . $memory . '");</script>';
+            . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . Carbon::now()->getTimestamp() . '", "' . $memory . '");</script>';
         echo '<li>' . $memory . '</li>';
 
         return [];

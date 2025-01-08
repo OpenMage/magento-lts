@@ -394,14 +394,14 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         $now = Mage::getSingleton('core/date')->date();
         $gmtOffset = (int) Mage::getSingleton('core/date')->getGmtOffset();
         if (isset($constraints['from'])) {
-            $lastDay = new Zend_Date($now, Varien_Date::DATETIME_INTERNAL_FORMAT);
+            $lastDay = new Zend_Date($now, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
             $lastDay->subSecond($gmtOffset)
                 ->subDay($constraints['from'] - 1);
             $filter['to'] = $lastDay;
         }
 
         if (isset($constraints['to'])) {
-            $firstDay = new Zend_Date($now, Varien_Date::DATETIME_INTERNAL_FORMAT);
+            $firstDay = new Zend_Date($now, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
             $firstDay->subSecond($gmtOffset)
                 ->subDay($constraints['to']);
             $filter['from'] = $firstDay;

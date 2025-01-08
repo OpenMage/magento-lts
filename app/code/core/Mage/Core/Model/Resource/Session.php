@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Mysql4 session save handler
  *
@@ -197,7 +199,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 ->where('session_expires > :session_expires');
         $bind = [
             'session_id'      => $sessId,
-            'session_expires' => Varien_Date::toTimestamp(true),
+            'session_expires' => Carbon::now()->getTimestamp(),
         ];
 
         $data = $this->_read->fetchOne($select, $bind);
@@ -224,7 +226,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
         $exists = $this->_read->fetchOne($select, $bindValues);
 
         $bind = [
-            'session_expires' => Varien_Date::toTimestamp(true) + $this->getLifeTime(),
+            'session_expires' => Carbon::now()->addSeconds($this->getLifeTime())->getTimestamp(),
             'session_data' => $sessData,
         ];
         if ($exists) {
@@ -268,7 +270,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
             if ($this->_automaticCleaningFactor == 1 ||
                 rand(1, $this->_automaticCleaningFactor) == 1
             ) {
-                $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
+                $where = ['session_expires < ?' => Carbon::now()->getTimestamp()];
                 $this->_write->delete($this->_sessionTable, $where);
             }
         }

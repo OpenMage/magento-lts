@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * @category   Mage
  * @package    Mage_Core
@@ -552,16 +554,14 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if ($this->useValidateSessionExpire()
             && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            && ((int) $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int) $sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            < Varien_Date::toTimestamp(true)
+            && Carbon::now()->greaterThan((int) $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int) $sessionData[self::VALIDATOR_SESSION_LIFETIME])
         ) {
             return false;
         }
         if ($this->useValidateSessionPasswordTimestamp()
             && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
-            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
-            > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
+            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
         ) {
             return false;
         }

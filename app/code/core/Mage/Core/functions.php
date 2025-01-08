@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Object destructor
  *
@@ -62,11 +64,12 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
  * @param bool $dayOnly
  * @return string
  * @deprecated use equivalent Varien method directly
- * @see Varien_Date::now()
+ * @see Carbon::now()
  */
 function now($dayOnly = false)
 {
-    return Varien_Date::now($dayOnly);
+    $format = $dayOnly ? 'Y-m-d' : Carbon::DEFAULT_TO_STRING_FORMAT;
+    return Carbon::now()->format($format);
 }
 
 /**

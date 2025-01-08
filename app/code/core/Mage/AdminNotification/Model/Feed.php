@@ -128,7 +128,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function setLastUpdate()
     {
-        Mage::app()->saveCache(Varien_Date::toTimestamp(true), 'admin_notifications_lastcheck');
+        Mage::app()->saveCache(Carbon::now()->getTimestamp(), 'admin_notifications_lastcheck');
         return $this;
     }
 

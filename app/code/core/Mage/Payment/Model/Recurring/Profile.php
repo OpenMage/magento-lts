@@ -112,7 +112,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         // start date, order ref ID, schedule description
         if (!$this->getStartDatetime()) {
             $this->_errors['start_datetime'][] = Mage::helper('payment')->__('Start date is undefined.');
-        } elseif (!Zend_Date::isDate($this->getStartDatetime(), Varien_Date::DATETIME_INTERNAL_FORMAT)) {
+        } elseif (!Zend_Date::isDate($this->getStartDatetime(), Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT)) {
             $this->_errors['start_datetime'][] = Mage::helper('payment')->__('Start date has invalid format.');
         }
         if (!$this->getScheduleDescription()) {
@@ -232,7 +232,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
                 Mage::throwException(Mage::helper('payment')->__('Recurring profile start date has invalid format.'));
             }
             $utcTime = $this->_locale->utcDate($this->_store, $startDate, true, $dateFormat)
-                ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+                ->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
             $this->setStartDatetime($utcTime)->setImportedStartDatetime($startDate);
         }
         return $this->_filterValues();
@@ -261,7 +261,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
                 $options = unserialize($options->getValue(), ['allowed_classes' => false]);
                 if (is_array($options)) {
                     if (isset($options['start_datetime'])) {
-                        $startDatetime = new Zend_Date($options['start_datetime'], Varien_Date::DATETIME_INTERNAL_FORMAT);
+                        $startDatetime = new Zend_Date($options['start_datetime'], Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
                         $this->setNearestStartDatetime($startDatetime);
                     }
                 }
@@ -308,7 +308,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         if (!$date || $date->getTimestamp() < Carbon::now()->getTimestamp()) {
             $date = new Zend_Date(Carbon::now()->getTimestamp());
         }
-        $this->setStartDatetime($date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+        $this->setStartDatetime($date->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT));
         return $this;
     }
 
@@ -555,7 +555,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
 
         // automatically determine start date, if not set
         if ($this->getStartDatetime()) {
-            $date = new Zend_Date($this->getStartDatetime(), Varien_Date::DATETIME_INTERNAL_FORMAT);
+            $date = new Zend_Date($this->getStartDatetime(), Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
             $this->setNearestStartDatetime($date);
         } else {
             $this->setNearestStartDatetime();

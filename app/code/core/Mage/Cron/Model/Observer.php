@@ -143,7 +143,7 @@ class Mage_Cron_Model_Observer
         /**
          * save time schedules generation was ran with no expiration
          */
-        Mage::app()->saveCache(Varien_Date::toTimestamp(true), self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT, ['crontab'], null);
+        Mage::app()->saveCache(Carbon::now()->getTimestamp(), self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT, ['crontab'], null);
 
         return $this;
     }
@@ -172,7 +172,7 @@ class Mage_Cron_Model_Observer
                 continue;
             }
 
-            $now = Varien_Date::toTimestamp(true);
+            $now = Carbon::now()->getTimestamp();
             $timeAhead = $now + $scheduleAheadFor;
             $schedule->setJobCode($jobCode)
                 ->setCronExpr($cronExpr)
@@ -221,7 +221,7 @@ class Mage_Cron_Model_Observer
             Mage_Cron_Model_Schedule::STATUS_ERROR => Mage::getStoreConfig(self::XML_PATH_HISTORY_FAILURE) * 60,
         ];
 
-        $now = Varien_Date::toTimestamp(true);
+        $now = Carbon::now()->getTimestamp();
         foreach ($history->getIterator() as $record) {
             if (empty($record->getExecutedAt())
                 || (strtotime($record->getExecutedAt()) < $now - $historyLifetimes[$record->getStatus()])
@@ -231,7 +231,7 @@ class Mage_Cron_Model_Observer
         }
 
         // save time history cleanup was ran with no expiration
-        Mage::app()->saveCache(Varien_Date::toTimestamp(true), self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT, ['crontab'], null);
+        Mage::app()->saveCache(Carbon::now()->getTimestamp(), self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT, ['crontab'], null);
 
         return $this;
     }
@@ -275,7 +275,7 @@ class Mage_Cron_Model_Observer
         $runConfig = $jobConfig->run;
         if (!$isAlways) {
             $scheduleLifetime = Mage::getStoreConfig(self::XML_PATH_SCHEDULE_LIFETIME) * 60;
-            $now = Varien_Date::toTimestamp(true);
+            $now = Carbon::now()->getTimestamp();
             $time = strtotime($schedule->getScheduledAt());
             if ($time > $now) {
                 return;

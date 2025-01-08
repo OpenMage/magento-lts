@@ -141,11 +141,12 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     }
                 }
 
-                $timestamp += 60 * 60 * $value['hour'] + 60 * $value['minute'];
+                $timestamp->addMinutes($value['minute']);
+                $timestamp->addHours($value['hour']);
             }
 
             $date = new Zend_Date($timestamp);
-            $result = $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+            $result = $date->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
 
             // Save date in internal format to avoid locale date bugs
             $this->_setInternalInRequest($result);
@@ -172,7 +173,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             } elseif ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME) {
                 $format = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
                 $result = Mage::app()->getLocale()
-                    ->date($optionValue, Varien_Date::DATETIME_INTERNAL_FORMAT, null, false)->toString($format);
+                    ->date($optionValue, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT, null, false)->toString($format);
             } elseif ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME) {
                 $date = new Zend_Date($optionValue);
                 $result = date($this->is24hTimeFormat() ? 'H:i' : 'h:i a', $date->getTimestamp());
@@ -221,7 +222,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         }
 
         $date = new Zend_Date($timestamp);
-        return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+        return $date->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
     }
 
     /**

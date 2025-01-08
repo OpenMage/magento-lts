@@ -987,7 +987,7 @@ abstract class Mage_Core_Controller_Varien_Action
             'date_format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([
-            'date_format' => Varien_Date::DATE_INTERNAL_FORMAT,
+            'date_format' => Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT,
         ]);
 
         foreach ($dateFields as $dateField) {
@@ -1015,7 +1015,7 @@ abstract class Mage_Core_Controller_Varien_Action
             'date_format' => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([
-            'date_format' => Varien_Date::DATETIME_INTERNAL_FORMAT,
+            'date_format' => Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT,
         ]);
 
         foreach ($dateFields as $dateField) {

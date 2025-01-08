@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Catalog Rule data model
  *
@@ -188,7 +190,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getNow()
     {
         if (!$this->_now) {
-            return Varien_Date::now();
+            return Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
         }
         return $this->_now;
     }

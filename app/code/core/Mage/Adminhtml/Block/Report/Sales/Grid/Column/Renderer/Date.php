@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date extends Mage_A
                     $dateFormat = 'yyyy';
                     break;
                 default:
-                    $dateFormat = Varien_Date::DATE_INTERNAL_FORMAT;
+                    $dateFormat = Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT;
                     break;
             }
 

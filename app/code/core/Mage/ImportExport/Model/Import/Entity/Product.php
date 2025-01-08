@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Import entity product model
  *
@@ -904,7 +906,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         'entity_id'        => $productId,
                         'has_options'      => 0,
                         'required_options' => 0,
-                        'updated_at'       => Varien_Date::now(),
+                        'updated_at'       => Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT),
                     ];
                 }
 
@@ -1383,7 +1385,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
                 if (self::SCOPE_DEFAULT == $rowScope) {
                     $rowSku = $rowData[self::COL_SKU];
-                    $now = Varien_Date::now();
+                    $now = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
 
                     // 1. Entity phase
                     if (isset($this->_oldSku[$rowSku])) { // existing row
@@ -1519,7 +1521,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      */
     protected function _getStrftimeFormat()
     {
-        return Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
+        return Varien_Date::convertZendToStrftime(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT, true, true);
     }
 
     /**
@@ -1568,7 +1570,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $storeIds = [0];
 
             if ($attribute->getBackendType() === 'datetime' && strtotime($attrValue)) {
-                $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($attrValue));
+                $attrValue = gmdate(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT, strtotime($attrValue));
             } elseif ($attribute->getAttributeCode() === 'url_key') {
                 if (empty($attrValue)) {
                     $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
@@ -1955,7 +1957,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     if ($stockItem->verifyNotification()) {
                         $stockItem->setLowStockDate(Mage::app()->getLocale()
                             ->date(null, null, null, false)
-                            ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+                            ->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT));
                     }
                     $stockItem->setStockStatusChangedAutomatically((int) !$stockItem->verifyStock());
                 } else {

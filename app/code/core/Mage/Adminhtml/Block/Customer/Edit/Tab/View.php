@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer account form block
  *
@@ -144,7 +146,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         $log = $this->getCustomerLog();
         if ($log->getLogoutAt()
             || !$log->getLastVisitAt()
-            || strtotime(Varien_Date::now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
+            || strtotime(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT)) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
         ) {
             return Mage::helper('customer')->__('Offline');
         }

@@ -459,7 +459,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         if (!is_array($sessionData)) {
             return null;
         }
-        return Varien_Date::toTimestamp(true) < $sessionData['expires'] ? $sessionData['data'] : null;
+        return Carbon::now()->lessThan($sessionData['expires']) ? $sessionData['data'] : null;
     }
 
     /**

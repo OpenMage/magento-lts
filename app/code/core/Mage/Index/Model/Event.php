@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * @category   Mage
  * @package    Mage_Index
@@ -327,7 +329,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         $newData = $this->getNewData(false);
         $this->setNewData(serialize($newData));
         if (!$this->hasCreatedAt()) {
-            $this->setCreatedAt($this->_getResource()->formatDate(Varien_Date::toTimestamp(true)));
+            $this->setCreatedAt($this->_getResource()->formatDate(Carbon::now()->getTimestamp()));
         }
         return parent::_beforeSave();
     }

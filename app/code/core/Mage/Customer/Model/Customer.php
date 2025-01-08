@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer model
  *
@@ -1443,7 +1445,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $date = $this->getCreatedAt();
         if ($date) {
-            return Varien_Date::toTimestamp($date);
+            return Carbon::now()->setTimeFromTimeString($date)->getTimestamp();
         }
         return null;
     }
@@ -1633,18 +1635,15 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             return true;
         }
 
-        $tokenExpirationPeriod = Mage::helper('customer')->getResetPasswordLinkExpirationPeriod();
+        $currentTimestamp   = Carbon::now();
+        $tokenTimestamp     = Carbon::now()->setTimeFromTimeString($resetPasswordLinkTokenCreatedAt);
 
-        $currentDate = Varien_Date::now();
-        $currentTimestamp = Varien_Date::toTimestamp($currentDate);
-        $tokenTimestamp = Varien_Date::toTimestamp($resetPasswordLinkTokenCreatedAt);
-        if ($tokenTimestamp > $currentTimestamp) {
+        if ($currentTimestamp->lessThan($tokenTimestamp)) {
             return true;
         }
 
-        $hoursDifference = floor(($currentTimestamp - $tokenTimestamp) / (60 * 60));
-
-        return $hoursDifference >= $tokenExpirationPeriod;
+        $tokenExpirationPeriod = Mage::helper('customer')->getResetPasswordLinkExpirationPeriod();
+        return Carbon::now()->diffInDays($tokenTimestamp) >= $tokenExpirationPeriod;
     }
 
     /**

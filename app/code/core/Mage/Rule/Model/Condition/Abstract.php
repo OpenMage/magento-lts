@@ -374,11 +374,11 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             $format = null;
             switch ($this->getInputType()) {
                 case 'date':
-                    $format = Varien_Date::DATE_INTERNAL_FORMAT;
+                    $format = Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT;
                     break;
 
                 case 'datetime':
-                    $format = Varien_Date::DATETIME_INTERNAL_FORMAT;
+                    $format = Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT;
                     break;
             }
 
@@ -599,13 +599,13 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
 
         switch ($this->getInputType()) {
             case 'date':
-                $elementParams['input_format'] = Varien_Date::DATE_INTERNAL_FORMAT;
-                $elementParams['format']       = Varien_Date::DATE_INTERNAL_FORMAT;
+                $elementParams['input_format'] = Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT;
+                $elementParams['format']       = Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT;
                 break;
 
             case 'datetime':
-                $elementParams['input_format'] = Varien_Date::DATETIME_INTERNAL_FORMAT;
-                $elementParams['format']       = Varien_Date::DATETIME_INTERNAL_FORMAT;
+                $elementParams['input_format'] = Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT;
+                $elementParams['format']       = Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT;
                 $elementParams['time']         = true;
                 break;
         }

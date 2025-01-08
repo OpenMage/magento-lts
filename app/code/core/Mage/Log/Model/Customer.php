@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer log model
  *
@@ -69,7 +71,7 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
     {
         $loginAt = $this->getLoginAt();
         if ($loginAt) {
-            return Varien_Date::toTimestamp($loginAt);
+            return Carbon::now()->setTimeFromTimeString($loginAt)->getTimestamp();
         }
 
         return null;

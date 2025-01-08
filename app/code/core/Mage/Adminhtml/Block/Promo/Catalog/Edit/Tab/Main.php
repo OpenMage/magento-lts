@@ -146,7 +146,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             'label'  => Mage::helper('catalogrule')->__('From Date'),
             'title'  => Mage::helper('catalogrule')->__('From Date'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
-            'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
+            'input_format' => Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT,
             'format'       => $dateFormatIso,
         ]);
         $fieldset->addField('to_date', 'date', [
@@ -154,7 +154,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Bl
             'label'  => Mage::helper('catalogrule')->__('To Date'),
             'title'  => Mage::helper('catalogrule')->__('To Date'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
-            'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
+            'input_format' => Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT,
             'format'       => $dateFormatIso,
         ]);
 

@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Authorize.net request model for DirectPost model.
  *
@@ -163,7 +165,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      */
     public function signRequestData()
     {
-        $fpTimestamp = (string) Varien_Date::toTimestamp(true);
+        $fpTimestamp = (string) Carbon::now()->getTimestamp();
         $signatureKey = $this->_getSignatureKey();
         if (!empty($signatureKey)) {
             $hash = $this->_generateSha2RequestSign(

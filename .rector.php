@@ -23,6 +23,7 @@ return RectorConfig::configure()
         CodeQuality\If_\SimplifyIfReturnBoolRector::class,
         __DIR__ . '/shell/translations.php',
         __DIR__ . '/shell/update-copyright.php.php',
+        __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
     ])
     ->withRules([
         CodeQuality\BooleanNot\ReplaceMultipleBooleanNotRector::class,
@@ -57,6 +58,4 @@ return RectorConfig::configure()
         false,
         false,
         false,
-        false,
-        true,
     );

@@ -463,7 +463,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param string $id cache id
      * @param int $extraLifetime
-     * @return boolean true if ok
+     * @return int|true true if ok
      */
     public function touch($id, $extraLifetime)
     {
