@@ -1333,17 +1333,17 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Retrieve class name by class group
      *
      * @param   string $groupType currently supported model, block, helper
-     * @param   string $classId slash separated class identifier, ex. group/class
+     * @param   string $classAlias slash separated class identifier, ex. group/class
      * @param   string $groupRootNode optional config path for group config
      * @return  string
      */
-    public function getGroupedClassName($groupType, $classId, $groupRootNode = null)
+    public function getGroupedClassName($groupType, $classAlias, $groupRootNode = null)
     {
         if (empty($groupRootNode)) {
             $groupRootNode = 'global/' . $groupType . 's';
         }
 
-        $classArr = explode('/', trim($classId));
+        $classArr = explode('/', trim($classAlias));
         $group = $classArr[0];
         $class = !empty($classArr[1]) ? $classArr[1] : null;
 
@@ -1395,8 +1395,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve block class name
      *
-     * @param   string $blockType
-     * @return  string
+     * @param string $blockType
+     * @return string
      */
     public function getBlockClassName($blockType)
     {
@@ -1409,15 +1409,15 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve helper class name
      *
-     * @param   string $helperName
+     * @param   string $helperAlias
      * @return  string
      */
-    public function getHelperClassName($helperName)
+    public function getHelperClassName($helperAlias)
     {
-        if (!str_contains($helperName, '/')) {
-            $helperName .= '/data';
+        if (!str_contains($helperAlias, '/')) {
+            $helperAlias .= '/data';
         }
-        return $this->getGroupedClassName('helper', $helperName);
+        return $this->getGroupedClassName('helper', $helperAlias);
     }
 
     /**
@@ -1445,8 +1445,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve module class name
      *
-     * @param   string $modelClass
-     * @return  string
+     * @param string $modelClass
+     * @return string
      */
     public function getModelClassName($modelClass)
     {
