@@ -141,6 +141,7 @@ class CollectionTest extends TestCase
     public function testGetReportFull(): void
     {
         $this->markTestIncomplete();
+        // @phpstan-ignore-next-line
         $this->assertInstanceOf(Mage_Reports_Model_Report::class, $this->subject->getReportFull(1, 1));
     }
 
@@ -151,6 +152,7 @@ class CollectionTest extends TestCase
     public function testGetReport(): void
     {
         $this->markTestIncomplete();
+        // @phpstan-ignore-next-line
         $this->assertInstanceOf(Mage_Reports_Model_Report::class, $this->subject->getReport(1, 1));
     }
 
@@ -161,6 +163,7 @@ class CollectionTest extends TestCase
     public function testTimeShift(): void
     {
         $this->markTestIncomplete();
+        // @phpstan-ignore-next-line
         $this->assertSame($this->subject->timeShift(''));
     }
 }
