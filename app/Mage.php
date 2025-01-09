@@ -279,7 +279,7 @@ final class Mage
             if ($graceful) {
                 return;
             }
-            self::throwException('Mage registry key "' . $key . '" already exists');
+            self::throwException("Mage registry key $key already exists");
         }
         self::$_registry[$key] = $value;
     }
@@ -332,7 +332,7 @@ final class Mage
         if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
-            self::throwException($appRoot . ' is not a directory or not readable by this user');
+            self::throwException("$appRoot is not a directory or not readable by this user");
         }
     }
 
