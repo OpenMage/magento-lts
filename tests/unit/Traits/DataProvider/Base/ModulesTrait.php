@@ -19,7 +19,7 @@ namespace OpenMage\Tests\Unit\Traits\DataProvider\Base;
 
 trait ModulesTrait
 {
-    private static array $disabledModules = [
+    public static array $disabledModules = [
         'Mage_Centinal',
         'Mage_Tag',
     ];
