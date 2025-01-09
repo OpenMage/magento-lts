@@ -662,6 +662,7 @@ final class Mage
      *
      * @param string $message
      * @param string $messageStorage
+     * @return never
      * @throws Mage_Core_Exception
      */
     public static function throwException($message, $messageStorage = null)
