@@ -23,8 +23,11 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
+# flow.js library
+/js/lib/uploader
+
 # TinyMCE library
-/js/tinymce
+/js/lib/tinymce
 
 # Add development environment setup files and README
 # https://github.com/OpenMage/magento-lts/pull/1012
