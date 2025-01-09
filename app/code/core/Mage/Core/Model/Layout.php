@@ -595,12 +595,13 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * @param string $type
      * @return Mage_Core_Block_Abstract|object
+     * @throws Mage_Core_Exception
      */
     public function getBlockSingleton($type)
     {
         if (!isset($this->_helpers[$type])) {
             $className = Mage::getConfig()->getBlockClassName($type);
-            if (!$className) {
+            if (!$className || !class_exists($className)) {
                 Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
             }
 
