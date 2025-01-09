@@ -494,13 +494,17 @@ final class Mage
      * @param callback $callback
      * @param array $data
      * @param string $observerName
-     * @param string $observerClass
+     * @param class-string|'' $observerClass
      * @return Varien_Event_Collection
+     * @throws Mage_Core_Exception
      */
     public static function addObserver($eventName, $callback, $data = [], $observerName = '', $observerClass = '')
     {
         if ($observerClass == '') {
             $observerClass = 'Varien_Event_Observer';
+        }
+        if (!class_exists($observerClass)) {
+            self::throwException("Invalid observer class: $observerClass");
         }
         $observer = new $observerClass();
         $observer->setName($observerName)->addData($data)->setEventName($eventName)->setCallback($callback);
