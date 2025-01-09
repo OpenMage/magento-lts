@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Helper;
 
+use Composer\InstalledVersions;
 use Mage;
 use Mage_Reports_Helper_Data as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\ReportsTrait;
@@ -64,6 +65,10 @@ class DataTest extends TestCase
      */
     public function testGetIntervals($expectedResult, $from, $to, $period): void
     {
+        if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
+            $this->markTestSkipped();
+        }
+
         try {
             $this->assertCount($expectedResult, $this->subject->getIntervals($from, $to, $period));
         } catch (Zend_Date_Exception $exception) {
