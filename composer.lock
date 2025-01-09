@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ab5b0a7d21ed992d661f401b45576d2",
+    "content-hash": "d58658786c3829777ebb5701141ff35e",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -603,16 +603,16 @@
         },
         {
             "name": "openmage/composer-plugin",
-            "version": "v1.1.1",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/composer-plugin.git",
-                "reference": "edb40181d4351b46faa642479cab6a193a0f9977"
+                "reference": "21cf8eebb46ef1770e3556e292d0fddebe7411e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/edb40181d4351b46faa642479cab6a193a0f9977",
-                "reference": "edb40181d4351b46faa642479cab6a193a0f9977",
+                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/21cf8eebb46ef1770e3556e292d0fddebe7411e8",
+                "reference": "21cf8eebb46ef1770e3556e292d0fddebe7411e8",
                 "shasum": ""
             },
             "require": {
@@ -626,7 +626,7 @@
             },
             "type": "composer-plugin",
             "extra": {
-                "class": "OpenMage\\Composer\\Plugin"
+                "class": "OpenMage\\ComposerPlugin\\Plugin"
             },
             "autoload": {
                 "psr-4": {
@@ -651,9 +651,9 @@
             ],
             "support": {
                 "issues": "https://github.com/OpenMage/composer-plugin/issues",
-                "source": "https://github.com/OpenMage/composer-plugin/tree/v1.1.1"
+                "source": "https://github.com/OpenMage/composer-plugin/tree/v2.0.0"
             },
-            "time": "2024-12-20T03:09:59+00:00"
+            "time": "2025-01-06T16:04:57+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
