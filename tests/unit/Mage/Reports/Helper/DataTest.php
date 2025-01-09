@@ -73,7 +73,7 @@ class DataTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Helper
      */
-    public function testrepareIntervalsCollection($expectedResult, $from, $to, $period): void
+    public function testPrepareIntervalsCollection($expectedResult, $from, $to, $period): void
     {
         $collection = new Varien_Data_Collection();
         $this->subject->prepareIntervalsCollection($collection, $from, $to, $period);

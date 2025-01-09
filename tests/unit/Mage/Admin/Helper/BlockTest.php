@@ -32,7 +32,7 @@ class BlockTest extends TestCase
     }
 
     /**
-     * @covers Mage_Admin_SubjectHelper_Block::isTypeAllowed()
+     * @covers Mage_Admin_Helper_Block::isTypeAllowed()
      * @group Mage_Admin
      * @group Mage_Admin_Helper
      */
