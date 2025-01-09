@@ -643,14 +643,17 @@ final class Mage
     /**
      * Return new exception by module to be thrown
      *
-     * @param string $module
+     * @param string $moduleName
      * @param string $message
-     * @param integer $code
+     * @param int $code
      * @return Mage_Core_Exception
      */
-    public static function exception($module = 'Mage_Core', $message = '', $code = 0)
+    public static function exception($moduleName = 'Mage_Core', $message = '', $code = 0)
     {
-        $className = $module . '_Exception';
+        $className = $moduleName . '_Exception';
+        if (!class_exists($className)) {
+            $className = 'Mage_Core_Exception';
+        }
         return new $className($message, $code);
     }
 
