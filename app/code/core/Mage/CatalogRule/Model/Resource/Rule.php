@@ -187,9 +187,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
         $customerGroupIds = $rule->getCustomerGroupIds();
 
-        $fromTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getFromDate()));
-        $toTime = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getToDate()));
-        $toTime = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
+        $fromTime   = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getFromDate()));
+        $toTime     = (int) Mage::getModel('core/date')->gmtTimestamp(strtotime((string) $rule->getToDate()));
+        $toTime     = $toTime ? ($toTime + self::SECONDS_IN_DAY - 1) : 0;
 
         $timestamp = Carbon::now()->getTimestamp();
         if ($fromTime > $timestamp
@@ -197,12 +197,14 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         ) {
             return;
         }
-        $sortOrder = (int) $rule->getSortOrder();
-        $actionOperator = $rule->getSimpleAction();
-        $actionAmount = (float) $rule->getDiscountAmount();
-        $subActionOperator = $rule->getSubIsEnable() ? $rule->getSubSimpleAction() : '';
-        $subActionAmount = (float) $rule->getSubDiscountAmount();
-        $actionStop = (int) $rule->getStopRulesProcessing();
+
+        $sortOrder          = (string) $rule->getSortOrder();
+        $actionOperator     = $rule->getSimpleAction();
+        $actionAmount       = (string) $rule->getDiscountAmount();
+        $subActionOperator  = $rule->getSubIsEnable() ? $rule->getSubSimpleAction() : '';
+        $subActionAmount    = (string) $rule->getSubDiscountAmount();
+        $actionStop         = (string) $rule->getStopRulesProcessing();
+
         /** @var Mage_Catalog_Helper_Product_Flat $helper */
         $helper = $this->_factory->getHelper('catalog/product_flat');
 
@@ -221,8 +223,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                             'cg.customer_group_id',
                             'p.entity_id',
                             new Zend_Db_Expr($rule->getId()),
-                            new Zend_Db_Expr($fromTime),
-                            new Zend_Db_Expr($toTime),
+                            new Zend_Db_Expr((string) $fromTime),
+                            new Zend_Db_Expr((string) $toTime),
                             new Zend_Db_Expr("'" . $actionOperator . "'"),
                             new Zend_Db_Expr($actionAmount),
                             new Zend_Db_Expr($actionStop),

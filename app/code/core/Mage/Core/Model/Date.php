@@ -32,20 +32,12 @@ class Mage_Core_Model_Date
     private $_offset = 0;
 
     /**
-     * Current system offset in seconds
-     *
-     * @var int
-     */
-    private $_systemOffset = 0;
-
-    /**
      * Init offset
      *
      */
     public function __construct()
     {
         $this->_offset = $this->calculateOffset($this->_getConfigTimezone());
-        $this->_systemOffset = $this->calculateOffset();
     }
 
     /**
@@ -148,7 +140,7 @@ class Mage_Core_Model_Date
         }
 
         $date      = Mage::app()->getLocale()->date($result);
-        $timestamp = $date->get(Zend_Date::TIMESTAMP) - $date->get(Zend_Date::TIMEZONE_SECS);
+        $timestamp = (int) $date->get(Zend_Date::TIMESTAMP) - (int) $date->get(Zend_Date::TIMEZONE_SECS);
 
         unset($date);
         return $timestamp;

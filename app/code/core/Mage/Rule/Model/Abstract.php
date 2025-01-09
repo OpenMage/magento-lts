@@ -319,6 +319,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     $path = explode('--', $id);
                     $node = & $arr;
                     for ($i = 0, $l = count($path); $i < $l; $i++) {
+                        // @phpstan-ignore-next-line
                         $var = $node[$key][$path[$i]] ?? [];
                         $node = &$var;
                     }

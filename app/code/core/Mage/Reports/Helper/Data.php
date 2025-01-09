@@ -56,8 +56,8 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
             return $intervals;
         }
 
-        $dateStart  = Carbon::createFromDate($dateFrom);
-        $endDate    = Carbon::createFromDate($dateTo);
+        $dateStart  = Carbon::now()->setTimeFromTimeString($dateFrom);
+        $endDate    = Carbon::now()->setTimeFromTimeString($dateTo);
 
         switch ($period) {
             case self::REPORT_PERIOD_TYPE_DAY:
