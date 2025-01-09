@@ -18,14 +18,14 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
-use Mage_Core_Helper_Js;
+use Mage_Core_Helper_Js as Subject;
 use PHPUnit\Framework\TestCase;
 
 class JsTest extends TestCase
 {
     public const TEST_URL = 'foo';
 
-    public Mage_Core_Helper_Js $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

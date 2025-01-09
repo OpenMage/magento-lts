@@ -18,18 +18,17 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
-use Mage_Page_Block_Switch;
+use Mage_Page_Block_Switch as Subject;
 use PHPUnit\Framework\TestCase;
 
 class SwitchTest extends TestCase
 {
-    public Mage_Page_Block_Switch $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Page_Block_Switch();
+        $this->subject = new Subject();
     }
 
     /**

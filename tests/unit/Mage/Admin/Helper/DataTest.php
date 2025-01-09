@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Admin\Helper;
 
 use Mage;
-use Mage_Admin_Helper_Data;
+use Mage_Admin_Helper_Data as Subject;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Mage_Admin_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

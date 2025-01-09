@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Wee tax resource model
  *
@@ -78,7 +80,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _updateDiscountPercents($productCondition = null)
     {
-        $now     = Varien_Date::toTimestamp(Varien_Date::now());
+        $now     = Carbon::now()->getTimestamp();
         $adapter = $this->_getWriteAdapter();
 
         $select  = $this->_getReadAdapter()->select();

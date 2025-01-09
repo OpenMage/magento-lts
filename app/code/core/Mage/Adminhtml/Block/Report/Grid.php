@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Adminhtml report grid block
  *
@@ -112,10 +114,11 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     /**
      * @return $this
+     * @throws Zend_Date_Exception
      */
     protected function _prepareCollection()
     {
-        $filter = $this->getParam($this->getVarNameFilter(), null);
+        $filter = $this->getParam($this->getVarNameFilter());
 
         if (is_null($filter)) {
             $filter = $this->_defaultFilter;
@@ -128,7 +131,13 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
             if (!isset($data['report_from'])) {
                 // getting all reports from 2001 year
-                $date = new Zend_Date(mktime(0, 0, 0, 1, 1, 2001));
+                $date = new Zend_Date(Carbon::now()
+                    ->setHour(0)
+                    ->setMinute(0)
+                    ->setSecond(0)
+                    ->setMonth(1)
+                    ->setYear(2001));
+
                 $data['report_from'] = $date->toString($this->getLocale()->getDateFormat('short'));
             }
 

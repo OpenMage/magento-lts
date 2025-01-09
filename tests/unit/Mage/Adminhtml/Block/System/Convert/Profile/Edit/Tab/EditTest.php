@@ -18,19 +18,18 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Profile\Edit\Tab;
 
 use Mage;
-use Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit;
+use Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit as Subject;
 use Mage_Dataflow_Model_Profile;
 use PHPUnit\Framework\TestCase;
 
 class EditTest extends TestCase
 {
-    public Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit();
+        $this->subject = new Subject();
     }
 
     /**
@@ -39,15 +38,14 @@ class EditTest extends TestCase
      */
     public function testInitForm(): void
     {
-        $mock = $this->getMockBuilder(Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getRegistryCurrentConvertProfile'])
             ->getMock();
 
         $mock
             ->method('getRegistryCurrentConvertProfile')
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             ->willReturn(new Mage_Dataflow_Model_Profile());
 
-        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit::class, $mock->initForm());
+        $this->assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * OAuth token resource model
  *
@@ -74,7 +76,7 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
                 $this->getMainTable(),
                 $adapter->quoteInto(
                     'type = "' . Mage_Oauth_Model_Token::TYPE_REQUEST . '" AND created_at <= ?',
-                    Varien_Date::formatDate(time() - $minutes * 60),
+                    Varien_Date::formatDate(Carbon::now()->subMinutes($minutes)->getTimestamp()),
                 ),
             );
         } else {

@@ -173,7 +173,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Returns code mass generator instance for auto generated specific coupons
      *
-     * @return Mage_Core_Model_Abstract|Mage_SalesRule_Model_Coupon_Massgenerator
+     * @return Mage_SalesRule_Model_Coupon_Massgenerator
      */
     public static function getCouponMassGenerator()
     {
@@ -448,7 +448,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function hasIsValidForAddress($address)
     {
         $addressId = $this->_getAddressId($address);
-        return isset($this->_validatedAddresses[$addressId]) ? true : false;
+        return isset($this->_validatedAddresses[$addressId]);
     }
 
     /**

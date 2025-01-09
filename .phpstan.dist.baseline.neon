@@ -913,12 +913,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			message: '#^Parameter \#1 \$order of method Mage_Sales_Model_Resource_Order_Collection_Abstract\:\:setOrderFilter\(\) expects int\|Mage_Sales_Model_Order, array\<string, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			message: '#^Parameter \#1 \$prefix of function uniqid expects string, int\<0, max\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2731,24 +2725,6 @@ parameters:
 			path: app/code/core/Mage/CatalogRule/Model/Observer.php
 
 		-
-			message: '#^Parameter \#1 \$expression of class Zend_Db_Expr constructor expects string, float given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/CatalogRule/Model/Resource/Rule.php
-
-		-
-			message: '#^Parameter \#1 \$expression of class Zend_Db_Expr constructor expects string, int given\.$#'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/CatalogRule/Model/Resource/Rule.php
-
-		-
-			message: '#^Parameter \#1 \$expression of class Zend_Db_Expr constructor expects string, int\<0, 86398\>\|int\<86400, max\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Resource/Rule.php
-
-		-
 			message: '#^Variable \$indexAlias might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -3251,24 +3227,6 @@ parameters:
 			identifier: greaterOrEqual.alwaysTrue
 			count: 1
 			path: app/code/core/Mage/Core/Model/Cookie.php
-
-		-
-			message: '#^Binary operation "\+" between string and string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Core/Model/Date.php
-
-		-
-			message: '#^Binary operation "\-" between string and string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Core/Model/Date.php
-
-		-
-			message: '#^Property Mage_Core_Model_Date\:\:\$_systemOffset is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: app/code/core/Mage/Core/Model/Date.php
 
 		-
 			message: '#^Call to an undefined method Mage_Core_Model_Resource_Design\:\:validate\(\)\.$#'
@@ -5293,18 +5251,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
 
 		-
-			message: '#^Variable \$dateStart might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: app/code/core/Mage/Reports/Helper/Data.php
-
-		-
-			message: '#^Variable \$t might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Reports/Helper/Data.php
-
-		-
 			message: '#^Property Mage_Reports_Model_Grouped_Collection\:\:\$_resourceCollection \(Mage_Core_Model_Resource_Db_Collection_Abstract\) does not accept Varien_Data_Collection_Db\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -5533,12 +5479,6 @@ parameters:
 			path: app/code/core/Mage/Rss/Helper/Data.php
 
 		-
-			message: '#^Property Mage_Rule_Model_Abstract\:\:\$_conditions \(Mage_Rule_Model_Condition_Combine\) in empty\(\) is not falsy\.$#'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Abstract.php
-
-		-
 			message: '#^Parameter \#1 \$renderer of method Varien_Data_Form_Element_Abstract\:\:setRenderer\(\) expects Varien_Data_Form_Element_Renderer_Interface, Mage_Core_Block_Abstract\|false given\.$#'
 			identifier: argument.type
 			count: 3
@@ -5651,12 +5591,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Recurring/Profiles.php
-
-		-
-			message: '#^Parameter \#1 \$order of method Mage_Sales_Model_Resource_Order_Collection_Abstract\:\:setOrderFilter\(\) expects int\|Mage_Sales_Model_Order, array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Api2/Order.php
 
 		-
 			message: '#^Parameter \#2 \$code of method Mage_Api2_Model_Resource\:\:_critical\(\) expects int\|null, string given\.$#'
@@ -10090,12 +10024,6 @@ parameters:
 			message: '#^Left side of && is always true\.$#'
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 2
-			path: lib/Varien/Cache/Backend/Database.php
-
-		-
-			message: '#^Method Varien_Cache_Backend_Database\:\:touch\(\) should return bool but returns int\.$#'
-			identifier: return.type
-			count: 1
 			path: lib/Varien/Cache/Backend/Database.php
 
 		-

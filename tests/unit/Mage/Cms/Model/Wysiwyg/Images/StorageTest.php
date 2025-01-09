@@ -20,14 +20,12 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model\Wysiwyg\Images;
 use Mage;
 use Mage_Adminhtml_Model_Session;
 use Mage_Cms_Helper_Wysiwyg_Images;
-use Mage_Cms_Model_Wysiwyg_Images_Storage;
+use Mage_Cms_Model_Wysiwyg_Images_Storage as Subject;
 use PHPUnit\Framework\TestCase;
 
 class StorageTest extends TestCase
 {
-    public const TEST_STRING = '0123456789';
-
-    public Mage_Cms_Model_Wysiwyg_Images_Storage $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

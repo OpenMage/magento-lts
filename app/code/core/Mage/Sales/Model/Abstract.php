@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Sales abstract model
  * Provide date processing functionality
@@ -54,10 +56,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
     public function getCreatedAtDate()
     {
         return Mage::app()->getLocale()->date(
-            Varien_Date::toTimestamp($this->getCreatedAt()),
-            null,
-            null,
-            true,
+            Carbon::now()->setTimeFromTimeString(($this->getCreatedAt()))->getTimestamp(),
         );
     }
 
@@ -70,7 +69,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
     {
         return Mage::app()->getLocale()->storeDate(
             $this->getStore(),
-            Varien_Date::toTimestamp($this->getCreatedAt()),
+            Carbon::now()->setTimeFromTimeString($this->getCreatedAt())->getTimestamp(),
             true,
         );
     }

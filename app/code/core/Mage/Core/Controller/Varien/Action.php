@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Custom Zend_Controller_Action class (formally)
  *
@@ -985,7 +987,7 @@ abstract class Mage_Core_Controller_Varien_Action
             'date_format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([
-            'date_format' => Varien_Date::DATE_INTERNAL_FORMAT,
+            'date_format' => Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT,
         ]);
 
         foreach ($dateFields as $dateField) {
@@ -1013,7 +1015,7 @@ abstract class Mage_Core_Controller_Varien_Action
             'date_format' => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([
-            'date_format' => Varien_Date::DATETIME_INTERNAL_FORMAT,
+            'date_format' => Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT,
         ]);
 
         foreach ($dateFields as $dateField) {
@@ -1069,7 +1071,7 @@ abstract class Mage_Core_Controller_Varien_Action
             ->setHeader('Content-type', $contentType, true)
             ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true)
-            ->setHeader('Last-Modified', date('r'), true);
+            ->setHeader('Last-Modified', Carbon::now()->format('r'), true);
 
         if (!is_null($content)) {
             if ($isFile) {

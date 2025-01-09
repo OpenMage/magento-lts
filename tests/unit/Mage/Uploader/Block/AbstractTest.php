@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Uploader\Block;
 
 use Mage;
-use Mage_Uploader_Block_Abstract;
+use Mage_Uploader_Block_Abstract as Subject;
 use Mage_Uploader_Model_Config_Browsebutton;
 use Mage_Uploader_Model_Config_Misc;
 use Mage_Uploader_Model_Config_Uploader;
@@ -26,12 +26,12 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractTest extends TestCase
 {
-    public Mage_Uploader_Block_Abstract $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        $this->subject = $this->getMockForAbstractClass(Mage_Uploader_Block_Abstract::class);
+        $this->subject = $this->getMockForAbstractClass(Subject::class);
     }
 
     /**

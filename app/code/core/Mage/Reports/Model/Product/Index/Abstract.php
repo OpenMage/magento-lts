@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Reports Product Index Abstract Model
  *
@@ -58,7 +60,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
             $this->setStoreId($this->getStoreId());
         }
         if (!$this->hasAddedAt()) {
-            $this->setAddedAt(Varien_Date::now());
+            $this->setAddedAt(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT));
         }
 
         // Thanks to new performance tweaks it is possible to switch off visitor logging

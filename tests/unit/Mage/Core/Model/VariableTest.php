@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
 use Mage;
-use Mage_Core_Model_Variable;
+use Mage_Core_Model_Variable as Subject;
 use PHPUnit\Framework\TestCase;
 
 class VariableTest extends TestCase
 {
-    public Mage_Core_Model_Variable $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

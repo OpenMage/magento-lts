@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
     {
         if ($index) {
             if ($data = $this->getData('value', 'orig_' . $index)) {
-                return $data;//date('Y-m-d', strtotime($data));
+                return $data; //date('Y-m-d', strtotime($data));
             }
             return null;
         }

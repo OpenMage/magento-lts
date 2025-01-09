@@ -18,18 +18,17 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Cache\Form;
 
 use Mage;
-use Mage_Adminhtml_Block_System_Cache_Form;
+use Mage_Adminhtml_Block_System_Cache_Form as Subject;
 use PHPUnit\Framework\TestCase;
 
 class FormTest extends TestCase
 {
-    public Mage_Adminhtml_Block_System_Cache_Form $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_System_Cache_Form();
+        $this->subject = new Subject();
     }
 
     /**
@@ -37,6 +36,6 @@ class FormTest extends TestCase
      */
     public function testInitForm(): void
     {
-        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Cache_Form::class, $this->subject->initForm());
+        $this->assertInstanceOf(Subject::class, $this->subject->initForm());
     }
 }

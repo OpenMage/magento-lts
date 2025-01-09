@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -25,10 +27,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Date_Short
     {
         $arr = [];
         $arr[] = ['label' => '', 'value' => ''];
-        $arr[] = ['label' => sprintf('MM/DD/YY (%s)', date('m/d/y')), 'value' => '%m/%d/%y'];
-        $arr[] = ['label' => sprintf('MM/DD/YYYY (%s)', date('m/d/Y')), 'value' => '%m/%d/%Y'];
-        $arr[] = ['label' => sprintf('DD/MM/YY (%s)', date('d/m/y')), 'value' => '%d/%m/%y'];
-        $arr[] = ['label' => sprintf('DD/MM/YYYY (%s)', date('d/m/Y')), 'value' => '%d/%m/%Y'];
+        $arr[] = ['label' => sprintf('MM/DD/YY (%s)', Carbon::now()->format('m/d/y')), 'value' => '%m/%d/%y'];
+        $arr[] = ['label' => sprintf('MM/DD/YYYY (%s)', Carbon::now()->format('m/d/y')), 'value' => '%m/%d/%Y'];
+        $arr[] = ['label' => sprintf('DD/MM/YY (%s)', Carbon::now()->format('m/d/y')), 'value' => '%d/%m/%y'];
+        $arr[] = ['label' => sprintf('DD/MM/YYYY (%s)', Carbon::now()->format('m/d/y')), 'value' => '%d/%m/%Y'];
         return $arr;
     }
 }

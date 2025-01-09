@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date extends Mage_Adminht
             try {
                 if ($this->getColumn()->getGmtoffset()) {
                     $data = Mage::app()->getLocale()
-                        ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
+                        ->date($data, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
                 } else {
                     $data = Mage::getSingleton('core/locale')
                         ->date($data, Zend_Date::ISO_8601, null, false)->toString($format);
@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date extends Mage_Adminht
             } catch (Exception $e) {
                 if ($this->getColumn()->getTimezone()) {
                     $data = Mage::app()->getLocale()
-                        ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
+                        ->date($data, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
                 } else {
                     $data = Mage::getSingleton('core/locale')->date($data, null, null, false)->toString($format);
                 }

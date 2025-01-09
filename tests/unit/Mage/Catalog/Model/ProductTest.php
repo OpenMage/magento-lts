@@ -9,7 +9,7 @@
  *
  * @category   OpenMage
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2024-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -17,21 +17,23 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
-use Generator;
 use Mage;
-use Mage_Catalog_Model_Product;
+use Mage_Catalog_Model_Product as Subject;
 use Mage_Catalog_Model_Product_Link;
 use Mage_Catalog_Model_Product_Type_Abstract;
 use Mage_Catalog_Model_Product_Url;
 use Mage_Catalog_Model_Resource_Product_Collection;
 use Mage_Catalog_Model_Url;
+use OpenMage\Tests\Unit\Traits\DataProvider\Base\BoolTrait;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
 {
-    public const TEST_STRING = 'a & B, x%, ä, ö, ü';
+    use BoolTrait;
+    use CatalogTrait;
 
-    public Mage_Catalog_Model_Product $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -73,7 +75,7 @@ class ProductTest extends TestCase
      */
     public function testValidate(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->validate());
+        $this->assertInstanceOf(Subject::class, $this->subject->validate());
     }
 
     /**
@@ -101,7 +103,7 @@ class ProductTest extends TestCase
      */
     public function testSetPriceCalculation(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->setPriceCalculation());
+        $this->assertInstanceOf(Subject::class, $this->subject->setPriceCalculation());
     }
 
     /**
@@ -123,23 +125,13 @@ class ProductTest extends TestCase
     }
 
     /**
-     * @dataProvider provideTypeInstanceData
+     * @dataProvider provideBool
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
     public function testGetTypeInstance(bool $singleton): void
     {
         $this->assertInstanceOf(Mage_Catalog_Model_Product_Type_Abstract::class, $this->subject->getTypeInstance($singleton));
-    }
-
-    public function provideTypeInstanceData(): Generator
-    {
-        yield 'singleton false' => [
-            true,
-        ];
-        yield 'singleton true' => [
-            true,
-        ];
     }
 
     /**
@@ -166,7 +158,7 @@ class ProductTest extends TestCase
      */
     public function testAfterCommitCallback(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->afterCommitCallback());
+        $this->assertInstanceOf(Subject::class, $this->subject->afterCommitCallback());
     }
 
     /**
@@ -177,18 +169,6 @@ class ProductTest extends TestCase
     public function testFormatUrlKey($expectedResult, ?string $locale): void
     {
         $this->subject->setLocale($locale);
-        $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
-    }
-
-    public function provideFormatUrlKey(): Generator
-    {
-        yield 'null locale' => [
-            'a-b-x-a-o-u',
-            null,
-        ];
-        yield 'de_DE' => [
-            'a-und-b-x-prozent-ae-oe-ue',
-            'de_DE',
-        ];
+        $this->assertSame($expectedResult, $this->subject->formatUrlKey($this->getTestString()));
     }
 }

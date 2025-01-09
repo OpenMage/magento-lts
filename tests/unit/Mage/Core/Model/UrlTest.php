@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
 use Mage;
-use Mage_Core_Model_Url;
+use Mage_Core_Model_Url as Subject;
 use PHPUnit\Framework\TestCase;
 
 class UrlTest extends TestCase
 {
-    public Mage_Core_Model_Url $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

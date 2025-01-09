@@ -17,20 +17,21 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 
-use Generator;
 use Mage;
-use Mage_Adminhtml_Block_Template;
+use Mage_Adminhtml_Block_Template as Subject;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
 use PHPUnit\Framework\TestCase;
 
 class TemplateTest extends TestCase
 {
-    public Mage_Adminhtml_Block_Template $subject;
+    use CoreTrait;
+
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_Template();
+        $this->subject = new Subject();
     }
 
     /**
@@ -54,22 +55,6 @@ class TemplateTest extends TestCase
     public function testIsOutputEnabled(bool $expectedResult, ?string $moduleName): void
     {
         $this->assertSame($expectedResult, $this->subject->isOutputEnabled($moduleName));
-    }
-
-    public function provideIsOutputEnabled(): Generator
-    {
-        yield 'null' => [
-            true,
-            null, #Mage_Adminhtml
-        ];
-        yield 'Mage_Core' => [
-            true,
-            'Mage_Core',
-        ];
-        yield 'Not_Exist' => [
-            false,
-            'Not_Exist',
-        ];
     }
 
     /**

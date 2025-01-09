@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Assert time for admin acl
  *
@@ -34,7 +36,7 @@ class Mage_Admin_Model_Acl_Assert_Time implements Zend_Acl_Assert_Interface
         ?Mage_Admin_Model_Acl_Resource $resource = null,
         $privilege = null
     ) {
-        return $this->_isCleanTime(time());
+        return $this->_isCleanTime(Carbon::now()->getTimestamp());
     }
 
     /**

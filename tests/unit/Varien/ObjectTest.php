@@ -226,7 +226,7 @@ class ObjectTest extends TestCase
         $this->assertTrue($this->subject->isEmpty());
 
         try {
-            /** @phpstan-ignore-next-line */
+            // @phpstan-ignore-next-line
             $this->subject->notData();
             $this->fail('Invalid __call');
         } catch (Varien_Exception $exception) {

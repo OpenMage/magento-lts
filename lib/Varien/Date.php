@@ -14,12 +14,17 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Converter of date formats
  * Internal dates
  *
  * @category Varien
  * @package  Varien_Date
+ * @deprecated
+ * @see Carbon
+ * @see Mage_Core_Helper_Date
  */
 class Varien_Date
 {
@@ -117,7 +122,7 @@ class Varien_Date
         }
 
         if ($date === true) {
-            return time();
+            return Carbon::now()->getTimestamp();
         }
 
         return strtotime($date);
@@ -126,8 +131,9 @@ class Varien_Date
     /**
      * Retrieve current date in internal format
      *
-     * @param boolean $withoutTime day only flag
+     * @param bool $withoutTime day only flag
      * @return string
+     * @deprecated replaced by carbon
      */
     public static function now($withoutTime = false)
     {

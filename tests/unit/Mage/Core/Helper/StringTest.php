@@ -19,7 +19,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
 use Mage_Core_Helper_Array;
-use Mage_Core_Helper_String;
+use Mage_Core_Helper_String as Subject;
 use PHPUnit\Framework\TestCase;
 
 class StringTest extends TestCase
@@ -28,7 +28,7 @@ class StringTest extends TestCase
 
     public const TEST_STRING_JSON   = '{"name":"John", "age":30, "car":null}';
 
-    public Mage_Core_Helper_String $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

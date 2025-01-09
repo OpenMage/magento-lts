@@ -816,7 +816,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
         if (!is_empty_date($date)) {
             list($dateObj, $format) = $this->_dates[$storeId];
-            $dateObj->setDate($date, Varien_Date::DATETIME_INTERNAL_FORMAT);
+            $dateObj->setDate($date, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
 
             return $dateObj->toString($format);
         }

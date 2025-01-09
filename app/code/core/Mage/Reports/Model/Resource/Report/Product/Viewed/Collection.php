@@ -212,7 +212,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
             $selectUnions = [];
 
             // apply date boundaries (before calling $this->_applyDateRangeFilter())
-            $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
+            $dtFormat   = Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT;
             $periodFrom = (!is_null($this->_from) ? new Zend_Date($this->_from, $dtFormat) : null);
             $periodTo   = (!is_null($this->_to) ? new Zend_Date($this->_to, $dtFormat) : null);
             if ($this->_period == 'year') {

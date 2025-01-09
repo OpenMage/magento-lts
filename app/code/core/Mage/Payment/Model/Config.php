@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Payment configuration model
  *
@@ -135,7 +137,7 @@ class Mage_Payment_Model_Config
     public function getYears()
     {
         $years = [];
-        $first = date('Y');
+        $first = (int) Carbon::now()->format('Y');
 
         for ($index = 0; $index <= 10; $index++) {
             $year = $first + $index;

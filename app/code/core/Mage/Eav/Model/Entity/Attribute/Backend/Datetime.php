@@ -82,6 +82,6 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
                 false,
             );
         }
-        return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+        return $date->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
     }
 }

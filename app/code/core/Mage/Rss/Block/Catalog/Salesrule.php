@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Review form block
  *
@@ -41,7 +43,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
         $storeId       = $this->_getStoreId();
         $websiteId     = Mage::app()->getStore($storeId)->getWebsiteId();
         $customerGroup = $this->_getCustomerGroupId();
-        $now           = date('Y-m-d');
+        $now           = Carbon::now()->format('Y-m-d');
         $url           = Mage::getUrl('');
         $newUrl        = Mage::getUrl('rss/catalog/salesrule');
         $lang          = Mage::getStoreConfig('general/locale/code');

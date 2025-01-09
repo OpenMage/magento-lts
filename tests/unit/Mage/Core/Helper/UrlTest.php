@@ -19,7 +19,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Generator;
 use Mage;
-use Mage_Core_Helper_Url;
+use Mage_Core_Helper_Url as Subject;
 use PHPUnit\Framework\TestCase;
 
 class UrlTest extends TestCase
@@ -38,7 +38,7 @@ class UrlTest extends TestCase
 
     public const TEST_URL_PUNY      = 'https://XN--example.com?foo=bar&BOO=baz';
 
-    public Mage_Core_Helper_Url $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

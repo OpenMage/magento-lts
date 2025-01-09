@@ -18,18 +18,17 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
-use Mage_Page_Block_Redirect;
+use Mage_Page_Block_Redirect as Subject;
 use PHPUnit\Framework\TestCase;
 
 class RedirectTest extends TestCase
 {
-    public Mage_Page_Block_Redirect $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Page_Block_Redirect();
+        $this->subject = new Subject();
     }
 
     /**

@@ -9,7 +9,7 @@
  *
  * @category   OpenMage
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2024-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -19,14 +19,14 @@ namespace OpenMage\Tests\Unit\Mage\Tax\Helper;
 
 use Generator;
 use Mage;
-use Mage_Tax_Helper_Data;
+use Mage_Tax_Helper_Data as Subject;
 use Mage_Tax_Model_Calculation;
 use Mage_Tax_Model_Config;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Mage_Tax_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -158,9 +158,10 @@ class DataTest extends TestCase
      */
     public function testGetTaxRatesByProductClass(): void
     {
-        $expectedResult = defined('USES_SAMPLEDATA') && USES_SAMPLEDATA === true ?
-            '{"value_2":9,"value_4":0,"value_6":0}' : '{"value_2":8.25,"value_4":0}';
-        $this->assertSame($expectedResult, $this->subject->getTaxRatesByProductClass());
+        if (defined('DATA_MAY_CHANGED')) {
+            $this->markTestSkipped();
+        }
+        $this->assertSame('{"value_2":8.25,"value_4":0}', $this->subject->getTaxRatesByProductClass());
     }
 
     /**
@@ -170,9 +171,10 @@ class DataTest extends TestCase
      */
     public function testGetAllRatesByProductClass(): void
     {
-        $expectedResult = defined('USES_SAMPLEDATA') && USES_SAMPLEDATA === true ?
-            '{"value_2":9,"value_4":0,"value_6":0}' : '{"value_2":8.25,"value_4":0}';
-        $this->assertSame($expectedResult, $this->subject->getAllRatesByProductClass());
+        if (defined('DATA_MAY_CHANGED')) {
+            $this->markTestSkipped();
+        }
+        $this->assertSame('{"value_2":8.25,"value_4":0}', $this->subject->getAllRatesByProductClass());
     }
 
     /**

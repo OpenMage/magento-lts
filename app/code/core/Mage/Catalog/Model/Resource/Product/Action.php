@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Catalog Product Mass processing resource model
  *
@@ -92,7 +94,7 @@ class Mage_Catalog_Model_Resource_Product_Action extends Mage_Catalog_Model_Reso
      */
     protected function _updateUpdatedAt(array $entityIds): void
     {
-        $updatedAt = Varien_Date::now();
+        $updatedAt = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
         $catalogProductTable = $this->getTable('catalog/product');
         $adapter = $this->_getWriteAdapter();
 

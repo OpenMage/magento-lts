@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * @category   Mage
  * @package    Mage_Log
@@ -182,7 +184,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getFirstVisitAt()
     {
         if (!$this->hasData('first_visit_at')) {
-            $this->setData('first_visit_at', Varien_Date::now());
+            $this->setData('first_visit_at', Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT));
         }
         return $this->getData('first_visit_at');
     }
@@ -193,7 +195,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getLastVisitAt()
     {
         if (!$this->hasData('last_visit_at')) {
-            $this->setData('last_visit_at', Varien_Date::now());
+            $this->setData('last_visit_at', Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT));
         }
         return $this->getData('last_visit_at');
     }
@@ -217,7 +219,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $visitorId = $this->getId();
         if (!$visitorId) {
             $this->initServerData();
-            $this->setFirstVisitAt(Varien_Date::now());
+            $this->setFirstVisitAt(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT));
             $this->setIsNewVisitor(true);
             $this->save();
         }
@@ -258,7 +260,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 
         try {
             $this->initServerData();
-            $this->setLastVisitAt(Varien_Date::now());
+            $this->setLastVisitAt(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT));
             $this->save();
             $this->_session->setVisitorData($this->getData());
         } catch (Exception $e) {

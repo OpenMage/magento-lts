@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Carbon\Carbon;
+
 /**
  * Convert profile
  *
@@ -234,7 +236,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                         );
                     }
                     if ($uploadFile) {
-                        $newFilename = 'import-' . date('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
+                        $newFilename = 'import-' . Carbon::now()->format('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
                         rename($path . $uploadFile, $path . $newFilename);
                         $newUploadedFilenames[] = $newFilename;
                     }

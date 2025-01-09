@@ -63,11 +63,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime extends Mage_Adm
             $locale = $this->getColumn()->getLocale() ?? null;
             try {
                 $data = Mage::app()->getLocale()
-                    ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT, $locale, $useTimezone)
+                    ->date($data, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT, $locale, $useTimezone)
                     ->toString($format);
             } catch (Exception $e) {
                 $data = Mage::app()->getLocale()
-                    ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
+                    ->date($data, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
             }
             return $data;
         }
