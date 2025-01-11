@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +48,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visible in catalog filter to collection
      *
      * @deprecated
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function addVisibleInCatalogFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
@@ -59,7 +59,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visibility in searchfilter to collection
      *
      * @deprecated
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function addVisibleInSearchFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
@@ -71,7 +70,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      * Add visibility in site filter to collection
      *
      * @deprecated
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function addVisibleInSiteFilterToCollection(Mage_Catalog_Model_Resource_Product_Collection $collection)
@@ -121,7 +119,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
             self::VISIBILITY_NOT_VISIBLE => Mage::helper('catalog')->__('Not Visible Individually'),
             self::VISIBILITY_IN_CATALOG => Mage::helper('catalog')->__('Catalog'),
             self::VISIBILITY_IN_SEARCH  => Mage::helper('catalog')->__('Search'),
-            self::VISIBILITY_BOTH       => Mage::helper('catalog')->__('Catalog, Search')
+            self::VISIBILITY_BOTH       => Mage::helper('catalog')->__('Catalog, Search'),
         ];
     }
 
@@ -158,8 +156,8 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         $res[] = ['value' => '', 'label' => Mage::helper('catalog')->__('-- Please Select --')];
         foreach (self::getOptionArray() as $index => $value) {
             $res[] = [
-               'value' => $index,
-               'label' => $value
+                'value' => $index,
+                'label' => $value,
             ];
         }
         return $res;
@@ -188,7 +186,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         $column = [
             'unsigned'  => true,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
@@ -269,7 +267,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                     "e.entity_id={$tableName}.entity_id"
                         . " AND {$tableName}.attribute_id='{$attributeId}'"
                         . " AND {$tableName}.store_id='0'",
-                    []
+                    [],
                 );
             $valueExpr = $tableName . '.value';
         } else {
@@ -281,19 +279,19 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                     "e.entity_id={$valueTable1}.entity_id"
                         . " AND {$valueTable1}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable1}.store_id='0'",
-                    []
+                    [],
                 )
                 ->joinLeft(
                     [$valueTable2 => $attributeTable],
                     "e.entity_id={$valueTable2}.entity_id"
                         . " AND {$valueTable2}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
-                    []
+                    [],
                 );
             $valueExpr = $collection->getConnection()->getCheckSql(
                 $valueTable2 . '.value_id > 0',
                 $valueTable2 . '.value',
-                $valueTable1 . '.value'
+                $valueTable1 . '.value',
             );
         }
 

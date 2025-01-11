@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -83,7 +83,7 @@
             <api_user_authenticated>
                 <observers>
                     <api2_upgrade_key>
-                        <class>Mage_Api2_Model_Observer</class>
+                        <class>api2/observer</class>
                         <method>upgradeApiKey</method>
                     </api2_upgrade_key>
                 </observers>

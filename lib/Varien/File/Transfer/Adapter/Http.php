@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +63,7 @@ class Varien_File_Transfer_Adapter_Http
         'psd' => 'image/vnd.adobe.photoshop',
         'ai' => 'application/postscript',
         'eps' => 'application/postscript',
-        'ps' => 'application/postscript'
+        'ps' => 'application/postscript',
     ];
 
     /**
@@ -89,7 +90,7 @@ class Varien_File_Transfer_Adapter_Http
 
         $response = new Zend_Controller_Response_Http();
 
-        $response->setHeader('Content-length', (string)filesize($filepath));
+        $response->setHeader('Content-length', (string) filesize($filepath));
         $response->setHeader('Content-Type', $mimeType);
 
         $response->sendHeaders();

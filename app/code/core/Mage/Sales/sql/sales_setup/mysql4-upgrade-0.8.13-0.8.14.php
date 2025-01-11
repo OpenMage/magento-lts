@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -176,7 +177,7 @@ $attributes = [
     'base_total_canceled' => [],
     'base_total_invoiced' => [],
     'base_total_online_refunded' => [],
-    'base_total_offline_refunded' => []
+    'base_total_offline_refunded' => [],
 ];
 
 $select = new Zend_Db_Select($installer->getConnection());
@@ -189,12 +190,12 @@ foreach (array_keys($attributes) as $code) {
         $select->joinLeft(
             ["_table_{$code}" => "{$this->getTable('sales_order_entity')}_{$attributes[$code]['backend_type']}"],
             "_table_{$code}.attribute_id = {$attributes[$code]['attribute_id']} AND _table_{$code}.entity_id = e.entity_id",
-            [$code => 'value']
+            [$code => 'value'],
         );
         $select->join(
             ["_eav_atr_{$code}" => $this->getTable('eav/attribute')],
             "_eav_atr_{$code}.attribute_id = {$attributes[$code]['attribute_id']}",
-            []
+            [],
         );
         $attributeIds[] = $attributes[$code]['attribute_id'];
     }

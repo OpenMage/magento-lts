@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +42,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
         '(' => '', ')' => '', '*' => '', '+' => '', ',' => '', '/' => '', ';' => '',
         '<' => '', '=' => '', '>' => '', '?' => '', '@' => '', '[' => '', '\\' => '',
         ']' => '', '^' => '', '`' => '', '{' => '', '|' => '', '}' => '', '~' => '',
-        ' ' => '_', ':' => '_'
+        ' ' => '_', ':' => '_',
     ];
 
     /**
@@ -50,7 +51,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
      * @var array
      */
     protected $_replacementInTagValue = [
-        '&' => '&amp;' // replace "&" with HTML entity, because by default not replaced
+        '&' => '&amp;', // replace "&" with HTML entity, because by default not replaced
     ];
 
     /**
@@ -70,7 +71,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     {
         /** @var Mage_Api2_Model_Renderer_Xml_Writer $writer */
         $writer = Mage::getModel('api2/renderer_xml_writer', [
-            'config' => new Zend_Config($this->_prepareData($data, true))
+            'config' => new Zend_Config($this->_prepareData($data, true)),
         ]);
         return $writer->render();
     }
@@ -92,7 +93,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
                 throw new Exception('Prepare data must be an object or an array.');
             }
         }
-        $data = $data instanceof Varien_Object ? $data->toArray() : (array)$data;
+        $data = $data instanceof Varien_Object ? $data->toArray() : (array) $data;
         $isAssoc = !preg_match('/^\d+$/', implode('', array_keys($data)));
 
         $preparedData = [];
@@ -118,7 +119,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
         return str_replace(
             array_keys($this->_replacementInTagValue),
             array_values($this->_replacementInTagValue),
-            $value
+            $value,
         );
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +40,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
         $this->_initAction()
             ->_addContent(
                 $this->getLayout()->createBlock('adminhtml/tax_class')
-                    ->setClassType(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)
+                    ->setClassType(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT),
             )
             ->renderLayout();
     }
@@ -67,7 +68,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
             $model->load($classId);
             if (!$model->getId() || $model->getClassType() != Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('tax')->__('This class no longer exists')
+                    Mage::helper('tax')->__('This class no longer exists'),
                 );
                 $this->_redirect('*/*/');
                 return;
@@ -86,12 +87,12 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
         $this->_initAction()
             ->_addBreadcrumb(
                 $classId ? Mage::helper('tax')->__('Edit Class') : Mage::helper('tax')->__('New Class'),
-                $classId ? Mage::helper('tax')->__('Edit Class') : Mage::helper('tax')->__('New Class')
+                $classId ? Mage::helper('tax')->__('Edit Class') : Mage::helper('tax')->__('New Class'),
             )
             ->_addContent(
                 $this->getLayout()->createBlock('adminhtml/tax_class_edit')
                     ->setData('action', $this->getUrl('*/tax_class/save'))
-                    ->setClassType(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT)
+                    ->setClassType(Mage_Tax_Model_Class::TAX_CLASS_TYPE_PRODUCT),
             )
             ->renderLayout();
     }

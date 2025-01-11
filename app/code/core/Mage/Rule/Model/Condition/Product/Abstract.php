@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -87,9 +88,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         }
 
         $value = array_map('trim', $value);
-        $value = array_filter($value, 'is_numeric');
 
-        return $value;
+        return array_filter($value, 'is_numeric');
     }
 
     /**
@@ -116,8 +116,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
     /**
      * Rule condition SQL builder setter
-     *
-     * @param Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder $ruleHelper
      */
     public function setRuleResourceHelper(Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder $ruleHelper)
     {
@@ -157,8 +155,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
     /**
      * Add special attributes
-     *
-     * @param array $attributes
      */
     protected function _addSpecialAttributes(array &$attributes)
     {
@@ -501,7 +497,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Validate product attribute value for condition
      *
-     * @param Varien_Object $object
      * @return bool
      */
     public function validate(Varien_Object $object)

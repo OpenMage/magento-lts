@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,15 +24,13 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
 {
     /**
      * Regular expressions for cutting malicious code
-     *
-     * @var array
      */
     protected array $_expressions = [
         //comments, must be first
         '/(\/\*.*\*\/)/Us',
         //tabs
         '/(\t)/',
-        //javasript prefix
+        //javascript prefix
         '/(javascript\s*:)/Usi',
         //import styles
         '/(@import)/Usi',
@@ -83,7 +82,6 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
     /**
      * Set expressions
      *
-     * @param array $expressions
      * @return $this
      */
     public function setExpressions(array $expressions)

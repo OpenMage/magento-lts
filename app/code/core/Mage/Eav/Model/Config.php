@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -146,7 +147,7 @@ class Mage_Eav_Model_Config
             $storeId = $this->_storeId();
         } else {
             // ensure store id is consistent
-            $storeId = (int)$storeId;
+            $storeId = (int) $storeId;
         }
         if (isset($this->_storeInitialized[$storeId]) && $this->_storeInitialized[$storeId]) {
             return;
@@ -240,7 +241,7 @@ class Mage_Eav_Model_Config
                 if (!isset($entityAttributeData[$key])) {
                     continue;
                 }
-                $entityAttributeData[$key] = (int)$entityAttributeData[$key];
+                $entityAttributeData[$key] = (int) $entityAttributeData[$key];
             }
 
             $this->_entityTypeAttributes[$storeId][$entityType->getId()][$attributeId] = $entityAttributeData;
@@ -330,7 +331,7 @@ class Mage_Eav_Model_Config
         Mage::app()->saveCache(
             serialize($cacheData),
             self::ENTITIES_CACHE_ID . '_' . $storeId,
-            ['eav', self::ENTITIES_CACHE_ID, Mage_Eav_Model_Entity_Attribute::CACHE_TAG]
+            ['eav', self::ENTITIES_CACHE_ID, Mage_Eav_Model_Entity_Attribute::CACHE_TAG],
         );
     }
 
@@ -650,7 +651,6 @@ class Mage_Eav_Model_Config
 
     /**
      * @param string|Mage_Eav_Model_Entity_Type $entityType
-     * @param array $attributes
      * @return $this
      * @deprecated No longer required. All attribute data is cached on-access.
      */

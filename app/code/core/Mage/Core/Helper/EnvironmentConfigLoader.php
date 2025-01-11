@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -52,7 +53,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      * Override the store 'german' configuration:
      * @example OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME=store_german
      *
-     * @param Varien_Simplexml_Config $xmlConfig
      * @return void
      */
     public function overrideEnvironment(Varien_Simplexml_Config $xmlConfig)
@@ -105,11 +105,11 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         $configKeyParts = array_filter(
             explode(
                 static::ENV_KEY_SEPARATOR,
-                $configKey
+                $configKey,
             ),
-            'trim'
+            'trim',
         );
-        list($_, $scope) = $configKeyParts;
+        list($unused, $scope) = $configKeyParts;
         return [$configKeyParts, $scope];
     }
 
@@ -133,11 +133,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
     /**
      * Build configuration path.
-     *
-     * @param string $section
-     * @param string $group
-     * @param string $field
-     * @return string
      */
     protected function buildPath(string $section, string $group, string $field): string
     {
@@ -146,10 +141,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
     /**
      * Build configuration node path.
-     *
-     * @param string $scope
-     * @param string $path
-     * @return string
      */
     protected function buildNodePath(string $scope, string $path): string
     {

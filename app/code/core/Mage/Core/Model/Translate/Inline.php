@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -241,10 +241,10 @@ class Mage_Core_Model_Translate_Inline
         }
 
         $baseJsUrl = Mage::getBaseUrl('js');
-        $url_prefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
+        $urlPrefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
         $ajaxUrl = Mage::getUrl(
-            $url_prefix . '/ajax/translate',
-            ['_secure' => Mage::app()->getStore()->isCurrentlySecure()]
+            $urlPrefix . '/ajax/translate',
+            ['_secure' => Mage::app()->getStore()->isCurrentlySecure()],
         );
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
@@ -482,8 +482,8 @@ class Mage_Core_Model_Translate_Inline
                 [$this, '_getTagLocation'],
                 [
                     'tagName' => $tagName,
-                    'tagList' => $tagsList
-                ]
+                    'tagList' => $tagsList,
+                ],
             );
 
             if (!empty($trArr)) {
@@ -504,6 +504,7 @@ class Mage_Core_Model_Translate_Inline
      * @param int $from
      * @return false|int return false if end of tag is not found
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function findEndOfTag($body, $tagName, $from)
     {
         $openTag = '<' . $tagName;
@@ -518,7 +519,7 @@ class Mage_Core_Model_Translate_Inline
             }
             $length = $end - $from  + $tagLength + 3;
         }
-        if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, null, $end)) {
+        if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, 0, $end)) {
             return $end + strlen($tagMatch[0]);
         } else {
             return false;
@@ -562,7 +563,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function getIsAjaxRequest()
     {
-        return (bool)Mage::app()->getRequest()->getQuery('isAjax');
+        return (bool) Mage::app()->getRequest()->getQuery('isAjax');
     }
 
     /**
@@ -574,7 +575,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function setIsAjaxRequest($flag)
     {
-        Mage::app()->getRequest()->setQuery('isAjax', (int) (bool)$flag);
+        Mage::app()->getRequest()->setQuery('isAjax', (int) (bool) $flag);
         return $this;
     }
 
@@ -596,7 +597,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function setIsJson($flag)
     {
-        $this->_isJson = (bool)$flag;
+        $this->_isJson = (bool) $flag;
         return $this;
     }
 }

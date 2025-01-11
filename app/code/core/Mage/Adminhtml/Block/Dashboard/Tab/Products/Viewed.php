@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +37,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } else {
-            $storeId = (int)$this->getParam('store');
+            $storeId = (int) $this->getParam('store');
         }
         $collection = Mage::getResourceModel('reports/product_collection')
             ->addAttributeToSelect('*')
@@ -54,16 +55,13 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
             'sortable'  => false,
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('price', [
-            'header'    => Mage::helper('reports')->__('Price'),
-            'width'     => '120px',
             'type'      => 'currency',
-            'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
+            'currency_code' => (string) Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode(),
             'sortable'  => false,
-            'index'     => 'price'
         ]);
 
         $this->addColumn('views', [
@@ -71,7 +69,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
             'width'     => '120px',
             'align'     => 'right',
             'sortable'  => false,
-            'index'     => 'views'
+            'index'     => 'views',
         ]);
 
         $this->setFilterVisibility(false);

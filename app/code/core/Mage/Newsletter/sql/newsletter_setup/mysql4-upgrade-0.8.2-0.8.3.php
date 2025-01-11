@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +29,7 @@ $conn->addColumn($queueTable, 'newsletter_sender_name', 'varchar(200) default NU
 $conn->addColumn(
     $queueTable,
     'newsletter_sender_email',
-    'varchar(200) character set latin1 collate latin1_general_ci default NULL AFTER `newsletter_sender_name`'
+    'varchar(200) character set latin1 collate latin1_general_ci default NULL AFTER `newsletter_sender_name`',
 );
 
 $conn->modifyColumn($templateTable, 'template_text_preprocessed', "text comment 'deprecated since 1.4.0.1'");
@@ -47,8 +48,8 @@ try {
                 'template_styles',
                 'template_subject',
                 'template_sender_name',
-                'template_sender_email'
-            ]
+                'template_sender_email',
+            ],
         );
     $rows = $conn->fetchAll($select);
 
@@ -66,9 +67,9 @@ try {
                         'newsletter_styles'         => $row['template_styles'],
                         'newsletter_subject'        => $row['template_subject'],
                         'newsletter_sender_name'    => $row['template_sender_name'],
-                        'newsletter_sender_email'   => $row['template_sender_email']
+                        'newsletter_sender_email'   => $row['template_sender_email'],
                     ],
-                    $whereBind
+                    $whereBind,
                 );
         }
     }

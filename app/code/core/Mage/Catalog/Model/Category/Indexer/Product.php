@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,20 +53,20 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
     protected $_matchedEntities = [
         Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
-            Mage_Index_Model_Event::TYPE_MASS_ACTION
+            Mage_Index_Model_Event::TYPE_MASS_ACTION,
         ],
         Mage_Catalog_Model_Category::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Core_Model_Store::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Core_Model_Store_Group::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
-        ]
+            Mage_Index_Model_Event::TYPE_SAVE,
+        ],
     ];
 
     /**
@@ -100,7 +101,6 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      * Check if event can be matched by process.
      * Overwrote for specific config save, store and store groups save matching
      *
-     * @param Mage_Index_Model_Event $event
      * @return bool
      */
     public function matchEvent(Mage_Index_Model_Event $event)
@@ -140,7 +140,6 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      * Register data required by process in event object
      * Check if category ids was changed
      *
-     * @param Mage_Index_Model_Event $event
      * @return Mage_Catalog_Model_Category_Indexer_Product
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
@@ -171,8 +170,6 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
 
     /**
      * Register event data during product save process
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _registerProductEvent(Mage_Index_Model_Event $event)
     {
@@ -218,8 +215,6 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
 
     /**
      * Register event data during category save process
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _registerCategoryEvent(Mage_Index_Model_Event $event)
     {
@@ -240,8 +235,6 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
 
     /**
      * Process event data and save to index
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _processEvent(Mage_Index_Model_Event $event)
     {

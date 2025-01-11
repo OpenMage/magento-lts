@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,11 +32,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
                     'onclick'   => Mage::helper('core/js')->getSetLocationJs(
                         $this->getUrl(
                             '*/catalog_product/',
-                            ['store' => $this->getRequest()->getParam('store', 0)]
-                        )
+                            ['store' => $this->getRequest()->getParam('store', 0)],
+                        ),
                     ),
-                    'class' => 'back'
-                ])
+                    'class' => 'back',
+                ]),
         );
 
         $this->setChild(
@@ -43,8 +44,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Reset'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
-                ])
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])),
+                ]),
         );
 
         $this->setChild(
@@ -53,8 +54,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Save'),
                     'onclick'   => 'attributesForm.submit()',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
         return $this;
     }

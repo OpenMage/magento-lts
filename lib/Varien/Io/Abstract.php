@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,29 +23,28 @@
 abstract class Varien_Io_Abstract implements Varien_Io_Interface
 {
     /**
-     * If this variable is set to true, our library will be able to automaticaly
-     * create non-existant directories
+     * If this variable is set to true, our library will be able to automatically
+     * create non-existent directories
      *
      * @var bool
      */
     protected $_allowCreateFolders = false;
 
     /**
-     * Allow automaticaly create non-existant directories
+     * Allow automatically create non-existent directories
      *
      * @param bool $flag
      * @return Varien_Io_Abstract
      */
     public function setAllowCreateFolders($flag)
     {
-        $this->_allowCreateFolders = (bool)$flag;
+        $this->_allowCreateFolders = (bool) $flag;
         return $this;
     }
 
     /**
      * Open a connection
      *
-     * @param array $args
      * @return bool
      */
     public function open(array $args = [])
@@ -63,7 +63,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
             return './';
         }
 
-        $path = trim(preg_replace('/\\\\/', '/', (string)$path));
+        $path = trim(preg_replace('/\\\\/', '/', (string) $path));
 
         if (!preg_match("/(\.\w{1,4})$/", $path) && !preg_match("/\?[^\\/]+$/", $path) && !preg_match('/\\/$/', $path)) {
             $path .= '/';

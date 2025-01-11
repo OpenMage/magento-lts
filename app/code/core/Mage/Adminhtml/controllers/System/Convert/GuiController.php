@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,13 +48,13 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         /**
          * Set active menu item
          */
-        $this->_setActiveMenu('system/convert');
+        $this->_setActiveMenu('system/convert/gui');
 
         /**
          * Append profiles block to content
          */
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/system_convert_gui', 'convert_profile')
+            $this->getLayout()->createBlock('adminhtml/system_convert_gui', 'convert_profile'),
         );
 
         /**
@@ -89,10 +90,10 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
         $this->_title($profile->getId() ? $profile->getName() : $this->__('New Profile'));
 
-        $this->_setActiveMenu('system/convert');
+        $this->_setActiveMenu('system/convert/gui');
 
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit')
+            $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit'),
         );
 
         /**

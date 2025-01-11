@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,12 +89,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
             'action' => $this->getData('action'),
-            'method' => 'post'
+            'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend' => Mage::helper('widget')->__('Frontend Properties')]
+            ['legend' => Mage::helper('widget')->__('Frontend Properties')],
         );
 
         if ($widgetInstance->getId()) {
@@ -110,7 +111,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
             'title' => Mage::helper('widget')->__('Type'),
             'class' => '',
             'values' => $this->getTypesOptionsArray(),
-            'disabled' => true
+            'disabled' => true,
         ]);
 
         $fieldset->addField('package_theme', 'select', [
@@ -119,7 +120,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
             'title' => Mage::helper('widget')->__('Design Package/Theme'),
             'required' => false,
             'values'   => $this->getPackegeThemeOptionsArray(),
-            'disabled' => true
+            'disabled' => true,
         ]);
 
         $fieldset->addField('title', 'text', [
@@ -138,7 +139,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
                 'required'  => true,
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
             ]);
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $renderer = $this->getStoreSwitcherRenderer();
             $field->setRenderer($renderer);
         }
 
@@ -148,7 +149,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
             'title' => Mage::helper('widget')->__('Sort Order'),
             'class' => '',
             'required' => false,
-            'note' => Mage::helper('widget')->__('Sort Order of widget instances in the same block reference')
+            'note' => Mage::helper('widget')->__('Sort Order of widget instances in the same block reference'),
         ]);
 
         $layoutBlock = $this->getLayout()
@@ -156,7 +157,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
             ->setWidgetInstance($widgetInstance);
         $fieldset = $form->addFieldset(
             'layout_updates_fieldset',
-            ['legend' => Mage::helper('widget')->__('Layout Updates')]
+            ['legend' => Mage::helper('widget')->__('Layout Updates')],
         );
         $fieldset->addField('layout_updates', 'note', [
         ]);
@@ -188,7 +189,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
     }
 
     /**
-     * Initialize form fileds values
+     * Initialize form fields values
      *
      * @inheritDoc
      */

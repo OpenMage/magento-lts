@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -117,7 +118,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             $quoteItem = $this->_getQuoteItemByProduct(
                 $quote,
                 $productByItem,
-                $this->_getProductRequest($productItem)
+                $this->_getProductRequest($productItem),
             );
             if (is_null($quoteItem->getId())) {
                 $errors[] = Mage::helper('checkout')->__('One item of products is not belong any of quote item');
@@ -175,7 +176,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 $quoteItem = $this->_getQuoteItemByProduct(
                     $quote,
                     $productByItem,
-                    $this->_getProductRequest($productItem)
+                    $this->_getProductRequest($productItem),
                 );
                 if (is_null($quoteItem->getId())) {
                     $errors[] = Mage::helper('checkout')->__('One item of products is not belong any of quote item');
@@ -226,7 +227,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 'set'          => $product->getAttributeSetId(),
                 'type'         => $product->getTypeId(),
                 'category_ids' => $product->getCategoryIds(),
-                'website_ids'  => $product->getWebsiteIds()
+                'website_ids'  => $product->getWebsiteIds(),
             ];
         }
 
@@ -285,7 +286,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 $quoteItem = $this->_getQuoteItemByProduct(
                     $quote,
                     $productByItem,
-                    $this->_getProductRequest($productItem)
+                    $this->_getProductRequest($productItem),
                 );
                 if ($quoteItem && $quoteItem->getId()) {
                     $newQuoteItem = clone $quoteItem;

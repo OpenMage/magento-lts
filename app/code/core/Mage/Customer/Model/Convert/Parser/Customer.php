@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -330,7 +331,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 if (is_null($groupCode)) {
                     $this->addException(
                         Mage::helper('catalog')->__('An invalid group ID is specified, skipping the record.'),
-                        Mage_Dataflow_Model_Convert_Exception::ERROR
+                        Mage_Dataflow_Model_Convert_Exception::ERROR,
                     );
                     continue;
                 } else {
@@ -362,7 +363,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             'created_in',
             'default_billing',
             'default_shipping',
-            'country_id'
+            'country_id',
         ];
 
         $customerAttributes = Mage::getResourceModel('customer/attribute_collection')
@@ -376,7 +377,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             'email'         => 'email',
             'group'         => 'group',
             'create_in'     => 'create_in',
-            'is_subscribed' => 'is_subscribed'
+            'is_subscribed' => 'is_subscribed',
         ];
 
         foreach ($customerAttributes as $attr) {
@@ -519,9 +520,9 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                                     Mage::helper('customer')->__(
                                         'Invalid attribute option specified for attribute %s (%s), skipping the record.',
                                         $field,
-                                        $value
+                                        $value,
                                     ),
-                                    Varien_Convert_Exception::ERROR
+                                    Varien_Convert_Exception::ERROR,
                                 );
                                 continue;
                             }

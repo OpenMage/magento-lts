@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
     /**
      * Create customer address
      *
-     * @param array $data
      * @throws Mage_Api2_Exception
      * @return string
      */
@@ -111,21 +111,19 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
     /**
      * Get array with default addresses information if possible
      *
-     * @param Mage_Customer_Model_Address $address
      * @return array
      */
     protected function _getDefaultAddressesInfo(Mage_Customer_Model_Address $address)
     {
         return [
-            'is_default_billing'  => (int)$this->_isDefaultBillingAddress($address),
-            'is_default_shipping' => (int)$this->_isDefaultShippingAddress($address)
+            'is_default_billing'  => (int) $this->_isDefaultBillingAddress($address),
+            'is_default_shipping' => (int) $this->_isDefaultShippingAddress($address),
         ];
     }
 
     /**
      * Update specified stock item
      *
-     * @param array $data
      * @throws Mage_Api2_Exception
      */
     protected function _update(array $data)
@@ -145,7 +143,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         if (isset($data['region'])) {
             $data['region'] = $this->_getRegionIdByNameOrCode(
                 $data['region'],
-                $data['country_id'] ?? $address->getCountryId()
+                $data['country_id'] ?? $address->getCountryId(),
             );
             $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
         }
@@ -171,7 +169,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
         if ($this->_isDefaultBillingAddress($address) || $this->_isDefaultShippingAddress($address)) {
             $this->_critical(
                 'Address is default for customer so is not allowed to be deleted',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
         try {

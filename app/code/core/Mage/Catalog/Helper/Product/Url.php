@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,34 +85,52 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
         'צ' => 'c', 'ק' => 'q', 'ר' => 'r', 'ש' => 'w', 'ת' => 't', '™' => 'tm',
     ];
 
+    protected array $_convertTableShort = ['@' => 'at', '©' => 'c', '®' => 'r', '™' => 'tm'];
+
+    protected array $_convertTableCustom = [];
+
     /**
-     * Check additional instruction for convertation table in configuration
+     * Check additional instruction for conversion table in configuration
      */
     public function __construct()
     {
         $convertNode = Mage::getConfig()->getNode('default/url/convert');
         if ($convertNode) {
             foreach ($convertNode->children() as $node) {
-                $this->_convertTable[(string) $node->from] = (string) $node->to;
+                if (property_exists($node, 'from') && property_exists($node, 'to')) {
+                    $this->_convertTableCustom[(string) $node->from] = (string) $node->to;
+                }
             }
         }
     }
 
     /**
-     * Get chars convertation table
+     * Get chars conversion table
      *
      * @return array
      */
     public function getConvertTable()
     {
-        return $this->_convertTable;
+        return $this->_convertTable + $this->_convertTableShort + $this->_convertTableCustom;
+    }
+
+    public function getConvertTableCustom(): array
+    {
+        return $this->_convertTableCustom;
+    }
+
+    public function getConvertTableShort(): array
+    {
+        return $this->_convertTableShort + $this->_convertTableCustom;
     }
 
     /**
-     * Process string based on convertation table
+     * Process string based on conversion table
      *
      * @param   string $string
      * @return  string
+     * @deprecated
+     * @see Mage_Catalog_Model_Url::formatUrlKey()
      */
     public function format($string)
     {

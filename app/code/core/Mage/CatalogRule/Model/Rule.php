@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -125,8 +126,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *  - 'factory' Mage_Core_Model_Factory
      *  - 'config' Mage_Core_Model_Config
      *  - 'app' Mage_Core_Model_App
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -176,7 +175,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         if (!$this->hasCustomerGroupIds()) {
             $customerGroupIds = $this->_getResource()->getCustomerGroupIds($this->getId());
-            $this->setData('customer_group_ids', (array)$customerGroupIds);
+            $this->setData('customer_group_ids', (array) $customerGroupIds);
         }
         return $this->_getData('customer_group_ids');
     }
@@ -229,7 +228,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                     [
                         'attributes' => $this->getCollectedAttributes(),
                         'product'    => Mage::getModel('catalog/product'),
-                    ]
+                    ],
                 );
             }
         }
@@ -250,7 +249,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         $results = [];
         foreach ($this->_getWebsitesMap() as $websiteId => $defaultStoreId) {
             $product->setStoreId($defaultStoreId);
-            $results[$websiteId] = (int)$this->getConditions()->validate($product);
+            $results[$websiteId] = (int) $this->getConditions()->validate($product);
         }
         $this->_productIds[$product->getId()] = $results;
     }
@@ -339,7 +338,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         Mage::getSingleton('index/indexer')->processEntityAction(
             new Varien_Object(['id' => $product->getId()]),
             Mage_Catalog_Model_Product::ENTITY,
-            Mage_Catalog_Model_Product_Indexer_Price::EVENT_TYPE_REINDEX_PRICE
+            Mage_Catalog_Model_Product_Indexer_Price::EVENT_TYPE_REINDEX_PRICE,
         );
 
         return $this;
@@ -348,7 +347,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Calculate price using catalog price rule of product
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param float $price
      * @return float|null
      */
@@ -375,7 +373,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                             $priceRules = Mage::helper('catalogrule')->calcPriceRule(
                                 $ruleData['sub_simple_action'],
                                 $ruleData['sub_discount_amount'],
-                                $priceRules ? $priceRules : $price
+                                $priceRules ? $priceRules : $price,
                             );
                         } else {
                             $priceRules = ($priceRules ? $priceRules : $price);
@@ -387,7 +385,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                         $priceRules = Mage::helper('catalogrule')->calcPriceRule(
                             $ruleData['action_operator'],
                             $ruleData['action_amount'],
-                            $priceRules ? $priceRules : $price
+                            $priceRules ? $priceRules : $price,
                         );
                         if ($ruleData['action_stop']) {
                             break;
@@ -475,7 +473,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Load matched product rules to the product
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function loadProductRules(Mage_Catalog_Model_Product $product)

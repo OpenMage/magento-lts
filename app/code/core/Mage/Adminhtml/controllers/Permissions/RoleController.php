@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +47,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     protected function _initAction()
     {
         $this->loadLayout();
-        $this->_setActiveMenu('system/acl');
+        $this->_setActiveMenu('system/acl/roles');
         $this->_addBreadcrumb($this->__('System'), $this->__('System'));
         $this->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'));
         $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));
@@ -122,10 +123,10 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             $this->getLayout()->createBlock('adminhtml/permissions_buttons')
                 ->setRoleId($role->getId())
                 ->setRoleInfo($role)
-                ->setTemplate('permissions/roleinfo.phtml')
+                ->setTemplate('permissions/roleinfo.phtml'),
         );
         $this->_addJs(
-            $this->getLayout()->createBlock('adminhtml/template')->setTemplate('permissions/role_users_grid_js.phtml')
+            $this->getLayout()->createBlock('adminhtml/template')->setTemplate('permissions/role_users_grid_js.phtml'),
         );
         $this->renderLayout();
     }
@@ -222,7 +223,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                  ->setRoleType('G');
             Mage::dispatchEvent(
                 'admin_permissions_role_prepare_save',
-                ['object' => $role, 'request' => $this->getRequest()]
+                ['object' => $role, 'request' => $this->getRequest()],
             );
             $role->save();
 
@@ -256,7 +257,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     public function editrolegridAction()
     {
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/permissions_role_grid_user')->toHtml()
+            $this->getLayout()->createBlock('adminhtml/permissions_role_grid_user')->toHtml(),
         );
     }
 

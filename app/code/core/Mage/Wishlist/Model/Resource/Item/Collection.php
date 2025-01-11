@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +61,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     protected $_storeIds = [];
 
     /**
-     * Add days in whishlist filter of product collection
+     * Add days in wishlist filter of product collection
      *
      * @var bool
      */
@@ -189,7 +190,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         }
 
         Mage::dispatchEvent('wishlist_item_collection_products_after_load', [
-            'product_collection' => $productCollection
+            'product_collection' => $productCollection,
         ]);
 
         $checkInStock = $this->_productInStock && !Mage::helper('cataloginventory')->isShowOutOfStock();
@@ -220,7 +221,6 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     /**
      * Add filter by wishlist object
      *
-     * @param Mage_Wishlist_Model_Wishlist $wishlist
      * @return $this
      */
     public function addWishlistFilter(Mage_Wishlist_Model_Wishlist $wishlist)
@@ -241,7 +241,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             ->join(
                 ['wishlist' => $this->getTable('wishlist/wishlist')],
                 'main_table.wishlist_id = wishlist.wishlist_id',
-                []
+                [],
             )
             ->where('wishlist.customer_id = ?', $customerId);
         return $this;
@@ -275,7 +275,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         $storeTable = Mage::getSingleton('core/resource')->getTableName('core/store');
         $this->getSelect()->join(['store' => $storeTable], 'main_table.store_id=store.store_id', [
             'store_name' => 'name',
-            'item_store_id' => 'store_id'
+            'item_store_id' => 'store_id',
         ]);
         return $this;
     }
@@ -315,7 +315,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      */
     public function setVisibilityFilter($flag = true)
     {
-        $this->_productVisible = (bool)$flag;
+        $this->_productVisible = (bool) $flag;
         return $this;
     }
 
@@ -328,7 +328,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      */
     public function setSalableFilter($flag = true)
     {
-        $this->_productSalable = (bool)$flag;
+        $this->_productSalable = (bool) $flag;
         return $this;
     }
 
@@ -341,12 +341,12 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      */
     public function setInStockFilter($flag = true)
     {
-        $this->_productInStock = (bool)$flag;
+        $this->_productInStock = (bool) $flag;
         return $this;
     }
 
     /**
-     * Set add days in whishlist
+     * Set add days in wishlist
      *
      * This method appears in 1.5.0.0 in deprecated state, because:
      * - we need it to make wishlist item collection interface as much as possible compatible with old
@@ -437,7 +437,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
                         ' AND product_name_table.store_id=' . $storeId .
                         ' AND product_name_table.attribute_id=' . $attribute->getId() .
                         ' AND product_name_table.entity_type_id=' . $entityTypeId,
-                    []
+                    [],
                 );
 
             $this->_isProductNameJoined = true;
@@ -488,7 +488,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             }
         }
 
-        return (int)$this->_itemsQty;
+        return (int) $this->_itemsQty;
     }
 
     /**

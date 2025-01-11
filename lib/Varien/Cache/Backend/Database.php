@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Cache
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -123,7 +124,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param  string  $id                     Cache id
      * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
-     * @return string|false cached datas
+     * @return string|false cached data
      */
     public function load($id, $doNotTestCacheValidity = false)
     {
@@ -201,8 +202,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 return false;
             }
         }
-        $tagRes = $this->_saveTags($id, $tags);
-        return $tagRes;
+        return $this->_saveTags($id, $tags);
     }
 
     /**
@@ -447,7 +447,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             $res = [
                 'expire' => $data['expire_time'],
                 'mtime' => $data['update_time'],
-                'tags'  => $tags
+                'tags'  => $tags,
             ];
         }
         return $res;
@@ -466,7 +466,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             return $this->_getAdapter()->update(
                 $this->_getDataTable(),
                 ['expire_time' => new Zend_Db_Expr('expire_time+' . $extraLifetime)],
-                ['id=?' => $id, 'expire_time = 0 OR expire_time>?' => time()]
+                ['id=?' => $id, 'expire_time = 0 OR expire_time>?' => time()],
             );
         } else {
             return true;
@@ -495,7 +495,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             'expired_read' => true,
             'priority' => false,
             'infinite_lifetime' => true,
-            'get_list' => true
+            'get_list' => true,
         ];
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +54,6 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     /**
      * Set webservice api controller
      *
-     * @param Mage_Api_Controller_Action $controller
      * @return $this
      */
     public function setController(Mage_Api_Controller_Action $controller)
@@ -73,7 +73,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
 
         if ($controller === null) {
             $controller = new Varien_Object(
-                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
+                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()],
             );
 
             $this->setData('controller', $controller);

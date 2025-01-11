@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,7 +23,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Read connection
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Interface|false
      */
     protected $_read;
 
@@ -56,7 +57,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomerFilter(Mage_Customer_Model_Customer $customer)
@@ -84,8 +84,8 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
                     'store_id',
                     'lifetime'  => 'sum(sales.base_grand_total)',
                     'avgsale'   => 'avg(sales.base_grand_total)',
-                    'num_orders' => 'count(sales.base_grand_total)'
-                ]
+                    'num_orders' => 'count(sales.base_grand_total)',
+                ],
             )
             ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
             ->group('sales.store_id')

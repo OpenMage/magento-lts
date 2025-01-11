@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,7 +92,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this,
             self::ENTITY,
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         );
         return $this;
     }
@@ -121,7 +122,6 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     /**
      * Product event tags collection getter
      *
-     * @param  Varien_Event_Observer $observer
      * @return Mage_Tag_Model_Resource_Tag_Collection
      */
     protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
@@ -454,7 +454,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             $relationModel->getProductId(),
             $this->getId(),
             $relationModel->getCustomerId(),
-            $relationModel->getStoreId()
+            $relationModel->getStoreId(),
         );
     }
 

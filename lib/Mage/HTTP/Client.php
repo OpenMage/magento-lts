@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_HTTP
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,9 +26,7 @@ class Mage_HTTP_Client
     /**
      * Disallow to instantiate - pvt constructor
      */
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * Factory for HTTP client
@@ -44,8 +43,7 @@ class Mage_HTTP_Client
         }
 
         $class = __CLASS__ . '_' . str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $frontend)));
-        $obj = new $class();
-        return $obj;
+        return new $class();
     }
 
     /**

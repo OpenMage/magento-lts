@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -128,7 +129,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     /**
      * Applies all store filters in one place to prevent multiple joins in select
      *
-     * @param null|Zend_Db_Select $select
      * @return $this
      */
     protected function _applyStoresFilterToSelect(?Zend_Db_Select $select = null)
@@ -148,7 +148,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $select->join(
                 ['store' => $this->_reviewStoreTable],
                 'rt.review_id=store.review_id AND ' . $inCond,
-                []
+                [],
             )
             ->group('rt.review_id');
 
@@ -156,8 +156,8 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         } else {
             $select->join(
                 ['store' => $this->_reviewStoreTable],
-                $adapter->quoteInto('rt.review_id=store.review_id AND store.store_id = ?', (int)$storesIds),
-                []
+                $adapter->quoteInto('rt.review_id=store.review_id AND store.store_id = ?', (int) $storesIds),
+                [],
             );
         }
 
@@ -276,12 +276,12 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             ->join(
                 ['rt' => $reviewTable],
                 'rt.entity_pk_value = e.entity_id',
-                ['rt.review_id', 'review_created_at' => 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id']
+                ['rt.review_id', 'review_created_at' => 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id'],
             )
             ->join(
                 ['rdt' => $reviewDetailTable],
                 'rdt.review_id = rt.review_id',
-                ['rdt.title','rdt.nickname', 'rdt.detail', 'rdt.customer_id', 'rdt.store_id']
+                ['rdt.title','rdt.nickname', 'rdt.detail', 'rdt.customer_id', 'rdt.store_id'],
             );
         return $this;
     }
@@ -374,7 +374,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 if ($condition == 1) {
                     $conditionParts = [
                         $this->_getConditionSql('rdt.customer_id', ['is' => new Zend_Db_Expr('NULL')]),
-                        $this->_getConditionSql('rdt.store_id', ['eq' => Mage_Core_Model_App::ADMIN_STORE_ID])
+                        $this->_getConditionSql('rdt.store_id', ['eq' => Mage_Core_Model_App::ADMIN_STORE_ID]),
                     ];
                     $conditionSql = implode(' AND ', $conditionParts);
                 } elseif ($condition == 2) {
@@ -382,7 +382,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 } else {
                     $conditionParts = [
                         $this->_getConditionSql('rdt.customer_id', ['is' => new Zend_Db_Expr('NULL')]),
-                        $this->_getConditionSql('rdt.store_id', ['neq' => Mage_Core_Model_App::ADMIN_STORE_ID])
+                        $this->_getConditionSql('rdt.store_id', ['neq' => Mage_Core_Model_App::ADMIN_STORE_ID]),
                     ];
                     $conditionSql = implode(' AND ', $conditionParts);
                 }

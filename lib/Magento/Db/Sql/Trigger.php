@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Magento
  * @package    Magento_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +53,7 @@ class Magento_Db_Sql_Trigger
      */
     protected $_timeTypes = [
         self::SQL_TIME_AFTER,
-        self::SQL_TIME_BEFORE
+        self::SQL_TIME_BEFORE,
     ];
 
     /**
@@ -63,7 +64,7 @@ class Magento_Db_Sql_Trigger
     protected $_eventTypes = [
         self::SQL_EVENT_INSERT,
         self::SQL_EVENT_UPDATE,
-        self::SQL_EVENT_DELETE
+        self::SQL_EVENT_DELETE,
     ];
 
     /**
@@ -77,7 +78,7 @@ class Magento_Db_Sql_Trigger
         self::TIME      => self::SQL_TIME_AFTER,
         self::EVENT     => null,
         self::SCOPE     => self::SQL_FOR_EACH_ROW,
-        self::BODY      => []
+        self::BODY      => [],
     ];
 
     /**

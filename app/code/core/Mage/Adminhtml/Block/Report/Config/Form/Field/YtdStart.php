@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,7 +27,7 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
         $_months = [];
         for ($i = 1; $i <= 12; $i++) {
             $_months[$i] = Mage::app()->getLocale()
-                ->date(mktime(0, null, null, $i))
+                ->date(mktime(0, 0, 0, $i))
                 ->get(Zend_Date::MONTH_NAME);
         }
 
@@ -43,16 +44,16 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
 
         $element->setName($element->getName() . '[]');
 
-        $_monthsHtml = $element->setStyle('width:100px;')
+        $monthsHtml = $element->setStyle('width:100px;')
             ->setValues($_months)
             ->setValue($values[0] ?? null)
             ->getElementHtml();
 
-        $_daysHtml = $element->setStyle('width:50px;')
+        $daysHtml = $element->setStyle('width:50px;')
             ->setValues($_days)
             ->setValue($values[1] ?? null)
             ->getElementHtml();
 
-        return sprintf('%s %s', $_monthsHtml, $_daysHtml);
+        return sprintf('%s %s', $monthsHtml, $daysHtml);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,17 +23,17 @@ $installer = $this;
 $installer->getConnection()->addColumn(
     $this->getTable('sales/quote'),
     'global_currency_code',
-    'varchar(255) NULL AFTER `store_to_quote_rate`'
+    'varchar(255) NULL AFTER `store_to_quote_rate`',
 );
 $installer->getConnection()->addColumn(
     $this->getTable('sales/quote'),
     'base_to_quote_rate',
-    'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+    'decimal(12,4) NULL AFTER `store_to_quote_rate`',
 );
 $installer->getConnection()->addColumn(
     $this->getTable('sales/quote'),
     'base_to_global_rate',
-    'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+    'decimal(12,4) NULL AFTER `store_to_quote_rate`',
 );
 
 $installer->addAttribute('quote', 'global_currency_code', ['type' => 'static']);

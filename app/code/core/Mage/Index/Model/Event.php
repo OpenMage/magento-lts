@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,8 +27,8 @@
  * @method $this setEntityPk(int $value)
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
- * @method $this setOldData(string $value)
- * @method $this setNewData(string $value)
+ * @method $this setOldData(string|array $value)
+ * @method $this setNewData(string|array $value)
  * @method Varien_Object getDataObject()
  * @method $this setDataObject(Varien_Object $value)
  * @method bool hasCreatedAt()
@@ -71,7 +72,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Specify process object
      *
-     * @param Mage_Index_Model_Process $process
+     * @param Mage_Index_Model_Process|null $process
      * @return $this
      */
     public function setProcess($process)
@@ -83,7 +84,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get related process object
      *
-     * @return Mage_Index_Model_Process
+     * @return Mage_Index_Model_Process|null
      */
     public function getProcess()
     {
@@ -92,7 +93,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 
     /**
      * Specify namespace for old and new data
-     * @param string $namespace
+     * @param string|null $namespace
      * @return $this
      */
     public function setDataNamespace($namespace)
@@ -122,8 +123,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * Add process id to event object
      *
      * @param int $processId
-     * @param string $status
-     * @return  $this
+     * @param Mage_Index_Model_Process::EVENT_STATUS_* $status
+     * @return $this
      */
     public function addProcessId($processId, $status = Mage_Index_Model_Process::EVENT_STATUS_NEW)
     {
