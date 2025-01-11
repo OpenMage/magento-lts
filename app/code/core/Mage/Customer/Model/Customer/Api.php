@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,7 +23,7 @@
 class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 {
     protected $_mapAttributes = [
-        'customer_id' => 'entity_id'
+        'customer_id' => 'entity_id',
     ];
     /**
      * Prepare data to insert/update.
@@ -87,7 +88,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $result[$attributeAlias] = $customer->getData($attributeCode);
         }
 
-        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode => $attribute) {
+        foreach (array_keys($this->getAllowedAttributes($customer, $attributes)) as $attributeCode) {
             $result[$attributeCode] = $customer->getData($attributeCode);
         }
 
@@ -121,7 +122,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = $data[$attributeCode] ?? null;
             }
-            foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
+            foreach (array_keys($this->getAllowedAttributes($customer)) as $attributeCode) {
                 if (isset($data[$attributeCode])) {
                     $row[$attributeCode] = $data[$attributeCode];
                 }
@@ -149,7 +150,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
+        foreach (array_keys($this->getAllowedAttributes($customer)) as $attributeCode) {
             if (isset($customerData[$attributeCode])) {
                 $customer->setData($attributeCode, $customerData[$attributeCode]);
             }

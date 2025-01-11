@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,7 +79,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
 
         $validationConfig = $resource->getConfig()->getValidationConfig(
             $resource->getResourceType(),
-            self::CONFIG_NODE_KEY
+            self::CONFIG_NODE_KEY,
         );
 
         if (empty($validationConfig[$userType]['form_model'])) {
@@ -96,7 +97,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         }
         $this->_entity = Mage::getModel($validationConfig[$userType]['entity_model']);
         if (empty($this->_entity) || !$this->_entity instanceof Mage_Core_Model_Abstract) {
-            throw new Exception("Entity is not model.");
+            throw new Exception('Entity is not model.');
         }
 
         $this->_eavForm = Mage::getModel($this->_formPath);
@@ -111,7 +112,6 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     /**
      * Validate attribute value for attributes with source models
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @param mixed $attrValue
      * @return array|bool
      */
@@ -152,7 +152,6 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     /**
      * Filter request data.
      *
-     * @param  array $data
      * @return array Filtered data
      */
     public function filter(array $data)
@@ -168,7 +167,6 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
      * getErrors() will return an array of errors that explain why the
      * validation failed.
      *
-     * @param array $data
      * @param bool $partial
      * @return bool
      */
@@ -216,12 +214,12 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         $isRequiredRE  = '/^' . str_replace(
             '%s',
             '(.+)',
-            preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/')
+            preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/'),
         ) . '$/';
         $greaterThanRE = '/^' . str_replace(
             '%s',
             '(.+)',
-            preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'), '/')
+            preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'), '/'),
         ) . '$/';
 
         // find all required attributes labels

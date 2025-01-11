@@ -330,6 +330,7 @@ namespace PHPSTORM_META {
             'eav/entity_attribute_group_collection' => \Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection::class,
             'eav/entity_attribute_option' => \Mage_Eav_Model_Resource_Entity_Attribute_Option::class,
             'eav/entity_attribute_option_collection' => \Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection::class,
+            'eav/entity_attribute_option_swatch' => \Mage_Eav_Model_Resource_Entity_Attribute_Option_Swatch::class,
             'eav/entity_attribute_set' => \Mage_Eav_Model_Resource_Entity_Attribute_Set::class,
             'eav/entity_attribute_set_collection' => \Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection::class,
             'eav/entity_store' => \Mage_Eav_Model_Resource_Entity_Store::class,

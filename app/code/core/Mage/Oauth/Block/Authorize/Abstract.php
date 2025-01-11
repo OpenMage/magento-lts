@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,7 +26,7 @@
  * @method Mage_Oauth_Block_Authorize_Button setIsSimple(bool $flag)
  * @method bool getHasException()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setHasException(bool $flag)
- * @method bool getVerifier()
+ * @method null|string getVerifier()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier(string $verifier)
  * @method bool getIsLogged()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged(bool $flag)
@@ -85,7 +86,7 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
         $params = [
             '_relative' => true,
             '_area'     => 'adminhtml',
-            '_package'  => 'default'
+            '_package'  => 'default',
         ];
         return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }

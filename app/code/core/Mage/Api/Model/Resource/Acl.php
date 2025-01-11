@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +46,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         $rolesArr = $adapter->fetchAll(
             $adapter->select()
                 ->from($this->getTable('api/role'))
-                ->order(['tree_level', 'role_type'])
+                ->order(['tree_level', 'role_type']),
         );
         $this->loadRoles($acl, $rolesArr);
 
@@ -55,8 +56,8 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 ->joinLeft(
                     ['a' => $this->getTable('api/assert')],
                     'a.assert_id=r.assert_id',
-                    ['assert_type', 'assert_data']
-                )
+                    ['assert_type', 'assert_data'],
+                ),
         );
         $this->loadRules($acl, $rulesArr);
         return $acl;
@@ -65,7 +66,6 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load roles
      *
-     * @param Mage_Api_Model_Acl $acl
      * @param array[] $rolesArr
      * @return $this
      */
@@ -96,8 +96,6 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load rules
      *
-     * @param Mage_Api_Model_Acl $acl
-     * @param array $rulesArr
      * @return $this
      */
     public function loadRules(Mage_Api_Model_Acl $acl, array $rulesArr)

@@ -9,11 +9,12 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Mage_Adminhtml_Block_Sales_Order_Abstract $this */
 ?>
-<?php /** @var $this Mage_Adminhtml_Block_Sales_Order_View_Tab_Info */ ?>
 <?php $_order = $this->getOrder() ?>
 <div>
     <div id="order-messages">
@@ -51,6 +52,13 @@
                 <?php  if ($_order->getTracksCollection()->count()) : ?>
                 <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->quoteEscape($this->__('Track Order')) ?>"><?php echo $this->__('Track Order') ?></a>
                 <br/>
+                    <?php foreach ($_order->getTracksCollection() as $_track): ?>
+                        <div>
+                            <?php $trackNumber = $_track->getNumber();?>
+                            <strong><?php echo $_track->getTitle() ?></strong>
+                            <span data-copy-text="<?php echo $trackNumber ?>"><?php echo $trackNumber ?></span>
+                        </div> 
+                    <?php endforeach; ?>
                 <?php endif ?>
                 <?php if ($_order->getShippingDescription()): ?>
                     <strong><?php echo $this->escapeHtml($_order->getShippingDescription()) ?></strong>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -150,7 +151,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $this->_getWriteAdapter()->query($query);
             } elseif (is_array($variable) && count($variable)) {
                 $query  = "DELETE FROM {$this->getTable($table)} WHERE ";
-                $query .= $this->_getWriteAdapter()->quoteInto("attribute_id in (?)", $variable);
+                $query .= $this->_getWriteAdapter()->quoteInto('attribute_id in (?)', $variable);
                 if ($suffixToInsert) {
                     $query .= " AND {$suffixToInsert}";
                 }
@@ -184,7 +185,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         $attribute = Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tier_price');
         $this->_beginInsert(
             'catalogindex/price',
-            ['entity_id', 'attribute_id', 'value', 'website_id', 'customer_group_id', 'qty']
+            ['entity_id', 'attribute_id', 'value', 'website_id', 'customer_group_id', 'qty'],
         );
 
         /**
@@ -221,7 +222,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                             $index['value'],
                             $websiteId,
                             (int) $group->getId(),
-                            (int) $index['qty']
+                            (int) $index['qty'],
                         ]);
                     }
                 } else {
@@ -231,7 +232,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                         $index['value'],
                         $websiteId,
                         (int) $index['customer_group_id'],
-                        (int) $index['qty']
+                        (int) $index['qty'],
                     ]);
                 }
             }
@@ -271,7 +272,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             'customer_group_id',
             'value',
             'attribute_id',
-            'tax_class_id'
+            'tax_class_id',
         ]);
 
         $productTypes = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
@@ -301,7 +302,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                             $group->getId(),
                             $finalPrice,
                             $priceAttribute,
-                            $taxClassId
+                            $taxClassId,
                         ]);
                     }
                 }
@@ -325,7 +326,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             'entity_id',
             'customer_group_id',
             'value',
-            'tax_class_id'
+            'tax_class_id',
         ]);
         $this->clear(false, false, true, false, false, $products, $store);
         $products = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
@@ -354,7 +355,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                             $id,
                             $price['customer_group_id'],
                             $price['minimal_value'],
-                            $price['tax_class_id']
+                            $price['tax_class_id'],
                         ]);
                     }
                 }
@@ -430,7 +431,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                             $id,
                             $index['attribute_id'],
                             $value,
-                            (is_null($websiteId) ? $store->getId() : $websiteId)
+                            (is_null($websiteId) ? $store->getId() : $websiteId),
                         ]);
                     }
                 } else {
@@ -438,7 +439,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                         $id,
                         $index['attribute_id'],
                         $index['value'],
-                        (is_null($websiteId) ? $store->getId() : $websiteId)
+                        (is_null($websiteId) ? $store->getId() : $websiteId),
                     ]);
                 }
             }
@@ -562,7 +563,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     /**
      * Add price columns for catalog product flat table
      *
-     * @param Varien_Object $object
      * @return $this
      */
     public function prepareCatalogProductFlatColumns(Varien_Object $object)
@@ -577,7 +577,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 'nullable'   => true,
                 'default'   => null,
                 'extra'     => null,
-                'comment'   => $columnName . ' column'
+                'comment'   => $columnName . ' column',
             ];
         }
 
@@ -589,7 +589,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     /**
      * Add price indexes for catalog product flat table
      *
-     * @param Varien_Object $object
      * @return $this
      */
     public function prepareCatalogProductFlatIndexes(Varien_Object $object)
@@ -601,7 +600,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             $indexName  = 'IDX_DISPLAY_PRICE_GROUP_' . $group->getId();
             $indexes[$indexName] = [
                 'type'   => 'index',
-                'fields' => [$columnName]
+                'fields' => [$columnName],
             ];
         }
 
@@ -638,11 +637,11 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             $select = $this->_getWriteAdapter()->select()
                 ->join(
                     ['p' => $this->getTable('catalogindex/price')],
-                    "`e`.`entity_id`=`p`.`entity_id`"
+                    '`e`.`entity_id`=`p`.`entity_id`'
                         . " AND `p`.`attribute_id`={$priceAttribute}"
                         . " AND `p`.`customer_group_id`={$group->getId()}"
                         . " AND `p`.`website_id`={$websiteId}",
-                    [$columnName => 'value']
+                    [$columnName => 'value'],
                 );
             if ($addChildData) {
                 $select->where('e.is_child=?', 0);
@@ -651,7 +650,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
                 $select->where('e.entity_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
             } elseif (!is_null($productIds)) {
-                $select->where("e.entity_id IN(?)", $productIds);
+                $select->where('e.entity_id IN(?)', $productIds);
             }
 
             $sql = $select->crossUpdateFromSelect(['e' => $tableName]);
@@ -664,18 +663,18 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $select = $this->_getWriteAdapter()->select()
                     ->join(
                         ['p' => $this->getTable('catalogindex/price')],
-                        "`e`.`child_id`=`p`.`entity_id`"
+                        '`e`.`child_id`=`p`.`entity_id`'
                             . " AND `p`.`attribute_id`={$priceAttribute}"
                             . " AND `p`.`customer_group_id`={$group->getId()}"
                             . " AND `p`.`website_id`={$websiteId}",
-                        [$columnName => 'value']
+                        [$columnName => 'value'],
                     )
                     ->where('e.is_child=?', 1);
 
                 if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
                     $select->where('e.child_id IN (' . $productIds->getIdsSelect($this->_getWriteAdapter())->__toString() . ')');
                 } elseif (!is_null($productIds)) {
-                    $select->where("e.child_id IN(?)", $productIds);
+                    $select->where('e.child_id IN(?)', $productIds);
                 }
 
                 $sql = $select->crossUpdateFromSelect(['e' => $tableName]);

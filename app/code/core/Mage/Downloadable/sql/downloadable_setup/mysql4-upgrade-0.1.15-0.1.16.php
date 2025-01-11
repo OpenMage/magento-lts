@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,26 +19,26 @@ $installer = $this;
 $installer->startSetup();
 
 $installer->addAttribute('catalog_product', 'links_exist', [
-        'type'                      => 'int',
-        'backend'                   => '',
-        'frontend'                  => '',
-        'label'                     => '',
-        'input'                     => '',
-        'class'                     => '',
-        'source'                    => '',
-        'global'                    => true,
-        'visible'                   => false,
-        'required'                  => false,
-        'user_defined'              => false,
-        'default'                   => '0',
-        'searchable'                => false,
-        'filterable'                => false,
-        'comparable'                => false,
-        'visible_on_front'          => false,
-        'unique'                    => false,
-        'apply_to'                  => 'downloadable',
-        'is_configurable'           => false,
-        'used_in_product_listing'   => 1
+    'type'                      => 'int',
+    'backend'                   => '',
+    'frontend'                  => '',
+    'label'                     => '',
+    'input'                     => '',
+    'class'                     => '',
+    'source'                    => '',
+    'global'                    => true,
+    'visible'                   => false,
+    'required'                  => false,
+    'user_defined'              => false,
+    'default'                   => '0',
+    'searchable'                => false,
+    'filterable'                => false,
+    'comparable'                => false,
+    'visible_on_front'          => false,
+    'unique'                    => false,
+    'apply_to'                  => 'downloadable',
+    'is_configurable'           => false,
+    'used_in_product_listing'   => 1,
 ]);
 
 $newAttributeId = $installer->getAttributeId('catalog_product', 'links_exist');

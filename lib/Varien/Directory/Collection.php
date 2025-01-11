@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -145,10 +146,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      */
     public static function getLastDir($path)
     {
-        if ($path == '') {
-            $path = $this->getPath();
-        }
-        $last = strrpos($path, "/");
+        $last = strrpos($path, '/');
         return substr($path, $last + 1);
     }
     /**
@@ -171,7 +169,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->clear();
         $iter = new RecursiveDirectoryIterator($this->getPath());
         while ($iter->valid()) {
-            $curr = (string)$iter->getSubPathname();
+            $curr = (string) $iter->getSubPathname();
             if (!$iter->isDot() && $curr[0] != '.') {
                 $this->addItem(Varien_Directory_Factory::getFactory($iter->current(), $this->getRecursion(), $this->getRecursionLevel()));
             }

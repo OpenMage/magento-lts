@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,13 +31,13 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
         'website' => [
             'associations_table' => 'salesrule/website',
             'rule_id_field'      => 'rule_id',
-            'entity_id_field'    => 'website_id'
+            'entity_id_field'    => 'website_id',
         ],
         'customer_group' => [
             'associations_table' => 'salesrule/customer_group',
             'rule_id_field'      => 'rule_id',
-            'entity_id_field'    => 'customer_group_id'
-        ]
+            'entity_id_field'    => 'customer_group_id',
+        ],
     ];
 
     /**
@@ -72,39 +73,39 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             $select = $this->getSelect();
 
             $connection = $this->getConnection();
-            if (strlen($couponCode)) {
+            if ($couponCode !== null && strlen($couponCode)) {
                 $select->joinLeft(
                     ['rule_coupons' => $this->getTable('salesrule/coupon')],
                     $connection->quoteInto(
                         'main_table.rule_id = rule_coupons.rule_id AND main_table.coupon_type != ?',
-                        Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
+                        Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON,
                     ) . $connection->quoteInto(' AND rule_coupons.code = ?', $couponCode),
-                    ['code']
+                    ['code'],
                 );
 
                 $noCouponCondition = $connection->quoteInto(
                     'main_table.coupon_type = ? ',
-                    Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
+                    Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON,
                 );
 
                 $orWhereConditions = [
                     $connection->quoteInto(
                         '(main_table.coupon_type = ? AND rule_coupons.type = 0)',
-                        Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO
+                        Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO,
                     ),
                     $connection->quoteInto(
                         '(main_table.coupon_type = ? AND main_table.use_auto_generation = 1 AND rule_coupons.type = 1)',
-                        Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC
+                        Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC,
                     ),
                     $connection->quoteInto(
                         '(main_table.coupon_type = ? AND main_table.use_auto_generation = 0 AND rule_coupons.type = 0)',
-                        Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC
+                        Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC,
                     ),
                 ];
                 $orWhereCondition = implode(' OR ', $orWhereConditions);
                 $select->where(
                     $noCouponCondition . ' OR ((' . $orWhereCondition . ') AND rule_coupons.code = ?)',
-                    $couponCode
+                    $couponCode,
                 );
             } else {
                 $this->addFieldToFilter('main_table.coupon_type', Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON);
@@ -146,9 +147,9 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                         'main_table.' . $entityInfo['rule_id_field']
                             . ' = customer_group_ids.' . $entityInfo['rule_id_field']
                             . ' AND customer_group_ids.' . $entityInfo['entity_id_field'] . ' = ?',
-                        (int)$customerGroupId
+                        (int) $customerGroupId,
                     ),
-                    []
+                    [],
                 )
                 ->where('from_date is null or from_date <= ?', $now)
                 ->where('to_date is null or to_date >= ?', $now);
@@ -173,7 +174,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
             ->joinLeft(
                 ['rule_coupons' => $this->getTable('salesrule/coupon')],
                 'main_table.rule_id = rule_coupons.rule_id AND rule_coupons.is_primary = 1',
-                ['code']
+                ['code'],
             );
         return $this;
     }
@@ -207,7 +208,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     {
         $this->addFieldToFilter(
             'main_table.use_auto_generation',
-            ['neq' => 1]
+            ['neq' => 1],
         );
 
         return $this;

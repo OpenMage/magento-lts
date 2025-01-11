@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,14 +51,14 @@ $connection->addConstraint(
     $installer->getTable('catalogsearch_query'),
     'store_id',
     $installer->getTable('core_store'),
-    'store_id'
+    'store_id',
 );
 $connection->addColumn($installer->getTable('catalogsearch_query'), 'is_active', 'tinyint(1) DEFAULT 1 AFTER `display_in_terms`');
 $connection->addColumn($installer->getTable('catalogsearch_query'), 'is_processed', 'tinyint(1) DEFAULT 0 AFTER `is_active`');
 
 $connection->dropKey($installer->getTable('catalogsearch_query'), 'search_query');
 $connection->addKey($installer->getTable('catalogsearch_query'), 'IDX_SEARCH_QUERY', [
-    'query_text', 'store_id', 'popularity'
+    'query_text', 'store_id', 'popularity',
 ]);
 
 $installer->endSetup();

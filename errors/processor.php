@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,21 +10,21 @@
  * @category   Mage
  * @package    Errors
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
- /**
- * Error processor
- *
- */
+/**
+* Error processor
+*
+*/
 class Error_Processor
 {
-    const MAGE_ERRORS_LOCAL_XML = 'local.xml';
-    const MAGE_ERRORS_DESIGN_XML = 'design.xml';
-    const DEFAULT_SKIN = 'default';
-    const DEFAULT_TRASH_MODE = 'leave';
-    const ERROR_DIR = 'errors';
+    public const MAGE_ERRORS_LOCAL_XML = 'local.xml';
+    public const MAGE_ERRORS_DESIGN_XML = 'design.xml';
+    public const DEFAULT_SKIN = 'default';
+    public const DEFAULT_TRASH_MODE = 'leave';
+    public const ERROR_DIR = 'errors';
 
     /** @var string */
     public $pageTitle;
@@ -94,21 +95,20 @@ class Error_Processor
         $this->_reportDir = dirname($this->_errorDir) . '/var/report/';
 
         if (!empty($_SERVER['SCRIPT_NAME'])) {
-            if (in_array(basename($_SERVER['SCRIPT_NAME'],'.php'), array('404','503','report'))) {
+            if (in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), ['404','503','report'])) {
                 $this->_scriptName = dirname($_SERVER['SCRIPT_NAME']);
-            }
-            else {
+            } else {
                 $this->_scriptName = $_SERVER['SCRIPT_NAME'];
             }
         }
 
-        $reportId = (isset($_GET['id'])) ? (int)$_GET['id'] : null;
+        $reportId = (isset($_GET['id'])) ? (int) $_GET['id'] : null;
         if ($reportId) {
             $this->loadReport($reportId);
         }
 
         $this->_indexDir = $this->_getIndexDir();
-        $this->_root  = is_dir($this->_indexDir.'app');
+        $this->_root  = is_dir($this->_indexDir . 'app');
 
         $this->_prepareConfig();
         if (isset($_SERVER['MAGE_ERRORS_SKIN']) || isset($_GET['skin'])) {
@@ -150,7 +150,7 @@ class Error_Processor
         $this->reportAction = $this->_config->action;
         $this->_setReportUrl();
 
-        if($this->reportAction === 'email') {
+        if ($this->reportAction === 'email') {
             $this->showSendForm = true;
             $this->sendReport();
         }
@@ -159,7 +159,7 @@ class Error_Processor
 
     public function getSkinUrl(): string
     {
-        return $this->getBaseUrl() . self::ERROR_DIR. '/' . $this->_config->skin . '/';
+        return $this->getBaseUrl() . self::ERROR_DIR . '/' . $this->_config->skin . '/';
     }
 
     /**
@@ -184,7 +184,7 @@ class Error_Processor
 
         if (!empty($_SERVER['SERVER_PORT'])
             && preg_match('/\d+/', $_SERVER['SERVER_PORT'])
-            && !in_array($_SERVER['SERVER_PORT'], array(80, 433))
+            && !in_array($_SERVER['SERVER_PORT'], [80, 433])
         ) {
             $url .= ':' . $_SERVER['SERVER_PORT'];
         }
@@ -195,7 +195,7 @@ class Error_Processor
     {
         $path = $this->_scriptName;
 
-        if($param && !$this->_root) {
+        if ($param && !$this->_root) {
             $path = dirname($path);
         }
 
@@ -215,7 +215,7 @@ class Error_Processor
     {
         $documentRoot = '';
         if (!empty($_SERVER['DOCUMENT_ROOT'])) {
-            $documentRoot = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
+            $documentRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
         }
         return dirname($documentRoot . $this->_scriptName) . '/';
     }
@@ -237,23 +237,23 @@ class Error_Processor
         $config->skin           = self::DEFAULT_SKIN;
 
         //combine xml data to one object
-        if ($design !== null && ($skin = (string)$design->skin)) {
+        if ($design !== null && ($skin = (string) $design->skin)) {
             $this->_setSkin($skin, $config);
         }
         if ($local !== null) {
-            if ($action = (string)$local->report->action) {
+            if ($action = (string) $local->report->action) {
                 $config->action = $action;
             }
-            if ($subject = (string)$local->report->subject) {
+            if ($subject = (string) $local->report->subject) {
                 $config->subject = $subject;
             }
-            if ($emailAddress = (string)$local->report->email_address) {
+            if ($emailAddress = (string) $local->report->email_address) {
                 $config->email_address = $emailAddress;
             }
-            if ($trash = (string)$local->report->trash) {
+            if ($trash = (string) $local->report->trash) {
                 $config->trash = $trash;
             }
-            if ($localSkin = (string)$local->skin) {
+            if ($localSkin = (string) $local->skin) {
                 $this->_setSkin($localSkin, $config);
             }
         }
@@ -311,14 +311,13 @@ class Error_Processor
     /**
      * Find file path
      *
-     * @param string $file
      * @param array|null $directories
      * @return string|null
      */
     protected function _getFilePath(string $file, $directories = null)
     {
         if ($directories === null) {
-            $directories = array();
+            $directories = [];
 
             if (!$this->_root) {
                 $directories[] = $this->_indexDir . self::ERROR_DIR . '/';
@@ -337,7 +336,6 @@ class Error_Processor
     /**
      * Find template path
      *
-     * @param string $template
      * @return string|null
      */
     protected function _getTemplatePath(string $template)
@@ -345,10 +343,10 @@ class Error_Processor
         $directories = [];
 
         if (!$this->_root) {
-            $directories[] = $this->_indexDir . self::ERROR_DIR. '/'. $this->_config->skin . '/';
+            $directories[] = $this->_indexDir . self::ERROR_DIR . '/' . $this->_config->skin . '/';
 
             if ($this->_config->skin !== self::DEFAULT_SKIN) {
-                $directories[] = $this->_indexDir . self::ERROR_DIR . '/'. self::DEFAULT_SKIN . '/';
+                $directories[] = $this->_indexDir . self::ERROR_DIR . '/' . self::DEFAULT_SKIN . '/';
             }
         }
 
@@ -368,8 +366,7 @@ class Error_Processor
         if (isset($reportData['url'])) {
             $this->reportData['url'] = $this->getHostUrl()
                 . htmlspecialchars($reportData['url'], ENT_COMPAT | ENT_HTML401, 'UTF-8');
-        }
-        else {
+        } else {
             $this->reportData['url'] = '';
         }
 
@@ -384,7 +381,7 @@ class Error_Processor
     public function saveReport(array $reportData)
     {
         $this->reportData = $reportData;
-        $this->reportId   = abs((int)(microtime(true) * random_int(100, 1000)));
+        $this->reportId   = abs((int) (microtime(true) * random_int(100, 1000)));
         $this->_reportFile = $this->_reportDir . '/' . $this->reportId;
         $this->_setReportData($reportData);
 
@@ -424,7 +421,7 @@ class Error_Processor
         }
 
         $reportContent = file_get_contents($this->_reportFile);
-        if (!preg_match('/[oc]:[+\-]?\d+:"/i', $reportContent )) {
+        if (!preg_match('/[oc]:[+\-]?\d+:"/i', $reportContent)) {
             $reportData = unserialize($reportContent, ['allowed_classes' => false]);
         }
         if (is_array($reportData)) {
@@ -493,7 +490,7 @@ class Error_Processor
     {
         $email = preg_match(
             '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/',
-            $this->postData['email']
+            $this->postData['email'],
         );
         return ($this->postData['firstName'] && $this->postData['lastName'] && $email);
     }
@@ -501,7 +498,7 @@ class Error_Processor
     /**
      * @return void
      */
-    protected function _setSkin(string $value, stdClass $config = null)
+    protected function _setSkin(string $value, ?stdClass $config = null)
     {
         if (preg_match('/^[a-z0-9_]+$/i', $value)
             && is_dir($this->_indexDir . self::ERROR_DIR . '/' . $value)
@@ -525,7 +522,7 @@ class Error_Processor
             $this->reportUrl = sprintf(
                 '%serrors/report.php?%s',
                 $this->getBaseUrl(true),
-                http_build_query(['id' => $this->reportId, 'skin' => $this->_config->skin])
+                http_build_query(['id' => $this->reportId, 'skin' => $this->_config->skin]),
             );
         }
     }

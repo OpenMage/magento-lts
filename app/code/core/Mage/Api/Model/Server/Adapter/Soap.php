@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -87,7 +88,6 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Set webservice api controller
      *
-     * @param Mage_Api_Controller_Action $controller
      * @return $this
      */
     public function setController(Mage_Api_Controller_Action $controller)
@@ -107,7 +107,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
         if ($controller === null) {
             $controller = new Varien_Object(
-                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
+                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()],
             );
 
             $this->setData('controller', $controller);
@@ -123,7 +123,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      */
     public function run()
     {
-        $apiConfigCharset = Mage::getStoreConfig("api/config/charset");
+        $apiConfigCharset = Mage::getStoreConfig('api/config/charset');
 
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             // Generating wsdl content from template
@@ -143,8 +143,8 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                     preg_replace(
                         '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                         '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
-                        $template->filter($wsdlContent)
-                    )
+                        $template->filter($wsdlContent),
+                    ),
                 );
         } else {
             try {
@@ -157,8 +157,8 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                         preg_replace(
                             '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                             '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
-                            $this->_soap->handle()
-                        )
+                            $this->_soap->handle(),
+                        ),
                     );
             } catch (Zend_Soap_Server_Exception $e) {
                 $this->fault($e->getCode(), $e->getMessage());
@@ -175,6 +175,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
      *
      * @param int $code
      * @param string $message
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function fault($code, $message)
     {
@@ -226,11 +227,11 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
 
             if ($phpAuthUser && $phpAuthPw) {
                 $wsdlUrl = sprintf(
-                    "%s://%s:%s@%s",
+                    '%s://%s:%s@%s',
                     $scheme,
                     $phpAuthUser,
                     $phpAuthPw,
-                    str_replace($scheme . '://', '', $wsdlUrl)
+                    str_replace($scheme . '://', '', $wsdlUrl),
                 );
             }
         }
@@ -260,8 +261,8 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
             $retry = false;
             try {
                 $this->_soap = new Zend_Soap_Server(
-                    $this->getWsdlUrl(["wsdl" => 1]),
-                    ['encoding' => $apiConfigCharset]
+                    $this->getWsdlUrl(['wsdl' => 1]),
+                    ['encoding' => $apiConfigCharset],
                 );
             } catch (SoapFault $e) {
                 if (strpos($e->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'") !== false) {

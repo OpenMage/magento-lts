@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -17,7 +18,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  *
- * @method $this setAdditionalMessages(array $value)
+ * @method $this setAdditionalMessages(array|null $value)
  *
  * @method string getCartCouponCode()
  * @method $this setCartCouponCode(string $value)
@@ -44,9 +45,9 @@
  * @method int getLastAddedProductId()
  * @method $this setLastAddedProductId(int $value)
  * @method int getLastBillingAgreementId()
- * @method $this setLastBillingAgreementId(int $value)
+ * @method $this setLastBillingAgreementId(int|null $value)
  * @method int getLastOrderId()
- * @method $this setLastOrderId(int $value)
+ * @method $this setLastOrderId(int|null $value)
  * @method $this unsLastOrderId()
  * @method int getLastQuoteId()
  * @method $this setLastQuoteId(int $value)
@@ -55,9 +56,9 @@
  * @method $this setLastRealOrderId(string $value)
  * @method $this unsLastRealOrderId()
  * @method int getLastRecurringProfileIds()
- * @method $this setLastRecurringProfileIds(array $value)
+ * @method $this setLastRecurringProfileIds(array|null $value)
  * @method int getLastSuccessQuoteId()
- * @method $this setLastSuccessQuoteId(int $value)
+ * @method $this setLastSuccessQuoteId(int|null $value)
  * @method $this unsLastSuccessQuoteId()
  *
  * @method array getMethodData()
@@ -257,7 +258,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param int $quoteId
+     * @param int|null $quoteId
      */
     public function setQuoteId($quoteId)
     {
@@ -461,7 +462,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @return Mage_Core_Model_Session_Abstract|void
+     * @return $this
      */
     public function clear()
     {
@@ -469,6 +470,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         $this->_quote = null;
         $this->setQuoteId(null);
         $this->setLastSuccessQuoteId(null);
+        return $this;
     }
 
     /**

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -164,6 +164,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </lines_perpage>
                     </fields>
                 </sitemap>
@@ -181,6 +182,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </base_width>
                         <small_width translate="label comment">
                             <label>Small Image Width</label>
@@ -189,6 +191,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </small_width>
                         <max_dimension translate="label comment">
                             <label>Maximum resolution for upload image</label>
@@ -197,6 +200,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>required-entry validate-digits validate-greater-than-zero</validate>
                         </max_dimension>
                         <progressive_threshold translate="label comment">
                             <label>Enable Progressive Images Threshold</label>
@@ -204,6 +208,7 @@
                             <validate>validate-number</validate>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
+                            <validate>validate-digits validate-greater-than-zero</validate>
                         </progressive_threshold>
                     </fields>
                 </product_image>
@@ -400,6 +405,7 @@
                             <label>Maximal Depth</label>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
+                            <frontend_class>validate-digits</frontend_class>
                         </max_depth>
                     </fields>
                 </navigation>
@@ -427,6 +433,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><use_calendar>1</use_calendar></depends>
                         </date_fields_order>
                         <time_format translate="label">
                             <label>Time Format</label>
@@ -436,6 +443,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><use_calendar>1</use_calendar></depends>
                         </time_format>
                         <year_range translate="label comment">
                             <label>Year Range</label>
@@ -445,6 +453,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><use_calendar>1</use_calendar></depends>
                         </year_range>
                     </fields>
                 </custom_options>
@@ -563,6 +572,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment><![CDATA[<strong style="color:red">Warning!</strong> Applying MAP by default will hide all product prices on the frontend.]]></comment>
+                            <depends><enabled>1</enabled></depends>
                         </apply_for_all>
                         <display_price_type translate="label">
                             <label>Display Actual Price</label>
@@ -572,6 +582,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </display_price_type>
                         <explanation_message translate="label">
                             <label>Default Popup Text Message</label>
@@ -580,6 +591,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </explanation_message>
                         <explanation_message_whats_this translate="label">
                             <label>Default "What's This" Text Message</label>
@@ -588,6 +600,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </explanation_message_whats_this>
                     </fields>
                 </msrp>

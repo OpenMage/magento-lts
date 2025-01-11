@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,20 +38,20 @@ $paths[] = BP . DS . 'lib';
 
 $appPath = implode(PS, $paths);
 set_include_path($appPath . PS . Mage::registry('original_include_path'));
-include_once "Mage/Core/functions.php";
-include_once "Varien/Autoload.php";
+include_once 'Mage/Core/functions.php';
+include_once 'Varien/Autoload.php';
 
 Varien_Autoload::register();
 
 /** AUTOLOADER PATCH **/
 $autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
 if (!$autoloaderPath) {
-    $autoloaderPath = dirname(BP) . DS .  'vendor';
+    $autoloaderPath = dirname(BP) . DS . 'vendor';
     if (!is_dir($autoloaderPath)) {
         $autoloaderPath = BP . DS . 'vendor';
     }
 }
-require $autoloaderPath . DS . 'autoload.php';
+require_once $autoloaderPath . DS . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 /* Support additional includes, such as composer's vendor/autoload.php files */
@@ -150,7 +151,7 @@ final class Mage
     public static function getVersion()
     {
         $i = self::getVersionInfo();
-        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : "")
+        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : '')
                         . "-{$i['stability']}{$i['number']}", '.-');
     }
 
@@ -176,33 +177,29 @@ final class Mage
      * Gets the current OpenMage version string
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return string
      */
     public static function getOpenMageVersion(): string
     {
         $info = self::getOpenMageVersionInfo();
         $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
-        if ($info['stability'] || $info['number']) {
-            $versionString .= '-';
-            if ($info['stability'] && $info['number']) {
-                $versionString .= implode('.', [$info['stability'], $info['number']]);
-            } else {
-                $versionString .= implode('', [$info['stability'], $info['number']]);
-            }
+
+        if ($info['stability'] && $info['number']) {
+            return "{$versionString}-{$info['stability']}.{$info['number']}";
         }
-        return trim(
-            $versionString,
-            '.-'
-        );
+        if ($info['stability']) {
+            return "{$versionString}-{$info['stability']}";
+        }
+        if ($info['number']) {
+            return "{$versionString}-{$info['number']}";
+        }
+
+        return $versionString;
     }
 
     /**
      * Gets the detailed OpenMage version information
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
-     *
-     * @return array
      */
     public static function getOpenMageVersionInfo(): array
     {
@@ -215,7 +212,7 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '3',
+                'minor'     => '12',
                 'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
@@ -225,7 +222,7 @@ final class Mage
         return [
             'major'     => '19',
             'minor'     => '5',
-            'patch'     => '2',
+            'patch'     => '3',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         ];
@@ -412,10 +409,26 @@ final class Mage
     }
 
     /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     */
+    public static function getStoreConfigAsFloat(string $path, $store = null): float
+    {
+        return (float) self::getStoreConfig($path, $store);
+    }
+
+    /**
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     */
+    public static function getStoreConfigAsInt(string $path, $store = null): int
+    {
+        return (int) self::getStoreConfig($path, $store);
+    }
+
+    /**
      * Retrieve config flag for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)
@@ -432,7 +445,7 @@ final class Mage
     /**
      * Get base URL path by type
      *
-     * @param string $type
+     * @param Mage_Core_Model_Store::URL_TYPE_* $type
      * @param null|bool $secure
      * @return string
      */
@@ -500,7 +513,6 @@ final class Mage
      * and multiple observers matching event name pattern
      *
      * @param string $name
-     * @param array $data
      * @return Mage_Core_Model_App
      */
     public static function dispatchEvent($name, array $data = [])
@@ -528,7 +540,6 @@ final class Mage
      * Retrieve model object singleton
      *
      * @param   string $modelClass
-     * @param   array $arguments
      * @return  Mage_Core_Model_Abstract|false
      */
     public static function getSingleton($modelClass = '', array $arguments = [])
@@ -558,7 +569,6 @@ final class Mage
      * @param string $class
      * @param Mage_Core_Controller_Request_Http $request
      * @param Mage_Core_Controller_Response_Http $response
-     * @param array $invokeArgs
      * @return Mage_Core_Controller_Front_Action
      */
     public static function getControllerInstance($class, $request, $response, array $invokeArgs = [])
@@ -567,10 +577,9 @@ final class Mage
     }
 
     /**
-     * Retrieve resource vodel object singleton
+     * Retrieve resource model object singleton
      *
      * @param   string $modelClass
-     * @param   array $arguments
      * @return  object
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = [])
@@ -583,10 +592,10 @@ final class Mage
     }
 
     /**
-     * @deprecated, use self::helper()
+     * Retrieve block object
      *
      * @param string $type
-     * @return object
+     * @return Mage_Core_Block_Abstract|false
      */
     public static function getBlockSingleton($type)
     {
@@ -727,7 +736,7 @@ final class Mage
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
-            self::$_app    = new Mage_Core_Model_App();
+            self::$_app = new Mage_Core_Model_App();
             if (isset($options['request'])) {
                 self::$_app->setRequest($options['request']);
             }
@@ -751,6 +760,7 @@ final class Mage
             die();
         } catch (Exception $e) {
             if (self::isInstalled()) {
+                self::dispatchEvent('mage_run_installed_exception', ['exception' => $e]);
                 self::printException($e);
                 exit();
             }
@@ -772,7 +782,7 @@ final class Mage
      *
      * @param array $options
      */
-    protected static function _setIsInstalled($options = [])
+    private static function _setIsInstalled($options = [])
     {
         if (isset($options['is_installed']) && $options['is_installed']) {
             self::$_isInstalled = true;
@@ -784,7 +794,7 @@ final class Mage
      *
      * @param array $options
      */
-    protected static function _setConfigModel($options = [])
+    private static function _setConfigModel($options = [])
     {
         if (isset($options['config_model']) && class_exists($options['config_model'])) {
             $alternativeConfigModelName = $options['config_model'];
@@ -826,7 +836,7 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && strtotime($date)) {
+                if (($date = $localConfig->global->install->date) && strtotime((string) $date)) {
                     self::$_isInstalled = true;
                 }
             }
@@ -883,7 +893,7 @@ final class Mage
                 // Validate file extension before save. Allowed file extensions: log, txt, html, csv
                 $_allowedFileExtensions = explode(
                     ',',
-                    (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
+                    (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE),
                 );
                 if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
@@ -904,7 +914,7 @@ final class Mage
 
                 $format = '%timestamp% %priorityName% (%priority%): %message%' . PHP_EOL;
                 $formatter = new Zend_Log_Formatter_Simple($format);
-                $writerModel = (string)self::getConfig()->getNode('global/log/core/writer_model');
+                $writerModel = (string) self::getConfig()->getNode('global/log/core/writer_model');
                 if (!self::$_app || !$writerModel) {
                     $writer = new Zend_Log_Writer_Stream($logFile);
                 } else {
@@ -926,8 +936,6 @@ final class Mage
 
     /**
      * Write exception to log
-     *
-     * @param Throwable $e
      */
     public static function logException(Throwable $e)
     {
@@ -946,7 +954,7 @@ final class Mage
      */
     public static function setIsDeveloperMode($mode)
     {
-        self::$_isDeveloperMode = (bool)$mode;
+        self::$_isDeveloperMode = (bool) $mode;
         return self::$_isDeveloperMode;
     }
 
@@ -962,8 +970,6 @@ final class Mage
 
     /**
      * Display exception
-     *
-     * @param Throwable $e
      */
     public static function printException(Throwable $e, $extra = '')
     {
@@ -980,7 +986,7 @@ final class Mage
         } else {
             $reportData = [
                 (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
-                $e->getTraceAsString()
+                $e->getTraceAsString(),
             ];
 
             // retrieve server data

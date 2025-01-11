@@ -7,18 +7,8 @@ on:
 
 jobs:
   phpcs:
-    name: ${{ matrix.rules.label }}
+    name: Validation
     runs-on: [ubuntu-latest]
-
-    strategy:
-      matrix:
-        rules:
-          - label: Default
-            path: .phpcs.xml.dist
-          - label: Ecg
-            path: .phpcs.ecg.xml.dist
-          - label: PhpCompatibility
-            path: .phpcs.php.xml.dist
 
     steps:
       - name: Setup PHP
@@ -34,7 +24,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -44,5 +34,4 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
       - name: PHPCodeSniffer
-        run: php vendor/bin/phpcs -s --report=full --standard=${{ matrix.rules.path }}
-        continue-on-error: ${{ matrix.rules.path != '.phpcs.xml.dist' }}
+        run: php vendor/bin/phpcs -s -p --report=full --standard=.phpcs.dist.xml

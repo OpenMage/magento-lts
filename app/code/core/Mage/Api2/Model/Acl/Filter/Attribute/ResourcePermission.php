@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,7 +67,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     if ($rule->getAllowedAttributes() !== null) {
                         $allowedAttributes[$rule->getResourceId()][$rule->getOperation()] = explode(
                             ',',
-                            $rule->getAllowedAttributes()
+                            $rule->getAllowedAttributes(),
                         );
                     }
                 }
@@ -103,7 +104,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                             $resourceModel->setResourceType($resource)
                                 ->setUserType($this->_userType);
 
-                            foreach ($operations as $operation => $operationLabel) {
+                            foreach (array_keys($operations) as $operation) {
                                 if (!$this->_hasEntityOnlyAttributes
                                     && $config->getResourceEntityOnlyAttributes($resource, $this->_userType, $operation)
                                 ) {
@@ -111,7 +112,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                                 }
                                 $availableAttributes = $resourceModel->getAvailableAttributes(
                                     $this->_userType,
-                                    $operation
+                                    $operation,
                                 );
                                 asort($availableAttributes);
                                 foreach ($availableAttributes as $attribute => $attributeLabel) {
@@ -122,7 +123,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
 
                                     $rulesPairs[$resource]['operations'][$operation]['attributes'][$attribute] = [
                                         'status'    => $status,
-                                        'title'     => $attributeLabel
+                                        'title'     => $attributeLabel,
                                     ];
                                 }
                             }

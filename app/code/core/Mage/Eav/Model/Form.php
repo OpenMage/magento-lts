@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -138,7 +139,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Set entity instance
      *
-     * @param Mage_Core_Model_Abstract $entity
      * @return $this
      */
     public function setEntity(Mage_Core_Model_Abstract $entity)
@@ -306,7 +306,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Return attribute data model by attribute
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     protected function _getAttributeDataModel(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -320,7 +319,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Prepare request with data and returns it
      *
-     * @param array $data
      * @return Zend_Controller_Request_Http
      */
     public function prepareRequest(array $data)
@@ -336,7 +334,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Extract data from request and return associative data array
      *
-     * @param Zend_Controller_Request_Http $request
      * @param string $scope the request scope
      * @param bool $scopeOnly search value only in scope or search value in global too
      * @return array
@@ -359,7 +356,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Validate data array and return true or array of errors
      *
-     * @param array $data
      * @return bool|array
      */
     public function validateData(array $data)
@@ -390,7 +386,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Compact data array to current entity
      *
-     * @param array $data
      * @return $this
      */
     public function compactData(array $data)
@@ -413,7 +408,6 @@ abstract class Mage_Eav_Model_Form
     /**
      * Restore data array from SESSION to current entity
      *
-     * @param array $data
      * @return $this
      */
     public function restoreData(array $data)
@@ -477,7 +471,7 @@ abstract class Mage_Eav_Model_Form
      */
     public function setIsAjaxRequest($flag = true)
     {
-        $this->_isAjax = (bool)$flag;
+        $this->_isAjax = (bool) $flag;
         return $this;
     }
 
@@ -518,7 +512,7 @@ abstract class Mage_Eav_Model_Form
     public function ignoreInvisible($setValue = null)
     {
         if ($setValue !== null) {
-            $this->_ignoreInvisible = (bool)$setValue;
+            $this->_ignoreInvisible = (bool) $setValue;
             return $this;
         }
         return $this->_ignoreInvisible;

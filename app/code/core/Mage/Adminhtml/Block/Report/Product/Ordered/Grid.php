@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,27 +44,24 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
     {
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $baseCurrencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('price', [
-            'header'        => Mage::helper('reports')->__('Price'),
             'width'         => '120px',
             'type'          => 'currency',
             'currency_code' => $baseCurrencyCode,
-            'index'         => 'price',
             'rate'          => $this->getRate($baseCurrencyCode),
         ]);
 
         $this->addColumn('ordered_qty', [
             'header'    => Mage::helper('reports')->__('Quantity Ordered'),
             'width'     => '120px',
-            'align'     => 'right',
             'index'     => 'ordered_qty',
             'total'     => 'sum',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addExportType('*/*/exportOrderedCsv', Mage::helper('reports')->__('CSV'));

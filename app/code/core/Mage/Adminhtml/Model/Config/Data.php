@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,7 +100,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
             if ($clonedFields = !empty($groupConfig->clone_fields)) {
                 if ($groupConfig->clone_model) {
-                    $cloneModel = Mage::getModel((string)$groupConfig->clone_model);
+                    $cloneModel = Mage::getModel((string) $groupConfig->clone_model);
                 } else {
                     Mage::throwException('Config form fieldset clone model required to be able to clone fields');
                 }
@@ -109,7 +110,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 if ($fieldsConfig->hasChildren()) {
                     foreach ($fieldsConfig->children() as $field => $node) {
                         foreach ($cloneModel->getPrefixes() as $prefix) {
-                            $mappedFields[$prefix['field'] . (string)$field] = (string)$field;
+                            $mappedFields[$prefix['field'] . (string) $field] = (string) $field;
                         }
                     }
                 }
@@ -170,7 +171,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                  * Look for custom defined field path
                  */
                 if (is_object($fieldConfig)) {
-                    $configPath = (string)$fieldConfig->config_path;
+                    $configPath = (string) $fieldConfig->config_path;
                     if (!empty($configPath) && strrpos($configPath, '/') > 0) {
                         $parts = explode('/', $configPath);
                         if (!$this->_isSectionAllowed($parts[0])) {
@@ -262,7 +263,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             $resourceLookup = "admin/system/config/{$section}";
             if ($session->getData('acl') instanceof Mage_Admin_Model_Acl) {
                 return $session->isAllowed(
-                    $session->getData('acl')->get($resourceLookup)->getResourceId()
+                    $session->getData('acl')->get($resourceLookup)->getResourceId(),
                 );
             }
         } catch (Exception $e) {
@@ -296,11 +297,11 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     {
         if ($this->getStore()) {
             $scope   = self::SCOPE_STORES;
-            $scopeId = (int)Mage::getConfig()->getNode('stores/' . $this->getStore() . '/system/store/id');
+            $scopeId = (int) Mage::getConfig()->getNode('stores/' . $this->getStore() . '/system/store/id');
             $scopeCode = $this->getStore();
         } elseif ($this->getWebsite()) {
             $scope   = self::SCOPE_WEBSITES;
-            $scopeId = (int)Mage::getConfig()->getNode('websites/' . $this->getWebsite() . '/system/website/id');
+            $scopeId = (int) Mage::getConfig()->getNode('websites/' . $this->getWebsite() . '/system/website/id');
             $scopeCode = $this->getWebsite();
         } else {
             $scope   = self::SCOPE_DEFAULT;
@@ -342,7 +343,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 $config[$data->getPath()] = [
                     'path'      => $data->getPath(),
                     'value'     => $data->getValue(),
-                    'config_id' => $data->getConfigId()
+                    'config_id' => $data->getConfigId(),
                 ];
             } else {
                 $config[$data->getPath()] = $data->getValue();
@@ -357,6 +358,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * @param string $path
      * @param null|bool $inherit
      * @param null|array $configData
+     * @param-out bool $inherit
      * @return Varien_Simplexml_Element
      */
     public function getConfigDataValue($path, &$inherit = null, $configData = null)
@@ -412,10 +414,10 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 $fieldName = $field;
                 if ($groupConfig && $groupConfig->clone_fields) {
                     if ($groupConfig->clone_model) {
-                        $cloneModel = Mage::getModel((string)$groupConfig->clone_model);
+                        $cloneModel = Mage::getModel((string) $groupConfig->clone_model);
                     } else {
                         Mage::throwException(
-                            $this->__('Config form fieldset clone model required to be able to clone fields')
+                            $this->__('Config form fieldset clone model required to be able to clone fields'),
                         );
                     }
                     foreach ($cloneModel->getPrefixes() as $prefix) {
@@ -458,11 +460,11 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
         switch ($this->getScope()) {
             case self::SCOPE_DEFAULT:
-                return (bool)(int)$field->show_in_default;
+                return (bool) (int) $field->show_in_default;
             case self::SCOPE_WEBSITES:
-                return (bool)(int)$field->show_in_website;
+                return (bool) (int) $field->show_in_website;
             case self::SCOPE_STORES:
-                return (bool)(int)$field->show_in_store;
+                return (bool) (int) $field->show_in_store;
         }
 
         return true;

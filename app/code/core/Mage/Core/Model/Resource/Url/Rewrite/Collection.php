@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +45,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
             $this->join(
                 ['curt' => $this->getTable('core/url_rewrite_tag')],
                 'main_table.url_rewrite_id = curt.url_rewrite_id',
-                []
+                [],
             );
             $this->setFlag('tag_table_joined', true);
         }
@@ -97,7 +98,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
     public function filterAllByCategory()
     {
         $this->getSelect()
-            ->where('id_path LIKE ?', "category/%");
+            ->where('id_path LIKE ?', 'category/%');
         return $this;
     }
 }

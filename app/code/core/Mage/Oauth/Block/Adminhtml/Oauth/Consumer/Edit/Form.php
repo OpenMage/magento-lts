@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,11 +51,11 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
     {
         $model = $this->getModel();
         $form = new Varien_Data_Form([
-            'id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'
+            'id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset('base_fieldset', [
-            'legend' => Mage::helper('oauth')->__('Consumer Information'), 'class' => 'fieldset-wide'
+            'legend' => Mage::helper('oauth')->__('Consumer Information'), 'class' => 'fieldset-wide',
         ]);
 
         if ($model->getId()) {
@@ -92,7 +93,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
             'title'     => Mage::helper('oauth')->__('Callback URL'),
             'required'  => false,
             'value'     => $model->getCallbackUrl(),
-            'class'     => 'validate-url',
         ]);
 
         $fieldset->addField('rejected_callback_url', 'text', [
@@ -101,7 +101,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
             'title'     => Mage::helper('oauth')->__('Rejected Callback URL'),
             'required'  => false,
             'value'     => $model->getRejectedCallbackUrl(),
-            'class'     => 'validate-url',
         ]);
 
         $fieldset->addField(
@@ -111,8 +110,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
                 'name'  => 'current_password',
                 'label' => Mage::helper('oauth')->__('Current Admin Password'),
                 'title' => Mage::helper('oauth')->__('Current Admin Password'),
-                'required' => true
-            ]
+                'required' => true,
+            ],
         );
 
         $form->setAction($this->getUrl('*/*/save'));

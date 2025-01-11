@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -116,12 +117,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function getEntitySummary($product, $storeId = 0)
     {
-        $summaryData = Mage::getModel('review/review_summary')
-            ->setStoreId($storeId)
-            ->load($product->getId());
-        $summary = new Varien_Object();
-        $summary->setData($summaryData->getData());
-        $product->setRatingSummary($summary);
+        $product->setRatingSummary($product->getReviewSummary($storeId));
     }
 
     /**
@@ -186,8 +182,8 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     public function appendSummary($collection)
     {
         $entityIds = [];
-        foreach ($collection->getItems() as $_itemId => $_item) {
-            $entityIds[] = $_item->getId();
+        foreach ($collection->getItems() as $item) {
+            $entityIds[] = $item->getId();
         }
 
         if (!count($entityIds)) {
@@ -199,10 +195,10 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
             ->addStoreFilter(Mage::app()->getStore()->getId())
             ->load();
 
-        /** @var Mage_Review_Model_Review_Summary $_summary */
-        foreach ($summaryData as $_summary) {
-            if (($_item = $collection->getItemById($_summary->getEntityPkValue()))) {
-                $_item->setRatingSummary($_summary);
+        /** @var Mage_Review_Model_Review_Summary $summary */
+        foreach ($summaryData as $summary) {
+            if (($item = $collection->getItemById($summary->getEntityPkValue()))) {
+                $item->setRatingSummary($summary);
             }
         }
 
@@ -239,7 +235,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     {
         $store = Mage::app()->getStore($store);
         if ($store) {
-            return in_array($store->getId(), (array)$this->getStores());
+            return in_array($store->getId(), (array) $this->getStores());
         }
 
         return false;

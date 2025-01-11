@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,7 +69,6 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Set filter by customer
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomerFilter(Mage_Customer_Model_Customer $customer)
@@ -118,8 +118,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
                     'base_lifetime' => new Zend_Db_Expr('SUM(sales.base_grand_total * sales.base_to_global_rate)'),
                     'avgsale'       => new Zend_Db_Expr('AVG(sales.base_grand_total)'),
                     'base_avgsale'  => new Zend_Db_Expr('AVG(sales.base_grand_total * sales.base_to_global_rate)'),
-                    'num_orders'    => new Zend_Db_Expr('COUNT(sales.base_grand_total)')
-                ]
+                    'num_orders'    => new Zend_Db_Expr('COUNT(sales.base_grand_total)'),
+                ],
             )
             ->group('sales.store_id');
 
@@ -182,7 +182,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
                 ->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId())
                 ->setAvgNormalized($v['avgsale'] * $v['num_orders']);
             $this->_items[$storeId] = $storeObject;
-            foreach ($this->_totals as $key => $value) {
+            foreach (array_keys($this->_totals) as $key) {
                 $this->_totals[$key] += $storeObject->getData($key);
             }
         }

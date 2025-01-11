@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +42,6 @@ class Mage_Payment_Model_Source_Cctype
     /**
      * Setter for allowed types
      *
-     * @param array $values
      * @return $this
      */
     public function setAllowedTypes(array $values)
@@ -64,8 +64,8 @@ class Mage_Payment_Model_Source_Cctype
         foreach (Mage::getSingleton('payment/config')->getCcTypes() as $code => $name) {
             if (in_array($code, $allowed) || !count($allowed)) {
                 $options[] = [
-                   'value' => $code,
-                   'label' => $name
+                    'value' => $code,
+                    'label' => $name,
                 ];
             }
         }

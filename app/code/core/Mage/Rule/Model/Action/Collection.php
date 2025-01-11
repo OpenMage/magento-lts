@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +43,6 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      *   {action::asArray}
      * )
      *
-     * @param array $arrAttributes
      * @return array
      */
     public function asArray(array $arrAttributes = [])
@@ -56,7 +56,6 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     }
 
     /**
-     * @param array $arr
      * @return $this|Mage_Rule_Model_Action_Abstract
      */
     public function loadArray(array $arr)
@@ -75,7 +74,6 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     }
 
     /**
-     * @param Mage_Rule_Model_Action_Interface $action
      * @return $this
      */
     public function addAction(Mage_Rule_Model_Action_Interface $action)
@@ -111,9 +109,9 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     public function getNewChildElement()
     {
         return $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
-           'name' => 'rule[actions][' . $this->getId() . '][new_child]',
-           'values' => $this->getNewChildSelectOptions(),
-           'value_name' => $this->getNewChildName(),
+            'name' => 'rule[actions][' . $this->getId() . '][new_child]',
+            'values' => $this->getNewChildSelectOptions(),
+            'value_name' => $this->getNewChildName(),
         ])->setRenderer(Mage::getBlockSingleton('rule/newchild'));
     }
 
@@ -126,8 +124,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         foreach ($this->getActions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
-        $html .= '<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>';
-        return $html;
+        return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
     /**
@@ -136,7 +133,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      */
     public function asString($format = '')
     {
-        return Mage::helper('rule')->__("Perform following actions");
+        return Mage::helper('rule')->__('Perform following actions');
     }
 
     /**

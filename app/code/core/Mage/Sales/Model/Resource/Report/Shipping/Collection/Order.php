@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,7 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
     /**
      * Period format
      *
-     * @var string
+     * @var Zend_Db_Expr
      */
     protected $_periodFormat;
 
@@ -93,18 +94,18 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
     {
         $this->getSelect()->from(
             $this->getResource()->getMainTable(),
-            $this->_getSelectedColumns()
+            $this->_getSelectedColumns(),
         );
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
             $this->getSelect()->group([
                 $this->_periodFormat,
-                'shipping_description'
+                'shipping_description',
             ]);
         }
         if ($this->isSubTotals()) {
             $this->getSelect()->group([
-                $this->_periodFormat
+                $this->_periodFormat,
             ]);
         }
         return $this;

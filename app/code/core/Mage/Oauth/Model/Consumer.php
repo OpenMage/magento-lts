@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,6 +66,8 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
         if (!$this->getId()) {
             $this->setUpdatedAt(time());
         }
+        $this->setCallbackUrl(trim($this->getCallbackUrl()));
+        $this->setRejectedCallbackUrl(trim($this->getRejectedCallbackUrl()));
         $this->validate();
         parent::_beforeSave();
         return $this;
@@ -73,26 +76,11 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
     /**
      * Validate data
      *
-     * @return array|bool
+     * @return bool
      * @throw Mage_Core_Exception|Exception   Throw exception on fail validation
      */
     public function validate()
     {
-        if ($this->getCallbackUrl() || $this->getRejectedCallbackUrl()) {
-            $this->setCallbackUrl(trim($this->getCallbackUrl()));
-            $this->setRejectedCallbackUrl(trim($this->getRejectedCallbackUrl()));
-
-            /** @var Mage_Core_Model_Url_Validator $validatorUrl */
-            $validatorUrl = Mage::getSingleton('core/url_validator');
-
-            if ($this->getCallbackUrl() && !$validatorUrl->isValid($this->getCallbackUrl())) {
-                Mage::throwException(Mage::helper('oauth')->__('Invalid Callback URL'));
-            }
-            if ($this->getRejectedCallbackUrl() && !$validatorUrl->isValid($this->getRejectedCallbackUrl())) {
-                Mage::throwException(Mage::helper('oauth')->__('Invalid Rejected Callback URL'));
-            }
-        }
-
         /** @var Mage_Oauth_Model_Consumer_Validator_KeyLength $validatorLength */
         $validatorLength = Mage::getModel('oauth/consumer_validator_keyLength', ['length' => self::KEY_LENGTH]);
 

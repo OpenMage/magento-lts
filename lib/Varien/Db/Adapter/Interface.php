@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,7 +84,6 @@ interface Varien_Db_Adapter_Interface
     /**
      * Create table from DDL object
      *
-     * @param Varien_Db_Ddl_Table $table
      * @throws Zend_Db_Exception
      * @return Zend_Db_Statement_Interface
      */
@@ -92,7 +92,6 @@ interface Varien_Db_Adapter_Interface
     /**
      * Create temporary table from DDL object
      *
-     * @param Varien_Db_Ddl_Table $table
      * @throws Zend_Db_Exception
      * @return Zend_Db_Statement_Interface
      */
@@ -423,7 +422,6 @@ interface Varien_Db_Adapter_Interface
      *
      * @param   string $table
      * @param   array $columns  the data array column map
-     * @param   array $data
      * @return  int
      */
     public function insertArray($table, array $columns, array $data);
@@ -442,7 +440,6 @@ interface Varien_Db_Adapter_Interface
      * Special for Zero values to identity column
      *
      * @param string $table
-     * @param array $bind
      * @return int The number of affected rows.
      */
     public function insertForce($table, array $bind);
@@ -598,7 +595,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Quotes an identifier.
      *
-     * Accepts a string representing a qualified indentifier. For Example:
+     * Accepts a string representing a qualified identifier. For Example:
      * <code>
      * $adapter->quoteIdentifier('myschema.mytable')
      * </code>
@@ -791,7 +788,6 @@ interface Varien_Db_Adapter_Interface
      * Generate fragment of SQL, that combine together (concatenate) the results from data array
      * All arguments in data must be quoted
      *
-     * @param array $data
      * @param string $separator concatenate with separator
      * @return Zend_Db_Expr
      */
@@ -817,7 +813,6 @@ interface Varien_Db_Adapter_Interface
      * (minimum-valued) argument
      * All arguments in data must be quoted
      *
-     * @param array $data
      * @return Zend_Db_Expr
      */
     public function getLeastSql(array $data);
@@ -827,7 +822,6 @@ interface Varien_Db_Adapter_Interface
      * (maximum-valued) argument
      * All arguments in data must be quoted
      *
-     * @param array $data
      * @return Zend_Db_Expr
      */
     public function getGreatestSql(array $data);
@@ -835,7 +829,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Add time values (intervals) to a date value
      *
-     * @see INTERVAL_* constants for $unit
+     * @see INTERVAL_ constants for $unit
      *
      * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
      * @param int $interval
@@ -847,7 +841,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Subtract time values (intervals) to a date value
      *
-     * @see INTERVAL_* constants for $unit
+     * @see INTERVAL_ constants for $unit
      *
      * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
      * @param int|string $interval
@@ -903,7 +897,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Extract part of a date
      *
-     * @see INTERVAL_* constants for $unit
+     * @see INTERVAL_ constants for $unit
      *
      * @param Zend_Db_Expr|string $date   quoted field name or SQL statement
      * @param string $unit
@@ -964,9 +958,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Get insert from Select object query
      *
-     * @param Varien_Db_Select $select
      * @param string $table     insert into table
-     * @param array $fields
      * @param bool|int $mode
      * @return string
      */
@@ -976,7 +968,6 @@ interface Varien_Db_Adapter_Interface
      * Get insert queries in array for insert by range with step parameter
      *
      * @param string $rangeField
-     * @param Varien_Db_Select $select
      * @param int $stepCount
      * @return array
      */
@@ -985,7 +976,6 @@ interface Varien_Db_Adapter_Interface
     /**
      * Get update table query using select object for join and update
      *
-     * @param Varien_Db_Select $select
      * @param string|array $table
      * @return string
      */
@@ -994,7 +984,6 @@ interface Varien_Db_Adapter_Interface
     /**
      * Get delete from select object query
      *
-     * @param Varien_Db_Select $select
      * @param string $table the table name or alias used in select
      * @return string|int
      */
@@ -1020,7 +1009,6 @@ interface Varien_Db_Adapter_Interface
      * Adds order by random to select object
      * Possible using integer field for optimization
      *
-     * @param Varien_Db_Select $select
      * @param string $field
      * @return Varien_Db_Adapter_Interface
      */
@@ -1035,7 +1023,7 @@ interface Varien_Db_Adapter_Interface
     public function forUpdate($sql);
 
     /**
-     * Try to find installed primary key name, if not - formate new one.
+     * Try to find installed primary key name, if not - format new one.
      *
      * @param string $tableName Table name
      * @param string $schemaName OPTIONAL
@@ -1109,7 +1097,6 @@ interface Varien_Db_Adapter_Interface
      * Create new table from provided select statement
      *
      * @param string $tableName
-     * @param Zend_Db_Select $select
      * @param bool $temporary
      * @return mixed
      */

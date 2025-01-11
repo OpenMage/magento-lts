@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,28 +39,28 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             ->searchById('attribute_code')
             ->setData(
                 'class',
-                'validate-code-event ' . $fieldset->getElements()->searchById('attribute_code')->getData('class')
+                'validate-code-event ' . $fieldset->getElements()->searchById('attribute_code')->getData('class'),
             )->setData(
                 'note',
                 $fieldset->getElements()->searchById('attribute_code')->getData('note')
-                . Mage::helper('eav')->__('. Do not use "event" for an attribute code, it is a reserved keyword.')
+                . Mage::helper('eav')->__('. Do not use "event" for an attribute code, it is a reserved keyword.'),
             );
 
         $frontendInputElm = $form->getElement('frontend_input');
         $additionalTypes = [
             [
                 'value' => 'price',
-                'label' => Mage::helper('catalog')->__('Price')
+                'label' => Mage::helper('catalog')->__('Price'),
             ],
             [
                 'value' => 'media_image',
-                'label' => Mage::helper('catalog')->__('Media Image')
-            ]
+                'label' => Mage::helper('catalog')->__('Media Image'),
+            ],
         ];
         if ($attributeObject->getFrontendInput() == 'gallery') {
             $additionalTypes[] = [
                 'value' => 'gallery',
-                'label' => Mage::helper('catalog')->__('Gallery')
+                'label' => Mage::helper('catalog')->__('Gallery'),
             ];
         }
 
@@ -102,7 +103,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'label' => Mage::helper('catalog')->__('Scope'),
             'title' => Mage::helper('catalog')->__('Scope'),
             'note'  => Mage::helper('catalog')->__('Declare attribute value saving scope'),
-            'values' => $scopes
+            'values' => $scopes,
         ], 'attribute_code');
 
         $fieldset->addField('apply_to', 'apply', [
@@ -111,9 +112,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'values'      => Mage_Catalog_Model_Product_Type::getOptions(),
             'mode_labels' => [
                 'all'     => Mage::helper('catalog')->__('All Product Types'),
-                'custom'  => Mage::helper('catalog')->__('Selected Product Types')
+                'custom'  => Mage::helper('catalog')->__('Selected Product Types'),
             ],
-            'required'    => true
+            'required'    => true,
         ], 'frontend_class');
 
         $fieldset->addField('is_configurable', 'select', [
@@ -148,7 +149,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
 
         $fieldset->addField('is_filterable', 'select', [
             'name' => 'is_filterable',
-            'label' => Mage::helper('catalog')->__("Use In Layered Navigation"),
+            'label' => Mage::helper('catalog')->__('Use In Layered Navigation'),
             'title' => Mage::helper('catalog')->__('Can be used only with catalog input type Dropdown, Multiple Select and Price'),
             'note' => Mage::helper('catalog')->__('Can be used only with catalog input type Dropdown, Multiple Select and Price'),
             'values' => [
@@ -160,7 +161,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
 
         $fieldset->addField('is_filterable_in_search', 'select', [
             'name' => 'is_filterable_in_search',
-            'label' => Mage::helper('catalog')->__("Use In Search Results Layered Navigation"),
+            'label' => Mage::helper('catalog')->__('Use In Search Results Layered Navigation'),
             'title' => Mage::helper('catalog')->__('Can be used only with catalog input type Dropdown, Multiple Select and Price'),
             'note' => Mage::helper('catalog')->__('Can be used only with catalog input type Dropdown, Multiple Select and Price'),
             'values' => $yesnoSource,
@@ -233,15 +234,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
         $block = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
         $this->setChild('form_after', $block
-            ->addFieldMap("is_wysiwyg_enabled", 'wysiwyg_enabled')
-            ->addFieldMap("is_html_allowed_on_front", 'html_allowed_on_front')
-            ->addFieldMap("frontend_input", 'frontend_input_type')
+            ->addFieldMap('is_wysiwyg_enabled', 'wysiwyg_enabled')
+            ->addFieldMap('is_html_allowed_on_front', 'html_allowed_on_front')
+            ->addFieldMap('frontend_input', 'frontend_input_type')
             ->addFieldDependence('wysiwyg_enabled', 'frontend_input_type', 'textarea')
             ->addFieldDependence('html_allowed_on_front', 'wysiwyg_enabled', '0'));
 
         Mage::dispatchEvent('adminhtml_catalog_product_attribute_edit_prepare_form', [
             'form'      => $form,
-            'attribute' => $attributeObject
+            'attribute' => $attributeObject,
         ]);
 
         return $this;

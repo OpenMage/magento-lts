@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +30,6 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     /**
      * Loading stock item data by product
      *
-     * @param Mage_CatalogInventory_Model_Stock_Item $item
      * @param int $productId
      * @return $this
      */
@@ -59,7 +59,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
             ->join(
                 ['p' => $this->getTable('catalog/product')],
                 'product_id=p.entity_id',
-                ['type_id']
+                ['type_id'],
             );
     }
 
@@ -72,7 +72,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
     public function addCatalogInventoryToProductCollection($productCollection)
     {
         $adapter = $this->_getReadAdapter();
-        $isManageStock = (int)Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
+        $isManageStock = (string) Mage::getStoreConfigAsInt(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
         $stockExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 1', $isManageStock, 'cisi.manage_stock');
         $stockExpr = $adapter->getCheckSql("({$stockExpr} = 1)", 'cisi.is_in_stock', '1');
 
@@ -81,10 +81,10 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
             'product_id=entity_id',
             [
                 'is_saleable' => new Zend_Db_Expr($stockExpr),
-                'inventory_in_stock' => 'is_in_stock'
+                'inventory_in_stock' => 'is_in_stock',
             ],
             null,
-            'left'
+            'left',
         );
         return $this;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,6 +69,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             'index'     => 'increment_id',
         ]);
 
+        if (!Mage::app()->isSingleStoreMode()) {
+            $this->addColumn('store_id', [
+                'header'    => Mage::helper('customer')->__('Bought From'),
+                'type'      => 'store',
+            ]);
+        }
+
         $this->addColumn('created_at', [
             'header'    => Mage::helper('customer')->__('Purchase On'),
             'index'     => 'created_at',
@@ -99,22 +107,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
         ]);
 
-        if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', [
-                'header'    => Mage::helper('customer')->__('Bought From'),
-                'index'     => 'store_id',
-                'type'      => 'store',
-                'store_view' => true
-            ]);
-        }
-
         if (Mage::helper('sales/reorder')->isAllow()) {
             $this->addColumn('action', [
+                'type'      => 'action',
                 'header'    => ' ',
-                'filter'    => false,
-                'sortable'  => false,
-                'width'     => '100px',
-                'renderer'  => 'adminhtml/sales_reorder_renderer_action'
+                'width'     => '100',
+                'renderer'  => 'adminhtml/sales_reorder_renderer_action',
             ]);
         }
 

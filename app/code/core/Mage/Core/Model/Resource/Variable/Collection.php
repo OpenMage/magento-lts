@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,12 +10,12 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Custom variabel collection
+ * Custom variable collection
  *
  * @category   Mage
  * @package    Mage_Core
@@ -71,7 +72,7 @@ class Mage_Core_Model_Resource_Variable_Collection extends Mage_Core_Model_Resou
             ->join(
                 ['value_table' => $this->getTable('core/variable_value')],
                 'value_table.variable_id = main_table.variable_id',
-                ['value_table.plain_value', 'value_table.html_value']
+                ['value_table.plain_value', 'value_table.html_value'],
             );
         $this->addFieldToFilter('value_table.store_id', ['eq' => $this->getStoreId()]);
         return $this;

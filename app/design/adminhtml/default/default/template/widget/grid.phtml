@@ -9,20 +9,14 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
-<?php
+
 /**
  * Template for Mage_Adminhtml_Block_Widget_Grid
- * @var Mage_Adminhtml_Block_Widget_Grid $this
  *
- *  getId()
- *  getCollection()
- *  getColumns()
- *  getPagerVisibility()
- *  getVarNamePage()
+ * @var Mage_Adminhtml_Block_Widget_Grid $this
  */
 $numColumns = count($this->getColumns());
 ?>
@@ -114,7 +108,7 @@ $numColumns = count($this->getColumns());
                 <?php if ($this->getHeadersVisibility()): ?>
                     <tr class="headings">
                     <?php foreach ($this->getColumns() as $_column): ?>
-                        <th<?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
+                        <th<?php echo $_column->getHeaderHtmlProperty() ?> data-column-id="<?php echo $_column->getId() ?>"><?php echo $_column->getHeaderHtml() ?></th>
                     <?php endforeach ?>
                     </tr>
                 <?php endif ?>
