@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -162,7 +163,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $varName
+     * @param bool $varName
      * @return $this
      */
     public function setShowPerPage($varName)
@@ -200,9 +201,6 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         return $this->_limitVarName;
     }
 
-    /**
-     * @param array $limits
-     */
     public function setAvailableLimit(array $limits)
     {
         $this->_availableLimit = $limits;
@@ -614,7 +612,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     protected function _setFrameInitialized($flag)
     {
-        $this->_frameInitialized = (bool)$flag;
+        $this->_frameInitialized = (bool) $flag;
         return $this;
     }
 
@@ -656,7 +654,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function setIsOutputRequired($isRequired)
     {
-        $this->_outputRequired = (bool)$isRequired;
+        $this->_outputRequired = (bool) $isRequired;
         return $this;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,84 +30,84 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'GiftMessage Id'
+                'comment'   => 'GiftMessage Id',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Customer id'
+                'comment'   => 'Customer id',
             ],
             'sender' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Sender'
+                'comment'   => 'Sender',
             ],
             'recipient' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Recipient'
+                'comment'   => 'Recipient',
             ],
             'message' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-                'comment'   => 'Message'
-            ]
+                'comment'   => 'Message',
+            ],
         ],
-        'comment' => 'Gift Message'
+        'comment' => 'Gift Message',
     ],
     $installer->getTable('sales/quote') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/quote_address') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/quote_item') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/quote_address_item') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/order') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
-            ]
-        ]
+                'comment'   => 'Gift Message Id',
+            ],
+        ],
     ],
     $installer->getTable('sales/order_item') => [
         'columns' => [
             'gift_message_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Id'
+                'comment'   => 'Gift Message Id',
             ],
             'gift_message_available' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
-                'comment'   => 'Gift Message Available'
-            ]
-        ]
-    ]
+                'comment'   => 'Gift Message Available',
+            ],
+        ],
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);

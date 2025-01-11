@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,7 +75,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
 
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
-                $this->getStoreTZOffsetQuery($sourceTable, $aggregationField, $from, $to)
+                $this->getStoreTZOffsetQuery($sourceTable, $aggregationField, $from, $to),
             );
 
             $columns = [
@@ -129,7 +130,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
                 $periodExpr,
                 'store_id',
                 'status',
-                'coupon_code'
+                'coupon_code',
             ]);
 
             $select->having('COUNT(entity_id) > 0');
@@ -165,7 +166,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
             $select->group([
                 'period',
                 'order_status',
-                'coupon_code'
+                'coupon_code',
             ]);
 
             $adapter->query($select->insertFromSelect($table, array_keys($columns)));

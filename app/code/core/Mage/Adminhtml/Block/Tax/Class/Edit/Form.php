@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +35,7 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
         $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
-            'method'    => 'post'
+            'method'    => 'post',
         ]);
 
         $classType  = $this->getClassType();
@@ -46,7 +47,7 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
         $fieldset   = $form->addFieldset('base_fieldset', [
             'legend'    => $classType == Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER
                 ? Mage::helper('tax')->__('Customer Tax Class Information')
-                : Mage::helper('tax')->__('Product Tax Class Information')
+                : Mage::helper('tax')->__('Product Tax Class Information'),
         ]);
 
         $fieldset->addField(
@@ -58,7 +59,7 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
                 'class' => 'required-entry',
                 'value' => $model->getClassName(),
                 'required' => true,
-            ]
+            ],
         );
 
         $fieldset->addField(
@@ -67,8 +68,8 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
             [
                 'name'      => 'class_type',
                 'value'     => $classType,
-                'no_span'   => true
-            ]
+                'no_span'   => true,
+            ],
         );
 
         if ($model->getId()) {
@@ -78,8 +79,8 @@ class Mage_Adminhtml_Block_Tax_Class_Edit_Form extends Mage_Adminhtml_Block_Widg
                 [
                     'name'      => 'class_id',
                     'value'     => $model->getId(),
-                    'no_span'   => true
-                ]
+                    'no_span'   => true,
+                ],
             );
         }
 

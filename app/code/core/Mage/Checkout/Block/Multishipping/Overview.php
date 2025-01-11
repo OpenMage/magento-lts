@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +31,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         $this->addItemRender(
             $this->_getRowItemType('default'),
             'checkout/cart_item_renderer',
-            'checkout/multishipping/overview/item.phtml'
+            'checkout/multishipping/overview/item.phtml',
         );
     }
 
@@ -51,7 +52,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle(
-                $this->__('Review Order - %s', $headBlock->getDefaultTitle())
+                $this->__('Review Order - %s', $headBlock->getDefaultTitle()),
             );
         }
         return parent::_prepareLayout();
@@ -262,12 +263,12 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     public function getVirtualItems()
     {
         $items = [];
-        foreach ($this->getBillingAddress()->getItemsCollection() as $_item) {
-            if ($_item->isDeleted()) {
+        foreach ($this->getBillingAddress()->getItemsCollection() as $item) {
+            if ($item->isDeleted()) {
                 continue;
             }
-            if ($_item->getProduct()->getIsVirtual() && !$_item->getParentItemId()) {
-                $items[] = $_item;
+            if ($item->getProduct()->getIsVirtual() && !$item->getParentItemId()) {
+                $items[] = $item;
             }
         }
         return $items;
@@ -304,9 +305,8 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
             $helper = $this->helper('tax');
             $colspan = $helper->displayCartBothPrices() ? 5 : 3;
         }
-        $totals = $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
+        return $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
             . $this->getChild('totals')->setTotals($totals)->renderTotals('footer', $colspan);
-        return $totals;
     }
 
     /**
@@ -327,7 +327,6 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     /**
      * Return row-level item html
      *
-     * @param Varien_Object $item
      * @return string
      */
     public function getRowItemHtml(Varien_Object $item)

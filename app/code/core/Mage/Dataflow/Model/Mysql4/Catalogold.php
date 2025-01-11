@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,8 +77,8 @@ class Mage_Catalog_Model_Mysql4_Convert
         $write = $this->getConnection();
         $table = $this->getTable('catalog/product_store');
         try {
-            if (!$write->fetchOne("select * from $table where product_id=" . (int)$productId . ' and store_id=' . (int)$storeId)) {
-                $write->query("insert into $table (product_id, store_id) values (" . (int)$productId . ',' . (int)$storeId . ')');
+            if (!$write->fetchOne("select * from $table where product_id=" . (int) $productId . ' and store_id=' . (int) $storeId)) {
+                $write->query("insert into $table (product_id, store_id) values (" . (int) $productId . ',' . (int) $storeId . ')');
             }
         } catch (Exception $e) {
             throw $e;
@@ -134,7 +135,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             $select->joinLeft(
                 [$storeName => $this->getTable('eav/attribute_option_value')],
                 "$storeName.option_id=ao.option_id and $storeName.store_id=" . $storeConfig->descend('system/store/id'),
-                [$storeName => "$storeName.value"]
+                [$storeName => "$storeName.value"],
             );
         }
 

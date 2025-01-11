@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -217,7 +218,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $collection->getSelect()->joinLeft(
             [$tableName => $this->getMainTable()],
             $tableName . '.entity_id=e.entity_id',
-            []
+            [],
         );
 
         $response = new Varien_Object();
@@ -257,7 +258,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $select = $this->_getReadAdapter()->select();
         $select->from(
             ['price_table' => $this->getTable('catalogindex/minimal_price')],
-            ['price_table.entity_id', 'value' => '(price_table.value)', 'tax_class_id' => '(price_table.tax_class_id)']
+            ['price_table.entity_id', 'value' => '(price_table.value)', 'tax_class_id' => '(price_table.tax_class_id)'],
         )
             ->where('price_table.entity_id in (?)', $ids)
             ->where('price_table.website_id = ?', $this->getWebsiteId())

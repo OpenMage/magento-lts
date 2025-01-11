@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,8 +40,8 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
 
         $this->_section = $sections->$sectionCode;
 
-        $this->setTitle((string)$this->_section->label);
-        $this->setHeaderCss((string)$this->_section->header_css);
+        $this->setTitle((string) $this->_section->label);
+        $this->setHeaderCss((string) $this->_section->header_css);
     }
 
     /**
@@ -55,7 +56,7 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
                     'label'     => Mage::helper('adminhtml')->__('Save Config'),
                     'onclick'   => 'configForm.submit()',
                     'class' => 'save',
-                ])
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -81,14 +82,14 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
      */
     public function initForm()
     {
-        $blockName = (string)$this->_section->frontend_model;
+        $blockName = (string) $this->_section->frontend_model;
         if (empty($blockName)) {
             $blockName = self::DEFAULT_SECTION_BLOCK;
         }
         $this->setChild(
             'form',
             $this->getLayout()->createBlock($blockName)
-                ->initForm()
+                ->initForm(),
         );
         return $this;
     }

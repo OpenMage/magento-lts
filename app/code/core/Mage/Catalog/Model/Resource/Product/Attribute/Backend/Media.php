@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,6 +27,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
 
     protected $_eventPrefix = 'catalog_product_attribute_backend_media';
 
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_attributeId = null;
 
     protected function _construct()
@@ -45,12 +47,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         $eventObjectWrapper = new Varien_Object(
             [
                 'product' => $product,
-                'backend_attribute' => $object
-            ]
+                'backend_attribute' => $object,
+            ],
         );
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_gallery_before',
-            ['event_object_wrapper' => $eventObjectWrapper]
+            ['event_object_wrapper' => $eventObjectWrapper],
         );
 
         if ($eventObjectWrapper->hasProductIdsOverride()) {
@@ -94,7 +96,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Insert gallery value to db and retrieve last id
      *
      * @param array $data
-     * @return int
+     * @return string
      */
     public function insertGallery($data)
     {
@@ -182,7 +184,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             $data = [
                 'attribute_id' => $object->getAttribute()->getId(),
                 'entity_id'    => $newProductId,
-                'value'        => $newFiles[$row['value_id']] ?? $row['value']
+                'value'        => $newFiles[$row['value_id']] ?? $row['value'],
             ];
 
             $valueIdMap[$row['value_id']] = $this->insertGallery($data);
@@ -209,7 +211,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Get select to retrieve media gallery images
      * for given product IDs.
      *
-     * @param array $productIds
      * @param int $storeId
      * @param int $attributeId
      * @return Varien_Db_Select
@@ -224,12 +225,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         return $adapter->select()
             ->from(
                 ['main' => $this->getMainTable()],
-                ['value_id', 'value AS file', 'product_id' => 'entity_id']
+                ['value_id', 'value AS file', 'product_id' => 'entity_id'],
             )
             ->joinLeft(
                 ['value' => $this->getTable(self::GALLERY_VALUE_TABLE)],
-                $adapter->quoteInto('main.value_id = value.value_id AND value.store_id = ?', (int)$storeId),
-                ['label','position','disabled']
+                $adapter->quoteInto('main.value_id = value.value_id AND value.store_id = ?', (int) $storeId),
+                ['label','position','disabled'],
             )
             ->joinLeft( // Joining default values
                 ['default_value' => $this->getTable(self::GALLERY_VALUE_TABLE)],
@@ -237,8 +238,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
                 [
                     'label_default' => 'label',
                     'position_default' => 'position',
-                    'disabled_default' => 'disabled'
-                ]
+                    'disabled_default' => 'disabled',
+                ],
             )
             ->where('main.attribute_id = ?', $attributeId)
             ->where('main.entity_id in (?)', $productIds)
@@ -264,7 +265,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     /**
      * Get media gallery set for given product IDs
      *
-     * @param array $productIds
      * @param int $storeId
      * @return array
      */

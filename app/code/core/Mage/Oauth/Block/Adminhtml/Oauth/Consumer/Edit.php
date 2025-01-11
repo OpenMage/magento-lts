@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +55,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         $this->_addButton('save_and_continue', [
             'label'     => Mage::helper('oauth')->__('Save and Continue Edit'),
             'onclick'   => 'saveAndContinueEdit()',
-            'class' => 'save'
+            'class' => 'save',
         ], 100);
 
         $this->_formScripts[] = 'function saveAndContinueEdit()' .
@@ -64,7 +65,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         $this->_updateButton('save', 'id', 'save_button');
         $this->_updateButton('delete', 'label', $this->__('Delete'));
         $this->_updateButton('delete', 'onclick', 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
-            Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+            Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
         ) . '\')) editForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;');
 
         /** @var Mage_Admin_Model_Session $session */

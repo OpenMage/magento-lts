@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -140,34 +141,35 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
     }
 
     /**
-     * Getting all available childs for Invoice, Shipmen or Creditmemo item
+     * Getting all available children for Invoice, Shipment or Credit Memo item
      *
      * @param Varien_Object $item
      * @return array
      */
     public function getChilds($item)
     {
-        $_itemsArray = [];
+        $orderItems = [];
+        $itemsArray = [];
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
-            $_items = $item->getInvoice()->getAllItems();
+            $orderItems = $item->getInvoice()->getAllItems();
         } elseif ($item instanceof Mage_Sales_Model_Order_Shipment_Item) {
-            $_items = $item->getShipment()->getAllItems();
+            $orderItems = $item->getShipment()->getAllItems();
         } elseif ($item instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
-            $_items = $item->getCreditmemo()->getAllItems();
+            $orderItems = $item->getCreditmemo()->getAllItems();
         }
 
-        if ($_items) {
-            foreach ($_items as $_item) {
-                if ($parentItem = $_item->getOrderItem()->getParentItem()) {
-                    $_itemsArray[$parentItem->getId()][$_item->getOrderItemId()] = $_item;
+        if ($orderItems) {
+            foreach ($orderItems as $orderItem) {
+                if ($parentItem = $orderItem->getOrderItem()->getParentItem()) {
+                    $itemsArray[$parentItem->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 } else {
-                    $_itemsArray[$_item->getOrderItem()->getId()][$_item->getOrderItemId()] = $_item;
+                    $itemsArray[$orderItem->getOrderItem()->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 }
             }
         }
 
-        return $_itemsArray[$item->getOrderItem()->getId()] ?? null;
+        return $itemsArray[$item->getOrderItem()->getId()] ?? null;
     }
 
     /**

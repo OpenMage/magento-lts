@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,32 +46,30 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
             'align'     => 'center',
             'width'     => '60px',
             'sortable'  => false,
-            'index'     => 'product_id'
+            'index'     => 'product_id',
         ]);
         $this->addColumn('sku', [
             'header'    => Mage::helper('tag')->__('SKU'),
             'align'     => 'center',
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('tag')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
         $this->addColumn('tags', [
             'header'    => Mage::helper('tag')->__('Tags'),
             'index'     => 'tags',
             'sortable'  => false,
             'filter'    => false,
-            'renderer'  => 'adminhtml/tag_grid_column_renderer_tags'
+            'renderer'  => 'adminhtml/tag_grid_column_renderer_tags',
         ]);
         $this->addColumn('action', [
-            'header'    => Mage::helper('tag')->__('Action'),
+            'type'      => 'action',
             'align'     => 'center',
-            'width'     => '120px',
+            'width'     => '120',
             'format'    => '<a href="' . $this->getUrl('*/*/customers/product_id/$product_id') . '">' . Mage::helper('tag')->__('View Customers') . '</a>',
-            'filter'    => false,
-            'sortable'  => false,
-            'is_system' => true
+            'is_system' => true,
         ]);
 
         return parent::_prepareColumns();

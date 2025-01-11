@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +34,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
             'rss_catalog_category_'
             . $this->getRequest()->getParam('cid') . '_'
             . $this->getRequest()->getParam('store_id') . '_'
-            . Mage::getModel('customer/session')->getId()
+            . Mage::getModel('customer/session')->getId(),
         );
         $this->setCacheLifetime(600);
     }
@@ -54,19 +55,20 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
             if ($category->getId()) {
                 $layer = Mage::getSingleton('catalog/layer')->setStore($storeId);
                 //want to load all products no matter anchor or not
-                $category->setIsAnchor(true);
+                $category->setIsAnchor(1);
                 $newurl = $category->getUrl();
                 $title = $category->getName();
                 $data = ['title' => $title,
-                        'description' => $title,
-                        'link'        => $newurl,
-                        'charset'     => 'UTF-8',
+                    'description' => $title,
+                    'link'        => $newurl,
+                    'charset'     => 'UTF-8',
                 ];
 
                 $rssObj->_addHeader($data);
 
-                $_collection = $category->getCollection();
-                $_collection->addAttributeToSelect('url_key')
+                /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
+                $collection = $category->getCollection();
+                $collection->addAttributeToSelect('url_key')
                     ->addAttributeToSelect('name')
                     ->addAttributeToSelect('is_anchor')
                     ->addAttributeToFilter('is_active', 1)
@@ -77,13 +79,13 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
 
                 $currentCategory = $layer->setCurrentCategory($category);
                 $layer->prepareProductCollection($productCollection);
-                $productCollection->addCountToCategories($_collection);
+                $productCollection->addCountToCategories($collection);
 
                 $category->getProductCollection()->setStoreId($storeId);
                 /*
-                only load latest 50 products
-                */
-                $_productCollection = $currentCategory
+                 * only load latest 50 products
+                 */
+                $categoryProductCollection = $currentCategory
                     ->getProductCollection()
                     ->addAttributeToSort('updated_at', 'desc')
                     ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
@@ -91,10 +93,10 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                     ->setPageSize(50)
                 ;
 
-                if ($_productCollection->getSize() > 0) {
+                if ($categoryProductCollection->getSize() > 0) {
                     $args = ['rssObj' => $rssObj];
-                    foreach ($_productCollection as $_product) {
-                        $args['product'] = $_product;
+                    foreach ($categoryProductCollection as $categoryProduct) {
+                        $args['product'] = $categoryProduct;
                         $this->addNewItemXmlCallback($args);
                     }
                 }
@@ -136,9 +138,9 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $description .= '</td></tr></table>';
         $rssObj = $args['rssObj'];
         $data = [
-                'title'         => $product->getName(),
-                'link'          => $product->getProductUrl(),
-                'description'   => $description,
+            'title'         => $product->getName(),
+            'link'          => $product->getProductUrl(),
+            'description'   => $description,
         ];
 
         $rssObj->_addEntry($data);

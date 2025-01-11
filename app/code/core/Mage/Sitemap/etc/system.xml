@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sitemap
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -48,6 +48,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Valid values range: from 0.0 to 1.0.</comment>
+                            <frontend_class>validate-number</frontend_class>
                         </priority>
                         <lastmod translate="label">
                             <label>Show lastmod</label>
@@ -84,6 +85,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Valid values range: from 0.0 to 1.0.</comment>
+                            <frontend_class>validate-number</frontend_class>
                         </priority>
                         <lastmod translate="label">
                             <label>Show lastmod</label>
@@ -120,6 +122,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Valid values range: from 0.0 to 1.0.</comment>
+                            <frontend_class>validate-number</frontend_class>
                         </priority>
                         <lastmod translate="label">
                             <label>Show lastmod</label>
@@ -155,6 +158,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </error_email>
                         <error_email_identity translate="label">
                             <label>Error Email Sender</label>
@@ -164,6 +168,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </error_email_identity>
                         <error_email_template translate="label">
                             <label>Error Email Template</label>
@@ -173,6 +178,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </error_email_template>
                         <frequency translate="label">
                             <label>Frequency</label>
@@ -183,6 +189,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </frequency>
                         <time translate="label">
                             <label>Start Time</label>
@@ -191,6 +198,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </time>
                     </fields>
                 </generate>

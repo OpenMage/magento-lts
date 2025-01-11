@@ -23,9 +23,6 @@ declare(strict_types=1);
  */
 class Mage_Core_Model_Security_HtmlEscapedString implements Stringable
 {
-    /**
-     * @var string
-     */
     protected string $originalValue;
 
     /**
@@ -34,7 +31,6 @@ class Mage_Core_Model_Security_HtmlEscapedString implements Stringable
     protected ?array $allowedTags;
 
     /**
-     * @param string $originalValue
      * @param string[]|null $allowedTags
      */
     public function __construct(string $originalValue, ?array $allowedTags = null)
@@ -45,21 +41,17 @@ class Mage_Core_Model_Security_HtmlEscapedString implements Stringable
 
     /**
      * Get escaped html entities
-     *
-     * @return string
      */
     public function __toString(): string
     {
         return (string) Mage::helper('core')->escapeHtml(
             $this->originalValue,
-            $this->allowedTags
+            $this->allowedTags,
         );
     }
 
     /**
      * Get un-escaped html entities
-     *
-     * @return string
      */
     public function getUnescapedValue(): string
     {

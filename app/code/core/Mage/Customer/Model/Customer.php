@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,13 +30,13 @@
  * @method $this setConfirmation(bool|null $value)
  * @method string getCreatedAt()
  * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
+ * @method $this setCustomerId(int|null $value)
  *
- * @method int getDefaultBilling()
- * @method $this setDefaultBilling(int $value)
+ * @method int|null getDefaultBilling()
+ * @method $this setDefaultBilling(int|null $value)
  * @method $this unsetDefaultBilling()
- * @method int getDefaultShipping()
- * @method $this setDefaultShipping(int $value)
+ * @method int|null getDefaultShipping()
+ * @method $this setDefaultShipping(int|null $value)
  * @method $this unsetDefaultShipping()
  * @method int getDisableAutoGroupChange()
  * @method string getDob()
@@ -45,6 +46,7 @@
  * @method $this setEmail(string $value)
  *
  * @method string getFirstname()
+ * @method $this setFirstname(string $value)
  * @method bool getForceConfirmed()
  * @method $this setForceConfirmed(bool $value)
  *
@@ -66,6 +68,7 @@
  * @method $this setItems(int $value)
  *
  * @method string getLastname()
+ * @method $this setLastname(string $value)
  *
  * @method string getMiddlename()
  * @method string getMode()
@@ -122,7 +125,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_TEMPLATE = 'customer/changed_account/password_or_email_template';
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY = 'customer/changed_account/password_or_email_identity';
-
+    public const XML_PATH_PASSWORD_LINK_ACCOUNT_NEW_EMAIL_TEMPLATE = 'customer/password_link/account_new_email_template';
+    public const XML_PATH_PASSWORD_LINK_EMAIL_TEMPLATE = 'customer/password_link/email_template';
+    public const XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY = 'customer/password_link/email_identity';
     /**
      * Codes of exceptions related to customer model
      */
@@ -225,6 +230,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @var bool
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private static $_isConfirmationRequired;
 
     /**
@@ -260,19 +266,19 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             throw Mage::exception(
                 'Mage_Core',
                 Mage::helper('customer')->__('This account is not confirmed.'),
-                self::EXCEPTION_EMAIL_NOT_CONFIRMED
+                self::EXCEPTION_EMAIL_NOT_CONFIRMED,
             );
         }
         if (!$this->validatePassword($password)) {
             throw Mage::exception(
                 'Mage_Core',
                 Mage::helper('customer')->__('Invalid login or password.'),
-                self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD
+                self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD,
             );
         }
         Mage::dispatchEvent('customer_customer_authenticated', [
-           'model'    => $this,
-           'password' => $password,
+            'model'    => $this,
+            'password' => $password,
         ]);
 
         return true;
@@ -363,7 +369,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Add address to address collection
      *
-     * @param Mage_Customer_Model_Address $address
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -378,7 +383,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Retrieve customer address by address id
      *
-     * @param   int $addressId
+     * @param   int|null $addressId
      * @return  Mage_Customer_Model_Address
      */
     public function getAddressById($addressId)
@@ -475,9 +480,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         return $this->_attributes[$attributeCode] ?? null;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return (string) $this->_getData('password');
@@ -702,7 +704,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Check if address is primary
      *
-     * @param Mage_Customer_Model_Address $address
      * @return bool
      */
     public function isAddressPrimary(Mage_Customer_Model_Address $address)
@@ -718,7 +719,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @param string $type
      * @param string $backUrl
-     * @param string $storeId
+     * @param string|int $storeId
      * @param string $password
      * @throws Mage_Core_Exception
      * @return $this
@@ -746,7 +747,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $types[$type],
             self::XML_PATH_REGISTER_EMAIL_IDENTITY,
             ['customer' => $this, 'back_url' => $backUrl],
-            $storeId
+            $storeId,
         );
         $this->cleanPasswordsValidationData();
 
@@ -798,7 +799,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             self::XML_PATH_REMIND_EMAIL_TEMPLATE,
             self::XML_PATH_FORGOT_EMAIL_IDENTITY,
             ['customer' => $this],
-            $storeId
+            $storeId,
         );
 
         return $this;
@@ -822,7 +823,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             self::XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY,
             ['customer' => $this],
             $storeId,
-            $this->getOldEmail()
+            $this->getOldEmail(),
         );
 
         return $this;
@@ -874,7 +875,41 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             self::XML_PATH_FORGOT_EMAIL_TEMPLATE,
             self::XML_PATH_FORGOT_EMAIL_IDENTITY,
             ['customer' => $this],
-            $storeId
+            $storeId,
+        );
+
+        return $this;
+    }
+
+    /**
+     * Send email with link to set password
+     *
+     * @bool $isNew Send welcome email?
+     * @return $this
+     */
+    public function sendPasswordLinkEmail(bool $isNew = false)
+    {
+        $storeId = Mage::app()->getStore()->getId();
+        if (!$storeId) {
+            $storeId = $this->_getWebsiteStoreId();
+        }
+
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = Mage::helper('customer');
+        $newResetPasswordLinkToken = $helper->generateResetPasswordLinkToken();
+        $newResetPasswordLinkCustomerId = $helper->generateResetPasswordLinkCustomerId($this->getId());
+        $this->changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId);
+        $this->changeResetPasswordLinkToken($newResetPasswordLinkToken);
+
+        $template = $isNew
+            ? self::XML_PATH_PASSWORD_LINK_ACCOUNT_NEW_EMAIL_TEMPLATE
+            : self::XML_PATH_PASSWORD_LINK_EMAIL_TEMPLATE;
+
+        $this->_sendEmailTemplate(
+            $template,
+            self::XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY,
+            ['customer' => $this],
+            $storeId,
         );
 
         return $this;
@@ -951,7 +986,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $ids = $this->_getData('shared_store_ids');
         if ($ids === null) {
             $ids = [];
-            if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
+            if ((bool) $this->getSharingConfig()->isWebsiteScope()) {
                 $ids = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
             } else {
                 foreach (Mage::app()->getStores() as $store) {
@@ -974,7 +1009,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $ids = $this->_getData('shared_website_ids');
         if ($ids === null) {
             $ids = [];
-            if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
+            if ((bool) $this->getSharingConfig()->isWebsiteScope()) {
                 $ids[] = $this->getWebsiteId();
             } else {
                 foreach (Mage::app()->getWebsites() as $website) {
@@ -989,7 +1024,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Set store to customer
      *
-     * @param Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore(Mage_Core_Model_Store $store)
@@ -1096,7 +1130,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Import customer data from text array
      *
-     * @param array $row
      * @return $this|null
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -1130,13 +1163,13 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 $this->addError(Mage::helper('customer')->__(
                     'The customer email (%s) already exists, skipping the record, line: %s',
                     $row['email'],
-                    $line
+                    $line,
                 ));
             }
         } elseif ($row['entity_id'] != $this->getData('entity_id')) {
             $this->addError(Mage::helper('customer')->__(
                 'The customer ID and email did not match, skipping the record, line: %s',
-                $line
+                $line,
             ));
         } else {
             $this->unsetData();
@@ -1268,7 +1301,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             // End handling shipping address
         }
         if (!empty($row['is_subscribed'])) {
-            $isSubscribed = (bool)strtolower($row['is_subscribed']) == self::SUBSCRIBED_YES;
+            $isSubscribed = (bool) strtolower($row['is_subscribed']) == self::SUBSCRIBED_YES;
             $this->setIsSubscribed($isSubscribed);
         }
         unset($row);
@@ -1358,7 +1391,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Validate address
      *
-     * @param array $data
      * @param string $type
      * @return bool
      */
@@ -1380,7 +1412,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                         return false;
                     }
 
-                    $region = Mage::getModel('directory/region')->loadByName($data[$prefix . 'region']);
+                    $region = Mage::getModel('directory/region')->loadByName($data[$prefix . 'region'], $data[$prefix . $field]);
                     if (!$region->getId()) {
                         return false;
                     }
@@ -1448,7 +1480,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function setIsDeleteable($value)
     {
-        $this->_isDeleteable = (bool)$value;
+        $this->_isDeleteable = (bool) $value;
         return $this;
     }
 
@@ -1470,7 +1502,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function setIsReadonly($value)
     {
-        $this->_isReadonly = (bool)$value;
+        $this->_isReadonly = (bool) $value;
         return $this;
     }
 
@@ -1558,7 +1590,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             throw Mage::exception(
                 'Mage_Core',
                 Mage::helper('customer')->__('Invalid password reset token.'),
-                self::EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN
+                self::EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN,
             );
         }
         $this->_getResource()->changeResetPasswordLinkToken($this, $newResetPasswordLinkToken);
@@ -1580,7 +1612,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             throw Mage::exception(
                 'Mage_Core',
                 Mage::helper('customer')->__('Invalid password reset customer Id.'),
-                self::EXCEPTION_INVALID_RESET_PASSWORD_LINK_CUSTOMER_ID
+                self::EXCEPTION_INVALID_RESET_PASSWORD_LINK_CUSTOMER_ID,
             );
         }
         $this->_getResource()->changeResetPasswordLinkCustomerId($this, $newResetPasswordLinkCustomerId);

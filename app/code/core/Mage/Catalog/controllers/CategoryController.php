@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,8 +52,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                 'catalog_controller_category_init_after',
                 [
                     'category' => $category,
-                    'controller_action' => $this
-                ]
+                    'controller_action' => $this,
+                ],
             );
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
@@ -77,7 +78,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
     /**
      * Recursively apply custom design settings to category if it's option
-     * custom_use_parent_settings is setted to 1 while parent option is not
+     * custom_use_parent_settings is set to 1 while parent option is not
      *
      * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      * @param Mage_Catalog_Model_Category $category

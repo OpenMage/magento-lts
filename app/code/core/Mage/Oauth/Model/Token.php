@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -166,7 +167,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
             'type'         => self::TYPE_REQUEST,
             'token'        => $helper->generateToken(),
             'secret'       => $helper->generateTokenSecret(),
-            'callback_url' => $callbackUrl
+            'callback_url' => $callbackUrl,
         ]);
         $this->save();
 
@@ -237,7 +238,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 
         /** @var Mage_Oauth_Model_Consumer_Validator_KeyLength $validatorLength */
         $validatorLength = Mage::getModel(
-            'oauth/consumer_validator_keyLength'
+            'oauth/consumer_validator_keyLength',
         );
         $validatorLength->setLength(self::LENGTH_SECRET);
         $validatorLength->setName('Token Secret Key');

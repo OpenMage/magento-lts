@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +30,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
 
     protected function _prepareCollection()
     {
-        if (!Mage::helper('core')->isModuleEnabled('Mage_Sales')) {
+        if (!$this->isModuleEnabled('Mage_Sales')) {
             return $this;
         }
         if ($this->getParam('website')) {
@@ -39,7 +40,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } else {
-            $storeId = (int)$this->getParam('store');
+            $storeId = (int) $this->getParam('store');
         }
 
         $collection = Mage::getResourceModel('sales/report_bestsellers_collection')
@@ -57,25 +58,24 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
         $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'sortable'  => false,
-            'index'     => 'product_name'
+            'index'     => 'product_name',
         ]);
 
         $this->addColumn('price', [
             'header'    => Mage::helper('sales')->__('Price'),
             'width'     => '120px',
             'type'      => 'currency',
-            'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
+            'currency_code' => (string) Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode(),
             'sortable'  => false,
-            'index'     => 'product_price'
+            'index'     => 'product_price',
         ]);
 
         $this->addColumn('ordered_qty', [
             'header'    => Mage::helper('sales')->__('Quantity Ordered'),
             'width'     => '120px',
-            'align'     => 'right',
             'sortable'  => false,
             'index'     => 'qty_ordered',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->setFilterVisibility(false);

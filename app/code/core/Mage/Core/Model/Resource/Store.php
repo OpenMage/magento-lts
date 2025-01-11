@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +36,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $this->_uniqueFields = [[
             'field' => 'code',
-            'title' => Mage::helper('core')->__('Store with the same code')
+            'title' => Mage::helper('core')->__('Store with the same code'),
         ]];
         return $this;
     }
@@ -50,7 +51,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         if (!preg_match('/^[a-z]+[a-z0-9_\-]*$/', $model->getCode())) {
             Mage::throwException(
-                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9), underscore(_) or dash(-), the first character must be a letter')
+                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9), underscore(_) or dash(-), the first character must be a letter'),
             );
         }
 
@@ -82,12 +83,12 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $where = [
             'scope = ?'    => 'stores',
-            'scope_id = ?' => $model->getStoreId()
+            'scope_id = ?' => $model->getStoreId(),
         ];
 
         $this->_getWriteAdapter()->delete(
             $this->getTable('core/config_data'),
-            $where
+            $where,
         );
         return $this;
     }
@@ -103,15 +104,15 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $adapter    = $this->_getWriteAdapter();
 
-        $bindValues = ['group_id' => (int)$groupId];
+        $bindValues = ['group_id' => (int) $groupId];
         $select = $adapter->select()
             ->from($this->getMainTable(), ['count' => 'COUNT(*)'])
             ->where('group_id = :group_id');
         $count  = $adapter->fetchOne($select, $bindValues);
 
         if ($count == 1) {
-            $bind  = ['default_store_id' => (int)$storeId];
-            $where = ['group_id = ?' => (int)$groupId];
+            $bind  = ['default_store_id' => (int) $storeId];
+            $where = ['group_id = ?' => (int) $groupId];
             $adapter->update($this->getTable('core/store_group'), $bind, $where);
         }
 
@@ -121,7 +122,6 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Change store group for store
      *
-     * @param Mage_Core_Model_Abstract|Mage_Core_Model_Store_Group $model
      * @return $this
      */
     protected function _changeGroup(Mage_Core_Model_Abstract $model)

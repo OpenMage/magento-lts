@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Cache
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,7 +109,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     }
 
     /**
-     * Load data from memcached, glue from several chunks if it was splitted upon save.
+     * Load data from memcached, glue from several chunks if it was split upon save.
      *
      * @param string $id                     @see Zend_Cache_Backend_Memcached::load()
      * @param bool   $doNotTestCacheValidity @see Zend_Cache_Backend_Memcached::load()
@@ -144,7 +145,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
             }
         }
 
-        // Data has not been splitted to chunks on save
+        // Data has not been split to chunks on save
         return $data;
     }
 }

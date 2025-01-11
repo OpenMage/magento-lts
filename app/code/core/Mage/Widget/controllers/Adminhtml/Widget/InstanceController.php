@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,14 +46,14 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     protected function _initAction()
     {
         $this->loadLayout()
-            ->_setActiveMenu('cms/widgets')
+            ->_setActiveMenu('cms/widget_instance')
             ->_addBreadcrumb(
                 Mage::helper('widget')->__('CMS'),
-                Mage::helper('widget')->__('CMS')
+                Mage::helper('widget')->__('CMS'),
             )
             ->_addBreadcrumb(
                 Mage::helper('widget')->__('Manage Widget Instances'),
-                Mage::helper('widget')->__('Manage Widget Instances')
+                Mage::helper('widget')->__('Manage Widget Instances'),
             );
         return $this;
     }
@@ -173,12 +174,12 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
         try {
             $widgetInstance->save();
             $this->_getSession()->addSuccess(
-                Mage::helper('widget')->__('The widget instance has been saved.')
+                Mage::helper('widget')->__('The widget instance has been saved.'),
             );
             if ($this->getRequest()->getParam('back', false)) {
                 $this->_redirect('*/*/edit', [
                     'instance_id' => $widgetInstance->getId(),
-                    '_current' => true
+                    '_current' => true,
                 ]);
             } else {
                 $this->_redirect('*/*/');
@@ -204,7 +205,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             try {
                 $widgetInstance->delete();
                 $this->_getSession()->addSuccess(
-                    Mage::helper('widget')->__('The widget instance has been deleted.')
+                    Mage::helper('widget')->__('The widget instance has been deleted.'),
                 );
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -332,7 +333,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                         && !empty($pageGroup[$pageGroup['page_group']]['block'])
                         && !$validatorCustomLayout->isValid($widgetInstance->generateLayoutUpdateXml(
                             $pageGroup[$pageGroup['page_group']]['block'],
-                            $pageGroup[$pageGroup['page_group']]['template']
+                            $pageGroup[$pageGroup['page_group']]['template'],
                         ))
                     ) {
                         $errorNo = false;
@@ -340,7 +341,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 } catch (Exception $exception) {
                     Mage::logException($exception);
                     $this->_getSession()->addError(
-                        $this->__('An error occurred during POST data validation: %s', $exception->getMessage())
+                        $this->__('An error occurred during POST data validation: %s', $exception->getMessage()),
                     );
                     $errorNo = false;
                 }

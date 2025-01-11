@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +66,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
                 $delCondition = [
                     'entity_type_id=?' => $object->getEntityTypeId(),
                     'attribute_id = ?' => $object->getId(),
-                    'store_id IN(?)'   => $attributeStoreIds
+                    'store_id IN(?)'   => $attributeStoreIds,
                 ];
                 $this->_getWriteAdapter()->delete($object->getBackendTable(), $delCondition);
             }
@@ -77,7 +78,6 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
     /**
      * Delete entity
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return $this
      */
     public function deleteEntity(Mage_Core_Model_Abstract $object)
@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
 
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('eav/entity_attribute'))
-            ->where('entity_attribute_id = ?', (int)$object->getEntityAttributeId());
+            ->where('entity_attribute_id = ?', (int) $object->getEntityAttributeId());
         $result = $this->_getReadAdapter()->fetchRow($select);
 
         if ($result) {
@@ -107,7 +107,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
                 $clearCondition = [
                     'entity_type_id =?' => $attribute->getEntityTypeId(),
                     'attribute_id =?'   => $attribute->getId(),
-                    'entity_id IN (?)'  => $select
+                    'entity_id IN (?)'  => $select,
                 ];
                 $this->_getWriteAdapter()->delete($backendTable, $clearCondition);
             }
@@ -122,9 +122,8 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
     /**
      * Defines is Attribute used by super products
      *
-     * @param Mage_Core_Model_Abstract $object
      * @param int $attributeSet
-     * @return int
+     * @return false|string|null
      */
     public function isUsedBySuperProducts(Mage_Core_Model_Abstract $object, $attributeSet = null)
     {

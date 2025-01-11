@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +32,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
      */
     protected function _fixQty($qty)
     {
-        return (!empty($qty) ? (float)$qty : null);
+        return (!empty($qty) ? (float) $qty : null);
     }
 
     /**
@@ -43,8 +44,8 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     protected function _serializeValue($value)
     {
         if (is_numeric($value)) {
-            $data = (float)$value;
-            return (string)$data;
+            $data = (float) $value;
+            return (string) $data;
         } elseif (is_array($value)) {
             $data = [];
             foreach ($value as $groupId => $qty) {
@@ -53,7 +54,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
                 }
             }
             if (count($data) == 1 && array_key_exists(Mage_Customer_Model_Group::CUST_GROUP_ALL, $data)) {
-                return (string)$data[Mage_Customer_Model_Group::CUST_GROUP_ALL];
+                return (string) $data[Mage_Customer_Model_Group::CUST_GROUP_ALL];
             }
             return serialize($data);
         } else {
@@ -71,7 +72,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     {
         if (is_numeric($value)) {
             return [
-                Mage_Customer_Model_Group::CUST_GROUP_ALL => $this->_fixQty($value)
+                Mage_Customer_Model_Group::CUST_GROUP_ALL => $this->_fixQty($value),
             ];
         } elseif (is_string($value) && !empty($value)) {
             try {
@@ -107,7 +108,6 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Encode value to be used in Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
      *
-     * @param array $value
      * @return array
      */
     protected function _encodeArrayFieldValue(array $value)
@@ -126,7 +126,6 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Decode value from used in Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
      *
-     * @param array $value
      * @return array
      */
     protected function _decodeArrayFieldValue(array $value)
@@ -196,7 +195,6 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         if ($this->_isEncodedArrayFieldValue($value)) {
             $value = $this->_decodeArrayFieldValue($value);
         }
-        $value = $this->_serializeValue($value);
-        return $value;
+        return $this->_serializeValue($value);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Authorizenet
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,6 @@ class Mage_Authorizenet_Model_Directpost_Observer
     /**
      * Save order into registry to use it in the overloaded controller.
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
@@ -39,7 +39,6 @@ class Mage_Authorizenet_Model_Directpost_Observer
     /**
      * Set data for response of frontend saveOrder action
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function addAdditionalFieldsToResponseFrontend(Varien_Event_Observer $observer)
@@ -54,7 +53,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
-                    Zend_Json::TYPE_ARRAY
+                    Zend_Json::TYPE_ARRAY,
                 );
 
                 if (empty($result['error'])) {
@@ -65,7 +64,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
                     $session->setLastOrderIncrementId($order->getIncrementId());
                     $requestToPaygate = $payment->getMethodInstance()->generateRequestFromOrder($order);
                     $requestToPaygate->setControllerActionName($controller->getRequest()->getControllerName());
-                    $requestToPaygate->setIsSecure((string)Mage::app()->getStore()->isCurrentlySecure());
+                    $requestToPaygate->setIsSecure((string) Mage::app()->getStore()->isCurrentlySecure());
 
                     $result['directpost'] = ['fields' => $requestToPaygate->getData()];
 
@@ -82,7 +81,6 @@ class Mage_Authorizenet_Model_Directpost_Observer
      * Update all edit increments for all orders if module is enabled.
      * Needed for correct work of edit orders in Admin area.
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function updateAllEditIncrements(Varien_Event_Observer $observer)

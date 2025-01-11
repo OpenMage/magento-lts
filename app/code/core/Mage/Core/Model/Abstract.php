@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +49,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Original data that was loaded
      *
-     * @var array
+     * @var array|null
      */
     protected $_origData;
 
@@ -275,7 +276,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Load object data
      *
-     * @param string|int $id
+     * @param string|null|int $id
      * @param string|null $field
      * @return $this
      */
@@ -345,7 +346,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Check whether model has changed data.
      * Can be overloaded in child classes to perform advanced check whether model needs to be saved
-     * e.g. usign resouceModel->hasDataChanged() or any other technique
+     * e.g. using resourceModel->hasDataChanged() or any other technique
      *
      * @return bool
      */
@@ -418,7 +419,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($flag !== null) {
             $this->_isObjectNew = $flag;
         }
-        return $this->_isObjectNew ?? !(bool)$this->getId();
+        return $this->_isObjectNew ?? !(bool) $this->getId();
     }
 
     /**
@@ -440,7 +441,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Get list of cache tags applied to model object.
      * Return false if cache tags are not supported by model
      *
-     * @return array | false
+     * @return array|false
      */
     public function getCacheTags()
     {
@@ -466,7 +467,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get cache tags associated with object id
      *
-     * @return array|bool
+     * @return array|false
      */
     public function getCacheIdTags()
     {
@@ -474,8 +475,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($this->getId() && $this->_cacheTag) {
             $tags = [];
             if (is_array($this->_cacheTag)) {
-                foreach ($this->_cacheTag as $_tag) {
-                    $tags[] = $_tag . '_' . $this->getId();
+                foreach ($this->_cacheTag as $tag) {
+                    $tags[] = $tag . '_' . $this->getId();
                 }
             } else {
                 $tags[] = $this->_cacheTag . '_' . $this->getId();
@@ -634,5 +635,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _clearData()
     {
         return $this;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

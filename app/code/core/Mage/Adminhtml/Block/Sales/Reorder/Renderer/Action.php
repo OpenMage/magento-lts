@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +35,7 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action extends Mage_Adminhtml_
         if (Mage::helper('sales/reorder')->canReorder($row)) {
             $reorderAction = [
                 '@' => ['href' => $this->getUrl('*/sales_order_create/reorder', ['order_id' => $row->getId()])],
-                '#' =>  Mage::helper('sales')->__('Reorder')
+                '#' =>  Mage::helper('sales')->__('Reorder'),
             ];
             $this->addToActions($reorderAction);
         }
@@ -50,7 +51,6 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action extends Mage_Adminhtml_
     /**
      * Render options array as a HTML string
      *
-     * @param array $actions
      * @return string
      */
     protected function _actionsToHtml(array $actions = [])

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -253,7 +254,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Declare quote model object
      *
-     * @param   Mage_Sales_Model_Quote $quote
      * @return  $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
@@ -287,8 +287,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     protected function _prepareQty($qty)
     {
         $qty = Mage::app()->getLocale()->getNumber($qty);
-        $qty = ($qty > 0) ? $qty : 1;
-        return $qty;
+        return ($qty > 0) ? $qty : 1;
     }
 
     /**
@@ -423,7 +422,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
         Mage::dispatchEvent('sales_quote_item_set_product', [
             'product' => $product,
-            'quote_item' => $this
+            'quote_item' => $this,
         ]);
 
         return $this;
@@ -516,12 +515,16 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
                 // dispose of some options params, that can cramp comparing of arrays
                 if (is_string($itemOptionValue) && is_string($optionValue)) {
                     try {
-                        /** @var Unserialize_Parser $parser */
+                        /**
+                         * @var Mage_Core_Helper_UnserializeArray $parser
+                         * @var Mage_Core_Helper_String $stringHelper
+                         */
                         $parser = Mage::helper('core/unserializeArray');
+                        $stringHelper = Mage::helper('core/string');
 
-                        $_itemOptionValue =
-                            is_numeric($itemOptionValue) ? $itemOptionValue : $parser->unserialize($itemOptionValue);
-                        $_optionValue = is_numeric($optionValue) ? $optionValue : $parser->unserialize($optionValue);
+                        // only ever try to unserialize, if it looks like a serialized array
+                        $_itemOptionValue = $stringHelper->isSerializedArrayOrObject($itemOptionValue) ? $parser->unserialize($itemOptionValue) : $itemOptionValue;
+                        $_optionValue = $stringHelper->isSerializedArrayOrObject($optionValue) ? $parser->unserialize($optionValue) : $optionValue;
 
                         if (is_array($_itemOptionValue) && is_array($_optionValue)) {
                             $itemOptionValue = $_itemOptionValue;
@@ -575,7 +578,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Convert Quote Item to array
      *
-     * @param array $arrAttributes
      * @return array
      */
     public function toArray(array $arrAttributes = [])
@@ -655,10 +657,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     /**
      * Can specify specific actions for ability to change given quote options values
-     * Exemple: cataloginventory decimal qty validation may change qty to int,
+     * Example: cataloginventory decimal qty validation may change qty to int,
      * so need to change quote item qty option value.
      *
-     * @param Varien_Object|Mage_Sales_Model_Quote_Item_Option $option
      * @param int|float|null $value
      * @return $this
      */
@@ -746,10 +747,12 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         foreach ($this->_options as $index => $option) {
             if ($option->isDeleted()) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $option->delete();
                 unset($this->_options[$index]);
                 unset($this->_optionsByCode[$option->getCode()]);
             } else {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $option->save();
             }
         }
@@ -790,8 +793,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     /**
      * Clone quote item
-     *
-     * @return $this
      */
     public function __clone()
     {
@@ -803,7 +804,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         foreach ($options as $option) {
             $this->addOption(clone $option);
         }
-        return $this;
     }
 
     /**
