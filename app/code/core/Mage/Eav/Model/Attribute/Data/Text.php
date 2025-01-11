@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -116,8 +117,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
         $value = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
-        $value = $this->_applyOutputFilter($value);
 
-        return $value;
+        return $this->_applyOutputFilter($value);
     }
 }

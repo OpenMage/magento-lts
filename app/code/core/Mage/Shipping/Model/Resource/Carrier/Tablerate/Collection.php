@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,12 +69,12 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
             ->joinLeft(
                 ['country_table' => $this->_countryTable],
                 'country_table.country_id = main_table.dest_country_id',
-                ['dest_country' => 'iso3_code']
+                ['dest_country' => 'iso3_code'],
             )
             ->joinLeft(
                 ['region_table' => $this->_regionTable],
                 'region_table.region_id = main_table.dest_region_id',
-                ['dest_region' => 'code']
+                ['dest_region' => 'code'],
             );
 
         $this->addOrder('dest_country', self::SORT_ORDER_ASC);

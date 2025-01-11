@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,9 +57,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         try {
             Mage::getSingleton('customer/session')->getCustomer()
             ->setStoreId(Mage::app()->getStore()->getId())
-            ->setIsSubscribed((bool)$this->getRequest()->getParam('is_subscribed', false))
+            ->setIsSubscribed((bool) $this->getRequest()->getParam('is_subscribed', false))
             ->save();
-            if ((bool)$this->getRequest()->getParam('is_subscribed', false)) {
+            if ((bool) $this->getRequest()->getParam('is_subscribed', false)) {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been saved.'));
             } else {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));

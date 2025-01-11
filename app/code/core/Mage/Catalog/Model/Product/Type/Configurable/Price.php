@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,7 +75,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
             $attributeId = $attribute->getProductAttribute()->getId();
             $value = $this->_getValueByIndex(
                 $attribute->getPrices() ? $attribute->getPrices() : [],
-                $selectedAttributes[$attributeId] ?? null
+                $selectedAttributes[$attributeId] ?? null,
             );
             $product->setParentId(true);
             if ($value) {
@@ -82,7 +83,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
                     $product->setConfigurablePrice($this->_calcSelectionPrice($value, $finalPrice));
                     Mage::dispatchEvent(
                         'catalog_product_type_configurable_price',
-                        ['product' => $product]
+                        ['product' => $product],
                     );
                     $price += $product->getConfigurablePrice();
                 }
@@ -112,7 +113,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     /**
      * @param array $values
      * @param string $index
-     * @return bool
+     * @return array|false
      */
     protected function _getValueByIndex($values, $index)
     {

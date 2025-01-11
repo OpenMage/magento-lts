@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -36,7 +37,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @var array
      */
     protected $_ignoredAttributeCodes = [
-        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id']
+        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id'],
     ];
 
     /**
@@ -72,7 +73,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
     /**
      * Retrieves store id from store code, if no store id specified,
-     * it use set session or admin store
+     * it uses set session or admin store
      *
      * @param string|int $store
      * @return int

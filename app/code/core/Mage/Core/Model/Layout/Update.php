@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -225,7 +226,7 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @return bool
+     * @return Mage_Core_Model_App|false
      */
     public function saveCache()
     {
@@ -324,7 +325,7 @@ class Mage_Core_Model_Layout_Update
                 $design->getArea(),
                 $design->getPackageName(),
                 $design->getTheme('layout'),
-                $storeId
+                $storeId,
             );
             if (Mage::app()->useCache('layout')) {
                 Mage::app()->saveCache($this->_packageLayout->asXML(), $cacheKey, $cacheTags, null);
@@ -341,8 +342,8 @@ class Mage_Core_Model_Layout_Update
      */
     public function fetchPackageLayoutUpdates($handle)
     {
-        $_profilerKey = 'layout/package_update: ' . $handle;
-        Varien_Profiler::start($_profilerKey);
+        $profilerKey = 'layout/package_update: ' . $handle;
+        Varien_Profiler::start($profilerKey);
         if (empty($this->_packageLayout)) {
             $this->fetchFileLayoutUpdates();
         }
@@ -351,7 +352,7 @@ class Mage_Core_Model_Layout_Update
             $this->fetchRecursiveUpdates($updateXml);
             $this->addUpdate($updateXml->innerXml());
         }
-        Varien_Profiler::stop($_profilerKey);
+        Varien_Profiler::stop($profilerKey);
 
         return true;
     }
@@ -362,11 +363,11 @@ class Mage_Core_Model_Layout_Update
      */
     public function fetchDbLayoutUpdates($handle)
     {
-        $_profilerKey = 'layout/db_update: ' . $handle;
-        Varien_Profiler::start($_profilerKey);
+        $profilerKey = 'layout/db_update: ' . $handle;
+        Varien_Profiler::start($profilerKey);
         $updateStr = $this->_getUpdateString($handle);
         if (!$updateStr) {
-            Varien_Profiler::stop($_profilerKey);
+            Varien_Profiler::stop($profilerKey);
             return false;
         }
         $updateStr = '<update_xml>' . $updateStr . '</update_xml>';
@@ -376,7 +377,7 @@ class Mage_Core_Model_Layout_Update
         $this->fetchRecursiveUpdates($updateXml);
         $this->addUpdate($updateXml->innerXml());
 
-        Varien_Profiler::stop($_profilerKey);
+        Varien_Profiler::stop($profilerKey);
         return true;
     }
 
@@ -400,13 +401,13 @@ class Mage_Core_Model_Layout_Update
         foreach ($updateXml->children() as $child) {
             if ((strtolower($child->getName()) == 'update') && isset($child['handle'])) {
                 $allow = true;
-                if (isset($child['ifconfig']) && ($configPath = (string)$child['ifconfig'])) {
+                if (isset($child['ifconfig']) && ($configPath = (string) $child['ifconfig'])) {
                     $allow = Mage::getStoreConfigFlag($configPath);
                 }
                 if ($allow) {
-                    $this->merge((string)$child['handle']);
+                    $this->merge((string) $child['handle']);
                     // Adding merged layout handle to the list of applied handles
-                    $this->addHandle((string)$child['handle']);
+                    $this->addHandle((string) $child['handle']);
                 }
             }
         }
@@ -456,7 +457,7 @@ class Mage_Core_Model_Layout_Update
             $filename = $design->getLayoutFilename($file, [
                 '_area'    => $area,
                 '_package' => $package,
-                '_theme'   => $theme
+                '_theme'   => $theme,
             ]);
             if (!is_readable($filename)) {
                 continue;
@@ -470,7 +471,6 @@ class Mage_Core_Model_Layout_Update
             }
             $layoutStr .= $fileXml->innerXml();
         }
-        $layoutXml = simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
-        return $layoutXml;
+        return simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
     }
 }

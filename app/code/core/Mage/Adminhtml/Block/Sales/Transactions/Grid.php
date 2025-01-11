@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +63,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
         $this->addColumn('transaction_id', [
             'header'    => Mage::helper('sales')->__('ID #'),
             'index'     => 'transaction_id',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addColumn('increment_id', [
@@ -75,13 +76,13 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
         $this->addColumn('txn_id', [
             'header'    => Mage::helper('sales')->__('Transaction ID'),
             'index'     => 'txn_id',
-            'type'      => 'text'
+            'type'      => 'text',
         ]);
 
         $this->addColumn('parent_txn_id', [
             'header'    => Mage::helper('sales')->__('Parent Transaction ID'),
             'index'     => 'parent_txn_id',
-            'type'      => 'text'
+            'type'      => 'text',
         ]);
 
         $this->addColumn('method', [
@@ -96,7 +97,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
             'header'    => Mage::helper('sales')->__('Transaction Type'),
             'index'     => 'txn_type',
             'type'      => 'options',
-            'options'   => Mage::getSingleton('sales/order_payment_transaction')->getTransactionTypes()
+            'options'   => Mage::getSingleton('sales/order_payment_transaction')->getTransactionTypes(),
         ]);
 
         $this->addColumn('is_closed', [
@@ -108,7 +109,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
             'options'   => [
                 1  => Mage::helper('sales')->__('Yes'),
                 0  => Mage::helper('sales')->__('No'),
-            ]
+            ],
         ]);
 
         $this->addColumn('created_at', [
@@ -117,7 +118,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
             'type'      => 'datetime',
             'align'     => 'center',
             'default'   => $this->__('N/A'),
-            'html_decorators' => ['nobr']
+            'html_decorators' => ['nobr'],
         ]);
 
         return parent::_prepareColumns();

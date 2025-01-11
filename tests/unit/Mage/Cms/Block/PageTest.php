@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block;
 
+use Generator;
 use Mage_Cms_Block_Page;
 use Mage_Cms_Model_Page;
 use PHPUnit\Framework\TestCase;
@@ -34,22 +35,17 @@ class PageTest extends TestCase
             ->setMethods(['getPageId'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getPageId')->willReturn($pageId);
+        $mock->method('getPageId')->willReturn($pageId);
         $this->assertInstanceOf(Mage_Cms_Model_Page::class, $mock->getPage());
     }
 
-    /**
-     * @return array[]
-     */
-    public function provideGetPageData(): array
+    public function provideGetPageData(): Generator
     {
-        return [
-            'valid page ID' => [
-                '2'
-            ],
-            'invalid page ID' => [
-                '0'
-            ]
+        yield 'valid page ID' => [
+            '2',
+        ];
+        yield 'invalid page ID' => [
+            '0',
         ];
     }
 }

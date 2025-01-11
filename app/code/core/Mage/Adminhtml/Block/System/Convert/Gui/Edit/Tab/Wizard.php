@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -59,6 +60,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     public function getAttributes($entityType)
     {
         if (!isset($this->_attributes[$entityType])) {
+            $attributes = [];
             switch ($entityType) {
                 case 'product':
                     $attributes = Mage::getSingleton('catalog/convert_parser_product')
@@ -97,8 +99,10 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
 
     /**
      * @param string $key
-     * @param string $value
+     * @param string|bool|int $value
      * @return string
+     *
+     * @todo check remove int from param value
      */
     public function getSelected($key, $value)
     {
@@ -203,7 +207,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         if (!$this->_filterStores) {
             $this->_filterStores = [];
             foreach (Mage::getConfig()->getNode('stores')->children() as $storeNode) {
-                $this->_filterStores[$storeNode->getName()] = (string)$storeNode->system->store->name;
+                $this->_filterStores[$storeNode->getName()] = (string) $storeNode->system->store->name;
             }
         }
         return $this->_filterStores;
@@ -278,7 +282,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
     {
         if (!$this->_shortDateFormat) {
             $this->_shortDateFormat = Mage::app()->getLocale()->getDateStrFormat(
-                Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+                Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
             );
         }
         return $this->_shortDateFormat;

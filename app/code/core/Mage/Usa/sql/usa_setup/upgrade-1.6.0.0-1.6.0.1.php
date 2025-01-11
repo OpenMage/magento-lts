@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +42,7 @@ $codes = [
         'REQUESTCOURIER'        => 'REQUEST_COURIER',
         'DROPBOX'               => 'DROP_BOX',
         'BUSINESSSERVICECENTER' => 'BUSINESS_SERVICE_CENTER',
-        'STATION'               => 'STATION'
+        'STATION'               => 'STATION',
     ],
     'packaging' => [
         'FEDEXENVELOPE'     => 'FEDEX_ENVELOPE',
@@ -50,7 +51,7 @@ $codes = [
         'FEDEXTUBE'         => 'FEDEX_TUBE',
         'FEDEX10KGBOX'      => 'FEDEX_10KG_BOX',
         'FEDEX25KGBOX'      => 'FEDEX_25KG_BOX',
-        'YOURPACKAGING'     => 'YOUR_PACKAGING'
+        'YOURPACKAGING'     => 'YOUR_PACKAGING',
     ],
 ];
 
@@ -64,11 +65,11 @@ $select = $conn->select()
         ->where(
             'path IN (?)',
             [
-                    'carriers/fedex/packaging',
-                    'carriers/fedex/dropoff',
-                    'carriers/fedex/free_method',
-                    'carriers/fedex/allowed_methods'
-                ]
+                'carriers/fedex/packaging',
+                'carriers/fedex/dropoff',
+                'carriers/fedex/free_method',
+                'carriers/fedex/allowed_methods',
+            ],
         );
 $mapsOld = $conn->fetchAll($select);
 foreach ($mapsOld as $mapOld) {
@@ -97,7 +98,7 @@ foreach ($mapsOld as $mapOld) {
         $conn->update(
             $configDataTable,
             ['value' => $mapNew],
-            $whereConfigId
+            $whereConfigId,
         );
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -245,7 +246,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     }
 
     /**
-     * @return $this|bool|false|Mage_Core_Model_Abstract
+     * @return $this|false|Mage_Shipping_Model_Rate_Result_Error
      */
     public function checkAvailableShipCountries(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -283,7 +284,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Processing additional validation to check is carrier applicable.
      *
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
+     * @return $this
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -406,7 +407,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      * Calculate price considering free shipping and handling fee
      *
-     * @param string $cost
+     * @param float $cost
      * @param string $method
      * @return float|string
      */
@@ -427,7 +428,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getFinalPriceWithHandlingFee($cost)
     {
-        $handlingFee = (float)$this->getConfigData('handling_fee');
+        $handlingFee = (float) $this->getConfigData('handling_fee');
         $handlingType = $this->getConfigData('handling_type');
         if (!$handlingType) {
             $handlingType = self::HANDLING_TYPE_FIXED;
@@ -500,7 +501,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         */
         $this->_numBoxes = 1;
         $weight = $this->convertWeightToLbs($weight);
-        $maxPackageWeight = (float)$this->getConfigData('max_package_weight');
+        $maxPackageWeight = (float) $this->getConfigData('max_package_weight');
         if ($weight > $maxPackageWeight && $maxPackageWeight != 0) {
             $this->_numBoxes = ceil($weight / $maxPackageWeight);
             $weight = $weight / $this->_numBoxes;
@@ -532,7 +533,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Determine whether zip-code is required for the country of destination
      *
      * @param string|null $countryId
-     * @return bool
+     * @return false
      */
     public function isZipCodeRequired($countryId = null)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -168,5 +169,15 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
         Mage::dispatchEvent('cms_page_get_available_statuses', ['statuses' => $statuses]);
 
         return $statuses->getData();
+    }
+
+    public function getUsedInStoreConfigCollection(?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract
+    {
+        return $this->_getResource()->getUsedInStoreConfigCollection($this, $paths);
+    }
+
+    public function isUsedInStoreConfig(?array $paths = []): bool
+    {
+        return $this->_getResource()->isUsedInStoreConfig($this, $paths);
     }
 }

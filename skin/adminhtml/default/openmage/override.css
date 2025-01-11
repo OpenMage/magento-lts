@@ -349,10 +349,16 @@ small {
 .grid tr.filter .range .range-line {
   width: 125px;
 }
+.grid tr.filter .range.filter-range .range-line {
+  width: initial;
+}
 .grid tr.filter .range .label {
   font-weight: 400;
   width: 40px;
   padding: 4px;
+}
+.grid tr.filter .range.filter-range .label {
+  display: none;
 }
 .grid tr.filter .range div.date {
   min-width: 140px;
@@ -1074,9 +1080,11 @@ img[src$="grid-cal.gif"] {
   color: #0090FF !important;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   select option:disabled,
-  select:disabled option { color:#202856!important; }
+  select:disabled option {
+    color: #cacaca !important;
+  }
 }
 
 /*# sourceMappingURL=override.css.map */

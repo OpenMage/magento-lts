@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -25,14 +26,14 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
 {
     /**
      * Prices
-     *
+     * @deprecated
      * @var array
      */
     protected $_prices      = [];
 
     /**
      * Prepared prices
-     *
+     * @deprecated
      * @var array
      */
     protected $_resPrices   = [];
@@ -164,17 +165,17 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         }
 
         $this->_resPrices = [
-            $this->_preparePrice($currentProduct->getFinalPrice())
+            $this->_preparePrice($currentProduct->getFinalPrice()),
         ];
 
         foreach ($this->getAllowAttributes() as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
             $attributeId = $productAttribute->getId();
             $info = [
-               'id'        => $productAttribute->getId(),
-               'code'      => $productAttribute->getAttributeCode(),
-               'label'     => $attribute->getLabel(),
-               'options'   => []
+                'id'        => $productAttribute->getId(),
+                'code'      => $productAttribute->getAttributeCode(),
+                'label'     => $attribute->getLabel(),
+                'options'   => [],
             ];
 
             $optionPrices = [];
@@ -185,12 +186,12 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                         continue;
                     }
                     $currentProduct->setConfigurablePrice(
-                        $this->_preparePrice($value['pricing_value'], $value['is_percent'])
+                        $this->_preparePrice($value['pricing_value'], $value['is_percent']),
                     );
                     $currentProduct->setParentId(true);
                     Mage::dispatchEvent(
                         'catalog_product_type_configurable_price',
-                        ['product' => $currentProduct]
+                        ['product' => $currentProduct],
                     );
                     $configurablePrice = $currentProduct->getConfigurablePrice();
 
@@ -216,14 +217,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     $optionPrices[] = $configurablePrice;
                 }
             }
-            /**
-             * Prepare formatted values for options choose
-             */
-            foreach ($optionPrices as $optionPrice) {
-                foreach ($optionPrices as $additional) {
-                    $this->_preparePrice(abs($additional - $optionPrice));
-                }
-            }
+
             if ($this->_validateAttributeInfo($info)) {
                 $attributes[$attributeId] = $info;
             }
@@ -256,7 +250,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'showBothPrices'    => $taxHelper->displayBothPrices(),
             'defaultTax'        => $defaultTax,
             'currentTax'        => $currentTax,
-            'inclTaxTitle'      => Mage::helper('catalog')->__('Incl. Tax')
+            'inclTaxTitle'      => Mage::helper('catalog')->__('Incl. Tax'),
         ];
 
         $config = [
@@ -266,7 +260,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'oldPrice'          => $this->_registerJsPrice($this->_convertPrice($currentProduct->getPrice())),
             'productId'         => $currentProduct->getId(),
             'chooseText'        => Mage::helper('catalog')->__('Choose an Option...'),
-            'taxConfig'         => $taxConfig
+            'taxConfig'         => $taxConfig,
         ];
 
         if ($preconfiguredFlag && !empty($defaultValues)) {

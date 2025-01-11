@@ -34,7 +34,7 @@ class HtmlTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testGetBaseUrl(): void
     {
@@ -43,7 +43,7 @@ class HtmlTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testGetBaseSecureUrl(): void
     {
@@ -52,16 +52,16 @@ class HtmlTest extends TestCase
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
-//    public function testGetCurrentUrl(): void
-//    {
-//        $this->assertIsString($this->subject->getCurrentUrl());
-//    }
+    //    public function testGetCurrentUrl(): void
+    //    {
+    //        $this->assertIsString($this->subject->getCurrentUrl());
+    //    }
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testGetPrintLogoUrl(): void
     {

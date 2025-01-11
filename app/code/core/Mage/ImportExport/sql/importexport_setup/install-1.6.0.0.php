@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,10 +50,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalog/product_super_link',
         ['product_id', 'parent_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_id', 'parent_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 /**
@@ -63,10 +64,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalog/product_super_attribute',
         ['product_id', 'attribute_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_id', 'attribute_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 /**
@@ -77,10 +78,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalog/product_super_attribute_pricing',
         ['product_super_attribute_id', 'value_index', 'website_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_super_attribute_id', 'value_index', 'website_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 /**
@@ -91,10 +92,10 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'catalog/product_link_attribute_int',
         ['product_link_attribute_id', 'link_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_link_attribute_id', 'link_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 /**
@@ -105,12 +106,12 @@ $installer->getConnection()->addForeignKey(
         'catalog/product_link_attribute_int',
         'link_id',
         'catalog/product_link',
-        'link_id'
+        'link_id',
     ),
     $installer->getTable('catalog/product_link_attribute_int'),
     'link_id',
     $installer->getTable('catalog/product_link'),
-    'link_id'
+    'link_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -118,12 +119,12 @@ $installer->getConnection()->addForeignKey(
         'catalog/product_link_attribute_int',
         'product_link_attribute_id',
         'catalog/product_link_attribute',
-        'product_link_attribute_id'
+        'product_link_attribute_id',
     ),
     $installer->getTable('catalog/product_link_attribute_int'),
     'product_link_attribute_id',
     $installer->getTable('catalog/product_link_attribute'),
-    'product_link_attribute_id'
+    'product_link_attribute_id',
 );
 
 $installer->endSetup();

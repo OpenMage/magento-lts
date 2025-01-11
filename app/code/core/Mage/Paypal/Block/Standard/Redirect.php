@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,8 +44,7 @@ class Mage_Paypal_Block_Standard_Redirect extends Mage_Core_Block_Abstract
         $html .= $this->__('You will be redirected to the PayPal website in a few seconds.');
         $html .= $form->toHtml();
         $html .= '<script type="text/javascript">document.getElementById("paypal_standard_checkout").submit();</script>';
-        $html .= '</body></html>';
 
-        return $html;
+        return $html . '</body></html>';
     }
 }

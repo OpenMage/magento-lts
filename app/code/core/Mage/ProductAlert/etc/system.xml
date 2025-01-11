@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -43,7 +43,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </allow_stock>
-
                         <email_price_template translate="label">
                             <label>Price Alert Email Template</label>
                             <frontend_type>select</frontend_type>
@@ -52,6 +51,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><allow_price>1</allow_price></depends>
                         </email_price_template>
                         <email_stock_template translate="label">
                             <label>Stock Alert Email Template</label>
@@ -61,6 +61,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><allow_stock>1</allow_stock></depends>
                         </email_stock_template>
                         <email_identity translate="label">
                             <label>Alert Email Sender</label>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             $weeeTax = $form->getElement($code);
             if ($weeeTax) {
                 $weeeTax->setRenderer(
-                    Mage::app()->getLayout()->createBlock('weee/renderer_weee_tax')
+                    Mage::app()->getLayout()->createBlock('weee/renderer_weee_tax'),
                 );
             }
         }
@@ -72,7 +73,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function prepareCatalogIndexSelect(Varien_Event_Observer $observer)
     {
-        $storeId = (int)$observer->getEvent()->getStoreId();
+        $storeId = (int) $observer->getEvent()->getStoreId();
         if (!Mage::helper('weee')->isEnabled($storeId)) {
             return $this;
         }
@@ -87,8 +88,8 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         $select = $observer->getEvent()->getSelect();
         $table = $observer->getEvent()->getTable();
 
-        $websiteId = (int)Mage::app()->getStore($storeId)->getWebsiteId();
-        $customerGroupId = (int)Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $websiteId = (int) Mage::app()->getStore($storeId)->getWebsiteId();
+        $customerGroupId = (int) Mage::getSingleton('customer/session')->getCustomerGroupId();
 
         /** @var Varien_Object $response */
         $response = $observer->getEvent()->getResponseObject();
@@ -100,23 +101,23 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             $joinConditions = [
                 "discount_percent.entity_id = {$table}.entity_id",
                 $select->getAdapter()->quoteInto('discount_percent.website_id = ?', $websiteId),
-                $select->getAdapter()->quoteInto('discount_percent.customer_group_id = ?', $customerGroupId)
+                $select->getAdapter()->quoteInto('discount_percent.customer_group_id = ?', $customerGroupId),
             ];
             $tableWeeDiscount = Mage::getSingleton('weee/tax')->getResource()->getTable('weee/discount');
             $select->joinLeft(
                 ['discount_percent' => $tableWeeDiscount],
                 implode(' AND ', $joinConditions),
-                []
+                [],
             );
         }
         $checkDiscountField = $select->getAdapter()->getCheckSql(
             'discount_percent.value IS NULL',
-            0,
-            'discount_percent.value'
+            '0',
+            'discount_percent.value',
         );
         foreach ($attributes as $attribute) {
             $fieldAlias = sprintf('weee_%s_table.value', $attribute);
-            $checkAdditionalCalculation = $select->getAdapter()->getCheckSql("{$fieldAlias} IS NULL", 0, $fieldAlias);
+            $checkAdditionalCalculation = $select->getAdapter()->getCheckSql("{$fieldAlias} IS NULL", '0', $fieldAlias);
             if (Mage::helper('weee')->isDiscounted()) {
                 $additionalCalculations[] = sprintf('+(%s*(1-(%s/100)))', $checkAdditionalCalculation, $checkDiscountField);
             } else {
@@ -130,7 +131,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
         $attributes = Mage::getSingleton('weee/tax')->getWeeeTaxAttributeCodes();
         foreach ($attributes as $attribute) {
-            $attributeId = (int)Mage::getSingleton('eav/entity_attribute')
+            $attributeId = (int) Mage::getSingleton('eav/entity_attribute')
                 ->getIdByCode(Mage_Catalog_Model_Product::ENTITY, $attribute);
             $tableAlias = sprintf('weee_%s_table', $attribute);
             $quotedTableAlias = $select->getAdapter()->quoteTableAs($tableAlias, null);
@@ -144,7 +145,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
             $order = [
                 sprintf('%s.state %s', $tableAlias, Varien_Db_Select::SQL_DESC),
-                sprintf('%s.website_id %s', $tableAlias, Varien_Db_Select::SQL_DESC)
+                sprintf('%s.website_id %s', $tableAlias, Varien_Db_Select::SQL_DESC),
             ];
             $attributeSelect->order($order);
 
@@ -152,7 +153,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             $select->joinLeft(
                 [$tableAlias => $attributeSelect],
                 $joinCondition,
-                []
+                [],
             );
         }
         return $this;
@@ -194,7 +195,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             ],
             'disabled_types' => [
                 Mage_Catalog_Model_Product_Type::TYPE_GROUPED,
-            ]
+            ],
         ];
 
         $response->setTypes($types);

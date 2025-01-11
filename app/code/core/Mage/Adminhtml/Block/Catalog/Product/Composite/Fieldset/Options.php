@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -27,7 +28,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
         $this->addOptionRenderer(
             'default',
             'catalog/product_view_options_type_default',
-            'catalog/product/composite/fieldset/options/type/default.phtml'
+            'catalog/product/composite/fieldset/options/type/default.phtml',
         );
     }
 
@@ -43,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
             $option['file_extension'] = $this->escapeHtml($option['file_extension']);
         }
         $renderer = $this->getOptionRender(
-            $this->getGroupOfOption($option->getType())
+            $this->getGroupOfOption($option->getType()),
         );
         if (is_null($renderer['renderer'])) {
             $renderer['renderer'] = $this->getLayout()->createBlock($renderer['block'])

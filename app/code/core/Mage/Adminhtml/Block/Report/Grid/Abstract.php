@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -60,7 +61,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     public function getCollection()
     {
         if (is_null($this->_collection)) {
-            $this->setCollection(Mage::getModel('reports/grouped_collection'));
+            $collection = Mage::getModel('reports/grouped_collection');
+            $this->setCollection($collection);
         }
         return $this->_collection;
     }
@@ -122,13 +124,13 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Get allowed store ids array intersected with selected scope in store switcher
      *
-     * @return  array
+     * @return array
      */
     protected function _getStoreIds()
     {
         $filterData = $this->getFilterData();
         if ($filterData) {
-            $storeIds = explode(',', (string)$filterData->getData('store_ids'));
+            $storeIds = explode(',', (string) $filterData->getData('store_ids'));
         } else {
             $storeIds = [];
         }
@@ -165,7 +167,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             }
         }
 
-        $resourceCollection = Mage::getResourceModel($this->getResourceCollectionName())
+        /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $resourceCollection */
+        $resourceCollection = Mage::getResourceModel($this->getResourceCollectionName());
+        $resourceCollection
             ->setPeriod($filterData->getData('period_type'))
             ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
             ->addStoreFilter($storeIds)
@@ -184,7 +188,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 $this->getCollection(),
                 $filterData->getData('from', null),
                 $filterData->getData('to', null),
-                $filterData->getData('period_type')
+                $filterData->getData('period_type'),
             );
         }
 
@@ -193,7 +197,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         }
 
         if ($this->getCountTotals()) {
-            $totalsCollection = Mage::getResourceModel($this->getResourceCollectionName())
+            /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $totalsCollection */
+            $totalsCollection = Mage::getResourceModel($this->getResourceCollectionName());
+            $totalsCollection
                 ->setPeriod($filterData->getData('period_type'))
                 ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
                 ->addStoreFilter($storeIds)
@@ -219,7 +225,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     {
         if (!$this->getTotals()) {
             $filterData = $this->getFilterData();
-            $totalsCollection = Mage::getResourceModel($this->getResourceCollectionName())
+            /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $totalsCollection */
+            $totalsCollection = Mage::getResourceModel($this->getResourceCollectionName());
+            $totalsCollection
                 ->setPeriod($filterData->getData('period_type'))
                 ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
                 ->addStoreFilter($this->_getStoreIds())
@@ -244,7 +252,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     public function getSubTotals()
     {
         $filterData = $this->getFilterData();
-        $subTotalsCollection = Mage::getResourceModel($this->getResourceCollectionName())
+        /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $subTotalsCollection */
+        $subTotalsCollection = Mage::getResourceModel($this->getResourceCollectionName());
+        $subTotalsCollection
             ->setPeriod($filterData->getData('period_type'))
             ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
             ->addStoreFilter($this->_getStoreIds())
@@ -288,7 +298,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Add order status filter
      *
-     * @param Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
+     * @param Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
      * @param Varien_Object $filterData
      * @return $this
      */
@@ -302,7 +312,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
      * Adds custom filter to resource collection
      * Can be overridden in child classes if custom filter needed
      *
-     * @param Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
+     * @param Mage_Sales_Model_Resource_Report_Collection_Abstract $collection
      * @param Varien_Object $filterData
      * @return $this
      */

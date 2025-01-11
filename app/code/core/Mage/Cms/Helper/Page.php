@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -161,5 +162,24 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         }
 
         return Mage::getUrl(null, ['_direct' => $page->getIdentifier()]);
+    }
+
+    public static function getUsedInStoreConfigPaths(?array $paths = []): array
+    {
+        $searchPaths = [
+            self::XML_PATH_NO_ROUTE_PAGE,
+            self::XML_PATH_NO_COOKIES_PAGE,
+            self::XML_PATH_HOME_PAGE,
+        ];
+
+        if (is_array($paths) && $paths !== []) {
+            $searchPaths = array_merge($searchPaths, $paths);
+        }
+
+        if (is_null($paths)) {
+            $searchPaths = [];
+        }
+
+        return $searchPaths;
     }
 }

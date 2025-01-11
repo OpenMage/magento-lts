@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -156,7 +157,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 $productChildren = $this->_getProductChildrenIds(
                     $productData['entity_id'],
                     $productData['type_id'],
-                    $websiteId
+                    $websiteId,
                 );
                 $productRelations[$productData['entity_id']] = $productChildren;
                 if ($productChildren) {
@@ -184,7 +185,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 }
 
                 $productIndex = [
-                    $productData['entity_id'] => $productAttr
+                    $productData['entity_id'] => $productAttr,
                 ];
 
                 $hasChildren = false;
@@ -243,23 +244,23 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             ->useStraightJoin(true)
             ->from(
                 ['e' => $this->getTable('catalog/product')],
-                array_merge(['entity_id', 'type_id'], $staticFields)
+                array_merge(['entity_id', 'type_id'], $staticFields),
             )
             ->join(
                 ['website' => $this->getTable('catalog/product_website')],
                 $writeAdapter->quoteInto(
                     'website.product_id=e.entity_id AND website.website_id=?',
-                    $websiteId
+                    $websiteId,
                 ),
-                []
+                [],
             )
             ->join(
                 ['stock_status' => $this->getTable('cataloginventory/stock_status')],
                 $writeAdapter->quoteInto(
                     'stock_status.product_id=e.entity_id AND stock_status.website_id=?',
-                    $websiteId
+                    $websiteId,
                 ),
-                ['in_stock' => 'stock_status']
+                ['in_stock' => 'stock_status'],
             );
 
         if (!is_null($productIds)) {
@@ -277,7 +278,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             'select'        => $select,
             'entity_field'  => new Zend_Db_Expr('e.entity_id'),
             'website_field' => new Zend_Db_Expr('website.website_id'),
-            'store_field'   => $storeId
+            'store_field'   => $storeId,
         ]);
 
         return $writeAdapter->fetchAll($select);
@@ -354,9 +355,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             ->joinInner(
                 ['e' => $this->getTable('catalog/product')],
                 'e.entity_id = s.product_id',
-                []
+                [],
             )
-            ->where($mainTableAlias . '.store_id = ?', (int)$query->getStoreId());
+            ->where($mainTableAlias . '.store_id = ?', (int) $query->getStoreId());
 
         $where = '';
         if ($searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT
@@ -423,7 +424,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
             Mage::dispatchEvent('catalogsearch_searchable_attributes_load_after', [
                 'engine' => $this->_engine,
-                'attributes' => $attributes
+                'attributes' => $attributes,
             ]);
 
             $entity = $this->getEavConfig()
@@ -489,7 +490,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
         if ($backendType === 'datetime') {
             $expr = $helper->castField(
-                $this->_getReadAdapter()->getDateFormatSql($field, '%Y-%m-%d %H:%i:%s')
+                $this->_getReadAdapter()->getDateFormatSql($field, '%Y-%m-%d %H:%i:%s'),
             );
         } else {
             $expr = $helper->castField($field);
@@ -516,7 +517,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 $select = $adapter->select()
                     ->from(
                         ['t_default' => $tableName],
-                        ['entity_id', 'attribute_id']
+                        ['entity_id', 'attribute_id'],
                     )
                     ->joinLeft(
                         ['t_store' => $tableName],
@@ -524,9 +525,9 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                             't_default.entity_id=t_store.entity_id' .
                                 ' AND t_default.attribute_id=t_store.attribute_id' .
                                 ' AND t_store.store_id=?',
-                            $storeId
+                            $storeId,
                         ),
-                        ['value' => $this->_unifyField($ifStoreValue, $backendType)]
+                        ['value' => $this->_unifyField($ifStoreValue, $backendType)],
                     )
                     ->where('t_default.store_id=?', 0)
                     ->where('t_default.attribute_id IN (?)', $attributeIds)
@@ -539,7 +540,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                     'select'        => $select,
                     'entity_field'  => new Zend_Db_Expr('t_default.entity_id'),
                     'website_field' => $websiteId,
-                    'store_field'   => new Zend_Db_Expr('t_store.store_id')
+                    'store_field'   => new Zend_Db_Expr('t_store.store_id'),
                 ]);
 
                 $selects[] = $select;
@@ -594,7 +595,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $select = $this->_getReadAdapter()->select()
                 ->from(
                     ['main' => $this->getTable($relation->getTable())],
-                    [$relation->getChildFieldName()]
+                    [$relation->getChildFieldName()],
                 )
                 ->where("main.{$relation->getParentFieldName()} = ?", $productId);
             if (!is_null($relation->getWhere())) {
@@ -604,7 +605,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             Mage::dispatchEvent('prepare_product_children_id_list_select', [
                 'select'        => $select,
                 'entity_field'  => 'main.product_id',
-                'website_field' => $websiteId
+                'website_field' => $websiteId,
             ]);
 
             return $this->_getReadAdapter()->fetchCol($select);
@@ -758,9 +759,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             }
         }
 
-        $value = $value === null ? '' : preg_replace("#\s+#siu", ' ', trim(strip_tags($value)));
-
-        return $value;
+        return $value === null ? '' : preg_replace("#\s+#siu", ' ', trim(strip_tags($value)));
     }
 
     /**
