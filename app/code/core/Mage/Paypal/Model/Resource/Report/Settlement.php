@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -49,7 +50,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
         $rows = $object->getRows();
         if (is_array($rows)) {
             $adapter  = $this->_getWriteAdapter();
-            $reportId = (int)$object->getId();
+            $reportId = (int) $object->getId();
             $adapter->beginTransaction();
             try {
                 if ($reportId) {
@@ -69,7 +70,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                     /*
                      * Converting numeric
                      */
-                    $rows[$key]['fee_amount'] = (float)$rows[$key]['fee_amount'];
+                    $rows[$key]['fee_amount'] = (float) $rows[$key]['fee_amount'];
                     /*
                      * Setting reportId
                      */
@@ -90,7 +91,6 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
     /**
      * Check if report with same account and report date already fetched
      *
-     * @param Mage_Paypal_Model_Report_Settlement $report
      * @param string $accountId
      * @param string $reportDate
      * @return $this

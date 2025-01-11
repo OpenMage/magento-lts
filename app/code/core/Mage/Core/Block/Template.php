@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -208,8 +209,6 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
 
     /**
      * Retrieve block cache status
-     *
-     * @return  string
      */
     private function _getCacheHintStatusColor(): string
     {
@@ -356,13 +355,12 @@ HTML;
     /**
      * Get data from specified object
      *
-     * @param Varien_Object $object
      * @param string $key
      * @return mixed
      */
     public function getObjectData(Varien_Object $object, $key)
     {
-        return $object->getDataUsingMethod((string)$key);
+        return $object->getDataUsingMethod((string) $key);
     }
 
     /**
@@ -374,7 +372,7 @@ HTML;
             'BLOCK_TPL',
             Mage::app()->getStore()->getCode(),
             $this->getTemplateFile(),
-            'template' => $this->getTemplate()
+            'template' => $this->getTemplate(),
         ];
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -94,10 +95,9 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     /**
      * Batch import of currency rates
      *
-     * @param array $data
      * @param string $currencyFrom
-     * @param array $currenciesTo
      * @return array
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _convertBatch(array $data, $currencyFrom, array $currenciesTo)
     {
@@ -114,7 +114,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
             $url = str_replace(
                 ['{{API_KEY}}', '{{CURRENCY_FROM}}_{{CURRENCY_TO}}'],
                 [$apiKey, $currenciesCombined],
-                $this->_url
+                $this->_url,
             );
 
             $timeLimitCalculated = 2 * Mage::getStoreConfigAsInt(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)
@@ -173,7 +173,6 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
     /**
      * Fill simulated response with empty data
      *
-     * @param array $currenciesTo
      * @return array
      */
     protected function _makeEmptyResponse(array $currenciesTo)

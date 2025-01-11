@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,6 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     /**
      * Validate product attribute value for condition
      *
-     * @param Varien_Object $object
      * @return bool
      */
     public function validate(Varien_Object $object)
@@ -42,7 +42,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $result = $this->_validateProduct($object);
         $this->_restoreOldAttrValue($object, $oldAttrValue);
 
-        return (bool)$result;
+        return (bool) $result;
     }
 
     /**
@@ -88,9 +88,8 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $value = $productValues[$storeId] ?? $defaultValue;
 
         $value = $this->_prepareDatetimeValue($value, $object);
-        $value = $this->_prepareMultiselectValue($value, $object);
 
-        return $value;
+        return $this->_prepareMultiselectValue($value, $object);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,9 +41,9 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
         $title = Mage::helper('rss')->__('Order # %s Notification(s)', $order->getIncrementId());
         $newurl = Mage::getUrl('sales/order/view', ['order_id' => $order->getId()]);
         $data = ['title' => $title,
-                'description' => $title,
-                'link'        => $newurl,
-                'charset'     => 'UTF-8',
+            'description' => $title,
+            'link'        => $newurl,
+            'charset'     => 'UTF-8',
         ];
         $rssObj->_addHeader($data);
         $resourceModel = Mage::getResourceModel('rss/order');
@@ -79,9 +80,9 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
             '</p>'
         ;
         $data = [
-                    'title'         => $title,
-                    'link'          => $url,
-                    'description'   => $description,
+            'title'         => $title,
+            'link'          => $url,
+            'description'   => $description,
         ];
         $rssObj->_addEntry($data);
         return $rssObj->createRssXml();

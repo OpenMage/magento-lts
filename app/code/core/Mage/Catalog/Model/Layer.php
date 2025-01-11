@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -66,16 +67,13 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get default tags for current layer state
      *
-     * @param   array $additionalTags
      * @return  array
      */
     public function getStateTags(array $additionalTags = [])
     {
-        $additionalTags = array_merge($additionalTags, [
-            Mage_Catalog_Model_Category::CACHE_TAG . $this->getCurrentCategory()->getId()
+        return array_merge($additionalTags, [
+            Mage_Catalog_Model_Category::CACHE_TAG . $this->getCurrentCategory()->getId(),
         ]);
-
-        return $additionalTags;
     }
 
     /**

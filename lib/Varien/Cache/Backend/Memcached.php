@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -108,7 +109,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     }
 
     /**
-     * Load data from memcached, glue from several chunks if it was splitted upon save.
+     * Load data from memcached, glue from several chunks if it was split upon save.
      *
      * @param string $id                     @see Zend_Cache_Backend_Memcached::load()
      * @param bool   $doNotTestCacheValidity @see Zend_Cache_Backend_Memcached::load()
@@ -144,7 +145,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
             }
         }
 
-        // Data has not been splitted to chunks on save
+        // Data has not been split to chunks on save
         return $data;
     }
 }

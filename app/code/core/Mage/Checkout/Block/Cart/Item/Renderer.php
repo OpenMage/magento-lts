@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +51,6 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     /**
      * Set item for render
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return  $this
      */
     public function setItem(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -207,7 +207,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     {
         return $this->getUrl(
             'checkout/cart/configure',
-            ['id' => $this->getItem()->getId()]
+            ['id' => $this->getItem()->getId()],
         );
     }
 
@@ -263,7 +263,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
                 'id' => $this->getItem()->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
                 '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
-            ]
+            ],
         );
     }
 
@@ -283,7 +283,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
                 'id' => $this->getItem()->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
                 '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
-            ]
+            ],
         );
     }
     /**
@@ -293,7 +293,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getQty()
     {
-        if (!$this->_strictQtyMode && (string)$this->getItem()->getQty() == '') {
+        if (!$this->_strictQtyMode && (string) $this->getItem()->getQty() == '') {
             return '';
         }
         return $this->getItem()->getQty() * 1;
@@ -348,7 +348,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             foreach ($baseMessages as $message) {
                 $messages[] = [
                     'text' => $message,
-                    'type' => $quoteItem->getHasError() ? 'error' : 'notice'
+                    'type' => $quoteItem->getHasError() ? 'error' : 'notice',
                 ];
             }
         }
@@ -364,7 +364,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
                     /** @var Mage_Core_Model_Message_Abstract $message */
                     $messages[] = [
                         'text' => $message->getCode(),
-                        'type' => ($message->getType() === Mage_Core_Model_Message::ERROR) ? 'error' : 'notice'
+                        'type' => ($message->getType() === Mage_Core_Model_Message::ERROR) ? 'error' : 'notice',
                     ];
                 }
             }
@@ -399,7 +399,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         $helper = Mage::helper('catalog/product_configuration');
         $params = [
             'max_length' => 55,
-            'cut_replacer' => ' <a href="#" class="dots" onclick="return false">...</a>'
+            'cut_replacer' => ' <a href="#" class="dots" onclick="return false">...</a>',
         ];
         return $helper->getFormattedOptionValue($optionValue, $params);
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -23,15 +24,13 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
 {
     /**
      * Regular expressions for cutting malicious code
-     *
-     * @var array
      */
     protected array $_expressions = [
         //comments, must be first
         '/(\/\*.*\*\/)/Us',
         //tabs
         '/(\t)/',
-        //javasript prefix
+        //javascript prefix
         '/(javascript\s*:)/Usi',
         //import styles
         '/(@import)/Usi',
@@ -83,7 +82,6 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
     /**
      * Set expressions
      *
-     * @param array $expressions
      * @return $this
      */
     public function setExpressions(array $expressions)

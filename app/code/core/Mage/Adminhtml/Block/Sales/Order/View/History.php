@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
             ->setData([
                 'label'   => Mage::helper('sales')->__('Submit Comment'),
                 'class'   => 'save',
-                'onclick' => $onclick
+                'onclick' => $onclick,
             ]);
         $this->setChild('submit_button', $button);
         return parent::_prepareLayout();
@@ -69,7 +70,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
     /**
      * Customer Notification Applicable check method
      *
-     * @param  Mage_Sales_Model_Order_Status_History $history
      * @return bool
      */
     public function isCustomerNotificationNotApplicable(Mage_Sales_Model_Order_Status_History $history)

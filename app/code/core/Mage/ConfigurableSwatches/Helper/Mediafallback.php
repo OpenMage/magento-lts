@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,7 +31,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Depends on following product data:
      * - product must have children products attached
      *
-     * @param array $parentProducts
      * @deprecated use $this->attachProductChildrenAttributeMapping() instead
      * @param int $storeId
      */
@@ -44,7 +44,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Depends on following product data:
      * - product must have children products attached
      *
-     * @param array $parentProducts
      * @param int $storeId
      * @param bool $onlyListAttributes
      */
@@ -143,7 +142,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             if (count($listSwatchValues)) {
                 $listSwatchValues = array_replace(
                     array_intersect_key($optionLabels, $listSwatchValues),
-                    $listSwatchValues
+                    $listSwatchValues,
                 );
             }
             $parentProduct->setChildAttributeLabelMapping($mapping)
@@ -159,7 +158,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * - product must have media gallery attached which attaches and differentiates local images and child images
      * - product must have child products attached
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param array $imageTypes - image types to select for child products
      * @param bool $keepFrame
      * @return array
@@ -290,15 +288,13 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             if (is_numeric($size)) {
                 $helper->constrainOnly(true)->resize($size);
             }
-            return (string)$helper;
+            return (string) $helper;
         }
         return false;
     }
 
     /**
      * Groups media gallery images by local images and child images
-     *
-     * @param Mage_Catalog_Model_Product $product
      */
     public function groupMediaGalleryImages(Mage_Catalog_Model_Product $product)
     {
@@ -329,7 +325,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
     /**
      * For given product set, attach media_gallery attribute values.
      *
-     * @param array $products
      * @param int $storeId
      */
     public function attachGallerySetToCollection(array $products, $storeId)
@@ -385,7 +380,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             if (!$value) {
                 $value = [
                     'images' => [],
-                    'value' => []
+                    'value' => [],
                 ];
             }
 
@@ -416,7 +411,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Attaches children product to each product via
      * ->setChildrenProducts()
      *
-     * @param array $products
      * @param int $storeId
      */
     public function attachChildrenProducts(array $products, $storeId)
@@ -428,10 +422,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         }
 
         $collection = Mage::getResourceModel(
-            'configurableswatches/catalog_product_type_configurable_product_collection'
+            'configurableswatches/catalog_product_type_configurable_product_collection',
         );
 
         $collection->setFlag('product_children', true)
+            ->setFlag('require_stock_items', true)
             ->addStoreFilter($storeId)
             ->addAttributeToSelect($this->_getChildrenProductsAttributes());
         $collection->addProductSetFilter($productIds);

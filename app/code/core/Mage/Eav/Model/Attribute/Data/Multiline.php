@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -24,7 +25,6 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     /**
      * Extract data from request and return value
      *
-     * @param Zend_Controller_Request_Http $request
      * @return array|string
      */
     public function extractValue(Zend_Controller_Request_Http $request)
@@ -122,7 +122,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     {
         $values = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
         if (!is_array($values)) {
-            $values = explode("\n", (string)$values);
+            $values = explode("\n", (string) $values);
         }
         $values = array_map([$this, '_applyOutputFilter'], $values);
         switch ($format) {

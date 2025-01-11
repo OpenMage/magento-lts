@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -79,7 +80,6 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Varien_Object $address
      * @param bool $html
      * @return string
      */
@@ -162,7 +162,7 @@ T: {{telephone}}';
         if (!$this->getData('name')) {
             $this->setData(
                 'name',
-                Mage::app()->getLocale()->getCountryTranslation($this->getId())
+                Mage::app()->getLocale()->getCountryTranslation($this->getId()),
             );
         }
         return $this->getData('name');

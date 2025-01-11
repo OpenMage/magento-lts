@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -36,7 +37,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     protected $_currentUrl;
 
     /**
-     * Currenty selected store ID if applicable
+     * Currently selected store ID if applicable
      *
      * @var int
      */
@@ -166,7 +167,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         $checkResult->isAllowed = false;
         Mage::dispatchEvent('cms_wysiwyg_images_static_urls_allowed', [
             'result'   => $checkResult,
-            'store_id' => $this->_storeId
+            'store_id' => $this->_storeId,
         ]);
         return $checkResult->isAllowed;
     }
@@ -218,7 +219,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             if (!$io->isWriteable($currentPath) && !$io->mkdir($currentPath)) {
                 $message = Mage::helper('cms')->__(
                     'The directory %s is not writable by server.',
-                    $io->getFilteredPath($currentPath)
+                    $io->getFilteredPath($currentPath),
                 );
                 Mage::throwException($message);
             }
@@ -266,7 +267,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Revert opration to idEncode
+     * Revert operation to idEncode
      *
      * @param string $string
      * @return string|false

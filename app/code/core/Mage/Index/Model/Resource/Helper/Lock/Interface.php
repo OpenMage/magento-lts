@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,7 +52,6 @@ interface Mage_Index_Model_Resource_Helper_Lock_Interface
     public function isLocked($name);
 
     /**
-     * @param Varien_Db_Adapter_Interface $adapter
      * @return $this
      */
     public function setWriteAdapter(Varien_Db_Adapter_Interface $adapter);

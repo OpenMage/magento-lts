@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -210,7 +211,6 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      *   )
      * )
      *
-     * @param array $arrAttributes
      * @return array
      */
     public function asArray(array $arrAttributes = [])
@@ -238,8 +238,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $condition) {
             $xml .= "<$itemKey>" . $condition->asXml() . "</$itemKey>";
         }
-        $xml .= "</$containerKey>";
-        return $xml;
+        return $xml . "</$containerKey>";
     }
 
     /**
@@ -319,8 +318,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
-        $html .= '<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>';
-        return $html;
+        return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
     /**
@@ -346,7 +344,6 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param Varien_Object $object
      * @return bool
      */
     public function validate(Varien_Object $object)
@@ -356,7 +353,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         }
 
         $all    = $this->getAggregator() === 'all';
-        $true   = (bool)$this->getValue();
+        $true   = (bool) $this->getValue();
 
         foreach ($this->getConditions() as $cond) {
             $validated = $cond->validate($object);

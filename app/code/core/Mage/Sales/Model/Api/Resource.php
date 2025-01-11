@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -27,7 +28,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @var array
      */
     protected $_ignoredAttributeCodes = [
-        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id']
+        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id'],
     ];
 
     /**
@@ -36,7 +37,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @var array
      */
     protected $_attributesMap = [
-        'global'    => []
+        'global'    => [],
     ];
 
     /**
@@ -45,7 +46,6 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array $data
      * @param Mage_Core_Model_Abstract $object
      * @param string $type
-     * @param array|null $attributes
      * @return $this
      */
     protected function _updateAttributes($data, $object, $type, ?array $attributes = null)
@@ -64,7 +64,6 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param Mage_Core_Model_Abstract $object
      * @param string $type
-     * @param array|null $attributes
      * @return array
      */
     protected function _getAttributes($object, $type, ?array $attributes = null)
@@ -101,7 +100,6 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param string $attributeCode
      * @param string $type
-     * @param array|null $attributes
      * @return bool
      */
     protected function _isAllowedAttribute($attributeCode, $type, ?array $attributes = null)

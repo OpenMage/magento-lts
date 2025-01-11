@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,13 +46,6 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
      */
     protected $_order;
 
-    /**
-     * Whether setting order again is required (for example when setting non-saved yet order)
-     * @deprecated after 1.4, wrong logic of setting order id
-     * @var bool
-     */
-    private $_shouldSetOrderBeforeSave = false;
-
     protected $_eventPrefix = 'sales_order_status_history';
     protected $_eventObject = 'status_history';
 
@@ -63,7 +57,6 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     /**
      * Set order object
      *
-     * @param   Mage_Sales_Model_Order $order
      * @return  $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
@@ -127,6 +120,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
         if ($this->getOrder()) {
             return $this->getOrder()->getConfig()->getStatusLabel($this->getStatus());
         }
+        return '';
     }
 
     /**

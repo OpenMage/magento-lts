@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -67,7 +68,7 @@ class Mage_DB_Mysqli
      * @param int $port
      * @return mixed
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function connect($host, $user, $paswd, $db, $port = self::DEFAULT_PORT)
     {
@@ -86,8 +87,7 @@ class Mage_DB_Mysqli
      */
     public function selectDb($db)
     {
-        $res = mysqli_select_db($this->conn, $db);
-        return $res;
+        return mysqli_select_db($this->conn, $db);
     }
 
     /**
@@ -265,7 +265,6 @@ class Mage_DB_Mysqli
 
     /**
      * Escape field names
-     * @param array $arrNames
      * @return array
      */
     public function escapeFieldNames(array $arrNames)
@@ -279,7 +278,6 @@ class Mage_DB_Mysqli
 
     /**
      * Escape field values
-     * @param array $arrNames
      * @return array
      */
     public function escapeFieldValues(array $arrNames)
@@ -333,7 +331,6 @@ class Mage_DB_Mysqli
     /**
      * Insert assoc array to table
      * @param string $table
-     * @param array $data
      * @param bool $replace
      * @return mixed
      */
@@ -352,7 +349,6 @@ class Mage_DB_Mysqli
     /**
      * Insert several records to table
      * @param string $table
-     * @param array $data
      * @param bool $replace   use REPLACE INTO instead of INSERT INTO
      * @return array
      */
@@ -424,7 +420,6 @@ class Mage_DB_Mysqli
     /**
      * Update entry by pk
      * @param string $table
-     * @param array $data
      * @param string $value
      * @param string $key
      * @return mixed
@@ -470,8 +465,7 @@ class Mage_DB_Mysqli
     public function idsEqualCondition($ids)
     {
         $vals = $this->idsToString($ids);
-        $condition = is_scalar($ids) ? " = {$vals} " : " IN ({$vals}) ";
-        return $condition;
+        return is_scalar($ids) ? " = {$vals} " : " IN ({$vals}) ";
     }
 
     /**

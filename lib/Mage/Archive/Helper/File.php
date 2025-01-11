@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -156,7 +157,7 @@ class Mage_Archive_Helper_File
     /**
      * Close file
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function close()
     {
@@ -172,7 +173,7 @@ class Mage_Archive_Helper_File
      * @param string $mode
      * @throws Mage_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _open($mode)
     {
@@ -189,7 +190,7 @@ class Mage_Archive_Helper_File
      * @param string $data
      * @throws Mage_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _write($data)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -145,7 +146,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      */
     public function hasOption($key)
     {
-        $optArr = explode(',', (string)$this->getOptions());
+        $optArr = explode(',', (string) $this->getOptions());
 
         return in_array($key, $optArr);
     }
@@ -201,11 +202,10 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     /**
      * Implement logic of custom rewrites
      *
-     * @param Zend_Controller_Request_Http|null $request
-     * @param Zend_Controller_Response_Http|null $response
      * @return bool
      * @throws Mage_Core_Model_Store_Exception
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function rewrite(?Zend_Controller_Request_Http $request = null, ?Zend_Controller_Response_Http $response = null)
     {
@@ -312,6 +312,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      *
      * @return bool|string
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _getQueryString()
     {
@@ -348,6 +349,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      * @param string $url
      * @param bool $isPermanent
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _sendRedirectHeaders($url, $isPermanent = false)
     {

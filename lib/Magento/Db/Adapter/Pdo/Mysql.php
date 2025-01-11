@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Magento
  * @package    Magento_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,15 +29,13 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      */
     public function isTransaction()
     {
-        return (bool)$this->_transactionLevel;
+        return (bool) $this->_transactionLevel;
     }
 
     /**
      * Batched insert of specified select
      *
-     * @param Varien_Db_Select $select
      * @param string $table
-     * @param array $fields
      * @param bool $mode
      * @param int $step
      * @return int
@@ -54,7 +53,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         do {
             $select->limit($step, $limitOffset);
             $result = $this->query(
-                $this->insertFromSelect($select, $table, $fields, $mode)
+                $this->insertFromSelect($select, $table, $fields, $mode),
             );
 
             $affectedRows = $result->rowCount();
@@ -66,9 +65,8 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     }
 
     /**
-     * Retrieve bunch of queries for specified select splitted by specified step
+     * Retrieve bunch of queries for specified select split by specified step
      *
-     * @param Varien_Db_Select $select
      * @param string $entityIdField
      * @param int $step
      * @return array
@@ -103,8 +101,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     protected function _quote($value)
     {
         if (is_float($value)) {
-            $value = $this->_convertFloat($value);
-            return $value;
+            return $this->_convertFloat($value);
         }
         // Fix for null-byte injection
         if (is_string($value)) {
@@ -132,8 +129,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
             && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE
         ) {
             $value = $this->_convertFloat($value);
-            $quoteValue = sprintf('%F', $value);
-            return $quoteValue;
+            return sprintf('%F', $value);
         } elseif (is_float($value)) {
             return $this->_quote($value);
         }

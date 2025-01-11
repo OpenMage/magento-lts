@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -46,7 +47,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     /**
      * Renders grid column
      *
-     * @param   Varien_Object $row
      * @return  string
      */
     public function render(Varien_Object $row)
@@ -63,7 +63,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     /**
      * Render column for export
      *
-     * @param Varien_Object $row
      * @return string
      */
     public function renderExport(Varien_Object $row)
@@ -72,7 +71,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @param Varien_Object $row
      * @return string|null
      */
     protected function _getValue(Varien_Object $row)
@@ -92,7 +90,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @param Varien_Object $row
      * @return string
      */
     public function _getInputValueElement(Varien_Object $row)
@@ -104,7 +101,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @param Varien_Object $row
      * @return string|null
      */
     protected function _getInputValue(Varien_Object $row)
@@ -119,7 +115,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     {
         if ($this->getColumn()->getGrid()->getSortable() !== false && $this->getColumn()->getSortable() !== false) {
             $className = 'not-sort';
-            $dir = strtolower((string)$this->getColumn()->getDir());
+            $dir = strtolower((string) $this->getColumn()->getDir());
             $nDir = ($dir == 'asc') ? 'desc' : 'asc';
             if ($this->getColumn()->getDir()) {
                 $className = 'sort-arrow-' . $dir;
@@ -142,10 +138,10 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
 
         if ($this->getColumn()->hasData('width')) {
             $customWidth = $this->getColumn()->getData('width');
-            if (($customWidth === null) || (preg_match('/^[0-9]+%?$/', (string)$customWidth))) {
+            if (($customWidth === null) || (preg_match('/^[0-9]+%?$/', (string) $customWidth))) {
                 $width = $customWidth;
             } elseif (preg_match('/^([0-9]+)px$/', $customWidth, $matches)) {
-                $width = (int)$matches[1];
+                $width = (int) $matches[1];
             }
         }
 
@@ -165,7 +161,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @param Varien_Object $row
      * @return string|null
      */
     public function getCopyableText(Varien_Object $row)

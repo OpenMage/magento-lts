@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -160,7 +161,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
             ->setStoreId(Mage::app()->getStore()->getId())
             ->addStoreFilter()
             ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
             ])
             ->setPageSize($this->_maxItemCount);
         $this->_addProductAttributesAndPrices($collection);

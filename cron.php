@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,7 +19,7 @@ require 'app/bootstrap.php';
 require 'app/Mage.php';
 
 if (!Mage::isInstalled()) {
-    echo "Application is not installed yet, please complete install wizard first.";
+    echo 'Application is not installed yet, please complete install wizard first.';
     exit;
 }
 
@@ -58,8 +59,8 @@ try {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . " &");
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . " &");
+            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . ' &');
+            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . ' &');
             exit;
         }
     }

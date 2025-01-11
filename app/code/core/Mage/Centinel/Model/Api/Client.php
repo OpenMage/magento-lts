@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -56,7 +57,7 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
                 $result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8030, CENTINEL_ERROR_CODE_8030_DESC);
             }
 
-            // Assert that we received an expected Centinel Message in reponse.
+            // Assert that we received an expected Centinel Message in response.
             if (strpos($result, '<CardinalMPI>') === false) {
                 $result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8010, CENTINEL_ERROR_CODE_8010_DESC);
             }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -166,7 +167,7 @@ $pageContent = <<<EOD
         </tr>
         <tr>
             <th>FRONTEND</th>
-            <td>You sesssion ID on the server.</td>
+            <td>You session ID on the server.</td>
         </tr>
         <tr>
             <th>GUEST-VIEW</th>
@@ -240,7 +241,7 @@ $privacyPageData = [
     'content'         => $pageContent,
     'is_active'       => 1,
     'stores'          => [0],
-    'sort_order'      => 0
+    'sort_order'      => 0,
 ];
 
 Mage::getModel('cms/page')->setData($privacyPageData)->save();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -76,7 +77,6 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     /**
      * Get default tags for current layer state
      *
-     * @param   array $additionalTags
      * @return  array
      */
     public function getStateTags(array $additionalTags = [])

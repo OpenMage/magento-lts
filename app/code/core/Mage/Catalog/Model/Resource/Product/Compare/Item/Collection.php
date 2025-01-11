@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -59,7 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
      */
     public function setCustomerId($customerId)
     {
-        $this->_customerId = (int)$customerId;
+        $this->_customerId = (int) $customerId;
         $this->_addJoinToSelect();
         return $this;
     }
@@ -72,7 +73,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
      */
     public function setVisitorId($visitorId)
     {
-        $this->_visitorId = (int)$visitorId;
+        $this->_visitorId = (int) $visitorId;
         $this->_addJoinToSelect();
         return $this;
     }
@@ -130,9 +131,9 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                 'customer_id'   => 'customer_id',
                 'visitor_id'    => 'visitor_id',
                 'item_store_id' => 'store_id',
-                'catalog_compare_item_id' => 'catalog_compare_item_id'
+                'catalog_compare_item_id' => 'catalog_compare_item_id',
             ],
-            $this->getConditionForJoin()
+            $this->getConditionForJoin(),
         );
 
         $this->_productLimitationFilters['store_table']  = 't_compare';
@@ -141,7 +142,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     }
 
     /**
-     * Retrieve comapre products attribute set ids
+     * Retrieve compare products attribute set ids
      *
      * @return array
      */
@@ -160,10 +161,10 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
         }
 
         // prepare website filter
-        $websiteId    = (int)Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+        $websiteId    = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
         $websiteConds = [
             'website.product_id = entity.entity_id',
-            $this->getConnection()->quoteInto('website.website_id = ?', $websiteId)
+            $this->getConnection()->quoteInto('website.website_id = ?', $websiteId),
         ];
 
         // retrieve attribute sets
@@ -171,17 +172,17 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
             ->distinct(true)
             ->from(
                 ['entity' => $this->getEntity()->getEntityTable()],
-                'attribute_set_id'
+                'attribute_set_id',
             )
             ->join(
                 ['website' => $this->getTable('catalog/product_website')],
                 implode(' AND ', $websiteConds),
-                []
+                [],
             )
             ->join(
                 ['compare' => $this->getTable('catalog/compare_item')],
                 implode(' AND ', $compareConds),
-                []
+                [],
             );
         return $this->getConnection()->fetchCol($select);
     }
@@ -189,7 +190,6 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     /**
      * Retrieve attribute ids by set ids
      *
-     * @param array $setIds
      * @return array
      */
     protected function _getAttributeIdsBySetIds(array $setIds)

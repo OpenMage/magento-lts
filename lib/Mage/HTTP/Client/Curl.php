@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -89,7 +90,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Curl
-     * @var object
+     * @var false|resource
      */
     protected $_ch;
 
@@ -121,9 +122,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Constructor
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Set headers from hash
@@ -310,7 +309,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Get response status code
-     * @see lib/Mage/HTTP/Mage_HTTP_Client#getStatus()
+     * @see Mage_HTTP_Client::getStatus()
      */
     public function getStatus()
     {
@@ -381,7 +380,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Throw error excpetion
+     * Throw error exception
      * @param $string
      * @throws Exception
      * @return never
@@ -392,12 +391,10 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * Parse headers - CURL callback functin
+     * Parse headers - CURL callback function
      *
      * @param resource $ch curl handle, not needed
      * @param string   $data
-     *
-     * @return int
      */
     protected function parseHeaders($ch, $data): int
     {
@@ -405,7 +402,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $line = explode(' ', trim($data), 3);
 
             $this->validateHttpVersion($line);
-            $this->_responseStatus = (int)$line[1];
+            $this->_responseStatus = (int) $line[1];
         } else {
             //var_dump($data);
             $name = $value = '';
@@ -431,21 +428,11 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
-     * @param array $line
-     *
      * @throws Exception
      */
     protected function validateHttpVersion(array $line)
     {
-        if ($line[0] === 'HTTP/1.0' || $line[0] === 'HTTP/1.1') {
-            if (count($line) !== 3) {
-                $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
-            }
-
-            return;
-        }
-
-        if ($line[0] === 'HTTP/2') {
+        if (in_array($line[0], ['HTTP/2', 'HTTP/1.0', 'HTTP/1.1'])) {
             if (!in_array(count($line), [2, 3])) {
                 $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
             }

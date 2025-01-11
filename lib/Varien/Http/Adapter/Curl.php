@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -86,7 +87,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Set array of additional cURL options
      *
-     * @param array $options
      * @return Varien_Http_Adapter_Curl
      */
     public function setOptions(array $options = [])
@@ -111,7 +111,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Add additional options list to curl
      *
-     * @param array $options
      *
      * @return Varien_Http_Adapter_Curl
      */
@@ -169,7 +168,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             CURLOPT_URL                     => $url,
             CURLOPT_RETURNTRANSFER          => true,
             CURLOPT_HEADER                  => $header,
-            CURLOPT_HTTP_VERSION            => CURL_HTTP_VERSION_1_1
+            CURLOPT_HTTP_VERSION            => CURL_HTTP_VERSION_1_1,
         ];
         if ($method == Zend_Http_Client::POST) {
             $options[CURLOPT_POST]          = true;

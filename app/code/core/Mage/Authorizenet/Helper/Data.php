@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -46,7 +47,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $params['_type'] = Mage_Core_Model_Store::URL_TYPE_LINK;
         if (isset($params['is_secure'])) {
-            $params['_secure'] = (bool)$params['is_secure'];
+            $params['_secure'] = (bool) $params['is_secure'];
         } elseif (Mage::app()->getStore()->isCurrentlySecure()) {
             $params['_secure'] = true;
         }
@@ -126,8 +127,6 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Update all child and parent order's edit increment numbers.
      * Needed for Admin area.
-     *
-     * @param Mage_Sales_Model_Order $order
      */
     public function updateOrderEditIncrements(Mage_Sales_Model_Order $order)
     {
@@ -135,7 +134,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
             $collection = $order->getCollection();
             $quotedIncrId = $collection->getConnection()->quote($order->getOriginalIncrementId());
             $collection->getSelect()->where(
-                "original_increment_id = {$quotedIncrId} OR increment_id = {$quotedIncrId}"
+                "original_increment_id = {$quotedIncrId} OR increment_id = {$quotedIncrId}",
             );
 
             foreach ($collection as $orderToUpdate) {

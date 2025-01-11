@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -20,7 +21,7 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('newsletter_template'),
     'template_styles',
-    'text AFTER `template_text_preprocessed`'
+    'text AFTER `template_text_preprocessed`',
 );
 
 $installer->endSetup();

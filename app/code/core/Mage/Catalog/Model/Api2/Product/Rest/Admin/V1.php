@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,8 +29,6 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
 
     /**
      * Add special fields to product get response
-     *
-     * @param Mage_Catalog_Model_Product $product
      */
     protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product)
     {
@@ -51,8 +50,6 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Remove specified keys from associative or indexed array
      *
-     * @param array $array
-     * @param array $keys
      * @param bool $dropOrigKeys if true - return array as indexed array
      * @return array
      */
@@ -88,7 +85,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         $store = $this->_getStore();
         $collection->setStoreId($store->getId());
         $collection->addAttributeToSelect(array_keys(
-            $this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)
+            $this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ),
         ));
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
@@ -116,14 +113,13 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     /**
      * Create product
      *
-     * @param array $data
      * @return string
      */
     protected function _create(array $data)
     {
         /** @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
         $validator = Mage::getModel('catalog/api2_product_validator_product', [
-            'operation' => self::OPERATION_CREATE
+            'operation' => self::OPERATION_CREATE,
         ]);
 
         if (!$validator->isValidData($data)) {
@@ -137,7 +133,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         if ($type !== 'simple') {
             $this->_critical(
                 "Creation of products with type '$type' is not implemented",
-                Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED
+                Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED,
             );
         }
         $set = $data['attribute_set_id'];
@@ -163,7 +159,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
             $this->_critical(
                 sprintf('Invalid attribute "%s": %s', $e->getAttributeCode(), $e->getMessage()),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
@@ -177,8 +173,6 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
 
     /**
      * Update product by its ID
-     *
-     * @param array $data
      */
     protected function _update(array $data)
     {
@@ -186,7 +180,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         /** @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
         $validator = Mage::getModel('catalog/api2_product_validator_product', [
             'operation' => self::OPERATION_UPDATE,
-            'product'   => $product
+            'product'   => $product,
         ]);
 
         if (!$validator->isValidData($data)) {
@@ -208,7 +202,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
             $this->_critical(
                 sprintf('Invalid attribute "%s": %s', $e->getAttributeCode(), $e->getMessage()),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
@@ -230,7 +224,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             $manageStock = isset($stockData['manage_stock']) && $stockData['manage_stock'];
         } else {
             $manageStock = Mage::getStoreConfig(
-                Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock'
+                Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock',
             );
         }
         return (bool) $manageStock;
@@ -278,7 +272,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             ) {
                 $product->setData('gift_message_available', Mage::getStoreConfigAsInt(
                     Mage_GiftMessage_Helper_Message::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS,
-                    $product->getStoreId()
+                    $product->getStoreId(),
                 ));
             }
         }
@@ -290,7 +284,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 $xmlPathGiftWrappingAvailable = 'sales/gift_options/wrapping_allow_items';
                 $product->setData('gift_wrapping_available', Mage::getStoreConfigAsInt(
                     $xmlPathGiftWrappingAvailable,
-                    $product->getStoreId()
+                    $product->getStoreId(),
                 ));
             }
         }
@@ -302,12 +296,12 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         if (!$product->isObjectNew()  && isset($productData['url_key'])
             && isset($productData['url_key_create_redirect'])
         ) {
-            $product->setData('save_rewrites_history', (bool)$productData['url_key_create_redirect']);
+            $product->setData('save_rewrites_history', (bool) $productData['url_key_create_redirect']);
         }
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             //Unset data if object attribute has no value in current store
-            if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID !== (int)$product->getStoreId()
+            if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID !== (int) $product->getStoreId()
                 && !$product->getExistsStoreValueFlag($attribute->getAttributeCode())
                 && !$attribute->isScopeGlobal()
             ) {
@@ -318,7 +312,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 if (array_key_exists($attribute->getAttributeCode(), $productData)) {
                     $product->setData(
                         $attribute->getAttributeCode(),
-                        $productData[$attribute->getAttributeCode()]
+                        $productData[$attribute->getAttributeCode()],
                     );
                 }
             }
@@ -337,10 +331,10 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         $this->_filterConfigValueUsed($stockData, $fieldsWithPossibleDefautlValuesInConfig);
 
         if ($this->_isManageStockEnabled($stockData)) {
-            if (isset($stockData['qty']) && (float)$stockData['qty'] > self::MAX_DECIMAL_VALUE) {
+            if (isset($stockData['qty']) && (float) $stockData['qty'] > self::MAX_DECIMAL_VALUE) {
                 $stockData['qty'] = self::MAX_DECIMAL_VALUE;
             }
-            if (isset($stockData['min_qty']) && (int)$stockData['min_qty'] < 0) {
+            if (isset($stockData['min_qty']) && (int) $stockData['min_qty'] < 0) {
                 $stockData['min_qty'] = 0;
             }
             if (!isset($stockData['is_decimal_divided']) || $stockData['is_qty_decimal'] == 0) {
@@ -349,7 +343,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         } else {
             $nonManageStockFields = ['manage_stock', 'use_config_manage_stock', 'min_sale_qty',
                 'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty'];
-            foreach ($stockData as $field => $value) {
+            foreach (array_keys($stockData) as $field) {
                 if (!in_array($field, $nonManageStockFields)) {
                     unset($stockData[$field]);
                 }
@@ -361,7 +355,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      * Filter out fields if Use Config Settings option used
      *
      * @param array $data
-     * @param string $fields
+     * @param array $fields
      */
     protected function _filterConfigValueUsed(&$data, $fields)
     {

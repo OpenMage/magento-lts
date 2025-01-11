@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -90,7 +91,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
                     Mage::helper('core')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('core')->__('XML data is invalid.'),
                 self::INVALID_TEMPLATE_PATH => Mage::helper('core')->__(
-                    'Invalid template path used in layout update.'
+                    'Invalid template path used in layout update.',
                 ),
                 self::INVALID_BLOCK_NAME => Mage::helper('core')->__('Disallowed block name for frontend.'),
                 self::INVALID_XML_OBJECT_EXCEPTION =>
@@ -225,16 +226,14 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      * If template path value has "../"
      *
      * @throws Exception
-     *
-     * @param array $templatePaths
      */
     public function validateTemplatePath(array $templatePaths)
     {
         /** @var Varien_Simplexml_Element $path */
         foreach ($templatePaths as $path) {
             $path = $path->hasChildren()
-                ? stripcslashes(trim((string)$path->children(), '"'))
-                : (string)$path;
+                ? stripcslashes(trim((string) $path->children(), '"'))
+                : (string) $path;
             if (str_contains($path, '..' . DS)) {
                 throw new Exception();
             }

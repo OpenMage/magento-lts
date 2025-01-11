@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -38,8 +39,6 @@ class Mage_Admin_Model_Redirectpolicy
     /**
      * Redirect to startup page after logging in if request contains any params (except security key)
      *
-     * @param Mage_Admin_Model_User $user
-     * @param Zend_Controller_Request_Http|null $request
      * @param string|null $alternativeUrl
      * @return null|string
      */

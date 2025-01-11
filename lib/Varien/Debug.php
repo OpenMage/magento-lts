@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -82,7 +83,7 @@ class Varien_Debug
                 continue;
             }
 
-            // prepare method argments
+            // prepare method arguments
             $args = [];
             if (isset($data['args']) && $withArgs) {
                 foreach ($data['args'] as $arg) {
@@ -107,7 +108,7 @@ class Varien_Debug
                     $className,
                     isset($data['type']) ? $data['type'] : '->',
                     $data['function'],
-                    implode(', ', $args)
+                    implode(', ', $args),
                 );
             } elseif (isset($data['function'])) {
                 $methodName = sprintf('%s(%s)', $data['function'], implode(', ', $args));

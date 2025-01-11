@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -76,7 +77,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('products', [
             'header'        => Mage::helper('tag')->__('Products'),
             'width'         => 140,
-            'align'         => 'right',
             'index'         => 'products',
             'type'          => 'number',
         ]);
@@ -84,7 +84,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('customers', [
             'header'        => Mage::helper('tag')->__('Customers'),
             'width'         => 140,
-            'align'         => 'right',
             'index'         => 'customers',
             'type'          => 'number',
         ]);
@@ -106,7 +105,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'skipAllStoresLabel'    => true,
                 'index'                 => 'stores',
                 'sortable'              => false,
-                'store_view'            => true
+                'store_view'            => true,
             ]);
         }
 
@@ -122,8 +121,8 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->getMassactionBlock()->setFormFieldName('tag');
 
         $this->getMassactionBlock()->addItem(MassAction::DELETE, [
-             'label'    => Mage::helper('tag')->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDelete')
+            'label'    => Mage::helper('tag')->__('Delete'),
+            'url'      => $this->getUrl('*/*/massDelete'),
         ]);
 
         /** @var Mage_Tag_Helper_Data $helper */
@@ -141,9 +140,9 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
                     'type'     => 'select',
                     'class'    => 'required-entry',
                     'label'    => Mage::helper('tag')->__('Status'),
-                    'values'   => $statuses
-                ]
-            ]
+                    'values'   => $statuses,
+                ],
+            ],
         ]);
 
         return $this;

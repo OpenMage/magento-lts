@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -86,7 +87,6 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Set messages collection
      *
-     * @param   Mage_Core_Model_Message_Collection $messages
      * @return  Mage_Core_Block_Messages
      */
     public function setMessages(Mage_Core_Model_Message_Collection $messages)
@@ -98,7 +98,6 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Add messages to display
      *
-     * @param Mage_Core_Model_Message_Collection $messages
      * @return $this
      */
     public function addMessages(Mage_Core_Model_Message_Collection $messages)
@@ -125,7 +124,6 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     /**
      * Adding new message to message collection
      *
-     * @param   Mage_Core_Model_Message_Abstract $message
      * @return  Mage_Core_Block_Messages
      */
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
@@ -207,8 +205,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 . ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText()
                 . '</' . $this->_messagesSecondLevelTagName . '>';
         }
-        $html .= '</' . $this->_messagesFirstLevelTagName . '>';
-        return $html;
+        return $html . ('</' . $this->_messagesFirstLevelTagName . '>');
     }
 
     /**
@@ -222,7 +219,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
             Mage_Core_Model_Message::ERROR,
             Mage_Core_Model_Message::WARNING,
             Mage_Core_Model_Message::NOTICE,
-            Mage_Core_Model_Message::SUCCESS
+            Mage_Core_Model_Message::SUCCESS,
         ];
         $html = '';
         foreach ($types as $type) {
@@ -287,7 +284,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     public function getCacheKeyInfo()
     {
         return [
-            'storage_types' => serialize($this->_usedStorageTypes)
+            'storage_types' => serialize($this->_usedStorageTypes),
         ];
     }
 

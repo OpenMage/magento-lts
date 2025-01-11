@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -86,8 +87,6 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
      * @return array|bool
      */
     public function createIndexData(Mage_Catalog_Model_Product $object, ?Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
@@ -144,7 +143,6 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
      */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)

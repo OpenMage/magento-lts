@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -67,7 +68,6 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     /**
      * Apply attribute option filter to product collection
      *
-     * @param   Zend_Controller_Request_Abstract $request
      * @param   Varien_Object $filterBlock
      * @return  Mage_Catalog_Model_Layer_Filter_Attribute
      */
@@ -143,7 +143,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
             }
 
             $tags = [
-                Mage_Eav_Model_Entity_Attribute::CACHE_TAG . ':' . $attribute->getId()
+                Mage_Eav_Model_Entity_Attribute::CACHE_TAG . ':' . $attribute->getId(),
             ];
 
             $tags = $this->getLayer()->getStateTags($tags);

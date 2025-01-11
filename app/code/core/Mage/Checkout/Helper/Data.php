@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -197,15 +198,15 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $sendTo = [
             [
                 'email' => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/email', $checkout->getStoreId()),
-                'name'  => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/name', $checkout->getStoreId())
-            ]
+                'name'  => Mage::getStoreConfig('trans_email/ident_' . $_reciever . '/name', $checkout->getStoreId()),
+            ],
         ];
 
         if ($copyTo && $copyMethod == 'copy') {
             foreach ($copyTo as $email) {
                 $sendTo[] = [
                     'email' => $email,
-                    'name'  => null
+                    'name'  => null,
                 ];
             }
         }
@@ -221,11 +222,11 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $items = '';
-        foreach ($checkout->getAllVisibleItems() as $_item) {
-            /** @var Mage_Sales_Model_Quote_Item $_item */
-            $items .= $_item->getProduct()->getName() . '  x ' . $_item->getQty() . '  '
+        foreach ($checkout->getAllVisibleItems() as $item) {
+            /** @var Mage_Sales_Model_Quote_Item $item */
+            $items .= $item->getProduct()->getName() . '  x ' . $item->getQty() . '  '
                 . $checkout->getStoreCurrencyCode() . ' '
-                . $_item->getProduct()->getFinalPrice($_item->getQty()) . "\n";
+                . $item->getProduct()->getFinalPrice($item->getQty()) . "\n";
         }
         $total = $checkout->getStoreCurrencyCode() . ' ' . $checkout->getGrandTotal();
 
@@ -248,7 +249,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                         'paymentMethod'   => Mage::getStoreConfig('payment/' . $paymentMethod . '/title'),
                         'items'           => nl2br($items),
                         'total'           => $total,
-                    ]
+                    ],
                 );
         }
 
@@ -298,7 +299,6 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      * Check is allowed Guest Checkout
      * Use config settings and observer
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @param int|Mage_Core_Model_Store $store
      * @return bool
      */
@@ -315,7 +315,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::dispatchEvent('checkout_allow_guest', [
                 'quote'  => $quote,
                 'store'  => $store,
-                'result' => $result
+                'result' => $result,
             ]);
 
             $guestCheckout = $result->getIsAllowed();

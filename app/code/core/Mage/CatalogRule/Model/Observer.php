@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -96,7 +97,6 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Preload all price rules for all items in quote
      *
-     * @param   Varien_Event_Observer $observer
      *
      * @return  $this
      */
@@ -221,7 +221,6 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Calculate price using catalog price rules of configurable product
      *
-     * @param Varien_Event_Observer $observer
      *
      * @return $this
      */
@@ -272,7 +271,6 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Calculate minimal final price with catalog rule price
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function prepareCatalogProductPriceIndexTable(Varien_Event_Observer $observer)
@@ -294,7 +292,7 @@ class Mage_CatalogRule_Model_Observer
                 $customerGroupId,
                 $websiteId,
                 $updateFields,
-                $websiteDate
+                $websiteDate,
             );
 
         return $this;
@@ -328,7 +326,7 @@ class Mage_CatalogRule_Model_Observer
         if ($disabledRulesCount) {
             Mage::getModel('catalogrule/rule')->applyAll();
             Mage::getSingleton('adminhtml/session')->addWarning(
-                Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode)
+                Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode),
             );
         }
 
@@ -361,7 +359,6 @@ class Mage_CatalogRule_Model_Observer
     /**
      * After save attribute if it is not used for promo rules already check rules for containing this attribute
      *
-     * @param Varien_Event_Observer $observer
      *
      * @return $this
      */
@@ -379,7 +376,6 @@ class Mage_CatalogRule_Model_Observer
     /**
      * After delete attribute check rules that contains deleted attribute
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogAttributeDeleteAfter(Varien_Event_Observer $observer)
@@ -394,7 +390,6 @@ class Mage_CatalogRule_Model_Observer
     }
 
     /**
-     * @param Varien_Event_Observer $observer
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -444,8 +439,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Create catalog rule relations for imported products
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function createCatalogRulesRelations(Varien_Event_Observer $observer)
     {
@@ -469,8 +462,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Runs Catalog Product Price Reindex
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function runCatalogProductPriceReindex(Varien_Event_Observer $observer)
     {

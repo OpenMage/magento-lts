@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +43,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     protected function _construct()
     {
         $this->_init('catalog/product_flat', 'entity_id');
-        $this->_storeId = (int)Mage::app()->getStore()->getId();
+        $this->_storeId = (int) Mage::app()->getStore()->getId();
     }
 
     /**
@@ -66,7 +67,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (is_int($store)) {
             $this->_storeId = $store;
         } else {
-            $this->_storeId = (int)Mage::app()->getStore($store)->getId();
+            $this->_storeId = (int) Mage::app()->getStore($store)->getId();
         }
         return $this;
     }
@@ -151,7 +152,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
 
     /**
      * Check whether the attribute is a real field in entity table
-     * Rewrited for EAV Collection
+     * Rewritten for EAV Collection
      *
      * @param int|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
@@ -180,7 +181,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
 
     /**
      * Retrieve entity id field name in entity table
-     * Rewrited for EAV collection compatible
+     * Rewritten for EAV collection compatible
      *
      * @return string
      */
@@ -233,7 +234,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
                 ->from($this->getFlatTableName($storeId), 'entity_id')
                 ->limit(1);
             try {
-                $this->_isBuilt[$storeId] = (bool)$this->_getReadAdapter()->fetchOne($select);
+                $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
             } catch (Exception $e) {
                 $this->_isBuilt[$storeId] = false;
             }

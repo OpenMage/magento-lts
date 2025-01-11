@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -395,7 +396,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Mark tabs as dependant of each other
+     * Mark tabs as dependent of each other
      * Arbitrary number of tabs can be specified, but at least two
      *
      * @param string $tabOneId
@@ -421,7 +422,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
                         }
                         $this->_tabs[$tabToId]->setData('shadow_tabs', array_merge(
                             $this->_tabs[$tabToId]->getData('shadow_tabs'),
-                            [$blockId . '_' . $tabId]
+                            [$blockId . '_' . $tabId],
                         ));
                     }
                 }

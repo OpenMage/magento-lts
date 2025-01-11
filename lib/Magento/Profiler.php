@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Magento
  * @package    Magento_Profiler
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -253,8 +254,6 @@ class Magento_Profiler
 
     /**
      * Register profiler output instance to display profiling result at the end of execution
-     *
-     * @param Magento_Profiler_OutputAbstract $output
      */
     public static function registerOutput(Magento_Profiler_OutputAbstract $output)
     {

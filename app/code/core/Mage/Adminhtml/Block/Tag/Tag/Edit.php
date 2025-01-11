@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,8 +39,8 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
                 'back',
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs(
-                    $this->getUrl('*/catalog_product/edit', ['id' => $this->getRequest()->getParam('product_id')])
-                )
+                    $this->getUrl('*/catalog_product/edit', ['id' => $this->getRequest()->getParam('product_id')]),
+                ),
             );
         }
 
@@ -48,8 +49,8 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
                 'back',
                 'onclick',
                 Mage::helper('core/js')->getSetLocationJs(
-                    $this->getUrl('*/customer/edit', ['id' => $this->getRequest()->getParam('customer_id')])
-                )
+                    $this->getUrl('*/customer/edit', ['id' => $this->getRequest()->getParam('customer_id')]),
+                ),
             );
         }
 
@@ -57,7 +58,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
             $this->_updateButton(
                 'back',
                 'onclick',
-                Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/pending'))
+                Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/pending')),
             );
 
             $this->_updateButton(
@@ -66,9 +67,9 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
                 Mage::helper('core/js')->getDeleteConfirmJs(
                     $this->getUrl(
                         '*/*/delete',
-                        [$this->_objectId => $this->getRequest()->getParam($this->_objectId), 'ret' => 'pending']
-                    )
-                )
+                        [$this->_objectId => $this->getRequest()->getParam($this->_objectId), 'ret' => 'pending'],
+                    ),
+                ),
             );
             Mage::register('ret', 'pending');
         }

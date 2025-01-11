@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,10 +45,10 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
                 'website_id',
                 'country',
                 'state',
-                'value'
+                'value',
             ])
-            ->where('entity_id = ?', (int)$product->getId())
-            ->where('attribute_id = ?', (int)$attribute->getId());
+            ->where('entity_id = ?', (int) $product->getId())
+            ->where('attribute_id = ?', (int) $attribute->getId());
         if ($attribute->isScopeGlobal()) {
             $select->where('website_id = ?', 0);
         } else {
@@ -69,8 +70,8 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
     public function deleteProductData($product, $attribute)
     {
         $where = [
-            'entity_id = ?'    => (int)$product->getId(),
-            'attribute_id = ?' => (int)$attribute->getId()
+            'entity_id = ?'    => (int) $product->getId(),
+            'attribute_id = ?' => (int) $attribute->getId(),
         ];
 
         $adapter   = $this->_getWriteAdapter();
@@ -93,8 +94,8 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
      */
     public function insertProductData($product, $data)
     {
-        $data['entity_id']      = (int)$product->getId();
-        $data['entity_type_id'] = (int)$product->getEntityTypeId();
+        $data['entity_id']      = (int) $product->getId();
+        $data['entity_type_id'] = (int) $product->getEntityTypeId();
 
         $this->_getWriteAdapter()->insert($this->getMainTable(), $data);
         return $this;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -163,7 +164,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function setKeepAspectRatio($keep)
     {
-        $this->_keepAspectRatio = (bool)$keep;
+        $this->_keepAspectRatio = (bool) $keep;
         return $this;
     }
 
@@ -173,7 +174,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function setKeepFrame($keep)
     {
-        $this->_keepFrame = (bool)$keep;
+        $this->_keepFrame = (bool) $keep;
         return $this;
     }
 
@@ -183,7 +184,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function setKeepTransparency($keep)
     {
-        $this->_keepTransparency = (bool)$keep;
+        $this->_keepTransparency = (bool) $keep;
         return $this;
     }
 
@@ -193,12 +194,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function setConstrainOnly($flag)
     {
-        $this->_constrainOnly = (bool)$flag;
+        $this->_constrainOnly = (bool) $flag;
         return $this;
     }
 
     /**
-     * @param array $rgbArray
      * @return $this
      */
     public function setBackgroundColor(array $rgbArray)
@@ -217,7 +217,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         // determine width and height from string
         list($width, $height) = explode('x', strtolower($size), 2);
         foreach (['width', 'height'] as $wh) {
-            $$wh  = (int)$$wh;
+            $$wh  = (int) $$wh;
             if (empty($$wh)) {
                 $$wh = null;
             }
@@ -380,7 +380,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             self::$_baseMediaPath,
             'cache',
             Mage::app()->getStore()->getId(),
-            $path[] = $this->getDestinationSubdir()
+            $path[] = $this->getDestinationSubdir(),
         ];
         if ((!empty($this->_width)) || (!empty($this->_height))) {
             $path[] = "{$this->_width}x{$this->_height}";
@@ -388,13 +388,13 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         // add misc params as a hash
         $miscParams = [
-                ($this->_keepAspectRatio ? '' : 'non') . 'proportional',
-                ($this->_keepFrame ? '' : 'no') . 'frame',
-                ($this->_keepTransparency ? '' : 'no') . 'transparency',
-                ($this->_constrainOnly ? 'do' : 'not') . 'constrainonly',
-                $this->_backgroundColorStr,
-                'angle' . $this->_angle,
-                'quality' . $this->_quality
+            ($this->_keepAspectRatio ? '' : 'non') . 'proportional',
+            ($this->_keepFrame ? '' : 'no') . 'frame',
+            ($this->_keepTransparency ? '' : 'no') . 'transparency',
+            ($this->_constrainOnly ? 'do' : 'not') . 'constrainonly',
+            $this->_backgroundColorStr,
+            'angle' . $this->_angle,
+            'quality' . $this->_quality,
         ];
 
         // if has watermark add watermark params to hash
@@ -739,7 +739,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Set watermark heigth
+     * Set watermark height
      *
      * @param int $heigth
      * @return $this
@@ -751,7 +751,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get watermark heigth
+     * Get watermark height
      *
      * @return string
      */

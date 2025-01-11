@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,7 +49,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
     /**
      * Set of available indexers
-     * Each indexer type is responsable for index data storage
+     * Each indexer type is responsible for index data storage
      *
      * @var array
      */
@@ -256,7 +257,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 count($priceAttributeCodes) > 0,
                 count($priceAttributeCodes) > 0,
                 $products,
-                $stores
+                $stores,
             );
 
             /**
@@ -287,7 +288,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     $collection = $this->_getProductCollection($store, $products);
                     $collection->addAttributeToFilter(
                         'status',
-                        ['in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()]
+                        ['in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()],
                     );
                     $collection->addFieldToFilter('type_id', $type);
                     $this->_walkCollection($collection, $store, [], $priceAttributeCodes);
@@ -347,7 +348,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     protected function _afterPlainReindex($store, $products = null)
     {
         Mage::dispatchEvent('catalogindex_plain_reindex_after', [
-            'products' => $products
+            'products' => $products,
         ]);
 
         /**
@@ -418,7 +419,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
         }
 
         $statusCond = [
-            'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+            'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
         ];
 
         $productCount = $collection->getSize();
@@ -629,7 +630,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                 if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
                                     if (isset($values[$code]['currency'])) {
                                         $rateConversion = $this->_getBaseToSpecifiedCurrencyRate(
-                                            $values[$code]['currency']
+                                            $values[$code]['currency'],
                                         );
                                     } else {
                                         $rateConversion = $this->_getBaseToSpecifiedCurrencyRate($currentStoreCurrency);
@@ -639,7 +640,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         $filter[$code]->where(
                                             "($table.min_price"
                                             . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
-                                            $values[$code]['from']
+                                            $values[$code]['from'],
                                         );
                                     }
 
@@ -647,7 +648,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         $filter[$code]->where(
                                             "($table.min_price"
                                             . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
-                                            $values[$code]['to']
+                                            $values[$code]['to'],
                                         );
                                     }
                                 }
@@ -657,7 +658,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                             if ($code == 'price') {
                                 $filter[$code]->where(
                                     $table . '.customer_group_id = ?',
-                                    Mage::getSingleton('customer/session')->getCustomerGroupId()
+                                    Mage::getSingleton('customer/session')->getCustomerGroupId(),
                                 );
                             }
 
@@ -769,7 +770,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Prepare Catalog Product Flat Columns
      *
-     * @param Varien_Object $object
      * @return $this
      */
     public function prepareCatalogProductFlatColumns(Varien_Object $object)
@@ -782,7 +782,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Prepare Catalog Product Flat Indexes
      *
-     * @param Varien_Object $object
      * @return $this
      */
     public function prepareCatalogProductFlatIndexes(Varien_Object $object)

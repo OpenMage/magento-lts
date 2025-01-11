@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,9 +34,9 @@
  * @method string getMessageBodyHash()
  * @method string getMessageBody()
  * @method $this setMessageBody(string $value)
- * @method $this setMessageBodyHash(array $value)
- * @method array getMessageParameters()
- * @method $this setMessageParameters(array $value)
+ * @method $this setMessageBodyHash(string $value)
+ * @method string getMessageParameters()
+ * @method $this setMessageParameters(string $value)
  * @method $this setProcessedAt(string $value)
  */
 class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
@@ -118,19 +119,19 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * @param array|string $emails
      * @param array|string|null $names
      * @param int $type
-     *
      * @return $this
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function addRecipients($emails, $names = null, $type = self::EMAIL_TYPE_TO)
     {
         $_supportedEmailTypes = [
             self::EMAIL_TYPE_TO,
             self::EMAIL_TYPE_CC,
-            self::EMAIL_TYPE_BCC
+            self::EMAIL_TYPE_BCC,
         ];
         $type = !in_array($type, $_supportedEmailTypes) ? self::EMAIL_TYPE_TO : $type;
-        $emails = array_values((array)$emails);
-        $names = is_array($names) ? $names : (array)$names;
+        $emails = array_values((array) $emails);
+        $names = is_array($names) ? $names : (array) $names;
         $names = array_values($names);
         foreach ($emails as $key => $email) {
             $this->_recipients[] = [$email, $names[$key] ?? '', $type];
@@ -152,7 +153,6 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Set message recipients data
      *
-     * @param array $recipients
      *
      * @return $this
      */
@@ -232,7 +232,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                     Mage::dispatchEvent('email_queue_send_before', [
                         'mail'      => $mailer,
                         'message'   => $message,
-                        'transport' => $transport
+                        'transport' => $transport,
                     ]);
 
                     if ($transport->getTransport()) {
@@ -243,7 +243,9 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 
                     unset($mailer);
                     $message->setProcessedAt(Varien_Date::formatDate(true));
-                    $message->save(); // save() is throwing exception when recipient is not set
+                    // save() is throwing exception when recipient is not set
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $message->save();
 
                     foreach ($message->getRecipients() as $recipient) {
                         list($email, $name, $type) = $recipient;
@@ -251,7 +253,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                             'to'         => $email,
                             'html'       => !$parameters->getIsPlain(),
                             'subject'    => $parameters->getSubject(),
-                            'email_body' => $message->getMessageBody()
+                            'email_body' => $message->getMessageBody(),
                         ]);
                     }
                 } catch (Exception $e) {

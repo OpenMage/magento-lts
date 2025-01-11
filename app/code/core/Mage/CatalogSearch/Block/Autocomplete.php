@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,9 +66,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             $html .= $this->escapeHtml($item['title']) . '</li>';
         }
 
-        $html .= '</ul>';
-
-        return $html;
+        return $html . '</ul>';
     }
 
     /**
@@ -86,7 +85,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
                 $_data = [
                     'title' => $item->getQueryText(),
                     'row_class' => (++$counter) % 2 ? 'odd' : 'even',
-                    'num_of_results' => $item->getNumResults()
+                    'num_of_results' => $item->getNumResults(),
                 ];
 
                 if ($item->getQueryText() == $query) {

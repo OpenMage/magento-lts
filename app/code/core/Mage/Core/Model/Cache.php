@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -102,8 +103,6 @@ class Mage_Core_Model_Cache
 
     /**
      * Class constructor. Initialize cache instance based on options
-     *
-     * @param array $options
      */
     public function __construct(array $options = [])
     {
@@ -129,7 +128,7 @@ class Mage_Core_Model_Cache
             $backend['options'],
             true,
             true,
-            true
+            true,
         );
 
         if (isset($options['request_processors'])) {
@@ -137,14 +136,13 @@ class Mage_Core_Model_Cache
         }
 
         if (isset($options['disallow_save'])) {
-            $this->_disallowSave = (bool)$options['disallow_save'];
+            $this->_disallowSave = (bool) $options['disallow_save'];
         }
     }
 
     /**
      * Get cache backend options. Result array contain backend type ('type' key) and backend options ('options')
      *
-     * @param   array $cacheOptions
      * @return  array
      */
     protected function _getBackendOptions(array $cacheOptions)
@@ -232,7 +230,6 @@ class Mage_Core_Model_Cache
     /**
      * Get options for database backend type
      *
-     * @param array $options
      * @return array
      */
     protected function getDbAdapterOptions(array $options = [])
@@ -265,7 +262,7 @@ class Mage_Core_Model_Cache
         $options['slow_backend_autoload']       = true;
 
         if (isset($cacheOptions['auto_refresh_fast_cache'])) {
-            $options['auto_refresh_fast_cache'] = (bool)$cacheOptions['auto_refresh_fast_cache'];
+            $options['auto_refresh_fast_cache'] = (bool) $cacheOptions['auto_refresh_fast_cache'];
         } else {
             $options['auto_refresh_fast_cache'] = false;
         }
@@ -283,7 +280,7 @@ class Mage_Core_Model_Cache
             $options['slow_backend'] = 'Varien_Cache_Backend_Database';
             $options['slow_backend_options'] = $this->getDbAdapterOptions($options['slow_backend_options']);
             if (isset($cacheOptions['slow_backend_store_data'])) {
-                $options['slow_backend_options']['store_data'] = (bool)$cacheOptions['slow_backend_store_data'];
+                $options['slow_backend_options']['store_data'] = (bool) $cacheOptions['slow_backend_store_data'];
             } else {
                 $options['slow_backend_options']['store_data'] = false;
             }
@@ -291,14 +288,13 @@ class Mage_Core_Model_Cache
 
         return [
             'type'      => 'TwoLevels',
-            'options'   => $options
+            'options'   => $options,
         ];
     }
 
     /**
      * Get options of cache frontend (options of Zend_Cache_Core)
      *
-     * @param   array $cacheOptions
      * @return  array
      */
     protected function _getFrontendOptions(array $cacheOptions)
@@ -381,7 +377,7 @@ class Mage_Core_Model_Cache
             return true;
         }
 
-        return $this->getFrontend()->save((string)$data, $this->_id($id), $this->_tags($tags), $lifeTime);
+        return $this->getFrontend()->save((string) $data, $this->_id($id), $this->_tags($tags), $lifeTime);
     }
 
     /**
@@ -409,7 +405,7 @@ class Mage_Core_Model_Cache
     /**
      * Clean cached data by specific tag
      *
-     * @param   array $tags
+     * @param   array|string $tags
      * @return  bool
      */
     public function clean($tags = [])
@@ -514,7 +510,7 @@ class Mage_Core_Model_Cache
         }
 
         if (isset($this->_allowedCacheOptions[$typeCode])) {
-            return (bool)$this->_allowedCacheOptions[$typeCode];
+            return (bool) $this->_allowedCacheOptions[$typeCode];
         } else {
             return false;
         }
@@ -576,10 +572,10 @@ class Mage_Core_Model_Cache
             foreach ($config->children() as $type => $node) {
                 $types[$type] = new Varien_Object([
                     'id'            => $type,
-                    'cache_type'    => Mage::helper('core')->__((string)$node->label),
-                    'description'   => Mage::helper('core')->__((string)$node->description),
+                    'cache_type'    => Mage::helper('core')->__((string) $node->label),
+                    'description'   => Mage::helper('core')->__((string) $node->description),
                     'tags'          => strtoupper((string) $node->tags),
-                    'status'        => (int)$this->canUse($type),
+                    'status'        => (int) $this->canUse($type),
                 ]);
             }
         }

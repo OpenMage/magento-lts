@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -36,7 +37,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @var array
      */
     protected $_ignoredAttributeCodes = [
-        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id']
+        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id'],
     ];
 
     /**
@@ -72,7 +73,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
     /**
      * Retrieves store id from store code, if no store id specified,
-     * it use set session or admin store
+     * it uses set session or admin store
      *
      * @param string|int $store
      * @return int
@@ -141,7 +142,6 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param array $data
      * @param Mage_Core_Model_Abstract $object
      * @param string $type
-     * @param array|null $attributes
      * @return $this
      */
     protected function _updateAttributes($data, $object, $type, ?array $attributes = null)
@@ -160,7 +160,6 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param Mage_Core_Model_Abstract $object
      * @param string $type
-     * @param array|null $attributes
      * @return array
      */
     protected function _getAttributes($object, $type, ?array $attributes = null)
@@ -199,7 +198,6 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @param string $attributeCode
      * @param string $type
-     * @param array|null $attributes
      * @return bool
      */
     protected function _isAllowedAttribute($attributeCode, $type, ?array $attributes = null)

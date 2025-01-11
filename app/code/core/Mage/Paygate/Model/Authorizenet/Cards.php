@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +43,6 @@ class Mage_Paygate_Model_Authorizenet_Cards
     /**
      * Set payment instance for storing credit card information and partial authorizations
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return $this
      */
     public function setPayment(Mage_Payment_Model_Info $payment)
@@ -65,7 +65,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     public function registerCard($cardInfo = [])
     {
         $this->_isPaymentValid();
-        $cardId = md5(microtime(1));
+        $cardId = md5((string) microtime(true));
         $cardInfo[self::CARD_ID_KEY] = $cardId;
         $this->_cards[$cardId] = $cardInfo;
         $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, $this->_cards);
@@ -171,7 +171,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     }
 
     /**
-     * Check for payment instace present
+     * Check for payment instance present
      *
      * @throws Exception
      */

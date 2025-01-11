@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +50,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      * Initialize factory
      *
      * @param Mage_Core_Model_Resource_Abstract $resource
-     * @param array $args
      */
     public function __construct($resource = null, array $args = [])
     {
@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     {
         $this->getSelect()->from(
             ['main_table' => $this->getResource()->getMainStoreTable($this->getStoreId())],
-            ['entity_id', 'level', 'path', 'position', 'is_active', 'is_anchor']
+            ['entity_id', 'level', 'path', 'position', 'is_active', 'is_anchor'],
         );
         return $this;
     }
@@ -182,7 +182,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         $this->addFieldToFilter('is_active', 1);
         Mage::dispatchEvent(
             $this->_eventPrefix . '_add_is_active_filter',
-            [$this->_eventObject => $this]
+            [$this->_eventObject => $this],
         );
         return $this;
     }
@@ -236,16 +236,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
 
         $this->getSelect()->columns($attribute, 'main_table');
         return $this;
-    }
-
-    /**
-     * Retrieve resource instance
-     *
-     * @inheritDoc
-     */
-    public function getResource()
-    {
-        return parent::getResource();
     }
 
     /**
@@ -309,7 +299,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      */
     protected function _getCurrentStoreId()
     {
-        return (int)Mage::app()->getStore()->getId();
+        return (int) Mage::app()->getStore()->getId();
     }
 
     /**

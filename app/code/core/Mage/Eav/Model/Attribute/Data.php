@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,8 +40,6 @@ class Mage_Eav_Model_Attribute_Data
      * Return attribute data model by attribute
      * Set entity to data model (need for work)
      *
-     * @param Mage_Eav_Model_Attribute $attribute
-     * @param Mage_Core_Model_Abstract $entity
      * @return Mage_Eav_Model_Attribute_Data_Abstract
      */
     public static function factory(Mage_Eav_Model_Attribute $attribute, Mage_Core_Model_Abstract $entity)

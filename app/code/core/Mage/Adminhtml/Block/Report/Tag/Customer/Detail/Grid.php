@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,12 +49,12 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
     {
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'original_name'
+            'index'     => 'original_name',
         ]);
 
         $this->addColumn('tag_name', [
             'header'    => Mage::helper('reports')->__('Tag Name'),
-            'index'     => 'tag_name'
+            'index'     => 'tag_name',
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -62,21 +63,18 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
                 'index'     => 'stores',
                 'type'      => 'store',
                 'sortable'  => false,
-                'store_view' => true
             ]);
 
             $this->addColumn('added_in', [
                 'header'    => Mage::helper('reports')->__('Submitted In'),
-                'index'     => 'store_id',
                 'type'      => 'store',
-                'store_view' => true
             ]);
         }
 
         $this->addColumn('created_at', [
             'header'    => Mage::helper('reports')->__('Submitted On'),
             'type'      => 'datetime',
-            'index'     => 'created_at'
+            'index'     => 'created_at',
         ]);
 
         $this->setFilterVisibility(false);

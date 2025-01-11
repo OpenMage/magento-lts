@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -38,7 +39,6 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     /**
      * Set Product object
      *
-     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
     public function setProduct(?Mage_Catalog_Model_Product $product = null)
@@ -60,7 +60,6 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     /**
      * Set option
      *
-     * @param Mage_Catalog_Model_Product_Option $option
      * @return Mage_Catalog_Block_Product_View_Options_Abstract
      */
     public function setOption(Mage_Catalog_Model_Product_Option $option)
@@ -88,7 +87,7 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         if ($option = $this->getOption()) {
             return $this->_formatPrice([
                 'is_percent'    => ($option->getPriceType() === 'percent'),
-                'pricing_value' => $option->getPrice($option->getPriceType() === 'percent')
+                'pricing_value' => $option->getPrice($option->getPriceType() === 'percent'),
             ]);
         }
         return '';

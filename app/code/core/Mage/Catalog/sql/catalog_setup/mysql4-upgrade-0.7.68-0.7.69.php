@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,23 +21,23 @@ $installer->startSetup();
 // fix for sample data 1.2.0
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('catalog/product_website'),
-    'FK_CATALOG_PRODUCT_WEBSITE_PRODUCT'
+    'FK_CATALOG_PRODUCT_WEBSITE_PRODUCT',
 );
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('catalog/product_website'),
-    'FK_CATAOLOG_PRODUCT_WEBSITE_WEBSITE'
+    'FK_CATAOLOG_PRODUCT_WEBSITE_WEBSITE',
 );
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('catalog/product_website'),
-    'FK_CATALOG_PRODUCT_WEBSITE_WEBSITE'
+    'FK_CATALOG_PRODUCT_WEBSITE_WEBSITE',
 );
 $installer->getConnection()->dropKey(
     $installer->getTable('catalog/product_website'),
-    'FK_CATAOLOG_PRODUCT_WEBSITE_WEBSITE'
+    'FK_CATAOLOG_PRODUCT_WEBSITE_WEBSITE',
 );
 $installer->getConnection()->dropKey(
     $installer->getTable('catalog/product_website'),
-    'FK_CATALOG_PRODUCT_WEBSITE_WEBSITE'
+    'FK_CATALOG_PRODUCT_WEBSITE_WEBSITE',
 );
 $installer->getConnection()->addConstraint(
     'FK_SUPER_PRODUCT_ATTRIBUTE_LABEL',
@@ -46,7 +47,7 @@ $installer->getConnection()->addConstraint(
     'product_super_attribute_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_SUPER_PRODUCT_ATTRIBUTE_PRICING',
@@ -56,7 +57,7 @@ $installer->getConnection()->addConstraint(
     'product_super_attribute_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_SUPER_PRODUCT_LINK_ENTITY',
@@ -66,7 +67,7 @@ $installer->getConnection()->addConstraint(
     'entity_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_SUPER_PRODUCT_LINK_PARENT',
@@ -76,7 +77,7 @@ $installer->getConnection()->addConstraint(
     'entity_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_CATALOG_PRODUCT_WEBSITE_WEBSITE',
@@ -86,7 +87,7 @@ $installer->getConnection()->addConstraint(
     'website_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 $installer->getConnection()->addConstraint(
     'FK_CATALOG_WEBSITE_PRODUCT_PRODUCT',
@@ -96,7 +97,7 @@ $installer->getConnection()->addConstraint(
     'entity_id',
     'CASCADE',
     'CASCADE',
-    true
+    true,
 );
 
 $installer->endSetup();

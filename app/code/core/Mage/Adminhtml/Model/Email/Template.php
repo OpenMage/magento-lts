@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +29,7 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
     public const XML_PATH_TEMPLATE_EMAIL = '//sections/*/groups/*/fields/*[source_model="adminhtml/system_config_source_email_template"]';
 
     /**
-     * Collect all system config pathes where current template is used as default
+     * Collect all system config paths where current template is used as default
      *
      * @return array
      */
@@ -59,7 +60,7 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
     }
 
     /**
-     * Collect all system config pathes where current template is currently used
+     * Collect all system config paths where current template is currently used
      *
      * @return array
      */

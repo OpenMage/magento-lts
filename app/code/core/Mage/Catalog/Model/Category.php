@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -44,10 +45,10 @@
  * @method $this setIncludeInMenu(int $value)
  * @method bool getInitialSetupFlag()
  * @method $this setInitialSetupFlag(bool $value)
- * @method bool getIsActive()
- * @method $this setIsActive(bool $value)
- * @method bool getIsAnchor()
- * @method $this setIsAnchor(bool $value)
+ * @method int getIsActive()
+ * @method $this setIsActive(int $value)
+ * @method int getIsAnchor()
+ * @method $this setIsAnchor(int $value)
  * @method $this setIsChangedProductList(bool $bool)
  *
  * @method int getLandingPage()
@@ -138,13 +139,14 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * @var array
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_designAttributes  = [
         'custom_design',
         'custom_design_from',
         'custom_design_to',
         'page_layout',
         'custom_layout_update',
-        'custom_apply_to_products'
+        'custom_apply_to_products',
     ];
 
     /**
@@ -160,6 +162,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @var Mage_Catalog_Model_Category_Url
      */
     protected $_urlModel;
+
+
+    protected ?string $locale = null;
 
     /**
      * Initialize resource mode
@@ -245,17 +250,17 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
         if (!$parent->getId()) {
             Mage::throwException(
-                Mage::helper('catalog')->__('Category move operation is not possible: the new parent category was not found.')
+                Mage::helper('catalog')->__('Category move operation is not possible: the new parent category was not found.'),
             );
         }
 
         if (!$this->getId()) {
             Mage::throwException(
-                Mage::helper('catalog')->__('Category move operation is not possible: the current category was not found.')
+                Mage::helper('catalog')->__('Category move operation is not possible: the current category was not found.'),
             );
         } elseif ($parent->getId() == $this->getId()) {
             Mage::throwException(
-                Mage::helper('catalog')->__('Category move operation is not possible: parent category is equal to child category.')
+                Mage::helper('catalog')->__('Category move operation is not possible: parent category is equal to child category.'),
             );
         }
 
@@ -269,7 +274,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             'parent'        => $parent,
             'category_id'   => $this->getId(),
             'prev_parent_id' => $this->getParentId(),
-            'parent_id'     => $parentId
+            'parent_id'     => $parentId,
         ];
         $moveComplete = false;
 
@@ -302,7 +307,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             Mage::getSingleton('index/indexer')->processEntityAction(
                 $this,
                 self::ENTITY,
-                Mage_Index_Model_Event::TYPE_SAVE
+                Mage_Index_Model_Event::TYPE_SAVE,
             );
             Mage::app()->cleanCache([self::CACHE_TAG]);
         }
@@ -440,14 +445,14 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Return store id.
      *
-     * If store id is underfined for category return current active store id
+     * If store id is undefined for category return current active store id
      *
      * @return int
      */
     public function getStoreId()
     {
         if ($this->hasData('store_id')) {
-            return $this->_getData('store_id');
+            return (int) $this->_getData('store_id');
         }
         return Mage::app()->getStore()->getId();
     }
@@ -499,9 +504,10 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getCategoryIdUrl()
     {
         Varien_Profiler::start('REGULAR: ' . __METHOD__);
-        $urlKey = $this->getUrlKey() ? $this->getUrlKey() : $this->formatUrlKey($this->getName());
+        $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $this->getStoreId());
+        $urlKey = $this->getUrlKey() ? $this->getUrlKey() : $this->setLocale($locale)->formatUrlKey($this->getName());
         $url = $this->getUrlInstance()->getUrl('catalog/category/view', [
-            's' => $urlKey,
+            's'  => $urlKey,
             'id' => $this->getId(),
         ]);
         Varien_Profiler::stop('REGULAR: ' . __METHOD__);
@@ -516,11 +522,18 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function formatUrlKey($str)
     {
-        $str = Mage::helper('catalog/product_url')->format($str);
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', $str);
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-        return $urlKey;
+        return $this->getUrlModel()->setLocale($this->getLocale())->formatUrlKey($str);
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
 
     /**
@@ -629,6 +642,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      * @param string $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _getAttribute($attributeCode)
     {
         if (!$this->_useFlatResource) {
@@ -687,7 +701,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Check category id exising
+     * Check category id existing
      *
      * @param   int $id
      * @return  bool
@@ -707,7 +721,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     {
         $ids = $this->getData('path_ids');
         if (is_null($ids)) {
-            $ids = explode('/', (string)$this->getPath());
+            $ids = explode('/', (string) $this->getPath());
             $this->setData('path_ids', $ids);
         }
         return $ids;
@@ -721,7 +735,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getLevel()
     {
         if (!$this->hasLevel()) {
-            return count(explode('/', (string)$this->getPath())) - 1;
+            return count(explode('/', (string) $this->getPath())) - 1;
         }
         return $this->getData('level');
     }
@@ -729,7 +743,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Verify category ids
      *
-     * @param array $ids
      * @return array
      */
     public function verifyIds(array $ids)
@@ -876,7 +889,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Return parent category of current category with own custom design settings
      *
-     * @return $this
+     * @return Mage_Catalog_Model_Category
      */
     public function getParentDesignCategory()
     {
