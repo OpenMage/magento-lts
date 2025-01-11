@@ -386,7 +386,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @param string $field
      * @param mixed $value
      * @param string $type 'and'|'or'
-     * @param callback $callback
+     * @param callable $callback
      * @param bool $isInverted
      * @return $this
      */
@@ -440,7 +440,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * Invokes specified callback
      * Skips, if there is no filtered key in the row
      *
-     * @param callback $callback
+     * @param callable $callback
      * @param array $callbackParams
      * @return bool
      */
