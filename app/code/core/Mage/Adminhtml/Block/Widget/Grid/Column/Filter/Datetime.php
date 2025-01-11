@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +43,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
 
             //calculate end date considering timezone specification
             $datetimeTo->setTimezone(
-                Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE)
+                Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE),
             );
             $datetimeTo->addDay(1)->subSecond(1);
             $datetimeTo->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
@@ -65,14 +66,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
 
                 //set default timezone for store (admin)
                 $dateObj->setTimezone(
-                    Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE)
+                    Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE),
                 );
 
                 //set date with applying timezone of store
                 $dateObj->set(
                     $date,
                     $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-                    $locale
+                    $locale,
                 );
 
                 //convert store date to default date in UTC timezone without DST
@@ -94,6 +95,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
      */
     public function getHtml()
     {
+        $fromLabel = Mage::helper('adminhtml')->__('From');
+        $toLabel = Mage::helper('adminhtml')->__('To');
+
         $htmlId = $this->_getHtmlId() . microtime(true);
         $format = $this->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
 
@@ -102,16 +106,18 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
         }
 
         $html = '<div class="range"><div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('From') . '</span>'
+            . '<span class="label">' . $fromLabel . '</span>'
             . '<input type="text" name="' . $this->_getHtmlName() . '[from]" id="' . $htmlId . '_from"'
+                . ' placeholder="' . $fromLabel . '"'
                 . ' value="' . $this->getEscapedValue('from') . '" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'
                 . ' id="' . $htmlId . '_from_trig"'
                 . ' title="' . $this->escapeHtml(Mage::helper('adminhtml')->__('Date selector')) . '"/>'
             . '</div>';
         $html .= '<div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('To') . '</span>'
+            . '<span class="label">' . $toLabel . '</span>'
             . '<input type="text" name="' . $this->_getHtmlName() . '[to]" id="' . $htmlId . '_to"'
+                . ' placeholder="' . $toLabel . '"'
                 . ' value="' . $this->getEscapedValue('to') . '" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'
                 . ' id="' . $htmlId . '_to_trig"'
@@ -119,7 +125,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
             . '</div></div>';
         $html .= '<input type="hidden" name="' . $this->_getHtmlName() . '[locale]"'
             . ' value="' . $this->getLocale()->getLocaleCode() . '"/>';
-        $html .= '<script type="text/javascript">
+        return $html . ('<script type="text/javascript">
             Calendar.setup({
                 inputField : "' . $htmlId . '_from",
                 ifFormat : "' . $format . '",
@@ -136,8 +142,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
                 align : "Bl",
                 singleClick : true
             });
-        </script>';
-        return $html;
+        </script>');
     }
 
     /**
@@ -152,7 +157,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
             $value = $this->getValue($index);
             if ($value instanceof Zend_Date) {
                 return $value->toString(
-                    $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
+                    $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                 );
             }
             return $this->escapeHtml($value);

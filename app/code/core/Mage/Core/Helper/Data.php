@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +40,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public const CHARS_PASSWORD_SPECIALS               = '!$*-.=?@_';
 
     /**
-     * Config pathes to merchant country code and merchant VAT number
+     * Config paths to merchant country code and merchant VAT number
      */
     public const XML_PATH_MERCHANT_COUNTRY_CODE = 'general/store_information/merchant_country';
     public const XML_PATH_MERCHANT_VAT_NUMBER = 'general/store_information/merchant_vat_number';
@@ -61,7 +62,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage_Core_Model_Locale::FORMAT_TYPE_FULL,
         Mage_Core_Model_Locale::FORMAT_TYPE_LONG,
         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
-        Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+        Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
     ];
 
     /**
@@ -70,7 +71,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function getEncryptor()
     {
         if ($this->_encryptor === null) {
-            $encryptionModel = (string)Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
+            $encryptionModel = (string) Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
             if ($encryptionModel) {
                 $this->_encryptor = new $encryptionModel();
             } else {
@@ -146,33 +147,48 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|Zend_Date|null $date If empty, return current datetime.
-     * @param   string              $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
-     * @param   bool                $showTime Whether to include time
-     * @param   bool                $useTimezone Convert to local datetime?
+     * @param   string|int|Zend_Date|null   $date If empty, return current datetime.
+     * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
+     * @param   bool                        $showTime Whether to include time
      * @return  string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
+        return $this->formatTimezoneDate($date, $format, $showTime);
+    }
+
+    /**
+     * Format date using current locale options and time zone.
+     *
+     * @param   string|int|Zend_Date|null   $date If empty, return current locale datetime.
+     * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
+     * @param   bool                        $showTime Whether to include time
+     * @param   bool                        $useTimezone Convert to local datetime?
+     */
+    public function formatTimezoneDate(
+        $date = null,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = true
+    ): string {
         if (!in_array($format, $this->_allowedFormats, true)) {
             return $date;
         }
+
+        $locale = Mage::app()->getLocale();
         if (empty($date)) {
-            $date = Mage::app()->getLocale()->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
+            $date = $locale->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
         } elseif (is_int($date)) {
-            $date = Mage::app()->getLocale()->date($date, null, null, $useTimezone);
+            $date = $locale->date($date, null, null, $useTimezone);
         } elseif (!$date instanceof Zend_Date) {
-            if ($time = strtotime($date)) {
-                $date = Mage::app()->getLocale()->date($time, null, null, $useTimezone);
+            if (($time = strtotime($date)) !== false) {
+                $date = $locale->date($time, null, null, $useTimezone);
             } else {
                 return '';
             }
         }
 
-        $format = $showTime
-            ? Mage::app()->getLocale()->getDateTimeFormat($format)
-            : Mage::app()->getLocale()->getDateFormat($format);
-
+        $format = $showTime ? $locale->getDateTimeFormat($format) : $locale->getDateFormat($format);
         return $date->toString($format);
     }
 
@@ -190,18 +206,19 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             return $time;
         }
 
+        $locale = Mage::app()->getLocale();
         if (is_null($time)) {
-            $date = Mage::app()->getLocale()->date(time());
+            $date = $locale->date(time());
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
-            $date = Mage::app()->getLocale()->date(strtotime($time));
+            $date = $locale->date(strtotime($time));
         }
 
         if ($showDate) {
-            $format = Mage::app()->getLocale()->getDateTimeFormat($format);
+            $format = $locale->getDateTimeFormat($format);
         } else {
-            $format = Mage::app()->getLocale()->getTimeFormat($format);
+            $format = $locale->getTimeFormat($format);
         }
 
         return $date->toString($format);
@@ -303,7 +320,6 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get encryption method depending on the presence of the function - password_hash.
      *
-     * @param Mage_Core_Model_Encryption $encryptionModel
      * @return int
      */
     public function getVersionHash(Mage_Core_Model_Encryption $encryptionModel)
@@ -316,7 +332,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve store identifier
      *
-     * @param   mixed $store
+     * @param   bool|int|Mage_Core_Model_Store|null|string $store
      * @return  int
      */
     public function getStoreId($store = null)
@@ -329,7 +345,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $german
      * @return false|string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function removeAccents($string, $german = false)
     {
@@ -363,8 +379,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             if ($german) {
                 // umlauts
                 $subst = [
-                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue'
-                    ] + $subst;
+                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue',
+                ] + $subst;
             }
 
             $replacements[$german] = [];
@@ -417,7 +433,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $types = [];
         $config = Mage::getConfig()->getNode(Mage_Core_Model_Cache::XML_PATH_TYPES);
         foreach ($config->children() as $type => $node) {
-            $types[$type] = (string)$node->label;
+            $types[$type] = (string) $node->label;
         }
         return $types;
     }
@@ -433,7 +449,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
             foreach ($config->children() as $type => $node) {
-                $types[$type] = (string)$node->label;
+                $types[$type] = (string) $node->label;
             }
         }
         return $types;
@@ -480,7 +496,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 $value = $source->getDataUsingMethod($code);
             }
 
-            $targetCode = (string)$node->$aspect;
+            $targetCode = (string) $node->$aspect;
             $targetCode = $targetCode == '*' ? $code : $targetCode;
 
             if ($targetIsArray) {
@@ -496,7 +512,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage::dispatchEvent($eventName, [
             'target' => $target,
             'source' => $source,
-            'root'   => $root
+            'root'   => $root,
         ]);
 
         return $result;
@@ -572,6 +588,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param mixed $value
      * @param bool $dontSkip
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _decorateArrayObject($element, $key, $value, $dontSkip)
     {
         if ($dontSkip) {
@@ -587,7 +604,6 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Transform an assoc array to SimpleXMLElement object
      * Array has some limitations. Appropriate exceptions will be thrown
      *
-     * @param array $array
      * @param string $rootName
      * @return SimpleXMLElement
      * @throws Exception
@@ -603,7 +619,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 <$rootName></$rootName>
 XML;
         $xml = new SimpleXMLElement($xmlstr);
-        foreach ($array as $key => $value) {
+        foreach (array_keys($array) as $key) {
             if (is_numeric($key)) {
                 throw new Exception('Array root keys must not be numeric.');
             }
@@ -614,12 +630,11 @@ XML;
     /**
      * Function, that actually recursively transforms array to xml
      *
-     * @param array $array
      * @param string $rootName
-     * @param SimpleXMLElement $xml
      * @return SimpleXMLElement
      * @throws Exception
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _assocToXml(array $array, $rootName, SimpleXMLElement &$xml)
     {
         $hasNumericKey = false;
@@ -650,7 +665,6 @@ XML;
      * Transform SimpleXMLElement to associative array
      * SimpleXMLElement must be conform structure, generated by assocToXml()
      *
-     * @param SimpleXMLElement $xml
      * @return array
      */
     public function xmlToAssoc(SimpleXMLElement $xml)
@@ -660,15 +674,15 @@ XML;
             if (isset($value->$key)) {
                 $i = 0;
                 foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string)$v;
+                    $array[$key][$i++] = (string) $v;
                 }
             } else {
                 // try to transform it into string value, trimming spaces between elements
-                $array[$key] = trim((string)$value);
+                $array[$key] = trim((string) $value);
                 if (empty($array[$key]) && !empty($value)) {
                     $array[$key] = self::xmlToAssoc($value);
                 } else { // untrim strings values
-                    $array[$key] = (string)$value;
+                    $array[$key] = (string) $value;
                 }
             }
         }
@@ -752,14 +766,12 @@ XML;
      * May filter files by specified extension(s)
      * Returns false on error
      *
-     * @param array $srcFiles
      * @param string|false $targetFile - file path to be written
      * @param bool $mustMerge
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
-     *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mergeFiles(
         array $srcFiles,
@@ -820,6 +832,7 @@ XML;
                         continue;
                     }
                     $contents = file_get_contents($file) . "\n";
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if ($beforeMergeCallback && is_callable($beforeMergeCallback)) {
                         $contents = call_user_func($beforeMergeCallback, $file, $contents);
                     }
@@ -960,17 +973,16 @@ XML;
     /**
      * Escaping CSV-data
      *
-     * Security enchancement for CSV data processing by Excel-like applications.
+     * Security enhancement for CSV data processing by Excel-like applications.
      * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1054702
      *
-     * @param array $data
      * @return array
      */
     public function getEscapedCSVData(array $data)
     {
         if (Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
             foreach ($data as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
 
                 $firstLetter = substr($value, 0, 1);
                 if ($firstLetter && in_array($firstLetter, ['=', '+', '-'])) {
@@ -991,7 +1003,7 @@ XML;
     {
         if (is_array($data) && Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
             foreach ($data as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
 
                 if (preg_match("/^ [=\-+]/", $value)) {
                     $data[$key] = ltrim($value);
@@ -1004,7 +1016,6 @@ XML;
     /**
      * Returns true if the rate limit of the current client is exceeded
      * @param bool $setErrorMessage Adds a predefined error message to the 'core/session' object
-     * @param bool $recordRateLimitHit
      * @return bool is rate limit exceeded
      */
     public function isRateLimitExceeded(bool $setErrorMessage = true, bool $recordRateLimitHit = true): bool
@@ -1014,7 +1025,7 @@ XML;
             $cacheTag = 'rate_limit_' . $remoteAddr;
             if (Mage::app()->testCache($cacheTag)) {
                 if ($setErrorMessage) {
-                    $errorMessage = $this->__("Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again.");
+                    $errorMessage = $this->__('Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again.');
                     Mage::getSingleton('core/session')->addError($errorMessage);
                 }
                 return true;
@@ -1030,7 +1041,6 @@ XML;
 
     /**
      * Save the client rate limit hit to the cache
-     * @return void
      */
     public function recordRateLimitHit(): void
     {

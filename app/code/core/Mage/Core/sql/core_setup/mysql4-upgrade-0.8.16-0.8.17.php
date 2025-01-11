@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,6 +40,6 @@ CREATE TABLE IF NOT EXISTS `{$installer->getTable('core_email_variable_value')}`
   CONSTRAINT `FK_CORE_EMAIL_VARIABLE_VALUE_VARIABLE_ID` FOREIGN KEY (`variable_id`) REFERENCES `{$installer->getTable('core_email_variable')}` (`variable_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 ");
-$installer->getConnection()->addColumn($installer->getTable('core/email_template'), 'orig_template_variables', "text NOT NULL");
+$installer->getConnection()->addColumn($installer->getTable('core/email_template'), 'orig_template_variables', 'text NOT NULL');
 
 $installer->endSetup();

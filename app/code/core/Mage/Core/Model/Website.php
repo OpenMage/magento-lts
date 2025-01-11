@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -136,6 +137,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * @var bool
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_isReadOnly = false;
 
     /**
@@ -172,7 +174,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         }
         if (is_numeric($code)) {
             foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
-                if ((int)$website->system->website->id == $code) {
+                if ((int) $website->system->website->id == $code) {
                     $code = $websiteCode;
                     break;
                 }
@@ -182,7 +184,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         }
         if (!empty($website)) {
             $this->setCode($code);
-            $id = (int)$website->system->website->id;
+            $id = (int) $website->system->website->id;
             $this->setId($id)->setStoreId($id);
         }
         return $this;
@@ -208,7 +210,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
                     $value[$k] = $v;
                 }
             } else {
-                $value = (string)$config;
+                $value = (string) $config;
             }
             $this->_configCache[$path] = $value;
         }
@@ -230,7 +232,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
-            $this->_groupsCount ++;
+            $this->_groupsCount++;
         }
     }
 
@@ -251,7 +253,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
-            $this->_groupsCount ++;
+            $this->_groupsCount++;
         }
         return $this;
     }
@@ -339,7 +341,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
-            $this->_storesCount ++;
+            $this->_storesCount++;
         }
     }
 
@@ -360,7 +362,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
-            $this->_storesCount ++;
+            $this->_storesCount++;
         }
     }
 
@@ -558,7 +560,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     public function isReadOnly($value = null)
     {
         if ($value !== null) {
-            $this->_isReadOnly = (bool)$value;
+            $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;
     }

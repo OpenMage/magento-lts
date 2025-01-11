@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,8 +40,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label' => Mage::helper('eav')->__('Delete'),
-                    'class' => 'delete delete-option'
-                ])
+                    'class' => 'delete delete-option',
+                ]),
         );
 
         $this->setChild(
@@ -49,8 +50,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->setData([
                     'label' => Mage::helper('eav')->__('Add Option'),
                     'class' => 'add',
-                    'id'    => 'add_new_option_button'
-                ])
+                    'id'    => 'add_new_option_button',
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -103,7 +104,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         $attributeType = $this->getAttributeObject()->getFrontendInput();
         $defaultValues = $this->getAttributeObject()->getDefaultValue();
         if ($attributeType === 'select' || $attributeType === 'multiselect') {
-            $defaultValues = explode(',', (string)$defaultValues);
+            $defaultValues = explode(',', (string) $defaultValues);
         } else {
             $defaultValues = [];
         }
@@ -146,11 +147,13 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                     $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
                         ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
+                if ($this->isConfigurableSwatchesEnabled()) {
+                    $value['swatch'] = $option->getSwatchValue();
+                }
                 $values[] = new Varien_Object($value);
             }
             $this->setData('option_values', $values);
         }
-
         return $values;
     }
 
@@ -208,5 +211,14 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     public function getAttributeObject()
     {
         return Mage::registry('entity_attribute');
+    }
+
+    /**
+     * Check if configurable swatches module is enabled and attribute is swatch type
+     */
+    public function isConfigurableSwatchesEnabled(): bool
+    {
+        return $this->isModuleEnabled('Mage_ConfigurableSwatches')
+            && Mage::helper('configurableswatches')->attrIsSwatchType($this->getAttributeObject());
     }
 }

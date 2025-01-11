@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,7 +22,7 @@
  */
 class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
 {
-    /**#@+
+    /**
      * Parameters' names in config with special ACL meaning
      */
     public const PARAM_GIFT_MESSAGE   = '_gift_message';
@@ -29,12 +30,10 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     public const PARAM_PAYMENT_METHOD = '_payment_method';
     public const PARAM_TAX_NAME       = '_tax_name';
     public const PARAM_TAX_RATE       = '_tax_rate';
-    /**#@-*/
 
     /**
      * Add gift message info to select
      *
-     * @param Mage_Sales_Model_Resource_Order_Collection $collection
      * @return $this
      */
     protected function _addGiftMessageInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
@@ -45,8 +44,8 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             [
                 'gift_message_from' => 'gift_message.sender',
                 'gift_message_to'   => 'gift_message.recipient',
-                'gift_message_body' => 'gift_message.message'
-            ]
+                'gift_message_body' => 'gift_message.message',
+            ],
         );
 
         return $this;
@@ -55,7 +54,6 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Add order payment method field to select
      *
-     * @param Mage_Sales_Model_Resource_Order_Collection $collection
      * @return $this
      */
     protected function _addPaymentMethodInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
@@ -63,7 +61,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         $collection->getSelect()->joinLeft(
             ['payment_method' => $collection->getTable('sales/order_payment')],
             'main_table.entity_id = payment_method.parent_id',
-            ['payment_method' => 'payment_method.method']
+            ['payment_method' => 'payment_method.method'],
         );
 
         return $this;
@@ -72,7 +70,6 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     /**
      * Add order tax information to select
      *
-     * @param Mage_Sales_Model_Resource_Order_Collection $collection
      * @return $this
      */
     protected function _addTaxInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
@@ -89,7 +86,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             $collection->getSelect()->joinLeft(
                 ['order_tax' => $collection->getTable('sales/order_tax')],
                 'main_table.entity_id = order_tax.order_id',
-                $taxInfoFields
+                $taxInfoFields,
             );
             $collection->getSelect()->group('main_table.entity_id');
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Magento
  * @package    Magento_Profiler
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,8 +42,6 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
 
     /**
      * Request setter
-     *
-     * @param Zend_Controller_Request_Abstract $request
      */
     public function setRequest(Zend_Controller_Request_Abstract $request)
     {
@@ -51,8 +50,6 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
 
     /**
      * Response setter
-     *
-     * @param Zend_Controller_Response_Abstract $response
      */
     public function setResponse(Zend_Controller_Response_Abstract $response)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
                 $storeId = $this->getForm()->getDataObject()->getStoreId();
             }
             $store = Mage::app()->getStore($storeId);
-            $html .= '<strong>[' . (string)$store->getBaseCurrencyCode() . ']</strong>';
+            $html .= '<strong>[' . (string) $store->getBaseCurrencyCode() . ']</strong>';
             if (Mage::helper('tax')->priceIncludesTax($store)) {
                 if ($attribute->getAttributeCode() !== 'cost') {
                     $addJsObserver = true;
@@ -84,6 +85,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
             return null;
         }
 
-        return number_format($value, 2, null, '');
+        return number_format((float) $value, 2, null, '');
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +29,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
     /**
      * Config object
      *
-     * @var Mage_Core_Model_Config_Element|Varien_Simplexml_Element|false
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_config;
 
@@ -64,7 +65,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         }
         // "include" section takes precedence and can revoke directory exclusion
         foreach ($this->getConfig()->dirs->include->children() as $dir) {
-            unset($conditions['regexp'][(string) $dir], $conditions['plain'][(string) $dir]);
+            unset($conditions['reg_exp'][(string) $dir], $conditions['plain'][(string) $dir]);
         }
 
         $regExp = $conditions['reg_exp'] ? ('~' . implode('|', array_keys($conditions['reg_exp'])) . '~i') : null;
@@ -94,7 +95,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * @param string $type Type of storage, e.g. image, media etc.
      * @return Varien_Data_Collection_Filesystem
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getFilesCollection($path, $type = null)
     {
@@ -201,7 +202,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 'name'          => $name,
                 'short_name'    => $this->getHelper()->getShortFilename($name),
                 'path'          => $newPath,
-                'id'            => $this->getHelper()->convertPathToId($newPath)
+                'id'            => $this->getHelper()->convertPathToId($newPath),
             ];
         }
         Mage::throwException(Mage::helper('cms')->__('Cannot create new directory.'));
@@ -223,7 +224,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if ($rootCmp == $pathCmp) {
             Mage::throwException(Mage::helper('cms')->__(
                 'Cannot delete root directory %s.',
-                $io->getFilteredPath($path)
+                $io->getFilteredPath($path),
             ));
         }
         if (str_contains($pathCmp, chr(0))
@@ -274,7 +275,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function uploadFile($targetPath, $type = null)
     {
-        $uploader = new Mage_Core_Model_File_Uploader('image');
+        $uploader = Mage::getModel('core/file_uploader', 'image');
         if ($allowed = $this->getAllowedExtensions($type)) {
             $uploader->setAllowedExtensions($allowed);
         }
@@ -284,7 +285,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $uploader->addValidateCallback(
                 Mage_Core_Model_File_Validator_Image::NAME,
                 Mage::getModel('core/file_validator_image'),
-                'validate'
+                'validate',
             );
         }
         $result = $uploader->save($targetPath);
@@ -302,7 +303,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             'value'    => $this->getSession()->getSessionId(),
             'lifetime' => $this->getSession()->getCookieLifetime(),
             'path'     => $this->getSession()->getCookiePath(),
-            'domain'   => $this->getSession()->getCookieDomain()
+            'domain'   => $this->getSession()->getCookieDomain(),
         ];
 
         return $result;
@@ -398,7 +399,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Resize images on the fly in controller action
      *
      * @param string $filename File basename
-     * @return bool|string Thumbnail path or false for errors
+     * @return false|string Thumbnail path or false for errors
      */
     public function resizeOnTheFly($filename)
     {

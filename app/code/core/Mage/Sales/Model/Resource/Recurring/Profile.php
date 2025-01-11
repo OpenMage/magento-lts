@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,14 +37,13 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
             'order_info' => [null, []],
             'order_item_info' => [null, []],
             'billing_address_info' => [null, []],
-            'shipping_address_info' => [null, []]
+            'shipping_address_info' => [null, []],
         ];
     }
 
     /**
      * Unserialize Varien_Object field in an object
      *
-     * @param Varien_Object $object
      * @param string $field
      * @param mixed $defaultValue
      */
@@ -81,7 +81,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
         $select  = $adapter->select()
             ->from(
                 ['main_table' => $this->getTable('sales/recurring_profile_order')],
-                ['order_id']
+                ['order_id'],
             )
             ->where('profile_id=:profile_id');
 
@@ -101,8 +101,8 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
             $this->getTable('sales/recurring_profile_order'),
             [
                 'profile_id' => $recurringProfileId,
-                'order_id'   => $orderId
-            ]
+                'order_id'   => $orderId,
+            ],
         );
         return $this;
     }

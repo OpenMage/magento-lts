@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,10 +21,10 @@
 class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
-     * Formating date value before save
+     * Formatting date value before save
      *
      * Should set (bool, string) correct type for empty value from html form,
-     * neccessary for farther proccess, else date string
+     * necessary for farther process, else date string
      *
      * @param Varien_Object $object
      * @throws Mage_Eav_Exception
@@ -67,7 +68,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         }
         // unix timestamp given - simply instantiate date object
         if (preg_match('/^[0-9]+$/', $date)) {
-            $date = new Zend_Date((int)$date);
+            $date = new Zend_Date((int) $date);
         } elseif (preg_match('#^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?$#', $date)) {
             // international format
             $zendDate = new Zend_Date();
@@ -78,7 +79,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
                 $date,
                 Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                 null,
-                false
+                false,
             );
         }
         return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);

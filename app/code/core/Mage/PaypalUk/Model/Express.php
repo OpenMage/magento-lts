@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_PaypalUk
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,7 +71,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
         $payment->setTransactionId($api->getPaypalTransactionId())->setIsTransactionClosed(0)
             ->setAdditionalInformation(
                 Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT,
-                $api->getRedirectRequired() || $api->getRedirectRequested()
+                $api->getRedirectRequired() || $api->getRedirectRequested(),
             )
             ->setIsTransactionPending($api->getIsPaymentPending())
             ->setTransactionAdditionalInfo(Mage_PaypalUk_Model_Pro::TRANSPORT_PAYFLOW_TXN_ID, $api->getTransactionId())

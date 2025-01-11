@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +94,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Return table rate array or false by rate request
      *
-     * @param Mage_Shipping_Model_Rate_Request $request
      * @return array|bool
      */
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
@@ -103,29 +103,43 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             ':website_id' => (int) $request->getWebsiteId(),
             ':country_id' => $request->getDestCountryId(),
             ':region_id' => (int) $request->getDestRegionId(),
-            ':postcode' => $request->getDestPostcode()
+            ':postcode' => $request->getDestPostcode(),
         ];
         $select = $adapter->select()
             ->from($this->getMainTable())
             ->where('website_id = :website_id')
-            ->order(['dest_country_id DESC', 'dest_region_id DESC', 'dest_zip DESC', 'condition_value DESC'])
+            ->order(['dest_country_id DESC', 'dest_region_id DESC', 'LENGTH(dest_zip) DESC', 'dest_zip DESC', 'condition_value DESC'])
             ->limit(1);
 
-        // Render destination condition
-        $orWhere = '(' . implode(') OR (', [
-            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode",
+        $conditions = [
+            'dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode',
             "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = ''",
+            "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = :postcode",
+            "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = :postcode",
+            "dest_country_id = '0' AND dest_region_id = '0' AND dest_zip = :postcode",
+            "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = ''",
+        ];
 
-            // Handle asterix in dest_zip field
-            "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = '*'",
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
-            "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = '*'",
-            "dest_country_id = '0' AND dest_region_id = 0 AND dest_zip = '*'",
+        // Handle asterix in dest_zip field
+        $conditions[] = "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = '*'";
+        $conditions[] = "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = '*'";
+        $conditions[] = "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = '*'";
+        $conditions[] = "dest_country_id = '0' AND dest_region_id = '0' AND dest_zip = '*'";
 
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = ''",
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = :postcode",
-            "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
-            ]) . ')';
+        $i = 0;
+        $postcode = (string) $request->getDestPostcode();
+        while (strlen($postcode) > 1) {
+            $i++;
+            $postcode = substr($postcode, 0, -1);
+            $bind[':wildcard_postcode_' . $i] = "{$postcode}*";
+            $conditions[] = "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :wildcard_postcode_{$i}";
+            $conditions[] = "dest_country_id = :country_id AND dest_region_id = '0' AND dest_zip = :wildcard_postcode_{$i}";
+            $conditions[] = "dest_country_id = '0' AND dest_region_id = :region_id AND dest_zip = :wildcard_postcode_{$i}";
+            $conditions[] = "dest_country_id = '0' AND dest_region_id = '0' AND dest_zip = :wildcard_postcode_{$i}";
+        }
+
+        // Render destination condition
+        $orWhere = '(' . implode(') OR (', $conditions) . ')';
         $select->where($orWhere);
 
         // Render condition by condition name
@@ -163,9 +177,9 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Upload table rate file and import data from it
      *
-     * @param Varien_Object|Mage_Adminhtml_Block_System_Config_Form $object
      * @throws Mage_Core_Exception
      * @return $this
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function uploadAndImport(Varien_Object $object)
     {
@@ -176,7 +190,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $csvFile = $_FILES['groups']['tmp_name']['tablerate']['fields']['import']['value'];
         $website = Mage::app()->getWebsite($object->getScopeId());
 
-        $this->_importWebsiteId     = (int)$website->getId();
+        $this->_importWebsiteId     = (int) $website->getId();
         $this->_importUniqueHash    = [];
         $this->_importErrors        = [];
         $this->_importedRows        = 0;
@@ -194,7 +208,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         if ($object->getData('groups/tablerate/fields/condition_name/inherit') == '1') {
-            $conditionName = (string)Mage::getConfig()->getNode('default/carriers/tablerate/condition_name');
+            $conditionName = (string) Mage::getConfig()->getNode('default/carriers/tablerate/condition_name');
         } else {
             $conditionName = $object->getData('groups/tablerate/fields/condition_name/value');
         }
@@ -213,7 +227,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             // delete old data by website and condition name
             $condition = [
                 'website_id = ?'     => $this->_importWebsiteId,
-                'condition_name = ?' => $this->_importConditionName
+                'condition_name = ?' => $this->_importConditionName,
             ];
             $adapter->delete($this->getMainTable(), $condition);
 
@@ -296,7 +310,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = Mage::getResourceModel('directory/region_collection');
         foreach ($collection->getData() as $row) {
-            $this->_importRegions[$row['country_id']][$row['code']] = (int)$row['region_id'];
+            $this->_importRegions[$row['country_id']][$row['code']] = (int) $row['region_id'];
         }
 
         return $this;
@@ -383,7 +397,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         // protect from duplicate
-        $hash = sprintf("%s-%d-%s-%F", $countryId, $regionId, $zipCode, $value);
+        $hash = sprintf('%s-%d-%s-%F', $countryId, $regionId, $zipCode, $value);
         if (isset($this->_importUniqueHash[$hash])) {
             $this->_importErrors[] = Mage::helper('shipping')->__('Duplicate Row #%s (Country "%s", Region/State "%s", Zip "%s" and Value "%s").', $rowNumber, $row[0], $row[1], $zipCode, $value);
             return false;
@@ -397,14 +411,13 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             $zipCode,                   // dest_zip
             $this->_importConditionName,// condition_name,
             $value,                     // condition_value
-            $price                      // price
+            $price,                      // price
         ];
     }
 
     /**
      * Save import data batch
      *
-     * @param array $data
      * @return $this
      */
     protected function _saveImportData(array $data)
@@ -431,7 +444,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         if (!is_numeric($value)) {
             return false;
         }
-        $value = (float)sprintf('%.4F', $value);
+        $value = (float) sprintf('%.4F', $value);
         if ($value < 0.0000) {
             return false;
         }

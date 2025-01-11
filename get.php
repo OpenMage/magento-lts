@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -17,7 +18,7 @@ $start = microtime(true);
 /**
  * Error reporting
  */
-ini_set('display_errors', 0);
+ini_set('display_errors', '0');
 
 $ds = DIRECTORY_SEPARATOR;
 $ps = PATH_SEPARATOR;
@@ -44,18 +45,16 @@ Varien_Autoload::register();
 /** AUTOLOADER PATCH **/
 $autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
 if (!$autoloaderPath) {
-    $autoloaderPath = dirname($bp) . $ds .  'vendor';
+    $autoloaderPath = dirname($bp) . $ds . 'vendor';
     if (!is_dir($autoloaderPath)) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
 }
-require $autoloaderPath . $ds . 'autoload.php';
+require_once $autoloaderPath . $ds . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
 $varDirectory = $bp . $ds . Mage_Core_Model_Config_Options::VAR_DIRECTORY;
-
 $configCacheFile = $varDirectory . $ds . 'resource_config.json';
-
 $mediaDirectory = null;
 $allowedResources = [];
 
@@ -70,10 +69,9 @@ if (file_exists($configCacheFile) && is_readable($configCacheFile)) {
 }
 
 $request = new Zend_Controller_Request_Http();
-
 $pathInfo = str_replace('..', '', ltrim($request->getPathInfo(), '/'));
-
 $filePath = str_replace('/', $ds, rtrim($bp, $ds) . $ds . $pathInfo);
+$relativeFilename = '';
 
 if ($mediaDirectory) {
     if (0 !== stripos($pathInfo, $mediaDirectory . '/') || is_dir($filePath)) {
@@ -86,7 +84,6 @@ if ($mediaDirectory) {
 }
 
 $mageFilename = 'app/Mage.php';
-
 if (!file_exists($mageFilename)) {
     echo $mageFilename . ' was not found';
 }
@@ -108,7 +105,7 @@ if (empty($mediaDirectory)) {
         $mageRunCode,
         $mageRunType,
         ['cache' => ['disallow_save' => true]],
-        $config['loaded_modules'] ?? ['Mage_Core']
+        $config['loaded_modules'] ?? ['Mage_Core'],
     );
 }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,8 +72,8 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Actions extends Mage_Adminhtml
         $form->setHtmlIdPrefix('rule_');
 
         $fieldset = $form->addFieldset('action_fieldset', [
-                'legend' => Mage::helper('catalogrule')->__('Update Prices Using the Following Information')
-            ]);
+            'legend' => Mage::helper('catalogrule')->__('Update Prices Using the Following Information'),
+        ]);
 
         $fieldset->addField('simple_action', 'select', [
             'label'     => Mage::helper('catalogrule')->__('Apply'),
@@ -99,8 +100,8 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Actions extends Mage_Adminhtml
             'onchange'  => 'hideShowSubproductOptions(this);',
             'values'    => [
                 0 => Mage::helper('catalogrule')->__('No'),
-                1 => Mage::helper('catalogrule')->__('Yes')
-            ]
+                1 => Mage::helper('catalogrule')->__('Yes'),
+            ],
         ]);
 
         $fieldset->addField('sub_simple_action', 'select', [

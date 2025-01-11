@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,7 +90,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Adding new router
      *
      * @param   string $name
-     * @param   Mage_Core_Controller_Varien_Router_Abstract $router
      * @return  Mage_Core_Controller_Varien_Front
      */
     public function addRouter($name, Mage_Core_Controller_Varien_Router_Abstract $router)
@@ -150,6 +150,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         Mage::dispatchEvent('controller_front_init_routers', ['front' => $this]);
 
         // Add default router at the last
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $default = new Mage_Core_Controller_Varien_Router_Default();
         $this->addRouter('default', $default);
 
@@ -204,7 +205,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      */
     protected function _getRequestRewriteController()
     {
-        $className = (string)Mage::getConfig()->getNode('global/request_rewrite/model');
+        $className = (string) Mage::getConfig()->getNode('global/request_rewrite/model');
         return Mage::getSingleton('core/factory')->getModel($className, [
             'routers' => $this->getRouters(),
         ]);
@@ -275,8 +276,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             return;
         }
         foreach ($config->children() as $rewrite) {
-            $from = (string)$rewrite->from;
-            $to = (string)$rewrite->to;
+            $from = (string) $rewrite->from;
+            $to = (string) $rewrite->to;
             if (empty($from) || empty($to)) {
                 continue;
             }
@@ -321,7 +322,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      *
      * @param Mage_Core_Controller_Request_Http $request
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _checkBaseUrl($request)
     {
@@ -329,7 +331,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             return;
         }
 
-        $redirectCode = (int)Mage::getStoreConfig('web/url/redirect_to_base');
+        $redirectCode = Mage::getStoreConfigAsInt('web/url/redirect_to_base');
         if (!$redirectCode) {
             return;
         } elseif ($redirectCode != 301) {
@@ -342,7 +344,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         $baseUrl = Mage::getBaseUrl(
             Mage_Core_Model_Store::URL_TYPE_WEB,
-            Mage::app()->getStore()->isCurrentlySecure()
+            Mage::app()->getStore()->isCurrentlySecure(),
         );
         if (!$baseUrl) {
             return;
@@ -369,13 +371,13 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      */
     protected function _isAdminFrontNameMatched($request)
     {
-        $useCustomAdminPath = (bool)(string)Mage::getConfig()
+        $useCustomAdminPath = (bool) (string) Mage::getConfig()
             ->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_USE_CUSTOM_ADMIN_PATH);
-        $customAdminPath = (string)Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_PATH);
+        $customAdminPath = (string) Mage::getConfig()->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_CUSTOM_ADMIN_PATH);
         $adminPath = ($useCustomAdminPath) ? $customAdminPath : null;
 
         if (!$adminPath) {
-            $adminPath = (string)Mage::getConfig()
+            $adminPath = (string) Mage::getConfig()
                 ->getNode(Mage_Adminhtml_Helper_Data::XML_PATH_ADMINHTML_ROUTER_FRONTNAME);
         }
         $adminFrontNames = [$adminPath];
@@ -386,7 +388,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         if (is_array($adminFrontNameNodes)) {
             foreach ($adminFrontNameNodes as $frontNameNode) {
-                $adminFrontNames[] = (string)$frontNameNode;
+                $adminFrontNames[] = (string) $frontNameNode;
             }
         }
 

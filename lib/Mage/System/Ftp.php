@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_System
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +38,7 @@ class Mage_System_Ftp
     protected function checkConnected()
     {
         if (!$this->_conn) {
-            throw new Exception(__CLASS__ . " - no connection established with server");
+            throw new Exception(__CLASS__ . ' - no connection established with server');
         }
     }
 
@@ -47,7 +48,7 @@ class Mage_System_Ftp
      * @param string $name
      * @return string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mdkir($name)
     {
@@ -62,18 +63,18 @@ class Mage_System_Ftp
      * @param int $mode
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mkdirRecursive($path, $mode = 0777)
     {
         $this->checkConnected();
-        $dir = explode("/", $path);
-        $path = "";
+        $dir = explode('/', $path);
+        $path = '';
         $ret = true;
         for ($i = 0; $i < count($dir); $i++) {
-            $path .= "/" . $dir[$i];
+            $path .= '/' . $dir[$i];
             if (!@ftp_chdir($this->_conn, $path)) {
-                @ftp_chdir($this->_conn, "/");
+                @ftp_chdir($this->_conn, '/');
                 if (!@ftp_mkdir($this->_conn, $path)) {
                     $ret = false;
                     break;
@@ -93,14 +94,17 @@ class Mage_System_Ftp
      * @throws Exception on invalid login credentials
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
-    public function login($login = "anonymous", $password = "test@gmail.com")
+    public function login($login = 'anonymous', $password = 'test@gmail.com')
     {
+        $login = new Mage_Core_Model_Security_Obfuscated($login);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         $this->checkConnected();
         $res = @ftp_login($this->_conn, $login, $password);
         if (!$res) {
-            throw new Exception("Invalid login credentials");
+            throw new Exception('Invalid login credentials');
         }
         return $res;
     }
@@ -112,7 +116,7 @@ class Mage_System_Ftp
      * @throws Exception
      * @return array
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function validateConnectionString($string)
     {
@@ -165,7 +169,7 @@ class Mage_System_Ftp
      * @param int $startPos
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function fput($remoteFile, $handle, $mode = FTP_BINARY, $startPos = 0)
     {
@@ -195,8 +199,8 @@ class Mage_System_Ftp
      */
     public function getcwd()
     {
-        $d = $this->raw("pwd");
-        $data = explode(" ", $d[0], 3);
+        $d = $this->raw('pwd');
+        $data = explode(' ', $d[0], 3);
         if (empty($data[1])) {
             return false;
         }
@@ -204,8 +208,8 @@ class Mage_System_Ftp
             return false;
         }
         $out = trim($data[1], '"');
-        if ($out !== "/") {
-            $out = rtrim($out, "/");
+        if ($out !== '/') {
+            $out = rtrim($out, '/');
         }
         return $out;
     }
@@ -216,7 +220,7 @@ class Mage_System_Ftp
      * @param string $cmd
      * @return mixed
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function raw($cmd)
     {
@@ -227,7 +231,7 @@ class Mage_System_Ftp
     /**
      * Upload local file to remote
      *
-     * Can be used for relative and absoulte remote paths
+     * Can be used for relative and absolute remote paths
      * Relative: use chdir before calling this
      *
      * @param string $remote
@@ -250,16 +254,16 @@ class Mage_System_Ftp
             throw new Exception("Directory given instead of file: {$local}");
         }
 
-        $globalPathMode = substr($remote, 0, 1) == "/";
+        $globalPathMode = substr($remote, 0, 1) == '/';
         $dirname = dirname($remote);
         $cwd = $this->getcwd();
         if (false === $cwd) {
-            throw new Exception("Server returns something awful on PWD command");
+            throw new Exception('Server returns something awful on PWD command');
         }
 
         if (!$globalPathMode) {
-            $dirname = $cwd . "/" . $dirname;
-            $remote = $cwd . "/" . $remote;
+            $dirname = $cwd . '/' . $dirname;
+            $remote = $cwd . '/' . $remote;
         }
         $res = $this->mkdirRecursive($dirname, $dirMode);
         $this->chdir($cwd);
@@ -290,7 +294,7 @@ class Mage_System_Ftp
      * @param bool $pasv
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function pasv($pasv)
     {
@@ -303,7 +307,7 @@ class Mage_System_Ftp
      *
      * @return void
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function close()
     {
@@ -319,7 +323,7 @@ class Mage_System_Ftp
      * @param $remoteFile
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function chmod($mode, $remoteFile)
     {
@@ -333,7 +337,7 @@ class Mage_System_Ftp
      * @param string $dir
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function chdir($dir)
     {
@@ -346,7 +350,7 @@ class Mage_System_Ftp
      *
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function cdup()
     {
@@ -363,7 +367,7 @@ class Mage_System_Ftp
      * @param int $resumeOffset
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function get($localFile, $remoteFile, $fileMode = FTP_BINARY, $resumeOffset = 0)
     {
@@ -378,9 +382,9 @@ class Mage_System_Ftp
      * @param string $dir
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
-    public function nlist($dir = "/")
+    public function nlist($dir = '/')
     {
         $this->checkConnected();
         $dir = $this->correctFilePath($dir);
@@ -394,9 +398,9 @@ class Mage_System_Ftp
      * @param bool $recursive
      * @return mixed
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
-    public function rawlist($dir = "/", $recursive = false)
+    public function rawlist($dir = '/', $recursive = false)
     {
         $this->checkConnected();
         $dir = $this->correctFilePath($dir);
@@ -440,10 +444,10 @@ class Mage_System_Ftp
     public function fileExists($path, $excludeIfIsDir = true)
     {
         $path = $this->correctFilePath($path);
-        $globalPathMode = substr($path, 0, 1) == "/";
+        $globalPathMode = substr($path, 0, 1) == '/';
 
         $file = basename($path);
-        $dir = $globalPathMode ? dirname($path) : $this->getcwd() . "/" . $path;
+        $dir = $globalPathMode ? dirname($path) : $this->getcwd() . '/' . $path;
         $data = $this->ls($dir);
         foreach ($data as $row) {
             if ($file == $row['name']) {
@@ -463,7 +467,7 @@ class Mage_System_Ftp
      * @param bool $recursive
      * @return array
      */
-    public function ls($dir = "/", $recursive = false)
+    public function ls($dir = '/', $recursive = false)
     {
         $dir = $this->correctFilePath($dir);
         $rawfiles = (array) $this->rawlist($dir, $recursive);
@@ -489,7 +493,7 @@ class Mage_System_Ftp
                     'size'   => (int) $info[4],
                     'chmod'  => self::chmodnum($info[0]),
                     'rawdata' => $info,
-                    'raw'     => $rawfile
+                    'raw'     => $rawfile,
                 ];
             }
         }
@@ -504,9 +508,8 @@ class Mage_System_Ftp
      */
     public function correctFilePath($str)
     {
-        $str = str_replace("\\", "/", $str);
-        $str = preg_replace("/^.\//", "", $str);
-        return $str;
+        $str = str_replace('\\', '/', $str);
+        return preg_replace("/^.\//", '', $str);
     }
 
     /**
@@ -515,7 +518,7 @@ class Mage_System_Ftp
      * @param string $file
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function delete($file)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,7 +27,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public const REQUEST_CHARSET = 'utf-8';
 
-    /**#@+
+    /**
      * Name of query ($_GET) parameters to use in navigation and so on
      */
     public const QUERY_PARAM_REQ_ATTRS   = 'attrs';
@@ -35,7 +36,6 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public const QUERY_PARAM_ORDER_FIELD = 'order';
     public const QUERY_PARAM_ORDER_DIR   = 'dir';
     public const QUERY_PARAM_FILTER      = 'filter';
-    /**#@- */
 
     /**
      * Interpreter adapter
@@ -134,7 +134,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     public function getBodyParams()
     {
         if ($this->_bodyParams == null) {
-            $this->_bodyParams = $this->_getInterpreter()->interpret((string)$this->getRawBody());
+            $this->_bodyParams = $this->_getInterpreter()->interpret((string) $this->getRawBody());
         }
         return $this->_bodyParams;
     }
@@ -159,7 +159,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if (isset($matches[2]) && self::REQUEST_CHARSET != strtolower($matches[2])) {
             throw new Mage_Api2_Exception(
                 'UTF-8 is the only supported charset',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
         return $matches[1];
@@ -202,7 +202,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             'GET'    => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
             'POST'   => Mage_Api2_Model_Resource::OPERATION_CREATE,
             'PUT'    => Mage_Api2_Model_Resource::OPERATION_UPDATE,
-            'DELETE' => Mage_Api2_Model_Resource::OPERATION_DELETE
+            'DELETE' => Mage_Api2_Model_Resource::OPERATION_DELETE,
         ];
 
         return $operationByMethod[$this->getMethod()];

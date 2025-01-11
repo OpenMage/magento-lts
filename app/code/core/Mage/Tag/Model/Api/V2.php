@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +60,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      *
      * @param int $tagId
      * @param string|int $store
-     * @return object
+     * @return object|array
      */
     public function info($tagId, $store)
     {
@@ -74,7 +75,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
     /**
      * Convert data from object to array before add
      *
-     * @param object $data
+     * @param array|object $data
      * @return array
      */
     protected function _prepareDataForAdd($data)
@@ -86,7 +87,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
     /**
      * Convert data from object to array before update
      *
-     * @param object $data
+     * @param array|object $data
      * @return array
      */
     protected function _prepareDataForUpdate($data)

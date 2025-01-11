@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,7 +21,7 @@
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Category getFirstItem()
- * @method Mage_Catalog_Model_Category getItemById(int $value)
+ * @method Mage_Catalog_Model_Category getItemById(string $value)
  * @method Mage_Catalog_Model_Category[] getItems()
  */
 class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
@@ -81,7 +82,6 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      * Initialize factory
      *
      * @param Mage_Core_Model_Resource_Abstract $resource
-     * @param array $args
      */
     public function __construct($resource = null, array $args = [])
     {
@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_before',
-            [$this->_eventObject => $this]
+            [$this->_eventObject => $this],
         );
         return parent::_beforeLoad();
     }
@@ -164,7 +164,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_after',
-            [$this->_eventObject => $this]
+            [$this->_eventObject => $this],
         );
 
         return parent::_afterLoad();
@@ -260,7 +260,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                 $select = $this->_conn->select();
                 $select->from(
                     ['main_table' => $this->_productTable],
-                    ['category_id', new Zend_Db_Expr('COUNT(main_table.product_id)')]
+                    ['category_id', new Zend_Db_Expr('COUNT(main_table.product_id)')],
                 )
                     ->where($this->_conn->quoteInto('main_table.category_id IN(?)', $regularIds))
                     ->group('main_table.category_id');
@@ -268,7 +268,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                     $select->join(
                         ['w' => $this->_productWebsiteTable],
                         'main_table.product_id = w.product_id',
-                        []
+                        [],
                     )
                     ->where('w.website_id = ?', $websiteId);
                 }
@@ -289,17 +289,17 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                 if ($allChildren = $item->getAllChildren()) {
                     $bind = [
                         'entity_id' => $item->getId(),
-                        'c_path'    => $item->getPath() . '/%'
+                        'c_path'    => $item->getPath() . '/%',
                     ];
                     $select = $this->_conn->select();
                     $select->from(
                         ['main_table' => $this->_productTable],
-                        new Zend_Db_Expr('COUNT(DISTINCT main_table.product_id)')
+                        new Zend_Db_Expr('COUNT(DISTINCT main_table.product_id)'),
                     )
                         ->joinInner(
                             ['e' => $this->getTable('catalog/category')],
                             'main_table.category_id=e.entity_id',
-                            []
+                            [],
                         )
                         ->where('e.entity_id = :entity_id')
                         ->orWhere('e.path LIKE :c_path');
@@ -307,7 +307,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                         $select->join(
                             ['w' => $this->_productWebsiteTable],
                             'main_table.product_id = w.product_id',
-                            []
+                            [],
                         )
                         ->where('w.website_id = ?', $websiteId);
                     }
@@ -352,7 +352,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
      */
     protected function _getCurrentStoreId()
     {
-        return (int)Mage::app()->getStore()->getId();
+        return (int) Mage::app()->getStore()->getId();
     }
 
     /**
@@ -388,7 +388,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         $this->addAttributeToFilter('is_active', 1);
         Mage::dispatchEvent(
             $this->_eventPrefix . '_add_is_active_filter',
-            [$this->_eventObject => $this]
+            [$this->_eventObject => $this],
         );
         return $this;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +34,6 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
     /**
      * Remove scope label
      *
-     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -45,7 +45,6 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
     /**
      * Return element html
      *
-     * @param  Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -84,7 +83,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
             ->setData([
                 'id'        => 'synchronize_button',
                 'label'     => $this->helper('adminhtml')->__('Synchronize'),
-                'onclick'   => 'javascript:synchronize(); return false;'
+                'onclick'   => 'javascript:synchronize(); return false;',
             ]);
 
         return $button->toHtml();
@@ -120,7 +119,7 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
 
         return [
             'storage_type'      => $storageType,
-            'connection_name'   => $connectionName
+            'connection_name'   => $connectionName,
         ];
     }
 }

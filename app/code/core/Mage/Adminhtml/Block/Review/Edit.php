@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,9 +40,9 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                 Mage::helper('core/js')->getSetLocationJs(
                     $this->getUrl(
                         '*/catalog_product/edit',
-                        ['id' => $this->getRequest()->getParam('productId', false)]
-                    )
-                )
+                        ['id' => $this->getRequest()->getParam('productId', false)],
+                    ),
+                ),
             );
         }
 
@@ -52,9 +53,9 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                 Mage::helper('core/js')->getSetLocationJs(
                     $this->getUrl(
                         '*/customer/edit',
-                        ['id' => $this->getRequest()->getParam('customerId', false)]
-                    )
-                )
+                        ['id' => $this->getRequest()->getParam('customerId', false)],
+                    ),
+                ),
             );
         }
 
@@ -62,7 +63,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
             $this->_updateButton(
                 'back',
                 'onclick',
-                Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/pending'))
+                Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/pending')),
             );
             $this->_updateButton(
                 'delete',
@@ -73,9 +74,9 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                         [
                             $this->_objectId => $this->getRequest()->getParam($this->_objectId),
                             'ret'           => 'pending',
-                        ]
-                    )
-                )
+                        ],
+                    ),
+                ),
             );
             Mage::register('ret', 'pending');
         }

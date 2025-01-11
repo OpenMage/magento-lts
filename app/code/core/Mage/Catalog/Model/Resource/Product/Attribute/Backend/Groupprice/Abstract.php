@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,7 +95,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
         $adapter = $this->_getWriteAdapter();
 
         $conds   = [
-            $adapter->quoteInto('entity_id = ?', $productId)
+            $adapter->quoteInto('entity_id = ?', $productId),
         ];
 
         if (!is_null($websiteId)) {
@@ -113,7 +114,6 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     /**
      * Save tier price object
      *
-     * @param Varien_Object $priceObject
      * @return $this
      */
     public function savePriceData(Varien_Object $priceObject)

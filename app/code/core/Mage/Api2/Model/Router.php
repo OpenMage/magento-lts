@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +32,6 @@ class Mage_Api2_Model_Router
     /**
      * Set routes
      *
-     * @param array $routes
      * @return $this
      */
     public function setRoutes(array $routes)
@@ -55,7 +55,6 @@ class Mage_Api2_Model_Router
      * Route the Request, the only responsibility of the class
      * Find route that match current URL, set parameters of the route to Request object
      *
-     * @param Mage_Api2_Model_Request $request
      * @return Mage_Api2_Model_Request
      * @throws Mage_Api2_Exception
      */
@@ -77,7 +76,7 @@ class Mage_Api2_Model_Router
         if (!$request->getResourceType() || !$request->getModel()) {
             throw new Mage_Api2_Exception(
                 'Matched resource is not properly set.',
-                Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR
+                Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
             );
         }
         return $request;
@@ -86,7 +85,6 @@ class Mage_Api2_Model_Router
     /**
      * Set API type to request as a result of one pass route
      *
-     * @param Mage_Api2_Model_Request $request
      * @param bool $trimApiTypePath OPTIONAL If TRUE - /api/:api_type part of request path info will be trimmed
      * @return $this
      * @throws Mage_Api2_Exception

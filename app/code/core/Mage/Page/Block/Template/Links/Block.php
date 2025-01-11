@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,14 +58,14 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     protected $_title = null;
 
     /**
-     * Li elemnt params
+     * Li element params
      *
      * @var string
      */
     protected $_liParams = null;
 
     /**
-     * A elemnt params
+     * A element params
      *
      * @var string
      */
@@ -128,7 +129,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
      */
     public function setIsFirst($value)
     {
-        $this->_isFirst = (bool)$value;
+        $this->_isFirst = (bool) $value;
         return $this;
     }
 
@@ -151,7 +152,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
      */
     public function setIsLast($value)
     {
-        $this->_isLast = (bool)$value;
+        $this->_isLast = (bool) $value;
         return $this;
     }
 

@@ -9,10 +9,11 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-/* @var $this Mage_Adminhtml_Block_Newsletter_Queue_Edit */
+
+/** @var Mage_Adminhtml_Block_Newsletter_Queue_Edit $this */
 ?>
 <div class="content-header">
     <table cellspacing="0">
@@ -60,10 +61,10 @@ var queueControl = {
         queueForm.submit();
     },
     preview: function() {
-        if (this.isEditor() && tinyMCE.get(this.id)) {
-            tinyMCE.triggerSave();
+        if (this.isEditor() && tinymce.get(this.id)) {
+            tinymce.triggerSave();
             $('preview_text').value = $(this.id).value;
-            tinyMCE.triggerSave();
+            tinymce.triggerSave();
         } else {
             $('preview_text').value = $(this.id).value;
         }
@@ -77,7 +78,7 @@ var queueControl = {
         return false;
     },
     isEditor: function() {
-        return (typeof tinyMceEditors != 'undefined' && tinyMceEditors.get(this.id) != undefined)
+        return (typeof tinyMceEditors != 'undefined' && tinyMceEditors[this.id] != undefined)
     },
     resume: function() {
         $('_resume_flag').value = '1';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +60,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * Notify for quantity below _configNotifyStockQty value
      *
-     * @var int
+     * @var string
      */
     protected $_configNotifyStockQty;
 
@@ -160,7 +161,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
         $where = [
             'product_id IN (?)' => array_keys($productQtys),
-            'stock_id = ?'      => $stock->getId()
+            'stock_id = ?'      => $stock->getId(),
         ];
 
         $adapter->beginTransaction();
@@ -200,7 +201,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             'cataloginventory/stock_item',
             'is_in_stock',
             'product_id=entity_id',
-            '(' . implode(') OR (', $cond) . ')'
+            '(' . implode(') OR (', $cond) . ')',
         );
         return $this;
     }
@@ -216,11 +217,11 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
                 '_isConfigManageStock'  => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
                 '_isConfigBackorders'   => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_BACKORDERS,
                 '_configMinQty'         => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MIN_QTY,
-                '_configNotifyStockQty' => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY
+                '_configNotifyStockQty' => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY,
             ];
 
             foreach ($configMap as $field => $const) {
-                $this->$field = (int)Mage::getStoreConfig($const);
+                $this->$field = Mage::getStoreConfig($const);
             }
 
             $this->_isConfig = true;
@@ -239,7 +240,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         $adapter = $this->_getWriteAdapter();
         $values  = [
             'is_in_stock'                  => 0,
-            'stock_status_changed_auto'    => 1
+            'stock_status_changed_auto'    => 1,
         ];
 
         $select = $adapter->select()
@@ -258,7 +259,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             Mage_CatalogInventory_Model_Stock::BACKORDERS_NO,
             $this->_isConfigBackorders,
             $this->_configMinQty,
-            $select->assemble()
+            $select->assemble(),
         );
 
         $adapter->update($this->getTable('cataloginventory/stock_item'), $values, $where);
@@ -290,7 +291,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             $this->_stock->getId(),
             $this->_isConfigManageStock,
             $this->_configMinQty,
-            $select->assemble()
+            $select->assemble(),
         );
 
         $adapter->update($this->getTable('cataloginventory/stock_item'), $values, $where);
@@ -307,7 +308,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         $adapter = $this->_getWriteAdapter();
         $condition = $adapter->quoteInto(
             '(use_config_notify_stock_qty = 1 AND qty < ?)',
-            $this->_configNotifyStockQty
+            $this->_configNotifyStockQty,
         ) . ' OR (use_config_notify_stock_qty = 0 AND qty < notify_stock_qty)';
         $currentDbTime = $adapter->quoteInto('?', $this->formatDate(true));
         $conditionalDate = $adapter->getCheckSql($condition, $currentDbTime, 'NULL');
@@ -326,7 +327,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             . ' AND product_id IN (%3$s)',
             $this->_stock->getId(),
             $this->_isConfigManageStock,
-            $select->assemble()
+            $select->assemble(),
         );
 
         $adapter->update($this->getTable('cataloginventory/stock_item'), $value, $where);
@@ -335,7 +336,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * Add low stock filter to product collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @param array $fields
      * @return $this
      */
@@ -346,18 +346,18 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         $qtyIf = $adapter->getCheckSql(
             'invtr.use_config_notify_stock_qty',
             $this->_configNotifyStockQty,
-            'invtr.notify_stock_qty'
+            'invtr.notify_stock_qty',
         );
         $conditions = [
             [
                 $adapter->prepareSqlCondition('invtr.use_config_manage_stock', 1),
-                $adapter->prepareSqlCondition($this->_isConfigManageStock, 1),
-                $adapter->prepareSqlCondition('invtr.qty', ['lt' => $qtyIf])
+                $adapter->prepareSqlCondition((string) $this->_isConfigManageStock, 1),
+                $adapter->prepareSqlCondition('invtr.qty', ['lt' => $qtyIf]),
             ],
             [
                 $adapter->prepareSqlCondition('invtr.use_config_manage_stock', 0),
-                $adapter->prepareSqlCondition('invtr.manage_stock', 1)
-            ]
+                $adapter->prepareSqlCondition('invtr.manage_stock', 1),
+            ],
         ];
 
         $where = [];
@@ -374,7 +374,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             ['invtr' => 'cataloginventory/stock_item'],
             'product_id = entity_id',
             $fields,
-            $where
+            $where,
         );
         return $this;
     }

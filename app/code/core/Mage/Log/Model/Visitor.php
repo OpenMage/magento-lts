@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,7 +84,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 
     /**
      * Mage_Log_Model_Visitor constructor.
-     * @param array $data
      */
     public function __construct(array $data = [])
     {
@@ -173,12 +173,11 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getUrl()
     {
         $url = 'http' . ($this->getHttpSecure() ? 's' : '') . '://';
-        $url .= $this->getHttpHost() . $this->getRequestUri();
-        return $url;
+        return $url . ($this->getHttpHost() . $this->getRequestUri());
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFirstVisitAt()
     {
@@ -189,7 +188,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLastVisitAt()
     {
@@ -258,6 +257,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
 
         try {
+            $this->initServerData();
             $this->setLastVisitAt(Varien_Date::now());
             $this->save();
             $this->_session->setVisitorData($this->getData());
@@ -334,7 +334,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Methods for research (depends from customer online admin section)
+     * Methods for research (depends on customer online admin section)
      * @param Varien_Object $data
      * @return $this
      */

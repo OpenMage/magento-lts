@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,6 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
     /**
      * Retrieve alert row by object parameters
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return array|false
      */
     protected function _getAlertRow(Mage_Core_Model_Abstract $object)
@@ -39,7 +39,7 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
             $bind = [
                 ':customer_id' => $object->getCustomerId(),
                 ':product_id'  => $object->getProductId(),
-                ':website_id'  => $object->getWebsiteId()
+                ':website_id'  => $object->getWebsiteId(),
             ];
             return $adapter->fetchRow($select, $bind);
         }
@@ -49,7 +49,6 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
     /**
      * Load object data by parameters
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return Mage_ProductAlert_Model_Resource_Abstract
      */
     public function loadByParam(Mage_Core_Model_Abstract $object)
@@ -64,7 +63,6 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
     /**
      * Delete all customer alerts on website
      *
-     * @param Mage_Core_Model_Abstract $object
      * @param int $customerId
      * @param int $websiteId
      * @return Mage_ProductAlert_Model_Resource_Abstract

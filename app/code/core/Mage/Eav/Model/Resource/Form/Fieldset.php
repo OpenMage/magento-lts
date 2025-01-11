@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,7 +27,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
         $this->_init('eav/form_fieldset', 'fieldset_id');
         $this->addUniqueField([
             'field' => ['type_id', 'code'],
-            'title' => Mage::helper('eav')->__('Form Fieldset with the same code')
+            'title' => Mage::helper('eav')->__('Form Fieldset with the same code'),
         ]);
     }
 
@@ -65,9 +66,9 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                         continue;
                     }
                     $data[] = [
-                        'fieldset_id'   => (int)$object->getId(),
-                        'store_id'      => (int)$storeId,
-                        'label'         => $label
+                        'fieldset_id'   => (int) $object->getId(),
+                        'store_id'      => (int) $storeId,
+                        'label'         => $label,
                     ];
                 }
                 if ($data) {
@@ -78,7 +79,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
             if (!empty($delete)) {
                 $where = [
                     'fieldset_id = ?' => $object->getId(),
-                    'store_id IN(?)' => $delete
+                    'store_id IN(?)' => $delete,
                 ];
                 $adapter->delete($this->getTable('eav/form_fieldset_label'), $where);
             }
@@ -88,7 +89,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                     $bind  = ['label' => $label];
                     $where = [
                         'fieldset_id =?' => $object->getId(),
-                        'store_id =?'    => $storeId
+                        'store_id =?'    => $storeId,
                     ];
                     $adapter->update($this->getTable('eav/form_fieldset_label'), $bind, $where);
                 }
@@ -137,13 +138,13 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
             ->joinLeft(
                 ['default_label' => $this->getTable('eav/form_fieldset_label')],
                 $this->getMainTable() . '.fieldset_id = default_label.fieldset_id AND default_label.store_id=0',
-                []
+                [],
             )
             ->joinLeft(
                 ['store_label' => $this->getTable('eav/form_fieldset_label')],
                 $this->getMainTable() . '.fieldset_id = store_label.fieldset_id AND default_label.store_id='
-                    . (int)$object->getStoreId(),
-                ['label' => $labelExpr]
+                    . (int) $object->getStoreId(),
+                ['label' => $labelExpr],
             );
 
         return $select;

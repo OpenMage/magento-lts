@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,6 +89,13 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
             if ($this->getStoreId() && $this->getQuoteId()) {
                 $this->_quote->setStoreId($this->getStoreId())
                     ->load($this->getQuoteId());
+            } elseif ($this->getStoreId() && $this->getCustomerIsGuest()) {
+                $this->_quote->setStoreId($this->getStoreId())
+                    ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID)
+                    ->setCustomerIsGuest(true)
+                    ->setIsActive(false)
+                    ->save();
+                $this->setQuoteId($this->_quote->getId());
             } elseif ($this->getStoreId() && $this->hasCustomerId()) {
                 $this->_quote->setStoreId($this->getStoreId())
                     ->setCustomerGroupId(Mage::getStoreConfig(self::XML_PATH_DEFAULT_CREATEACCOUNT_GROUP))
@@ -105,7 +113,6 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
     /**
      * Set customer model object
      * To enable quick switch of preconfigured customer
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
@@ -129,6 +136,9 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
             }
             if ($customerId = $this->getCustomerId()) {
                 $this->_customer->load($customerId);
+            }
+            if ($this->getCustomerIsGuest()) {
+                $this->_customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
             }
         }
         return $this->_customer;

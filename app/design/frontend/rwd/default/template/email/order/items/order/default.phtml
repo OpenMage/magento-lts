@@ -9,8 +9,13 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * @var Mage_Sales_Block_Order_Email_Items_Order_Default $this
  */
 ?>
 <?php $_item = $this->getItem() ?>
@@ -114,7 +119,7 @@
                 <?php endif ?>
             </td>
         </tr>
-    <?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
+    <?php if ($_giftMessage = $this->getGiftMessage()): ?>
         <tr>
             <td colspan="4" style=" border-bottom:2px solid #CCCCCC; padding:3px 9px;">
                 <strong style="color:#444444; font-size:11px;"><?php echo $this->__('Gift Message') ?></strong>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +47,6 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role before saving
      *
-     * @param Mage_Core_Model_Abstract|Mage_Admin_Model_Roles $role
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $role)
@@ -82,7 +82,6 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role after saving
      *
-     * @param Mage_Core_Model_Abstract $role
      * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $role)
@@ -90,7 +89,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
         $this->_updateRoleUsersAcl($role);
         Mage::app()->getCache()->clean(
             Zend_Cache::CLEANING_MODE_MATCHING_TAG,
-            [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS]
+            [Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS],
         );
         return $this;
     }
@@ -98,7 +97,6 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Process role after deleting
      *
-     * @param Mage_Core_Model_Abstract $role
      * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $role)
@@ -112,7 +110,6 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get role users
      *
-     * @param Mage_Admin_Model_Roles $role
      * @return array
      */
     public function getRoleUsers(Mage_Admin_Model_Roles $role)
@@ -129,7 +126,6 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Update role users
      *
-     * @param Mage_Admin_Model_Roles $role
      * @return bool
      */
     private function _updateRoleUsersAcl(Mage_Admin_Model_Roles $role)
@@ -141,7 +137,7 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
             $rowsCount = $this->_getWriteAdapter()->update(
                 $this->_usersTable,
                 ['reload_acl_flag' => 1],
-                ['user_id IN (?)' => $users]
+                ['user_id IN (?)' => $users],
             );
         }
 

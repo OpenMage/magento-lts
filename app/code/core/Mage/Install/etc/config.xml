@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -140,6 +140,6 @@
                 </install>
             </updates>
         </layout>
-        <eula_file>LICENSE.html</eula_file>
+        <eula_file>LICENSE.txt</eula_file>
     </install>
 </config>

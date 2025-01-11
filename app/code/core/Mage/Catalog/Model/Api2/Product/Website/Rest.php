@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +47,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
     /**
      * Product website assign
      *
-     * @param array $data
      * @return string
      */
     protected function _create(array $data)
@@ -95,8 +95,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
 
     /**
      * Product website assign
-     *
-     * @param array $data
      */
     protected function _multiCreate(array $data)
     {
@@ -146,7 +144,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     [
                         'website_id' => $website->getId(),
                         'product_id' => $product->getId(),
-                    ]
+                    ],
                 );
             } catch (Mage_Api2_Exception $e) {
                 // pre-validation errors are already added
@@ -157,7 +155,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                         [
                             'website_id' => $singleData['website_id'] ?? null,
                             'product_id' => $product->getId(),
-                        ]
+                        ],
                     );
                 }
             } catch (Exception $e) {
@@ -167,7 +165,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     [
                         'website_id' => $singleData['website_id'] ?? null,
                         'product_id' => $product->getId(),
-                    ]
+                    ],
                 );
             }
         }
@@ -175,8 +173,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
 
     /**
      * Product websites update is not available
-     *
-     * @param array $data
      */
     protected function _update(array $data)
     {
@@ -228,12 +224,12 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
-            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
+            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType())),
         );
         $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'product_id' => $this->getRequest()->getParam('product_id'),
-            'website_id' => $website->getId()
+            'website_id' => $website->getId(),
         ];
         $uri = $chain->assemble($params);
 

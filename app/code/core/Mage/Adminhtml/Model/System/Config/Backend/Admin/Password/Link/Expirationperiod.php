@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,12 +30,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Password_Link_Expirationp
     protected function _beforeSave()
     {
         parent::_beforeSave();
-        $resetPasswordLinkExpirationPeriod = (int)$this->getValue();
+        $resetPasswordLinkExpirationPeriod = (int) $this->getValue();
 
         if ($resetPasswordLinkExpirationPeriod < 1) {
-            $resetPasswordLinkExpirationPeriod = (int)$this->getOldValue();
+            $resetPasswordLinkExpirationPeriod = (int) $this->getOldValue();
         }
-        $this->setValue((string)$resetPasswordLinkExpirationPeriod);
+        $this->setValue((string) $resetPasswordLinkExpirationPeriod);
         return $this;
     }
 }

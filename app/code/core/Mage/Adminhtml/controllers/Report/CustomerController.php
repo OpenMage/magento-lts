@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +43,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
              ->_title($this->__('New Accounts'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/customer/accounts')
+            ->_setActiveMenu('report/customers/accounts')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('New Accounts'), Mage::helper('adminhtml')->__('New Accounts'))
             ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_accounts'))
             ->renderLayout();
@@ -79,10 +80,10 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
              ->_title($this->__('Customers by Number of Orders'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/customer/orders')
+            ->_setActiveMenu('report/customers/orders')
             ->_addBreadcrumb(
                 Mage::helper('reports')->__('Customers by Number of Orders'),
-                Mage::helper('reports')->__('Customers by Number of Orders')
+                Mage::helper('reports')->__('Customers by Number of Orders'),
             )
             ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_orders'))
             ->renderLayout();
@@ -119,10 +120,10 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
              ->_title($this->__('Customers by Orders Total'));
 
         $this->_initAction()
-            ->_setActiveMenu('report/customer/totals')
+            ->_setActiveMenu('report/customers/totals')
             ->_addBreadcrumb(
                 Mage::helper('reports')->__('Customers by Orders Total'),
-                Mage::helper('reports')->__('Customers by Orders Total')
+                Mage::helper('reports')->__('Customers by Orders Total'),
             )
             ->_addContent($this->getLayout()->createBlock('adminhtml/report_customer_totals'))
             ->renderLayout();

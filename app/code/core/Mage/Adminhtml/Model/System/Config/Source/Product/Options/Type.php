@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,7 +27,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Product_Options_Type
     public function toOptionArray()
     {
         $groups = [
-            ['value' => '', 'label' => Mage::helper('adminhtml')->__('-- Please select --')]
+            ['value' => '', 'label' => Mage::helper('adminhtml')->__('-- Please select --')],
         ];
 
         $helper = Mage::helper('catalog');
@@ -39,7 +40,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Product_Options_Type
                     . '/label';
                 $types[] = [
                     'label' => $helper->__((string) Mage::getConfig()->getNode($labelPath)),
-                    'value' => $type->getName()
+                    'value' => $type->getName(),
                 ];
             }
 
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Product_Options_Type
 
             $groups[] = [
                 'label' => $helper->__((string) Mage::getConfig()->getNode($labelPath)),
-                'value' => $types
+                'value' => $types,
             ];
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +65,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
         $this->getSelect()->joinLeft(
             ['rname' => $this->_regionNameTable],
             'main_table.region_id = rname.region_id AND rname.locale = :region_locale',
-            ['name']
+            ['name'],
         );
 
         return $this;
@@ -99,7 +100,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
         $this->getSelect()
             ->joinLeft(
                 ['country' => $this->_countryTable],
-                'main_table.country_id = country.country_id'
+                'main_table.country_id = country.country_id',
             )
             ->where('country.iso3_code = ?', $countryCode);
 
@@ -168,8 +169,8 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
         if (count($options) > 0) {
             array_unshift($options, [
                 'title ' => null,
-                'value' => "",
-                'label' => Mage::helper('directory')->__('-- Please select --')
+                'value' => '',
+                'label' => Mage::helper('directory')->__('-- Please select --'),
             ]);
         }
         return $options;

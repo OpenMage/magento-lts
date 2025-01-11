@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,12 +23,12 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('checkout/agreement_store'),
-    'FK_CHECKOUT_AGREEMENT'
+    'FK_CHECKOUT_AGREEMENT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('checkout/agreement_store'),
-    'FK_CHECKOUT_AGREEMENT_STORE'
+    'FK_CHECKOUT_AGREEMENT_STORE',
 );
 
 /**
@@ -35,12 +36,12 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('checkout/agreement_store'),
-    'AGREEMENT_ID'
+    'AGREEMENT_ID',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('checkout/agreement_store'),
-    'FK_CHECKOUT_AGREEMENT_STORE'
+    'FK_CHECKOUT_AGREEMENT_STORE',
 );
 
 /*
@@ -55,42 +56,42 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Agreement Id'
+                'comment'   => 'Agreement Id',
             ],
             'name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Name'
+                'comment'   => 'Name',
             ],
             'content' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Content'
+                'comment'   => 'Content',
             ],
             'content_height' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 25,
-                'comment'   => 'Content Height'
+                'comment'   => 'Content Height',
             ],
             'checkbox_text' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Checkbox Text'
+                'comment'   => 'Checkbox Text',
             ],
             'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Is Active'
+                'comment'   => 'Is Active',
             ],
             'is_html' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Is Html'
-            ]
+                'comment'   => 'Is Html',
+            ],
         ],
-        'comment' => 'Checkout Agreement'
+        'comment' => 'Checkout Agreement',
     ],
     $installer->getTable('checkout/agreement_store') => [
         'columns' => [
@@ -99,18 +100,18 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Agreement Id'
+                'comment'   => 'Agreement Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Store Id'
-            ]
+                'comment'   => 'Store Id',
+            ],
         ],
-        'comment' => 'Checkout Agreement Store'
-    ]
+        'comment' => 'Checkout Agreement Store',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -122,7 +123,7 @@ $installer->getConnection()->addIndex(
     $installer->getTable('checkout/agreement_store'),
     'PRIMARY',
     ['agreement_id','store_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY
+    Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY,
 );
 
 /**
@@ -133,7 +134,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('checkout/agreement_store'),
     'agreement_id',
     $installer->getTable('checkout/agreement'),
-    'agreement_id'
+    'agreement_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -141,7 +142,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('checkout/agreement_store'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

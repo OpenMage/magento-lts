@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -339,7 +340,7 @@ class Varien_Db_Ddl_Table
                         $precision  = $size[0];
                         $scale      = $size[1];
                     }
-                } elseif (preg_match('#^(\d+),(\d+)$#', $size, $match)) {
+                } elseif ($size !== null && preg_match('#^(\d+),(\d+)$#', $size, $match)) {
                     $precision  = $match[1];
                     $scale      = $match[2];
                 }
@@ -373,12 +374,12 @@ class Varien_Db_Ddl_Table
             $default = $options['default'];
         }
         if (array_key_exists('nullable', $options)) {
-            $nullable = (bool)$options['nullable'];
+            $nullable = (bool) $options['nullable'];
         }
         if (!empty($options['primary'])) {
             $primary = true;
             if (isset($options['primary_position'])) {
-                $primaryPosition = (int)$options['primary_position'];
+                $primaryPosition = (int) $options['primary_position'];
             } else {
                 $primaryPosition = 0;
                 foreach ($this->_columns as $v) {
@@ -411,7 +412,7 @@ class Varien_Db_Ddl_Table
             'PRIMARY'           => $primary,
             'PRIMARY_POSITION'  => $primaryPosition,
             'IDENTITY'          => $identity,
-            'COMMENT'           => $comment
+            'COMMENT'           => $comment,
         ];
 
         return $this;
@@ -464,7 +465,7 @@ class Varien_Db_Ddl_Table
             'REF_TABLE_NAME'    => $refTable,
             'REF_COLUMN_NAME'   => $refColumn,
             'ON_DELETE'         => $onDelete,
-            'ON_UPDATE'         => $onUpdate
+            'ON_UPDATE'         => $onUpdate,
         ];
 
         return $this;
@@ -499,10 +500,10 @@ class Varien_Db_Ddl_Table
 
                 $columnName = $columnData['name'];
                 if (!empty($columnData['size'])) {
-                    $columnSize = (int)$columnData['size'];
+                    $columnSize = (int) $columnData['size'];
                 }
                 if (!empty($columnData['position'])) {
-                    $columnPos = (int)$columnData['position'];
+                    $columnPos = (int) $columnData['position'];
                 }
             } else {
                 continue;
@@ -511,7 +512,7 @@ class Varien_Db_Ddl_Table
             $columns[strtoupper($columnName)] = [
                 'NAME'      => $columnName,
                 'SIZE'      => $columnSize,
-                'POSITION'  => $columnPos
+                'POSITION'  => $columnPos,
             ];
 
             $position++;
@@ -528,7 +529,7 @@ class Varien_Db_Ddl_Table
         $this->_indexes[strtoupper($indexName)] = [
             'INDEX_NAME'    => $indexName,
             'COLUMNS'       => $this->_normalizeIndexColumnPosition($columns),
-            'TYPE'          => $idxType
+            'TYPE'          => $idxType,
         ];
 
         return $this;
@@ -538,7 +539,6 @@ class Varien_Db_Ddl_Table
      * Retrieve array of table columns
      *
      * @param bool $normalized
-     * @see $this->_columns
      * @return array
      */
     public function getColumns($normalized = true)
@@ -553,7 +553,6 @@ class Varien_Db_Ddl_Table
      * Set column, formatted according to DDL Table format, into columns structure
      *
      * @param array $column
-     * @see $this->_columns
      * @return Varien_Db_Ddl_Table
      */
     public function setColumn($column)
@@ -566,7 +565,6 @@ class Varien_Db_Ddl_Table
     /**
      * Retrieve array of table indexes
      *
-     * @see $this->_indexes
      * @return array
      */
     public function getIndexes()
@@ -577,7 +575,6 @@ class Varien_Db_Ddl_Table
     /**
      * Retrieve array of table foreign keys
      *
-     * @see $this->_foreignKeys
      * @return array
      */
     public function getForeignKeys()
@@ -648,7 +645,7 @@ class Varien_Db_Ddl_Table
     }
 
     /**
-     * Normalize positon of index columns array
+     * Normalize position of index columns array
      *
      * @param array $columns
      * @return array
@@ -665,7 +662,7 @@ class Varien_Db_Ddl_Table
     }
 
     /**
-     * Normalize positon of table columns array
+     * Normalize position of table columns array
      *
      * @param array $columns
      * @return array

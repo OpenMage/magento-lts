@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +42,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
         $this->_databases[$type] = [
             'block'     => $block,
             'template'  => $template,
-            'instance'  => null
+            'instance'  => null,
         ];
 
         return $this;
@@ -77,7 +78,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
     public function getDatabaseBlocks()
     {
         $databases = [];
-        foreach ($this->_databases as $type => $blockData) {
+        foreach (array_keys($this->_databases) as $type) {
             $databases[] = $this->getDatabaseBlock($type);
         }
         return $databases;

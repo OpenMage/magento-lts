@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,7 +71,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         foreach ($this->getNode('adapter_aliases')->children() as $alias => $adapter) {
             $aliases[$alias] = [
                 (string) $adapter->suggest_class, // model class name
-                (string) $adapter->suggest_method // model method name
+                (string) $adapter->suggest_method, // model method name
             ];
         }
         return $aliases;
@@ -154,7 +155,6 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     /**
      * Load Acl resources from config
      *
-     * @param Mage_Api_Model_Acl $acl
      * @param Mage_Core_Model_Config_Element $resource
      * @param string $parentName
      * @return $this
@@ -240,7 +240,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         foreach ($faultsNode->children() as $faultName => $fault) {
             $faults[$faultName] = [
                 'code'    => (string) $fault->code,
-                'message' => Mage::helper($translateModule)->__((string)$fault->message)
+                'message' => Mage::helper($translateModule)->__((string) $fault->message),
             ];
         }
 

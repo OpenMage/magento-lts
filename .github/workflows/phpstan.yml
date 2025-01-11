@@ -8,9 +8,18 @@ on:
 jobs:
   phpstan:
     name: Analyze
-    runs-on: [ubuntu-latest]
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.4', '8.4']
 
     steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+    
       - uses: actions/checkout@v4
 
       - name: Get composer cache directory
@@ -18,7 +27,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -27,5 +36,20 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
+      - name: Restore result cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .phpstan.cache
+          key: phpstan-result-cache-${{ matrix.php-versions }}-${{ github.run_id }}
+          restore-keys: |
+            phpstan-result-cache-
+
       - name: PHPStan Static Analysis
         run: XDEBUG_MODE=off php vendor/bin/phpstan.phar analyze
+
+      - name: Save result cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .phpstan.cache
+          key: phpstan-result-cache-${{ matrix.php-versions }}-${{ github.run_id }}

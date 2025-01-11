@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,10 +10,9 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * There are two modes to run this script:
@@ -117,7 +117,8 @@ $app = Mage::app('default');
 $installer = Mage::getSingleton('install/installer_console');
 
 try {
-    if ($installer->init($app)          // initialize installer
+    if (
+        $installer->init($app)          // initialize installer
         && $installer->checkConsole()   // check if the script is run in shell, otherwise redirect to web-installer
         && $installer->setArgs()        // set and validate script arguments
         && $installer->install()        // do install

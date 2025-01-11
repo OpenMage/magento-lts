@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +51,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _beforeToHtml()
     {
-        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+        if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
             if ($this->getParentBlock() && ($order = $this->getOrder())) {
                 $this->setEntity($order);
             }
@@ -61,35 +62,31 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Prepares layout of block
-     *
      * @return $this
      */
     protected function _prepareLayout()
     {
-        if (Mage::helper('core')->isModuleOutputEnabled('Mage_Giftmessage')) {
+        if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
             $this->setChild(
                 'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
-                        'class'   => 'save'
-                    ])
+                        'class'   => 'save',
+                    ]),
             );
         }
         return $this;
     }
 
     /**
-     * Retrieve save button html
-     *
      * @return string
      * @throws Exception
      */
     public function getSaveButtonHtml()
     {
         $this->getChild('save_button')->setOnclick(
-            'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')'
+            'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')',
         );
 
         return $this->getChildHtml('save_button');
@@ -258,8 +255,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
             [
                 'entity' => $this->getEntity()->getId(),
                 'type'  => 'order',
-                'reload' => 1
-            ]
+                'reload' => 1,
+            ],
         );
     }
 
@@ -277,13 +274,17 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Indicates that block can display giftmessages form
      *
+     * TODO set return type
      * @return bool
      * @throws Exception
      */
     public function canDisplayGiftmessage()
     {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            return false;
+        }
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
-        return $helper->getIsMessagesAvailable('order', $this->getEntity(), $this->getEntity()->getStoreId());
+        return $helper->getIsMessagesAvailable($helper::TYPE_ORDER, $this->getEntity(), $this->getEntity()->getStoreId());
     }
 }

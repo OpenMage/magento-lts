@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +28,7 @@
  * @method $this setProductId(int $value)
  * @method string getSampleUrl()
  * @method $this setSampleUrl(string $value)
- * @method string getSampleFile()
+ * @method string|null getSampleFile()
  * @method $this setSampleFile(string $value)
  * @method string getSampleType()
  * @method $this setSampleType(string $value)

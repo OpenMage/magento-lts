@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,8 +28,6 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
      * getErrors() will return an array of errors that explain why the
      * validation failed.
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $data
      * @return bool
      */
     public function isValidDataForWebsiteAssignmentToProduct(Mage_Catalog_Model_Product $product, array $data)
@@ -52,7 +51,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
             $this->_addError(sprintf(
                 'Product #%d is already assigned to website #%d',
                 $product->getId(),
-                $website->getId()
+                $website->getId(),
             ));
             return false;
         }
@@ -95,7 +94,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
         if (!isset($storeData['store_from']) || !is_numeric($storeData['store_from'])) {
             $this->_addError(sprintf(
                 'Invalid value for "store_from" for the website with ID #%d.',
-                $website->getId()
+                $website->getId(),
             ));
             return $this;
         }
@@ -107,7 +106,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
             $this->_addError(sprintf(
                 'Store not found #%d for website #%d.',
                 $storeData['store_from'],
-                $website->getId()
+                $website->getId(),
             ));
             return $this;
         }
@@ -132,7 +131,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
         if (!isset($storeData['store_to']) || !is_numeric($storeData['store_to'])) {
             $this->_addError(sprintf(
                 'Invalid value for "store_to" for the website with ID #%d.',
-                $website->getId()
+                $website->getId(),
             ));
             return $this;
         }
@@ -144,7 +143,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
             $this->_addError(sprintf(
                 'Store not found #%d for website #%d.',
                 $storeData['store_to'],
-                $website->getId()
+                $website->getId(),
             ));
             return $this;
         }
@@ -163,8 +162,6 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
      * getErrors() will return an array of errors that explain why the
      * validation failed.
      *
-     * @param Mage_Core_Model_Website $website
-     * @param Mage_Catalog_Model_Product $product
      * @return bool
      */
     public function isWebsiteAssignedToProduct(Mage_Core_Model_Website $website, Mage_Catalog_Model_Product $product)
@@ -173,7 +170,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
             $this->_addError(sprintf(
                 'Product #%d isn\'t assigned to website #%d',
                 $product->getId(),
-                $website->getId()
+                $website->getId(),
             ));
         }
         return !count($this->getErrors());

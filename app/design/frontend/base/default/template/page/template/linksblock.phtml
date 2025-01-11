@@ -9,13 +9,13 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
 /**
- * @see Mage_Page_Block_Template_Links_Block
+ * @var Mage_Page_Block_Template_Links_Block $this
  */
 ?>
 <li<?php if($this->getIsFirst()||$this->getIsLast()): ?> class="<?php if($this->getIsFirst()): ?>first<?php endif ?><?php if($this->getIsLast()): ?> last<?php endif ?>"<?php endif ?> <?php echo $this->getLiParams() ?>><?php echo $this->getBeforeText() ?><a href="<?php echo $this->getLinkUrl() ?>" title="<?php echo $this->getTitle() ?>" <?php echo $this->getAParams() ?>><?php echo $this->getLabel() ?></a><?php echo $this->getAfterText() ?></li>

@@ -10,7 +10,7 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -65,7 +65,7 @@
 
     <catalogsearch_advanced_index translate="label">
         <label>Advanced Search Form</label>
-        <!-- Mage_Catalogsearch -->
+        <!-- Mage_CatalogSearch -->
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
         </reference>
@@ -88,7 +88,7 @@ Advanced search results
     <catalogsearch_advanced_result translate="label">
         <label>Advanced Search Result</label>
         <update handle="page_two_columns_right" />
-        <!-- Mage_Catalogsearch -->
+        <!-- Mage_CatalogSearch -->
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
         </reference>

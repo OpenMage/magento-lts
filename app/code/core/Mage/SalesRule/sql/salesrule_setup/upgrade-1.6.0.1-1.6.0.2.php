@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,18 +25,18 @@ $installer->getConnection()
             'type'     => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
             'comment'  => 'Coupon Code Creation Date',
             'nullable' => false,
-            'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT
-        ]
+            'default'  => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
+        ],
     );
 
 $installer->getConnection()->addColumn(
     $installer->getTable('salesrule/coupon'),
     'type',
     [
-            'type'     => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-            'comment'  => 'Coupon Code Type',
-            'default'  => 0
-    ]
+        'type'     => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+        'comment'  => 'Coupon Code Type',
+        'default'  => 0,
+    ],
 );
 
 $installer->getConnection()
@@ -46,8 +47,8 @@ $installer->getConnection()
             'type'     => Varien_Db_Ddl_Table::TYPE_SMALLINT,
             'comment'  => 'Use Auto Generation',
             'nullable' => false,
-            'default'  => 0
-        ]
+            'default'  => 0,
+        ],
     );
 
 $installer->getConnection()
@@ -58,8 +59,8 @@ $installer->getConnection()
             'type'     => Varien_Db_Ddl_Table::TYPE_INTEGER,
             'comment'  => 'Uses Per Coupon',
             'nullable' => false,
-            'default'  => 0
-        ]
+            'default'  => 0,
+        ],
     );
 
 $installer->getConnection()
@@ -70,7 +71,7 @@ $installer->getConnection()
             'type'     => Varien_Db_Ddl_Table::TYPE_TEXT,
             'length'   => 255,
             'comment'  => 'Rule Name',
-        ]
+        ],
     );
 
 $installer->getConnection()
@@ -81,7 +82,7 @@ $installer->getConnection()
             'type'     => Varien_Db_Ddl_Table::TYPE_TEXT,
             'length'   => 255,
             'comment'  => 'Rule Name',
-        ]
+        ],
     );
 
 $installer->getConnection()
@@ -92,7 +93,7 @@ $installer->getConnection()
             'type'     => Varien_Db_Ddl_Table::TYPE_TEXT,
             'length'   => 255,
             'comment'  => 'Rule Name',
-        ]
+        ],
     );
 
 $installer->getConnection()
@@ -101,10 +102,10 @@ $installer->getConnection()
         $installer->getIdxName(
             'salesrule/coupon_aggregated',
             ['rule_name'],
-            Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+            Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
         ),
         ['rule_name'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+        Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
     );
 
 $installer->getConnection()
@@ -113,10 +114,10 @@ $installer->getConnection()
         $installer->getIdxName(
             'salesrule/coupon_aggregated_order',
             ['rule_name'],
-            Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+            Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
         ),
         ['rule_name'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+        Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
     );
 
 $installer->getConnection()
@@ -125,8 +126,8 @@ $installer->getConnection()
         $installer->getIdxName(
             'salesrule/coupon_aggregated_updated',
             ['rule_name'],
-            Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+            Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
         ),
         ['rule_name'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
+        Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX,
     );

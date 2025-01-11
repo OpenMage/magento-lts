@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,7 +22,7 @@
  */
 abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Route
 {
-    /**#@+
+    /**
      * Names for Zend_Controller_Router_Route::__construct params
      */
     public const PARAM_ROUTE      = 'route';
@@ -29,7 +30,6 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
     public const PARAM_REQS       = 'reqs';
     public const PARAM_TRANSLATOR = 'translator';
     public const PARAM_LOCALE     = 'locale';
-    /**#@- */
 
     /**
      * Default values of parent::__construct() params
@@ -41,13 +41,11 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
         self::PARAM_DEFAULTS   => [],
         self::PARAM_REQS       => [],
         self::PARAM_TRANSLATOR => null,
-        self::PARAM_LOCALE     => null
+        self::PARAM_LOCALE     => null,
     ];
 
     /**
      * Process construct param and call parent::__construct() with params
-     *
-     * @param array $arguments
      */
     public function __construct(array $arguments)
     {
@@ -56,7 +54,7 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
             $this->_getArgumentValue(self::PARAM_DEFAULTS, $arguments),
             $this->_getArgumentValue(self::PARAM_REQS, $arguments),
             $this->_getArgumentValue(self::PARAM_TRANSLATOR, $arguments),
-            $this->_getArgumentValue(self::PARAM_LOCALE, $arguments)
+            $this->_getArgumentValue(self::PARAM_LOCALE, $arguments),
         );
     }
 
@@ -64,7 +62,6 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
      * Retrieve argument value
      *
      * @param string $name argument name
-     * @param array $arguments
      * @return mixed
      */
     protected function _getArgumentValue($name, array $arguments)

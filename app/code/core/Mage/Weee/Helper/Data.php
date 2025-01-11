@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -168,10 +169,10 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Returns diaplay type for price accordingly to current zone
+     * Returns display type for price accordingly to current zone
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array|null                 $compareTo
+     * @param mixed                      $product
+     * @param array|int|null             $compareTo
      * @param string                     $zone
      * @param Mage_Core_Model_Store      $store
      * @return bool|int
@@ -220,7 +221,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param null|false|Varien_Object   $shipping
      * @param null|false|Varien_Object   $billing
-     * @param Mage_Core_Model_Website    $website
+     * @param int|Mage_Core_Model_Website|null|string|true $website
      * @param bool                       $calculateTaxes
      * @return array
      */
@@ -300,7 +301,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param null|false|Varien_Object $shipping Shipping Address
      * @param null|false|Varien_Object $billing Billing Address
-     * @param null|Mage_Core_Model_Website $website
+     * @param int|Mage_Core_Model_Website|null|string|true $website
      * @param mixed $calculateTaxes
      * @return array
      */
@@ -317,7 +318,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $shipping,
                 $billing,
                 $website,
-                $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1)
+                $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1),
             );
         }
         return [];
@@ -337,7 +338,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 null,
                 null,
                 null,
-                true
+                true,
             );
 
             if (is_array($attributes)) {
@@ -366,7 +367,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 null,
                 null,
                 null,
-                true
+                true,
             );
             return $this->getAmountInclTaxes($attributes);
         }
@@ -403,11 +404,11 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($tierPrices as $index => &$tier) {
             $spanTag = '<span class="price tier-' . ($includeIndex ? $index : 'fixed');
             $html = $store->formatPrice($store->convertPrice(
-                Mage::helper('tax')->getPrice($product, $tier['website_price'], true) + $weeeAmountInclTax
+                Mage::helper('tax')->getPrice($product, $tier['website_price'], true) + $weeeAmountInclTax,
             ), false);
             $tier['formated_price_incl_weee'] = $spanTag . '-incl-tax">' . $html . '</span>';
             $html = $store->formatPrice($store->convertPrice(
-                Mage::helper('tax')->getPrice($product, $tier['website_price']) + $weeeAmount
+                Mage::helper('tax')->getPrice($product, $tier['website_price']) + $weeeAmount,
             ), false);
             $tier['formated_price_incl_weee_only'] = $spanTag . '">' . $html . '</span>';
             $tier['formated_weee'] = $store->formatPrice($store->convertPrice($weeeAmount));
@@ -456,10 +457,11 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $amount += $attribute->getAmount() + $attribute->getTaxAmount();
             }
         } else {
+            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Core_Exception('$attributes must be an array');
         }
 
-        return (float)$amount;
+        return (float) $amount;
     }
 
     /**

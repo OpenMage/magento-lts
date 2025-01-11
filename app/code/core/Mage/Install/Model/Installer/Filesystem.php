@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,28 +10,29 @@
  * @category   Mage
  * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Fylesystem installer
+ * Filesystem installer
  *
  * @category   Mage
  * @package    Mage_Install
  */
 class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Installer_Abstract
 {
-    /**#@+
+    /**
      * @deprecated since 1.7.1.0
      */
     public const MODE_WRITE = 'write';
-    public const MODE_READ  = 'read';
-    /**#@- */
 
-    public function __construct()
-    {
-    }
+    /**
+     * @deprecated since 1.7.1.0
+     */
+    public const MODE_READ  = 'read';
+
+    public function __construct() {}
 
     /**
      * Check and prepare file system
@@ -56,8 +58,8 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
 
         if (is_array($config)) {
             foreach ($config as $item) {
-                $recursive = isset($item['recursive']) ? (bool)$item['recursive'] : false;
-                $existence = isset($item['existence']) ? (bool)$item['existence'] : false;
+                $recursive = isset($item['recursive']) ? (bool) $item['recursive'] : false;
+                $existence = isset($item['existence']) ? (bool) $item['existence'] : false;
                 $checkRes = $this->_checkFullPath($item['path'], $recursive, $existence);
                 $res = $res && $checkRes;
             }
@@ -91,12 +93,12 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
     protected function _checkFullPath($fullPath, $recursive, $existence)
     {
         $res = true;
-        $setError = $existence && (is_dir($fullPath) && !is_dir_writeable($fullPath) || !is_writable($fullPath))
+        $setError = $existence && (is_dir($fullPath) && !isDirWriteable($fullPath) || !is_writable($fullPath))
             || !$existence && file_exists($fullPath) && !is_writable($fullPath);
 
         if ($setError) {
             $this->_getInstaller()->getDataModel()->addError(
-                Mage::helper('install')->__('Path "%s" must be writable.', $fullPath)
+                Mage::helper('install')->__('Path "%s" must be writable.', $fullPath),
             );
             $res = false;
         }

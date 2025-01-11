@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,7 +90,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
      */
     public function getSelectedStoreId()
     {
-        return (int)$this->_getRequest()->getParam('store', Mage_Core_Model_App::ADMIN_STORE_ID);
+        return (int) $this->_getRequest()->getParam('store', Mage_Core_Model_App::ADMIN_STORE_ID);
     }
 
     /**
@@ -114,6 +115,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
                 ->getEntityType(Mage_Catalog_Model_Product::ENTITY)
                 ->getAttributeCollection()
                 ->addIsNotUniqueFilter()
+                ->addFieldToFilter('frontend_input', ['neq' => 'label'])
                 ->setInAllAttributeSetsFilter($this->getProductsSetIds());
 
             if ($this->_excludedAttributes) {

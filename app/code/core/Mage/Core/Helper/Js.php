@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +35,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Core';
 
     /**
-     * Array of senteces of JS translations
+     * Array of sentences of JS translations
      *
      * @var array
      */
@@ -137,8 +138,8 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
             $messages = $this->_getXmlConfig()->getXpath('*/message');
             if (!empty($messages)) {
                 foreach ($messages as $message) {
-                    $messageText = (string)$message;
-                    $module = $message->getParent()->getAttribute("module");
+                    $messageText = (string) $message;
+                    $module = $message->getParent()->getAttribute('module');
                     $this->_translateData[$messageText] = Mage::helper(empty($module) ? 'core' : $module)->__($messageText);
                 }
             }
@@ -173,7 +174,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                     Mage::app()->saveCache(
                         $xmlConfig->getXmlString(),
                         self::JAVASCRIPT_TRANSLATE_CONFIG_KEY,
-                        [Mage_Core_Model_Config::CACHE_TAG]
+                        [Mage_Core_Model_Config::CACHE_TAG],
                     );
                 }
             }
@@ -185,9 +186,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Helper for "onclick.deleteConfirm"
      *
-     * @param string $url
      * @param string|null $message null for default message, do not use jsQuoteEscape() before
-     * @return string
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getDeleteConfirmJs(string $url, ?string $message = null): string
@@ -203,9 +202,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
     /**
      * Helper for "onclick.confirmSetLocation"
      *
-     * @param string $url
      * @param string|null $message null for default message, do not use jsQuoteEscape() before
-     * @return string
      * @uses Mage_Core_Helper_Abstract::jsQuoteEscape()
      */
     public function getConfirmSetLocationJs(string $url, ?string $message = null): string
@@ -220,9 +217,6 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
 
     /**
      * Helper for "onclick.setLocation"
-     *
-     * @param string $url
-     * @return string
      */
     public function getSetLocationJs(string $url): string
     {
@@ -231,9 +225,6 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
 
     /**
      * Helper for "onclick.saveAndContinueEdit"
-     *
-     * @param string $url
-     * @return string
      */
     public function getSaveAndContinueEditJs(string $url): string
     {

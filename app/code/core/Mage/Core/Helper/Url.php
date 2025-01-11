@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +36,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         if ($port) {
             $defaultPorts = [
                 Mage_Core_Controller_Request_Http::DEFAULT_HTTP_PORT,
-                Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT
+                Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT,
             ];
             $port = (in_array($port, $defaultPorts)) ? '' : ':' . $port;
         }
@@ -87,9 +88,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     {
         $string = preg_replace('#[^0-9a-z]+#i', '-', $string);
         $string = strtolower($string);
-        $string = trim($string, '-');
 
-        return $string;
+        return trim($string, '-');
     }
 
     /**
@@ -117,9 +117,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
                 $arrQueryParams[] = $key . '=' . $value;
             }
         }
-        $url .= $startDelimiter . implode('&', $arrQueryParams);
 
-        return $url;
+        return $url . ($startDelimiter . implode('&', $arrQueryParams));
     }
 
     /**
@@ -132,16 +131,27 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function removeRequestParam($url, $paramKey, $caseSensitive = false)
     {
-        $regExpression = '/\\?[^#]*?(' . preg_quote($paramKey, '/') . '\\=[^#&]*&?)/' . ($caseSensitive ? '' : 'i');
-        while (preg_match($regExpression, $url, $mathes) != 0) {
-            $paramString = $mathes[1];
-            if (preg_match('/&$/', $paramString) == 0) {
-                $url = preg_replace('/(&|\\?)?' . preg_quote($paramString, '/') . '/', '', $url);
-            } else {
-                $url = str_replace($paramString, '', $url);
+        if (!str_contains($url, '?')) {
+            return $url;
+        }
+
+        list($baseUrl, $query) = explode('?', $url, 2);
+        parse_str($query, $params);
+
+        if (!$caseSensitive) {
+            $paramsLower = array_change_key_case($params);
+            $paramKeyLower = strtolower($paramKey);
+
+            if (array_key_exists($paramKeyLower, $paramsLower)) {
+                $params[$paramKey] = $paramsLower[$paramKeyLower];
             }
         }
-        return $url;
+
+        if (array_key_exists($paramKey, $params)) {
+            unset($params[$paramKey]);
+        }
+
+        return $baseUrl . ($params === [] ? '' : '?' . http_build_query($params));
     }
 
     /**
@@ -197,6 +207,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      * @param string $host domain name
      * @return bool
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _isPunycode($host)
     {
         if (str_starts_with($host, 'xn--') || str_contains($host, '.xn--')

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +40,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
         if ($rule instanceof Mage_SalesRule_Model_Rule) {
             $ruleId = $rule->getId();
         } else {
-            $ruleId = (int)$rule;
+            $ruleId = (int) $rule;
         }
 
         $this->addFieldToFilter('rule_id', $ruleId);
@@ -50,7 +51,6 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
     /**
      * Add rule IDs to filter
      *
-     * @param array $ruleIds
      *
      * @return $this
      */
@@ -81,7 +81,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
     {
         $filterValue = $column->getFilter()->getCondition();
 
-        $fieldExpression = $this->getConnection()->getCheckSql('main_table.times_used > 0', 1, 0);
+        $fieldExpression = $this->getConnection()->getCheckSql('main_table.times_used > 0', '1', '0');
         $resultCondition = $this->_getConditionSql($fieldExpression, ['eq' => $filterValue]);
         $collection->getSelect()->where($resultCondition);
     }

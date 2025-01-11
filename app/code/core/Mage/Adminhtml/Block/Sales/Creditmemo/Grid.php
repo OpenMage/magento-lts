@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,28 +100,23 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             'header'    => Mage::helper('customer')->__('Refunded'),
             'index'     => 'grand_total',
             'type'      => 'currency',
-            'align'     => 'right',
             'currency'  => 'order_currency_code',
         ]);
 
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('sales')->__('Action'),
-                'width'     => '50px',
                 'type'      => 'action',
                 'getter'     => 'getId',
                 'actions'   => [
                     [
                         'caption' => Mage::helper('sales')->__('View'),
                         'url'     => ['base' => '*/sales_creditmemo/view'],
-                        'field'   => 'creditmemo_id'
-                    ]
+                        'field'   => 'creditmemo_id',
+                    ],
                 ],
-                'filter'    => false,
-                'sortable'  => false,
-                'is_system' => true
-            ]
+                'is_system' => true,
+            ],
         );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
@@ -139,8 +135,8 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
         $this->getMassactionBlock()->setUseSelectAll(false);
 
         $this->getMassactionBlock()->addItem(MassAction::PDF_CREDITMEMOS_ORDER, [
-             'label' => Mage::helper('sales')->__('PDF Credit Memos'),
-             'url'  => $this->getUrl('*/sales_creditmemo/pdfcreditmemos'),
+            'label' => Mage::helper('sales')->__('PDF Credit Memos'),
+            'url'  => $this->getUrl('*/sales_creditmemo/pdfcreditmemos'),
         ]);
 
         return $this;
@@ -160,7 +156,7 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
             '*/sales_creditmemo/view',
             [
                 'creditmemo_id' => $row->getId(),
-            ]
+            ],
         );
     }
 

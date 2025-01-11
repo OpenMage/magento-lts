@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,11 +40,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
 
         $this->_formScripts[] = "
             function toggleEditor() {
-                if (tinyMCE.getInstanceById('block_content') == null) {
-                    tinyMCE.execCommand('mceAddControl', false, 'block_content');
-                } else {
-                    tinyMCE.execCommand('mceRemoveControl', false, 'block_content');
-                }
+                tinymce.execCommand('mceToggleEditor', false, wysiwygblock_content);
             }
 
             function saveAndContinueEdit(){

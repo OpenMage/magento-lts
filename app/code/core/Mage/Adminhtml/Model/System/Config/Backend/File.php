@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,6 +22,8 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Config_Data
 {
+    public const SYSTEM_FILESYSTEM_REGEX = '/{{([a-z_]+)}}(.*)/';
+
     /**
      * Upload max file size in kilobytes
      *
@@ -32,6 +35,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * Save uploaded file before saving config value
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _beforeSave()
     {
@@ -45,7 +49,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 $file['tmp_name'] = $tmpName[$this->getGroupId()]['fields'][$this->getField()]['value'];
                 $name = $_FILES['groups']['name'];
                 $file['name'] = $name[$this->getGroupId()]['fields'][$this->getField()]['value'];
-                $uploader = new Mage_Core_Model_File_Uploader($file);
+                $uploader = Mage::getModel('core/file_uploader', $file);
                 $uploader->setAllowedExtensions($this->_getAllowedExtensions());
                 $uploader->setAllowRenameFiles(true);
                 $this->addValidators($uploader);
@@ -115,7 +119,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             Mage::throwException(Mage::helper('catalog')->__('The base directory to upload file is not specified.'));
         }
 
-        $uploadDir = (string)$fieldConfig->upload_dir;
+        $uploadDir = (string) $fieldConfig->upload_dir;
 
         $el = $fieldConfig->descend('upload_dir');
 
@@ -130,7 +134,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
          * Take root from config
          */
         if (!empty($el['config'])) {
-            $uploadRoot = $this->_getUploadRoot((string)$el['config']);
+            $uploadRoot = $this->_getUploadRoot((string) $el['config']);
             $uploadDir = $uploadRoot . '/' . $uploadDir;
         }
         return $uploadDir;
@@ -144,6 +148,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      */
     protected function _getUploadRoot($token)
     {
+        $value = Mage::getStoreConfig($token) ?? '';
+        if (strlen($value) && preg_match(self::SYSTEM_FILESYSTEM_REGEX, $value, $matches) !== false) {
+            $dir = str_replace('root_dir', 'base_dir', $matches[1]);
+            $path = str_replace('/', DS, $matches[2]);
+            return Mage::getConfig()->getOptions()->getData($dir) . $path;
+        }
         return Mage::getBaseDir('media');
     }
 
@@ -188,13 +198,18 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      */
     protected function _getAllowedExtensions()
     {
+        /** @var Varien_Simplexml_Element $fieldConfig */
+        $fieldConfig = $this->getFieldConfig();
+        $el = $fieldConfig->descend('upload_dir');
+        if (!empty($el['allowed_extensions'])) {
+            $allowedExtensions = (string) $el['allowed_extensions'];
+            return explode(',', $allowedExtensions);
+        }
         return [];
     }
 
     /**
      * Add validators for uploading
-     *
-     * @param Mage_Core_Model_File_Uploader $uploader
      */
     protected function addValidators(Mage_Core_Model_File_Uploader $uploader)
     {

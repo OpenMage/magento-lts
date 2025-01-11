@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -113,7 +114,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'align'     => 'left',
             'index'     => 'mode',
             'type'      => 'options',
-            'options'   => $this->_processModel->getModesOptions()
+            'options'   => $this->_processModel->getModesOptions(),
         ]);
 
         $this->addColumn('status', [
@@ -123,7 +124,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'index'     => 'status',
             'type'      => 'options',
             'options'   => $this->_processModel->getStatusesOptions(),
-            'frame_callback' => [$this, 'decorateStatus']
+            'frame_callback' => [$this, 'decorateStatus'],
         ]);
 
         $this->addColumn('update_required', [
@@ -134,7 +135,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'index'     => 'update_required',
             'type'      => 'options',
             'options'   => $this->_processModel->getUpdateRequiredOptions(),
-            'frame_callback' => [$this, 'decorateUpdateRequired']
+            'frame_callback' => [$this, 'decorateUpdateRequired'],
         ]);
 
         $this->addColumn('ended_at', [
@@ -142,13 +143,12 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
             'type'      => 'datetime',
             'align'     => 'left',
             'index'     => 'ended_at',
-            'frame_callback' => [$this, 'decorateDate']
+            'frame_callback' => [$this, 'decorateDate'],
         ]);
 
         $this->addColumn(
             'action',
             [
-                'header'    =>  Mage::helper('index')->__('Action'),
                 'width'     => '100',
                 'type'      => 'action',
                 'getter'    => 'getId',
@@ -156,13 +156,11 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                     [
                         'caption'   => Mage::helper('index')->__('Reindex Data'),
                         'url'       => ['base' => '*/*/reindexProcess'],
-                        'field'     => 'process'
+                        'field'     => 'process',
                     ],
                 ],
-                'filter'    => false,
-                'sortable'  => false,
                 'is_system' => true,
-            ]
+            ],
         );
 
         parent::_prepareColumns();
@@ -272,9 +270,9 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                     'type'      => 'select',
                     'class'     => 'required-entry',
                     'label'     => Mage::helper('index')->__('Index mode'),
-                    'values'    => $modeOptions
-                ]
-            ]
+                    'values'    => $modeOptions,
+                ],
+            ],
         ]);
 
         $this->getMassactionBlock()->addItem(MassAction::REINDEX, [

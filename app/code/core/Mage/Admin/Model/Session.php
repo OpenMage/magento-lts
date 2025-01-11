@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +55,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     public const XML_PATH_ALLOW_SID_FOR_ADMIN_AREA = 'web/session/use_admin_sid';
 
     /**
-     * Whether it is the first page after successfull login
+     * Whether it is the first page after successful login
      *
      * @var bool|null
      */
@@ -147,6 +148,9 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             return null;
         }
 
+        $username = new Mage_Core_Model_Security_Obfuscated($username);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         try {
             /** @var Mage_Admin_Model_User $user */
             $user = $this->_factory->getModel('admin/user');
@@ -177,7 +181,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             }
         } catch (Mage_Core_Exception $e) {
             $e->setMessage(
-                Mage::helper('adminhtml')->__('You did not sign in correctly or your account is temporarily disabled.')
+                Mage::helper('adminhtml')->__('You did not sign in correctly or your account is temporarily disabled.'),
             );
             $this->_loginFailed($e, $request, $username, $e->getMessage());
         } catch (Exception $e) {
@@ -256,7 +260,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * Check if it is the first page after successfull login
+     * Check if it is the first page after successful login
      *
      * @return bool
      */
@@ -276,7 +280,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function setIsFirstPageAfterLogin($value)
     {
-        $this->_isFirstPageAfterLogin = (bool)$value;
+        $this->_isFirstPageAfterLogin = (bool) $value;
         return $this->setIsFirstVisit($this->_isFirstPageAfterLogin);
     }
 
@@ -310,7 +314,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         try {
             Mage::dispatchEvent('admin_session_user_login_failed', [
                 'user_name' => $username,
-                'exception' => $e
+                'exception' => $e,
             ]);
         } catch (Exception $e) {
         }

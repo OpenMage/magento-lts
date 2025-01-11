@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +32,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store extends Mage_Admi
     /**
      * Render service JavaScript code
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -53,7 +53,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store extends Mage_Admi
             'wpp'       => 'payment/paypal_direct/active',
             'wpppe'     => 'payment/paypaluk_direct/active',
             'verisign'  => 'payment/verisign/active',
-            'expresspe' => 'payment/paypaluk_express/active'
+            'expresspe' => 'payment/paypaluk_express/active',
         ];
         // Retrieve a code of the current website
         $website = $this->getRequest()->getParam('website');

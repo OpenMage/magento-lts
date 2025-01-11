@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,7 +86,7 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
                 'username'  => $this->_configData['db_user'],
                 'password'  => $this->_configData['db_pass'],
                 'dbname'    => $this->_configData['db_name'],
-                'pdoType'   => $this->getPdoType()
+                'pdoType'   => $this->getPdoType(),
             ];
             $this->_connectionData = $connectionData;
         }
@@ -135,8 +136,8 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
     public function getRequiredExtensions()
     {
         $extensions = [];
-        $configExt = (array)Mage::getConfig()->getNode(sprintf('install/databases/%s/extensions', $this->getModel()));
-        foreach ($configExt as $name => $value) {
+        $configExt = (array) Mage::getConfig()->getNode(sprintf('install/databases/%s/extensions', $this->getModel()));
+        foreach (array_keys($configExt) as $name) {
             $extensions[] = $name;
         }
         return $extensions;

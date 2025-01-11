@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,13 +22,12 @@
  */
 class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
-    /**#@+
+    /**
      *
      * Request parameters names
      */
     public const REQUEST_PARAM_COUNTRY = 'country';
     public const REQUEST_PARAM_DEFAULT = 'default_country';
-    /**#@-*/
 
     /**
      * Country of default scope
@@ -39,7 +39,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
     /**
      * Render country field considering request parameter
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      * @throws Exception
      */
@@ -53,7 +52,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
         if ($element->getCanUseDefaultValue()) {
             $defaultConfigNode = Mage::getConfig()->getNode(null, 'default');
             if ($defaultConfigNode) {
-                $this->_defaultCountry = (string)$defaultConfigNode->descend('paypal/general/merchant_country');
+                $this->_defaultCountry = (string) $defaultConfigNode->descend('paypal/general/merchant_country');
             }
             if (!$this->_defaultCountry) {
                 $this->_defaultCountry = Mage::helper('core')->getDefaultCountry();
@@ -74,7 +73,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
     /**
      * Get country selector html
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)

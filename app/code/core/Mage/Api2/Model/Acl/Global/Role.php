@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,20 +33,18 @@
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {
-    /**#@+
+    /**
      * System roles identifiers
      */
     public const ROLE_GUEST_ID = 1;
     public const ROLE_CUSTOMER_ID = 2;
-    /**#@-*/
 
-    /**#@+
+    /**
      * Config node identifiers
      */
     public const ROLE_CONFIG_NODE_NAME_GUEST = 'guest';
     public const ROLE_CONFIG_NODE_NAME_CUSTOMER = 'customer';
     public const ROLE_CONFIG_NODE_NAME_ADMIN = 'admin';
-    /**#@-*/
 
     /**
      * Permissions model
@@ -79,7 +78,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName()))
+                Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName())),
             );
         }
 
@@ -99,7 +98,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
             $helper = Mage::helper('core');
 
             Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName()))
+                Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName())),
             );
         }
 
@@ -129,7 +128,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     {
         return [
             self::ROLE_GUEST_ID,
-            self::ROLE_CUSTOMER_ID
+            self::ROLE_CUSTOMER_ID,
         ];
     }
 

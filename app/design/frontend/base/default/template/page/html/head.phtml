@@ -9,8 +9,13 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * @var Mage_Page_Block_Html_Head $this
  */
 ?>
 <meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
@@ -19,7 +24,6 @@
 <meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
 <meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
 <link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
-<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
 <?php echo $this->getCssJsHtml() ?>
 <?php echo $this->getChildHtml() ?>
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
