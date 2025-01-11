@@ -40,7 +40,7 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
     /**
      * Send expire header to ajax response
      *
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _expireAjax()
     {

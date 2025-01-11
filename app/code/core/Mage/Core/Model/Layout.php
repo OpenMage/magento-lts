@@ -353,9 +353,12 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
+     * @codeCoverageIgnore
      * @param string                   $method
      * @param string[]                 $args
      * @throws Mage_Core_Exception
+     * @deprecated
+     * @see Mage_Core_Helper_Security::validateAgainstBlockMethodBlacklist()
      */
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
     {
@@ -503,12 +506,12 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 }
             }
             if (class_exists($block, false) || mageFindClassFile($block)) {
-                // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
                 $block = new $block($attributes);
             }
         }
         if (!$block instanceof Mage_Core_Block_Abstract) {
-            Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
+            $block = is_object($block) ? get_class($block) : $block;
+            Mage::throwException(Mage::helper('core')->__('Invalid block type: %s (not instance of Mage_Core_Block_Abstract)', $block));
         }
         return $block;
     }
@@ -591,7 +594,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     /**
      * @param string $type
-     * @return Mage_Core_Block_Abstract
+     * @return Mage_Core_Block_Abstract|object
      */
     public function getBlockSingleton($type)
     {
@@ -601,7 +604,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
             }
 
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             $helper = new $className();
             if ($helper) {
                 if ($helper instanceof Mage_Core_Block_Abstract) {

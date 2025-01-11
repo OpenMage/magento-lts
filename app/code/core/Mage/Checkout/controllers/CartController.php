@@ -533,6 +533,14 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $regionId   = (string) $this->getRequest()->getParam('region_id');
         $region     = (string) $this->getRequest()->getParam('region');
 
+        try {
+            Mage::getModel('directory/country')->loadByCode($country);
+        } catch (Mage_Core_Exception $e) {
+            $this->_getSession()->addError($e->getMessage());
+            $this->_goBack();
+            return;
+        }
+
         $this->_getQuote()->getShippingAddress()
             ->setCountryId($country)
             ->setCity($city)

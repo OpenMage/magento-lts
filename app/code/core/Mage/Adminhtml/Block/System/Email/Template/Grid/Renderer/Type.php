@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Type extends Mage
 
     /**
      * @return string
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function render(Varien_Object $row)
     {
