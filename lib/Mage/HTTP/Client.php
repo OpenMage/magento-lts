@@ -26,9 +26,7 @@ class Mage_HTTP_Client
     /**
      * Disallow to instantiate - pvt constructor
      */
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * Factory for HTTP client
@@ -45,8 +43,7 @@ class Mage_HTTP_Client
         }
 
         $class = __CLASS__ . '_' . str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $frontend)));
-        $obj = new $class();
-        return $obj;
+        return new $class();
     }
 
     /**

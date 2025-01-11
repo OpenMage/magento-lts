@@ -177,7 +177,7 @@ $attributes = [
     'base_total_canceled' => [],
     'base_total_invoiced' => [],
     'base_total_online_refunded' => [],
-    'base_total_offline_refunded' => []
+    'base_total_offline_refunded' => [],
 ];
 
 $select = new Zend_Db_Select($installer->getConnection());
@@ -190,12 +190,12 @@ foreach (array_keys($attributes) as $code) {
         $select->joinLeft(
             ["_table_{$code}" => "{$this->getTable('sales_order_entity')}_{$attributes[$code]['backend_type']}"],
             "_table_{$code}.attribute_id = {$attributes[$code]['attribute_id']} AND _table_{$code}.entity_id = e.entity_id",
-            [$code => 'value']
+            [$code => 'value'],
         );
         $select->join(
             ["_eav_atr_{$code}" => $this->getTable('eav/attribute')],
             "_eav_atr_{$code}.attribute_id = {$attributes[$code]['attribute_id']}",
-            []
+            [],
         );
         $attributeIds[] = $attributes[$code]['attribute_id'];
     }

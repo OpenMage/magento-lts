@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Index
  */
-abstract class Mage_Index_Model_Mysql4_Abstract extends Mage_Index_Model_Resource_Abstract
-{
-}
+abstract class Mage_Index_Model_Mysql4_Abstract extends Mage_Index_Model_Resource_Abstract {}

@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `{$installer->getTable('importexport_importdata')}` (
 COLLATE='utf8_general_ci'
 ENGINE=MyISAM
 ROW_FORMAT=DEFAULT
-");
+", );
 
 // add unique key for parent-child pairs which makes easier configurable products import
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_super_link'),
     'UNQ_product_id_parent_id',
     ['product_id', 'parent_id'],
-    'unique'
+    'unique',
 );
 
 // add unique key for product-attribute pairs
@@ -47,7 +47,7 @@ $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_super_attribute'),
     'UNQ_product_id_attribute_id',
     ['product_id', 'attribute_id'],
-    'unique'
+    'unique',
 );
 
 // add unique key for product-value-website
@@ -55,7 +55,7 @@ $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_super_attribute_pricing'),
     'UNQ_product_super_attribute_id_value_index_website_id',
     ['product_super_attribute_id', 'value_index', 'website_id'],
-    'unique'
+    'unique',
 );
 
 $installer->getConnection()->addConstraint(
@@ -63,7 +63,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('catalog/product_link_attribute_int'),
     'link_id',
     $installer->getTable('catalog/product_link'),
-    'link_id'
+    'link_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -71,14 +71,14 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('catalog/product_link_attribute_int'),
     'product_link_attribute_id',
     $installer->getTable('catalog/product_link_attribute'),
-    'product_link_attribute_id'
+    'product_link_attribute_id',
 );
 
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_link_attribute_int'),
     'UNQ_product_link_attribute_id_link_id',
     ['product_link_attribute_id', 'link_id'],
-    'unique'
+    'unique',
 );
 
 $installer->endSetup();

@@ -142,7 +142,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             'lastname'  => $this->getLastname(),
             'email'     => $this->getEmail(),
             'modified'  => $this->_getDateNow(),
-            'extra'     => serialize($this->getExtra())
+            'extra'     => serialize($this->getExtra()),
         ];
 
         if ($this->getId() > 0) {
@@ -328,7 +328,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $mailer->setStoreId(0);
         $mailer->setTemplateId(Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_TEMPLATE));
         $mailer->setTemplateParams([
-            'user' => $this
+            'user' => $this,
         ]);
         $mailer->send();
 
@@ -385,7 +385,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         try {
             Mage::dispatchEvent('admin_user_authenticate_before', [
                 'username' => $username,
-                'user'     => $this
+                'user'     => $this,
             ]);
             $this->loadByUsername($username);
             $sensitive = ($config) ? $username == $this->getUsername() : true;
@@ -524,10 +524,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             $aclResource = 'admin/' . $path . $childName;
             if ($this->getAdminSession()->isAllowed($aclResource)) {
                 if (!$child->children) {
-                    return (string)$child->action;
+                    return (string) $child->action;
                 } elseif ($child->children) {
                     $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level + 1);
-                    return $action ? $action : (string)$child->action;
+                    return $action ? $action : (string) $child->action;
                 }
             }
         }
@@ -568,7 +568,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $aclResource = 'admin/' . $startupPage;
         if ($this->getAdminSession()->isAllowed($aclResource)) {
             $nodePath = 'menu/' . implode('/children/', explode('/', $startupPage)) . '/action';
-            $url = (string)Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode($nodePath);
+            $url = (string) Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode($nodePath);
             if ($url) {
                 return $url;
             }

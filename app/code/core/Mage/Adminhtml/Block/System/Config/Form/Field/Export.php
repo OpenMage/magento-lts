@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Export extends Varien_Data_F
         $buttonBlock = $this->getForm()->getParent()->getLayout()->createBlock('adminhtml/widget_button');
 
         $params = [
-            'website' => $buttonBlock->getRequest()->getParam('website')
+            'website' => $buttonBlock->getRequest()->getParam('website'),
         ];
 
         $data = [

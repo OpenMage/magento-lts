@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } elseif ($this->getRequest()->getParam('store')) {
-            $storeId = (int)$this->getRequest()->getParam('store');
+            $storeId = (int) $this->getRequest()->getParam('store');
         } else {
             $storeId = '';
         }
@@ -61,17 +61,17 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
     {
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('link_title', [
             'header'    => Mage::helper('reports')->__('Link'),
-            'index'     => 'link_title'
+            'index'     => 'link_title',
         ]);
 
         $this->addColumn('sku', [
             'header'    => Mage::helper('reports')->__('Product SKU'),
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
 
         $this->addColumn('purchases', [
@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
             'width'     => '215px',
             'filter'    => false,
             'index'     => 'downloads',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->addExportType('*/*/exportDownloadsCsv', Mage::helper('reports')->__('CSV'));

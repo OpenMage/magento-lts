@@ -130,7 +130,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
             $this->addTab('group_' . $group->getId(), [
                 'label'     => Mage::helper('catalog')->__($group->getAttributeGroupName()),
                 'content'   => $block,
-                'active'    => $active
+                'active'    => $active,
             ]);
         }
 
@@ -138,13 +138,13 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
             'label'     => Mage::helper('catalog')->__('Category Products'),
             'content'   => $this->getLayout()->createBlock(
                 'adminhtml/catalog_category_tab_product',
-                'category.product.grid'
+                'category.product.grid',
             )->toHtml(),
         ]);
 
         // dispatch event add custom tabs
         Mage::dispatchEvent('adminhtml_catalog_category_tabs', [
-            'tabs'  => $this
+            'tabs'  => $this,
         ]);
 
         /*$this->addTab('features', array(

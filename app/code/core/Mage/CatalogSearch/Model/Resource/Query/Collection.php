@@ -79,16 +79,16 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
         $this->getSelect()->reset(Zend_Db_Select::FROM)->distinct(true)
             ->from(
                 ['main_table' => $this->getTable('catalogsearch/search_query')],
-                ['query'      => $ifSynonymFor, 'num_results']
+                ['query'      => $ifSynonymFor, 'num_results'],
             )
             ->where(
                 'num_results > 0 AND display_in_terms = 1 AND query_text LIKE ?',
-                $helper->addLikeEscape($query, ['position' => 'start'])
+                $helper->addLikeEscape($query, ['position' => 'start']),
             )
             ->order('popularity ' . Varien_Db_Select::SQL_DESC);
         if ($this->getStoreId()) {
             $this->getSelect()
-                ->where('store_id = ?', (int)$this->getStoreId());
+                ->where('store_id = ?', (int) $this->getStoreId());
         }
         return $this;
     }
@@ -110,7 +110,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
             ->distinct(true)
             ->from(
                 ['main_table' => $this->getTable('catalogsearch/search_query')],
-                ['name' => $ifSynonymFor, 'num_results', 'popularity', 'query_id']
+                ['name' => $ifSynonymFor, 'num_results', 'popularity', 'query_id'],
             );
         if ($storeIds) {
             $this->addStoreFilter($storeIds);

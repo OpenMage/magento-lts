@@ -43,7 +43,7 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
                 ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search')
                 ->setIndex($this->getRequest()->getParam('index'))
                 ->setFirstShow(true)
-                ->toHtml()
+                ->toHtml(),
         );
     }
 
@@ -56,10 +56,10 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
             $this->getLayout()
                 ->createBlock(
                     'bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid',
-                    'adminhtml.catalog.product.edit.tab.bundle.option.search.grid'
+                    'adminhtml.catalog.product.edit.tab.bundle.option.search.grid',
                 )
                 ->setIndex($this->getRequest()->getParam('index'))
-                ->toHtml()
+                ->toHtml(),
         );
     }
 }

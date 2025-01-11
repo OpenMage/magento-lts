@@ -21,6 +21,4 @@
  * @package    Mage_Eav
  * @deprecated
  */
-class Mage_Eav_Model_Mysql4_Form_Fieldset_Collection extends Mage_Eav_Model_Resource_Form_Fieldset_Collection
-{
-}
+class Mage_Eav_Model_Mysql4_Form_Fieldset_Collection extends Mage_Eav_Model_Resource_Form_Fieldset_Collection {}

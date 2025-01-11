@@ -18,6 +18,4 @@
  * @category   Mage
  * @package    Mage_Paypal
  */
-class Mage_Paypal_Exception extends Mage_Core_Exception
-{
-}
+class Mage_Paypal_Exception extends Mage_Core_Exception {}

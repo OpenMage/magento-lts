@@ -32,7 +32,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage_Collection extends Varien_Data_Colle
         return [
             'filename' => $filename,
             'basename' => basename($filename),
-            'mtime'    => filemtime($filename)
+            'mtime'    => filemtime($filename),
         ];
     }
 }

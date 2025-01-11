@@ -70,7 +70,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     protected function _initOldFieldsMap()
     {
         $this->_oldFieldsMap = [
-            'number' => 'track_number'
+            'number' => 'track_number',
         ];
     }
 
@@ -124,7 +124,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
      */
     public function getProtectCode()
     {
-        return (string)$this->getShipment()->getProtectCode();
+        return (string) $this->getShipment()->getProtectCode();
     }
 
     /**

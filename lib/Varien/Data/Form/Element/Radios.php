@@ -56,8 +56,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
                 $html .= $this->_optionToHtml($option, $value);
             }
         }
-        $html .= $this->getAfterElementHtml();
-        return $html;
+        return $html . $this->getAfterElementHtml();
     }
 
     /**
@@ -83,7 +82,6 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
             $html .= ' />';
             $html .= '<label class="inline" for="' . $this->getHtmlId() . $option->getValue() . '">' . $option->getLabel() . '</label>';
         }
-        $html .= $this->getSeparator() . "\n";
-        return $html;
+        return $html . ($this->getSeparator() . "\n");
     }
 }

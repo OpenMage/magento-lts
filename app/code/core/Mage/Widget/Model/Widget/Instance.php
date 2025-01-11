@@ -76,7 +76,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             'anchor_categories' => self::ANCHOR_CATEGORY_LAYOUT_HANDLE,
             'notanchor_categories' => self::NOTANCHOR_CATEGORY_LAYOUT_HANDLE,
             'all_products' => self::PRODUCT_LAYOUT_HANDLE,
-            'all_pages' => self::DEFAULT_LAYOUT_HANDLE
+            'all_pages' => self::DEFAULT_LAYOUT_HANDLE,
         ];
         $this->_specificEntitiesLayoutHandles = [
             'anchor_categories' => self::SINGLE_CATEGORY_LAYOUT_HANDLE,
@@ -137,7 +137,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                         'block_reference' => $pageGroupData['block'],
                         'entities' => '',
                         'layout_handle_updates' => [$layoutHandle],
-                        'template' => $pageGroupData['template'] ? $pageGroupData['template'] : ''
+                        'template' => $pageGroupData['template'] ? $pageGroupData['template'] : '',
                     ];
                     if ($pageGroupData['for'] == self::SPECIFIC_ENTITIES) {
                         $layoutHandleUpdates = [];
@@ -145,7 +145,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                             $layoutHandleUpdates[] = str_replace(
                                 '{{ID}}',
                                 $entity,
-                                $this->_specificEntitiesLayoutHandles[$pageGroup['page_group']]
+                                $this->_specificEntitiesLayoutHandles[$pageGroup['page_group']],
                             );
                         }
                         $tmpPageGroup['entities'] = $pageGroupData['entities'];
@@ -187,7 +187,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function isCompleteToCreate()
     {
-        return (bool)($this->getType() && $this->getPackageTheme());
+        return (bool) ($this->getType() && $this->getPackageTheme());
     }
 
     /**
@@ -223,7 +223,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     protected function _prepareType()
     {
-        if (str_contains((string)$this->_getData('type'), '-')) {
+        if (str_contains((string) $this->_getData('type'), '-')) {
             $this->setData('type', str_replace('-', '/', $this->_getData('type')));
         }
         return $this;
@@ -364,7 +364,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         foreach ($widgetsArr as $widget) {
             $widgets[] = [
                 'value' => $widget['type'],
-                'label' => $widget['name']
+                'label' => $widget['name'],
             ];
         }
         return $widgets;
@@ -385,8 +385,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                     '_area'    => $this->getArea(),
                     '_package' => $this->getPackage(),
                     '_theme'   => $this->getTheme(),
-                    '_type'    => 'etc'
-                    ]) . DS . 'widget.xml';
+                    '_type'    => 'etc',
+                ]) . DS . 'widget.xml';
                 if (is_readable($configFile)) {
                     $themeWidgetsConfig = new Varien_Simplexml_Config();
                     $themeWidgetsConfig->loadFile($configFile);
@@ -411,15 +411,15 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             if ($configTemplates->values && $configTemplates->values->children()) {
                 foreach ($configTemplates->values->children() as $name => $template) {
                     $helper = $template->getAttribute('module') ? $template->getAttribute('module') : 'widget';
-                    $templates[(string)$name] = [
-                        'value' => (string)$template->value,
-                        'label' => Mage::helper($helper)->__((string)$template->label)
+                    $templates[(string) $name] = [
+                        'value' => (string) $template->value,
+                        'label' => Mage::helper($helper)->__((string) $template->label),
                     ];
                 }
             } elseif ($configTemplates->value) {
                 $templates['default'] = [
-                    'value' => (string)$configTemplates->value,
-                    'label' => Mage::helper('widget')->__('Default Template')
+                    'value' => (string) $configTemplates->value,
+                    'label' => Mage::helper('widget')->__('Default Template'),
                 ];
             }
         }
@@ -436,7 +436,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         $blocks = [];
         if ($this->getWidgetConfig() && ($supportedBlocks = $this->getWidgetConfig()->supported_blocks)) {
             foreach ($supportedBlocks->children() as $block) {
-                $blocks[] = (string)$block->block_name;
+                $blocks[] = (string) $block->block_name;
             }
         }
         return $blocks;
@@ -457,15 +457,15 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                 return $widgetTemplates;
             }
             foreach ($supportedBlocks->children() as $block) {
-                if ((string)$block->block_name == $blockReference) {
+                if ((string) $block->block_name == $blockReference) {
                     if ($block->template && $block->template->children()) {
                         foreach ($block->template->children() as $template) {
-                            if (isset($widgetTemplates[(string)$template])) {
-                                $templates[] = $widgetTemplates[(string)$template];
+                            if (isset($widgetTemplates[(string) $template])) {
+                                $templates[] = $widgetTemplates[(string) $template];
                             }
                         }
                     } else {
-                        $templates[] = $widgetTemplates[(string)$template];
+                        $templates[] = $widgetTemplates[(string) $template];
                     }
                 }
             }
@@ -493,7 +493,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         $templateFilename = Mage::getSingleton('core/design_package')->getTemplateFilename($templatePath, [
             '_area'    => $this->getArea(),
             '_package' => $this->getPackage(),
-            '_theme'   => $this->getTheme()
+            '_theme'   => $this->getTheme(),
         ]);
         if (!$this->getId() && !$this->isCompleteToCreate()
             || ($templatePath && !is_readable($templateFilename))
@@ -516,16 +516,15 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             if (is_array($value)) {
                 $value = implode(',', $value);
             }
-            if ($name && strlen((string)$value)) {
+            if ($name && strlen((string) $value)) {
                 $xml .= '<action method="setData">'
                     . '<name>' . $name . '</name>'
                     . '<value>' . Mage::helper('widget')->escapeHtml($value) . '</value>'
                     . '</action>';
             }
         }
-        $xml .= '</block></reference>';
 
-        return $xml;
+        return $xml . '</block></reference>';
     }
 
     /**

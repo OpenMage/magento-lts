@@ -42,7 +42,7 @@ class Mage_Admin_Model_Observer extends Mage_Core_Model_Observer
             'resetpassword',
             'resetpasswordpost',
             'logout',
-            'refresh' // captcha refresh
+            'refresh', // captcha refresh
         ];
         if (in_array($requestedActionName, $openActions)) {
             $request->setDispatched(true);
@@ -62,7 +62,7 @@ class Mage_Admin_Model_Observer extends Mage_Core_Model_Observer
                         $request->setPost('login', null);
                     } elseif (!$request->getParam('messageSent')) {
                         $this->getAdminhtmlSession()->addError(
-                            Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.')
+                            Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.'),
                         );
                         $request->setParam('messageSent', true);
                     }
@@ -102,9 +102,7 @@ class Mage_Admin_Model_Observer extends Mage_Core_Model_Observer
      * @deprecated after 1.4.0.1, logic moved to admin session
      * @param Varien_Event_Observer $event
      */
-    public function actionPostDispatchAdmin($event)
-    {
-    }
+    public function actionPostDispatchAdmin($event) {}
 
     /**
      * Validate admin password and upgrade hash version
@@ -125,7 +123,7 @@ class Mage_Admin_Model_Observer extends Mage_Core_Model_Observer
             && !Mage::helper('core')->getEncryptor()->validateHashByVersion(
                 $password,
                 $user->getPassword(),
-                Mage_Core_Model_Encryption::HASH_VERSION_SHA256
+                Mage_Core_Model_Encryption::HASH_VERSION_SHA256,
             )
         ) {
             $user

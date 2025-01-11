@@ -298,9 +298,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     protected function _getRequestCacheKey($request)
     {
         $key = $request->getStore() ? $request->getStore()->getId() . '|' : '';
-        $key .= $request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
-            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode();
-        return $key;
+        return $key . ($request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
+            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode());
     }
 
     /**
@@ -438,12 +437,12 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
                 $address
                     ->setCountryId(Mage::getStoreConfig(
                         Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY,
-                        $store
+                        $store,
                     ))
                     ->setRegionId(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_REGION, $store))
                     ->setPostcode(Mage::getStoreConfig(
                         Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_POSTCODE,
-                        $store
+                        $store,
                     ));
                 break;
         }
@@ -481,7 +480,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     {
         $country = $first->getCountryId() == $second->getCountryId();
         // "0" support for admin dropdown with --please select--
-        $region  = (int)$first->getRegionId() == (int)$second->getRegionId();
+        $region  = (int) $first->getRegionId() == (int) $second->getRegionId();
         $postcode = $first-> getPostcode() == $second-> getPostcode();
         $taxClass = $first-> getCustomerClassId() == $second-> getCustomerClassId();
 
@@ -672,8 +671,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function truncate($price, $precision = 4)
     {
         $exp = pow(10, $precision);
-        $price = floor($price * $exp) / $exp;
-        return $price;
+        return floor($price * $exp) / $exp;
     }
 
     /**

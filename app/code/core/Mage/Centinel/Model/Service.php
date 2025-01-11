@@ -113,7 +113,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
             '_secure'  => true,
             '_current' => $current,
             'form_key' => $this->getCoreSession()->getFormKey(),
-            'isIframe' => true
+            'isIframe' => true,
         ];
         if (Mage::app()->getStore()->isAdmin()) {
             return Mage::getSingleton('adminhtml/url')->getUrl('*/centinel_index/' . $suffix, $params);
@@ -223,7 +223,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
             $data->getCardExpMonth(),
             $data->getCardExpYear(),
             $data->getAmount(),
-            $data->getCurrencyCode()
+            $data->getCurrencyCode(),
         );
 
         $validationState = $this->_initValidationState($data->getCardType(), $newChecksum);
@@ -271,7 +271,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
             $data->getCardExpMonth(),
             $data->getCardExpYear(),
             $data->getAmount(),
-            $data->getCurrencyCode()
+            $data->getCurrencyCode(),
         );
 
         $validationState = $this->_getValidationState($data->getCardType());
@@ -359,7 +359,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
             'acs_url' => $validationState->getLookupAcsUrl(),
             'pa_req' => $validationState->getLookupPayload(),
             'term_url' => $this->_getUrl('authenticationcomplete', true),
-            'md' => $validationState->getLookupTransactionId()
+            'md' => $validationState->getLookupTransactionId(),
         ];
     }
 

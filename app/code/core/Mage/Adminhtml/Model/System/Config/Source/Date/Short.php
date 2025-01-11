@@ -17,6 +17,7 @@
 /**
  * @category   Mage
  * @package    Mage_Adminhtml
+ * @deprecated
  */
 class Mage_Adminhtml_Model_System_Config_Source_Date_Short
 {
@@ -24,10 +25,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Date_Short
     {
         $arr = [];
         $arr[] = ['label' => '', 'value' => ''];
-        $arr[] = ['label' => strftime('MM/DD/YY (%m/%d/%y)'), 'value' => '%m/%d/%y'];
-        $arr[] = ['label' => strftime('MM/DD/YYYY (%m/%d/%Y)'), 'value' => '%m/%d/%Y'];
-        $arr[] = ['label' => strftime('DD/MM/YY (%d/%m/%y)'), 'value' => '%d/%m/%y'];
-        $arr[] = ['label' => strftime('DD/MM/YYYY (%d/%m/%Y)'), 'value' => '%d/%m/%Y'];
+        $arr[] = ['label' => sprintf('MM/DD/YY (%s)', date('m/d/y')), 'value' => '%m/%d/%y'];
+        $arr[] = ['label' => sprintf('MM/DD/YYYY (%s)', date('m/d/Y')), 'value' => '%m/%d/%Y'];
+        $arr[] = ['label' => sprintf('DD/MM/YY (%s)', date('d/m/y')), 'value' => '%d/%m/%y'];
+        $arr[] = ['label' => sprintf('DD/MM/YYYY (%s)', date('d/m/Y')), 'value' => '%d/%m/%Y'];
         return $arr;
     }
 }

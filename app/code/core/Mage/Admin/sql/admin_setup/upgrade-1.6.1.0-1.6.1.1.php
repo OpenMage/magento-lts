@@ -22,7 +22,7 @@ $installer->startSetup();
 $installer->getConnection()->changeColumn($installer->getTable('admin/user'), 'password', 'password', [
     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
     'length'    => 100,
-    'comment'   => 'User Password'
+    'comment'   => 'User Password',
 ]);
 
 $installer->endSetup();

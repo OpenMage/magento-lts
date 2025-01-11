@@ -257,7 +257,7 @@ class Mage_Sales_Model_Observer extends Mage_Core_Model_Observer
         $profileElement = $observer->getEvent()->getProductElement();
         $block = Mage::app()->getLayout()->createBlock(
             'sales/adminhtml_recurring_profile_edit_form',
-            'adminhtml_recurring_profile_edit_form'
+            'adminhtml_recurring_profile_edit_form',
         )->setParentElement($profileElement)
             ->setProductEntity($observer->getEvent()->getProduct());
         $observer->getEvent()->getResult()->output = $block->toHtml();
@@ -266,7 +266,7 @@ class Mage_Sales_Model_Observer extends Mage_Core_Model_Observer
         /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
         $block = Mage::app()->getLayout()->createBlock(
             'adminhtml/widget_form_element_dependence',
-            'adminhtml_recurring_profile_edit_form_dependence'
+            'adminhtml_recurring_profile_edit_form_dependence',
         );
         $dependencies = $block
             ->addFieldMap('is_recurring', 'product[is_recurring]')
@@ -474,11 +474,11 @@ class Mage_Sales_Model_Observer extends Mage_Core_Model_Observer
                 $customerCountryCode,
                 $customerVatNumber,
                 ($merchantVatNumber !== '') ? $merchantCountryCode : '',
-                $merchantVatNumber
+                $merchantVatNumber,
             );
 
             // Store validation results in corresponding quote address
-            $quoteAddress->setVatIsValid((int)$gatewayResponse->getIsValid())
+            $quoteAddress->setVatIsValid((int) $gatewayResponse->getIsValid())
                 ->setVatRequestId($gatewayResponse->getRequestIdentifier())
                 ->setVatRequestDate($gatewayResponse->getRequestDate())
                 ->setVatRequestSuccess($gatewayResponse->getRequestSuccess())
@@ -488,10 +488,10 @@ class Mage_Sales_Model_Observer extends Mage_Core_Model_Observer
         } else {
             // Restore validation results from corresponding quote address
             $gatewayResponse = new Varien_Object([
-                'is_valid' => (int)$quoteAddress->getVatIsValid(),
-                'request_identifier' => (string)$quoteAddress->getVatRequestId(),
-                'request_date' => (string)$quoteAddress->getVatRequestDate(),
-                'request_success' => (bool)$quoteAddress->getVatRequestSuccess()
+                'is_valid' => (int) $quoteAddress->getVatIsValid(),
+                'request_identifier' => (string) $quoteAddress->getVatRequestId(),
+                'request_date' => (string) $quoteAddress->getVatRequestDate(),
+                'request_success' => (bool) $quoteAddress->getVatRequestSuccess(),
             ]);
         }
 
@@ -500,7 +500,7 @@ class Mage_Sales_Model_Observer extends Mage_Core_Model_Observer
             $groupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
                 $customerCountryCode,
                 $gatewayResponse,
-                $customerInstance->getStore()
+                $customerInstance->getStore(),
             );
         } else {
             $groupId = $quoteInstance->getCustomerGroupId();

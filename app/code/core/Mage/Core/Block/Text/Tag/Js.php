@@ -39,7 +39,7 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
      */
     public function setSrc($src, $type = null)
     {
-        $type = (string)$type;
+        $type = (string) $type;
         if (empty($type)) {
             $type = 'js';
         }

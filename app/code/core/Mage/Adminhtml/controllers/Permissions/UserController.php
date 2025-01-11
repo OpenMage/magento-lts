@@ -237,7 +237,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $this->getResponse()->setBody(
             $this->getLayout()
                 ->createBlock('adminhtml/permissions_user_edit_tab_roles')
-                ->toHtml()
+                ->toHtml(),
         );
     }
 

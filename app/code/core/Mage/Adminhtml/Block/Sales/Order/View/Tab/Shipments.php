@@ -96,8 +96,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
             '*/sales_order_shipment/view',
             [
                 'shipment_id' => $row->getId(),
-                'order_id'  => $row->getOrderId()
-            ]
+                'order_id'  => $row->getOrderId(),
+            ],
         );
     }
 

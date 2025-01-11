@@ -44,8 +44,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
     {
         $uploadDir = $this->_appendScopeInfo(self::UPLOAD_DIR);
         $uploadRoot = $this->_getUploadRoot(self::UPLOAD_ROOT);
-        $uploadDir = $uploadRoot . '/' . $uploadDir;
-        return $uploadDir;
+        return $uploadRoot . '/' . $uploadDir;
     }
 
     /**

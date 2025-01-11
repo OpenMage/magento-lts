@@ -95,16 +95,16 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         $this->_initAction()
             ->_addBreadcrumb(
                 $id ? $this->__('Edit User') : $this->__('New User'),
-                $id ? $this->__('Edit User') : $this->__('New User')
+                $id ? $this->__('Edit User') : $this->__('New User'),
             )
             ->_addContent(
                 $this->getLayout()->createBlock('adminhtml/api_user_edit')
-                    ->setData('action', $this->getUrl('*/api_user/save'))
+                    ->setData('action', $this->getUrl('*/api_user/save')),
             )
             ->_addLeft($this->getLayout()->createBlock('adminhtml/api_user_edit_tabs'));
 
         $this->_addJs(
-            $this->getLayout()->createBlock('adminhtml/template')->setTemplate('api/user_roles_grid_js.phtml')
+            $this->getLayout()->createBlock('adminhtml/template')->setTemplate('api/user_roles_grid_js.phtml'),
         );
         $this->renderLayout();
     }

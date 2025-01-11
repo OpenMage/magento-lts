@@ -96,7 +96,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
                     if (isset($categories[$categoryId]) && $categories[$categoryId]->getName()) {
                         $path['category' . $categoryId] = [
                             'label' => $categories[$categoryId]->getName(),
-                            'link' => $this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : ''
+                            'link' => $this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : '',
                         ];
                     }
                 }
@@ -272,7 +272,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPageTemplateProcessor()
     {
-        $model = (string)Mage::getConfig()->getNode(self::XML_PATH_CONTENT_TEMPLATE_FILTER);
+        $model = (string) Mage::getConfig()->getNode(self::XML_PATH_CONTENT_TEMPLATE_FILTER);
         return Mage::getModel($model);
     }
 
@@ -328,7 +328,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->escapeHtml(
             Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE, $this->_storeId),
-            ['b','br','strong','i','u', 'p', 'span']
+            ['b','br','strong','i','u', 'p', 'span'],
         );
     }
 
@@ -341,7 +341,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->escapeHtml(
             Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS, $this->_storeId),
-            ['b','br','strong','i','u', 'p', 'span']
+            ['b','br','strong','i','u', 'p', 'span'],
         );
     }
 
@@ -444,7 +444,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->canApplyMsrp(
             $product,
-            Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_ON_GESTURE
+            Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_ON_GESTURE,
         );
     }
 

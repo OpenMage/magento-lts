@@ -422,7 +422,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
                         }
                         $this->_tabs[$tabToId]->setData('shadow_tabs', array_merge(
                             $this->_tabs[$tabToId]->getData('shadow_tabs'),
-                            [$blockId . '_' . $tabId]
+                            [$blockId . '_' . $tabId],
                         ));
                     }
                 }

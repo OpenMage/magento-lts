@@ -110,8 +110,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
             '*/sales_order_creditmemo/view',
             [
                 'creditmemo_id' => $row->getId(),
-                'order_id'  => $row->getOrderId()
-            ]
+                'order_id'  => $row->getOrderId(),
+            ],
         );
     }
 

@@ -36,7 +36,7 @@ class Mage_Checkout_Model_Observer extends Mage_Core_Model_Observer
         } catch (Exception $e) {
             $this->getCheckoutSession()->addException(
                 $e,
-                Mage::helper('checkout')->__('Load customer quote error')
+                Mage::helper('checkout')->__('Load customer quote error'),
             );
         }
     }

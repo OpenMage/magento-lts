@@ -37,7 +37,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
                 $classUrl   = '*/tax_class_' . strtolower($classType);
 
                 $this->getAdminhtmlSession()->addSuccess(
-                    Mage::helper('tax')->__('The tax class has been saved.')
+                    Mage::helper('tax')->__('The tax class has been saved.'),
                 );
                 $this->_redirect($classUrl);
 
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
                 $this->_redirectReferer();
             } catch (Exception $e) {
                 $this->getAdminhtmlSession()->addError(
-                    Mage::helper('tax')->__('An error occurred while saving this tax class.')
+                    Mage::helper('tax')->__('An error occurred while saving this tax class.'),
                 );
                 $this->getAdminhtmlSession()->setClassData($postData);
                 $this->_redirectReferer();

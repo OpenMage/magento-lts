@@ -32,11 +32,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
                     'onclick'   => Mage::helper('core/js')->getSetLocationJs(
                         $this->getUrl(
                             '*/catalog_product/',
-                            ['store' => $this->getRequest()->getParam('store', 0)]
-                        )
+                            ['store' => $this->getRequest()->getParam('store', 0)],
+                        ),
                     ),
-                    'class' => 'back'
-                ])
+                    'class' => 'back',
+                ]),
         );
 
         $this->setChild(
@@ -44,8 +44,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Reset'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true]))
-                ])
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])),
+                ]),
         );
 
         $this->setChild(
@@ -54,8 +54,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Save'),
                     'onclick'   => 'attributesForm.submit()',
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
         return $this;
     }

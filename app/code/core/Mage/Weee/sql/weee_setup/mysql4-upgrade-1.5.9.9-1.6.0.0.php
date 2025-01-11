@@ -23,37 +23,37 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('weee/discount'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_GROUP'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_GROUP',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('weee/discount'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_PRODUCT_ENTITY'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_PRODUCT_ENTITY',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('weee/discount'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_WEBSITE'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_WEBSITE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('weee/tax'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_COUNTRY'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_COUNTRY',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('weee/tax'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_PRODUCT_ENTITY'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_PRODUCT_ENTITY',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('weee/tax'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_WEBSITE'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_WEBSITE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('weee/tax'),
-    'FK_WEEE_TAX_ATTRIBUTE_ID'
+    'FK_WEEE_TAX_ATTRIBUTE_ID',
 );
 
 /**
@@ -61,37 +61,37 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('weee/discount'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_WEBSITE'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('weee/discount'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_PRODUCT_ENTITY'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_PRODUCT_ENTITY',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('weee/discount'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_GROUP'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_DISCOUNT_GROUP',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('weee/tax'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_WEBSITE'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('weee/tax'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_PRODUCT_ENTITY'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_PRODUCT_ENTITY',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('weee/tax'),
-    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_COUNTRY'
+    'FK_CATALOG_PRODUCT_ENTITY_WEEE_TAX_COUNTRY',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('weee/tax'),
-    'FK_WEEE_TAX_ATTRIBUTE_ID'
+    'FK_WEEE_TAX_ATTRIBUTE_ID',
 );
 
 /**
@@ -105,26 +105,26 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Value Id'
+                'comment'   => 'Value Id',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'entity_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'country' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 2,
-                'comment'   => 'Country'
+                'comment'   => 'Country',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -132,29 +132,29 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Value'
+                'comment'   => 'Value',
             ],
             'state' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'default'   => '*',
-                'comment'   => 'State'
+                'comment'   => 'State',
             ],
             'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Attribute Id'
+                'comment'   => 'Attribute Id',
             ],
             'entity_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Entity Type Id'
-            ]
+                'comment'   => 'Entity Type Id',
+            ],
         ],
-        'comment' => 'Weee Tax'
+        'comment' => 'Weee Tax',
     ],
     $installer->getTable('weee/discount') => [
         'columns' => [
@@ -163,20 +163,20 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Entity Id'
+                'comment'   => 'Entity Id',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Customer Group Id'
+                'comment'   => 'Customer Group Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -184,215 +184,215 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Weee Discount'
+        'comment' => 'Weee Discount',
     ],
     $installer->getTable('sales/order_item') => [
         'columns' => [
             'weee_tax_applied' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Weee Tax Applied'
+                'comment'   => 'Weee Tax Applied',
             ],
             'weee_tax_applied_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Applied Amount'
+                'comment'   => 'Weee Tax Applied Amount',
             ],
             'weee_tax_applied_row_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Applied Row Amount'
+                'comment'   => 'Weee Tax Applied Row Amount',
             ],
             'base_weee_tax_applied_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Applied Amount'
+                'comment'   => 'Base Weee Tax Applied Amount',
             ],
             'weee_tax_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Disposition'
+                'comment'   => 'Weee Tax Disposition',
             ],
             'weee_tax_row_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Row Disposition'
+                'comment'   => 'Weee Tax Row Disposition',
             ],
             'base_weee_tax_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Disposition'
+                'comment'   => 'Base Weee Tax Disposition',
             ],
             'base_weee_tax_row_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Row Disposition'
-            ]
-        ]
+                'comment'   => 'Base Weee Tax Row Disposition',
+            ],
+        ],
     ],
     $installer->getTable('sales/quote_item') => [
         'columns' => [
             'weee_tax_applied' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Weee Tax Applied'
+                'comment'   => 'Weee Tax Applied',
             ],
             'weee_tax_applied_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Applied Amount'
+                'comment'   => 'Weee Tax Applied Amount',
             ],
             'weee_tax_applied_row_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Applied Row Amount'
+                'comment'   => 'Weee Tax Applied Row Amount',
             ],
             'base_weee_tax_applied_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Applied Amount'
+                'comment'   => 'Base Weee Tax Applied Amount',
             ],
             'weee_tax_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Disposition'
+                'comment'   => 'Weee Tax Disposition',
             ],
             'weee_tax_row_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Row Disposition'
+                'comment'   => 'Weee Tax Row Disposition',
             ],
             'base_weee_tax_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Disposition'
+                'comment'   => 'Base Weee Tax Disposition',
             ],
             'base_weee_tax_row_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Row Disposition'
-            ]
-        ]
+                'comment'   => 'Base Weee Tax Row Disposition',
+            ],
+        ],
     ],
     $installer->getTable('sales/invoice_item') => [
         'columns' => [
             'weee_tax_applied' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Weee Tax Applied'
+                'comment'   => 'Weee Tax Applied',
             ],
             'weee_tax_applied_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Applied Amount'
+                'comment'   => 'Weee Tax Applied Amount',
             ],
             'weee_tax_applied_row_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Applied Row Amount'
+                'comment'   => 'Weee Tax Applied Row Amount',
             ],
             'base_weee_tax_applied_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Applied Amount'
+                'comment'   => 'Base Weee Tax Applied Amount',
             ],
             'weee_tax_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Disposition'
+                'comment'   => 'Weee Tax Disposition',
             ],
             'weee_tax_row_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Row Disposition'
+                'comment'   => 'Weee Tax Row Disposition',
             ],
             'base_weee_tax_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Disposition'
+                'comment'   => 'Base Weee Tax Disposition',
             ],
             'base_weee_tax_row_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Row Disposition'
-            ]
-        ]
+                'comment'   => 'Base Weee Tax Row Disposition',
+            ],
+        ],
     ],
     $installer->getTable('sales/creditmemo_item') => [
         'columns' => [
             'weee_tax_applied' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Weee Tax Applied'
+                'comment'   => 'Weee Tax Applied',
             ],
             'weee_tax_applied_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Applied Amount'
+                'comment'   => 'Weee Tax Applied Amount',
             ],
             'weee_tax_applied_row_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Applied Row Amount'
+                'comment'   => 'Weee Tax Applied Row Amount',
             ],
             'base_weee_tax_applied_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Applied Amount'
+                'comment'   => 'Base Weee Tax Applied Amount',
             ],
             'weee_tax_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Disposition'
+                'comment'   => 'Weee Tax Disposition',
             ],
             'weee_tax_row_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Weee Tax Row Disposition'
+                'comment'   => 'Weee Tax Row Disposition',
             ],
             'base_weee_tax_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Disposition'
+                'comment'   => 'Base Weee Tax Disposition',
             ],
             'base_weee_tax_row_disposition' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Base Weee Tax Row Disposition'
-            ]
-        ]
-    ]
+                'comment'   => 'Base Weee Tax Row Disposition',
+            ],
+        ],
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -405,8 +405,8 @@ $installer->getConnection()->changeColumn(
         'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'scale'     => 4,
         'precision' => 12,
-        'comment'   => 'Base Weee Tax Applied Row Amnt'
-    ]
+        'comment'   => 'Base Weee Tax Applied Row Amnt',
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -417,8 +417,8 @@ $installer->getConnection()->changeColumn(
         'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'scale'     => 4,
         'precision' => 12,
-        'comment'   => 'Base Weee Tax Applied Row Amnt'
-    ]
+        'comment'   => 'Base Weee Tax Applied Row Amnt',
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -429,8 +429,8 @@ $installer->getConnection()->changeColumn(
         'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'scale'     => 4,
         'precision' => 12,
-        'comment'   => 'Base Weee Tax Applied Row Amnt'
-    ]
+        'comment'   => 'Base Weee Tax Applied Row Amnt',
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -441,8 +441,8 @@ $installer->getConnection()->changeColumn(
         'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'scale'     => 4,
         'precision' => 12,
-        'comment'   => 'Base Weee Tax Applied Row Amnt'
-    ]
+        'comment'   => 'Base Weee Tax Applied Row Amnt',
+    ],
 );
 /**
  * Add indexes
@@ -450,43 +450,43 @@ $installer->getConnection()->changeColumn(
 $installer->getConnection()->addIndex(
     $installer->getTable('weee/discount'),
     $installer->getIdxName('weee/discount', ['website_id']),
-    ['website_id']
+    ['website_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('weee/discount'),
     $installer->getIdxName('weee/discount', ['entity_id']),
-    ['entity_id']
+    ['entity_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('weee/discount'),
     $installer->getIdxName('weee/discount', ['customer_group_id']),
-    ['customer_group_id']
+    ['customer_group_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('weee/tax'),
     $installer->getIdxName('weee/tax', ['website_id']),
-    ['website_id']
+    ['website_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('weee/tax'),
     $installer->getIdxName('weee/tax', ['entity_id']),
-    ['entity_id']
+    ['entity_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('weee/tax'),
     $installer->getIdxName('weee/tax', ['country']),
-    ['country']
+    ['country'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('weee/tax'),
     $installer->getIdxName('weee/tax', ['attribute_id']),
-    ['attribute_id']
+    ['attribute_id'],
 );
 
 /**
@@ -497,7 +497,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('weee/discount'),
     'customer_group_id',
     $installer->getTable('customer/customer_group'),
-    'customer_group_id'
+    'customer_group_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -505,7 +505,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('weee/discount'),
     'entity_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -513,7 +513,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('weee/discount'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -521,7 +521,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('weee/tax'),
     'country',
     $installer->getTable('directory/country'),
-    'country_id'
+    'country_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -529,7 +529,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('weee/tax'),
     'entity_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -537,7 +537,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('weee/tax'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -545,7 +545,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('weee/tax'),
     'attribute_id',
     $installer->getTable('eav/attribute'),
-    'attribute_id'
+    'attribute_id',
 );
 
 $installer->endSetup();

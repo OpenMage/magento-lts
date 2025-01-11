@@ -348,7 +348,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     public function isReadOnly($value = null)
     {
         if ($value !== null) {
-            $this->_isReadOnly = (bool)$value;
+            $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;
     }

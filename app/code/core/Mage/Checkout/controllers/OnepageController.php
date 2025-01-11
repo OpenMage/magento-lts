@@ -373,13 +373,13 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     $result['goto_section'] = 'payment';
                     $result['update_section'] = [
                         'name' => 'payment-method',
-                        'html' => $this->_getPaymentMethodsHtml()
+                        'html' => $this->_getPaymentMethodsHtml(),
                     ];
                 } elseif (isset($data['use_for_shipping']) && $data['use_for_shipping'] == 1) {
                     $result['goto_section'] = 'shipping_method';
                     $result['update_section'] = [
                         'name' => 'shipping-method',
-                        'html' => $this->_getShippingMethodsHtml()
+                        'html' => $this->_getShippingMethodsHtml(),
                     ];
 
                     $result['allow_sections'] = ['shipping'];
@@ -415,7 +415,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $result['goto_section'] = 'shipping_method';
                 $result['update_section'] = [
                     'name' => 'shipping-method',
-                    'html' => $this->_getShippingMethodsHtml()
+                    'html' => $this->_getShippingMethodsHtml(),
                 ];
             }
             $this->_prepareDataJSON($result);
@@ -443,8 +443,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 Mage::dispatchEvent(
                     'checkout_controller_onepage_save_shipping_method',
                     [
-                          'request' => $this->getRequest(),
-                    'quote'   => $this->getOnepage()->getQuote()]
+                        'request' => $this->getRequest(),
+                        'quote'   => $this->getOnepage()->getQuote()],
                 );
                 $this->getOnepage()->getQuote()->collectTotals();
                 $this->_prepareDataJSON($result);
@@ -452,7 +452,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $result['goto_section'] = 'payment';
                 $result['update_section'] = [
                     'name' => 'payment-method',
-                    'html' => $this->_getPaymentMethodsHtml()
+                    'html' => $this->_getPaymentMethodsHtml(),
                 ];
             }
             $this->getOnepage()->getQuote()->collectTotals()->save();
@@ -491,7 +491,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $result['goto_section'] = 'review';
                 $result['update_section'] = [
                     'name' => 'review',
-                    'html' => $this->_getReviewHtml()
+                    'html' => $this->_getReviewHtml(),
                 ];
             }
             if ($redirectUrl) {
@@ -601,7 +601,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result['goto_section'] = 'payment';
             $result['update_section'] = [
                 'name' => 'payment-method',
-                'html' => $this->_getPaymentMethodsHtml()
+                'html' => $this->_getPaymentMethodsHtml(),
             ];
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
@@ -621,7 +621,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     $updateSectionFunction = $this->_sectionUpdateFunctions[$updateSection];
                     $result['update_section'] = [
                         'name' => $updateSection,
-                        'html' => $this->$updateSectionFunction()
+                        'html' => $this->$updateSectionFunction(),
                     ];
                 }
                 $this->getOnepage()->getCheckout()->setUpdateSection(null);
@@ -653,8 +653,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _filterPostData($data)
     {
-        $data = $this->_filterDates($data, ['dob']);
-        return $data;
+        return $this->_filterDates($data, ['dob']);
     }
 
     /**

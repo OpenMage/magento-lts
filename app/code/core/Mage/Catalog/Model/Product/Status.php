@@ -109,7 +109,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     {
         return [
             self::STATUS_ENABLED    => Mage::helper('catalog')->__('Enabled'),
-            self::STATUS_DISABLED   => Mage::helper('catalog')->__('Disabled')
+            self::STATUS_DISABLED   => Mage::helper('catalog')->__('Disabled'),
         ];
     }
 
@@ -145,13 +145,13 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
         $res = [
             [
                 'value' => '',
-                'label' => Mage::helper('catalog')->__('-- Please Select --')
-            ]
+                'label' => Mage::helper('catalog')->__('-- Please Select --'),
+            ],
         ];
         foreach (self::getOptionArray() as $index => $value) {
             $res[] = [
-               'value' => $index,
-               'label' => $value
+                'value' => $index,
+                'label' => $value,
             ];
         }
         return $res;
@@ -198,7 +198,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
             Mage::dispatchEvent('catalog_product_status_update', [
                 'product_id'    => $productId,
                 'store_id'      => $storeId,
-                'status'        => $value
+                'status'        => $value,
             ]);
         }
 
@@ -233,7 +233,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
         $column = [
             'unsigned'  => true,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
@@ -260,7 +260,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
         $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
         $indexes[$index] = [
             'type'      => 'index',
-            'fields'    => [$this->getAttribute()->getAttributeCode()]
+            'fields'    => [$this->getAttribute()->getAttributeCode()],
         ];
 
         return $indexes;
@@ -322,7 +322,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
                     "e.entity_id={$tableName}.entity_id"
                         . " AND {$tableName}.attribute_id='{$attributeId}'"
                         . " AND {$tableName}.store_id='0'",
-                    []
+                    [],
                 );
             $valueExpr = $tableName . '.value';
         } else {
@@ -334,20 +334,20 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
                     "e.entity_id={$valueTable1}.entity_id"
                         . " AND {$valueTable1}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable1}.store_id='0'",
-                    []
+                    [],
                 )
                 ->joinLeft(
                     [$valueTable2 => $attributeTable],
                     "e.entity_id={$valueTable2}.entity_id"
                         . " AND {$valueTable2}.attribute_id='{$attributeId}'"
                         . " AND {$valueTable2}.store_id='{$collection->getStoreId()}'",
-                    []
+                    [],
                 );
 
             $valueExpr = $collection->getConnection()->getCheckSql(
                 $valueTable2 . '.value_id > 0',
                 $valueTable2 . '.value',
-                $valueTable1 . '.value'
+                $valueTable1 . '.value',
             );
         }
 

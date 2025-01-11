@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                 'label'     => Mage::helper('sales')->__('Update Qty\'s'),
                 'class'     => 'update-button',
                 'onclick'   => $onclick,
-            ])
+            ]),
         );
 
         if ($this->getCreditmemo()->canRefund()) {
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                         'label'     => Mage::helper('sales')->__('Refund'),
                         'class'     => 'save submit-button',
                         'onclick'   => 'disableElements(\'submit-button\');submitCreditMemo()',
-                    ])
+                    ]),
                 );
             }
             $this->setChild(
@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                     'label'     => Mage::helper('sales')->__('Refund Offline'),
                     'class'     => 'save submit-button',
                     'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ])
+                ]),
             );
         } else {
             $this->setChild(
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                     'label'     => Mage::helper('sales')->__('Refund Offline'),
                     'class'     => 'save submit-button',
                     'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ])
+                ]),
             );
         }
 
@@ -147,8 +147,8 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     public function getUpdateUrl()
     {
         return $this->getUrl('*/*/updateQty', [
-                'order_id' => $this->getCreditmemo()->getOrderId(),
-                'invoice_id' => $this->getRequest()->getParam('invoice_id', null),
+            'order_id' => $this->getCreditmemo()->getOrderId(),
+            'invoice_id' => $this->getRequest()->getParam('invoice_id', null),
         ]);
     }
 

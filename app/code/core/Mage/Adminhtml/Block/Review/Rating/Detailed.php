@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                     ->setStoreFilter(
                         $this->getRequest()->getParam('select_stores')
                             ? $this->getRequest()->getParam('select_stores')
-                            : $this->getRequest()->getParam('stores')
+                            : $this->getRequest()->getParam('stores'),
                     )
                     ->setPositionOrder()
                     ->load()

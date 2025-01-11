@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
         $this->_source  = $parent->getSource();
         $total = new Varien_Object([
             'code'      => 'agjustments',
-            'block_name' => $this->getNameInLayout()
+            'block_name' => $this->getNameInLayout(),
         ]);
         $parent->removeTotal('shipping');
         $parent->removeTotal('adjustment_positive');

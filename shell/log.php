@@ -53,7 +53,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     protected function _humanCount($number)
     {
         if ($number < 1000) {
-            return (string)$number;
+            return (string) $number;
         }
         if ($number < 1000000) {
             return sprintf('%.2fK', $number / 1000);

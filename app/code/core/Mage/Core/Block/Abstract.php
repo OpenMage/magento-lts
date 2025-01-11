@@ -385,7 +385,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function setIsAnonymous($flag)
     {
-        $this->_isAnonymous = (bool)$flag;
+        $this->_isAnonymous = (bool) $flag;
         return $this;
     }
 
@@ -564,7 +564,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($child) {
             $alias = array_shift($args);
             $callback = array_shift($args);
-            $result = (string)array_shift($args);
+            $result = (string) array_shift($args);
             if (!is_array($params)) {
                 $params = $args;
             }
@@ -699,9 +699,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param   string $name
      * @param   Mage_Core_Block_Abstract $child
      */
-    protected function _beforeChildToHtml($name, $child)
-    {
-    }
+    protected function _beforeChildToHtml($name, $child) {}
 
     /**
      * Retrieve block html
@@ -775,7 +773,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 }
             }
 
-            $this->_sortInstructions[$name] = [$siblingName, (bool)$after, $key !== false];
+            $this->_sortInstructions[$name] = [$siblingName, (bool) $after, $key !== false];
         }
 
         return $this;
@@ -992,11 +990,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         self::$_transportObject->setHtml($html);
         Mage::dispatchEvent(
             'core_block_abstract_to_html_after',
-            ['block' => $this, 'transport' => self::$_transportObject]
+            ['block' => $this, 'transport' => self::$_transportObject],
         );
-        $html = self::$_transportObject->getHtml();
 
-        return $html;
+        return self::$_transportObject->getHtml();
     }
 
     /**
@@ -1221,8 +1218,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @return string
      *
-     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function __()
     {
@@ -1407,7 +1404,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function getCacheKeyInfo()
     {
         return [
-            $this->getNameInLayout()
+            $this->getNameInLayout(),
         ];
     }
 
@@ -1435,8 +1432,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         //ksort($key);  // ignore order
         $key = array_values($key); // ignore array keys
         $key = implode('|', $key);
-        $key = sha1($key);
-        return $key;
+        return sha1($key);
     }
 
     /**
@@ -1528,7 +1524,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $cacheData = str_replace(
                 $this->_getSidPlaceholder($cacheKey),
                 $session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(),
-                $cacheData
+                $cacheData,
             );
         }
         return $cacheData;
@@ -1550,7 +1546,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         $data = str_replace(
             $session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(),
             $this->_getSidPlaceholder($cacheKey),
-            $data
+            $data,
         );
 
         $tags = $this->getCacheTags();
@@ -1560,7 +1556,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             json_encode($tags),
             $this->_getTagsCacheKey($cacheKey),
             $tags,
-            $this->getCacheLifetime()
+            $this->getCacheLifetime(),
         );
         return $this;
     }
@@ -1574,8 +1570,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected function _getTagsCacheKey($cacheKey = null)
     {
         $cacheKey = !empty($cacheKey) ? $cacheKey : $this->getCacheKey();
-        $cacheKey = md5($cacheKey . '_tags');
-        return $cacheKey;
+        return md5($cacheKey . '_tags');
     }
 
     /**

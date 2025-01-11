@@ -28,8 +28,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     protected function _getItemQtys()
     {
         $data = $this->getRequest()->getParam('invoice');
-        $qtys = $data['items'] ?? [];
-        return $qtys;
+        return $data['items'] ?? [];
     }
 
     /**
@@ -196,13 +195,13 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         } catch (Mage_Core_Exception $e) {
             $response = [
                 'error'     => true,
-                'message'   => $e->getMessage()
+                'message'   => $e->getMessage(),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         } catch (Exception $e) {
             $response = [
                 'error'     => true,
-                'message'   => $this->__('Cannot update item quantity.')
+                'message'   => $this->__('Cannot update item quantity.'),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         }
@@ -233,7 +232,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                     $invoice->addComment(
                         $data['comment_text'],
                         isset($data['comment_customer_notify']),
-                        isset($data['is_visible_on_front'])
+                        isset($data['is_visible_on_front']),
                     );
                 }
 
@@ -376,7 +375,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             $invoice->addComment(
                 $data['comment'],
                 isset($data['is_customer_notified']),
-                isset($data['is_visible_on_front'])
+                isset($data['is_visible_on_front']),
             );
             $invoice->sendUpdateEmail(!empty($data['is_customer_notified']), $data['comment']);
             $invoice->save();
@@ -386,13 +385,13 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         } catch (Mage_Core_Exception $e) {
             $response = [
                 'error'     => true,
-                'message'   => $e->getMessage()
+                'message'   => $e->getMessage(),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         } catch (Exception $e) {
             $response = [
                 'error'     => true,
-                'message'   => $this->__('Cannot add new comment.')
+                'message'   => $this->__('Cannot add new comment.'),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         }

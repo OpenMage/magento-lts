@@ -39,12 +39,12 @@ class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_T
             'backButton'    => [
                 'label'     => $this->__('Back'),
                 'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
-                'class'     => 'back'
+                'class'     => 'back',
             ],
             'saveButton'    => [
                 'label'     => $this->__('Save'),
                 'onclick'   => 'form.submit(); return false;',
-                'class'     => 'save'
+                'class'     => 'save',
             ],
         ];
 

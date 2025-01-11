@@ -108,7 +108,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     public function expressCheckoutAction()
     {
         $this->getCoreSession()->addNotice(
-            Mage::helper('persistent')->__('Shopping cart has been updated with appropriate prices')
+            Mage::helper('persistent')->__('Shopping cart has been updated with appropriate prices'),
         );
         $this->_redirect('checkout/cart');
     }

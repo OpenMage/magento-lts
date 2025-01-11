@@ -40,7 +40,7 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
             'id', 'class', 'style', // %coreattrs
             'lang', 'dir', // %i18n
             'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmousemove',
-            'onmouseout', 'onkeypress', 'onkeydown', 'onkeyup' // %events
+            'onmouseout', 'onkeypress', 'onkeydown', 'onkeyup', // %events
         ];
 
         $attributes = [];
@@ -74,7 +74,6 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
         foreach ($attributes as $key => $value) {
             $data[] = $key . $valueSeparator . $quote . $value . $quote;
         }
-        $res = implode($fieldSeparator, $data);
-        return $res;
+        return implode($fieldSeparator, $data);
     }
 }

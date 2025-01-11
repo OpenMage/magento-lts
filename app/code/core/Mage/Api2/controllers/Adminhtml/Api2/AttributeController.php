@@ -96,7 +96,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
 
         if (!$type) {
             $this->_getSession()->addError(
-                $this->__('User type "%s" no longer exists', $type)
+                $this->__('User type "%s" no longer exists', $type),
             );
             $this->_redirect('*/*/');
             return;
@@ -108,7 +108,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             /** @var Mage_Api2_Model_Acl_Global_Rule_Tree $ruleTree */
             $ruleTree = Mage::getSingleton(
                 'api2/acl_global_rule_tree',
-                ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE]
+                ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE],
             );
 
             /** @var Mage_Api2_Model_Acl_Filter_Attribute $attribute */

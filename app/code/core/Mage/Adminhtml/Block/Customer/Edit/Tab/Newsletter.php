@@ -47,9 +47,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
             'subscription',
             'checkbox',
             [
-                    'label' => Mage::helper('customer')->__('Subscribed to Newsletter?'),
-                    'name'  => 'subscription'
-             ]
+                'label' => Mage::helper('customer')->__('Subscribed to Newsletter?'),
+                'name'  => 'subscription',
+            ],
         );
 
         if ($customer->isReadonly()) {
@@ -63,10 +63,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
                 'change_status_date',
                 'label',
                 [
-                        'label' => $subscriber->isSubscribed() ? Mage::helper('customer')->__('Last Date Subscribed') : Mage::helper('customer')->__('Last Date Unsubscribed'),
-                        'value' => $changedDate,
-                        'bold'  => true
-                 ]
+                    'label' => $subscriber->isSubscribed() ? Mage::helper('customer')->__('Last Date Subscribed') : Mage::helper('customer')->__('Last Date Unsubscribed'),
+                    'value' => $changedDate,
+                    'bold'  => true,
+                ],
             );
         }
 
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
             return $this->formatDate(
                 $subscriber->getChangeStatusAt(),
                 Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
-                true
+                true,
             );
         }
 
@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
     {
         $this->setChild(
             'grid',
-            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter_grid', 'newsletter.grid')
+            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter_grid', 'newsletter.grid'),
         );
         return parent::_prepareLayout();
     }

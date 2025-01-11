@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_
 
         /** @var Mage_Core_Model_Email_Template $template */
         $template = Mage::getModel('core/email_template');
-        $id = (int)$this->getRequest()->getParam('id');
+        $id = (int) $this->getRequest()->getParam('id');
         if ($id) {
             $template->load($id);
         } else {
@@ -48,11 +48,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_
         }
 
         $template->setTemplateStyles(
-            $this->maliciousCodeFilter($template->getTemplateStyles())
+            $this->maliciousCodeFilter($template->getTemplateStyles()),
         );
 
         $template->setTemplateText(
-            $this->maliciousCodeFilter($template->getTemplateText())
+            $this->maliciousCodeFilter($template->getTemplateText()),
         );
 
         Varien_Profiler::start('email_template_proccessing');

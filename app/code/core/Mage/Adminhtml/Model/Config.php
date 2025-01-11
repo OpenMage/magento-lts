@@ -162,18 +162,18 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $showTab = false;
         if ($storeCode) {
             if (isset($node->show_in_store)) {
-                if ((int)$node->show_in_store) {
+                if ((int) $node->show_in_store) {
                     $showTab = true;
                 }
             }
         } elseif ($websiteCode) {
             if (isset($node->show_in_website)) {
-                if ((int)$node->show_in_website) {
+                if ((int) $node->show_in_website) {
                     $showTab = true;
                 }
             }
         } elseif (isset($node->show_in_default)) {
-            if ((int)$node->show_in_default) {
+            if ((int) $node->show_in_default) {
                 $showTab = true;
             }
         }
@@ -210,15 +210,15 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $moduleName = 'adminhtml';
         if (is_object($sectionNode) && method_exists($sectionNode, 'attributes')) {
             $sectionAttributes = $sectionNode->attributes();
-            $moduleName = isset($sectionAttributes['module']) ? (string)$sectionAttributes['module'] : $moduleName;
+            $moduleName = isset($sectionAttributes['module']) ? (string) $sectionAttributes['module'] : $moduleName;
         }
         if (is_object($groupNode) && method_exists($groupNode, 'attributes')) {
             $groupAttributes = $groupNode->attributes();
-            $moduleName = isset($groupAttributes['module']) ? (string)$groupAttributes['module'] : $moduleName;
+            $moduleName = isset($groupAttributes['module']) ? (string) $groupAttributes['module'] : $moduleName;
         }
         if (is_object($fieldNode) && method_exists($fieldNode, 'attributes')) {
             $fieldAttributes = $fieldNode->attributes();
-            $moduleName = isset($fieldAttributes['module']) ? (string)$fieldAttributes['module'] : $moduleName;
+            $moduleName = isset($fieldAttributes['module']) ? (string) $fieldAttributes['module'] : $moduleName;
         }
 
         return $moduleName;
@@ -253,7 +253,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $moduleName = $this->getAttributeModule($sectionNode, $groupNode, $fieldNode);
         $systemNode = $this->_sections->xpath($path);
         foreach ($systemNode as $node) {
-            return Mage::helper($moduleName)->__((string)$node->label);
+            return Mage::helper($moduleName)->__((string) $node->label);
         }
         return '';
     }
@@ -269,7 +269,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $configSections = $this->getSections();
         if ($configSections) {
             foreach ($configSections->xpath('//sections/*/groups/*/fields/*/backend_model') as $node) {
-                if ((string)$node === 'adminhtml/system_config_backend_encrypted') {
+                if ((string) $node === 'adminhtml/system_config_backend_encrypted') {
                     $section = $node->getParent()->getParent()->getParent()->getParent()->getParent()->getName();
                     $group   = $node->getParent()->getParent()->getParent()->getName();
                     $field   = $node->getParent()->getName();

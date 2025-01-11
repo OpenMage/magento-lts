@@ -417,10 +417,10 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
 
         $this->getOrder()->getPayment()->pay($this);
         $this->getOrder()->setTotalPaid(
-            $this->getOrder()->getTotalPaid() + $this->getGrandTotal()
+            $this->getOrder()->getTotalPaid() + $this->getGrandTotal(),
         );
         $this->getOrder()->setBaseTotalPaid(
-            $this->getOrder()->getBaseTotalPaid() + $this->getBaseGrandTotal()
+            $this->getOrder()->getBaseTotalPaid() + $this->getBaseGrandTotal(),
         );
         Mage::dispatchEvent('sales_order_invoice_pay', [$this->_eventObject => $this]);
         return $this;
@@ -853,11 +853,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams([
-                'order'        => $order,
-                'invoice'      => $this,
-                'comment'      => $comment,
-                'billing'      => $order->getBillingAddress(),
-                'payment_html' => $paymentBlockHtml
+            'order'        => $order,
+            'invoice'      => $this,
+            'comment'      => $comment,
+            'billing'      => $order->getBillingAddress(),
+            'payment_html' => $paymentBlockHtml,
         ]);
         $mailer->send();
 
@@ -928,10 +928,10 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams([
-                'order'        => $order,
-                'invoice'      => $this,
-                'comment'      => $comment,
-                'billing'      => $order->getBillingAddress()
+            'order'        => $order,
+            'invoice'      => $this,
+            'comment'      => $comment,
+            'billing'      => $order->getBillingAddress(),
         ]);
         $mailer->send();
 

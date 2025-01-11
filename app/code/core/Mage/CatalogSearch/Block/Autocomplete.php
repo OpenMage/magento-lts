@@ -66,9 +66,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             $html .= $this->escapeHtml($item['title']) . '</li>';
         }
 
-        $html .= '</ul>';
-
-        return $html;
+        return $html . '</ul>';
     }
 
     /**
@@ -87,7 +85,7 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
                 $_data = [
                     'title' => $item->getQueryText(),
                     'row_class' => (++$counter) % 2 ? 'odd' : 'even',
-                    'num_of_results' => $item->getNumResults()
+                    'num_of_results' => $item->getNumResults(),
                 ];
 
                 if ($item->getQueryText() == $query) {

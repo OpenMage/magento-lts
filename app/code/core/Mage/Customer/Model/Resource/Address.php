@@ -27,7 +27,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
         $resource = Mage::getSingleton('core/resource');
         $this->setType('customer_address')->setConnection(
             $resource->getConnection('customer_read'),
-            $resource->getConnection('customer_write')
+            $resource->getConnection('customer_write'),
         );
     }
 

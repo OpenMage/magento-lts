@@ -38,11 +38,11 @@ class Mage_Api2_Model_Acl_Global_Rule_Permission
         return [
             [
                 'value' => self::TYPE_DENY,
-                'label' => Mage::helper('api2')->__('Deny')
+                'label' => Mage::helper('api2')->__('Deny'),
             ],
             [
                 'value' => self::TYPE_ALLOW,
-                'label' => Mage::helper('api2')->__('Allow')
+                'label' => Mage::helper('api2')->__('Allow'),
             ],
         ];
     }

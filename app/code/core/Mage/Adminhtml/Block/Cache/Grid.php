@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'index'     => 'status',
             'type'      => 'options',
             'options'   => [0 => $this->__('Disabled'), 1 => $this->__('Enabled')],
-            'frame_callback' => [$this, 'decorateStatus']
+            'frame_callback' => [$this, 'decorateStatus'],
         ]);
 
         return parent::_prepareColumns();

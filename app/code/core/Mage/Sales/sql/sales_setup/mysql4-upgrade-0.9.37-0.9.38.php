@@ -33,7 +33,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('customer_entity'),
     'entity_id',
     'set null',
-    'cascade'
+    'cascade',
 );
 
 $installer->endSetup();

@@ -133,6 +133,6 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getCodeSeparator()
     {
-        return (string)Mage::app()->getConfig()->getNode(self::XML_CHARSET_SEPARATOR);
+        return (string) Mage::app()->getConfig()->getNode(self::XML_CHARSET_SEPARATOR);
     }
 }

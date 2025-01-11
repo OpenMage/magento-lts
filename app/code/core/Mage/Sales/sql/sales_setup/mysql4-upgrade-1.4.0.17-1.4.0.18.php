@@ -21,17 +21,17 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('sales/invoice_comment'),
     'is_visible_on_front',
-    'tinyint(1) unsigned not null default 0 after `is_customer_notified`'
+    'tinyint(1) unsigned not null default 0 after `is_customer_notified`',
 );
 $installer->getConnection()->addColumn(
     $installer->getTable('sales/shipment_comment'),
     'is_visible_on_front',
-    'tinyint(1) unsigned not null default 0 after `is_customer_notified`'
+    'tinyint(1) unsigned not null default 0 after `is_customer_notified`',
 );
 $installer->getConnection()->addColumn(
     $installer->getTable('sales/creditmemo_comment'),
     'is_visible_on_front',
-    'tinyint(1) unsigned not null default 0 after `is_customer_notified`'
+    'tinyint(1) unsigned not null default 0 after `is_customer_notified`',
 );
 
 $installer->endSetup();

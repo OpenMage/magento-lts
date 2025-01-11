@@ -144,7 +144,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             } catch (Exception $e) {
                 $this->getCheckoutSession()->addException(
                     $e,
-                    Mage::helper('checkout')->__('Cannot add the item to shopping cart.')
+                    Mage::helper('checkout')->__('Cannot add the item to shopping cart.'),
                 );
                 $this->_redirect('checkout/cart');
             }

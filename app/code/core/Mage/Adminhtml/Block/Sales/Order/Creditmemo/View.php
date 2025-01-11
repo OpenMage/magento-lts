@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addButton('cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
                 'class'     => 'delete',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl())
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCancelUrl()),
             ]);
         }
 
@@ -51,8 +51,8 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
                 'label'     => Mage::helper('sales')->__('Send Email'),
                 'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs(
                     $this->getEmailUrl(),
-                    Mage::helper('sales')->__('Are you sure you want to send Creditmemo email to customer?')
-                )
+                    Mage::helper('sales')->__('Are you sure you want to send Creditmemo email to customer?'),
+                ),
             ]);
         }
 
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addButton('refund', [
                 'label'     => Mage::helper('sales')->__('Refund'),
                 'class'     => 'save',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getRefundUrl())
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getRefundUrl()),
             ]);
         }
 
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addButton('void', [
                 'label'     => Mage::helper('sales')->__('Void'),
                 'class'     => 'save',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl())
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
 
             ]);
         }
@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl())
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
             ]);
         }
     }
@@ -110,10 +110,10 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             $this->formatDate(
                 $this->getCreditmemo()->getCreatedAtDate(),
                 'medium',
-                true
+                true,
             ),
             $this->getCreditmemo()->getStateName(),
-            $emailSent
+            $emailSent,
         );
     }
 
@@ -128,8 +128,8 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             '*/sales_order/view',
             [
                 'order_id'  => $this->getCreditmemo()->getOrderId(),
-                'active_tab' => 'order_creditmemos'
-            ]
+                'active_tab' => 'order_creditmemos',
+            ],
         );
     }
 
@@ -172,7 +172,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
     {
         return $this->getUrl('*/*/email', [
             'creditmemo_id' => $this->getCreditmemo()->getId(),
-            'order_id'      => $this->getCreditmemo()->getOrderId()
+            'order_id'      => $this->getCreditmemo()->getOrderId(),
         ]);
     }
 
@@ -184,7 +184,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
     public function getPrintUrl()
     {
         return $this->getUrl('*/*/print', [
-            'creditmemo_id' => $this->getCreditmemo()->getId()
+            'creditmemo_id' => $this->getCreditmemo()->getId(),
         ]);
     }
 
@@ -200,14 +200,14 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
                 return $this->_updateButton(
                     'back',
                     'onclick',
-                    Mage::helper('core/js')->getSetLocationJs($this->getCreditmemo()->getBackUrl())
+                    Mage::helper('core/js')->getSetLocationJs($this->getCreditmemo()->getBackUrl()),
                 );
             }
 
             return $this->_updateButton(
                 'back',
                 'onclick',
-                Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_creditmemo/'))
+                Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_creditmemo/')),
             );
         }
         return $this;

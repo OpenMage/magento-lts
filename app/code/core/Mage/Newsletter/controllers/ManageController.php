@@ -60,9 +60,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         try {
             $this->getCustomerSession()->getCustomer()
             ->setStoreId(Mage::app()->getStore()->getId())
-            ->setIsSubscribed((bool)$this->getRequest()->getParam('is_subscribed', false))
+            ->setIsSubscribed((bool) $this->getRequest()->getParam('is_subscribed', false))
             ->save();
-            if ((bool)$this->getRequest()->getParam('is_subscribed', false)) {
+            if ((bool) $this->getRequest()->getParam('is_subscribed', false)) {
                 $this->getCustomerSession()->addSuccess($this->__('The subscription has been saved.'));
             } else {
                 $this->getCustomerSession()->addSuccess($this->__('The subscription has been removed.'));

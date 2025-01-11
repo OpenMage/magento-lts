@@ -19,6 +19,4 @@
  * @package    Mage_Catalog
  * @deprecated
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Mage_Catalog_Model_Resource_Category_Indexer_Product
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Mage_Catalog_Model_Resource_Category_Indexer_Product {}

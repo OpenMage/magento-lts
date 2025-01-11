@@ -31,7 +31,7 @@ if ($row) {
     $installer->getConnection()->update(
         $installer->getTable('core_website'),
         ['is_default' => 1],
-        $whereBind
+        $whereBind,
     );
 }
 

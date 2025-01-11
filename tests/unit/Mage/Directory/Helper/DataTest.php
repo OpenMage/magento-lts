@@ -89,7 +89,7 @@ class DataTest extends TestCase
     {
         yield 'as json' => [
             '["HK","IE","MO","PA"]',
-            true
+            true,
         ];
         yield 'as array' => [
             [
@@ -98,7 +98,7 @@ class DataTest extends TestCase
                 2 => 'MO',
                 3 => 'PA',
             ],
-            false
+            false,
         ];
     }
 
@@ -132,7 +132,7 @@ class DataTest extends TestCase
     {
         yield 'as json' => [
             '["AT","CA","CH","DE","EE","ES","FI","FR","LT","LV","RO","US"]',
-            true
+            true,
         ];
         yield 'as array' => [
             [
@@ -149,7 +149,7 @@ class DataTest extends TestCase
                 10 => 'RO',
                 11 => 'US',
             ],
-            false
+            false,
         ];
     }
 

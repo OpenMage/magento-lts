@@ -173,8 +173,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getUrl()
     {
         $url = 'http' . ($this->getHttpSecure() ? 's' : '') . '://';
-        $url .= $this->getHttpHost() . $this->getRequestUri();
-        return $url;
+        return $url . ($this->getHttpHost() . $this->getRequestUri());
     }
 
     /**

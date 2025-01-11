@@ -232,7 +232,7 @@ class Mage_Checkout_Model_Type_Onepage
      */
     public function getAddress($addressId)
     {
-        $address = Mage::getModel('customer/address')->load((int)$addressId);
+        $address = Mage::getModel('customer/address')->load((int) $addressId);
         $address->explodeStreetAddress();
         if ($address->getRegionId()) {
             $address->setRegion($address->getRegionId());
@@ -267,7 +267,7 @@ class Mage_Checkout_Model_Type_Onepage
             if ($customerAddress->getId()) {
                 if ($customerAddress->getCustomerId() != $this->getQuote()->getCustomerId()) {
                     return ['error' => 1,
-                        'message' => Mage::helper('checkout')->__('Customer Address is not valid.')
+                        'message' => Mage::helper('checkout')->__('Customer Address is not valid.'),
                     ];
                 }
 
@@ -324,7 +324,7 @@ class Mage_Checkout_Model_Type_Onepage
             /**
              * Billing address using options
              */
-            $usingCase = isset($data['use_for_shipping']) ? (int)$data['use_for_shipping'] : 0;
+            $usingCase = isset($data['use_for_shipping']) ? (int) $data['use_for_shipping'] : 0;
 
             switch ($usingCase) {
                 case 0:
@@ -405,7 +405,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($customerErrors !== true) {
             return [
                 'error'     => -1,
-                'message'   => implode(', ', $customerErrors)
+                'message'   => implode(', ', $customerErrors),
             ];
         }
 
@@ -433,7 +433,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($result !== true && is_array($result)) {
             return [
                 'error'   => -1,
-                'message' => implode(', ', $result)
+                'message' => implode(', ', $result),
             ];
         }
 
@@ -492,7 +492,7 @@ class Mage_Checkout_Model_Type_Onepage
                 'confirmation' => 'confirm_password',
                 'taxvat'       => 'taxvat',
                 'gender'       => 'gender',
-                     ] as $key => $dataKey
+            ] as $key => $dataKey
             ) {
                 $customer->setData($key, $address->getData($dataKey));
             }
@@ -503,7 +503,7 @@ class Mage_Checkout_Model_Type_Onepage
             if ($validationResult !== true && is_array($validationResult)) {
                 return [
                     'error'   => -1,
-                    'message' => implode(', ', $validationResult)
+                    'message' => implode(', ', $validationResult),
                 ];
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
@@ -511,7 +511,7 @@ class Mage_Checkout_Model_Type_Onepage
             if (!Zend_Validate::is($email, 'EmailAddress')) {
                 return [
                     'error'   => -1,
-                    'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email)
+                    'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email),
                 ];
             }
         }
@@ -544,7 +544,7 @@ class Mage_Checkout_Model_Type_Onepage
             if ($customerAddress->getId()) {
                 if ($customerAddress->getCustomerId() != $this->getQuote()->getCustomerId()) {
                     return ['error' => 1,
-                        'message' => Mage::helper('checkout')->__('Customer Address is not valid.')
+                        'message' => Mage::helper('checkout')->__('Customer Address is not valid.'),
                     ];
                 }
 
@@ -770,7 +770,7 @@ class Mage_Checkout_Model_Type_Onepage
             $customer->sendNewAccountEmail('confirmation', '', $this->getQuote()->getStoreId());
             $url = Mage::helper('customer')->getEmailConfirmationUrl($customer->getEmail());
             $this->getCustomerSession()->addSuccess(
-                Mage::helper('customer')->__('Account confirmation is required. Please, check your e-mail for confirmation link. To resend confirmation email please <a href="%s">click here</a>.', $url)
+                Mage::helper('customer')->__('Account confirmation is required. Please, check your e-mail for confirmation link. To resend confirmation email please <a href="%s">click here</a>.', $url),
             );
         } else {
             $customer->sendNewAccountEmail('registered', '', $this->getQuote()->getStoreId());
@@ -820,7 +820,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($order) {
             Mage::dispatchEvent(
                 'checkout_type_onepage_save_order_after',
-                ['order' => $order, 'quote' => $this->getQuote()]
+                ['order' => $order, 'quote' => $this->getQuote()],
             );
 
             /**
@@ -865,7 +865,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         Mage::dispatchEvent(
             'checkout_submit_all_after',
-            ['order' => $order, 'quote' => $this->getQuote(), 'recurring_profiles' => $profiles]
+            ['order' => $order, 'quote' => $this->getQuote(), 'recurring_profiles' => $profiles],
         );
 
         return $this;

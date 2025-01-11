@@ -105,7 +105,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
                         $index++;
                     } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
                 } else {
-                    $range = (float)Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_STEP);
+                    $range = (float) Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_STEP);
                 }
             }
 
@@ -198,7 +198,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             return $formattedFromPrice;
         } else {
             if ($fromPrice != $toPrice) {
-                $toPrice = (float)$toPrice - .01;
+                $toPrice = (float) $toPrice - .01;
             }
             return Mage::helper('catalog')->__('%s - %s', $formattedFromPrice, $store->formatPrice($toPrice));
         }
@@ -218,9 +218,8 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             . '_LOC_'
         ;
         $taxReq = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
-        $key .= implode('_', $taxReq->getData());
 
-        return $key;
+        return $key . implode('_', $taxReq->getData());
     }
 
     /**
@@ -263,7 +262,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             $collection->getMinPrice(),
             $collection->getMaxPrice(),
             $collection->getPriceStandardDeviation(),
-            $collection->getPricesCount()
+            $collection->getPricesCount(),
         );
 
         if ($appliedInterval) {
@@ -346,7 +345,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             return false;
         }
         foreach ($filter as $v) {
-            if (($v !== '' && $v !== '0' && (float)$v <= 0) || is_infinite((float)$v)) {
+            if (($v !== '' && $v !== '0' && (float) $v <= 0) || is_infinite((float) $v)) {
                 return false;
             }
         }
@@ -399,7 +398,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         $this->_applyPriceRange();
         $this->getLayer()->getState()->addFilter($this->_createItem(
             $this->_renderRangeLabel(empty($from) ? 0 : $from, $to),
-            $filter
+            $filter,
         ));
 
         return $this;
@@ -479,7 +478,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     public function getMaxIntervalsNumber()
     {
-        return (int)Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_MAX_INTERVALS);
+        return (int) Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_MAX_INTERVALS);
     }
 
     /**
@@ -489,7 +488,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      */
     public function getIntervalDivisionLimit()
     {
-        return (int)Mage::app()->getStore()->getConfig(self::XML_PATH_INTERVAL_DIVISION_LIMIT);
+        return (int) Mage::app()->getStore()->getConfig(self::XML_PATH_INTERVAL_DIVISION_LIMIT);
     }
 
     /**

@@ -44,7 +44,7 @@ foreach ($tables as $table) {
                 . ' LIMIT ' . ($row['rows_count'] - 1);
             $installer->getConnection()->query($sql, [
                 $row['entity_id'],
-                $row['attribute_id']
+                $row['attribute_id'],
             ]);
         }
 

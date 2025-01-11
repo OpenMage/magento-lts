@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
         $this->setForm($form);
 
         $fieldset = $form->addFieldset('rating_form', [
-            'legend' => Mage::helper('rating')->__('Rating Title')
+            'legend' => Mage::helper('rating')->__('Rating Title'),
         ]);
 
         $fieldset->addField('rating_code', 'text', [
@@ -91,13 +91,13 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
         }
 
         $fieldset = $form->addFieldset('visibility_form', [
-            'legend' => Mage::helper('rating')->__('Rating Visibility')
+            'legend' => Mage::helper('rating')->__('Rating Visibility'),
         ]);
 
         $field = $fieldset->addField('stores', 'multiselect', [
             'label' => Mage::helper('rating')->__('Visible In'),
             'name' => 'stores[]',
-            'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm()
+            'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
         ]);
         $renderer = $this->getStoreSwitcherRenderer();
         $field->setRenderer($renderer);

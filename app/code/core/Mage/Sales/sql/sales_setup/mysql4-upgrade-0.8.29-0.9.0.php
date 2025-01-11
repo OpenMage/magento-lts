@@ -265,7 +265,7 @@ $itemFields  = array_keys($installer->getConnection()->describeTable($installer-
 $quoteRows = [];
 $query = $installer->getConnection()->query(
     $installer->getConnection()->select()
-        ->from($installer->getTable('sales_quote'), 'entity_id')
+        ->from($installer->getTable('sales_quote'), 'entity_id'),
 );
 while ($row = $query->fetch()) {
     $quoteRows[] = $row['entity_id'];
@@ -275,13 +275,13 @@ foreach ($quoteRows as $oldQuoteId) {
     $quoteInfo = $installer->getConnection()->fetchRow(
         $installer->getConnection()->select()
             ->from($installer->getTable('sales_quote'))
-            ->where('entity_id=?', $oldQuoteId)
+            ->where('entity_id=?', $oldQuoteId),
     );
 
     $quoteItems = $installer->getConnection()->fetchAll(
         $installer->getConnection()->select()
             ->from($installer->getTable('sales_quote_item'))
-            ->where('parent_id=?', $oldQuoteId)
+            ->where('parent_id=?', $oldQuoteId),
     );
 
     if (!empty($quoteItems)) {
@@ -299,7 +299,7 @@ foreach ($quoteRows as $oldQuoteId) {
 
         foreach ($quoteItems as $itemInfo) {
             $itemData = [
-                'quote_id' => $quoteId
+                'quote_id' => $quoteId,
             ];
 
             foreach ($itemFields as $field) {

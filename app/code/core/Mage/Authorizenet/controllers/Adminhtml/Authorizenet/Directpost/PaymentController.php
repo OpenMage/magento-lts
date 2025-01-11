@@ -108,7 +108,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
                     $adminUrl = Mage::getSingleton('adminhtml/url');
                     if ($adminUrl->useSecretKey()) {
                         $requestToPaygate->setKey(
-                            $adminUrl->getSecretKey('authorizenet_directpost_payment', 'redirect')
+                            $adminUrl->getSecretKey('authorizenet_directpost_payment', 'redirect'),
                         );
                     }
                     $result['directpost'] = ['fields' => $requestToPaygate->getData()];
@@ -136,7 +136,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         } else {
             $result = [
-                'error_messages' => $this->__('Please, choose payment method')
+                'error_messages' => $this->__('Please, choose payment method'),
             ];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }

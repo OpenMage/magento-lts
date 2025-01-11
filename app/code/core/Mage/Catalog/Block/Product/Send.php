@@ -38,7 +38,7 @@ class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstrac
      */
     public function getEmail()
     {
-        return (string)$this->getCustomerSession()->getCustomer()->getEmail();
+        return (string) $this->getCustomerSession()->getCustomer()->getEmail();
     }
 
     /**

@@ -102,7 +102,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
             return $helper->isEnabled() && $helper->isRememberMeEnabled() && $helper->isRememberMeCheckedDefault();
         }
 
-        return (bool)$this->_isRememberMeChecked;
+        return (bool) $this->_isRememberMeChecked;
     }
 
     /**

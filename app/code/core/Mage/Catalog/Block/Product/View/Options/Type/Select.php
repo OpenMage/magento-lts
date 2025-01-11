@@ -44,7 +44,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
             $block = $this->getLayout()->createBlock('core/html_select');
             $select = $block->setData([
                 'id' => 'select_' . $option->getId(),
-                'class' => $require . ' product-custom-option'
+                'class' => $require . ' product-custom-option',
             ]);
             if ($option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN) {
                 $select->setName('options[' . $option->getId() . ']')
@@ -60,12 +60,12 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
             foreach ($option->getValues() as $value) {
                 $priceStr = $this->_formatPrice([
                     'is_percent'    => ($value->getPriceType() === 'percent'),
-                    'pricing_value' => $value->getPrice(($value->getPriceType() === 'percent'))
+                    'pricing_value' => $value->getPrice(($value->getPriceType() === 'percent')),
                 ], false);
                 $select->addOption(
                     $value->getOptionTypeId(),
                     $value->getTitle() . ' ' . $priceStr . '',
-                    ['price' => $helper::currencyByStore($value->getPrice(true), $store, false)]
+                    ['price' => $helper::currencyByStore($value->getPrice(true), $store, false)],
                 );
             }
             if ($option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
@@ -113,7 +113,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
 
                 $priceStr = $this->_formatPrice([
                     'is_percent'    => ($value->getPriceType() === 'percent'),
-                    'pricing_value' => $value->getPrice($value->getPriceType() === 'percent')
+                    'pricing_value' => $value->getPrice($value->getPriceType() === 'percent'),
                 ]);
 
                 $htmlValue = $value->getOptionTypeId();
@@ -142,9 +142,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                 }
                 $selectHtml .= '</li>';
             }
-            $selectHtml .= '</ul>';
 
-            return $selectHtml;
+            return $selectHtml . '</ul>';
         }
     }
 }

@@ -85,7 +85,7 @@ foreach ($websiteRows as $websiteRow) {
     } elseif (isset($rootCategoryIds['default'][0])) {
         $rootCategoryId = $rootCategoryIds['default'][0];
     }
-    $defaultStoreId = (int)$installer->getConnection()
+    $defaultStoreId = (int) $installer->getConnection()
         ->fetchOne($installer->getConnection()
             ->select()
             ->from($this->getTable('core_store'))
@@ -97,7 +97,7 @@ foreach ($websiteRows as $websiteRow) {
         'website_id'        => $websiteRow['website_id'],
         'name'              => $websiteRow['name'] . ' Store',
         'root_category_id'  => $rootCategoryId,
-        'default_store_id'  => $defaultStoreId
+        'default_store_id'  => $defaultStoreId,
     ]);
     $groupId = $installer->getConnection()->lastInsertId();
     // set group for store(s)
@@ -105,14 +105,14 @@ foreach ($websiteRows as $websiteRow) {
         ->update(
             $this->getTable('core_store'),
             ['group_id' => $groupId],
-            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
+            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id']),
         );
     // set created group as default for website
     $installer->getConnection()
         ->update(
             $this->getTable('core_website'),
             ['default_group_id' => $groupId],
-            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id'])
+            $installer->getConnection()->quoteInto('website_id=?', $websiteRow['website_id']),
         );
 }
 

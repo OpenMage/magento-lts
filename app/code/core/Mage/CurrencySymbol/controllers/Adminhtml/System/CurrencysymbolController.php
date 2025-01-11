@@ -38,11 +38,11 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
             ->_setActiveMenu('system/currency/symbols')
             ->_addBreadcrumb(
                 Mage::helper('currencysymbol')->__('System'),
-                Mage::helper('currencysymbol')->__('System')
+                Mage::helper('currencysymbol')->__('System'),
             )
             ->_addBreadcrumb(
                 Mage::helper('currencysymbol')->__('Manage Currency Rates'),
-                Mage::helper('currencysymbol')->__('Manage Currency Rates')
+                Mage::helper('currencysymbol')->__('Manage Currency Rates'),
             );
 
         $this->_title($this->__('System'))
@@ -65,7 +65,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
         try {
             Mage::getModel('currencysymbol/system_currencysymbol')->setCurrencySymbolsData($symbolsDataArray);
             $this->getAdminhtmlSession()->addSuccess(
-                Mage::helper('currencysymbol')->__('Custom currency symbols were applied successfully.')
+                Mage::helper('currencysymbol')->__('Custom currency symbols were applied successfully.'),
             );
         } catch (Exception $e) {
             $this->getAdminhtmlSession()->addError($e->getMessage());

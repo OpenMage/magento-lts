@@ -28,7 +28,7 @@ foreach ($entitiesToUpgrade as $entityTypeId) {
             $entityTypeId,
             $attributeId,
             'backend_model',
-            'catalog/attribute_backend_customlayoutupdate'
+            'catalog/attribute_backend_customlayoutupdate',
         );
     }
 }

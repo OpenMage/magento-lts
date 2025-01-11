@@ -57,7 +57,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->getSelect()->where('order_items.store_id IN (?)', (array)$storeIds);
+            $this->getSelect()->where('order_items.store_id IN (?)', (array) $storeIds);
         }
         return $this;
     }
@@ -78,7 +78,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
             $subQuery = $this->getConnection()->select()
                 ->from(
                     ['product_website' => $this->getTable('catalog/product_website')],
-                    ['product_website.product_id']
+                    ['product_website.product_id'],
                 )
                 ->where(implode(' AND ', $conditions));
             $this->getSelect()->where('e.entity_id IN( ' . $subQuery . ' )');

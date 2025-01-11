@@ -294,7 +294,7 @@ class Mage_Shipping_Model_Shipping
                 foreach ($decimalItems as $decimalItem) {
                     $fullItems = array_merge(
                         $fullItems,
-                        array_fill(0, $decimalItem['qty'] * $qty, $decimalItem['weight'])
+                        array_fill(0, $decimalItem['qty'] * $qty, $decimalItem['weight']),
                     );
                 }
             } else {
@@ -334,18 +334,18 @@ class Mage_Shipping_Model_Shipping
                         unset($items[$keyItem]);
                         $sumWeight += $weightItem;
                     } elseif (($sumWeight + $weightItem) > $maxWeight) {
-                        $pieces[] = (string)(float)$sumWeight;
+                        $pieces[] = (string) (float) $sumWeight;
                         break;
                     } else {
                         unset($items[$keyItem]);
-                        $pieces[] = (string)(float)($sumWeight + $weightItem);
+                        $pieces[] = (string) (float) ($sumWeight + $weightItem);
                         $sumWeight = 0;
                         break;
                     }
                 }
             }
             if ($sumWeight > 0) {
-                $pieces[] = (string)(float)$sumWeight;
+                $pieces[] = (string) (float) $sumWeight;
             }
             $pieces = array_count_values($pieces);
         }
@@ -453,7 +453,7 @@ class Mage_Shipping_Model_Shipping
             || !Mage::getStoreConfig(self::XML_PATH_STORE_COUNTRY_ID, $shipmentStoreId)
         ) {
             Mage::throwException(
-                Mage::helper('sales')->__('Insufficient information to create shipping label(s). Please verify your Store Information and Shipping Settings.')
+                Mage::helper('sales')->__('Insufficient information to create shipping label(s). Please verify your Store Information and Shipping Settings.'),
             );
         }
 

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -152,7 +152,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         Mage::getSingleton('index/indexer')->logEvent(
             $this,
             self::ENTITY,
-            Mage_Index_Model_Event::TYPE_DELETE
+            Mage_Index_Model_Event::TYPE_DELETE,
         );
         return parent::_beforeDelete();
     }
@@ -167,7 +167,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         parent::_afterDeleteCommit();
         Mage::getSingleton('index/indexer')->indexEvents(
             self::ENTITY,
-            Mage_Index_Model_Event::TYPE_DELETE
+            Mage_Index_Model_Event::TYPE_DELETE,
         );
         return $this;
     }
@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Retrieve store id
      *
-     * @return int
+     * @return int|null
      */
     public function getStoreId()
     {
@@ -223,7 +223,9 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         if ($dataObject) {
             return $dataObject->getStoreId();
         }
-        return (int)$this->getData('store_id');
+
+        $storeId = $this->getDataByKey('store_id');
+        return is_null($storeId) ? null : (int) $storeId;
     }
 
     /**

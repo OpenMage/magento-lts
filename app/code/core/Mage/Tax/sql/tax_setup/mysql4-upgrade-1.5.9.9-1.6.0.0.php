@@ -23,37 +23,37 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/tax_calculation'),
-    'FK_TAX_CALCULATION_CTC'
+    'FK_TAX_CALCULATION_CTC',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/tax_calculation'),
-    'FK_TAX_CALCULATION_PTC'
+    'FK_TAX_CALCULATION_PTC',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/tax_calculation'),
-    'FK_TAX_CALCULATION_RATE'
+    'FK_TAX_CALCULATION_RATE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/tax_calculation'),
-    'FK_TAX_CALCULATION_RULE'
+    'FK_TAX_CALCULATION_RULE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/tax_calculation_rate_title'),
-    'FK_TAX_CALCULATION_RATE_TITLE_RATE'
+    'FK_TAX_CALCULATION_RATE_TITLE_RATE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/tax_calculation_rate_title'),
-    'FK_TAX_CALCULATION_RATE_TITLE_STORE'
+    'FK_TAX_CALCULATION_RATE_TITLE_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/tax_order_aggregated_created'),
-    'FK_TAX_ORDER_AGGREGATED_CREATED_STORE'
+    'FK_TAX_ORDER_AGGREGATED_CREATED_STORE',
 );
 
 /**
@@ -61,77 +61,77 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation'),
-    'FK_TAX_CALCULATION_RULE'
+    'FK_TAX_CALCULATION_RULE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation'),
-    'FK_TAX_CALCULATION_RATE'
+    'FK_TAX_CALCULATION_RATE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation'),
-    'FK_TAX_CALCULATION_CTC'
+    'FK_TAX_CALCULATION_CTC',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation'),
-    'FK_TAX_CALCULATION_PTC'
+    'FK_TAX_CALCULATION_PTC',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation'),
-    'IDX_TAX_CALCULATION'
+    'IDX_TAX_CALCULATION',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation_rate'),
-    'IDX_TAX_CALCULATION_RATE'
+    'IDX_TAX_CALCULATION_RATE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation_rate'),
-    'IDX_TAX_CALCULATION_RATE_CODE'
+    'IDX_TAX_CALCULATION_RATE_CODE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation_rate'),
-    'IDX_TAX_CALCULATION_RATE_RANGE'
+    'IDX_TAX_CALCULATION_RATE_RANGE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation_rate_title'),
-    'IDX_TAX_CALCULATION_RATE_TITLE'
+    'IDX_TAX_CALCULATION_RATE_TITLE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation_rate_title'),
-    'FK_TAX_CALCULATION_RATE_TITLE_RATE'
+    'FK_TAX_CALCULATION_RATE_TITLE_RATE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation_rate_title'),
-    'FK_TAX_CALCULATION_RATE_TITLE_STORE'
+    'FK_TAX_CALCULATION_RATE_TITLE_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation_rule'),
-    'IDX_TAX_CALCULATION_RULE'
+    'IDX_TAX_CALCULATION_RULE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_calculation_rule'),
-    'IDX_TAX_CALCULATION_RULE_CODE'
+    'IDX_TAX_CALCULATION_RULE_CODE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_order_aggregated_created'),
-    'UNQ_PERIOD_STORE_CODE_ORDER_STATUS'
+    'UNQ_PERIOD_STORE_CODE_ORDER_STATUS',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_order_aggregated_created'),
-    'IDX_STORE_ID'
+    'IDX_STORE_ID',
 );
 
 /**
@@ -145,48 +145,48 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Class Id'
+                'comment'   => 'Class Id',
             ],
             'class_name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Class Name'
+                'comment'   => 'Class Name',
             ],
             'class_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 8,
                 'nullable'  => false,
                 'default'   => Mage_Tax_Model_Class::TAX_CLASS_TYPE_CUSTOMER,
-                'comment'   => 'Class Type'
-            ]
+                'comment'   => 'Class Type',
+            ],
         ],
-        'comment' => 'Tax Class'
+        'comment' => 'Tax Class',
     ],
     $installer->getTable('tax/tax_calculation') => [
         'columns' => [
             'tax_calculation_rate_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
-                'comment'   => 'Tax Calculation Rate Id'
+                'comment'   => 'Tax Calculation Rate Id',
             ],
             'tax_calculation_rule_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
-                'comment'   => 'Tax Calculation Rule Id'
+                'comment'   => 'Tax Calculation Rule Id',
             ],
             'customer_tax_class_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
-                'comment'   => 'Customer Tax Class Id'
+                'comment'   => 'Customer Tax Class Id',
             ],
             'product_tax_class_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
-                'comment'   => 'Product Tax Class Id'
-            ]
+                'comment'   => 'Product Tax Class Id',
+            ],
         ],
-        'comment' => 'Tax Calculation'
+        'comment' => 'Tax Calculation',
     ],
     $installer->getTable('tax/tax_calculation_rate') => [
         'columns' => [
@@ -195,29 +195,29 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Tax Calculation Rate Id'
+                'comment'   => 'Tax Calculation Rate Id',
             ],
             'tax_country_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 2,
                 'nullable'  => false,
-                'comment'   => 'Tax Country Id'
+                'comment'   => 'Tax Country Id',
             ],
             'tax_region_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
-                'comment'   => 'Tax Region Id'
+                'comment'   => 'Tax Region Id',
             ],
             'tax_postcode' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 21,
-                'comment'   => 'Tax Postcode'
+                'comment'   => 'Tax Postcode',
             ],
             'code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Code'
+                'comment'   => 'Code',
             ],
             'rate' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -225,24 +225,24 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Rate'
+                'comment'   => 'Rate',
             ],
             'zip_is_range' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
-                'comment'   => 'Zip Is Range'
+                'comment'   => 'Zip Is Range',
             ],
             'zip_from' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Zip From'
+                'comment'   => 'Zip From',
             ],
             'zip_to' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Zip To'
-            ]
+                'comment'   => 'Zip To',
+            ],
         ],
-        'comment' => 'Tax Calculation Rate'
+        'comment' => 'Tax Calculation Rate',
     ],
     $installer->getTable('tax/tax_calculation_rate_title') => [
         'columns' => [
@@ -251,27 +251,27 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Tax Calculation Rate Title Id'
+                'comment'   => 'Tax Calculation Rate Title Id',
             ],
             'tax_calculation_rate_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
-                'comment'   => 'Tax Calculation Rate Id'
+                'comment'   => 'Tax Calculation Rate Id',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Value'
-            ]
+                'comment'   => 'Value',
+            ],
         ],
-        'comment' => 'Tax Calculation Rate Title'
+        'comment' => 'Tax Calculation Rate Title',
     ],
     $installer->getTable('tax/tax_calculation_rule') => [
         'columns' => [
@@ -280,26 +280,26 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Tax Calculation Rule Id'
+                'comment'   => 'Tax Calculation Rule Id',
             ],
             'code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Code'
+                'comment'   => 'Code',
             ],
             'priority' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
-                'comment'   => 'Priority'
+                'comment'   => 'Priority',
             ],
             'position' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
-                'comment'   => 'Position'
-            ]
+                'comment'   => 'Position',
+            ],
         ],
-        'comment' => 'Tax Calculation Rule'
+        'comment' => 'Tax Calculation Rule',
     ],
     $installer->getTable('tax/tax_order_aggregated_created') => [
         'columns' => [
@@ -309,47 +309,47 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Id'
+                'comment'   => 'Id',
             ],
             'period' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
-                'comment'   => 'Period'
+                'comment'   => 'Period',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
-                'comment'   => 'Store Id'
+                'comment'   => 'Store Id',
             ],
             'code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Code'
+                'comment'   => 'Code',
             ],
             'order_status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
                 'nullable'  => false,
-                'comment'   => 'Order Status'
+                'comment'   => 'Order Status',
             ],
             'percent' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_FLOAT,
-                'comment'   => 'Percent'
+                'comment'   => 'Percent',
             ],
             'orders_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Orders Count'
+                'comment'   => 'Orders Count',
             ],
             'tax_base_amount_sum' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_FLOAT,
-                'comment'   => 'Tax Base Amount Sum'
-            ]
+                'comment'   => 'Tax Base Amount Sum',
+            ],
         ],
-        'comment' => 'Tax Order Aggregation'
-    ]
+        'comment' => 'Tax Order Aggregation',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -362,8 +362,8 @@ $installer->getConnection()->addColumn(
         'identity'  => true,
         'nullable'  => false,
         'primary'   => true,
-        'comment'   => 'Tax Calculation Id'
-    ]
+        'comment'   => 'Tax Calculation Id',
+    ],
 );
 
 /**
@@ -372,79 +372,79 @@ $installer->getConnection()->addColumn(
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation'),
     $installer->getIdxName('tax/tax_calculation', ['tax_calculation_rule_id']),
-    ['tax_calculation_rule_id']
+    ['tax_calculation_rule_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation'),
     $installer->getIdxName('tax/tax_calculation', ['tax_calculation_rate_id']),
-    ['tax_calculation_rate_id']
+    ['tax_calculation_rate_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation'),
     $installer->getIdxName('tax/tax_calculation', ['customer_tax_class_id']),
-    ['customer_tax_class_id']
+    ['customer_tax_class_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation'),
     $installer->getIdxName('tax/tax_calculation', ['product_tax_class_id']),
-    ['product_tax_class_id']
+    ['product_tax_class_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation'),
     $installer->getIdxName('tax/tax_calculation', ['tax_calculation_rate_id', 'customer_tax_class_id', 'product_tax_class_id']),
-    ['tax_calculation_rate_id', 'customer_tax_class_id', 'product_tax_class_id']
+    ['tax_calculation_rate_id', 'customer_tax_class_id', 'product_tax_class_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation_rate'),
     $installer->getIdxName('tax/tax_calculation_rate', ['tax_country_id', 'tax_region_id', 'tax_postcode']),
-    ['tax_country_id', 'tax_region_id', 'tax_postcode']
+    ['tax_country_id', 'tax_region_id', 'tax_postcode'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation_rate'),
     $installer->getIdxName('tax/tax_calculation_rate', ['code']),
-    ['code']
+    ['code'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation_rate'),
     $installer->getIdxName('tax/tax_calculation_rate', ['tax_calculation_rate_id', 'tax_country_id', 'tax_region_id', 'zip_is_range', 'tax_postcode']),
-    ['tax_calculation_rate_id', 'tax_country_id', 'tax_region_id', 'zip_is_range', 'tax_postcode']
+    ['tax_calculation_rate_id', 'tax_country_id', 'tax_region_id', 'zip_is_range', 'tax_postcode'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation_rate_title'),
     $installer->getIdxName('tax/tax_calculation_rate_title', ['tax_calculation_rate_id', 'store_id']),
-    ['tax_calculation_rate_id', 'store_id']
+    ['tax_calculation_rate_id', 'store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation_rate_title'),
     $installer->getIdxName('tax/tax_calculation_rate_title', ['tax_calculation_rate_id']),
-    ['tax_calculation_rate_id']
+    ['tax_calculation_rate_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation_rate_title'),
     $installer->getIdxName('tax/tax_calculation_rate_title', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation_rule'),
     $installer->getIdxName('tax/tax_calculation_rule', ['priority', 'position', 'tax_calculation_rule_id']),
-    ['priority', 'position', 'tax_calculation_rule_id']
+    ['priority', 'position', 'tax_calculation_rule_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_calculation_rule'),
     $installer->getIdxName('tax/tax_calculation_rule', ['code']),
-    ['code']
+    ['code'],
 );
 
 $installer->getConnection()->addIndex(
@@ -452,16 +452,16 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'tax/tax_order_aggregated_created',
         ['period', 'store_id', 'code', 'percent', 'order_status'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['period', 'store_id', 'code', 'percent', 'order_status'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('tax/tax_order_aggregated_created'),
     $installer->getIdxName('tax/tax_order_aggregated_created', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 /**
@@ -472,7 +472,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('tax/tax_calculation'),
     'product_tax_class_id',
     $installer->getTable('tax/tax_class'),
-    'class_id'
+    'class_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -480,7 +480,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('tax/tax_calculation'),
     'customer_tax_class_id',
     $installer->getTable('tax/tax_class'),
-    'class_id'
+    'class_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -488,7 +488,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('tax/tax_calculation'),
     'tax_calculation_rate_id',
     $installer->getTable('tax/tax_calculation_rate'),
-    'tax_calculation_rate_id'
+    'tax_calculation_rate_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -496,7 +496,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('tax/tax_calculation'),
     'tax_calculation_rule_id',
     $installer->getTable('tax/tax_calculation_rule'),
-    'tax_calculation_rule_id'
+    'tax_calculation_rule_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -504,7 +504,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('tax/tax_calculation_rate_title'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -512,7 +512,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('tax/tax_calculation_rate_title'),
     'tax_calculation_rate_id',
     $installer->getTable('tax/tax_calculation_rate'),
-    'tax_calculation_rate_id'
+    'tax_calculation_rate_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -520,6 +520,6 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('tax/tax_order_aggregated_created'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 $installer->endSetup();
