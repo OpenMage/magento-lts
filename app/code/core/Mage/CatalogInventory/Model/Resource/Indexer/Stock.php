@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +45,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     /**
      * Process stock item save action
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function cataloginventoryStockItemSave(Mage_Index_Model_Event $event)
@@ -110,7 +110,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     /**
      * Processing parent products after child product deleted
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function catalogProductDelete(Mage_Index_Model_Event $event)
@@ -144,7 +143,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     /**
      * Process product mass update action
      *
-     * @param Mage_Index_Model_Event $event
      * @return $this
      */
     public function catalogProductMassAction(Mage_Index_Model_Event $event)
@@ -291,7 +289,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             ->join(
                 ['e' => $this->getTable('catalog/product')],
                 'l.parent_id=e.entity_id',
-                ['e.type_id']
+                ['e.type_id'],
             )
             ->where('l.child_id = :child_id');
         return $write->fetchPairs($select, [':child_id' => $childId]);

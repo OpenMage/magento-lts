@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_HTTP
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,9 +26,7 @@ class Mage_HTTP_Client
     /**
      * Disallow to instantiate - pvt constructor
      */
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * Factory for HTTP client
@@ -40,12 +39,11 @@ class Mage_HTTP_Client
             $frontend = self::detectFrontend();
         }
         if (false === $frontend) {
-            throw new Exception("Cannot find frontend automatically, set it manually");
+            throw new Exception('Cannot find frontend automatically, set it manually');
         }
 
-        $class = __CLASS__ . "_" . str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $frontend)));
-        $obj = new $class();
-        return $obj;
+        $class = __CLASS__ . '_' . str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $frontend)));
+        return new $class();
     }
 
     /**
@@ -56,11 +54,11 @@ class Mage_HTTP_Client
      */
     protected static function detectFrontend()
     {
-        if (function_exists("curl_init")) {
-            return "curl";
+        if (function_exists('curl_init')) {
+            return 'curl';
         }
-        if (function_exists("fsockopen")) {
-            return "socket";
+        if (function_exists('fsockopen')) {
+            return 'socket';
         }
         return false;
     }

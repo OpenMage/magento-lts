@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Persistent
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +73,7 @@ class Mage_Persistent_Model_Observer
         /** @var Mage_Persistent_Model_Persistent_Config $persistentConfig */
         $persistentConfig = Mage::getModel('persistent/persistent_config')
             ->setConfigFilePath(
-                $configFilePath ? $configFilePath : Mage::helper('persistent')->getPersistentConfigFilePath()
+                $configFilePath ? $configFilePath : Mage::helper('persistent')->getPersistentConfigFilePath(),
             );
 
         /** @var Varien_Simplexml_Element $persistentConfigInfo */
@@ -91,7 +92,7 @@ class Mage_Persistent_Model_Observer
     public function emulateWelcomeMessageBlock($block)
     {
         $block->setWelcome(
-            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName(), null))
+            Mage::helper('persistent')->__('Welcome, %s!', Mage::helper('core')->escapeHtml($this->_getPersistentCustomer()->getName(), null)),
         );
         return $this;
     }
@@ -134,7 +135,7 @@ class Mage_Persistent_Model_Observer
             Mage::helper('persistent')->getPersistentName(),
             false,
             [],
-            110
+            110,
         );
         $block->removeLinkByUrl(Mage::helper('customer')->getRegisterUrl());
         $block->removeLinkByUrl(Mage::helper('customer')->getLoginUrl());
@@ -159,7 +160,7 @@ class Mage_Persistent_Model_Observer
     {
         $stopActions = [
             'persistent_index_saveMethod',
-            'customer_account_createpost'
+            'customer_account_createpost',
         ];
 
         if (!Mage::helper('persistent')->canProcess($observer)
@@ -342,7 +343,7 @@ class Mage_Persistent_Model_Observer
         $controllerAction = $observer->getEvent()->getControllerAction();
         if (method_exists($controllerAction, 'redirectLogin')) {
             Mage::getSingleton('core/session')->addNotice(
-                Mage::helper('persistent')->__('To proceed to Checkout, please log in using your email address.')
+                Mage::helper('persistent')->__('To proceed to Checkout, please log in using your email address.'),
             );
             $controllerAction->redirectLogin();
             if ($controllerAction instanceof Mage_Paypal_Controller_Express_Abstract) {
@@ -360,7 +361,7 @@ class Mage_Persistent_Model_Observer
     protected function _getPersistentCustomer()
     {
         return Mage::getModel('customer/customer')->load(
-            $this->_getPersistentHelper()->getSession()->getCustomerId()
+            $this->_getPersistentHelper()->getSession()->getCustomerId(),
         );
     }
 
@@ -465,8 +466,6 @@ class Mage_Persistent_Model_Observer
 
     /**
      * Check and clear session data if persistent session expired
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function checkExpirePersistentQuote(Varien_Event_Observer $observer)
     {
@@ -511,7 +510,6 @@ class Mage_Persistent_Model_Observer
     /**
      * Clear expired persistent sessions
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      */
     public function clearExpiredCronJob(Mage_Cron_Model_Schedule $schedule)
@@ -530,8 +528,6 @@ class Mage_Persistent_Model_Observer
 
     /**
      * Create handle for persistent session if persistent cookie and customer not logged in
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function createPersistentHandleLayout(Varien_Event_Observer $observer)
     {
@@ -549,8 +545,6 @@ class Mage_Persistent_Model_Observer
 
     /**
      * Update customer id and customer group id if user is in persistent session
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function updateCustomerCookies(Varien_Event_Observer $observer)
     {
@@ -583,7 +577,7 @@ class Mage_Persistent_Model_Observer
         if ($this->_isLoggedOut()) {
             /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer')->load(
-                $this->_getPersistentHelper()->getSession()->getCustomerId()
+                $this->_getPersistentHelper()->getSession()->getCustomerId(),
             );
             Mage::getSingleton('customer/session')
                 ->setCustomerId($customer->getId())

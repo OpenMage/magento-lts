@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,28 +30,29 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
      */
     public function getChilds($item)
     {
-        $_itemsArray = [];
+        $orderItems = [];
+        $itemsArray = [];
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
-            $_items = $item->getInvoice()->getAllItems();
+            $orderItems = $item->getInvoice()->getAllItems();
         } elseif ($item instanceof Mage_Sales_Model_Order_Shipment_Item) {
-            $_items = $item->getShipment()->getAllItems();
+            $orderItems = $item->getShipment()->getAllItems();
         } elseif ($item instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
-            $_items = $item->getCreditmemo()->getAllItems();
+            $orderItems = $item->getCreditmemo()->getAllItems();
         }
 
-        if ($_items) {
-            foreach ($_items as $_item) {
-                $parentItem = $_item->getOrderItem()->getParentItem();
+        if ($orderItems) {
+            foreach ($orderItems as $orderItem) {
+                $parentItem = $orderItem->getOrderItem()->getParentItem();
                 if ($parentItem) {
-                    $_itemsArray[$parentItem->getId()][$_item->getOrderItemId()] = $_item;
+                    $itemsArray[$parentItem->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 } else {
-                    $_itemsArray[$_item->getOrderItem()->getId()][$_item->getOrderItemId()] = $_item;
+                    $itemsArray[$orderItem->getOrderItem()->getId()][$orderItem->getOrderItemId()] = $orderItem;
                 }
             }
         }
 
-        return $_itemsArray[$item->getOrderItem()->getId()] ?? null;
+        return $itemsArray[$item->getOrderItem()->getId()] ?? null;
     }
 
     /**
@@ -228,7 +230,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Retrieve Value HTML
      *
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param Mage_Sales_Model_Order_Invoice_Item $item
      * @return string
      */
     public function getValueHtml($item)
@@ -243,7 +245,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         if (!$this->isChildCalculated($item)) {
             $attributes = $this->getSelectionAttributes($item);
             if ($attributes) {
-                $result .= " " . strip_tags($this->getOrderItem()->getOrder()->formatPrice($attributes['price']));
+                $result .= ' ' . strip_tags($this->getOrderItem()->getOrder()->formatPrice($attributes['price']));
             }
         }
         return $result;
@@ -252,13 +254,13 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     /**
      * Can show price info for item
      *
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function canShowPriceInfo($item)
     {
         if (($item->getOrderItem()->getParentItem() && $this->isChildCalculated())
-                || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated())
+            || (!$item->getOrderItem()->getParentItem() && !$this->isChildCalculated())
         ) {
             return true;
         }

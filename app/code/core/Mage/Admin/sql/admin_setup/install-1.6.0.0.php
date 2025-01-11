@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,11 +79,11 @@ $table = $installer->getConnection()
     ], 'Role Name')
     ->addIndex(
         $installer->getIdxName('admin/role', ['parent_id', 'sort_order']),
-        ['parent_id', 'sort_order']
+        ['parent_id', 'sort_order'],
     )
     ->addIndex(
         $installer->getIdxName('admin/role', ['tree_level']),
-        ['tree_level']
+        ['tree_level'],
     )
     ->setComment('Admin Role Table');
 $installer->getConnection()->createTable($table);
@@ -121,11 +122,11 @@ $table = $installer->getConnection()
     ], 'Permission')
     ->addIndex(
         $installer->getIdxName('admin/rule', ['resource_id', 'role_id']),
-        ['resource_id', 'role_id']
+        ['resource_id', 'role_id'],
     )
     ->addIndex(
         $installer->getIdxName('admin/rule', ['role_id', 'resource_id']),
-        ['role_id', 'resource_id']
+        ['role_id', 'resource_id'],
     )
     ->addForeignKey(
         $installer->getFkName('admin/rule', 'role_id', 'admin/role', 'role_id'),
@@ -133,7 +134,7 @@ $table = $installer->getConnection()
         $installer->getTable('admin/role'),
         'role_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Admin Rule Table');
 $installer->getConnection()->createTable($table);
@@ -189,7 +190,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('admin/user', ['username'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         ['username'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('Admin User Table');
 $installer->getConnection()->createTable($table);

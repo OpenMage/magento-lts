@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,10 +27,8 @@ class Mage_Core_Helper_Security
         ];
 
     /**
-     * @param Mage_Core_Block_Abstract $block
      * @param string                   $method
      * @param string[]                 $args
-     *
      * @throws Mage_Core_Exception
      */
     public function validateAgainstBlockMethodBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
@@ -41,7 +40,7 @@ class Mage_Core_Helper_Security
             }
             if ($block instanceof $action['block'] && strtolower($action['method']) === $calledMethod) {
                 Mage::throwException(
-                    sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method)
+                    sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method),
                 );
             }
         }

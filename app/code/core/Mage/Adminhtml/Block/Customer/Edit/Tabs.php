@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +41,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
         $this->addTab('account', [
             'label'     => Mage::helper('customer')->__('Account Information'),
             'content'   => $block->initForm()->toHtml(),
-            'active'    => Mage::registry('current_customer')->getId() ? false : true
+            'active'    => Mage::registry('current_customer')->getId() ? false : true,
         ]);
 
         /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses $block */
@@ -73,16 +74,20 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/wishlist', ['_current' => true]),
             ]);
 
-            if (Mage::helper('core')->isModuleOutputEnabled('Mage_Newsletter') && Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
+            if ($this->isModuleOutputEnabled('Mage_Newsletter')
+                && Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')
+            ) {
                 /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $block */
                 $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
                 $this->addTab('newsletter', [
                     'label'     => Mage::helper('customer')->__('Newsletter'),
-                    'content'   => $block->initForm()->toHtml()
+                    'content'   => $block->initForm()->toHtml(),
                 ]);
             }
 
-            if (Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings')) {
+            if ($this->isModuleOutputEnabled('Mage_Review')
+                && Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings')
+            ) {
                 $this->addTab('reviews', [
                     'label'     => Mage::helper('customer')->__('Product Reviews'),
                     'class'     => 'ajax',
@@ -90,7 +95,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 ]);
             }
 
-            if (Mage::helper('core')->isModuleEnabled('Mage_Tag') && Mage::getSingleton('admin/session')->isAllowed('catalog/tag')) {
+            if ($this->isModuleEnabled('Mage_Tag')
+                && Mage::getSingleton('admin/session')->isAllowed('catalog/tag')
+            ) {
                 $this->addTab('tags', [
                     'label'     => Mage::helper('customer')->__('Product Tags'),
                     'class'     => 'ajax',

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sitemap
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +56,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
             ->from(['main_table' => $this->getMainTable()], [$this->getIdFieldName()])
             ->where('main_table.path LIKE ?', $categoryRow['path'] . '/%');
 
-        $storeId = (int)$store->getId();
+        $storeId = (int) $store->getId();
 
         $urlRewrite = $this->_factory->getCategoryUrlRewriteHelper();
         $urlRewrite->joinTableToSelect($this->_select, $storeId);
@@ -70,7 +71,6 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      *
      * @deprecated after 1.7.0.2
      *
-     * @param array $categoryRow
      * @return Varien_Object
      */
     protected function _prepareCategory(array $categoryRow)
@@ -105,7 +105,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
             'attribute_id'   => $attribute->getId(),
             'table'          => $attribute->getBackend()->getTable(),
             'is_global'      => $attribute->getIsGlobal(),
-            'backend_type'   => $attribute->getBackendType()
+            'backend_type'   => $attribute->getBackendType(),
         ];
         return $this;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +43,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
      */
     protected function _processLocalizedQty($qty)
     {
-        $qty = (float)$qty;
+        $qty = (float) $qty;
         if ($qty < 0) {
             $qty = null;
         }
@@ -85,7 +86,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
 
         $qtysString = $this->getRequest()->getParam('qty');
         if (isset($qtysString)) {
-            $qtys = array_filter(json_decode($qtysString), '\strlen');
+            $qtys = array_filter(json_decode($qtysString), fn($tmpString) => strlen($tmpString ?? ''));
         }
 
         /** @var Mage_Wishlist_Model_Item $item */
@@ -186,7 +187,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             }
 
             Mage::getSingleton('checkout/session')->addSuccess(
-                Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', count($addedItems), implode(', ', $products))
+                Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', count($addedItems), implode(', ', $products)),
             );
 
             // save cart and collect totals

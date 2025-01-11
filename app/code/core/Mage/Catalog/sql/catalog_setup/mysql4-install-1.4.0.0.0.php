@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -503,7 +504,7 @@ CREATE TABLE {$installer->getTable('catalog_product_website')} (
   KEY `FK_CATALOG_PRODUCT_WEBSITE_WEBSITE` (`website_id`),
   CONSTRAINT `FK_CATALOG_PRODUCT_WEBSITE_WEBSITE` FOREIGN KEY (`website_id`) REFERENCES `{$installer->getTable('core/website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CATALOG_WEBSITE_PRODUCT_PRODUCT` FOREIGN KEY (`product_id`) REFERENCES `{$installer->getTable('catalog_product_entity')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = FIXED;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = DYNAMIC;
 
 -- DROP TABLE IF EXISTS `{$installer->getTable('catalog_product_entity_media_gallery')}`;
 CREATE TABLE `{$installer->getTable('catalog_product_entity_media_gallery')}` (
@@ -701,13 +702,13 @@ $groups = [
     'display'   => [
         'name'  => 'Display Settings',
         'sort'  => 20,
-        'id'    => null
+        'id'    => null,
     ],
     'design'    => [
         'name'  => 'Custom Design',
         'sort'  => 30,
-        'id'    => null
-    ]
+        'id'    => null,
+    ],
 ];
 
 foreach ($groups as $k => $groupProp) {
@@ -719,47 +720,47 @@ foreach ($groups as $k => $groupProp) {
 $attributes = [
     'custom_design'         => [
         'group' => 'design',
-        'sort'  => 10
+        'sort'  => 10,
     ],
     'custom_design_apply'   => [
         'group' => 'design',
-        'sort'  => 20
+        'sort'  => 20,
     ],
     'custom_design_from'    => [
         'group' => 'design',
-        'sort'  => 30
+        'sort'  => 30,
     ],
     'custom_design_to'      => [
         'group' => 'design',
-        'sort'  => 40
+        'sort'  => 40,
     ],
     'page_layout'           => [
         'group' => 'design',
-        'sort'  => 50
+        'sort'  => 50,
     ],
     'custom_layout_update'  => [
         'group' => 'design',
-        'sort'  => 60
+        'sort'  => 60,
     ],
     'display_mode'          => [
         'group' => 'display',
-        'sort'  => 10
+        'sort'  => 10,
     ],
     'landing_page'          => [
         'group' => 'display',
-        'sort'  => 20
+        'sort'  => 20,
     ],
     'is_anchor'             => [
         'group' => 'display',
-        'sort'  => 30
+        'sort'  => 30,
     ],
     'available_sort_by'     => [
         'group' => 'display',
-        'sort'  => 40
+        'sort'  => 40,
     ],
     'default_sort_by'       => [
         'group' => 'display',
-        'sort'  => 50
+        'sort'  => 50,
     ],
 ];
 
@@ -769,7 +770,7 @@ foreach ($attributes as $attributeCode => $attributeProp) {
         $attributeSetId,
         $groups[$attributeProp['group']]['id'],
         $attributeCode,
-        $attributeProp['sort']
+        $attributeProp['sort'],
     );
 }
 

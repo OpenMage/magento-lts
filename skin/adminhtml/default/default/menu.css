@@ -8,7 +8,7 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -47,6 +47,7 @@
 /************ 2ND LEVEL ************/
 #nav ul { position:absolute; width:189px; top:27px; left:-10000px; padding-bottom:3px; border-top:1px solid #2d444f; }
 #nav ul ul  { border-top:0; background:url(images/nav3_bg.png) 0 0 no-repeat; padding-top:2px; left:100px; top:13px; }
+#nav ul li a.active { background-color: #d0dfe2;}
 
 /* Show menu */
 #nav li.over ul { left:-1px; }

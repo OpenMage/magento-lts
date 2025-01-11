@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,9 +45,11 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
+        $storeId = $this->getRequest()->getParam('store');
         $order = Mage::getModel('sales/order');
+        $period = Mage::helper('rss')->getRssAdminOrderNewPeriod($storeId);
         $passDate = $order->getResource()->formatDate(
-            mktime(0, 0, 0, (int)date('m'), (int)date('d') - 7)
+            mktime(0, 0, 0, (int) date('m'), (int) date('d') - $period),
         );
 
         $newurl = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order', ['_secure' => true, '_nosecret' => true]);
@@ -54,9 +57,9 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
 
         $rssObj = Mage::getModel('rss/rss');
         $data = ['title' => $title,
-                'description' => $title,
-                'link'        => $newurl,
-                'charset'     => 'UTF-8',
+            'description' => $title,
+            'link'        => $newurl,
+            'charset'     => 'UTF-8',
         ];
         $rssObj->_addHeader($data);
 
@@ -64,6 +67,10 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
             ->addAttributeToFilter('created_at', ['date' => true, 'from' => $passDate])
             ->addAttributeToSort('created_at', 'desc')
         ;
+
+        if ($storeId) {
+            $collection->addAttributeToFilter('store_id', $storeId);
+        }
 
         $detailBlock = Mage::getBlockSingleton('rss/order_details');
 
@@ -89,9 +96,9 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
             $url = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/view', ['_secure' => true, 'order_id' => $order->getId(), '_nosecret' => true]);
             $detailBlock->setOrder($order);
             $data = [
-                    'title'         => $title,
-                    'link'          => $url,
-                    'description'   => $detailBlock->toHtml()
+                'title'         => $title,
+                'link'          => $url,
+                'description'   => $detailBlock->toHtml(),
             ];
             $rssObj->_addEntry($data);
         }

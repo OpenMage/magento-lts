@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +32,8 @@
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
+ * @method string|array getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(string|array $value)
  *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
@@ -261,7 +262,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             return Mage::app()->getStore()->getId();
         }
-        return $this->_getData('store_id');
+        return (int) $this->_getData('store_id');
     }
 
     /**
@@ -277,7 +278,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Declare quote store model
      *
-     * @param   Mage_Core_Model_Store $store
      * @return  $this
      */
     public function setStore(Mage_Core_Model_Store $store)
@@ -439,7 +439,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Assign customer model object data to quote
      *
-     * @param   Mage_Customer_Model_Customer $customer
      * @return  $this
      */
     public function assignCustomer(Mage_Customer_Model_Customer $customer)
@@ -450,16 +449,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Assign customer model to quote with billing and shipping address change
      *
-     * @param Mage_Customer_Model_Customer $customer
-     * @param Mage_Sales_Model_Quote_Address|null $billingAddress
-     * @param Mage_Sales_Model_Quote_Address|null $shippingAddress
      * @return $this
      * @throws Mage_Core_Exception
      */
     public function assignCustomerWithAddressChange(
         Mage_Customer_Model_Customer    $customer,
-        Mage_Sales_Model_Quote_Address  $billingAddress = null,
-        Mage_Sales_Model_Quote_Address  $shippingAddress = null
+        ?Mage_Sales_Model_Quote_Address  $billingAddress = null,
+        ?Mage_Sales_Model_Quote_Address  $shippingAddress = null
     ) {
         if ($customer->getId()) {
             $this->setCustomer($customer);
@@ -493,7 +489,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Define customer object
      *
-     * @param   Mage_Customer_Model_Customer $customer
      * @return  $this
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
@@ -743,7 +738,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -757,7 +751,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
     public function setBillingAddress(Mage_Sales_Model_Quote_Address $address)
@@ -773,7 +766,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
     public function setShippingAddress(Mage_Sales_Model_Quote_Address $address)
@@ -793,7 +785,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
     public function addShippingAddress(Mage_Sales_Model_Quote_Address $address)
@@ -910,8 +901,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } else {
             foreach ($this->getItemsCollection() as $item) {
                 if ($item->getId() == $itemId) {
-                    $quoteItem = $item;
-                    return $quoteItem;
+                    return $item;
                 }
             }
         }
@@ -921,7 +911,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Delete quote item. If it does not have identifier then it will be only removed from collection
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
      * @return  $this
      */
     public function deleteItem(Mage_Sales_Model_Quote_Item $item)
@@ -1002,7 +991,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Adding new item to quote
      *
-     * @param   Mage_Sales_Model_Quote_Item $item
      * @return  $this
      */
     public function addItem(Mage_Sales_Model_Quote_Item $item)
@@ -1017,7 +1005,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
          */
         if ($item->isNominal() && $this->hasItems() || $this->hasNominalItems()) {
             Mage::throwException(
-                Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.')
+                Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.'),
             );
         }
 
@@ -1033,7 +1021,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Advanced func to add product to quote - processing mode can be specified there.
      * Returns error message if product type instance can't prepare product.
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param null|float|Varien_Object $request
      * @param null|string $processMode
      * @return Mage_Sales_Model_Quote_Item|string
@@ -1117,7 +1104,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * return error message if product type instance can't prepare product
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param null|float|Varien_Object $request
      * @return Mage_Sales_Model_Quote_Item|string
      */
@@ -1126,14 +1112,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return $this->addProductAdvanced(
             $product,
             $request,
-            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL,
         );
     }
 
     /**
      * Adding catalog product object data to quote
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param int $qty
      * @return  Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Model_Store_Exception
@@ -1372,7 +1357,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Payment $payment
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -1386,7 +1370,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Quote_Payment $payment
      * @return Mage_Sales_Model_Quote_Payment
      */
     public function setPayment(Mage_Sales_Model_Quote_Payment $payment)
@@ -1445,10 +1428,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setBaseSubtotal((float) $this->getBaseSubtotal() + $address->getBaseSubtotal());
 
             $this->setSubtotalWithDiscount(
-                (float) $this->getSubtotalWithDiscount() + $address->getSubtotalWithDiscount()
+                (float) $this->getSubtotalWithDiscount() + $address->getSubtotalWithDiscount(),
             );
             $this->setBaseSubtotalWithDiscount(
-                (float) $this->getBaseSubtotalWithDiscount() + $address->getBaseSubtotalWithDiscount()
+                (float) $this->getBaseSubtotalWithDiscount() + $address->getBaseSubtotalWithDiscount(),
             );
 
             $this->setGrandTotal((float) $this->getGrandTotal() + $address->getGrandTotal());
@@ -1663,10 +1646,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * Removes error infos, that have parameters equal to passed in $params.
-     * $params can have following keys (if not set - then any item is good for this key):
+     * $params can have the following keys (if not set - then any item is good for this key):
      *   'origin', 'code', 'message'
      *
-     * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param string|null $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
      * @param array $params
      * @return $this
      */
@@ -1811,13 +1794,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $isVirtual = true;
         $countItems = 0;
-        foreach ($this->getItemsCollection() as $_item) {
-            /** @var Mage_Sales_Model_Quote_Item $_item */
-            if ($_item->isDeleted() || $_item->getParentItemId()) {
+        foreach ($this->getItemsCollection() as $item) {
+            /** @var Mage_Sales_Model_Quote_Item $item */
+            if ($item->isDeleted() || $item->getParentItemId()) {
                 continue;
             }
             $countItems++;
-            if (!$_item->getProduct()->getIsVirtual()) {
+            if (!$item->getProduct()->getIsVirtual()) {
                 $isVirtual = false;
                 break;
             }
@@ -1843,11 +1826,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function hasVirtualItems()
     {
         $hasVirtual = false;
-        foreach ($this->getItemsCollection() as $_item) {
-            if ($_item->getParentItemId()) {
+        foreach ($this->getItemsCollection() as $quoteItem) {
+            if ($quoteItem->getParentItemId()) {
                 continue;
             }
-            if ($_item->getProduct()->isVirtual()) {
+            if ($quoteItem->getProduct()->isVirtual()) {
                 $hasVirtual = true;
             }
         }
@@ -1857,7 +1840,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Merge quotes
      *
-     * @param   Mage_Sales_Model_Quote $quote
      * @return  $this
      */
     public function merge(Mage_Sales_Model_Quote $quote)
@@ -1865,9 +1847,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_before',
             [
-                 $this->_eventObject => $this,
-                 'source' => $quote
-            ]
+                $this->_eventObject => $this,
+                'source' => $quote,
+            ],
         );
 
         foreach ($quote->getAllVisibleItems() as $item) {
@@ -1908,9 +1890,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_after',
             [
-                 $this->_eventObject => $this,
-                 'source' => $quote
-            ]
+                $this->_eventObject => $this,
+                'source' => $quote,
+            ],
         );
 
         return $this;
@@ -2041,7 +2023,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Return quote checkout method code
      *
      * @deprecated after 1.4 beta1 it is checkout module responsibility
-     * @param bool $originalMethod if true return defined method from begining
+     * @param bool $originalMethod if true return defined method from beginning
      * @return string
      */
     public function getCheckoutMethod($originalMethod = false)
@@ -2087,16 +2069,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return parent::save();
     }
 
-    /**
-     * @return string
-     */
     public function getCouponCode(): string
     {
-        return (string)$this->_getData('coupon_code');
+        return (string) $this->_getData('coupon_code');
     }
 
     /**
-     * @param string|null $couponCode
      * @return $this
      */
     public function setCouponCode(?string $couponCode)

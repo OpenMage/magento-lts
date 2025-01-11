@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Simplexml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +73,7 @@ class Varien_Simplexml_Config
      *
      * @example <allResources extends="/config/modules//resource"/>
      */
-    protected $_xpathExtends = "//*[@extends]";
+    protected $_xpathExtends = '//*[@extends]';
 
     /**
      * Constructor
@@ -101,7 +102,6 @@ class Varien_Simplexml_Config
     /**
      * Sets xml for this configuration
      *
-     * @param Varien_Simplexml_Element $node
      * @return $this
      */
     public function setXml(Varien_Simplexml_Element $node)
@@ -134,7 +134,7 @@ class Varien_Simplexml_Config
      * @param string $xpath
      * @return Varien_Simplexml_Element[]|false
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getXpath($xpath)
     {
@@ -322,11 +322,13 @@ class Varien_Simplexml_Config
         }
 
         $xmlString = $this->_loadCache($this->getCacheId());
-        $xml = simplexml_load_string($xmlString, $this->_elementClass);
-        if ($xml) {
-            $this->_xml = $xml;
-            $this->setCacheSaved(true);
-            return true;
+        if ($xmlString) {
+            $xml = simplexml_load_string($xmlString, $this->_elementClass);
+            if ($xml) {
+                $this->_xml = $xml;
+                $this->setCacheSaved(true);
+                return true;
+            }
         }
 
         return false;
@@ -501,7 +503,7 @@ class Varien_Simplexml_Config
         }
 
         foreach ($targets as $target) {
-            $sources = $this->getXpath((string)$target['extends']);
+            $sources = $this->getXpath((string) $target['extends']);
             if ($sources) {
                 foreach ($sources as $source) {
                     $target->extend($source);
@@ -523,7 +525,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param Varien_Simplexml_Config $config
      * @param boolean $overwrite
      * @return $this
      */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,7 +104,7 @@ class Mage_Oauth_Model_Server
         self::ERR_TOKEN_REJECTED            => 'token_rejected',
         self::ERR_VERIFIER_INVALID          => 'verifier_invalid',
         self::ERR_PERMISSION_UNKNOWN        => 'permission_unknown',
-        self::ERR_PERMISSION_DENIED         => 'permission_denied'
+        self::ERR_PERMISSION_DENIED         => 'permission_denied',
     ];
 
     /**
@@ -126,7 +127,7 @@ class Mage_Oauth_Model_Server
         self::ERR_TOKEN_REJECTED            => self::HTTP_UNAUTHORIZED,
         self::ERR_VERIFIER_INVALID          => self::HTTP_UNAUTHORIZED,
         self::ERR_PERMISSION_UNKNOWN        => self::HTTP_UNAUTHORIZED,
-        self::ERR_PERMISSION_DENIED         => self::HTTP_UNAUTHORIZED
+        self::ERR_PERMISSION_DENIED         => self::HTTP_UNAUTHORIZED,
     ];
 
     /**
@@ -309,10 +310,10 @@ class Mage_Oauth_Model_Server
             if (self::REQUEST_TOKEN == $this->_requestType) {
                 $this->_validateVerifierParam();
 
-                if (!hash_equals((string)$this->_token->getVerifier(), $this->_protocolParams['oauth_verifier'])) {
+                if (!hash_equals((string) $this->_token->getVerifier(), $this->_protocolParams['oauth_verifier'])) {
                     $this->_throwException('', self::ERR_VERIFIER_INVALID);
                 }
-                if (!hash_equals((string)$this->_token->getConsumerId(), (string)$this->_consumer->getId())) {
+                if (!hash_equals((string) $this->_token->getConsumerId(), (string) $this->_consumer->getId())) {
                     $this->_throwException('', self::ERR_TOKEN_REJECTED);
                 }
                 if (Mage_Oauth_Model_Token::TYPE_REQUEST != $this->_token->getType()) {
@@ -524,7 +525,7 @@ class Mage_Oauth_Model_Server
             $this->_consumer->getSecret(),
             $this->_token->getSecret(),
             $this->_request->getMethod(),
-            $this->_request->getScheme() . '://' . $this->_request->getHttpHost() . $this->_request->getRequestUri()
+            $this->_request->getScheme() . '://' . $this->_request->getHttpHost() . $this->_request->getRequestUri(),
         );
 
         if (!hash_equals($calculatedSign, $this->_protocolParams['oauth_signature'])) {
@@ -653,12 +654,11 @@ class Mage_Oauth_Model_Server
     /**
      * Create response string for problem during request and set HTTP error code
      *
-     * @param Exception $e
      * @param Zend_Controller_Response_Http|null $response OPTIONAL If NULL - will use internal getter
      * @return string
      * @throws Zend_Controller_Response_Exception
      */
-    public function reportProblem(Exception $e, Zend_Controller_Response_Http $response = null)
+    public function reportProblem(Exception $e, ?Zend_Controller_Response_Http $response = null)
     {
         $eMsg = $e->getMessage();
 
@@ -692,7 +692,6 @@ class Mage_Oauth_Model_Server
     /**
      * Set response object
      *
-     * @param Zend_Controller_Response_Http $response
      * @return $this
      */
     public function setResponse(Zend_Controller_Response_Http $response)

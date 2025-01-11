@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,7 +72,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
         $countSelect->joinLeft(
             ['wt' => $this->getWishlistTable()],
             'wt.customer_id = e.entity_id',
-            []
+            [],
         )
             ->group('wt.wishlist_id');
         $count = $collection->count();
@@ -85,7 +86,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
     /**
      * Get shared items collection count
      *
-     * @return int
+     * @return false|string|null
      */
     public function getSharedCount()
     {
@@ -95,7 +96,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
         $countSelect->joinLeft(
             ['wt' => $this->getWishlistTable()],
             'wt.customer_id=e.entity_id',
-            []
+            [],
         )
             ->where('wt.shared=1')
             ->group('wt.wishlist_id');

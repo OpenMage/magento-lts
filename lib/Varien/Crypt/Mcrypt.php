@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Crypt
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,9 +23,7 @@
 class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
 {
     /**
-     * Constuctor
-     *
-     * @param array $data
+     * Constructor
      */
     public function __construct(array $data = [])
     {
@@ -64,7 +63,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
             if (MCRYPT_MODE_CBC == $this->getMode()) {
                 $this->setInitVector(substr(
                     md5(mcrypt_create_iv(mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND)),
-                    - mcrypt_enc_get_iv_size($this->getHandler())
+                    - mcrypt_enc_get_iv_size($this->getHandler()),
                 ));
             } else {
                 $this->setInitVector(mcrypt_create_iv(mcrypt_enc_get_iv_size($this->getHandler()), MCRYPT_RAND));

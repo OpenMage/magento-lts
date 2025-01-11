@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,14 +29,13 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Cms';
 
     /**
-    * Renders CMS page on front end
-    *
-    * Call from controller action
-    *
-    * @param Mage_Core_Controller_Front_Action $action
-    * @param string $pageId
-    * @return bool
-    */
+     * Renders CMS page on front end
+     *
+     * Call from controller action
+     *
+     * @param string $pageId
+     * @return bool
+     */
     public function renderPage(Mage_Core_Controller_Front_Action $action, $pageId = null)
     {
         return $this->_renderPage($action, $pageId);
@@ -44,7 +44,6 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     /**
      * Renders CMS page
      *
-     * @param Mage_Core_Controller_Varien_Action $action
      * @param string $pageId
      * @param bool $renderLayout
      * @return bool
@@ -53,9 +52,9 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     {
         $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId !== $page->getId()) {
-            $delimeterPosition = strrpos($pageId, '|');
-            if ($delimeterPosition) {
-                $pageId = substr($pageId, 0, $delimeterPosition);
+            $delimiterPosition = strrpos($pageId, '|');
+            if ($delimiterPosition) {
+                $pageId = substr($pageId, 0, $delimiterPosition);
             }
 
             $page->setStoreId(Mage::app()->getStore()->getId());
@@ -133,7 +132,6 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * Allows to use also backend action as first parameter.
      * Also takes third parameter which allows not run renderLayout method.
      *
-     * @param Mage_Core_Controller_Varien_Action $action
      * @param string $pageId
      * @param bool $renderLayout
      * @return bool
@@ -164,5 +162,24 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         }
 
         return Mage::getUrl(null, ['_direct' => $page->getIdentifier()]);
+    }
+
+    public static function getUsedInStoreConfigPaths(?array $paths = []): array
+    {
+        $searchPaths = [
+            self::XML_PATH_NO_ROUTE_PAGE,
+            self::XML_PATH_NO_COOKIES_PAGE,
+            self::XML_PATH_HOME_PAGE,
+        ];
+
+        if (is_array($paths) && $paths !== []) {
+            $searchPaths = array_merge($searchPaths, $paths);
+        }
+
+        if (is_null($paths)) {
+            $searchPaths = [];
+        }
+
+        return $searchPaths;
     }
 }

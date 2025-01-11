@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,8 +24,6 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
 {
     /**
      * Draw header for item table
-     *
-     * @param Zend_Pdf_Page $page
      */
     protected function _drawHeader(Zend_Pdf_Page $page)
     {
@@ -40,42 +39,42 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
         //columns headers
         $lines[0][] = [
             'text' => Mage::helper('sales')->__('Products'),
-            'feed' => 35
+            'feed' => 35,
         ];
 
         $lines[0][] = [
             'text'  => Mage::helper('sales')->__('SKU'),
             'feed'  => 290,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Qty'),
             'feed'  => 435,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Price'),
             'feed'  => 360,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Tax'),
             'feed'  => 495,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Subtotal'),
             'feed'  => 565,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         $lineBlock = [
             'lines'  => $lines,
-            'height' => 5
+            'height' => 5,
         ];
 
         $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
@@ -114,12 +113,12 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
             $this->insertOrder(
                 $page,
                 $order,
-                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID, $order->getStoreId())
+                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID, $order->getStoreId()),
             );
             /* Add document text and number */
             $this->insertDocumentNumber(
                 $page,
-                Mage::helper('sales')->__('Invoice # ') . $invoice->getIncrementId()
+                Mage::helper('sales')->__('Invoice # ') . $invoice->getIncrementId(),
             );
             /* Add table */
             $this->_drawHeader($page);
@@ -145,7 +144,6 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
     /**
      * Create new page and assign to PDF object
      *
-     * @param  array $settings
      * @return Zend_Pdf_Page
      */
     public function newPage(array $settings = [])

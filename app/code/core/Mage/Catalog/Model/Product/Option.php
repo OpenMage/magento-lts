@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,11 +35,11 @@
  * @method $this setIsRequire(int $value)
  * @method int getMaxCharacters()
  * @method $this setMaxCharacters(int $value)
- * @method int getOptionId()
- * @method $this setOptionId(int $value)
+ * @method int|null getOptionId()
+ * @method $this setOptionId(int|null $value)
  * @method string getPriceType()
- * @method int getProductId()
- * @method $this setProductId(int $value)
+ * @method string|null getProductId()
+ * @method $this setProductId(string|null $value)
  * @method string getSku()
  * @method $this setSku(string $value)
  * @method int getSortOrder()
@@ -158,7 +159,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Add value of option to values array
      *
-     * @param Mage_Catalog_Model_Product_Option_Value $value
      * @return $this
      */
     public function addValue(Mage_Catalog_Model_Product_Option_Value $value)
@@ -170,7 +170,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get value by given id
      *
-     * @param int $valueId
+     * @param int|string $valueId
      * @return Mage_Catalog_Model_Product_Option_Value
      */
     public function getValueById($valueId)
@@ -259,10 +259,9 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Set product instance
      *
-     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
-    public function setProduct(Mage_Catalog_Model_Product $product = null)
+    public function setProduct(?Mage_Catalog_Model_Product $product = null)
     {
         $this->_product = $product;
         return $this;
@@ -305,7 +304,9 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     {
         $group = $this->getGroupByType($type);
         if (!empty($group)) {
-            return Mage::getModel('catalog/product_option_type_' . $group);
+            /** @var Mage_Catalog_Model_Product_Option_Type_Default $model */
+            $model = Mage::getModel('catalog/product_option_type_' . $group);
+            return $model;
         }
         Mage::throwException(Mage::helper('catalog')->__('Wrong option type to get group instance.'));
     }
@@ -327,13 +328,14 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             } else {
                 $this->setId($this->getData('option_id'));
             }
-            $isEdit = (bool)$this->getId() ? true : false;
+            $isEdit = (bool) $this->getId() ? true : false;
 
             if ($this->getData('is_delete') == '1') {
                 if ($isEdit) {
                     $this->getValueInstance()->deleteValue($this->getId());
                     $this->deletePrices($this->getId());
                     $this->deleteTitles($this->getId());
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $this->delete();
                 }
             } else {
@@ -373,6 +375,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                         }
                     }
                 }
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $this->save();
             }
         }//eof foreach()
@@ -420,31 +423,30 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Delete prices of option
      *
-     * @param int $option_id
+     * @param int|string $optionId
      * @return $this
      */
-    public function deletePrices($option_id)
+    public function deletePrices($optionId)
     {
-        $this->getResource()->deletePrices($option_id);
+        $this->getResource()->deletePrices($optionId);
         return $this;
     }
 
     /**
      * Delete titles of option
      *
-     * @param int $option_id
+     * @param int|string $optionId
      * @return $this
      */
-    public function deleteTitles($option_id)
+    public function deleteTitles($optionId)
     {
-        $this->getResource()->deleteTitles($option_id);
+        $this->getResource()->deleteTitles($optionId);
         return $this;
     }
 
     /**
      * get Product Option Collection
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return Mage_Catalog_Model_Resource_Product_Option_Collection
      */
     public function getProductOptionCollection(Mage_Catalog_Model_Product $product)
@@ -467,7 +469,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get collection of values for current option
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
     public function getValuesCollection()
     {
@@ -479,13 +481,13 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Get collection of values by given option ids
      *
      * @param array $optionIds
-     * @param int $store_id
+     * @param int $storeId
      * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
-    public function getOptionValuesByOptionId($optionIds, $store_id)
+    public function getOptionValuesByOptionId($optionIds, $storeId)
     {
         return Mage::getModel('catalog/product_option_value')
-            ->getValuesByOption($optionIds, $this->getId(), $store_id);
+            ->getValuesByOption($optionIds, $this->getId(), $storeId);
     }
 
     /**
@@ -498,11 +500,11 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
         $this->setProductId(null);
         $this->setOptionId(null);
         $newOption = $this->__toArray();
-        $_values = $this->getValues();
-        if ($_values) {
+        $values = $this->getValues();
+        if ($values) {
             $newValuesArray = [];
-            foreach ($_values as $_value) {
-                $newValuesArray[] = $_value->prepareValueForDuplicate();
+            foreach ($values as $value) {
+                $newValuesArray[] = $value->prepareValueForDuplicate();
             }
             $newOption['values'] = $newValuesArray;
         }

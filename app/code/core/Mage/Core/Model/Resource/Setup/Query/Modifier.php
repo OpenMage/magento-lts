@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +73,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
 
                 $result = [
                     'type' => $type,
-                    'unsigned' => $unsigned
+                    'unsigned' => $unsigned,
                 ];
                 break;
             }
@@ -85,7 +86,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     }
 
     /**
-     * Replaces first occurence of $needle in a $haystack
+     * Replaces first occurrence of $needle in a $haystack
      *
      * @param string $haystack
      * @param string $needle
@@ -104,7 +105,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     }
 
     /**
-     * Fixes column definition in CREATE TABLE sql to match defintion of column it's set to
+     * Fixes column definition in CREATE TABLE sql to match definition of column it's set to
      *
      * @param string $sql
      * @param string $column
@@ -136,7 +137,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             return $this;
         }
 
-        // Find pattern for type defintion
+        // Find pattern for type definition
         $pattern = '/\s*([^\s]+)\s+(' . $columnDefinition['type'] . '[^\s]*)\s+([^,]+)/i';
         if (!preg_match($pattern, $restSql, $matches)) {
             return $this;
@@ -215,7 +216,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
 
         return [
             'type' => $this->_prepareIdentifier($description[$column]['DATA_TYPE']),
-            'unsigned' => (bool) $description[$column]['UNSIGNED']
+            'unsigned' => (bool) $description[$column]['UNSIGNED'],
         ];
     }
 
@@ -282,7 +283,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             $refTable = $this->_prepareIdentifier($match[2]);
             $refColumn = $this->_prepareIdentifier($match[3]);
 
-            // Check tables existance
+            // Check tables existence
             if (($operation != 'create') && !($this->_tableExists($table))) {
                 continue;
             }

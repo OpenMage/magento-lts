@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Newsletter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +29,6 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
 
     /**
      * Add subscribers to queue
-     *
-     * @param Mage_Newsletter_Model_Queue $queue
-     * @param array $subscriberIds
      */
     public function addSubscribersToQueue(Mage_Newsletter_Model_Queue $queue, array $subscriberIds)
     {
@@ -69,8 +67,6 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
 
     /**
      * Removes subscriber from queue
-     *
-     * @param Mage_Newsletter_Model_Queue $queue
      */
     public function removeSubscribersFromQueue(Mage_Newsletter_Model_Queue $queue)
     {
@@ -80,8 +76,8 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
                 $this->getTable('newsletter/queue_link'),
                 [
                     'queue_id = ?' => $queue->getId(),
-                    'letter_sent_at IS NULL'
-                ]
+                    'letter_sent_at IS NULL',
+                ],
             );
 
             $adapter->commit();
@@ -93,7 +89,6 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Links queue to store
      *
-     * @param Mage_Newsletter_Model_Queue $queue
      * @return $this
      */
     public function setStores(Mage_Newsletter_Model_Queue $queue)
@@ -101,7 +96,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
         $adapter = $this->_getWriteAdapter();
         $adapter->delete(
             $this->getTable('newsletter/queue_store_link'),
-            ['queue_id = ?' => $queue->getId()]
+            ['queue_id = ?' => $queue->getId()],
         );
 
         $stores = $queue->getStores();
@@ -143,7 +138,6 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Returns queue linked stores
      *
-     * @param Mage_Newsletter_Model_Queue $queue
      * @return array
      */
     public function getStores(Mage_Newsletter_Model_Queue $queue)

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +42,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
                     if (!$storeNode) {
                         return false;
                     }
-                    $storeIds[] = (int)$storeNode->system->store->id;
+                    $storeIds[] = (int) $storeNode->system->store->id;
                 }
             }
         }
@@ -108,7 +109,6 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute_Source_Interface $source
      * @param string $value
      * @return string|null
      */

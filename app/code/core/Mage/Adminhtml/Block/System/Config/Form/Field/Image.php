@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,8 +34,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Image extends Varien_Data_Fo
         /** @var Varien_Simplexml_Element $config */
         if (!empty($config->base_url)) {
             $el = $config->descend('base_url');
-            $urlType = empty($el['type']) ? 'link' : (string)$el['type'];
-            $url = Mage::getBaseUrl($urlType) . (string)$config->base_url . '/' . $url;
+            $urlType = empty($el['type']) ? 'link' : (string) $el['type'];
+            $url = Mage::getBaseUrl($urlType) . (string) $config->base_url . '/' . $url;
         }
 
         return $url;

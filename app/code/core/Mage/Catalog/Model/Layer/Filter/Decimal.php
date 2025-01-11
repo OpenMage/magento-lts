@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +59,6 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     /**
      * Apply decimal range filter to product collection
      *
-     * @param Zend_Controller_Request_Abstract $request
      * @param Mage_Catalog_Block_Layer_Filter_Decimal $filterBlock
      * @return $this
      */
@@ -80,12 +80,12 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         }
 
         list($index, $range) = $filter;
-        if ((int)$index && (int)$range) {
-            $this->setRange((int)$range);
+        if ((int) $index && (int) $range) {
+            $this->setRange((int) $range);
 
             $this->_getResource()->applyFilterToCollection($this, $range, $index);
             $this->getLayer()->getState()->addFilter(
-                $this->_createItem($this->_renderItemLabel($range, $index), $filter)
+                $this->_createItem($this->_renderItemLabel($range, $index), $filter),
             );
 
             $this->_items = [];

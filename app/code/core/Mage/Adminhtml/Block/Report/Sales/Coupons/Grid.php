@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,13 +57,13 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
         $this->addColumn('coupon_code', [
             'header'    => Mage::helper('salesrule')->__('Coupon Code'),
             'sortable'  => false,
-            'index'     => 'coupon_code'
+            'index'     => 'coupon_code',
         ]);
 
         $this->addColumn('rule_name', [
             'header'    => Mage::helper('salesrule')->__('Shopping Cart Price Rule'),
             'sortable'  => false,
-            'index'     => 'rule_name'
+            'index'     => 'rule_name',
         ]);
 
         $this->addColumn('coupon_uses', [
@@ -70,7 +71,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
             'sortable'  => false,
             'index'     => 'coupon_uses',
             'total'     => 'sum',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {
@@ -148,7 +149,7 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
     /**
      * Add price rule filter
      *
-     * @param Mage_Reports_Model_Resource_Report_Collection_Abstract $collection
+     * @param Mage_SalesRule_Model_Resource_Report_Collection $collection
      * @param Varien_Object $filterData
      * @return Mage_Adminhtml_Block_Report_Grid_Abstract
      */
@@ -162,6 +163,6 @@ class Mage_Adminhtml_Block_Report_Sales_Coupons_Grid extends Mage_Adminhtml_Bloc
             }
         }
 
-        return parent::_addCustomFilter($filterData, $collection);
+        return parent::_addCustomFilter($collection, $filterData);
     }
 }

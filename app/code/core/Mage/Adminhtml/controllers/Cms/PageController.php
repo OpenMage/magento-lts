@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,7 +78,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             $model->load($id);
             if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('cms')->__('This page no longer exists.')
+                    Mage::helper('cms')->__('This page no longer exists.'),
                 );
                 $this->_redirect('*/*/');
                 return;
@@ -102,7 +103,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $id ? Mage::helper('cms')->__('Edit Page')
                     : Mage::helper('cms')->__('New Page'),
                 $id ? Mage::helper('cms')->__('Edit Page')
-                : Mage::helper('cms')->__('New Page')
+                : Mage::helper('cms')->__('New Page'),
             );
 
         $this->renderLayout();
@@ -140,7 +141,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
                 // display success message
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('cms')->__('The page has been saved.')
+                    Mage::helper('cms')->__('The page has been saved.'),
                 );
                 // clear previously saved data from session
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
@@ -157,7 +158,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             } catch (Exception $e) {
                 $this->_getSession()->addException(
                     $e,
-                    Mage::helper('cms')->__('An error occurred while saving the page.')
+                    Mage::helper('cms')->__('An error occurred while saving the page.'),
                 );
             }
 
@@ -175,7 +176,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         // check if we know what should be deleted
         if ($id = $this->getRequest()->getParam('page_id')) {
-            $title = "";
+            $title = '';
             try {
                 // init model and delete
                 $model = Mage::getModel('cms/page');
@@ -184,7 +185,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $model->delete();
                 // display success message
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('cms')->__('The page has been deleted.')
+                    Mage::helper('cms')->__('The page has been deleted.'),
                 );
                 // go to grid
                 Mage::dispatchEvent('adminhtml_cmspage_on_delete', ['title' => $title, 'status' => 'success']);
@@ -241,8 +242,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
      */
     protected function _filterPostData($data)
     {
-        $data = $this->_filterDates($data, ['custom_theme_from', 'custom_theme_to']);
-        return $data;
+        return $this->_filterDates($data, ['custom_theme_from', 'custom_theme_to']);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -110,7 +111,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             'store_id'  => $storeId,
             'created_at' => $this->formatDate(time()),
             'key'       => $key,
-            'data'      => $data
+            'data'      => $data,
         ], ['created_at', 'data']);
 
         $id = $this->_getWriteAdapter()->lastInsertId($this->getMainTable());
@@ -213,11 +214,11 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             foreach ($tags as $index => $tag) {
                 $tags[$index] = $this->_getWriteAdapter()->quote($tag);
             }
-            $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (" . implode('),(', $tags) . ")";
+            $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (" . implode('),(', $tags) . ')';
             $this->_getWriteAdapter()->query($query);
         } else {
             $this->_getWriteAdapter()->insert($this->_tagTable, [
-                'tag_code' => $tags
+                'tag_code' => $tags,
             ]);
         }
         return $this;
@@ -237,9 +238,9 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
                 ['cat_prod' => $this->getTable('catalog/category_product')],
                 $this->_getReadAdapter()->quoteInto(
                     'cat.entity_id=cat_prod.category_id AND cat_prod.product_id IN (?)',
-                    $productIds
+                    $productIds,
                 ),
-                []
+                [],
             );
         return $this->_getReadAdapter()->fetchCol($select);
     }

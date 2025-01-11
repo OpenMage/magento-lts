@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass extends Mage_Adminhtml
     /**
      * Render block
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -35,6 +35,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass extends Mage_Adminhtml
         if ($element->getNote()) {
             $html .= '<p class="note"><span>' . $element->getNote() . '</span></p>';
         }
+        $html .= '<p id="email-passowrd-warning" style="display:none;" class="note"><span>' . Mage::helper('customer')->__('Warning: email containing password in plaintext will be sent.') . '</span></p>';
         $html .= '</td>';
         $html .= '</tr>' . "\n";
         $html .= '<tr>';
@@ -49,10 +50,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Newpass extends Mage_Adminhtml
             . $element->getHtmlId()
             . '\', this.checked)"/>&nbsp;';
         $html .= '<label for="account-send-pass">'
-            . Mage::helper('customer')->__('Send Auto-Generated Password')
+            . Mage::helper('customer')->__('Email Link to Set Password')
             . '</label></td>';
-        $html .= '</tr>' . "\n";
 
-        return $html;
+        return $html . ('</tr>' . "\n");
     }
 }

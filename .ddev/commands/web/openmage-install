@@ -43,7 +43,7 @@ while :; do
 echo "Enable maintenance mode..."
 touch maintenance.flag
 
-LOCALXML="${ROOT}/app/etc/local.xml"
+LOCALXML="${ROOT}"/"${DDEV_DOCROOT}/app/etc/local.xml"
 if [ -f "${LOCALXML}" ]; then
   if [[ "${QUIET_INSTALL_FLAG}" ]]; then
     DELETE='y'
@@ -88,21 +88,25 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   tar xf "${SAMPLE_DATA_FILE}"
 
   echo "Copying Sample Data into the OpenMage directory..."
-  cp -r magento-sample-data-1.9.2.4/media/* "${ROOT}/media/"
-  cp -r magento-sample-data-1.9.2.4/skin/* "${ROOT}/skin/"
+  cd "${ROOT}" || exit
+  cp -r "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/media/* "${ROOT}"/"${DDEV_DOCROOT}/media/"
+  cp -r "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/skin/* "${ROOT}"/"${DDEV_DOCROOT}/skin/"
 
   echo "Clearing var/cache..."
-  rm -rf "${ROOT}/var/cache/"*
+  rm -rf "${ROOT}"/"${DDEV_DOCROOT}/var/cache/"*
 
   echo "Importing Sample Data into the database..."
-  mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql"
+  mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql
 
   # remove sample data
   if [[ "${SAMPLE_DATA_KEEP_FLAG}" ]]; then
     # shellcheck disable=SC2046
+    cd "${ROOT}" || exit
+    echo "Removing uncompressed files..."
     rm -rf magento-sample-data-1.9.2.4/
   else
     cd "${ROOT}" || exit
+    echo "Removing sample data..."
     rm -rf "${SAMPLE_DATA_DIRECTORY}"
   fi
 fi
@@ -138,7 +142,7 @@ else
   fi
 fi
 
-php -f install.php -- \
+php -f "${ROOT}"/"${DDEV_DOCROOT}/"install.php -- \
   --license_agreement_accepted 'yes' \
   --locale 'en_US' \
   --timezone 'America/New_York' \

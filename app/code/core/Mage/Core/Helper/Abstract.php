@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,6 +42,8 @@ abstract class Mage_Core_Helper_Abstract
      * @var Mage_Core_Model_Layout
      */
     protected $_layout;
+
+    protected array $modulesDisabled = [];
 
     /**
      * Retrieve request object
@@ -120,7 +123,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check whether or not the module output is enabled in Configuration
+     * Check whether the module output is enabled in Configuration
      *
      * @param string $moduleName Full module name
      * @return bool
@@ -135,10 +138,7 @@ abstract class Mage_Core_Helper_Abstract
             return false;
         }
 
-        if (Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName)) {
-            return false;
-        }
-        return true;
+        return !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
     }
 
     /**
@@ -153,21 +153,27 @@ abstract class Mage_Core_Helper_Abstract
             $moduleName = $this->_getModuleName();
         }
 
+        if (array_key_exists($moduleName, $this->modulesDisabled)) {
+            return $this->modulesDisabled[$moduleName];
+        }
+
         if (!Mage::getConfig()->getNode('modules/' . $moduleName)) {
-            return false;
+            return $this->modulesDisabled[$moduleName] = false;
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string)$isActive, ['true', '1'])) {
-            return false;
+        if (!$isActive || !in_array((string) $isActive, ['true', '1'])) {
+            return $this->modulesDisabled[$moduleName] = false;
         }
-        return true;
+        return $this->modulesDisabled[$moduleName] = true;
     }
 
     /**
      * Translate
      *
      * @return string
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function __()
     {
@@ -178,9 +184,10 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param array $data
-     * @param array $allowedTags
-     * @return mixed
+     * @param string|string[] $data
+     * @param array|null $allowedTags
+     * @return null|string|string[]
+     *
      * @see self::escapeHtml()
      * @deprecated after 1.4.0.0-rc1
      */
@@ -192,9 +199,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param   string|array $data
-     * @param   array $allowedTags
-     * @return  mixed
+     * @param string|string[] $data
+     * @param array|null $allowedTags
+     * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
     {
@@ -234,7 +241,7 @@ abstract class Mage_Core_Helper_Abstract
             function ($matches) {
                 return htmlentities($matches[0]);
             },
-            $html
+            $html,
         );
         $html =  strip_tags($html);
         return htmlspecialchars_decode($html);
@@ -244,7 +251,7 @@ abstract class Mage_Core_Helper_Abstract
      * Wrapper for standard strip_tags() function with extra functionality for html entities
      *
      * @param string $data
-     * @param string $allowableTags
+     * @param null|string|string[] $allowableTags
      * @param bool $escape
      * @return string
      */
@@ -279,7 +286,7 @@ abstract class Mage_Core_Helper_Abstract
         return htmlspecialchars(
             $this->escapeScriptIdentifiers((string) $data),
             ENT_COMPAT | ENT_HTML5 | ENT_HTML401,
-            'UTF-8'
+            'UTF-8',
         );
     }
 
@@ -320,9 +327,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape quotes in java script
      *
-     * @param mixed $data
+     * @param string|string[] $data
      * @param string $quote
-     * @return mixed
+     * @return string|string[]
      */
     public function jsQuoteEscape($data, $quote = '\'')
     {
@@ -423,8 +430,7 @@ abstract class Mage_Core_Helper_Abstract
         $url = $this->urlDecode($url);
         $quote = ['\'', '"'];
         $replace = ['%27', '%22'];
-        $url = str_replace($quote, $replace, $url);
-        return $url;
+        return str_replace($quote, $replace, $url);
     }
 
     /**
@@ -465,8 +471,8 @@ abstract class Mage_Core_Helper_Abstract
                     if ($this->hasTags($item, $arrayKeys, $skipTags)) {
                         return true;
                     }
-                } elseif ((bool)strcmp($item, $this->removeTags($item))
-                    || (bool)strcmp($key, $this->removeTags($key))
+                } elseif ((bool) strcmp($item, $this->removeTags($item))
+                    || (bool) strcmp($key, $this->removeTags($key))
                 ) {
                     if (!$skipTags && !in_array($key, $arrayKeys)) {
                         continue;
@@ -476,7 +482,7 @@ abstract class Mage_Core_Helper_Abstract
             }
             return false;
         } elseif (is_string($data)) {
-            if ((bool)strcmp($data, $this->removeTags($data))) {
+            if ((bool) strcmp($data, $this->removeTags($data))) {
                 return true;
             }
         }

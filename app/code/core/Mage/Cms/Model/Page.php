@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,10 +73,10 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     /**
      * Page's Statuses
      */
-    public const STATUS_ENABLED = 1;
+    public const STATUS_ENABLED  = 1;
     public const STATUS_DISABLED = 0;
 
-    public const CACHE_TAG              = 'cms_page';
+    public const CACHE_TAG       = 'cms_page';
     protected $_cacheTag         = 'cms_page';
 
     /**
@@ -125,6 +126,34 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Retrieves cms page title from DB by passed identifier.
+     */
+    public function getCmsPageTitleByIdentifier(string $identifier): string
+    {
+        return $this->_getResource()->getCmsPageTitleByIdentifier($identifier);
+    }
+
+    /**
+     * Retrieves cms page title from DB by passed id.
+     *
+     * @param string|int $id
+     */
+    public function getCmsPageTitleById($id): string
+    {
+        return $this->_getResource()->getCmsPageTitleById($id);
+    }
+
+    /**
+     * Retrieves cms page identifier from DB by passed id.
+     *
+     * @param string|int $id
+     */
+    public function getCmsPageIdentifierById($id): string
+    {
+        return $this->_getResource()->getCmsPageIdentifierById($id);
+    }
+
+    /**
      * Prepare page's statuses.
      * Available event cms_page_get_available_statuses to customize statuses.
      *
@@ -140,5 +169,15 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
         Mage::dispatchEvent('cms_page_get_available_statuses', ['statuses' => $statuses]);
 
         return $statuses->getData();
+    }
+
+    public function getUsedInStoreConfigCollection(?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract
+    {
+        return $this->_getResource()->getUsedInStoreConfigCollection($this, $paths);
+    }
+
+    public function isUsedInStoreConfig(?array $paths = []): bool
+    {
+        return $this->_getResource()->isUsedInStoreConfig($this, $paths);
     }
 }
