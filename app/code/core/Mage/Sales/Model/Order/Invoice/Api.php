@@ -143,7 +143,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
         }
 
         if ($email) {
-            $invoice->setEmailSent(true);
+            $invoice->setEmailSent(1);
         }
 
         $invoice->getOrder()->setIsInProcess(true);

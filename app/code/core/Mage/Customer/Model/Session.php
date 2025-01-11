@@ -32,7 +32,7 @@
  * @method $this setBeforeWishlistRequest(array $value)
  * @method $this unsBeforeWishlistRequest()
  * @method string getBeforeWishlistUrl()
- * @method $this setBeforeWishlistUrl(string $value)
+ * @method $this setBeforeWishlistUrl(string|null $value)
  * @method array getCustomerFormData()
  * @method $this setCustomerFormData(array $value)
  * @method bool  hasDisplayOutOfStockProducts()

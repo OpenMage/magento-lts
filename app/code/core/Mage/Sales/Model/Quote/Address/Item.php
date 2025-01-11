@@ -77,8 +77,10 @@
  * @method $this setName(string $value)
  * @method string getDescription()
  * @method $this setDescription(string $value)
+ *
  * @method int getFreeShipping()
  * @method $this setFreeShipping(int $value)
+ *
  * @method int getIsQtyDecimal()
  * @method $this setIsQtyDecimal(int $value)
  * @method float getDiscountPercent()

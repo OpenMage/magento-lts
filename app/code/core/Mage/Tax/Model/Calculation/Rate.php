@@ -39,12 +39,12 @@
  * @method $this setTaxPostcode(string $value)
  * @method array getTitle()
  * @method $this setTitle(array $value)
- * @method int getZipIsRange()
- * @method $this setZipIsRange(int $value)
- * @method int getZipFrom()
- * @method $this setZipFrom(int $value)
- * @method int getZipTo()
- * @method $this setZipTo(int $value)
+ * @method int|null getZipIsRange()
+ * @method $this setZipIsRange(int|null $value)
+ * @method int|null getZipFrom()
+ * @method $this setZipFrom(int|null $value)
+ * @method int|null getZipTo()
+ * @method $this setZipTo(int|null $value)
  */
 class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
 {
