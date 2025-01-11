@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,16 +95,16 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         $this->_initAction()
             ->_addBreadcrumb(
                 $id ? $this->__('Edit User') : $this->__('New User'),
-                $id ? $this->__('Edit User') : $this->__('New User')
+                $id ? $this->__('Edit User') : $this->__('New User'),
             )
             ->_addContent(
                 $this->getLayout()->createBlock('adminhtml/api_user_edit')
-                    ->setData('action', $this->getUrl('*/api_user/save'))
+                    ->setData('action', $this->getUrl('*/api_user/save')),
             )
             ->_addLeft($this->getLayout()->createBlock('adminhtml/api_user_edit_tabs'));
 
         $this->_addJs(
-            $this->getLayout()->createBlock('adminhtml/template')->setTemplate('api/user_roles_grid_js.phtml')
+            $this->getLayout()->createBlock('adminhtml/template')->setTemplate('api/user_roles_grid_js.phtml'),
         );
         $this->renderLayout();
     }

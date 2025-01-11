@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                 'label'     => Mage::helper('sales')->__('Update Qty\'s'),
                 'class'     => 'update-button',
                 'onclick'   => $onclick,
-            ])
+            ]),
         );
 
         if ($this->getCreditmemo()->canRefund()) {
@@ -47,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                         'label'     => Mage::helper('sales')->__('Refund'),
                         'class'     => 'save submit-button',
                         'onclick'   => 'disableElements(\'submit-button\');submitCreditMemo()',
-                    ])
+                    ]),
                 );
             }
             $this->setChild(
@@ -56,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                     'label'     => Mage::helper('sales')->__('Refund Offline'),
                     'class'     => 'save submit-button',
                     'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ])
+                ]),
             );
         } else {
             $this->setChild(
@@ -65,7 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                     'label'     => Mage::helper('sales')->__('Refund Offline'),
                     'class'     => 'save submit-button',
                     'onclick'   => 'disableElements(\'submit-button\');submitCreditMemoOffline()',
-                ])
+                ]),
             );
         }
 
@@ -146,8 +147,8 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     public function getUpdateUrl()
     {
         return $this->getUrl('*/*/updateQty', [
-                'order_id' => $this->getCreditmemo()->getOrderId(),
-                'invoice_id' => $this->getRequest()->getParam('invoice_id', null),
+            'order_id' => $this->getCreditmemo()->getOrderId(),
+            'invoice_id' => $this->getRequest()->getParam('invoice_id', null),
         ]);
     }
 

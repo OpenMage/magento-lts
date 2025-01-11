@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -61,7 +62,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage_Core_Model_Locale::FORMAT_TYPE_FULL,
         Mage_Core_Model_Locale::FORMAT_TYPE_LONG,
         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
-        Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+        Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
     ];
 
     /**
@@ -70,7 +71,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function getEncryptor()
     {
         if ($this->_encryptor === null) {
-            $encryptionModel = (string)Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
+            $encryptionModel = (string) Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
             if ($encryptionModel) {
                 $this->_encryptor = new $encryptionModel();
             } else {
@@ -146,33 +147,48 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   string|Zend_Date|null $date If empty, return current datetime.
-     * @param   string              $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
-     * @param   bool                $showTime Whether to include time
-     * @param   bool                $useTimezone Convert to local datetime?
+     * @param   string|int|Zend_Date|null   $date If empty, return current datetime.
+     * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
+     * @param   bool                        $showTime Whether to include time
      * @return  string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
     {
+        return $this->formatTimezoneDate($date, $format, $showTime);
+    }
+
+    /**
+     * Format date using current locale options and time zone.
+     *
+     * @param   string|int|Zend_Date|null   $date If empty, return current locale datetime.
+     * @param   string                      $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
+     * @param   bool                        $showTime Whether to include time
+     * @param   bool                        $useTimezone Convert to local datetime?
+     */
+    public function formatTimezoneDate(
+        $date = null,
+        string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
+        bool $showTime = false,
+        bool $useTimezone = true
+    ): string {
         if (!in_array($format, $this->_allowedFormats, true)) {
             return $date;
         }
+
+        $locale = Mage::app()->getLocale();
         if (empty($date)) {
-            $date = Mage::app()->getLocale()->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
+            $date = $locale->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null, $useTimezone);
         } elseif (is_int($date)) {
-            $date = Mage::app()->getLocale()->date($date, null, null, $useTimezone);
+            $date = $locale->date($date, null, null, $useTimezone);
         } elseif (!$date instanceof Zend_Date) {
             if (($time = strtotime($date)) !== false) {
-                $date = Mage::app()->getLocale()->date($time, null, null, $useTimezone);
+                $date = $locale->date($time, null, null, $useTimezone);
             } else {
                 return '';
             }
         }
 
-        $format = $showTime
-            ? Mage::app()->getLocale()->getDateTimeFormat($format)
-            : Mage::app()->getLocale()->getDateFormat($format);
-
+        $format = $showTime ? $locale->getDateTimeFormat($format) : $locale->getDateFormat($format);
         return $date->toString($format);
     }
 
@@ -190,18 +206,19 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             return $time;
         }
 
+        $locale = Mage::app()->getLocale();
         if (is_null($time)) {
-            $date = Mage::app()->getLocale()->date(time());
+            $date = $locale->date(time());
         } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
-            $date = Mage::app()->getLocale()->date(strtotime($time));
+            $date = $locale->date(strtotime($time));
         }
 
         if ($showDate) {
-            $format = Mage::app()->getLocale()->getDateTimeFormat($format);
+            $format = $locale->getDateTimeFormat($format);
         } else {
-            $format = Mage::app()->getLocale()->getTimeFormat($format);
+            $format = $locale->getTimeFormat($format);
         }
 
         return $date->toString($format);
@@ -315,7 +332,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve store identifier
      *
-     * @param   mixed $store
+     * @param   bool|int|Mage_Core_Model_Store|null|string $store
      * @return  int
      */
     public function getStoreId($store = null)
@@ -328,7 +345,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $german
      * @return false|string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function removeAccents($string, $german = false)
     {
@@ -362,8 +379,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             if ($german) {
                 // umlauts
                 $subst = [
-                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue'
-                    ] + $subst;
+                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue',
+                ] + $subst;
             }
 
             $replacements[$german] = [];
@@ -416,7 +433,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $types = [];
         $config = Mage::getConfig()->getNode(Mage_Core_Model_Cache::XML_PATH_TYPES);
         foreach ($config->children() as $type => $node) {
-            $types[$type] = (string)$node->label;
+            $types[$type] = (string) $node->label;
         }
         return $types;
     }
@@ -432,7 +449,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
             foreach ($config->children() as $type => $node) {
-                $types[$type] = (string)$node->label;
+                $types[$type] = (string) $node->label;
             }
         }
         return $types;
@@ -479,7 +496,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 $value = $source->getDataUsingMethod($code);
             }
 
-            $targetCode = (string)$node->$aspect;
+            $targetCode = (string) $node->$aspect;
             $targetCode = $targetCode == '*' ? $code : $targetCode;
 
             if ($targetIsArray) {
@@ -495,7 +512,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage::dispatchEvent($eventName, [
             'target' => $target,
             'source' => $source,
-            'root'   => $root
+            'root'   => $root,
         ]);
 
         return $result;
@@ -571,6 +588,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param mixed $value
      * @param bool $dontSkip
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _decorateArrayObject($element, $key, $value, $dontSkip)
     {
         if ($dontSkip) {
@@ -616,6 +634,7 @@ XML;
      * @return SimpleXMLElement
      * @throws Exception
      */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private function _assocToXml(array $array, $rootName, SimpleXMLElement &$xml)
     {
         $hasNumericKey = false;
@@ -655,15 +674,15 @@ XML;
             if (isset($value->$key)) {
                 $i = 0;
                 foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string)$v;
+                    $array[$key][$i++] = (string) $v;
                 }
             } else {
                 // try to transform it into string value, trimming spaces between elements
-                $array[$key] = trim((string)$value);
+                $array[$key] = trim((string) $value);
                 if (empty($array[$key]) && !empty($value)) {
                     $array[$key] = self::xmlToAssoc($value);
                 } else { // untrim strings values
-                    $array[$key] = (string)$value;
+                    $array[$key] = (string) $value;
                 }
             }
         }
@@ -752,7 +771,7 @@ XML;
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mergeFiles(
         array $srcFiles,
@@ -813,6 +832,7 @@ XML;
                         continue;
                     }
                     $contents = file_get_contents($file) . "\n";
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if ($beforeMergeCallback && is_callable($beforeMergeCallback)) {
                         $contents = call_user_func($beforeMergeCallback, $file, $contents);
                     }
@@ -962,7 +982,7 @@ XML;
     {
         if (Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
             foreach ($data as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
 
                 $firstLetter = substr($value, 0, 1);
                 if ($firstLetter && in_array($firstLetter, ['=', '+', '-'])) {
@@ -983,7 +1003,7 @@ XML;
     {
         if (is_array($data) && Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
             foreach ($data as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
 
                 if (preg_match("/^ [=\-+]/", $value)) {
                     $data[$key] = ltrim($value);

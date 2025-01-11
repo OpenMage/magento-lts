@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -73,7 +74,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     {
         $this->getSelect()->from(
             ['main_table' => $this->getResource()->getMainStoreTable($this->getStoreId())],
-            ['entity_id', 'level', 'path', 'position', 'is_active', 'is_anchor']
+            ['entity_id', 'level', 'path', 'position', 'is_active', 'is_anchor'],
         );
         return $this;
     }
@@ -181,7 +182,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         $this->addFieldToFilter('is_active', 1);
         Mage::dispatchEvent(
             $this->_eventPrefix . '_add_is_active_filter',
-            [$this->_eventObject => $this]
+            [$this->_eventObject => $this],
         );
         return $this;
     }
@@ -235,16 +236,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
 
         $this->getSelect()->columns($attribute, 'main_table');
         return $this;
-    }
-
-    /**
-     * Retrieve resource instance
-     *
-     * @inheritDoc
-     */
-    public function getResource()
-    {
-        return parent::getResource();
     }
 
     /**
@@ -308,7 +299,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
      */
     protected function _getCurrentStoreId()
     {
-        return (int)Mage::app()->getStore()->getId();
+        return (int) Mage::app()->getStore()->getId();
     }
 
     /**

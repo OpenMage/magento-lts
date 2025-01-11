@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +40,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('paypal/settlement_report', ['report_date', 'account_id'], Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
         ['report_date', 'account_id'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->setComment('Paypal Settlement Report Table');
 $installer->getConnection()->createTable($table);
@@ -98,7 +99,7 @@ $table = $installer->getConnection()
     ], 'Consumer Id')
     ->addIndex(
         $installer->getIdxName('paypal/settlement_report_row', ['report_id']),
-        ['report_id']
+        ['report_id'],
     )
     ->addForeignKey(
         $installer->getFkName('paypal/settlement_report_row', 'report_id', 'paypal/settlement_report', 'report_id'),
@@ -106,7 +107,7 @@ $table = $installer->getConnection()
         $installer->getTable('paypal/settlement_report'),
         'report_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Paypal Settlement Report Row Table');
 $installer->getConnection()->createTable($table);
@@ -125,7 +126,7 @@ $table = $installer->getConnection()
     ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
-        'default'   => '0'
+        'default'   => '0',
     ], 'Website Id')
     ->addColumn('content', Varien_Db_Ddl_Table::TYPE_TEXT, '64K', [
     ], 'Content')
@@ -133,7 +134,7 @@ $table = $installer->getConnection()
     ], 'Updated At')
     ->addIndex(
         $installer->getIdxName('paypal/cert', ['website_id']),
-        ['website_id']
+        ['website_id'],
     )
     ->addForeignKey(
         $installer->getFkName('paypal/cert', 'website_id', 'core/website', 'website_id'),
@@ -141,7 +142,7 @@ $table = $installer->getConnection()
         $installer->getTable('core/website'),
         'website_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Paypal Certificate Table');
 $installer->getConnection()->createTable($table);

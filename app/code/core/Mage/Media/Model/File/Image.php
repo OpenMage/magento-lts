@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -138,7 +139,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             $object->getDestanationDimensions()->getWidth(),
             $object->getDestanationDimensions()->getHeight(),
             $object->getDimensions()->getWidth(),
-            $object->getDimensions()->getHeight()
+            $object->getDimensions()->getHeight(),
         );
 
         return $this;
@@ -194,7 +195,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      * Retrieve image dimensions
      *
      * @return Varien_Object
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getDimensions(Mage_Media_Model_Image $object)
     {

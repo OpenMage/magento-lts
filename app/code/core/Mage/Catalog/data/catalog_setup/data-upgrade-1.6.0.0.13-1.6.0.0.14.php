@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +39,7 @@ if ($attributeTableOld != $attributeTableNew) {
 
     $query = $select->insertFromSelect(
         $attributeTableNew,
-        ['entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value']
+        ['entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value'],
     );
 
     $connection->query($query);
@@ -46,7 +47,7 @@ if ($attributeTableOld != $attributeTableNew) {
     $connection->delete(
         $attributeTableOld,
         $connection->quoteInto('entity_type_id = ?', $entityTypeId)
-            . $connection->quoteInto(' AND attribute_id = ?', $attributeId)
+            . $connection->quoteInto(' AND attribute_id = ?', $attributeId),
     );
 
     $connection->enableTableKeys($attributeTableOld)

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -98,7 +99,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Fetch (Retrieve data as array)
      *
-     * @return array
+     * @return $this|array
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
@@ -127,7 +128,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     {
         if ($this->_address === null) {
             Mage::throwException(
-                Mage::helper('sales')->__('Address model is not defined.')
+                Mage::helper('sales')->__('Address model is not defined.'),
             );
         }
         return $this->_address;

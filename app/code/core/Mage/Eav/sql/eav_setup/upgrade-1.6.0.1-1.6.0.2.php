@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -43,7 +44,7 @@ $table = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName('eav/attribute_option_value', ['option_id']),
         ['option_id'],
-        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+        ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
     )
     ->addForeignKey(
         $installer->getFkName('eav/attribute_option_swatch', 'option_id', 'eav/attribute_option', 'option_id'),
@@ -51,7 +52,7 @@ $table = $installer->getConnection()
         $installer->getTable('eav/attribute_option'),
         'option_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Eav Attribute Option Swatch');
 $installer->getConnection()->createTable($table);

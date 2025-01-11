@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CurrencySymbol
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,11 +38,11 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
             ->_setActiveMenu('system/currency/symbols')
             ->_addBreadcrumb(
                 Mage::helper('currencysymbol')->__('System'),
-                Mage::helper('currencysymbol')->__('System')
+                Mage::helper('currencysymbol')->__('System'),
             )
             ->_addBreadcrumb(
                 Mage::helper('currencysymbol')->__('Manage Currency Rates'),
-                Mage::helper('currencysymbol')->__('Manage Currency Rates')
+                Mage::helper('currencysymbol')->__('Manage Currency Rates'),
             );
 
         $this->_title($this->__('System'))
@@ -64,7 +65,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
         try {
             Mage::getModel('currencysymbol/system_currencysymbol')->setCurrencySymbolsData($symbolsDataArray);
             Mage::getSingleton('adminhtml/session')->addSuccess(
-                Mage::helper('currencysymbol')->__('Custom currency symbols were applied successfully.')
+                Mage::helper('currencysymbol')->__('Custom currency symbols were applied successfully.'),
             );
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());

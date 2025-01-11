@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -135,7 +136,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
             [
                 $this->_eventObject => $this,
                 'input' => $data,
-            ]
+            ],
         );
 
         $this->setMethod($data->getMethod());

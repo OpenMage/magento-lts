@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -156,10 +157,10 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'AMT', 'CUSTIP', 'INVNUM',
         'CARDISSUE', 'CARDSTART',
         'AUTHSTATUS3DS', 'MPIVENDOR3DS', 'CAVV', 'ECI', 'XID',//cardinal centinel params
-        'TAXAMT', 'FREIGHTAMT'
+        'TAXAMT', 'FREIGHTAMT',
     ];
     protected $_doDirectPaymentResponse = [
-        'PNREF', 'PPREF', 'CORRELATIONID', 'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'PENDINGREASON'
+        'PNREF', 'PPREF', 'CORRELATIONID', 'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'PENDINGREASON',
     ];
 
     /**
@@ -200,7 +201,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected $_setExpressCheckoutRequest = [
         'TENDER', 'AMT', 'CURRENCY', 'RETURNURL', 'CANCELURL', 'INVNUM',
         'PAGESTYLE', 'HDRIMG', 'HDRBORDERCOLOR', 'HDRBACKCOLOR', 'PAYFLOWCOLOR', 'LOCALECODE',
-        'USERSELECTEDFUNDINGSOURCE'
+        'USERSELECTEDFUNDINGSOURCE',
     ];
     protected $_setExpressCheckoutResponse = ['REPMSG', 'TOKEN'];
 
@@ -221,7 +222,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     ];
     protected $_doExpressCheckoutPaymentResponse = [
         'PNREF', 'PPREF', 'REPMSG', 'AMT', 'PENDINGREASON',
-        'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'CORRELATIONID'
+        'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'CORRELATIONID',
     ];
 
     /**
@@ -232,7 +233,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected $_getTransactionDetailsRequest = ['ORIGID', 'TENDER'];
     protected $_getTransactionDetailsResponse = [
         'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID',
-        'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS'
+        'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS',
     ];
 
     /**
@@ -315,7 +316,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var array
      */
     protected $_requiredResponseParams = [
-        self::DO_DIRECT_PAYMENT => ['RESULT', 'PNREF']
+        self::DO_DIRECT_PAYMENT => ['RESULT', 'PNREF'],
     ];
 
     /**
@@ -485,7 +486,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
             $e = new Exception(sprintf('PayPal gateway errors: %s.', $message));
             Mage::logException($e);
             Mage::throwException(
-                Mage::helper('paypal')->__('PayPal gateway rejected the request. %s', $message)
+                Mage::helper('paypal')->__('PayPal gateway rejected the request. %s', $message),
             );
         }
     }
@@ -518,9 +519,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * "GetTransactionDetails" method does not exists in PaypalUK
      */
-    public function callGetTransactionDetails()
-    {
-    }
+    public function callGetTransactionDetails() {}
 
     /**
      * Get FMF results from response, if any
@@ -575,7 +574,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * Checking negative line items
      *
      * @param int $i
-     * @return null|true
+     * @return bool|void
      */
     protected function _exportLineItems(array &$request, $i = 0)
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,17 +36,17 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
      */
     public function render(Varien_Object $row)
     {
-        if ($data = (string)$row->getData($this->getColumn()->getIndex())) {
-            $currency_code = $this->_getCurrencyCode($row);
+        if ($data = (string) $row->getData($this->getColumn()->getIndex())) {
+            $currencyCode = $this->_getCurrencyCode($row);
 
-            if (!$currency_code) {
+            if (!$currencyCode) {
                 return $data;
             }
 
             $data = (float) $data * $this->_getRate($row);
-            $sign = (bool)(int)$this->getColumn()->getShowNumberSign() && ($data > 0) ? '+' : '';
+            $sign = (bool) (int) $this->getColumn()->getShowNumberSign() && ($data > 0) ? '+' : '';
             $data = sprintf('%F', $data);
-            $data = Mage::app()->getLocale()->currency($currency_code)->toCurrency($data);
+            $data = Mage::app()->getLocale()->currency($currencyCode)->toCurrency($data);
             return $sign . $data;
         }
         return $this->getColumn()->getDefault();
@@ -83,15 +84,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
             return (float) $rate;
         }
         return 1;
-    }
-
-    /**
-     * Returns HTML for CSS
-     *
-     * @return string
-     */
-    public function renderCss()
-    {
-        return parent::renderCss() . ' a-right';
     }
 }

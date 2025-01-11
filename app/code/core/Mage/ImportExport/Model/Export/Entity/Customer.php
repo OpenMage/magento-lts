@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -39,7 +40,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     protected $_attributeOverrides = [
         'created_at'                  => ['backend_type' => 'datetime'],
         'reward_update_notification'  => ['source_model' => 'eav/entity_attribute_source_boolean'],
-        'reward_warning_notification' => ['source_model' => 'eav/entity_attribute_source_boolean']
+        'reward_warning_notification' => ['source_model' => 'eav/entity_attribute_source_boolean'],
     ];
 
     /**
@@ -94,7 +95,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     {
         // forced addition default billing and shipping addresses attributes
         return parent::_prepareEntityCollection($collection)->addAttributeToSelect(
-            Mage_ImportExport_Model_Import_Entity_Customer_Address::getDefaultAddressAttrMapping()
+            Mage_ImportExport_Model_Import_Entity_Customer_Address::getDefaultAddressAttrMapping(),
         );
     }
 
@@ -132,7 +133,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
         return [
             'rows'  => $writer->getRowsCount(),
-            'value' => $writer->getDestination()
+            'value' => $writer->getDestination(),
         ];
     }
 
@@ -200,7 +201,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             $validAttrCodes,
             ['password'],
             $addrColNames,
-            array_keys($defaultAddrMap)
+            array_keys($defaultAddrMap),
         ));
         foreach ($collection as $customerId => $customer) {
             $customerAddress = $customerAddrs[$customerId] ?? [];
@@ -226,7 +227,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             $additionalRowsCount = $this->_getAdditionalRowsCount(
                 $customerAddress,
                 $addressMultiselect,
-                $customerAttributeMultiSelect
+                $customerAttributeMultiSelect,
             );
             if ($additionalRowsCount) {
                 for ($i = 0; $i < $additionalRowsCount; $i++) {
@@ -386,7 +387,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             $attrValue = $customer->getData($attrCode);
 
             if ($attribute && $attribute->getFrontendInput() == 'multiselect') {
-                $optionText = (array)$attribute->getSource()->getOptionText($attrValue);
+                $optionText = (array) $attribute->getSource()->getOptionText($attrValue);
                 if ($optionText) {
                     $attributeMultiSelect[$attrCode] = $optionText;
                     $attrValue                       = null;

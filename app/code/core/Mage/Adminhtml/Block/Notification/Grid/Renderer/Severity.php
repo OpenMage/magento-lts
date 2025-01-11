@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -43,6 +44,7 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Severity extends Mage_Admi
                 $class = 'minor';
                 $value = $notice->getSeverities(Mage_AdminNotification_Model_Inbox::SEVERITY_MINOR);
                 break;
+            default:
             case Mage_AdminNotification_Model_Inbox::SEVERITY_NOTICE:
                 $class = 'notice';
                 $value = $notice->getSeverities(Mage_AdminNotification_Model_Inbox::SEVERITY_NOTICE);

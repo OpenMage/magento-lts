@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +33,7 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
         $this->setForm($form);
 
         $fieldset = $form->addFieldset('rating_form', [
-            'legend' => Mage::helper('rating')->__('Rating Title')
+            'legend' => Mage::helper('rating')->__('Rating Title'),
         ]);
 
         $fieldset->addField('rating_code', 'text', [
@@ -90,15 +91,15 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
         }
 
         $fieldset = $form->addFieldset('visibility_form', [
-            'legend' => Mage::helper('rating')->__('Rating Visibility')
+            'legend' => Mage::helper('rating')->__('Rating Visibility'),
         ]);
 
         $field = $fieldset->addField('stores', 'multiselect', [
             'label' => Mage::helper('rating')->__('Visible In'),
             'name' => 'stores[]',
-            'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm()
+            'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
         ]);
-        $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+        $renderer = $this->getStoreSwitcherRenderer();
         $field->setRenderer($renderer);
 
         $fieldset->addField('position', 'text', [

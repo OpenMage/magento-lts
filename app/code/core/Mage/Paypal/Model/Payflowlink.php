@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -237,7 +238,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     public function process($responseData)
     {
         $debugData = [
-            'response' => $responseData
+            'response' => $responseData,
         ];
         $this->_debug($debugData);
 
@@ -365,7 +366,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Build request for getting token
      *
-     * @return Varien_Object
+     * @return Mage_Paypal_Model_Payflow_Request
      */
     protected function _buildTokenRequest(Mage_Sales_Model_Order_Payment $payment)
     {
@@ -508,7 +509,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
       * Set token data in payment object
       *
       * @param Varien_Object $response
-      * @param Mage_Sales_Model_Order_Payment $payment
+      * @param Mage_Payment_Model_Info|Mage_Sales_Model_Order_Payment $payment
       * @throws Mage_Core_Exception
       */
     protected function _processTokenErrors($response, $payment)
@@ -538,7 +539,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Generate end return new secure hash value
      *
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param Mage_Payment_Model_Info $payment
      * @return string
      */
     protected function _generateSecureSilentPostHash($payment)
@@ -555,9 +556,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @param Varien_Object $payment
      * @param string $txnId
      */
-    protected function _addTransaction($payment, $txnId)
-    {
-    }
+    protected function _addTransaction($payment, $txnId) {}
 
     /**
      * Initialize request
@@ -577,9 +576,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @deprecated since 1.6.2.0
      * @param string $token
      */
-    public function prepareOrderReview($token = null)
-    {
-    }
+    public function prepareOrderReview($token = null) {}
 
     /**
      * Additional authorization logic for Account Verification
@@ -600,9 +597,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @deprecated since 1.6.2.0
      */
-    protected function _process(Varien_Object $document)
-    {
-    }
+    protected function _process(Varien_Object $document) {}
 
     /**
      * Check Transaction
@@ -651,7 +646,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             $website = Mage::getModel('core/website')->load($request->getParam('website'));
             $secure = Mage::getStoreConfigFlag(
                 Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
-                $website->getDefaultStore()
+                $website->getDefaultStore(),
             );
             $path = $secure
                 ? Mage_Core_Model_Store::XML_PATH_SECURE_BASE_LINK_URL

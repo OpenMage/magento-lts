@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +37,7 @@ $conn->addConstraint(
     $installer->getTable('downloadable/sample'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->run("
@@ -56,14 +57,14 @@ $conn->addConstraint(
     $installer->getTable('downloadable/sample_title'),
     'sample_id',
     $installer->getTable('downloadable/sample'),
-    'sample_id'
+    'sample_id',
 );
 $conn->addConstraint(
     'FK_DOWNLOADABLE_SAMPLE_TITLE_STORE',
     $installer->getTable('downloadable/sample_title'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->run("
@@ -86,7 +87,7 @@ $conn->addConstraint(
     $installer->getTable('downloadable/link'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->run("
@@ -106,14 +107,14 @@ $conn->addConstraint(
     $installer->getTable('downloadable/link_title'),
     'link_id',
     $installer->getTable('downloadable/link'),
-    'link_id'
+    'link_id',
 );
 $conn->addConstraint(
     'FK_DOWNLOADABLE_LINK_TITLE_STORE',
     $installer->getTable('downloadable/link_title'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->run("
@@ -133,14 +134,14 @@ $conn->addConstraint(
     $installer->getTable('downloadable/link_price'),
     'link_id',
     $installer->getTable('downloadable/link'),
-    'link_id'
+    'link_id',
 );
 $conn->addConstraint(
     'FK_DOWNLOADABLE_LINK_PRICE_WEBSITE',
     $installer->getTable('downloadable/link_price'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->endSetup();

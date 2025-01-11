@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,13 +69,13 @@ foreach ($attributes as $attributeCode => $data) {
 // update customer address system attributes used_in_forms data
 $attributes = [
     'prefix', 'firstname', 'middlename', 'lastname', 'suffix', 'company', 'street', 'city', 'country_id',
-    'region', 'region_id', 'postcode', 'telephone', 'fax'
+    'region', 'region_id', 'postcode', 'telephone', 'fax',
 ];
 
 $defaultUsedInForms = [
     'adminhtml_customer_address',
     'customer_address_edit',
-    'customer_register_address'
+    'customer_register_address',
 ];
 
 foreach ($attributes as $attributeCode) {

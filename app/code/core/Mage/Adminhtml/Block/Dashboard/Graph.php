@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -127,7 +128,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      */
     public function setDataRows($rows)
     {
-        $this->_dataRows = (array)$rows;
+        $this->_dataRows = (array) $rows;
     }
 
     /**
@@ -177,7 +178,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             'chm'  => 'B,f4d4b2,0,0,0',
             'chco' => 'db4814',
             'chxs' => '0,0,11|1,0,11',
-            'chma' => '15,15,15,15'
+            'chma' => '15,15,15,15',
         ];
 
         $this->_allSeries = $this->getRowsData($this->_dataRows);
@@ -194,6 +195,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $dateStart->setTimezone($timezoneLocal);
         $dateEnd->setTimezone($timezoneLocal);
 
+        $d = '';
         $dates = [];
         $datas = [];
 
@@ -216,7 +218,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             }
             foreach (array_keys($this->getAllSeries()) as $index) {
                 if (in_array($d, $this->_axisLabels['x'])) {
-                    $datas[$index][] = (float)array_shift($this->_allSeries[$index]);
+                    $datas[$index][] = (float) array_shift($this->_allSeries[$index]);
                 } else {
                     $datas[$index][] = 0;
                 }
@@ -256,6 +258,9 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $dataDelimiter = ',';
         $dataSetdelimiter = '|';
         $dataMissing = '_';
+        $localmaxlength = [];
+        $localmaxvalue = [];
+        $localminvalue = [];
 
         // process each string in the array, and find the max length
         foreach ($this->getAllSeries() as $index => $serie) {
@@ -276,13 +281,11 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         }
 
         // default values
-        $yrange = 0;
         $yLabels = [];
         $miny = 0;
         $maxy = 0;
         $yorigin = 0;
 
-        $maxlength = max($localmaxlength);
         if ($minvalue >= 0 && $maxvalue >= 0) {
             $miny = 0;
             if ($maxvalue > 10) {
@@ -293,15 +296,14 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                 $maxy = ceil($maxvalue + 1);
                 $yLabels = range($miny, $maxy, 1);
             }
-            $yrange = $maxy;
-            $yorigin = 0;
         }
 
         $chartdata = [];
 
-        foreach ($this->getAllSeries() as $index => $serie) {
+        foreach ($this->getAllSeries() as $serie) {
             $thisdataarray = $serie;
-            for ($j = 0; $j < count($thisdataarray); $j++) {
+            $thisdataarrayCount = count($thisdataarray);
+            for ($j = 0; $j < $thisdataarrayCount; $j++) {
                 $currentvalue = $thisdataarray[$j];
                 if (is_numeric($currentvalue)) {
                     $ylocation = $yorigin + $currentvalue;
@@ -320,9 +322,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         $params['chd'] .= $buffer;
 
-        $labelBuffer = '';
         $valueBuffer = [];
-        $rangeBuffer = '';
 
         if (count($this->_axisLabels)) {
             $params['chxt'] = implode(',', array_keys($this->_axisLabels));
@@ -339,13 +339,12 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                                     $this->_axisLabels[$idx][$_index] = $this->formatTime(
                                         new Zend_Date($_label, 'yyyy-MM-dd HH:00'),
                                         'short',
-                                        false
                                     );
                                     break;
                                 case '7d':
                                 case '1m':
                                     $this->_axisLabels[$idx][$_index] = $this->formatDate(
-                                        new Zend_Date($_label, 'yyyy-MM-dd')
+                                        new Zend_Date($_label, 'yyyy-MM-dd'),
                                     );
                                     break;
                                 case '1y':
@@ -376,8 +375,6 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     } else {
                         $deltaY = 100;
                     }
-                    // setting range values for y axis
-                    $rangeBuffer = $indexid . ',' . $miny . ',' . $maxy . '|';
                 }
                 $indexid++;
             }
@@ -421,7 +418,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             if ($single) {
                 $options[] = max(0, $item->getData($attributes));
             } else {
-                foreach ((array)$attributes as $attr) {
+                foreach ((array) $attributes as $attr) {
                     $options[$attr][] = max(0, $item->getData($attr));
                 }
             }
@@ -511,7 +508,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         $this->getDataHelper()->setParam(
             'period',
-            ($period && in_array($period, $availablePeriods)) ? $period : '24h'
+            ($period && in_array($period, $availablePeriods)) ? $period : '24h',
         );
     }
 }

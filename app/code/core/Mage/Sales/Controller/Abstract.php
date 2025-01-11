@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -143,7 +144,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             } catch (Exception $e) {
                 Mage::getSingleton('checkout/session')->addException(
                     $e,
-                    Mage::helper('checkout')->__('Cannot add the item to shopping cart.')
+                    Mage::helper('checkout')->__('Cannot add the item to shopping cart.'),
                 );
                 $this->_redirect('checkout/cart');
             }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -41,19 +42,25 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
      */
     public function getHtml()
     {
+        $fromLabel = Mage::helper('adminhtml')->__('From');
+        $toLabel = Mage::helper('adminhtml')->__('To');
+
         $htmlId = $this->_getHtmlId() . microtime(true);
         $format = $this->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+
         $html = '<div class="range"><div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('From') . '</span>'
+            . '<span class="label">' . $fromLabel . '</span>'
             . '<input type="text" name="' . $this->_getHtmlName() . '[from]" id="' . $htmlId . '_from"'
+                . ' placeholder="' . $fromLabel . '"'
                 . ' value="' . $this->getEscapedValue('from') . '" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'
                 . ' id="' . $htmlId . '_from_trig"'
                 . ' title="' . $this->escapeHtml(Mage::helper('adminhtml')->__('Date selector')) . '"/>'
             . '</div>';
         $html .= '<div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('To') . '</span>'
+            . '<span class="label">' . $toLabel . '</span>'
             . '<input type="text" name="' . $this->_getHtmlName() . '[to]" id="' . $htmlId . '_to"'
+                . ' placeholder="' . $toLabel . '"'
                 . ' value="' . $this->getEscapedValue('to') . '" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'
                 . ' id="' . $htmlId . '_to_trig"'
@@ -61,7 +68,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
             . '</div></div>';
         $html .= '<input type="hidden" name="' . $this->_getHtmlName() . '[locale]"'
             . 'value="' . $this->getLocale()->getLocaleCode() . '"/>';
-        $html .= '<script type="text/javascript">
+        return $html . ('<script type="text/javascript">
             Calendar.setup({
                 inputField : "' . $htmlId . '_from",
                 ifFormat : "' . $format . '",
@@ -100,8 +107,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
                     };
                 });
             };
-        </script>';
-        return $html;
+        </script>');
     }
 
     public function getEscapedValue($index = null)
@@ -179,7 +185,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
 
             //set default timezone for store (admin)
             $dateObj->setTimezone(
-                Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE)
+                Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE),
             );
 
             //set beginning of day

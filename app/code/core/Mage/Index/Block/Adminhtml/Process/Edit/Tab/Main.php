@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +30,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main extends Mage_Adminhtml_Bl
         $form->setHtmlIdPrefix('index_process_');
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend' => Mage::helper('index')->__('General'), 'class' => 'fieldset-wide']
+            ['legend' => Mage::helper('index')->__('General'), 'class' => 'fieldset-wide'],
         );
 
         $fieldset->addField('process_id', 'hidden', ['name' => 'process', 'value' => $model->getId()]);
@@ -37,13 +38,13 @@ class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main extends Mage_Adminhtml_Bl
         $fieldset->addField('name', 'note', [
             'label' => Mage::helper('index')->__('Index Name'),
             'title' => Mage::helper('index')->__('Index Name'),
-            'text'  => '<strong>' . $model->getIndexer()->getName() . '</strong>'
+            'text'  => '<strong>' . $model->getIndexer()->getName() . '</strong>',
         ]);
 
         $fieldset->addField('description', 'note', [
             'label' => Mage::helper('index')->__('Index Description'),
             'title' => Mage::helper('index')->__('Index Description'),
-            'text'  => $model->getIndexer()->getDescription()
+            'text'  => $model->getIndexer()->getDescription(),
         ]);
 
         $fieldset->addField('mode', 'select', [
@@ -51,7 +52,7 @@ class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main extends Mage_Adminhtml_Bl
             'title' => Mage::helper('index')->__('Index Mode'),
             'name'  => 'mode',
             'value' => $model->getMode(),
-            'values' => $model->getModesOptions()
+            'values' => $model->getModesOptions(),
         ]);
 
         //$form->setValues($model->getData());

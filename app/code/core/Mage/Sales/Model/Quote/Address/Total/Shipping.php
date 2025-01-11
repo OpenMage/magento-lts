@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -165,7 +166,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
     /**
      * Add shipping totals information to address object
      *
-     * @return  Mage_Sales_Model_Quote_Address_Total_Shipping
+     * @return $this
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
@@ -178,7 +179,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
             $address->addTotal([
                 'code' => $this->getCode(),
                 'title' => $title,
-                'value' => $address->getShippingAmount()
+                'value' => $address->getShippingAmount(),
             ]);
         }
         return $this;

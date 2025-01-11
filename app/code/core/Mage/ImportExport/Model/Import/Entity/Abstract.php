@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -54,7 +55,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type id.
      *
-     * @var string|null
+     * @var int|null
      */
     protected $_entityTypeId;
 
@@ -216,7 +217,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Returns boolean TRUE if row scope is default (fundamental) scope.
      *
-     * @return bool
+     * @return true
      */
     protected function _isRowScopeDefault(array $rowData)
     {
@@ -287,6 +288,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                     $rowData = $this->_prepareRowForDb($rowData);
                     $rowSize = strlen(Mage::helper('core')->jsonEncode($rowData));
 
+                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
                     $isBunchSizeExceeded = ($bunchSize > 0 && count($bunchRows) >= $bunchSize);
 
                     if (($productDataSize + $rowSize) >= $maxDataSize || $isBunchSizeExceeded) {
@@ -398,7 +400,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     /**
      * Entity type ID getter.
      *
-     * @return string|null
+     * @return int|null
      */
     public function getEntityTypeId()
     {
@@ -540,7 +542,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 break;
             case 'decimal':
                 $val   = trim($rowData[$attrCode]);
-                $valid = (float)$val == $val;
+                $valid = (float) $val == $val;
                 break;
             case 'select':
             case 'multiselect':
@@ -548,7 +550,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 break;
             case 'int':
                 $val   = trim($rowData[$attrCode]);
-                $valid = (int)$val == $val;
+                $valid = (int) $val == $val;
                 break;
             case 'datetime':
                 $val   = trim($rowData[$attrCode]);
@@ -653,7 +655,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             if (($colsAbsent = array_diff($this->_permanentAttributes, $this->_getSource()->getColNames()))) {
                 file_put_contents($this->_getSource()->getSource(), '');
                 Mage::throwException(
-                    Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent))
+                    Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent)),
                 );
             }
 
@@ -671,7 +673,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             }
             if ($invalidColumns) {
                 Mage::throwException(
-                    Mage::helper('importexport')->__('Column names: "%s" are invalid', implode('", "', $invalidColumns))
+                    Mage::helper('importexport')->__('Column names: "%s" are invalid', implode('", "', $invalidColumns)),
                 );
             }
             $this->_saveValidatedBunches();

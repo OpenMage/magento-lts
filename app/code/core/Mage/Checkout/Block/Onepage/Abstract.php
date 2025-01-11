@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,7 +123,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
             foreach ($this->getCustomer()->getAddresses() as $address) {
                 $options[] = [
                     'value' => $address->getId(),
-                    'label' => $address->format('oneline')
+                    'label' => $address->format('oneline'),
                 ];
             }
 
@@ -160,22 +161,12 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
      */
     public function getCountryHtmlSelect($type)
     {
-        $countryId = $this->getAddress()->getCountryId();
-        if (is_null($countryId)) {
-            $countryId = Mage::helper('core')->getDefaultCountry();
-        }
-        $select = $this->getLayout()->createBlock('core/html_select')
-            ->setName($type . '[country_id]')
-            ->setId($type . ':country_id')
-            ->setTitle(Mage::helper('checkout')->__('Country'))
-            ->setClass('validate-select')
-            ->setValue($countryId)
-            ->setOptions($this->getCountryOptions());
-        if ($type === 'shipping') {
-            $select->setExtraParams('onchange="if(window.shipping)shipping.setSameAsBilling(false);"');
-        }
-
-        return $select->getHtml();
+        return Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect(
+            $this->getAddress()->getCountryId(),
+            $type . '[country_id]',
+            $type . ':country_id',
+            $this->helper('checkout')->__('Country'),
+        );
     }
 
     /**
@@ -196,6 +187,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     }
 
     /**
+     * @deprecated
      * @return bool|mixed
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -239,5 +231,4 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     {
         return true;
     }
-    /* */
 }

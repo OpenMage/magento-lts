@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -518,7 +519,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            ['subscriber' => $this]
+            ['subscriber' => $this],
         );
 
         $translate->setTranslateInline(true);
@@ -555,7 +556,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            ['subscriber' => $this]
+            ['subscriber' => $this],
         );
 
         $translate->setTranslateInline(true);
@@ -591,7 +592,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            ['subscriber' => $this]
+            ['subscriber' => $this],
         );
 
         $translate->setTranslateInline(true);

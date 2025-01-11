@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,16 +34,16 @@ class Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config extends Mage
             $this->_options = [
                 [
                     'label' => Mage::helper('giftmessage')->__('Yes'),
-                    'value' =>  1
+                    'value' =>  1,
                 ],
                 [
                     'label' => Mage::helper('giftmessage')->__('No'),
-                    'value' =>  0
+                    'value' =>  0,
                 ],
                 [
                     'label' => Mage::helper('giftmessage')->__('Use config'),
-                    'value' =>  2
-                ]
+                    'value' =>  2,
+                ],
             ];
         }
         return $this->_options;
