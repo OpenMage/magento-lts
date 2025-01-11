@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -92,12 +93,12 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
      */
     public function parseFieldList($row)
     {
-        foreach ($row as $fieldName => $value) {
+        foreach (array_keys($row) as $fieldName) {
             if (!in_array($fieldName, $this->_fieldList)) {
                 $this->_fieldList[$fieldName] = $fieldName;
             }
         }
-        unset($fieldName, $value, $row);
+        unset($fieldName, $row);
     }
 
     /**
@@ -194,7 +195,6 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
     public function getParams()
     {
         $data = $this->_data['params'];
-        $data = unserialize($data, ['allowed_classes' => false]);
-        return $data;
+        return unserialize($data, ['allowed_classes' => false]);
     }
 }

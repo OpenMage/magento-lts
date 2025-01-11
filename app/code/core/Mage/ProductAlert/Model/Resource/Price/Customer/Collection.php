@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +34,7 @@ class Mage_ProductAlert_Model_Resource_Price_Customer_Collection extends Mage_Cu
         $this->getSelect()->join(
             ['alert' => $this->getTable('productalert/price')],
             'e.entity_id=alert.customer_id',
-            ['alert_price_id', 'price', 'add_date', 'last_send_date', 'send_count', 'status']
+            ['alert_price_id', 'price', 'add_date', 'last_send_date', 'send_count', 'status'],
         );
 
         $this->getSelect()->where('alert.product_id=?', $productId);

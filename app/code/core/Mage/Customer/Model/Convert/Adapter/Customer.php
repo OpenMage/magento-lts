@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -280,19 +281,19 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
         $attrFilterArray ['group']                      = 'eq';
         $attrFilterArray ['customer_address/telephone'] = [
             'type'  => 'like',
-            'bind'  => $addressType
+            'bind'  => $addressType,
         ];
         $attrFilterArray ['customer_address/postcode']  = [
             'type'  => 'like',
-            'bind'  => $addressType
+            'bind'  => $addressType,
         ];
         $attrFilterArray ['customer_address/country']   = [
             'type'  => 'eq',
-            'bind'  => $addressType
+            'bind'  => $addressType,
         ];
         $attrFilterArray ['customer_address/region']    = [
             'type'  => 'like',
-            'bind'  => $addressType
+            'bind'  => $addressType,
         ];
         $attrFilterArray ['created_at']                 = 'datetimeFromTo';
 
@@ -318,7 +319,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             if ($websiteId) {
                 $this->_filter[] = [
                     'attribute' => 'website_id',
-                    'eq'        => $websiteId
+                    'eq'        => $websiteId,
                 ];
             }
         }
@@ -347,7 +348,6 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     }
 
     /**
-     * @param Mage_Customer_Model_Customer $customer
      * @throws Mage_Core_Exception
      * @throws Varien_Exception
      */
@@ -373,7 +373,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     {
         $stores = [];
         foreach (Mage::getConfig()->getNode('stores')->children() as $storeNode) {
-            $stores[(int)$storeNode->system->store->id] = $storeNode->getName();
+            $stores[(int) $storeNode->system->store->id] = $storeNode->getName();
         }
 
         $collections = $this->getData();
@@ -403,12 +403,12 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                     }
                     $i++;
                 }
-                $this->addException(Mage::helper('customer')->__("Saved %d record(s)", $i));
+                $this->addException(Mage::helper('customer')->__('Saved %d record(s)', $i));
             } catch (Exception $e) {
                 if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
                     $this->addException(
                         Mage::helper('customer')->__('An error occurred while saving the collection, aborting. Error: %s', $e->getMessage()),
-                        Mage_Dataflow_Model_Convert_Exception::FATAL
+                        Mage_Dataflow_Model_Convert_Exception::FATAL,
                     );
                 }
             }

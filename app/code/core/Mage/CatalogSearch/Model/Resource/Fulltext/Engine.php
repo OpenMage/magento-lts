@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +45,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
         $this->_getWriteAdapter()->insert($this->getMainTable(), [
             'product_id'    => $entityId,
             'store_id'      => $storeId,
-            'data_index'    => $index
+            'data_index'    => $index,
         ]);
         return $this;
     }
@@ -60,12 +61,12 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     public function saveEntityIndexes($storeId, $entityIndexes, $entity = 'product')
     {
         $data    = [];
-        $storeId = (int)$storeId;
+        $storeId = (int) $storeId;
         foreach ($entityIndexes as $entityId => $index) {
             $data[] = [
-                'product_id'    => (int)$entityId,
+                'product_id'    => (int) $entityId,
                 'store_id'      => $storeId,
-                'data_index'    => $index
+                'data_index'    => $index,
             ];
         }
 
@@ -175,7 +176,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     }
 
     /**
-     * Define if engine is avaliable
+     * Define if engine is available
      *
      * @return bool
      */

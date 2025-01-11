@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,7 +22,7 @@
  */
 class Mage_Core_Model_File_Validator_Image
 {
-    public const NAME = "isImage";
+    public const NAME = 'isImage';
 
     protected $_allowedImageTypes = [
         IMAGETYPE_WEBP,
@@ -31,13 +32,12 @@ class Mage_Core_Model_File_Validator_Image
         IMAGETYPE_PNG,
         IMAGETYPE_ICO,
         IMAGETYPE_TIFF_II,
-        IMAGETYPE_TIFF_MM
+        IMAGETYPE_TIFF_MM,
     ];
 
     /**
      * Setter for allowed image types
      *
-     * @param array $imageFileExtensions
      * @return $this
      */
     public function setAllowedImageTypes(array $imageFileExtensions = [])
@@ -52,7 +52,7 @@ class Mage_Core_Model_File_Validator_Image
             'gif' => [IMAGETYPE_GIF],
             'png' => [IMAGETYPE_PNG],
             'ico' => [IMAGETYPE_ICO],
-            'apng' => [IMAGETYPE_PNG]
+            'apng' => [IMAGETYPE_PNG],
         ];
 
         $this->_allowedImageTypes = [];

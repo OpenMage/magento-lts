@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -239,7 +240,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     /**
      * Declare order for creditmemo
      *
-     * @param   Mage_Sales_Model_Order $order
      * @return  $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
@@ -346,7 +346,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Creditmemo_Item $item
      * @return $this
      * @throws Exception
      */
@@ -438,17 +437,17 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 
         $this->setState(self::STATE_REFUNDED);
         $orderRefund = Mage::app()->getStore()->roundPrice(
-            $this->getOrder()->getTotalRefunded() + $this->getGrandTotal()
+            $this->getOrder()->getTotalRefunded() + $this->getGrandTotal(),
         );
         $baseOrderRefund = Mage::app()->getStore()->roundPrice(
-            $this->getOrder()->getBaseTotalRefunded() + $this->getBaseGrandTotal()
+            $this->getOrder()->getBaseTotalRefunded() + $this->getBaseGrandTotal(),
         );
 
         if ($baseOrderRefund > Mage::app()->getStore()->roundPrice($this->getOrder()->getBaseTotalPaid())) {
             $baseAvailableRefund = $this->getOrder()->getBaseTotalPaid() - $this->getOrder()->getBaseTotalRefunded();
 
             Mage::throwException(
-                Mage::helper('sales')->__('Maximum amount available to refund is %s', $this->getOrder()->formatBasePrice($baseAvailableRefund))
+                Mage::helper('sales')->__('Maximum amount available to refund is %s', $this->getOrder()->formatBasePrice($baseAvailableRefund)),
             );
         }
         $order = $this->getOrder();
@@ -481,7 +480,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         if ($this->getInvoice()) {
             $this->getInvoice()->setIsUsedForRefund(true);
             $this->getInvoice()->setBaseTotalRefunded(
-                $this->getInvoice()->getBaseTotalRefunded() + $this->getBaseGrandTotal()
+                $this->getInvoice()->getBaseTotalRefunded() + $this->getBaseGrandTotal(),
             );
             $this->setInvoiceId($this->getInvoice()->getId());
         }
@@ -509,22 +508,22 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 
         if ($this->getTransactionId()) {
             $this->getOrder()->setTotalOnlineRefunded(
-                $this->getOrder()->getTotalOnlineRefunded() - $this->getGrandTotal()
+                $this->getOrder()->getTotalOnlineRefunded() - $this->getGrandTotal(),
             );
             $this->getOrder()->setBaseTotalOnlineRefunded(
-                $this->getOrder()->getBaseTotalOnlineRefunded() - $this->getBaseGrandTotal()
+                $this->getOrder()->getBaseTotalOnlineRefunded() - $this->getBaseGrandTotal(),
             );
         } else {
             $this->getOrder()->setTotalOfflineRefunded(
-                $this->getOrder()->getTotalOfflineRefunded() - $this->getGrandTotal()
+                $this->getOrder()->getTotalOfflineRefunded() - $this->getGrandTotal(),
             );
             $this->getOrder()->setBaseTotalOfflineRefunded(
-                $this->getOrder()->getBaseTotalOfflineRefunded() - $this->getBaseGrandTotal()
+                $this->getOrder()->getBaseTotalOfflineRefunded() - $this->getBaseGrandTotal(),
             );
         }
 
         $this->getOrder()->setBaseSubtotalRefunded(
-            $this->getOrder()->getBaseSubtotalRefunded() - $this->getBaseSubtotal()
+            $this->getOrder()->getBaseSubtotalRefunded() - $this->getBaseSubtotal(),
         );
         $this->getOrder()->setSubtotalRefunded($this->getOrder()->getSubtotalRefunded() - $this->getSubtotal());
 
@@ -532,7 +531,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $this->getOrder()->setTaxRefunded($this->getOrder()->getTaxRefunded() - $this->getTaxAmount());
 
         $this->getOrder()->setBaseShippingRefunded(
-            $this->getOrder()->getBaseShippingRefunded() - $this->getBaseShippingAmount()
+            $this->getOrder()->getBaseShippingRefunded() - $this->getBaseShippingAmount(),
         );
         $this->getOrder()->setShippingRefunded($this->getOrder()->getShippingRefunded() - $this->getShippingAmount());
 
@@ -551,7 +550,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     {
         if ($this->getId()) {
             Mage::throwException(
-                Mage::helper('sales')->__('Cannot register an existing credit memo.')
+                Mage::helper('sales')->__('Cannot register an existing credit memo.'),
             );
         }
 
@@ -571,22 +570,22 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 
         if ($this->getDoTransaction()) {
             $this->getOrder()->setTotalOnlineRefunded(
-                $this->getOrder()->getTotalOnlineRefunded() + $this->getGrandTotal()
+                $this->getOrder()->getTotalOnlineRefunded() + $this->getGrandTotal(),
             );
             $this->getOrder()->setBaseTotalOnlineRefunded(
-                $this->getOrder()->getBaseTotalOnlineRefunded() + $this->getBaseGrandTotal()
+                $this->getOrder()->getBaseTotalOnlineRefunded() + $this->getBaseGrandTotal(),
             );
         } else {
             $this->getOrder()->setTotalOfflineRefunded(
-                $this->getOrder()->getTotalOfflineRefunded() + $this->getGrandTotal()
+                $this->getOrder()->getTotalOfflineRefunded() + $this->getGrandTotal(),
             );
             $this->getOrder()->setBaseTotalOfflineRefunded(
-                $this->getOrder()->getBaseTotalOfflineRefunded() + $this->getBaseGrandTotal()
+                $this->getOrder()->getBaseTotalOfflineRefunded() + $this->getBaseGrandTotal(),
             );
         }
 
         $this->getOrder()->setBaseTotalInvoicedCost(
-            $this->getOrder()->getBaseTotalInvoicedCost() - $this->getBaseCost()
+            $this->getOrder()->getBaseTotalInvoicedCost() - $this->getBaseCost(),
         );
 
         $state = $this->getState();
@@ -657,7 +656,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $this->setData('base_adjustment_positive', $amount);
 
         $amount = $this->getStore()->roundPrice(
-            $amount * $this->getOrder()->getStoreToOrderRate()
+            $amount * $this->getOrder()->getStoreToOrderRate(),
         );
         $this->setData('adjustment_positive', $amount);
         return $this;
@@ -679,7 +678,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $this->setData('base_adjustment_negative', $amount);
 
         $amount = $this->getStore()->roundPrice(
-            $amount * $this->getOrder()->getStoreToOrderRate()
+            $amount * $this->getOrder()->getStoreToOrderRate(),
         );
         $this->setData('adjustment_negative', $amount);
         return $this;
@@ -756,7 +755,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         // Get the destination email addresses to send copies to
         $copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
-        // Check if at least one recepient is found
+        // Check if at least one recipient is found
         if (!$notifyCustomer && !$copyTo) {
             return $this;
         }
@@ -822,11 +821,11 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams([
-                'order'        => $order,
-                'creditmemo'   => $this,
-                'comment'      => $comment,
-                'billing'      => $order->getBillingAddress(),
-                'payment_html' => $paymentBlockHtml
+            'order'        => $order,
+            'creditmemo'   => $this,
+            'comment'      => $comment,
+            'billing'      => $order->getBillingAddress(),
+            'payment_html' => $paymentBlockHtml,
         ]);
         $mailer->send();
 
@@ -856,7 +855,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         // Get the destination email addresses to send copies to
         $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $storeId);
-        // Check if at least one recepient is found
+        // Check if at least one recipient is found
         if (!$notifyCustomer && !$copyTo) {
             return $this;
         }
@@ -897,10 +896,10 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams([
-                'order'      => $order,
-                'creditmemo' => $this,
-                'comment'    => $comment,
-                'billing'    => $order->getBillingAddress()
+            'order'      => $order,
+            'creditmemo' => $this,
+            'comment'    => $comment,
+            'billing'    => $order->getBillingAddress(),
         ]);
         $mailer->send();
 

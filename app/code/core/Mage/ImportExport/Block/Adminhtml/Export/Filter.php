@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,6 +24,11 @@
  */
 class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * @var Mage_Eav_Model_Resource_Entity_Attribute_Collection|null
+     */
+    protected $_collection = null;
+
     /**
      * Helper object.
      *
@@ -52,7 +58,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Date 'from-to' filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getDateFromToHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -63,7 +68,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             'class'        => 'input-text',
             'format'       => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
             'extra_params' => 'style="width:85px !important"',
-            'image'        => $this->getSkinUrl('images/grid-cal.gif')
+            'image'        => $this->getSkinUrl('images/grid-cal.gif'),
         ]);
         return '<strong>' . Mage::helper('importexport')->__('From') . ':</strong>&nbsp;' . $dateBlock->getHtml()
              . '&nbsp;<strong>' . Mage::helper('importexport')->__('To') . ':</strong>&nbsp;'
@@ -74,7 +79,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Input text filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getInputHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -87,7 +91,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Multiselect field filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getMultiSelectHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -110,7 +113,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
                 'class'        => 'multiselect',
                 'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : ($size < 2 ? 2 : $size))
-                                . '" style="width:280px"'
+                                . '" style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
         } else {
@@ -122,7 +125,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Number 'from-to' field filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getNumberFromToHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -139,7 +141,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Select field filter HTML.
      *
      * @deprecated
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     protected function _getSelectHtml(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -154,7 +155,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $options = $attribute->getSource()->getAllOptions(false);
         }
         if (($size = count($options))) {
-            // add empty vaue option
+            // add empty value option
             $firstOption = reset($options);
 
             if ($firstOption['value'] === '') {
@@ -166,7 +167,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()),
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
                 'class'        => 'select',
-                'extra_params' => 'style="width:280px"'
+                'extra_params' => 'style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
         } else {
@@ -177,7 +178,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Date 'from-to' filter HTML with values
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -188,7 +188,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
             'class'        => 'input-text input-text-range-date',
             'format'       => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-            'image'        => $this->getSkinUrl('images/grid-cal.gif')
+            'image'        => $this->getSkinUrl('images/grid-cal.gif'),
         ]);
         $fromValue = null;
         $toValue   = null;
@@ -206,7 +206,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Input text filter HTML with value
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -224,7 +223,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Multiselect field filter HTML with selected values
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -247,7 +245,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
                 'class'        => 'multiselect multiselect-export-filter',
-                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : ($size < 2 ? 2 : $size))
+                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : ($size < 2 ? 2 : $size)),
             ]);
             return $selectBlock->setOptions($options)
                 ->setValue($value)
@@ -260,7 +258,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Number 'from-to' field filter HTML with selected value.
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -285,7 +282,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Select field filter HTML with selected value.
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param mixed $value
      * @return string
      */
@@ -301,7 +297,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $options = $attribute->getSource()->getAllOptions(false);
         }
         if (($size = count($options))) {
-            // add empty vaue option
+            // add empty value option
             $firstOption = reset($options);
 
             if ($firstOption['value'] === '') {
@@ -312,7 +308,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $selectBlock = new Mage_Core_Block_Html_Select([
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()),
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
-                'class'        => 'select select-export-filter'
+                'class'        => 'select select-export-filter',
             ]);
             return $selectBlock->setOptions($options)
                 ->setValue($value)
@@ -339,21 +335,21 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             'filter'     => false,
             'sortable'   => false,
             'align'      => 'center',
-            'index'      => 'attribute_id'
+            'index'      => 'attribute_id',
         ]);
         $this->addColumn('frontend_label', [
             'header'   => Mage::helper('importexport')->__('Attribute Label'),
-            'index'    => 'frontend_label'
+            'index'    => 'frontend_label',
         ]);
         $this->addColumn('attribute_code', [
             'header' => Mage::helper('importexport')->__('Attribute Code'),
-            'index'  => 'attribute_code'
+            'index'  => 'attribute_code',
         ]);
         $this->addColumn('filter', [
             'header'         => Mage::helper('importexport')->__('Filter'),
             'sortable'       => false,
             'filter'         => false,
-            'frame_callback' => [$this, 'decorateFilter']
+            'frame_callback' => [$this, 'decorateFilter'],
         ]);
 
         if ($this->hasOperation()) {
@@ -377,8 +373,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Create filter fields for 'Filter' column.
      *
      * @param mixed $value
-     * @param Mage_Eav_Model_Entity_Attribute $row
-     * @param Varien_Object $column
      * @param bool $isExport
      * @return string
      */
@@ -434,18 +428,17 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * Get row edit URL.
      *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
-     * @return false
+     * @return string
      */
     public function getRowUrl($row)
     {
-        return false;
+        return '';
     }
 
     /**
      * Prepare collection by setting page number, sorting etc..
      *
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|null
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
      */
     public function prepareCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
     {

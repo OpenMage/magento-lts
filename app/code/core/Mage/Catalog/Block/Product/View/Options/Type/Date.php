@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -118,7 +119,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         $translations = [
             'd' => $daysHtml,
             'm' => $monthsHtml,
-            'y' => $yearsHtml
+            'y' => $yearsHtml,
         ];
         return strtr($fieldsOrder, $translations);
     }
@@ -140,7 +141,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
             $dayPartHtml = $this->_getHtmlSelect('day_part')
                 ->setOptions([
                     'am' => Mage::helper('catalog')->__('AM'),
-                    'pm' => Mage::helper('catalog')->__('PM')
+                    'pm' => Mage::helper('catalog')->__('PM'),
                 ])
                 ->getHtml();
         }
@@ -162,7 +163,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     protected function _getSelectFromToHtml($name, $from, $to, $value = null)
     {
         $options = [
-            ['value' => '', 'label' => '-']
+            ['value' => '', 'label' => '-'],
         ];
         for ($i = $from; $i <= $to; $i++) {
             $options[] = ['value' => $i, 'label' => $this->_getValueWithLeadingZeros($i)];

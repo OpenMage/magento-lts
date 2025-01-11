@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +45,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     }
 
     /**
-     * Check if we nedd display full tax total info
+     * Check if we need display full tax total info
      *
      * @return bool
      */
@@ -99,7 +100,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     {
         $taxTotal = new Varien_Object([
             'code'      => 'tax',
-            'block_name' => $this->getNameInLayout()
+            'block_name' => $this->getNameInLayout(),
         ]);
         $this->getParentBlock()->addTotal($taxTotal, $after);
         return $this;
@@ -155,13 +156,13 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                 'code'      => 'subtotal_excl',
                 'value'     => $subtotal,
                 'base_value' => $baseSubtotal,
-                'label'     => $this->__('Subtotal (Excl.Tax)')
+                'label'     => $this->__('Subtotal (Excl.Tax)'),
             ]);
             $totalIncl = new Varien_Object([
                 'code'      => 'subtotal_incl',
                 'value'     => $subtotalIncl,
                 'base_value' => $baseSubtotalIncl,
-                'label'     => $this->__('Subtotal (Incl.Tax)')
+                'label'     => $this->__('Subtotal (Incl.Tax)'),
             ]);
             $parent->addTotal($totalExcl, 'subtotal');
             $parent->addTotal($totalIncl, 'subtotal_excl');
@@ -218,13 +219,13 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                 'code'      => 'shipping',
                 'value'     => $shipping,
                 'base_value' => $baseShipping,
-                'label'     => $this->__('Shipping & Handling (Excl.Tax)')
+                'label'     => $this->__('Shipping & Handling (Excl.Tax)'),
             ]);
             $totalIncl = new Varien_Object([
                 'code'      => 'shipping_incl',
                 'value'     => $shippingIncl,
                 'base_value' => $baseShippingIncl,
-                'label'     => $this->__('Shipping & Handling (Incl.Tax)')
+                'label'     => $this->__('Shipping & Handling (Incl.Tax)'),
             ]);
             $parent->addTotal($totalExcl, 'shipping');
             $parent->addTotal($totalIncl, 'shipping');
@@ -248,9 +249,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
         return $this;
     }
 
-    protected function _initDiscount()
-    {
-    }
+    protected function _initDiscount() {}
 
     /**
      * @return $this
@@ -260,7 +259,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
         $store  = $this->getStore();
         $parent = $this->getParentBlock();
         $grandototal = $parent->getTotal('grand_total');
-        if (!$grandototal || !(float)$this->_source->getGrandTotal()) {
+        if (!$grandototal || !(float) $this->_source->getGrandTotal()) {
             return $this;
         }
 
@@ -276,14 +275,14 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                 'strong'    => true,
                 'value'     => $grandtotalExcl,
                 'base_value' => $baseGrandtotalExcl,
-                'label'     => $this->__('Grand Total (Excl.Tax)')
+                'label'     => $this->__('Grand Total (Excl.Tax)'),
             ]);
             $totalIncl = new Varien_Object([
                 'code'      => 'grand_total_incl',
                 'strong'    => true,
                 'value'     => $grandtotal,
                 'base_value' => $baseGrandtotal,
-                'label'     => $this->__('Grand Total (Incl.Tax)')
+                'label'     => $this->__('Grand Total (Incl.Tax)'),
             ]);
             $parent->addTotal($totalExcl, 'grand_total');
             $this->_addTax('grand_total');

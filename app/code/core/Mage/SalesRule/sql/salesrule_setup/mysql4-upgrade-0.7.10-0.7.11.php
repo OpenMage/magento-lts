@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,7 +95,7 @@ $installer->getConnection()->addConstraint(
     $this->getTable('salesrule/coupon_aggregated_order'),
     'store_id',
     $this->getTable('core_store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -102,7 +103,7 @@ $installer->getConnection()->addConstraint(
     $this->getTable('salesrule/coupon_aggregated'),
     'store_id',
     $this->getTable('core_store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

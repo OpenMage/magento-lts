@@ -36,9 +36,8 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
      */
     protected function _prepareCollection()
     {
-        /** @var Mage_Admin_Model_Resource_Rules_Collection */
         $collection = Mage::getResourceModel('admin/rules_collection')
-            ->addFieldToFilter('resource_id', ['nin' => Mage::getModel('admin/roles')->getResourcesList2D()])
+            ->addFieldToFilter('resource_id', ['nin' => Mage::getSingleton('admin/session')->getAcl()->getResources()])
             ->addFieldToSelect('resource_id');
         $collection->getSelect()->group('resource_id');
 
@@ -62,7 +61,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
     {
         $this->addColumn('resource_id', [
             'header' => Mage::helper('adminhtml')->__('Orphaned Role Resource'),
-            'index' => 'resource_id'
+            'index' => 'resource_id',
         ]);
 
         return parent::_prepareColumns();
@@ -79,7 +78,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
         $this->getMassactionBlock()->addItem('delete', [
             'label'    => Mage::helper('adminhtml')->__('Delete'),
             'url'      => $this->getUrl('*/*/massDelete'),
-            'confirm'  => Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+            'confirm'  => Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
         ]);
 
         return $this;

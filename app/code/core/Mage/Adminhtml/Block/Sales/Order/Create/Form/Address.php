@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,7 +83,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         foreach ($this->getAddressCollection() as $address) {
             $addressForm->setEntity($address);
             $data[$address->getId()] = $addressForm->outputData(
-                Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON
+                Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON,
             );
         }
         return Mage::helper('core')->jsonEncode($data);
@@ -96,7 +97,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     protected function _prepareForm()
     {
         $fieldset = $this->_form->addFieldset('main', [
-            'no_container' => true
+            'no_container' => true,
         ]);
 
         /** @var Mage_Customer_Model_Address $addressModel */
@@ -123,7 +124,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
                     $prefixElement->getId(),
                     'select',
                     $prefixElement->getData(),
-                    '^'
+                    '^',
                 );
                 $prefixField->setValues($prefixOptions);
                 if ($this->getAddressId()) {
@@ -143,7 +144,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
                     $suffixElement->getId(),
                     'select',
                     $suffixElement->getData(),
-                    $this->_form->getElement('lastname')->getId()
+                    $this->_form->getElement('lastname')->getId(),
                 );
                 $suffixField->setValues($suffixOptions);
                 if ($this->getAddressId()) {
@@ -170,7 +171,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         }
         if (is_null($this->_form->getElement('country_id')->getValue())) {
             $this->_form->getElement('country_id')->setValue(
-                Mage::helper('core')->getDefaultCountry($this->getStore())
+                Mage::helper('core')->getDefaultCountry($this->getStore()),
             );
         }
 
@@ -179,7 +180,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         if ($vatIdElement && $this->getDisplayVatValidationButton() !== false) {
             $vatIdElement->setRenderer(
                 $this->getLayout()->createBlock('adminhtml/customer_sales_order_address_form_renderer_vat')
-                    ->setJsVariablePrefix($this->getJsVariablePrefix())
+                    ->setJsVariablePrefix($this->getJsVariablePrefix()),
             );
         }
 
@@ -189,7 +190,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     /**
      * Add additional data to form element
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)

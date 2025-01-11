@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,7 +21,6 @@
 class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
     /**
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this|Mage_Sales_Model_Order_Creditmemo_Total_Abstract
      */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
@@ -44,13 +44,13 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
             $weeeDiscountAmount = $creditmemo->roundPrice(
                 $weeeRowDiscountAmount / $orderItemQty * $item->getQty(),
                 'regular',
-                true
+                true,
             );
             $baseWeeeRowDiscountAmount = $orderItem->getBaseDiscountAppliedForWeeeTax();
             $baseWeeeDiscountAmount = $creditmemo->roundPrice(
                 $baseWeeeRowDiscountAmount / $orderItemQty * $item->getQty(),
                 'base',
-                true
+                true,
             );
 
             $weeeAmountExclTax = (Mage::helper('weee')->getWeeeTaxInclTax($item)

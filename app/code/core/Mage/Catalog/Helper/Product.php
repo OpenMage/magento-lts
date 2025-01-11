@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -165,7 +166,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
         return $this->_getUrl('sendfriend/product/send', [
             'id' => $product->getId(),
-            'cat_id' => $categoryId
+            'cat_id' => $categoryId,
         ]);
     }
 
@@ -229,7 +230,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      */
     public function canUseCanonicalTag($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_USE_PRODUCT_CANONICAL_TAG, $store);
+        return Mage::getStoreConfigFlag(self::XML_PATH_USE_PRODUCT_CANONICAL_TAG, $store);
     }
 
     /**
@@ -247,11 +248,11 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         */
         $inputTypes = [
             'multiselect'   => [
-                'backend_model'     => 'eav/entity_attribute_backend_array'
+                'backend_model'     => 'eav/entity_attribute_backend_array',
             ],
             'boolean'       => [
-                'source_model'      => 'eav/entity_attribute_source_boolean'
-            ]
+                'source_model'      => 'eav/entity_attribute_source_boolean',
+            ],
         ];
 
         if (is_null($inputType)) {
@@ -348,6 +349,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $category = Mage::getModel('catalog/category')->load($categoryId);
             $product->setCategory($category);
             Mage::register('current_category', $category);
+            Mage::register('current_entity_key', $category->getPath());
         }
 
         // Register current data and dispatch final events
@@ -359,8 +361,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             Mage::dispatchEvent(
                 'catalog_controller_product_init_after',
                 ['product' => $product,
-                                'controller_action' => $controller
-                ]
+                    'controller_action' => $controller,
+                ],
             );
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
@@ -438,7 +440,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Return loaded product instance
      *
      * @param  int|string $productId (SKU or ID)
-     * @param  int $store
+     * @param  int|null $store
      * @param  string $identifierType
      * @return Mage_Catalog_Model_Product
      */
@@ -449,7 +451,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 
         $expectedIdType = false;
         if ($identifierType === null) {
-            if (is_string($productId) && !preg_match("/^[+-]?[1-9][0-9]*$|^0$/", $productId)) {
+            if (is_string($productId) && !preg_match('/^[+-]?[1-9][0-9]*$|^0$/', $productId)) {
                 $expectedIdType = 'sku';
             }
         }
@@ -499,7 +501,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Gets minimal sales quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int|null
+     * @return float|null
      */
     public function getMinimalQty($product)
     {
@@ -545,7 +547,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         $fieldData = $this->getFieldset($fieldName) ? (array) $this->getFieldset($fieldName) : null;
         if (!empty($fieldData)
             && ((is_array($fieldData['product_type']) && array_key_exists($productType, $fieldData['product_type'])) || (is_object($fieldData['product_type']) && property_exists($fieldData['product_type'], $productType)))
-            && (bool)$fieldData['use_config']
+            && (bool) $fieldData['use_config']
         ) {
             return $fieldData['inventory'];
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Event
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +33,6 @@ class Varien_Event extends Varien_Object
      * Constructor
      *
      * Initializes observers collection
-     *
-     * @param array $data
      */
     public function __construct(array $data = [])
     {
@@ -54,7 +53,6 @@ class Varien_Event extends Varien_Object
     /**
      * Register an observer for the event
      *
-     * @param Varien_Event_Observer $observer
      * @return Varien_Event
      */
     public function addObserver(Varien_Event_Observer $observer)

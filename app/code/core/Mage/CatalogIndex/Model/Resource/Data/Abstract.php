@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +70,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     /**
      * Retrieve specified attribute data for specified products from specified store
      *
-     * @param array $products
+     * @param array|string $products
      * @param array $attributes
      * @param int $store
      * @return array
@@ -84,12 +85,12 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         foreach ($suffixes as $suffix) {
             $tableName = "{$this->getTable('catalog/product')}_{$suffix}";
             $condition = "product.entity_id = c.entity_id AND c.store_id = {$store} AND c.attribute_id = d.attribute_id";
-            $defaultCondition = "product.entity_id = d.entity_id AND d.store_id = 0";
+            $defaultCondition = 'product.entity_id = d.entity_id AND d.store_id = 0';
             $fields = [
                 'entity_id',
                 'type_id',
                 'attribute_id'  => 'IF(c.value_id > 0, c.attribute_id, d.attribute_id)',
-                'value'         => 'IF(c.value_id > 0, c.value, d.value)'
+                'value'         => 'IF(c.value_id > 0, c.value, d.value)',
             ];
 
             $select = $this->_getReadAdapter()->select()
@@ -121,9 +122,9 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      */
     public function fetchLinkInformation($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {
-        $idsConditionSymbol = "= ?";
+        $idsConditionSymbol = '= ?';
         if (is_array($id)) {
-            $idsConditionSymbol = "in (?)";
+            $idsConditionSymbol = 'in (?)';
         }
 
         $select = $this->_getReadAdapter()->select();
@@ -140,14 +141,14 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
             'l',
             $idField,
             $store,
-            Mage_Catalog_Model_Product_Status::STATUS_ENABLED
+            Mage_Catalog_Model_Product_Status::STATUS_ENABLED,
         );
         // add website filter
         if ($websiteId = Mage::app()->getStore($store)->getWebsiteId()) {
             $select->join(
                 ['w' => $this->getTable('catalog/product_website')],
                 "l.{$idField}=w.product_id AND w.website_id={$websiteId}",
-                []
+                [],
             );
         }
 
@@ -167,9 +168,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param int $id
      * @param array $additionalWheres
      */
-    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
-    {
-    }
+    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = []) {}
 
     /**
      * Return minimal prices for specified products
@@ -210,7 +209,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
             'c.value',
             'c.all_groups',
         ];
-        $condition = "product.entity_id = c.entity_id";
+        $condition = 'product.entity_id = c.entity_id';
 
         $select = $this->_getReadAdapter()->select()
             ->from(['product' => $this->getTable('catalog/product')], $fields)
@@ -230,7 +229,6 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     /**
      * Add attribute filter to select
      *
-     * @param Varien_Db_Select $select
      * @param string $attributeCode
      * @param string $table the main table name or alias
      * @param string $field entity_id field name
@@ -248,13 +246,13 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         if ($attribute->getBackendType() == 'static') {
             $tableAlias = sprintf('t_%s', $attribute->getAttributeCode());
             $joinCond = implode(' AND ', [
-                sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableAlias)
+                sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableAlias),
             ]);
             $select
                 ->join(
                     [$tableAlias => $attributeTable],
                     $joinCond,
-                    []
+                    [],
                 )
                 ->where(sprintf('%s.%s IN(?)', $tableAlias, $attribute->getAttributeCode()), $value);
         } elseif ($attribute->isScopeGlobal()) {
@@ -262,13 +260,13 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
             $joinCond = implode(' AND ', [
                 sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableAlias),
                 $adapter->quoteInto(sprintf('`%s`.`attribute_id`=?', $tableAlias), $attribute->getAttributeId()),
-                $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableAlias), 0)
+                $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableAlias), 0),
             ]);
             $select
                 ->join(
                     [$tableAlias => $attributeTable],
                     $joinCond,
-                    []
+                    [],
                 )
                 ->where(sprintf('%s.value IN(?)', $tableAlias), $value);
         } else {
@@ -277,30 +275,30 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
             $joinCondGlobal = implode(' AND ', [
                 sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableGlobal),
                 $adapter->quoteInto(sprintf('`%s`.`attribute_id`=?', $tableGlobal), $attribute->getAttributeId()),
-                $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableGlobal), 0)
+                $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableGlobal), 0),
             ]);
             $joinCondStore = implode(' AND ', [
                 sprintf('`%s`.`entity_id`=`%s`.`entity_id`', $tableGlobal, $tableStore),
                 sprintf('`%s`.`attribute_id`=`%s`.`attribute_id`', $tableGlobal, $tableStore),
-                $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableStore), $store)
+                $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableStore), $store),
             ]);
             $whereCond      = sprintf(
                 'IF(`%s`.`value_id`>0, `%s`.`value`, `%s`.`value`) IN(?)',
                 $tableStore,
                 $tableStore,
-                $tableGlobal
+                $tableGlobal,
             );
 
             $select
                 ->join(
                     [$tableGlobal => $attributeTable],
                     $joinCondGlobal,
-                    []
+                    [],
                 )
                 ->joinLeft(
                     [$tableStore => $attributeTable],
                     $joinCondStore,
-                    []
+                    [],
                 )
                 ->where($whereCond, $value);
         }

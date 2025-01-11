@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,12 +22,16 @@
  *
  * @method array getActions()
  * @method $this setActions(array $value)
- * @method array getFilterConditionCallback()
+ * @method bool getCopyable()
+ * @method $this setCopyable(bool $value)
  * @method string getDir()
+ * @method array getFilterConditionCallback()
  * @method string getFilterIndex()
  * @method $this setFormat(string $value)
  * @method string getIndex()
  * @method bool getNoLink()
+ * @method array getSelected()
+ * @method $this setSelected(array $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {
@@ -36,6 +41,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     protected $_type;
     protected $_cssClass = null;
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid $grid
+     * @return $this
+     */
     public function setGrid($grid)
     {
         $this->_grid = $grid;
@@ -44,6 +53,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this;
     }
 
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
     public function getGrid()
     {
         return $this->_grid;
@@ -140,7 +152,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve row column field value for display
      *
-     * @param   Varien_Object $row
      * @return  string
      */
     public function getRowField(Varien_Object $row)
@@ -162,13 +173,16 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
         }
 
+        if ($this->getCopyable() && $text = $this->getRenderer()->getCopyableText($row)) {
+            $renderedValue = '<span data-copy-text="' . $text . '">' . $renderedValue . '</span>';
+        }
+
         return $renderedValue;
     }
 
     /**
      * Retrieve row column field value for export
      *
-     * @param   Varien_Object $row
      * @return  string
      */
     public function getRowFieldExport(Varien_Object $row)
@@ -218,15 +232,22 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $value;
     }
 
+    /**
+     * @param string $renderer
+     * @return $this
+     */
     public function setRenderer($renderer)
     {
         $this->_renderer = $renderer;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     protected function _getRendererByType()
     {
-        $type = strtolower((string)$this->getType());
+        $type = strtolower($this->getType());
         $renderers = $this->getGrid()->getColumnRenderers();
 
         if (is_array($renderers) && isset($renderers[$type])) {
@@ -313,15 +334,22 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this->_renderer;
     }
 
+    /**
+     * @param string $filterClass
+     * @return void
+     */
     public function setFilter($filterClass)
     {
         $this->_filter = $this->getLayout()->createBlock($filterClass)
                 ->setColumn($this);
     }
 
+    /**
+     * @return string
+     */
     protected function _getFilterByType()
     {
-        $type = strtolower((string)$this->getType());
+        $type = strtolower($this->getType());
         $filters = $this->getGrid()->getColumnFilters();
         if (is_array($filters) && isset($filters[$type])) {
             return $filters[$type];
@@ -348,15 +376,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             case 'options':
                 $filterClass = 'adminhtml/widget_grid_column_filter_select';
                 break;
-
             case 'massaction':
                 $filterClass = 'adminhtml/widget_grid_column_filter_massaction';
                 break;
-
             case 'checkbox':
                 $filterClass = 'adminhtml/widget_grid_column_filter_checkbox';
                 break;
-
             case 'radio':
                 $filterClass = 'adminhtml/widget_grid_column_filter_radio';
                 break;
@@ -419,5 +444,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             return $this->getHeaderExport();
         }
         return $this->getHeader();
+    }
+
+    public function getType(): string
+    {
+        return (string) $this->_getData('type');
     }
 }

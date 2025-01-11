@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +73,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     }
 
     /**
-     * Destrucor
+     * Destructor
      *
      */
     public function __destruct()
@@ -138,7 +139,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 [$this, 'read'],
                 [$this, 'write'],
                 [$this, 'destroy'],
-                [$this, 'gc']
+                [$this, 'gc'],
             );
         } else {
             session_save_path(Mage::getBaseDir('session'));
@@ -196,12 +197,12 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 ->where('session_expires > :session_expires');
         $bind = [
             'session_id'      => $sessId,
-            'session_expires' => Varien_Date::toTimestamp(true)
+            'session_expires' => Varien_Date::toTimestamp(true),
         ];
 
         $data = $this->_read->fetchOne($select, $bind);
 
-        return (string)$data;
+        return (string) $data;
     }
 
     /**
@@ -215,7 +216,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
     public function write($sessId, $sessData)
     {
         $bindValues = [
-            'session_id'      => $sessId
+            'session_id'      => $sessId,
         ];
         $select = $this->_write->select()
                 ->from($this->_sessionTable)
@@ -224,11 +225,11 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
 
         $bind = [
             'session_expires' => Varien_Date::toTimestamp(true) + $this->getLifeTime(),
-            'session_data' => $sessData
+            'session_data' => $sessData,
         ];
         if ($exists) {
             $where = [
-                'session_id=?' => $sessId
+                'session_id=?' => $sessId,
             ];
             $this->_write->update($this->_sessionTable, $bind, $where);
         } else {
@@ -258,6 +259,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      *
      * @param int $sessMaxLifeTime ignored
      * @return bool
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     #[\ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)

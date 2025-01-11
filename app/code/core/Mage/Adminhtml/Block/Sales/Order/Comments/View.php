@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +43,7 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
             ->setData([
                 'id'      => 'submit_comment_button',
                 'label'   => Mage::helper('sales')->__('Submit Comment'),
-                'class'   => 'save'
+                'class'   => 'save',
             ]);
         $this->setChild('submit_button', $button);
 
@@ -59,15 +60,15 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
         switch ($this->getParentType()) {
             case 'invoice':
                 return Mage::helper('sales')->canSendInvoiceCommentEmail(
-                    $this->getEntity()->getOrder()->getStore()->getId()
+                    $this->getEntity()->getOrder()->getStore()->getId(),
                 );
             case 'shipment':
                 return Mage::helper('sales')->canSendShipmentCommentEmail(
-                    $this->getEntity()->getOrder()->getStore()->getId()
+                    $this->getEntity()->getOrder()->getStore()->getId(),
                 );
             case 'creditmemo':
                 return Mage::helper('sales')->canSendCreditmemoCommentEmail(
-                    $this->getEntity()->getOrder()->getStore()->getId()
+                    $this->getEntity()->getOrder()->getStore()->getId(),
                 );
         }
 
@@ -77,9 +78,9 @@ class Mage_Adminhtml_Block_Sales_Order_Comments_View extends Mage_Adminhtml_Bloc
     /**
      * Replace links in string
      *
-     * @param array|string $data
-     * @param null|array $allowedTags
-     * @return string
+     * @param string|string[] $data
+     * @param array|null $allowedTags
+     * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
     {

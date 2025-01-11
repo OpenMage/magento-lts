@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,8 +37,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh_Row extends Mage_CatalogRule_M
      *  - 'resource' Mage_Core_Model_Resource_Db_Abstract
      *  - 'app' Mage_Core_Model_App
      *  - 'value' int|Mage_Catalog_Model_Product
-     *
-     * @param array $args
      */
     public function __construct(array $args)
     {
@@ -51,14 +50,11 @@ class Mage_CatalogRule_Model_Action_Index_Refresh_Row extends Mage_CatalogRule_M
      * Do not recreate rule group website for row refresh
      * @param string $timestamp
      */
-    protected function _prepareGroupWebsite($timestamp)
-    {
-    }
+    protected function _prepareGroupWebsite($timestamp) {}
 
     /**
      * Prepare temporary data
      *
-     * @param Mage_Core_Model_Website $website
      * @return Varien_Db_Select
      */
     protected function _prepareTemporarySelect(Mage_Core_Model_Website $website)
@@ -69,8 +65,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh_Row extends Mage_CatalogRule_M
 
     /**
      * Remove old index data
-     *
-     * @param Mage_Core_Model_Website $website
      */
     protected function _removeOldIndexData(Mage_Core_Model_Website $website)
     {
@@ -80,8 +74,8 @@ class Mage_CatalogRule_Model_Action_Index_Refresh_Row extends Mage_CatalogRule_M
                     ->from($this->_resource->getTable('catalogrule/rule_product_price'))
                     ->where('product_id IN (?)', $this->_productId)
                     ->where('website_id = ?', $website->getId()),
-                $this->_resource->getTable('catalogrule/rule_product_price')
-            )
+                $this->_resource->getTable('catalogrule/rule_product_price'),
+            ),
         );
     }
 

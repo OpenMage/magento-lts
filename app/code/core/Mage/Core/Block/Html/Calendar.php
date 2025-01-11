@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,14 +35,14 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         $days = Zend_Locale_Data::getList($localeCode, 'days');
         $this->assign('days', [
             'wide'        => Mage::helper('core')->jsonEncode(array_values($days['format']['wide'])),
-            'abbreviated' => Mage::helper('core')->jsonEncode(array_values($days['format']['abbreviated']))
+            'abbreviated' => Mage::helper('core')->jsonEncode(array_values($days['format']['abbreviated'])),
         ]);
 
         // get months names
         $months = Zend_Locale_Data::getList($localeCode, 'months');
         $this->assign('months', [
             'wide'        => Mage::helper('core')->jsonEncode(array_values($months['format']['wide'])),
-            'abbreviated' => Mage::helper('core')->jsonEncode(array_values($months['format']['abbreviated']))
+            'abbreviated' => Mage::helper('core')->jsonEncode(array_values($months['format']['abbreviated'])),
         ]);
 
         // get "today" and "week" words
@@ -54,7 +55,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
 
         // get first day of week and weekend days
         $this->assign('firstDay', Mage::getStoreConfigAsInt('general/locale/firstday'));
-        $this->assign('weekendDays', Mage::helper('core')->jsonEncode((string)Mage::getStoreConfig('general/locale/weekend')));
+        $this->assign('weekendDays', Mage::helper('core')->jsonEncode((string) Mage::getStoreConfig('general/locale/weekend')));
 
         // define default format and tooltip format
         $this->assign('defaultFormat', Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM)));

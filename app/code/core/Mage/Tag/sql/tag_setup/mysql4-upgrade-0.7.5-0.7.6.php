@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,17 +22,17 @@ $deprecatedComment = 'deprecated since 1.4.0.1';
 $installer->getConnection()->modifyColumn(
     $installer->getTable('tag/summary'),
     'uses',
-    "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'"
+    "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'",
 );
 $installer->getConnection()->modifyColumn(
     $installer->getTable('tag/summary'),
     'historical_uses',
-    "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'"
+    "int(11) unsigned NOT NULL default '0' COMMENT '{$deprecatedComment}'",
 );
 $installer->getConnection()->modifyColumn(
     $installer->getTable('tag/summary'),
     'base_popularity',
-    "int(11) UNSIGNED DEFAULT '0' NOT NULL COMMENT '{$deprecatedComment}'"
+    "int(11) UNSIGNED DEFAULT '0' NOT NULL COMMENT '{$deprecatedComment}'",
 );
 
 $installer->run("
@@ -48,7 +49,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('tag/properties'),
     'tag_id',
     $installer->getTable('tag/tag'),
-    'tag_id'
+    'tag_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -56,5 +57,5 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('tag/properties'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );

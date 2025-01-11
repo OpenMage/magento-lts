@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +41,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
 
         $quoteShippingAddress = $quote->getShippingAddress();
         if (is_null($quoteShippingAddress->getId())) {
-            $this->_fault("shipping_address_is_not_set");
+            $this->_fault('shipping_address_is_not_set');
         }
 
         $rate = $quote->getShippingAddress()->collectShippingRates()->getShippingRateByCode($shippingMethod);
@@ -71,7 +72,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
 
         $quoteShippingAddress = $quote->getShippingAddress();
         if (is_null($quoteShippingAddress->getId())) {
-            $this->_fault("shipping_address_is_not_set");
+            $this->_fault('shipping_address_is_not_set');
         }
 
         try {
@@ -86,7 +87,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
                 }
 
                 foreach ($rates as $rate) {
-                    $rateItem = $this->_getAttributes($rate, "quote_shipping_rate");
+                    $rateItem = $this->_getAttributes($rate, 'quote_shipping_rate');
                     $rateItem['carrierName'] = $carrierName;
                     $ratesResult[] = $rateItem;
                     unset($rateItem);

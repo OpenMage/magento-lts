@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +41,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 Mage::app()->saveCache(
                     $config->getXmlString(),
                     'widget_config',
-                    [Mage_Core_Model_Config::CACHE_TAG]
+                    [Mage_Core_Model_Config::CACHE_TAG],
                 );
             }
         }
@@ -106,7 +107,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             foreach ($params as $key => $data) {
                 if (is_array($data)) {
                     $data['key'] = $key;
-                    $data['sort_order'] = isset($data['sort_order']) ? (int)$data['sort_order'] : $sortOrder;
+                    $data['sort_order'] = isset($data['sort_order']) ? (int) $data['sort_order'] : $sortOrder;
 
                     // prepare values (for drop-dawns) specified directly in configuration
                     $values = [];
@@ -159,7 +160,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 try {
                     $reflection = new ReflectionObject($widget);
                     foreach ($filters as $field => $value) {
-                        if (!$reflection->hasProperty($field) || (string)$widget->{$field} != $value) {
+                        if (!$reflection->hasProperty($field) || (string) $widget->{$field} != $value) {
                             throw new Exception();
                         }
                     }
@@ -189,13 +190,13 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 $helper = Mage::helper($helper);
                 $widgetName = $widget->getName();
                 $result[$widgetName] = [
-                    'name'          => $helper->__((string)$widget->name),
+                    'name'          => $helper->__((string) $widget->name),
                     'code'          => $widgetName,
                     'type'          => $widget->getAttribute('type'),
-                    'description'   => $helper->__((string)$widget->description)
+                    'description'   => $helper->__((string) $widget->description),
                 ];
             }
-            usort($result, [$this, "_sortWidgets"]);
+            usort($result, [$this, '_sortWidgets']);
             $this->setData('widgets_array', $result);
         }
         return $this->_getData('widgets_array');
@@ -245,7 +246,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             '<img id="%s" src="%s" title="%s">',
             $this->_idEncode($directive),
             $image,
-            Mage::helper('core')->escapeUrl($directive)
+            Mage::helper('core')->escapeUrl($directive),
         );
     }
 
@@ -259,7 +260,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $result = [];
         foreach ($this->getWidgetsXml() as $widget) {
             if ($widget->js) {
-                foreach (explode(',', (string)$widget->js) as $js) {
+                foreach (explode(',', (string) $widget->js) as $js) {
                     $result[] = $js;
                 }
             }
@@ -299,8 +300,8 @@ class Mage_Widget_Model_Widget extends Varien_Object
      */
     protected function _sortParameters($a, $b)
     {
-        $aOrder = (int)$a->getData('sort_order');
-        $bOrder = (int)$b->getData('sort_order');
+        $aOrder = (int) $a->getData('sort_order');
+        $bOrder = (int) $b->getData('sort_order');
         return $aOrder < $bOrder ? -1 : ($aOrder > $bOrder ? 1 : 0);
     }
 }

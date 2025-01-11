@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +30,6 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Save options store data
      *
-     * @param Mage_Core_Model_Abstract $object
      * @return Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -43,7 +43,6 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Save value prices
      *
-     * @param Mage_Core_Model_Abstract|Mage_Catalog_Model_Product_Option $object
      * @return $this
      */
     protected function _saveValuePrices(Mage_Core_Model_Abstract $object)
@@ -78,9 +77,9 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                             new Varien_Object(
                                 [
                                     'price'      => $object->getPrice(),
-                                    'price_type' => $object->getPriceType()]
+                                    'price_type' => $object->getPriceType()],
                             ),
-                            $priceTable
+                            $priceTable,
                         );
 
                         $writeAdapter->update(
@@ -89,7 +88,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                             [
                                 'option_id = ?' => $object->getId(),
                                 'store_id  = ?' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
-                            ]
+                            ],
                         );
                     }
                 } else {
@@ -99,10 +98,10 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                                 'option_id'  => $object->getId(),
                                 'store_id'   => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
                                 'price'      => $object->getPrice(),
-                                'price_type' => $object->getPriceType()
-                            ]
+                                'price_type' => $object->getPriceType(),
+                            ],
                         ),
-                        $priceTable
+                        $priceTable,
                     );
                     $writeAdapter->insert($priceTable, $data);
                 }
@@ -139,10 +138,10 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                                 new Varien_Object(
                                     [
                                         'price'      => $newPrice,
-                                        'price_type' => $object->getPriceType()
-                                    ]
+                                        'price_type' => $object->getPriceType(),
+                                    ],
                                 ),
-                                $priceTable
+                                $priceTable,
                             );
 
                             $writeAdapter->update(
@@ -150,8 +149,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                                 $data,
                                 [
                                     'option_id = ?' => $object->getId(),
-                                    'store_id  = ?' => $storeId
-                                ]
+                                    'store_id  = ?' => $storeId,
+                                ],
                             );
                         } else {
                             $data = $this->_prepareDataForTable(
@@ -160,10 +159,10 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                                         'option_id'  => $object->getId(),
                                         'store_id'   => $storeId,
                                         'price'      => $newPrice,
-                                        'price_type' => $object->getPriceType()
-                                    ]
+                                        'price_type' => $object->getPriceType(),
+                                    ],
                                 ),
-                                $priceTable
+                                $priceTable,
                             );
                             $writeAdapter->insert($priceTable, $data);
                         }
@@ -174,8 +173,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                     $priceTable,
                     [
                         'option_id = ?' => $object->getId(),
-                        'store_id  = ?' => $object->getStoreId()
-                    ]
+                        'store_id  = ?' => $object->getStoreId(),
+                    ],
                 );
             }
         }
@@ -186,7 +185,6 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Save titles
      *
-     * @param Mage_Core_Model_Abstract|Mage_Catalog_Model_Product_Option $object
      * @throws Zend_Db_Adapter_Exception
      */
     protected function _saveValueTitles(Mage_Core_Model_Abstract $object)
@@ -207,10 +205,10 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                     $data = $this->_prepareDataForTable(
                         new Varien_Object(
                             [
-                                'title' => $object->getTitle()
-                            ]
+                                'title' => $object->getTitle(),
+                            ],
                         ),
-                        $titleTable
+                        $titleTable,
                     );
 
                     $writeAdapter->update(
@@ -218,8 +216,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                         $data,
                         [
                             'option_id = ?' => $object->getId(),
-                            'store_id  = ?' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID
-                        ]
+                            'store_id  = ?' => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
+                        ],
                     );
                 }
             } else {
@@ -228,10 +226,10 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                         [
                             'option_id' => $object->getId(),
                             'store_id'  => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
-                            'title'     => $object->getTitle()
-                        ]
+                            'title'     => $object->getTitle(),
+                        ],
                     ),
-                    $titleTable
+                    $titleTable,
                 );
 
                 $writeAdapter->insert($titleTable, $data);
@@ -248,10 +246,10 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                 $data = $this->_prepareDataForTable(
                     new Varien_Object(
                         [
-                            'title' => $object->getTitle()
-                        ]
+                            'title' => $object->getTitle(),
+                        ],
                     ),
-                    $titleTable
+                    $titleTable,
                 );
 
                 $writeAdapter->update(
@@ -259,8 +257,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                     $data,
                     [
                         'option_id = ?' => $object->getId(),
-                        'store_id  = ?' => $object->getStoreId()
-                    ]
+                        'store_id  = ?' => $object->getStoreId(),
+                    ],
                 );
             } else {
                 $data = $this->_prepareDataForTable(
@@ -268,10 +266,10 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                         [
                             'option_id' => $object->getId(),
                             'store_id'  => $object->getStoreId(),
-                            'title'     => $object->getTitle()
-                        ]
+                            'title'     => $object->getTitle(),
+                        ],
                     ),
-                    $titleTable
+                    $titleTable,
                 );
                 $writeAdapter->insert($titleTable, $data);
             }
@@ -280,8 +278,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                 $titleTable,
                 [
                     'option_id = ?' => $object->getId(),
-                    'store_id  = ?' => $object->getStoreId()
-                ]
+                    'store_id  = ?' => $object->getStoreId(),
+                ],
             );
         }
     }
@@ -289,7 +287,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Delete prices
      *
-     * @param int $optionId
+     * @param int|string $optionId
      * @return $this
      */
     public function deletePrices($optionId)
@@ -297,8 +295,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
         $this->_getWriteAdapter()->delete(
             $this->getTable('catalog/product_option_price'),
             [
-                'option_id = ?' => $optionId
-            ]
+                'option_id = ?' => $optionId,
+            ],
         );
 
         return $this;
@@ -307,7 +305,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Delete titles
      *
-     * @param int $optionId
+     * @param int|string $optionId
      * @return $this
      */
     public function deleteTitles($optionId)
@@ -315,8 +313,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
         $this->_getWriteAdapter()->delete(
             $this->getTable('catalog/product_option_title'),
             [
-                'option_id = ?' => $optionId
-            ]
+                'option_id = ?' => $optionId,
+            ],
         );
 
         return $this;
@@ -325,7 +323,6 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Duplicate custom options for product
      *
-     * @param Mage_Catalog_Model_Product_Option $object
      * @param int $oldProductId
      * @param int $newProductId
      * @return Mage_Catalog_Model_Product_Option
@@ -370,7 +367,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                 $select,
                 $table,
                 ['option_id', 'store_id', 'title'],
-                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE
+                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE,
             );
             $write->query($insertSelect);
 
@@ -388,9 +385,9 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                     'option_id',
                     'store_id',
                     'price',
-                    'price_type'
+                    'price_type',
                 ],
-                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE
+                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE,
             );
             $write->query($insertSelect);
 
@@ -416,7 +413,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
         $titleCheckSql = $adapter->getCheckSql(
             'option_title_store.title IS NULL',
             'option_title_default.title',
-            'option_title_store.title'
+            'option_title_store.title',
         );
 
         // retrieve options title
@@ -424,14 +421,14 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
         $defaultOptionJoin = implode(
             ' AND ',
             ['option_title_default.option_id=product_option.option_id',
-            $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)]
+                $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)],
         );
 
         $storeOptionJoin = implode(
             ' AND ',
             [
                 'option_title_store.option_id=product_option.option_id',
-                $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId)]
+                $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId)],
         );
 
         $select = $adapter->select()
@@ -439,12 +436,12 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
             ->join(
                 ['option_title_default' => $this->getTable('catalog/product_option_title')],
                 $defaultOptionJoin,
-                []
+                [],
             )
             ->joinLeft(
                 ['option_title_store' => $this->getTable('catalog/product_option_title')],
                 $storeOptionJoin,
-                ['title' => $titleCheckSql]
+                ['title' => $titleCheckSql],
             )
             ->where('product_option.product_id = ?', $productId);
 
@@ -458,14 +455,14 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
             ' AND ',
             [
                 'option_title_default.option_type_id=option_type.option_type_id',
-                $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)]
+                $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)],
         );
 
         $storeOptionJoin = implode(
             ' AND ',
             [
                 'option_title_store.option_type_id = option_type.option_type_id',
-                 $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId)]
+                $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId)],
         );
 
         $select = $adapter->select()
@@ -473,17 +470,17 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
             ->join(
                 ['option_type' => $this->getTable('catalog/product_option_type_value')],
                 'option_type.option_id=product_option.option_id',
-                []
+                [],
             )
             ->join(
                 ['option_title_default' => $this->getTable('catalog/product_option_type_title')],
                 $defaultOptionJoin,
-                []
+                [],
             )
             ->joinLeft(
                 ['option_title_store' => $this->getTable('catalog/product_option_type_title')],
                 $storeOptionJoin,
-                ['title' => $titleCheckSql]
+                ['title' => $titleCheckSql],
             )
             ->where('product_option.product_id = ?', $productId);
 

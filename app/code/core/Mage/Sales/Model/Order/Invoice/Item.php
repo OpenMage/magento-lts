@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -121,7 +122,6 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Declare invoice instance
      *
-     * @param   Mage_Sales_Model_Order_Invoice $invoice
      * @return  $this
      */
     public function setInvoice(Mage_Sales_Model_Order_Invoice $invoice)
@@ -143,7 +143,6 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Declare order item instance
      *
-     * @param   Mage_Sales_Model_Order_Item $item
      * @return  $this
      */
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
@@ -190,13 +189,13 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         /**
          * Check qty availability
          */
-        $qtyToInvoice = sprintf("%F", $this->getOrderItem()->getQtyToInvoice());
-        $qty = sprintf("%F", $qty);
+        $qtyToInvoice = sprintf('%F', $this->getOrderItem()->getQtyToInvoice());
+        $qty = sprintf('%F', $qty);
         if ($qty <= $qtyToInvoice || $this->getOrderItem()->isDummy()) {
             $this->setData('qty', $qty);
         } else {
             Mage::throwException(
-                Mage::helper('sales')->__('Invalid qty to invoice item "%s"', $this->getName())
+                Mage::helper('sales')->__('Invalid qty to invoice item "%s"', $this->getName()),
             );
         }
         return $this;
@@ -287,7 +286,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function isLast()
     {
-        if ((string)(float)$this->getQty() == (string)(float)$this->getOrderItem()->getQtyToInvoice()) {
+        if ((string) (float) $this->getQty() == (string) (float) $this->getOrderItem()->getQtyToInvoice()) {
             return true;
         }
         return false;

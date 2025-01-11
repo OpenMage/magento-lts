@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +60,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
             Mage_Centinel_Model_Service::CMPI_ENROLLED,
             Mage_Centinel_Model_Service::CMPI_ECI,
             Mage_Centinel_Model_Service::CMPI_CAVV,
-            Mage_Centinel_Model_Service::CMPI_XID
+            Mage_Centinel_Model_Service::CMPI_XID,
         ];
         foreach ($info as $key) {
             if ($value = $payment->getAdditionalInformation($key)) {
@@ -83,7 +84,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
         if ($method && $method->getIsCentinelValidationEnabled()) {
             $paymentFormBlock->setChild(
                 'payment.method.' . $method->getCode() . 'centinel.logo',
-                Mage::helper('centinel')->getMethodFormBlock($method)
+                Mage::helper('centinel')->getMethodFormBlock($method),
             );
         }
         return $this;

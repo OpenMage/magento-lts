@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,9 +62,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('oauth')->__('ID'),
             'index'     => 'entity_id',
-            'align'     => 'right',
-            'width'     => '50px',
-
         ]);
 
         $this->addColumn('name', [
@@ -76,13 +74,13 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
             'header'    => $this->__('User Type'),
             //'index'     => array('customer_id', 'admin_id'),
             'options'   => [0 => $this->__('Admin'), 1 => $this->__('Customer')],
-            'frame_callback' => [$this, 'decorateUserType']
+            'frame_callback' => [$this, 'decorateUserType'],
         ]);
 
         $this->addColumn('user_id', [
             'header'    => $this->__('User ID'),
             //'index'     => array('customer_id', 'admin_id'),
-            'frame_callback' => [$this, 'decorateUserId']
+            'frame_callback' => [$this, 'decorateUserId'],
         ]);
 
         /** @var Mage_Adminhtml_Model_System_Config_Source_Yesno $sourceYesNo */
@@ -93,7 +91,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
             'width'     => '100px',
             'type'      => 'options',
             'options'   => $sourceYesNo->toArray(),
-            'sortable'  => true,
         ]);
 
         parent::_prepareColumns();
@@ -175,9 +172,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     public function decorateUserType($value, $row, $column, $isExport)
     {
         $options = $column->getOptions();
-
-        $value = ($row->getCustomerId()) ? $options[1] : $options[0];
-        return $value;
+        return ($row->getCustomerId()) ? $options[1] : $options[0];
     }
 
     /**
@@ -191,8 +186,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      */
     public function decorateUserId($value, $row, $column, $isExport)
     {
-        $value = $row->getCustomerId() ? $row->getCustomerId() : $row->getAdminId();
-        return $value;
+        return $row->getCustomerId() ? $row->getCustomerId() : $row->getAdminId();
     }
 
     /**

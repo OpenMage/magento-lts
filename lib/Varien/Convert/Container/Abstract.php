@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,7 +84,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
             $data = $this->getData();
         }
         if (!is_string($data)) {
-            $this->addException("Invalid data type, expecting string.", Varien_Convert_Exception::FATAL);
+            $this->addException('Invalid data type, expecting string.', Varien_Convert_Exception::FATAL);
         }
         return true;
     }
@@ -94,7 +95,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
             $data = $this->getData();
         }
         if (!is_array($data)) {
-            $this->addException("Invalid data type, expecting array.", Varien_Convert_Exception::FATAL);
+            $this->addException('Invalid data type, expecting array.', Varien_Convert_Exception::FATAL);
         }
         return true;
     }
@@ -108,7 +109,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
             if (count($data) == 0) {
                 return true;
             }
-            $this->addException("Invalid data type, expecting 2D grid array.", Varien_Convert_Exception::FATAL);
+            $this->addException('Invalid data type, expecting 2D grid array.', Varien_Convert_Exception::FATAL);
         }
         return true;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -172,7 +173,6 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns last category name
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return string
      */
     public function getLastCategoryName($product): string
     {
@@ -182,7 +182,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
             ->addAttributeToSelect('name')
             ->addIdFilter($product->getCategoryIds())
             ->addIsActiveFilter()
-            ->addFieldToFilter('path', ['like' => $storeRootCategory->getPath() . "/%"])
+            ->addFieldToFilter('path', ['like' => $storeRootCategory->getPath() . '/%'])
             ->addOrder('level')
             ->getFirstItem();
         return $lastCategory->getName() ?: '';
@@ -190,7 +190,6 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * @param int|float|string $price
-     * @return string
      */
     public function formatPrice($price): string
     {

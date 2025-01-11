@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,12 +54,12 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
         $form = new Varien_Data_Form([
             'id' => 'edit_form',
             'action' => $this->getData('action'),
-            'method' => 'post'
+            'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            ['legend' => Mage::helper('eav')->__('Attribute Properties')]
+            ['legend' => Mage::helper('eav')->__('Attribute Properties')],
         );
         if ($attributeObject->getAttributeId()) {
             $fieldset->addField('attribute_id', 'hidden', [
@@ -72,7 +73,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $validateClass = sprintf(
             'validate-code validate-length maximum-length-%d',
-            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH
+            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH,
         );
         $fieldset->addField('attribute_code', 'text', [
             'name'  => 'attribute_code',
@@ -90,7 +91,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'label' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
             'title' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
             'value' => 'text',
-            'values' => $inputTypes
+            'values' => $inputTypes,
         ]);
 
         $fieldset->addField('default_value_text', 'text', [
@@ -115,7 +116,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'title'  => Mage::helper('eav')->__('Default Value'),
             'image'  => $this->getSkinUrl('images/grid-cal.gif'),
             'value'  => $attributeObject->getDefaultValue(),
-            'format'       => $dateFormatIso
+            'format'       => $dateFormatIso,
         ]);
 
         $fieldset->addField('default_value_textarea', 'textarea', [
@@ -144,7 +145,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'name'  => 'frontend_class',
             'label' => Mage::helper('eav')->__('Input Validation for Store Owner'),
             'title' => Mage::helper('eav')->__('Input Validation for Store Owner'),
-            'values' => Mage::helper('eav')->getFrontendClasses($attributeObject->getEntityType()->getEntityTypeCode())
+            'values' => Mage::helper('eav')->getFrontendClasses($attributeObject->getEntityType()->getEntityTypeCode()),
         ]);
 
         if ($attributeObject->getId()) {
@@ -161,7 +162,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     }
 
     /**
-     * Initialize form fileds values
+     * Initialize form fields values
      *
      * @inheritDoc
      */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -105,7 +106,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
                 ->where('website.' . $entityInfo['entity_id_field'] . ' IN (?)', $websiteId);
             $this->getSelect()->exists(
                 $subSelect,
-                'main_table.' . $entityInfo['rule_id_field'] . ' = website.' . $entityInfo['rule_id_field']
+                'main_table.' . $entityInfo['rule_id_field'] . ' = website.' . $entityInfo['rule_id_field'],
             );
         }
         return $this;
@@ -139,7 +140,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     public function addIsActiveFilter($isActive = 1)
     {
         if (!$this->getFlag('is_active_filter')) {
-            $this->addFieldToFilter('is_active', (int)$isActive ? 1 : 0);
+            $this->addFieldToFilter('is_active', (int) $isActive ? 1 : 0);
             $this->setFlag('is_active_filter', true);
         }
         return $this;
@@ -161,19 +162,18 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
 
         throw Mage::exception(
             'Mage_Core',
-            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
+            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType),
         );
     }
 
     /**
      * Set environment for all rules in collection
      *
-     * @param Mage_Rule_Model_Environment|null $env
      * @return $this
      * @deprecated after 1.6.2.0
      *
      */
-    public function setEnv(Mage_Rule_Model_Environment $env = null)
+    public function setEnv(?Mage_Rule_Model_Environment $env = null)
     {
         $this->_env = $env;
         return $this;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +80,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         parent::__construct();
 
         if (!$connection) {
-            throw new Exception('Wrong "$connection" parametr');
+            throw new Exception('Wrong "$connection" parameter');
         }
 
         $this->_conn    = $connection;
@@ -215,14 +216,14 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
 
         // For reorder new node branch
         $dataReorderNew = [
-            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '+1')
+            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '+1'),
         ];
         $conditionReorderNew = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $parentNode->getId() .
                             ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>=' . $data[$this->_orderField];
 
         // For reorder old node branch
         $dataReorderOld = [
-            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1')
+            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1'),
         ];
         $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField) .
                             ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
@@ -260,7 +261,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->update(
                 $this->_table,
                 [$this->_levelField => $parentLevel + 1],
-                $this->_conn->quoteInto($this->_idField . ' IN (?)', $ids)
+                $this->_conn->quoteInto($this->_idField . ' IN (?)', $ids),
             );
             foreach ($ids as $id) {
                 $this->_updateChildLevels($id, $parentLevel + 1);
@@ -298,7 +299,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     {
         // For reorder old node branch
         $dataReorderOld = [
-            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1')
+            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1'),
         ];
         $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField) .
                             ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
