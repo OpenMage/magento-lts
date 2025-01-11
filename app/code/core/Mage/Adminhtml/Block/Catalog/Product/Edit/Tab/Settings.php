@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,8 +30,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
                 ->setData([
                     'label'     => Mage::helper('catalog')->__('Continue'),
                     'onclick'   => "setSettings('" . $this->getContinueUrl() . "','attribute_set_id','product_type')",
-                    'class'     => 'save'
-                ])
+                    'class'     => 'save',
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
                 ->setEntityTypeFilter($entityType->getId())
                 ->setOrder('attribute_set_name', 'asc')
                 ->load()
-                ->toOptionArray()
+                ->toOptionArray(),
         ]);
 
         $fieldset->addField('product_type', 'select', [
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
             'title' => Mage::helper('catalog')->__('Product Type'),
             'name'  => 'type',
             'value' => '',
-            'values' => Mage::getModel('catalog/product_type')->getOptionArray()
+            'values' => Mage::getModel('catalog/product_type')->getOptionArray(),
         ]);
 
         $fieldset->addField('continue_button', 'note', [
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
         return $this->getUrl('*/*/new', [
             '_current'  => true,
             'set'       => '{{attribute_set}}',
-            'type'      => '{{type}}'
+            'type'      => '{{type}}',
         ]);
     }
 }

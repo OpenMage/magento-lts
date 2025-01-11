@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,16 +27,16 @@ class Mage_Adminhtml_Model_System_Config_Source_Cms_Wysiwyg_Enabled
         return [
             [
                 'value' => Mage_Cms_Model_Wysiwyg_Config::WYSIWYG_ENABLED,
-                'label' => Mage::helper('cms')->__('Enabled by Default')
+                'label' => Mage::helper('cms')->__('Enabled by Default'),
             ],
             [
                 'value' => Mage_Cms_Model_Wysiwyg_Config::WYSIWYG_HIDDEN,
-                'label' => Mage::helper('cms')->__('Disabled by Default')
+                'label' => Mage::helper('cms')->__('Disabled by Default'),
             ],
             [
                 'value' => Mage_Cms_Model_Wysiwyg_Config::WYSIWYG_DISABLED,
-                'label' => Mage::helper('cms')->__('Disabled Completely')
-            ]
+                'label' => Mage::helper('cms')->__('Disabled Completely'),
+            ],
         ];
     }
 }

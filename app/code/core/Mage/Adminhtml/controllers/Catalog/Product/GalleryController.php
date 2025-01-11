@@ -36,22 +36,22 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
             $uploader->addValidateCallback(
                 'catalog_product_image',
                 Mage::helper('catalog/image'),
-                'validateUploadFile'
+                'validateUploadFile',
             );
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
             $uploader->addValidateCallback(
                 Mage_Core_Model_File_Validator_Image::NAME,
                 Mage::getModel('core/file_validator_image'),
-                'validate'
+                'validate',
             );
             $result = $uploader->save(
-                Mage::getSingleton('catalog/product_media_config')->getBaseTmpMediaPath()
+                Mage::getSingleton('catalog/product_media_config')->getBaseTmpMediaPath(),
             );
 
             Mage::dispatchEvent('catalog_product_gallery_upload_image_after', [
                 'result' => $result,
-                'action' => $this
+                'action' => $this,
             ]);
 
             /**
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
                 'value'    => $this->_getSession()->getSessionId(),
                 'lifetime' => $this->_getSession()->getCookieLifetime(),
                 'path'     => $this->_getSession()->getCookiePath(),
-                'domain'   => $this->_getSession()->getCookieDomain()
+                'domain'   => $this->_getSession()->getCookieDomain(),
             ];
         } catch (Exception $e) {
             $result = [

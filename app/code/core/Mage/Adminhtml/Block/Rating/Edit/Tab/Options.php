@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,11 +38,11 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Options extends Mage_Adminhtml_Block_
                     'option_code_' . $item->getId(),
                     'text',
                     [
-                                        'label'     => Mage::helper('rating')->__('Option Label'),
-                                        'required'  => true,
-                                        'name'      => 'option_title[' . $item->getId() . ']',
-                                        'value'     => ($item->getCode()) ? $item->getCode() : $i,
-                    ]
+                        'label'     => Mage::helper('rating')->__('Option Label'),
+                        'required'  => true,
+                        'name'      => 'option_title[' . $item->getId() . ']',
+                        'value'     => ($item->getCode()) ? $item->getCode() : $i,
+                    ],
                 );
                 $i++;
             }
@@ -52,11 +52,11 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Options extends Mage_Adminhtml_Block_
                     'option_code_' . $i,
                     'text',
                     [
-                                        'label'     => Mage::helper('rating')->__('Option Title'),
-                                        'required'  => true,
-                                        'name'      => 'option_title[add_' . $i . ']',
-                                        'value'     => $i,
-                    ]
+                        'label'     => Mage::helper('rating')->__('Option Title'),
+                        'required'  => true,
+                        'name'      => 'option_title[add_' . $i . ']',
+                        'value'     => $i,
+                    ],
                 );
             }
         }

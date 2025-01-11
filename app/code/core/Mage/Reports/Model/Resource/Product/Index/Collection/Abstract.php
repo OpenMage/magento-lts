@@ -57,9 +57,9 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
                 [
                     'product_id'    => 'product_id',
                     'item_store_id' => 'store_id',
-                    'added_at'      => 'added_at'
+                    'added_at'      => 'added_at',
                 ],
-                $this->_getWhereCondition()
+                $this->_getWhereCondition(),
             );
             $this->setFlag('is_idx_table_joined', true);
         }
@@ -124,7 +124,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      */
     public function setCustomerId($id)
     {
-        $this->_customerId = (int)$id;
+        $this->_customerId = (int) $id;
         return $this;
     }
 

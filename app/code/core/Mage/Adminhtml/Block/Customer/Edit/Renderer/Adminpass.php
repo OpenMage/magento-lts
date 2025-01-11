@@ -33,9 +33,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass extends Mage_Adminht
         $html .= '<td class="label">' . $element->getLabelHtml() . '</td>';
         $html .= '<td class="value">' . $element->getElementHtml() . ' ' . $this->_getScriptHtml($element) . '</td>';
         $html .= '</tr>' . "\n";
-        $html .= '<tr>';
 
-        return $html;
+        return $html . '<tr>';
     }
 
     /**

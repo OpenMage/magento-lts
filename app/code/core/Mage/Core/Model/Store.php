@@ -264,7 +264,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             self::XML_PATH_USE_REWRITES,
             self::XML_PATH_UNSECURE_BASE_LINK_URL,
             self::XML_PATH_SECURE_BASE_LINK_URL,
-            'general/locale/code'
+            'general/locale/code',
         ];
     }
 
@@ -383,7 +383,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                         }
                         Mage::app()->saveCache(serialize($data), $cacheId, [
                             self::CACHE_TAG,
-                            Mage_Core_Model_Config::CACHE_TAG
+                            Mage_Core_Model_Config::CACHE_TAG,
                         ]);
                     }
                     $this->_configCache = $data;
@@ -539,7 +539,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve default base path
      *
      * @return string
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getDefaultBasePath()
     {
@@ -572,7 +572,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve base URL
      *
-     * @param string $type
+     * @param self::URL_TYPE_* $type
      * @param bool|null $secure
      * @return string
      */
@@ -582,7 +582,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if (!isset($this->_baseUrlCache[$cacheKey])) {
             switch ($type) {
                 case self::URL_TYPE_WEB:
-                    $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool)$secure;
+                    $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool) $secure;
                     $url = $this->getConfig('web/' . ($secure ? 'secure' : 'unsecure') . '/base_url');
                     break;
 
@@ -629,7 +629,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @param   string $url
      * @return  string
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _updatePathUseRewrites($url)
     {
@@ -648,7 +648,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     protected function _isCustomEntryPoint()
     {
-        return (bool)Mage::registry('custom_entry_point');
+        return (bool) Mage::registry('custom_entry_point');
     }
 
     /**
@@ -707,7 +707,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function getId()
     {
         $storeId = $this->_getData('store_id');
-        return is_null($storeId) ? null : (int)$storeId;
+        return is_null($storeId) ? null : (int) $storeId;
     }
 
     /**
@@ -744,7 +744,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         if ($this->_isFrontSecure === null) {
             $this->_isFrontSecure = Mage::getStoreConfigFlag(
                 Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
-                $this->getId()
+                $this->getId(),
             );
         }
         return $this->_isFrontSecure;
@@ -966,7 +966,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function roundPrice($price)
     {
-        return round((float)$price, 2);
+        return round((float) $price, 2);
     }
 
     /**
@@ -1050,7 +1050,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getWebsiteId()
     {
-        return (int)$this->_getData('website_id');
+        return (int) $this->_getData('website_id');
     }
 
     /**
@@ -1060,7 +1060,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getGroupId()
     {
-        return (int)$this->_getData('group_id');
+        return (int) $this->_getData('group_id');
     }
 
     /**
@@ -1097,7 +1097,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     {
         $sidQueryParam = $this->_getSession()->getSessionIdQueryParam();
         $requestString = Mage::getSingleton('core/url')->escape(
-            ltrim(Mage::app()->getRequest()->getRequestString(), '/')
+            ltrim(Mage::app()->getRequest()->getRequestString(), '/'),
         );
 
         $storeUrl = Mage::app()->getStore()->isCurrentlySecure()

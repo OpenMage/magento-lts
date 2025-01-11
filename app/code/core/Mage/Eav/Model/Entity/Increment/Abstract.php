@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,8 +54,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object im
     public function format($id)
     {
         $result = $this->getPrefix();
-        $result .= str_pad((string)$id, $this->getPadLength(), $this->getPadChar(), STR_PAD_LEFT);
-        return $result;
+        return $result . str_pad((string) $id, $this->getPadLength(), $this->getPadChar(), STR_PAD_LEFT);
     }
 
     /**

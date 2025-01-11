@@ -72,9 +72,9 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
                 ['rstore' => $this->getTable('review/review_store')],
                 $this->getConnection()->quoteInto(
                     'main_table.review_id=rstore.review_id AND rstore.store_id=?',
-                    (int)$storeId
+                    (int) $storeId,
                 ),
-                []
+                [],
             );
         return $this;
     }
@@ -93,15 +93,15 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
             ->join(
                 ['rating'    => $this->getTable('rating/rating')],
                 'rating.rating_id = main_table.rating_id',
-                ['rating_code']
+                ['rating_code'],
             )
             ->joinLeft(
                 ['title' => $this->getTable('rating/rating_title')],
                 $adapter->quoteInto(
                     'main_table.rating_id=title.rating_id AND title.store_id = ?',
-                    (int)Mage::app()->getStore()->getId()
+                    (int) Mage::app()->getStore()->getId(),
                 ),
-                ['rating_code' => $ratingCodeCond]
+                ['rating_code' => $ratingCodeCond],
             );
 
         if ($storeId == null) {
@@ -110,7 +110,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
 
         if (is_array($storeId)) {
             $condition = $adapter->prepareSqlCondition('store.store_id', [
-                'in' => $storeId
+                'in' => $storeId,
             ]);
         } else {
             $condition = $adapter->quoteInto('store.store_id = ?', $storeId);
@@ -119,7 +119,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
         $this->getSelect()
             ->join(
                 ['store' => $this->getTable('rating_store')],
-                'main_table.rating_id = store.rating_id AND ' . $condition
+                'main_table.rating_id = store.rating_id AND ' . $condition,
             );
 
         return $this;
@@ -135,7 +135,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
         $this->getSelect()
             ->join(
                 ['rating_option' => $this->getTable('rating/rating_option')],
-                'main_table.option_id = rating_option.option_id'
+                'main_table.option_id = rating_option.option_id',
             );
         return $this;
     }

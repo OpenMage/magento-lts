@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,7 +89,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
             ];
             $file = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Sample::getBasePath(),
-                $item->getSampleFile()
+                $item->getSampleFile(),
             );
             if ($item->getSampleFile() && !is_file($file)) {
                 Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
@@ -100,7 +100,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
                         'file' => $item->getSampleFile(),
                         'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
                         'size' => filesize($file),
-                        'status' => 'old'
+                        'status' => 'old',
                     ]];
             }
             if ($this->getProduct() && $item->getStoreTitle()) {
@@ -146,13 +146,13 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
                     'id'      => '',
                     'label'   => Mage::helper('adminhtml')->__('Upload Files'),
                     'type'    => 'button',
-                    'onclick' => 'Downloadable.massUploadByType(\'samples\')'
-                ])
+                    'onclick' => 'Downloadable.massUploadByType(\'samples\')',
+                ]),
         );
 
         $this->_addElementIdsMapping([
             'container' => $this->getHtmlId() . '-new',
-            'delete'    => $this->getHtmlId() . '-delete'
+            'delete'    => $this->getHtmlId() . '-delete',
         ]);
         return $this;
     }
@@ -178,7 +178,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
             ->setFileParameterName('samples')
             ->setTarget(
                 Mage::getModel('adminhtml/url')
-                    ->getUrl('*/downloadable_file/upload', ['type' => 'samples', '_secure' => true])
+                    ->getUrl('*/downloadable_file/upload', ['type' => 'samples', '_secure' => true]),
             );
         $this->getMiscConfig()
             ->setReplaceBrowseWithRemove(true)

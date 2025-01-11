@@ -250,12 +250,12 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
                 [
                     'label'    => Mage::helper('tax')->__('Excl. Tax') . ':',
                     'price'    => $order->formatPriceTxt($item->getPrice()),
-                    'subtotal' => $order->formatPriceTxt($item->getRowTotal())
+                    'subtotal' => $order->formatPriceTxt($item->getRowTotal()),
                 ],
                 [
                     'label'    => Mage::helper('tax')->__('Incl. Tax') . ':',
                     'price'    => $order->formatPriceTxt($item->getPriceInclTax()),
-                    'subtotal' => $order->formatPriceTxt($item->getRowTotalInclTax())
+                    'subtotal' => $order->formatPriceTxt($item->getRowTotalInclTax()),
                 ],
             ];
         } elseif (Mage::helper('tax')->displaySalesPriceInclTax()) {

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
             ->setUniqId($uniqId);
 
         if ($element->getValue()) {
-            $rule = Mage::getModel('salesrule/rule')->load((int)$element->getValue());
+            $rule = Mage::getModel('salesrule/rule')->load((int) $element->getValue());
             if ($rule->getId()) {
                 $chooser->setLabel($rule->getName());
             }
@@ -96,7 +96,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
         $this->setCollection($collection);
 
         Mage::dispatchEvent('adminhtml_block_promo_widget_chooser_prepare_collection', [
-            'collection' => $collection
+            'collection' => $collection,
         ]);
 
         return parent::_prepareCollection();

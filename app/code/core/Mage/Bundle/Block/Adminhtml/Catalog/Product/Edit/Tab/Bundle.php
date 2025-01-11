@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,16 +60,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
                     'label' => Mage::helper('bundle')->__('Add New Option'),
                     'class' => 'add',
                     'id'    => 'add_new_option',
-                    'on_click' => 'bOption.add()'
-                ])
+                    'on_click' => 'bOption.add()',
+                ]),
         );
 
         $this->setChild(
             'options_box',
             $this->getLayout()->createBlock(
                 'bundle/adminhtml_catalog_product_edit_tab_bundle_option',
-                'adminhtml.catalog.product.edit.tab.bundle.option'
-            )
+                'adminhtml.catalog.product.edit.tab.bundle.option',
+            ),
         );
 
         return parent::_prepareLayout();

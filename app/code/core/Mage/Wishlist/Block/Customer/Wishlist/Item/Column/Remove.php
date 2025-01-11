@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Remove extends Mage_Wish
         function confirmRemoveWishlistItem() {
             return confirm('"
             . Mage::helper('core')->jsQuoteEscape(
-                $this->__('Are you sure you want to remove this product from your wishlist?')
+                $this->__('Are you sure you want to remove this product from your wishlist?'),
             )
             . "');
         }

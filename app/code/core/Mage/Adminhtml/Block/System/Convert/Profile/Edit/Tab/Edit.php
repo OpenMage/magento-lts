@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adm
 
         $fieldset = $form->addFieldset('base_fieldset', [
             'legend' => Mage::helper('adminhtml')->__('General Information'),
-            'class' => 'fieldset-wide'
+            'class' => 'fieldset-wide',
         ]);
 
         $fieldset->addField('name', 'text', [

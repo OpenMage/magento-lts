@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ $table = $installer->getConnection()
     ], 'Store ID')
     ->addIndex(
         $installer->getIdxName('log/customer', ['visitor_id']),
-        ['visitor_id']
+        ['visitor_id'],
     )
     ->setComment('Log Customers Table');
 $installer->getConnection()->createTable($table);
@@ -152,7 +152,7 @@ $table = $installer->getConnection()
     ], 'Visit Time')
     ->addIndex(
         $installer->getIdxName('log/url_table', ['visitor_id']),
-        ['visitor_id']
+        ['visitor_id'],
     )
     ->setComment('Log URL Table');
 $installer->getConnection()->createTable($table);
@@ -263,15 +263,15 @@ $table = $installer->getConnection()
     ], 'Last URL')
     ->addIndex(
         $installer->getIdxName('log/visitor_online', ['visitor_type']),
-        ['visitor_type']
+        ['visitor_type'],
     )
     ->addIndex(
         $installer->getIdxName('log/visitor_online', ['first_visit_at', 'last_visit_at']),
-        ['first_visit_at', 'last_visit_at']
+        ['first_visit_at', 'last_visit_at'],
     )
     ->addIndex(
         $installer->getIdxName('log/visitor_online', ['customer_id']),
-        ['customer_id']
+        ['customer_id'],
     )
     ->setComment('Log Visitor Online Table');
 $installer->getConnection()->createTable($table);

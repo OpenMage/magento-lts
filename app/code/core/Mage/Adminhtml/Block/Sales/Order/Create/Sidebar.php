@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar extends Mage_Adminhtml_Blo
                 'label' => Mage::helper('sales')->__('Update Changes'),
                 'onclick' => 'order.sidebarApplyChanges()',
                 'before_html' => '<div class="sub-btn-set">',
-                'after_html' => '</div>'
+                'after_html' => '</div>',
             ]);
             $this->setChild('top_button', $button);
 

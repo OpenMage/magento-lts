@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,19 +37,19 @@ while ($row = $query->fetch()) {
         $row['category_id'],
         $row['product_id'],
         $row['is_parent'],
-        $row['store_id']
+        $row['store_id'],
     ]);
 }
 
 $installer->getConnection()->dropKey(
     $installer->getTable('catalog/category_product_index'),
-    'UNQ_CATEGORY_PRODUCT'
+    'UNQ_CATEGORY_PRODUCT',
 );
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/category_product_index'),
     'UNQ_CATEGORY_PRODUCT',
     ['category_id', 'product_id', 'is_parent', 'store_id'],
-    'unique'
+    'unique',
 );
 
 $installer->endSetup();

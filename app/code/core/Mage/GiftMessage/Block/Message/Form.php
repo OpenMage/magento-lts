@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,7 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
             $this->getRequest()->getParam('item'),
             $this->getRequest()->getParam('type'),
             $this->getRequest()->getParam('message'),
-            ['uniqueId' => $this->getRequest()->getParam('uniqueId')]
+            ['uniqueId' => $this->getRequest()->getParam('uniqueId')],
         );
     }
 
@@ -58,7 +58,7 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
         $helper = $this->helper('giftmessage/url');
         return $helper->getEditUrl(
             $this->getRequest()->getParam('entity'),
-            $this->getRequest()->getParam('type')
+            $this->getRequest()->getParam('type'),
         );
     }
 
@@ -72,7 +72,7 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
         $helper = $this->helper('giftmessage/url');
         return $helper->getButtonUrl(
             $this->getRequest()->getParam('item'),
-            $this->getRequest()->getParam('type')
+            $this->getRequest()->getParam('type'),
         );
     }
 
@@ -87,7 +87,7 @@ class Mage_GiftMessage_Block_Message_Form extends Mage_Core_Block_Template
         return $helper->getRemoveUrl(
             $this->getRequest()->getParam('item'),
             $this->getRequest()->getParam('type'),
-            ['uniqueId' => $this->getRequest()->getParam('uniqueId')]
+            ['uniqueId' => $this->getRequest()->getParam('uniqueId')],
         );
     }
 

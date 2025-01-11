@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,7 +20,7 @@ $installer = $this;
 $installer->getConnection()->addColumn(
     $this->getTable('salesrule'),
     'apply_to_shipping',
-    "tinyint(1) unsigned not null default '0' after simple_free_shipping"
+    "tinyint(1) unsigned not null default '0' after simple_free_shipping",
 );
 
 $installer->run("
@@ -41,7 +41,7 @@ $installer->getConnection()->addConstraint(
     $this->getTable('salesrule/label'),
     'rule_id',
     $this->getTable('salesrule'),
-    'rule_id'
+    'rule_id',
 );
 
 $installer->getConnection()->addConstraint(
@@ -49,5 +49,5 @@ $installer->getConnection()->addConstraint(
     $this->getTable('salesrule/label'),
     'store_id',
     $this->getTable('core/store'),
-    'store_id'
+    'store_id',
 );

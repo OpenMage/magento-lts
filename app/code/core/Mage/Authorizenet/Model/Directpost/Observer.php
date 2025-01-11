@@ -53,7 +53,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
-                    Zend_Json::TYPE_ARRAY
+                    Zend_Json::TYPE_ARRAY,
                 );
 
                 if (empty($result['error'])) {
@@ -64,7 +64,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
                     $session->setLastOrderIncrementId($order->getIncrementId());
                     $requestToPaygate = $payment->getMethodInstance()->generateRequestFromOrder($order);
                     $requestToPaygate->setControllerActionName($controller->getRequest()->getControllerName());
-                    $requestToPaygate->setIsSecure((string)Mage::app()->getStore()->isCurrentlySecure());
+                    $requestToPaygate->setIsSecure((string) Mage::app()->getStore()->isCurrentlySecure());
 
                     $result['directpost'] = ['fields' => $requestToPaygate->getData()];
 

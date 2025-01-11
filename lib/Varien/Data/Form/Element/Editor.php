@@ -77,7 +77,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             $translatedString = [
                 'Insert Image...' => $this->translate('Insert Image...'),
                 'Insert Media...' => $this->translate('Insert Media...'),
-                'Insert File...'  => $this->translate('Insert File...')
+                'Insert File...'  => $this->translate('Insert File...'),
             ];
 
             $jsSetupObject = 'wysiwyg' . $this->getHtmlId();
@@ -121,14 +121,12 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                 </script>';
 
             $html = $this->_wrapIntoContainer($html);
-            $html .= $this->getAfterElementHtml();
-            return $html;
+            return $html . $this->getAfterElementHtml();
         } else {
             // Display only buttons to additional features
             if ($this->getConfig('widget_window_url') || $this->getConfig('plugins') || $this->getConfig('add_images')) {
                 $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
-                $html = $this->_wrapIntoContainer($html);
-                return $html;
+                return $this->_wrapIntoContainer($html);
             }
             return parent::getElementHtml();
         }
@@ -159,9 +157,8 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         } else {
             $buttonsHtml .= $this->_getPluginButtonsHtml(true);
         }
-        $buttonsHtml .= '</div>';
 
-        return $buttonsHtml;
+        return $buttonsHtml . '</div>';
     }
 
     /**
@@ -172,13 +169,12 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      */
     protected function _getToggleButtonHtml($visible = true)
     {
-        $html = $this->_getButtonHtml([
+        return $this->_getButtonHtml([
             'title'     => $this->translate('Show / Hide Editor'),
             'class'     => 'show-hide',
             'style'     => $visible ? '' : 'display:none',
             'id'        => 'toggle' . $this->getHtmlId(),
         ]);
-        return $html;
     }
 
     /**
@@ -248,8 +244,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         foreach ($options as $name => $value) {
             $buttonOptions[$name] = $value;
         }
-        $buttonOptions = $this->_prepareOptions($buttonOptions);
-        return $buttonOptions;
+        return $this->_prepareOptions($buttonOptions);
     }
 
     /**
@@ -305,9 +300,8 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         $html .= isset($data['id']) ? ' id="' . $data['id'] . '"' : '';
         $html .= '>';
         $html .= isset($data['title']) ? '<span><span><span>' . $data['title'] . '</span></span></span>' : '';
-        $html .= '</button>';
 
-        return $html;
+        return $html . '</button>';
     }
 
     /**
@@ -323,14 +317,12 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             return $html;
         }
 
-        $html = '<div id="editor' . $this->getHtmlId() . '"'
+        return '<div id="editor' . $this->getHtmlId() . '"'
               . ($this->getConfig('no_display') ? ' style="display:none;"' : '')
               . ($this->getConfig('container_class') ? ' class="' . $this->getConfig('container_class') . '"' : '')
               . '>'
               . $html
               . '</div>';
-
-        return $html;
     }
 
     /**

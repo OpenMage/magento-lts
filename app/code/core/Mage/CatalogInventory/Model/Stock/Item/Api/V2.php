@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
             $this->_fault('not_exists');
         }
 
-        $stockData = array_replace($stockItem->getData(), (array)$data);
+        $stockData = array_replace($stockItem->getData(), (array) $data);
         $stockItem->setData($stockData);
 
         try {
@@ -70,7 +70,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
             $this->_fault('multi_update_not_match');
         }
 
-        $productData = (array)$productData;
+        $productData = (array) $productData;
 
         foreach ($productIds as $index => $productId) {
             $this->update($productId, $productData[$index]);

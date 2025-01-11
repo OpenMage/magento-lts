@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,13 +22,13 @@ $installer->getConnection()->changeColumn(
     $this->getTable('sales_flat_quote_item'),
     'weee_tax_applied',
     'weee_tax_applied',
-    'text CHARACTER SET utf8'
+    'text CHARACTER SET utf8',
 );
 $installer->getConnection()->changeColumn(
     $this->getTable('sales_flat_order_item'),
     'weee_tax_applied',
     'weee_tax_applied',
-    'text CHARACTER SET utf8'
+    'text CHARACTER SET utf8',
 );
 
 $installer->endSetup();

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,17 +94,17 @@ class Mage_Log_Model_Resource_Customer extends Mage_Core_Model_Resource_Db_Abstr
                 ->joinInner(
                     ['lvt' => $this->_visitorTable],
                     "lvt.visitor_id = {$table}.visitor_id",
-                    ['last_visit_at']
+                    ['last_visit_at'],
                 )
                 ->joinInner(
                     ['lvit' => $this->_visitorInfoTable],
                     'lvt.visitor_id = lvit.visitor_id',
-                    ['http_referer', 'remote_addr']
+                    ['http_referer', 'remote_addr'],
                 )
                 ->joinInner(
                     ['luit' => $this->_urlInfoTable],
                     'luit.url_id = lvt.last_url_id',
-                    ['url']
+                    ['url'],
                 )
                 ->order("{$table}.login_at DESC")
                 ->limit(1);

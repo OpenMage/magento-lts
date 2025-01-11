@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -150,7 +150,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
             'visibility',
             $idxTable . '.entity_id',
             $idxTable . '.store_id',
-            $condition
+            $condition,
         );
 
         $query = $select->deleteFromSelect($idxTable);
@@ -175,15 +175,15 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
             ->join(
                 ['cs' => $this->getTable('core/store')],
                 '',
-                []
+                [],
             )
             ->join(
                 ['i' => $idxTable],
                 'l.child_id = i.entity_id AND cs.store_id = i.store_id',
-                ['attribute_id', 'store_id', 'value']
+                ['attribute_id', 'store_id', 'value'],
             )
             ->group([
-                'l.parent_id', 'i.attribute_id', 'i.store_id', 'i.value'
+                'l.parent_id', 'i.attribute_id', 'i.store_id', 'i.value',
             ]);
         if (!is_null($parentIds)) {
             $select->where('l.parent_id IN(?)', $parentIds);
@@ -196,7 +196,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
             'select'        => $select,
             'entity_field'  => new Zend_Db_Expr('l.parent_id'),
             'website_field' => new Zend_Db_Expr('cs.website_id'),
-            'store_field'   => new Zend_Db_Expr('cs.store_id')
+            'store_field'   => new Zend_Db_Expr('cs.store_id'),
         ]);
 
         $query = $write->insertFromSelect($select, $idxTable, [], Varien_Db_Adapter_Interface::INSERT_IGNORE);
@@ -216,7 +216,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
         $conditions = [
             'ca.is_filterable_in_search > 0',
             'ca.is_visible_in_advanced_search > 0',
-            'ca.is_filterable > 0'
+            'ca.is_filterable > 0',
         ];
 
         return implode(' OR ', $conditions);

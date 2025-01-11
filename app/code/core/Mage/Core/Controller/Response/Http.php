@@ -91,7 +91,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         self::$_transportObject->setCode($code);
         Mage::dispatchEvent(
             'controller_response_redirect',
-            ['response' => $this, 'transport' => self::$_transportObject]
+            ['response' => $this, 'transport' => self::$_transportObject],
         );
 
         return parent::setRedirect(self::$_transportObject->getUrl(), self::$_transportObject->getCode());
@@ -100,7 +100,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
     /**
      * Method send already collected headers and exit from script
      * @return void
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function sendHeadersAndExit()
     {

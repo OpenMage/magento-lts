@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
                 ->createBlock('bundle/adminhtml_catalog_product_edit_tab_bundle_option_search')
                 ->setIndex($this->getRequest()->getParam('index'))
                 ->setFirstShow(true)
-                ->toHtml()
+                ->toHtml(),
         );
     }
 
@@ -56,10 +56,10 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
             $this->getLayout()
                 ->createBlock(
                     'bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid',
-                    'adminhtml.catalog.product.edit.tab.bundle.option.search.grid'
+                    'adminhtml.catalog.product.edit.tab.bundle.option.search.grid',
                 )
                 ->setIndex($this->getRequest()->getParam('index'))
-                ->toHtml()
+                ->toHtml(),
         );
     }
 }

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,12 +35,12 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
             $breadcrumbs->addCrumb('home', [
                 'label' => Mage::helper('catalogsearch')->__('Home'),
                 'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
-                'link' => Mage::getBaseUrl()
+                'link' => Mage::getBaseUrl(),
             ])->addCrumb('search', [
                 'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
-                'link' => $this->getUrl('*/*/')
+                'link' => $this->getUrl('*/*/'),
             ])->addCrumb('search_result', [
-                'label' => Mage::helper('catalogsearch')->__('Results')
+                'label' => Mage::helper('catalogsearch')->__('Results'),
             ]);
         }
         return parent::_prepareLayout();
@@ -55,7 +55,7 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
         $availableOrders = $category->getAvailableSortByOptions();
         unset($availableOrders['position']);
         $availableOrders = array_merge([
-            'relevance' => $this->__('Relevance')
+            'relevance' => $this->__('Relevance'),
         ], $availableOrders);
         $this->getChild('search_result_list')
             ->setAvailableOrders($availableOrders)

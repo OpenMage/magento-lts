@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +42,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
             Mage::helper('catalog')->__('Manage Attribute Sets'),
-            Mage::helper('catalog')->__('Manage Attribute Sets')
+            Mage::helper('catalog')->__('Manage Attribute Sets'),
         );
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_toolbar_main'));
@@ -77,7 +77,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
             Mage::helper('catalog')->__('Manage Product Sets'),
-            Mage::helper('catalog')->__('Manage Product Sets')
+            Mage::helper('catalog')->__('Manage Product Sets'),
         );
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main'));
@@ -91,7 +91,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $this->getResponse()->setBody(
             $this->getLayout()
                 ->createBlock('adminhtml/catalog_product_attribute_set_grid')
-            ->toHtml()
+            ->toHtml(),
         );
     }
 
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         } catch (Exception $e) {
             $this->_getSession()->addException(
                 $e,
-                Mage::helper('catalog')->__('An error occurred while saving the attribute set.')
+                Mage::helper('catalog')->__('An error occurred while saving the attribute set.'),
             );
             $hasError = true;
         }
@@ -226,7 +226,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
     {
         Mage::register(
             'entityType',
-            Mage::getModel('catalog/product')->getResource()->getTypeId()
+            Mage::getModel('catalog/product')->getResource()->getTypeId(),
         );
     }
 

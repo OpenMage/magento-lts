@@ -48,30 +48,30 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'primary'   => true
+                'primary'   => true,
             ], 'Directory Id')
             ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 100, [
-                'nullable' => false
+                'nullable' => false,
             ], 'Directory Name')
             ->addColumn('path', Varien_Db_Ddl_Table::TYPE_TEXT, 255, [
                 'default' => null], 'Path to the Directory')
             ->addColumn('upload_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, [
                 'nullable' => false,
-                'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
+                'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
             ], 'Upload Timestamp')
             ->addColumn('parent_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
                 'nullable' => true,
                 'default' => null,
-                'unsigned' => true
+                'unsigned' => true,
             ], 'Parent Directory Id')
             ->addIndex(
                 $adapter->getIndexName(
                     $table,
                     ['name', 'parent_id'],
-                    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+                    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
                 ),
                 ['name', 'parent_id'],
-                ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+                ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
             )
             ->addIndex($adapter->getIndexName($table, ['parent_id']), ['parent_id'])
             ->addForeignKey(
@@ -80,7 +80,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
                 $table,
                 'directory_id',
                 Varien_Db_Ddl_Table::ACTION_CASCADE,
-                Varien_Db_Ddl_Table::ACTION_CASCADE
+                Varien_Db_Ddl_Table::ACTION_CASCADE,
             )
             ->setComment('Directory Storage');
 
@@ -137,7 +137,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         $select = $adapter->select()
             ->from(
                 ['e' => $this->getMainTable()],
-                ['directory_id']
+                ['directory_id'],
             )
             ->where('name = ?', $name)
             ->where($adapter->prepareSqlCondition('path', ['seq' => $path]));
@@ -172,7 +172,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         $select = $adapter->select()
             ->from(
                 ['e' => $this->getMainTable()],
-                ['name', 'path']
+                ['name', 'path'],
             )
             ->order('directory_id')
             ->limit($count, $offset);
@@ -194,7 +194,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         $select = $adapter->select()
             ->from(
                 ['e' => $this->getMainTable()],
-                ['name', 'path']
+                ['name', 'path'],
             )
             ->where($adapter->prepareSqlCondition('path', ['seq' => $directory]))
             ->order('directory_id');

@@ -26,14 +26,14 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
      * @param string $var
      * @param string|true $value
      * @return bool
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function is($var, $value = true)
     {
         $flag = $this->$var;
 
         if ($value === true) {
-            $flag = strtolower((string)$flag);
+            $flag = strtolower((string) $flag);
             if (!empty($flag) && $flag !== 'false' && $flag !== 'off') {
                 return true;
             } else {
@@ -41,7 +41,7 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
             }
         }
 
-        return !empty($flag) && (strcasecmp((string)$value, (string)$flag) === 0);
+        return !empty($flag) && (strcasecmp((string) $value, (string) $flag) === 0);
     }
 
     /**
@@ -50,9 +50,9 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
     public function getClassName()
     {
         if ($this->class) {
-            $model = (string)$this->class;
+            $model = (string) $this->class;
         } elseif ($this->model) {
-            $model = (string)$this->model;
+            $model = (string) $this->model;
         } else {
             return false;
         }

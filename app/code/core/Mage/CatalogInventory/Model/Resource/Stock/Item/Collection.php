@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogInventory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,7 +81,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
             'main_table.product_id=status_table.product_id'
                 . ' AND main_table.stock_id=status_table.stock_id'
                 . $this->getConnection()->quoteInto(' AND status_table.website_id=?', $websiteId),
-            ['stock_status']
+            ['stock_status'],
         );
 
         return $this;
@@ -119,11 +119,11 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
             '='  => 'eq',
             '<=' => 'lteq',
             '>=' => 'gteq',
-            '<>' => 'neq'
+            '<>' => 'neq',
         ];
         if (!isset($methods[$comparsionMethod])) {
             Mage::throwException(
-                Mage::helper('cataloginventory')->__('%s is not a correct comparsion method.', $comparsionMethod)
+                Mage::helper('cataloginventory')->__('%s is not a correct comparsion method.', $comparsionMethod),
             );
         }
 
@@ -139,7 +139,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
             ->join(
                 ['cp_table' => $this->getTable('catalog/product')],
                 'main_table.product_id = cp_table.entity_id',
-                ['type_id']
+                ['type_id'],
             );
     }
 }

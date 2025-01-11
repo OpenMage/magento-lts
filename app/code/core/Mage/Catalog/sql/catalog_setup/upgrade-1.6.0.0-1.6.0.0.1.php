@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -21,7 +21,7 @@ $productTypes = [
     Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
     Mage_Catalog_Model_Product_Type::TYPE_BUNDLE,
     Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE,
-    Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL
+    Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL,
 ];
 $productTypes = implode(',', $productTypes);
 
@@ -40,7 +40,7 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled', [
     'apply_to'      => $productTypes,
     'input_renderer'   => 'adminhtml/catalog_product_helper_form_msrp_enabled',
     'visible_on_front' => false,
-    'used_in_product_listing' => true
+    'used_in_product_listing' => true,
 ]);
 
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_display_actual_price_type', [
@@ -58,7 +58,7 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_display_actua
     'apply_to'      => $productTypes,
     'input_renderer'   => 'adminhtml/catalog_product_helper_form_msrp_price',
     'visible_on_front' => false,
-    'used_in_product_listing' => true
+    'used_in_product_listing' => true,
 ]);
 
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp', [
@@ -74,5 +74,5 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp', [
     'user_defined'  => false,
     'apply_to'      => $productTypes,
     'visible_on_front' => false,
-    'used_in_product_listing' => true
+    'used_in_product_listing' => true,
 ]);

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                         $select->joinLeft(
                             ['t2' => $table],
                             $conn->quoteInto($onCondition, $storeId),
-                            []
+                            [],
                         );
                         $select->where('t1.store_id = ?', 0);
                         $select->where('t1.attribute_id = ?', $attributeId);

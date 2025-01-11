@@ -198,7 +198,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public const STATUS_BACKORDERED    = 3; // When qty ordered - [qty canceled + qty returned] = qty backordered
     public const STATUS_CANCELED       = 5; // When qty ordered = qty canceled
     public const STATUS_PARTIAL        = 6; // If [qty shipped or(max of two) qty invoiced + qty canceled + qty returned]
-                                     // < qty ordered
+    // < qty ordered
     public const STATUS_MIXED          = 7; // All other combinations
     public const STATUS_REFUNDED       = 8; // When qty ordered = qty refunded
 
@@ -459,15 +459,15 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getStatusId()
     {
-        $backordered = (float)$this->getQtyBackordered();
+        $backordered = (float) $this->getQtyBackordered();
         if (!$backordered && $this->getHasChildren()) {
-            $backordered = (float)$this->_getQtyChildrenBackordered();
+            $backordered = (float) $this->_getQtyChildrenBackordered();
         }
-        $canceled    = (float)$this->getQtyCanceled();
-        $invoiced    = (float)$this->getQtyInvoiced();
-        $ordered     = (float)$this->getQtyOrdered();
-        $refunded    = (float)$this->getQtyRefunded();
-        $shipped     = (float)$this->getQtyShipped();
+        $canceled    = (float) $this->getQtyCanceled();
+        $invoiced    = (float) $this->getQtyInvoiced();
+        $ordered     = (float) $this->getQtyOrdered();
+        $refunded    = (float) $this->getQtyRefunded();
+        $shipped     = (float) $this->getQtyShipped();
 
         $actuallyOrdered = $ordered - $canceled - $refunded;
 
@@ -510,7 +510,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     {
         $backordered = null;
         foreach ($this->_children as $childItem) {
-            $backordered += (float)$childItem->getQtyBackordered();
+            $backordered += (float) $childItem->getQtyBackordered();
         }
 
         return $backordered;
@@ -552,11 +552,11 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             $this->setQtyCanceled($this->getQtyToCancel());
             $this->setTaxCanceled(
                 $this->getTaxCanceled() +
-                $this->getBaseTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered()
+                $this->getBaseTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered(),
             );
             $this->setHiddenTaxCanceled(
                 $this->getHiddenTaxCanceled() +
-                $this->getHiddenTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered()
+                $this->getHiddenTaxAmount() * $this->getQtyCanceled() / $this->getQtyOrdered(),
             );
         }
         return $this;

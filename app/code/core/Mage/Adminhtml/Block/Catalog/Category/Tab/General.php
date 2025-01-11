@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,16 +54,16 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
             }
             $fieldset->addField('path', 'hidden', [
                 'name'  => 'path',
-                'value' => $parentId
+                'value' => $parentId,
             ]);
         } else {
             $fieldset->addField('id', 'hidden', [
                 'name'  => 'id',
-                'value' => $this->getCategory()->getId()
+                'value' => $this->getCategory()->getId(),
             ]);
             $fieldset->addField('path', 'hidden', [
                 'name'  => 'path',
-                'value' => $this->getCategory()->getPath()
+                'value' => $this->getCategory()->getPath(),
             ]);
         }
 
@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
                 $fieldset->removeField('url_key');
                 $fieldset->addField('url_key', 'hidden', [
                     'name'  => 'url_key',
-                    'value' => $this->getCategory()->getUrlKey()
+                    'value' => $this->getCategory()->getUrlKey(),
                 ]);
             }
         }
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
     protected function _getAdditionalElementTypes()
     {
         return [
-            'image' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_category_helper_image')
+            'image' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_category_helper_image'),
         ];
     }
 
@@ -101,8 +101,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
 
         if ($node) {
             $options[] = [
-               'value' => $node->getPathId(),
-               'label' => str_repeat('&nbsp;', max(0, 3 * ($node->getLevel()))) . $this->escapeHtml($node->getName()),
+                'value' => $node->getPathId(),
+                'label' => str_repeat('&nbsp;', max(0, 3 * ($node->getLevel()))) . $this->escapeHtml($node->getName()),
             ];
 
             foreach ($node->getChildren() as $child) {

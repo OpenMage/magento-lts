@@ -51,8 +51,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
                 $out .= $this->_toOptionHtml($action, $row);
             }
         }
-        $out .= '</select>';
-        return $out;
+        return $out . '</select>';
     }
 
     /**

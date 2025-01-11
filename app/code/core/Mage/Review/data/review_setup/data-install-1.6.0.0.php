@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Review
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,12 +32,12 @@ foreach ($reviewEntityCodes as $entityCode) {
 $reviewStatuses = [
     Mage_Review_Model_Review::STATUS_APPROVED       => 'Approved',
     Mage_Review_Model_Review::STATUS_PENDING        => 'Pending',
-    Mage_Review_Model_Review::STATUS_NOT_APPROVED   => 'Not Approved'
+    Mage_Review_Model_Review::STATUS_NOT_APPROVED   => 'Not Approved',
 ];
 foreach ($reviewStatuses as $k => $v) {
     $bind = [
         'status_id'     => $k,
-        'status_code'   => $v
+        'status_code'   => $v,
     ];
     $installer->getConnection()->insertForce($installer->getTable('review/review_status'), $bind);
 }

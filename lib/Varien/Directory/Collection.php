@@ -169,7 +169,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $this->clear();
         $iter = new RecursiveDirectoryIterator($this->getPath());
         while ($iter->valid()) {
-            $curr = (string)$iter->getSubPathname();
+            $curr = (string) $iter->getSubPathname();
             if (!$iter->isDot() && $curr[0] != '.') {
                 $this->addItem(Varien_Directory_Factory::getFactory($iter->current(), $this->getRecursion(), $this->getRecursionLevel()));
             }
