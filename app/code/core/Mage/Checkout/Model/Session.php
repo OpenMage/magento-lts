@@ -77,7 +77,7 @@
  * @method string getSharedWishlist()
  * @method $this setSharedWishlist(string $value)
  * @method int getSingleWishlistId()
- * @method $this setSingleWishlistId(int $value)
+ * @method $this setSingleWishlistId(int|null $value)
  * @method array getSteps()
  * @method $this setSteps(array $value)
  *

@@ -6,6 +6,25 @@
         "AFL-3.0"
     ],
     "type": "magento-source",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "macopedia/phpstan-magento1",
+                "version": "dev-topic-om",
+                "source": {
+                    "url": "https://github.com/justinbeaty/maho-phpstan-plugin.git",
+                    "type": "git",
+                    "reference": "topic-om"
+                },
+                "autoload": {
+                    "psr-4": {
+                        "PHPStanMagento1\\": "src/"
+                    }
+                }
+            }
+        }
+    ],
     "require": {
         "php": ">=7.4 <8.5",
         "ext-ctype": "*",
@@ -50,7 +69,7 @@
         "composer/composer": "^2.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
-        "macopedia/phpstan-magento1": "^1.1",
+        "macopedia/phpstan-magento1": "dev-topic-om",
         "magento-ecg/coding-standard": "^4.5",
         "openmage/dev-meta-package": "^1.0.5",
         "perftools/php-profiler": "^1.1",

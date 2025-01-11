@@ -446,17 +446,21 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Block Factory
      *
-     * @param     string $type
-     * @param     string|null $name
-     * @return    Mage_Core_Block_Abstract|false
+     * @param string|Mage_Core_Block_Abstract $type
+     * @param string $name
+     * @return Mage_Core_Block_Abstract|false
      */
     public function createBlock($type, $name = '', array $attributes = [])
     {
-        try {
-            $block = $this->_getBlockInstance($type, $attributes);
-        } catch (Exception $e) {
-            Mage::logException($e);
-            return false;
+        if ($type instanceof Mage_Core_Block_Abstract) {
+            $block = $type;
+        } else {
+            try {
+                $block = $this->_getBlockInstance($type, $attributes);
+            } catch (Exception $e) {
+                Mage::logException($e);
+                return false;
+            }
         }
 
         if (empty($name) || $name[0] === '.') {
@@ -465,8 +469,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 $block->setAnonSuffix(substr($name, 1));
             }
             $name = 'ANONYMOUS_' . count($this->_blocks);
-        } elseif (isset($this->_blocks[$name]) && Mage::getIsDeveloperMode()) {
-            //Mage::throwException(Mage::helper('core')->__('Block with name "%s" already exists', $name));
         }
 
         $block->setType($type);
@@ -494,24 +496,21 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     /**
      * Create block object instance based on block type
      *
-     * @param string $block
+     * @param string $type
      * @return Mage_Core_Block_Abstract
+     * @throws Mage_Core_Exception
      */
-    protected function _getBlockInstance($block, array $attributes = [])
+    protected function _getBlockInstance($type, array $attributes = [])
     {
-        if (is_string($block)) {
-            if (str_contains($block, '/')) {
-                if (!$block = Mage::getConfig()->getBlockClassName($block)) {
-                    Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $block));
-                }
-            }
-            if (class_exists($block, false) || mageFindClassFile($block)) {
-                $block = new $block($attributes);
-            }
+        $className = Mage::getConfig()->getBlockClassName($type);
+        if ($className === false || !class_exists($className)) {
+            Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
         }
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $block = new $className($attributes);
         if (!$block instanceof Mage_Core_Block_Abstract) {
             $block = is_object($block) ? get_class($block) : $block;
-            Mage::throwException(Mage::helper('core')->__('Invalid block type: %s (not instance of Mage_Core_Block_Abstract)', $block));
+            Mage::throwException(Mage::helper('core')->__('Invalid block type: %s (not instance of Mage_Core_Block_Abstract)', $type));
         }
         return $block;
     }
@@ -594,23 +593,22 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     /**
      * @param string $type
-     * @return Mage_Core_Block_Abstract|object
+     * @return Mage_Core_Block_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getBlockSingleton($type)
     {
         if (!isset($this->_helpers[$type])) {
             $className = Mage::getConfig()->getBlockClassName($type);
-            if (!$className) {
+            if ($className === false || !class_exists($className)) {
                 Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
             }
 
             $helper = new $className();
-            if ($helper) {
-                if ($helper instanceof Mage_Core_Block_Abstract) {
-                    $helper->setLayout($this);
-                }
-                $this->_helpers[$type] = $helper;
+            if ($helper instanceof Mage_Core_Block_Abstract) {
+                $helper->setLayout($this);
             }
+            $this->_helpers[$type] = $helper;
         }
         return $this->_helpers[$type];
     }
@@ -624,7 +622,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     public function helper($name)
     {
         $helper = Mage::helper($name);
-        if (!$helper) {
+        if ($helper === false) {
             return false;
         }
         return $helper->setLayout($this);

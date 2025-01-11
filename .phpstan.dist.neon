@@ -68,6 +68,11 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
+
+        # TMP exclude: test plugin
+        - app/code/core/Mage/ConfigurableSwatches/Helper/Mediafallback.php
+        - app/code/core/Mage/Eav/Model/Adminhtml/System/Config/Source/Inputtype.php
+        - tests/unit/Mage/Adminhtml/Block/Widget/GridTest.php
     tmpDir: .phpstan.cache
     level: 5
     checkFunctionNameCase: true

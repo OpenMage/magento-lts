@@ -14,8 +14,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-define('DS', DIRECTORY_SEPARATOR);
-define('PS', PATH_SEPARATOR);
+defined('DS') || define('DS', DIRECTORY_SEPARATOR);
+defined('PS') || define('PS', PATH_SEPARATOR);
+
 define('BP', dirname(__DIR__));
 
 Mage::register('original_include_path', get_include_path());
@@ -278,7 +279,7 @@ final class Mage
             if ($graceful) {
                 return;
             }
-            self::throwException('Mage registry key "' . $key . '" already exists');
+            self::throwException("Mage registry key $key already exists");
         }
         self::$_registry[$key] = $value;
     }
@@ -331,7 +332,7 @@ final class Mage
         if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
-            self::throwException($appRoot . ' is not a directory or not readable by this user');
+            self::throwException("$appRoot is not a directory or not readable by this user");
         }
     }
 
@@ -490,16 +491,20 @@ final class Mage
      * Add observer to events object
      *
      * @param string $eventName
-     * @param callback $callback
+     * @param callable $callback
      * @param array $data
      * @param string $observerName
-     * @param string $observerClass
+     * @param class-string|'' $observerClass
      * @return Varien_Event_Collection
+     * @throws Mage_Core_Exception
      */
     public static function addObserver($eventName, $callback, $data = [], $observerName = '', $observerClass = '')
     {
         if ($observerClass == '') {
             $observerClass = 'Varien_Event_Observer';
+        }
+        if (!class_exists($observerClass)) {
+            self::throwException("Invalid observer class: $observerClass");
         }
         $observer = new $observerClass();
         $observer->setName($observerName)->addData($data)->setEventName($eventName)->setCallback($callback);
@@ -524,71 +529,129 @@ final class Mage
     }
 
     /**
-     * Retrieve model object
+     * Retrieve helper singleton by alias
      *
-     * @link    Mage_Core_Model_Config::getModelInstance
-     * @param   string $modelClass
-     * @param   array|string|object $arguments
-     * @return  Mage_Core_Model_Abstract|false
-     */
-    public static function getModel($modelClass = '', $arguments = [])
-    {
-        return self::getConfig()->getModelInstance($modelClass, $arguments);
-    }
-
-    /**
-     * Retrieve model object singleton
+     * ```php
+     * $helper = Mage::helper('core'); // Mage_Core_Helper_Data
+     * $helper = Mage::helper('core/url'); // Mage_Core_Helper_Url
+     * ```
      *
-     * @param   string $modelClass
-     * @return  Mage_Core_Model_Abstract|false
+     * @param string $helperAlias
+     * @return Mage_Core_Helper_Abstract|false
      */
-    public static function getSingleton($modelClass = '', array $arguments = [])
+    public static function helper($helperAlias)
     {
-        $registryKey = '_singleton/' . $modelClass;
+        $registryKey = '_helper/' . $helperAlias;
         if (!isset(self::$_registry[$registryKey])) {
-            self::register($registryKey, self::getModel($modelClass, $arguments));
+            self::register($registryKey, self::getConfig()->getHelperInstance($helperAlias));
         }
         return self::$_registry[$registryKey];
     }
 
     /**
-     * Retrieve object of resource model
+     * Retrieve model instance by alias
      *
-     * @param   string $modelClass
-     * @param   array $arguments
-     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * ```php
+     * $model = Mage::getModel('core/store'); // Mage_Core_Model_Store
+     * ```
+     *
+     * @param string $modelAlias
+     * @param array|string|object $arguments
+     * @return Mage_Core_Model_Abstract|false
      */
-    public static function getResourceModel($modelClass, $arguments = [])
+    public static function getModel($modelAlias, $arguments = [])
     {
-        return self::getConfig()->getResourceModelInstance($modelClass, $arguments);
+        return self::getConfig()->getModelInstance($modelAlias, $arguments);
+    }
+
+    /**
+     * Retrieve model singleton by alias
+     *
+     * ```php
+     * $model = Mage::getModel('core/session'); // Mage_Core_Model_Session
+     * ```
+     *
+     * @param string $modelAlias
+     * @return Mage_Core_Model_Abstract|false
+     */
+    public static function getSingleton($modelAlias, array $arguments = [])
+    {
+        $registryKey = '_singleton/' . $modelAlias;
+        if (!isset(self::$_registry[$registryKey])) {
+            self::register($registryKey, self::getModel($modelAlias, $arguments));
+        }
+        return self::$_registry[$registryKey];
+    }
+
+    /**
+     * Retrieve resource model by alias
+     *
+     * ```php
+     * $model = Mage::getResourceModel('core/store_collection'); // Mage_Core_Model_Resource_Store_Collection
+     * ```
+     *
+     * @param string $modelAlias
+     * @param array $arguments
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     */
+    public static function getResourceModel($modelAlias, $arguments = [])
+    {
+        return self::getConfig()->getResourceModelInstance($modelAlias, $arguments);
+    }
+
+    /**
+     * Retrieve resource model singleton by alias
+     *
+     * ```php
+     * $model = Mage::getResourceSingleton('core/session'); // Mage_Core_Model_Resource_Session
+     * ```
+     *
+     * @param string $modelAlias
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     */
+    public static function getResourceSingleton($modelAlias, array $arguments = [])
+    {
+        $registryKey = '_resource_singleton/' . $modelAlias;
+        if (!isset(self::$_registry[$registryKey])) {
+            self::register($registryKey, self::getResourceModel($modelAlias, $arguments));
+        }
+        return self::$_registry[$registryKey];
+    }
+
+    /**
+     * Retrieve resource helper model singleton
+     *
+     * ```php
+     * $model = Mage::getResourceHelper('core'); // Mage_Core_Model_Resource_Helper_Mysql4
+     * ```
+     *
+     * @param string $moduleAlias
+     * @return Mage_Core_Model_Resource_Helper_Abstract|false
+     */
+    public static function getResourceHelper($moduleAlias)
+    {
+        $registryKey = '_resource_helper/' . $moduleAlias;
+        if (!isset(self::$_registry[$registryKey])) {
+            self::register($registryKey, self::getConfig()->getResourceHelperInstance($moduleAlias));
+        }
+        return self::$_registry[$registryKey];
     }
 
     /**
      * Retrieve Controller instance by ClassName
      *
-     * @param string $class
+     * @param class-string $class
      * @param Mage_Core_Controller_Request_Http $request
      * @param Mage_Core_Controller_Response_Http $response
      * @return Mage_Core_Controller_Front_Action
+     * @throws Mage_Core_Exception
      */
     public static function getControllerInstance($class, $request, $response, array $invokeArgs = [])
     {
-        return new $class($request, $response, $invokeArgs);
-    }
-
-    /**
-     * Retrieve resource model object singleton
-     *
-     * @param   string $modelClass
-     * @return  object
-     */
-    public static function getResourceSingleton($modelClass = '', array $arguments = [])
-    {
-        $registryKey = '_resource_singleton/' . $modelClass;
-        if (!isset(self::$_registry[$registryKey])) {
-            self::register($registryKey, self::getResourceModel($modelClass, $arguments));
+        if (!class_exists($class)) {
+            self::throwException("Invalid controller class: $class");
         }
-        return self::$_registry[$registryKey];
+        return new $class($request, $response, $invokeArgs);
     }
 
     /**
@@ -604,48 +667,19 @@ final class Mage
     }
 
     /**
-     * Retrieve helper object
-     *
-     * @param string $name the helper name
-     * @return Mage_Core_Helper_Abstract
-     */
-    public static function helper($name)
-    {
-        $registryKey = '_helper/' . $name;
-        if (!isset(self::$_registry[$registryKey])) {
-            $helperClass = self::getConfig()->getHelperClassName($name);
-            self::register($registryKey, new $helperClass());
-        }
-        return self::$_registry[$registryKey];
-    }
-
-    /**
-     * Retrieve resource helper object
-     *
-     * @param string $moduleName
-     * @return Mage_Core_Model_Resource_Helper_Abstract
-     */
-    public static function getResourceHelper($moduleName)
-    {
-        $registryKey = '_resource_helper/' . $moduleName;
-        if (!isset(self::$_registry[$registryKey])) {
-            $helperClass = self::getConfig()->getResourceHelper($moduleName);
-            self::register($registryKey, $helperClass);
-        }
-        return self::$_registry[$registryKey];
-    }
-
-    /**
      * Return new exception by module to be thrown
      *
-     * @param string $module
+     * @param string $moduleName
      * @param string $message
      * @param integer $code
      * @return Mage_Core_Exception
      */
-    public static function exception($module = 'Mage_Core', $message = '', $code = 0)
+    public static function exception($moduleName = 'Mage_Core', $message = '', $code = 0)
     {
-        $className = $module . '_Exception';
+        $className = $moduleName . '_Exception';
+        if (!class_exists($className)) {
+            $className = 'Mage_Core_Exception';
+        }
         return new $className($message, $code);
     }
 
@@ -654,6 +688,7 @@ final class Mage
      *
      * @param string $message
      * @param string $messageStorage
+     * @return never
      * @throws Mage_Core_Exception
      */
     public static function throwException($message, $messageStorage = null)
@@ -784,8 +819,8 @@ final class Mage
      */
     private static function _setIsInstalled($options = [])
     {
-        if (isset($options['is_installed']) && $options['is_installed']) {
-            self::$_isInstalled = true;
+        if (isset($options['is_installed'])) {
+            self::$_isInstalled = (bool) $options['is_installed'];
         }
     }
 

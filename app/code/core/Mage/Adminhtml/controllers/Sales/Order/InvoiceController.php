@@ -239,7 +239,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 $invoice->register();
 
                 if (!empty($data['send_email'])) {
-                    $invoice->setEmailSent(true);
+                    $invoice->setEmailSent(1);
                 }
 
                 $invoice->getOrder()->setCustomerNoteNotify(!empty($data['send_email']));

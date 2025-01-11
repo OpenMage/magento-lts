@@ -29,7 +29,7 @@
  * @method $this setStoreIds(string $value)
  * @method string getTitle()
  * @method $this setTitle(string $value)
- * @method $this setWidgetParameters(string $value)
+ * @method $this setWidgetParameters(array $value)
  * @method int getSortOrder()
  * @method $this setSortOrder(int $value)
  */

@@ -57,7 +57,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
         foreach ($items as $item) {
             if ($item->getNoDiscount()) {
                 $isAllFree = false;
-                $item->setFreeShipping(false);
+                $item->setFreeShipping(0);
             } else {
                 /**
                  * Child item discount we calculate for parent
@@ -82,7 +82,7 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
             }
         }
         if ($isAllFree && !$address->getFreeShipping()) {
-            $address->setFreeShipping(true);
+            $address->setFreeShipping(1);
         }
         return $this;
     }

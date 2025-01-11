@@ -24,7 +24,7 @@ class Mage_Sales_Model_Config
 
     /**
      * @param string $type
-     * @return bool
+     * @return Mage_Core_Model_Abstract|false
      */
     public function getQuoteRuleConditionInstance($type)
     {
@@ -33,7 +33,7 @@ class Mage_Sales_Model_Config
 
     /**
      * @param string $type
-     * @return bool
+     * @return Mage_Core_Model_Abstract|false
      */
     public function getQuoteRuleActionInstance($type)
     {

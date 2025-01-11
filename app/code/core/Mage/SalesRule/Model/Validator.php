@@ -243,7 +243,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     public function processFreeShipping(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
         $address = $this->_getAddress($item);
-        $item->setFreeShipping(false);
+        $item->setFreeShipping(0);
 
         foreach ($this->_getRules() as $rule) {
             /** @var Mage_SalesRule_Model_Rule $rule */
@@ -257,11 +257,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
             switch ($rule->getSimpleFreeShipping()) {
                 case Mage_SalesRule_Model_Rule::FREE_SHIPPING_ITEM:
-                    $item->setFreeShipping($rule->getDiscountQty() ? $rule->getDiscountQty() : true);
+                    $item->setFreeShipping($rule->getDiscountQty() ? $rule->getDiscountQty() : 1);
                     break;
 
                 case Mage_SalesRule_Model_Rule::FREE_SHIPPING_ADDRESS:
-                    $address->setFreeShipping(true);
+                    $address->setFreeShipping(1);
                     break;
             }
             if ($rule->getStopRulesProcessing()) {

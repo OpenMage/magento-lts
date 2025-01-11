@@ -129,7 +129,7 @@
  * @method $this setQty(float $value)
  *
  * @method float getRowTax()
- * @method $this setRowTax(int $rowTax)
+ * @method $this setRowTax(float $rowTax)
  * @method float getRowTotal()
  * @method $this setRowTotal(float $value)
  * @method $this setRowTotalExcTax(float $value)
