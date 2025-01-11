@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -29,8 +30,8 @@
  * @method $this setUpdatedAt(string $value)
  * @method string getActionsXml()
  * @method $this setActionsXml(string $value)
- * @method string getGuiData()
- * @method $this setGuiData(string $value)
+ * @method array|string getGuiData()
+ * @method $this setGuiData(array|string $value)
  * @method string getDirection()
  * @method $this setDirection(string $value)
  * @method string getEntityType()
@@ -82,6 +83,9 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         return parent::_afterLoad();
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -136,6 +140,9 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.Superglobals")
+     */
     protected function _afterSave()
     {
         if ($this->getGuiData() && is_string($this->getGuiData())) {
@@ -201,8 +208,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                             Mage::throwException(
                                 Mage::helper('Dataflow')->__(
                                     'Upload failed. Wrong data format in file: %s.',
-                                    $uploadFile
-                                )
+                                    $uploadFile,
+                                ),
                             );
                         }
                     }
@@ -214,7 +221,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
                     $colsAbsent = array_diff($attributes, $fileData);
                     if ($colsAbsent) {
-                        foreach ($newUploadedFilenames as $k => $v) {
+                        foreach ($newUploadedFilenames as $v) {
                             unlink($path . $v);
                         }
                         unlink($path . $uploadFile);
@@ -222,8 +229,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                             Mage::helper('Dataflow')->__(
                                 'Upload failed. Can not find required columns: %s in file %s.',
                                 implode(', ', $colsAbsent),
-                                $uploadFile
-                            )
+                                $uploadFile,
+                            ),
                         );
                     }
                     if ($uploadFile) {

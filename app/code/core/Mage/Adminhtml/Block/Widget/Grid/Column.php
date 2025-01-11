@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -21,14 +22,16 @@
  *
  * @method array getActions()
  * @method $this setActions(array $value)
- * @method array getFilterConditionCallback()
+ * @method bool getCopyable()
+ * @method $this setCopyable(bool $value)
  * @method string getDir()
+ * @method array getFilterConditionCallback()
  * @method string getFilterIndex()
  * @method $this setFormat(string $value)
  * @method string getIndex()
  * @method bool getNoLink()
- * @method bool getCopyable()
- * @method $this setCopyable(bool $value)
+ * @method array getSelected()
+ * @method $this setSelected(array $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {
@@ -167,7 +170,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          */
         $frameCallback = $this->getFrameCallback();
         if (is_array($frameCallback)) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
         }
 
@@ -196,7 +198,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
          */
         $frameCallback = $this->getFrameCallback();
         if (is_array($frameCallback)) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
             $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, true);
         }
 
@@ -375,15 +376,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             case 'options':
                 $filterClass = 'adminhtml/widget_grid_column_filter_select';
                 break;
-
             case 'massaction':
                 $filterClass = 'adminhtml/widget_grid_column_filter_massaction';
                 break;
-
             case 'checkbox':
                 $filterClass = 'adminhtml/widget_grid_column_filter_checkbox';
                 break;
-
             case 'radio':
                 $filterClass = 'adminhtml/widget_grid_column_filter_radio';
                 break;

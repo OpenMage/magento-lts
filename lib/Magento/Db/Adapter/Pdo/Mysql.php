@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,7 +29,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      */
     public function isTransaction()
     {
-        return (bool)$this->_transactionLevel;
+        return (bool) $this->_transactionLevel;
     }
 
     /**
@@ -52,7 +53,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         do {
             $select->limit($step, $limitOffset);
             $result = $this->query(
-                $this->insertFromSelect($select, $table, $fields, $mode)
+                $this->insertFromSelect($select, $table, $fields, $mode),
             );
 
             $affectedRows = $result->rowCount();
@@ -100,8 +101,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     protected function _quote($value)
     {
         if (is_float($value)) {
-            $value = $this->_convertFloat($value);
-            return $value;
+            return $this->_convertFloat($value);
         }
         // Fix for null-byte injection
         if (is_string($value)) {
@@ -129,8 +129,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
             && $this->_numericDataTypes[$type] == Zend_Db::FLOAT_TYPE
         ) {
             $value = $this->_convertFloat($value);
-            $quoteValue = sprintf('%F', $value);
-            return $quoteValue;
+            return sprintf('%F', $value);
         } elseif (is_float($value)) {
             return $this->_quote($value);
         }

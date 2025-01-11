@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -30,11 +31,6 @@
 class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
 {
     /**
-     * @deprecated after 1.4.0.1
-     */
-    private $_order;
-
-    /**
      * Check order print availability
      *
      * @return bool
@@ -62,7 +58,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
      */
     public function isOrderVisible()
     {
-        return (bool)$this->_getData('is_order_visible');
+        return (bool) $this->_getData('is_order_visible');
     }
 
     /**
@@ -97,7 +93,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
             if ($order->getId()) {
                 $isVisible = !in_array(
                     $order->getState(),
-                    Mage::getSingleton('sales/order_config')->getInvisibleOnFrontStates()
+                    Mage::getSingleton('sales/order_config')->getInvisibleOnFrontStates(),
                 );
                 $this->addData([
                     'is_order_visible' => $isVisible,
@@ -126,7 +122,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
                     'agreement_ref_id' => $agreement->getReferenceId(),
                     'agreement_url' => $this->getUrl(
                         'sales/billing_agreement/view',
-                        ['agreement' => $agreementId]
+                        ['agreement' => $agreementId],
                     ),
                     'agreement' => $agreement,
                 ]);

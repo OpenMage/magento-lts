@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -87,7 +88,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_SENDER),
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_RECIPIENT),
                         null,
-                        ['data' => $postObject]
+                        ['data' => $postObject],
                     );
 
                 if (!$mailTemplate->getSentSuccess()) {
@@ -105,7 +106,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                             Mage::getStoreConfig(self::XML_PATH_EMAIL_SENDER),
                             $post['email'],
                             null,
-                            ['data' => $postObject]
+                            ['data' => $postObject],
                         );
                 }
 

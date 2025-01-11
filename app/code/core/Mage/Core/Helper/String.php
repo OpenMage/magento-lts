@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -34,7 +35,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Truncate a string to a certain length if necessary, appending the $etc string.
      * $remainder will contain the string that has been replaced with $etc.
      *
-     * @param string $string
+     * @param string|null $string
      * @param int $length
      * @param string $etc
      * @param string &$remainder
@@ -156,6 +157,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param bool $trim
      * @param string $wordSeparatorRegex
      * @return array
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function str_split($str, $length = 1, $keepWords = false, $trim = false, $wordSeparatorRegex = '\s')
@@ -241,7 +243,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * Split words
      *
-     * @param string $str The source string
+     * @param string|null $str The source string
      * @param bool $uniqueOnly Unique words only
      * @param int $maxWordLength Limit words count
      * @param string $wordSeparatorRegexp
@@ -513,8 +515,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
 
     /**
      * UnSerialize string
-     * @param string $str
-     * @return mixed|null
+     * @param string|null $str
+     * @return null|void
      * @throws Exception
      */
     public function unserialize($str)
@@ -524,7 +526,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         $reader = new Unserialize_Reader_ArrValue('data');
         $prevChar = null;
-        for ($i = 0; $i < strlen($str); $i++) {
+
+        $strLen = strlen($str);
+        for ($i = 0; $i < $strLen; $i++) {
             $char = $str[$i];
             $result = $reader->read($char, $prevChar);
             if (!is_null($result)) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +30,7 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
     protected function _prepareCollection()
     {
-        if (!Mage::helper('core')->isModuleEnabled('Mage_Reports')) {
+        if (!$this->isModuleEnabled('Mage_Reports')) {
             return $this;
         }
         $collection = Mage::getResourceModel('reports/order_collection')
@@ -81,21 +82,19 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
         $this->addColumn('items', [
             'header'    => $this->__('Items'),
-            'align'     => 'right',
             'type'      => 'number',
             'sortable'  => false,
-            'index'     => 'items_count'
+            'index'     => 'items_count',
         ]);
 
-        $baseCurrencyCode = Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode();
+        $baseCurrencyCode = Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode();
 
         $this->addColumn('total', [
             'header'    => $this->__('Grand Total'),
-            'align'     => 'right',
             'sortable'  => false,
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
-            'index'     => 'revenue'
+            'index'     => 'revenue',
         ]);
 
         $this->setFilterVisibility(false);

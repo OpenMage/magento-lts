@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -189,16 +190,16 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node $children
+     * @param Varien_Data_Tree_Node|array $children
      * @param string $path
-     * @param Varien_Data_Tree_Node $parentNode
+     * @param Varien_Data_Tree_Node|null $parentNode
      * @param int $level
      */
     public function addChildNodes($children, $path, $parentNode, $level = 0)
     {
         if (isset($children[$path])) {
             foreach ($children[$path] as $child) {
-                $nodeId = isset($child[$this->_idField]) ? $child[$this->_idField] : false;
+                $nodeId = $child[$this->_idField] ?? false;
                 if ($parentNode && $nodeId && $node = $parentNode->getChildren()->searchById($nodeId)) {
                     $node->addData($child);
                 } else {
@@ -273,7 +274,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * Move tree node
      *
      * @todo Use adapter for generate conditions
-     * @param Varien_Data_Tree_Node $node
+     * @param Varien_Data_Tree_Node|Varien_Object $node
      * @param Varien_Data_Tree_Node $newParent
      * @param Varien_Data_Tree_Node $prevNode
      */
@@ -292,7 +293,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 
         $data = [
             $this->_levelField => new Zend_Db_Expr("{$this->_levelField} + '{$levelDisposition}'"),
-            $this->_pathField  => new Zend_Db_Expr("CONCAT('$newPath', RIGHT($this->_pathField, LENGTH($this->_pathField) - {$oldPathLength}))")
+            $this->_pathField  => new Zend_Db_Expr("CONCAT('$newPath', RIGHT($this->_pathField, LENGTH($this->_pathField) - {$oldPathLength}))"),
         ];
         $condition = $this->_conn->quoteInto("$this->_pathField REGEXP ?", "^$oldPath(/|$)");
 
@@ -316,7 +317,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             $this->_conn->update(
                 $this->_table,
                 [$this->_orderField => $position, $this->_levelField => $newLevel],
-                $this->_conn->quoteInto("{$this->_idField} = ?", $node->getId())
+                $this->_conn->quoteInto("{$this->_idField} = ?", $node->getId()),
             );
 
             $this->_conn->commit();
@@ -365,7 +366,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * @param Varien_Data_Tree_Node $children
+     * @param Varien_Data_Tree_Node|array $children
      * @param string $path
      * @param Varien_Data_Tree_Node $parentNode
      * @param bool $withChildren

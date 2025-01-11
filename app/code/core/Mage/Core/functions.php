@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,6 +34,7 @@ function destruct($object)
  *
  * @return string
  * @deprecated 1.3
+ * @SuppressWarnings("PHPMD.ShortMethodName")
  */
 function __()
 {
@@ -120,7 +122,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     // PEAR specific message handling
     if (stripos($errfile . $errstr, 'pear') !== false) {
         // ignore strict and deprecated notices
-        if (($errno == E_STRICT) || ($errno == E_DEPRECATED)) {
+        if ((PHP_VERSION_ID < 80400 && $errno == E_STRICT) || ($errno == E_DEPRECATED)) {
             return true;
         }
         // ignore attempts to read system files when open_basedir is set
@@ -165,7 +167,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         case E_USER_NOTICE:
             $errorMessage .= 'User Notice';
             break;
-        case E_STRICT:
+        case 2048: // E_STRICT prior to PHP8.4
             $errorMessage .= 'Strict Notice';
             break;
         case E_RECOVERABLE_ERROR:
@@ -194,7 +196,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $showFirst
  * @return string|null
  *
- * @SuppressWarnings(PHPMD.ErrorControlOperator)
+ * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
@@ -234,7 +236,7 @@ function mageSendErrorFooter()
 /**
  * @param string $path
  *
- * @SuppressWarnings(PHPMD.ErrorControlOperator)
+ * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
 function mageDelTree($path)
 {
@@ -271,7 +273,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
                         $elements,
                         $i,
                         $j - $i + 1,
-                        implode($delimiter, array_slice($elements, $i, $j - $i + 1))
+                        implode($delimiter, array_slice($elements, $i, $j - $i + 1)),
                     );
                     break;
                 }
@@ -279,7 +281,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
         }
         if ($nquotes > 0) {
             // Remove first and last quotes, then merge pairs of quotes
-            $qstr =& $elements[$i];
+            $qstr = & $elements[$i];
             $qstr = substr_replace($qstr, '', strpos($qstr, $enclosure), 1);
             $qstr = substr_replace($qstr, '', strrpos($qstr, $enclosure), 1);
             $qstr = str_replace($enclosure . $enclosure, $enclosure, $qstr);
@@ -292,9 +294,9 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
  * @param string $dir
  * @return bool
  *
- * @SuppressWarnings(PHPMD.ErrorControlOperator)
+ * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
-function is_dir_writeable($dir)
+function isDirWriteable($dir)
 {
     if (is_dir($dir) && is_writable($dir)) {
         if (stripos(PHP_OS, 'win') === 0) {
@@ -313,4 +315,21 @@ function is_dir_writeable($dir)
         return true;
     }
     return false;
+}
+
+
+/**
+ * @param string $dir
+ * @return bool
+ * @deprecated avoid php_codesniffer error
+ *
+ *     An error occurred during processing; checking has been aborted. The error message was: Undefined index: ^is_dir/i_writeab in
+ *     /var/www/html/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP/ForbiddenFunctionsSniff.php on line 228
+ *     The error originated in the Generic.PHP.ForbiddenFunctions sniff on line 228. (Internal.Exception)
+ *
+ * @see isDirWriteable()
+ */
+function is_dir_writeable($dir)
+{
+    return isDirWriteable($dir);
 }

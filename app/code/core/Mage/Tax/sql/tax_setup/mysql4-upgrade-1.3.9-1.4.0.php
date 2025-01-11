@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -19,7 +20,7 @@ $installer->startSetup();
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('tax/sales_order_tax'),
-    'FK_SALES_ORDER_TAX_ORDER'
+    'FK_SALES_ORDER_TAX_ORDER',
 );
 
 $installer->endSetup();

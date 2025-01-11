@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,10 +66,10 @@ for ($i = 0; $i < 3; ++$i) {
             $installer->getIdxName(
                 $aggregationTables[$i],
                 ['period', 'store_id', 'product_id'],
-                Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+                Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
             ),
             ['period', 'store_id', 'product_id'],
-            ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE]
+            ['type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE],
         )
         ->addIndex($installer->getIdxName($aggregationTables[$i], ['store_id']), ['store_id'])
         ->addIndex($installer->getIdxName($aggregationTables[$i], ['product_id']), ['product_id'])
@@ -78,7 +79,7 @@ for ($i = 0; $i < 3; ++$i) {
             $installer->getTable('core/store'),
             'store_id',
             Varien_Db_Ddl_Table::ACTION_CASCADE,
-            Varien_Db_Ddl_Table::ACTION_CASCADE
+            Varien_Db_Ddl_Table::ACTION_CASCADE,
         )
         ->addForeignKey(
             $installer->getFkName($aggregationTables[$i], 'product_id', 'catalog/product', 'entity_id'),
@@ -86,7 +87,7 @@ for ($i = 0; $i < 3; ++$i) {
             $installer->getTable('catalog/product'),
             'entity_id',
             Varien_Db_Ddl_Table::ACTION_CASCADE,
-            Varien_Db_Ddl_Table::ACTION_CASCADE
+            Varien_Db_Ddl_Table::ACTION_CASCADE,
         )
         ->setComment($aggregationTableComments[$i]);
     $installer->getConnection()->createTable($table);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,7 +108,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
 
         if ($this->_getWishlist()->getId()) {
             $newUrl = Mage::getUrl('wishlist/shared/index', [
-                'code'  => $this->_getWishlist()->getSharingCode()
+                'code'  => $this->_getWishlist()->getSharingCode(),
             ]);
 
             $title  = $this->_getTitle();
@@ -118,7 +119,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 'description'   => $title,
                 'link'          => $newUrl,
                 'charset'       => 'UTF-8',
-                'language'      => $lang
+                'language'      => $lang,
             ]);
 
             /** @var Mage_Wishlist_Model_Item $wishlistItem */
@@ -203,7 +204,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
         if ($type) {
             $this->_priceBlockTypes[$type] = [
                 'block' => $block,
-                'template' => $template
+                'template' => $template,
             ];
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -171,10 +172,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                             'is_static'        => $attribute->isStatic(),
                             'apply_to'         => $attribute->getApplyTo(),
                             'type'             => Mage_ImportExport_Model_Import::getAttributeType($attribute),
-                            'default_value'    => strlen($attribute->getDefaultValue())
+                            'default_value'    => strlen($attribute->getDefaultValue() ?? '')
                                                   ? $attribute->getDefaultValue() : null,
                             'options'          => $this->_entityModel
-                                                      ->getAttributeOptions($attribute, $this->_indexValueAttributes)
+                                                      ->getAttributeOptions($attribute, $this->_indexValueAttributes),
                         ];
                     }
                     $this->_addAttributeParams($attributeSet->getAttributeSetName(), $attributesCache[$attributeId]);
@@ -255,7 +256,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                         $this->_entityModel->addRowError(
                             Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
                             $rowNum,
-                            $attrCode
+                            $attrCode,
                         );
                         $error = true;
                     }

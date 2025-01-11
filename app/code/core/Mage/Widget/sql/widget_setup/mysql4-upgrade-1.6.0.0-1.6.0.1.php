@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -22,8 +23,8 @@ $installer->getConnection()->changeColumn(
     'page_group',
     [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-        'length'    => 255
-    ]
+        'length'    => 255,
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -32,6 +33,6 @@ $installer->getConnection()->changeColumn(
     'page_for',
     [
         'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
-        'length'    => 255
-    ]
+        'length'    => 255,
+    ],
 );

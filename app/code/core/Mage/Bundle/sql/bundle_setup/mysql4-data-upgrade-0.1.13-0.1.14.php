@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -41,7 +42,7 @@ try {
         $data  = ['value' => 0];
         $where = [
             'attribute_id = ?' => $taxClassAttribute['attribute_id'],
-            'entity_id = ?'    => $row['entity_id']
+            'entity_id = ?'    => $row['entity_id'],
         ];
         $count = $db->update($taxClassTable, $data, $where);
         if ($count > 0) {
@@ -54,7 +55,7 @@ try {
         $indexerCodes = [
             'catalog_product_attribute',
             'catalog_product_price',
-            'catalog_product_flat'
+            'catalog_product_flat',
         ];
 
         $indexer = Mage::getModel('index/process');

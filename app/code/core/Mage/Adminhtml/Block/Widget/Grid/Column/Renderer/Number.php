@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -33,22 +34,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number extends Mage_Admin
         $data = parent::_getValue($row);
         if (!is_null($data)) {
             $value = $data * 1;
-            $sign = (bool)(int)$this->getColumn()->getShowNumberSign() && ($value > 0) ? '+' : '';
+            $sign = (bool) (int) $this->getColumn()->getShowNumberSign() && ($value > 0) ? '+' : '';
             if ($sign) {
                 $value = $sign . $value;
             }
             return $value ? $value : '0'; // fixed for showing zero in grid
         }
         return $this->getColumn()->getDefault();
-    }
-
-    /**
-     * Renders CSS
-     *
-     * @return string
-     */
-    public function renderCss()
-    {
-        return parent::renderCss() . ' a-right';
     }
 }

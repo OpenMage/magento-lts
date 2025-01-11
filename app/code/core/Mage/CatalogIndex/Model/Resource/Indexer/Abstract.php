@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -40,9 +41,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      * should be defined because abstract
      *
      */
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * @param array $data
@@ -52,7 +51,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      */
     public function saveIndex($data, $storeId, $productId)
     {
-        return $this->saveIndices([$data], $storeId, $productId);
+        $this->saveIndices([$data], $storeId, $productId);
     }
 
     /**

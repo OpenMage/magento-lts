@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
             $dataObject->getData('base_' . $code),
             $dataObject->getData($code),
             $strong,
-            $separator
+            $separator,
         );
     }
 
@@ -124,7 +125,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                 //Revert the sprintf escaping
                 $url = str_replace('%%', '%', $matches[2]);
                 $text = str_replace('%%', '%', $matches[3]);
-                //Check for an valid url
+                //Check for a valid url
                 if ($url) {
                     $urlScheme = strtolower(parse_url($url, PHP_URL_SCHEME));
                     if ($urlScheme !== 'http' && $urlScheme !== 'https') {
@@ -139,7 +140,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                 $links[] = sprintf(
                     '<a href="%s">%s</a>',
                     htmlspecialchars($url, ENT_QUOTES, 'UTF-8', false),
-                    parent::escapeHtml($text)
+                    parent::escapeHtml($text),
                 );
                 $data = str_replace($matches[0], '%' . $i . '$s', $data);
                 ++$i;
