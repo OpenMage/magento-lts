@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('sales')->__('ID'),
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn(
@@ -128,7 +128,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
                 'index' => 'type_id',
                 'type'  => 'options',
                 'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
-            ]
+            ],
         );
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -144,19 +144,19 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
                 'index' => 'attribute_set_id',
                 'type'  => 'options',
                 'options' => $sets,
-            ]
+            ],
         );
 
         $this->addColumn('chooser_sku', [
             'header'    => Mage::helper('sales')->__('SKU'),
             'name'      => 'chooser_sku',
             'width'     => '80px',
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
         $this->addColumn('chooser_name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'name'      => 'chooser_name',
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         return parent::_prepareColumns();
@@ -170,7 +170,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         return $this->getUrl('*/*/chooser', [
             '_current'          => true,
             'current_grid_id'   => $this->getId(),
-            'collapse'          => null
+            'collapse'          => null,
         ]);
     }
 

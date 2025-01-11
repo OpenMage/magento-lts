@@ -39,7 +39,7 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $hash = explode(':', Mage::helper('core')->urlDecode($hash));
         if (count($hash) === 3 && in_array($hash[0], $this->_allowedHashKeys)) {
-            return ['key' => $hash[0], 'id' => (int)$hash[1], 'hash' => $hash[2]];
+            return ['key' => $hash[0], 'id' => (int) $hash[1], 'hash' => $hash[2]];
         }
         return [];
     }
@@ -62,7 +62,7 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
             $param = [$key => $model]; // @deprecated after 1.4.0.0-alpha3
         } else {
             $param = [
-                'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}")
+                'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}"),
             ];
         }
         $storeId = is_object($model) ? $model->getStoreId() : null;

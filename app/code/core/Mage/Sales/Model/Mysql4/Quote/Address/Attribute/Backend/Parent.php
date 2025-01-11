@@ -19,6 +19,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Quote_Address_Attribute_Backend_Parent extends Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent
-{
-}
+class Mage_Sales_Model_Mysql4_Quote_Address_Attribute_Backend_Parent extends Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent {}

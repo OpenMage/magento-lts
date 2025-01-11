@@ -38,7 +38,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Order extends Mage_Sales_Blo
                 'name'       => 'show_actual_columns',
                 'options'    => [
                     '1' => Mage::helper('reports')->__('Yes'),
-                    '0' => Mage::helper('reports')->__('No')
+                    '0' => Mage::helper('reports')->__('No'),
                 ],
                 'label'      => Mage::helper('reports')->__('Show Actual Values'),
             ]);

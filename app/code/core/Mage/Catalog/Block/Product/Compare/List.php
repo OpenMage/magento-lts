@@ -152,7 +152,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
         } else {
             $value = $product->getData($attribute->getAttributeCode());
         }
-        return ((string)$value == '') ? Mage::helper('catalog')->__('No') : $value;
+        return ((string) $value == '') ? Mage::helper('catalog')->__('No') : $value;
     }
 
     /**
@@ -188,7 +188,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     {
         $continueUrl = Mage::helper('core')->urlEncode($this->getUrl('customer/account'));
         $params = [
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl
+            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl,
         ];
 
         /** @var Mage_Wishlist_Helper_Data $helper */

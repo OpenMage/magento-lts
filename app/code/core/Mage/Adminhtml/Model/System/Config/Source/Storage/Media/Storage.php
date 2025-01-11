@@ -30,12 +30,12 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Storage
         return [
             [
                 'value' => Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM,
-                'label' => Mage::helper('adminhtml')->__('File System')
+                'label' => Mage::helper('adminhtml')->__('File System'),
             ],
             [
                 'value' => Mage_Core_Model_File_Storage::STORAGE_MEDIA_DATABASE,
-                'label' => Mage::helper('adminhtml')->__('Database')
-            ]
+                'label' => Mage::helper('adminhtml')->__('Database'),
+            ],
         ];
     }
 }

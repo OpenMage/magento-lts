@@ -868,7 +868,15 @@
 'Documentation':
   - changed-files:
     - any-glob-to-any-file: [
-      '*.md'
+      docs/*.md,
+      docs/**/*.md,
+      docs_includes/*.md
+    ]
+
+'README':
+  - changed-files:
+    - any-glob-to-any-file: [
+      README.md
     ]
 
 'PHPStorm':
@@ -910,6 +918,7 @@
     - any-glob-to-any-file: [
       .phpunit*,
       tests/*,
+      tests/**/*,
       .github/workflows/phpunit.yml
     ]
 

@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Db
  */
-class Mage_DB_Exception extends Exception
-{
-}
+class Mage_DB_Exception extends Exception {}

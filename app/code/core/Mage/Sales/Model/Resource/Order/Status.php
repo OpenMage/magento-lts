@@ -63,7 +63,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 ->join(
                     ['state_table' => $this->_stateTable],
                     $this->getMainTable() . '.status = state_table.status',
-                    'status'
+                    'status',
                 )
                 ->where('state_table.state = ?', $value)
                 ->order('state_table.is_default DESC')
@@ -99,7 +99,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
             $labels = $object->getStoreLabels();
             $this->_getWriteAdapter()->delete(
                 $this->_labelsTable,
-                ['status = ?' => $object->getStatus()]
+                ['status = ?' => $object->getStatus()],
             );
             $data = [];
             foreach ($labels as $storeId => $label) {
@@ -109,7 +109,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 $data[] = [
                     'status'    => $object->getStatus(),
                     'store_id'  => $storeId,
-                    'label'     => $label
+                    'label'     => $label,
                 ];
             }
             if (!empty($data)) {
@@ -133,7 +133,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
             $this->_getWriteAdapter()->update(
                 $this->_stateTable,
                 ['is_default' => 0],
-                ['state = ?' => $state]
+                ['state = ?' => $state],
             );
         }
         $this->_getWriteAdapter()->insertOnDuplicate(
@@ -141,8 +141,8 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
             [
                 'status'     => $status,
                 'state'      => $state,
-                'is_default' => (int) $isDefault
-            ]
+                'is_default' => (int) $isDefault,
+            ],
         );
         return $this;
     }
@@ -162,7 +162,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
 
         if ($this->_getWriteAdapter()->fetchOne($select) == 1) {
             throw new Mage_Core_Exception(
-                Mage::helper('sales')->__('Last status can\'t be unassigned from state.')
+                Mage::helper('sales')->__('Last status can\'t be unassigned from state.'),
             );
         }
         $select = $this->_getWriteAdapter()->select()
@@ -175,8 +175,8 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
             $this->_stateTable,
             [
                 'state = ?' => $state,
-                'status = ?' => $status
-            ]
+                'status = ?' => $status,
+            ],
         );
 
         if ($isDefault) {
@@ -191,8 +191,8 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                     ['is_default' => 1],
                     [
                         'state = ?' => $state,
-                        'status = ?' => $defaultStatus
-                    ]
+                        'status = ?' => $defaultStatus,
+                    ],
                 );
             }
         }

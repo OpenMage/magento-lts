@@ -23,22 +23,22 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('cms/block_store'),
-    'FK_CMS_BLOCK_STORE_BLOCK'
+    'FK_CMS_BLOCK_STORE_BLOCK',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('cms/block_store'),
-    'FK_CMS_BLOCK_STORE_STORE'
+    'FK_CMS_BLOCK_STORE_STORE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('cms/page_store'),
-    'FK_CMS_PAGE_STORE_PAGE'
+    'FK_CMS_PAGE_STORE_PAGE',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('cms/page_store'),
-    'FK_CMS_PAGE_STORE_STORE'
+    'FK_CMS_PAGE_STORE_STORE',
 );
 
 /**
@@ -46,17 +46,17 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('cms/block_store'),
-    'FK_CMS_BLOCK_STORE_STORE'
+    'FK_CMS_BLOCK_STORE_STORE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cms/page'),
-    'IDENTIFIER'
+    'IDENTIFIER',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cms/page_store'),
-    'FK_CMS_PAGE_STORE_STORE'
+    'FK_CMS_PAGE_STORE_STORE',
 );
 
 /*
@@ -70,94 +70,94 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Page ID'
+                'comment'   => 'Page ID',
             ],
             'title' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Page Title'
+                'comment'   => 'Page Title',
             ],
             'root_template' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Page Template'
+                'comment'   => 'Page Template',
             ],
             'meta_keywords' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Page Meta Keywords'
+                'comment'   => 'Page Meta Keywords',
             ],
             'meta_description' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Page Meta Description'
+                'comment'   => 'Page Meta Description',
             ],
             'identifier' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 100,
                 'nullable'  => false,
-                'comment'   => 'Page String Identifier'
+                'comment'   => 'Page String Identifier',
             ],
             'content_heading' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Page Content Heading'
+                'comment'   => 'Page Content Heading',
             ],
             'content' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '2M',
-                'comment'   => 'Page Content'
+                'comment'   => 'Page Content',
             ],
             'creation_time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Page Creation Time'
+                'comment'   => 'Page Creation Time',
             ],
             'update_time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Page Modification Time'
+                'comment'   => 'Page Modification Time',
             ],
             'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Is Page Active'
+                'comment'   => 'Is Page Active',
             ],
             'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Page Sort Order'
+                'comment'   => 'Page Sort Order',
             ],
             'layout_update_xml' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Page Layout Update Content'
+                'comment'   => 'Page Layout Update Content',
             ],
             'custom_theme' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 100,
-                'comment'   => 'Page Custom Theme'
+                'comment'   => 'Page Custom Theme',
             ],
             'custom_root_template' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Page Custom Template'
+                'comment'   => 'Page Custom Template',
             ],
             'custom_layout_update_xml' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Page Custom Layout Update Content'
+                'comment'   => 'Page Custom Layout Update Content',
             ],
             'custom_theme_from' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
-                'comment'   => 'Page Custom Theme Active From Date'
+                'comment'   => 'Page Custom Theme Active From Date',
             ],
             'custom_theme_to' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
-                'comment'   => 'Page Custom Theme Active To Date'
-            ]
+                'comment'   => 'Page Custom Theme Active To Date',
+            ],
         ],
-        'comment' => 'CMS Page Table'
+        'comment' => 'CMS Page Table',
     ],
     $installer->getTable('cms/page_store') => [
         'columns' => [
@@ -165,17 +165,17 @@ $tables = [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Page ID'
+                'comment'   => 'Page ID',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Store ID'
-            ]
+                'comment'   => 'Store ID',
+            ],
         ],
-        'comment' => 'CMS Page To Store Linkage Table'
+        'comment' => 'CMS Page To Store Linkage Table',
     ],
     $installer->getTable('cms_block') => [
         'columns' => [
@@ -184,41 +184,41 @@ $tables = [
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Block ID'
+                'comment'   => 'Block ID',
             ],
             'title' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Block Title'
+                'comment'   => 'Block Title',
             ],
             'identifier' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
-                'comment'   => 'Block String Identifier'
+                'comment'   => 'Block String Identifier',
             ],
             'content' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '2M',
-                'comment'   => 'Block Content'
+                'comment'   => 'Block Content',
             ],
             'creation_time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Block Creation Time'
+                'comment'   => 'Block Creation Time',
             ],
             'update_time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Block Modification Time'
+                'comment'   => 'Block Modification Time',
             ],
             'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Is Block Active'
-            ]
+                'comment'   => 'Is Block Active',
+            ],
         ],
-        'comment' => 'CMS Block Table'
+        'comment' => 'CMS Block Table',
     ],
     $installer->getTable('cms/block_store') => [
         'columns' => [
@@ -226,18 +226,18 @@ $tables = [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Block ID'
+                'comment'   => 'Block ID',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Store ID'
-            ]
+                'comment'   => 'Store ID',
+            ],
         ],
-        'comment' => 'CMS Block To Store Linkage Table'
-    ]
+        'comment' => 'CMS Block To Store Linkage Table',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -248,19 +248,19 @@ $installer->getConnection()->modifyTables($tables);
 $installer->getConnection()->addIndex(
     $installer->getTable('cms/page'),
     $installer->getIdxName('cms/page', ['identifier']),
-    ['identifier']
+    ['identifier'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cms/page_store'),
     $installer->getIdxName('cms/page_store', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cms/block_store'),
     $installer->getIdxName('cms/block_store', ['store_id']),
-    ['store_id']
+    ['store_id'],
 );
 
 /**
@@ -271,7 +271,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('cms/block_store'),
     'block_id',
     $installer->getTable('cms/block'),
-    'block_id'
+    'block_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -279,7 +279,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('cms/block_store'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -287,7 +287,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('cms/page_store'),
     'page_id',
     $installer->getTable('cms/page'),
-    'page_id'
+    'page_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -295,7 +295,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('cms/page_store'),
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             'header'    => Mage::helper('sales')->__('Tax'),
             'index'     => 'code',
             'type'      => 'string',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('percent', [
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             'index'     => 'percent',
             'type'      => 'number',
             'width'     => '100',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addColumn('orders_count', [
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
             'total'     => 'sum',
             'type'      => 'number',
             'width'     => '100',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {

@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
         $this->addButton('save_and_edit_button', [
             'label'   => Mage::helper('tag')->__('Save and Continue Edit'),
             'onclick' => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
-            'class'   => 'save'
+            'class'   => 'save',
         ], 1);
     }
 
@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
         if (Mage::registry('current_tag')->getId()) {
             return Mage::helper('tag')->__(
                 "Edit Tag '%s'",
-                $this->escapeHtml(Mage::registry('current_tag')->getName())
+                $this->escapeHtml(Mage::registry('current_tag')->getName()),
             );
         }
         return Mage::helper('tag')->__('New Tag');
@@ -98,9 +98,9 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
                 'tag_id' => $this->getRequest()->getParam($this->_objectId),
                 'ret' => $this->getRequest()->getParam(
                     'ret',
-                    'index'
-                )
-            ]
+                    'index',
+                ),
+            ],
         );
     }
 
@@ -157,8 +157,8 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
                 '_current'  => true,
                 'ret'       => 'edit',
                 'continue'  => $this->getRequest()->getParam('ret', 'index'),
-                'store'     => Mage::registry('current_tag')->getStoreId()
-            ]
+                'store'     => Mage::registry('current_tag')->getStoreId(),
+            ],
         );
     }
 

@@ -59,17 +59,17 @@ class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_A
                 ['from_entity' => $mainTable],
                 $readAdapter->quoteInto(
                     'from_entity.page_id = from_link.page_id AND from_link.store_id = ?',
-                    $fromStoreId
+                    $fromStoreId,
                 ),
-                []
+                [],
             )->join(
                 ['by_entity' => $mainTable],
                 'from_entity.identifier = by_entity.identifier AND from_entity.page_id != by_entity.page_id',
-                []
+                [],
             )->join(
                 ['by_link' => $byLinkTable],
                 $readAdapter->quoteInto('by_link.page_id = by_entity.page_id AND by_link.store_id = ?', $byStoreId),
-                []
+                [],
             );
 
         $pageIds = $readAdapter->fetchCol($select);
@@ -79,7 +79,7 @@ class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_A
             $writeAdapter = $this->_getWriteAdapter();
             $where = [
                 'page_id IN (?)'   => $pageIds,
-                'store_id = ?' => $fromStoreId
+                'store_id = ?' => $fromStoreId,
             ];
             $writeAdapter->delete($linkTable, $where);
         }

@@ -24,8 +24,8 @@ $cmsBlocks = [
     <li class="last"><a href="{{store direct_url="customer-service"}}">Customer Service</a></li>
 </ul>',
         'is_active'     => 1,
-        'stores'        => 0
-    ]
+        'stores'        => 0,
+    ],
 ];
 
 $cmsPages = [
@@ -62,7 +62,7 @@ $cmsPages = [
 ',
         'is_active'     => 1,
         'stores'        => [0],
-        'sort_order'    => 0
+        'sort_order'    => 0,
     ],
     [
         'title'         => 'Home page',
@@ -71,7 +71,7 @@ $cmsPages = [
         'content'       => '<div class="page-title"><h2>Home Page</h2></div>',
         'is_active'     => 1,
         'stores'        => [0],
-        'sort_order'    => 0
+        'sort_order'    => 0,
     ],
     [
         'title'         => 'About Us',
@@ -115,7 +115,7 @@ sit amet aliquet lectus dolor et quam. Pellentesque consequat luctus purus.</str
 </div>',
         'is_active'     => 1,
         'stores'        => [0],
-        'sort_order'    => 0
+        'sort_order'    => 0,
     ],
     [
         'title'         => 'Customer Service',
@@ -193,7 +193,7 @@ faucibus et, tempus at, dui. Nunc risus. Proin scelerisque augue. Nam ullamcorpe
 </dl>',
         'is_active'     => 1,
         'stores'        => [0],
-        'sort_order'    => 0
+        'sort_order'    => 0,
     ],
     [
         'title'         => 'Enable Cookies',
@@ -323,8 +323,8 @@ faucibus et, tempus at, dui. Nunc risus. Proin scelerisque augue. Nam ullamcorpe
 </div>
 ',
         'is_active'     => 1,
-        'stores'        => [0]
-    ]
+        'stores'        => [0],
+    ],
 ];
 
 /**
@@ -359,7 +359,7 @@ $cmsBlock = [
     'identifier'    => 'footer_links_company',
     'content'       => $content,
     'is_active'     => 1,
-    'stores'        => 0
+    'stores'        => 0,
 ];
 
 Mage::getModel('cms/block')->setData($cmsBlock)->save();

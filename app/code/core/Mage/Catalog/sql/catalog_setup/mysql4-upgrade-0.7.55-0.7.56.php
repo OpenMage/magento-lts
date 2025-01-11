@@ -23,13 +23,13 @@ $categoryIndexTable = $installer->getTable('catalog/category_product_index');
 $installer->getConnection()->addColumn(
     $categoryIndexTable,
     'store_id',
-    'smallint(5) unsigned NOT NULL default \'0\''
+    'smallint(5) unsigned NOT NULL default \'0\'',
 );
 
 $installer->getConnection()->addColumn(
     $categoryIndexTable,
     'visibility',
-    'tinyint(3) unsigned NOT NULL'
+    'tinyint(3) unsigned NOT NULL',
 );
 
 /**
@@ -39,7 +39,7 @@ $installer->getConnection()->delete($categoryIndexTable, 'category_id=' . Mage_C
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'FK_CATALOG_CATEGORY_PRODUCT_INDEX_CATEGORY_ENTITY',
-    ['category_id']
+    ['category_id'],
 );
 $installer->getConnection()->dropKey($categoryIndexTable, 'IDX_CATEGORY_POSITION');
 $installer->getConnection()->dropKey($categoryIndexTable, 'UNQ_CATEGORY_PRODUCT');
@@ -89,19 +89,19 @@ $installer->getConnection()->delete($categoryIndexTable, 'store_id=0');
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'UNQ_CATEGORY_PRODUCT',
-    ['store_id', 'category_id', 'product_id']
+    ['store_id', 'category_id', 'product_id'],
 );
 
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'IDX_JOIN',
-    ['product_id', 'store_id', 'category_id', 'visibility']
+    ['product_id', 'store_id', 'category_id', 'visibility'],
 );
 
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'IDX_BASE',
-    ['store_id', 'category_id', 'visibility', 'is_parent', 'position']
+    ['store_id', 'category_id', 'visibility', 'is_parent', 'position'],
 );
 
 $installer->getConnection()->addConstraint(
@@ -109,7 +109,7 @@ $installer->getConnection()->addConstraint(
     $categoryIndexTable,
     'store_id',
     $installer->getTable('core/store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

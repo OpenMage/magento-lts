@@ -189,7 +189,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
             $price,
             $flag,
             $this->getAddress(),
-            $this->getQuote()->getCustomerTaxClassId()
+            $this->getQuote()->getCustomerTaxClassId(),
         ));
     }
 

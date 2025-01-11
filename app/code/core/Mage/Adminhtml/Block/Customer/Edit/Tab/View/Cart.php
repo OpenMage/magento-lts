@@ -69,27 +69,27 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
         $this->addColumn('product_id', [
             'header' => Mage::helper('customer')->__('Product ID'),
             'index' => 'product_id',
-            'width' => '100px'
+            'width' => '100px',
         ])->addColumn('name', [
             'header' => Mage::helper('customer')->__('Product Name'),
-            'index' => 'name'
+            'index' => 'name',
         ])->addColumn('sku', [
             'header' => Mage::helper('customer')->__('SKU'),
             'index' => 'sku',
-            'width' => '100px'
+            'width' => '100px',
         ])->addColumn('qty', [
             'header' => Mage::helper('customer')->__('Qty'),
             'index' => 'qty',
             'type'  => 'number',
-            'width' => '60px'
+            'width' => '60px',
         ])->addColumn('price', [
             'type'  => 'currency',
-            'currency_code' => $currencyCode
+            'currency_code' => $currencyCode,
         ])->addColumn('total', [
             'header' => Mage::helper('customer')->__('Total'),
             'index' => 'row_total',
             'type'  => 'currency',
-            'currency_code' => $currencyCode
+            'currency_code' => $currencyCode,
         ]);
 
         return parent::_prepareColumns();

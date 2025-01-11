@@ -43,14 +43,14 @@ $conn->addConstraint(
     $installer->getTable('downloadable/link_purchased'),
     'order_item_id',
     $installer->getTable('sales/order_item'),
-    'item_id'
+    'item_id',
 );
 $conn->addConstraint(
     'FK_DOWNLOADABLE_ORDER_ID',
     $installer->getTable('downloadable/link_purchased'),
     'order_id',
     $installer->getTable('sales/order'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->endSetup();

@@ -38,8 +38,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete Store'),
                     'onclick'   => 'deleteForm.submit()',
-                    'class'     => 'cancel'
-                ])
+                    'class'     => 'cancel',
+                ]),
         );
         $onClick = Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/editGroup', ['group_id' => $itemId]));
         $this->setChild(
@@ -48,8 +48,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                 ->setData([
                     'label'     => Mage::helper('core')->__('Cancel'),
                     'onclick'   => $onClick,
-                    'class'     => 'cancel'
-                ])
+                    'class'     => 'cancel',
+                ]),
         );
         $this->setChild(
             'back_button',
@@ -57,8 +57,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),
                     'onclick'   => $onClick,
-                    'class'     => 'cancel'
-                ])
+                    'class'     => 'cancel',
+                ]),
         );
         return parent::_prepareLayout();
     }

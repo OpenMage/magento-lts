@@ -45,10 +45,10 @@
  * @method $this setIncludeInMenu(int $value)
  * @method bool getInitialSetupFlag()
  * @method $this setInitialSetupFlag(bool $value)
- * @method bool getIsActive()
- * @method $this setIsActive(bool $value)
- * @method bool getIsAnchor()
- * @method $this setIsAnchor(bool $value)
+ * @method int getIsActive()
+ * @method $this setIsActive(int $value)
+ * @method int getIsAnchor()
+ * @method $this setIsAnchor(int $value)
  * @method $this setIsChangedProductList(bool $bool)
  *
  * @method int getLandingPage()
@@ -146,7 +146,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         'custom_design_to',
         'page_layout',
         'custom_layout_update',
-        'custom_apply_to_products'
+        'custom_apply_to_products',
     ];
 
     /**
@@ -250,17 +250,17 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
         if (!$parent->getId()) {
             Mage::throwException(
-                Mage::helper('catalog')->__('Category move operation is not possible: the new parent category was not found.')
+                Mage::helper('catalog')->__('Category move operation is not possible: the new parent category was not found.'),
             );
         }
 
         if (!$this->getId()) {
             Mage::throwException(
-                Mage::helper('catalog')->__('Category move operation is not possible: the current category was not found.')
+                Mage::helper('catalog')->__('Category move operation is not possible: the current category was not found.'),
             );
         } elseif ($parent->getId() == $this->getId()) {
             Mage::throwException(
-                Mage::helper('catalog')->__('Category move operation is not possible: parent category is equal to child category.')
+                Mage::helper('catalog')->__('Category move operation is not possible: parent category is equal to child category.'),
             );
         }
 
@@ -274,7 +274,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             'parent'        => $parent,
             'category_id'   => $this->getId(),
             'prev_parent_id' => $this->getParentId(),
-            'parent_id'     => $parentId
+            'parent_id'     => $parentId,
         ];
         $moveComplete = false;
 
@@ -307,7 +307,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             Mage::getSingleton('index/indexer')->processEntityAction(
                 $this,
                 self::ENTITY,
-                Mage_Index_Model_Event::TYPE_SAVE
+                Mage_Index_Model_Event::TYPE_SAVE,
             );
             Mage::app()->cleanCache([self::CACHE_TAG]);
         }
@@ -452,7 +452,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getStoreId()
     {
         if ($this->hasData('store_id')) {
-            return (int)$this->_getData('store_id');
+            return (int) $this->_getData('store_id');
         }
         return Mage::app()->getStore()->getId();
     }
@@ -721,7 +721,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     {
         $ids = $this->getData('path_ids');
         if (is_null($ids)) {
-            $ids = explode('/', (string)$this->getPath());
+            $ids = explode('/', (string) $this->getPath());
             $this->setData('path_ids', $ids);
         }
         return $ids;
@@ -735,7 +735,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getLevel()
     {
         if (!$this->hasLevel()) {
-            return count(explode('/', (string)$this->getPath())) - 1;
+            return count(explode('/', (string) $this->getPath())) - 1;
         }
         return $this->getData('level');
     }

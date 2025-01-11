@@ -41,7 +41,7 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
         return $this->join(
             ['cs' => 'core/store'],
             'cs.store_id = main_table.store_id',
-            ['cs.name']
+            ['cs.name'],
         );
     }
 

@@ -51,11 +51,11 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
     {
         $model = $this->getModel();
         $form = new Varien_Data_Form([
-            'id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'
+            'id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset('base_fieldset', [
-            'legend' => Mage::helper('oauth')->__('Consumer Information'), 'class' => 'fieldset-wide'
+            'legend' => Mage::helper('oauth')->__('Consumer Information'), 'class' => 'fieldset-wide',
         ]);
 
         if ($model->getId()) {
@@ -110,8 +110,8 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
                 'name'  => 'current_password',
                 'label' => Mage::helper('oauth')->__('Current Admin Password'),
                 'title' => Mage::helper('oauth')->__('Current Admin Password'),
-                'required' => true
-            ]
+                'required' => true,
+            ],
         );
 
         $form->setAction($this->getUrl('*/*/save'));

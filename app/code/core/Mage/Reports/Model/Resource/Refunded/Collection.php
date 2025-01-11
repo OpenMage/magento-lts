@@ -53,37 +53,37 @@ class Mage_Reports_Model_Resource_Refunded_Collection extends Mage_Sales_Model_E
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->addAttributeToFilter('store_id', ['in' => (array)$storeIds])
+            $this->addAttributeToFilter('store_id', ['in' => (array) $storeIds])
                 ->addExpressionAttributeToSelect(
                     'refunded',
                     'SUM({{base_total_refunded}})',
-                    ['base_total_refunded']
+                    ['base_total_refunded'],
                 )
                 ->addExpressionAttributeToSelect(
                     'online_refunded',
                     'SUM({{base_total_online_refunded}})',
-                    ['base_total_online_refunded']
+                    ['base_total_online_refunded'],
                 )
                 ->addExpressionAttributeToSelect(
                     'offline_refunded',
                     'SUM({{base_total_offline_refunded}})',
-                    ['base_total_offline_refunded']
+                    ['base_total_offline_refunded'],
                 );
         } else {
             $this->addExpressionAttributeToSelect(
                 'refunded',
                 'SUM({{base_total_refunded}}*{{base_to_global_rate}})',
-                ['base_total_refunded', 'base_to_global_rate']
+                ['base_total_refunded', 'base_to_global_rate'],
             )
             ->addExpressionAttributeToSelect(
                 'online_refunded',
                 'SUM({{base_total_online_refunded}}*{{base_to_global_rate}})',
-                ['base_total_online_refunded', 'base_to_global_rate']
+                ['base_total_online_refunded', 'base_to_global_rate'],
             )
             ->addExpressionAttributeToSelect(
                 'offline_refunded',
                 'SUM({{base_total_offline_refunded}}*{{base_to_global_rate}})',
-                ['base_total_offline_refunded', 'base_to_global_rate']
+                ['base_total_offline_refunded', 'base_to_global_rate'],
             );
         }
 

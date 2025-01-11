@@ -23,27 +23,27 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('log/customer'),
-    'IDX_VISITOR'
+    'IDX_VISITOR',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('log_visitor_online'),
-    'IDX_VISITOR_TYPE'
+    'IDX_VISITOR_TYPE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('log_visitor_online'),
-    'IDX_VISIT_TIME'
+    'IDX_VISIT_TIME',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('log_visitor_online'),
-    'IDX_CUSTOMER'
+    'IDX_CUSTOMER',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('log_url'),
-    'IDX_VISITOR'
+    'IDX_VISITOR',
 );
 
 /**
@@ -58,36 +58,36 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Log ID'
+                'comment'   => 'Log ID',
             ],
             'visitor_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'unsigned'  => true,
-                'comment'   => 'Visitor ID'
+                'comment'   => 'Visitor ID',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Customer ID'
+                'comment'   => 'Customer ID',
             ],
             'login_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Login Time'
+                'comment'   => 'Login Time',
             ],
             'logout_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Logout Time'
+                'comment'   => 'Logout Time',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Store ID'
-            ]
+                'comment'   => 'Store ID',
+            ],
         ],
-        'comment' => 'Log Customers Table'
+        'comment' => 'Log Customers Table',
     ],
     $installer->getTable('log/visitor') => [
         'columns' => [
@@ -97,38 +97,38 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Visitor ID'
+                'comment'   => 'Visitor ID',
             ],
             'session_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'nullable'  => false,
-                'comment'   => 'Session ID'
+                'comment'   => 'Session ID',
             ],
             'first_visit_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'First Visit Time'
+                'comment'   => 'First Visit Time',
             ],
             'last_visit_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Last Visit Time'
+                'comment'   => 'Last Visit Time',
             ],
             'last_url_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Last URL ID'
+                'comment'   => 'Last URL ID',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Store ID'
-            ]
+                'comment'   => 'Store ID',
+            ],
         ],
-        'comment' => 'Log Visitors Table'
+        'comment' => 'Log Visitors Table',
     ],
     $installer->getTable('log/visitor_info') => [
         'columns' => [
@@ -138,38 +138,38 @@ $tables = [
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
-                'comment'   => 'Visitor ID'
+                'comment'   => 'Visitor ID',
             ],
             'http_referer' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'HTTP Referrer'
+                'comment'   => 'HTTP Referrer',
             ],
             'http_user_agent' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'HTTP User-Agent'
+                'comment'   => 'HTTP User-Agent',
             ],
             'http_accept_charset' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'HTTP Accept-Charset'
+                'comment'   => 'HTTP Accept-Charset',
             ],
             'http_accept_language' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'HTTP Accept-Language'
+                'comment'   => 'HTTP Accept-Language',
             ],
             'server_addr' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
-                'comment'   => 'Server Address'
+                'comment'   => 'Server Address',
             ],
             'remote_addr' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
-                'comment'   => 'Remote Address'
-            ]
+                'comment'   => 'Remote Address',
+            ],
         ],
-        'comment' => 'Log Visitor Info Table'
+        'comment' => 'Log Visitor Info Table',
     ],
     $installer->getTable('log/url_table') => [
         'columns' => [
@@ -179,20 +179,20 @@ $tables = [
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
-                'comment'   => 'URL ID'
+                'comment'   => 'URL ID',
             ],
             'visitor_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'unsigned'  => true,
-                'comment'   => 'Visitor ID'
+                'comment'   => 'Visitor ID',
             ],
             'visit_time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Visit Time'
-            ]
+                'comment'   => 'Visit Time',
+            ],
         ],
-        'comment' => 'Log URL Table'
+        'comment' => 'Log URL Table',
     ],
     $installer->getTable('log/url_info_table') => [
         'columns' => [
@@ -202,22 +202,22 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'URL ID'
+                'comment'   => 'URL ID',
             ],
             'url' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => true,
                 'default'   => null,
-                'comment'   => 'URL'
+                'comment'   => 'URL',
             ],
             'referer' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Referrer'
-            ]
+                'comment'   => 'Referrer',
+            ],
         ],
-        'comment' => 'Log URL Info Table'
+        'comment' => 'Log URL Info Table',
     ],
     $installer->getTable('log/summary_table') => [
         'columns' => [
@@ -227,38 +227,38 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Summary ID'
+                'comment'   => 'Summary ID',
             ],
             'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Store ID'
+                'comment'   => 'Store ID',
             ],
             'type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
-                'comment'   => 'Type ID'
+                'comment'   => 'Type ID',
             ],
             'visitor_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Visitor Count'
+                'comment'   => 'Visitor Count',
             ],
             'customer_count' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Customer Count'
+                'comment'   => 'Customer Count',
             ],
             'add_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Date'
-            ]
+                'comment'   => 'Date',
+            ],
         ],
-        'comment' => 'Log Summary Table'
+        'comment' => 'Log Summary Table',
     ],
     $installer->getTable('log/summary_type_table') => [
         'columns' => [
@@ -268,30 +268,30 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Type ID'
+                'comment'   => 'Type ID',
             ],
             'type_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'nullable'  => false,
-                'comment'   => 'Type Code'
+                'comment'   => 'Type Code',
             ],
             'period' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Period'
+                'comment'   => 'Period',
             ],
             'period_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 6,
                 'nullable'  => false,
                 'default'   => 'MINUTE',
-                'comment'   => 'Period Type'
-            ]
+                'comment'   => 'Period Type',
+            ],
         ],
-        'comment' => 'Log Summary Types Table'
+        'comment' => 'Log Summary Types Table',
     ],
     $installer->getTable('log/quote_table') => [
         'columns' => [
@@ -301,24 +301,24 @@ $tables = [
                 'nullable'  => false,
                 'primary'   => true,
                 'default'   => '0',
-                'comment'   => 'Quote ID'
+                'comment'   => 'Quote ID',
             ],
             'visitor_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'unsigned'  => true,
-                'comment'   => 'Visitor ID'
+                'comment'   => 'Visitor ID',
             ],
             'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Creation Time'
+                'comment'   => 'Creation Time',
             ],
             'deleted_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Deletion Time'
-            ]
+                'comment'   => 'Deletion Time',
+            ],
         ],
-        'comment' => 'Log Quotes Table'
+        'comment' => 'Log Quotes Table',
     ],
     $installer->getTable('log/visitor_online') => [
         'columns' => [
@@ -328,40 +328,40 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Visitor ID'
+                'comment'   => 'Visitor ID',
             ],
             'visitor_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 1,
                 'nullable'  => false,
-                'comment'   => 'Visitor Type'
+                'comment'   => 'Visitor Type',
             ],
             'remote_addr' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'nullable'  => false,
-                'comment'   => 'Remote Address'
+                'comment'   => 'Remote Address',
             ],
             'first_visit_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'First Visit Time'
+                'comment'   => 'First Visit Time',
             ],
             'last_visit_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Last Visit Time'
+                'comment'   => 'Last Visit Time',
             ],
             'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
-                'comment'   => 'Customer ID'
+                'comment'   => 'Customer ID',
             ],
             'last_url' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Last URL'
-            ]
+                'comment'   => 'Last URL',
+            ],
         ],
-        'comment' => 'Log Visitor Online Table'
-    ]
+        'comment' => 'Log Visitor Online Table',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -372,31 +372,31 @@ $installer->getConnection()->modifyTables($tables);
 $installer->getConnection()->addIndex(
     $installer->getTable('log/customer'),
     $installer->getIdxName('log/customer', ['visitor_id']),
-    ['visitor_id']
+    ['visitor_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('log/url_table'),
     $installer->getIdxName('log/url_table', ['visitor_id']),
-    ['visitor_id']
+    ['visitor_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('log/visitor_online'),
     $installer->getIdxName('log/visitor_online', ['visitor_type']),
-    ['visitor_type']
+    ['visitor_type'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('log/visitor_online'),
     $installer->getIdxName('log/visitor_online', ['first_visit_at', 'last_visit_at']),
-    ['first_visit_at', 'last_visit_at']
+    ['first_visit_at', 'last_visit_at'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('log/visitor_online'),
     $installer->getIdxName('log/visitor_online', ['customer_id']),
-    ['customer_id']
+    ['customer_id'],
 );
 
 $installer->endSetup();

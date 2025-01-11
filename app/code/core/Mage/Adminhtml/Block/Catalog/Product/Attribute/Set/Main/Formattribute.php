@@ -30,24 +30,24 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formattribute exte
             'new_attribute',
             'text',
             [
-                                'label' => Mage::helper('catalog')->__('Name'),
-                                'name' => 'new_attribute',
-                                'required' => true,
-                            ]
+                'label' => Mage::helper('catalog')->__('Name'),
+                'name' => 'new_attribute',
+                'required' => true,
+            ],
         );
 
         $fieldset->addField(
             'submit',
             'note',
             [
-                                'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
-                                            ->setData([
-                                                'label'     => Mage::helper('catalog')->__('Add Attribute'),
-                                                'onclick'   => 'this.form.submit();',
-                                                                                                'class' => 'add'
-                                            ])
-                                            ->toHtml(),
-                            ]
+                'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
+                            ->setData([
+                                'label'     => Mage::helper('catalog')->__('Add Attribute'),
+                                'onclick'   => 'this.form.submit();',
+                                'class' => 'add',
+                            ])
+                            ->toHtml(),
+            ],
         );
 
         $form->setUseContainer(true);

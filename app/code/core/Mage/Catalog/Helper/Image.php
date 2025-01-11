@@ -140,16 +140,16 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         $this->setProduct($product);
 
         $this->setWatermark(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image")
+            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image"),
         );
         $this->setWatermarkImageOpacity(
-            Mage::getStoreConfigAsInt("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity")
+            Mage::getStoreConfigAsInt("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity"),
         );
         $this->setWatermarkPosition(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position")
+            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_position"),
         );
         $this->setWatermarkSize(
-            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_size")
+            Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_size"),
         );
 
         if ($imageFile) {
@@ -621,7 +621,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     {
         return [
             $this->getOriginalWidth(),
-            $this->getOriginalHeight()
+            $this->getOriginalHeight(),
         ];
     }
 

@@ -55,9 +55,9 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
                     $html .= $this->_optionToHtml(
                         [
                             'value' => $key,
-                            'label' => $option
+                            'label' => $option,
                         ],
-                        $value
+                        $value,
                     );
                 } elseif (is_array($option['value'])) {
                     $html .= '<optgroup label="' . $option['label'] . '">' . "\n";
@@ -72,8 +72,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
         }
 
         $html .= '</select>' . "\n";
-        $html .= $this->getAfterElementHtml();
-        return $html;
+        return $html . $this->getAfterElementHtml();
     }
 
     /**

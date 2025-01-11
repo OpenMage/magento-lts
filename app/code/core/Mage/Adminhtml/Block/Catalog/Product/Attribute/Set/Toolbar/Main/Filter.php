@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main_Filter ext
                 'no_span' => true,
                 'values' => $collection,
                 'onchange' => 'this.form.submit()',
-            ]
+            ],
         );
 
         $form->setUseContainer(true);

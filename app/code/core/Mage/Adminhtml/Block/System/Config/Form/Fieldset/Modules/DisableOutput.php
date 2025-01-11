@@ -28,12 +28,12 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
     {
         $html = $this->_getHeaderHtml($element);
 
-        $modules = array_keys((array)Mage::getConfig()->getNode('modules')->children());
+        $modules = array_keys((array) Mage::getConfig()->getNode('modules')->children());
 
         $dispatchResult = new Varien_Object($modules);
         Mage::dispatchEvent(
             'adminhtml_system_config_advanced_disableoutput_render_before',
-            ['modules' => $dispatchResult]
+            ['modules' => $dispatchResult],
         );
         $modules = $dispatchResult->toArray();
 
@@ -45,9 +45,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
             }
             $html .= $this->_getFieldHtml($element, $moduleName);
         }
-        $html .= $this->_getFooterHtml($element);
 
-        return $html;
+        return $html . $this->_getFooterHtml($element);
     }
 
     protected function _getDummyElement()
@@ -85,7 +84,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
             $data = $configData[$path];
             $inherit = false;
         } else {
-            $data = (int)(string)$this->getForm()->getConfigRoot()->descend($path);
+            $data = (int) (string) $this->getForm()->getConfigRoot()->descend($path);
             $inherit = true;
         }
 
@@ -104,7 +103,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset_Modules_DisableOutput ext
                 'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
                 'scope'         => true,
                 'scope_label'   => Mage::helper('adminhtml')->__('[STORE VIEW]'),
-            ]
+            ],
         )->setRenderer($this->_getFieldRenderer());
 
         return $field->toHtml();

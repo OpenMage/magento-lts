@@ -81,7 +81,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/OpenMage/magento-lts
     - icon: fontawesome/brands/discord
-      link: https://discord.gg/EV8aNbU
+      link: https://discord.gg/R2q5WadstX
     - icon: fontawesome/brands/stack-overflow
       link: https://magento.stackexchange.com/tags/openmage
     - icon: fontawesome/brands/x-twitter
@@ -186,6 +186,8 @@ nav:
           - api/rest/response_formats.md
           - api/rest/testing_rest_resources.md
   - 'Development':
+      - 'Coding Style':
+          - developers/coding-style/per-2.0.md
       - 'Events':
           - developers/events/list.md
       - 'Tools':

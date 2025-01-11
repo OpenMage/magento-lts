@@ -20,6 +20,4 @@
  * @category   Varien
  * @package    Varien_Convert
  */
-interface Varien_Convert_Container_Interface
-{
-}
+interface Varien_Convert_Container_Interface {}

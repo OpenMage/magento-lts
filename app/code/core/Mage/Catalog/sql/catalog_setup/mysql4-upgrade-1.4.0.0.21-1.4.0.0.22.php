@@ -29,7 +29,7 @@ $installer->addAttribute('catalog_category', 'include_in_menu', [
     'source'   => 'eav/entity_attribute_source_boolean',
     'global'   => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'required' => false,
-    'default'  => 1
+    'default'  => 1,
 ]);
 
 $installer->addAttributeToGroup(
@@ -37,7 +37,7 @@ $installer->addAttributeToGroup(
     $attributeSetId,
     $attributeGroupId,
     'include_in_menu',
-    '10'
+    '10',
 );
 
 $attributeId = $installer->getAttributeId($entityTypeId, 'include_in_menu');

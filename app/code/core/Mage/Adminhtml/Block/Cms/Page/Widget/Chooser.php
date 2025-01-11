@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
             ->setUniqId($uniqId);
 
         if ($element->getValue()) {
-            $page = Mage::getModel('cms/page')->load((int)$element->getValue());
+            $page = Mage::getModel('cms/page')->load((int) $element->getValue());
             if ($page->getId()) {
                 $chooser->setLabel($page->getTitle());
             }
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
             'header'    => Mage::helper('cms')->__('ID'),
             'align'     => 'right',
             'index'     => 'page_id',
-            'width'     => 50
+            'width'     => 50,
         ]);
 
         $this->addColumn('chooser_title', [
@@ -123,7 +123,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         $this->addColumn('chooser_identifier', [
             'header'    => Mage::helper('cms')->__('URL Key'),
             'align'     => 'left',
-            'index'     => 'identifier'
+            'index'     => 'identifier',
         ]);
 
         $this->addColumn('chooser_root_template', [

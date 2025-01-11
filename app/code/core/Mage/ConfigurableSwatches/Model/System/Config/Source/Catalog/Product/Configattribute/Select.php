@@ -34,7 +34,7 @@ class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Confi
                 [
                     'value' => '',
                     'label' => Mage::helper('configurableswatches')->__('-- Please Select --'),
-                ]
+                ],
             );
         }
         return $this->_attributes;

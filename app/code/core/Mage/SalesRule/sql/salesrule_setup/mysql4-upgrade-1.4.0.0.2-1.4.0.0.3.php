@@ -22,7 +22,7 @@ $installer->getConnection()
     ->modifyColumn(
         $installer->getTable('salesrule'),
         'customer_group_ids',
-        'TEXT'
+        'TEXT',
     );
 
 $installer->endSetup();
