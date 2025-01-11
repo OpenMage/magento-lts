@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -294,7 +295,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             if (!$config || empty($config->model)) {
                 Mage::throwException(Mage::helper('index')->__('Indexer model is not defined.'));
             }
-            $model = Mage::getModel((string)$config->model);
+            $model = Mage::getModel((string) $config->model);
             if ($model instanceof Mage_Index_Model_Indexer_Abstract) {
                 $this->_indexer = $model;
             } else {
@@ -370,7 +371,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                 if (!$skipUnmatched) {
                     $eventProcessIds = $event->getProcessIds();
                     if (!isset($eventProcessIds[$this->getId()])) {
-                        $event->addProcessId($this->getId(), null);
+                        $event->addProcessId($this->getId());
                     }
                 }
             } catch (Exception $e) {
@@ -472,7 +473,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     {
         Mage::dispatchEvent('index_process_change_status', [
             'process' => $this,
-            'status' => $status
+            'status' => $status,
         ]);
         $this->_getResource()->updateStatus($this, $status);
         return $this;
@@ -487,7 +488,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     {
         return [
             self::MODE_REAL_TIME => Mage::helper('index')->__('Update on Save'),
-            self::MODE_MANUAL => Mage::helper('index')->__('Manual Update')
+            self::MODE_MANUAL => Mage::helper('index')->__('Manual Update'),
         ];
     }
 

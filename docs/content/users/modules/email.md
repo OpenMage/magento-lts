@@ -1,9 +1,10 @@
 ---
+title: Email
 tags:
 - Modules
 ---
 
-# eMail
+# Email modules
 
 ## `aschroder/Magento-SMTP-Pro-Email-Extension`
 Magento 1 SMTP Pro Extension by Ashley Schroder (aschroder.com)

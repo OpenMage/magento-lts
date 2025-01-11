@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -138,7 +139,7 @@ class Mage_Index_Model_Indexer
      */
     public function hasErrors()
     {
-        return (bool)count($this->_errors);
+        return (bool) count($this->_errors);
     }
 
     /**

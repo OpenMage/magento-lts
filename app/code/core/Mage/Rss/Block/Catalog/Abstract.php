@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -123,7 +124,7 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
         if ($type) {
             $this->_priceBlockTypes[$type] = [
                 'block' => $block,
-                'template' => $template
+                'template' => $template,
             ];
         }
     }

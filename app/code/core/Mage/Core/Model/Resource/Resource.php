@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -49,7 +50,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      *
      * @param string $needType Can be 'db' or 'data'
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     protected function _loadVersionData($needType)
     {
@@ -83,8 +84,8 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      * Get Module version from DB
      *
      * @param string $resName
-     * @return bool|string
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @return string|false
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getDbVersion($resName)
     {
@@ -101,7 +102,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      * @param string $resName
      * @param string $version
      * @return int
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function setDbVersion($resName, $version)
     {
@@ -115,7 +116,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
             return $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 $dbModuleInfo,
-                ['code = ?' => $resName]
+                ['code = ?' => $resName],
             );
         } else {
             self::$_versions[$resName] = $version;
@@ -128,7 +129,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      *
      * @param string $resName
      * @return string|false
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getDataVersion($resName)
     {
@@ -147,13 +148,13 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      * @param string $resName
      * @param string $version
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function setDataVersion($resName, $version)
     {
         $data = [
             'code'          => $resName,
-            'data_version'  => $version
+            'data_version'  => $version,
         ];
 
         if ($this->getDbVersion($resName) || $this->getDataVersion($resName)) {

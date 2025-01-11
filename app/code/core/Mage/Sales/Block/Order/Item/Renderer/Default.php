@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -175,22 +176,23 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     {
         return $this->getLayout()->getBlock('additional.product.info');
     }
+
     public function canDisplayGiftmessage(): bool
     {
-        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable(
             $helper::TYPE_ORDER_ITEM,
-            $this->getOrderItem()
+            $this->getOrderItem(),
         ) && $this->getItem()->getGiftMessageId();
     }
 
     public function getGiftMessage(): ?Mage_GiftMessage_Model_Message
     {
-        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return null;
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */

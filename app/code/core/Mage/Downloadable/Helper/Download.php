@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -108,7 +109,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 $hostname = $scheme . $urlProp['host'];
 
                 if (isset($urlProp['port'])) {
-                    $port = (int)$urlProp['port'];
+                    $port = (int) $urlProp['port'];
                 }
 
                 $path = $urlProp['path'] ?? '/';
@@ -214,7 +215,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
     /**
      * @return bool|mixed|string
      * @throws Exception
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getFilename()
     {

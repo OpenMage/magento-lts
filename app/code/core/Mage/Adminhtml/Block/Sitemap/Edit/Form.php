@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -38,7 +39,7 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
         $form = new Varien_Data_Form([
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
-            'method'    => 'post'
+            'method'    => 'post',
         ]);
 
         $fieldset = $form->addFieldset('add_sitemap_form', ['legend' => Mage::helper('sitemap')->__('Sitemap')]);
@@ -54,7 +55,7 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
             'name'  => 'sitemap_filename',
             'required' => true,
             'note'  => Mage::helper('adminhtml')->__('example: sitemap.xml'),
-            'value' => $model->getSitemapFilename()
+            'value' => $model->getSitemapFilename(),
         ]);
 
         $fieldset->addField('sitemap_path', 'text', [
@@ -62,7 +63,7 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
             'name'  => 'sitemap_path',
             'required' => true,
             'note'  => Mage::helper('adminhtml')->__('example: "sitemap/" or "/" for base path (path must be writeable)'),
-            'value' => $model->getSitemapPath()
+            'value' => $model->getSitemapPath(),
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -79,14 +80,14 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
         } else {
             $fieldset->addField('store_id', 'hidden', [
                 'name'     => 'store_id',
-                'value'    => Mage::app()->getStore(true)->getId()
+                'value'    => Mage::app()->getStore(true)->getId(),
             ]);
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
 
         $fieldset->addField('generate', 'hidden', [
             'name'     => 'generate',
-            'value'    => ''
+            'value'    => '',
         ]);
 
         $form->setValues($model->getData());

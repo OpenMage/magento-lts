@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -84,7 +85,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
 
     /**
      * @return array
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function fetchRates()
     {

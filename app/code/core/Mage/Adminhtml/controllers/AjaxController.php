@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -24,7 +25,7 @@ class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
     /**
      * Ajax action for inline translation
      *
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function translateAction()
     {

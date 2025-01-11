@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -127,11 +128,11 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
                             'url'     => ['base' => '*/sales_order/view'],
                             'field'   => 'order_id',
                             'data-column' => 'action',
-                        ]
+                        ],
                     ],
                     'index'     => 'stores',
                     'is_system' => true,
-                ]
+                ],
             );
         }
 
@@ -151,7 +152,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
      */
     public function addRssFeedLink()
     {
-        if (Mage::helper('sales')->isModuleOutputEnabled('Mage_Rss')) {
+        if ($this->isModuleOutputEnabled('Mage_Rss', 'sales')) {
             $storeId = null;
 
             $filterString = $this->getParam($this->getVarNameFilter(), '');
@@ -180,48 +181,48 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/cancel')) {
             $this->getMassactionBlock()->addItem(MassAction::CANCEL_ORDER, [
-                 'label' => Mage::helper('sales')->__('Cancel'),
-                 'url'  => $this->getUrl('*/sales_order/massCancel'),
+                'label' => Mage::helper('sales')->__('Cancel'),
+                'url'  => $this->getUrl('*/sales_order/massCancel'),
             ]);
         }
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/hold')) {
             $this->getMassactionBlock()->addItem(MassAction::HOLD_ORDER, [
-                 'label' => Mage::helper('sales')->__('Hold'),
-                 'url'  => $this->getUrl('*/sales_order/massHold'),
+                'label' => Mage::helper('sales')->__('Hold'),
+                'url'  => $this->getUrl('*/sales_order/massHold'),
             ]);
         }
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/unhold')) {
             $this->getMassactionBlock()->addItem(MassAction::UNHOLD_ORDER, [
-                 'label' => Mage::helper('sales')->__('Unhold'),
-                 'url'  => $this->getUrl('*/sales_order/massUnhold'),
+                'label' => Mage::helper('sales')->__('Unhold'),
+                'url'  => $this->getUrl('*/sales_order/massUnhold'),
             ]);
         }
 
         $this->getMassactionBlock()->addItem(MassAction::PDF_INVOICE_ORDER, [
-             'label' => Mage::helper('sales')->__('Print Invoices'),
-             'url'  => $this->getUrl('*/sales_order/pdfinvoices'),
+            'label' => Mage::helper('sales')->__('Print Invoices'),
+            'url'  => $this->getUrl('*/sales_order/pdfinvoices'),
         ]);
 
         $this->getMassactionBlock()->addItem(MassAction::PDF_SHIPMENTS_ORDER, [
-             'label' => Mage::helper('sales')->__('Print Packingslips'),
-             'url'  => $this->getUrl('*/sales_order/pdfshipments'),
+            'label' => Mage::helper('sales')->__('Print Packingslips'),
+            'url'  => $this->getUrl('*/sales_order/pdfshipments'),
         ]);
 
         $this->getMassactionBlock()->addItem(MassAction::PDF_CREDITMEMOS_ORDER, [
-             'label' => Mage::helper('sales')->__('Print Credit Memos'),
-             'url'  => $this->getUrl('*/sales_order/pdfcreditmemos'),
+            'label' => Mage::helper('sales')->__('Print Credit Memos'),
+            'url'  => $this->getUrl('*/sales_order/pdfcreditmemos'),
         ]);
 
         $this->getMassactionBlock()->addItem(MassAction::PDF_DOCS_ORDER, [
-             'label' => Mage::helper('sales')->__('Print All'),
-             'url'  => $this->getUrl('*/sales_order/pdfdocs'),
+            'label' => Mage::helper('sales')->__('Print All'),
+            'url'  => $this->getUrl('*/sales_order/pdfdocs'),
         ]);
 
         $this->getMassactionBlock()->addItem(MassAction::PRINT_SHIPMENT_LABEL, [
-             'label' => Mage::helper('sales')->__('Print Shipping Labels'),
-             'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
+            'label' => Mage::helper('sales')->__('Print Shipping Labels'),
+            'url'  => $this->getUrl('*/sales_order_shipment/massPrintShippingLabel'),
         ]);
 
         return $this;

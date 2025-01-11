@@ -23,6 +23,9 @@ Set log level from config. ([#1727](https://github.com/OpenMage/magento-lts/pull
 ## `newsletter/security/enable_form_key`
 \[Theme BC] Add formkey validation to Newsletter subscribe action. ([#1866](https://github.com/OpenMage/magento-lts/pull/1866))
 
+## `rss/admin_order/new_period`
+Better config for admin RSS links. ([#4243](https://github.com/OpenMage/magento-lts/pull/4243))
+
 ## `sitemap/category/lastmod`
 Made sitemap more flexible. ([#1854](https://github.com/OpenMage/magento-lts/pull/1854))
 

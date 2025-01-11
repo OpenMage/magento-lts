@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -50,7 +51,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _beforeToHtml()
     {
-        if (Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+        if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
             if ($this->getParentBlock() && ($order = $this->getOrder())) {
                 $this->setEntity($order);
             }
@@ -65,14 +66,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     protected function _prepareLayout()
     {
-        if (Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+        if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
             $this->setChild(
                 'save_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData([
                         'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
-                        'class'   => 'save'
-                    ])
+                        'class'   => 'save',
+                    ]),
             );
         }
         return $this;
@@ -85,7 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     public function getSaveButtonHtml()
     {
         $this->getChild('save_button')->setOnclick(
-            'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')'
+            'giftMessagesController.saveGiftMessage(\'' . $this->getHtmlId() . '\')',
         );
 
         return $this->getChildHtml('save_button');
@@ -254,8 +255,8 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
             [
                 'entity' => $this->getEntity()->getId(),
                 'type'  => 'order',
-                'reload' => 1
-            ]
+                'reload' => 1,
+            ],
         );
     }
 
@@ -279,7 +280,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     public function canDisplayGiftmessage()
     {
-        if (!Mage::helper('core')->isModuleOutputEnabled('Mage_GiftMessage')) {
+        if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
         /** @var Mage_GiftMessage_Helper_Message $helper */

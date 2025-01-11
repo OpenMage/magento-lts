@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -105,7 +106,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
             $billing,
             $website,
             $calculateTax,
-            $ignoreDiscount
+            $ignoreDiscount,
         );
         foreach ($attributes as $attribute) {
             $amount += $attribute->getAmount();
@@ -148,7 +149,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Sales_Model_Quote_Address $shipping
      * @param Mage_Sales_Model_Quote_Address $billing
-     * @param int|Mage_Core_Model_Website $website
+     * @param int|Mage_Core_Model_Website|null|string|true $website
      * @param bool $calculateTax
      * @param bool $ignoreDiscount
      * @return array
@@ -188,7 +189,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
         if (!$currentPercent) {
             $currentPercent = Mage::getSingleton('tax/calculation')->getRate(
-                $rateRequest->setProductClassId($product->getTaxClassId())
+                $rateRequest->setProductClassId($product->getTaxClassId()),
             );
         }
 
@@ -204,11 +205,11 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                 $attributeSelect = $this->getResource()->getReadConnection()->select();
                 $attributeSelect
                     ->from($this->getResource()->getTable('weee/tax'), 'value')
-                    ->where('attribute_id = ?', (int)$attribute->getId())
+                    ->where('attribute_id = ?', (int) $attribute->getId())
                     ->where('website_id IN(?)', [$websiteId, 0])
                     ->where('country = ?', $rateRequest->getCountryId())
                     ->where('state IN(?)', [$rateRequest->getRegionId(), '*'])
-                    ->where('entity_id = ?', (int)$product->getId())
+                    ->where('entity_id = ?', (int) $product->getId())
                     ->limit(1);
 
                 $order = ['state ' . Varien_Db_Select::SQL_DESC, 'website_id ' . Varien_Db_Select::SQL_DESC];

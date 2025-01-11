@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="OpenMage Default" namespace="OpenMage\CS\Standard">
+<ruleset name="OpenMage" namespace="OpenMage\CS\Standard">
     <file>api.php</file>
     <file>cron.php</file>
     <file>get.php</file>
@@ -14,49 +14,197 @@
     <file>shell/</file>
     <file>tests/unit/</file>
 
-    <!-- file contains include/include_once/... -->
-    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
-        <!-- controllers -->
-        <exclude-pattern>*/get.php*</exclude-pattern>
-        <exclude-pattern>*/index.php*</exclude-pattern>
-        <exclude-pattern>*/app/Mage.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Adminhtml/controllers/Sales/Order/EditController.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Adminhtml/controllers/System/Convert/GuiController.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Authorizenet/controllers/Adminhtml/Authorizenet/Directpost/PaymentController.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Bundle/controllers/Adminhtml/Bundle/Product/EditController.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Bundle/controllers/Product/EditController.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Bundle/controllers/SelectionController.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Centinel/Model/Api/Client.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Downloadable/controllers/Adminhtml/Downloadable/Product/EditController.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Downloadable/controllers/Product/EditController.php*</exclude-pattern>
-        <exclude-pattern>*/core/Mage/Downloadable/controllers/FileController.php*</exclude-pattern>
-        <exclude-pattern>*/shell/indexer.php*</exclude-pattern>
-        <exclude-pattern>*/shell/log.php*</exclude-pattern>
-        <exclude-pattern>*/shell/translations.php*</exclude-pattern>
-        <exclude-pattern>*/shell/update-copyright.php*</exclude-pattern>
-        <!-- others (@todo check) -->
-        <exclude-pattern>*/lib/Varien/Db/Tree/Exception.php*</exclude-pattern>
-        <exclude-pattern>*/lib/Varien/Db/Tree/Node.php*</exclude-pattern>
-        <exclude-pattern>*/lib/Varien/Db/Exception.php*</exclude-pattern>
-        <exclude-pattern>*/lib/Varien/Db/Tree.php*</exclude-pattern>
-        <exclude-pattern>*/lib/Varien/Directory/Collection.php*</exclude-pattern>
-        <exclude-pattern>*/lib/Varien/Directory/Factory.php*</exclude-pattern>
-        <exclude-pattern>*/lib/Varien/File/CsvMulty.php*</exclude-pattern>
-        <exclude-pattern>*/lib/Varien/File/Object.php*</exclude-pattern>
-        <exclude-pattern>*/lib/Varien/Io/Sftp.php*</exclude-pattern>
+    <exclude-pattern>*/core/Mage/*/data/*</exclude-pattern>
+    <exclude-pattern>*/core/Mage/*/sql/*</exclude-pattern>
+
+    <rule ref="Ecg" />
+    <rule ref="Ecg.Classes.Mysql4.Found">
+        <exclude-pattern>*/core/Mage/Catalog/Model/Resource/Eav/Mysql4/**.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Install/Block/Db/Type/Mysql4.php*</exclude-pattern>
+        <exclude-pattern>*/core/Mage/Install/Model/Installer/Db/Mysql4.php*</exclude-pattern>
+        <!-- remove when MySql4 classes are removed -->
+        <exclude-pattern>*/core/Mage/*/Model/Mysql4/**.php*</exclude-pattern>
+        <!-- resource helpers - keep -->
+        <exclude-pattern>*/core/Mage/*/Model/Resource/Helper/Mysql4.php*</exclude-pattern>
     </rule>
-    <rule ref="PSR2">
-        <exclude name="Generic.Files.LineLength.TooLong"/>
-        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
-        <exclude name="PSR2.Classes.ClassDeclaration.ExtendsLine"/>
-        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
-        <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
-        <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+    <rule ref="Ecg.Classes.ObjectInstantiation">
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Classes.ObjectInstantiation.DirectInstantiation"/>
     </rule>
-    <rule ref="PSR12">
-        <!-- conflicts with PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace -->
-        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/>
-        <!-- requires emtpy line between php opening tag and first comment block -->
-        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+    <rule ref="Ecg.Performance">
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Performance.CollectionCount.Found"/>
+        <!-- should be reviewed/commented -->
+        <exclude name="Ecg.Performance.GetFirstItem.Found"/>
+        <!-- should be commented -->
+        <exclude name="Ecg.Performance.FetchAll.Found"/>
+        <!-- should be reviewed/commented -->
+        <exclude name="Ecg.Performance.Loop.DataLoad"/>
+        <!-- should be reviewed/commented -->
+        <exclude name="Ecg.Performance.Loop.ModelLSD"/>
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Performance.Loop.ArraySize"/>
+    </rule>
+    <rule ref="Ecg.PHP">
+        <!-- should be commented -->
+        <exclude name="Ecg.PHP.PrivateClassMember.PrivateClassMemberError"/>
+    </rule>
+    <rule ref="Ecg.Security">
+        <!-- can be reviewed -->
+        <exclude name="Ecg.Security.Acl.MissingAclMethod"/>
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Security.DiscouragedFunction.Discouraged"/>
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Security.ForbiddenFunction.Found"/>
+        <!-- should be reviewed -->
+        <exclude name="Ecg.Security.IncludeFile.IncludeFileDetected"/>
+        <!-- should be ignored -->
+        <exclude name="Ecg.Security.LanguageConstruct.DirectOutput"/>
+        <!-- should be ignored -->
+        <exclude name="Ecg.Security.LanguageConstruct.ExitUsage"/>
+        <!-- should be ignored - PHPMD -->
+        <exclude name="Ecg.Security.Superglobal.SuperglobalUsageWarning"/>
+        <!-- should be ignored - PHPMD -->
+        <exclude name="Ecg.Security.Superglobal.SuperglobalUsageError"/>
+    </rule>
+    <rule ref="Ecg.Strings">
+        <!-- should be fixed -->
+        <exclude name="Ecg.Strings.StringPosition.ImproperValueTesting"/>
+    </rule>
+    <rule ref="Ecg.Sql">
+        <!-- should be fixed -->
+        <exclude name="Ecg.Sql.RawQuery.RawSql"/>
+        <!-- should be commented -->
+        <exclude name="Ecg.Sql.SlowQuery.SlowSql"/>
+        <!-- should be commented -->
+        <exclude name="Ecg.Sql.SlowQuery.SlowRawSql"/>
+    </rule>
+    <rule ref="Generic.CodeAnalysis">
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.AssignmentInCondition.Found"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedIf"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedElse"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedElseif"/>
+        <!-- should be fixed -->
+        <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedWhile"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.CodeAnalysis.RequireExplicitBooleanOperatorPrecedence.MissingParentheses"/>
+        <!-- should be ignored - PHPMD -->
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.CodeAnalysis.UselessOverridingMethod.Found"/>
+    </rule>
+    <rule ref="Generic.Commenting">
+        <exclude name="Generic.Commenting.DocComment"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Commenting.Fixme.TaskFound"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Commenting.Todo.CommentFound"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Commenting.Todo.TaskFound"/>
+    </rule>
+    <rule ref="Generic.Metrics">
+        <!-- should be reviewed -->
+        <exclude name="Generic.Metrics.CyclomaticComplexity.MaxExceeded"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Metrics.CyclomaticComplexity.TooHigh"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Metrics.NestingLevel.MaxExceeded"/>
+        <!-- should be reviewed -->
+        <exclude name="Generic.Metrics.NestingLevel.TooHigh"/>
+    </rule>
+    <rule ref="Generic.Metrics">
+        <!-- should be ignored - PHPMD -->
+        <exclude name="Generic.PHP.NoSilencedErrors.Discouraged"/>
+    </rule>
+    <rule ref="Squiz.Functions.GlobalFunction">
+        <!-- should be ignored -->
+        <exclude name="Squiz.Functions.GlobalFunction.Found"/>
+    </rule>
+    <rule ref="Squiz.Operators.IncrementDecrementUsage">
+        <!-- should be ignored -->
+        <exclude name="Squiz.Operators.IncrementDecrementUsage.NoBrackets"/>
+    </rule>
+    <rule ref="Squiz.PHP.NonExecutableCode">
+        <!-- should be fixed -->
+        <exclude name="Squiz.PHP.NonExecutableCode.ReturnNotRequired"/>
+        <!-- should be fixed -->
+        <exclude name="Squiz.PHP.NonExecutableCode.Unreachable"/>
+    </rule>
+    <rule ref="Squiz.PHP.Eval">
+        <!-- should be reviewed -->
+        <exclude name="Squiz.PHP.Eval.Discouraged"/>
+    </rule>
+
+    <rule ref="PHPCompatibility">
+        <exclude name="PHPCompatibility.Keywords.ForbiddenNamesAsDeclared.resourceFound"/>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore">
+        <exclude-pattern>*/Varien/Object.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Data/Form/Abstract.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Db/Tree.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Directory/Collection.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_blowfishDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_mode_cbcDeprecatedRemoved">
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_mode_ecbDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Constants.RemovedConstants.mcrypt_randDeprecatedRemoved">
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_create_ivDeprecatedRemoved">
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.Extensions.RemovedExtensions.mcryptDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_enc_get_iv_sizeDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_enc_get_key_sizeDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_genericDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_generic_deinitDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_generic_initDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_module_closeDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mcrypt_module_openDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
+    </rule>
+    <rule ref="PHPCompatibility.FunctionUse.RemovedFunctions.mdecrypt_genericDeprecatedRemoved">
+        <exclude-pattern>*/Magento/Crypt.php*</exclude-pattern>
+        <exclude-pattern>*/Varien/Crypt/Mcrypt.php*</exclude-pattern>
     </rule>
 </ruleset>

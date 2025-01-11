@@ -56,13 +56,13 @@ class UserTest extends TestCase
             ])
             ->getMock();
 
-        $mock->expects($this->any())->method('loadByUsername')->willReturnSelf();
-        $mock->expects($this->any())->method('getId')->willReturn($methods['getId']);
-//        $mock->expects($this->any())->method('getUsername')->willReturn($methods['getUsername']);
-        $mock->expects($this->any())->method('getPassword')->willReturn($methods['getPassword']);
-        $mock->expects($this->any())->method('validatePasswordHash')->willReturn($methods['validatePasswordHash']);
-        $mock->expects($this->any())->method('getIsActive')->willReturn($methods['getIsActive']);
-        $mock->expects($this->any())->method('hasAssigned2Role')->willReturn($methods['hasAssigned2Role']);
+        $mock->method('loadByUsername')->willReturnSelf();
+        $mock->method('getId')->willReturn($methods['getId']);
+        //        $mock->expects($this->any())->method('getUsername')->willReturn($methods['getUsername']);
+        $mock->method('getPassword')->willReturn($methods['getPassword']);
+        $mock->method('validatePasswordHash')->willReturn($methods['validatePasswordHash']);
+        $mock->method('getIsActive')->willReturn($methods['getIsActive']);
+        $mock->method('hasAssigned2Role')->willReturn($methods['hasAssigned2Role']);
 
         try {
             $this->assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
@@ -82,7 +82,7 @@ class UserTest extends TestCase
                 'getIsActive' => '1',
                 'validatePasswordHash' => true,
                 'hasAssigned2Role' => true,
-            ]
+            ],
         ];
         yield 'fail #1 inactive' => [
             'This account is inactive.',
@@ -93,7 +93,7 @@ class UserTest extends TestCase
                 'getIsActive' => '0',
                 'validatePasswordHash' => true,
                 'hasAssigned2Role' => true,
-            ]
+            ],
         ];
         yield 'fail #2 invalid hash' => [
             false,
@@ -104,7 +104,7 @@ class UserTest extends TestCase
                 'getIsActive' => '1',
                 'validatePasswordHash' => false,
                 'hasAssigned2Role' => true,
-            ]
+            ],
         ];
         yield 'fail #3 no role assigned' => [
             'Access denied.',
@@ -115,7 +115,7 @@ class UserTest extends TestCase
                 'getIsActive' => '1',
                 'validatePasswordHash' => true,
                 'hasAssigned2Role' => false,
-            ]
+            ],
         ];
     }
 
@@ -136,10 +136,10 @@ class UserTest extends TestCase
             ])
             ->getMock();
 
-        $mock->expects($this->any())->method('hasNewPassword')->willReturn($methods['hasNewPassword']);
-        $mock->expects($this->any())->method('getNewPassword')->willReturn($methods['getNewPassword']);
-        $mock->expects($this->any())->method('hasPassword')->willReturn($methods['hasPassword']);
-        $mock->expects($this->any())->method('getPassword')->willReturn($methods['getPassword']);
+        $mock->method('hasNewPassword')->willReturn($methods['hasNewPassword']);
+        $mock->method('getNewPassword')->willReturn($methods['getNewPassword']);
+        $mock->method('hasPassword')->willReturn($methods['hasPassword']);
+        $mock->method('getPassword')->willReturn($methods['getPassword']);
         $this->assertSame($expectedResult, $mock->validate());
     }
 
@@ -159,7 +159,7 @@ class UserTest extends TestCase
                 'getNewPassword' => '123',
                 'hasPassword' => false,
                 'getPassword' => '456',
-            ]
+            ],
         ];
         yield 'fails #2' => [
             [
@@ -175,7 +175,7 @@ class UserTest extends TestCase
                 'getNewPassword' => '123',
                 'hasPassword' => true,
                 'getPassword' => '456',
-            ]
+            ],
         ];
     }
 
@@ -231,8 +231,8 @@ class UserTest extends TestCase
             ])
             ->getMock();
 
-        $mock->expects($this->any())->method('getRpToken')->willReturn($methods['getRpToken']);
-        $mock->expects($this->any())->method('getRpTokenCreatedAt')->willReturn($methods['getRpTokenCreatedAt']);
+        $mock->method('getRpToken')->willReturn($methods['getRpToken']);
+        $mock->method('getRpTokenCreatedAt')->willReturn($methods['getRpTokenCreatedAt']);
         $this->assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
     }
 
@@ -243,14 +243,14 @@ class UserTest extends TestCase
             [
                 'getRpToken'       => '',
                 'getRpTokenCreatedAt' => '',
-            ]
+            ],
         ];
         yield '#2' => [
             true,
             [
                 'getRpToken'       => '1',
                 'getRpTokenCreatedAt' => '0',
-            ]
+            ],
         ];
     }
 

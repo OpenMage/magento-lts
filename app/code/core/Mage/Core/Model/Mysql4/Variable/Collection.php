@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -20,6 +21,4 @@
  * @package    Mage_Core
  * @deprecated
  */
-class Mage_Core_Model_Mysql4_Variable_Collection extends Mage_Core_Model_Resource_Variable_Collection
-{
-}
+class Mage_Core_Model_Mysql4_Variable_Collection extends Mage_Core_Model_Resource_Variable_Collection {}

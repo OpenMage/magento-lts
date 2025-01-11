@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -159,6 +160,6 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRssAdminOrderNewPeriod($store = null): int
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
+        return (int) Mage::getStoreConfig(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
     }
 }

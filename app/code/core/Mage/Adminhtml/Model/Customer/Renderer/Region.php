@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -34,7 +35,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
 
     /**
      * @return string
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
@@ -84,7 +85,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
                  . $element->serialize($htmlAttributes) . '>' . "\n";
             foreach ($regionCollection as $region) {
                 $selected = ($regionId == $region['value']) ? ' selected="selected"' : '';
-                $value =  is_numeric($region['value']) ? (int)$region['value'] : '';
+                $value =  is_numeric($region['value']) ? (int) $region['value'] : '';
                 $html .= '<option value="' . $value . '"' . $selected . '>'
                     . Mage::helper('adminhtml')->escapeHtml(Mage::helper('directory')->__($region['label']))
                     . '</option>';
@@ -109,7 +110,6 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             $html .= '<input type="hidden" name="' . $regionIdHtmlName . '" id="' . $regionIdHtmlId . '" value=""/>';
             $html .= '</td>' . "\n";
         }
-        $html .= '</tr>' . "\n";
-        return $html;
+        return $html . ('</tr>' . "\n");
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -50,7 +51,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
     /**
      * Synchronize action between storages
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function synchronizeAction()
     {
@@ -129,7 +130,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                             && !(isset($flagData['timeout_reached']) && $flagData['timeout_reached'])
                         ) {
                             Mage::logException(new Mage_Core_Exception(
-                                Mage::helper('adminhtml')->__('Timeout limit for response from synchronize process was reached.')
+                                Mage::helper('adminhtml')->__('Timeout limit for response from synchronize process was reached.'),
                             ));
 
                             $state = Mage_Core_Model_File_Storage_Flag::STATE_FINISHED;

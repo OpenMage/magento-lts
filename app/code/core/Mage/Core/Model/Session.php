@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +28,6 @@
  * @method $this setCurrencyCode(string $value)
  * @method $this setFormData(array $value)
  * @method int getJustVotedPoll()
- * @method array getOrderIds()
  * @method $this setOrderIds(array $value)
  * @method $this setJustVotedPoll(int $value)
  * @method $this setLastUrl(string $value)
@@ -73,5 +73,10 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
     public function validateFormKey($formKey)
     {
         return ($formKey === $this->getFormKey());
+    }
+
+    public function getOrderIds(bool $clear = false): array
+    {
+        return $this->getData('order_ids', $clear) ?? [];
     }
 }

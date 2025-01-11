@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -317,7 +318,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             if (!$this->getProductId()) {
                 throw new Mage_Core_Exception(
                     Mage::helper('wishlist')->__('Cannot specify product.'),
-                    self::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT
+                    self::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT,
                 );
             }
 
@@ -446,7 +447,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         } else {
             $this->addOption([
                 'code'  => 'info_buyRequest',
-                'value' => $sBuyRequest
+                'value' => $sBuyRequest,
             ]);
         }
 

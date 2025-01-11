@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -333,7 +334,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         return $this->_getChargableOptionPrice(
             $option->getPrice(),
             $option->getPriceType() == 'percent',
-            $basePrice
+            $basePrice,
         );
     }
 

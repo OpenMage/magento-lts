@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -176,9 +177,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         return $this;
     }
 
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * Retrieve connection for read data
@@ -292,7 +291,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     public function getTypeId()
     {
-        return (int)$this->getEntityType()->getEntityTypeId();
+        return (int) $this->getEntityType()->getEntityTypeId();
     }
 
     /**
@@ -462,7 +461,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     {
         $result = $this->_isPartialLoad;
         if ($flag !== null) {
-            $this->_isPartialLoad = (bool)$flag;
+            $this->_isPartialLoad = (bool) $flag;
         }
         return $result;
     }
@@ -477,7 +476,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     {
         $result = $this->_isPartialSave;
         if ($flag !== null) {
-            $this->_isPartialSave = (bool)$flag;
+            $this->_isPartialSave = (bool) $flag;
         }
         return $result;
     }
@@ -748,7 +747,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function getValueTablePrefix()
     {
         if (!$this->_valueTablePrefix) {
-            $prefix = (string)$this->getEntityType()->getValueTablePrefix();
+            $prefix = (string) $this->getEntityType()->getValueTablePrefix();
             if (!empty($prefix)) {
                 $this->_valueTablePrefix = $prefix;
             } else {
@@ -854,7 +853,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $value = $object->getData($attribute->getAttributeCode());
             $bind = [
                 'entity_type_id' => $this->getTypeId(),
-                'attribute_code' => trim($value)
+                'attribute_code' => trim($value),
             ];
 
             $select
@@ -870,7 +869,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $bind = [
                 'entity_type_id' => $this->getTypeId(),
                 'attribute_id'   => $attribute->getId(),
-                'value'          => trim($value)
+                'value'          => trim($value),
             ];
             $select
                 ->from($attribute->getBackend()->getTable(), $attribute->getBackend()->getEntityIdField())
@@ -1188,7 +1187,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 if ($this->_isAttributeValueEmpty($attribute, $v)) {
                     $delete[$attribute->getBackend()->getTable()][] = [
                         'attribute_id'  => $attrId,
-                        'value_id'      => $attribute->getBackend()->getEntityValueId($newObject)
+                        'value_id'      => $attribute->getBackend()->getEntityValueId($newObject),
                     ];
                 } elseif ($v !== $origData[$k]) {
                     $update[$attrId] = [
@@ -1206,7 +1205,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             'entityRow' => $entityRow,
             'insert'    => $insert,
             'update'    => $update,
-            'delete'    => $delete
+            'delete'    => $delete,
         ];
     }
 
@@ -1416,7 +1415,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             'entity_type_id'    => $object->getEntityTypeId(),
             $entityIdField      => $object->getId(),
             'attribute_id'      => $attribute->getId(),
-            'value'             => $this->_prepareValueForSave($value, $attribute)
+            'value'             => $this->_prepareValueForSave($value, $attribute),
         ];
 
         $this->_attributeValuesToSave[$table][] = $data;
@@ -1572,16 +1571,16 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function delete($object)
     {
         if (is_numeric($object)) {
-            $id = (int)$object;
+            $id = (int) $object;
         } elseif ($object instanceof Varien_Object) {
-            $id = (int)$object->getId();
+            $id = (int) $object->getId();
         }
 
         $this->_beforeDelete($object);
 
         try {
             $where = [
-                $this->getEntityIdField() . '=?' => $id
+                $this->getEntityIdField() . '=?' => $id,
             ];
             $this->_getWriteAdapter()->delete($this->getEntityTable(), $where);
             $this->loadAllAttributes($object);

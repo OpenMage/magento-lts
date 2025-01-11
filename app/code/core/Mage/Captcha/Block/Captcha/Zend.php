@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -50,7 +51,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
     {
         return Mage::getUrl(
             Mage::app()->getStore()->isAdmin() ? 'adminhtml/refresh/refresh' : 'captcha/refresh',
-            ['_secure' => Mage::app()->getStore()->isCurrentlySecure()]
+            ['_secure' => Mage::app()->getStore()->isCurrentlySecure()],
         );
     }
 

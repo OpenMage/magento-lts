@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
         $adapter   = $this->_getReadAdapter();
         $bind      = [
             'attribute_set_id'      => $object->getAttributeSetId(),
-            'attribute_group_name'  => $object->getAttributeGroupName()
+            'attribute_group_name'  => $object->getAttributeGroupName(),
         ];
         $select = $adapter->select()
             ->from($this->getMainTable())
@@ -81,7 +82,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
      * Retrieve max sort order
      *
      * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute_Group $object
-     * @return int
+     * @return false|string|null
      */
     protected function _getMaxSortOrder($object)
     {

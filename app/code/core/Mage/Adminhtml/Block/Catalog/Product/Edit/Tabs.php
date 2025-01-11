@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,14 +64,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                     'label'     => Mage::helper('catalog')->__($group->getAttributeGroupName()),
                     'content'   => $this->_translateHtml($this->getLayout()->createBlock(
                         $this->getAttributeTabBlock(),
-                        'adminhtml.catalog.product.edit.tab.attributes'
+                        'adminhtml.catalog.product.edit.tab.attributes',
                     )->setGroup($group)
                             ->setGroupAttributes($attributes)
                             ->toHtml()),
                 ]);
             }
 
-            if (Mage::helper('core')->isModuleEnabled('Mage_CatalogInventory')) {
+            if ($this->isModuleEnabled('Mage_CatalogInventory')) {
                 $this->addTab('inventory', [
                     'label'     => Mage::helper('catalog')->__('Inventory'),
                     'content'   => $this->_translateHtml($this->getLayout()
@@ -125,12 +126,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 $this->addTab('productalert', [
                     'label'     => Mage::helper('catalog')->__('Product Alerts'),
                     'content'   => $this->_translateHtml($this->getLayout()
-                        ->createBlock('adminhtml/catalog_product_edit_tab_alerts', 'admin.alerts.products')->toHtml())
+                        ->createBlock('adminhtml/catalog_product_edit_tab_alerts', 'admin.alerts.products')->toHtml()),
                 ]);
             }
 
             if ($this->getRequest()->getParam('id', false)) {
-                if (Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
+                if ($this->isModuleEnabled('Mage_Review', 'catalog')) {
                     if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')) {
                         $this->addTab('reviews', [
                             'label' => Mage::helper('catalog')->__('Product Reviews'),
@@ -139,12 +140,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                         ]);
                     }
                 }
-                if (Mage::helper('catalog')->isModuleEnabled('Mage_Tag')) {
+                if ($this->isModuleEnabled('Mage_Tag', 'catalog')) {
                     if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')) {
                         $this->addTab('tags', [
-                         'label'     => Mage::helper('catalog')->__('Product Tags'),
-                         'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),
-                         'class' => 'ajax',
+                            'label'     => Mage::helper('catalog')->__('Product Tags'),
+                            'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),
+                            'class' => 'ajax',
                         ]);
 
                         $this->addTab('customers_tags', [
@@ -173,7 +174,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 'label'     => Mage::helper('catalog')->__('Settings'),
                 'content'   => $this->_translateHtml($this->getLayout()
                     ->createBlock('adminhtml/catalog_product_edit_tab_settings')->toHtml()),
-                'active'    => true
+                'active'    => true,
             ]);
         }
         return parent::_prepareLayout();

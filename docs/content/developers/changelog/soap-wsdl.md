@@ -1,3 +1,9 @@
+---
+tags:
+- WSDL
+---
+
+
 # SOAP/WSDL
 
 Since `19.4.17`/`20.0.15` we changed the `targetNamespace` of all the WSDL files (used in the API modules), from `Magento` to `OpenMage`.

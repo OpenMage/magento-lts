@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -237,7 +238,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
             $label = $this->getAttribute()->getFrontend()->getLabel();
             throw Mage::exception(
                 'Mage_Eav',
-                Mage::helper('eav')->__('The value of attribute "%s" contains invalid data.', $label)
+                Mage::helper('eav')->__('The value of attribute "%s" contains invalid data.', $label),
             );
         }
 
@@ -253,7 +254,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
                 $label = $this->getAttribute()->getFrontend()->getLabel();
                 throw Mage::exception(
                     'Mage_Eav',
-                    Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label)
+                    Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label),
                 );
             }
         }

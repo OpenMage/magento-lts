@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,11 +37,11 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
             $this->_options = [
                 [
                     'label' => Mage::helper('eav')->__('Yes'),
-                    'value' => self::VALUE_YES
+                    'value' => self::VALUE_YES,
                 ],
                 [
                     'label' => Mage::helper('eav')->__('No'),
-                    'value' => self::VALUE_NO
+                    'value' => self::VALUE_NO,
                 ],
             ];
         }
@@ -99,7 +100,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
         $column = [
             'unsigned'  => false,
             'default'   => null,
-            'extra'     => null
+            'extra'     => null,
         ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
@@ -127,7 +128,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
         $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
         $indexes[$index] = [
             'type'      => 'index',
-            'fields'    => [$this->getAttribute()->getAttributeCode()]
+            'fields'    => [$this->getAttribute()->getAttributeCode()],
         ];
 
         return $indexes;

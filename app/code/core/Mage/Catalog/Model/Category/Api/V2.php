@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -82,7 +83,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
             ) {
                 $category->setData(
                     $attribute->getAttributeCode(),
-                    $categoryData->$_attrCode
+                    $categoryData->$_attrCode,
                 );
             }
         }
@@ -126,7 +127,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
             ) {
                 $category->setData(
                     $attribute->getAttributeCode(),
-                    $categoryData->$_attrCode
+                    $categoryData->$_attrCode,
                 );
             }
         }

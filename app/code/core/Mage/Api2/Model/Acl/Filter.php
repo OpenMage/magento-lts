@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -113,13 +114,13 @@ class Mage_Api2_Model_Acl_Filter
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
                 $this->_allowedAttributes = array_keys($this->_resource->getAvailableAttributes(
                     $this->_resource->getUserType(),
-                    $operationType
+                    $operationType,
                 ));
             } else {
                 $this->_allowedAttributes = $helper->getAllowedAttributes(
                     $this->_resource->getUserType(),
                     $this->_resource->getResourceType(),
-                    $operationType
+                    $operationType,
                 );
             }
             // force attributes to be no filtered
@@ -160,7 +161,7 @@ class Mage_Api2_Model_Acl_Filter
      * Filter data for write operations
      *
      * @return array
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function in(array $requestData)
     {

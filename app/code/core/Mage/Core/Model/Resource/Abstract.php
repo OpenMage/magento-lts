@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -69,7 +70,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      *
      * @param callable $callback
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function addCommitCallback($callback)
     {
@@ -82,7 +83,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      * Commit resource transaction
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function commit()
     {
@@ -107,7 +108,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      * Roll back resource transaction
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function rollBack()
     {
@@ -228,5 +229,10 @@ abstract class Mage_Core_Model_Resource_Abstract
             return Mage::app()->getLocale()->getNumber($value);
         }
         return $value;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

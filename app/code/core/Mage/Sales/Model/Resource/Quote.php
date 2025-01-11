@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -135,7 +136,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      */
     public function getReservedOrderId($quote)
     {
-        $storeId = (int)$quote->getStoreId();
+        $storeId = (int) $quote->getStoreId();
         return Mage::getSingleton('eav/config')->getEntityType(Mage_Sales_Model_Order::ENTITY)
             ->fetchNewIncrementId($storeId);
     }
@@ -150,7 +151,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
     public function isOrderIncrementIdUsed($orderIncrementId)
     {
         $adapter   = $this->_getReadAdapter();
-        $bind      = [':increment_id' => (string)$orderIncrementId];
+        $bind      = [':increment_id' => (string) $orderIncrementId];
         $select    = $adapter->select();
         $select->from($this->getTable('sales/order'), 'entity_id')
             ->where('increment_id = :increment_id');
@@ -179,12 +180,12 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
             ->distinct()
             ->from(
                 ['qi' => $this->getTable('sales/quote_item')],
-                ['entity_id' => 'quote_id']
+                ['entity_id' => 'quote_id'],
             )
             ->join(
                 ['pp' => $this->getTable('catalogrule/rule_product_price')],
                 'qi.product_id = pp.product_id',
-                []
+                [],
             );
         if ($productIdList !== null) {
             $subSelect->where('qi.product_id IN (?)', $productIdList);
@@ -194,7 +195,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
             ->join(
                 ['tmp' => $subSelect],
                 'q.entity_id = tmp.entity_id',
-                ['trigger_recollect' => new Zend_Db_Expr(1)]
+                ['trigger_recollect' => new Zend_Db_Expr(1)],
             )
              ->where('q.is_active = ?', 1);
         $sql = $writeAdapter->updateFromSelect($select, ['q' => $this->getTable('sales/quote')]);
@@ -221,7 +222,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
      */
     public function substractProductFromQuotes($product)
     {
-        $productId = (int)$product->getId();
+        $productId = (int) $product->getId();
         if (!$productId) {
             return $this;
         }
@@ -230,9 +231,9 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
 
         $subSelect->from(false, [
             'items_qty'   => new Zend_Db_Expr(
-                $adapter->quoteIdentifier('q.items_qty') . ' - ' . $adapter->quoteIdentifier('qi.qty')
+                $adapter->quoteIdentifier('q.items_qty') . ' - ' . $adapter->quoteIdentifier('qi.qty'),
             ),
-            'items_count' => new Zend_Db_Expr($adapter->quoteIdentifier('q.items_count') . ' - 1')
+            'items_count' => new Zend_Db_Expr($adapter->quoteIdentifier('q.items_count') . ' - 1'),
         ])
         ->where('q.items_count > 0')
         ->join(
@@ -240,9 +241,9 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
             implode(' AND ', [
                 'q.entity_id = qi.quote_id',
                 'qi.parent_item_id IS NULL',
-                $adapter->quoteInto('qi.product_id = ?', $productId)
+                $adapter->quoteInto('qi.product_id = ?', $productId),
             ]),
-            []
+            [],
         );
 
         $updateQuery = $adapter->updateFromSelect($subSelect, ['q' => $this->getTable('sales/quote')]);
@@ -271,7 +272,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
         $select = $this->_getReadAdapter()->select()->join(
             ['t2' => $subSelect],
             't1.entity_id = t2.entity_id',
-            ['trigger_recollect' => new Zend_Db_Expr('1')]
+            ['trigger_recollect' => new Zend_Db_Expr('1')],
         );
         $updateQuery = $select->crossUpdateFromSelect(['t1' => $tableQuote]);
         $this->_getWriteAdapter()->query($updateQuery);

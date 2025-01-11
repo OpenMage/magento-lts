@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,12 +63,12 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
             ->joinLeft(
                 ['d' => $this->getTable('downloadable/sample_title')],
                 'd.sample_id=main_table.sample_id AND d.store_id = 0',
-                ['default_title' => 'title']
+                ['default_title' => 'title'],
             )
             ->joinLeft(
                 ['st' => $this->getTable('downloadable/sample_title')],
-                'st.sample_id=main_table.sample_id AND st.store_id = ' . (int)$storeId,
-                ['store_title' => 'title','title' => $ifNullDefaultTitle]
+                'st.sample_id=main_table.sample_id AND st.store_id = ' . (int) $storeId,
+                ['store_title' => 'title','title' => $ifNullDefaultTitle],
             )
             ->order('main_table.sort_order ASC')
             ->order('title ASC');

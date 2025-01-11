@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -92,7 +93,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     ];
 
     protected $_lineItemExportItemsFilters = [
-         'qty'      => '_filterQty'
+        'qty'      => '_filterQty',
     ];
 
     /**
@@ -169,9 +170,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      *
      * @param array $request
      */
-    public function debugRequest($request)
-    {
-    }
+    public function debugRequest($request) {}
 
     /**
      * Add shipping total as a line item.

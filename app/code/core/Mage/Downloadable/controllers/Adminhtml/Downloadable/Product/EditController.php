@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -37,7 +38,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
         $this->_initProduct();
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable', 'admin.product.downloadable.information')
-                ->toHtml()
+                ->toHtml(),
         );
     }
 
@@ -84,7 +85,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
     /**
      * Download link action
      *
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function linkAction()
     {
@@ -99,7 +100,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
             } elseif ($link->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_FILE) {
                 $resource = Mage::helper('downloadable/file')->getFilePath(
                     Mage_Downloadable_Model_Link::getBasePath(),
-                    $link->getLinkFile()
+                    $link->getLinkFile(),
                 );
                 $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_FILE;
             }

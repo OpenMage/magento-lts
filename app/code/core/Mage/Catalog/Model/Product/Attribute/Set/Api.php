@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +37,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         foreach ($collection as $attributeSet) {
             $result[] = [
                 'set_id' => $attributeSet->getId(),
-                'name'   => $attributeSet->getAttributeSetName()
+                'name'   => $attributeSet->getAttributeSetName(),
             ];
         }
 
@@ -73,7 +74,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         } catch (Exception $e) {
             $this->_fault('create_attribute_set_error', $e->getMessage());
         }
-        return (int)$attributeSet->getId();
+        return (int) $attributeSet->getId();
     }
 
     /**
@@ -205,7 +206,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         $group = Mage::getModel('eav/entity_attribute_group');
         $group->setAttributeSetId($attributeSetId)
                 ->setAttributeGroupName(
-                    Mage::helper('catalog')->stripTags($groupName)
+                    Mage::helper('catalog')->stripTags($groupName),
                 );
         if ($group->itemExists()) {
             $this->_fault('group_already_exists');
@@ -215,7 +216,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         } catch (Exception $e) {
             $this->_fault('group_add_error', $e->getMessage());
         }
-        return (int)$group->getId();
+        return (int) $group->getId();
     }
 
     /**
@@ -234,7 +235,7 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         }
 
         $model->setAttributeGroupName(
-            Mage::helper('catalog')->stripTags($groupName)
+            Mage::helper('catalog')->stripTags($groupName),
         );
         try {
             $model->save();

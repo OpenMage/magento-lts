@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +31,7 @@ class Varien_Convert_Mapper_Column extends Varien_Convert_Mapper_Abstract
         } else {
             $attributesToSelect = [];
         }
-        $onlySpecified = (bool)$this->getVar('_only_specified') === true;
+        $onlySpecified = (bool) $this->getVar('_only_specified') === true;
         $mappedData = [];
         foreach ($data as $i => $row) {
             $newRow = [];

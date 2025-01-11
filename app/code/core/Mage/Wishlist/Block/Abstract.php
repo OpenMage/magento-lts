@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -309,7 +310,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if ($type) {
             $this->_itemPriceBlockTypes[$type] = [
                 'block' => $block,
-                'template' => $template
+                'template' => $template,
             ];
         }
     }
