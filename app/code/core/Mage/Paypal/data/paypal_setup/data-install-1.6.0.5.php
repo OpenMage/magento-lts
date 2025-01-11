@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,12 +20,12 @@ $connection = $installer->getConnection();
 $installer->startSetup();
 $data = [
     ['paypal_reversed', 'PayPal Reversed'],
-    ['paypal_canceled_reversal', 'PayPal Canceled Reversal']
+    ['paypal_canceled_reversal', 'PayPal Canceled Reversal'],
 ];
 $connection = $installer->getConnection()->insertArray(
     $installer->getTable('sales/order_status'),
     ['status', 'label'],
-    $data
+    $data,
 );
 /**
  * Set default value for "skip order review page" option for Express Checkout for new installations

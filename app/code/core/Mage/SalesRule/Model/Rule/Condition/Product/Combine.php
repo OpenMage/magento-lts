@@ -79,7 +79,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
         $this->_productAttributesInfo[$conditionType][$conditionKey] = [
             'label' => $attributeLabel,
-            'value' => $conditionKey
+            'value' => $conditionKey,
         ];
 
         return $this;
@@ -116,19 +116,19 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
                         self::PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM,
                         'salesrule/rule_condition_product',
                         $attributeCode,
-                        $attributeLabel
+                        $attributeLabel,
                     );
                 } else {
                     $this->_addAttributeToConditionGroup(
                         self::PRODUCT_ATTRIBUTES_TYPE_PRODUCT,
                         'salesrule/rule_condition_product',
                         $attributeCode,
-                        $attributeLabel
+                        $attributeLabel,
                     )->_addAttributeToConditionGroup(
                         self::PRODUCT_ATTRIBUTES_TYPE_ISSET,
                         'salesrule/rule_condition_product_attribute_assigned',
                         $attributeCode,
-                        $attributeLabel
+                        $attributeLabel,
                     );
                 }
             }
@@ -153,16 +153,16 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
     public function getNewChildSelectOptions()
     {
         $conditions = parent::getNewChildSelectOptions();
-        $conditions = array_merge_recursive(
+        return array_merge_recursive(
             $conditions,
             [
                 [
                     'label' => Mage::helper('catalog')->__('Conditions Combination'),
-                    'value' => 'salesrule/rule_condition_product_combine'
+                    'value' => 'salesrule/rule_condition_product_combine',
                 ],
                 [
                     'label' => Mage::helper('catalog')->__('Cart Item Attribute'),
-                    'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM)
+                    'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM),
                 ],
                 [
                     'label' => Mage::helper('catalog')->__('Product Attribute'),
@@ -170,11 +170,10 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
                 ],
                 [
                     'label' => $this->_getHelper()->__('Product Attribute Assigned'),
-                    'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_ISSET)
-                ]
-            ]
+                    'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_ISSET),
+                ],
+            ],
         );
-        return $conditions;
     }
 
     /**

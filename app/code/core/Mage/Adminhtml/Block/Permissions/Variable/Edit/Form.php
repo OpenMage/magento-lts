@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,14 +35,14 @@ class Mage_Adminhtml_Block_Permissions_Variable_Edit_Form extends Mage_Adminhtml
             'action' => $this->getUrl(
                 '*/*/save',
                 [
-                    'variable_id' => (int) $this->getRequest()->getParam('variable_id')
-                ]
+                    'variable_id' => (int) $this->getRequest()->getParam('variable_id'),
+                ],
             ),
-            'method' => 'post'
+            'method' => 'post',
         ]);
         $fieldset = $form->addFieldset(
             'variable_details',
-            ['legend' => $this->__('Variable Details')]
+            ['legend' => $this->__('Variable Details')],
         );
 
         $fieldset->addField('variable_name', 'text', [
@@ -54,11 +54,11 @@ class Mage_Adminhtml_Block_Permissions_Variable_Edit_Form extends Mage_Adminhtml
         $yesno = [
             [
                 'value' => 0,
-                'label' => $this->__('No')
+                'label' => $this->__('No'),
             ],
             [
                 'value' => 1,
-                'label' => $this->__('Yes')
+                'label' => $this->__('Yes'),
             ]];
 
         $fieldset->addField('is_allowed', 'select', [

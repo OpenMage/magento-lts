@@ -32,7 +32,7 @@ class Mage_Core_Model_File_Validator_Image
         IMAGETYPE_PNG,
         IMAGETYPE_ICO,
         IMAGETYPE_TIFF_II,
-        IMAGETYPE_TIFF_MM
+        IMAGETYPE_TIFF_MM,
     ];
 
     /**
@@ -52,7 +52,7 @@ class Mage_Core_Model_File_Validator_Image
             'gif' => [IMAGETYPE_GIF],
             'png' => [IMAGETYPE_PNG],
             'ico' => [IMAGETYPE_ICO],
-            'apng' => [IMAGETYPE_PNG]
+            'apng' => [IMAGETYPE_PNG],
         ];
 
         $this->_allowedImageTypes = [];

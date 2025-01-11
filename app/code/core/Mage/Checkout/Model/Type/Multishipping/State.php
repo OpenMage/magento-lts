@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,19 +51,19 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         parent::__construct();
         $this->_steps = [
             self::STEP_SELECT_ADDRESSES => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Select Addresses')
+                'label' => Mage::helper('checkout')->__('Select Addresses'),
             ]),
             self::STEP_SHIPPING => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Shipping Information')
+                'label' => Mage::helper('checkout')->__('Shipping Information'),
             ]),
             self::STEP_BILLING => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Billing Information')
+                'label' => Mage::helper('checkout')->__('Billing Information'),
             ]),
             self::STEP_OVERVIEW => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Place Order')
+                'label' => Mage::helper('checkout')->__('Place Order'),
             ]),
             self::STEP_SUCCESS => new Varien_Object([
-                'label' => Mage::helper('checkout')->__('Order Success')
+                'label' => Mage::helper('checkout')->__('Order Success'),
             ]),
         ];
 
@@ -173,21 +173,13 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
         return $this;
     }
 
-    public function canSelectAddresses()
-    {
-    }
+    public function canSelectAddresses() {}
 
-    public function canInputShipping()
-    {
-    }
+    public function canInputShipping() {}
 
-    public function canSeeOverview()
-    {
-    }
+    public function canSeeOverview() {}
 
-    public function canSuccess()
-    {
-    }
+    public function canSuccess() {}
 
     /**
      * Retrieve checkout session

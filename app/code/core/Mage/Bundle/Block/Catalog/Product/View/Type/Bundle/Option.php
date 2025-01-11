@@ -86,7 +86,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
             }
         } elseif (!$this->_showSingle() || $inPreConfigured) {
             $_defaultQty = $this->_getSelectedQty();
-            $_canChangeQty = (bool)$_defaultQty;
+            $_canChangeQty = (bool) $_defaultQty;
         } else {
             $_defaultQty = $selections[0]->getSelectionQty() * 1;
             $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
@@ -148,7 +148,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     protected function _getSelectedQty()
     {
         if ($this->getProduct()->hasPreconfiguredValues()) {
-            $selectedQty = (float)$this->getProduct()->getPreconfiguredValues()
+            $selectedQty = (float) $this->getProduct()->getPreconfiguredValues()
                 ->getData('bundle_option_qty/' . $this->getOption()->getId());
             if ($selectedQty < 0) {
                 $selectedQty = 0;
@@ -187,11 +187,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         $this->setFormatProduct($selection);
         $priceTitle = $selection->getSelectionQty() * 1 . ' x ' . $this->escapeHtml($selection->getName());
 
-        $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
+        return $priceTitle . (' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
             . '+' . $this->formatPriceString($price, $includeContainer)
-            . ($includeContainer ? '</span>' : '');
-
-        return $priceTitle;
+            . ($includeContainer ? '</span>' : ''));
     }
 
     /**
@@ -228,10 +226,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         $price = $this->getProduct()->getPriceModel()->getSelectionPreFinalPrice($this->getProduct(), $selection, 1);
         $this->setFormatProduct($selection);
         $priceTitle = $this->escapeHtml($selection->getName());
-        $priceTitle .= ' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
+        return $priceTitle . (' &nbsp; ' . ($includeContainer ? '<span class="price-notice">' : '')
             . '+' . $this->formatPriceString($price, $includeContainer)
-            . ($includeContainer ? '</span>' : '');
-        return $priceTitle;
+            . ($includeContainer ? '</span>' : ''));
     }
 
     /**

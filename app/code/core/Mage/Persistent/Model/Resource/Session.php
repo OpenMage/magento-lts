@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Persistent
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +49,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
             $tableName = $this->getMainTable();
             $select->join(
                 ['customer' => $this->getTable('customer/entity')],
-                'customer.entity_id = ' . $tableName . '.customer_id'
+                'customer.entity_id = ' . $tableName . '.customer_id',
             )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
         }
 
@@ -95,7 +95,7 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
             [
                 'website_id = ?' => $websiteId,
                 'updated_at < ?' => $expiredBefore,
-            ]
+            ],
         );
         return $this;
     }

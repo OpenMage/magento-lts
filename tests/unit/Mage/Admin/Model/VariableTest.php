@@ -45,8 +45,8 @@ class VariableTest extends TestCase
             ->setMethods(['getVariableName', 'getIsAllowed'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getVariableName')->willReturn($variableName);
-        $mock->expects($this->any())->method('getIsAllowed')->willReturn($isAllowed);
+        $mock->method('getVariableName')->willReturn($variableName);
+        $mock->method('getIsAllowed')->willReturn($isAllowed);
         $this->assertSame($expectedResult, $mock->validate());
     }
 
@@ -55,22 +55,22 @@ class VariableTest extends TestCase
         yield 'test passes' => [
             true,
             'test',
-            '1'
+            '1',
         ];
         yield 'test error empty' => [
             [0 => 'Variable Name is required field.'],
             '',
-            '1'
+            '1',
         ];
         yield 'test error regex' => [
             [0 => 'Variable Name is incorrect.'],
             '#invalid-name#',
-            '1'
+            '1',
         ];
         yield 'test error allowed' => [
             [0 => 'Is Allowed is required field.'],
             'test',
-            'invalid'
+            'invalid',
         ];
     }
 

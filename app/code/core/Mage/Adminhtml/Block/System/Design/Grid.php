@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,9 +68,9 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         }
 
         $this->addColumn('package', [
-                'header'    => Mage::helper('catalog')->__('Design'),
-                'width'     => '150px',
-                'index'     => 'design',
+            'header'    => Mage::helper('catalog')->__('Design'),
+            'width'     => '150px',
+            'index'     => 'design',
         ]);
         $this->addColumn('date_from', [
             'header'    => Mage::helper('catalogrule')->__('Date From'),

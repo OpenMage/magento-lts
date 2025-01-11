@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
         $form = new Varien_Data_Form();
 
         $fieldset = $form->addFieldset('cache_enable', [
-            'legend' => Mage::helper('adminhtml')->__('Cache Control')
+            'legend' => Mage::helper('adminhtml')->__('Cache Control'),
         ]);
 
         $fieldset->addField('all_cache', 'select', [
@@ -52,13 +52,13 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
                 'name' => 'enable[' . $type . ']',
                 'label' => Mage::helper('adminhtml')->__($label),
                 'value' => 1,
-                'checked' => (int)Mage::app()->useCache($type),
+                'checked' => (int) Mage::app()->useCache($type),
                 //'options'=>$options,
             ]);
         }
 
         $fieldset = $form->addFieldset('beta_cache_enable', [
-            'legend' => Mage::helper('adminhtml')->__('Cache Control (beta)')
+            'legend' => Mage::helper('adminhtml')->__('Cache Control (beta)'),
         ]);
 
         foreach (Mage::helper('core')->getCacheBetaTypes() as $type => $label) {
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
                 'name' => 'beta[' . $type . ']',
                 'label' => Mage::helper('adminhtml')->__($label),
                 'value' => 1,
-                'checked' => (int)Mage::app()->useCache($type),
+                'checked' => (int) Mage::app()->useCache($type),
             ]);
         }
 

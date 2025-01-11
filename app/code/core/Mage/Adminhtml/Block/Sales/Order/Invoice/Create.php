@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,11 +54,11 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create extends Mage_Adminhtml_Blo
         return ($this->getInvoice()->getOrder()->getForcedDoShipmentWithInvoice())
             ? Mage::helper('sales')->__(
                 'New Invoice and Shipment for Order #%s',
-                $this->escapeHtml($this->getInvoice()->getOrder()->getRealOrderId())
+                $this->escapeHtml($this->getInvoice()->getOrder()->getRealOrderId()),
             )
             : Mage::helper('sales')->__(
                 'New Invoice for Order #%s',
-                $this->escapeHtml($this->getInvoice()->getOrder()->getRealOrderId())
+                $this->escapeHtml($this->getInvoice()->getOrder()->getRealOrderId()),
             );
     }
 

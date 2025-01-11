@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -26,9 +26,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
      * Initialize Toolbar block
      *
      */
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * Retrieve helper
@@ -48,7 +46,7 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
      */
     public function isShow()
     {
-        if (!$this->isOutputEnabled('Mage_AdminNotification')) {
+        if (!$this->isModuleOutputEnabled('Mage_AdminNotification')) {
             return false;
         }
         if ($this->getRequest()->getControllerName() === 'notification') {

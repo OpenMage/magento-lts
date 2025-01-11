@@ -46,8 +46,8 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 }
             }
             $this->_prepareDownloadResponse($info['title'], [
-               'value' => $filePath,
-               'type'  => 'filename'
+                'value' => $filePath,
+                'type'  => 'filename',
             ]);
         } catch (Exception $e) {
             $this->_forward('noRoute');
@@ -73,7 +73,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
      * @param string $filePath
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _processDatabaseFile($filePath)
     {
@@ -149,7 +149,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     /**
      * Custom options download action
      *
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function downloadCustomOptionAction()
     {

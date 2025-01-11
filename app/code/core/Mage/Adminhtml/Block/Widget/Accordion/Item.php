@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,9 +39,8 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
     {
         $title  = $this->getData('title');
         $url    = $this->getContentUrl() ? $this->getContentUrl() : '#';
-        $title  = '<a href="' . $url . '" class="' . $this->getTarget() . '">' . $title . '</a>';
 
-        return $title;
+        return '<a href="' . $url . '" class="' . $this->getTarget() . '">' . $title . '</a>';
     }
 
     public function getContent()
@@ -73,7 +72,6 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
         $html .= '</dt>';
         $html .= '<dd id="dd-' . $this->getHtmlId() . '" class="' . $this->getClass() . '">';
         $html .= $content;
-        $html .= '</dd>';
-        return $html;
+        return $html . '</dd>';
     }
 }

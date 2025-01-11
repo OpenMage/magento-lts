@@ -43,6 +43,8 @@ abstract class Mage_Core_Helper_Abstract
      */
     protected $_layout;
 
+    protected array $modulesDisabled = [];
+
     /**
      * Retrieve request object
      *
@@ -151,23 +153,27 @@ abstract class Mage_Core_Helper_Abstract
             $moduleName = $this->_getModuleName();
         }
 
+        if (array_key_exists($moduleName, $this->modulesDisabled)) {
+            return $this->modulesDisabled[$moduleName];
+        }
+
         if (!Mage::getConfig()->getNode('modules/' . $moduleName)) {
-            return false;
+            return $this->modulesDisabled[$moduleName] = false;
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string)$isActive, ['true', '1'])) {
-            return false;
+        if (!$isActive || !in_array((string) $isActive, ['true', '1'])) {
+            return $this->modulesDisabled[$moduleName] = false;
         }
-        return true;
+        return $this->modulesDisabled[$moduleName] = true;
     }
 
     /**
      * Translate
      *
      * @return string
-     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function __()
     {
@@ -235,7 +241,7 @@ abstract class Mage_Core_Helper_Abstract
             function ($matches) {
                 return htmlentities($matches[0]);
             },
-            $html
+            $html,
         );
         $html =  strip_tags($html);
         return htmlspecialchars_decode($html);
@@ -280,7 +286,7 @@ abstract class Mage_Core_Helper_Abstract
         return htmlspecialchars(
             $this->escapeScriptIdentifiers((string) $data),
             ENT_COMPAT | ENT_HTML5 | ENT_HTML401,
-            'UTF-8'
+            'UTF-8',
         );
     }
 
@@ -424,8 +430,7 @@ abstract class Mage_Core_Helper_Abstract
         $url = $this->urlDecode($url);
         $quote = ['\'', '"'];
         $replace = ['%27', '%22'];
-        $url = str_replace($quote, $replace, $url);
-        return $url;
+        return str_replace($quote, $replace, $url);
     }
 
     /**
@@ -466,8 +471,8 @@ abstract class Mage_Core_Helper_Abstract
                     if ($this->hasTags($item, $arrayKeys, $skipTags)) {
                         return true;
                     }
-                } elseif ((bool)strcmp($item, $this->removeTags($item))
-                    || (bool)strcmp($key, $this->removeTags($key))
+                } elseif ((bool) strcmp($item, $this->removeTags($item))
+                    || (bool) strcmp($key, $this->removeTags($key))
                 ) {
                     if (!$skipTags && !in_array($key, $arrayKeys)) {
                         continue;
@@ -477,7 +482,7 @@ abstract class Mage_Core_Helper_Abstract
             }
             return false;
         } elseif (is_string($data)) {
-            if ((bool)strcmp($data, $this->removeTags($data))) {
+            if ((bool) strcmp($data, $this->removeTags($data))) {
                 return true;
             }
         }

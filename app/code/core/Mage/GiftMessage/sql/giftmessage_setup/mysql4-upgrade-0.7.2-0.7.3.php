@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -19,7 +19,7 @@ $installer = $this;
 
 $pathesForReplace = [
     'sales/gift_messages/allow_order' => 'sales/gift_options/allow_order',
-    'sales/gift_messages/allow_items' => 'sales/gift_options/allow_items'
+    'sales/gift_messages/allow_items' => 'sales/gift_options/allow_items',
 ];
 
 foreach ($pathesForReplace as $from => $to) {
@@ -27,7 +27,7 @@ foreach ($pathesForReplace as $from => $to) {
         "UPDATE `%s` SET `path` = '%s' WHERE `path` = '%s'",
         $this->getTable('core/config_data'),
         $to,
-        $from
+        $from,
     ));
 }
 

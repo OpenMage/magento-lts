@@ -241,7 +241,7 @@ $privacyPageData = [
     'content'         => $pageContent,
     'is_active'       => 1,
     'stores'          => [0],
-    'sort_order'      => 0
+    'sort_order'      => 0,
 ];
 
 Mage::getModel('cms/page')->setData($privacyPageData)->save();

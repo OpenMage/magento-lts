@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         if ($store = $this->getRequest()->getParam('store')) {
             $websiteId = Mage::app()->getStore($store)->getWebsiteId();
         }
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_ProductAlert')) {
+        if ($this->isModuleEnabled('Mage_ProductAlert', 'catalog')) {
             $collection = Mage::getModel('productalert/price')
                 ->getCustomerCollection()
                 ->join($productId, $websiteId);
@@ -81,13 +81,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         $this->addColumn('add_date', [
             'header'    => Mage::helper('catalog')->__('Date Subscribed'),
             'index'     => 'add_date',
-            'type'      => 'date'
+            'type'      => 'date',
         ]);
 
         $this->addColumn('last_send_date', [
             'header'    => Mage::helper('catalog')->__('Last Notification'),
             'index'     => 'last_send_date',
-            'type'      => 'date'
+            'type'      => 'date',
         ]);
 
         $this->addColumn('send_count', [
@@ -107,7 +107,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         }
         return $this->getUrl('*/catalog_product/alertsPriceGrid', [
             'id'    => $productId,
-            'store' => $storeId
+            'store' => $storeId,
         ]);
     }
 }

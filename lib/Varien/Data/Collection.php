@@ -63,7 +63,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Current page number for items pager
      *
-     * @var int
+     * @var int|null
      */
     protected $_curPage = 1;
 
@@ -72,7 +72,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * if page size is false, then we works with all items
      *
-     * @var int | false
+     * @var int|false|null
      */
     protected $_pageSize = false;
 
@@ -103,9 +103,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     protected $_flags = [];
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Add collection filter
@@ -486,7 +484,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Set current page
      *
-     * @param   int $page
+     * @param   int|null $page
      * @return  $this
      */
     public function setCurPage($page)
@@ -498,7 +496,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Set collection page size
      *
-     * @param   int $size
+     * @param   int|null $size
      * @return  $this
      */
     public function setPageSize($size)
@@ -629,9 +627,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         foreach ($this as $item) {
             $xml .= $item->toXml();
         }
-        $xml .= '</items>
+        return $xml . '</items>
         </collection>';
-        return $xml;
     }
 
     /**

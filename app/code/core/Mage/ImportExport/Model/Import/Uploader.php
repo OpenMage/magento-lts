@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         'jpg' => 'image/jpeg',
         'jpeg' => 'image/jpeg',
         'gif' => 'image/gif',
-        'png' => 'image/png'
+        'png' => 'image/png',
     ];
     public const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
@@ -56,12 +56,12 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         $this->addValidateCallback(
             'catalog_product_image',
             Mage::helper('catalog/image'),
-            'validateUploadFile'
+            'validateUploadFile',
         );
         $this->addValidateCallback(
             Mage_Core_Model_File_Validator_Image::NAME,
             Mage::getModel('core/file_validator_image'),
-            'validate'
+            'validate',
         );
         $this->_uploadType = self::SINGLE_STYLE;
     }
@@ -112,7 +112,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             'type' => $this->_getMimeTypeByExt($fileInfo['extension']),
             'tmp_name' => $filePath,
             'error' => 0,
-            'size' => filesize($filePath)
+            'size' => filesize($filePath),
         ];
     }
 

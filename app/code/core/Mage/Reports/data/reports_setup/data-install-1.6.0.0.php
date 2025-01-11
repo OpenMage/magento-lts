@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,28 +24,28 @@ $installer->startSetup();
 $eventTypeData = [
     [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW,
-        'event_name'    => 'catalog_product_view'
+        'event_name'    => 'catalog_product_view',
     ],
     [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_SEND,
-        'event_name'    => 'sendfriend_product'
+        'event_name'    => 'sendfriend_product',
     ],
     [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE,
-        'event_name'    => 'catalog_product_compare_add_product'
+        'event_name'    => 'catalog_product_compare_add_product',
     ],
     [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_TO_CART,
-        'event_name'    => 'checkout_cart_add_product'
+        'event_name'    => 'checkout_cart_add_product',
     ],
     [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_TO_WISHLIST,
-        'event_name'    => 'wishlist_add_product'
+        'event_name'    => 'wishlist_add_product',
     ],
     [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_WISHLIST_SHARE,
-        'event_name'    => 'wishlist_share'
-    ]
+        'event_name'    => 'wishlist_share',
+    ],
 ];
 
 foreach ($eventTypeData as $row) {

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,33 +85,33 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
             $this->addExpressionAttributeToSelect(
                 'subtotal',
                 'SUM({{base_subtotal}})',
-                ['base_subtotal']
+                ['base_subtotal'],
             )
             ->addExpressionAttributeToSelect(
                 'discount',
                 'SUM({{base_discount_amount}})',
-                ['base_discount_amount']
+                ['base_discount_amount'],
             )
             ->addExpressionAttributeToSelect(
                 'total',
                 'SUM({{base_subtotal}}-{{base_discount_amount}})',
-                ['base_subtotal', 'base_discount_amount']
+                ['base_subtotal', 'base_discount_amount'],
             );
         } else {
             $this->addExpressionAttributeToSelect(
                 'subtotal',
                 'SUM({{base_subtotal}}*{{base_to_global_rate}})',
-                ['base_subtotal', 'base_to_global_rate']
+                ['base_subtotal', 'base_to_global_rate'],
             )
             ->addExpressionAttributeToSelect(
                 'discount',
                 'SUM({{base_discount_amount}}*{{base_to_global_rate}})',
-                ['base_discount_amount', 'base_to_global_rate']
+                ['base_discount_amount', 'base_to_global_rate'],
             )
             ->addExpressionAttributeToSelect(
                 'total',
                 'SUM(({{base_subtotal}}-{{base_discount_amount}})*{{base_to_global_rate}})',
-                ['base_subtotal', 'base_discount_amount', 'base_to_global_rate']
+                ['base_subtotal', 'base_discount_amount', 'base_to_global_rate'],
             );
         }
     }

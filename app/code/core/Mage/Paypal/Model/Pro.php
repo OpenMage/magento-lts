@@ -245,7 +245,7 @@ class Mage_Paypal_Model_Pro
             ;
             $canRefundMore = $payment->getCreditmemo()->getInvoice()->canRefund();
             $isFullRefund = !$canRefundMore
-                && (((float)$order->getBaseTotalOnlineRefunded() + (float)$order->getBaseTotalOfflineRefunded()) == 0);
+                && (((float) $order->getBaseTotalOnlineRefunded() + (float) $order->getBaseTotalOfflineRefunded()) == 0);
             $api->setRefundType($isFullRefund ? Mage_Paypal_Model_Config::REFUND_TYPE_FULL
                 : Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL);
             $api->callRefundTransaction();
@@ -384,9 +384,7 @@ class Mage_Paypal_Model_Pro
     /**
      * Update RP data
      */
-    public function updateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
-    {
-    }
+    public function updateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile) {}
 
     /**
      * Manage status

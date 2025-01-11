@@ -43,12 +43,12 @@ class AddressesTest extends TestCase
             ->setMethods(['getRegistryCurrentCustomer', 'isReadonly'])
             ->getMock();
 
-        $mock->expects($this->any())
+        $mock
             ->method('getRegistryCurrentCustomer')
             // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             ->willReturn(new Mage_Customer_Model_Customer());
 
-        $mock->expects($this->any())
+        $mock
             ->method('isReadonly')
             ->willReturn(true);
 

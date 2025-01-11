@@ -47,7 +47,7 @@ class SalesTest extends TestCase
     {
         yield 'test #1' => [
             '&lt;a href=&quot;https://localhost&quot;&gt;',
-            '<a href="https://localhost">'
+            '<a href="https://localhost">',
         ];
     }
 }

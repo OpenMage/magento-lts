@@ -60,7 +60,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
         $this->getSelect()->joinLeft(
             ['subscriber' => $this->getTable('newsletter/subscriber')],
             'main_table.subscriber_id = subscriber.subscriber_id',
-            ['subscriber_email','customer_id','subscriber_status']
+            ['subscriber_email','customer_id','subscriber_status'],
         );
         $this->addFilterToMap('subscriber_id', 'main_table.subscriber_id');
         $this->_subscribersInfoJoinedFlag = true;
@@ -78,12 +78,12 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
         $this->getSelect()->joinLeft(
             ['queue' => $this->getTable('newsletter/queue')],
             'main_table.queue_id = queue.queue_id',
-            ['queue_start_at', 'queue_finish_at']
+            ['queue_start_at', 'queue_finish_at'],
         )
         ->joinLeft(
             ['template' => $this->getTable('newsletter/template')],
             'queue.template_id = template.template_id',
-            ['template_subject','template_code','template_sender_name','template_sender_email']
+            ['template_subject','template_code','template_sender_name','template_sender_email'],
         );
         return $this;
     }

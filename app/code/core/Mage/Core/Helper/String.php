@@ -157,7 +157,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param bool $trim
      * @param string $wordSeparatorRegex
      * @return array
-     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function str_split($str, $length = 1, $keepWords = false, $trim = false, $wordSeparatorRegex = '\s')

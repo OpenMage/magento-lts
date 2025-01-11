@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
             'store_id'  => Mage::app()->getStore()->getId(),
             'area'      => Mage::getSingleton('core/design_package')->getArea(),
             'package'   => Mage::getSingleton('core/design_package')->getPackageName(),
-            'theme'     => Mage::getSingleton('core/design_package')->getTheme('layout')
+            'theme'     => Mage::getSingleton('core/design_package')->getTheme('layout'),
         ];
 
         foreach ($params as $key => $value) {
@@ -58,7 +58,7 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
                 ->join(
                     ['link' => $this->getTable('core/layout_link')],
                     'link.layout_update_id=layout_update.layout_update_id',
-                    ''
+                    '',
                 )
                 ->where('link.store_id IN (0, :store_id)')
                 ->where('link.area = :area')

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -19,11 +19,11 @@ $installer = $this;
 $installer->getConnection()->insert(
     $installer->getTable('core/config_data'),
     [
-       'scope'    => 'default',
-       'scope_id' => 0,
-       'path'     => Mage_Directory_Helper_Data::XML_PATH_DISPLAY_ALL_STATES,
-       'value'    => 1
-    ]
+        'scope'    => 'default',
+        'scope_id' => 0,
+        'path'     => Mage_Directory_Helper_Data::XML_PATH_DISPLAY_ALL_STATES,
+        'value'    => 1,
+    ],
 );
 
 $countries = [];
@@ -39,6 +39,6 @@ $installer->getConnection()->insert(
         'scope'    => 'default',
         'scope_id' => 0,
         'path'     => Mage_Directory_Helper_Data::XML_PATH_STATES_REQUIRED,
-        'value'    => implode(',', $countries)
-    ]
+        'value'    => implode(',', $countries),
+    ],
 );

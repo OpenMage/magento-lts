@@ -87,7 +87,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
             'width'                         => '100%',
             'plugins'                       => [],
-            'lang'                          => $lang
+            'lang'                          => $lang,
         ]);
         $config->setData('directives_url_quoted', preg_quote($config->getDataByKey('directives_url')));
 

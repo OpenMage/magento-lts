@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget
             'align'         => 'left',
             'index'         => 'name',
             'filter_index'  => 'main_table.name',
-            'renderer'      => 'adminhtml/system_store_grid_render_website'
+            'renderer'      => 'adminhtml/system_store_grid_render_website',
         ]);
 
         $this->addColumn('group_title', [
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget
             'align'         => 'left',
             'index'         => 'group_title',
             'filter_index'  => 'group_table.name',
-            'renderer'      => 'adminhtml/system_store_grid_render_group'
+            'renderer'      => 'adminhtml/system_store_grid_render_group',
         ]);
 
         $this->addColumn('store_title', [
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_System_Store_Grid extends Mage_Adminhtml_Block_Widget
             'align'         => 'left',
             'index'         => 'store_title',
             'filter_index'  => 'store_table.name',
-            'renderer'      => 'adminhtml/system_store_grid_render_store'
+            'renderer'      => 'adminhtml/system_store_grid_render_store',
         ]);
 
         return parent::_prepareColumns();

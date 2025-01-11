@@ -21,7 +21,7 @@ $installer->startSetup();
 $installer->getConnection()->addColumn(
     $installer->getTable('core_email_template'),
     'template_styles',
-    'text AFTER `template_text`'
+    'text AFTER `template_text`',
 );
 
 $installer->endSetup();

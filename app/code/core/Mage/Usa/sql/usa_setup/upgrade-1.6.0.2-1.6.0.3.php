@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@ foreach ($this->getConnection()->fetchAll($select) as $configRow) {
         $this->getTable('core/config_data'),
         $row,
         [
-            'config_id = ?' => $configRow['config_id']
-        ]
+            'config_id = ?' => $configRow['config_id'],
+        ],
     );
 }

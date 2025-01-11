@@ -262,7 +262,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             return Mage::app()->getStore()->getId();
         }
-        return (int)$this->_getData('store_id');
+        return (int) $this->_getData('store_id');
     }
 
     /**
@@ -901,8 +901,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } else {
             foreach ($this->getItemsCollection() as $item) {
                 if ($item->getId() == $itemId) {
-                    $quoteItem = $item;
-                    return $quoteItem;
+                    return $item;
                 }
             }
         }
@@ -1006,7 +1005,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
          */
         if ($item->isNominal() && $this->hasItems() || $this->hasNominalItems()) {
             Mage::throwException(
-                Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.')
+                Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.'),
             );
         }
 
@@ -1113,7 +1112,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return $this->addProductAdvanced(
             $product,
             $request,
-            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL,
         );
     }
 
@@ -1429,10 +1428,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setBaseSubtotal((float) $this->getBaseSubtotal() + $address->getBaseSubtotal());
 
             $this->setSubtotalWithDiscount(
-                (float) $this->getSubtotalWithDiscount() + $address->getSubtotalWithDiscount()
+                (float) $this->getSubtotalWithDiscount() + $address->getSubtotalWithDiscount(),
             );
             $this->setBaseSubtotalWithDiscount(
-                (float) $this->getBaseSubtotalWithDiscount() + $address->getBaseSubtotalWithDiscount()
+                (float) $this->getBaseSubtotalWithDiscount() + $address->getBaseSubtotalWithDiscount(),
             );
 
             $this->setGrandTotal((float) $this->getGrandTotal() + $address->getGrandTotal());
@@ -1848,9 +1847,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_before',
             [
-                 $this->_eventObject => $this,
-                 'source' => $quote
-            ]
+                $this->_eventObject => $this,
+                'source' => $quote,
+            ],
         );
 
         foreach ($quote->getAllVisibleItems() as $item) {
@@ -1891,9 +1890,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_after',
             [
-                 $this->_eventObject => $this,
-                 'source' => $quote
-            ]
+                $this->_eventObject => $this,
+                'source' => $quote,
+            ],
         );
 
         return $this;
@@ -2072,7 +2071,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     public function getCouponCode(): string
     {
-        return (string)$this->_getData('coupon_code');
+        return (string) $this->_getData('coupon_code');
     }
 
     /**
