@@ -491,7 +491,7 @@ final class Mage
      * Add observer to events object
      *
      * @param string $eventName
-     * @param callback $callback
+     * @param callable $callback
      * @param array $data
      * @param string $observerName
      * @param class-string|'' $observerClass
