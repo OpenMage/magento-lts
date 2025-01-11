@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Header extends Mage_Adminhtml_Bloc
         if ($this->_getSession()->getOrder()->getId()) {
             return '<h3 class="icon-head head-sales-order">' . Mage::helper('sales')->__(
                 'Edit Order #%s',
-                $this->escapeHtml($this->_getSession()->getOrder()->getIncrementId())
+                $this->escapeHtml($this->_getSession()->getOrder()->getIncrementId()),
             ) . '</h3>';
         }
 
@@ -46,7 +46,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Header extends Mage_Adminhtml_Bloc
             $out .= Mage::helper('sales')->__('Create New Order');
         }
         $out = $this->escapeHtml($out);
-        $out = '<h3 class="icon-head head-sales-order">' . $out . '</h3>';
-        return $out;
+        return '<h3 class="icon-head head-sales-order">' . $out . '</h3>';
     }
 }

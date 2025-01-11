@@ -86,7 +86,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function getAttribute($name)
     {
         $attrs = $this->attributes();
-        return isset($attrs[$name]) ? (string)$attrs[$name] : null;
+        return isset($attrs[$name]) ? (string) $attrs[$name] : null;
     }
 
     /*
@@ -166,7 +166,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 $attributeValue = trim($attributeValue, '"');
                 $found = false;
                 foreach ($desc->$nodeName as $subdesc) {
-                    if ((string)$subdesc[$attributeName] === $attributeValue) {
+                    if ((string) $subdesc[$attributeName] === $attributeValue) {
                         $found = true;
                         $desc = $subdesc;
                         break;
@@ -217,7 +217,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             // add attributes
             foreach ($this->attributes() as $attributeName => $attribute) {
                 if ($attribute) {
-                    $result['@'][$attributeName] = (string)$attribute;
+                    $result['@'][$attributeName] = (string) $attribute;
                 }
             }
         }
@@ -259,7 +259,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
 
         if ($attributes = $this->attributes()) {
             foreach ($attributes as $key => $value) {
-                $out .= ' ' . $key . '="' . str_replace('"', '\"', (string)$value) . '"';
+                $out .= ' ' . $key . '="' . str_replace('"', '\"', (string) $value) . '"';
             }
         }
 
@@ -270,7 +270,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             }
             $out .= $pad . '</' . $this->getName() . '>' . $nl;
         } else {
-            $value = (string)$this;
+            $value = (string) $this;
             if (strlen($value)) {
                 $out .= '>' . $this->xmlentities($value) . '</' . $this->getName() . '>' . $nl;
             } else {
@@ -310,15 +310,13 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         if (is_null($value)) {
             $value = $this;
         }
-        $value = (string)$value;
+        $value = (string) $value;
 
-        $value = str_replace(
+        return str_replace(
             ['&', '"', "'", '<', '>'],
             ['&amp;', '&quot;', '&apos;', '&lt;', '&gt;'],
-            $value
+            $value,
         );
-
-        return $value;
     }
 
     /**

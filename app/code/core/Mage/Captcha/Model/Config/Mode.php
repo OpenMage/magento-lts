@@ -32,11 +32,11 @@ class Mage_Captcha_Model_Config_Mode
         return [
             [
                 'label' => Mage::helper('captcha')->__('Always'),
-                'value' => Mage_Captcha_Helper_Data::MODE_ALWAYS
+                'value' => Mage_Captcha_Helper_Data::MODE_ALWAYS,
             ],
             [
                 'label' => Mage::helper('captcha')->__('After number of attempts to login'),
-                'value' => Mage_Captcha_Helper_Data::MODE_AFTER_FAIL
+                'value' => Mage_Captcha_Helper_Data::MODE_AFTER_FAIL,
             ],
         ];
     }

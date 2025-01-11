@@ -105,7 +105,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
 
         $this->_joinFields[$alias] = [
             'table' => $this->_getInventoryItemTableAlias(),
-            'field' => $field
+            'field' => $field,
         ];
 
         $this->getSelect()->columns([$alias => $field], $this->_getInventoryItemTableAlias());
@@ -138,9 +138,9 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
                 sprintf(
                     'e.%s = %s.product_id',
                     $this->getEntity()->getEntityIdField(),
-                    $this->_getInventoryItemTableAlias()
+                    $this->_getInventoryItemTableAlias(),
                 ),
-                []
+                [],
             );
             $this->_inventoryItemJoined = true;
         }
@@ -173,7 +173,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     {
         if (!is_string($typeFilter) && !is_array($typeFilter)) {
             Mage::throwException(
-                Mage::helper('catalog')->__('Wrong product type filter specified')
+                Mage::helper('catalog')->__('Wrong product type filter specified'),
             );
         }
         $this->addAttributeToFilter('type_id', $typeFilter);
@@ -189,7 +189,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     public function filterByIsQtyProductTypes()
     {
         $this->filterByProductType(
-            array_keys(array_filter(Mage::helper('cataloginventory')->getIsQtyTypeIds()))
+            array_keys(array_filter(Mage::helper('cataloginventory')->getIsQtyTypeIds())),
         );
         return $this;
     }
@@ -205,8 +205,8 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
         $this->joinInventoryItem();
         $manageStockExpr = $this->getConnection()->getCheckSql(
             $this->_getInventoryItemField('use_config_manage_stock') . ' = 1',
-            (string)Mage::getStoreConfigAsInt(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK, $storeId),
-            $this->_getInventoryItemField('manage_stock')
+            (string) Mage::getStoreConfigAsInt(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK, $storeId),
+            $this->_getInventoryItemField('manage_stock'),
         );
         $this->getSelect()->where($manageStockExpr . ' = ?', 1);
         return $this;
@@ -223,8 +223,8 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
         $this->joinInventoryItem(['qty']);
         $notifyStockExpr = $this->getConnection()->getCheckSql(
             $this->_getInventoryItemField('use_config_notify_stock_qty') . ' = 1',
-            (string)Mage::getStoreConfigAsInt(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY, $storeId),
-            $this->_getInventoryItemField('notify_stock_qty')
+            (string) Mage::getStoreConfigAsInt(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY, $storeId),
+            $this->_getInventoryItemField('notify_stock_qty'),
         );
         $this->getSelect()->where('qty < ?', $notifyStockExpr);
         return $this;

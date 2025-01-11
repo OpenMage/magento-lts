@@ -107,7 +107,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      */
     public function setIsComposite($flag)
     {
-        $this->_isComposite = (bool)$flag;
+        $this->_isComposite = (bool) $flag;
         return $this;
     }
 
@@ -150,12 +150,12 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
             ->join(
                 ['cis' => $this->getTable('cataloginventory/stock')],
                 '',
-                ['stock_id']
+                ['stock_id'],
             )
             ->joinLeft(
                 ['cisi' => $this->getTable('cataloginventory/stock_item')],
                 'cisi.stock_id = cis.stock_id AND cisi.product_id = e.entity_id',
-                []
+                [],
             )
             ->columns(['qty' => $qtyExpr])
             ->where('cw.website_id != 0')
@@ -169,13 +169,13 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
                 '1',
-                'cisi.is_in_stock'
+                'cisi.is_in_stock',
             );
         } else {
             $statusExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
                 'cisi.is_in_stock',
-                '1'
+                '1',
             );
         }
 
@@ -224,11 +224,11 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $i++;
             $data[] = [
-                'product_id'    => (int)$row['entity_id'],
-                'website_id'    => (int)$row['website_id'],
-                'stock_id'      => (int)$row['stock_id'],
-                'qty'           => (float)$row['qty'],
-                'stock_status'  => (int)$row['status'],
+                'product_id'    => (int) $row['entity_id'],
+                'website_id'    => (int) $row['website_id'],
+                'stock_id'      => (int) $row['stock_id'],
+                'qty'           => (float) $row['qty'],
+                'stock_status'  => (int) $row['status'],
             ];
             if (($i % 1000) == 0) {
                 $this->_updateIndexTable($data);

@@ -53,18 +53,18 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
         $select = $write->select()
             ->from(
                 ['pdd' => $this->getValueTable('catalog/product', 'decimal')],
-                ['entity_id', 'attribute_id']
+                ['entity_id', 'attribute_id'],
             )
             ->join(
                 ['cs' => $this->getTable('core/store')],
                 '',
-                ['store_id']
+                ['store_id'],
             )
             ->joinLeft(
                 ['pds' => $this->getValueTable('catalog/product', 'decimal')],
                 'pds.entity_id = pdd.entity_id AND pds.attribute_id = pdd.attribute_id'
                     . ' AND pds.store_id=cs.store_id',
-                ['value' => $productValueExpression]
+                ['value' => $productValueExpression],
             )
             ->where('pdd.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
             ->where('cs.store_id != ? AND cs.is_active=1', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
             'select'        => $select,
             'entity_field'  => new Zend_Db_Expr('pdd.entity_id'),
             'website_field' => new Zend_Db_Expr('cs.website_id'),
-            'store_field'   => new Zend_Db_Expr('cs.store_id')
+            'store_field'   => new Zend_Db_Expr('cs.store_id'),
         ]);
 
         $query = $select->insertFromSelect($idxTable);
@@ -107,7 +107,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
             ->join(
                 ['ea' => $this->getTable('eav/attribute')],
                 'ca.attribute_id = ea.attribute_id',
-                []
+                [],
             )
             ->where('ea.attribute_code != ?', 'price')
             ->where($this->_getIndexableAttributesCondition())

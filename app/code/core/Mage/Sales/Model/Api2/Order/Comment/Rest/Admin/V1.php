@@ -76,7 +76,7 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
     protected function _retrieve()
     {
         $comment = Mage::getModel('sales/order_status_history')->load(
-            $this->getRequest()->getParam(self::PARAM_COMMENT_ID)
+            $this->getRequest()->getParam(self::PARAM_COMMENT_ID),
         );
 
         if (!$comment->getId()) {

@@ -331,7 +331,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     protected function _populateBeforeSaveData()
     {
         if ($this->getQuote()) {
-            $this->_dataSaveAllowed = (bool)$this->getQuote()->getId();
+            $this->_dataSaveAllowed = (bool) $this->getQuote()->getId();
 
             if ($this->getQuote()->getId()) {
                 $this->setQuoteId($this->getQuote()->getId());
@@ -350,7 +350,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
              * and it is not equal billing address
              */
             if (!$this->getId()) {
-                $this->setSameAsBilling((int)$this->_isSameAsBilling());
+                $this->setSameAsBilling((int) $this->_isSameAsBilling());
             }
         }
     }
@@ -591,9 +591,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
             $this->_nominalOnly = $wasNominal; // Restore original value before we changed it
         }
-
-        $items = $this->getData($key);
-        return $items;
+        return $this->getData($key);
     }
 
     /**
@@ -864,9 +862,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     protected function _sortRates($a, $b)
     {
-        if ((int)$a[0]->carrier_sort_order < (int)$b[0]->carrier_sort_order) {
+        if ((int) $a[0]->carrier_sort_order < (int) $b[0]->carrier_sort_order) {
             return -1;
-        } elseif ((int)$a[0]->carrier_sort_order > (int)$b[0]->carrier_sort_order) {
+        } elseif ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
             return 1;
         } else {
             return 0;
@@ -1060,7 +1058,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if ($this->_totalCollector === null) {
             $this->_totalCollector = Mage::getSingleton(
                 'sales/quote_address_total_collector',
-                ['store' => $this->getQuote()->getStore()]
+                ['store' => $this->getQuote()->getStore()],
             );
         }
         return $this->_totalCollector;
@@ -1337,6 +1335,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
     public function getCouponCode(): string
     {
-        return (string)$this->_getData('coupon_code');
+        return (string) $this->_getData('coupon_code');
     }
 }

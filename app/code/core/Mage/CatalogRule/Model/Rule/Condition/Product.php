@@ -42,7 +42,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $result = $this->_validateProduct($object);
         $this->_restoreOldAttrValue($object, $oldAttrValue);
 
-        return (bool)$result;
+        return (bool) $result;
     }
 
     /**
@@ -88,9 +88,8 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $value = $productValues[$storeId] ?? $defaultValue;
 
         $value = $this->_prepareDatetimeValue($value, $object);
-        $value = $this->_prepareMultiselectValue($value, $object);
 
-        return $value;
+        return $this->_prepareMultiselectValue($value, $object);
     }
 
     /**

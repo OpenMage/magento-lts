@@ -287,8 +287,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     protected function _prepareQty($qty)
     {
         $qty = Mage::app()->getLocale()->getNumber($qty);
-        $qty = ($qty > 0) ? $qty : 1;
-        return $qty;
+        return ($qty > 0) ? $qty : 1;
     }
 
     /**
@@ -423,7 +422,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
         Mage::dispatchEvent('sales_quote_item_set_product', [
             'product' => $product,
-            'quote_item' => $this
+            'quote_item' => $this,
         ]);
 
         return $this;

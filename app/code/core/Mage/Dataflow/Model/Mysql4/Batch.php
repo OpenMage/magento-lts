@@ -21,6 +21,4 @@
  * @package    Mage_Dataflow
  * @deprecated
  */
-class Mage_Dataflow_Model_Mysql4_Batch extends Mage_Dataflow_Model_Resource_Batch
-{
-}
+class Mage_Dataflow_Model_Mysql4_Batch extends Mage_Dataflow_Model_Resource_Batch {}

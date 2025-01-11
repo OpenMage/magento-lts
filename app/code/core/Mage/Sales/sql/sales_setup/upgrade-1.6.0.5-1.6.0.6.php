@@ -19,7 +19,7 @@ $installer = $this;
 
 $entitiesToAlter = [
     'quote_address',
-    'order_address'
+    'order_address',
 ];
 
 $attributes = [
@@ -27,7 +27,7 @@ $attributes = [
     'vat_is_valid' => ['type' => Varien_Db_Ddl_Table::TYPE_SMALLINT],
     'vat_request_id' => ['type' => Varien_Db_Ddl_Table::TYPE_TEXT],
     'vat_request_date' => ['type' => Varien_Db_Ddl_Table::TYPE_TEXT],
-    'vat_request_success' => ['type' => Varien_Db_Ddl_Table::TYPE_SMALLINT]
+    'vat_request_success' => ['type' => Varien_Db_Ddl_Table::TYPE_SMALLINT],
 ];
 
 foreach ($entitiesToAlter as $entityName) {

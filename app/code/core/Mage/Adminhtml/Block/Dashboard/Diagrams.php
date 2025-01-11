@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Dashboard_Diagrams extends Mage_Adminhtml_Block_Widge
         $this->addTab('orders', [
             'label'     => $this->__('Orders'),
             'content'   => $this->getLayout()->createBlock('adminhtml/dashboard_tab_orders')->toHtml(),
-            'active'    => true
+            'active'    => true,
         ]);
 
         $this->addTab('amounts', [

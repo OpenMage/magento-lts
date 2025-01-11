@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
             ->createBlock('adminhtml/widget_button')
             ->setData([
                 'label'   => Mage::helper('sales')->__('Show Packages'),
-                'onclick' => 'showPackedWindow();'
+                'onclick' => 'showPackedWindow();',
             ])
             ->toHtml();
     }

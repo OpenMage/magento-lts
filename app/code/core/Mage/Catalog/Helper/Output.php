@@ -133,12 +133,10 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
             }
         }
 
-        $attributeHtml = $this->process('productAttribute', $attributeHtml, [
+        return $this->process('productAttribute', $attributeHtml, [
             'product'   => $product,
-            'attribute' => $attributeName
+            'attribute' => $attributeName,
         ]);
-
-        return $attributeHtml;
     }
 
     /**
@@ -164,10 +162,9 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
                 $attributeHtml = $this->_getTemplateProcessor()->filter($attributeHtml);
             }
         }
-        $attributeHtml = $this->process('categoryAttribute', $attributeHtml, [
+        return $this->process('categoryAttribute', $attributeHtml, [
             'category'  => $category,
-            'attribute' => $attributeName
+            'attribute' => $attributeName,
         ]);
-        return $attributeHtml;
     }
 }

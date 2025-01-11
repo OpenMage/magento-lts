@@ -82,16 +82,16 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         $select = $this->_getReadAdapter()->select();
         $select->from(
             ['p' => $this->getTable('catalog/product')],
-            [new Zend_Db_Expr('DISTINCT p.entity_id')]
+            [new Zend_Db_Expr('DISTINCT p.entity_id')],
         )
             ->joinInner(
                 ['cpf' => $this->getTable('catalog/product_flat') . '_' . $storeId],
                 'cpf.entity_id = p.entity_id',
-                []
+                [],
             )->joinLeft(
                 ['ccp' => $this->getTable('catalog/category_product')],
                 'ccp.product_id = p.entity_id',
-                []
+                [],
             );
 
         $where = $condition->prepareConditionSql();
@@ -138,14 +138,14 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                 foreach ($entityIds as $entityId) {
                     $data[] = [
                         $entityInfo['entity_id_field'] => $entityId,
-                        $entityInfo['rule_id_field'] => $ruleId
+                        $entityInfo['rule_id_field'] => $ruleId,
                     ];
                     $count++;
                     if (($count % 1000) == 0) {
                         $adapter->insertOnDuplicate(
                             $this->getTable($entityInfo['associations_table']),
                             $data,
-                            [$entityInfo['rule_id_field']]
+                            [$entityInfo['rule_id_field']],
                         );
                         $data = [];
                     }
@@ -155,7 +155,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                 $adapter->insertOnDuplicate(
                     $this->getTable($entityInfo['associations_table']),
                     $data,
-                    [$entityInfo['rule_id_field']]
+                    [$entityInfo['rule_id_field']],
                 );
             }
 
@@ -163,7 +163,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                 $adapter->delete(
                     $this->getTable($entityInfo['associations_table']),
                     $adapter->quoteInto($entityInfo['rule_id_field'] . ' IN (?) AND ', $ruleIds) .
-                    $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)', $entityIds)
+                    $adapter->quoteInto($entityInfo['entity_id_field'] . ' NOT IN (?)', $entityIds),
                 );
             }
 
@@ -191,10 +191,10 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         $entityInfo = $this->_getAssociatedEntityInfo($entityType);
 
         if (!is_array($entityIds)) {
-            $entityIds = [(int)$entityIds];
+            $entityIds = [(int) $entityIds];
         }
         if (!is_array($ruleIds)) {
-            $ruleIds = [(int)$ruleIds];
+            $ruleIds = [(int) $ruleIds];
         }
 
         $where = [];
@@ -267,7 +267,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
 
         throw Mage::exception(
             'Mage_Core',
-            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
+            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType),
         );
     }
 }

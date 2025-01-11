@@ -51,11 +51,11 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
-            'index'     => 'variable_id'
+            'index'     => 'variable_id',
         ]);
         $this->addColumn('variable_name', [
             'header'    => Mage::helper('adminhtml')->__('Variable'),
-            'index'     => 'variable_name'
+            'index'     => 'variable_name',
         ]);
         $this->addColumn('is_allowed', [
             'header'    => Mage::helper('adminhtml')->__('Status'),
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
             'options'   => [
                 '1' => Mage::helper('adminhtml')->__('Allowed'),
                 '0' => Mage::helper('adminhtml')->__('Not allowed')],
-            ]);
+        ]);
 
         return parent::_prepareColumns();
     }

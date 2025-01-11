@@ -37,7 +37,7 @@ class Mage_Customer_Block_Widget_Taxvat extends Mage_Customer_Block_Widget_Abstr
      */
     public function isEnabled()
     {
-        return (bool)$this->_getAttribute('taxvat')->getIsVisible();
+        return (bool) $this->_getAttribute('taxvat')->getIsVisible();
     }
 
     /**
@@ -45,7 +45,7 @@ class Mage_Customer_Block_Widget_Taxvat extends Mage_Customer_Block_Widget_Abstr
      */
     public function isRequired()
     {
-        return (bool)$this->_getAttribute('taxvat')->getIsRequired();
+        return (bool) $this->_getAttribute('taxvat')->getIsRequired();
     }
 
     /**

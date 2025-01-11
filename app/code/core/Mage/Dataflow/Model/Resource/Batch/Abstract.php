@@ -37,8 +37,7 @@ abstract class Mage_Dataflow_Model_Resource_Batch_Abstract extends Mage_Core_Mod
         $select = $this->_getWriteAdapter()->select()
             ->from($this->getMainTable(), [$this->getIdFieldName()])
             ->where('batch_id = :batch_id');
-        $ids = $this->_getWriteAdapter()->fetchCol($select, ['batch_id' => $object->getBatchId()]);
-        return $ids;
+        return $this->_getWriteAdapter()->fetchCol($select, ['batch_id' => $object->getBatchId()]);
     }
 
     /**

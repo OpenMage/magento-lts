@@ -27,7 +27,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
         $this->_init('salesrule/coupon', 'coupon_id');
         $this->addUniqueField([
             'field' => 'code',
-            'title' => Mage::helper('salesrule')->__('Coupon with the same code')
+            'title' => Mage::helper('salesrule')->__('Coupon with the same code'),
         ]);
     }
 
@@ -64,7 +64,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
         if ($rule instanceof Mage_SalesRule_Model_Rule) {
             $ruleId = $rule->getId();
         } else {
-            $ruleId = (int)$rule;
+            $ruleId = (int) $rule;
         }
 
         $select = $read->select()->from($this->getMainTable())
@@ -133,7 +133,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
             $this->_getWriteAdapter()->update(
                 $this->getTable('salesrule/coupon'),
                 $updateArray,
-                ['rule_id = ?' => $rule->getId()]
+                ['rule_id = ?' => $rule->getId()],
             );
         }
 

@@ -125,7 +125,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Disconnect
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function disconnect()
     {
@@ -382,7 +382,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Process response body
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function processResponseBody()
     {
@@ -436,7 +436,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * @param string $uri
      * @param array $params
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function makeRequest($method, $uri, $params = [])
     {

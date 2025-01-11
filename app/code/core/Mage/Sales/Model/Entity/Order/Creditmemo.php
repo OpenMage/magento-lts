@@ -27,7 +27,7 @@ class Mage_Sales_Model_Entity_Order_Creditmemo extends Mage_Eav_Model_Entity_Abs
         $resource = Mage::getSingleton('core/resource');
         $this->setType('creditmemo')->setConnection(
             $resource->getConnection('sales_read'),
-            $resource->getConnection('sales_write')
+            $resource->getConnection('sales_write'),
         );
     }
 }

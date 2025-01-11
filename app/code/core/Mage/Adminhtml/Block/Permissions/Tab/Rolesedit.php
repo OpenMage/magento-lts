@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             // Fallback resource permissions
             $permissions = $this->_getFallbackHelper()->fallbackResourcePermissions(
                 $resourcesPermissionsMap,
-                $undefinedResourceId
+                $undefinedResourceId,
             );
             if ($permissions == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED) {
                 $selrids[] = $undefinedResourceId;
@@ -167,9 +167,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         $selres = $this->getSelectedResources();
 
         if ($level != 0) {
-            $item['text'] = Mage::helper('adminhtml')->__((string)$node->title);
-            $item['sort_order'] = isset($node->sort_order) ? (string)$node->sort_order : 0;
-            $item['id'] = (string)$node->attributes()->aclpath;
+            $item['text'] = Mage::helper('adminhtml')->__((string) $node->title);
+            $item['sort_order'] = isset($node->sort_order) ? (string) $node->sort_order : 0;
+            $item['id'] = (string) $node->attributes()->aclpath;
 
             if (in_array($item['id'], $selres)) {
                 $item['checked'] = true;
@@ -189,7 +189,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             //$item['cls'] = 'fiche-node';
             foreach ($children as $child) {
                 if ($child->getName() != 'title' && $child->getName() != 'sort_order') {
-                    if (!(string)$child->title) {
+                    if (!(string) $child->title) {
                         continue;
                     }
                     if ($level != 0) {

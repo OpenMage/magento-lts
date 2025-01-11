@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_GiftMessage
  */
-class Mage_GiftMessage_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
-{
-}
+class Mage_GiftMessage_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup {}

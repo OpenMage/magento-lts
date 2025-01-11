@@ -21,17 +21,17 @@ $installer->startSetup();
 // Remove sales foreign keys
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('downloadable_link_purchased'),
-    'FK_DOWNLOADABLE_ORDER_ID'
+    'FK_DOWNLOADABLE_ORDER_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('downloadable_link_purchased'),
-    'FK_DOWNLOADABLE_PURCHASED_ORDER_ITEM_ID'
+    'FK_DOWNLOADABLE_PURCHASED_ORDER_ITEM_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('downloadable_link_purchased_item'),
-    'FK_DOWNLOADABLE_ORDER_ITEM_ID'
+    'FK_DOWNLOADABLE_ORDER_ITEM_ID',
 );
 
 $installer->endSetup();

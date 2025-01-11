@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Sales
  */
-abstract class Mage_Sales_Model_Mysql4_Abstract extends Mage_Sales_Model_Resource_Abstract
-{
-}
+abstract class Mage_Sales_Model_Mysql4_Abstract extends Mage_Sales_Model_Resource_Abstract {}

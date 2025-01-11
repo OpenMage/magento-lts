@@ -44,40 +44,40 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('reports')->__('ID'),
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('review_cnt', [
             'header'    => Mage::helper('reports')->__('Number of Reviews'),
             'width'     => '50px',
             'align'     => 'right',
-            'index'     => 'review_cnt'
+            'index'     => 'review_cnt',
         ]);
 
         $this->addColumn('avg_rating', [
             'header'    => Mage::helper('reports')->__('Avg. Rating'),
             'width'     => '50px',
             'align'     => 'right',
-            'index'     => 'avg_rating'
+            'index'     => 'avg_rating',
         ]);
 
         $this->addColumn('avg_rating_approved', [
             'header'    => Mage::helper('reports')->__('Avg. Approved Rating'),
             'width'     => '50px',
             'align'     => 'right',
-            'index'     => 'avg_rating_approved'
+            'index'     => 'avg_rating_approved',
         ]);
 
         $this->addColumn('last_created', [
             'header'    => Mage::helper('reports')->__('Last Review'),
             'width'     => '150px',
             'index'     => 'last_created',
-            'type'      => 'datetime'
+            'type'      => 'datetime',
         ]);
 
         $this->addColumn('action', [
@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
             'width'     => '100',
             'align'     => 'center',
             'renderer'  => 'adminhtml/report_grid_column_renderer_product',
-            'is_system' => true
+            'is_system' => true,
         ]);
 
         $this->setFilterVisibility(false);

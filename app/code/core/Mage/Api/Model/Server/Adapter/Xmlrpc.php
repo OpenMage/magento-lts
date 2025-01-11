@@ -73,7 +73,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
 
         if ($controller === null) {
             $controller = new Varien_Object(
-                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
+                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()],
             );
 
             $this->setData('controller', $controller);

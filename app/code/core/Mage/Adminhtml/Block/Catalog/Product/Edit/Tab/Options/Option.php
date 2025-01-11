@@ -113,8 +113,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label' => Mage::helper('catalog')->__('Delete Option'),
-                    'class' => 'delete delete-product-option '
-                ])
+                    'class' => 'delete delete-product-option ',
+                ]),
         );
 
         $path = 'global/catalog/product/options/custom/groups';
@@ -123,8 +123,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             $this->setChild(
                 $group->getName() . '_option_type',
                 $this->getLayout()->createBlock(
-                    (string) Mage::getConfig()->getNode($path . '/' . $group->getName() . '/render')
-                )
+                    (string) Mage::getConfig()->getNode($path . '/' . $group->getName() . '/render'),
+                ),
             );
         }
 
@@ -148,7 +148,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
                 'id' => $this->getFieldId() . '_{{id}}_type',
-                'class' => 'select select-product-option-type required-option-select'
+                'class' => 'select select-product-option-type required-option-select',
             ])
             ->setName($this->getFieldName() . '[{{id}}][type]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_product_options_type')->toOptionArray());
@@ -161,7 +161,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
                 'id' => $this->getFieldId() . '_{{id}}_is_require',
-                'class' => 'select'
+                'class' => 'select',
             ])
             ->setName($this->getFieldName() . '[{{id}}][is_require]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
@@ -228,7 +228,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                     $value['checkboxScopeTitle'] = $this->getCheckboxScopeHtml(
                         $option->getOptionId(),
                         'title',
-                        is_null($option->getStoreTitle())
+                        is_null($option->getStoreTitle()),
                     );
                     $value['scopeTitleDisabled'] = is_null($option->getStoreTitle()) ? 'disabled' : null;
                 }
@@ -255,7 +255,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                                 $optionValue->getOptionId(),
                                 'title',
                                 is_null($optionValue->getStoreTitle()),
-                                $optionValue->getOptionTypeId()
+                                $optionValue->getOptionTypeId(),
                             );
                             $value['optionValues'][$i]['scopeTitleDisabled'] = is_null($optionValue->getStoreTitle())
                                 ? 'disabled' : null;
@@ -264,7 +264,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                                     $optionValue->getOptionId(),
                                     'price',
                                     is_null($optionValue->getstorePrice()),
-                                    $optionValue->getOptionTypeId()
+                                    $optionValue->getOptionTypeId(),
                                 );
                                 $value['optionValues'][$i]['scopePriceDisabled'] = is_null($optionValue->getStorePrice())
                                     ? 'disabled' : null;
@@ -287,7 +287,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                         $value['checkboxScopePrice'] = $this->getCheckboxScopeHtml(
                             $option->getOptionId(),
                             'price',
-                            is_null($option->getStorePrice())
+                            is_null($option->getStorePrice()),
                         );
                         $value['scopePriceDisabled'] = is_null($option->getStorePrice()) ? 'disabled' : null;
                     }
@@ -325,9 +325,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             $selectIdHtml . $name . '_use_default" class="product-option-scope-checkbox" name="' .
             $this->getFieldName() . '[' . $id . ']' . $selectNameHtml . '[scope][' . $name . ']" value="1" ' .
             $checkedHtml . '/>';
-        $checkbox .= '<label class="normal" for="' . $this->getFieldId() . '_' . $id . '_' .
-            $selectIdHtml . $name . '_use_default">' . $this->__('Use Default Value') . '</label>';
-        return $checkbox;
+        return $checkbox . ('<label class="normal" for="' . $this->getFieldId() . '_' . $id . '_' .
+            $selectIdHtml . $name . '_use_default">' . $this->__('Use Default Value') . '</label>');
     }
 
     public function getPriceValue($value, $type)

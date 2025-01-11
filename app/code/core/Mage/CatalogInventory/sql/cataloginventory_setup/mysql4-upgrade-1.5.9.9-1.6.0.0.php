@@ -23,27 +23,27 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('cataloginventory/stock_item'),
-    'FK_CATALOGINVENTORY_STOCK_ITEM_PRODUCT'
+    'FK_CATALOGINVENTORY_STOCK_ITEM_PRODUCT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('cataloginventory/stock_item'),
-    'FK_CATALOGINVENTORY_STOCK_ITEM_STOCK'
+    'FK_CATALOGINVENTORY_STOCK_ITEM_STOCK',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('cataloginventory/stock_status'),
-    'FK_CATALOGINVENTORY_STOCK_STATUS_PRODUCT'
+    'FK_CATALOGINVENTORY_STOCK_STATUS_PRODUCT',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('cataloginventory/stock_status'),
-    'FK_CATALOGINVENTORY_STOCK_STATUS_STOCK'
+    'FK_CATALOGINVENTORY_STOCK_STATUS_STOCK',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('cataloginventory/stock_status'),
-    'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE'
+    'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE',
 );
 
 /**
@@ -51,47 +51,47 @@ $installer->getConnection()->dropForeignKey(
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory/stock_item'),
-    'IDX_STOCK_PRODUCT'
+    'IDX_STOCK_PRODUCT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory/stock_item'),
-    'FK_CATALOGINVENTORY_STOCK_ITEM_PRODUCT'
+    'FK_CATALOGINVENTORY_STOCK_ITEM_PRODUCT',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory/stock_item'),
-    'FK_CATALOGINVENTORY_STOCK_ITEM_STOCK'
+    'FK_CATALOGINVENTORY_STOCK_ITEM_STOCK',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory/stock_status'),
-    'FK_CATALOGINVENTORY_STOCK_STATUS_STOCK'
+    'FK_CATALOGINVENTORY_STOCK_STATUS_STOCK',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory/stock_status'),
-    'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE'
+    'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory_stock_status_idx'),
-    'FK_CATALOGINVENTORY_STOCK_STATUS_STOCK'
+    'FK_CATALOGINVENTORY_STOCK_STATUS_STOCK',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory/stock_status_indexer_idx'),
-    'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE'
+    'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory_stock_status_tmp'),
-    'FK_CATALOGINVENTORY_STOCK_STATUS_STOCK'
+    'FK_CATALOGINVENTORY_STOCK_STATUS_STOCK',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory/stock_status_indexer_tmp'),
-    'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE'
+    'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE',
 );
 
 /*
@@ -106,15 +106,15 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Stock Id'
+                'comment'   => 'Stock Id',
             ],
             'stock_name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
-                'comment'   => 'Stock Name'
-            ]
+                'comment'   => 'Stock Name',
+            ],
         ],
-        'comment' => 'Cataloginventory Stock'
+        'comment' => 'Cataloginventory Stock',
     ],
     $installer->getTable('cataloginventory/stock_item') => [
         'columns' => [
@@ -124,21 +124,21 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Item Id'
+                'comment'   => 'Item Id',
             ],
             'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Product Id'
+                'comment'   => 'Product Id',
             ],
             'stock_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Stock Id'
+                'comment'   => 'Stock Id',
             ],
             'qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -146,7 +146,7 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Qty'
+                'comment'   => 'Qty',
             ],
             'min_qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -154,35 +154,35 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Min Qty'
+                'comment'   => 'Min Qty',
             ],
             'use_config_min_qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Use Config Min Qty'
+                'comment'   => 'Use Config Min Qty',
             ],
             'is_qty_decimal' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Is Qty Decimal'
+                'comment'   => 'Is Qty Decimal',
             ],
             'backorders' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Backorders'
+                'comment'   => 'Backorders',
             ],
             'use_config_backorders' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Use Config Backorders'
+                'comment'   => 'Use Config Backorders',
             ],
             'min_sale_qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -190,14 +190,14 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '1.0000',
-                'comment'   => 'Min Sale Qty'
+                'comment'   => 'Min Sale Qty',
             ],
             'use_config_min_sale_qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Use Config Min Sale Qty'
+                'comment'   => 'Use Config Min Sale Qty',
             ],
             'max_sale_qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -205,59 +205,59 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Max Sale Qty'
+                'comment'   => 'Max Sale Qty',
             ],
             'use_config_max_sale_qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Use Config Max Sale Qty'
+                'comment'   => 'Use Config Max Sale Qty',
             ],
             'is_in_stock' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Is In Stock'
+                'comment'   => 'Is In Stock',
             ],
             'low_stock_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Low Stock Date'
+                'comment'   => 'Low Stock Date',
             ],
             'notify_stock_qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
-                'comment'   => 'Notify Stock Qty'
+                'comment'   => 'Notify Stock Qty',
             ],
             'use_config_notify_stock_qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Use Config Notify Stock Qty'
+                'comment'   => 'Use Config Notify Stock Qty',
             ],
             'manage_stock' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Manage Stock'
+                'comment'   => 'Manage Stock',
             ],
             'use_config_manage_stock' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Use Config Manage Stock'
+                'comment'   => 'Use Config Manage Stock',
             ],
             'use_config_qty_increments' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
-                'comment'   => 'Use Config Qty Increments'
+                'comment'   => 'Use Config Qty Increments',
             ],
             'qty_increments' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -265,17 +265,17 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Qty Increments'
+                'comment'   => 'Qty Increments',
             ],
             'enable_qty_increments' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Enable Qty Increments'
-            ]
+                'comment'   => 'Enable Qty Increments',
+            ],
         ],
-        'comment' => 'Cataloginventory Stock Item'
+        'comment' => 'Cataloginventory Stock Item',
     ],
     $installer->getTable('cataloginventory/stock_status') => [
         'columns' => [
@@ -284,21 +284,21 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Product Id'
+                'comment'   => 'Product Id',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'stock_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Stock Id'
+                'comment'   => 'Stock Id',
             ],
             'qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -306,16 +306,16 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Qty'
+                'comment'   => 'Qty',
             ],
             'stock_status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Stock Status'
-            ]
+                'comment'   => 'Stock Status',
+            ],
         ],
-        'comment' => 'Cataloginventory Stock Status'
+        'comment' => 'Cataloginventory Stock Status',
     ],
     $installer->getTable('cataloginventory/stock_status_indexer_idx') => [
         'columns' => [
@@ -324,21 +324,21 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Product Id'
+                'comment'   => 'Product Id',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'stock_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Stock Id'
+                'comment'   => 'Stock Id',
             ],
             'qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -346,16 +346,16 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Qty'
+                'comment'   => 'Qty',
             ],
             'stock_status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Stock Status'
-            ]
+                'comment'   => 'Stock Status',
+            ],
         ],
-        'comment' => 'Cataloginventory Stock Status Indexer Idx'
+        'comment' => 'Cataloginventory Stock Status Indexer Idx',
     ],
     $installer->getTable('cataloginventory/stock_status_indexer_tmp') => [
         'columns' => [
@@ -364,21 +364,21 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Product Id'
+                'comment'   => 'Product Id',
             ],
             'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Website Id'
+                'comment'   => 'Website Id',
             ],
             'stock_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Stock Id'
+                'comment'   => 'Stock Id',
             ],
             'qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
@@ -386,18 +386,18 @@ $tables = [
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
-                'comment'   => 'Qty'
+                'comment'   => 'Qty',
             ],
             'stock_status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
-                'comment'   => 'Stock Status'
-            ]
+                'comment'   => 'Stock Status',
+            ],
         ],
         'comment' => 'Cataloginventory Stock Status Indexer Tmp',
-        'engine'  => 'InnoDB'
-    ]
+        'engine'  => 'InnoDB',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -411,8 +411,8 @@ $installer->getConnection()->changeColumn(
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        'comment'   => 'Stock Status Changed Automatically'
-    ]
+        'comment'   => 'Stock Status Changed Automatically',
+    ],
 );
 
 $installer->getConnection()->changeColumn(
@@ -424,8 +424,8 @@ $installer->getConnection()->changeColumn(
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '1',
-        'comment'   => 'Use Config Enable Qty Increments'
-    ]
+        'comment'   => 'Use Config Enable Qty Increments',
+    ],
 );
 
 /**
@@ -436,58 +436,58 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(
         'cataloginventory/stock_item',
         ['product_id', 'stock_id'],
-        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
     ),
     ['product_id', 'stock_id'],
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE,
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cataloginventory/stock_item'),
     $installer->getIdxName('cataloginventory/stock_item', ['product_id']),
-    ['product_id']
+    ['product_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cataloginventory/stock_item'),
     $installer->getIdxName('cataloginventory/stock_item', ['stock_id']),
-    ['stock_id']
+    ['stock_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cataloginventory/stock_status'),
     $installer->getIdxName('cataloginventory/stock_status', ['stock_id']),
-    ['stock_id']
+    ['stock_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cataloginventory/stock_status'),
     $installer->getIdxName('cataloginventory/stock_status', ['website_id']),
-    ['website_id']
+    ['website_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cataloginventory/stock_status_indexer_idx'),
     $installer->getIdxName('cataloginventory/stock_status_indexer_idx', ['stock_id']),
-    ['stock_id']
+    ['stock_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cataloginventory/stock_status_indexer_idx'),
     $installer->getIdxName('cataloginventory/stock_status_indexer_idx', ['website_id']),
-    ['website_id']
+    ['website_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cataloginventory/stock_status_indexer_tmp'),
     $installer->getIdxName('cataloginventory/stock_status_indexer_tmp', ['stock_id']),
-    ['stock_id']
+    ['stock_id'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cataloginventory/stock_status_indexer_tmp'),
     $installer->getIdxName('cataloginventory/stock_status_indexer_tmp', ['website_id']),
-    ['website_id']
+    ['website_id'],
 );
 
 /**
@@ -498,7 +498,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('cataloginventory/stock_item'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -506,7 +506,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('cataloginventory/stock_item'),
     'stock_id',
     $installer->getTable('cataloginventory/stock'),
-    'stock_id'
+    'stock_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -514,7 +514,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('cataloginventory/stock_status'),
     'stock_id',
     $installer->getTable('cataloginventory/stock'),
-    'stock_id'
+    'stock_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -522,7 +522,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('cataloginventory/stock_status'),
     'product_id',
     $installer->getTable('catalog/product'),
-    'entity_id'
+    'entity_id',
 );
 
 $installer->getConnection()->addForeignKey(
@@ -530,7 +530,7 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('cataloginventory/stock_status'),
     'website_id',
     $installer->getTable('core/website'),
-    'website_id'
+    'website_id',
 );
 
 $installer->endSetup();

@@ -21,6 +21,4 @@
  * @package    Mage_Catalog
  * @deprecated
  */
-class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Mage_Catalog_Model_Resource_Category_Tree
-{
-}
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Mage_Catalog_Model_Resource_Category_Tree {}

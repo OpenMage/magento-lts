@@ -20,6 +20,4 @@
  * @category   Mage
  * @package    Mage_Checkout
  */
-class Mage_Checkout_Model_Cart_Coupon_Api_V2 extends Mage_Checkout_Model_Cart_Coupon_Api
-{
-}
+class Mage_Checkout_Model_Cart_Coupon_Api_V2 extends Mage_Checkout_Model_Cart_Coupon_Api {}

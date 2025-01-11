@@ -47,15 +47,15 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Ob
         $nodeName = str_replace('/', '_', $this->getPath());
         $templateLabelNode = Mage::app()->getConfig()->getNode(self::XML_PATH_TEMPLATE_EMAIL . $nodeName . '/label');
         if ($templateLabelNode) {
-            $templateName = Mage::helper('adminhtml')->__((string)$templateLabelNode);
+            $templateName = Mage::helper('adminhtml')->__((string) $templateLabelNode);
             $templateName = Mage::helper('adminhtml')->__('%s (Default Template from Locale)', $templateName);
         }
         array_unshift(
             $options,
             [
                 'value' => $nodeName,
-                'label' => $templateName
-            ]
+                'label' => $templateName,
+            ],
         );
         return $options;
     }

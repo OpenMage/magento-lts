@@ -22,7 +22,7 @@ $mediaAttributeId = (int) $installer->getAttributeId('catalog_product', 'media_g
 $imagesAttributesIds = implode(',', [
     (int) $installer->getAttributeId('catalog_product', 'small_image'),
     (int) $installer->getAttributeId('catalog_product', 'image'),
-    (int) $installer->getAttributeId('catalog_product', 'thumbnail')
+    (int) $installer->getAttributeId('catalog_product', 'thumbnail'),
 ]);
 
 $installer->startSetup();

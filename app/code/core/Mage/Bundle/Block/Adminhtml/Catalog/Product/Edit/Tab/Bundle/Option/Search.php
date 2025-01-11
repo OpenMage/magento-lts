@@ -50,8 +50,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
             'grid',
             $this->getLayout()->createBlock(
                 'bundle/adminhtml_catalog_product_edit_tab_bundle_option_search_grid',
-                'adminhtml.catalog.product.edit.tab.bundle.option.search.grid'
-            )
+                'adminhtml.catalog.product.edit.tab.bundle.option.search.grid',
+            ),
         );
         return parent::_prepareLayout();
     }

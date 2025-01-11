@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Permissions_Edituser extends Mage_Adminhtml_Block_Wid
             'label'     => Mage::helper('adminhtml')->__('User Info'),
             'title'     => Mage::helper('adminhtml')->__('User Info'),
             'content'   => $this->getLayout()->createBlock('adminhtml/permissions_tab_useredit')->toHtml(),
-            'active'    => true
+            'active'    => true,
         ]);
         if ($this->getUser()->getUserId()) {
             $this->addTab('roles', [

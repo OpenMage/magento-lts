@@ -44,14 +44,14 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloa
         $lines[0][] = [
             'text'  => Mage::helper('core/string')->str_split($this->getSku($item), 17),
             'feed'  => 290,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // draw QTY
         $lines[0][] = [
             'text'  => $item->getQty() * 1,
             'feed'  => 435,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // draw item Prices
@@ -65,13 +65,13 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloa
                 $lines[$i][] = [
                     'text'  => $priceData['label'],
                     'feed'  => $feedPrice,
-                    'align' => 'right'
+                    'align' => 'right',
                 ];
                 // draw Subtotal label
                 $lines[$i][] = [
                     'text'  => $priceData['label'],
                     'feed'  => $feedSubtotal,
-                    'align' => 'right'
+                    'align' => 'right',
                 ];
                 $i++;
             }
@@ -80,14 +80,14 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloa
                 'text'  => $priceData['price'],
                 'feed'  => $feedPrice,
                 'font'  => 'bold',
-                'align' => 'right'
+                'align' => 'right',
             ];
             // draw Subtotal
             $lines[$i][] = [
                 'text'  => $priceData['subtotal'],
                 'feed'  => $feedSubtotal,
                 'font'  => 'bold',
-                'align' => 'right'
+                'align' => 'right',
             ];
             $i++;
         }
@@ -97,7 +97,7 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloa
             'text'  => $order->formatPriceTxt($item->getTaxAmount()),
             'feed'  => 495,
             'font'  => 'bold',
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // custom options
@@ -108,7 +108,7 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloa
                 $lines[][] = [
                     'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, true, true),
                     'font' => 'italic',
-                    'feed' => 35
+                    'feed' => 35,
                 ];
 
                 if ($option['value']) {
@@ -117,7 +117,7 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloa
                     foreach ($values as $value) {
                         $lines[][] = [
                             'text' => Mage::helper('core/string')->str_split($value, 30, true, true),
-                            'feed' => 40
+                            'feed' => 40,
                         ];
                     }
                 }
@@ -131,20 +131,20 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Downloa
         $lines[][] = [
             'text' => Mage::helper('core/string')->str_split($this->getLinksTitle(), 70, true, true),
             'font' => 'italic',
-            'feed' => 35
+            'feed' => 35,
         ];
 
         // draw Links
         foreach ($_purchasedItems as $_link) {
             $lines[][] = [
                 'text' => Mage::helper('core/string')->str_split($_link->getLinkTitle(), 50, true, true),
-                'feed' => 40
+                'feed' => 40,
             ];
         }
 
         $lineBlock = [
             'lines'  => $lines,
-            'height' => 20
+            'height' => 20,
         ];
 
         $page = $pdf->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);

@@ -45,7 +45,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
         $this->_getWriteAdapter()->insert($this->getMainTable(), [
             'product_id'    => $entityId,
             'store_id'      => $storeId,
-            'data_index'    => $index
+            'data_index'    => $index,
         ]);
         return $this;
     }
@@ -61,12 +61,12 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     public function saveEntityIndexes($storeId, $entityIndexes, $entity = 'product')
     {
         $data    = [];
-        $storeId = (int)$storeId;
+        $storeId = (int) $storeId;
         foreach ($entityIndexes as $entityId => $index) {
             $data[] = [
-                'product_id'    => (int)$entityId,
+                'product_id'    => (int) $entityId,
                 'store_id'      => $storeId,
-                'data_index'    => $index
+                'data_index'    => $index,
             ];
         }
 

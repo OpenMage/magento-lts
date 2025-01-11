@@ -133,85 +133,85 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 Varien_Db_Ddl_Table::TYPE_VARCHAR,
                 80,
                 [],
-                'Grouped ID'
+                'Grouped ID',
             )
             ->addColumn(
                 'product_id',
                 Varien_Db_Ddl_Table::TYPE_INTEGER,
                 null,
                 [
-                    'unsigned' => true
+                    'unsigned' => true,
                 ],
-                'Product ID'
+                'Product ID',
             )
             ->addColumn(
                 'customer_group_id',
                 Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 5,
                 [
-                    'unsigned' => true
+                    'unsigned' => true,
                 ],
-                'Customer Group ID'
+                'Customer Group ID',
             )
             ->addColumn(
                 'from_date',
                 Varien_Db_Ddl_Table::TYPE_DATE,
                 null,
                 [],
-                'From Date'
+                'From Date',
             )
             ->addColumn(
                 'to_date',
                 Varien_Db_Ddl_Table::TYPE_DATE,
                 null,
                 [],
-                'To Date'
+                'To Date',
             )
             ->addColumn(
                 'action_amount',
                 Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 '12,4',
                 [],
-                'Action Amount'
+                'Action Amount',
             )
             ->addColumn(
                 'action_operator',
                 Varien_Db_Ddl_Table::TYPE_VARCHAR,
                 10,
                 [],
-                'Action Operator'
+                'Action Operator',
             )
             ->addColumn(
                 'action_stop',
                 Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 6,
                 [],
-                'Action Stop'
+                'Action Stop',
             )
             ->addColumn(
                 'sort_order',
                 Varien_Db_Ddl_Table::TYPE_INTEGER,
                 10,
                 [
-                    'unsigned' => true
+                    'unsigned' => true,
                 ],
-                'Sort Order'
+                'Sort Order',
             )
             ->addColumn(
                 'price',
                 Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 '12,4',
                 [],
-                'Product Price'
+                'Product Price',
             )
             ->addColumn(
                 'rule_product_id',
                 Varien_Db_Ddl_Table::TYPE_INTEGER,
                 null,
                 [
-                    'unsigned' => true
+                    'unsigned' => true,
                 ],
-                'Rule Product ID'
+                'Rule Product ID',
             )
             ->addColumn(
                 'from_time',
@@ -222,7 +222,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                     'nullable' => true,
                     'default'  => 0,
                 ],
-                'From Time'
+                'From Time',
             )
             ->addColumn(
                 'to_time',
@@ -233,11 +233,11 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                     'nullable' => true,
                     'default'  => 0,
                 ],
-                'To Time'
+                'To Time',
             )
             ->addIndex(
                 $this->_connection->getIndexName($this->_getTemporaryTable(), 'grouped_id'),
-                ['grouped_id']
+                ['grouped_id'],
             )
             ->setComment('CatalogRule Price Temporary Table');
         $this->_connection->createTemporaryTable($table);
@@ -260,32 +260,32 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $select = $this->_connection->select()
             ->from(
                 ['rp' => $this->_resource->getTable('catalogrule/rule_product')],
-                []
+                [],
             )
             ->joinInner(
                 ['r' => $this->_resource->getTable('catalogrule/rule')],
                 'r.rule_id = rp.rule_id',
-                []
+                [],
             )
             ->where('rp.website_id = ?', $website->getId())
             ->order(
-                ['rp.product_id', 'rp.customer_group_id', 'rp.sort_order', 'rp.rule_product_id']
+                ['rp.product_id', 'rp.customer_group_id', 'rp.sort_order', 'rp.rule_product_id'],
             )
             ->joinLeft(
                 [
-                    'pg' => $this->_resource->getTable('catalog/product_attribute_group_price')
+                    'pg' => $this->_resource->getTable('catalog/product_attribute_group_price'),
                 ],
                 'pg.entity_id = rp.product_id AND pg.customer_group_id = rp.customer_group_id'
                     . ' AND pg.website_id = rp.website_id',
-                []
+                [],
             )
             ->joinLeft(
                 [
-                    'pgd' => $this->_resource->getTable('catalog/product_attribute_group_price')
+                    'pgd' => $this->_resource->getTable('catalog/product_attribute_group_price'),
                 ],
                 'pgd.entity_id = rp.product_id AND pgd.customer_group_id = rp.customer_group_id'
                     . ' AND pgd.website_id = 0',
-                []
+                [],
             );
 
         $storeId = $website->getDefaultStore()->getId();
@@ -294,39 +294,39 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             $select->joinInner(
                 ['p' => $this->_resource->getTable('catalog/product_flat') . '_' . $storeId],
                 'p.entity_id = rp.product_id',
-                []
+                [],
             );
             $priceColumn = $this->_connection->getIfNullSql(
                 $this->_connection->getIfNullSql(
                     $this->_connection->getCheckSql(
                         'pg.is_percent = 1',
                         'p.price * (100 - pg.value)/100',
-                        'pg.value'
+                        'pg.value',
                     ),
                     $this->_connection->getCheckSql(
                         'pgd.is_percent = 1',
                         'p.price * (100 - pgd.value)/100',
-                        'pgd.value'
-                    )
+                        'pgd.value',
+                    ),
                 ),
-                'p.price'
+                'p.price',
             );
         } else {
             $select->joinInner(
                 [
-                        'pd' => $this->_resource->getTable(['catalog/product', $priceAttribute->getBackendType()])
+                    'pd' => $this->_resource->getTable(['catalog/product', $priceAttribute->getBackendType()]),
                 ],
                 'pd.entity_id = rp.product_id AND pd.store_id = 0 AND pd.attribute_id = '
                         . $priceAttribute->getId(),
-                []
+                [],
             )
                 ->joinLeft(
                     [
-                        'p' => $this->_resource->getTable(['catalog/product', $priceAttribute->getBackendType()])
+                        'p' => $this->_resource->getTable(['catalog/product', $priceAttribute->getBackendType()]),
                     ],
                     'p.entity_id = rp.product_id AND p.store_id = ' . $storeId
                         . ' AND p.attribute_id = pd.attribute_id',
-                    []
+                    [],
                 );
             $priceColumn = $this->_connection->getIfNullSql(
                 $this->_connection->getIfNullSql(
@@ -334,23 +334,23 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                         'pg.is_percent = 1',
                         $this->_connection->getIfNullSql(
                             'p.value',
-                            'pd.value'
+                            'pd.value',
                         ) . ' * (100 - pg.value)/100',
-                        'pg.value'
+                        'pg.value',
                     ),
                     $this->_connection->getCheckSql(
                         'pgd.is_percent = 1',
                         $this->_connection->getIfNullSql(
                             'p.value',
-                            'pd.value'
+                            'pd.value',
                         ) . ' * (100 - pgd.value)/100',
-                        'pgd.value'
-                    )
+                        'pgd.value',
+                    ),
                 ),
                 $this->_connection->getIfNullSql(
                     'p.value',
-                    'pd.value'
-                )
+                    'pd.value',
+                ),
             );
         }
 
@@ -358,7 +358,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             [
                 'grouped_id' => $this->_connection->getConcatSql(
                     ['rp.product_id', 'rp.customer_group_id'],
-                    '-'
+                    '-',
                 ),
                 'product_id'        => 'rp.product_id',
                 'customer_group_id' => 'rp.customer_group_id',
@@ -371,8 +371,8 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 'price'             => $priceColumn,
                 'rule_product_id'   => 'rp.rule_product_id',
                 'from_time'         => 'rp.from_time',
-                'to_time'           => 'rp.to_time'
-            ]
+                'to_time'           => 'rp.to_time',
+            ],
         );
 
         return $select;
@@ -396,7 +396,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             [
                 $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@group_id'),
-                    $nA
+                    $nA,
                 ) . ' != cppt.grouped_id' =>
                 '@price := ' . $this->_connection->getCaseSql(
                     $this->_connection->quoteIdentifier('cppt.action_operator'),
@@ -406,22 +406,22 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                         $toFixed   => $this->_connection->getCheckSql(
                             new Zend_Db_Expr('cppt.action_amount < cppt.price'),
                             new Zend_Db_Expr('cppt.action_amount'),
-                            new Zend_Db_Expr('cppt.price')
+                            new Zend_Db_Expr('cppt.price'),
                         ),
                         $byFixed   => $this->_connection->getCheckSql(
                             new Zend_Db_Expr('0 > cppt.price - cppt.action_amount'),
                             new Zend_Db_Expr('0'),
-                            new Zend_Db_Expr('cppt.price - cppt.action_amount')
+                            new Zend_Db_Expr('cppt.price - cppt.action_amount'),
                         ),
-                    ]
+                    ],
                 ),
                 $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@group_id'),
-                    $nA
+                    $nA,
                 ) . ' = cppt.grouped_id AND '
                 . $this->_connection->getIfNullSql(
                     new Zend_Db_Expr('@action_stop'),
-                    new Zend_Db_Expr('0')
+                    new Zend_Db_Expr('0'),
                 ) . ' = 0' => '@price := ' . $this->_connection->getCaseSql(
                     $this->_connection->quoteIdentifier('cppt.action_operator'),
                     [
@@ -430,17 +430,17 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                         $toFixed   => $this->_connection->getCheckSql(
                             new Zend_Db_Expr('cppt.action_amount < @price'),
                             new Zend_Db_Expr('cppt.action_amount'),
-                            new Zend_Db_Expr('@price')
+                            new Zend_Db_Expr('@price'),
                         ),
                         $byFixed   => $this->_connection->getCheckSql(
                             new Zend_Db_Expr('0 > @price - cppt.action_amount'),
                             new Zend_Db_Expr('0'),
-                            new Zend_Db_Expr('@price - cppt.action_amount')
+                            new Zend_Db_Expr('@price - cppt.action_amount'),
                         ),
-                    ]
-                )
+                    ],
+                ),
             ],
-            '@price'
+            '@price',
         );
     }
 
@@ -473,23 +473,23 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                             [
                                 $this->_connection->getIfNullSql(
                                     new Zend_Db_Expr('@group_id'),
-                                    $nA
+                                    $nA,
                                 ) . ' != cppt.grouped_id' => new Zend_Db_Expr('@action_stop := cppt.action_stop'),
                                 $this->_connection->getIfNullSql(
                                     new Zend_Db_Expr('@group_id'),
-                                    $nA
+                                    $nA,
                                 ) . ' = cppt.grouped_id' => '@action_stop := '
                                     . $this->_connection->getIfNullSql(
                                         new Zend_Db_Expr('@action_stop'),
-                                        new Zend_Db_Expr('0')
+                                        new Zend_Db_Expr('0'),
                                     ) . ' + cppt.action_stop',
-                            ]
-                        )
+                            ],
+                        ),
                     ),
                     new Zend_Db_Expr('@group_id := cppt.grouped_id'),
                     'from_time'         => 'cppt.from_time',
-                    'to_time'           => 'cppt.to_time'
-                ]
+                    'to_time'           => 'cppt.to_time',
+                ],
             );
 
         return $this->_connection->select()
@@ -502,22 +502,22 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                                 'SELECT ' . $this->_connection->getDateAddSql(
                                     $this->_connection->fromUnixtime($time),
                                     -1,
-                                    Varien_Db_Adapter_Interface::INTERVAL_DAY
-                                ) . ' AS rule_date'
+                                    Varien_Db_Adapter_Interface::INTERVAL_DAY,
+                                ) . ' AS rule_date',
                             ),
                             new Zend_Db_Expr('SELECT ' . $this->_connection->fromUnixtime($time) . ' AS rule_date'),
                             new Zend_Db_Expr(
                                 'SELECT ' . $this->_connection->getDateAddSql(
                                     $this->_connection->fromUnixtime($time),
                                     1,
-                                    Varien_Db_Adapter_Interface::INTERVAL_DAY
-                                ) . ' AS rule_date'
+                                    Varien_Db_Adapter_Interface::INTERVAL_DAY,
+                                ) . ' AS rule_date',
                             ),
-                        ]
-                    )
+                        ],
+                    ),
                 ],
                 '1=1',
-                []
+                [],
             )
             ->columns(
                 [
@@ -529,15 +529,15 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                     'website_id'            => new Zend_Db_Expr($website->getId()),
                     'latest_start_date'     => 'latest_start_date',
                     'earliest_end_date'     => 'earliest_end_date',
-                ]
+                ],
             )
             ->where(new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . ' >= from_time'))
             ->where(
                 $this->_connection->getCheckSql(
                     new Zend_Db_Expr('to_time = 0'),
                     new Zend_Db_Expr('1'),
-                    new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . ' <= to_time')
-                )
+                    new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . ' <= to_time'),
+                ),
             )
             ->group(['customer_group_id', 'product_id', 'dates.rule_date', 'website_id']);
     }
@@ -549,7 +549,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     {
         $this->_connection->delete(
             $this->_resource->getTable('catalogrule/rule_product_price'),
-            ['website_id = ?' => $website->getId()]
+            ['website_id = ?' => $website->getId()],
         );
     }
 
@@ -565,8 +565,8 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 $this->_prepareIndexSelect($website, $time),
                 $this->_resource->getTable('catalogrule/rule_product_price'),
                 [],
-                Varien_Db_Adapter_Interface::INSERT_IGNORE
-            )
+                Varien_Db_Adapter_Interface::INSERT_IGNORE,
+            ),
         );
     }
 
@@ -581,8 +581,8 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $this->_connection->query(
             $this->_connection->insertFromSelect(
                 $this->_prepareTemporarySelect($website),
-                $this->_getTemporaryTable()
-            )
+                $this->_getTemporaryTable(),
+            ),
         );
         $this->_removeOldIndexData($website);
         $this->_fillIndexData($website, $timestamp);
@@ -599,15 +599,15 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
             ->distinct()
             ->from(
                 $this->_resource->getTable('catalogrule/rule_product'),
-                ['rule_id', 'customer_group_id', 'website_id']
+                ['rule_id', 'customer_group_id', 'website_id'],
             )
             ->where(new Zend_Db_Expr("{$timestamp} >= from_time"))
             ->where(
                 $this->_connection->getCheckSql(
                     new Zend_Db_Expr('to_time = 0'),
                     new Zend_Db_Expr('1'),
-                    new Zend_Db_Expr("{$timestamp} <= to_time")
-                )
+                    new Zend_Db_Expr("{$timestamp} <= to_time"),
+                ),
             );
         $query = $select->insertFromSelect($this->_resource->getTable('catalogrule/rule_group_website'));
         $this->_connection->query($query);
@@ -637,9 +637,9 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $this->_app->dispatchEvent(
             'catalogrule_after_apply',
             [
-                    'product' => $this->_getProduct(),
-                    'product_condition' => $productCondition
-                ]
+                'product' => $this->_getProduct(),
+                'product_condition' => $productCondition,
+            ],
         );
 
         $this->_connection->delete($this->_resource->getTable('catalogrule/affected_product'));

@@ -45,7 +45,7 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        $displayFormat = Varien_Date::convertZendToStrftime($this->getFormat(), true, (bool)$this->getTime());
+        $displayFormat = Varien_Date::convertZendToStrftime($this->getFormat(), true, (bool) $this->getTime());
 
         $html  = '<input type="text" name="' . $this->getName() . '" id="' . $this->getId() . '" ';
         $html .= 'value="' . $this->escapeHtml($this->getValue()) . '" class="' . $this->getClass() . '" ' . $this->getExtraParams() . '/> ';
@@ -72,12 +72,10 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
                 ';
         }
 
-        $html .= '
+        return $html . '
             Calendar.setup(calendarSetupObject);
         //]]>
         </script>';
-
-        return $html;
     }
 
     /**

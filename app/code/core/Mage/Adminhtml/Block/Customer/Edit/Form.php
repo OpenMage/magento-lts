@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Form extends Mage_Adminhtml_Block_Widge
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
             'method'    => 'post',
-            'enctype'   => 'multipart/form-data'
+            'enctype'   => 'multipart/form-data',
         ]);
 
         $customer = Mage::registry('current_customer');

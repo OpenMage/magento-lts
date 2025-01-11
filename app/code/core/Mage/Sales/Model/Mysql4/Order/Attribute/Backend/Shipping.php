@@ -21,6 +21,4 @@
  * @package    Mage_Sales
  * @deprecated
  */
-class Mage_Sales_Model_Mysql4_Order_Attribute_Backend_Shipping extends Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping
-{
-}
+class Mage_Sales_Model_Mysql4_Order_Attribute_Backend_Shipping extends Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping {}

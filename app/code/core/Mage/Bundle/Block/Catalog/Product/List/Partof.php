@@ -37,7 +37,7 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
             ->addAttributeToSort('position', 'asc')
             ->addStoreFilter()
             ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
             ])
             ->addMinimalPrice()
             ->joinTable('bundle/option', 'parent_id=entity_id', ['option_id' => 'option_id'])

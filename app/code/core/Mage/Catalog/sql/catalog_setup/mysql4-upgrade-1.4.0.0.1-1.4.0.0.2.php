@@ -21,17 +21,17 @@ $installer->startSetup();
 $installer->getConnection()->modifyColumn(
     $installer->getTable('catalog/category') . '_int',
     'value',
-    'int(11) default NULL'
+    'int(11) default NULL',
 );
 $installer->getConnection()->modifyColumn(
     $installer->getTable('catalog/category') . '_decimal',
     'value',
-    'decimal(12,4) default NULL'
+    'decimal(12,4) default NULL',
 );
 $installer->getConnection()->modifyColumn(
     $installer->getTable('catalog/category') . '_datetime',
     'value',
-    'datetime default NULL'
+    'datetime default NULL',
 );
 
 $installer->endSetup();

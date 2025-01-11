@@ -39,7 +39,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Discount extend
             $address->addTotal([
                 'code'  => 'discount',
                 'title' => $title,
-                'value' => -$amount
+                'value' => -$amount,
             ]);
         }
         return $this;

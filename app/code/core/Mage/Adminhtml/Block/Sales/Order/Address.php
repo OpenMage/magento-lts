@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address extends Mage_Adminhtml_Block_Widg
     {
         return $this->getUrl(
             '*/*/view',
-            ['order_id' => Mage::registry('order_address')->getOrder()->getId()]
+            ['order_id' => Mage::registry('order_address')->getOrder()->getId()],
         );
     }
 }

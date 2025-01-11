@@ -21,6 +21,6 @@ foreach (['AM', 'AC', 'AF'] as $code) {
     $installer->getConnection()->update(
         $installer->getTable('directory/country_region'),
         ['code' => 'AE'],
-        ['code = ?' => $code]
+        ['code = ?' => $code],
     );
 }

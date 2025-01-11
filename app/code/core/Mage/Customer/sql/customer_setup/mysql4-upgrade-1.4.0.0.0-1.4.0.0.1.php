@@ -31,7 +31,7 @@ $tableOptions        = $installer->getTable('eav_attribute_option');
 $tableOptionValues   = $installer->getTable('eav_attribute_option_value');
 
 // add options for level of politeness
-$attributeId = (int)$installer->getAttribute('customer', 'gender', 'attribute_id');
+$attributeId = (int) $installer->getAttribute('customer', 'gender', 'attribute_id');
 foreach (['Male', 'Female'] as $sortOrder => $label) {
     // add option
     $data = [
@@ -41,7 +41,7 @@ foreach (['Male', 'Female'] as $sortOrder => $label) {
     $installer->getConnection()->insert($tableOptions, $data);
 
     // add option label
-    $optionId = (int)$installer->getConnection()->lastInsertId($tableOptions, 'option_id');
+    $optionId = (int) $installer->getConnection()->lastInsertId($tableOptions, 'option_id');
     $data = [
         'option_id' => $optionId,
         'store_id'  => 0,

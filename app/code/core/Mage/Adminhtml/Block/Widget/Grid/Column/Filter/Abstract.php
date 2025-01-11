@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
      */
     public function getEscapedValue($index = null)
     {
-        return htmlspecialchars((string)$this->getValue($index));
+        return htmlspecialchars((string) $this->getValue($index));
     }
 
     /**

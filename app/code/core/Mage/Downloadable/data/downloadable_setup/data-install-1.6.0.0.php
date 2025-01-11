@@ -24,7 +24,7 @@ $fieldList = [
     'special_to_date',
     'minimal_price',
     'cost',
-    'tier_price'
+    'tier_price',
 ];
 
 // make these attributes applicable to downloadable products

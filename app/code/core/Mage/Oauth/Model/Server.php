@@ -104,7 +104,7 @@ class Mage_Oauth_Model_Server
         self::ERR_TOKEN_REJECTED            => 'token_rejected',
         self::ERR_VERIFIER_INVALID          => 'verifier_invalid',
         self::ERR_PERMISSION_UNKNOWN        => 'permission_unknown',
-        self::ERR_PERMISSION_DENIED         => 'permission_denied'
+        self::ERR_PERMISSION_DENIED         => 'permission_denied',
     ];
 
     /**
@@ -127,7 +127,7 @@ class Mage_Oauth_Model_Server
         self::ERR_TOKEN_REJECTED            => self::HTTP_UNAUTHORIZED,
         self::ERR_VERIFIER_INVALID          => self::HTTP_UNAUTHORIZED,
         self::ERR_PERMISSION_UNKNOWN        => self::HTTP_UNAUTHORIZED,
-        self::ERR_PERMISSION_DENIED         => self::HTTP_UNAUTHORIZED
+        self::ERR_PERMISSION_DENIED         => self::HTTP_UNAUTHORIZED,
     ];
 
     /**
@@ -310,10 +310,10 @@ class Mage_Oauth_Model_Server
             if (self::REQUEST_TOKEN == $this->_requestType) {
                 $this->_validateVerifierParam();
 
-                if (!hash_equals((string)$this->_token->getVerifier(), $this->_protocolParams['oauth_verifier'])) {
+                if (!hash_equals((string) $this->_token->getVerifier(), $this->_protocolParams['oauth_verifier'])) {
                     $this->_throwException('', self::ERR_VERIFIER_INVALID);
                 }
-                if (!hash_equals((string)$this->_token->getConsumerId(), (string)$this->_consumer->getId())) {
+                if (!hash_equals((string) $this->_token->getConsumerId(), (string) $this->_consumer->getId())) {
                     $this->_throwException('', self::ERR_TOKEN_REJECTED);
                 }
                 if (Mage_Oauth_Model_Token::TYPE_REQUEST != $this->_token->getType()) {
@@ -525,7 +525,7 @@ class Mage_Oauth_Model_Server
             $this->_consumer->getSecret(),
             $this->_token->getSecret(),
             $this->_request->getMethod(),
-            $this->_request->getScheme() . '://' . $this->_request->getHttpHost() . $this->_request->getRequestUri()
+            $this->_request->getScheme() . '://' . $this->_request->getHttpHost() . $this->_request->getRequestUri(),
         );
 
         if (!hash_equals($calculatedSign, $this->_protocolParams['oauth_signature'])) {

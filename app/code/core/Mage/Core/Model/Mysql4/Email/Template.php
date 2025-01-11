@@ -21,6 +21,4 @@
  * @package    Mage_Core
  * @deprecated
  */
-class Mage_Core_Model_Mysql4_Email_Template extends Mage_Core_Model_Resource_Email_Template
-{
-}
+class Mage_Core_Model_Mysql4_Email_Template extends Mage_Core_Model_Resource_Email_Template {}

@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                     'label'     => Mage::helper('catalog')->__($group->getAttributeGroupName()),
                     'content'   => $this->_translateHtml($this->getLayout()->createBlock(
                         $this->getAttributeTabBlock(),
-                        'adminhtml.catalog.product.edit.tab.attributes'
+                        'adminhtml.catalog.product.edit.tab.attributes',
                     )->setGroup($group)
                             ->setGroupAttributes($attributes)
                             ->toHtml()),
@@ -126,7 +126,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 $this->addTab('productalert', [
                     'label'     => Mage::helper('catalog')->__('Product Alerts'),
                     'content'   => $this->_translateHtml($this->getLayout()
-                        ->createBlock('adminhtml/catalog_product_edit_tab_alerts', 'admin.alerts.products')->toHtml())
+                        ->createBlock('adminhtml/catalog_product_edit_tab_alerts', 'admin.alerts.products')->toHtml()),
                 ]);
             }
 
@@ -143,9 +143,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 if ($this->isModuleEnabled('Mage_Tag', 'catalog')) {
                     if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')) {
                         $this->addTab('tags', [
-                         'label'     => Mage::helper('catalog')->__('Product Tags'),
-                         'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),
-                         'class' => 'ajax',
+                            'label'     => Mage::helper('catalog')->__('Product Tags'),
+                            'url'   => $this->getUrl('*/*/tagGrid', ['_current' => true]),
+                            'class' => 'ajax',
                         ]);
 
                         $this->addTab('customers_tags', [
@@ -174,7 +174,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 'label'     => Mage::helper('catalog')->__('Settings'),
                 'content'   => $this->_translateHtml($this->getLayout()
                     ->createBlock('adminhtml/catalog_product_edit_tab_settings')->toHtml()),
-                'active'    => true
+                'active'    => true,
             ]);
         }
         return parent::_prepareLayout();

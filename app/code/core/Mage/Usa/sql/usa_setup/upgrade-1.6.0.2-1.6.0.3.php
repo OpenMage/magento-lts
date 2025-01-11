@@ -34,7 +34,7 @@ foreach ($this->getConnection()->fetchAll($select) as $configRow) {
         $this->getTable('core/config_data'),
         $row,
         [
-            'config_id = ?' => $configRow['config_id']
-        ]
+            'config_id = ?' => $configRow['config_id'],
+        ],
     );
 }

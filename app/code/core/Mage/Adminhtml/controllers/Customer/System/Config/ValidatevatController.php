@@ -37,7 +37,7 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
     {
         return Mage::helper('customer')->checkVatNumber(
             $this->getRequest()->getParam('country'),
-            $this->getRequest()->getParam('vat')
+            $this->getRequest()->getParam('vat'),
         );
     }
 
@@ -47,7 +47,7 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
     public function validateAction()
     {
         $result = $this->_validate();
-        $this->getResponse()->setBody((int)$result->getIsValid());
+        $this->getResponse()->setBody((int) $result->getIsValid());
     }
 
     /**
@@ -65,19 +65,19 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
         $storeId = $this->getRequest()->getParam('store_id');
         // Sanitize value if needed
         if (!is_null($storeId)) {
-            $storeId = (int)$storeId;
+            $storeId = (int) $storeId;
         }
 
         $groupId = Mage::helper('customer')->getCustomerGroupIdBasedOnVatNumber(
             $this->getRequest()->getParam('country'),
             $result,
-            $storeId
+            $storeId,
         );
 
         $body = $coreHelper->jsonEncode([
             'valid' => $valid,
             'group' => $groupId,
-            'success' => $success
+            'success' => $success,
         ]);
         $this->getResponse()->setBody($body);
     }

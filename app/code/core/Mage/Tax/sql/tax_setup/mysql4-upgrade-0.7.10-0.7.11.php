@@ -39,7 +39,7 @@ $installer->getConnection()->addConstraint(
     $this->getTable('tax_order_aggregated_created'),
     'store_id',
     $this->getTable('core_store'),
-    'store_id'
+    'store_id',
 );
 
 $installer->endSetup();

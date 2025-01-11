@@ -32,12 +32,12 @@ class Mage_Api2_Model_Acl_Filter_Attribute_Operation
         return [
             [
                 'value' => Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ,
-                'label' => Mage::helper('api2')->__('Read')
+                'label' => Mage::helper('api2')->__('Read'),
             ],
             [
                 'value' => Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE,
-                'label' => Mage::helper('api2')->__('Write')
-            ]
+                'label' => Mage::helper('api2')->__('Write'),
+            ],
         ];
     }
 
@@ -50,7 +50,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_Operation
     {
         return [
             Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ  => Mage::helper('api2')->__('Read'),
-            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE => Mage::helper('api2')->__('Write')
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE => Mage::helper('api2')->__('Write'),
         ];
     }
 }

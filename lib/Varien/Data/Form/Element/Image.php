@@ -44,7 +44,7 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
     {
         $html = '';
 
-        if ((string)$this->getValue()) {
+        if ((string) $this->getValue()) {
             $url = $this->_getUrl();
 
             if (!preg_match("/^http\:\/\/|https\:\/\//", $url)) {
@@ -59,9 +59,8 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
         }
         $this->setClass('input-file');
         $html .= parent::getElementHtml();
-        $html .= $this->_getDeleteCheckbox();
 
-        return $html;
+        return $html . $this->_getDeleteCheckbox();
     }
 
     /**

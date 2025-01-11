@@ -34,7 +34,7 @@ class Mage_ProductAlert_Model_Resource_Stock_Customer_Collection extends Mage_Cu
         $this->getSelect()->join(
             ['alert' => $this->getTable('productalert/stock')],
             'alert.customer_id=e.entity_id',
-            ['alert_stock_id', 'add_date', 'send_date', 'send_count', 'status']
+            ['alert_stock_id', 'add_date', 'send_date', 'send_count', 'status'],
         );
 
         $this->getSelect()->where('alert.product_id=?', $productId);
