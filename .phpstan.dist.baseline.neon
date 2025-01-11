@@ -4765,12 +4765,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Lock/Storage/Db.php
 
 		-
-			message: '#^Property Mage_Index_Model_Lock_Storage_Db\:\:\$_helper \(Mage_Index_Model_Resource_Helper_Mysql4\) does not accept Mage_Core_Model_Resource_Helper_Abstract\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Index/Model/Lock/Storage/Db.php
-
-		-
 			message: '#^Call to function is_array\(\) with '''' will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -7129,54 +7123,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/api2/role/users_grid_js.phtml
 
 		-
-			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/checkbox.phtml
-
-		-
-			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/multi.phtml
-
-		-
-			message: '#^Call to protected method _getDefaultValues\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
-
-		-
-			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
-
-		-
-			message: '#^Call to protected method _showSingle\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
-
-		-
-			message: '#^Call to protected method _getDefaultValues\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
-
-		-
-			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
-
-		-
-			message: '#^Call to protected method _showSingle\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
-
-		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
 			count: 8
@@ -7219,22 +7165,10 @@ parameters:
 			path: app/design/adminhtml/default/default/template/catalog/product/attribute/new/created.phtml
 
 		-
-			message: '#^Call to protected method _getHeader\(\) of class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/attribute/set/main.phtml
-
-		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
 			count: 5
 			path: app/design/adminhtml/default/default/template/catalog/product/attribute/set/toolbar/add.phtml
-
-		-
-			message: '#^Call to protected method _getHeader\(\) of class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/attribute/set/toolbar/main.phtml
 
 		-
 			message: '#^Access to an undefined property Mage_Catalog_Model_Product_Option\:\:\$decoratedIsLast\.$#'
@@ -7589,12 +7523,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/design/adminhtml/default/default/template/permissions/role_users_grid_js.phtml
-
-		-
-			message: '#^Call to protected method _getGridHtml\(\) of class Mage_Adminhtml_Block_Permissions_Tab_Rolesusers\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/adminhtml/default/default/template/permissions/rolesusers.phtml
 
 		-
 			message: '#^Call to an undefined method Mage_Core_Block_Abstract\:\:_getSelectedRoles\(\)\.$#'
@@ -8125,54 +8053,6 @@ parameters:
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle.phtml
 
 		-
-			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/checkbox.phtml
-
-		-
-			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/multi.phtml
-
-		-
-			message: '#^Call to protected method _getDefaultValues\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
-
-		-
-			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 2
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
-
-		-
-			message: '#^Call to protected method _showSingle\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/radio.phtml
-
-		-
-			message: '#^Call to protected method _getDefaultValues\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 2
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			message: '#^Call to protected method _showSingle\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
 			message: '#^Unreachable statement \- code above always terminates\.$#'
 			identifier: deadCode.unreachable
 			count: 1
@@ -8315,12 +8195,6 @@ parameters:
 			identifier: ternary.alwaysTrue
 			count: 1
 			path: app/design/frontend/base/default/template/catalog/product/price.phtml
-
-		-
-			message: '#^Call to protected method _isSecure\(\) of class Mage_Core_Block_Abstract\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/catalog/product/view.phtml
 
 		-
 			message: '#^Variable \$this might not be defined\.$#'
@@ -8569,12 +8443,6 @@ parameters:
 			path: app/design/frontend/base/default/template/checkout/multishipping/success.phtml
 
 		-
-			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
-			identifier: method.nonObject
-			count: 5
-			path: app/design/frontend/base/default/template/checkout/onepage/billing.phtml
-
-		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
 			count: 7
@@ -8785,22 +8653,10 @@ parameters:
 			path: app/design/frontend/base/default/template/customer/form/confirmation.phtml
 
 		-
-			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: app/design/frontend/base/default/template/customer/form/edit.phtml
-
-		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
 			count: 16
 			path: app/design/frontend/base/default/template/customer/form/newsletter.phtml
-
-		-
-			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: app/design/frontend/base/default/template/customer/form/register.phtml
 
 		-
 			message: '#^Variable \$this might not be defined\.$#'
@@ -8963,18 +8819,6 @@ parameters:
 			identifier: variable.undefined
 			count: 145
 			path: app/design/frontend/base/default/template/giftmessage/inline.phtml
-
-		-
-			message: '#^Call to protected method _getEnhancedEcommerceDataForAnalytics4\(\) of class Mage_GoogleAnalytics_Block_Ga\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/googleanalytics/ga.phtml
-
-		-
-			message: '#^Call to protected method _getPageTrackingCode\(\) of class Mage_GoogleAnalytics_Block_Ga\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/base/default/template/googleanalytics/ga.phtml
 
 		-
 			message: '#^Variable \$crumbs might not be defined\.$#'
@@ -9151,12 +8995,6 @@ parameters:
 			path: app/design/frontend/base/default/template/paypal/payment/redirect.phtml
 
 		-
-			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
-			identifier: method.nonObject
-			count: 4
-			path: app/design/frontend/base/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -9167,12 +9005,6 @@ parameters:
 			identifier: booleanNot.alwaysFalse
 			count: 1
 			path: app/design/frontend/base/default/template/persistent/checkout/onepage/login.phtml
-
-		-
-			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: app/design/frontend/base/default/template/persistent/customer/form/register.phtml
 
 		-
 			message: '#^Variable \$this might not be defined\.$#'
@@ -9463,24 +9295,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/availability.phtml
 
 		-
-			message: '#^Call to protected method _getDefaultValues\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 2
-			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			message: '#^Call to protected method _showSingle\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/rwd/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
 			message: '#^Cannot call method setFilter\(\) on class\-string\|object\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -9515,12 +9329,6 @@ parameters:
 			identifier: ternary.alwaysTrue
 			count: 1
 			path: app/design/frontend/rwd/default/template/catalog/product/price.phtml
-
-		-
-			message: '#^Call to protected method _isSecure\(\) of class Mage_Core_Block_Abstract\.$#'
-			identifier: method.protected
-			count: 1
-			path: app/design/frontend/rwd/default/template/catalog/product/view.phtml
 
 		-
 			message: '#^Variable \$this might not be defined\.$#'
@@ -9727,12 +9535,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/customer/form/confirmation.phtml
 
 		-
-			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: app/design/frontend/rwd/default/template/customer/form/edit.phtml
-
-		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
 			count: 10
@@ -9859,12 +9661,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/paypal/express/review/address.phtml
 
 		-
-			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
-			identifier: method.nonObject
-			count: 4
-			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/billing.phtml
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -9875,12 +9671,6 @@ parameters:
 			identifier: booleanNot.alwaysFalse
 			count: 1
 			path: app/design/frontend/rwd/default/template/persistent/checkout/onepage/login.phtml
-
-		-
-			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: app/design/frontend/rwd/default/template/persistent/customer/form/register.phtml
 
 		-
 			message: '#^Variable \$this might not be defined\.$#'
