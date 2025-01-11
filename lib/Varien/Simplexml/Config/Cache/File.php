@@ -44,7 +44,7 @@ class Varien_Simplexml_Config_Cache_File extends Varien_Simplexml_Config_Cache_A
      *
      * @return boolean
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function load()
     {
@@ -82,7 +82,7 @@ class Varien_Simplexml_Config_Cache_File extends Varien_Simplexml_Config_Cache_A
      *
      * @return boolean
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function save()
     {

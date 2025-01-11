@@ -353,9 +353,12 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
+     * @codeCoverageIgnore
      * @param string                   $method
      * @param string[]                 $args
      * @throws Mage_Core_Exception
+     * @deprecated
+     * @see Mage_Core_Helper_Security::validateAgainstBlockMethodBlacklist()
      */
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
     {
@@ -506,7 +509,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $block = new $className($attributes);
         if (!$block instanceof Mage_Core_Block_Abstract) {
-            Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
+            $block = is_object($block) ? get_class($block) : $block;
+            Mage::throwException(Mage::helper('core')->__('Invalid block type: %s (not instance of Mage_Core_Block_Abstract)', $type));
         }
         return $block;
     }
@@ -599,7 +603,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             if ($className === false || !class_exists($className)) {
                 Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
             }
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+
             $helper = new $className();
             if ($helper instanceof Mage_Core_Block_Abstract) {
                 $helper->setLayout($this);
