@@ -41,7 +41,7 @@
 <?php endif ?>
 
 <?php if ($this->getCanLoadTinyMce()): // TinyMCE is broken when loaded through index.php?>
-<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('lib/tinymce/tinymce.min.js') ?>"></script>
 <?php endif ?>
 
 <script type="text/javascript">
