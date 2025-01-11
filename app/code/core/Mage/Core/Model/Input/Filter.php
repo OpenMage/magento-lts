@@ -123,7 +123,6 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Add a filter to the end of the chain
      *
-     * @param  Zend_Filter_Interface $filter
      * @return $this
      */
     public function appendFilter(Zend_Filter_Interface $filter)
