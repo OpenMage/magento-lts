@@ -59,7 +59,7 @@ class UnserializeArrayTest extends TestCase
             '',
         ];
         yield 'random string' => [
-            'unserialize(): Error at offset 0 of 3 bytes',
+            'Error unserializing data.',
             'abc',
         ];
         yield 'valid' => [
