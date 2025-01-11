@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +29,6 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     /**
      * Retrieves product configuration options
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return array
      */
     public function getCustomOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
@@ -67,7 +67,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                         'print_value' => $group->getPrintableOptionValue($itemOption->getValue()),
                         'option_id' => $option->getId(),
                         'option_type' => $option->getType(),
-                        'custom_view' => $group->isCustomizedView()
+                        'custom_view' => $group->isCustomizedView(),
                     ];
                 }
             }
@@ -84,7 +84,6 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     /**
      * Retrieves configuration options for configurable product
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return array
      */
     public function getConfigurableOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
@@ -103,7 +102,6 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     /**
      * Retrieves configuration options for grouped product
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return array
      */
     public function getGroupedOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
@@ -124,7 +122,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                 $qty = $item->getOptionByCode('associated_product_' . $associatedProduct->getId());
                 $option = [
                     'label' => $associatedProduct->getName(),
-                    'value' => ($qty && $qty->getValue()) ? $qty->getValue() : 0
+                    'value' => ($qty && $qty->getValue()) ? $qty->getValue() : 0,
                 ];
 
                 $options[] = $option;
@@ -145,7 +143,6 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     /**
      * Retrieves product options list
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
      * @return array
      */
     public function getOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
@@ -225,19 +222,19 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         // Truncate standard view
         $result = [];
         if (is_array($optionValue)) {
-            $_truncatedValue = implode("\n", $optionValue);
-            $_truncatedValue = nl2br($_truncatedValue);
-            return ['value' => $_truncatedValue];
+            $truncatedValue = implode("\n", $optionValue);
+            $truncatedValue = nl2br($truncatedValue);
+            return ['value' => $truncatedValue];
         } else {
             if ($maxLength) {
-                $_truncatedValue = Mage::helper('core/string')->truncate($optionValue, $maxLength, '');
+                $truncatedValue = Mage::helper('core/string')->truncate($optionValue, $maxLength, '');
             } else {
-                $_truncatedValue = $optionValue;
+                $truncatedValue = $optionValue;
             }
-            $_truncatedValue = nl2br($_truncatedValue);
+            $truncatedValue = nl2br($truncatedValue);
         }
 
-        $result = ['value' => $_truncatedValue];
+        $result = ['value' => $truncatedValue];
 
         if ($maxLength && (Mage::helper('core/string')->strlen($optionValue) > $maxLength)) {
             $result['value'] = $result['value'] . $cutReplacer;

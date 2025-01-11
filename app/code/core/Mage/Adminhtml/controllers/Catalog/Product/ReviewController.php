@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -207,7 +208,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                     $model->delete();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) have been deleted.', count($reviewsIds))
+                    Mage::helper('adminhtml')->__('Total of %d record(s) have been deleted.', count($reviewsIds)),
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
@@ -237,7 +238,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                         ->aggregate();
                 }
                 $session->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) have been updated.', count($reviewsIds))
+                    Mage::helper('adminhtml')->__('Total of %d record(s) have been updated.', count($reviewsIds)),
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
@@ -267,7 +268,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                     $model->save();
                 }
                 $session->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) have been updated.', count($reviewsIds))
+                    Mage::helper('adminhtml')->__('Total of %d record(s) have been updated.', count($reviewsIds)),
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
@@ -362,7 +363,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     public function ratingItemsAction()
     {
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/review_rating_detailed')->setIndependentMode()->toHtml()
+            $this->getLayout()->createBlock('adminhtml/review_rating_detailed')->setIndependentMode()->toHtml(),
         );
     }
 

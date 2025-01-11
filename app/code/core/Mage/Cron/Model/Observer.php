@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Cron
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -160,10 +161,10 @@ class Mage_Cron_Model_Observer
         foreach ($jobs as $jobCode => $jobConfig) {
             $cronExpr = null;
             if ($jobConfig->schedule->config_path) {
-                $cronExpr = Mage::getStoreConfig((string)$jobConfig->schedule->config_path);
+                $cronExpr = Mage::getStoreConfig((string) $jobConfig->schedule->config_path);
             }
             if (empty($cronExpr) && $jobConfig->schedule->cron_expr) {
-                $cronExpr = (string)$jobConfig->schedule->cron_expr;
+                $cronExpr = (string) $jobConfig->schedule->cron_expr;
             }
             if (!$cronExpr || $cronExpr == 'always') {
                 continue;
@@ -288,7 +289,7 @@ class Mage_Cron_Model_Observer
                 }
             }
             if ($runConfig->model) {
-                if (!preg_match(self::REGEX_RUN_MODEL, (string)$runConfig->model, $run)) {
+                if (!preg_match(self::REGEX_RUN_MODEL, (string) $runConfig->model, $run)) {
                     Mage::throwException(Mage::helper('cron')->__('Invalid model/method definition, expecting "model/class::method".'));
                 }
                 if (!($model = Mage::getModel($run[1])) || !method_exists($model, $run[2])) {

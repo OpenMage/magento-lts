@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,7 +108,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'qty',
                 'product_id=entity_id',
                 '{{table}}.stock_id=1',
-                'left'
+                'left',
             );
 
         if ($store->getId()) {
@@ -140,25 +141,22 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
             'field_name'        => 'in_products',
             'values'            => $this->_getSelectedProducts(),
             'align'             => 'center',
-            'index'             => 'entity_id'
+            'index'             => 'entity_id',
         ]);
 
         $this->addColumn(
             'entity_id',
             [
                 'header' => Mage::helper('catalog')->__('ID'),
-                'width' => 50,
-                'sortable'  => true,
-                'type'  => 'number',
                 'index' => 'entity_id',
-            ]
+            ],
         );
         $this->addColumn(
             'name',
             [
                 'header' => Mage::helper('catalog')->__('Name'),
                 'index' => 'name',
-            ]
+            ],
         );
 
         $store = $this->_getStore();
@@ -168,7 +166,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 [
                     'header' => Mage::helper('catalog')->__('Name in %s', $this->escapeHtml($store->getName())),
                     'index' => 'custom_name',
-                ]
+                ],
             );
         }
 
@@ -180,7 +178,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'index'     => 'type_id',
                 'type'      => 'options',
                 'options'   => Mage::getSingleton('catalog/product_type')->getOptionArray(),
-            ]
+            ],
         );
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -196,7 +194,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'index'     => 'attribute_set_id',
                 'type'      => 'options',
                 'options'   => $sets,
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -205,18 +203,16 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'header' => Mage::helper('catalog')->__('SKU'),
                 'width' => 80,
                 'index' => 'sku',
-            ]
+            ],
         );
 
         $store = $this->_getStore();
         $this->addColumn(
             'price',
             [
-                'header'        => Mage::helper('catalog')->__('Price'),
                 'type'          => 'price',
                 'currency_code' => $store->getBaseCurrency()->getCode(),
-                'index'         => 'price',
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -227,7 +223,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'index'     => 'visibility',
                 'type'      => 'options',
                 'options'   => Mage::getModel('catalog/product_visibility')->getOptionArray(),
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -238,7 +234,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
                 'index'     => 'status',
                 'type'      => 'options',
                 'options'   => Mage::getSingleton('catalog/product_status')->getOptionArray(),
-            ]
+            ],
         );
 
         return parent::_prepareColumns();

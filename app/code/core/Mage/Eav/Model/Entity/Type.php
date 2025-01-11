@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -267,7 +268,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityTablePrefix()
     {
-        $tablePrefix = trim((string)$this->_data['value_table_prefix']);
+        $tablePrefix = trim((string) $this->_data['value_table_prefix']);
 
         if (empty($tablePrefix)) {
             $tablePrefix = $this->getEntityTable();
@@ -277,23 +278,23 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get default attribute set identifier for etity type
+     * Get default attribute set identifier for entity type
      *
-     * @return string|null
+     * @return int|null
      */
     public function getDefaultAttributeSetId()
     {
-        return $this->_data['default_attribute_set_id'] ?? null;
+        return isset($this->_data['default_attribute_set_id']) ? (int) $this->_data['default_attribute_set_id'] : null;
     }
 
     /**
      * Retrieve entity type id
      *
-     * @return string|null
+     * @return int|null
      */
     public function getEntityTypeId()
     {
-        return $this->_data['entity_type_id'] ?? null;
+        return isset($this->_data['entity_type_id']) ? (int) $this->_data['entity_type_id'] : null;
     }
 
     /**
@@ -333,11 +334,13 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     /**
      * Retrieve resource entity object
      *
-     * @return Mage_Core_Model_Resource_Abstract
+     * @return Mage_Eav_Model_Entity_Abstract
      */
     public function getEntity()
     {
-        return Mage::getResourceSingleton($this->_data['entity_model']);
+        /** @var Mage_Eav_Model_Entity_Abstract $entity */
+        $entity = Mage::getResourceSingleton($this->_data['entity_model']);
+        return $entity;
     }
 
     /**

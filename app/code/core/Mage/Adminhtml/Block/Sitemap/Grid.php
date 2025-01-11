@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,17 +42,17 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->addColumn('sitemap_id', [
             'header'    => Mage::helper('sitemap')->__('ID'),
             'width'     => '50px',
-            'index'     => 'sitemap_id'
+            'index'     => 'sitemap_id',
         ]);
 
         $this->addColumn('sitemap_filename', [
             'header'    => Mage::helper('sitemap')->__('Filename'),
-            'index'     => 'sitemap_filename'
+            'index'     => 'sitemap_filename',
         ]);
 
         $this->addColumn('sitemap_path', [
             'header'    => Mage::helper('sitemap')->__('Path'),
-            'index'     => 'sitemap_path'
+            'index'     => 'sitemap_path',
         ]);
 
         $this->addColumn('link', [
@@ -68,18 +69,14 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [
-                'header'    => Mage::helper('sitemap')->__('Store View'),
-                'index'     => 'store_id',
                 'type'      => 'store',
             ]);
         }
 
         $this->addColumn('action', [
-            'header'   => Mage::helper('sitemap')->__('Action'),
-            'filter'   => false,
-            'sortable' => false,
+            'type'     => 'action',
             'width'    => '100',
-            'renderer' => 'adminhtml/sitemap_grid_renderer_action'
+            'renderer' => 'adminhtml/sitemap_grid_renderer_action',
         ]);
 
         return parent::_prepareColumns();

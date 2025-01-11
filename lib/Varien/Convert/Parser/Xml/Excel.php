@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,17 +37,19 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
         $dom->loadXML($this->getData());
 
         $worksheets = $dom->getElementsByTagName('Worksheet');
-
+        /** @var DOMElement $worksheet */
         foreach ($worksheets as $worksheet) {
             $wsName = $worksheet->getAttribute('ss:Name');
             $rows = $worksheet->getElementsByTagName('Row');
             $firstRow = true;
             $fieldNames = [];
             $wsData = [];
+            /** @var DOMElement $row */
             foreach ($rows as $row) {
                 $index = 1;
                 $cells = $row->getElementsByTagName('Cell');
                 $rowData = [];
+                /** @var DOMElement $cell */
                 foreach ($cells as $cell) {
                     $value = $cell->getElementsByTagName('Data')->item(0)->nodeValue;
                     $ind = $cell->getAttribute('ss:Index');
@@ -148,7 +151,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             $sheetName = 'Sheet 1';
         }
         $sheetName = htmlspecialchars($sheetName);
-        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
+        return '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
             . '><Workbook'
             . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
             . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
@@ -164,7 +167,6 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
             . '</ExcelWorkbook>'
             . '<Worksheet ss:Name="' . $sheetName . '">'
             . '<Table>';
-        return $xml;
     }
 
     /**
@@ -180,7 +182,6 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
     /**
      * Convert an array to Excel 2003 XML Document a Row XML fragment
      *
-     * @param array $row
      * @return string
      */
     public function getRowXml(array $row)
@@ -196,7 +197,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
         $xmlData = [];
         $xmlData[] = '<Row>';
         foreach ($row as $value) {
-            $this->_xmlElement->row = htmlspecialchars($value);
+            $this->_xmlElement->row = htmlspecialchars((string) $value);
             $value = str_replace($xmlHeader, '', $this->_xmlElement->asXML());
             $value = preg_replace($xmlRegexp, '\\1', $value);
             $dataType = 'String';

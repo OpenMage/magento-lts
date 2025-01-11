@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +94,6 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
         $path = Mage::getStoreConfig(self::XML_PATH_SITEMAP_VALID_PATHS);
         /** @var Mage_Core_Helper_Data $helper */
         $helper = Mage::helper('core');
-        $path = array_merge($path, $helper->getPublicFilesValidPath());
-        return $path;
+        return array_merge($path, $helper->getPublicFilesValidPath());
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,7 +85,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function setProductEntityId($entityId)
     {
-        $this->_productEntityId = (int)$entityId;
+        $this->_productEntityId = (int) $entityId;
         return $this;
     }
 
@@ -168,12 +169,12 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $countSelect->reset()
                 ->from(
                     ['quote_item_table' => $this->getTable('sales/quote_item')],
-                    ['COUNT(DISTINCT quote_item_table.product_id)']
+                    ['COUNT(DISTINCT quote_item_table.product_id)'],
                 )
                 ->join(
                     ['quote_table' => $this->getTable('sales/quote')],
                     'quote_table.entity_id = quote_item_table.quote_id AND quote_table.is_active = 1',
-                    []
+                    [],
                 );
             return $countSelect;
         }
@@ -204,7 +205,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             ->join(
                 ['quotes' => $this->getTable('sales/quote')],
                 'quotes.entity_id = quote_items.quote_id AND quotes.is_active = 1',
-                []
+                [],
             )
             ->where('quote_items.product_id = e.entity_id');
 
@@ -232,7 +233,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             ->joinLeft(
                 ['order_items' => $orderItemTableName],
                 "order_items.product_id = {$productFieldName}",
-                []
+                [],
             )
             ->columns(['orders' => 'COUNT(order_items2.item_id)'])
             ->group($productFieldName);
@@ -246,7 +247,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             ->joinLeft(
                 ['order_items2' => $orderItemTableName],
                 implode(' AND ', $dateFilter),
-                []
+                [],
             );
 
         return $this;
@@ -274,7 +275,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $productJoinCondition = [
             $adapter->quoteInto('(e.type_id NOT IN (?))', $compositeTypeIds),
             'e.entity_id = order_items.product_id',
-            $adapter->quoteInto('e.entity_type_id = ?', $this->getProductEntityTypeId())
+            $adapter->quoteInto('e.entity_type_id = ?', $this->getProductEntityTypeId()),
         ];
 
         if ($from != '' && $to != '') {
@@ -287,13 +288,13 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ['order_items' => $this->getTable('sales/order_item')],
                 [
                     'ordered_qty' => 'SUM(order_items.qty_ordered)',
-                    'order_items_name' => 'order_items.name'
-                ]
+                    'order_items_name' => 'order_items.name',
+                ],
             )
             ->joinInner(
                 ['order' => $this->getTable('sales/order')],
                 implode(' AND ', $orderJoinCondition),
-                []
+                [],
             )
             ->joinLeft(
                 ['e' => $this->getProductEntityTableName()],
@@ -307,8 +308,8 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                     'has_options' => 'e.has_options',
                     'required_options' => 'e.required_options',
                     'created_at' => 'e.created_at',
-                    'updated_at' => 'e.updated_at'
-                ]
+                    'updated_at' => 'e.updated_at',
+                ],
             )
             ->where('parent_item_id IS NULL')
             ->group('order_items.product_id')
@@ -348,7 +349,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
          */
         foreach (Mage::getModel('reports/event_type')->getCollection() as $eventType) {
             if ($eventType->getEventName() == 'catalog_product_view') {
-                $productViewEvent = (int)$eventType->getId();
+                $productViewEvent = (int) $eventType->getId();
                 break;
             }
         }
@@ -356,14 +357,14 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $this->getSelect()->reset()
             ->from(
                 ['report_table_views' => $this->getTable('reports/event')],
-                ['views' => 'COUNT(report_table_views.event_id)']
+                ['views' => 'COUNT(report_table_views.event_id)'],
             )
             ->join(
                 ['e' => $this->getProductEntityTableName()],
                 $this->getConnection()->quoteInto(
                     'e.entity_id = report_table_views.object_id AND e.entity_type_id = ?',
-                    $this->getProductEntityTypeId()
-                )
+                    $this->getProductEntityTypeId(),
+                ),
             )
             ->where('report_table_views.event_type_id = ?', $productViewEvent)
             ->group('e.entity_id')
@@ -394,7 +395,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             '(%s BETWEEN %s AND %s)',
             $fieldName,
             $this->getConnection()->quote($from),
-            $this->getConnection()->quote($to)
+            $this->getConnection()->quote($to),
         );
     }
 

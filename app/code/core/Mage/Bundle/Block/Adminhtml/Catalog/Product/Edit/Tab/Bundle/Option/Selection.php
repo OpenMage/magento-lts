@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,8 +70,8 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
                 ->setData([
                     'label' => Mage::helper('catalog')->__('Delete'),
                     'class' => 'delete icon-btn',
-                    'on_click' => 'bSelection.remove(event)'
-                ])
+                    'on_click' => 'bSelection.remove(event)',
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -95,7 +96,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
                 'id'    => $this->getFieldId() . '_{{index}}_price_type',
-                'class' => 'select select-product-option-type required-option-select'
+                'class' => 'select select-product-option-type required-option-select',
             ])
             ->setName($this->getFieldName() . '[{{parentIndex}}][{{index}}][selection_price_type]')
             ->setOptions(Mage::getSingleton('bundle/source_option_selection_price_type')->toOptionArray());
@@ -115,7 +116,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData([
                 'id' => $this->getFieldId() . '_{{index}}_can_change_qty',
-                'class' => 'select'
+                'class' => 'select',
             ])
             ->setName($this->getFieldName() . '[{{parentIndex}}][{{index}}][selection_can_change_qty]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
@@ -136,7 +137,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     /**
      * Check if used website scope price
      *
-     * @return string
+     * @return bool
      */
     public function isUsedWebsitePrice()
     {

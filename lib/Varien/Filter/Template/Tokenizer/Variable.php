@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Filter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,18 +44,18 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
                 // Method declaration
                 $methodArgs = $this->getMethodArgs();
                 $actions[] = ['type' => 'method',
-                                   'name' => $parameterName,
-                                   'args' => $methodArgs];
+                    'name' => $parameterName,
+                    'args' => $methodArgs];
                 $parameterName = '';
             } elseif ($parameterName != '') {
                 // Property or variable declaration
                 if ($variableSet) {
                     $actions[] = ['type' => 'property',
-                                       'name' => $parameterName];
+                        'name' => $parameterName];
                 } else {
                     $variableSet = true;
                     $actions[] = ['type' => 'variable',
-                                       'name' => $parameterName];
+                        'name' => $parameterName];
                 }
                 $parameterName = '';
             }
@@ -63,10 +64,10 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
         if ($parameterName != '') {
             if ($variableSet) {
                 $actions[] = ['type' => 'property',
-                                       'name' => $parameterName];
+                    'name' => $parameterName];
             } else {
                 $actions[] = ['type' => 'variable',
-                                   'name' => $parameterName];
+                    'name' => $parameterName];
             }
         }
 
@@ -121,7 +122,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
     }
 
     /**
-     * Return true if current char is qoute or apostroph
+     * Return true if current char is quote or apostrophe
      *
      * @return boolean
      */

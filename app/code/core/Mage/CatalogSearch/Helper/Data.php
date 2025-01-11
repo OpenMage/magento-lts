@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -163,7 +164,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_getUrl('catalogsearch/result', [
             '_query' => [self::QUERY_VAR_NAME => $query],
-            '_secure' => $this->_getApp()->getFrontController()->getRequest()->isSecure()
+            '_secure' => $this->_getApp()->getFrontController()->getRequest()->isSecure(),
         ]);
     }
 
@@ -175,7 +176,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     public function getSuggestUrl()
     {
         return $this->_getUrl('catalogsearch/ajax/suggest', [
-            '_secure' => $this->_getApp()->getStore()->isCurrentlySecure()
+            '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
         ]);
     }
 
@@ -257,7 +258,6 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Set Note messages
      *
-     * @param array $messages
      * @return $this
      */
     public function setNoteMessages(array $messages)
@@ -299,7 +299,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             if (count($wordsFull) > count($wordsLike)) {
                 $wordsCut = array_map([$this, 'escapeHtml'], array_diff($wordsFull, $wordsLike));
                 $this->addNoteMessage(
-                    $this->__('Maximum words count is %1$s. In your search query was cut next part: %2$s.', $this->getMaxQueryWords(), implode(' ', $wordsCut))
+                    $this->__('Maximum words count is %1$s. In your search query was cut next part: %2$s.', $this->getMaxQueryWords(), implode(' ', $wordsCut)),
                 );
             }
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +94,6 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Add customer data from customer object
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function addCustomerData(Mage_Customer_Model_Customer $customer)
@@ -174,7 +174,6 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     /**
      * Customer logout bind process
      *
-     * @param Varien_Event_Observer|null $observer
      * @return $this
      */
     public function bindCustomerLogout(?Varien_Event_Observer $observer = null)

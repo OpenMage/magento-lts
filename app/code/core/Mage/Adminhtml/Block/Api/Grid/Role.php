@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,12 +46,12 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'index'     => 'role_id',
             'align'     => 'right',
-            'width'    => '50px'
+            'width'    => '50px',
         ]);
 
         $this->addColumn('role_name', [
             'header'    => Mage::helper('adminhtml')->__('Role Name'),
-            'index'     => 'role_name'
+            'index'     => 'role_name',
         ]);
 
         return parent::_prepareColumns();

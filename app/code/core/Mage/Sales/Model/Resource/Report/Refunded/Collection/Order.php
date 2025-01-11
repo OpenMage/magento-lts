@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +70,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order extends Mage_Sa
                 'orders_count'      => 'SUM(orders_count)',
                 'refunded'          => 'SUM(refunded)',
                 'online_refunded'   => 'SUM(online_refunded)',
-                'offline_refunded'  => 'SUM(offline_refunded)'
+                'offline_refunded'  => 'SUM(offline_refunded)',
             ];
         }
 
@@ -89,7 +90,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order extends Mage_Sa
     {
         $this->getSelect()->from(
             $this->getResource()->getMainTable(),
-            $this->_getSelectedColumns()
+            $this->_getSelectedColumns(),
         );
         if (!$this->isTotals()) {
             $this->getSelect()->group($this->_periodFormat);

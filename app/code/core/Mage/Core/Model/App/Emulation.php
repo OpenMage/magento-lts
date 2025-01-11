@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,9 +36,6 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      */
     protected $_app;
 
-    /**
-     * @param array $args
-     */
     public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
@@ -145,7 +143,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
         $initialDesign = Mage::getDesign()->setAllGetOld([
             'package' => $this->_getStoreConfig('design/package/name', $storeId),
             'store'   => $storeId,
-            'area'    => $area
+            'area'    => $area,
         ]);
         Mage::getDesign()->setTheme('');
         Mage::getDesign()->setPackageName('');
@@ -200,7 +198,6 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Restore design of the initial store
      *
-     * @param array $initialDesign
      *
      * @return $this
      */

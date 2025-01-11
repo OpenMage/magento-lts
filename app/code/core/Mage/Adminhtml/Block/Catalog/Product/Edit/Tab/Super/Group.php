@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -126,29 +127,25 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'name'      => 'in_products',
             'values'    => $this->_getSelectedProducts(),
             'align'     => 'center',
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => true,
-            'width'     => '60px',
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
         $this->addColumn('sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
             'width'     => '80px',
-            'index'     => 'sku'
+            'index'     => 'sku',
         ]);
         $this->addColumn('price', [
-            'header'    => Mage::helper('catalog')->__('Price'),
             'type'      => 'currency',
-            'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
-            'index'     => 'price'
+            'currency_code' => Mage_Directory_Helper_Data::getConfigCurrencyBase(),
         ]);
 
         $this->addColumn('qty', [
@@ -157,9 +154,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'type'      => 'number',
             'validate_class' => 'validate-number',
             'index'     => 'qty',
-            'width'     => '1',
             'editable'  => true,
-            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback']
+            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback'],
         ]);
 
         $this->addColumn('position', [
@@ -171,12 +167,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'width'     => '1',
             'editable'  => true,
             'edit_only' => !$this->_getProduct()->getId(),
-            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback']
+            'filter_condition_callback' => [$this, '_addLinkModelFilterCallback'],
         ]);
 
         $this->addColumn('action', [
-            'header'    => Mage::helper('catalog')->__('Action'),
-            'width'     => '50px',
             'type'      => 'action',
             'getter'    => 'getId',
             'actions'   => [
@@ -189,13 +183,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
                         'base'   => 'adminhtml/catalog_product/edit',
                         'params' => [
                             'store' => $this->getRequest()->getParam('store'),
-                            'popup' => 1
+                            'popup' => 1,
                         ],
                     ],
                 ],
             ],
-            'filter' => false,
-            'sortable' => false,
             'index' => 'stores',
         ]);
 
@@ -239,7 +231,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         foreach ($associatedProducts as $product) {
             $products[$product->getId()] = [
                 'qty'       => $product->getQty(),
-                'position'  => $product->getPosition()
+                'position'  => $product->getPosition(),
             ];
         }
         return $products;

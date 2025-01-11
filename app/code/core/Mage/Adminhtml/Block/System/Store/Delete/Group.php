@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,8 +38,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                 ->setData([
                     'label'     => Mage::helper('core')->__('Delete Store'),
                     'onclick'   => 'deleteForm.submit()',
-                    'class'     => 'cancel'
-                ])
+                    'class'     => 'cancel',
+                ]),
         );
         $onClick = Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/editGroup', ['group_id' => $itemId]));
         $this->setChild(
@@ -47,8 +48,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                 ->setData([
                     'label'     => Mage::helper('core')->__('Cancel'),
                     'onclick'   => $onClick,
-                    'class'     => 'cancel'
-                ])
+                    'class'     => 'cancel',
+                ]),
         );
         $this->setChild(
             'back_button',
@@ -56,8 +57,8 @@ class Mage_Adminhtml_Block_System_Store_Delete_Group extends Mage_Adminhtml_Bloc
                 ->setData([
                     'label'     => Mage::helper('core')->__('Back'),
                     'onclick'   => $onClick,
-                    'class'     => 'cancel'
-                ])
+                    'class'     => 'cancel',
+                ]),
         );
         return parent::_prepareLayout();
     }

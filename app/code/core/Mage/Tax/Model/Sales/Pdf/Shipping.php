@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,7 +26,7 @@ class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total
      *  $index => array(
      *      'amount'   => $amount,
      *      'label'    => $label,
-     *      'font_size'=> $font_size
+     *      'font_size'=> $fontSize
      *  )
      * )
      * @return array
@@ -47,25 +48,25 @@ class Mage_Tax_Model_Sales_Pdf_Shipping extends Mage_Sales_Model_Order_Pdf_Total
                 [
                     'amount'    => $this->getAmountPrefix() . $amount,
                     'label'     => Mage::helper('tax')->__('Shipping (Excl. Tax)') . ':',
-                    'font_size' => $fontSize
+                    'font_size' => $fontSize,
                 ],
                 [
                     'amount'    => $this->getAmountPrefix() . $amountInclTax,
                     'label'     => Mage::helper('tax')->__('Shipping (Incl. Tax)') . ':',
-                    'font_size' => $fontSize
+                    'font_size' => $fontSize,
                 ],
             ];
         } elseif ($config->displaySalesShippingInclTax($store)) {
             $totals = [[
                 'amount'    => $this->getAmountPrefix() . $amountInclTax,
                 'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
-                'font_size' => $fontSize
+                'font_size' => $fontSize,
             ]];
         } else {
             $totals = [[
                 'amount'    => $this->getAmountPrefix() . $amount,
                 'label'     => Mage::helper('sales')->__($this->getTitle()) . ':',
-                'font_size' => $fontSize
+                'font_size' => $fontSize,
             ]];
         }
 

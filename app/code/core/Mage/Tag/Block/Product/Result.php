@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,13 +94,13 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
                 ->addTagFilter($this->getTag()->getId())
                 ->addStoreFilter(Mage::app()->getStore()->getId())
                 ->addAttributeToFilter('status', [
-                    'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+                    'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
                 ])
                 ->addMinimalPrice()
                 ->addUrlRewrite()
                 ->setActiveFilter();
             Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection(
-                $this->_productCollection
+                $this->_productCollection,
             );
         }
 

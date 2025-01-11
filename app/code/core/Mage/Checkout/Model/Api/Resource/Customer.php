@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +60,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      */
     protected function _getCustomerAddress($addressId)
     {
-        $address = Mage::getModel('customer/address')->load((int)$addressId);
+        $address = Mage::getModel('customer/address')->load((int) $addressId);
         if (is_null($address->getId())) {
             $this->_fault('invalid_address_id');
         }
@@ -72,7 +73,6 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     }
 
     /**
-     * @param Mage_Sales_Model_Quote $quote
      * @return bool
      */
     public function prepareCustomerForQuote(Mage_Sales_Model_Quote $quote)
@@ -97,7 +97,6 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     /**
      * Prepare quote for guest checkout order submit
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @return $this
      */
     protected function _prepareGuestQuote(Mage_Sales_Model_Quote $quote)
@@ -112,7 +111,6 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     /**
      * Prepare quote for customer registration and customer order submit
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @return $this
      */
     protected function _prepareNewCustomerQuote(Mage_Sales_Model_Quote $quote)
@@ -148,7 +146,6 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     /**
      * Prepare quote for customer order submit
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @return $this
      */
     protected function _prepareCustomerQuote(Mage_Sales_Model_Quote $quote)
@@ -186,7 +183,6 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     /**
      * Involve new customer to system
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @return $this
      */
     public function involveNewCustomer(Mage_Sales_Model_Quote $quote)

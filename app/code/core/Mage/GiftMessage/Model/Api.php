@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +54,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         try {
             Mage::dispatchEvent(
                 'checkout_controller_onepage_save_shipping_method',
-                ['request' => $request, 'quote' => $quote]
+                ['request' => $request, 'quote' => $quote],
             );
             return ['entityId' => $entityId, 'result' => true, 'error' => ''];
         } catch (Exception $e) {

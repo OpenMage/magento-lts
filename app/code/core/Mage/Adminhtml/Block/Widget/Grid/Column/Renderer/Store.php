@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +62,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
     /**
      * Render row store views
      *
-     * @param Varien_Object $row
      * @return string
      */
     public function render(Varien_Object $row)
@@ -76,8 +76,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
             foreach (explode("\n", $row->getStoreName()) as $k => $label) {
                 $scopes[] = str_repeat('&nbsp;', $k * 3) . $label;
             }
-            $out .= implode('<br/>', $scopes) . $this->__(' [deleted]');
-            return $out;
+            return $out . (implode('<br/>', $scopes) . $this->__(' [deleted]'));
         }
 
         if (empty($origStores) && !$skipEmptyStoresLabel) {
@@ -111,7 +110,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
     /**
      * Render row store views for export
      *
-     * @param Varien_Object $row
      * @return string
      */
     public function renderExport(Varien_Object $row)
@@ -125,8 +123,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
             foreach (explode("\n", $row->getStoreName()) as $k => $label) {
                 $scopes[] = str_repeat(' ', $k * 3) . $label;
             }
-            $out .= implode("\r\n", $scopes) . $this->__(' [deleted]');
-            return $out;
+            return $out . (implode("\r\n", $scopes) . $this->__(' [deleted]'));
         }
 
         if (!is_array($origStores)) {

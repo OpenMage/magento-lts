@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,24 +42,19 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
     {
         $this->addColumn('entity_id', [
             'header'    => Mage::helper('reports')->__('ID'),
-            'width'     => '50px',
-            'align'     => 'right',
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $currencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('price', [
-            'header'    => Mage::helper('reports')->__('Price'),
-            'width'     => '80px',
             'type'      => 'currency',
             'currency_code' => $currencyCode,
-            'index'     => 'price',
             'renderer'  => 'adminhtml/report_grid_column_renderer_currency',
             'rate'          => $this->getRate($currencyCode),
         ]);
@@ -67,14 +63,14 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
             'header'    => Mage::helper('reports')->__('Carts'),
             'width'     => '80px',
             'align'     => 'right',
-            'index'     => 'carts'
+            'index'     => 'carts',
         ]);
 
         $this->addColumn('orders', [
             'header'    => Mage::helper('reports')->__('Orders'),
             'width'     => '80px',
             'align'     => 'right',
-            'index'     => 'orders'
+            'index'     => 'orders',
         ]);
 
         $this->setFilterVisibility(false);

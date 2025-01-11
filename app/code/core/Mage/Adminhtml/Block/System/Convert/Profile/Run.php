@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,28 +62,28 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                         'styles' => [
                             'error' => [
                                 'icon' => Mage::getDesign()->getSkinUrl('images/error_msg_icon.gif'),
-                                'bg'   => '#FDD'
+                                'bg'   => '#FDD',
                             ],
                             'message' => [
                                 'icon' => Mage::getDesign()->getSkinUrl('images/fam_bullet_success.gif'),
-                                'bg'   => '#DDF'
+                                'bg'   => '#DDF',
                             ],
-                            'loader'  => Mage::getDesign()->getSkinUrl('images/ajax-loader.gif')
+                            'loader'  => Mage::getDesign()->getSkinUrl('images/ajax-loader.gif'),
                         ],
                         'template' => '<li style="#{style}" id="#{id}">'
                                     . '<img id="#{id}_img" src="#{image}" class="v-middle" style="margin-right:5px"/>'
                                     . '<span id="#{id}_status" class="text">#{text}</span>'
                                     . '</li>',
                         'text'     => $this->__('Processed <strong>%s%% %s/%d</strong> records', '#{percent}', '#{updated}', $this->getBatchItemsCount()),
-                        'successText'  => $this->__('Imported <strong>%s</strong> records', '#{updated}')
-                    ]
+                        'successText'  => $this->__('Imported <strong>%s</strong> records', '#{updated}'),
+                    ],
                 );
                 $jsonIds = array_chunk($importIds, $numberOfRecords);
                 $importData = [];
                 foreach ($jsonIds as $part => $ids) {
                     $importData[] = [
                         'batch_id'   => $batchModel->getId(),
-                        'rows[]'     => $ids
+                        'rows[]'     => $ids,
                     ];
                 }
                 $this->setImportData($importData);
@@ -109,7 +110,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     public function getBatchConfigJson()
     {
         return Mage::helper('core')->jsonEncode(
-            $this->getBatchConfig()
+            $this->getBatchConfig(),
         );
     }
     /**
@@ -172,16 +173,17 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                     $liStyle = 'background-color:#FFD; ';
                     break;
                 case Varien_Convert_Exception::NOTICE:
+                default:
                     $img = 'fam_bullet_success.gif';
                     $liStyle = 'background-color:#DDF; ';
                     break;
             }
             $exceptions[] = [
-                    'style'     => $liStyle,
-                    'src'       => Mage::getDesign()->getSkinUrl('images/' . $img),
-                    'message'   => $e->getMessage(),
-                    'position'  => $e->getPosition()
-                ];
+                'style'     => $liStyle,
+                'src'       => Mage::getDesign()->getSkinUrl('images/' . $img),
+                'message'   => $e->getMessage(),
+                'position'  => $e->getPosition(),
+            ];
         }
         parent::setExceptions($exceptions);
         return $exceptions;

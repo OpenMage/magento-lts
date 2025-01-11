@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,30 +44,29 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
-            'sortable'  => true,
-            'index'     => 'user_id'
+            'index'     => 'user_id',
         ]);
 
         $this->addColumn('username', [
             'header'    => Mage::helper('adminhtml')->__('User Name'),
-            'index'     => 'username'
+            'index'     => 'username',
         ]);
 
         $this->addColumn('firstname', [
             'header'    => Mage::helper('adminhtml')->__('First Name'),
-            'index'     => 'firstname'
+            'index'     => 'firstname',
         ]);
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('adminhtml')->__('Last Name'),
-            'index'     => 'lastname'
+            'index'     => 'lastname',
         ]);
 
         $this->addColumn('email', [
             'header'    => Mage::helper('adminhtml')->__('Email'),
             'width'     => 40,
             'align'     => 'left',
-            'index'     => 'email'
+            'index'     => 'email',
         ]);
 
         $this->addColumn('is_active', [

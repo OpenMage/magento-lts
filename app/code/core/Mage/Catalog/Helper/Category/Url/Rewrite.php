@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,8 +38,6 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
 
     /**
      * Initialize resource and connection instances
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -50,7 +49,6 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
     /**
      * Join url rewrite table to eav collection
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param int $storeId
      * @return $this
      */
@@ -64,7 +62,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
                 "{{table}}.store_id='{$storeId}' AND " .
                 '{{table}}.category_id IS NOT NULL AND ' .
                 "{{table}}.id_path LIKE 'category/%'",
-            'left'
+            'left',
         );
         return $this;
     }
@@ -72,7 +70,6 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
     /**
      * Join url rewrite table to collection
      *
-     * @param Mage_Catalog_Model_Resource_Category_Flat_Collection $collection
      * @param int $storeId
      * @return $this|Mage_Catalog_Helper_Category_Url_Rewrite_Interface
      */
@@ -84,7 +81,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
                 ' AND ' . $collection->getConnection()->quoteInto('url_rewrite.store_id = ?', $storeId) .
                 ' AND url_rewrite.category_id IS NOT NULL' .
                 ' AND ' . $collection->getConnection()->quoteInto('url_rewrite.id_path LIKE ?', 'category/%'),
-            ['request_path']
+            ['request_path'],
         );
         return $this;
     }
@@ -92,7 +89,6 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
     /**
      * Join url rewrite to select
      *
-     * @param Varien_Db_Select $select
      * @param int $storeId
      * @return $this
      */
@@ -103,11 +99,11 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
             'url_rewrite.category_id=main_table.entity_id AND url_rewrite.is_system=1 AND ' .
                 $this->_connection->quoteInto(
                     'url_rewrite.store_id = ? AND ',
-                    (int)$storeId
+                    (int) $storeId,
                 ) .
                 'url_rewrite.category_id IS NOT NULL AND ' .
                 $this->_connection->prepareSqlCondition('url_rewrite.id_path', ['like' => 'category/%']),
-            ['request_path' => 'url_rewrite.request_path']
+            ['request_path' => 'url_rewrite.request_path'],
         );
         return $this;
     }

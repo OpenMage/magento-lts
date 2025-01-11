@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 /**
@@ -61,19 +62,19 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             self::EVENT_TYPE_REINDEX_PRICE,
         ],
         Mage_Core_Model_Config_Data::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
+            Mage_Index_Model_Event::TYPE_SAVE,
         ],
         Mage_Customer_Model_Group::ENTITY => [
-            Mage_Index_Model_Event::TYPE_SAVE
-        ]
+            Mage_Index_Model_Event::TYPE_SAVE,
+        ],
     ];
 
     protected $_relatedConfigSettings = [
         Mage_Catalog_Helper_Data::XML_PATH_PRICE_SCOPE,
-        Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK
+        Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
     ];
 
     protected function _construct()
@@ -116,15 +117,14 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             'tax_class_id',
             'status',
             'required_options',
-            'force_reindex_required'
+            'force_reindex_required',
         ];
     }
 
     /**
      * Check if event can be matched by process.
-     * Rewrited for checking configuration settings save (like price scope).
+     * Rewritten for checking configuration settings save (like price scope).
      *
-     * @param Mage_Index_Model_Event $event
      * @return bool
      */
     public function matchEvent(Mage_Index_Model_Event $event)
@@ -154,8 +154,6 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Register data required by catalog product delete process
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
@@ -170,8 +168,6 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Register data required by catalog product save process
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _registerCatalogProductSaveEvent(Mage_Index_Model_Event $event)
     {
@@ -193,9 +189,6 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
         }
     }
 
-    /**
-     * @param Mage_Index_Model_Event $event
-     */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
         $actionObject = $event->getDataObject();
@@ -226,8 +219,6 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Register data required by process in event object
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {
@@ -267,8 +258,6 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
 
     /**
      * Process event
-     *
-     * @param Mage_Index_Model_Event $event
      */
     protected function _processEvent(Mage_Index_Model_Event $event)
     {

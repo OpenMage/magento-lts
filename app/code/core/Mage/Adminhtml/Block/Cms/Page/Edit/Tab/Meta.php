@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,14 +48,14 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta extends Mage_Adminhtml_Block_W
             'name' => 'meta_keywords',
             'label' => Mage::helper('cms')->__('Keywords'),
             'title' => Mage::helper('cms')->__('Meta Keywords'),
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         $fieldset->addField('meta_description', 'textarea', [
             'name' => 'meta_description',
             'label' => Mage::helper('cms')->__('Description'),
             'title' => Mage::helper('cms')->__('Meta Description'),
-            'disabled'  => $isElementDisabled
+            'disabled'  => $isElementDisabled,
         ]);
 
         Mage::dispatchEvent('adminhtml_cms_page_edit_tab_meta_prepare_form', ['form' => $form]);

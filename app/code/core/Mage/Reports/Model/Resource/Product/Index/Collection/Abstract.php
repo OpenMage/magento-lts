@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,9 +57,9 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
                 [
                     'product_id'    => 'product_id',
                     'item_store_id' => 'store_id',
-                    'added_at'      => 'added_at'
+                    'added_at'      => 'added_at',
                 ],
-                $this->_getWhereCondition()
+                $this->_getWhereCondition(),
             );
             $this->setFlag('is_idx_table_joined', true);
         }
@@ -123,7 +124,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      */
     public function setCustomerId($id)
     {
-        $this->_customerId = (int)$id;
+        $this->_customerId = (int) $id;
         return $this;
     }
 
@@ -144,7 +145,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Set list of ids with expected order
      *
-     * @param array $ids
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function setSortIds(array $ids)

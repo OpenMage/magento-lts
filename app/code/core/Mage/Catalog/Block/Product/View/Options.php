@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +35,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         $this->addOptionRenderer(
             'default',
             'catalog/product_view_options_type_default',
-            'catalog/product/view/options/type/default.phtml'
+            'catalog/product/view/options/type/default.phtml',
         );
     }
 
@@ -58,7 +59,6 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     /**
      * Set product object
      *
-     * @param Mage_Catalog_Model_Product|null $product
      * @return $this
      */
     public function setProduct(?Mage_Catalog_Model_Product $product = null)
@@ -80,7 +80,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         $this->_optionRenders[$type] = [
             'block' => $block,
             'template' => $template,
-            'renderer' => null
+            'renderer' => null,
         ];
         return $this;
     }
@@ -177,13 +177,12 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     /**
      * Get option html block
      *
-     * @param Mage_Catalog_Model_Product_Option $option
      * @return string
      */
     public function getOptionHtml(Mage_Catalog_Model_Product_Option $option)
     {
         $renderer = $this->getOptionRender(
-            $this->getGroupOfOption($option->getType())
+            $this->getGroupOfOption($option->getType()),
         );
         if (is_null($renderer['renderer'])) {
             $renderer['renderer'] = $this->getLayout()->createBlock($renderer['block'])

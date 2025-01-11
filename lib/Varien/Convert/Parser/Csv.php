@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,6 +26,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
     {
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
+        $fEsc = $this->getVar('escape', '\\');
 
         if ($fDel == '\\t') {
             $fDel = "\t";
@@ -38,7 +40,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         fseek($fp, 0);
 
         $data = [];
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
+        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
@@ -65,6 +67,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
     {
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');
+        $fEsc = $this->getVar('escape', '\\');
 
         if ($fDel == '\\t') {
             $fDel = "\t";
@@ -81,7 +84,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         $sessionId = Mage::registry('current_dataflow_session_id');
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
-        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
+        for ($i = 0; $line = fgetcsv($fp, 4096, $fDel, $fEnc, $fEsc); $i++) {
             if (0 == $i) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;

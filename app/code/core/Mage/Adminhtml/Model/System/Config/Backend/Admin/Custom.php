@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,13 +66,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
                 self::XML_PATH_SECURE_BASE_URL,
                 $value,
                 self::CONFIG_SCOPE,
-                self::CONFIG_SCOPE_ID
+                self::CONFIG_SCOPE_ID,
             );
             Mage::getConfig()->saveConfig(
                 self::XML_PATH_UNSECURE_BASE_URL,
                 $value,
                 self::CONFIG_SCOPE,
-                self::CONFIG_SCOPE_ID
+                self::CONFIG_SCOPE_ID,
             );
         }
 

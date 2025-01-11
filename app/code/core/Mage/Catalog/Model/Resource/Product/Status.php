@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,7 +23,7 @@
 class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Product atrribute cache
+     * Product attribute cache
      *
      * @var array
      */
@@ -104,7 +105,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             'attribute_id'   => $statusAttributeId,
             'store_id'       => $storeId,
             'entity_id'      => $productId,
-            'value'          => $value
+            'value'          => $value,
         ]);
 
         $data = $this->_prepareDataForTable($data, $statusTable);
@@ -169,13 +170,13 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             $select = $adapter->select()
                 ->from(
                     ['t1' => $attributeTable],
-                    ['entity_id' => 't1.entity_id', 'value' => $valueCheckSql]
+                    ['entity_id' => 't1.entity_id', 'value' => $valueCheckSql],
                 )
                 ->joinLeft(
                     ['t2' => $attributeTable],
                     't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = '
-                        . (int)$storeId,
-                    ['']
+                        . (int) $storeId,
+                    [''],
                 )
                 ->where('t1.store_id = ?', Mage_Core_Model_App::ADMIN_STORE_ID)
                 ->where('t1.attribute_id = ?', $attribute->getAttributeId())

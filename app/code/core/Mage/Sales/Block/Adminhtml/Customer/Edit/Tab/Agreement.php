@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +31,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
         'customer_email',
         'customer_firstname',
         'customer_middlename',
-        'customer_lastname'
+        'customer_lastname',
     ];
 
     /**
@@ -71,7 +72,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
     public function canShowTab()
     {
         $customer = Mage::registry('current_customer');
-        return (bool)$customer->getId();
+        return (bool) $customer->getId();
     }
 
     /**

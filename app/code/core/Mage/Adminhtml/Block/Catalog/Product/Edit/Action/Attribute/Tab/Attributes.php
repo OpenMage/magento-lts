@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
     protected function _prepareForm()
     {
         $this->setFormExcludedFieldList([
-            'tier_price','gallery', 'media_gallery', 'recurring_profile', 'group_price'
+            'tier_price','gallery', 'media_gallery', 'recurring_profile', 'group_price',
         ]);
         Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', ['object' => $this]);
 
@@ -74,12 +75,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
             'price' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
             'weight' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_weight'),
             'image' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
-            'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
+            'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean'),
         ];
     }
 
     /**
-     * Custom additional elemnt html
+     * Custom additional element html
      *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
