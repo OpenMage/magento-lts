@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Uploader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -636,7 +637,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     {
         $nodes = Mage::getConfig()->getNode('global/mime/types');
         if ($nodes) {
-            $nodes = (array)$nodes;
+            $nodes = (array) $nodes;
             foreach ($nodes as $key => $value) {
                 $this->_mimeTypes[$key] = $value;
             }
@@ -703,11 +704,16 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Get max upload size
      *
-     * @return mixed
+     * @return string
      */
     public function getDataMaxSize()
     {
-        return min($this->getPostMaxSize(), $this->getUploadMaxSize());
+        $postMaxSize = $this->getPostMaxSize();
+        $uploadMaxSize = $this->getUploadMaxSize();
+        $postMaxSizeBytes = ini_parse_quantity($postMaxSize);
+        $uploadMaxSizeBytes = ini_parse_quantity($uploadMaxSize);
+
+        return min($postMaxSizeBytes, $uploadMaxSizeBytes) === $postMaxSizeBytes ? $postMaxSize : $uploadMaxSize;
     }
 
     /**
@@ -717,27 +723,6 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
      */
     public function getDataMaxSizeInBytes()
     {
-        $iniSize = $this->getDataMaxSize();
-        $size = (int)substr($iniSize, 0, -1);
-        $parsedSize = 0;
-        switch (strtolower(substr($iniSize, strlen($iniSize) - 1))) {
-            case 't':
-                $parsedSize = $size * (1024 * 1024 * 1024 * 1024);
-                break;
-            case 'g':
-                $parsedSize = $size * (1024 * 1024 * 1024);
-                break;
-            case 'm':
-                $parsedSize = $size * (1024 * 1024);
-                break;
-            case 'k':
-                $parsedSize = $size * 1024;
-                break;
-            case 'b':
-            default:
-                $parsedSize = $size;
-                break;
-        }
-        return (int)$parsedSize;
+        return ini_parse_quantity($this->getDataMaxSize());
     }
 }

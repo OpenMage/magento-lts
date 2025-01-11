@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,6 +28,13 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      */
     public const XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS = 'sales/gift_options/allow_items';
     public const XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER = 'sales/gift_options/allow_order';
+
+    public const TYPE_ADDRESS_ITEM  = 'address_item';
+    public const TYPE_CONFIG        = 'config';
+    public const TYPE_ITEM          = 'item';
+    public const TYPE_ITEMS         = 'items';
+    public const TYPE_ORDER         = 'order';
+    public const TYPE_ORDER_ITEM    = 'order_item';
 
     protected $_moduleName = 'Mage_GiftMessage';
 
@@ -48,7 +56,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Retrieve old stule edit button html for editing of giftmessage in popup
      *
      * @param string $type
-     * @param Varien_Object $entity
      * @return string
      */
     public function getButton($type, Varien_Object $entity)
@@ -68,7 +75,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Retrieve inline giftmessage edit form for specified entity
      *
      * @param string $type
-     * @param Varien_Object $entity
      * @param bool $dontDisplayContainer
      * @return string
      */
@@ -90,75 +96,73 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Check availability of giftmessages for specified entity.
      *
-     * @param string $type
-     * @param Varien_Object $entity
-     * @param Mage_Core_Model_Store|integer $store
-     * @return bool|int
+     * @param self::TYPE_* $type $type
+     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @return bool
      */
     public function isMessagesAvailable($type, Varien_Object $entity, $store = null)
     {
-        if ($type == 'items') {
-            $items = $entity->getAllItems();
-            if (!is_array($items) || empty($items)) {
-                return Mage::getStoreConfig(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
-            }
-            if ($entity instanceof Mage_Sales_Model_Quote) {
-                $_type = $entity->getIsMultiShipping() ? 'address_item' : 'item';
-            } else {
-                $_type = 'order_item';
-            }
-
-            foreach ($items as $item) {
-                if ($item->getParentItem()) {
-                    continue;
+        switch ($type) {
+            case self::TYPE_ITEMS:
+                $items = $entity->getAllItems();
+                if (!is_array($items) || empty($items)) {
+                    return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
                 }
-                if ($this->isMessagesAvailable($_type, $item, $store)) {
-                    return true;
+                if ($entity instanceof Mage_Sales_Model_Quote) {
+                    $_type = $entity->getIsMultiShipping() ? self::TYPE_ADDRESS_ITEM : self::TYPE_ITEM;
+                } else {
+                    $_type = self::TYPE_ORDER_ITEM;
                 }
-            }
-        } elseif ($type == 'item') {
-            return $this->_getDependenceFromStoreConfig(
-                $entity->getProduct()->getGiftMessageAvailable(),
-                $store
-            );
-        } elseif ($type == 'order_item') {
-            return $this->_getDependenceFromStoreConfig(
-                $entity->getGiftMessageAvailable(),
-                $store
-            );
-        } elseif ($type == 'address_item') {
-            $storeId = is_numeric($store) ? $store : Mage::app()->getStore($store)->getId();
 
-            if (!$this->isCached('address_item_' . $entity->getProductId())) {
-                $this->setCached(
-                    'address_item_' . $entity->getProductId(),
-                    Mage::getModel('catalog/product')
-                        ->setStoreId($storeId)
-                        ->load($entity->getProductId())
-                        ->getGiftMessageAvailable()
+                foreach ($items as $item) {
+                    if ($item->getParentItem()) {
+                        continue;
+                    }
+                    return $this->isMessagesAvailable($_type, $item, $store);
+                }
+                // no break
+            case self::TYPE_ITEM:
+                return $this->_getDependenceFromStoreConfig(
+                    $entity->getProduct()->getGiftMessageAvailable(),
+                    $store,
                 );
-            }
-            return $this->_getDependenceFromStoreConfig(
-                $this->getCached('address_item_' . $entity->getProductId()),
-                $store
-            );
-        } else {
-            return Mage::getStoreConfig(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER, $store);
-        }
+            case self::TYPE_ORDER_ITEM:
+                return $this->_getDependenceFromStoreConfig(
+                    $entity->getGiftMessageAvailable(),
+                    $store,
+                );
+            case self::TYPE_ADDRESS_ITEM:
+                $storeId = is_numeric($store) ? $store : Mage::app()->getStore($store)->getId();
+                $cacheId = self::TYPE_ADDRESS_ITEM . '_' . $entity->getProductId();
 
-        return false;
+                if (!$this->isCached($cacheId)) {
+                    $this->setCached(
+                        $cacheId,
+                        Mage::getModel('catalog/product')
+                            ->setStoreId($storeId)
+                            ->load($entity->getProductId())
+                            ->getGiftMessageAvailable(),
+                    );
+                }
+                return $this->_getDependenceFromStoreConfig(
+                    $this->getCached($cacheId),
+                    $store,
+                );
+            default:
+                return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER, $store);
+        }
     }
 
     /**
-     * Check availablity of gift messages from store config if flag eq 2.
+     * Check availability of gift messages from store config if flag eq 2.
      *
-     * @param int $productGiftMessageAllow
-     * @param Mage_Core_Model_Store|integer $store
-     * @return bool|int
+     * @param bool $productGiftMessageAllow
+     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @return bool
      */
     protected function _getDependenceFromStoreConfig($productGiftMessageAllow, $store = null)
     {
-        $result = Mage::getStoreConfig(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
+        $result = Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
         if ($productGiftMessageAllow === '' || is_null($productGiftMessageAllow)) {
             return $result;
         } else {
@@ -169,10 +173,9 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Alias for isMessagesAvailable(...)
      *
-     * @param string $type
-     * @param Varien_Object $entity
-     * @param Mage_Core_Model_Store|integer $store
-     * @return bool|int
+     * @param self::TYPE_* $type
+     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @return bool
      */
     public function getIsMessagesAvailable($type, Varien_Object $entity, $store = null)
     {
@@ -182,7 +185,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve escaped and preformatted gift message text for specified entity
      *
-     * @param Varien_Object $entity
      * @return string|null
      */
     public function getEscapedGiftMessage(Varien_Object $entity)
@@ -197,7 +199,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     /**
      * Retrieve gift message for entity. If message not exists return null
      *
-     * @param Varien_Object $entity
      * @return Mage_GiftMessage_Model_Message
      */
     public function getGiftMessageForEntity(Varien_Object $entity)

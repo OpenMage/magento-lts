@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,14 +43,14 @@ class Mage_Sales_Model_Order_Pdf_Items_Invoice_Default extends Mage_Sales_Model_
         $lines[0][] = [
             'text'  => Mage::helper('core/string')->str_split($this->getSku($item), 17),
             'feed'  => 290,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // draw QTY
         $lines[0][] = [
             'text'  => $item->getQty() * 1,
             'feed'  => 435,
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // draw item Prices
@@ -63,13 +64,13 @@ class Mage_Sales_Model_Order_Pdf_Items_Invoice_Default extends Mage_Sales_Model_
                 $lines[$i][] = [
                     'text'  => $priceData['label'],
                     'feed'  => $feedPrice,
-                    'align' => 'right'
+                    'align' => 'right',
                 ];
                 // draw Subtotal label
                 $lines[$i][] = [
                     'text'  => $priceData['label'],
                     'feed'  => $feedSubtotal,
-                    'align' => 'right'
+                    'align' => 'right',
                 ];
                 $i++;
             }
@@ -78,14 +79,14 @@ class Mage_Sales_Model_Order_Pdf_Items_Invoice_Default extends Mage_Sales_Model_
                 'text'  => $priceData['price'],
                 'feed'  => $feedPrice,
                 'font'  => 'bold',
-                'align' => 'right'
+                'align' => 'right',
             ];
             // draw Subtotal
             $lines[$i][] = [
                 'text'  => $priceData['subtotal'],
                 'feed'  => $feedSubtotal,
                 'font'  => 'bold',
-                'align' => 'right'
+                'align' => 'right',
             ];
             $i++;
         }
@@ -95,7 +96,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Invoice_Default extends Mage_Sales_Model_
             'text'  => $order->formatPriceTxt($item->getTaxAmount()),
             'feed'  => 495,
             'font'  => 'bold',
-            'align' => 'right'
+            'align' => 'right',
         ];
 
         // custom options
@@ -106,16 +107,16 @@ class Mage_Sales_Model_Order_Pdf_Items_Invoice_Default extends Mage_Sales_Model_
                 $lines[][] = [
                     'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, true, true),
                     'font' => 'italic',
-                    'feed' => 35
+                    'feed' => 35,
                 ];
 
                 if ($option['value']) {
-                    $_printValue = $option['print_value'] ?? strip_tags($option['value']);
-                    $values = explode(', ', $_printValue);
+                    $printValue = $option['print_value'] ?? strip_tags($option['value']);
+                    $values = explode(', ', $printValue);
                     foreach ($values as $value) {
                         $lines[][] = [
                             'text' => Mage::helper('core/string')->str_split($value, 30, true, true),
-                            'feed' => 40
+                            'feed' => 40,
                         ];
                     }
                 }
@@ -124,7 +125,7 @@ class Mage_Sales_Model_Order_Pdf_Items_Invoice_Default extends Mage_Sales_Model_
 
         $lineBlock = [
             'lines'  => $lines,
-            'height' => 20
+            'height' => 20,
         ];
 
         $page = $pdf->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);

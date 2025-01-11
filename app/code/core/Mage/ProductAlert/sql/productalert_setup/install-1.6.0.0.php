@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,15 +65,15 @@ $table = $installer->getConnection()
     ], 'Product alert status')
     ->addIndex(
         $installer->getIdxName('productalert/price', ['customer_id']),
-        ['customer_id']
+        ['customer_id'],
     )
     ->addIndex(
         $installer->getIdxName('productalert/price', ['product_id']),
-        ['product_id']
+        ['product_id'],
     )
     ->addIndex(
         $installer->getIdxName('productalert/price', ['website_id']),
-        ['website_id']
+        ['website_id'],
     )
     ->addForeignKey(
         $installer->getFkName('productalert/price', 'customer_id', 'customer/entity', 'entity_id'),
@@ -80,7 +81,7 @@ $table = $installer->getConnection()
         $installer->getTable('customer/entity'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('productalert/price', 'product_id', 'catalog/product', 'entity_id'),
@@ -88,7 +89,7 @@ $table = $installer->getConnection()
         $installer->getTable('catalog/product'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('productalert/price', 'website_id', 'core/website', 'website_id'),
@@ -96,7 +97,7 @@ $table = $installer->getConnection()
         $installer->getTable('core/website'),
         'website_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Product Alert Price');
 $installer->getConnection()->createTable($table);
@@ -144,15 +145,15 @@ $table = $installer->getConnection()
     ], 'Product alert status')
     ->addIndex(
         $installer->getIdxName('productalert/stock', ['customer_id']),
-        ['customer_id']
+        ['customer_id'],
     )
     ->addIndex(
         $installer->getIdxName('productalert/stock', ['product_id']),
-        ['product_id']
+        ['product_id'],
     )
     ->addIndex(
         $installer->getIdxName('productalert/stock', ['website_id']),
-        ['website_id']
+        ['website_id'],
     )
     ->addForeignKey(
         $installer->getFkName('productalert/stock', 'website_id', 'core/website', 'website_id'),
@@ -160,7 +161,7 @@ $table = $installer->getConnection()
         $installer->getTable('core/website'),
         'website_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('productalert/stock', 'customer_id', 'customer/entity', 'entity_id'),
@@ -168,7 +169,7 @@ $table = $installer->getConnection()
         $installer->getTable('customer/entity'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('productalert/stock', 'product_id', 'catalog/product', 'entity_id'),
@@ -176,7 +177,7 @@ $table = $installer->getConnection()
         $installer->getTable('catalog/product'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Product Alert Stock');
 $installer->getConnection()->createTable($table);

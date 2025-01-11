@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +30,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
         return [
             Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
             Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
-            Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved')
+            Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
         ];
     }
 
@@ -41,16 +42,16 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
         return [
             [
                 'label' => Mage::helper('tag')->__('Disabled'),
-                'value' => Mage_Tag_Model_Tag::STATUS_DISABLED
+                'value' => Mage_Tag_Model_Tag::STATUS_DISABLED,
             ],
             [
                 'label' => Mage::helper('tag')->__('Pending'),
-                'value' => Mage_Tag_Model_Tag::STATUS_PENDING
+                'value' => Mage_Tag_Model_Tag::STATUS_PENDING,
             ],
             [
                 'label' => Mage::helper('tag')->__('Approved'),
-                'value' => Mage_Tag_Model_Tag::STATUS_APPROVED
-            ]
+                'value' => Mage_Tag_Model_Tag::STATUS_APPROVED,
+            ],
         ];
     }
 
@@ -68,12 +69,11 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Clear tag from the separating characters
      *
-     * @param array $tagNamesArr
      * @return array
      */
     public function cleanTags(array $tagNamesArr)
     {
-        foreach ($tagNamesArr as $key => $tagName) {
+        foreach (array_keys($tagNamesArr) as $key) {
             $tagNamesArr[$key] = trim($tagNamesArr[$key], '\'');
             $tagNamesArr[$key] = trim($tagNamesArr[$key]);
             if ($tagNamesArr[$key] == '') {

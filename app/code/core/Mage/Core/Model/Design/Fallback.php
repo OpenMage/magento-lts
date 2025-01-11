@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,9 +46,6 @@ class Mage_Core_Model_Design_Fallback
      */
     protected $_visited;
 
-    /**
-     * @param array $params
-     */
     public function __construct(array $params = [])
     {
         $this->_config = $params['config'] ?? Mage::getModel('core/design_config');
@@ -129,7 +127,7 @@ class Mage_Core_Model_Design_Fallback
     {
         $scheme = [[]];
         $this->_visited = [];
-        while ($parent = (string)$this->_config->getNode($area . '/' . $package . '/' . $theme . '/parent')) {
+        while ($parent = (string) $this->_config->getNode($area . '/' . $package . '/' . $theme . '/parent')) {
             $this->_checkVisited($area, $package, $theme);
 
             $parts = explode('/', $parent);
@@ -156,7 +154,7 @@ class Mage_Core_Model_Design_Fallback
         $path = $area . '/' . $package . '/' . $theme;
         if (in_array($path, $this->_visited)) {
             throw new Mage_Core_Exception(
-                'Circular inheritance in theme ' . $package . '/' . $theme
+                'Circular inheritance in theme ' . $package . '/' . $theme,
             );
         }
         $this->_visited[] = $path;

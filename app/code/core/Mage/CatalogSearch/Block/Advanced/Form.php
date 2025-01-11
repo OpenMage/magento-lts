@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,9 +34,9 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
             $breadcrumbs->addCrumb('home', [
                 'label' => Mage::helper('catalogsearch')->__('Home'),
                 'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
-                'link' => Mage::getBaseUrl()
+                'link' => Mage::getBaseUrl(),
             ])->addCrumb('search', [
-                'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search')
+                'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
             ]);
         }
         return parent::_prepareLayout();
@@ -104,7 +105,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
             if (is_array($codes) && count($codes)) {
                 $rates = Mage::getModel('directory/currency')->getCurrencyRates(
                     Mage::app()->getStore()->getBaseCurrency(),
-                    $codes
+                    $codes,
                 );
 
                 foreach ($codes as $code) {
@@ -216,7 +217,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
         $options = [
             ['value' => '',  'label' => Mage::helper('catalogsearch')->__('All')],
             ['value' => '1', 'label' => Mage::helper('catalogsearch')->__('Yes')],
-            ['value' => '0', 'label' => Mage::helper('catalogsearch')->__('No')]
+            ['value' => '0', 'label' => Mage::helper('catalogsearch')->__('No')],
         ];
 
         $name = $attribute->getAttributeCode();
@@ -224,7 +225,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
             ->setName($name)
             ->setId($attribute->getAttributeCode())
             ->setTitle($this->getAttributeLabel($attribute))
-            ->setExtraParams("")
+            ->setExtraParams('')
             ->setValue($this->getAttributeValue($attribute))
             ->setOptions($options)
             ->getHtml();

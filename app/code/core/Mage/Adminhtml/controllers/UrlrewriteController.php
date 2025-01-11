@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +41,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
         Mage::register(
             'current_urlrewrite',
             Mage::getSingleton('core/factory')->getUrlRewriteInstance()
-            ->load($this->getRequest()->getParam('id', 0))
+            ->load($this->getRequest()->getParam('id', 0)),
         );
         $productId  = $this->getRequest()->getParam('product', 0);
         $categoryId = $this->getRequest()->getParam('category', 0);
@@ -65,7 +66,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
         $this->loadLayout();
         $this->_setActiveMenu('catalog/urlrewrite');
         $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/urlrewrite')
+            $this->getLayout()->createBlock('adminhtml/urlrewrite'),
         );
         $this->renderLayout();
     }
@@ -105,7 +106,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
         $id = $this->getRequest()->getParam('id', null);
         $this->getResponse()->setBody(
             Mage::getBlockSingleton('adminhtml/urlrewrite_category_tree')
-            ->getTreeArray($id, true, 1)
+            ->getTreeArray($id, true, 1),
         );
     }
 
@@ -205,7 +206,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
             try {
                 Mage::registry('current_urlrewrite')->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('The URL Rewrite has been deleted.')
+                    Mage::helper('adminhtml')->__('The URL Rewrite has been deleted.'),
                 );
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')

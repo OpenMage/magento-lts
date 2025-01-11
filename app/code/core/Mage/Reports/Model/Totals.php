@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +37,7 @@ class Mage_Reports_Model_Totals
             if ($col->getTotal() === null) {
                 continue;
             }
-            $columns[$col->getIndex()] = ["total" => $col->getTotal(), "value" => 0];
+            $columns[$col->getIndex()] = ['total' => $col->getTotal(), 'value' => 0];
         }
 
         $count = 0;
@@ -47,7 +48,7 @@ class Mage_Reports_Model_Totals
             }
             $data = $item->getData();
 
-            foreach ($columns as $field => $a) {
+            foreach (array_keys($columns) as $field) {
                 if ($field !== '') {
                     $columns[$field]['value'] += $data[$field] ?? 0;
                 }

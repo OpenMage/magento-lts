@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,17 +21,17 @@ $installer->startSetup();
 // Remove sales foreign keys
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('downloadable_link_purchased'),
-    'FK_DOWNLOADABLE_ORDER_ID'
+    'FK_DOWNLOADABLE_ORDER_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('downloadable_link_purchased'),
-    'FK_DOWNLOADABLE_PURCHASED_ORDER_ITEM_ID'
+    'FK_DOWNLOADABLE_PURCHASED_ORDER_ITEM_ID',
 );
 
 $installer->getConnection()->dropForeignKey(
     $installer->getTable('downloadable_link_purchased_item'),
-    'FK_DOWNLOADABLE_ORDER_ITEM_ID'
+    'FK_DOWNLOADABLE_ORDER_ITEM_ID',
 );
 
 $installer->endSetup();

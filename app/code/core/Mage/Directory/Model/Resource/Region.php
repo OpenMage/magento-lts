@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +62,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
         $select->joinLeft(
             ['lrn' => $this->_regionNameTable],
             "{$regionField} = lrn.region_id AND {$condition}",
-            []
+            [],
         );
 
         if ($locale != $systemLocale) {
@@ -70,7 +71,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
             $select->joinLeft(
                 ['srn' => $this->_regionNameTable],
                 "{$regionField} = srn.region_id AND {$condition}",
-                ['name' => $nameExpr]
+                ['name' => $nameExpr],
             );
         } else {
             $select->columns(['name'], 'lrn');
@@ -83,7 +84,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      * Load object by country id and code or default name
      *
      * @param Mage_Core_Model_Abstract $object
-     * @param int $countryId
+     * @param string $countryId
      * @param string $value
      * @param string $field
      *
@@ -99,7 +100,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
             ->joinLeft(
                 ['rname' => $this->_regionNameTable],
                 $joinCondition,
-                ['name']
+                ['name'],
             )
             ->where('region.country_id = ?', $countryId)
             ->where("region.{$field} = ?", $value);
@@ -117,28 +118,24 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
     /**
      * Loads region by region code and country id
      *
-     * @param Mage_Directory_Model_Region $region
      * @param string $regionCode
      * @param string $countryId
-     *
      * @return $this
      */
     public function loadByCode(Mage_Directory_Model_Region $region, $regionCode, $countryId)
     {
-        return $this->_loadByCountry($region, $countryId, (string)$regionCode, 'code');
+        return $this->_loadByCountry($region, $countryId, (string) $regionCode, 'code');
     }
 
     /**
      * Load data by country id and default region name
      *
-     * @param Mage_Directory_Model_Region $region
      * @param string $regionName
      * @param string $countryId
-     *
      * @return $this
      */
     public function loadByName(Mage_Directory_Model_Region $region, $regionName, $countryId)
     {
-        return $this->_loadByCountry($region, $countryId, (string)$regionName, 'default_name');
+        return $this->_loadByCountry($region, $countryId, (string) $regionName, 'default_name');
     }
 }

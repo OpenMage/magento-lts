@@ -9,22 +9,25 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-/** @var $upsModel Mage_Usa_Model_Shipping_Carrier_Ups */
+/** @var Mage_Usa_Model_Shipping_Carrier_Ups $upsModel */
 $upsModel = Mage::getSingleton('usa/shipping_carrier_ups');
 $orShipArr = $upsModel->getCode('originShipment');
 $defShipArr = $upsModel->getCode('method');
-
-/** @var $this Mage_Adminhtml_Block_Template */
+$allMethodsCodes = [];
+foreach (Mage::getModel('usa/shipping_carrier_ups_source_method')->toOptionArray() as $method) {
+    $allMethodsCodes[]= $method['value'];
+}
+/** @var Mage_Adminhtml_Block_Template $this */
 $sectionCode = $this->getRequest()->getParam('section');
 $websiteCode = $this->getRequest()->getParam('website');
 $storeCode = $this->getRequest()->getParam('store');
 
 if (!$storeCode && $websiteCode) {
-    /** @var $web Mage_Core_Model_Website */
+    /** @var Mage_Core_Model_Website $web */
     $web = Mage::getModel('Mage_Core_Model_Website')->load($websiteCode);
     $storedAllowedMethods = explode(',', $web->getConfig('carriers/ups/allowed_methods'));
     $storedOriginShipment = $web->getConfig('carriers/ups/origin_shipment');
@@ -44,7 +47,7 @@ if (!$storeCode && $websiteCode) {
 if (!in_array($storedOriginShipment, array_keys($orShipArr))) {
     $storedOriginShipment = '';
 }
-if ($storedFreeShipment != '' && !in_array($storedFreeShipment, array_keys($defShipArr))) {
+if ($storedFreeShipment != '' && !in_array($storedFreeShipment, $allMethodsCodes)) {
     $storedFreeShipment = '';
 }
 if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
@@ -104,7 +107,7 @@ if (!Mage::helper('usa')->validateUpsType($storedUpsType)) {
             this.storedOriginShipment = '<?php echo $storedOriginShipment ?>';
             this.storedFreeShipment = '<?php echo $storedFreeShipment ?>';
             this.storedUpsType = '<?php echo $storedUpsType ?>';
-            <?php /** @var $_coreHelper Mage_Core_Helper_Data */ $_coreHelper = Mage::helper('core'); ?>
+            <?php /** @var Mage_Core_Helper_Data $_coreHelper */ $_coreHelper = Mage::helper('core'); ?>
             this.storedAllowedMethods = <?php echo $_coreHelper->jsonEncode($storedAllowedMethods) ?>;
             this.originShipmentObj = <?php echo $_coreHelper->jsonEncode($orShipArr) ?>;
             this.originShipmentObj['default'] = <?php echo $_coreHelper->jsonEncode($defShipArr) ?>;

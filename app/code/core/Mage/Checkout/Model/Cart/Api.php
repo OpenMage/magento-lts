@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,7 +24,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 {
     public function __construct()
     {
-        $this->_storeIdSessionField = "cart_store_id";
+        $this->_storeIdSessionField = 'cart_store_id';
         $this->_attributesMap['quote'] = ['quote_id' => 'entity_id'];
         $this->_attributesMap['quote_customer'] = ['customer_id' => 'entity_id'];
         $this->_attributesMap['quote_address'] = ['address_id' => 'entity_id'];
@@ -66,7 +67,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
         if ($quote->getGiftMessageId() > 0) {
             $quote->setGiftMessage(
-                Mage::getSingleton('giftmessage/message')->load($quote->getGiftMessageId())->getMessage()
+                Mage::getSingleton('giftmessage/message')->load($quote->getGiftMessageId())->getMessage(),
             );
         }
 
@@ -78,7 +79,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         foreach ($quote->getAllItems() as $item) {
             if ($item->getGiftMessageId() > 0) {
                 $item->setGiftMessage(
-                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
+                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage(),
                 );
             }
 
@@ -104,8 +105,8 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         $totalsResult = [];
         foreach ($totals as $total) {
             $totalsResult[] = [
-                "title" => $total->getTitle(),
-                "amount" => $total->getValue()
+                'title' => $total->getTitle(),
+                'amount' => $total->getValue(),
             ];
         }
         return $totalsResult;
@@ -140,7 +141,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         }
 
         /** @var Mage_Checkout_Model_Api_Resource_Customer $customerResource */
-        $customerResource = Mage::getModel("checkout/api_resource_customer");
+        $customerResource = Mage::getModel('checkout/api_resource_customer');
         $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
 
         try {
@@ -161,7 +162,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
             if ($order) {
                 Mage::dispatchEvent(
                     'checkout_type_onepage_save_order_after',
-                    ['order' => $order, 'quote' => $quote]
+                    ['order' => $order, 'quote' => $quote],
                 );
 
                 try {
@@ -173,7 +174,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
             Mage::dispatchEvent(
                 'checkout_submit_all_after',
-                ['order' => $order, 'quote' => $quote]
+                ['order' => $order, 'quote' => $quote],
             );
         } catch (Mage_Core_Exception $e) {
             $this->_fault('create_order_fault', $e->getMessage());
@@ -200,7 +201,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
             foreach ($agreementsCollection as $_a) {
                 /** @var Mage_Checkout_Model_Agreement $_a */
-                $agreements[] = $this->_getAttributes($_a, "quote_agreement");
+                $agreements[] = $this->_getAttributes($_a, 'quote_agreement');
             }
         }
 

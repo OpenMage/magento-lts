@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,7 +83,6 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Collect totals process.
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
@@ -99,8 +99,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Fetch (Retrieve data as array)
      *
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @return array
+     * @return $this|array
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
@@ -111,7 +110,6 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Set address which can be used inside totals calculation
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     protected function _setAddress(Mage_Sales_Model_Quote_Address $address)
@@ -130,7 +128,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     {
         if ($this->_address === null) {
             Mage::throwException(
-                Mage::helper('sales')->__('Address model is not defined.')
+                Mage::helper('sales')->__('Address model is not defined.'),
             );
         }
         return $this->_address;
@@ -195,7 +193,6 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Get all items except nominals
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      * @return Mage_Sales_Model_Quote_Address_Item[]
      */
     protected function _getAddressItems(Mage_Sales_Model_Quote_Address $address)
@@ -206,7 +203,6 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Getter for row default total
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return float
      */
     public function getItemRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -220,7 +216,6 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Getter for row default base total
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return float
      */
     public function getItemBaseRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -234,7 +229,6 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Whether the item row total may be compounded with others
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
      * @return bool
      */
     public function getIsItemRowTotalCompoundable(Mage_Sales_Model_Quote_Item_Abstract $item)

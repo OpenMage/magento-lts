@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,7 +69,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'index'         => 'tax_country_id',
             'filter_index'  => 'main_table.tax_country_id',
             'renderer'      => 'adminhtml/tax_rate_grid_renderer_country',
-            'sortable'      => false
+            'sortable'      => false,
         ]);
 
         $this->addColumn('region_name', [
@@ -89,7 +90,6 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
         $this->addColumn('rate', [
             'header'        => Mage::helper('tax')->__('Rate'),
-            'align'         => 'right',
             'index'         => 'rate',
             'type'          => 'number',
             'default'       => '0.00',

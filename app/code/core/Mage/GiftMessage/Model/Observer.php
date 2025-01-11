@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_GiftMessage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,6 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     /**
      * Set gift messages to order item on import item
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function salesEventConvertQuoteItemToOrderItem(Varien_Event_Observer $observer)
@@ -37,7 +37,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         $isAvailable = Mage::helper('giftmessage/message')->getIsMessagesAvailable(
             'item',
             $quoteItem,
-            $quoteItem->getStoreId()
+            $quoteItem->getStoreId(),
         );
 
         $orderItem->setGiftMessageId($quoteItem->getGiftMessageId())
@@ -48,7 +48,6 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     /**
      * Set gift messages to order from quote address
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function salesEventConvertQuoteAddressToOrder(Varien_Event_Observer $observer)
@@ -63,7 +62,6 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     /**
      * Set gift messages to order from quote address
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function salesEventConvertQuoteToOrder(Varien_Event_Observer $observer)
@@ -89,9 +87,8 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     }
 
     /**
-     * Operate with gift messages on checkout proccess
+     * Operate with gift messages on checkout process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function checkoutEventCreateGiftMessage(Varien_Event_Observer $observer)
@@ -157,7 +154,6 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      * on catalog products collection load
      *
      * @deprecated after 1.4.2.0-beta1
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogEventProductCollectionAfterLoad(Varien_Event_Observer $observer)
@@ -168,7 +164,6 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     /**
      * Duplicates giftmessage from order to quote on import or reorder
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function salesEventOrderToQuote(Varien_Event_Observer $observer)
@@ -197,7 +192,6 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     /**
      * Duplicates giftmessage from order item to quote item on import or reorder
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function salesEventOrderItemToQuoteItem(Varien_Event_Observer $observer)
@@ -213,7 +207,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         $isAvailable = Mage::helper('giftmessage/message')->isMessagesAvailable(
             'order_item',
             $orderItem,
-            $orderItem->getStoreId()
+            $orderItem->getStoreId(),
         );
         if (!$isAvailable) {
             return $this;

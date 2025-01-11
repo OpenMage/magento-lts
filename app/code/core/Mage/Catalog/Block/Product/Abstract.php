@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -166,7 +167,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * Gets minimal sales quantity
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int|null
+     * @return float|null
      */
     public function getMinimalQty($product)
     {
@@ -232,19 +233,19 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
-        $type_id = $product->getTypeId();
+        $typeId = $product->getTypeId();
         if (Mage::helper('catalog')->canApplyMsrp($product)) {
-            $realPriceHtml = $this->_preparePriceRenderer($type_id)
+            $realPriceHtml = $this->_preparePriceRenderer($typeId)
                 ->setProduct($product)
                 ->setDisplayMinimalPrice($displayMinimalPrice)
                 ->setIdSuffix($idSuffix)
                 ->toHtml();
             $product->setAddToCartUrl($this->getAddToCartUrl($product));
             $product->setRealPriceHtml($realPriceHtml);
-            $type_id = $this->_mapRenderer;
+            $typeId = $this->_mapRenderer;
         }
 
-        return $this->_preparePriceRenderer($type_id)
+        return $this->_preparePriceRenderer($typeId)
             ->setProduct($product)
             ->setDisplayMinimalPrice($displayMinimalPrice)
             ->setIdSuffix($idSuffix)
@@ -263,7 +264,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if ($type) {
             $this->_priceBlockTypes[$type] = [
                 'block' => $block,
-                'template' => $template
+                'template' => $template,
             ];
         }
     }
@@ -271,8 +272,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * Get product reviews summary
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param bool $templateType
+     * @param string|false $templateType
      * @param bool $displayIfNoReviews
      * @return string
      * @throws Mage_Core_Model_Store_Exception
@@ -313,11 +313,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     protected function _initReviewsHelperBlock()
     {
         if (!$this->_reviewsHelperBlock) {
-            if (!Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
+            if (!$this->isModuleEnabled('Mage_Review', 'catalog')) {
                 return false;
             }
 
-            $this->_reviewsHelperBlock = $this->getLayout()->createBlock('review/helper');
+            /** @var Mage_Review_Block_Helper $block */
+            $block = $this->getLayout()->createBlock('review/helper');
+            $this->_reviewsHelperBlock = $block;
         }
 
         return true;
@@ -417,13 +419,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
                     $price['savePercent'] = ceil(100 - round((100 / $_productPrice) * $price['price']));
 
                     $tierPrice = Mage::app()->getStore()->convertPrice(
-                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                        Mage::helper('tax')->getPrice($product, $price['website_price']),
                     );
                     $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
                     $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
                         Mage::app()->getStore()->convertPrice(
-                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
-                        )
+                            Mage::helper('tax')->getPrice($product, $price['website_price'], true),
+                        ),
                     );
 
                     if (Mage::helper('catalog')->canApplyMsrp($product)) {
@@ -452,7 +454,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * to get correct values in different products lists.
      * E.g. crosssells, upsells, new products, recently viewed
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     protected function _addProductAttributesAndPrices(Mage_Catalog_Model_Resource_Product_Collection $collection)
@@ -531,7 +532,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             if ($pageLayout && $this->getColumnCountLayoutDepend($pageLayout->getCode())) {
                 $this->setData(
                     'column_count',
-                    $this->getColumnCountLayoutDepend($pageLayout->getCode())
+                    $this->getColumnCountLayoutDepend($pageLayout->getCode()),
                 );
             } else {
                 $this->setData('column_count', $this->_defaultColumnCount);
@@ -612,7 +613,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     {
         $statusInfo = new Varien_Object(['display_status' => true]);
         Mage::dispatchEvent('catalog_block_product_status_display', ['status' => $statusInfo]);
-        return (bool)$statusInfo->getDisplayStatus();
+        return (bool) $statusInfo->getDisplayStatus();
     }
 
     /**
@@ -695,7 +696,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if ($addFormKey) {
             $additional = array_merge(
                 $additional,
-                [Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()]
+                [Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()],
             );
         }
         if (!isset($additional['_escape'])) {

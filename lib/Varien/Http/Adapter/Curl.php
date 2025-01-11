@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Http
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +76,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         $verifyHost = isset($this->_config['verifyhost']) ? $this->_config['verifyhost'] : 0;
         curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYHOST, $verifyHost);
 
-        foreach ($this->_config as $param => $curlOption) {
+        foreach (array_keys($this->_config) as $param) {
             if (array_key_exists($param, $this->_allowedParams)) {
                 curl_setopt($this->_getResource(), $this->_allowedParams[$param], $this->_config[$param]);
             }
@@ -86,7 +87,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Set array of additional cURL options
      *
-     * @param array $options
      * @return Varien_Http_Adapter_Curl
      */
     public function setOptions(array $options = [])
@@ -111,7 +111,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     /**
      * Add additional options list to curl
      *
-     * @param array $options
      *
      * @return Varien_Http_Adapter_Curl
      */
@@ -169,7 +168,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             CURLOPT_URL                     => $url,
             CURLOPT_RETURNTRANSFER          => true,
             CURLOPT_HEADER                  => $header,
-            CURLOPT_HTTP_VERSION            => CURL_HTTP_VERSION_1_1
+            CURLOPT_HTTP_VERSION            => CURL_HTTP_VERSION_1_1,
         ];
         if ($method == Zend_Http_Client::POST) {
             $options[CURLOPT_POST]          = true;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,9 +43,8 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
             'entity_id',
             [
                 'header' => Mage::helper('adminhtml')->__('ID'),
-                'width' => 50,
                 'index' => 'entity_id',
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
             [
                 'header' => Mage::helper('adminhtml')->__('Name'),
                 'index' => 'name',
-            ]
+            ],
         );
 
         $this->addColumn(
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
                 'header' => Mage::helper('adminhtml')->__('SKU'),
                 'width' => 80,
                 'index' => 'sku',
-            ]
+            ],
         );
         $this->addColumn(
             'status',
@@ -71,7 +71,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
                 'index' => 'status',
                 'type'  => 'options',
                 'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
-            ]
+            ],
         );
         return $this;
     }

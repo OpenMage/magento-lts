@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,12 +35,12 @@ try {
                 $transactionTable,
                 "$transactionTable.txn_id = $paymentTable.last_trans_id",
                 [
-                   'last_transaction_id' => 'transaction_id',
-                   'last_transaction_type' => 'txn_type',
-                   'last_transaction_is_closed' => 'is_closed'
-                ]
+                    'last_transaction_id' => 'transaction_id',
+                    'last_transaction_type' => 'txn_type',
+                    'last_transaction_is_closed' => 'is_closed',
+                ],
             )
-            ->where('method=?', $paymentMethodCode)
+            ->where('method=?', $paymentMethodCode),
     );
 
     $paymentsIds = [];
@@ -59,14 +60,14 @@ try {
             'requested_amount' => $payment['base_amount_ordered'],
             'processed_amount' => $payment['base_amount_ordered'],
             'captured_amount' => $payment['base_amount_paid_online'],
-            'refunded_amount' => $payment['base_amount_refunded_online']
+            'refunded_amount' => $payment['base_amount_refunded_online'],
         ];
         $additionalInformation = unserialize($payment['additional_information'], ['allowed_classes' => false]);
         if (isset($additionalInformation['authorize_cards'])) {
             continue;
         }
         $additionalInformation['authorize_cards'] = [
-            (string) md5(microtime(1)) => $card
+            (string) md5(microtime(1)) => $card,
         ];
         $additionalInformation = serialize($additionalInformation);
 
@@ -80,7 +81,7 @@ try {
             'cc_exp_year' => null,
             'cc_ss_issue' => null,
             'cc_ss_start_month' => null,
-            'cc_ss_start_year' => null
+            'cc_ss_start_year' => null,
         ];
         $where = $this->getConnection()->quoteInto('entity_id=?', $paymentId);
         $this->getConnection()->update($paymentTable, $bind, $where);
@@ -103,9 +104,9 @@ try {
         $installer->getConnection()->select()
             ->from(
                 $transactionTable,
-                ['transaction_id', 'txn_id', 'txn_type', 'is_closed', 'additional_information']
+                ['transaction_id', 'txn_id', 'txn_type', 'is_closed', 'additional_information'],
             )
-            ->where('payment_id IN (?)', $paymentsIds)
+            ->where('payment_id IN (?)', $paymentsIds),
     );
     foreach ($transactions as $transaction) {
         $transactionId = $transaction['transaction_id'];
@@ -123,7 +124,7 @@ try {
 
         $bind  = [
             'additional_information' => $additionalInformation,
-            'is_closed' => $isClosed
+            'is_closed' => $isClosed,
         ];
         $where = $this->getConnection()->quoteInto('transaction_id=?', $transactionId);
         $this->getConnection()->update($transactionTable, $bind, $where);

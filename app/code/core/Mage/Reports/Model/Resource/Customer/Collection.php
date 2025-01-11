@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -115,8 +116,8 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
         $this->getSelect()
             ->joinLeft(
                 ['orders' => $this->getTable('sales/order')],
-                "orders.customer_id = e.entity_id" . $dateFilter,
-                []
+                'orders.customer_id = e.entity_id' . $dateFilter,
+                [],
             );
 
         return $this;
@@ -130,9 +131,9 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     public function addOrdersCount()
     {
         $this->getSelect()
-            ->columns(["orders_count" => "COUNT(orders.entity_id)"])
+            ->columns(['orders_count' => 'COUNT(orders.entity_id)'])
             ->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
-            ->group("e.entity_id");
+            ->group('e.entity_id');
 
         return $this;
     }
@@ -158,8 +159,8 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
             : "orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}";
 
         $this->getSelect()
-            ->columns(["orders_avg_amount" => "AVG({$expr})"])
-            ->columns(["orders_sum_amount" => "SUM({$expr})"]);
+            ->columns(['orders_avg_amount' => "AVG({$expr})"])
+            ->columns(['orders_sum_amount' => "SUM({$expr})"]);
 
         return $this;
     }
@@ -186,7 +187,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     public function addOrdersStatistics($isFilter = false)
     {
         $this->_addOrderStatistics          = true;
-        $this->_addOrderStatisticsIsFilter  = (bool)$isFilter;
+        $this->_addOrderStatisticsIsFilter  = (bool) $isFilter;
         return $this;
     }
 
@@ -213,7 +214,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
                 'orders_avg_amount' => "AVG({$totalExpr})",
                 'orders_sum_amount' => "SUM({$totalExpr})",
                 'orders_count' => 'COUNT(orders.entity_id)',
-                'customer_id'
+                'customer_id',
             ])->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
               ->where('orders.customer_id IN(?)', $customerIds)
               ->group('orders.customer_id');
@@ -271,7 +272,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("count(DISTINCT e.entity_id)");
+        $countSelect->columns('count(DISTINCT e.entity_id)');
 
         return $countSelect;
     }

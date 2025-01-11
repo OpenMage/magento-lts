@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +42,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
     /**
      * Render given element (return html of element)
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -53,7 +53,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
     /**
      * Setter
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return $this
      */
     public function setElement(Varien_Data_Form_Element_Abstract $element)
@@ -141,47 +140,47 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
         $options = [];
         $options[] = [
             'value' => '',
-            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('-- Please Select --'))
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('-- Please Select --')),
         ];
         $options[] = [
             'label' => Mage::helper('widget')->__('Categories'),
             'value' => [
                 [
                     'value' => 'anchor_categories',
-                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Anchor Categories'))
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Anchor Categories')),
                 ],
                 [
                     'value' => 'notanchor_categories',
-                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Non-Anchor Categories'))
-                ]
-            ]
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Non-Anchor Categories')),
+                ],
+            ],
         ];
         foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
             $productsOptions[] = [
-               'value' => $typeId . '_products',
-               'label' => $this->helper('core')->jsQuoteEscape($type['label'])
+                'value' => $typeId . '_products',
+                'label' => $this->helper('core')->jsQuoteEscape($type['label']),
             ];
         }
         array_unshift($productsOptions, [
             'value' => 'all_products',
-            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Product Types'))
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Product Types')),
         ]);
         $options[] = [
             'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Products')),
-            'value' => $productsOptions
+            'value' => $productsOptions,
         ];
         $options[] = [
             'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Generic Pages')),
             'value' => [
                 [
                     'value' => 'all_pages',
-                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Pages'))
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Pages')),
                 ],
                 [
                     'value' => 'pages',
-                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Specified Page'))
-                ]
-            ]
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Specified Page')),
+                ],
+            ],
         ];
         return $options;
     }
@@ -200,7 +199,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
             'name' => 'anchor_categories',
             'layout_handle' => 'default,catalog_category_layered',
             'is_anchor_only' => 1,
-            'product_type_id' => ''
+            'product_type_id' => '',
         ];
         $container['notanchor'] = [
             'label' => 'Categories',
@@ -208,7 +207,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
             'name' => 'notanchor_categories',
             'layout_handle' => 'default,catalog_category_default',
             'is_anchor_only' => 0,
-            'product_type_id' => ''
+            'product_type_id' => '',
         ];
         $container['all_products'] = [
             'label' => 'Products',
@@ -216,7 +215,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
             'name' => 'all_products',
             'layout_handle' => 'default,catalog_product_view',
             'is_anchor_only' => '',
-            'product_type_id' => ''
+            'product_type_id' => '',
         ];
         foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
             $container[$typeId] = [
@@ -225,7 +224,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
                 'name' => $typeId . '_products',
                 'layout_handle' => 'default,catalog_product_view,PRODUCT_TYPE_' . $typeId,
                 'is_anchor_only' => '',
-                'product_type_id' => $typeId
+                'product_type_id' => $typeId,
             ];
         }
         return $container;
@@ -258,7 +257,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
             ->setData([
                 'label'     => Mage::helper('widget')->__('Add Layout Update'),
                 'onclick'   => 'WidgetInstance.addPageGroup({})',
-                'class'     => 'add'
+                'class'     => 'add',
             ]);
         return $button->toHtml();
     }
@@ -274,7 +273,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
             ->setData([
                 'label'     => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Remove Layout Update')),
                 'onclick'   => 'WidgetInstance.removePageGroup(this)',
-                'class'     => 'delete'
+                'class'     => 'delete',
             ]);
         return $button->toHtml();
     }
@@ -297,7 +296,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
                     'for_value'   => $pageGroup['page_for'],
                     'layout_handle' => $pageGroup['layout_handle'],
                     $pageGroup['page_group'] . '_entities' => $pageGroup['entities'],
-                    'template' => $pageGroup['page_template']
+                    'template' => $pageGroup['page_template'],
                 ];
             }
         }

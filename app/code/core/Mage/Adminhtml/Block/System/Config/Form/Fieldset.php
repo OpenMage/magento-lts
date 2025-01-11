@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -24,7 +25,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     /**
      * Render fieldset html
      *
-     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -36,9 +36,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
             $html .= $field->toHtml();
         }
 
-        $html .= $this->_getFooterHtml($element);
-
-        return $html;
+        return $html . $this->_getFooterHtml($element);
     }
 
     /**
@@ -58,7 +56,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
         $html .= $this->_getHeaderTitleHtml($element);
 
         $html .= '<input id="' . $element->getHtmlId() . '-state" name="config_state[' . $element->getId()
-            . ']" type="hidden" value="' . (int)$this->_getCollapseState($element) . '" />';
+            . ']" type="hidden" value="' . (int) $this->_getCollapseState($element) . '" />';
         $html .= '<fieldset class="' . $this->_getFieldsetCss($element) . '" id="' . $element->getHtmlId() . '">';
         $html .= '<legend>' . $element->getLegend() . '</legend>';
 
@@ -69,9 +67,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
         if ($this->getRequest()->getParam('website') || $this->getRequest()->getParam('store')) {
             $html .= '<colgroup class="use-default" />';
         }
-        $html .= '<colgroup class="scope-label" /><colgroup class="" /><tbody>';
 
-        return $html;
+        return $html . '<colgroup class="scope-label" /><colgroup class="" /><tbody>';
     }
 
     /**
@@ -82,7 +79,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      */
     protected function _getFrontendClass($element)
     {
-        $frontendClass = (string)$this->getGroup($element)->frontend_class;
+        $frontendClass = (string) $this->getGroup($element)->frontend_class;
         return 'section-config' . (empty($frontendClass) ? '' : (' ' . $frontendClass));
     }
 
@@ -138,7 +135,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      */
     protected function _getFieldsetCss($element = null)
     {
-        $configCss = (string)$this->getGroup($element)->fieldset_css;
+        $configCss = (string) $this->getGroup($element)->fieldset_css;
         return 'config collapseable' . ($configCss ? ' ' . $configCss : '');
     }
 
@@ -183,7 +180,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      * Collapsed or expanded fieldset when page loaded?
      *
      * @param Varien_Data_Form_Element_Abstract $element
-     * @return int|bool
+     * @return int|false
      */
     protected function _getCollapseState($element)
     {

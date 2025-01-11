@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -17,6 +18,6 @@
 $installer  = $this;
 $installer->startSetup();
 
-$installer->getConnection()->addColumn($installer->getTable('eav/attribute'), "is_visible_in_advanced_search", "TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '0'");
+$installer->getConnection()->addColumn($installer->getTable('eav/attribute'), 'is_visible_in_advanced_search', "TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '0'");
 
 $installer->endSetup();

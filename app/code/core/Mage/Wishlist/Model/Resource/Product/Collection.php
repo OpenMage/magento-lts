@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,7 +26,7 @@
 class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
-     * Add days in whishlist filter of product collection
+     * Add days in wishlist filter of product collection
      *
      * @var bool
      */
@@ -38,7 +39,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     protected $_wishlistItemTableAlias         = 't_wi';
 
     /**
-     * Get add days in whishlist filter of product collection flag
+     * Get add days in wishlist filter of product collection flag
      *
      * @return bool
      */
@@ -48,7 +49,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     }
 
     /**
-     * Set add days in whishlist filter of product collection flag
+     * Set add days in wishlist filter of product collection flag
      *
      * @param bool $flag
      * @return $this
@@ -62,7 +63,6 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     /**
      * Add wishlist filter to collection
      *
-     * @param Mage_Wishlist_Model_Wishlist $wishlist
      * @return $this
      */
     public function addWishlistFilter(Mage_Wishlist_Model_Wishlist $wishlist)
@@ -80,8 +80,8 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
             ],
             [
                 'wishlist_id'               => $wishlist->getId(),
-                'store_id'                  => ['in' => $wishlist->getSharedStoreIds()]
-            ]
+                'store_id'                  => ['in' => $wishlist->getSharedStoreIds()],
+            ],
         );
 
         $this->_productLimitationFilters['store_table']  = $this->_wishlistItemTableAlias;
@@ -139,7 +139,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
             'days_in_wishlist',
             'wishlist/item',
             $resourceHelper->getDateDiff($this->_wishlistItemTableAlias . '.added_at', $nowDate),
-            'wishlist_item_id=wishlist_item_id'
+            'wishlist_item_id=wishlist_item_id',
         );
 
         return $this;

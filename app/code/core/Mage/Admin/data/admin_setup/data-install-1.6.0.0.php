@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -22,7 +23,7 @@ $admGroupRole = Mage::getModel('admin/role')->setData([
     'sort_order'    => 1,
     'role_type'     => 'G',
     'user_id'       => 0,
-    'role_name'     => 'Administrators'
+    'role_name'     => 'Administrators',
 ])
     ->save();
 
@@ -32,6 +33,6 @@ Mage::getModel('admin/rules')->setData([
     'privileges'    => null,
     'assert_id'     => 0,
     'role_type'     => 'G',
-    'permission'    => 'allow'
+    'permission'    => 'allow',
 ])
     ->save();

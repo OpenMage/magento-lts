@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Authorizenet
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,20 +68,19 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     public function generateRequestSign($merchantApiLoginId, $merchantTransactionKey, $amount, $currencyCode, $fpSequence, $fpTimestamp)
     {
         return hash_hmac(
-            "md5",
+            'md5',
             $merchantApiLoginId . '^' .
             $fpSequence . '^' .
             $fpTimestamp . '^' .
             $amount . '^' .
             $currencyCode,
-            $merchantTransactionKey
+            $merchantTransactionKey,
         );
     }
 
     /**
      * Set paygate data to request.
      *
-     * @param Mage_Authorizenet_Model_Directpost $paymentMethod
      * @return $this
      */
     public function setConstantData(Mage_Authorizenet_Model_Directpost $paymentMethod)
@@ -104,8 +104,6 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     /**
      * Set entity data to request
      *
-     * @param Mage_Sales_Model_Order $order
-     * @param Mage_Authorizenet_Model_Directpost $paymentMethod
      * @return $this
      */
     public function setDataFromOrder(Mage_Sales_Model_Order $order, Mage_Authorizenet_Model_Directpost $paymentMethod)
@@ -165,7 +163,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      */
     public function signRequestData()
     {
-        $fpTimestamp = time();
+        $fpTimestamp = (string) time();
         $signatureKey = $this->_getSignatureKey();
         if (!empty($signatureKey)) {
             $hash = $this->_generateSha2RequestSign(
@@ -174,7 +172,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
                 $this->getXAmount(),
                 $this->getXCurrencyCode(),
                 $this->getXFpSequence(),
-                $fpTimestamp
+                $fpTimestamp,
             );
         } else {
             $hash = $this->generateRequestSign(
@@ -183,7 +181,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
                 $this->getXAmount(),
                 $this->getXCurrencyCode(),
                 $this->getXFpSequence(),
-                $fpTimestamp
+                $fpTimestamp,
             );
         }
         $this->setXFpTimestamp($fpTimestamp);

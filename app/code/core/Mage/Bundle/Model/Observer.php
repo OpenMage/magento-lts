@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +54,7 @@ class Mage_Bundle_Model_Observer
         }
 
         $product->setCanSaveBundleSelections(
-            (bool)$request->getPost('affect_bundle_product_selections') && !$product->getCompositeReadonly()
+            (bool) $request->getPost('affect_bundle_product_selections') && !$product->getCompositeReadonly(),
         );
 
         return $this;
@@ -195,7 +196,7 @@ class Mage_Bundle_Model_Observer
         $optionCollection = $productType->getOptionsCollection($product);
         $selectionCollection = $productType->getSelectionsCollection(
             $productType->getOptionsIds($product),
-            $product
+            $product,
         );
         $optionCollection->appendSelections($selectionCollection);
 
@@ -205,11 +206,11 @@ class Mage_Bundle_Model_Observer
         $i = 0;
         foreach ($optionCollection as $option) {
             $optionRawData[$i] = [
-                    'required' => $option->getData('required'),
-                    'position' => $option->getData('position'),
-                    'type' => $option->getData('type'),
-                    'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
-                    'delete' => ''
+                'required' => $option->getData('required'),
+                'position' => $option->getData('position'),
+                'type' => $option->getData('type'),
+                'title' => $option->getData('title') ? $option->getData('title') : $option->getData('default_title'),
+                'delete' => '',
             ];
             foreach ($option->getSelections() as $selection) {
                 $selectionRawData[$i][] = [
@@ -220,7 +221,7 @@ class Mage_Bundle_Model_Observer
                     'selection_price_value' => $selection->getSelectionPriceValue(),
                     'selection_qty' => $selection->getSelectionQty(),
                     'selection_can_change_qty' => $selection->getSelectionCanChangeQty(),
-                    'delete' => ''
+                    'delete' => '',
                 ];
             }
             $i++;
@@ -251,7 +252,6 @@ class Mage_Bundle_Model_Observer
     /**
      * Initialize product options renderer with bundle specific params
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function initOptionRenderer(Varien_Event_Observer $observer)
@@ -267,7 +267,6 @@ class Mage_Bundle_Model_Observer
      *
      * @deprecated since 1.4.0.0
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductLoadAfter(Varien_Event_Observer $observer)
@@ -288,7 +287,6 @@ class Mage_Bundle_Model_Observer
      * @deprecated since 1.4.0.0
      * @see Mage_Bundle_Model_Resource_Indexer_Price
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogIndexPlainReindexAfter(Varien_Event_Observer $observer)

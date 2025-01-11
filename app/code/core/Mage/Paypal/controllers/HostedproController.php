@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,7 +83,8 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
     protected function _getIframeBlock()
     {
         $this->loadLayout('paypal_hosted_pro_iframe');
-        return $this->getLayout()
-            ->getBlock('hosted.pro.iframe');
+        /** @var Mage_Paypal_Block_Hosted_Pro_Iframe $block */
+        $block = $this->getLayout()->getBlock('hosted.pro.iframe');
+        return $block;
     }
 }

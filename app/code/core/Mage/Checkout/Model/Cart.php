@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -113,7 +114,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Set quote object associated with the cart
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
@@ -267,7 +267,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 $redirectUrl = ($product->hasOptionsValidationFail())
                     ? $product->getUrlModel()->getUrl(
                         $product,
-                        ['_query' => ['startcustomization' => 1]]
+                        ['_query' => ['startcustomization' => 1]],
                     )
                     : $product->getProductUrl();
                 $this->getCheckoutSession()->setRedirectUrl($redirectUrl);
@@ -316,12 +316,12 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
             if (!$allAvailable) {
                 $this->getCheckoutSession()->addError(
-                    Mage::helper('checkout')->__('Some of the requested products are unavailable.')
+                    Mage::helper('checkout')->__('Some of the requested products are unavailable.'),
                 );
             }
             if (!$allAdded) {
                 $this->getCheckoutSession()->addError(
-                    Mage::helper('checkout')->__('Some of the requested products are not available in the desired quantity.')
+                    Mage::helper('checkout')->__('Some of the requested products are not available in the desired quantity.'),
                 );
             }
         }
@@ -415,7 +415,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
         if ($qtyRecalculatedFlag) {
             $session->addNotice(
-                Mage::helper('checkout')->__('Some products quantities were recalculated because of quantity increment mismatch')
+                Mage::helper('checkout')->__('Some products quantities were recalculated because of quantity increment mismatch'),
             );
         }
 
@@ -593,7 +593,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
         Mage::dispatchEvent('checkout_cart_product_update_after', [
             'quote_item' => $result,
-            'product' => $product
+            'product' => $product,
         ]);
         $this->getCheckoutSession()->setLastAddedProductId($productId);
         return $result;

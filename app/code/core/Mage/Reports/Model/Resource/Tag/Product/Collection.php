@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,8 +109,8 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     public function addProductFilter($customerId)
     {
         $this->getSelect()
-             ->where('relation.product_id = ?', (int)$customerId);
-        $this->_customerFilterId = (int)$customerId;
+             ->where('relation.product_id = ?', (int) $customerId);
+        $this->_customerFilterId = (int) $customerId;
         return $this;
     }
 
@@ -143,12 +144,12 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
             ->join(
                 ['relation' => $this->getTable('tag/relation')],
                 'relation.product_id = e.entity_id',
-                []
+                [],
             )
             ->join(
                 ['t' => $this->getTable('tag/tag')],
                 't.tag_id = relation.tag_id',
-                ['tag_id',  'status', 'tag_name' => 'name']
+                ['tag_id',  'status', 'tag_name' => 'name'],
             );
 
         return $this;

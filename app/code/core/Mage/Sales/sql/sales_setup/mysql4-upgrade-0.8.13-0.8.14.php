@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -176,25 +177,25 @@ $attributes = [
     'base_total_canceled' => [],
     'base_total_invoiced' => [],
     'base_total_online_refunded' => [],
-    'base_total_offline_refunded' => []
+    'base_total_offline_refunded' => [],
 ];
 
 $select = new Zend_Db_Select($installer->getConnection());
 $select->from(['e' => $this->getTable('sales_order_entity')]);
 
 $attributeIds = [];
-foreach ($attributes as $code => $params) {
+foreach (array_keys($attributes) as $code) {
     $attributes[$code] = $installer->getAttribute($orderEntityTypeId, $code);
     if ($attributes[$code]['backend_type'] != 'static') {
         $select->joinLeft(
             ["_table_{$code}" => "{$this->getTable('sales_order_entity')}_{$attributes[$code]['backend_type']}"],
             "_table_{$code}.attribute_id = {$attributes[$code]['attribute_id']} AND _table_{$code}.entity_id = e.entity_id",
-            [$code => 'value']
+            [$code => 'value'],
         );
         $select->join(
             ["_eav_atr_{$code}" => $this->getTable('eav/attribute')],
             "_eav_atr_{$code}.attribute_id = {$attributes[$code]['attribute_id']}",
-            []
+            [],
         );
         $attributeIds[] = $attributes[$code]['attribute_id'];
     }
@@ -218,7 +219,7 @@ foreach ($orders as $order) {
 
     $installer->run("UPDATE {$this->getTable('sales_order_entity')} SET parent_id={$new_entity_id} WHERE parent_id={$old_entity_id}");
 
-    $tables = ["varchar", "int", "datetime", "text", "decimal"];
+    $tables = ['varchar', 'int', 'datetime', 'text', 'decimal'];
     foreach ($tables as $table) {
         $delete = [];
         $attrs = $installer->getConnection()->fetchAll("SELECT tt.* FROM {$this->getTable('sales_order_entity')}_{$table} tt JOIN eav_attribute on eav_attribute.attribute_id = tt.attribute_id  WHERE entity_id={$old_entity_id}");

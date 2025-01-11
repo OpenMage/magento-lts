@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -244,7 +245,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Import $this public data to specified object or array
      *
      * @param array|Varien_Object $to
-     * @param array $publicMap
      * @return array|Varien_Object
      */
     public function &import($to, array $publicMap = [])
@@ -256,7 +256,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Export $this public data from specified object or array
      *
      * @param array|Varien_Object $from
-     * @param array $publicMap
      * @return Mage_Paypal_Model_Api_Abstract
      */
     public function export($from, array $publicMap = [])
@@ -268,7 +267,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Set PayPal cart instance
      *
-     * @param Mage_Paypal_Model_Cart $cart
      * @return Mage_Paypal_Model_Api_Abstract
      */
     public function setPaypalCart(Mage_Paypal_Model_Cart $cart)
@@ -279,7 +277,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
     /**
      * Config instance setter
-     * @param Mage_Paypal_Model_Config $config
      * @return Mage_Paypal_Model_Api_Abstract
      */
     public function setConfigObject(Mage_Paypal_Model_Config $config)
@@ -309,7 +306,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Set recurring profiles
      *
-     * @param array $items
      * @return Mage_Paypal_Model_Api_Abstract
      */
     public function addRecurringPaymentProfiles(array $items)
@@ -323,8 +319,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Export $this public data to private request array
      *
-     * @param array $privateRequestMap
-     * @param array $request
      * @return array
      */
     protected function &_exportToRequest(array $privateRequestMap, array $request = [])
@@ -349,9 +343,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 
     /**
      * Import $this public data from a private response array
-     *
-     * @param array $privateResponseMap
-     * @param array $response
      */
     protected function _importFromResponse(array $privateResponseMap, array $response)
     {
@@ -373,7 +364,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      *
      * Returns true if there were line items added
      *
-     * @param array &$request
      * @param int $i
      * @return bool
      */
@@ -421,7 +411,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * Prepare shipping options request
      * Returns false if there are no shipping options
      *
-     * @param array &$request
      * @param int $i
      * @return bool
      */
@@ -476,7 +465,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     protected function _filterInt($value)
     {
-        return (int)$value;
+        return (int) $value;
     }
 
     /**
@@ -497,7 +486,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * region_id workaround: PayPal requires state code, try to find one in the address
      *
-     * @param Varien_Object $address
      * @return string
      */
     protected function _lookupRegionCodeFromAddress(Varien_Object $address)
@@ -514,9 +502,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     /**
      * Street address workaround: divides address lines into parts by specified keys
      * (keys should go as 3rd, 4th[...] parameters)
-     *
-     * @param Varien_Object $address
-     * @param array $to
      */
     protected function _importStreetFromAddress(Varien_Object $address, array &$to)
     {
@@ -592,6 +577,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      */
     public function getUseCertAuthentication()
     {
-        return (bool)$this->_config->apiAuthentication;
+        return (bool) $this->_config->apiAuthentication;
     }
 }

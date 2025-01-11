@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +63,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Current page number for items pager
      *
-     * @var int
+     * @var int|null
      */
     protected $_curPage = 1;
 
@@ -71,7 +72,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * if page size is false, then we works with all items
      *
-     * @var int | false
+     * @var int|false|null
      */
     protected $_pageSize = false;
 
@@ -102,9 +103,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     protected $_flags = [];
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Add collection filter
@@ -346,7 +345,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Adding item to item array
      *
-     * @param   Varien_Object $item
      * @return  $this
      */
     public function addItem(Varien_Object $item)
@@ -379,7 +377,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve item id
      *
-     * @param Varien_Object $item
      * @return mixed
      */
     protected function _getItemId(Varien_Object $item)
@@ -434,7 +431,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Returns array with results of callback for each item
      *
      * @param string|callable $callback
-     * @param array $args
      * @return array
      */
     public function walk($callback, array $args = [])
@@ -488,7 +484,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Set current page
      *
-     * @param   int $page
+     * @param   int|null $page
      * @return  $this
      */
     public function setCurPage($page)
@@ -500,7 +496,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Set collection page size
      *
-     * @param   int $size
+     * @param   int|null $size
      * @return  $this
      */
     public function setPageSize($size)
@@ -631,9 +627,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         foreach ($this as $item) {
             $xml .= $item->toXml();
         }
-        $xml .= '</items>
+        return $xml . '</items>
         </collection>';
-        return $xml;
     }
 
     /**

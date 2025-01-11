@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +31,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
         'related'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED,
         'up_sell'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL,
         'cross_sell'    => Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL,
-        'grouped'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED
+        'grouped'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
     ];
 
     public function __construct()
@@ -64,7 +65,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
                 'product_id' => $linkedProduct->getId(),
                 'type'       => $linkedProduct->getTypeId(),
                 'set'        => $linkedProduct->getAttributeSetId(),
-                'sku'        => $linkedProduct->getSku()
+                'sku'        => $linkedProduct->getSku(),
             ];
 
             foreach ($link->getAttributes() as $attribute) {
@@ -104,11 +105,11 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
 
         $links = $this->_collectionToEditableArray($collection);
 
-        $links[(int)$linkedProductId] = [];
+        $links[(int) $linkedProductId] = [];
 
         foreach ($collection->getLinkModel()->getAttributes() as $attribute) {
             if (isset($data[$attribute['code']])) {
-                $links[(int)$linkedProductId][$attribute['code']] = $data[$attribute['code']];
+                $links[(int) $linkedProductId][$attribute['code']] = $data[$attribute['code']];
             }
         }
 
@@ -164,7 +165,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
 
         foreach ($collection->getLinkModel()->getAttributes() as $attribute) {
             if (isset($data[$attribute['code']])) {
-                $links[(int)$linkedProductId][$attribute['code']] = $data[$attribute['code']];
+                $links[(int) $linkedProductId][$attribute['code']] = $data[$attribute['code']];
             }
         }
 
@@ -248,7 +249,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
         foreach ($attributes as $attribute) {
             $result[] = [
                 'code'  => $attribute['code'],
-                'type'  => $attribute['type']
+                'type'  => $attribute['type'],
             ];
         }
 

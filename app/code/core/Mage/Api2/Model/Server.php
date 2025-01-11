@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -111,8 +112,6 @@ class Mage_Api2_Model_Server
     /**
      * Make internal call to api
      *
-     * @param Mage_Api2_Model_Request $request
-     * @param Mage_Api2_Model_Response $response
      * @throws Mage_Api2_Exception
      */
     public function internalCall(Mage_Api2_Model_Request $request, Mage_Api2_Model_Response $response)
@@ -127,7 +126,6 @@ class Mage_Api2_Model_Server
      * Authenticate user
      *
      * @throws Exception
-     * @param Mage_Api2_Model_Request $request
      * @return Mage_Api2_Model_Auth_User_Abstract
      */
     protected function _authenticate(Mage_Api2_Model_Request $request)
@@ -143,7 +141,6 @@ class Mage_Api2_Model_Server
      * Set auth user
      *
      * @throws Exception
-     * @param Mage_Api2_Model_Auth_User_Abstract $authUser
      * @return $this
      */
     protected function _setAuthUser(Mage_Api2_Model_Auth_User_Abstract $authUser)
@@ -161,8 +158,8 @@ class Mage_Api2_Model_Server
     protected function _getAuthUser()
     {
         if (!$this->_authUser) {
-            throw new Exception("Mage_Api2_Model_Server::internalCall() seems to be executed "
-                . "before Mage_Api2_Model_Server::run()");
+            throw new Exception('Mage_Api2_Model_Server::internalCall() seems to be executed '
+                . 'before Mage_Api2_Model_Server::run()');
         }
         return $this->_authUser;
     }
@@ -171,7 +168,6 @@ class Mage_Api2_Model_Server
      * Set all routes of the given api type to Route object
      * Find route that match current URL, set parameters of the route to Request object
      *
-     * @param Mage_Api2_Model_Request $request
      * @return $this
      */
     protected function _route(Mage_Api2_Model_Request $request)
@@ -189,8 +185,6 @@ class Mage_Api2_Model_Server
     /**
      * Global ACL processing
      *
-     * @param Mage_Api2_Model_Request $request
-     * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
      * @return $this
      * @throws Mage_Api2_Exception
      */
@@ -209,9 +203,6 @@ class Mage_Api2_Model_Server
      * Load class file, instantiate resource class, set parameters to the instance, run resource internal dispatch
      * method
      *
-     * @param Mage_Api2_Model_Request $request
-     * @param Mage_Api2_Model_Response $response
-     * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
      * @return $this
      */
     protected function _dispatch(
@@ -240,9 +231,6 @@ class Mage_Api2_Model_Server
      * Process thrown exception
      * Generate and set HTTP response code, error message to Response object
      *
-     * @param Exception $exception
-     * @param Mage_Api2_Model_Renderer_Interface $renderer
-     * @param Mage_Api2_Model_Response $response
      * @return $this
      */
     protected function _renderException(
@@ -275,7 +263,7 @@ class Mage_Api2_Model_Server
             $response->setHeader('Content-Type', sprintf(
                 '%s; charset=%s',
                 $renderer->getMimeType(),
-                Mage_Api2_Model_Response::RESPONSE_CHARSET
+                Mage_Api2_Model_Response::RESPONSE_CHARSET,
             ));
         } catch (Exception $e) {
             //tunnelling of 406(Not acceptable) error

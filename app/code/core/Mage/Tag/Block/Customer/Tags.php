@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +32,7 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
             $this->_tags = [];
 
             $tags = Mage::getResourceModel('tag/tag_collection')
-                ->addPopularity(null, Mage::app()->getStore()->getId())
+                ->addPopularity()
                 ->setOrder('popularity', 'DESC')
                 ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
                 ->setActiveFilter()
