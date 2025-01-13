@@ -65,9 +65,9 @@ class UserTest extends TestCase
         $mock->method('hasAssigned2Role')->willReturn($methods['hasAssigned2Role']);
 
         try {
-            $this->assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
+            static::assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
         } catch (Mage_Core_Exception $e) {
-            $this->assertSame($expectedResult, $e->getMessage());
+            static::assertSame($expectedResult, $e->getMessage());
         }
     }
 
@@ -140,7 +140,7 @@ class UserTest extends TestCase
         $mock->method('getNewPassword')->willReturn($methods['getNewPassword']);
         $mock->method('hasPassword')->willReturn($methods['hasPassword']);
         $mock->method('getPassword')->willReturn($methods['getPassword']);
-        $this->assertSame($expectedResult, $mock->validate());
+        static::assertSame($expectedResult, $mock->validate());
     }
 
     public function provideValidateData(): Generator
@@ -185,8 +185,8 @@ class UserTest extends TestCase
      */
     public function testValidateCurrentPassword(): void
     {
-        $this->assertIsArray($this->subject->validateCurrentPassword(''));
-        $this->assertIsArray($this->subject->validateCurrentPassword('123'));
+        static::assertIsArray($this->subject->validateCurrentPassword(''));
+        static::assertIsArray($this->subject->validateCurrentPassword('123'));
     }
 
     /**
@@ -195,7 +195,7 @@ class UserTest extends TestCase
      */
     public function testLoadByUsername(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->loadByUsername('invalid-user'));
+        static::assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->loadByUsername('invalid-user'));
     }
 
     /**
@@ -204,7 +204,7 @@ class UserTest extends TestCase
      */
     public function testHasAssigned2Role(): void
     {
-        $this->assertIsArray($this->subject->hasAssigned2Role(1));
+        static::assertIsArray($this->subject->hasAssigned2Role(1));
     }
 
     /**
@@ -214,7 +214,7 @@ class UserTest extends TestCase
      */
     public function testChangeResetPasswordLinkToken(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->changeResetPasswordLinkToken('123'));
+        static::assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->changeResetPasswordLinkToken('123'));
     }
 
     /**
@@ -233,7 +233,7 @@ class UserTest extends TestCase
 
         $mock->method('getRpToken')->willReturn($methods['getRpToken']);
         $mock->method('getRpTokenCreatedAt')->willReturn($methods['getRpTokenCreatedAt']);
-        $this->assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
+        static::assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
     }
 
     public function provideIsResetPasswordLinkTokenExpiredData(): Generator
@@ -260,6 +260,6 @@ class UserTest extends TestCase
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->sendPasswordResetConfirmationEmail());
+        static::assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->sendPasswordResetConfirmationEmail());
     }
 }

@@ -43,7 +43,7 @@ class StoreTest extends TestCase
         if ($withStore) {
             $this->subject->setData('store_id', $withStore);
         }
-        $this->assertSame($expectedResult, $this->subject->getId());
+        static::assertSame($expectedResult, $this->subject->getId());
     }
 
     public function provideGetId(): Generator

@@ -37,6 +37,6 @@ class DataTest extends TestCase
      */
     public function testIsModuleEnabled(): void
     {
-        $this->assertIsBool($this->subject->isModuleEnabled());
+        static::assertIsBool($this->subject->isModuleEnabled());
     }
 }

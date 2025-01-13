@@ -45,7 +45,7 @@ class AddressesTest extends TestCase
         $attribute->setScopeMultilineCount($lines);
 
         $result = $this->subject->processStreetAttribute($attribute);
-        $this->assertSame($expectedResult, $result->getScopeMultilineCount());
+        static::assertSame($expectedResult, $result->getScopeMultilineCount());
     }
 
     public function provideProcessStreetAttribute(): Generator

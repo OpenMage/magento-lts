@@ -42,7 +42,7 @@ class MessageTest extends TestCase
      */
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, $store = null): void
     {
-        $this->assertIsBool($this->subject->isMessagesAvailable($type, $entity, $store));
+        static::assertIsBool($this->subject->isMessagesAvailable($type, $entity, $store));
     }
 
     public function provideIsMessagesAvailable(): Generator

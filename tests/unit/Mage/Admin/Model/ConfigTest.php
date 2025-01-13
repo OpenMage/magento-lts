@@ -39,7 +39,7 @@ class ConfigTest extends TestCase
      */
     public function testGetAclAssert(): void
     {
-        $this->assertFalse($this->subject->getAclAssert(''));
+        static::assertFalse($this->subject->getAclAssert(''));
     }
 
     /**
@@ -48,7 +48,7 @@ class ConfigTest extends TestCase
      */
     public function testGetAclPrivilegeSet(): void
     {
-        $this->assertFalse($this->subject->getAclPrivilegeSet());
+        static::assertFalse($this->subject->getAclPrivilegeSet());
     }
 
     /**
@@ -58,7 +58,7 @@ class ConfigTest extends TestCase
     public function testLoadAclResources(): void
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->assertInstanceOf(Mage_Admin_Model_Config::class, $this->subject->loadAclResources(new Mage_Admin_Model_Acl()));
+        static::assertInstanceOf(Mage_Admin_Model_Config::class, $this->subject->loadAclResources(new Mage_Admin_Model_Acl()));
     }
 
     /**
@@ -67,6 +67,6 @@ class ConfigTest extends TestCase
      */
     public function testGetAdminhtmlConfig(): void
     {
-        $this->assertInstanceOf(Varien_Simplexml_Config::class, $this->subject->getAdminhtmlConfig());
+        static::assertInstanceOf(Varien_Simplexml_Config::class, $this->subject->getAdminhtmlConfig());
     }
 }

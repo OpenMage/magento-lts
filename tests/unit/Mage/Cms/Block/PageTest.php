@@ -36,7 +36,7 @@ class PageTest extends TestCase
             ->getMock();
 
         $mock->method('getPageId')->willReturn($pageId);
-        $this->assertInstanceOf(Mage_Cms_Model_Page::class, $mock->getPage());
+        static::assertInstanceOf(Mage_Cms_Model_Page::class, $mock->getPage());
     }
 
     public function provideGetPageData(): Generator

@@ -45,9 +45,9 @@ class LayoutTest extends TestCase
         $result = $this->subject->createBlock($type, $name, $attributes);
 
         if ($willReturnBlock) {
-            $this->assertInstanceOf($expectedResult, $result);
+            static::assertInstanceOf($expectedResult, $result);
         } else {
-            $this->assertFalse($result);
+            static::assertFalse($result);
         }
     }
 
@@ -80,12 +80,12 @@ class LayoutTest extends TestCase
     {
         $result = $this->subject->getBlockSingleton($type);
 
-        $this->assertInstanceOf($expectedResult, $result);
+        static::assertInstanceOf($expectedResult, $result);
 
         if ($isAbstractBlock) {
-            $this->assertInstanceOf(\Mage_Core_Block_Abstract::class, $result);
+            static::assertInstanceOf(\Mage_Core_Block_Abstract::class, $result);
         } else {
-            $this->assertNotInstanceOf(\Mage_Core_Block_Abstract::class, $result);
+            static::assertNotInstanceOf(\Mage_Core_Block_Abstract::class, $result);
         }
     }
 

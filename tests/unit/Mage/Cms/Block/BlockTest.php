@@ -35,7 +35,7 @@ class BlockTest extends TestCase
             ->getMock();
 
         $mock->method('getBlockId')->willReturn($blockId);
-        $this->assertIsArray($mock->getCacheKeyInfo());
+        static::assertIsArray($mock->getCacheKeyInfo());
     }
 
     public function provideGetCacheKeyInfoData(): Generator

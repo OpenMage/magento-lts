@@ -38,7 +38,7 @@ class BlockTest extends TestCase
      */
     public function testIsTypeAllowed(): void
     {
-        $this->assertFalse($this->subject->isTypeAllowed('some-type'));
+        static::assertFalse($this->subject->isTypeAllowed('some-type'));
     }
 
     /**
@@ -48,6 +48,6 @@ class BlockTest extends TestCase
      */
     public function testGetDisallowedBlockNames(): void
     {
-        $this->assertSame(['install/end'], $this->subject->getDisallowedBlockNames());
+        static::assertSame(['install/end'], $this->subject->getDisallowedBlockNames());
     }
 }

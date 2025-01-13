@@ -37,7 +37,7 @@ class UrlTest extends TestCase
      */
     public function testEscape(): void
     {
-        $this->assertSame('%22%27%3E%3C', $this->subject->escape('"\'><'));
+        static::assertSame('%22%27%3E%3C', $this->subject->escape('"\'><'));
     }
 
     /**
@@ -46,6 +46,6 @@ class UrlTest extends TestCase
      */
     public function testGetSecure(): void
     {
-        $this->assertIsBool($this->subject->getSecure());
+        static::assertIsBool($this->subject->getSecure());
     }
 }

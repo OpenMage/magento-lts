@@ -33,10 +33,10 @@ class AppTest extends TestCase
     public function testGetStore($id): void
     {
         try {
-            $this->assertInstanceOf(Mage_Core_Model_Store::class, $this->subject->getStore($id));
+            static::assertInstanceOf(Mage_Core_Model_Store::class, $this->subject->getStore($id));
         } catch (Mage_Core_Model_Store_Exception $e) {
-            $this->assertNotEmpty($e->getMessage());
-            $this->assertSame('Invalid store code requested.', $e->getMessage());
+            static::assertNotEmpty($e->getMessage());
+            static::assertSame('Invalid store code requested.', $e->getMessage());
         }
     }
 
@@ -76,10 +76,10 @@ class AppTest extends TestCase
     public function testGetWebsite($id): void
     {
         try {
-            $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->getWebsite($id));
+            static::assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->getWebsite($id));
         } catch (Mage_Core_Exception $e) {
-            $this->assertNotEmpty($e->getMessage());
-            $this->assertSame('Invalid website id requested.', $e->getMessage());
+            static::assertNotEmpty($e->getMessage());
+            static::assertSame('Invalid website id requested.', $e->getMessage());
         }
     }
 
@@ -119,10 +119,10 @@ class AppTest extends TestCase
     public function testGetGroup($id): void
     {
         try {
-            $this->assertInstanceOf(Mage_Core_Model_Store_Group::class, $this->subject->getGroup($id));
+            static::assertInstanceOf(Mage_Core_Model_Store_Group::class, $this->subject->getGroup($id));
         } catch (Mage_Core_Exception $e) {
-            $this->assertNotEmpty($e->getMessage());
-            $this->assertSame('Invalid store group id requested.', $e->getMessage());
+            static::assertNotEmpty($e->getMessage());
+            static::assertSame('Invalid store group id requested.', $e->getMessage());
         }
     }
 

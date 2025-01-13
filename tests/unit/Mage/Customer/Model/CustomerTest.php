@@ -39,6 +39,6 @@ class CustomerTest extends TestCase
     public function testValidateAddress(): void
     {
         $data = [];
-        $this->assertIsBool($this->subject->validateAddress($data));
+        static::assertIsBool($this->subject->validateAddress($data));
     }
 }

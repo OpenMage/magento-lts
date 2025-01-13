@@ -38,6 +38,6 @@ class VariableTest extends TestCase
      */
     public function testIsPathAllowed(): void
     {
-        $this->assertIsBool($this->subject->isPathAllowed(''));
+        static::assertIsBool($this->subject->isPathAllowed(''));
     }
 }

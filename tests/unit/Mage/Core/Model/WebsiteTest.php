@@ -41,8 +41,8 @@ class WebsiteTest extends TestCase
      */
     public function testLoad(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->load(1));
-        $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->load('default'));
+        static::assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->load(1));
+        static::assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->load('default'));
     }
 
     /**
@@ -51,8 +51,8 @@ class WebsiteTest extends TestCase
      */
     public function testLoadConfig(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->loadConfig('1'));
-        $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->loadConfig('default'));
+        static::assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->loadConfig('1'));
+        static::assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->loadConfig('default'));
     }
 
     /**
@@ -61,7 +61,7 @@ class WebsiteTest extends TestCase
      */
     public function testGetStoreCollection(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, $this->subject->getStoreCollection());
+        static::assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, $this->subject->getStoreCollection());
     }
 
     /**
@@ -70,7 +70,7 @@ class WebsiteTest extends TestCase
      */
     public function testGetGroupCollection(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Resource_Store_Group_Collection::class, $this->subject->getGroupCollection());
+        static::assertInstanceOf(Mage_Core_Model_Resource_Store_Group_Collection::class, $this->subject->getGroupCollection());
     }
 
     /**
@@ -79,7 +79,7 @@ class WebsiteTest extends TestCase
      */
     public function testGetStores(): void
     {
-        $this->assertIsArray($this->subject->getStores());
+        static::assertIsArray($this->subject->getStores());
     }
 
     /**
@@ -88,7 +88,7 @@ class WebsiteTest extends TestCase
      */
     public function testGetStoreIds(): void
     {
-        $this->assertIsArray($this->subject->getStoreIds());
+        static::assertIsArray($this->subject->getStoreIds());
     }
 
     /**
@@ -97,7 +97,7 @@ class WebsiteTest extends TestCase
      */
     public function testGetStoreCodes(): void
     {
-        $this->assertIsArray($this->subject->getStoreCodes());
+        static::assertIsArray($this->subject->getStoreCodes());
     }
 
     /**
@@ -106,7 +106,7 @@ class WebsiteTest extends TestCase
      */
     public function testGetStoresCount(): void
     {
-        $this->assertIsInt($this->subject->getStoresCount());
+        static::assertIsInt($this->subject->getStoresCount());
     }
 
     /**
@@ -115,7 +115,7 @@ class WebsiteTest extends TestCase
      */
     public function testGetGroups(): void
     {
-        $this->assertIsArray($this->subject->getGroups());
+        static::assertIsArray($this->subject->getGroups());
     }
 
     /**
@@ -124,7 +124,7 @@ class WebsiteTest extends TestCase
      */
     public function testGetGroupIds(): void
     {
-        $this->assertIsArray($this->subject->getGroupIds());
+        static::assertIsArray($this->subject->getGroupIds());
     }
 
     /**
@@ -133,7 +133,7 @@ class WebsiteTest extends TestCase
      */
     public function testGetGroupsCount(): void
     {
-        $this->assertIsInt($this->subject->getGroupsCount());
+        static::assertIsInt($this->subject->getGroupsCount());
     }
 
     /**
@@ -142,8 +142,8 @@ class WebsiteTest extends TestCase
      */
     public function testGetBaseCurrency(): void
     {
-        $this->assertIsObject($this->subject->getBaseCurrency());
-        $this->assertInstanceOf(Mage_Directory_Model_Currency::class, $this->subject->getBaseCurrency());
+        static::assertIsObject($this->subject->getBaseCurrency());
+        static::assertInstanceOf(Mage_Directory_Model_Currency::class, $this->subject->getBaseCurrency());
     }
 
     //    /**
@@ -161,8 +161,8 @@ class WebsiteTest extends TestCase
      */
     public function testGetDefaultStoresSelect(): void
     {
-        $this->assertIsObject($this->subject->getDefaultStoresSelect());
-        $this->assertInstanceOf(Varien_Db_Select::class, $this->subject->getDefaultStoresSelect(true));
+        static::assertIsObject($this->subject->getDefaultStoresSelect());
+        static::assertInstanceOf(Varien_Db_Select::class, $this->subject->getDefaultStoresSelect(true));
     }
 
     /**
@@ -171,7 +171,7 @@ class WebsiteTest extends TestCase
      */
     public function testIsReadOnly(): void
     {
-        $this->assertFalse($this->subject->isReadOnly());
-        $this->assertTrue($this->subject->isReadOnly(true));
+        static::assertFalse($this->subject->isReadOnly());
+        static::assertTrue($this->subject->isReadOnly(true));
     }
 }

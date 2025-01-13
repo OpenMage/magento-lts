@@ -53,7 +53,7 @@ class UrlTest extends TestCase
      */
     public function testGetCurrentBase64Url(): void
     {
-        $this->assertIsString($this->subject->getCurrentBase64Url());
+        static::assertIsString($this->subject->getCurrentBase64Url());
     }
 
     /**
@@ -64,7 +64,7 @@ class UrlTest extends TestCase
      */
     public function testGetEncodedUrl(string $expectedResult, ?string $url): void
     {
-        $this->assertSame($expectedResult, $this->subject->getEncodedUrl($url));
+        static::assertSame($expectedResult, $this->subject->getEncodedUrl($url));
     }
 
     public function provideGetEncodedUrl(): Generator
@@ -86,7 +86,7 @@ class UrlTest extends TestCase
      */
     public function testGetHomeUrl(): void
     {
-        $this->assertIsString($this->subject->getHomeUrl());
+        static::assertIsString($this->subject->getHomeUrl());
     }
 
     /**
@@ -97,7 +97,7 @@ class UrlTest extends TestCase
      */
     public function testAddRequestParam(string $expectedResult, string $url, array $param): void
     {
-        $this->assertSame($expectedResult, $this->subject->addRequestParam($url, $param));
+        static::assertSame($expectedResult, $this->subject->addRequestParam($url, $param));
     }
 
     public function provideAddRequestParam(): Generator
@@ -142,7 +142,7 @@ class UrlTest extends TestCase
      */
     public function testRemoveRequestParam(string $expectedResult, string $url, string $paramKey, bool $caseSensitive = false): void
     {
-        $this->assertSame($expectedResult, $this->subject->removeRequestParam($url, $paramKey, $caseSensitive));
+        static::assertSame($expectedResult, $this->subject->removeRequestParam($url, $paramKey, $caseSensitive));
     }
 
     public function provideRemoveRequestParam(): Generator
@@ -193,9 +193,9 @@ class UrlTest extends TestCase
      */
     public function testEncodePunycode(): void
     {
-        $this->assertSame(self::TEST_URL_BASE, $this->subject->encodePunycode(self::TEST_URL_BASE));
-        $this->assertSame(self::TEST_URL_PUNY, $this->subject->encodePunycode(self::TEST_URL_PUNY));
-        $this->markTestIncomplete('This test has to be checked.');
+        static::assertSame(self::TEST_URL_BASE, $this->subject->encodePunycode(self::TEST_URL_BASE));
+        static::assertSame(self::TEST_URL_PUNY, $this->subject->encodePunycode(self::TEST_URL_PUNY));
+        static::markTestIncomplete('This test has to be checked.');
     }
 
     /**
@@ -205,8 +205,8 @@ class UrlTest extends TestCase
      */
     public function testDecodePunycode(): void
     {
-        $this->assertSame(self::TEST_URL_BASE, $this->subject->decodePunycode(self::TEST_URL_BASE));
-        $this->assertSame('https://?foo=bar&BOO=baz', $this->subject->decodePunycode(self::TEST_URL_PUNY));
-        $this->markTestIncomplete('This test has to be checked.');
+        static::assertSame(self::TEST_URL_BASE, $this->subject->decodePunycode(self::TEST_URL_BASE));
+        static::assertSame('https://?foo=bar&BOO=baz', $this->subject->decodePunycode(self::TEST_URL_PUNY));
+        static::markTestIncomplete('This test has to be checked.');
     }
 }

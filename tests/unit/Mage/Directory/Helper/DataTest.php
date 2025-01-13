@@ -42,7 +42,7 @@ class DataTest extends TestCase
      */
     public function testGetRegionCollection(): void
     {
-        $this->assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, $this->subject->getRegionCollection());
+        static::assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, $this->subject->getRegionCollection());
     }
 
     /**
@@ -51,7 +51,7 @@ class DataTest extends TestCase
      */
     public function testGetCountryCollection(): void
     {
-        $this->assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, $this->subject->getCountryCollection());
+        static::assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, $this->subject->getCountryCollection());
     }
 
     /**
@@ -60,7 +60,7 @@ class DataTest extends TestCase
      */
     public function testGetRegionJsonByStore(): void
     {
-        $this->assertIsString($this->subject->getRegionJson());
+        static::assertIsString($this->subject->getRegionJson());
     }
 
     /**
@@ -71,7 +71,7 @@ class DataTest extends TestCase
      */
     public function testCurrencyConvert(): void
     {
-        $this->assertSame(10, $this->subject->currencyConvert(10, 'USD'));
+        static::assertSame(10, $this->subject->currencyConvert(10, 'USD'));
     }
 
     /**
@@ -82,7 +82,7 @@ class DataTest extends TestCase
      */
     public function testGetCountriesWithOptionalZip($expectedResult, bool $asJson): void
     {
-        $this->assertSame($expectedResult, $this->subject->getCountriesWithOptionalZip($asJson));
+        static::assertSame($expectedResult, $this->subject->getCountriesWithOptionalZip($asJson));
     }
 
     public function provideGetCountriesWithOptionalZip(): Generator
@@ -109,7 +109,7 @@ class DataTest extends TestCase
      */
     public function testIsZipCodeOptional(): void
     {
-        $this->assertIsBool($this->subject->isZipCodeOptional(''));
+        static::assertIsBool($this->subject->isZipCodeOptional(''));
     }
 
     /**
@@ -122,9 +122,9 @@ class DataTest extends TestCase
     {
         $result = $this->subject->getCountriesWithStatesRequired($asJson);
         if (defined('USES_SAMPLEDATA') && USES_SAMPLEDATA === true) {
-            $asJson ? $this->assertIsString($result) : $this->assertIsArray($result);
+            $asJson ? static::assertIsString($result) : static::assertIsArray($result);
         } else {
-            $this->assertSame($expectedResult, $result);
+            static::assertSame($expectedResult, $result);
         }
     }
 
@@ -160,7 +160,7 @@ class DataTest extends TestCase
      */
     public function testGetShowNonRequiredState(): void
     {
-        $this->assertTrue($this->subject->getShowNonRequiredState());
+        static::assertTrue($this->subject->getShowNonRequiredState());
     }
 
     /**
@@ -170,6 +170,6 @@ class DataTest extends TestCase
      */
     public function testGetConfigCurrencyBase(): void
     {
-        $this->assertSame('USD', $this->subject->getConfigCurrencyBase());
+        static::assertSame('USD', $this->subject->getConfigCurrencyBase());
     }
 }

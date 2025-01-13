@@ -45,7 +45,7 @@ class BlockTest extends TestCase
             ->getMock();
 
         $mock->method('getBlockId')->willReturn($blockId);
-        $this->assertIsArray($mock->getCacheKeyInfo());
+        static::assertIsArray($mock->getCacheKeyInfo());
     }
 
     public function provideGetCacheKeyInfoData(): Generator
@@ -64,6 +64,6 @@ class BlockTest extends TestCase
      */
     public function testIsRequestFromAdminArea(): void
     {
-        $this->assertIsBool($this->subject->isRequestFromAdminArea());
+        static::assertIsBool($this->subject->isRequestFromAdminArea());
     }
 }

@@ -41,7 +41,7 @@ class PurifierTest extends TestCase
      */
     public function testPurify($expectedResult, $content): void
     {
-        $this->assertSame($expectedResult, $this->subject->purify($content));
+        static::assertSame($expectedResult, $this->subject->purify($content));
     }
 
     public function providePurify(): Generator

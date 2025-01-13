@@ -42,7 +42,7 @@ class ConfigTest extends TestCase
      */
     public function testGetConfig(): void
     {
-        $this->assertInstanceOf(Varien_Object::class, $this->subject->getConfig());
+        static::assertInstanceOf(Varien_Object::class, $this->subject->getConfig());
     }
 
     /**
@@ -51,7 +51,7 @@ class ConfigTest extends TestCase
      */
     public function testGetSkinImagePlaceholderUrl(): void
     {
-        $this->assertIsString($this->subject->getSkinImagePlaceholderUrl());
+        static::assertIsString($this->subject->getSkinImagePlaceholderUrl());
     }
 
     /**
@@ -60,7 +60,7 @@ class ConfigTest extends TestCase
      */
     public function testGetSkinImagePlaceholderPath(): void
     {
-        $this->assertIsString($this->subject->getSkinImagePlaceholderPath());
+        static::assertIsString($this->subject->getSkinImagePlaceholderPath());
     }
 
     /**
@@ -69,7 +69,7 @@ class ConfigTest extends TestCase
      */
     public function testIsEnabled(): void
     {
-        $this->assertIsBool($this->subject->isEnabled());
+        static::assertIsBool($this->subject->isEnabled());
     }
 
     /**
@@ -78,6 +78,6 @@ class ConfigTest extends TestCase
      */
     public function testIsHidden(): void
     {
-        $this->assertIsBool($this->subject->isHidden());
+        static::assertIsBool($this->subject->isHidden());
     }
 }

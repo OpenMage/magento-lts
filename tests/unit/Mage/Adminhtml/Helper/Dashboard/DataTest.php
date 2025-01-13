@@ -39,7 +39,7 @@ class DataTest extends TestCase
      */
     public function testGetStores(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, $this->subject->getStores());
+        static::assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, $this->subject->getStores());
     }
 
     /**
@@ -49,7 +49,7 @@ class DataTest extends TestCase
      */
     public function testCountStores(): void
     {
-        $this->assertIsInt($this->subject->countStores());
+        static::assertIsInt($this->subject->countStores());
     }
 
     /**
@@ -66,7 +66,7 @@ class DataTest extends TestCase
             '1y'  => $this->subject->__('YTD'),
             '2y'  => $this->subject->__('2YTD'),
         ];
-        $this->assertSame($expectedResult, $this->subject->getDatePeriods());
+        static::assertSame($expectedResult, $this->subject->getDatePeriods());
     }
 
     /**
@@ -76,6 +76,6 @@ class DataTest extends TestCase
      */
     public function testGetChartDataHash(): void
     {
-        $this->assertIsString($this->subject->getChartDataHash(''));
+        static::assertIsString($this->subject->getChartDataHash(''));
     }
 }

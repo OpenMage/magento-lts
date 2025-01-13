@@ -41,9 +41,9 @@ class CustomerTest extends TestCase
             ->setMethods(['getLoginAt'])
             ->getMock();
 
-        $this->assertNull($mock->getLoginAtTimestamp());
+        static::assertNull($mock->getLoginAtTimestamp());
 
         $mock->method('getLoginAt')->willReturn(true);
-        $this->assertIsInt($mock->getLoginAtTimestamp());
+        static::assertIsInt($mock->getLoginAtTimestamp());
     }
 }

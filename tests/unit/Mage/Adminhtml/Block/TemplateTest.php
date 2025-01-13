@@ -42,7 +42,7 @@ class TemplateTest extends TestCase
      */
     public function testGetFormKey(): void
     {
-        $this->assertIsString($this->subject->getFormKey());
+        static::assertIsString($this->subject->getFormKey());
     }
 
     /**
@@ -53,7 +53,7 @@ class TemplateTest extends TestCase
      */
     public function testIsOutputEnabled(bool $expectedResult, ?string $moduleName): void
     {
-        $this->assertSame($expectedResult, $this->subject->isOutputEnabled($moduleName));
+        static::assertSame($expectedResult, $this->subject->isOutputEnabled($moduleName));
     }
 
     public function provideIsOutputEnabled(): Generator
@@ -78,7 +78,7 @@ class TemplateTest extends TestCase
      */
     public function testGetModuleName(): void
     {
-        $this->assertSame('Mage_Adminhtml', $this->subject->getModuleName());
+        static::assertSame('Mage_Adminhtml', $this->subject->getModuleName());
     }
 
     /**
@@ -88,6 +88,6 @@ class TemplateTest extends TestCase
      */
     public function testMaliciousCodeFilter(): void
     {
-        $this->assertIsString($this->subject->maliciousCodeFilter(''));
+        static::assertIsString($this->subject->maliciousCodeFilter(''));
     }
 }

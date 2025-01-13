@@ -43,7 +43,7 @@ class CategoryTest extends TestCase
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertIsInt($this->subject->getDefaultAttributeSetId());
+        static::assertIsInt($this->subject->getDefaultAttributeSetId());
     }
 
     /**
@@ -52,7 +52,7 @@ class CategoryTest extends TestCase
      */
     public function testGetProductCollection(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, $this->subject->getProductCollection());
+        static::assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, $this->subject->getProductCollection());
     }
 
     /**
@@ -61,7 +61,7 @@ class CategoryTest extends TestCase
      */
     public function testGetAvailableSortByOptions(): void
     {
-        $this->assertIsArray($this->subject->getAvailableSortByOptions());
+        static::assertIsArray($this->subject->getAvailableSortByOptions());
     }
 
     /**
@@ -70,7 +70,7 @@ class CategoryTest extends TestCase
      */
     public function testGetDefaultSortBy(): void
     {
-        $this->assertSame('position', $this->subject->getDefaultSortBy());
+        static::assertSame('position', $this->subject->getDefaultSortBy());
     }
 
     /**
@@ -79,7 +79,7 @@ class CategoryTest extends TestCase
      */
     public function testValidate(): void
     {
-        $this->assertIsArray($this->subject->validate());
+        static::assertIsArray($this->subject->validate());
     }
 
     /**
@@ -88,7 +88,7 @@ class CategoryTest extends TestCase
      */
     public function testAfterCommitCallback(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Category::class, $this->subject->afterCommitCallback());
+        static::assertInstanceOf(Mage_Catalog_Model_Category::class, $this->subject->afterCommitCallback());
     }
 
     /**
@@ -97,8 +97,8 @@ class CategoryTest extends TestCase
      */
     public function testGetUrlModel(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());
-        $this->assertInstanceOf(Mage_Catalog_Model_Category_Url::class, $this->subject->getUrlModel());
+        static::assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());
+        static::assertInstanceOf(Mage_Catalog_Model_Category_Url::class, $this->subject->getUrlModel());
     }
 
     /**
@@ -122,7 +122,7 @@ class CategoryTest extends TestCase
     public function testFormatUrlKey($expectedResult, ?string $locale): void
     {
         $this->subject->setLocale($locale);
-        $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
+        static::assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
     }
 
     public function provideFormatUrlKey(): Generator

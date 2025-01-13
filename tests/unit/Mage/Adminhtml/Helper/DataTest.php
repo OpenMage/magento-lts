@@ -40,7 +40,7 @@ class DataTest extends TestCase
      */
     public function testGetUrl(): void
     {
-        $this->assertIsString($this->subject->getUrl());
+        static::assertIsString($this->subject->getUrl());
     }
 
     /**
@@ -52,7 +52,7 @@ class DataTest extends TestCase
      */
     public function testGetCurrentUserId(): void
     {
-        $this->assertFalse($this->subject->getCurrentUserId());
+        static::assertFalse($this->subject->getCurrentUserId());
     }
 
     /**
@@ -62,7 +62,7 @@ class DataTest extends TestCase
      */
     public function testPrepareFilterString(): void
     {
-        $this->assertIsArray($this->subject->prepareFilterString(''));
+        static::assertIsArray($this->subject->prepareFilterString(''));
     }
 
     /**
@@ -74,7 +74,7 @@ class DataTest extends TestCase
     {
         $string = '';
         $this->subject->decodeFilter($string);
-        $this->assertSame('', $string);
+        static::assertSame('', $string);
     }
 
     /**
@@ -84,6 +84,6 @@ class DataTest extends TestCase
      */
     public function testIsEnabledSecurityKeyUrl(): void
     {
-        $this->assertTrue($this->subject->isEnabledSecurityKeyUrl());
+        static::assertTrue($this->subject->isEnabledSecurityKeyUrl());
     }
 }

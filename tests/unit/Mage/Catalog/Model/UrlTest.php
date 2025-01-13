@@ -43,7 +43,7 @@ class UrlTest extends TestCase
      */
     public function testGetStoreRootCategory(): void
     {
-        $this->assertInstanceOf(Varien_Object::class, $this->subject->getStoreRootCategory(1));
+        static::assertInstanceOf(Varien_Object::class, $this->subject->getStoreRootCategory(1));
     }
 
     /**
@@ -54,7 +54,7 @@ class UrlTest extends TestCase
      */
     public function testRefreshRewrites(?int $storeId): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->refreshRewrites($storeId));
+        static::assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->refreshRewrites($storeId));
     }
 
     public function provideRefreshRewrites(): Generator
@@ -84,9 +84,9 @@ class UrlTest extends TestCase
         ?string $parentPath = null
     ): void {
         try {
-            $this->assertSame($expectedResult, $this->subject->generatePath($type, $product, $category, $parentPath));
+            static::assertSame($expectedResult, $this->subject->generatePath($type, $product, $category, $parentPath));
         } catch (Mage_Core_Exception $e) {
-            $this->assertSame($expectedResult, $e->getMessage());
+            static::assertSame($expectedResult, $e->getMessage());
         }
     }
 
@@ -143,7 +143,7 @@ class UrlTest extends TestCase
     public function testFormatUrlKey($expectedResult, string $locale): void
     {
         $this->subject->setLocale($locale);
-        $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
+        static::assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
     }
 
     public function provideFormatUrlKey(): Generator
@@ -176,7 +176,7 @@ class UrlTest extends TestCase
      */
     public function testGetSlugger(): void
     {
-        $this->assertInstanceOf(AsciiSlugger::class, $this->subject->getSlugger());
+        static::assertInstanceOf(AsciiSlugger::class, $this->subject->getSlugger());
     }
 
     /**
@@ -188,15 +188,15 @@ class UrlTest extends TestCase
     {
         $result = $this->subject->getSluggerConfig($locale);
 
-        $this->assertArrayHasKey($locale, $result);
+        static::assertArrayHasKey($locale, $result);
 
-        $this->assertArrayHasKey('%', $result[$locale]);
-        $this->assertArrayHasKey('&', $result[$locale]);
+        static::assertArrayHasKey('%', $result[$locale]);
+        static::assertArrayHasKey('&', $result[$locale]);
 
-        $this->assertSame($expectedResult[$locale]['%'], $result[$locale]['%']);
-        $this->assertSame($expectedResult[$locale]['&'], $result[$locale]['&']);
+        static::assertSame($expectedResult[$locale]['%'], $result[$locale]['%']);
+        static::assertSame($expectedResult[$locale]['&'], $result[$locale]['&']);
 
-        $this->assertSame('at', $result[$locale]['@']);
+        static::assertSame('at', $result[$locale]['@']);
     }
 
     public function provideGetSluggerConfig(): Generator

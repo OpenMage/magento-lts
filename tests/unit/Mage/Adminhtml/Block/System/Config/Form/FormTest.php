@@ -37,6 +37,6 @@ class FormTest extends TestCase
      */
     public function testInitForm(): void
     {
-        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Config_Form::class, $this->subject->initForm());
+        static::assertInstanceOf(Mage_Adminhtml_Block_System_Config_Form::class, $this->subject->initForm());
     }
 }

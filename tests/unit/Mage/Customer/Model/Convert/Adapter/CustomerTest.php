@@ -143,6 +143,6 @@ class CustomerTest extends TestCase
             'firstname' => 'John',
             'lastname'  => 'Doe',
         ];
-        $this->assertInstanceOf(Mage_Customer_Model_Convert_Adapter_Customer::class, $this->subject->saveRow($data));
+        static::assertInstanceOf(Mage_Customer_Model_Convert_Adapter_Customer::class, $this->subject->saveRow($data));
     }
 }

@@ -37,6 +37,6 @@ class LayoutTest extends TestCase
      */
     public function testToOptionArray(): void
     {
-        $this->assertIsArray($this->subject->toOptionArray(true));
+        static::assertIsArray($this->subject->toOptionArray(true));
     }
 }

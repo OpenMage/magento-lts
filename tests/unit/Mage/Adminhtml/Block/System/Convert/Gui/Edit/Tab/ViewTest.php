@@ -48,6 +48,6 @@ class ViewTest extends TestCase
             // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             ->willReturn(new Mage_Dataflow_Model_Profile());
 
-        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View::class, $mock->initForm());
+        static::assertInstanceOf(Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View::class, $mock->initForm());
     }
 }

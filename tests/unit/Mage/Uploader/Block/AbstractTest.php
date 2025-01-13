@@ -40,7 +40,7 @@ class AbstractTest extends TestCase
      */
     public function testGetMiscConfig(): void
     {
-        $this->assertInstanceOf(Mage_Uploader_Model_Config_Misc::class, $this->subject->getMiscConfig());
+        static::assertInstanceOf(Mage_Uploader_Model_Config_Misc::class, $this->subject->getMiscConfig());
     }
 
     /**
@@ -51,7 +51,7 @@ class AbstractTest extends TestCase
      */
     public function testGetUploaderConfig(): void
     {
-        $this->assertInstanceOf(Mage_Uploader_Model_Config_Uploader::class, $this->subject->getUploaderConfig());
+        static::assertInstanceOf(Mage_Uploader_Model_Config_Uploader::class, $this->subject->getUploaderConfig());
     }
 
     /**
@@ -60,7 +60,7 @@ class AbstractTest extends TestCase
      */
     public function testGetButtonConfig(): void
     {
-        $this->assertInstanceOf(Mage_Uploader_Model_Config_Browsebutton::class, $this->subject->getButtonConfig());
+        static::assertInstanceOf(Mage_Uploader_Model_Config_Browsebutton::class, $this->subject->getButtonConfig());
     }
 
     /**
@@ -71,7 +71,7 @@ class AbstractTest extends TestCase
     {
         $suffix = 'test';
         $result = $this->subject->getElementId($suffix);
-        $this->assertStringStartsWith('id_', $result);
-        $this->assertStringEndsWith('-' . $suffix, $result);
+        static::assertStringStartsWith('id_', $result);
+        static::assertStringEndsWith('-' . $suffix, $result);
     }
 }

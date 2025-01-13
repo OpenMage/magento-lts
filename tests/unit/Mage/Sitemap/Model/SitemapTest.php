@@ -42,7 +42,7 @@ class SitemapTest extends TestCase
             ->getMock();
 
         $mock->method('getSitemapFilename')->willReturn('text.xml');
-        $this->assertIsString($mock->getPreparedFilename());
+        static::assertIsString($mock->getPreparedFilename());
     }
 
     /**
@@ -56,6 +56,6 @@ class SitemapTest extends TestCase
             ->getMock();
 
         $mock->method('getSitemapFilename')->willReturn('text.xml');
-        $this->assertInstanceOf(Mage_Sitemap_Model_Sitemap::class, $mock->generateXml());
+        static::assertInstanceOf(Mage_Sitemap_Model_Sitemap::class, $mock->generateXml());
     }
 }

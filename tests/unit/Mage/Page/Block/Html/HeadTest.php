@@ -38,7 +38,7 @@ class HeadTest extends TestCase
      */
     public function testAddCss(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addCss('test'));
+        static::assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addCss('test'));
     }
 
     /**
@@ -47,7 +47,7 @@ class HeadTest extends TestCase
      */
     public function testAddJs(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addJs('test'));
+        static::assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addJs('test'));
     }
 
     /**
@@ -56,7 +56,7 @@ class HeadTest extends TestCase
      */
     public function testAddCssIe(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addCssIe('test'));
+        static::assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addCssIe('test'));
     }
 
     /**
@@ -65,7 +65,7 @@ class HeadTest extends TestCase
      */
     public function testAddJsIe(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addJsIe('test'));
+        static::assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addJsIe('test'));
     }
 
     /**
@@ -74,6 +74,6 @@ class HeadTest extends TestCase
      */
     public function testAddLinkRel(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addLinkRel('test', 'ref'));
+        static::assertInstanceOf(Mage_Page_Block_Html_Head::class, $this->subject->addLinkRel('test', 'ref'));
     }
 }

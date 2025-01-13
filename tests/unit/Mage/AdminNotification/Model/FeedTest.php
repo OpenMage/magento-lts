@@ -38,7 +38,7 @@ class FeedTest extends TestCase
      */
     public function testGetFeedUrl(): void
     {
-        $this->assertIsString($this->subject->getFeedUrl());
+        static::assertIsString($this->subject->getFeedUrl());
     }
 
     /**
@@ -47,7 +47,7 @@ class FeedTest extends TestCase
      */
     public function testCheckUpdate(): void
     {
-        $this->assertInstanceOf(Mage_AdminNotification_Model_Feed::class, $this->subject->checkUpdate());
+        static::assertInstanceOf(Mage_AdminNotification_Model_Feed::class, $this->subject->checkUpdate());
     }
 
     /**
@@ -56,7 +56,7 @@ class FeedTest extends TestCase
      */
     public function testGetFeedData(): void
     {
-        $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedData());
+        static::assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedData());
     }
 
     /**
@@ -65,6 +65,6 @@ class FeedTest extends TestCase
      */
     public function testGetFeedXml(): void
     {
-        $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedXml());
+        static::assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedXml());
     }
 }

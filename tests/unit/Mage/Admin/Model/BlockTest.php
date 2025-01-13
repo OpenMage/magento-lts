@@ -50,7 +50,7 @@ class BlockTest extends TestCase
 
         $mock->method('getBlockName')->willReturn($methods['getBlockName']);
         $mock->method('getIsAllowed')->willReturn($methods['getIsAllowed']);
-        $this->assertEquals($expectedResult, $mock->validate());
+        static::assertEquals($expectedResult, $mock->validate());
     }
 
     public function provideValidateData(): Generator
@@ -74,6 +74,6 @@ class BlockTest extends TestCase
      */
     public function testIsTypeAllowed(): void
     {
-        $this->assertIsBool($this->subject->isTypeAllowed('invalid-type'));
+        static::assertIsBool($this->subject->isTypeAllowed('invalid-type'));
     }
 }

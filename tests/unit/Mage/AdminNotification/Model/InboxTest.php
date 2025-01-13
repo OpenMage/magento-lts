@@ -44,7 +44,7 @@ class InboxTest extends TestCase
      */
     public function testGetSeverities($expectedResult, ?int $severity): void
     {
-        $this->assertSame($expectedResult, $this->subject->getSeverities($severity));
+        static::assertSame($expectedResult, $this->subject->getSeverities($severity));
     }
 
     public function provideGetSeverities(): Generator
@@ -75,7 +75,7 @@ class InboxTest extends TestCase
     public function testLoadLatestNotice(bool $delete = false): void
     {
         $result = $this->subject->loadLatestNotice();
-        $this->assertInstanceOf(Subject::class, $result);
+        static::assertInstanceOf(Subject::class, $result);
         if ($delete) {
             $result->delete();
         }
@@ -87,7 +87,7 @@ class InboxTest extends TestCase
      */
     public function testAdd(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->add(
+        static::assertInstanceOf(Subject::class, $this->subject->add(
             Subject::SEVERITY_CRITICAL,
             self::TITLE,
             [__METHOD__],
@@ -106,7 +106,7 @@ class InboxTest extends TestCase
         try {
             $this->subject->add(0, self::TITLE, __METHOD__);
         } catch (Mage_Core_Exception $e) {
-            $this->assertSame('Wrong message type', $e->getMessage());
+            static::assertSame('Wrong message type', $e->getMessage());
         }
     }
 
@@ -117,7 +117,7 @@ class InboxTest extends TestCase
      */
     public function testAddCritical(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addCritical(self::TITLE, __METHOD__));
+        static::assertInstanceOf(Subject::class, $this->subject->addCritical(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 
@@ -128,7 +128,7 @@ class InboxTest extends TestCase
      */
     public function testAddMajor(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addMajor(self::TITLE, __METHOD__));
+        static::assertInstanceOf(Subject::class, $this->subject->addMajor(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 
@@ -139,7 +139,7 @@ class InboxTest extends TestCase
      */
     public function testAddMinor(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addMinor(self::TITLE, __METHOD__));
+        static::assertInstanceOf(Subject::class, $this->subject->addMinor(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 
@@ -150,7 +150,7 @@ class InboxTest extends TestCase
      */
     public function testAddNotice(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addNotice(self::TITLE, __METHOD__));
+        static::assertInstanceOf(Subject::class, $this->subject->addNotice(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 }

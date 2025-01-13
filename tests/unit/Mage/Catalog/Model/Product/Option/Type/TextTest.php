@@ -42,7 +42,7 @@ class TextTest extends TestCase
     public function testValidateUserValue(): void
     {
         $this->subject->setOption(new Mage_Catalog_Model_Product_Option());
-        $this->assertInstanceOf(Subject::class, $this->subject->validateUserValue([]));
+        static::assertInstanceOf(Subject::class, $this->subject->validateUserValue([]));
     }
 
 
@@ -54,7 +54,7 @@ class TextTest extends TestCase
     public function testPrepareForCart($expectedResult, bool $setIsValid = true, $setUserValue = null): void
     {
         $this->subject->setIsValid($setIsValid)->setUserValue($setUserValue);
-        $this->assertSame($expectedResult, $this->subject->prepareForCart());
+        static::assertSame($expectedResult, $this->subject->prepareForCart());
     }
 
     public function providePrepareForCart(): Generator
@@ -76,6 +76,6 @@ class TextTest extends TestCase
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertIsString($this->subject->getFormattedOptionValue(''));
+        static::assertIsString($this->subject->getFormattedOptionValue(''));
     }
 }

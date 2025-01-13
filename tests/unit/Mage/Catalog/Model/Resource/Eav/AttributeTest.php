@@ -43,7 +43,7 @@ class AttributeTest extends TestCase
         if ($withStoreId) {
             $this->subject->setStoreId($withStoreId);
         }
-        $this->assertSame($expectedResult, $this->subject->getStoreId());
+        static::assertSame($expectedResult, $this->subject->getStoreId());
     }
 
     public function provideGetStoreId(): Generator

@@ -39,7 +39,7 @@ class MapTest extends TestCase
      */
     public function testGetCategoryUrl(): void
     {
-        $this->assertStringEndsWith('/catalog/seo_sitemap/category/', $this->subject->getCategoryUrl());
+        static::assertStringEndsWith('/catalog/seo_sitemap/category/', $this->subject->getCategoryUrl());
     }
 
     /**
@@ -50,7 +50,7 @@ class MapTest extends TestCase
      */
     public function testGetProductUrl(): void
     {
-        $this->assertStringEndsWith('/catalog/seo_sitemap/product/', $this->subject->getProductUrl());
+        static::assertStringEndsWith('/catalog/seo_sitemap/product/', $this->subject->getProductUrl());
     }
 
     /**
@@ -59,6 +59,6 @@ class MapTest extends TestCase
      */
     public function testGetIsUseCategoryTreeMode(): void
     {
-        $this->assertIsBool($this->subject->getIsUseCategoryTreeMode());
+        static::assertIsBool($this->subject->getIsUseCategoryTreeMode());
     }
 }

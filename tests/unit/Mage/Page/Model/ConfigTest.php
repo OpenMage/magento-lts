@@ -37,6 +37,6 @@ class ConfigTest extends TestCase
      */
     public function testGetPageLayoutHandles(): void
     {
-        $this->assertIsArray($this->subject->getPageLayoutHandles());
+        static::assertIsArray($this->subject->getPageLayoutHandles());
     }
 }

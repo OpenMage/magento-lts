@@ -47,7 +47,7 @@ class VariableTest extends TestCase
 
         $mock->method('getVariableName')->willReturn($variableName);
         $mock->method('getIsAllowed')->willReturn($isAllowed);
-        $this->assertSame($expectedResult, $mock->validate());
+        static::assertSame($expectedResult, $mock->validate());
     }
 
     public function provideValidateData(): Generator
@@ -76,6 +76,6 @@ class VariableTest extends TestCase
 
     public function testIsPathAllowed(): void
     {
-        $this->assertIsBool($this->subject->isPathAllowed('invalid-path'));
+        static::assertIsBool($this->subject->isPathAllowed('invalid-path'));
     }
 }

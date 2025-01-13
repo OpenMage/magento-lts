@@ -40,7 +40,7 @@ class ConfigTest extends TestCase
      */
     public function testGetInputTypes(array $expectedResult, ?string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getInputTypes($inputType));
+        static::assertSame($expectedResult, $this->subject->getInputTypes($inputType));
     }
 
     public function provideGetInputTypes(): Generator
@@ -73,7 +73,7 @@ class ConfigTest extends TestCase
      */
     public function testGetBackendModelByInputType(?string $expectedResult, string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getBackendModelByInputType($inputType));
+        static::assertSame($expectedResult, $this->subject->getBackendModelByInputType($inputType));
     }
 
     public function provideGetBackendModelByInputType(): Generator

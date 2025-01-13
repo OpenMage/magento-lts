@@ -38,8 +38,8 @@ class PageTest extends TestCase
      */
     public function testLoad(): void
     {
-        $this->assertInstanceOf(Mage_Cms_Model_Page::class, $this->subject->load(null));
-        $this->assertInstanceOf(Mage_Cms_Model_Page::class, $this->subject->load(2));
+        static::assertInstanceOf(Mage_Cms_Model_Page::class, $this->subject->load(null));
+        static::assertInstanceOf(Mage_Cms_Model_Page::class, $this->subject->load(2));
     }
 
     /**
@@ -48,7 +48,7 @@ class PageTest extends TestCase
      */
     public function testCheckIdentifier(): void
     {
-        $this->assertIsString($this->subject->checkIdentifier('home', 1));
+        static::assertIsString($this->subject->checkIdentifier('home', 1));
     }
 
     /**
@@ -57,7 +57,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleByIdentifier(): void
     {
-        $this->assertNotFalse($this->subject->getCmsPageTitleByIdentifier('home'));
+        static::assertNotFalse($this->subject->getCmsPageTitleByIdentifier('home'));
     }
 
     /**
@@ -66,7 +66,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleById(): void
     {
-        $this->assertNotFalse($this->subject->getCmsPageTitleById(2));
+        static::assertNotFalse($this->subject->getCmsPageTitleById(2));
     }
 
     /**
@@ -75,7 +75,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageIdentifierById(): void
     {
-        $this->assertNotFalse($this->subject->getCmsPageIdentifierById(2));
+        static::assertNotFalse($this->subject->getCmsPageIdentifierById(2));
     }
 
     /**
@@ -84,7 +84,7 @@ class PageTest extends TestCase
      */
     public function testGetAvailableStatuses(): void
     {
-        $this->assertIsArray($this->subject->getAvailableStatuses());
+        static::assertIsArray($this->subject->getAvailableStatuses());
     }
 
     /**
@@ -93,7 +93,7 @@ class PageTest extends TestCase
      */
     public function testGetUsedInStoreConfigCollection(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Resource_Db_Collection_Abstract::class, $this->subject->getUsedInStoreConfigCollection());
+        static::assertInstanceOf(Mage_Core_Model_Resource_Db_Collection_Abstract::class, $this->subject->getUsedInStoreConfigCollection());
     }
 
     /**
@@ -102,6 +102,6 @@ class PageTest extends TestCase
      */
     public function testIsUsedInStoreConfig(): void
     {
-        $this->assertFalse($this->subject->isUsedInStoreConfig());
+        static::assertFalse($this->subject->isUsedInStoreConfig());
     }
 }

@@ -38,6 +38,6 @@ class LayoutTest extends TestCase
      */
     public function testApplyTemplate(): void
     {
-        $this->assertTrue($this->subject->isModuleEnabled());
+        static::assertTrue($this->subject->isModuleEnabled());
     }
 }

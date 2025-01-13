@@ -40,7 +40,7 @@ class DataTest extends TestCase
      */
     public function testGetAllowedStreamWrappers(): void
     {
-        $this->assertIsArray($this->subject->getAllowedStreamWrappers());
+        static::assertIsArray($this->subject->getAllowedStreamWrappers());
     }
 
     /**
@@ -49,7 +49,7 @@ class DataTest extends TestCase
      */
     public function testGetBlockTemplateProcessor(): void
     {
-        $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getBlockTemplateProcessor());
+        static::assertInstanceOf(Varien_Filter_Template::class, $this->subject->getBlockTemplateProcessor());
     }
 
     /**
@@ -58,7 +58,7 @@ class DataTest extends TestCase
      */
     public function testGetPageTemplateProcessor(): void
     {
-        $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getPageTemplateProcessor());
+        static::assertInstanceOf(Varien_Filter_Template::class, $this->subject->getPageTemplateProcessor());
     }
 
     /**
@@ -67,6 +67,6 @@ class DataTest extends TestCase
      */
     public function testIsSwfDisabled(): void
     {
-        $this->assertTrue($this->subject->isSwfDisabled());
+        static::assertTrue($this->subject->isSwfDisabled());
     }
 }

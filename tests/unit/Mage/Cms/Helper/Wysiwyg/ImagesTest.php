@@ -41,7 +41,7 @@ class ImagesTest extends TestCase
      */
     public function testGetCurrentPath(): void
     {
-        $this->assertIsString($this->subject->getCurrentPath());
+        static::assertIsString($this->subject->getCurrentPath());
     }
 
     /**
@@ -50,7 +50,7 @@ class ImagesTest extends TestCase
      */
     public function testGetCurrentUrl(): void
     {
-        $this->assertIsString($this->subject->getCurrentUrl());
+        static::assertIsString($this->subject->getCurrentUrl());
     }
 
     /**
@@ -59,7 +59,7 @@ class ImagesTest extends TestCase
      */
     public function testGetStorage(): void
     {
-        $this->assertInstanceOf(Mage_Cms_Model_Wysiwyg_Images_Storage::class, $this->subject->getStorage());
+        static::assertInstanceOf(Mage_Cms_Model_Wysiwyg_Images_Storage::class, $this->subject->getStorage());
     }
 
     /**
@@ -68,7 +68,7 @@ class ImagesTest extends TestCase
      */
     public function testIdEncode(): void
     {
-        $this->assertIsString($this->subject->idEncode(self::TEST_STRING));
+        static::assertIsString($this->subject->idEncode(self::TEST_STRING));
     }
 
     /**
@@ -77,7 +77,7 @@ class ImagesTest extends TestCase
      */
     public function testIdDecode(): void
     {
-        $this->assertIsString($this->subject->idDecode(self::TEST_STRING));
+        static::assertIsString($this->subject->idDecode(self::TEST_STRING));
     }
 
     /**
@@ -87,7 +87,7 @@ class ImagesTest extends TestCase
      */
     public function testGetShortFilename(string $expectedResult, string $filename, int $maxLength): void
     {
-        $this->assertSame($expectedResult, $this->subject->getShortFilename($filename, $maxLength));
+        static::assertSame($expectedResult, $this->subject->getShortFilename($filename, $maxLength));
     }
 
     public function provideGetShortFilenameData(): Generator

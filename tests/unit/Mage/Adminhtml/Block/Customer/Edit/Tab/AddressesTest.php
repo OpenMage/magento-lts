@@ -52,6 +52,6 @@ class AddressesTest extends TestCase
             ->method('isReadonly')
             ->willReturn(true);
 
-        $this->assertInstanceOf(Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses::class, $mock->initForm());
+        static::assertInstanceOf(Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses::class, $mock->initForm());
     }
 }

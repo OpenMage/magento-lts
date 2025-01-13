@@ -40,7 +40,7 @@ class LocaleTest extends TestCase
      */
     public function testGetNumber(?float $expectedResult, $value): void
     {
-        $this->assertSame($expectedResult, $this->subject->getNumber($value));
+        static::assertSame($expectedResult, $this->subject->getNumber($value));
     }
 
     public function provideGetNumberData(): Generator

@@ -37,6 +37,6 @@ class LogTest extends TestCase
      */
     public function testClean(): void
     {
-        $this->assertInstanceOf(Mage_Log_Model_Log::class, $this->subject->clean());
+        static::assertInstanceOf(Mage_Log_Model_Log::class, $this->subject->clean());
     }
 }

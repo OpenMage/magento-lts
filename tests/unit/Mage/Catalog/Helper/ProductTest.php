@@ -38,7 +38,7 @@ class ProductTest extends TestCase
      */
     public function testCanUseCanonicalTag(): void
     {
-        $this->assertIsBool($this->subject->canUseCanonicalTag());
+        static::assertIsBool($this->subject->canUseCanonicalTag());
     }
 
     /**
@@ -48,7 +48,7 @@ class ProductTest extends TestCase
      */
     public function testGetAttributeInputTypes(int $expectedResult, ?string $inputType = null): void
     {
-        $this->assertCount($expectedResult, $this->subject->getAttributeInputTypes($inputType));
+        static::assertCount($expectedResult, $this->subject->getAttributeInputTypes($inputType));
     }
 
     public function provideGetAttributeInputTypes(): Generator
@@ -78,7 +78,7 @@ class ProductTest extends TestCase
      */
     public function testGetAttributeBackendModelByInputType($expectedResult, string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getAttributeBackendModelByInputType($inputType));
+        static::assertSame($expectedResult, $this->subject->getAttributeBackendModelByInputType($inputType));
     }
 
     public function provideGetAttributeBackendModelByInputType(): Generator
@@ -96,7 +96,7 @@ class ProductTest extends TestCase
      */
     public function testGetAttributeSourceModelByInputType($expectedResult, string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getAttributeSourceModelByInputType($inputType));
+        static::assertSame($expectedResult, $this->subject->getAttributeSourceModelByInputType($inputType));
     }
 
     public function provideGetAttributeSourceModelByInputType(): Generator

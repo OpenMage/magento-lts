@@ -45,7 +45,7 @@ class ProductTest extends TestCase
      */
     public function testGetStoreId(): void
     {
-        $this->assertIsInt($this->subject->getStoreId());
+        static::assertIsInt($this->subject->getStoreId());
     }
 
     /**
@@ -54,7 +54,7 @@ class ProductTest extends TestCase
      */
     public function testGetResourceCollection(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, $this->subject->getResourceCollection());
+        static::assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, $this->subject->getResourceCollection());
     }
 
     /**
@@ -63,8 +63,8 @@ class ProductTest extends TestCase
      */
     public function testGetUrlModel(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());
-        $this->assertInstanceOf(Mage_Catalog_Model_Product_Url::class, $this->subject->getUrlModel());
+        static::assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());
+        static::assertInstanceOf(Mage_Catalog_Model_Product_Url::class, $this->subject->getUrlModel());
     }
 
     /**
@@ -73,7 +73,7 @@ class ProductTest extends TestCase
      */
     public function testValidate(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->validate());
+        static::assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->validate());
     }
 
     /**
@@ -101,7 +101,7 @@ class ProductTest extends TestCase
      */
     public function testSetPriceCalculation(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->setPriceCalculation());
+        static::assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->setPriceCalculation());
     }
 
     /**
@@ -119,7 +119,7 @@ class ProductTest extends TestCase
      */
     public function testGetStatus(): void
     {
-        $this->assertSame(1, $this->subject->getStatus());
+        static::assertSame(1, $this->subject->getStatus());
     }
 
     /**
@@ -129,7 +129,7 @@ class ProductTest extends TestCase
      */
     public function testGetTypeInstance(bool $singleton): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product_Type_Abstract::class, $this->subject->getTypeInstance($singleton));
+        static::assertInstanceOf(Mage_Catalog_Model_Product_Type_Abstract::class, $this->subject->getTypeInstance($singleton));
     }
 
     public function provideTypeInstanceData(): Generator
@@ -148,7 +148,7 @@ class ProductTest extends TestCase
      */
     public function testGetLinkInstance(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product_Link::class, $this->subject->getLinkInstance());
+        static::assertInstanceOf(Mage_Catalog_Model_Product_Link::class, $this->subject->getLinkInstance());
     }
 
     /**
@@ -157,7 +157,7 @@ class ProductTest extends TestCase
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertIsInt($this->subject->getDefaultAttributeSetId());
+        static::assertIsInt($this->subject->getDefaultAttributeSetId());
     }
 
     /**
@@ -166,7 +166,7 @@ class ProductTest extends TestCase
      */
     public function testAfterCommitCallback(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->afterCommitCallback());
+        static::assertInstanceOf(Mage_Catalog_Model_Product::class, $this->subject->afterCommitCallback());
     }
 
     /**
@@ -177,7 +177,7 @@ class ProductTest extends TestCase
     public function testFormatUrlKey($expectedResult, ?string $locale): void
     {
         $this->subject->setLocale($locale);
-        $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
+        static::assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
     }
 
     public function provideFormatUrlKey(): Generator

@@ -42,9 +42,9 @@ class UnserializeArrayTest extends TestCase
     public function testUnserialize($expectedTesult, $string): void
     {
         try {
-            $this->assertSame($expectedTesult, $this->subject->unserialize($string));
+            static::assertSame($expectedTesult, $this->subject->unserialize($string));
         } catch (Exception $exception) {
-            $this->assertSame($expectedTesult, $exception->getMessage());
+            static::assertSame($expectedTesult, $exception->getMessage());
         }
     }
 

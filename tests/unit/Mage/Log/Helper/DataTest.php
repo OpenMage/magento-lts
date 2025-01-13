@@ -39,7 +39,7 @@ class DataTest extends TestCase
      */
     public function testIsVisitorLogEnabled(): void
     {
-        $this->assertTrue($this->subject->isVisitorLogEnabled());
+        static::assertTrue($this->subject->isVisitorLogEnabled());
     }
 
     /**
@@ -49,7 +49,7 @@ class DataTest extends TestCase
      */
     public function testIsLogEnabled(): void
     {
-        $this->assertFalse($this->subject->isLogEnabled());
+        static::assertFalse($this->subject->isLogEnabled());
     }
 
     /**
@@ -59,7 +59,7 @@ class DataTest extends TestCase
      */
     public function testIsLogDisabled(): void
     {
-        $this->assertFalse($this->subject->isLogDisabled());
+        static::assertFalse($this->subject->isLogDisabled());
     }
 
     /**
@@ -70,7 +70,7 @@ class DataTest extends TestCase
      */
     public function testIsLogFileExtensionValid(bool $expectedResult, string $file): void
     {
-        $this->assertSame($expectedResult, $this->subject->isLogFileExtensionValid($file));
+        static::assertSame($expectedResult, $this->subject->isLogFileExtensionValid($file));
     }
 
     public function provideIsLogFileExtensionValid(): Generator

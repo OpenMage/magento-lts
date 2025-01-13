@@ -40,7 +40,7 @@ class JsTest extends TestCase
      */
     public function testDecodeGridSerializedInput(array $expectedResult, string $encoded): void
     {
-        $this->assertSame($expectedResult, $this->subject->decodeGridSerializedInput($encoded));
+        static::assertSame($expectedResult, $this->subject->decodeGridSerializedInput($encoded));
     }
 
     public function provideDecodeGridSerializedInput(): Generator

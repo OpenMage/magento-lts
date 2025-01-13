@@ -40,7 +40,7 @@ class UrlTest extends TestCase
     public function testGetConvertTable(): void
     {
         $result = $this->subject->getConvertTable();
-        $this->assertCount(317, $result);
+        static::assertCount(317, $result);
     }
 
     /**
@@ -51,7 +51,7 @@ class UrlTest extends TestCase
     public function testGetConvertTableCustom(): void
     {
         $result = $this->subject->getConvertTableCustom();
-        $this->assertCount(0, $result);
+        static::assertCount(0, $result);
     }
 
     /**
@@ -62,7 +62,7 @@ class UrlTest extends TestCase
     public function testGetConvertTableShort(): void
     {
         $result = $this->subject->getConvertTableShort();
-        $this->assertCount(4, $result);
+        static::assertCount(4, $result);
     }
 
     /**
@@ -73,7 +73,7 @@ class UrlTest extends TestCase
      */
     public function testFormat(string $expectedResult, ?string $string): void
     {
-        $this->assertSame($expectedResult, $this->subject->format($string));
+        static::assertSame($expectedResult, $this->subject->format($string));
     }
 
     public function provideFormat(): Generator

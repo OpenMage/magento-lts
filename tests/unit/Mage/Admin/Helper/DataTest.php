@@ -38,7 +38,7 @@ class DataTest extends TestCase
      */
     public function testGenerateResetPasswordLinkToken(): void
     {
-        $this->assertIsString($this->subject->generateResetPasswordLinkToken());
+        static::assertIsString($this->subject->generateResetPasswordLinkToken());
     }
 
     /**
@@ -48,6 +48,6 @@ class DataTest extends TestCase
      */
     public function testGetResetPasswordLinkExpirationPeriod(): void
     {
-        $this->assertIsInt($this->subject->getResetPasswordLinkExpirationPeriod());
+        static::assertIsInt($this->subject->getResetPasswordLinkExpirationPeriod());
     }
 }

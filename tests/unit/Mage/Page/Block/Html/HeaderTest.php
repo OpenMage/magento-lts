@@ -48,7 +48,7 @@ class HeaderTest extends TestCase
      */
     public function testSetLogo(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Header::class, $this->subject->setLogo('src', 'alt'));
+        static::assertInstanceOf(Mage_Page_Block_Html_Header::class, $this->subject->setLogo('src', 'alt'));
     }
 
     /**
@@ -57,7 +57,7 @@ class HeaderTest extends TestCase
      */
     public function testGetLogoSrc(): void
     {
-        $this->assertIsString($this->subject->getLogoSrc());
+        static::assertIsString($this->subject->getLogoSrc());
     }
 
     /**
@@ -66,7 +66,7 @@ class HeaderTest extends TestCase
      */
     public function testGetLogoSrcSmall(): void
     {
-        $this->assertIsString($this->subject->getLogoSrcSmall());
+        static::assertIsString($this->subject->getLogoSrcSmall());
     }
 
     /**
@@ -75,6 +75,6 @@ class HeaderTest extends TestCase
      */
     public function testGetLogoAlt(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, $this->subject->getLogoAlt());
+        static::assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, $this->subject->getLogoAlt());
     }
 }

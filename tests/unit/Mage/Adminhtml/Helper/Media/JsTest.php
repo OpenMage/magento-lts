@@ -37,6 +37,6 @@ class JsTest extends TestCase
      */
     public function testDecodeGridSerializedInput(): void
     {
-        $this->assertIsString($this->subject->getTranslatorScript());
+        static::assertIsString($this->subject->getTranslatorScript());
     }
 }

@@ -38,7 +38,7 @@ class LinkTest extends TestCase
      */
     public function testGetHref(): void
     {
-        $this->assertIsString($this->subject->getHref());
+        static::assertIsString($this->subject->getHref());
     }
 
     /**
@@ -47,7 +47,7 @@ class LinkTest extends TestCase
      */
     public function testGetTitle(): void
     {
-        $this->assertIsString($this->subject->getTitle());
+        static::assertIsString($this->subject->getTitle());
     }
 
     /**

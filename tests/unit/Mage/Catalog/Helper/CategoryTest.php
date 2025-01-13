@@ -37,6 +37,6 @@ class CategoryTest extends TestCase
      */
     public function testCanUseCanonicalTag(): void
     {
-        $this->assertIsBool($this->subject->canUseCanonicalTag());
+        static::assertIsBool($this->subject->canUseCanonicalTag());
     }
 }

@@ -37,7 +37,7 @@ class CookieTest extends TestCase
      */
     public function testIsUserNotAllowSaveCookie(): void
     {
-        $this->assertIsBool($this->subject->isUserNotAllowSaveCookie());
+        static::assertIsBool($this->subject->isUserNotAllowSaveCookie());
     }
 
     /**
@@ -46,7 +46,7 @@ class CookieTest extends TestCase
      */
     public function testGetAcceptedSaveCookiesWebsiteIds(): void
     {
-        $this->assertSame('{"1":1}', $this->subject->getAcceptedSaveCookiesWebsiteIds());
+        static::assertSame('{"1":1}', $this->subject->getAcceptedSaveCookiesWebsiteIds());
     }
 
     /**
@@ -56,7 +56,7 @@ class CookieTest extends TestCase
      */
     public function testGetCookieRestrictionLifetime(): void
     {
-        $this->assertSame(31536000, $this->subject->getCookieRestrictionLifetime());
+        static::assertSame(31536000, $this->subject->getCookieRestrictionLifetime());
     }
 
     /**
@@ -66,6 +66,6 @@ class CookieTest extends TestCase
      */
     public function testGetCookieRestrictionNoticeCmsBlockIdentifier(): void
     {
-        $this->assertSame('cookie_restriction_notice_block', $this->subject->getCookieRestrictionNoticeCmsBlockIdentifier());
+        static::assertSame('cookie_restriction_notice_block', $this->subject->getCookieRestrictionNoticeCmsBlockIdentifier());
     }
 }

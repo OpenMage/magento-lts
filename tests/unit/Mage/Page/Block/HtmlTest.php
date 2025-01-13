@@ -38,7 +38,7 @@ class HtmlTest extends TestCase
      */
     public function testGetBaseUrl(): void
     {
-        $this->assertIsString($this->subject->getBaseUrl());
+        static::assertIsString($this->subject->getBaseUrl());
     }
 
     /**
@@ -47,7 +47,7 @@ class HtmlTest extends TestCase
      */
     public function testGetBaseSecureUrl(): void
     {
-        $this->assertIsString($this->subject->getBaseSecureUrl());
+        static::assertIsString($this->subject->getBaseSecureUrl());
     }
 
     /**
@@ -65,6 +65,6 @@ class HtmlTest extends TestCase
      */
     public function testGetPrintLogoUrl(): void
     {
-        $this->assertIsString($this->subject->getPrintLogoUrl());
+        static::assertIsString($this->subject->getPrintLogoUrl());
     }
 }

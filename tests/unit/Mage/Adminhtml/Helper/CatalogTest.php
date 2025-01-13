@@ -38,7 +38,7 @@ class CatalogTest extends TestCase
      */
     public function testSetAttributeTabBlock(): void
     {
-        $this->assertInstanceOf(Mage_Adminhtml_Helper_Catalog::class, $this->subject->setAttributeTabBlock(''));
+        static::assertInstanceOf(Mage_Adminhtml_Helper_Catalog::class, $this->subject->setAttributeTabBlock(''));
     }
 
     /**
@@ -48,7 +48,7 @@ class CatalogTest extends TestCase
      */
     public function testSetCategoryAttributeTabBlock(): void
     {
-        $this->assertInstanceOf(Mage_Adminhtml_Helper_Catalog::class, $this->subject->setCategoryAttributeTabBlock(''));
+        static::assertInstanceOf(Mage_Adminhtml_Helper_Catalog::class, $this->subject->setCategoryAttributeTabBlock(''));
     }
 
     /**
@@ -72,6 +72,6 @@ class CatalogTest extends TestCase
                 'skin'      => '/skin/*/*',
             ],
         ];
-        $this->assertSame($assert, $this->subject->getSitemapValidPaths());
+        static::assertSame($assert, $this->subject->getSitemapValidPaths());
     }
 }

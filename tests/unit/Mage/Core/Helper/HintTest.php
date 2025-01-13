@@ -40,7 +40,7 @@ class HintTest extends TestCase
      */
     public function testGetAvailableHints(): void
     {
-        $this->assertSame([], $this->subject->getAvailableHints());
+        static::assertSame([], $this->subject->getAvailableHints());
     }
 
     /**
@@ -50,6 +50,6 @@ class HintTest extends TestCase
      */
     public function testGetHintByCode(): void
     {
-        $this->assertNull($this->subject->getHintByCode('test'));
+        static::assertNull($this->subject->getHintByCode('test'));
     }
 }

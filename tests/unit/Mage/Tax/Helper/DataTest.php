@@ -41,7 +41,7 @@ class DataTest extends TestCase
      */
     public function testGetPostCodeSubStringLength(): void
     {
-        $this->assertSame(10, $this->subject->getPostCodeSubStringLength());
+        static::assertSame(10, $this->subject->getPostCodeSubStringLength());
     }
 
     /**
@@ -51,7 +51,7 @@ class DataTest extends TestCase
      */
     public function testGetConfig(): void
     {
-        $this->assertInstanceOf(Mage_Tax_Model_Config::class, $this->subject->getConfig());
+        static::assertInstanceOf(Mage_Tax_Model_Config::class, $this->subject->getConfig());
     }
 
     /**
@@ -61,7 +61,7 @@ class DataTest extends TestCase
      */
     public function testGetCalculator(): void
     {
-        $this->assertInstanceOf(Mage_Tax_Model_Calculation::class, $this->subject->getCalculator());
+        static::assertInstanceOf(Mage_Tax_Model_Calculation::class, $this->subject->getCalculator());
     }
 
     /**
@@ -72,7 +72,7 @@ class DataTest extends TestCase
     public function testGetProductPrice(): void
     {
         #$this->assertSame('', $this->subject->getProductPrice());
-        $this->markTestIncomplete();
+        static::markTestIncomplete();
     }
 
     /**
@@ -81,7 +81,7 @@ class DataTest extends TestCase
      */
     public function testPriceIncludesTax(): void
     {
-        $this->assertFalse($this->subject->priceIncludesTax());
+        static::assertFalse($this->subject->priceIncludesTax());
     }
 
     /**
@@ -91,7 +91,7 @@ class DataTest extends TestCase
      */
     public function testApplyTaxAfterDiscount(): void
     {
-        $this->assertTrue($this->subject->applyTaxAfterDiscount());
+        static::assertTrue($this->subject->applyTaxAfterDiscount());
     }
 
     /**
@@ -102,7 +102,7 @@ class DataTest extends TestCase
      */
     public function testGetIncExcText(string $expectedResult, bool $flag): void
     {
-        $this->assertStringContainsString($expectedResult, $this->subject->getIncExcText($flag));
+        static::assertStringContainsString($expectedResult, $this->subject->getIncExcText($flag));
     }
 
     public function provideGetIncExcText(): Generator
@@ -124,7 +124,7 @@ class DataTest extends TestCase
      */
     public function testGetPriceDisplayType(): void
     {
-        $this->assertSame(1, $this->subject->getPriceDisplayType());
+        static::assertSame(1, $this->subject->getPriceDisplayType());
     }
 
     /**
@@ -135,7 +135,7 @@ class DataTest extends TestCase
     public function testNeedPriceConversion(): void
     {
         #$this->assertSame(1, $this->subject->needPriceConversion());
-        $this->markTestIncomplete();
+        static::markTestIncomplete();
     }
 
     /**
@@ -148,7 +148,7 @@ class DataTest extends TestCase
     public function testGetPriceFormat(): void
     {
         #$this->assertSame('', $this->subject->getPriceFormat());
-        $this->markTestIncomplete();
+        static::markTestIncomplete();
     }
 
     /**
@@ -160,7 +160,7 @@ class DataTest extends TestCase
     {
         $expectedResult = defined('USES_SAMPLEDATA') && USES_SAMPLEDATA === true ?
             '{"value_2":9,"value_4":0,"value_6":0}' : '{"value_2":8.25,"value_4":0}';
-        $this->assertSame($expectedResult, $this->subject->getTaxRatesByProductClass());
+        static::assertSame($expectedResult, $this->subject->getTaxRatesByProductClass());
     }
 
     /**
@@ -172,7 +172,7 @@ class DataTest extends TestCase
     {
         $expectedResult = defined('USES_SAMPLEDATA') && USES_SAMPLEDATA === true ?
             '{"value_2":9,"value_4":0,"value_6":0}' : '{"value_2":8.25,"value_4":0}';
-        $this->assertSame($expectedResult, $this->subject->getAllRatesByProductClass());
+        static::assertSame($expectedResult, $this->subject->getAllRatesByProductClass());
     }
 
     /**
@@ -183,7 +183,7 @@ class DataTest extends TestCase
     public function testGetPrice(): void
     {
         #$this->assertFalse($this->subject->getPrice());
-        $this->markTestIncomplete();
+        static::markTestIncomplete();
     }
 
     /**
@@ -193,7 +193,7 @@ class DataTest extends TestCase
      */
     public function testDisplayPriceIncludingTax(): void
     {
-        $this->assertFalse($this->subject->displayPriceIncludingTax());
+        static::assertFalse($this->subject->displayPriceIncludingTax());
     }
 
     /**
@@ -203,7 +203,7 @@ class DataTest extends TestCase
      */
     public function testDisplayPriceExcludingTax(): void
     {
-        $this->assertTrue($this->subject->displayPriceExcludingTax());
+        static::assertTrue($this->subject->displayPriceExcludingTax());
     }
 
     /**
@@ -213,7 +213,7 @@ class DataTest extends TestCase
      */
     public function testDisplayBothPrices(): void
     {
-        $this->assertFalse($this->subject->displayBothPrices());
+        static::assertFalse($this->subject->displayBothPrices());
     }
 
     /**
@@ -223,7 +223,7 @@ class DataTest extends TestCase
      */
     public function testGetIncExcTaxLabel($expectedResult, bool $flag): void
     {
-        $this->assertStringContainsString($expectedResult, $this->subject->getIncExcTaxLabel($flag));
+        static::assertStringContainsString($expectedResult, $this->subject->getIncExcTaxLabel($flag));
     }
 
     public function provideGetIncExcTaxLabel(): Generator
@@ -245,7 +245,7 @@ class DataTest extends TestCase
      */
     public function testShippingPriceIncludesTax(): void
     {
-        $this->assertFalse($this->subject->shippingPriceIncludesTax());
+        static::assertFalse($this->subject->shippingPriceIncludesTax());
     }
 
     /**
@@ -255,7 +255,7 @@ class DataTest extends TestCase
      */
     public function testGetShippingPriceDisplayType(): void
     {
-        $this->assertSame(1, $this->subject->getShippingPriceDisplayType());
+        static::assertSame(1, $this->subject->getShippingPriceDisplayType());
     }
 
     /**
@@ -265,7 +265,7 @@ class DataTest extends TestCase
      */
     public function testDisplayShippingPriceIncludingTax(): void
     {
-        $this->assertFalse($this->subject->displayShippingPriceIncludingTax());
+        static::assertFalse($this->subject->displayShippingPriceIncludingTax());
     }
 
     /**
@@ -275,7 +275,7 @@ class DataTest extends TestCase
      */
     public function testDisplayShippingPriceExcludingTax(): void
     {
-        $this->assertTrue($this->subject->displayShippingPriceExcludingTax());
+        static::assertTrue($this->subject->displayShippingPriceExcludingTax());
     }
 
     /**
@@ -285,7 +285,7 @@ class DataTest extends TestCase
      */
     public function testDisplayShippingBothPrices(): void
     {
-        $this->assertFalse($this->subject->displayShippingBothPrices());
+        static::assertFalse($this->subject->displayShippingBothPrices());
     }
 
     /**
@@ -295,7 +295,7 @@ class DataTest extends TestCase
      */
     public function testGetShippingTaxClass(): void
     {
-        $this->assertSame(0, $this->subject->getShippingTaxClass(null));
+        static::assertSame(0, $this->subject->getShippingTaxClass(null));
     }
 
     /**
@@ -304,7 +304,7 @@ class DataTest extends TestCase
      */
     public function testGetShippingPrice(): void
     {
-        $this->assertEqualsWithDelta(100.0, $this->subject->getShippingPrice(100.0), PHP_FLOAT_EPSILON);
+        static::assertEqualsWithDelta(100.0, $this->subject->getShippingPrice(100.0), PHP_FLOAT_EPSILON);
     }
 
     /**
@@ -314,7 +314,7 @@ class DataTest extends TestCase
      */
     public function testDiscountTax(): void
     {
-        $this->assertFalse($this->subject->discountTax());
+        static::assertFalse($this->subject->discountTax());
     }
 
     /**
@@ -324,7 +324,7 @@ class DataTest extends TestCase
      */
     public function testGetTaxBasedOn(): void
     {
-        $this->assertSame('shipping', $this->subject->getTaxBasedOn());
+        static::assertSame('shipping', $this->subject->getTaxBasedOn());
     }
 
     /**
@@ -334,7 +334,7 @@ class DataTest extends TestCase
      */
     public function testApplyTaxOnCustomPrice(): void
     {
-        $this->assertTrue($this->subject->applyTaxOnCustomPrice());
+        static::assertTrue($this->subject->applyTaxOnCustomPrice());
     }
 
     /**
@@ -344,7 +344,7 @@ class DataTest extends TestCase
      */
     public function testApplyTaxOnOriginalPrice(): void
     {
-        $this->assertFalse($this->subject->applyTaxOnOriginalPrice());
+        static::assertFalse($this->subject->applyTaxOnOriginalPrice());
     }
 
     /**
@@ -353,7 +353,7 @@ class DataTest extends TestCase
      */
     public function testGetCalculationSequence(): void
     {
-        $this->assertSame('1_0', $this->subject->getCalculationSequence());
+        static::assertSame('1_0', $this->subject->getCalculationSequence());
     }
 
     /**
@@ -363,7 +363,7 @@ class DataTest extends TestCase
      */
     public function testGetCalculationAgorithm(): void
     {
-        $this->assertSame('TOTAL_BASE_CALCULATION', $this->subject->getCalculationAgorithm());
+        static::assertSame('TOTAL_BASE_CALCULATION', $this->subject->getCalculationAgorithm());
     }
 
     /**
@@ -372,7 +372,7 @@ class DataTest extends TestCase
      */
     public function testIsWrongDisplaySettingsIgnored(): void
     {
-        $this->assertFalse($this->subject->isWrongDisplaySettingsIgnored());
+        static::assertFalse($this->subject->isWrongDisplaySettingsIgnored());
     }
 
     /**
@@ -381,7 +381,7 @@ class DataTest extends TestCase
      */
     public function testIsWrongDiscountSettingsIgnored(): void
     {
-        $this->assertFalse($this->subject->isWrongDiscountSettingsIgnored());
+        static::assertFalse($this->subject->isWrongDiscountSettingsIgnored());
     }
 
     /**
@@ -390,7 +390,7 @@ class DataTest extends TestCase
      */
     public function testIsConflictingFptTaxConfigurationSettingsIgnored(): void
     {
-        $this->assertFalse($this->subject->isConflictingFptTaxConfigurationSettingsIgnored());
+        static::assertFalse($this->subject->isConflictingFptTaxConfigurationSettingsIgnored());
     }
 
     /**
@@ -400,6 +400,6 @@ class DataTest extends TestCase
      */
     public function testIsCrossBorderTradeEnabled(): void
     {
-        $this->assertFalse($this->subject->isCrossBorderTradeEnabled());
+        static::assertFalse($this->subject->isCrossBorderTradeEnabled());
     }
 }

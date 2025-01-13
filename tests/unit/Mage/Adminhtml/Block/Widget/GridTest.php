@@ -40,7 +40,7 @@ class GridTest extends TestCase
      */
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {
-        $this->assertSame($expectedResult, $this->subject->addColumnDefaultData($column));
+        static::assertSame($expectedResult, $this->subject->addColumnDefaultData($column));
     }
 
     public function provideAddColumnDefaultData(): Generator

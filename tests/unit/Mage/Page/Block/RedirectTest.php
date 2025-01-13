@@ -38,7 +38,7 @@ class RedirectTest extends TestCase
      */
     public function testGetTargetUrl(): void
     {
-        $this->assertSame('', $this->subject->getTargetURL());
+        static::assertSame('', $this->subject->getTargetURL());
     }
 
     /**
@@ -47,7 +47,7 @@ class RedirectTest extends TestCase
      */
     public function testGetMessage(): void
     {
-        $this->assertSame('', $this->subject->getMessage());
+        static::assertSame('', $this->subject->getMessage());
     }
 
     /**
@@ -56,7 +56,7 @@ class RedirectTest extends TestCase
      */
     public function testGetRedirectOutput(): void
     {
-        $this->assertIsString($this->subject->getRedirectOutput());
+        static::assertIsString($this->subject->getRedirectOutput());
     }
 
     /**
@@ -65,7 +65,7 @@ class RedirectTest extends TestCase
      */
     public function testGetJsRedirect(): void
     {
-        $this->assertIsString($this->subject->getJsRedirect());
+        static::assertIsString($this->subject->getJsRedirect());
     }
 
     /**
@@ -74,7 +74,7 @@ class RedirectTest extends TestCase
      */
     public function testGetHtmlFormRedirect(): void
     {
-        $this->assertIsString($this->subject->getHtmlFormRedirect());
+        static::assertIsString($this->subject->getHtmlFormRedirect());
     }
 
     /**
@@ -83,7 +83,7 @@ class RedirectTest extends TestCase
      */
     public function testIsHtmlFormRedirect(): void
     {
-        $this->assertIsBool($this->subject->isHtmlFormRedirect());
+        static::assertIsBool($this->subject->isHtmlFormRedirect());
     }
 
     /**
@@ -92,7 +92,7 @@ class RedirectTest extends TestCase
      */
     public function testGetFormId(): void
     {
-        $this->assertSame('', $this->subject->getFormId());
+        static::assertSame('', $this->subject->getFormId());
     }
 
     /**
@@ -101,6 +101,6 @@ class RedirectTest extends TestCase
      */
     public function testGetFormMethod(): void
     {
-        $this->assertSame('POST', $this->subject->getFormMethod());
+        static::assertSame('POST', $this->subject->getFormMethod());
     }
 }

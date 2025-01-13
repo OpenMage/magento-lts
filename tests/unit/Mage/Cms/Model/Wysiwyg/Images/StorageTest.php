@@ -41,7 +41,7 @@ class StorageTest extends TestCase
      */
     public function testGetThumbsPath(): void
     {
-        $this->assertIsString($this->subject->getThumbsPath());
+        static::assertIsString($this->subject->getThumbsPath());
     }
 
     /**
@@ -52,7 +52,7 @@ class StorageTest extends TestCase
      */
     public function testResizeOnTheFly(): void
     {
-        $this->assertFalse($this->subject->resizeOnTheFly('not-existing.jpeg'));
+        static::assertFalse($this->subject->resizeOnTheFly('not-existing.jpeg'));
     }
 
     /**
@@ -61,7 +61,7 @@ class StorageTest extends TestCase
      */
     public function testGetHelper(): void
     {
-        $this->assertInstanceOf(Mage_Cms_Helper_Wysiwyg_Images::class, $this->subject->getHelper());
+        static::assertInstanceOf(Mage_Cms_Helper_Wysiwyg_Images::class, $this->subject->getHelper());
     }
 
     /**
@@ -72,7 +72,7 @@ class StorageTest extends TestCase
      */
     public function testGetSession(): void
     {
-        $this->assertInstanceOf(Mage_Adminhtml_Model_Session::class, $this->subject->getSession());
+        static::assertInstanceOf(Mage_Adminhtml_Model_Session::class, $this->subject->getSession());
     }
 
     /**
@@ -81,7 +81,7 @@ class StorageTest extends TestCase
      */
     public function testGetThumbnailRoot(): void
     {
-        $this->assertIsString($this->subject->getThumbnailRoot());
+        static::assertIsString($this->subject->getThumbnailRoot());
     }
 
     /**
@@ -90,6 +90,6 @@ class StorageTest extends TestCase
      */
     public function testIsImage(): void
     {
-        $this->assertIsBool($this->subject->isImage('test.jpeg'));
+        static::assertIsBool($this->subject->isImage('test.jpeg'));
     }
 }

@@ -38,7 +38,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentWebsiteId(): void
     {
-        $this->assertIsInt($this->subject->getCurrentWebsiteId());
+        static::assertIsInt($this->subject->getCurrentWebsiteId());
     }
 
     /**
@@ -47,7 +47,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentGroupId(): void
     {
-        $this->assertIsInt($this->subject->getCurrentGroupId());
+        static::assertIsInt($this->subject->getCurrentGroupId());
     }
 
     /**
@@ -56,7 +56,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentStoreId(): void
     {
-        $this->assertIsInt($this->subject->getCurrentStoreId());
+        static::assertIsInt($this->subject->getCurrentStoreId());
     }
 
     /**
@@ -65,7 +65,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentStoreCode(): void
     {
-        $this->assertIsString($this->subject->getCurrentStoreCode());
+        static::assertIsString($this->subject->getCurrentStoreCode());
     }
 
     /**
@@ -74,7 +74,7 @@ class SwitchTest extends TestCase
      */
     public function testGetRawGroups(): void
     {
-        $this->assertIsArray($this->subject->getRawGroups());
+        static::assertIsArray($this->subject->getRawGroups());
     }
 
     /**
@@ -110,6 +110,6 @@ class SwitchTest extends TestCase
      */
     public function testIsStoreInUrl(): void
     {
-        $this->assertIsBool($this->subject->isStoreInUrl());
+        static::assertIsBool($this->subject->isStoreInUrl());
     }
 }

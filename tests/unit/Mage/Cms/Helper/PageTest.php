@@ -39,7 +39,7 @@ class PageTest extends TestCase
      */
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {
-        $this->assertSame($expectedResult, Mage_Cms_Helper_Page::getUsedInStoreConfigPaths($path));
+        static::assertSame($expectedResult, Mage_Cms_Helper_Page::getUsedInStoreConfigPaths($path));
     }
 
     public function provideGetUsedInStoreConfigPaths(): Generator

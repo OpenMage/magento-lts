@@ -37,6 +37,6 @@ class CronTest extends TestCase
      */
     public function testLogClean(): void
     {
-        $this->assertInstanceOf(Mage_Log_Model_Cron::class, $this->subject->logClean());
+        static::assertInstanceOf(Mage_Log_Model_Cron::class, $this->subject->logClean());
     }
 }

@@ -40,7 +40,7 @@ class SalesTest extends TestCase
      */
     public function testEscapeHtmlWithLinks($expectedResult, $data): void
     {
-        $this->assertSame($expectedResult, $this->subject->escapeHtmlWithLinks($data, ['a']));
+        static::assertSame($expectedResult, $this->subject->escapeHtmlWithLinks($data, ['a']));
     }
 
     public function provideDecodeGridSerializedInput(): Generator

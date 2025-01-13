@@ -47,7 +47,7 @@ class FileTest extends TestCase
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
-        $this->assertSame($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
+        static::assertSame($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
     }
 
     public function provideGetMimeTypeFromExtensionListData(): Generator
@@ -84,7 +84,7 @@ class FileTest extends TestCase
      */
     public function testGetPostMaxSize(): void
     {
-        $this->assertIsString($this->subject->getPostMaxSize());
+        static::assertIsString($this->subject->getPostMaxSize());
     }
 
     /**
@@ -93,7 +93,7 @@ class FileTest extends TestCase
      */
     public function testGetUploadMaxSize(): void
     {
-        $this->assertIsString($this->subject->getUploadMaxSize());
+        static::assertIsString($this->subject->getUploadMaxSize());
     }
 
     /**
@@ -106,9 +106,9 @@ class FileTest extends TestCase
             ->setMethods(['getPostMaxSize', 'getUploadMaxSize'])
             ->getMock();
 
-        $mock->expects($this->once())->method('getPostMaxSize')->willReturn('1G');
-        $mock->expects($this->once())->method('getUploadMaxSize')->willReturn('1M');
-        $this->assertSame('1M', $mock->getDataMaxSize());
+        $mock->expects(static::once())->method('getPostMaxSize')->willReturn('1G');
+        $mock->expects(static::once())->method('getUploadMaxSize')->willReturn('1M');
+        static::assertSame('1M', $mock->getDataMaxSize());
     }
 
     /**
@@ -122,8 +122,8 @@ class FileTest extends TestCase
             ->setMethods(['getDataMaxSize'])
             ->getMock();
 
-        $mock->expects($this->once())->method('getDataMaxSize')->willReturn($maxSize);
-        $this->assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
+        $mock->expects(static::once())->method('getDataMaxSize')->willReturn($maxSize);
+        static::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 
     public function provideGetDataMaxSizeInBytesData(): Generator

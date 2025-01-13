@@ -37,6 +37,6 @@ class VariableTest extends TestCase
      */
     public function testGetVariablesOptionArray(): void
     {
-        $this->assertIsArray($this->subject->getVariablesOptionArray());
+        static::assertIsArray($this->subject->getVariablesOptionArray());
     }
 }
