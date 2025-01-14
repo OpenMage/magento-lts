@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,9 +29,9 @@ class Unserialize_Reader_Null
      */
     protected $_value;
 
-    const NULL_VALUE = 'null';
+    public const NULL_VALUE = 'null';
 
-    const READING_VALUE = 1;
+    public const READING_VALUE = 1;
 
     /**
      * @param string $char
