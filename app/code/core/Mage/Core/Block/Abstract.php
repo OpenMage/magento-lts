@@ -704,10 +704,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $this->setChild($name, $block);
         }
 
-		$existingKey = array_search($name, $this->_sortedChildren);
-		if ($existingKey !== false) {
-			array_splice($this->_sortedChildren, $existingKey, 1);
-		}
+        $existingKey = array_search($name, $this->_sortedChildren);
+        if ($existingKey !== false) {
+            array_splice($this->_sortedChildren, $existingKey, 1);
+        }
 
         if ($siblingName === '') {
             if ($after) {
