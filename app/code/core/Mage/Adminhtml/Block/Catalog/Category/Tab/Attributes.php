@@ -109,9 +109,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
                 ) {
                     $fieldset->removeField('url_key');
                 } else {
-                    $form->getElement('url_key')->setRenderer(
-                        $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey'),
-                    );
+                    $renderer = $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey');
+                    if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                        $form->getElement('url_key')->setRenderer($renderer);
+                    }
                 }
             }
         }
