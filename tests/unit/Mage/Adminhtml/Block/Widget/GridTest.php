@@ -81,7 +81,6 @@ class GridTest extends TestCase
             [
                 'index'     => ['firstname', 'lastname'],
                 'type'      => 'concat',
-                'separator' => ' ',
             ],
         ];
         yield 'type action' => [
@@ -107,15 +106,6 @@ class GridTest extends TestCase
             [
                 'type' => 'action',
                 'header' => 'test',
-            ],
-        ];
-        yield 'type concat - ref #4475' => [
-            [
-                'type' => 'concat',
-                'separator' => ' ',
-            ],
-            [
-                'type' => 'concat',
             ],
         ];
         yield 'type currency' => [
