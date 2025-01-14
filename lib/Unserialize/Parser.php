@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -18,16 +19,16 @@
  */
 class Unserialize_Parser
 {
-    const TYPE_STRING = 's';
-    const TYPE_INT = 'i';
-    const TYPE_DOUBLE = 'd';
-    const TYPE_ARRAY = 'a';
-    const TYPE_BOOL = 'b';
-    const TYPE_NULL = 'N';
+    public const TYPE_STRING = 's';
+    public const TYPE_INT = 'i';
+    public const TYPE_DOUBLE = 'd';
+    public const TYPE_ARRAY = 'a';
+    public const TYPE_BOOL = 'b';
+    public const TYPE_NULL = 'N';
 
-    const SYMBOL_QUOTE = '"';
-    const SYMBOL_SEMICOLON = ';';
-    const SYMBOL_COLON = ':';
+    public const SYMBOL_QUOTE = '"';
+    public const SYMBOL_SEMICOLON = ';';
+    public const SYMBOL_COLON = ':';
 
     /**
      * @param $str
