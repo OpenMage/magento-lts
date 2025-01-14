@@ -3067,12 +3067,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: '#^Comparison operation "\>\=" between int\<70400, 80499\> and 70300 is always true\.$#'
-			identifier: greaterOrEqual.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Core/Model/Cookie.php
-
-		-
 			message: '#^Binary operation "\+" between string and string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
