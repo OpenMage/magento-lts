@@ -11,13 +11,7 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__ . '/app',
-        __DIR__ . '/dev',
-        __DIR__ . '/errors',
-        __DIR__ . '/lib',
-        __DIR__ . '/pub',
-        __DIR__ . '/shell',
-        __DIR__ . '/tests',
+        __DIR__,
     ])
     ->withSkipPath(__DIR__ . '/vendor')
     ->withSkip([
