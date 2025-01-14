@@ -126,7 +126,12 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     public function getClass()
     {
         $out    = [];
-        $out[]  = $this->getAttribute()->getFrontendClass();
+
+        $frontendClass = $this->getAttribute()->getFrontendClass();
+        if ($frontendClass) {
+            $out[]  = $frontendClass;
+        }
+
         if ($this->getAttribute()->getIsRequired()) {
             $out[]  = 'required-entry';
         }
@@ -135,6 +140,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         if ($inputRuleClass) {
             $out[] = $inputRuleClass;
         }
+
         if (!empty($out)) {
             $out = implode(' ', $out);
         } else {
@@ -170,7 +176,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
                     $class = 'validate-url';
                     break;
                 default:
-                    $class = false;
                     break;
             }
         }
@@ -202,7 +207,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
      * Retrieve option by option id
      *
      * @param int $optionId
-     * @return mixed|boolean
+     * @return string|bool
      */
     public function getOption($optionId)
     {
