@@ -465,7 +465,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
         $block->setParentBlock($this);
         $block->setBlockAlias($alias);
-        $this->unsetChild($alias);
         $this->_children[$alias] = $block;
         return $this;
     }
@@ -704,6 +703,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             $name = $block->getNameInLayout();
             $this->setChild($name, $block);
         }
+
+		$existingKey = array_search($name, $this->_sortedChildren);
+		if ($existingKey !== false) {
+			array_splice($this->_sortedChildren, $existingKey, 1);
+		}
 
         if ($siblingName === '') {
             if ($after) {
