@@ -179,9 +179,10 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main extends Mage_Adminhtml_Bloc
             'checked' => (int) $model->getUseAutoGeneration() > 0 ? 'checked' : '',
         ]);
 
-        $autoGenerationCheckbox->setRenderer(
-            $this->getLayout()->createBlock('adminhtml/promo_quote_edit_tab_main_renderer_checkbox'),
-        );
+        $renderer = $this->getLayout()->createBlock('adminhtml/promo_quote_edit_tab_main_renderer_checkbox');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $autoGenerationCheckbox->setRenderer($renderer);
+        }
 
         $usesPerCouponFiled = $fieldset->addField('uses_per_coupon', 'text', [
             'name' => 'uses_per_coupon',
