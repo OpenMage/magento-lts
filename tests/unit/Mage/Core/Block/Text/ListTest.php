@@ -90,14 +90,33 @@ class ListTest extends TestCase
         $parentBlock->insert($childBlockC, 'child_b', true);
 
         $childBlockA = $layout->createBlock('core/text', 'child_a')->setText('A');
-        $parentBlock->insert($childBlockC, 'child_b', false);
+        $parentBlock->insert($childBlockA, 'child_b', false);
 
         $childBlockB = $layout->createBlock('core/text', 'child_b')->setText('B');
-        $parentBlock->insert($childBlockC, 'child_a', true);
+        $parentBlock->insert($childBlockB, 'child_a', true);
 
         $parentBlock->unsetChild('child_a');
         $parentBlock->unsetChild('child_b');
 
         $this->assertSame('CD', $parentBlock->toHtml());
+    }
+
+    public function testSortInstructionsAfterReplaceChild()
+    {
+        $layout = Mage::getModel('core/layout');
+
+        $parentBlock = $layout->createBlock('core/text_list', 'parent');
+
+        $childBlockA = $layout->createBlock('core/text', 'target_block')->setText('A');
+        $parentBlock->insert($childBlockA, '', false, 'child');
+
+        $childBlockB = $layout->createBlock('core/text', 'target_block')->setText('B');
+
+        // Replacing the block but keeping its order within the parent
+        $layout->unsetBlock('target_block');
+        $layout->setBlock('target_block', $childBlockB);
+        $parentBlock->setChild('child', $childBlockB);
+
+        $this->assertSame('B', $parentBlock->toHtml());
     }
 }
