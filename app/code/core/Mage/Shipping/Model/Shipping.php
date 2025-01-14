@@ -170,7 +170,7 @@ class Mage_Shipping_Model_Shipping
                             }
                             $sumResults[] = $result;
                         }
-                        if (!empty($sumResults) && count($sumResults) > 1) {
+                        if (count($sumResults) > 1) {
                             $result = [];
                             foreach ($sumResults as $res) {
                                 if (empty($result)) {

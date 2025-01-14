@@ -249,7 +249,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         }
 
         $select->columns([
-            'price_type'          => new Zend_Db_Expr($priceType),
+            'price_type'          => new Zend_Db_Expr((string) $priceType),
             'special_price'       => $specialExpr,
             'tier_percent'        => $tierExpr,
             'orig_price'          => $write->getCheckSql($price . ' IS NULL', '0', $price),

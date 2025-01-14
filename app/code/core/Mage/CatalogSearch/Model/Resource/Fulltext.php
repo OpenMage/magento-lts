@@ -363,7 +363,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         if ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
             $where .= ($where ? ' OR ' : '') . $likeCond;
         } elseif ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
-            $select->columns(['relevance' => new Zend_Db_Expr(0)]);
+            $select->columns(['relevance' => new Zend_Db_Expr('0')]);
             $where = $likeCond;
         }
 

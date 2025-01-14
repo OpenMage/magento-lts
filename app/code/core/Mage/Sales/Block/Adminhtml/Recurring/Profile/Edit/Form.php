@@ -98,9 +98,16 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
-        $form::setFieldsetRenderer($this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset'));
-        $form::setFieldsetElementRenderer($this->getLayout()
-            ->createBlock('adminhtml/widget_form_renderer_fieldset_element'));
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $form::setFieldsetRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $form::setFieldsetElementRenderer($renderer);
+        }
 
         /**
          * if there is a parent element defined, it will be replaced by a hidden element with the same name

@@ -136,14 +136,14 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param string $handle
+     * @param array|string $handle
      * @return $this
      */
     public function addHandle($handle)
     {
         if (is_array($handle)) {
-            foreach ($handle as $h) {
-                $this->_handles[$h] = 1;
+            foreach ($handle as $item) {
+                $this->_handles[$item] = 1;
             }
         } else {
             $this->_handles[$handle] = 1;

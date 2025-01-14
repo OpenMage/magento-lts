@@ -19,14 +19,14 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * From value
      *
-     * @var string
+     * @var Zend_Date
      */
     protected $_from;
 
     /**
      * To value
      *
-     * @var string
+     * @var Zend_Date
      */
     protected $_to;
 
@@ -82,8 +82,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set interval
      *
-     * @param int $from
-     * @param int $to
+     * @param Zend_Date $from
+     * @param Zend_Date $to
      * @return $this
      */
     public function setInterval($from, $to)

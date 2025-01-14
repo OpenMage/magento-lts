@@ -242,25 +242,18 @@ class Mage_Core_Model_Cookie
             $secure = true;
         }
 
-        if (PHP_VERSION_ID >= 70300) {
-            setcookie(
-                $name,
-                (string) $value,
-                [
-                    'expires'  => $expire,
-                    'path'     => $path,
-                    'domain'   => $domain,
-                    'secure'   => $secure,
-                    'httponly' => $httponly,
-                    'samesite' => $sameSite,
-                ],
-            );
-        } else {
-            if (!empty($sameSite)) {
-                $path .= "; samesite={$sameSite}";
-            }
-            setcookie($name, (string) $value, $expire, $path, $domain, $secure, $httponly);
-        }
+        setcookie(
+            $name,
+            (string) $value,
+            [
+                'expires'  => $expire,
+                'path'     => $path,
+                'domain'   => $domain,
+                'secure'   => $secure,
+                'httponly' => $httponly,
+                'samesite' => $sameSite,
+            ],
+        );
 
         return $this;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @category   Unserialize
  * @package    Unserialize_Reader
@@ -32,11 +33,11 @@ class Unserialize_Reader_Arr
      */
     protected $_reader = null;
 
-    const READING_LENGTH = 1;
-    const FINISHED_LENGTH = 2;
-    const READING_KEY = 3;
-    const READING_VALUE = 4;
-    const FINISHED_ARR = 5;
+    public const READING_LENGTH = 1;
+    public const FINISHED_LENGTH = 2;
+    public const READING_KEY = 3;
+    public const READING_VALUE = 4;
+    public const FINISHED_ARR = 5;
 
     /**
      * @param $char
@@ -46,7 +47,7 @@ class Unserialize_Reader_Arr
      */
     public function read($char, $prevChar)
     {
-        $this->_result = !is_null($this->_result) ? $this->_result : array();
+        $this->_result = !is_null($this->_result) ? $this->_result : [];
 
         if (is_null($this->_status) && $prevChar == Unserialize_Parser::SYMBOL_COLON) {
             $this->_length .= $char;

@@ -51,32 +51,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
 
             $this->_setFieldset($attributes, $fieldset, ['gallery']);
 
-            $urlKey = $form->getElement('url_key');
-            if ($urlKey) {
-                $urlKey->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey'),
-                );
-            }
+            $rendererBlocks = [
+                'url_key'           => 'adminhtml/catalog_form_renderer_attribute_urlkey',
+                'tier_price'        => 'adminhtml/catalog_product_edit_tab_price_tier',
+                'group_price'       => 'adminhtml/catalog_product_edit_tab_price_group',
+                'recurring_profile' => 'adminhtml/catalog_product_edit_tab_price_recurring',
+            ];
 
-            $tierPrice = $form->getElement('tier_price');
-            if ($tierPrice) {
-                $tierPrice->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_tier'),
-                );
-            }
-
-            $groupPrice = $form->getElement('group_price');
-            if ($groupPrice) {
-                $groupPrice->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_group'),
-                );
-            }
-
-            $recurringProfile = $form->getElement('recurring_profile');
-            if ($recurringProfile) {
-                $recurringProfile->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_recurring'),
-                );
+            foreach ($rendererBlocks as $elementId => $rendererBlock) {
+                $element = $form->getElement($elementId);
+                if ($element) {
+                    $renderer = $this->getLayout()->createBlock($rendererBlock);
+                    if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                        $element->setRenderer($renderer);
+                    }
+                }
             }
 
             // Add new attribute button if it is not an image tab

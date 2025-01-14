@@ -170,7 +170,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
 
         // instantiate field and render html
         $field = $fieldset->addField($this->getMainFieldsetHtmlId() . '_' . $fieldName, $fieldType, $data);
-        if ($fieldRenderer) {
+        if ($fieldRenderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
             $field->setRenderer($fieldRenderer);
         }
 

@@ -149,9 +149,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                             'value'     => $title,
                         ];
                     }
-                    if (!empty($data)) {
-                        $adapter->insertMultiple($ratingTitleTable, $data);
-                    }
+                    $adapter->insertMultiple($ratingTitleTable, $data);
                 }
                 $adapter->commit();
             } catch (Exception $e) {
