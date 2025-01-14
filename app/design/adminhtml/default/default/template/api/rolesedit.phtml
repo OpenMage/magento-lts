@@ -12,6 +12,11 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @see Mage_Adminhtml_Block_Api_Tab_Rolesedit
+ * @var Mage_Adminhtml_Block_Api_Tab_Rolesedit $this
+ */
 ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
@@ -23,8 +28,8 @@
         <span class="field-row">
             <label for="all"><?php echo $this->__('Resource Access') ?></label>
             <select id="all" name="all" onchange="$('resources_container').toggle()" class="select">
-                <option value="0" <?php echo ($this->getEverythingAllowed()?'':'selected="selected"'); ?>><?php echo $this->__('Custom') ?></option>
-                <option value="1" <?php echo ($this->getEverythingAllowed()?'selected="selected"':''); ?>><?php echo $this->__('All') ?></option>
+                <option value="0" <?php echo($this->getEverythingAllowed() ? '' : 'selected="selected"'); ?>><?php echo $this->__('Custom') ?></option>
+                <option value="1" <?php echo($this->getEverythingAllowed() ? 'selected="selected"' : ''); ?>><?php echo $this->__('All') ?></option>
             </select>
         </span>
 

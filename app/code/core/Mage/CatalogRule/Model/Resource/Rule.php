@@ -219,14 +219,14 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                             'cg.customer_group_id',
                             'p.entity_id',
                             new Zend_Db_Expr($rule->getId()),
-                            new Zend_Db_Expr($fromTime),
-                            new Zend_Db_Expr($toTime),
+                            new Zend_Db_Expr((string) $fromTime),
+                            new Zend_Db_Expr((string) $toTime),
                             new Zend_Db_Expr("'" . $actionOperator . "'"),
-                            new Zend_Db_Expr($actionAmount),
-                            new Zend_Db_Expr($actionStop),
-                            new Zend_Db_Expr($sortOrder),
+                            new Zend_Db_Expr((string) $actionAmount),
+                            new Zend_Db_Expr((string) $actionStop),
+                            new Zend_Db_Expr((string) $sortOrder),
                             new Zend_Db_Expr("'" . $subActionOperator . "'"),
-                            new Zend_Db_Expr($subActionAmount),
+                            new Zend_Db_Expr((string) $subActionAmount),
                         ]);
 
                     // phpcs:ignore Ecg.Performance.Loop.ArraySize
