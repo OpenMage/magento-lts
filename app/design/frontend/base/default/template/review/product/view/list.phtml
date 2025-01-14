@@ -12,8 +12,12 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
 
+/**
+ * @see Mage_Review_Block_Product_View_List
+ * @var Mage_Review_Block_Product_View_List $this
+ */
+?>
 <?php $_items = $this->getReviewsCollection()->getItems();?>
 <div class="box-collateral box-reviews" id="customer-reviews">
     <?php if (count($_items)):?>

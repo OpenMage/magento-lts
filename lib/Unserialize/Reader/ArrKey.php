@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -28,8 +29,8 @@ class Unserialize_Reader_ArrKey
      */
     protected $_reader;
 
-    const NOT_STARTED = 1;
-    const READING_KEY = 2;
+    public const NOT_STARTED = 1;
+    public const READING_KEY = 2;
 
     /**
      * Construct
