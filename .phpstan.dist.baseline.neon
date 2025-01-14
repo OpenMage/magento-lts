@@ -559,12 +559,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
 
 		-
-			message: '#^Parameter \#1 \$ids of method Mage_Adminhtml_Controller_Action\:\:loadLayout\(\) expects bool\|string\|null, array\<int, string\> given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Controller/Action.php
-
-		-
 			message: '#^Return type \(Mage_Admin_Model_Session\) of method Mage_Adminhtml_Controller_Report_Abstract\:\:_getSession\(\) should be compatible with return type \(Mage_Adminhtml_Model_Session\) of method Mage_Adminhtml_Controller_Action\:\:_getSession\(\)$#'
 			identifier: method.childReturnType
 			count: 1
@@ -677,12 +671,6 @@ parameters:
 			identifier: ternary.alwaysTrue
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Catalog/Product/SetController.php
-
-		-
-			message: '#^Parameter \#1 \$ids of method Mage_Adminhtml_Controller_Action\:\:loadLayout\(\) expects bool\|string\|null, array\<int, string\> given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php
 
 		-
 			message: '#^Method Mage_Adminhtml_Controller_Action\:\:_setForcedFormKeyActions\(\) invoked with 2 parameters, 1 required\.$#'
@@ -2890,12 +2878,6 @@ parameters:
 			message: '#^Constructor of class Mage_Core_Controller_Varien_Action has an unused parameter \$invokeArgs\.$#'
 			identifier: constructor.unusedParameter
 			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Action.php
-
-		-
-			message: '#^Parameter \#1 \$handles of method Mage_Core_Controller_Varien_Action\:\:loadLayout\(\) expects bool\|string\|null, array\<int, string\> given\.$#'
-			identifier: argument.type
-			count: 2
 			path: app/code/core/Mage/Core/Controller/Varien/Action.php
 
 		-
