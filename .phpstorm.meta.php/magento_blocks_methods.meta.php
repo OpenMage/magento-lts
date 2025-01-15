@@ -1253,7 +1253,6 @@ namespace PHPSTORM_META {
             'sales/recurring_profiles' => \Mage_Sales_Block_Recurring_Profiles::class,
             'sales/reorder_sidebar' => \Mage_Sales_Block_Reorder_Sidebar::class,
             'sales/widget_guest_form' => \Mage_Sales_Block_Widget_Guest_Form::class,
-            'sendfriend/send' => \Mage_Sendfriend_Block_Send::class,
             'shipping/tracking_ajax' => \Mage_Shipping_Block_Tracking_Ajax::class,
             'shipping/tracking_popup' => \Mage_Shipping_Block_Tracking_Popup::class,
             'tag/all' => \Mage_Tag_Block_All::class,

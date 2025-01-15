@@ -436,7 +436,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($this->isEnabledFlat()) {
             $this->getSelect()
                 ->from([self::MAIN_TABLE_ALIAS => $this->getEntity()->getFlatTableName()], null)
-                ->where('e.status = ?', new Zend_Db_Expr(Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
+                ->where('e.status = ?', new Zend_Db_Expr((string) Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
             $this->addAttributeToSelect(['entity_id', 'type_id', 'attribute_set_id']);
             if ($this->getFlatHelper()->isAddChildData()) {
                 $this->getSelect()

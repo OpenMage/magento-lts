@@ -37,9 +37,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         foreach ($attributes as $code) {
             $weeeTax = $form->getElement($code);
             if ($weeeTax) {
-                $weeeTax->setRenderer(
-                    Mage::app()->getLayout()->createBlock('weee/renderer_weee_tax'),
-                );
+                $renderer = Mage::app()->getLayout()->createBlock('weee/renderer_weee_tax');
+                if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                    $weeeTax->setRenderer($renderer);
+                }
             }
         }
 

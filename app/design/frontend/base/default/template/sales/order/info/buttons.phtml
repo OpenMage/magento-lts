@@ -12,8 +12,12 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
 
+/**
+ * @see Mage_Sales_Block_Order_Info_Buttons
+ * @var Mage_Sales_Block_Order_Info_Buttons $this
+ */
+?>
 <?php  $_order = $this->getOrder() ?>
 <?php if($this->helper('rss/order')->isStatusNotificationAllow()): ?>
     <a href="<?php echo $this->helper('rss/order')->getStatusHistoryRssUrl($_order) ?>" class="link-rss f-none"><?php echo $this->__('Subscribe to Order Status') ?></a>
