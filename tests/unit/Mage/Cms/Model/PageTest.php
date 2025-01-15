@@ -62,7 +62,7 @@ class PageTest extends TestCase
         if (defined('DATA_MAY_CHANGED')) {
             $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        $this->assertSame('Home Page', $this->subject->getCmsPageTitleByIdentifier('home'));
+        $this->assertSame('Home page', $this->subject->getCmsPageTitleByIdentifier('home'));
     }
 
     /**
@@ -74,7 +74,7 @@ class PageTest extends TestCase
         if (defined('DATA_MAY_CHANGED')) {
             $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        $this->assertSame('Home Page', $this->subject->getCmsPageTitleById(2));
+        $this->assertSame('Home page', $this->subject->getCmsPageTitleById(2));
     }
 
     /**
