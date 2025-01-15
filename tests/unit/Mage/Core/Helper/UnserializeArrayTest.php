@@ -50,16 +50,18 @@ class UnserializeArrayTest extends TestCase
 
     public function provideUnserialize(): Generator
     {
+        $errorMessage = 'Error unserializing data.';
+
         yield 'null' => [
-            'Error unserializing data.',
+            $errorMessage,
             null,
         ];
         yield 'empty string' => [
-            'Error unserializing data.',
+            $errorMessage,
             '',
         ];
         yield 'random string' => [
-            'Error unserializing data.',
+            $errorMessage,
             'abc',
         ];
         yield 'valid' => [
