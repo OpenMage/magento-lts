@@ -29,9 +29,11 @@ return $config
                 __DIR__,
             ])
             ->exclude([
-                'lib/3Dsecure/',
-                'lib/LinLibertineFont/',
-                'lib/Unserialize/',
+                __DIR__ . 'lib/3Dsecure/',
+                __DIR__ . 'lib/LinLibertineFont/',
+                __DIR__ . 'lib/Unserialize/',
+                __DIR__ . '/shell/translations.php',
+                __DIR__ . '/shell/update-copyright.php',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)
