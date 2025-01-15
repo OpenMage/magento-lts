@@ -40,20 +40,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Orders extends Mage_Adminhtml_Block_Das
      */
     protected function _prepareData()
     {
-        $this->setDataHelperName('adminhtml/dashboard_order');
-
-        /** @var Mage_Adminhtml_Helper_Dashboard_Order $dataHelper */
-        $dataHelper = $this->getDataHelper();
-
-        /** @var Mage_Core_Controller_Request_Http $request */
-        $request = $this->getRequest();
-
-        $dataHelper->setParam('store', $request->getParam('store'));
-        $dataHelper->setParam('website', $request->getParam('website'));
-        $dataHelper->setParam('group', $request->getParam('group'));
-
         $this->setDataRows('quantity');
-
         parent::_prepareData();
     }
 }

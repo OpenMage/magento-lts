@@ -88,6 +88,17 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     {
         parent::__construct();
         $this->setTemplate('dashboard/graph.phtml');
+        $this->setDataHelperName('adminhtml/dashboard_order');
+
+        /** @var Mage_Adminhtml_Helper_Dashboard_Order $dataHelper */
+        $dataHelper = $this->getDataHelper();
+
+        /** @var Mage_Core_Controller_Request_Http $request */
+        $request = $this->getRequest();
+
+        $dataHelper->setParam('store', $request->getParam('store'));
+        $dataHelper->setParam('website', $request->getParam('website'));
+        $dataHelper->setParam('group', $request->getParam('group'));
     }
 
     /**
