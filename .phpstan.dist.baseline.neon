@@ -3835,12 +3835,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Container/Collection.php
 
 		-
-			message: '#^Call to an undefined method Mage_Dataflow_Model_Session_Adapter_Iterator\:\:__\(\)\.$#'
-			identifier: method.notFound
-			count: 10
-			path: app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
-
-		-
 			message: '#^Method Mage_Dataflow_Model_Convert_Mapper_Column\:\:getBatchImportModel\(\) has invalid return type Mage_Dataflow_Model_Import_Export\.$#'
 			identifier: class.notFound
 			count: 1
