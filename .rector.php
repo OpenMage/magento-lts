@@ -9,20 +9,14 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__ . '/app',
-        __DIR__ . '/dev',
-        __DIR__ . '/errors',
-        __DIR__ . '/lib',
-        __DIR__ . '/pub',
-        __DIR__ . '/shell',
-        __DIR__ . '/tests',
+        __DIR__,
     ])
     ->withSkipPath(__DIR__ . '/vendor')
     ->withSkip([
         CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
         CodeQuality\If_\SimplifyIfReturnBoolRector::class,
         __DIR__ . '/shell/translations.php',
-        __DIR__ . '/shell/update-copyright.php.php'
+        __DIR__ . '/shell/update-copyright.php.php',
     ])
     ->withRules([
         CodeQuality\BooleanNot\ReplaceMultipleBooleanNotRector::class,
