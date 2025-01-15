@@ -288,6 +288,8 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      *
      * @param  array $storeIds
      * @return $this
+     * @see Mage_Reports_Model_Resource_Report_Product_Viewed_Collection
+     * @see Mage_Sales_Model_Resource_Report_Bestsellers_Collection
      */
     public function addStoreRestrictions($storeIds)
     {
