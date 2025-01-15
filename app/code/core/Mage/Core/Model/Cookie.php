@@ -250,7 +250,7 @@ class Mage_Core_Model_Cookie
 
         setcookie(
             $name,
-            (string)$value,
+            (string) $value,
             [
                 'expires'  => $expire,
                 'path'     => $path,
