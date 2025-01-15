@@ -184,7 +184,9 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         $valueBuffer = [];
 
-        if (!count($this->_axisLabels)) {
+        if (!array_key_exists(self::AXIS_X, $this->_axisLabels) ||
+            !array_key_exists(self::AXIS_Y, $this->_axisLabels)
+        ) {
             return $params;
         }
 
@@ -192,36 +194,29 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         $indexid = 0;
         foreach (array_keys($this->_axisLabels) as $idx) {
-            if (!in_array($idx, [self::AXIS_X, self::AXIS_Y])) {
-                continue;
-            }
-
             if ($idx === self::AXIS_X) {
                 foreach ($this->_axisLabels[$idx] as $_index => $_label) {
-                    if ($_label != '') {
-                        switch ($this->getDataHelper()->getParam('period')) {
-                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_24_HOURS:
-                                $this->_axisLabels[$idx][$_index] = $this->formatTime(
-                                    new Zend_Date($_label, 'yyyy-MM-dd HH:00'),
-                                    'short',
-                                );
-                                break;
-                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_7_DAYS:
-                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_MONTH:
-                                $this->_axisLabels[$idx][$_index] = $this->formatDate(
-                                    new Zend_Date($_label, 'yyyy-MM-dd'),
-                                );
-                                break;
-                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_YEAR:
-                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_2_YEARS:
-                                $formats = Mage::app()->getLocale()->getTranslationList('datetime');
-                                $format = $formats['yyMM'] ?? 'MM/yyyy';
-                                $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
-                                $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
-                                break;
-                        }
-                    } else {
-                        $this->_axisLabels[$idx][$_index] = '';
+                    $this->_axisLabels[$idx][$_index] = '';
+                    switch ($this->getDataHelper()->getParam('period')) {
+                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_24_HOURS:
+                            $this->_axisLabels[$idx][$_index] = $this->formatTime(
+                                new Zend_Date($_label, 'yyyy-MM-dd HH:00'),
+                                'short',
+                            );
+                            break;
+                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_7_DAYS:
+                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_MONTH:
+                            $this->_axisLabels[$idx][$_index] = $this->formatDate(
+                                new Zend_Date($_label, 'yyyy-MM-dd'),
+                            );
+                            break;
+                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_YEAR:
+                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_2_YEARS:
+                            $formats = Mage::app()->getLocale()->getTranslationList('datetime');
+                            $format = $formats['yyMM'] ?? 'MM/yyyy';
+                            $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
+                            $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
+                            break;
                     }
                 }
 
