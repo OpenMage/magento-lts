@@ -22,6 +22,10 @@ use Mage_Reports_Helper_Data;
 
 trait ReportsTrait
 {
+    public static string $dateFirstDay  = '2025-01-01';
+    public static string $dateNextDay   = '2025-01-02';
+    public static string $dateLastDay   = '2025-12-31';
+
     public function provideReportsDateIntervals(): Generator
     {
         $prefix = Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY . ': ';
@@ -35,14 +39,14 @@ trait ReportsTrait
         yield $prefix . 'no from' => [
             0,
             '',
-            '2025-01-01',
+            self::$dateFirstDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
 
         if (!defined('DATA_MAY_CHANGED')) {
             yield $prefix . 'no to' => [
                 0,
-                '2025-01-01',
+                self::$dateFirstDay,
                 '',
                 Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
             ];
@@ -50,26 +54,26 @@ trait ReportsTrait
 
         yield $prefix . 'same day' => [
             1,
-            '2025-01-01',
-            '2025-01-01',
+            self::$dateFirstDay,
+            self::$dateFirstDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'same and next day' => [
             2,
-            '2025-01-01',
-            '2025-01-02',
+            self::$dateFirstDay,
+            self::$dateNextDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'same and previous day' => [
             0,
-            '2025-01-02',
-            '2025-01-01',
+            self::$dateNextDay,
+            self::$dateFirstDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'year 2025' => [
             365,
-            '2025-01-01',
-            '2025-12-31',
+            self::$dateFirstDay,
+            self::$dateLastDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'year 2026' => [
@@ -95,19 +99,19 @@ trait ReportsTrait
 
         yield $prefix . 'year 2025 full' => [
             12,
-            '2025-01-01',
-            '2025-12-31',
+            self::$dateFirstDay,
+            self::$dateLastDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_MONTH,
         ];
         yield $prefix . 'year 2025, half january' => [
             12,
             '2025-01-15',
-            '2025-12-31',
+            self::$dateLastDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_MONTH,
         ];
         yield $prefix . 'year 2025, half december' => [
             12,
-            '2025-01-01',
+            self::$dateFirstDay,
             '2025-12-15',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_MONTH,
         ];
@@ -115,8 +119,8 @@ trait ReportsTrait
 
         yield $prefix . 'same year' => [
             1,
-            '2025-01-01',
-            '2025-12-31',
+            self::$dateFirstDay,
+            self::$dateLastDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_YEAR,
         ];
         yield $prefix . 'year 2025 and next' => [
@@ -127,7 +131,7 @@ trait ReportsTrait
         ];
         yield $prefix . 'year 2025, half december 2026' => [
             2,
-            '2025-01-01',
+            self::$dateFirstDay,
             '2026-12-15',
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_YEAR,
         ];
