@@ -66,7 +66,7 @@ class DataTest extends TestCase
     public function testGetIntervals($expectedResult, $from, $to, $period): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
 
         try {
@@ -85,7 +85,7 @@ class DataTest extends TestCase
      */
     public function testPrepareIntervalsCollection($expectedResult, $from, $to, $period): void
     {
-        $this->markTestIncomplete();
+        $this->markTestIncomplete('Test needs to be reviewed.');
         // @phpstan-ignore-next-line
         $this->subject->prepareIntervalsCollection(new Varien_Data_Collection(), $from, $to, $period);
     }

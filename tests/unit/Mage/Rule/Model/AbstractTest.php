@@ -36,6 +36,8 @@ class AbstractTest extends TestCase
     use BoolTrait;
     use RuleTrait;
 
+    public const CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL = 'Call to a member function setRule() on null';
+
     public Subject $subject;
 
     public function setUp(): void
@@ -71,7 +73,7 @@ class AbstractTest extends TestCase
         try {
             $this->assertInstanceOf(Mage_Rule_Model_Condition_Combine::class, $this->subject->getConditions());
         } catch (Error $error) {
-            $this->assertSame('Call to a member function setRule() on null', $error->getMessage());
+            $this->assertSame(self::CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL, $error->getMessage());
         }
     }
 
@@ -89,7 +91,7 @@ class AbstractTest extends TestCase
         try {
             $this->assertInstanceOf(Mage_Rule_Model_Action_Collection::class, $this->subject->getActions());
         } catch (Error $error) {
-            $this->assertSame('Call to a member function setRule() on null', $error->getMessage());
+            $this->assertSame(self::CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL, $error->getMessage());
         }
     }
 
@@ -123,7 +125,7 @@ class AbstractTest extends TestCase
         try {
             $this->assertSame($expectedResul, $this->subject->validate($object));
         } catch (Error $error) {
-            $this->assertSame('Call to a member function setRule() on null', $error->getMessage());
+            $this->assertSame(self::CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL, $error->getMessage());
         }
 
     }
@@ -136,7 +138,7 @@ class AbstractTest extends TestCase
     public function testValidateData($expectedResul, ?array $data = null): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
         $object = new Varien_Object($data);
         $this->assertSame($expectedResul, $this->subject->validateData($object));

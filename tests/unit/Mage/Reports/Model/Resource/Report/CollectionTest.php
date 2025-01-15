@@ -28,6 +28,8 @@ class CollectionTest extends TestCase
 {
     use ReportsTrait;
 
+    public const SKIP_INCOMPLETE_MESSAGE = 'Test needs to be reviewed.';
+
     public Subject $subject;
 
     public function setUp(): void
@@ -147,7 +149,7 @@ class CollectionTest extends TestCase
      */
     public function testGetReportFull(): void
     {
-        $this->markTestIncomplete();
+        $this->markTestIncomplete(self::SKIP_INCOMPLETE_MESSAGE);
         // @phpstan-ignore-next-line
         $this->assertInstanceOf(Mage_Reports_Model_Report::class, $this->subject->getReportFull(1, 1));
     }
@@ -158,7 +160,7 @@ class CollectionTest extends TestCase
      */
     public function testGetReport(): void
     {
-        $this->markTestIncomplete();
+        $this->markTestIncomplete(self::SKIP_INCOMPLETE_MESSAGE);
         // @phpstan-ignore-next-line
         $this->assertInstanceOf(Mage_Reports_Model_Report::class, $this->subject->getReport(1, 1));
     }
@@ -169,7 +171,7 @@ class CollectionTest extends TestCase
      */
     public function testTimeShift(): void
     {
-        $this->markTestIncomplete();
+        $this->markTestIncomplete(self::SKIP_INCOMPLETE_MESSAGE);
         // @phpstan-ignore-next-line
         $this->assertSame($this->subject->timeShift(''));
     }
