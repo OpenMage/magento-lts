@@ -22,11 +22,6 @@
  */
 class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('index/process', 'process_id');
-    }
-
     /**
      * Update process/event association row status
      *
@@ -107,20 +102,6 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     }
 
     /**
-     * Updates process data
-     * @param int $processId
-     * @param array $data
-     * @return $this
-     */
-    protected function _updateProcessData($processId, $data)
-    {
-        $bind = ['process_id=?' => $processId];
-        $this->_getWriteAdapter()->update($this->getMainTable(), $data, $bind);
-
-        return $this;
-    }
-
-    /**
      * Update process start date
      *
      * @return $this
@@ -150,5 +131,23 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     public function isInTransaction()
     {
         return $this->_getWriteAdapter()->getTransactionLevel() > 0;
+    }
+    protected function _construct()
+    {
+        $this->_init('index/process', 'process_id');
+    }
+
+    /**
+     * Updates process data
+     * @param int $processId
+     * @param array $data
+     * @return $this
+     */
+    protected function _updateProcessData($processId, $data)
+    {
+        $bind = ['process_id=?' => $processId];
+        $this->_getWriteAdapter()->update($this->getMainTable(), $data, $bind);
+
+        return $this;
     }
 }

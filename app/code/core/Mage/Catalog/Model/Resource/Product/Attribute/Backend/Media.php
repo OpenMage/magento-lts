@@ -30,11 +30,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
     private $_attributeId = null;
 
-    protected function _construct()
-    {
-        $this->_init(self::GALLERY_TABLE, 'value_id');
-    }
-
     /**
      * Load gallery images for product using reusable select method
      *
@@ -67,29 +62,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         $result = $adapter->fetchAll($select);
         $this->_removeDuplicates($result);
         return $result;
-    }
-
-    /**
-     * Remove duplicates
-     *
-     * @param array $result
-     * @return $this
-     */
-    protected function _removeDuplicates(&$result)
-    {
-        $fileToId = [];
-
-        foreach (array_keys($result) as $index) {
-            if (!isset($fileToId[$result[$index]['file']])) {
-                $fileToId[$result[$index]['file']] = $result[$index]['value_id'];
-            } elseif ($fileToId[$result[$index]['file']] != $result[$index]['value_id']) {
-                $this->deleteGallery($result[$index]['value_id']);
-                unset($result[$index]);
-            }
-        }
-
-        $result = array_values($result);
-        return $this;
     }
 
     /**
@@ -208,6 +180,50 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     }
 
     /**
+     * Get media gallery set for given product IDs
+     *
+     * @param int $storeId
+     * @return array
+     */
+    public function loadGallerySet(array $productIds, $storeId)
+    {
+        $select = $this->_getLoadGallerySelect($productIds, $storeId, $this->_getAttributeId());
+
+        $adapter = $this->_getReadAdapter();
+        $result = $adapter->fetchAll($select);
+        $this->_removeDuplicates($result);
+        return $result;
+    }
+
+    protected function _construct()
+    {
+        $this->_init(self::GALLERY_TABLE, 'value_id');
+    }
+
+    /**
+     * Remove duplicates
+     *
+     * @param array $result
+     * @return $this
+     */
+    protected function _removeDuplicates(&$result)
+    {
+        $fileToId = [];
+
+        foreach (array_keys($result) as $index) {
+            if (!isset($fileToId[$result[$index]['file']])) {
+                $fileToId[$result[$index]['file']] = $result[$index]['value_id'];
+            } elseif ($fileToId[$result[$index]['file']] != $result[$index]['value_id']) {
+                $this->deleteGallery($result[$index]['value_id']);
+                unset($result[$index]);
+            }
+        }
+
+        $result = array_values($result);
+        return $this;
+    }
+
+    /**
      * Get select to retrieve media gallery images
      * for given product IDs.
      *
@@ -260,21 +276,5 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             $this->_attributeId = $attribute->getId();
         }
         return $this->_attributeId;
-    }
-
-    /**
-     * Get media gallery set for given product IDs
-     *
-     * @param int $storeId
-     * @return array
-     */
-    public function loadGallerySet(array $productIds, $storeId)
-    {
-        $select = $this->_getLoadGallerySelect($productIds, $storeId, $this->_getAttributeId());
-
-        $adapter = $this->_getReadAdapter();
-        $result = $adapter->fetchAll($select);
-        $this->_removeDuplicates($result);
-        return $result;
     }
 }

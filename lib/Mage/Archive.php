@@ -60,43 +60,6 @@ class Mage_Archive
         'tbzip2'     => 'tar.bz'];
 
     /**
-    * Create object of current archiver by $extension.
-    *
-    * @param string $extension
-    * @return Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
-    */
-    protected function _getArchiver($extension)
-    {
-        if (array_key_exists(strtolower($extension), $this->_formats)) {
-            $format = $this->_formats[$extension];
-        } else {
-            $format = self::DEFAULT_ARCHIVER;
-        }
-        $class = 'Mage_Archive_' . ucfirst($format);
-        $this->_archiver = new $class();
-        return $this->_archiver;
-    }
-
-    /**
-    * Split current format to list of archivers.
-    *
-    * @param string $source
-    * @return array
-    */
-    protected function _getArchivers($source)
-    {
-        $ext = pathinfo($source, PATHINFO_EXTENSION);
-        if (!isset($this->_formats[$ext])) {
-            return [];
-        }
-        $format = $this->_formats[$ext];
-        if ($format) {
-            return explode('.', $format);
-        }
-        return [];
-    }
-
-    /**
     * Pack file or directory to archivers are parsed from extension.
     *
     * @param string $source
@@ -203,5 +166,42 @@ class Mage_Archive
             return true;
         }
         return false;
+    }
+
+    /**
+    * Create object of current archiver by $extension.
+    *
+    * @param string $extension
+    * @return Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
+    */
+    protected function _getArchiver($extension)
+    {
+        if (array_key_exists(strtolower($extension), $this->_formats)) {
+            $format = $this->_formats[$extension];
+        } else {
+            $format = self::DEFAULT_ARCHIVER;
+        }
+        $class = 'Mage_Archive_' . ucfirst($format);
+        $this->_archiver = new $class();
+        return $this->_archiver;
+    }
+
+    /**
+    * Split current format to list of archivers.
+    *
+    * @param string $source
+    * @return array
+    */
+    protected function _getArchivers($source)
+    {
+        $ext = pathinfo($source, PATHINFO_EXTENSION);
+        if (!isset($this->_formats[$ext])) {
+            return [];
+        }
+        $format = $this->_formats[$ext];
+        if ($format) {
+            return explode('.', $format);
+        }
+        return [];
     }
 }

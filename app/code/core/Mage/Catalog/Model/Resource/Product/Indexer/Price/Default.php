@@ -38,15 +38,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     protected $_isComposite    = false;
 
     /**
-     * Define main price index table
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product_index_price', 'entity_id');
-    }
-
-    /**
      * Set Product Type code
      *
      * @param string $typeCode
@@ -127,6 +118,34 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         $this->_movePriceDataToIndexTable();
 
         return $this;
+    }
+
+    /**
+     * Register data required by product type process in event object
+     */
+    public function registerEvent(Mage_Index_Model_Event $event) {}
+
+    /**
+     * Retrieve temporary index table name
+     *
+     * @param string $table
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/product_price_indexer_idx');
+        }
+        return $this->getTable('catalog/product_price_indexer_tmp');
+    }
+
+    /**
+     * Define main price index table
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product_index_price', 'entity_id');
     }
 
     /**
@@ -591,24 +610,5 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
     protected function _getGroupPriceIndexTable()
     {
         return $this->getTable('catalog/product_index_group_price');
-    }
-
-    /**
-     * Register data required by product type process in event object
-     */
-    public function registerEvent(Mage_Index_Model_Event $event) {}
-
-    /**
-     * Retrieve temporary index table name
-     *
-     * @param string $table
-     * @return string
-     */
-    public function getIdxTable($table = null)
-    {
-        if ($this->useIdxTable()) {
-            return $this->getTable('catalog/product_price_indexer_idx');
-        }
-        return $this->getTable('catalog/product_price_indexer_tmp');
     }
 }

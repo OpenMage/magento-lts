@@ -22,14 +22,6 @@
  */
 class Mage_Core_Block_Text_Tag_Debug extends Mage_Core_Block_Text_Tag
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setAttribute([
-            'tagName' => 'xmp',
-        ]);
-    }
-
     /**
      * @param mixed $value
      * @return $this
@@ -38,5 +30,12 @@ class Mage_Core_Block_Text_Tag_Debug extends Mage_Core_Block_Text_Tag
     public function setValue($value)
     {
         return $this->setContents(print_r($value, true));
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setAttribute([
+            'tagName' => 'xmp',
+        ]);
     }
 }

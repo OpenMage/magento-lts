@@ -27,38 +27,12 @@ class Mage_Tag_Block_Customer_Recent extends Mage_Core_Block_Template
      */
     protected $_collection;
 
-    protected function _construct()
-    {
-        parent::_construct();
-
-        $this->_collection = Mage::getModel('tag/tag')->getEntityCollection()
-            ->addStoreFilter(Mage::app()->getStore()->getId())
-            ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->setDescOrder()
-            ->setPageSize(5)
-            ->setActiveFilter()
-            ->load()
-            ->addProductTags();
-
-        Mage::getSingleton('catalog/product_visibility')
-            ->addVisibleInSiteFilterToCollection($this->_collection);
-    }
-
     /**
      * @return int
      */
     public function count()
     {
         return $this->_collection->getSize();
-    }
-
-    /**
-     * @return Mage_Tag_Model_Resource_Product_Collection
-     */
-    protected function _getCollection()
-    {
-        return $this->_collection;
     }
 
     /**
@@ -84,6 +58,32 @@ class Mage_Tag_Block_Customer_Recent extends Mage_Core_Block_Template
     public function getAllTagsUrl()
     {
         return Mage::getUrl('tag/customer');
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+
+        $this->_collection = Mage::getModel('tag/tag')->getEntityCollection()
+            ->addStoreFilter(Mage::app()->getStore()->getId())
+            ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
+            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            ->setDescOrder()
+            ->setPageSize(5)
+            ->setActiveFilter()
+            ->load()
+            ->addProductTags();
+
+        Mage::getSingleton('catalog/product_visibility')
+            ->addVisibleInSiteFilterToCollection($this->_collection);
+    }
+
+    /**
+     * @return Mage_Tag_Model_Resource_Product_Collection
+     */
+    protected function _getCollection()
+    {
+        return $this->_collection;
     }
 
     /**

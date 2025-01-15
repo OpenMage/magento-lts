@@ -59,6 +59,26 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     }
 
     /**
+     * Return escaped value
+     *
+     * @param string|null $index
+     * @return false|string
+     */
+    public function getEscapedValue($index = null)
+    {
+        $value = $this->getValue();
+        if (is_array($value)) {
+            return false;
+        }
+
+        if (is_null($index)) {
+            $index = 'value';
+        }
+
+        return parent::getEscapedValue($index);
+    }
+
+    /**
      * Return Delete File CheckBox HTML
      *
      * @return string
@@ -177,25 +197,5 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
         }
 
         return sprintf('<%s %s%s>', $element, implode(' ', $parts), $closed ? ' /' : '');
-    }
-
-    /**
-     * Return escaped value
-     *
-     * @param string|null $index
-     * @return false|string
-     */
-    public function getEscapedValue($index = null)
-    {
-        $value = $this->getValue();
-        if (is_array($value)) {
-            return false;
-        }
-
-        if (is_null($index)) {
-            $index = 'value';
-        }
-
-        return parent::getEscapedValue($index);
     }
 }

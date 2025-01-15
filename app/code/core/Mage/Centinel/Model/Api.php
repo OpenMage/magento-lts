@@ -66,6 +66,69 @@ class Mage_Centinel_Model_Api extends Varien_Object
     protected $_clientInstance = null;
 
     /**
+     * Call centinel api lookup method
+     *
+     * @return $this
+     */
+    public function callLookup($data)
+    {
+        $result = new Varien_Object();
+
+        $month = strlen($data->getCardExpMonth()) == 1 ? '0' . $data->getCardExpMonth() : $data->getCardExpMonth();
+        $currencyCode = $data->getCurrencyCode();
+        $currencyNumber = self::$_iso4217Currencies[$currencyCode] ?? '';
+        if (!$currencyNumber) {
+            return $result->setErrorNo(1)->setErrorDesc(
+                Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode),
+            );
+        }
+
+        $clientResponse = $this->_call('cmpi_lookup', [
+            'Amount' => round($data->getAmount() * 100),
+            'CurrencyCode' => $currencyNumber,
+            'CardNumber' =>  $data->getCardNumber(),
+            'CardExpMonth' => $month,
+            'CardExpYear' =>  $data->getCardExpYear(),
+            'OrderNumber' => $data->getOrderNumber(),
+        ]);
+
+        $result->setErrorNo($clientResponse->getValue('ErrorNo'));
+        $result->setErrorDesc($clientResponse->getValue('ErrorDesc'));
+        $result->setTransactionId($clientResponse->getValue('TransactionId'));
+        $result->setEnrolled($clientResponse->getValue('Enrolled'));
+        $result->setAcsUrl($clientResponse->getValue('ACSUrl'));
+        $result->setPayload($clientResponse->getValue('Payload'));
+        $result->setEciFlag($clientResponse->getValue('EciFlag'));
+
+        return $result;
+    }
+
+    /**
+     * Call centinel api authentication method
+     *
+     * @return Varien_Object
+     */
+    public function callAuthentication($data)
+    {
+        $result = new Varien_Object();
+
+        $clientResponse = $this->_call('cmpi_authenticate', [
+            'TransactionId' => $data->getTransactionId(),
+            'PAResPayload'  => $data->getPaResPayload(),
+        ]);
+
+        $result->setErrorNo($clientResponse->getValue('ErrorNo'));
+        $result->setErrorDesc($clientResponse->getValue('ErrorDesc'));
+        $result->setPaResStatus($clientResponse->getValue('PAResStatus'));
+        $result->setSignatureVerification($clientResponse->getValue('SignatureVerification'));
+        $result->setCavv($clientResponse->getValue('Cavv'));
+        $result->setEciFlag($clientResponse->getValue('EciFlag'));
+        $result->setXid($clientResponse->getValue('Xid'));
+
+        return $result;
+    }
+
+    /**
      * Return Centinel thin client object
      *
      * @return Mage_Centinel_Model_Api_Client
@@ -173,69 +236,6 @@ class Mage_Centinel_Model_Api extends Varien_Object
             throw new Exception('Centinel API endpoint URL is not configured properly.');
         }
         return $url;
-    }
-
-    /**
-     * Call centinel api lookup method
-     *
-     * @return $this
-     */
-    public function callLookup($data)
-    {
-        $result = new Varien_Object();
-
-        $month = strlen($data->getCardExpMonth()) == 1 ? '0' . $data->getCardExpMonth() : $data->getCardExpMonth();
-        $currencyCode = $data->getCurrencyCode();
-        $currencyNumber = self::$_iso4217Currencies[$currencyCode] ?? '';
-        if (!$currencyNumber) {
-            return $result->setErrorNo(1)->setErrorDesc(
-                Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode),
-            );
-        }
-
-        $clientResponse = $this->_call('cmpi_lookup', [
-            'Amount' => round($data->getAmount() * 100),
-            'CurrencyCode' => $currencyNumber,
-            'CardNumber' =>  $data->getCardNumber(),
-            'CardExpMonth' => $month,
-            'CardExpYear' =>  $data->getCardExpYear(),
-            'OrderNumber' => $data->getOrderNumber(),
-        ]);
-
-        $result->setErrorNo($clientResponse->getValue('ErrorNo'));
-        $result->setErrorDesc($clientResponse->getValue('ErrorDesc'));
-        $result->setTransactionId($clientResponse->getValue('TransactionId'));
-        $result->setEnrolled($clientResponse->getValue('Enrolled'));
-        $result->setAcsUrl($clientResponse->getValue('ACSUrl'));
-        $result->setPayload($clientResponse->getValue('Payload'));
-        $result->setEciFlag($clientResponse->getValue('EciFlag'));
-
-        return $result;
-    }
-
-    /**
-     * Call centinel api authentication method
-     *
-     * @return Varien_Object
-     */
-    public function callAuthentication($data)
-    {
-        $result = new Varien_Object();
-
-        $clientResponse = $this->_call('cmpi_authenticate', [
-            'TransactionId' => $data->getTransactionId(),
-            'PAResPayload'  => $data->getPaResPayload(),
-        ]);
-
-        $result->setErrorNo($clientResponse->getValue('ErrorNo'));
-        $result->setErrorDesc($clientResponse->getValue('ErrorDesc'));
-        $result->setPaResStatus($clientResponse->getValue('PAResStatus'));
-        $result->setSignatureVerification($clientResponse->getValue('SignatureVerification'));
-        $result->setCavv($clientResponse->getValue('Cavv'));
-        $result->setEciFlag($clientResponse->getValue('EciFlag'));
-        $result->setXid($clientResponse->getValue('Xid'));
-
-        return $result;
     }
 
     /**

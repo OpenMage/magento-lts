@@ -53,33 +53,6 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     }
 
     /**
-     * Returns ID of a specific chunk on the basis of data's ID
-     *
-     * @param string $id    Main data's ID
-     * @param int    $index Particular chunk number to return ID for
-     * @return string
-     */
-    protected function _getChunkId($id, $index)
-    {
-        return "{$id}[{$index}]";
-    }
-
-    /**
-     * Remove saved chunks in case something gone wrong (e.g. some chunk from the chain can not be found)
-     *
-     * @param string $id     ID of data's info cell
-     * @param int    $chunks Number of chunks to remove (basically, the number after '{splitted}|')
-     */
-    protected function _cleanTheMess($id, $chunks)
-    {
-        for ($i = 0; $i < $chunks; $i++) {
-            $this->remove($this->_getChunkId($id, $i));
-        }
-
-        $this->remove($id);
-    }
-
-    /**
      * Save data to memcached, split it into chunks if data size is bigger than memcached slab size.
      *
      * @param string $data             @see Zend_Cache_Backend_Memcached::save()
@@ -147,5 +120,32 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
 
         // Data has not been split to chunks on save
         return $data;
+    }
+
+    /**
+     * Returns ID of a specific chunk on the basis of data's ID
+     *
+     * @param string $id    Main data's ID
+     * @param int    $index Particular chunk number to return ID for
+     * @return string
+     */
+    protected function _getChunkId($id, $index)
+    {
+        return "{$id}[{$index}]";
+    }
+
+    /**
+     * Remove saved chunks in case something gone wrong (e.g. some chunk from the chain can not be found)
+     *
+     * @param string $id     ID of data's info cell
+     * @param int    $chunks Number of chunks to remove (basically, the number after '{splitted}|')
+     */
+    protected function _cleanTheMess($id, $chunks)
+    {
+        for ($i = 0; $i < $chunks; $i++) {
+            $this->remove($this->_getChunkId($id, $i));
+        }
+
+        $this->remove($id);
     }
 }

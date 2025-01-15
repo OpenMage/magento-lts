@@ -29,19 +29,6 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     public const ADMIN_RESOURCE = 'system/acl/blocks';
 
     /**
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('system/acl/blocks')
-            ->_addBreadcrumb($this->__('System'), $this->__('System'))
-            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
-            ->_addBreadcrumb($this->__('Blocks'), $this->__('Blocks'));
-        return $this;
-    }
-
-    /**
      * Index action
      */
     public function indexAction()
@@ -205,5 +192,18 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     {
         $this->_setForcedFormKeyActions('delete');
         return parent::preDispatch();
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('system/acl/blocks')
+            ->_addBreadcrumb($this->__('System'), $this->__('System'))
+            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
+            ->_addBreadcrumb($this->__('Blocks'), $this->__('Blocks'));
+        return $this;
     }
 }

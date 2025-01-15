@@ -108,6 +108,58 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     }
 
     /**
+     * Getter for row default total
+     *
+     * @return float
+     */
+    public function getItemRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
+    {
+        if (!$this->_itemRowTotalKey) {
+            return 0;
+        }
+        return $item->getDataUsingMethod($this->_itemRowTotalKey);
+    }
+
+    /**
+     * Getter for row default base total
+     *
+     * @return float
+     */
+    public function getItemBaseRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
+    {
+        if (!$this->_itemRowTotalKey) {
+            return 0;
+        }
+        return $item->getDataUsingMethod('base_' . $this->_itemRowTotalKey);
+    }
+
+    /**
+     * Whether the item row total may be compounded with others
+     *
+     * @return bool
+     */
+    public function getIsItemRowTotalCompoundable(Mage_Sales_Model_Quote_Item_Abstract $item)
+    {
+        if ($item->getData("skip_compound_{$this->_itemRowTotalKey}")) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Process model configuration array.
+     * This method can be used for changing models apply sort order
+     *
+     * @param   array $config
+     * @param   Mage_Core_Model_Store $store
+     * @return  array
+     */
+    public function processConfigArray($config, $store)
+    {
+        return $config;
+    }
+
+    /**
      * Set address which can be used inside totals calculation
      *
      * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
@@ -198,57 +250,5 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     protected function _getAddressItems(Mage_Sales_Model_Quote_Address $address)
     {
         return $address->getAllNonNominalItems();
-    }
-
-    /**
-     * Getter for row default total
-     *
-     * @return float
-     */
-    public function getItemRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
-    {
-        if (!$this->_itemRowTotalKey) {
-            return 0;
-        }
-        return $item->getDataUsingMethod($this->_itemRowTotalKey);
-    }
-
-    /**
-     * Getter for row default base total
-     *
-     * @return float
-     */
-    public function getItemBaseRowTotal(Mage_Sales_Model_Quote_Item_Abstract $item)
-    {
-        if (!$this->_itemRowTotalKey) {
-            return 0;
-        }
-        return $item->getDataUsingMethod('base_' . $this->_itemRowTotalKey);
-    }
-
-    /**
-     * Whether the item row total may be compounded with others
-     *
-     * @return bool
-     */
-    public function getIsItemRowTotalCompoundable(Mage_Sales_Model_Quote_Item_Abstract $item)
-    {
-        if ($item->getData("skip_compound_{$this->_itemRowTotalKey}")) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Process model configuration array.
-     * This method can be used for changing models apply sort order
-     *
-     * @param   array $config
-     * @param   Mage_Core_Model_Store $store
-     * @return  array
-     */
-    public function processConfigArray($config, $store)
-    {
-        return $config;
     }
 }

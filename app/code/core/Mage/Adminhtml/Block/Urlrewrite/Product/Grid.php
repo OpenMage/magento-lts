@@ -23,6 +23,25 @@
 class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_Catalog_Product_Grid
 {
     /**
+     * Get url for dispatching grid ajax requests
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/productGrid', ['_current' => true]);
+    }
+
+    /**
+     * Get row url
+     *
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['product' => $row->getId()]) . 'category';
+    }
+    /**
      * Disable massaction
      *
      * @return $this
@@ -74,25 +93,5 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
             ],
         );
         return $this;
-    }
-
-    /**
-     * Get url for dispatching grid ajax requests
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/productGrid', ['_current' => true]);
-    }
-
-    /**
-     * Get row url
-     *
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['product' => $row->getId()]) . 'category';
     }
 }

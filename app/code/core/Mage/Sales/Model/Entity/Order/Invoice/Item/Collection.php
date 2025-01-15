@@ -22,11 +22,6 @@
  */
 class Mage_Sales_Model_Entity_Order_Invoice_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('sales/order_invoice_item');
-    }
-
     /**
      * @param int $invoiceId
      * @return $this
@@ -35,5 +30,9 @@ class Mage_Sales_Model_Entity_Order_Invoice_Item_Collection extends Mage_Eav_Mod
     {
         $this->addAttributeToFilter('parent_id', $invoiceId);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('sales/order_invoice_item');
     }
 }

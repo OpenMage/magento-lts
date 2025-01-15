@@ -33,15 +33,6 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
     protected $_eventPrefix = 'process_collection';
 
     /**
-     * Initialize resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('index/process');
-    }
-
-    /**
      * Add count of unprocessed events to process collection
      *
      * @return $this
@@ -64,5 +55,14 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
                 )],
             );
         return $this;
+    }
+
+    /**
+     * Initialize resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('index/process');
     }
 }

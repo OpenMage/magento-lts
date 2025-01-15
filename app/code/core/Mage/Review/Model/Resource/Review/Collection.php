@@ -66,37 +66,6 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     protected $_addStoreDataFlag   = false;
 
     /**
-     * Define module
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('review/review');
-        $this->_reviewTable         = $this->getTable('review/review');
-        $this->_reviewDetailTable   = $this->getTable('review/review_detail');
-        $this->_reviewStatusTable   = $this->getTable('review/review_status');
-        $this->_reviewEntityTable   = $this->getTable('review/review_entity');
-        $this->_reviewStoreTable    = $this->getTable('review/review_store');
-    }
-
-    /**
-     * init select
-     *
-     * @return Mage_Review_Model_Resource_Review_Collection
-     */
-    protected function _initSelect()
-    {
-        parent::_initSelect();
-        $this->getSelect()
-            ->join(
-                ['detail' => $this->_reviewDetailTable],
-                'main_table.review_id = detail.review_id',
-                ['detail_id', 'title', 'detail', 'nickname', 'customer_id'],
-            );
-        return $this;
-    }
-
-    /**
      * @param int $customerId
      * @return $this
      */
@@ -270,6 +239,37 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
         if ($this->_addStoreDataFlag) {
             $this->_addStoreData();
         }
+        return $this;
+    }
+
+    /**
+     * Define module
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('review/review');
+        $this->_reviewTable         = $this->getTable('review/review');
+        $this->_reviewDetailTable   = $this->getTable('review/review_detail');
+        $this->_reviewStatusTable   = $this->getTable('review/review_status');
+        $this->_reviewEntityTable   = $this->getTable('review/review_entity');
+        $this->_reviewStoreTable    = $this->getTable('review/review_store');
+    }
+
+    /**
+     * init select
+     *
+     * @return Mage_Review_Model_Resource_Review_Collection
+     */
+    protected function _initSelect()
+    {
+        parent::_initSelect();
+        $this->getSelect()
+            ->join(
+                ['detail' => $this->_reviewDetailTable],
+                'main_table.review_id = detail.review_id',
+                ['detail_id', 'title', 'detail', 'nickname', 'customer_id'],
+            );
         return $this;
     }
 

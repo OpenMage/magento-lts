@@ -30,30 +30,6 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
     protected $_connections = [];
 
     /**
-     * Recursively collect connection configuration
-     *
-     * @param  string $connectionName
-     * @return array
-     */
-    protected function _collectConnectionConfig($connectionName)
-    {
-        $config = [];
-
-        if (isset($this->_connections[$connectionName])) {
-            $connection = $this->_connections[$connectionName];
-            $connection = (array) $connection->descend('connection');
-
-            if (isset($connection['use'])) {
-                $config = $this->_collectConnectionConfig((string) $connection['use']);
-            }
-
-            $config = array_merge($config, $connection);
-        }
-
-        return $config;
-    }
-
-    /**
      * Options getter
      *
      * @return array
@@ -75,5 +51,29 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
         reset($mediaStorages);
 
         return $mediaStorages;
+    }
+
+    /**
+     * Recursively collect connection configuration
+     *
+     * @param  string $connectionName
+     * @return array
+     */
+    protected function _collectConnectionConfig($connectionName)
+    {
+        $config = [];
+
+        if (isset($this->_connections[$connectionName])) {
+            $connection = $this->_connections[$connectionName];
+            $connection = (array) $connection->descend('connection');
+
+            if (isset($connection['use'])) {
+                $config = $this->_collectConnectionConfig((string) $connection['use']);
+            }
+
+            $config = array_merge($config, $connection);
+        }
+
+        return $config;
     }
 }

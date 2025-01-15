@@ -58,11 +58,6 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
         ],
     ];
 
-    protected function _construct()
-    {
-        $this->_init('tag/indexer_summary');
-    }
-
     /**
      * Retrieve Indexer name
      *
@@ -81,6 +76,11 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
     public function getDescription()
     {
         return Mage::helper('tag')->__('Rebuild Tag aggregation data');
+    }
+
+    protected function _construct()
+    {
+        $this->_init('tag/indexer_summary');
     }
 
     /**

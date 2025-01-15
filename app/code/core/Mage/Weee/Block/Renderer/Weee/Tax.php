@@ -114,25 +114,6 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     }
 
     /**
-     * Sorts Weee Taxes
-     *
-     * @param array $a
-     * @param array $b
-     *
-     * @return int
-     */
-    protected function _sortWeeeTaxes($a, $b)
-    {
-        if ($a['website_id'] != $b['website_id']) {
-            return $a['website_id'] < $b['website_id'] ? -1 : 1;
-        }
-        if ($a['country'] != $b['country']) {
-            return $a['country'] < $b['country'] ? -1 : 1;
-        }
-        return 0;
-    }
-
-    /**
      * Retrieves number of websites
      *
      * @return int
@@ -207,6 +188,35 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
     }
 
     /**
+     * Retrieve add button html
+     *
+     * @return string
+     */
+    public function getAddButtonHtml()
+    {
+        return $this->getChildHtml('add_button');
+    }
+
+    /**
+     * Sorts Weee Taxes
+     *
+     * @param array $a
+     * @param array $b
+     *
+     * @return int
+     */
+    protected function _sortWeeeTaxes($a, $b)
+    {
+        if ($a['website_id'] != $b['website_id']) {
+            return $a['website_id'] < $b['website_id'] ? -1 : 1;
+        }
+        if ($a['country'] != $b['country']) {
+            return $a['country'] < $b['country'] ? -1 : 1;
+        }
+        return 0;
+    }
+
+    /**
      * Set add button and its properties
      */
     protected function _setAddButton()
@@ -220,15 +230,5 @@ class Mage_Weee_Block_Renderer_Weee_Tax extends Mage_Adminhtml_Block_Widget impl
                     'class' => 'add',
                 ]),
         );
-    }
-
-    /**
-     * Retrieve add button html
-     *
-     * @return string
-     */
-    public function getAddButtonHtml()
-    {
-        return $this->getChildHtml('add_button');
     }
 }

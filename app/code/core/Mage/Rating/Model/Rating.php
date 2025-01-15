@@ -60,14 +60,6 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     public const ENTITY_REVIEW_CODE            = 'review';
 
     /**
-     * Define resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('rating/rating');
-    }
-
-    /**
      * @param int $optionId
      * @param string $entityPkValue
      * @param int $customerId
@@ -151,5 +143,13 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     public function getEntityIdByCode($entityCode)
     {
         return $this->getResource()->getEntityIdByCode($entityCode);
+    }
+
+    /**
+     * Define resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('rating/rating');
     }
 }

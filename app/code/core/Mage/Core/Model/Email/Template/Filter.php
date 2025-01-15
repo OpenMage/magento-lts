@@ -248,20 +248,6 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     }
 
     /**
-     * Retrieve block parameters
-     *
-     * @param mixed $value
-     * @return array
-     */
-    protected function _getBlockParameters($value)
-    {
-        $tokenizer = new Varien_Filter_Template_Tokenizer_Parameter();
-        $tokenizer->setString($value);
-
-        return $tokenizer->tokenize();
-    }
-
-    /**
      * Retrieve Skin URL directive
      *
      * @param array $construction
@@ -369,35 +355,6 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             return $this->_amplifyModifiers($this->_getVariable($variableName, ''), $modifiersString);
         }
         return $this->_getVariable($construction[2], '');
-    }
-
-    /**
-     * Apply modifiers one by one, with specified params
-     *
-     * Modifier syntax: modifier1[:param1:param2:...][|modifier2:...]
-     *
-     * @param string $value
-     * @param string $modifiers
-     * @return string
-     */
-    protected function _amplifyModifiers($value, $modifiers)
-    {
-        foreach (explode('|', $modifiers) as $part) {
-            if (empty($part)) {
-                continue;
-            }
-            $params   = explode(':', $part);
-            $modifier = array_shift($params);
-            if (isset($this->_modifiers[$modifier])) {
-                $callback = $this->_modifiers[$modifier];
-                if (!$callback) {
-                    $callback = $modifier;
-                }
-                array_unshift($params, $value);
-                $value = call_user_func_array($callback, $params);
-            }
-        }
-        return $value;
     }
 
     /**
@@ -517,18 +474,6 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     }
 
     /**
-     * Set filename of CSS file to inline
-     *
-     * @param string $filename
-     * @return $this
-     */
-    protected function _setInlineCssFile($filename)
-    {
-        $this->_inlineCssFile = $filename;
-        return $this;
-    }
-
-    /**
      * Get filename of CSS file to inline
      *
      * @return bool|string
@@ -554,6 +499,61 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             Mage::logException($e);
         }
         return $value;
+    }
+
+    /**
+     * Retrieve block parameters
+     *
+     * @param mixed $value
+     * @return array
+     */
+    protected function _getBlockParameters($value)
+    {
+        $tokenizer = new Varien_Filter_Template_Tokenizer_Parameter();
+        $tokenizer->setString($value);
+
+        return $tokenizer->tokenize();
+    }
+
+    /**
+     * Apply modifiers one by one, with specified params
+     *
+     * Modifier syntax: modifier1[:param1:param2:...][|modifier2:...]
+     *
+     * @param string $value
+     * @param string $modifiers
+     * @return string
+     */
+    protected function _amplifyModifiers($value, $modifiers)
+    {
+        foreach (explode('|', $modifiers) as $part) {
+            if (empty($part)) {
+                continue;
+            }
+            $params   = explode(':', $part);
+            $modifier = array_shift($params);
+            if (isset($this->_modifiers[$modifier])) {
+                $callback = $this->_modifiers[$modifier];
+                if (!$callback) {
+                    $callback = $modifier;
+                }
+                array_unshift($params, $value);
+                $value = call_user_func_array($callback, $params);
+            }
+        }
+        return $value;
+    }
+
+    /**
+     * Set filename of CSS file to inline
+     *
+     * @param string $filename
+     * @return $this
+     */
+    protected function _setInlineCssFile($filename)
+    {
+        $this->_inlineCssFile = $filename;
+        return $this;
     }
 
     /**

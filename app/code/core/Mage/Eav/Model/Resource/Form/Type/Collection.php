@@ -23,15 +23,6 @@
 class Mage_Eav_Model_Resource_Form_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize collection model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('eav/form_type');
-    }
-
-    /**
      * Convert items array to array for select options
      *
      * @return array
@@ -62,5 +53,13 @@ class Mage_Eav_Model_Resource_Form_Type_Collection extends Mage_Core_Model_Resou
             ->where('form_type_entity.entity_type_id = ?', $entity);
 
         return $this;
+    }
+    /**
+     * Initialize collection model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('eav/form_type');
     }
 }

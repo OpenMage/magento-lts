@@ -106,23 +106,43 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     protected $_placeholder;
 
     /**
-     * Reset all previous data
+     * Return Image URL
      *
-     * @return $this
+     * @return string
      */
-    protected function _reset()
+    public function __toString()
     {
-        $this->_model = null;
-        $this->_scheduleResize = false;
-        $this->_scheduleRotate = false;
-        $this->_angle = null;
-        $this->_watermark = null;
-        $this->_watermarkPosition = null;
-        $this->_watermarkSize = null;
-        $this->_watermarkImageOpacity = null;
-        $this->_product = null;
-        $this->_imageFile = null;
-        return $this;
+        try {
+            $model = $this->_getModel();
+
+            if ($this->getImageFile()) {
+                $model->setBaseFile($this->getImageFile());
+            } else {
+                $model->setBaseFile($this->getProduct()->getData($model->getDestinationSubdir()));
+            }
+
+            if ($model->isCached()) {
+                return $model->getUrl();
+            } else {
+                if ($this->_scheduleRotate) {
+                    $model->rotate($this->getAngle());
+                }
+
+                if ($this->_scheduleResize) {
+                    $model->resize();
+                }
+
+                if ($this->getWatermark()) {
+                    $model->setWatermark($this->getWatermark());
+                }
+
+                $url = $model->saveFile()->getUrl();
+            }
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
+        }
+        return $url;
     }
 
     /**
@@ -333,43 +353,123 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Return Image URL
+     * Set watermark size
+     * param size in format 100x200
      *
-     * @return string
+     * @param string $size
+     * @return $this
      */
-    public function __toString()
+    public function setWatermarkSize($size)
     {
-        try {
-            $model = $this->_getModel();
+        $this->_watermarkSize = $size;
+        $this->_getModel()->setWatermarkSize($this->parseSize($size));
+        return $this;
+    }
 
-            if ($this->getImageFile()) {
-                $model->setBaseFile($this->getImageFile());
-            } else {
-                $model->setBaseFile($this->getProduct()->getData($model->getDestinationSubdir()));
-            }
+    /**
+     * Set watermark image opacity
+     *
+     * @param int $imageOpacity
+     * @return $this
+     */
+    public function setWatermarkImageOpacity($imageOpacity)
+    {
+        $this->_watermarkImageOpacity = $imageOpacity;
+        $this->_getModel()->setWatermarkImageOpacity($imageOpacity);
+        return $this;
+    }
 
-            if ($model->isCached()) {
-                return $model->getUrl();
-            } else {
-                if ($this->_scheduleRotate) {
-                    $model->rotate($this->getAngle());
-                }
+    /**
+     * Retrieve original image width
+     *
+     * @return int|null
+     */
+    public function getOriginalWidth()
+    {
+        return $this->_getModel()->getImageProcessor()->getOriginalWidth();
+    }
 
-                if ($this->_scheduleResize) {
-                    $model->resize();
-                }
+    /**
+     * Retrieve original image height
+     *
+     * @deprecated
+     * @return int|null
+     */
+    public function getOriginalHeigh()
+    {
+        return $this->getOriginalHeight();
+    }
 
-                if ($this->getWatermark()) {
-                    $model->setWatermark($this->getWatermark());
-                }
+    /**
+     * Retrieve original image height
+     *
+     * @return int|null
+     */
+    public function getOriginalHeight()
+    {
+        return $this->_getModel()->getImageProcessor()->getOriginalHeight();
+    }
 
-                $url = $model->saveFile()->getUrl();
-            }
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
+    /**
+     * Retrieve Original image size as array
+     * 0 - width, 1 - height
+     *
+     * @return array
+     */
+    public function getOriginalSizeArray()
+    {
+        return [
+            $this->getOriginalWidth(),
+            $this->getOriginalHeight(),
+        ];
+    }
+
+    /**
+     * Check - is this file an image
+     *
+     * @param string $filePath
+     * @return bool
+     * @throws Mage_Core_Exception
+     */
+    public function validateUploadFile($filePath)
+    {
+        $maxDimension = Mage::getStoreConfig(self::XML_NODE_PRODUCT_MAX_DIMENSION);
+        $imageInfo = getimagesize($filePath);
+        if (!$imageInfo) {
+            Mage::throwException($this->__('Disallowed file type.'));
         }
-        return $url;
+
+        if ($imageInfo[0] > $maxDimension || $imageInfo[1] > $maxDimension) {
+            Mage::throwException($this->__('Disallowed file format.'));
+        }
+
+        $_processor = Mage::getModel('varien/image', $filePath);
+        $mimeType = $_processor->getMimeType();
+
+        // Force garbage collection since image handler resource uses memory without counting toward memory limit
+        unset($_processor);
+
+        return $mimeType !== null;
+    }
+
+    /**
+     * Reset all previous data
+     *
+     * @return $this
+     */
+    protected function _reset()
+    {
+        $this->_model = null;
+        $this->_scheduleResize = false;
+        $this->_scheduleRotate = false;
+        $this->_angle = null;
+        $this->_watermark = null;
+        $this->_watermarkPosition = null;
+        $this->_watermarkSize = null;
+        $this->_watermarkImageOpacity = null;
+        $this->_product = null;
+        $this->_imageFile = null;
+        return $this;
     }
 
     /**
@@ -463,20 +563,6 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Set watermark size
-     * param size in format 100x200
-     *
-     * @param string $size
-     * @return $this
-     */
-    public function setWatermarkSize($size)
-    {
-        $this->_watermarkSize = $size;
-        $this->_getModel()->setWatermarkSize($this->parseSize($size));
-        return $this;
-    }
-
-    /**
      * Get watermark size
      *
      * @return string
@@ -484,19 +570,6 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     protected function getWatermarkSize()
     {
         return $this->_watermarkSize;
-    }
-
-    /**
-     * Set watermark image opacity
-     *
-     * @param int $imageOpacity
-     * @return $this
-     */
-    public function setWatermarkImageOpacity($imageOpacity)
-    {
-        $this->_watermarkImageOpacity = $imageOpacity;
-        $this->_getModel()->setWatermarkImageOpacity($imageOpacity);
-        return $this;
     }
 
     /**
@@ -578,78 +651,5 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         }
 
         return false;
-    }
-
-    /**
-     * Retrieve original image width
-     *
-     * @return int|null
-     */
-    public function getOriginalWidth()
-    {
-        return $this->_getModel()->getImageProcessor()->getOriginalWidth();
-    }
-
-    /**
-     * Retrieve original image height
-     *
-     * @deprecated
-     * @return int|null
-     */
-    public function getOriginalHeigh()
-    {
-        return $this->getOriginalHeight();
-    }
-
-    /**
-     * Retrieve original image height
-     *
-     * @return int|null
-     */
-    public function getOriginalHeight()
-    {
-        return $this->_getModel()->getImageProcessor()->getOriginalHeight();
-    }
-
-    /**
-     * Retrieve Original image size as array
-     * 0 - width, 1 - height
-     *
-     * @return array
-     */
-    public function getOriginalSizeArray()
-    {
-        return [
-            $this->getOriginalWidth(),
-            $this->getOriginalHeight(),
-        ];
-    }
-
-    /**
-     * Check - is this file an image
-     *
-     * @param string $filePath
-     * @return bool
-     * @throws Mage_Core_Exception
-     */
-    public function validateUploadFile($filePath)
-    {
-        $maxDimension = Mage::getStoreConfig(self::XML_NODE_PRODUCT_MAX_DIMENSION);
-        $imageInfo = getimagesize($filePath);
-        if (!$imageInfo) {
-            Mage::throwException($this->__('Disallowed file type.'));
-        }
-
-        if ($imageInfo[0] > $maxDimension || $imageInfo[1] > $maxDimension) {
-            Mage::throwException($this->__('Disallowed file format.'));
-        }
-
-        $_processor = Mage::getModel('varien/image', $filePath);
-        $mimeType = $_processor->getMimeType();
-
-        // Force garbage collection since image handler resource uses memory without counting toward memory limit
-        unset($_processor);
-
-        return $mimeType !== null;
     }
 }

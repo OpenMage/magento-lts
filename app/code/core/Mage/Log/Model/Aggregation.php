@@ -33,14 +33,6 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     protected $_lastRecord;
 
     /**
-     * Init model
-     */
-    protected function _construct()
-    {
-        $this->_init('log/aggregation');
-    }
-
-    /**
      * Run action
      */
     public function run()
@@ -49,6 +41,27 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         foreach (Mage::app()->getStores(false) as $store) {
             $this->_process($store->getId());
         }
+    }
+
+    /**
+     * @return false|string
+     */
+    public function getLastRecordDate()
+    {
+        $result = $this->_getResource()->getLastRecordDate();
+        if (!$result) {
+            $result = $this->_date(strtotime('now - 2 months'));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Init model
+     */
+    protected function _construct()
+    {
+        $this->_init('log/aggregation');
     }
 
     /**
@@ -126,19 +139,6 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     private function _getCounts($from, $to, $store)
     {
         return $this->_getResource()->getCounts($from, $to, $store);
-    }
-
-    /**
-     * @return false|string
-     */
-    public function getLastRecordDate()
-    {
-        $result = $this->_getResource()->getLastRecordDate();
-        if (!$result) {
-            $result = $this->_date(strtotime('now - 2 months'));
-        }
-
-        return $result;
     }
 
     /**

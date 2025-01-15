@@ -28,6 +28,11 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         $this->setId('gridAbandoned');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId(), 'active_tab' => 'cart']);
+    }
+
     protected function _prepareCollection()
     {
         /** @var Mage_Reports_Model_Resource_Quote_Collection $collection */
@@ -151,10 +156,5 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         $this->addExportType('*/*/exportAbandonedExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId(), 'active_tab' => 'cart']);
     }
 }

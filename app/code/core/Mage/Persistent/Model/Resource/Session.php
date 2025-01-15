@@ -29,33 +29,6 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
      */
     protected $_useIsObjectNew = true;
 
-    protected function _construct()
-    {
-        $this->_init('persistent/session', 'persistent_id');
-    }
-
-    /**
-     * Add expiration date filter to select
-     *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Persistent_Model_Session $object
-     * @return Zend_Db_Select
-     */
-    protected function _getLoadSelect($field, $value, $object)
-    {
-        $select = parent::_getLoadSelect($field, $value, $object);
-        if (!$object->getLoadExpired()) {
-            $tableName = $this->getMainTable();
-            $select->join(
-                ['customer' => $this->getTable('customer/entity')],
-                'customer.entity_id = ' . $tableName . '.customer_id',
-            )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
-        }
-
-        return $select;
-    }
-
     /**
      * Delete customer persistent session by customer id
      *
@@ -98,5 +71,32 @@ class Mage_Persistent_Model_Resource_Session extends Mage_Core_Model_Resource_Db
             ],
         );
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('persistent/session', 'persistent_id');
+    }
+
+    /**
+     * Add expiration date filter to select
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param Mage_Persistent_Model_Session $object
+     * @return Zend_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $select = parent::_getLoadSelect($field, $value, $object);
+        if (!$object->getLoadExpired()) {
+            $tableName = $this->getMainTable();
+            $select->join(
+                ['customer' => $this->getTable('customer/entity')],
+                'customer.entity_id = ' . $tableName . '.customer_id',
+            )->where($tableName . '.updated_at >= ?', $object->getExpiredBefore());
+        }
+
+        return $select;
     }
 }

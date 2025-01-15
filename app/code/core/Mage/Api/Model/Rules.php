@@ -35,11 +35,6 @@
  */
 class Mage_Api_Model_Rules extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('api/rules');
-    }
-
     /**
      * @return $this
      */
@@ -65,5 +60,9 @@ class Mage_Api_Model_Rules extends Mage_Core_Model_Abstract
     {
         $this->getResource()->saveRel($this);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('api/rules');
     }
 }

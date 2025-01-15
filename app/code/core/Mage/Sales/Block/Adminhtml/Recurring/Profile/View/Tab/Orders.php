@@ -35,6 +35,83 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
     }
 
     /**
+     * Return row url for js event handlers
+     *
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
+    }
+
+    /**
+     * Url for ajax grid submission
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getTabUrl();
+    }
+
+    /**
+     * Url for ajax tab
+     *
+     * @return string
+     */
+    public function getTabUrl()
+    {
+        return $this->getUrl('*/*/orders', ['profile' => Mage::registry('current_recurring_profile')->getId()]);
+    }
+
+    /**
+     * Class for ajax tab
+     *
+     * @return string
+     */
+    public function getTabClass()
+    {
+        return 'ajax';
+    }
+
+    /**
+     * Label getter
+     *
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return Mage::helper('sales')->__('Related Orders');
+    }
+
+    /**
+     * Same as label getter
+     *
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return $this->getTabLabel();
+    }
+
+    /**
+     * @return bool
+     */
+    public function canShowTab()
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return false;
+    }
+
+    /**
      * Prepare grid collection object
      *
      * @inheritDoc
@@ -131,82 +208,5 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_View_Tab_Orders extends Mage_
         }
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Return row url for js event handlers
-     *
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
-    }
-
-    /**
-     * Url for ajax grid submission
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getTabUrl();
-    }
-
-    /**
-     * Url for ajax tab
-     *
-     * @return string
-     */
-    public function getTabUrl()
-    {
-        return $this->getUrl('*/*/orders', ['profile' => Mage::registry('current_recurring_profile')->getId()]);
-    }
-
-    /**
-     * Class for ajax tab
-     *
-     * @return string
-     */
-    public function getTabClass()
-    {
-        return 'ajax';
-    }
-
-    /**
-     * Label getter
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return Mage::helper('sales')->__('Related Orders');
-    }
-
-    /**
-     * Same as label getter
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return $this->getTabLabel();
-    }
-
-    /**
-     * @return bool
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isHidden()
-    {
-        return false;
     }
 }

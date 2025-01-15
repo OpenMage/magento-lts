@@ -49,23 +49,6 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
     }
 
     /**
-     * If script executes on x64 system, converts large
-     * numeric values to timestamp limit
-     *
-     * @param string $value
-     * @return int
-     */
-    protected function _toTimestamp($value)
-    {
-        $value = (int) $value;
-        if ($value > 3155760000) {
-            $value = 0;
-        }
-
-        return $value;
-    }
-
-    /**
      * Set date value
      * If Zend_Date instance is provided instead of value, other params will be ignored.
      * Format and locale must be compatible with Zend_Date
@@ -193,5 +176,22 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         );
 
         return $html . $this->getAfterElementHtml();
+    }
+
+    /**
+     * If script executes on x64 system, converts large
+     * numeric values to timestamp limit
+     *
+     * @param string $value
+     * @return int
+     */
+    protected function _toTimestamp($value)
+    {
+        $value = (int) $value;
+        if ($value > 3155760000) {
+            $value = 0;
+        }
+
+        return $value;
     }
 }

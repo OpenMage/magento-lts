@@ -22,11 +22,6 @@
  */
 class Mage_Reports_Model_Resource_Event_Type_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('reports/event_type');
-    }
-
     /**
      * Return option array
      *
@@ -35,5 +30,9 @@ class Mage_Reports_Model_Resource_Event_Type_Collection extends Mage_Core_Model_
     public function toOptionArray()
     {
         return parent::_toOptionArray('event_type_id', 'event_name');
+    }
+    protected function _construct()
+    {
+        $this->_init('reports/event_type');
     }
 }

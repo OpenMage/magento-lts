@@ -34,17 +34,6 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     }
 
     /**
-     * Can show config value
-     *
-     * @param string $key
-     * @return bool
-     */
-    protected function _showConfig($key)
-    {
-        return (bool) $this->getConfig($key);
-    }
-
-    /**
      * Can show prefix
      *
      * @return bool
@@ -165,6 +154,30 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
     }
 
     /**
+     * Retrieve store attribute label
+     *
+     * @param string $attributeCode
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function getStoreLabel($attributeCode)
+    {
+        $attribute = $this->_getAttribute($attributeCode);
+        return $attribute ? $this->__($attribute->getStoreLabel()) : '';
+    }
+
+    /**
+     * Can show config value
+     *
+     * @param string $key
+     * @return bool
+     */
+    protected function _showConfig($key)
+    {
+        return (bool) $this->getConfig($key);
+    }
+
+    /**
      * Retrieve customer or customer address attribute instance
      *
      * @param string $attributeCode
@@ -186,18 +199,5 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
         }
 
         return $attribute;
-    }
-
-    /**
-     * Retrieve store attribute label
-     *
-     * @param string $attributeCode
-     * @return string
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    public function getStoreLabel($attributeCode)
-    {
-        $attribute = $this->_getAttribute($attributeCode);
-        return $attribute ? $this->__($attribute->getStoreLabel()) : '';
     }
 }

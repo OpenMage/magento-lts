@@ -78,96 +78,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     protected $_productTypePriority = null;
 
     /**
-     * Initialize all indexers and resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_loadIndexers();
-        $this->_init('catalogindex/indexer');
-    }
-
-    /**
-     * Create instances of all index types
-     *
-     * @return $this
-     */
-    protected function _loadIndexers()
-    {
-        foreach ($this->_getRegisteredIndexers() as $name => $class) {
-            $this->_indexers[$name] = Mage::getSingleton($class);
-        }
-        return $this;
-    }
-
-    /**
-     * Get all registered in configuration indexers
-     *
-     * @return array
-     */
-    protected function _getRegisteredIndexers()
-    {
-        $result = [];
-        $indexerRegistry = Mage::getConfig()->getNode('global/catalogindex/indexer');
-
-        foreach ($indexerRegistry->children() as $node) {
-            $result[$node->getName()] = (string) $node->class;
-        }
-        return $result;
-    }
-
-    /**
-     * Get array of attribute codes required for indexing
-     * Each indexer type provide his own set of attributes
-     *
-     * @return array
-     */
-    protected function _getIndexableAttributeCodes()
-    {
-        $result = [];
-        foreach ($this->_indexers as $indexer) {
-            $codes = $indexer->getIndexableAttributeCodes();
-
-            if (is_array($codes)) {
-                $result = array_merge($result, $codes);
-            }
-        }
-        return $result;
-    }
-
-    /**
-     * Retrieve store collection
-     *
-     * @return array
-     */
-    protected function _getStores()
-    {
-        $stores = $this->getData('_stores');
-        if (is_null($stores)) {
-            $stores = Mage::app()->getStores();
-            $this->setData('_stores', $stores);
-        }
-        return $stores;
-    }
-
-    /**
-     * Retrieve store collection
-     *
-     * @return Mage_Core_Model_Resource_Website_Collection
-     */
-    protected function _getWebsites()
-    {
-        $websites = $this->getData('_websites');
-        if (is_null($websites)) {
-            /** @var Mage_Core_Model_Resource_Website_Collection $websites */
-            $websites = Mage::getModel('core/website')->getCollection()->load();
-
-            $this->setData('_websites', $websites);
-        }
-        return $websites;
-    }
-
-    /**
      * Remove index data for specifuc product
      *
      * @param   mixed $product
@@ -339,69 +249,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * After plain reindex process
-     *
-     * @param Mage_Core_Model_Store|array|int|Mage_Core_Model_Website $store
-     * @param int|array|Mage_Catalog_Model_Product_Condition_Interface|Mage_Catalog_Model_Product $products
-     * @return $this
-     */
-    protected function _afterPlainReindex($store, $products = null)
-    {
-        Mage::dispatchEvent('catalogindex_plain_reindex_after', [
-            'products' => $products,
-        ]);
-
-        /**
-         * Catalog Product Flat price update
-         */
-        /** @var Mage_Catalog_Helper_Product_Flat $productFlatHelper */
-        $productFlatHelper = Mage::helper('catalog/product_flat');
-        if ($productFlatHelper->isAvailable() && $productFlatHelper->isBuilt()) {
-            if ($store instanceof Mage_Core_Model_Website) {
-                foreach ($store->getStores() as $storeObject) {
-                    $this->_afterPlainReindex($storeObject->getId(), $products);
-                }
-                return $this;
-            } elseif ($store instanceof Mage_Core_Model_Store) {
-                $store = $store->getId();
-            } elseif (is_array($store)) { // array of stores
-                foreach ($store as $storeObject) {
-                    $this->_afterPlainReindex($storeObject->getId(), $products);
-                }
-                return $this;
-            }
-
-            $this->updateCatalogProductFlat($store, $products);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Return collection with product and store filters
-     *
-     * @param Mage_Core_Model_Store $store
-     * @param mixed $products
-     * @return Mage_Catalog_Model_Resource_Product_Collection
-     */
-    protected function _getProductCollection($store, $products)
-    {
-        $collection = Mage::getModel('catalog/product')
-            ->getCollection()
-            ->setStoreId($store)
-            ->addStoreFilter($store);
-        if ($products instanceof Mage_Catalog_Model_Product) {
-            $collection->addIdFilter($products->getId());
-        } elseif (is_array($products) || is_numeric($products)) {
-            $collection->addIdFilter($products);
-        } elseif ($products instanceof Mage_Catalog_Model_Product_Condition_Interface) {
-            $products->applyToCollection($collection);
-        }
-
-        return $collection;
-    }
-
-    /**
      * Walk Product Collection for Relation Parent products
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
@@ -450,67 +297,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Run indexing process for product collection
-     *
-     * @param   Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @param   mixed $store
-     * @param   array $attributes
-     * @param   array $prices
-     * @return  Mage_CatalogIndex_Model_Indexer
-     */
-    protected function _walkCollection($collection, $store, $attributes = [], $prices = [])
-    {
-        $productCount = $collection->getSize();
-        if (!$productCount) {
-            return $this;
-        }
-
-        for ($i = 0; $i < $productCount / self::STEP_SIZE; $i++) {
-            $this->_getResource()->beginTransaction();
-            try {
-                $deleteKill = false;
-
-                $stepData = $collection->getAllIds(self::STEP_SIZE, $i * self::STEP_SIZE);
-
-                /**
-                 * Reindex EAV attributes if required
-                 */
-                if (count($attributes)) {
-                    $this->_getResource()->reindexAttributes($stepData, $attributes, $store);
-                }
-
-                /**
-                 * Reindex prices if required
-                 */
-                if (count($prices)) {
-                    $this->_getResource()->reindexPrices($stepData, $prices, $store);
-                    $this->_getResource()->reindexTiers($stepData, $store);
-                    $this->_getResource()->reindexMinimalPrices($stepData, $store);
-                    $this->_getResource()->reindexFinalPrices($stepData, $store);
-                }
-
-                Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store, $stepData);
-
-                $kill = Mage::getModel('catalogindex/catalog_index_kill_flag')->loadSelf();
-                if ($kill->checkIsThisProcess()) {
-                    $this->_getResource()->rollBack();
-                    $deleteKill = true;
-                } else {
-                    $this->_getResource()->commit();
-                }
-            } catch (Exception $e) {
-                $this->_getResource()->rollBack();
-                throw $e;
-            }
-
-            if ($deleteKill && isset($kill)) {
-                $kill->delete();
-            }
-        }
-        return $this;
-    }
-
-    /**
      * Retrieve Data retriever
      *
      * @param string $type
@@ -534,41 +320,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
             ->save();
 
         return $this;
-    }
-
-    /**
-     * Get product types list by type priority
-     * type priority is important in index process
-     * example: before indexing complex (configurable, grouped etc.) products
-     * we have to index all simple products
-     *
-     * @return array
-     */
-    protected function _getPriorifiedProductTypes()
-    {
-        if (is_null($this->_productTypePriority)) {
-            $this->_productTypePriority = [];
-            $config = Mage::getConfig()->getNode('global/catalog/product/type');
-
-            foreach ($config->children() as $type) {
-                $typeName = $type->getName();
-                $typePriority = (string) $type->index_priority;
-                $this->_productTypePriority[$typePriority] = $typeName;
-            }
-            ksort($this->_productTypePriority);
-        }
-        return $this->_productTypePriority;
-    }
-
-    /**
-     * Retrieve Base to Specified Currency Rate
-     *
-     * @param string $code
-     * @return double
-     */
-    protected function _getBaseToSpecifiedCurrencyRate($code)
-    {
-        return Mage::app()->getStore()->getBaseCurrency()->getRate($code);
     }
 
     /**
@@ -741,33 +492,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve SELECT object
-     *
-     * @return Varien_Db_Select
-     */
-    protected function _getSelect()
-    {
-        return $this->_getResource()->getReadConnection()->select();
-    }
-
-    /**
-     * Add indexable attributes to product collection select
-     *
-     * @deprecated
-     * @param   Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @return  Mage_CatalogIndex_Model_Indexer
-     */
-    protected function _addFilterableAttributesToCollection($collection)
-    {
-        $attributeCodes = $this->_getIndexableAttributeCodes();
-        foreach ($attributeCodes as $code) {
-            $collection->addAttributeToSelect($code);
-        }
-
-        return $this;
-    }
-
-    /**
      * Prepare Catalog Product Flat Columns
      *
      * @return $this
@@ -808,6 +532,282 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
             $products = $products->getId();
         }
         $this->_getResource()->updateCatalogProductFlat($store, $products, $resourceTable);
+
+        return $this;
+    }
+
+    /**
+     * Initialize all indexers and resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_loadIndexers();
+        $this->_init('catalogindex/indexer');
+    }
+
+    /**
+     * Create instances of all index types
+     *
+     * @return $this
+     */
+    protected function _loadIndexers()
+    {
+        foreach ($this->_getRegisteredIndexers() as $name => $class) {
+            $this->_indexers[$name] = Mage::getSingleton($class);
+        }
+        return $this;
+    }
+
+    /**
+     * Get all registered in configuration indexers
+     *
+     * @return array
+     */
+    protected function _getRegisteredIndexers()
+    {
+        $result = [];
+        $indexerRegistry = Mage::getConfig()->getNode('global/catalogindex/indexer');
+
+        foreach ($indexerRegistry->children() as $node) {
+            $result[$node->getName()] = (string) $node->class;
+        }
+        return $result;
+    }
+
+    /**
+     * Get array of attribute codes required for indexing
+     * Each indexer type provide his own set of attributes
+     *
+     * @return array
+     */
+    protected function _getIndexableAttributeCodes()
+    {
+        $result = [];
+        foreach ($this->_indexers as $indexer) {
+            $codes = $indexer->getIndexableAttributeCodes();
+
+            if (is_array($codes)) {
+                $result = array_merge($result, $codes);
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Retrieve store collection
+     *
+     * @return array
+     */
+    protected function _getStores()
+    {
+        $stores = $this->getData('_stores');
+        if (is_null($stores)) {
+            $stores = Mage::app()->getStores();
+            $this->setData('_stores', $stores);
+        }
+        return $stores;
+    }
+
+    /**
+     * Retrieve store collection
+     *
+     * @return Mage_Core_Model_Resource_Website_Collection
+     */
+    protected function _getWebsites()
+    {
+        $websites = $this->getData('_websites');
+        if (is_null($websites)) {
+            /** @var Mage_Core_Model_Resource_Website_Collection $websites */
+            $websites = Mage::getModel('core/website')->getCollection()->load();
+
+            $this->setData('_websites', $websites);
+        }
+        return $websites;
+    }
+
+    /**
+     * After plain reindex process
+     *
+     * @param Mage_Core_Model_Store|array|int|Mage_Core_Model_Website $store
+     * @param int|array|Mage_Catalog_Model_Product_Condition_Interface|Mage_Catalog_Model_Product $products
+     * @return $this
+     */
+    protected function _afterPlainReindex($store, $products = null)
+    {
+        Mage::dispatchEvent('catalogindex_plain_reindex_after', [
+            'products' => $products,
+        ]);
+
+        /**
+         * Catalog Product Flat price update
+         */
+        /** @var Mage_Catalog_Helper_Product_Flat $productFlatHelper */
+        $productFlatHelper = Mage::helper('catalog/product_flat');
+        if ($productFlatHelper->isAvailable() && $productFlatHelper->isBuilt()) {
+            if ($store instanceof Mage_Core_Model_Website) {
+                foreach ($store->getStores() as $storeObject) {
+                    $this->_afterPlainReindex($storeObject->getId(), $products);
+                }
+                return $this;
+            } elseif ($store instanceof Mage_Core_Model_Store) {
+                $store = $store->getId();
+            } elseif (is_array($store)) { // array of stores
+                foreach ($store as $storeObject) {
+                    $this->_afterPlainReindex($storeObject->getId(), $products);
+                }
+                return $this;
+            }
+
+            $this->updateCatalogProductFlat($store, $products);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Return collection with product and store filters
+     *
+     * @param Mage_Core_Model_Store $store
+     * @param mixed $products
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
+    protected function _getProductCollection($store, $products)
+    {
+        $collection = Mage::getModel('catalog/product')
+            ->getCollection()
+            ->setStoreId($store)
+            ->addStoreFilter($store);
+        if ($products instanceof Mage_Catalog_Model_Product) {
+            $collection->addIdFilter($products->getId());
+        } elseif (is_array($products) || is_numeric($products)) {
+            $collection->addIdFilter($products);
+        } elseif ($products instanceof Mage_Catalog_Model_Product_Condition_Interface) {
+            $products->applyToCollection($collection);
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Run indexing process for product collection
+     *
+     * @param   Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param   mixed $store
+     * @param   array $attributes
+     * @param   array $prices
+     * @return  Mage_CatalogIndex_Model_Indexer
+     */
+    protected function _walkCollection($collection, $store, $attributes = [], $prices = [])
+    {
+        $productCount = $collection->getSize();
+        if (!$productCount) {
+            return $this;
+        }
+
+        for ($i = 0; $i < $productCount / self::STEP_SIZE; $i++) {
+            $this->_getResource()->beginTransaction();
+            try {
+                $deleteKill = false;
+
+                $stepData = $collection->getAllIds(self::STEP_SIZE, $i * self::STEP_SIZE);
+
+                /**
+                 * Reindex EAV attributes if required
+                 */
+                if (count($attributes)) {
+                    $this->_getResource()->reindexAttributes($stepData, $attributes, $store);
+                }
+
+                /**
+                 * Reindex prices if required
+                 */
+                if (count($prices)) {
+                    $this->_getResource()->reindexPrices($stepData, $prices, $store);
+                    $this->_getResource()->reindexTiers($stepData, $store);
+                    $this->_getResource()->reindexMinimalPrices($stepData, $store);
+                    $this->_getResource()->reindexFinalPrices($stepData, $store);
+                }
+
+                Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store, $stepData);
+
+                $kill = Mage::getModel('catalogindex/catalog_index_kill_flag')->loadSelf();
+                if ($kill->checkIsThisProcess()) {
+                    $this->_getResource()->rollBack();
+                    $deleteKill = true;
+                } else {
+                    $this->_getResource()->commit();
+                }
+            } catch (Exception $e) {
+                $this->_getResource()->rollBack();
+                throw $e;
+            }
+
+            if ($deleteKill && isset($kill)) {
+                $kill->delete();
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get product types list by type priority
+     * type priority is important in index process
+     * example: before indexing complex (configurable, grouped etc.) products
+     * we have to index all simple products
+     *
+     * @return array
+     */
+    protected function _getPriorifiedProductTypes()
+    {
+        if (is_null($this->_productTypePriority)) {
+            $this->_productTypePriority = [];
+            $config = Mage::getConfig()->getNode('global/catalog/product/type');
+
+            foreach ($config->children() as $type) {
+                $typeName = $type->getName();
+                $typePriority = (string) $type->index_priority;
+                $this->_productTypePriority[$typePriority] = $typeName;
+            }
+            ksort($this->_productTypePriority);
+        }
+        return $this->_productTypePriority;
+    }
+
+    /**
+     * Retrieve Base to Specified Currency Rate
+     *
+     * @param string $code
+     * @return double
+     */
+    protected function _getBaseToSpecifiedCurrencyRate($code)
+    {
+        return Mage::app()->getStore()->getBaseCurrency()->getRate($code);
+    }
+
+    /**
+     * Retrieve SELECT object
+     *
+     * @return Varien_Db_Select
+     */
+    protected function _getSelect()
+    {
+        return $this->_getResource()->getReadConnection()->select();
+    }
+
+    /**
+     * Add indexable attributes to product collection select
+     *
+     * @deprecated
+     * @param   Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return  Mage_CatalogIndex_Model_Indexer
+     */
+    protected function _addFilterableAttributesToCollection($collection)
+    {
+        $attributeCodes = $this->_getIndexableAttributeCodes();
+        foreach ($attributeCodes as $code) {
+            $collection->addAttributeToSelect($code);
+        }
 
         return $this;
     }

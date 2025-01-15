@@ -62,14 +62,6 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     protected $_process = null;
 
     /**
-     * Initialize resource
-     */
-    protected function _construct()
-    {
-        $this->_init('index/event');
-    }
-
-    /**
      * Specify process object
      *
      * @param Mage_Index_Model_Process|null $process
@@ -140,37 +132,6 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     public function getProcessIds()
     {
         return $this->_processIds;
-    }
-
-    /**
-     * Merge new data
-     *
-     * @param array $previous
-     * @param mixed $current
-     * @return array
-     */
-    protected function _mergeNewDataRecursive($previous, $current)
-    {
-        if (!is_array($current)) {
-            if (!is_null($current)) {
-                $previous[] = $current;
-            }
-            return $previous;
-        }
-
-        foreach (array_keys($previous) as $key) {
-            if (array_key_exists($key, $current) && !is_null($current[$key]) && is_array($previous[$key])) {
-                if (!is_string($key) || is_array($current[$key])) {
-                    $current[$key] = $this->_mergeNewDataRecursive($previous[$key], $current[$key]);
-                }
-            } elseif (!array_key_exists($key, $current) || is_null($current[$key])) {
-                $current[$key] = $previous[$key];
-            } elseif (!is_array($previous[$key]) && !is_string($key)) {
-                $current[] = $previous[$key];
-            }
-        }
-
-        return $current;
     }
 
     /**
@@ -315,6 +276,45 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     public function getType()
     {
         return $this->_getData('type');
+    }
+
+    /**
+     * Initialize resource
+     */
+    protected function _construct()
+    {
+        $this->_init('index/event');
+    }
+
+    /**
+     * Merge new data
+     *
+     * @param array $previous
+     * @param mixed $current
+     * @return array
+     */
+    protected function _mergeNewDataRecursive($previous, $current)
+    {
+        if (!is_array($current)) {
+            if (!is_null($current)) {
+                $previous[] = $current;
+            }
+            return $previous;
+        }
+
+        foreach (array_keys($previous) as $key) {
+            if (array_key_exists($key, $current) && !is_null($current[$key]) && is_array($previous[$key])) {
+                if (!is_string($key) || is_array($current[$key])) {
+                    $current[$key] = $this->_mergeNewDataRecursive($previous[$key], $current[$key]);
+                }
+            } elseif (!array_key_exists($key, $current) || is_null($current[$key])) {
+                $current[$key] = $previous[$key];
+            } elseif (!is_array($previous[$key]) && !is_string($key)) {
+                $current[] = $previous[$key];
+            }
+        }
+
+        return $current;
     }
 
     /**

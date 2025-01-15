@@ -52,15 +52,6 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     public const EVENT_TYPE_REBUILD = 'catalog_product_flat_rebuild';
 
     /**
-     * Standard model resource initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product_flat_indexer');
-    }
-
-    /**
      * Rebuild Catalog Product Flat Data
      *
      * @param mixed $store
@@ -292,5 +283,14 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
     public function getAttributeCodes()
     {
         return $this->_getResource()->getAttributeCodes();
+    }
+
+    /**
+     * Standard model resource initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product_flat_indexer');
     }
 }

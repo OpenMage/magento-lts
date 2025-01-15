@@ -285,6 +285,34 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     }
 
     /**
+     * Retrieve products divided into groups required to purchase
+     * At least one product in each group has to be purchased
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return array
+     */
+    public function getProductsToPurchaseByReqGroups($product = null)
+    {
+        $product = $this->getProduct($product);
+        return [$this->getAssociatedProducts($product)];
+    }
+
+    /**
+     * Prepare selected qty for grouped product's options
+     *
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  Varien_Object $buyRequest
+     * @return array
+     */
+    public function processBuyRequest($product, $buyRequest)
+    {
+        $superGroup = $buyRequest->getSuperGroup();
+        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, '\intval') : [];
+
+        return ['super_group' => $superGroup];
+    }
+
+    /**
      * Prepare product and its configuration to be added to some products list.
      * Perform standard preparation process and add logic specific to Grouped product type.
      *
@@ -353,33 +381,5 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         }
 
         return Mage::helper('catalog')->__('Please specify the quantity of product(s).');
-    }
-
-    /**
-     * Retrieve products divided into groups required to purchase
-     * At least one product in each group has to be purchased
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @return array
-     */
-    public function getProductsToPurchaseByReqGroups($product = null)
-    {
-        $product = $this->getProduct($product);
-        return [$this->getAssociatedProducts($product)];
-    }
-
-    /**
-     * Prepare selected qty for grouped product's options
-     *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param  Varien_Object $buyRequest
-     * @return array
-     */
-    public function processBuyRequest($product, $buyRequest)
-    {
-        $superGroup = $buyRequest->getSuperGroup();
-        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, '\intval') : [];
-
-        return ['super_group' => $superGroup];
     }
 }

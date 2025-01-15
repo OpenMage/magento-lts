@@ -35,6 +35,16 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * Retrieve Row Click callback URL
+     *
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/catalog_search/edit', ['id' => $row->getId()]);
+    }
+
+    /**
      * Prepare Search Report collection for grid
      *
      * @return $this
@@ -95,15 +105,5 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
         $this->addExportType('*/*/exportSearchExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Retrieve Row Click callback URL
-     *
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/catalog_search/edit', ['id' => $row->getId()]);
     }
 }

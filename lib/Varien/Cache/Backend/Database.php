@@ -76,48 +76,6 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     }
 
     /**
-     * Get DB adapter
-     *
-     * @return Zend_Db_Adapter_Abstract
-     */
-    protected function _getAdapter()
-    {
-        if (!$this->_adapter) {
-            if (!empty($this->_options['adapter_callback'])) {
-                $adapter = call_user_func($this->_options['adapter_callback']);
-            } else {
-                $adapter = $this->_options['adapter'];
-            }
-            if (!($adapter instanceof Zend_Db_Adapter_Abstract)) {
-                Zend_Cache::throwException('DB Adapter should be declared and extend Zend_Db_Adapter_Abstract');
-            } else {
-                $this->_adapter = $adapter;
-            }
-        }
-        return $this->_adapter;
-    }
-
-    /**
-     * Get table name where data is stored
-     *
-     * @return string
-     */
-    protected function _getDataTable()
-    {
-        return $this->_options['data_table'];
-    }
-
-    /**
-     * Get table name where tags are stored
-     *
-     * @return string
-     */
-    protected function _getTagsTable()
-    {
-        return $this->_options['tags_table'];
-    }
-
-    /**
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
      * Note : return value is always "string" (unserialization is done by the core not by the backend)
@@ -223,28 +181,6 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     }
 
     /**
-     * Delete cache rows from Data table
-     *
-     * @param $cacheIdsToRemove
-     * @return int
-     */
-    protected function _deleteCachesFromDataTable($cacheIdsToRemove)
-    {
-        return $this->_getAdapter()->delete($this->_getDataTable(), ['id IN (?)' => $cacheIdsToRemove]);
-    }
-
-    /**
-     * Delete cache rows from Tags table
-     *
-     * @param $cacheIdsToRemove
-     * @return int
-     */
-    protected function _deleteCachesFromTagsTable($cacheIdsToRemove)
-    {
-        return $this->_getAdapter()->delete($this->_getTagsTable(), ['cache_id IN (?)' => $cacheIdsToRemove]);
-    }
-
-    /**
      * Clean some cache records
      *
      * Available modes are :
@@ -286,47 +222,6 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             default:
                 Zend_Cache::throwException('Invalid mode for clean() method');
                 break;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Clean old cache data and related cache tag data
-     *
-     * @return bool
-     */
-    protected function _cleanOldCache()
-    {
-        $time    = time();
-        $counter = 0;
-        $result  = true;
-        $adapter = $this->_getAdapter();
-        $cacheIdsToRemove = [];
-
-        $select = $adapter->select()
-            ->from($this->_getDataTable(), 'id')
-            ->where('expire_time > ?', 0)
-            ->where('expire_time <= ?', $time)
-        ;
-
-        $statement = $adapter->query($select);
-        while ($row = $statement->fetch()) {
-            if (!$result) {
-                break;
-            }
-            $cacheIdsToRemove[] = $row['id'];
-            $counter++;
-            if ($counter > 100) {
-                $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
-                $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
-                $cacheIdsToRemove = [];
-                $counter = 0;
-            }
-        }
-        if (!empty($cacheIdsToRemove)) {
-            $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
-            $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
         }
 
         return $result;
@@ -497,6 +392,111 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             'infinite_lifetime' => true,
             'get_list' => true,
         ];
+    }
+
+    /**
+     * Get DB adapter
+     *
+     * @return Zend_Db_Adapter_Abstract
+     */
+    protected function _getAdapter()
+    {
+        if (!$this->_adapter) {
+            if (!empty($this->_options['adapter_callback'])) {
+                $adapter = call_user_func($this->_options['adapter_callback']);
+            } else {
+                $adapter = $this->_options['adapter'];
+            }
+            if (!($adapter instanceof Zend_Db_Adapter_Abstract)) {
+                Zend_Cache::throwException('DB Adapter should be declared and extend Zend_Db_Adapter_Abstract');
+            } else {
+                $this->_adapter = $adapter;
+            }
+        }
+        return $this->_adapter;
+    }
+
+    /**
+     * Get table name where data is stored
+     *
+     * @return string
+     */
+    protected function _getDataTable()
+    {
+        return $this->_options['data_table'];
+    }
+
+    /**
+     * Get table name where tags are stored
+     *
+     * @return string
+     */
+    protected function _getTagsTable()
+    {
+        return $this->_options['tags_table'];
+    }
+
+    /**
+     * Delete cache rows from Data table
+     *
+     * @param $cacheIdsToRemove
+     * @return int
+     */
+    protected function _deleteCachesFromDataTable($cacheIdsToRemove)
+    {
+        return $this->_getAdapter()->delete($this->_getDataTable(), ['id IN (?)' => $cacheIdsToRemove]);
+    }
+
+    /**
+     * Delete cache rows from Tags table
+     *
+     * @param $cacheIdsToRemove
+     * @return int
+     */
+    protected function _deleteCachesFromTagsTable($cacheIdsToRemove)
+    {
+        return $this->_getAdapter()->delete($this->_getTagsTable(), ['cache_id IN (?)' => $cacheIdsToRemove]);
+    }
+
+    /**
+     * Clean old cache data and related cache tag data
+     *
+     * @return bool
+     */
+    protected function _cleanOldCache()
+    {
+        $time    = time();
+        $counter = 0;
+        $result  = true;
+        $adapter = $this->_getAdapter();
+        $cacheIdsToRemove = [];
+
+        $select = $adapter->select()
+            ->from($this->_getDataTable(), 'id')
+            ->where('expire_time > ?', 0)
+            ->where('expire_time <= ?', $time)
+        ;
+
+        $statement = $adapter->query($select);
+        while ($row = $statement->fetch()) {
+            if (!$result) {
+                break;
+            }
+            $cacheIdsToRemove[] = $row['id'];
+            $counter++;
+            if ($counter > 100) {
+                $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
+                $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
+                $cacheIdsToRemove = [];
+                $counter = 0;
+            }
+        }
+        if (!empty($cacheIdsToRemove)) {
+            $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
+            $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
+        }
+
+        return $result;
     }
 
     /**

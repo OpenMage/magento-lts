@@ -44,12 +44,6 @@
  */
 class Mage_Downloadable_Model_Link_Purchased extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('downloadable/link_purchased');
-        parent::_construct();
-    }
-
     /**
      * Check order id
      *
@@ -63,5 +57,10 @@ class Mage_Downloadable_Model_Link_Purchased extends Mage_Core_Model_Abstract
             );
         }
         return parent::_beforeSave();
+    }
+    protected function _construct()
+    {
+        $this->_init('downloadable/link_purchased');
+        parent::_construct();
     }
 }

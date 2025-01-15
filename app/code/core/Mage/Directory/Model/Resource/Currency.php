@@ -37,16 +37,6 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
     protected static $_rateCache;
 
     /**
-     * Define main and currency rate tables
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('directory/currency', 'currency_code');
-        $this->_currencyRateTable   = $this->getTable('directory/currency_rate');
-    }
-
-    /**
      * Retrieve currency rate (only base=>allowed)
      *
      * @param Mage_Directory_Model_Currency|string $currencyFrom
@@ -212,6 +202,16 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
         }
 
         return $rates;
+    }
+
+    /**
+     * Define main and currency rate tables
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('directory/currency', 'currency_code');
+        $this->_currencyRateTable   = $this->getTable('directory/currency_rate');
     }
 
     /**

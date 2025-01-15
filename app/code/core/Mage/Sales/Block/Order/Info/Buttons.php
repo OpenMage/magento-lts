@@ -22,12 +22,6 @@
  */
 class Mage_Sales_Block_Order_Info_Buttons extends Mage_Core_Block_Template
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('sales/order/info/buttons.phtml');
-    }
-
     /**
      * Retrieve current order model instance
      *
@@ -64,5 +58,10 @@ class Mage_Sales_Block_Order_Info_Buttons extends Mage_Core_Block_Template
             return $this->getUrl('sales/guest/reorder', ['order_id' => $order->getId()]);
         }
         return $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]);
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('sales/order/info/buttons.phtml');
     }
 }

@@ -30,6 +30,11 @@ class Mage_Adminhtml_Block_Tax_Class_Grid extends Mage_Adminhtml_Block_Widget_Gr
         $this->setDefaultDir('ASC');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('tax/class')
@@ -51,10 +56,5 @@ class Mage_Adminhtml_Block_Tax_Class_Grid extends Mage_Adminhtml_Block_Widget_Gr
         );
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }

@@ -22,11 +22,6 @@
  */
 class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('sales/quote', 'entity_id');
-    }
-
     /**
      * Fetch items summary
      *
@@ -79,5 +74,9 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
         $condition = $adapter->prepareSqlCondition('e.entity_id', ['nin' => $exclusionSelect]);
         $collection->getSelect()->where($condition);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('sales/quote', 'entity_id');
     }
 }

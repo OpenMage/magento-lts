@@ -116,18 +116,6 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get accepted save cookies websites
-     *
-     * @return array
-     */
-    protected function _getAcceptedSaveCookiesWebsites()
-    {
-        $serializedList = $this->_cookieModel->get(self::IS_USER_ALLOWED_SAVE_COOKIE);
-        $unSerializedList = $serializedList ? json_decode($serializedList, true) : null;
-        return is_array($unSerializedList) ? $unSerializedList : [];
-    }
-
-    /**
      * Get cookie restriction lifetime (in seconds)
      *
      * @return int
@@ -145,5 +133,17 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
     public function getCookieRestrictionNoticeCmsBlockIdentifier()
     {
         return self::COOKIE_RESTRICTION_NOTICE_CMS_BLOCK_IDENTIFIER;
+    }
+
+    /**
+     * Get accepted save cookies websites
+     *
+     * @return array
+     */
+    protected function _getAcceptedSaveCookiesWebsites()
+    {
+        $serializedList = $this->_cookieModel->get(self::IS_USER_ALLOWED_SAVE_COOKIE);
+        $unSerializedList = $serializedList ? json_decode($serializedList, true) : null;
+        return is_array($unSerializedList) ? $unSerializedList : [];
     }
 }

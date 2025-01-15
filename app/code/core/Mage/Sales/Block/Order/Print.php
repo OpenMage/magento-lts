@@ -23,6 +23,21 @@
 class Mage_Sales_Block_Order_Print extends Mage_Sales_Block_Items_Abstract
 {
     /**
+     * @return string
+     */
+    public function getPaymentInfoHtml()
+    {
+        return $this->getChildHtml('payment_info');
+    }
+
+    /**
+     * @return Mage_Sales_Model_Order
+     */
+    public function getOrder()
+    {
+        return Mage::registry('current_order');
+    }
+    /**
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -41,22 +56,6 @@ class Mage_Sales_Block_Order_Print extends Mage_Sales_Block_Items_Abstract
         );
 
         return parent::_prepareLayout();
-    }
-
-    /**
-     * @return string
-     */
-    public function getPaymentInfoHtml()
-    {
-        return $this->getChildHtml('payment_info');
-    }
-
-    /**
-     * @return Mage_Sales_Model_Order
-     */
-    public function getOrder()
-    {
-        return Mage::registry('current_order');
     }
 
     /**

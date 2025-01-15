@@ -41,11 +41,6 @@ class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
      */
     protected $_invoice;
 
-    protected function _construct()
-    {
-        $this->_init('sales/order_invoice_comment');
-    }
-
     /**
      * Declare invoice instance
      *
@@ -78,6 +73,11 @@ class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
             return $this->getInvoice()->getStore();
         }
         return Mage::app()->getStore();
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order_invoice_comment');
     }
 
     /**

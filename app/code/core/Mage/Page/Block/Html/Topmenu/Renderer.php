@@ -28,6 +28,24 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
     protected $_templateFile;
 
     /**
+     * Fetches template. If template has return statement, than its value is used and direct output otherwise.
+     * @param string $childrenWrapClass
+     * @return string
+     */
+    public function render(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)
+    {
+        ob_start();
+        $html = include $this->_templateFile;
+        $directOutput = ob_get_clean();
+
+        if (is_string($html)) {
+            return $html;
+        } else {
+            return $directOutput;
+        }
+    }
+
+    /**
      * Renders block html
      * @return string
      * @throws Exception
@@ -58,24 +76,6 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
         $parentBlock = $this->getParentBlock();
         if ($parentBlock) {
             $this->addCacheTag($parentBlock->getCacheTags());
-        }
-    }
-
-    /**
-     * Fetches template. If template has return statement, than its value is used and direct output otherwise.
-     * @param string $childrenWrapClass
-     * @return string
-     */
-    public function render(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)
-    {
-        ob_start();
-        $html = include $this->_templateFile;
-        $directOutput = ob_get_clean();
-
-        if (is_string($html)) {
-            return $html;
-        } else {
-            return $directOutput;
         }
     }
 }

@@ -30,6 +30,52 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
     }
 
     /**
+     * Retrieve order model instance
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function getOrder()
+    {
+        return Mage::registry('current_order');
+    }
+
+    public function getRowUrl($row)
+    {
+        return $this->getUrl(
+            '*/sales_order_creditmemo/view',
+            [
+                'creditmemo_id' => $row->getId(),
+                'order_id'  => $row->getOrderId(),
+            ],
+        );
+    }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/creditmemos', ['_current' => true]);
+    }
+
+    public function getTabLabel()
+    {
+        return Mage::helper('sales')->__('Credit Memos');
+    }
+
+    public function getTabTitle()
+    {
+        return Mage::helper('sales')->__('Credit Memos');
+    }
+
+    public function canShowTab()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/creditmemo');
+    }
+
+    public function isHidden()
+    {
+        return false;
+    }
+
+    /**
      * Retrieve collection class
      *
      * @return string
@@ -92,51 +138,5 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Retrieve order model instance
-     *
-     * @return Mage_Sales_Model_Order
-     */
-    public function getOrder()
-    {
-        return Mage::registry('current_order');
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl(
-            '*/sales_order_creditmemo/view',
-            [
-                'creditmemo_id' => $row->getId(),
-                'order_id'  => $row->getOrderId(),
-            ],
-        );
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/creditmemos', ['_current' => true]);
-    }
-
-    public function getTabLabel()
-    {
-        return Mage::helper('sales')->__('Credit Memos');
-    }
-
-    public function getTabTitle()
-    {
-        return Mage::helper('sales')->__('Credit Memos');
-    }
-
-    public function canShowTab()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/creditmemo');
-    }
-
-    public function isHidden()
-    {
-        return false;
     }
 }

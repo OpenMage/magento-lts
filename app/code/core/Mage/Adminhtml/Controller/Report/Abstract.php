@@ -30,19 +30,6 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
     protected $_adminSession = null;
 
     /**
-     * Retrieve admin session model
-     *
-     * @return Mage_Admin_Model_Session
-     */
-    protected function _getSession()
-    {
-        if (is_null($this->_adminSession)) {
-            $this->_adminSession = Mage::getSingleton('admin/session');
-        }
-        return $this->_adminSession;
-    }
-
-    /**
      * Add report breadcrumbs
      *
      * @return Mage_Adminhtml_Controller_Report_Abstract
@@ -85,6 +72,19 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
         }
 
         return $this;
+    }
+
+    /**
+     * Retrieve admin session model
+     *
+     * @return Mage_Admin_Model_Session
+     */
+    protected function _getSession()
+    {
+        if (is_null($this->_adminSession)) {
+            $this->_adminSession = Mage::getSingleton('admin/session');
+        }
+        return $this->_adminSession;
     }
 
     /**

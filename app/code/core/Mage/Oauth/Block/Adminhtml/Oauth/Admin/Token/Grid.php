@@ -36,6 +36,16 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     }
 
     /**
+     * Get grid URL
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
      * Prepare collection
      *
      * @return $this
@@ -113,15 +123,5 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
         ]);
 
         return $this;
-    }
-
-    /**
-     * Get grid URL
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 }

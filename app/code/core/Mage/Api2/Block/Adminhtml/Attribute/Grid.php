@@ -34,6 +34,36 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
+     * Disable unnecessary functionality
+     *
+     * @return $this
+     */
+    public function _prepareLayout()
+    {
+        $this->setFilterVisibility(false);
+        $this->setPagerVisibility(false);
+
+        return $this;
+    }
+
+    /**
+     * Get row URL
+     *
+     * @param Varien_Object $row
+     * @return string|null
+     */
+    public function getRowUrl($row)
+    {
+        /** @var Mage_Admin_Model_Session $session */
+        $session = Mage::getSingleton('admin/session');
+        if ($session->isAllowed('system/api/attributes/edit')) {
+            return $this->getUrl('*/*/edit', ['type' => $row->getUserTypeCode()]);
+        }
+
+        return null;
+    }
+
+    /**
      * Collection object set up
      * @return $this
      */
@@ -65,35 +95,5 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Disable unnecessary functionality
-     *
-     * @return $this
-     */
-    public function _prepareLayout()
-    {
-        $this->setFilterVisibility(false);
-        $this->setPagerVisibility(false);
-
-        return $this;
-    }
-
-    /**
-     * Get row URL
-     *
-     * @param Varien_Object $row
-     * @return string|null
-     */
-    public function getRowUrl($row)
-    {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        if ($session->isAllowed('system/api/attributes/edit')) {
-            return $this->getUrl('*/*/edit', ['type' => $row->getUserTypeCode()]);
-        }
-
-        return null;
     }
 }

@@ -46,26 +46,6 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     protected $_joinFlags            = [];
 
     /**
-     * Initialize collection select
-     *
-     * @return $this
-     */
-    protected function _initSelect()
-    {
-        parent::_initSelect();
-
-        $this->_joinFields();
-        $this->getSelect()->group('e.entity_id');
-
-        /*
-         * Allow analytic function usage
-         */
-        $this->_useAnalyticFunction = true;
-
-        return $this;
-    }
-
-    /**
      * Set flag about joined table.
      * setFlag method must be used in future.
      *
@@ -117,44 +97,6 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     public function addStoresVisibility()
     {
         $this->setFlag('add_stores_after', true);
-        return $this;
-    }
-
-    /**
-     * Add tag visibility on stores process
-     *
-     * @return $this
-     */
-    protected function _addStoresVisibility()
-    {
-        $tagIds = [];
-        foreach ($this as $item) {
-            $tagIds[] = $item->getTagId();
-        }
-
-        $tagsStores = [];
-        if (count($tagIds)) {
-            $select = $this->getConnection()->select()
-                ->from($this->getTable('tag/relation'), ['store_id', 'tag_id'])
-                ->where('tag_id IN(?)', $tagIds);
-            $tagsRaw = $this->getConnection()->fetchAll($select);
-            foreach ($tagsRaw as $tag) {
-                if (!isset($tagsStores[$tag['tag_id']])) {
-                    $tagsStores[$tag['tag_id']] = [];
-                }
-
-                $tagsStores[$tag['tag_id']][] = $tag['store_id'];
-            }
-        }
-
-        foreach ($this as $item) {
-            if (isset($tagsStores[$item->getTagId()])) {
-                $item->setStores($tagsStores[$item->getTagId()]);
-            } else {
-                $item->setStores([]);
-            }
-        }
-
         return $this;
     }
 
@@ -354,6 +296,104 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     }
 
     /**
+     * Render SQL for retrieve product count
+     *
+     * @return Varien_Db_Select
+     */
+    public function getSelectCountSql()
+    {
+        $countSelect = clone $this->getSelect();
+
+        $countSelect->reset(Zend_Db_Select::COLUMNS);
+        $countSelect->reset(Zend_Db_Select::ORDER);
+        $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $countSelect->reset(Zend_Db_Select::GROUP);
+
+        if ($this->getFlag('group_tag')) {
+            $field = 'relation.tag_id';
+        } else {
+            $field = 'e.entity_id';
+        }
+        $expr = new Zend_Db_Expr('COUNT('
+            . ($this->getFlag('distinct') ? 'DISTINCT ' : '')
+            . $field . ')');
+
+        $countSelect->columns($expr);
+
+        return $countSelect;
+    }
+
+    /**
+     * Set Id Fieldname as Tag Relation Id
+     *
+     * @return $this
+     */
+    public function setRelationId()
+    {
+        $this->_setIdFieldName('tag_relation_id');
+        return $this;
+    }
+
+    /**
+     * Initialize collection select
+     *
+     * @return $this
+     */
+    protected function _initSelect()
+    {
+        parent::_initSelect();
+
+        $this->_joinFields();
+        $this->getSelect()->group('e.entity_id');
+
+        /*
+         * Allow analytic function usage
+         */
+        $this->_useAnalyticFunction = true;
+
+        return $this;
+    }
+
+    /**
+     * Add tag visibility on stores process
+     *
+     * @return $this
+     */
+    protected function _addStoresVisibility()
+    {
+        $tagIds = [];
+        foreach ($this as $item) {
+            $tagIds[] = $item->getTagId();
+        }
+
+        $tagsStores = [];
+        if (count($tagIds)) {
+            $select = $this->getConnection()->select()
+                ->from($this->getTable('tag/relation'), ['store_id', 'tag_id'])
+                ->where('tag_id IN(?)', $tagIds);
+            $tagsRaw = $this->getConnection()->fetchAll($select);
+            foreach ($tagsRaw as $tag) {
+                if (!isset($tagsStores[$tag['tag_id']])) {
+                    $tagsStores[$tag['tag_id']] = [];
+                }
+
+                $tagsStores[$tag['tag_id']][] = $tag['store_id'];
+            }
+        }
+
+        foreach ($this as $item) {
+            if (isset($tagsStores[$item->getTagId()])) {
+                $item->setStores($tagsStores[$item->getTagId()]);
+            } else {
+                $item->setStores([]);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Join fields process
      *
      * @return $this
@@ -413,35 +453,6 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
     }
 
     /**
-     * Render SQL for retrieve product count
-     *
-     * @return Varien_Db_Select
-     */
-    public function getSelectCountSql()
-    {
-        $countSelect = clone $this->getSelect();
-
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
-        $countSelect->reset(Zend_Db_Select::ORDER);
-        $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::GROUP);
-
-        if ($this->getFlag('group_tag')) {
-            $field = 'relation.tag_id';
-        } else {
-            $field = 'e.entity_id';
-        }
-        $expr = new Zend_Db_Expr('COUNT('
-            . ($this->getFlag('distinct') ? 'DISTINCT ' : '')
-            . $field . ')');
-
-        $countSelect->columns($expr);
-
-        return $countSelect;
-    }
-
-    /**
      * Treat "order by" items as attributes to sort
      *
      * @return $this
@@ -465,17 +476,6 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
                 }
             }
         }
-        return $this;
-    }
-
-    /**
-     * Set Id Fieldname as Tag Relation Id
-     *
-     * @return $this
-     */
-    public function setRelationId()
-    {
-        $this->_setIdFieldName('tag_relation_id');
         return $this;
     }
 }

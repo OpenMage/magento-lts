@@ -59,19 +59,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public const CALC_TAX_AFTER_DISCOUNT_ON_INCL       = '1_1';
 
     /**
-     * Identifier constant for unit based calculation
-     */
-    protected $_rates                           = [];
-    /**
-     * Identifier constant for row based calculation
-     */
-    protected $_ctc                             = [];
-    /**
-     * Identifier constant for total based calculation
-     */
-    protected $_ptc                             = [];
-
-    /**
      * CALC_UNIT_BASE
      */
     public const CALC_UNIT_BASE = 'UNIT_BASE_CALCULATION';
@@ -85,6 +72,19 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * CALC_TOTAL_BASE
      */
     public const CALC_TOTAL_BASE = 'TOTAL_BASE_CALCULATION';
+
+    /**
+     * Identifier constant for unit based calculation
+     */
+    protected $_rates                           = [];
+    /**
+     * Identifier constant for row based calculation
+     */
+    protected $_ctc                             = [];
+    /**
+     * Identifier constant for total based calculation
+     */
+    protected $_ptc                             = [];
 
     /**
      * Cache to hold the rates
@@ -120,11 +120,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * @var Mage_Tax_Helper_Data
      */
     protected $_taxHelper;
-
-    protected function _construct()
-    {
-        $this->_init('tax/calculation');
-    }
 
     /**
      * Initialize tax helper
@@ -236,28 +231,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Aggregate tax calculation data to array
-     *
-     * @return array
-     */
-    protected function _formCalculationProcess()
-    {
-        $title = $this->getRateTitle();
-        $value = $this->getRateValue();
-        $id = $this->getRateId();
-
-        $rate = [
-            'code' => $title, 'title' => $title, 'percent' => $value, 'position' => 1, 'priority' => 1];
-
-        $process = [];
-        $process['percent'] = $value;
-        $process['id'] = "{$id}-{$value}";
-        $process['rates'][] = $rate;
-
-        return [$process];
-    }
-
-    /**
      * Get calculation tax rate by specific request
      *
      * @param   Varien_Object $request
@@ -287,19 +260,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             $this->_rateCalculationProcess[$cacheKey] = $this->getCalculationProcess();
         }
         return $this->_rateCache[$cacheKey];
-    }
-
-    /**
-     * Get cache key value for specific tax rate request
-     *
-     * @param Varien_Object $request
-     * @return string
-     */
-    protected function _getRequestCacheKey($request)
-    {
-        $key = $request->getStore() ? $request->getStore()->getId() . '|' : '';
-        return $key . ($request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
-            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode());
     }
 
     /**
@@ -526,29 +486,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Gets the tax rates by type
-     *
-     * @param Varien_Object $request
-     * @param string $fieldName
-     * @param string $type
-     * @return array
-     */
-    protected function _getRates($request, $fieldName, $type)
-    {
-        $result = [];
-        $classes = Mage::getModel('tax/class')->getCollection()
-            ->addFieldToFilter('class_type', $type)
-            ->load();
-        /** @var Mage_Tax_Model_Class $class */
-        foreach ($classes as $class) {
-            $request->setData($fieldName, $class->getId());
-            $result[$class->getId()] = $this->getRate($request);
-        }
-
-        return $result;
-    }
-
-    /**
      * Gets rates for all the product tax classes
      *
      * @param Varien_Object $request
@@ -705,5 +642,68 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function roundDown($price)
     {
         return floor($price * 100) / 100;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('tax/calculation');
+    }
+
+    /**
+     * Aggregate tax calculation data to array
+     *
+     * @return array
+     */
+    protected function _formCalculationProcess()
+    {
+        $title = $this->getRateTitle();
+        $value = $this->getRateValue();
+        $id = $this->getRateId();
+
+        $rate = [
+            'code' => $title, 'title' => $title, 'percent' => $value, 'position' => 1, 'priority' => 1];
+
+        $process = [];
+        $process['percent'] = $value;
+        $process['id'] = "{$id}-{$value}";
+        $process['rates'][] = $rate;
+
+        return [$process];
+    }
+
+    /**
+     * Get cache key value for specific tax rate request
+     *
+     * @param Varien_Object $request
+     * @return string
+     */
+    protected function _getRequestCacheKey($request)
+    {
+        $key = $request->getStore() ? $request->getStore()->getId() . '|' : '';
+        return $key . ($request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
+            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode());
+    }
+
+    /**
+     * Gets the tax rates by type
+     *
+     * @param Varien_Object $request
+     * @param string $fieldName
+     * @param string $type
+     * @return array
+     */
+    protected function _getRates($request, $fieldName, $type)
+    {
+        $result = [];
+        $classes = Mage::getModel('tax/class')->getCollection()
+            ->addFieldToFilter('class_type', $type)
+            ->load();
+        /** @var Mage_Tax_Model_Class $class */
+        foreach ($classes as $class) {
+            $request->setData($fieldName, $class->getId());
+            $result[$class->getId()] = $this->getRate($request);
+        }
+
+        return $result;
     }
 }

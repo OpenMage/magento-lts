@@ -22,25 +22,6 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('tax/tax_calculation_rate', 'tax_calculation_rate_id');
-    }
-
-    /**
-     * Initialize unique fields
-     *
-     * @return $this
-     */
-    protected function _initUniqueFields()
-    {
-        $this->_uniqueFields = [[
-            'field' => ['code'],
-            'title' => Mage::helper('tax')->__('Code'),
-        ]];
-        return $this;
-    }
-
     /**
      * Delete all rates
      *
@@ -65,5 +46,23 @@ class Mage_Tax_Model_Resource_Calculation_Rate extends Mage_Core_Model_Resource_
             ->from($this->getTable('tax/tax_calculation'), ['tax_calculation_rate_id'])
             ->where('tax_calculation_rate_id = ?', $rateId);
         return $adapter->fetchCol($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('tax/tax_calculation_rate', 'tax_calculation_rate_id');
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return $this
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = [[
+            'field' => ['code'],
+            'title' => Mage::helper('tax')->__('Code'),
+        ]];
+        return $this;
     }
 }

@@ -50,27 +50,6 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
     protected $_cachedOperatorSelectOptionsCache = null;
 
     /**
-     * Initialize and retrieve a helper instance
-     * @return Mage_SalesRule_Helper_Data
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('salesrule');
-    }
-
-    /**
-     * Retrieve a product instance and initialize if needed
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    protected function _getProduct(Varien_Object $object)
-    {
-        return $object->getProduct() instanceof Mage_Catalog_Model_Product
-            ? $object->getProduct()
-            : Mage::getModel('catalog/product')->load($object->getProductId());
-    }
-
-    /**
      * Initialize options hash
      */
     public function __construct()
@@ -142,5 +121,26 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
             $this->getRemoveLinkHtml(),
             $this->getTypeElementHtml(),
         );
+    }
+
+    /**
+     * Initialize and retrieve a helper instance
+     * @return Mage_SalesRule_Helper_Data
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('salesrule');
+    }
+
+    /**
+     * Retrieve a product instance and initialize if needed
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    protected function _getProduct(Varien_Object $object)
+    {
+        return $object->getProduct() instanceof Mage_Catalog_Model_Product
+            ? $object->getProduct()
+            : Mage::getModel('catalog/product')->load($object->getProductId());
     }
 }

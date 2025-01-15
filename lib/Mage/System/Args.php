@@ -23,24 +23,6 @@ class Mage_System_Args
     public $filtered;
 
     /**
-     * Get flags/named options
-     * @return array
-     */
-    public function getFlags()
-    {
-        return $this->flags;
-    }
-
-    /**
-     * Get filtered args
-     * @return array
-     */
-    public function getFiltered()
-    {
-        return $this->filtered;
-    }
-
-    /**
      * Constructor
      * @param array|false $argv, if false $GLOBALS['argv'] is taken
      * @return void
@@ -81,5 +63,23 @@ class Mage_System_Args
                 $this->filtered[] = $str;
             }
         }
+    }
+
+    /**
+     * Get flags/named options
+     * @return array
+     */
+    public function getFlags()
+    {
+        return $this->flags;
+    }
+
+    /**
+     * Get filtered args
+     * @return array
+     */
+    public function getFiltered()
+    {
+        return $this->filtered;
     }
 }

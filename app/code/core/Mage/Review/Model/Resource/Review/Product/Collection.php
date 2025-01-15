@@ -51,30 +51,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     protected $_storesIds           = [];
 
     /**
-     * Define module
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product');
-        $this->setRowIdFieldName('review_id');
-        $this->_reviewStoreTable = Mage::getSingleton('core/resource')->getTableName('review/review_store');
-        $this->_initTables();
-    }
-
-    /**
-     * init select
-     *
-     * @return $this
-     */
-    protected function _initSelect()
-    {
-        parent::_initSelect();
-        $this->_joinFields();
-        return $this;
-    }
-
-    /**
      * Adds store filter into array
      *
      * @param mixed $storeId
@@ -121,44 +97,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $this->_storesIds = array_intersect($this->_storesIds, $storeId);
         } else {
             $this->_storesIds = $storeId;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Applies all store filters in one place to prevent multiple joins in select
-     *
-     * @return $this
-     */
-    protected function _applyStoresFilterToSelect(?Zend_Db_Select $select = null)
-    {
-        $adapter = $this->getConnection();
-        $storesIds = $this->_storesIds;
-        if (is_null($select)) {
-            $select = $this->getSelect();
-        }
-
-        if (is_array($storesIds) && (count($storesIds) == 1)) {
-            $storesIds = array_shift($storesIds);
-        }
-
-        if (is_array($storesIds) && !empty($storesIds)) {
-            $inCond = $adapter->prepareSqlCondition('store.store_id', ['in' => $storesIds]);
-            $select->join(
-                ['store' => $this->_reviewStoreTable],
-                'rt.review_id=store.review_id AND ' . $inCond,
-                [],
-            )
-            ->group('rt.review_id');
-
-            $this->_useAnalyticFunction = true;
-        } else {
-            $select->join(
-                ['store' => $this->_reviewStoreTable],
-                $adapter->quoteInto('rt.review_id=store.review_id AND store.store_id = ?', (int) $storesIds),
-                [],
-            );
         }
 
         return $this;
@@ -256,33 +194,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 ->load();
             $item->setRatingVotes($votesCollection);
         }
-        return $this;
-    }
-
-    /**
-     * join fields to entity
-     *
-     * @return $this
-     */
-    protected function _joinFields()
-    {
-        $reviewTable = Mage::getSingleton('core/resource')->getTableName('review/review');
-        $reviewDetailTable = Mage::getSingleton('core/resource')->getTableName('review/review_detail');
-
-        $this->addAttributeToSelect('name')
-            ->addAttributeToSelect('sku');
-
-        $this->getSelect()
-            ->join(
-                ['rt' => $reviewTable],
-                'rt.entity_pk_value = e.entity_id',
-                ['rt.review_id', 'review_created_at' => 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id'],
-            )
-            ->join(
-                ['rdt' => $reviewDetailTable],
-                'rdt.review_id = rt.review_id',
-                ['rdt.title','rdt.nickname', 'rdt.detail', 'rdt.customer_id', 'rdt.store_id'],
-            );
         return $this;
     }
 
@@ -409,6 +320,95 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $col[] = $item->getData($colName);
         }
         return $col;
+    }
+
+    /**
+     * Define module
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product');
+        $this->setRowIdFieldName('review_id');
+        $this->_reviewStoreTable = Mage::getSingleton('core/resource')->getTableName('review/review_store');
+        $this->_initTables();
+    }
+
+    /**
+     * init select
+     *
+     * @return $this
+     */
+    protected function _initSelect()
+    {
+        parent::_initSelect();
+        $this->_joinFields();
+        return $this;
+    }
+
+    /**
+     * Applies all store filters in one place to prevent multiple joins in select
+     *
+     * @return $this
+     */
+    protected function _applyStoresFilterToSelect(?Zend_Db_Select $select = null)
+    {
+        $adapter = $this->getConnection();
+        $storesIds = $this->_storesIds;
+        if (is_null($select)) {
+            $select = $this->getSelect();
+        }
+
+        if (is_array($storesIds) && (count($storesIds) == 1)) {
+            $storesIds = array_shift($storesIds);
+        }
+
+        if (is_array($storesIds) && !empty($storesIds)) {
+            $inCond = $adapter->prepareSqlCondition('store.store_id', ['in' => $storesIds]);
+            $select->join(
+                ['store' => $this->_reviewStoreTable],
+                'rt.review_id=store.review_id AND ' . $inCond,
+                [],
+            )
+            ->group('rt.review_id');
+
+            $this->_useAnalyticFunction = true;
+        } else {
+            $select->join(
+                ['store' => $this->_reviewStoreTable],
+                $adapter->quoteInto('rt.review_id=store.review_id AND store.store_id = ?', (int) $storesIds),
+                [],
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * join fields to entity
+     *
+     * @return $this
+     */
+    protected function _joinFields()
+    {
+        $reviewTable = Mage::getSingleton('core/resource')->getTableName('review/review');
+        $reviewDetailTable = Mage::getSingleton('core/resource')->getTableName('review/review_detail');
+
+        $this->addAttributeToSelect('name')
+            ->addAttributeToSelect('sku');
+
+        $this->getSelect()
+            ->join(
+                ['rt' => $reviewTable],
+                'rt.entity_pk_value = e.entity_id',
+                ['rt.review_id', 'review_created_at' => 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id'],
+            )
+            ->join(
+                ['rdt' => $reviewDetailTable],
+                'rdt.review_id = rt.review_id',
+                ['rdt.title','rdt.nickname', 'rdt.detail', 'rdt.customer_id', 'rdt.store_id'],
+            );
+        return $this;
     }
 
     /**

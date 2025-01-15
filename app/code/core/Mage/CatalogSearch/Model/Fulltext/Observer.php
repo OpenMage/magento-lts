@@ -23,16 +23,6 @@
 class Mage_CatalogSearch_Model_Fulltext_Observer
 {
     /**
-     * Retrieve fulltext (indexer) model
-     *
-     * @return Mage_CatalogSearch_Model_Fulltext
-     */
-    protected function _getFulltextModel()
-    {
-        return Mage::getSingleton('catalogsearch/fulltext');
-    }
-
-    /**
      * Update product index when product data updated
      *
      * @return $this
@@ -172,5 +162,14 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
             ->cleanIndex($store->getId());
 
         return $this;
+    }
+    /**
+     * Retrieve fulltext (indexer) model
+     *
+     * @return Mage_CatalogSearch_Model_Fulltext
+     */
+    protected function _getFulltextModel()
+    {
+        return Mage::getSingleton('catalogsearch/fulltext');
     }
 }

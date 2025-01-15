@@ -28,29 +28,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime extends Mage_Adm
     protected static $_format = null;
 
     /**
-     * Retrieve datetime format
-     *
-     * @return string
-     */
-    protected function _getFormat()
-    {
-        $format = $this->getColumn()->getFormat();
-        if (!$format) {
-            if (is_null(self::$_format)) {
-                try {
-                    self::$_format = Mage::app()->getLocale()->getDateTimeFormat(
-                        Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
-                    );
-                } catch (Exception $e) {
-                    Mage::logException($e);
-                }
-            }
-            $format = self::$_format;
-        }
-        return $format;
-    }
-
-    /**
      * Renders grid column
      *
      * @return  string
@@ -72,5 +49,28 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime extends Mage_Adm
             return $data;
         }
         return $this->getColumn()->getDefault();
+    }
+
+    /**
+     * Retrieve datetime format
+     *
+     * @return string
+     */
+    protected function _getFormat()
+    {
+        $format = $this->getColumn()->getFormat();
+        if (!$format) {
+            if (is_null(self::$_format)) {
+                try {
+                    self::$_format = Mage::app()->getLocale()->getDateTimeFormat(
+                        Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
+                    );
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                }
+            }
+            $format = self::$_format;
+        }
+        return $format;
     }
 }

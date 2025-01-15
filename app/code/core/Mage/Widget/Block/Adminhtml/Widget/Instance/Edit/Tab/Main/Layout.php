@@ -31,15 +31,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
     protected $_element = null;
 
     /**
-     * Internal constructor
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('widget/instance/edit/layout.phtml');
-    }
-
-    /**
      * Render given element (return html of element)
      *
      * @return string
@@ -125,64 +116,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
             ->setExtraParams("onchange=\"WidgetInstance.displayPageGroup(this.value+\'_{{id}}\')\"")
             ->setOptions($this->_getDisplayOnOptions());
         return $selectBlock->toHtml();
-    }
-
-    /**
-     * Retrieve Display On options array.
-     * - Categories (anchor and not anchor)
-     * - Products (product types depend on configuration)
-     * - Generic (predefined) pages (all pages and single layout update)
-     *
-     * @return array
-     */
-    protected function _getDisplayOnOptions()
-    {
-        $options = [];
-        $options[] = [
-            'value' => '',
-            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('-- Please Select --')),
-        ];
-        $options[] = [
-            'label' => Mage::helper('widget')->__('Categories'),
-            'value' => [
-                [
-                    'value' => 'anchor_categories',
-                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Anchor Categories')),
-                ],
-                [
-                    'value' => 'notanchor_categories',
-                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Non-Anchor Categories')),
-                ],
-            ],
-        ];
-        foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
-            $productsOptions[] = [
-                'value' => $typeId . '_products',
-                'label' => $this->helper('core')->jsQuoteEscape($type['label']),
-            ];
-        }
-        array_unshift($productsOptions, [
-            'value' => 'all_products',
-            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Product Types')),
-        ]);
-        $options[] = [
-            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Products')),
-            'value' => $productsOptions,
-        ];
-        $options[] = [
-            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Generic Pages')),
-            'value' => [
-                [
-                    'value' => 'all_pages',
-                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Pages')),
-                ],
-                [
-                    'value' => 'pages',
-                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Specified Page')),
-                ],
-            ],
-        ];
-        return $options;
     }
 
     /**
@@ -301,5 +234,72 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
             }
         }
         return $pageGroups;
+    }
+
+    /**
+     * Internal constructor
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('widget/instance/edit/layout.phtml');
+    }
+
+    /**
+     * Retrieve Display On options array.
+     * - Categories (anchor and not anchor)
+     * - Products (product types depend on configuration)
+     * - Generic (predefined) pages (all pages and single layout update)
+     *
+     * @return array
+     */
+    protected function _getDisplayOnOptions()
+    {
+        $options = [];
+        $options[] = [
+            'value' => '',
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('-- Please Select --')),
+        ];
+        $options[] = [
+            'label' => Mage::helper('widget')->__('Categories'),
+            'value' => [
+                [
+                    'value' => 'anchor_categories',
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Anchor Categories')),
+                ],
+                [
+                    'value' => 'notanchor_categories',
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Non-Anchor Categories')),
+                ],
+            ],
+        ];
+        foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
+            $productsOptions[] = [
+                'value' => $typeId . '_products',
+                'label' => $this->helper('core')->jsQuoteEscape($type['label']),
+            ];
+        }
+        array_unshift($productsOptions, [
+            'value' => 'all_products',
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Product Types')),
+        ]);
+        $options[] = [
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Products')),
+            'value' => $productsOptions,
+        ];
+        $options[] = [
+            'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Generic Pages')),
+            'value' => [
+                [
+                    'value' => 'all_pages',
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('All Pages')),
+                ],
+                [
+                    'value' => 'pages',
+                    'label' => $this->helper('core')->jsQuoteEscape(Mage::helper('widget')->__('Specified Page')),
+                ],
+            ],
+        ];
+        return $options;
     }
 }

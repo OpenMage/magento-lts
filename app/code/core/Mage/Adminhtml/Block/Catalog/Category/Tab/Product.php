@@ -43,6 +43,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
         return Mage::registry('category');
     }
 
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in category flag
@@ -204,14 +212,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 
     /**

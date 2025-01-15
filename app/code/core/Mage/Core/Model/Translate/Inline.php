@@ -232,6 +232,52 @@ class Mage_Core_Model_Translate_Inline
     }
 
     /**
+     * Check is a Request contain Json flag
+     *
+     * @deprecated 1.3.2.2
+     * @return bool
+     */
+    public function getIsAjaxRequest()
+    {
+        return (bool) Mage::app()->getRequest()->getQuery('isAjax');
+    }
+
+    /**
+     * Set is a Request contain Json flag
+     *
+     * @param bool $flag
+     * @deprecated 1.3.2.2
+     * @return $this
+     */
+    public function setIsAjaxRequest($flag)
+    {
+        Mage::app()->getRequest()->setQuery('isAjax', (int) (bool) $flag);
+        return $this;
+    }
+
+    /**
+     * Retrieve flag about parsed content is Json
+     *
+     * @return bool
+     */
+    public function getIsJson()
+    {
+        return $this->_isJson;
+    }
+
+    /**
+     * Set flag about parsed content is Json
+     *
+     * @param bool $flag
+     * @return $this
+     */
+    public function setIsJson($flag)
+    {
+        $this->_isJson = (bool) $flag;
+        return $this;
+    }
+
+    /**
      * Add translate js to body
      */
     protected function _insertInlineScriptsHtml()
@@ -497,36 +543,6 @@ class Mage_Core_Model_Translate_Inline
     }
 
     /**
-     * Find end of tag
-     *
-     * @param string $body
-     * @param string $tagName
-     * @param int $from
-     * @return false|int return false if end of tag is not found
-     */
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private function findEndOfTag($body, $tagName, $from)
-    {
-        $openTag = '<' . $tagName;
-        $closeTag =  ($this->getIsJson() ? '<\\/' : '</') . $tagName;
-        $tagLength = strlen($tagName);
-        $length = $tagLength + 1;
-        $end = $from + 1;
-        while (substr_count($body, $openTag, $from, $length) != substr_count($body, $closeTag, $from, $length)) {
-            $end = strpos($body, $closeTag, $end + $tagLength + 1);
-            if ($end === false) {
-                return false;
-            }
-            $length = $end - $from  + $tagLength + 3;
-        }
-        if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, 0, $end)) {
-            return $end + strlen($tagMatch[0]);
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Prepare other text inline translates
      */
     protected function _otherText()
@@ -556,48 +572,32 @@ class Mage_Core_Model_Translate_Inline
     }
 
     /**
-     * Check is a Request contain Json flag
+     * Find end of tag
      *
-     * @deprecated 1.3.2.2
-     * @return bool
+     * @param string $body
+     * @param string $tagName
+     * @param int $from
+     * @return false|int return false if end of tag is not found
      */
-    public function getIsAjaxRequest()
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private function findEndOfTag($body, $tagName, $from)
     {
-        return (bool) Mage::app()->getRequest()->getQuery('isAjax');
-    }
-
-    /**
-     * Set is a Request contain Json flag
-     *
-     * @param bool $flag
-     * @deprecated 1.3.2.2
-     * @return $this
-     */
-    public function setIsAjaxRequest($flag)
-    {
-        Mage::app()->getRequest()->setQuery('isAjax', (int) (bool) $flag);
-        return $this;
-    }
-
-    /**
-     * Retrieve flag about parsed content is Json
-     *
-     * @return bool
-     */
-    public function getIsJson()
-    {
-        return $this->_isJson;
-    }
-
-    /**
-     * Set flag about parsed content is Json
-     *
-     * @param bool $flag
-     * @return $this
-     */
-    public function setIsJson($flag)
-    {
-        $this->_isJson = (bool) $flag;
-        return $this;
+        $openTag = '<' . $tagName;
+        $closeTag =  ($this->getIsJson() ? '<\\/' : '</') . $tagName;
+        $tagLength = strlen($tagName);
+        $length = $tagLength + 1;
+        $end = $from + 1;
+        while (substr_count($body, $openTag, $from, $length) != substr_count($body, $closeTag, $from, $length)) {
+            $end = strpos($body, $closeTag, $end + $tagLength + 1);
+            if ($end === false) {
+                return false;
+            }
+            $length = $end - $from  + $tagLength + 3;
+        }
+        if (preg_match('#<\\\\?\/' . $tagName . '\s*?>#i', $body, $tagMatch, 0, $end)) {
+            return $end + strlen($tagMatch[0]);
+        } else {
+            return false;
+        }
     }
 }

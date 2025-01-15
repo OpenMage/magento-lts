@@ -150,39 +150,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Return validate class by attribute input validation rule
-     *
-     * @return string|false
-     */
-    protected function _getInputValidateClass()
-    {
-        $class          = false;
-        $validateRules  = $this->getAttribute()->getValidateRules();
-        if (!empty($validateRules['input_validation'])) {
-            switch ($validateRules['input_validation']) {
-                case 'alphanumeric':
-                    $class = 'validate-alphanum';
-                    break;
-                case 'numeric':
-                    $class = 'validate-digits';
-                    break;
-                case 'alpha':
-                    $class = 'validate-alpha';
-                    break;
-                case 'email':
-                    $class = 'validate-email';
-                    break;
-                case 'url':
-                    $class = 'validate-url';
-                    break;
-                default:
-                    break;
-            }
-        }
-        return $class;
-    }
-
-    /**
      * Reireive config field
      *
      * @param string $fieldName
@@ -230,5 +197,38 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
             return Mage::getConfig()->getBlockClassName($className);
         }
         return null;
+    }
+
+    /**
+     * Return validate class by attribute input validation rule
+     *
+     * @return string|false
+     */
+    protected function _getInputValidateClass()
+    {
+        $class          = false;
+        $validateRules  = $this->getAttribute()->getValidateRules();
+        if (!empty($validateRules['input_validation'])) {
+            switch ($validateRules['input_validation']) {
+                case 'alphanumeric':
+                    $class = 'validate-alphanum';
+                    break;
+                case 'numeric':
+                    $class = 'validate-digits';
+                    break;
+                case 'alpha':
+                    $class = 'validate-alpha';
+                    break;
+                case 'email':
+                    $class = 'validate-email';
+                    break;
+                case 'url':
+                    $class = 'validate-url';
+                    break;
+                default:
+                    break;
+            }
+        }
+        return $class;
     }
 }

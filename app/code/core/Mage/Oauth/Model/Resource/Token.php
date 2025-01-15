@@ -23,14 +23,6 @@
 class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('oauth/token', 'entity_id');
-    }
-
-    /**
      * Clean up old authorized tokens for specified consumer-user pairs
      *
      * @param Mage_Oauth_Model_Token $exceptToken Token just created to exclude from delete
@@ -80,5 +72,12 @@ class Mage_Oauth_Model_Resource_Token extends Mage_Core_Model_Resource_Db_Abstra
         } else {
             return 0;
         }
+    }
+    /**
+     * Initialize resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('oauth/token', 'entity_id');
     }
 }

@@ -256,11 +256,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected $_transactionAdditionalInfo = [];
 
-    protected function _construct()
-    {
-        $this->_init('sales/order_payment');
-    }
-
     /**
      * Declare order model object
      *
@@ -626,25 +621,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         ]);
         Mage::dispatchEvent('sales_order_payment_cancel_invoice', ['payment' => $this, 'invoice' => $invoice]);
         return $this;
-    }
-
-    /**
-     * Create new invoice with maximum qty for invoice for each item
-     * register this invoice and capture
-     *
-     * @return Mage_Sales_Model_Order_Invoice
-     */
-    protected function _invoice()
-    {
-        $invoice = $this->getOrder()->prepareInvoice();
-
-        $invoice->register();
-        if ($this->getMethodInstance()->canCapture()) {
-            $invoice->capture();
-        }
-
-        $this->getOrder()->addRelatedObject($invoice);
-        return $invoice;
     }
 
     /**
@@ -1056,6 +1032,168 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     }
 
     /**
+     * Public access to _authorize method
+     * @param bool $isOnline
+     * @param float $amount
+     * @return $this
+     */
+    public function authorize($isOnline, $amount)
+    {
+        return $this->_authorize($isOnline, $amount);
+    }
+
+    /**
+     * Public access to _addTransaction method
+     *
+     * @param string $type
+     * @param Mage_Sales_Model_Abstract $salesDocument
+     * @param bool $failsafe
+     * @param string|false $message
+     * @return null|Mage_Sales_Model_Order_Payment_Transaction
+     */
+    public function addTransaction($type, $salesDocument = null, $failsafe = false, $message = false)
+    {
+        $transaction = $this->_addTransaction($type, $salesDocument, $failsafe);
+
+        if ($message) {
+            $order = $this->getOrder();
+            $message = $this->_appendTransactionToMessage($transaction, $message);
+            $order->addStatusHistoryComment($message);
+        }
+
+        return $transaction;
+    }
+
+    /**
+     * Import details data of specified transaction
+     *
+     * @return $this
+     */
+    public function importTransactionInfo(Mage_Sales_Model_Order_Payment_Transaction $transactionTo)
+    {
+        $data = $this->getMethodInstance()
+            ->setStore($this->getOrder()->getStoreId())
+            ->fetchTransactionInfo($this, $transactionTo->getTxnId());
+        if ($data) {
+            $transactionTo->setAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS, $data);
+        }
+        return $this;
+    }
+
+    /**
+     * Get the billing agreement, if any
+     *
+     * @return Mage_Sales_Model_Billing_Agreement|null
+     */
+    public function getBillingAgreement()
+    {
+        return $this->_billingAgreement;
+    }
+
+    /**
+     * Find one transaction by ID or type
+     * @param string|false $txnId
+     * @param string|false $txnType
+     * @return Mage_Sales_Model_Order_Payment_Transaction|false
+     */
+    public function lookupTransaction($txnId, $txnType = false)
+    {
+        return $this->_lookupTransaction($txnId, $txnType);
+    }
+
+    /**
+     * Lookup an authorization transaction using parent transaction id, if set
+     * @return Mage_Sales_Model_Order_Payment_Transaction|false
+     */
+    public function getAuthorizationTransaction()
+    {
+        if ($this->getParentTransactionId()) {
+            $txn = $this->_lookupTransaction($this->getParentTransactionId());
+        } else {
+            $txn = false;
+        }
+
+        if (!$txn) {
+            $txn = $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
+        }
+        return $txn;
+    }
+
+    /**
+     * Lookup the transaction by id
+     * @param string $transactionId
+     * @return Mage_Sales_Model_Order_Payment_Transaction|false
+     */
+    public function getTransaction($transactionId)
+    {
+        return $this->_lookupTransaction($transactionId);
+    }
+
+    /**
+     * Additional transaction info setter
+     *
+     * @param string $key
+     * @param string $value
+     */
+    public function setTransactionAdditionalInfo($key, $value)
+    {
+        if (is_array($key)) {
+            $this->_transactionAdditionalInfo = $key;
+        } else {
+            $this->_transactionAdditionalInfo[$key] = $value;
+        }
+    }
+
+    /**
+     * Additional transaction info getter
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function getTransactionAdditionalInfo($key = null)
+    {
+        if (is_null($key)) {
+            return $this->_transactionAdditionalInfo;
+        }
+        return $this->_transactionAdditionalInfo[$key] ?? null;
+    }
+
+    /**
+     * Reset transaction additional info property
+     *
+     * @return $this
+     */
+    public function resetTransactionAdditionalInfo()
+    {
+        $this->_transactionAdditionalInfo = [];
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order_payment');
+    }
+
+    /**
+     * Create new invoice with maximum qty for invoice for each item
+     * register this invoice and capture
+     *
+     * @return Mage_Sales_Model_Order_Invoice
+     */
+    protected function _invoice()
+    {
+        $invoice = $this->getOrder()->prepareInvoice();
+
+        $invoice->register();
+        if ($this->getMethodInstance()->canCapture()) {
+            $invoice->capture();
+        }
+
+        $this->getOrder()->addRelatedObject($invoice);
+        return $invoice;
+    }
+
+    /**
      * Order payment either online
      * Updates transactions hierarchy, if required
      * Prevents transaction double processing
@@ -1158,17 +1296,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $order->setState($state, $status, $message);
 
         return $this;
-    }
-
-    /**
-     * Public access to _authorize method
-     * @param bool $isOnline
-     * @param float $amount
-     * @return $this
-     */
-    public function authorize($isOnline, $amount)
-    {
-        return $this->_authorize($isOnline, $amount);
     }
 
     /**
@@ -1314,54 +1441,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             }
             return $transaction;
         }
-    }
-
-    /**
-     * Public access to _addTransaction method
-     *
-     * @param string $type
-     * @param Mage_Sales_Model_Abstract $salesDocument
-     * @param bool $failsafe
-     * @param string|false $message
-     * @return null|Mage_Sales_Model_Order_Payment_Transaction
-     */
-    public function addTransaction($type, $salesDocument = null, $failsafe = false, $message = false)
-    {
-        $transaction = $this->_addTransaction($type, $salesDocument, $failsafe);
-
-        if ($message) {
-            $order = $this->getOrder();
-            $message = $this->_appendTransactionToMessage($transaction, $message);
-            $order->addStatusHistoryComment($message);
-        }
-
-        return $transaction;
-    }
-
-    /**
-     * Import details data of specified transaction
-     *
-     * @return $this
-     */
-    public function importTransactionInfo(Mage_Sales_Model_Order_Payment_Transaction $transactionTo)
-    {
-        $data = $this->getMethodInstance()
-            ->setStore($this->getOrder()->getStoreId())
-            ->fetchTransactionInfo($this, $transactionTo->getTxnId());
-        if ($data) {
-            $transactionTo->setAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS, $data);
-        }
-        return $this;
-    }
-
-    /**
-     * Get the billing agreement, if any
-     *
-     * @return Mage_Sales_Model_Billing_Agreement|null
-     */
-    public function getBillingAgreement()
-    {
-        return $this->_billingAgreement;
     }
 
     /**
@@ -1518,45 +1597,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     }
 
     /**
-     * Find one transaction by ID or type
-     * @param string|false $txnId
-     * @param string|false $txnType
-     * @return Mage_Sales_Model_Order_Payment_Transaction|false
-     */
-    public function lookupTransaction($txnId, $txnType = false)
-    {
-        return $this->_lookupTransaction($txnId, $txnType);
-    }
-
-    /**
-     * Lookup an authorization transaction using parent transaction id, if set
-     * @return Mage_Sales_Model_Order_Payment_Transaction|false
-     */
-    public function getAuthorizationTransaction()
-    {
-        if ($this->getParentTransactionId()) {
-            $txn = $this->_lookupTransaction($this->getParentTransactionId());
-        } else {
-            $txn = false;
-        }
-
-        if (!$txn) {
-            $txn = $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
-        }
-        return $txn;
-    }
-
-    /**
-     * Lookup the transaction by id
-     * @param string $transactionId
-     * @return Mage_Sales_Model_Order_Payment_Transaction|false
-     */
-    public function getTransaction($transactionId)
-    {
-        return $this->_lookupTransaction($transactionId);
-    }
-
-    /**
      * Update transaction ids for further processing
      * If no transactions were set before invoking, may generate an "offline" transaction id
      *
@@ -1638,46 +1678,6 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $comment = $order->addStatusHistoryComment($message);
             $order->addRelatedObject($comment);
         }
-    }
-
-    /**
-     * Additional transaction info setter
-     *
-     * @param string $key
-     * @param string $value
-     */
-    public function setTransactionAdditionalInfo($key, $value)
-    {
-        if (is_array($key)) {
-            $this->_transactionAdditionalInfo = $key;
-        } else {
-            $this->_transactionAdditionalInfo[$key] = $value;
-        }
-    }
-
-    /**
-     * Additional transaction info getter
-     *
-     * @param string $key
-     * @return mixed
-     */
-    public function getTransactionAdditionalInfo($key = null)
-    {
-        if (is_null($key)) {
-            return $this->_transactionAdditionalInfo;
-        }
-        return $this->_transactionAdditionalInfo[$key] ?? null;
-    }
-
-    /**
-     * Reset transaction additional info property
-     *
-     * @return $this
-     */
-    public function resetTransactionAdditionalInfo()
-    {
-        $this->_transactionAdditionalInfo = [];
-        return $this;
     }
 
     /**

@@ -20,13 +20,6 @@
 
 abstract class Varien_Image_Adapter_Abstract
 {
-    public $fileName = null;
-
-    /**
-     * @var int Color used to fill space when rotating image, do not confuse it with $_backgroundColor
-     */
-    public $imageBackgroundColor = 0;
-
     public const POSITION_TOP_LEFT = 'top-left';
     public const POSITION_TOP_RIGHT = 'top-right';
     public const POSITION_BOTTOM_LEFT = 'bottom-left';
@@ -34,6 +27,12 @@ abstract class Varien_Image_Adapter_Abstract
     public const POSITION_STRETCH = 'stretch';
     public const POSITION_TILE = 'tile';
     public const POSITION_CENTER = 'center';
+    public $fileName = null;
+
+    /**
+     * @var int Color used to fill space when rotating image, do not confuse it with $_backgroundColor
+     */
+    public $imageBackgroundColor = 0;
 
     /**
      * Image file type of the image $this->_fileName

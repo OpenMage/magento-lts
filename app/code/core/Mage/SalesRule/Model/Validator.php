@@ -122,118 +122,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get rules collection for current object state
-     *
-     * @return Mage_SalesRule_Model_Resource_Rule_Collection
-     */
-    protected function _getRules()
-    {
-        $key = $this->getWebsiteId() . '_' . $this->getCustomerGroupId() . '_' . $this->getCouponCode();
-        return $this->_rules[$key] ?? null;
-    }
-
-    /**
-     * Get address object which can be used for discount calculation
-     *
-     * @return  Mage_Sales_Model_Quote_Address
-     */
-    protected function _getAddress(Mage_Sales_Model_Quote_Item_Abstract $item)
-    {
-        if ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
-            $address = $item->getAddress();
-        } elseif ($this->_address) {
-            $address = $this->_address;
-        } elseif ($item->getQuote()->getItemVirtualQty() > 0) {
-            $address = $item->getQuote()->getBillingAddress();
-        } else {
-            $address = $item->getQuote()->getShippingAddress();
-        }
-        return $address;
-    }
-
-    /**
-     * Check if rule can be applied for specific address/quote/customer
-     *
-     * @param   Mage_SalesRule_Model_Rule $rule
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  bool
-     */
-    protected function _canProcessRule($rule, $address)
-    {
-        if ($rule->hasIsValidForAddress($address) && !$address->isObjectNew()) {
-            return $rule->getIsValidForAddress($address);
-        }
-
-        /**
-         * check per coupon usage limit
-         */
-        if ($rule->getCouponType() != Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON) {
-            $couponCode = $address->getQuote()->getCouponCode();
-            if (strlen($couponCode)) {
-                $coupon = Mage::getModel('salesrule/coupon');
-                $coupon->load($couponCode, 'code');
-                if ($coupon->getId()) {
-                    // check entire usage limit
-                    if ($coupon->getUsageLimit() && $coupon->getTimesUsed() >= $coupon->getUsageLimit()) {
-                        $rule->setIsValidForAddress($address, false);
-                        return false;
-                    }
-                    // check coupon expiration
-                    if ($coupon->hasExpirationDate() && ($coupon->getExpirationDate() < Mage::getModel('core/date')->date())) {
-                        $rule->setIsValidForAddress($address, false);
-                        return false;
-                    }
-                    // check per customer usage limit
-                    $customerId = $address->getQuote()->getCustomerId();
-                    if ($customerId && $coupon->getUsagePerCustomer()) {
-                        $couponUsage = new Varien_Object();
-                        Mage::getResourceModel('salesrule/coupon_usage')->loadByCustomerCoupon(
-                            $couponUsage,
-                            $customerId,
-                            $coupon->getId(),
-                        );
-                        if ($couponUsage->getCouponId() &&
-                            $couponUsage->getTimesUsed() >= $coupon->getUsagePerCustomer()
-                        ) {
-                            $rule->setIsValidForAddress($address, false);
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-
-        /**
-         * check per rule usage limit
-         */
-        $ruleId = $rule->getId();
-        if ($ruleId && $rule->getUsesPerCustomer()) {
-            $customerId     = $address->getQuote()->getCustomerId();
-            $ruleCustomer   = Mage::getModel('salesrule/rule_customer');
-            $ruleCustomer->loadByCustomerRule($customerId, $ruleId);
-            if ($ruleCustomer->getId()) {
-                if ($ruleCustomer->getTimesUsed() >= $rule->getUsesPerCustomer()) {
-                    $rule->setIsValidForAddress($address, false);
-                    return false;
-                }
-            }
-        }
-        $rule->afterLoad();
-        /**
-         * quote does not meet rule's conditions
-         */
-        if (!$rule->validate($address)) {
-            $rule->setIsValidForAddress($address, false);
-            return false;
-        }
-        /**
-         * passed all validations, remember to be valid
-         */
-        $rule->setIsValidForAddress($address, true);
-        return true;
-    }
-
-    /**
      * Quote item free shipping ability check
      * This process not affect information about applied rules, coupon code etc.
      * This information will be added during discount amounts processing
@@ -704,39 +592,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Round the amount with deltas collected
-     *
-     * @param string $key
-     * @param float $amount
-     * @param Mage_Core_Model_Store $store
-     * @return float
-     */
-    protected function _roundWithDeltas($key, $amount, $store)
-    {
-        $delta = $this->_roundingDeltas[$key] ?? 0;
-        $this->_roundingDeltas[$key] = $store->roundPrice($amount + $delta)
-            - $amount;
-        return $store->roundPrice($amount + $delta);
-    }
-
-    /**
-     * Round the amount with deltas collected
-     *
-     * @param string $key
-     * @param float $amount
-     * @param Mage_Core_Model_Store $store
-     * @return float
-     */
-    protected function _roundWithDeltasForBase($key, $amount, $store)
-    {
-        $delta = isset($this->_baseRoundingDeltas[$key]) ?
-            $this->_roundingDeltas[$key] : 0;
-        $this->_baseRoundingDeltas[$key] = $store->roundPrice($amount + $delta)
-            - $amount;
-        return $store->roundPrice($amount + $delta);
-    }
-
-    /**
      * Apply discounts to shipping amount
      *
      * @return  Mage_SalesRule_Model_Validator
@@ -920,6 +775,197 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Convert address discount description array to string
+     *
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @param string $separator
+     * @return $this
+     */
+    public function prepareDescription($address, $separator = ', ')
+    {
+        $descriptionArray = $address->getDiscountDescriptionArray();
+        /** @see Mage_SalesRule_Model_Validator::_getAddress */
+        if (!$descriptionArray && $address->getQuote()->getItemVirtualQty() > 0) {
+            $descriptionArray = $address->getQuote()->getBillingAddress()->getDiscountDescriptionArray();
+        }
+
+        $description = $descriptionArray && is_array($descriptionArray)
+            ? implode($separator, array_unique($descriptionArray))
+            : '';
+
+        $address->setDiscountDescription($description);
+        return $this;
+    }
+
+    /**
+     * Return items list sorted by possibility to apply prioritized rules
+     *
+     * @param array $items
+     * @return array $items
+     */
+    public function sortItemsByPriority($items)
+    {
+        $itemsSorted = [];
+        foreach ($this->_getRules() as $rule) {
+            foreach ($items as $itemKey => $itemValue) {
+                if ($rule->getActions()->validate($itemValue)) {
+                    unset($items[$itemKey]);
+                    $itemsSorted[] = $itemValue;
+                }
+            }
+        }
+        if (!empty($itemsSorted)) {
+            $items = array_merge($itemsSorted, $items);
+        }
+        return $items;
+    }
+
+    /**
+     * Get rules collection for current object state
+     *
+     * @return Mage_SalesRule_Model_Resource_Rule_Collection
+     */
+    protected function _getRules()
+    {
+        $key = $this->getWebsiteId() . '_' . $this->getCustomerGroupId() . '_' . $this->getCouponCode();
+        return $this->_rules[$key] ?? null;
+    }
+
+    /**
+     * Get address object which can be used for discount calculation
+     *
+     * @return  Mage_Sales_Model_Quote_Address
+     */
+    protected function _getAddress(Mage_Sales_Model_Quote_Item_Abstract $item)
+    {
+        if ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
+            $address = $item->getAddress();
+        } elseif ($this->_address) {
+            $address = $this->_address;
+        } elseif ($item->getQuote()->getItemVirtualQty() > 0) {
+            $address = $item->getQuote()->getBillingAddress();
+        } else {
+            $address = $item->getQuote()->getShippingAddress();
+        }
+        return $address;
+    }
+
+    /**
+     * Check if rule can be applied for specific address/quote/customer
+     *
+     * @param   Mage_SalesRule_Model_Rule $rule
+     * @param   Mage_Sales_Model_Quote_Address $address
+     * @return  bool
+     */
+    protected function _canProcessRule($rule, $address)
+    {
+        if ($rule->hasIsValidForAddress($address) && !$address->isObjectNew()) {
+            return $rule->getIsValidForAddress($address);
+        }
+
+        /**
+         * check per coupon usage limit
+         */
+        if ($rule->getCouponType() != Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON) {
+            $couponCode = $address->getQuote()->getCouponCode();
+            if (strlen($couponCode)) {
+                $coupon = Mage::getModel('salesrule/coupon');
+                $coupon->load($couponCode, 'code');
+                if ($coupon->getId()) {
+                    // check entire usage limit
+                    if ($coupon->getUsageLimit() && $coupon->getTimesUsed() >= $coupon->getUsageLimit()) {
+                        $rule->setIsValidForAddress($address, false);
+                        return false;
+                    }
+                    // check coupon expiration
+                    if ($coupon->hasExpirationDate() && ($coupon->getExpirationDate() < Mage::getModel('core/date')->date())) {
+                        $rule->setIsValidForAddress($address, false);
+                        return false;
+                    }
+                    // check per customer usage limit
+                    $customerId = $address->getQuote()->getCustomerId();
+                    if ($customerId && $coupon->getUsagePerCustomer()) {
+                        $couponUsage = new Varien_Object();
+                        Mage::getResourceModel('salesrule/coupon_usage')->loadByCustomerCoupon(
+                            $couponUsage,
+                            $customerId,
+                            $coupon->getId(),
+                        );
+                        if ($couponUsage->getCouponId() &&
+                            $couponUsage->getTimesUsed() >= $coupon->getUsagePerCustomer()
+                        ) {
+                            $rule->setIsValidForAddress($address, false);
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        /**
+         * check per rule usage limit
+         */
+        $ruleId = $rule->getId();
+        if ($ruleId && $rule->getUsesPerCustomer()) {
+            $customerId     = $address->getQuote()->getCustomerId();
+            $ruleCustomer   = Mage::getModel('salesrule/rule_customer');
+            $ruleCustomer->loadByCustomerRule($customerId, $ruleId);
+            if ($ruleCustomer->getId()) {
+                if ($ruleCustomer->getTimesUsed() >= $rule->getUsesPerCustomer()) {
+                    $rule->setIsValidForAddress($address, false);
+                    return false;
+                }
+            }
+        }
+        $rule->afterLoad();
+        /**
+         * quote does not meet rule's conditions
+         */
+        if (!$rule->validate($address)) {
+            $rule->setIsValidForAddress($address, false);
+            return false;
+        }
+        /**
+         * passed all validations, remember to be valid
+         */
+        $rule->setIsValidForAddress($address, true);
+        return true;
+    }
+
+    /**
+     * Round the amount with deltas collected
+     *
+     * @param string $key
+     * @param float $amount
+     * @param Mage_Core_Model_Store $store
+     * @return float
+     */
+    protected function _roundWithDeltas($key, $amount, $store)
+    {
+        $delta = $this->_roundingDeltas[$key] ?? 0;
+        $this->_roundingDeltas[$key] = $store->roundPrice($amount + $delta)
+            - $amount;
+        return $store->roundPrice($amount + $delta);
+    }
+
+    /**
+     * Round the amount with deltas collected
+     *
+     * @param string $key
+     * @param float $amount
+     * @param Mage_Core_Model_Store $store
+     * @return float
+     */
+    protected function _roundWithDeltasForBase($key, $amount, $store)
+    {
+        $delta = isset($this->_baseRoundingDeltas[$key]) ?
+            $this->_roundingDeltas[$key] : 0;
+        $this->_baseRoundingDeltas[$key] = $store->roundPrice($amount + $delta)
+            - $amount;
+        return $store->roundPrice($amount + $delta);
+    }
+
+    /**
      * Set coupon code to address if $rule contains validated coupon
      *
      * @param  Mage_Sales_Model_Quote_Address $address
@@ -1031,29 +1077,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Convert address discount description array to string
-     *
-     * @param Mage_Sales_Model_Quote_Address $address
-     * @param string $separator
-     * @return $this
-     */
-    public function prepareDescription($address, $separator = ', ')
-    {
-        $descriptionArray = $address->getDiscountDescriptionArray();
-        /** @see Mage_SalesRule_Model_Validator::_getAddress */
-        if (!$descriptionArray && $address->getQuote()->getItemVirtualQty() > 0) {
-            $descriptionArray = $address->getQuote()->getBillingAddress()->getDiscountDescriptionArray();
-        }
-
-        $description = $descriptionArray && is_array($descriptionArray)
-            ? implode($separator, array_unique($descriptionArray))
-            : '';
-
-        $address->setDiscountDescription($description);
-        return $this;
-    }
-
-    /**
      * wrap Mage::getSingleton
      *
      * @param string $name
@@ -1073,28 +1096,5 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     protected function _getHelper($name)
     {
         return Mage::helper($name);
-    }
-
-    /**
-     * Return items list sorted by possibility to apply prioritized rules
-     *
-     * @param array $items
-     * @return array $items
-     */
-    public function sortItemsByPriority($items)
-    {
-        $itemsSorted = [];
-        foreach ($this->_getRules() as $rule) {
-            foreach ($items as $itemKey => $itemValue) {
-                if ($rule->getActions()->validate($itemValue)) {
-                    unset($items[$itemKey]);
-                    $itemsSorted[] = $itemValue;
-                }
-            }
-        }
-        if (!empty($itemsSorted)) {
-            $items = array_merge($itemsSorted, $items);
-        }
-        return $items;
     }
 }

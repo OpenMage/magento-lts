@@ -30,15 +30,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     protected $_types;
 
     /**
-     * Define main index table
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product_index_eav', 'entity_id');
-    }
-
-    /**
      * Retrieve array of EAV type indexers
      *
      * @return array
@@ -184,5 +175,14 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
             return $this->getTable('catalog/product_eav_indexer_idx');
         }
         return $this->getTable('catalog/product_eav_indexer_tmp');
+    }
+
+    /**
+     * Define main index table
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product_index_eav', 'entity_id');
     }
 }

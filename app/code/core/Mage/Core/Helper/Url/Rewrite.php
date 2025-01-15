@@ -36,37 +36,6 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Core';
 
     /**
-     * Core func to validate request path
-     * If something is wrong with a path it throws localized error message and error code,
-     * that can be checked to by wrapper func to alternate error message
-     *
-     * @throws Mage_Core_Exception
-     * @param string $requestPath
-     * @return bool
-     */
-    protected function _validateRequestPath($requestPath)
-    {
-        if (strlen($requestPath) > self::TARGET_PATH_ALLOWED_LENGTH) {
-            throw new Mage_Core_Exception(
-                $this->__('Request path length exceeds allowed %s symbols.', self::TARGET_PATH_ALLOWED_LENGTH),
-            );
-        }
-        if (str_contains($requestPath, '//')) {
-            throw new Mage_Core_Exception(
-                $this->__('Two and more slashes together are not permitted in request path'),
-                self::VERR_MANYSLASHES,
-            );
-        }
-        if (strpos($requestPath, '#') !== false) {
-            throw new Mage_Core_Exception(
-                $this->__('Anchor symbol (#) is not supported in request path'),
-                self::VERR_ANCHOR,
-            );
-        }
-        return true;
-    }
-
-    /**
      * Validates request path
      * Either returns TRUE (success) or throws error (validation failed)
      *
@@ -100,6 +69,37 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
                     throw new Mage_Core_Exception($this->__('Anchor symbol (#) is not supported in url rewrite suffix'));
             }
             throw $e;
+        }
+        return true;
+    }
+
+    /**
+     * Core func to validate request path
+     * If something is wrong with a path it throws localized error message and error code,
+     * that can be checked to by wrapper func to alternate error message
+     *
+     * @throws Mage_Core_Exception
+     * @param string $requestPath
+     * @return bool
+     */
+    protected function _validateRequestPath($requestPath)
+    {
+        if (strlen($requestPath) > self::TARGET_PATH_ALLOWED_LENGTH) {
+            throw new Mage_Core_Exception(
+                $this->__('Request path length exceeds allowed %s symbols.', self::TARGET_PATH_ALLOWED_LENGTH),
+            );
+        }
+        if (str_contains($requestPath, '//')) {
+            throw new Mage_Core_Exception(
+                $this->__('Two and more slashes together are not permitted in request path'),
+                self::VERR_MANYSLASHES,
+            );
+        }
+        if (strpos($requestPath, '#') !== false) {
+            throw new Mage_Core_Exception(
+                $this->__('Anchor symbol (#) is not supported in request path'),
+                self::VERR_ANCHOR,
+            );
         }
         return true;
     }

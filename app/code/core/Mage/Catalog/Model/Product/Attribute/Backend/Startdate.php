@@ -24,18 +24,6 @@
 class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Model_Entity_Attribute_Backend_Datetime
 {
     /**
-     * Get attribute value for save.
-     *
-     * @param Varien_Object $object
-     * @return string|bool
-     */
-    protected function _getValueForSave($object)
-    {
-        $attributeName  = $this->getAttribute()->getName();
-        return $object->getData($attributeName);
-    }
-
-    /**
      * Before save hook.
      * Prepare attribute value for save
      *
@@ -82,5 +70,16 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
             }
         }
         return true;
+    }
+    /**
+     * Get attribute value for save.
+     *
+     * @param Varien_Object $object
+     * @return string|bool
+     */
+    protected function _getValueForSave($object)
+    {
+        $attributeName  = $this->getAttribute()->getName();
+        return $object->getData($attributeName);
     }
 }

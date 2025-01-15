@@ -73,12 +73,6 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     public const LINK_SHAREABLE_NO     = 0;
     public const LINK_SHAREABLE_CONFIG = 2;
 
-    protected function _construct()
-    {
-        $this->_init('downloadable/link');
-        parent::_construct();
-    }
-
     /**
      * Return link files path
      *
@@ -87,15 +81,6 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     public static function getLinkDir()
     {
         return Mage::getBaseDir();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _afterSave()
-    {
-        $this->getResource()->saveItemTitleAndPrice($this);
-        return parent::_afterSave();
     }
 
     /**
@@ -149,5 +134,20 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()
             ->getSearchableData($productId, $storeId);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('downloadable/link');
+        parent::_construct();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _afterSave()
+    {
+        $this->getResource()->saveItemTitleAndPrice($this);
+        return parent::_afterSave();
     }
 }

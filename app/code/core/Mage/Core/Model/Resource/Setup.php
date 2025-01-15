@@ -176,30 +176,6 @@ class Mage_Core_Model_Resource_Setup
     }
 
     /**
-     * Retrieve table name for cache
-     *
-     * @param string|array $tableName
-     * @return string
-     */
-    protected function _getTableCacheName($tableName)
-    {
-        if (is_array($tableName)) {
-            return implode('_', $tableName);
-        }
-        return $tableName;
-    }
-
-    /**
-     * Get core resource resource model
-     *
-     * @return Mage_Core_Model_Resource_Resource
-     */
-    protected function _getResource()
-    {
-        return Mage::getResourceSingleton('core/resource');
-    }
-
-    /**
      * Apply database updates whenever needed
      *
      * @return bool
@@ -321,6 +297,337 @@ class Mage_Core_Model_Resource_Setup
     }
 
     /**
+     * Callback function, called on every query adapter processes.
+     * Modifies SQL or tables, so that foreign keys will be set successfully
+     *
+     * @param string $sql
+     * @param array $bind
+     * @return $this
+     */
+    public function callbackQueryHook(&$sql, &$bind)
+    {
+        Mage::getSingleton('core/resource_setup_query_modifier', [$this->getConnection()])
+            ->processQuery($sql, $bind);
+        return $this;
+    }
+
+    /******************* UTILITY METHODS *****************/
+
+    /**
+     * Retrieve row or field from table by id or string and parent id
+     *
+     * @param string $table
+     * @param string $idField
+     * @param string|int $id
+     * @param string $field
+     * @param string $parentField
+     * @param string|int $parentId
+     * @return mixed|boolean
+     */
+    public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
+    {
+        if (str_contains($table, '/')) {
+            $table = $this->getTable($table);
+        }
+
+        if (empty($this->_setupCache[$table][$parentId][$id])) {
+            $adapter = $this->getConnection();
+            $bind    = ['id_field' => $id];
+            $select  = $adapter->select()
+                ->from($table)
+                ->where($adapter->quoteIdentifier($idField) . '= :id_field');
+            if (!is_null($parentField)) {
+                $select->where($adapter->quoteIdentifier($parentField) . '= :parent_id');
+                $bind['parent_id'] = $parentId;
+            }
+            $this->_setupCache[$table][$parentId][$id] = $adapter->fetchRow($select, $bind);
+        }
+
+        if (is_null($field)) {
+            return $this->_setupCache[$table][$parentId][$id];
+        }
+        return $this->_setupCache[$table][$parentId][$id][$field] ?? false;
+    }
+
+    /**
+    * Delete table row
+    *
+    * @param string $table
+    * @param string $idField
+    * @param int|string $id
+    * @param null|string $parentField
+    * @param int|string $parentId
+    * @return $this
+    */
+    public function deleteTableRow($table, $idField, $id, $parentField = null, $parentId = 0)
+    {
+        if (str_contains($table, '/')) {
+            $table = $this->getTable($table);
+        }
+
+        $adapter = $this->getConnection();
+        $where = [$adapter->quoteIdentifier($idField) . '=?' => $id];
+        if (!is_null($parentField)) {
+            $where[$adapter->quoteIdentifier($parentField) . '=?'] = $parentId;
+        }
+
+        $adapter->delete($table, $where);
+
+        if (isset($this->_setupCache[$table][$parentId][$id])) {
+            unset($this->_setupCache[$table][$parentId][$id]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Update one or more fields of table row
+     *
+     * @param string $table
+     * @param string $idField
+     * @param string|int $id
+     * @param string|array $field
+     * @param mixed|null $value
+     * @param string $parentField
+     * @param string|int $parentId
+     * @return $this
+     */
+    public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
+    {
+        if (str_contains($table, '/')) {
+            $table = $this->getTable($table);
+        }
+
+        if (is_array($field)) {
+            $data = $field;
+        } else {
+            $data = [$field => $value];
+        }
+
+        $adapter = $this->getConnection();
+        $where = [$adapter->quoteIdentifier($idField) . '=?' => $id];
+        $adapter->update($table, $data, $where);
+
+        if (isset($this->_setupCache[$table][$parentId][$id])) {
+            if (is_array($field)) {
+                $this->_setupCache[$table][$parentId][$id] =
+                    array_merge($this->_setupCache[$table][$parentId][$id], $field);
+            } else {
+                $this->_setupCache[$table][$parentId][$id][$field] = $value;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Update table data
+     *
+     * @param string $table
+     * @param Zend_Db_Expr $conditionExpr
+     * @param Zend_Db_Expr $valueExpr
+     * @return $this
+     *
+     * @deprecated since 1.4.0.1
+     */
+    public function updateTable($table, $conditionExpr, $valueExpr)
+    {
+        if (str_contains($table, '/')) {
+            $table = $this->getTable($table);
+        }
+        $query = sprintf(
+            'UPDATE %s SET %s WHERE %s',
+            $this->getConnection()->quoteIdentifier($table),
+            $conditionExpr,
+            $valueExpr,
+        );
+
+        $this->getConnection()->query($query);
+
+        return $this;
+    }
+
+    /**
+     * Check is table exists
+     *
+     * @param string $table
+     * @return bool
+     */
+    public function tableExists($table)
+    {
+        if (str_contains($table, '/')) {
+            $table = $this->getTable($table);
+        }
+
+        return $this->getConnection()->isTableExists($table);
+    }
+
+    /******************* CONFIG *****************/
+    /**
+     * Undefined
+     *
+     * @param string $path
+     * @param string $label
+     * @param string $default
+     * @return $this
+     * @deprecated since 1.4.0.1
+     */
+    public function addConfigField($path, $label, array $data = [], $default = null)
+    {
+        return $this;
+    }
+
+    /**
+     * Save configuration data
+     *
+     * @param string $path
+     * @param string $value
+     * @param int|string $scope
+     * @param int $scopeId
+     * @param int $inherit
+     * @return $this
+     */
+    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
+    {
+        $table = $this->getTable('core/config_data');
+        // this is a fix for mysql 4.1
+        $this->getConnection()->showTableStatus($table);
+
+        $data  = [
+            'scope'     => $scope,
+            'scope_id'  => $scopeId,
+            'path'      => $path,
+            'value'     => $value,
+        ];
+        $this->getConnection()->insertOnDuplicate($table, $data, ['value']);
+        return $this;
+    }
+
+    /**
+     * Delete config field values
+     *
+     * @param string $path
+     * @param string $scope (default|stores|websites|config)
+     * @return $this
+     */
+    public function deleteConfigData($path, $scope = null)
+    {
+        $where = ['path = ?' => $path];
+        if (!is_null($scope)) {
+            $where['scope = ?'] = $scope;
+        }
+        $this->getConnection()->delete($this->getTable('core/config_data'), $where);
+        return $this;
+    }
+
+    /**
+     * Run plain SQL query(ies)
+     *
+     * @param string $sql
+     * @return $this
+     */
+    public function run($sql)
+    {
+        $this->getConnection()->multiQuery($sql);
+        return $this;
+    }
+
+    /**
+     * Prepare database before install/upgrade
+     *
+     * @return $this
+     */
+    public function startSetup()
+    {
+        $this->getConnection()->startSetup();
+        return $this;
+    }
+
+    /**
+     * Prepare database after install/upgrade
+     *
+     * @return $this
+     */
+    public function endSetup()
+    {
+        $this->getConnection()->endSetup();
+        return $this;
+    }
+
+    /**
+     * Retrieve 32bit UNIQUE HASH for a Table index
+     *
+     * @param string $tableName
+     * @param array|string $fields
+     * @param string $indexType
+     * @return string
+     */
+    public function getIdxName($tableName, $fields, $indexType = '')
+    {
+        return Mage::getSingleton('core/resource')->getIdxName($tableName, $fields, $indexType);
+    }
+
+    /**
+     * Retrieve 32bit UNIQUE HASH for a Table foreign key
+     *
+     * @param string $priTableName  the target table name
+     * @param string $priColumnName the target table column name
+     * @param string $refTableName  the reference table name
+     * @param string $refColumnName the reference table column name
+     * @return string
+     */
+    public function getFkName($priTableName, $priColumnName, $refTableName, $refColumnName)
+    {
+        return Mage::getSingleton('core/resource')
+            ->getFkName($priTableName, $priColumnName, $refTableName, $refColumnName);
+    }
+
+    /**
+     * Check call afterApplyAllUpdates method for setup class
+     *
+     * @return bool
+     */
+    public function getCallAfterApplyAllUpdates()
+    {
+        return $this->_callAfterApplyAllUpdates;
+    }
+
+    /**
+     * Run each time after applying of all updates,
+     * if setup model set $_callAfterApplyAllUpdates flag to true
+     *
+     * @return $this
+     */
+    public function afterApplyAllUpdates()
+    {
+        return $this;
+    }
+
+    /**
+     * Retrieve table name for cache
+     *
+     * @param string|array $tableName
+     * @return string
+     */
+    protected function _getTableCacheName($tableName)
+    {
+        if (is_array($tableName)) {
+            return implode('_', $tableName);
+        }
+        return $tableName;
+    }
+
+    /**
+     * Get core resource resource model
+     *
+     * @return Mage_Core_Model_Resource_Resource
+     */
+    protected function _getResource()
+    {
+        return Mage::getResourceSingleton('core/resource');
+    }
+
+    /**
      * Hooks queries to strengthen backwards compatibility in MySQL.
      * Currently - dynamically updates column types for foreign keys, when their targets were changed
      * during MMDB development.
@@ -350,21 +657,6 @@ class Mage_Core_Model_Resource_Setup
         $adapter = $this->getConnection();
         $adapter->setQueryHook(null);
         $this->_queriesHooked = false;
-        return $this;
-    }
-
-    /**
-     * Callback function, called on every query adapter processes.
-     * Modifies SQL or tables, so that foreign keys will be set successfully
-     *
-     * @param string $sql
-     * @param array $bind
-     * @return $this
-     */
-    public function callbackQueryHook(&$sql, &$bind)
-    {
-        Mage::getSingleton('core/resource_setup_query_modifier', [$this->getConnection()])
-            ->processQuery($sql, $bind);
         return $this;
     }
 
@@ -691,297 +983,5 @@ class Mage_Core_Model_Resource_Setup
                 break;
         }
         return $arrRes;
-    }
-
-    /******************* UTILITY METHODS *****************/
-
-    /**
-     * Retrieve row or field from table by id or string and parent id
-     *
-     * @param string $table
-     * @param string $idField
-     * @param string|int $id
-     * @param string $field
-     * @param string $parentField
-     * @param string|int $parentId
-     * @return mixed|boolean
-     */
-    public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
-    {
-        if (str_contains($table, '/')) {
-            $table = $this->getTable($table);
-        }
-
-        if (empty($this->_setupCache[$table][$parentId][$id])) {
-            $adapter = $this->getConnection();
-            $bind    = ['id_field' => $id];
-            $select  = $adapter->select()
-                ->from($table)
-                ->where($adapter->quoteIdentifier($idField) . '= :id_field');
-            if (!is_null($parentField)) {
-                $select->where($adapter->quoteIdentifier($parentField) . '= :parent_id');
-                $bind['parent_id'] = $parentId;
-            }
-            $this->_setupCache[$table][$parentId][$id] = $adapter->fetchRow($select, $bind);
-        }
-
-        if (is_null($field)) {
-            return $this->_setupCache[$table][$parentId][$id];
-        }
-        return $this->_setupCache[$table][$parentId][$id][$field] ?? false;
-    }
-
-    /**
-    * Delete table row
-    *
-    * @param string $table
-    * @param string $idField
-    * @param int|string $id
-    * @param null|string $parentField
-    * @param int|string $parentId
-    * @return $this
-    */
-    public function deleteTableRow($table, $idField, $id, $parentField = null, $parentId = 0)
-    {
-        if (str_contains($table, '/')) {
-            $table = $this->getTable($table);
-        }
-
-        $adapter = $this->getConnection();
-        $where = [$adapter->quoteIdentifier($idField) . '=?' => $id];
-        if (!is_null($parentField)) {
-            $where[$adapter->quoteIdentifier($parentField) . '=?'] = $parentId;
-        }
-
-        $adapter->delete($table, $where);
-
-        if (isset($this->_setupCache[$table][$parentId][$id])) {
-            unset($this->_setupCache[$table][$parentId][$id]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Update one or more fields of table row
-     *
-     * @param string $table
-     * @param string $idField
-     * @param string|int $id
-     * @param string|array $field
-     * @param mixed|null $value
-     * @param string $parentField
-     * @param string|int $parentId
-     * @return $this
-     */
-    public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
-    {
-        if (str_contains($table, '/')) {
-            $table = $this->getTable($table);
-        }
-
-        if (is_array($field)) {
-            $data = $field;
-        } else {
-            $data = [$field => $value];
-        }
-
-        $adapter = $this->getConnection();
-        $where = [$adapter->quoteIdentifier($idField) . '=?' => $id];
-        $adapter->update($table, $data, $where);
-
-        if (isset($this->_setupCache[$table][$parentId][$id])) {
-            if (is_array($field)) {
-                $this->_setupCache[$table][$parentId][$id] =
-                    array_merge($this->_setupCache[$table][$parentId][$id], $field);
-            } else {
-                $this->_setupCache[$table][$parentId][$id][$field] = $value;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Update table data
-     *
-     * @param string $table
-     * @param Zend_Db_Expr $conditionExpr
-     * @param Zend_Db_Expr $valueExpr
-     * @return $this
-     *
-     * @deprecated since 1.4.0.1
-     */
-    public function updateTable($table, $conditionExpr, $valueExpr)
-    {
-        if (str_contains($table, '/')) {
-            $table = $this->getTable($table);
-        }
-        $query = sprintf(
-            'UPDATE %s SET %s WHERE %s',
-            $this->getConnection()->quoteIdentifier($table),
-            $conditionExpr,
-            $valueExpr,
-        );
-
-        $this->getConnection()->query($query);
-
-        return $this;
-    }
-
-    /**
-     * Check is table exists
-     *
-     * @param string $table
-     * @return bool
-     */
-    public function tableExists($table)
-    {
-        if (str_contains($table, '/')) {
-            $table = $this->getTable($table);
-        }
-
-        return $this->getConnection()->isTableExists($table);
-    }
-
-    /******************* CONFIG *****************/
-    /**
-     * Undefined
-     *
-     * @param string $path
-     * @param string $label
-     * @param string $default
-     * @return $this
-     * @deprecated since 1.4.0.1
-     */
-    public function addConfigField($path, $label, array $data = [], $default = null)
-    {
-        return $this;
-    }
-
-    /**
-     * Save configuration data
-     *
-     * @param string $path
-     * @param string $value
-     * @param int|string $scope
-     * @param int $scopeId
-     * @param int $inherit
-     * @return $this
-     */
-    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
-    {
-        $table = $this->getTable('core/config_data');
-        // this is a fix for mysql 4.1
-        $this->getConnection()->showTableStatus($table);
-
-        $data  = [
-            'scope'     => $scope,
-            'scope_id'  => $scopeId,
-            'path'      => $path,
-            'value'     => $value,
-        ];
-        $this->getConnection()->insertOnDuplicate($table, $data, ['value']);
-        return $this;
-    }
-
-    /**
-     * Delete config field values
-     *
-     * @param string $path
-     * @param string $scope (default|stores|websites|config)
-     * @return $this
-     */
-    public function deleteConfigData($path, $scope = null)
-    {
-        $where = ['path = ?' => $path];
-        if (!is_null($scope)) {
-            $where['scope = ?'] = $scope;
-        }
-        $this->getConnection()->delete($this->getTable('core/config_data'), $where);
-        return $this;
-    }
-
-    /**
-     * Run plain SQL query(ies)
-     *
-     * @param string $sql
-     * @return $this
-     */
-    public function run($sql)
-    {
-        $this->getConnection()->multiQuery($sql);
-        return $this;
-    }
-
-    /**
-     * Prepare database before install/upgrade
-     *
-     * @return $this
-     */
-    public function startSetup()
-    {
-        $this->getConnection()->startSetup();
-        return $this;
-    }
-
-    /**
-     * Prepare database after install/upgrade
-     *
-     * @return $this
-     */
-    public function endSetup()
-    {
-        $this->getConnection()->endSetup();
-        return $this;
-    }
-
-    /**
-     * Retrieve 32bit UNIQUE HASH for a Table index
-     *
-     * @param string $tableName
-     * @param array|string $fields
-     * @param string $indexType
-     * @return string
-     */
-    public function getIdxName($tableName, $fields, $indexType = '')
-    {
-        return Mage::getSingleton('core/resource')->getIdxName($tableName, $fields, $indexType);
-    }
-
-    /**
-     * Retrieve 32bit UNIQUE HASH for a Table foreign key
-     *
-     * @param string $priTableName  the target table name
-     * @param string $priColumnName the target table column name
-     * @param string $refTableName  the reference table name
-     * @param string $refColumnName the reference table column name
-     * @return string
-     */
-    public function getFkName($priTableName, $priColumnName, $refTableName, $refColumnName)
-    {
-        return Mage::getSingleton('core/resource')
-            ->getFkName($priTableName, $priColumnName, $refTableName, $refColumnName);
-    }
-
-    /**
-     * Check call afterApplyAllUpdates method for setup class
-     *
-     * @return bool
-     */
-    public function getCallAfterApplyAllUpdates()
-    {
-        return $this->_callAfterApplyAllUpdates;
-    }
-
-    /**
-     * Run each time after applying of all updates,
-     * if setup model set $_callAfterApplyAllUpdates flag to true
-     *
-     * @return $this
-     */
-    public function afterApplyAllUpdates()
-    {
-        return $this;
     }
 }

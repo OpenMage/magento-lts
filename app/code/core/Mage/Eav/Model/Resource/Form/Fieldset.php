@@ -22,6 +22,26 @@
  */
 class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * Retrieve fieldset labels for stores
+     *
+     * @param Mage_Eav_Model_Form_Fieldset $object
+     * @return array
+     */
+    public function getLabels($object)
+    {
+        $objectId = $object->getId();
+        if (!$objectId) {
+            return [];
+        }
+        $adapter = $this->_getReadAdapter();
+        $bind    = [':fieldset_id' => $objectId];
+        $select  = $adapter->select()
+            ->from($this->getTable('eav/form_fieldset_label'), ['store_id', 'label'])
+            ->where('fieldset_id = :fieldset_id');
+
+        return $adapter->fetchPairs($select, $bind);
+    }
     protected function _construct()
     {
         $this->_init('eav/form_fieldset', 'fieldset_id');
@@ -97,27 +117,6 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
         }
 
         return parent::_afterSave($object);
-    }
-
-    /**
-     * Retrieve fieldset labels for stores
-     *
-     * @param Mage_Eav_Model_Form_Fieldset $object
-     * @return array
-     */
-    public function getLabels($object)
-    {
-        $objectId = $object->getId();
-        if (!$objectId) {
-            return [];
-        }
-        $adapter = $this->_getReadAdapter();
-        $bind    = [':fieldset_id' => $objectId];
-        $select  = $adapter->select()
-            ->from($this->getTable('eav/form_fieldset_label'), ['store_id', 'label'])
-            ->where('fieldset_id = :fieldset_id');
-
-        return $adapter->fetchPairs($select, $bind);
     }
 
     /**

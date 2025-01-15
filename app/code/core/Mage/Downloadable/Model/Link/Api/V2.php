@@ -23,22 +23,6 @@
 class Mage_Downloadable_Model_Link_Api_V2 extends Mage_Downloadable_Model_Link_Api
 {
     /**
-     * Clean the object, leave only property values
-     *
-     * @param object $var
-     * @param-out array $var
-     */
-    protected function _prepareData(&$var)
-    {
-        if (is_object($var)) {
-            $var = get_object_vars($var);
-            foreach ($var as $key => &$value) {
-                $this->_prepareData($value);
-            }
-        }
-    }
-
-    /**
      * Add downloadable content to product
      *
      * @param int|string $productId
@@ -52,5 +36,20 @@ class Mage_Downloadable_Model_Link_Api_V2 extends Mage_Downloadable_Model_Link_A
     {
         $this->_prepareData($resource);
         return parent::add($productId, $resource, $resourceType, $store, $identifierType);
+    }
+    /**
+     * Clean the object, leave only property values
+     *
+     * @param object $var
+     * @param-out array $var
+     */
+    protected function _prepareData(&$var)
+    {
+        if (is_object($var)) {
+            $var = get_object_vars($var);
+            foreach ($var as $key => &$value) {
+                $this->_prepareData($value);
+            }
+        }
     }
 }

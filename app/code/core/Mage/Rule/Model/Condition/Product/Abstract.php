@@ -154,15 +154,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     }
 
     /**
-     * Add special attributes
-     */
-    protected function _addSpecialAttributes(array &$attributes)
-    {
-        $attributes['attribute_set_id'] = Mage::helper('catalogrule')->__('Attribute Set');
-        $attributes['category_ids'] = Mage::helper('catalogrule')->__('Category');
-    }
-
-    /**
      * Load attribute options
      *
      * @return $this
@@ -188,65 +179,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
         asort($attributes);
         $this->setAttributeOption($attributes);
-
-        return $this;
-    }
-
-    /**
-     * Prepares values options to be used as select options or hashed array
-     * Result is stored in following keys:
-     *  'value_select_options' - normal select array: array(array('value' => $value, 'label' => $label), ...)
-     *  'value_option' - hashed array: array($value => $label, ...),
-     *
-     * @return $this
-     */
-    protected function _prepareValueOptions()
-    {
-        // Check that both keys exist. Maybe somehow only one was set not in this routine, but externally.
-        $selectReady = $this->getData('value_select_options');
-        $hashedReady = $this->getData('value_option');
-        if ($selectReady && $hashedReady) {
-            return $this;
-        }
-
-        // Get array of select options. It will be used as source for hashed options
-        $selectOptions = null;
-        if ($this->getAttribute() === 'attribute_set_id') {
-            $entityTypeId = Mage::getSingleton('eav/config')
-                ->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
-            $selectOptions = Mage::getResourceModel('eav/entity_attribute_set_collection')
-                ->setEntityTypeFilter($entityTypeId)
-                ->load()
-                ->toOptionArray();
-        } elseif (is_object($this->getAttributeObject())) {
-            $attributeObject = $this->getAttributeObject();
-            if ($attributeObject->usesSource()) {
-                if ($attributeObject->getFrontendInput() == 'multiselect') {
-                    $addEmptyOption = false;
-                } else {
-                    $addEmptyOption = true;
-                }
-                $selectOptions = $attributeObject->getSource()->getAllOptions($addEmptyOption);
-            }
-        }
-
-        // Set new values only if we really got them
-        if ($selectOptions !== null) {
-            // Overwrite only not already existing values
-            if (!$selectReady) {
-                $this->setData('value_select_options', $selectOptions);
-            }
-            if (!$hashedReady) {
-                $hashedOptions = [];
-                foreach ($selectOptions as $o) {
-                    if (is_array($o['value'])) {
-                        continue; // We cannot use array as index
-                    }
-                    $hashedOptions[$o['value']] = $o['label'];
-                }
-                $this->setData('value_option', $hashedOptions);
-            }
-        }
 
         return $this;
     }
@@ -587,5 +519,73 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         }
 
         return $operator;
+    }
+
+    /**
+     * Add special attributes
+     */
+    protected function _addSpecialAttributes(array &$attributes)
+    {
+        $attributes['attribute_set_id'] = Mage::helper('catalogrule')->__('Attribute Set');
+        $attributes['category_ids'] = Mage::helper('catalogrule')->__('Category');
+    }
+
+    /**
+     * Prepares values options to be used as select options or hashed array
+     * Result is stored in following keys:
+     *  'value_select_options' - normal select array: array(array('value' => $value, 'label' => $label), ...)
+     *  'value_option' - hashed array: array($value => $label, ...),
+     *
+     * @return $this
+     */
+    protected function _prepareValueOptions()
+    {
+        // Check that both keys exist. Maybe somehow only one was set not in this routine, but externally.
+        $selectReady = $this->getData('value_select_options');
+        $hashedReady = $this->getData('value_option');
+        if ($selectReady && $hashedReady) {
+            return $this;
+        }
+
+        // Get array of select options. It will be used as source for hashed options
+        $selectOptions = null;
+        if ($this->getAttribute() === 'attribute_set_id') {
+            $entityTypeId = Mage::getSingleton('eav/config')
+                ->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
+            $selectOptions = Mage::getResourceModel('eav/entity_attribute_set_collection')
+                ->setEntityTypeFilter($entityTypeId)
+                ->load()
+                ->toOptionArray();
+        } elseif (is_object($this->getAttributeObject())) {
+            $attributeObject = $this->getAttributeObject();
+            if ($attributeObject->usesSource()) {
+                if ($attributeObject->getFrontendInput() == 'multiselect') {
+                    $addEmptyOption = false;
+                } else {
+                    $addEmptyOption = true;
+                }
+                $selectOptions = $attributeObject->getSource()->getAllOptions($addEmptyOption);
+            }
+        }
+
+        // Set new values only if we really got them
+        if ($selectOptions !== null) {
+            // Overwrite only not already existing values
+            if (!$selectReady) {
+                $this->setData('value_select_options', $selectOptions);
+            }
+            if (!$hashedReady) {
+                $hashedOptions = [];
+                foreach ($selectOptions as $o) {
+                    if (is_array($o['value'])) {
+                        continue; // We cannot use array as index
+                    }
+                    $hashedOptions[$o['value']] = $o['label'];
+                }
+                $this->setData('value_option', $hashedOptions);
+            }
+        }
+
+        return $this;
     }
 }

@@ -54,49 +54,6 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     }
 
     /**
-     * Retrieve connection for read data
-     *
-     * @return Varien_Db_Adapter_Interface
-     */
-    protected function _getReadAdapter()
-    {
-        if ($this->_readAdapter === null) {
-            $this->_readAdapter = $this->_getConnection('read');
-        }
-
-        return $this->_readAdapter;
-    }
-
-    /**
-     * Retrieve connection for write data
-     *
-     * @return Varien_Db_Adapter_Interface
-     */
-    protected function _getWriteAdapter()
-    {
-        if ($this->_writeAdapter === null) {
-            $this->_writeAdapter = $this->_getConnection('write');
-        }
-
-        return $this->_writeAdapter;
-    }
-
-    /**
-     * Retrieves connection to the resource
-     *
-     * @param string $name
-     * @return Varien_Db_Adapter_Interface
-     */
-    protected function _getConnection($name)
-    {
-        $connection = sprintf('%s_%s', $this->_modulePrefix, $name);
-        /** @var Mage_Core_Model_Resource $resource */
-        $resource   = Mage::getSingleton('core/resource');
-
-        return $resource->getConnection($connection);
-    }
-
-    /**
      * Escapes value, that participates in LIKE, with '\' symbol.
      * Note: this func cannot be used on its own, because different RDBMS may use different default escape symbols,
      * so you should either use addLikeEscape() to produce LIKE construction, or add escape symbol on your own.
@@ -312,5 +269,48 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Retrieve connection for read data
+     *
+     * @return Varien_Db_Adapter_Interface
+     */
+    protected function _getReadAdapter()
+    {
+        if ($this->_readAdapter === null) {
+            $this->_readAdapter = $this->_getConnection('read');
+        }
+
+        return $this->_readAdapter;
+    }
+
+    /**
+     * Retrieve connection for write data
+     *
+     * @return Varien_Db_Adapter_Interface
+     */
+    protected function _getWriteAdapter()
+    {
+        if ($this->_writeAdapter === null) {
+            $this->_writeAdapter = $this->_getConnection('write');
+        }
+
+        return $this->_writeAdapter;
+    }
+
+    /**
+     * Retrieves connection to the resource
+     *
+     * @param string $name
+     * @return Varien_Db_Adapter_Interface
+     */
+    protected function _getConnection($name)
+    {
+        $connection = sprintf('%s_%s', $this->_modulePrefix, $name);
+        /** @var Mage_Core_Model_Resource $resource */
+        $resource   = Mage::getSingleton('core/resource');
+
+        return $resource->getConnection($connection);
     }
 }

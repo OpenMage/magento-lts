@@ -31,6 +31,11 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
         $this->setDefaultDir('asc');
     }
 
+    public function getRowUrl($row): string
+    {
+        return '';
+    }
+
     /**
      * @inheritdoc
      */
@@ -82,10 +87,5 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
         ]);
 
         return $this;
-    }
-
-    public function getRowUrl($row): string
-    {
-        return '';
     }
 }

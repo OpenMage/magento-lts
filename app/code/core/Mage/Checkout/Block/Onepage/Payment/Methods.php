@@ -31,17 +31,6 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
     }
 
     /**
-     * Check payment method model
-     *
-     * @param Mage_Payment_Model_Method_Abstract|null $method
-     * @return bool
-     */
-    protected function _canUseMethod($method)
-    {
-        return $method && $method->canUseCheckout() && parent::_canUseMethod($method);
-    }
-
-    /**
      * Retrieve code of current payment method
      *
      * @return false|string
@@ -87,5 +76,16 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
             return $form->getMethodLabelAfterHtml();
         }
         return '';
+    }
+
+    /**
+     * Check payment method model
+     *
+     * @param Mage_Payment_Model_Method_Abstract|null $method
+     * @return bool
+     */
+    protected function _canUseMethod($method)
+    {
+        return $method && $method->canUseCheckout() && parent::_canUseMethod($method);
     }
 }

@@ -175,104 +175,6 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
-     * Validate LEFT joins, and remove it if not exists
-     *
-     * @return $this
-     */
-    protected function _resetJoinLeft()
-    {
-        foreach ($this->_parts[self::FROM] as $tableId => $tableProp) {
-            if ($tableProp['joinType'] == self::LEFT_JOIN) {
-                if ($tableProp['useInCond']) {
-                    continue;
-                }
-
-                $used = false;
-                foreach ($tableProp['joinInTables'] as $table) {
-                    if (isset($this->_parts[self::FROM][$table])) {
-                        $used = true;
-                        break;
-                    }
-                }
-
-                if (!$used) {
-                    unset($this->_parts[self::FROM][$tableId]);
-                    return $this->_resetJoinLeft();
-                }
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Find table name in condition (where, column)
-     *
-     * @param string $table
-     * @param string $cond
-     * @return bool
-     */
-    protected function _findTableInCond($table, $cond)
-    {
-        $cond  = (string) $cond;
-        $quote = $this->_adapter->getQuoteIdentifierSymbol();
-
-        if (strpos($cond, $quote . $table . $quote . '.') !== false) {
-            return true;
-        }
-
-        $position = 0;
-        $result   = 0;
-        $needle   = [];
-        while (is_integer($result)) {
-            $result = strpos($cond, $table . '.', $position);
-            if (is_integer($result)) {
-                $needle[] = $result;
-                $position = ($result + strlen($table) + 1);
-            }
-        }
-
-        if (!$needle) {
-            return false;
-        }
-
-        foreach ($needle as $position) {
-            if ($position == 0) {
-                return true;
-            }
-            if (!preg_match('#[a-z0-9_]#is', substr($cond, $position - 1, 1))) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Populate the {@link $_parts} 'join' key
-     *
-     * Does the dirty work of populating the join key.
-     *
-     * The $name and $cols parameters follow the same logic
-     * as described in the from() method.
-     *
-     * @param  null|string $type Type of join; inner, left, and null are currently supported
-     * @param  array|string|Zend_Db_Expr $name Table name
-     * @param  string $cond Join on this condition
-     * @param  array|string $cols The columns to select from the joined table
-     * @param  string $schema The database name to specify, if any.
-     * @return Zend_Db_Select This Zend_Db_Select object
-     * @throws Zend_Db_Select_Exception
-     */
-    protected function _join($type, $name, $cond, $cols, $schema = null)
-    {
-        if ($type == self::INNER_JOIN && empty($cond)) {
-            $type = self::CROSS_JOIN;
-        }
-        return parent::_join($type, $name, $cond, $cols, $schema);
-    }
-
-    /**
      * Sets a limit count and offset to the query.
      *
      * @param int $count OPTIONAL The number of rows to return.
@@ -374,6 +276,140 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
+     * Adds the random order to query
+     *
+     * @param string $field     integer field name
+     * @return $this
+     */
+    public function orderRand($field = null)
+    {
+        $this->_adapter->orderRand($this, $field);
+        return $this;
+    }
+    /**
+     * Add EXISTS clause
+     *
+     * @param  Varien_Db_Select $select
+     * @param  string           $joinCondition
+     * @param   bool            $isExists
+     * @return $this
+     */
+    public function exists($select, $joinCondition, $isExists = true)
+    {
+        if ($isExists) {
+            $exists = 'EXISTS (%s)';
+        } else {
+            $exists = 'NOT EXISTS (%s)';
+        }
+        $select->reset(self::COLUMNS)
+            ->columns([new Zend_Db_Expr('1')])
+            ->where($joinCondition);
+
+        $exists = sprintf($exists, $select->assemble());
+
+        $this->where($exists);
+        return $this;
+    }
+
+    /**
+     * Validate LEFT joins, and remove it if not exists
+     *
+     * @return $this
+     */
+    protected function _resetJoinLeft()
+    {
+        foreach ($this->_parts[self::FROM] as $tableId => $tableProp) {
+            if ($tableProp['joinType'] == self::LEFT_JOIN) {
+                if ($tableProp['useInCond']) {
+                    continue;
+                }
+
+                $used = false;
+                foreach ($tableProp['joinInTables'] as $table) {
+                    if (isset($this->_parts[self::FROM][$table])) {
+                        $used = true;
+                        break;
+                    }
+                }
+
+                if (!$used) {
+                    unset($this->_parts[self::FROM][$tableId]);
+                    return $this->_resetJoinLeft();
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Find table name in condition (where, column)
+     *
+     * @param string $table
+     * @param string $cond
+     * @return bool
+     */
+    protected function _findTableInCond($table, $cond)
+    {
+        $cond  = (string) $cond;
+        $quote = $this->_adapter->getQuoteIdentifierSymbol();
+
+        if (strpos($cond, $quote . $table . $quote . '.') !== false) {
+            return true;
+        }
+
+        $position = 0;
+        $result   = 0;
+        $needle   = [];
+        while (is_integer($result)) {
+            $result = strpos($cond, $table . '.', $position);
+            if (is_integer($result)) {
+                $needle[] = $result;
+                $position = ($result + strlen($table) + 1);
+            }
+        }
+
+        if (!$needle) {
+            return false;
+        }
+
+        foreach ($needle as $position) {
+            if ($position == 0) {
+                return true;
+            }
+            if (!preg_match('#[a-z0-9_]#is', substr($cond, $position - 1, 1))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Populate the {@link $_parts} 'join' key
+     *
+     * Does the dirty work of populating the join key.
+     *
+     * The $name and $cols parameters follow the same logic
+     * as described in the from() method.
+     *
+     * @param  null|string $type Type of join; inner, left, and null are currently supported
+     * @param  array|string|Zend_Db_Expr $name Table name
+     * @param  string $cond Join on this condition
+     * @param  array|string $cols The columns to select from the joined table
+     * @param  string $schema The database name to specify, if any.
+     * @return Zend_Db_Select This Zend_Db_Select object
+     * @throws Zend_Db_Select_Exception
+     */
+    protected function _join($type, $name, $cond, $cols, $schema = null)
+    {
+        if ($type == self::INNER_JOIN && empty($cond)) {
+            $type = self::CROSS_JOIN;
+        }
+        return parent::_join($type, $name, $cond, $cols, $schema);
+    }
+
+    /**
      * Render STRAIGHT_JOIN clause
      *
      * @param string   $sql SQL query
@@ -407,18 +443,6 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
-     * Adds the random order to query
-     *
-     * @param string $field     integer field name
-     * @return $this
-     */
-    public function orderRand($field = null)
-    {
-        $this->_adapter->orderRand($this, $field);
-        return $this;
-    }
-
-    /**
      * Render FOR UPDATE clause
      *
      * @param string   $sql SQL query
@@ -431,29 +455,5 @@ class Varien_Db_Select extends Zend_Db_Select
         }
 
         return $sql;
-    }
-    /**
-     * Add EXISTS clause
-     *
-     * @param  Varien_Db_Select $select
-     * @param  string           $joinCondition
-     * @param   bool            $isExists
-     * @return $this
-     */
-    public function exists($select, $joinCondition, $isExists = true)
-    {
-        if ($isExists) {
-            $exists = 'EXISTS (%s)';
-        } else {
-            $exists = 'NOT EXISTS (%s)';
-        }
-        $select->reset(self::COLUMNS)
-            ->columns([new Zend_Db_Expr('1')])
-            ->where($joinCondition);
-
-        $exists = sprintf($exists, $select->assemble());
-
-        $this->where($exists);
-        return $this;
     }
 }

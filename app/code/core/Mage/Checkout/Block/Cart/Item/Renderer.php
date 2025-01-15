@@ -463,6 +463,32 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     }
 
     /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        $tags = $this->getProduct()->getCacheIdTags();
+        $tags = is_array($tags) ? $tags : [];
+
+        return array_merge(parent::getCacheTags(), $tags);
+    }
+
+    /**
+     * Returns true if user is going through checkout process now.
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function isOnCheckoutPage()
+    {
+        $module = $this->getRequest()->getModuleName();
+        $controller = $this->getRequest()->getControllerName();
+        return $module === 'checkout' && ($controller === 'onepage' || $controller === 'multishipping');
+    }
+
+    /**
      * Common code to be called by product renders of gift registry to create a block, which is be used to
      * generate html for mrsp price
      *
@@ -490,31 +516,5 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             ->setTemplate('catalog/product/price_msrp.phtml')
             ->setProduct($product)
             ->toHtml();
-    }
-
-    /**
-     * Retrieve block cache tags
-     *
-     * @return array
-     */
-    public function getCacheTags()
-    {
-        $tags = $this->getProduct()->getCacheIdTags();
-        $tags = is_array($tags) ? $tags : [];
-
-        return array_merge(parent::getCacheTags(), $tags);
-    }
-
-    /**
-     * Returns true if user is going through checkout process now.
-     *
-     * @return bool
-     * @throws Exception
-     */
-    public function isOnCheckoutPage()
-    {
-        $module = $this->getRequest()->getModuleName();
-        $controller = $this->getRequest()->getControllerName();
-        return $module === 'checkout' && ($controller === 'onepage' || $controller === 'multishipping');
     }
 }

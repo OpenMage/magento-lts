@@ -25,14 +25,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
     /**
      * @return string
      */
-    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
-    {
-        return $element->getElementHtml();
-    }
-
-    /**
-     * @return string
-     */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $id = $element->getHtmlId();
@@ -125,6 +117,13 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         $html .= '</td>';
 
         return $this->_decorateRowHtml($element, $html);
+    }
+    /**
+     * @return string
+     */
+    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
+    {
+        return $element->getElementHtml();
     }
 
     /**

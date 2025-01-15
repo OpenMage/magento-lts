@@ -62,198 +62,6 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
      */
     protected $_customerTablePermanentAttributes = ['email', 'website'];
 
-    protected function _construct()
-    {
-        $this->_init('dataflow/profile');
-    }
-
-    protected function _afterLoad()
-    {
-        $guiData = '';
-        if (is_string($this->getGuiData())) {
-            try {
-                $guiData = Mage::helper('core/unserializeArray')
-                    ->unserialize($this->getGuiData());
-            } catch (Exception $e) {
-                Mage::logException($e);
-            }
-        }
-        $this->setGuiData($guiData);
-
-        return parent::_afterLoad();
-    }
-
-    /**
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        $actionsXML = $this->getData('actions_xml');
-        // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
-        if ($actionsXML !== null && strlen($actionsXML) < 0 &&
-            @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
-        ) {
-            Mage::throwException(Mage::helper('dataflow')->__('Actions XML is not valid.'));
-        }
-
-        if (is_array($this->getGuiData())) {
-            $data = $this->getData();
-            $guiData = $this->getGuiData();
-            $charSingleList = ['\\', '/', '.', '!', '@', '#', '$', '%', '&', '*', '~', '^'];
-            if (isset($guiData['file']['type']) && $guiData['file']['type'] == 'file') {
-                if (empty($guiData['file']['path'])
-                    || (strlen($guiData['file']['path']) == 1
-                    && in_array($guiData['file']['path'], $charSingleList))
-                ) {
-                    $guiData['file']['path'] = self::DEFAULT_EXPORT_PATH;
-                }
-                if (empty($guiData['file']['filename'])) {
-                    $guiData['file']['filename'] = self::DEFAULT_EXPORT_FILENAME . $data['entity_type']
-                        . '.' . ($guiData['parse']['type'] == 'csv' ? $guiData['parse']['type'] : 'xml');
-                }
-
-                //validate export available path
-                $path = rtrim($guiData['file']['path'], '\\/')
-                      . DS . $guiData['file']['filename'];
-                /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
-                $validator = Mage::getModel('core/file_validator_availablePath');
-                /** @var Mage_ImportExport_Helper_Data $helperImportExport */
-                $helperImportExport = Mage::helper('importexport');
-                $validator->setPaths($helperImportExport->getLocalValidPaths());
-                if (!$validator->isValid($path)) {
-                    foreach ($validator->getMessages() as $message) {
-                        Mage::throwException($message);
-                    }
-                }
-
-                $this->setGuiData($guiData);
-            }
-            $this->_parseGuiData();
-
-            $this->setGuiData(serialize($this->getGuiData()));
-        }
-
-        if ($this->_getResource()->isProfileExists($this->getName(), $this->getId())) {
-            Mage::throwException(Mage::helper('dataflow')->__('Profile with the same name already exists.'));
-        }
-        return $this;
-    }
-
-    /**
-     * @SuppressWarnings("PHPMD.Superglobals")
-     */
-    protected function _afterSave()
-    {
-        if ($this->getGuiData() && is_string($this->getGuiData())) {
-            try {
-                $guiData = Mage::helper('core/unserializeArray')
-                    ->unserialize($this->getGuiData());
-                $this->setGuiData($guiData);
-            } catch (Exception $e) {
-                Mage::logException($e);
-            }
-        }
-
-        $profileHistory = Mage::getModel('dataflow/profile_history');
-
-        $adminUserId = $this->getAdminUserId();
-        if ($adminUserId) {
-            $profileHistory->setUserId($adminUserId);
-        }
-
-        $profileHistory
-            ->setProfileId($this->getId())
-            ->setActionCode($this->getOrigData('profile_id') ? 'update' : 'create')
-            ->save();
-        $csvParser = new Varien_File_Csv();
-        $delimiter = trim($this->getData('gui_data/parse/delimiter') ?? '');
-        if ($delimiter) {
-            $csvParser->setDelimiter($delimiter);
-        }
-        $xmlParser = new DOMDocument();
-        $newUploadedFilenames = [];
-
-        if (isset($_FILES['file_1']['tmp_name']) || isset($_FILES['file_2']['tmp_name'])
-            || isset($_FILES['file_3']['tmp_name'])
-        ) {
-            for ($index = 0; $index < 3; $index++) {
-                if ($file = $_FILES['file_' . ($index + 1)]['tmp_name']) {
-                    $uploader = Mage::getModel('core/file_uploader', 'file_' . ($index + 1));
-                    $uploader->setAllowedExtensions(['csv','xml']);
-                    $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
-                    $uploader->save($path);
-                    $uploadFile = $uploader->getUploadedFileName();
-
-                    if ($_FILES['file_' . ($index + 1)]['type'] == 'text/csv'
-                        || $_FILES['file_' . ($index + 1)]['type'] == 'application/vnd.ms-excel'
-                    ) {
-                        $fileData = $csvParser->getData($path . $uploadFile);
-                        $fileData = array_shift($fileData);
-                    } else {
-                        try {
-                            $xmlParser->loadXML(file_get_contents($path . $uploadFile));
-                            $cells = $this->getNode($xmlParser, 'Worksheet')->item(0);
-                            $cells = $this->getNode($cells, 'Row')->item(0);
-                            $cells = $this->getNode($cells, 'Cell');
-                            $fileData = [];
-                            foreach ($cells as $cell) {
-                                $fileData[] = $this->getNode($cell, 'Data')->item(0)->nodeValue;
-                            }
-                        } catch (Exception $e) {
-                            foreach ($newUploadedFilenames as $k => $v) {
-                                unlink($path . $v);
-                            }
-                            unlink($path . $uploadFile);
-                            Mage::throwException(
-                                Mage::helper('Dataflow')->__(
-                                    'Upload failed. Wrong data format in file: %s.',
-                                    $uploadFile,
-                                ),
-                            );
-                        }
-                    }
-
-                    if ($this->_data['entity_type'] == 'customer') {
-                        $attributes = $this->_customerTablePermanentAttributes;
-                    } else {
-                        $attributes = $this->_productTablePermanentAttributes;
-                    }
-                    $colsAbsent = array_diff($attributes, $fileData);
-                    if ($colsAbsent) {
-                        foreach ($newUploadedFilenames as $v) {
-                            unlink($path . $v);
-                        }
-                        unlink($path . $uploadFile);
-                        Mage::throwException(
-                            Mage::helper('Dataflow')->__(
-                                'Upload failed. Can not find required columns: %s in file %s.',
-                                implode(', ', $colsAbsent),
-                                $uploadFile,
-                            ),
-                        );
-                    }
-                    if ($uploadFile) {
-                        $newFilename = 'import-' . date('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
-                        rename($path . $uploadFile, $path . $newFilename);
-                        $newUploadedFilenames[] = $newFilename;
-                    }
-                }
-                //BOM deleting for UTF files
-                if (isset($newFilename) && $newFilename) {
-                    $contents = file_get_contents($path . $newFilename);
-                    if (ord($contents[0]) == 0xEF && ord($contents[1]) == 0xBB && ord($contents[2]) == 0xBF) {
-                        $contents = substr($contents, 3);
-                        file_put_contents($path . $newFilename, $contents);
-                    }
-                    unset($contents);
-                }
-            }
-        }
-        parent::_afterSave();
-        return $this;
-    }
-
     /**
      * Run profile
      *
@@ -482,6 +290,198 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         /*echo "<pre>" . print_r($p,1) . "</pre>";
         echo "<xmp>" . $xml . "</xmp>";
         die;*/
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('dataflow/profile');
+    }
+
+    protected function _afterLoad()
+    {
+        $guiData = '';
+        if (is_string($this->getGuiData())) {
+            try {
+                $guiData = Mage::helper('core/unserializeArray')
+                    ->unserialize($this->getGuiData());
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
+        }
+        $this->setGuiData($guiData);
+
+        return parent::_afterLoad();
+    }
+
+    /**
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        $actionsXML = $this->getData('actions_xml');
+        // @phpstan-ignore-next-line because of https://github.com/phpstan/phpstan/issues/10570
+        if ($actionsXML !== null && strlen($actionsXML) < 0 &&
+            @simplexml_load_string('<data>' . $actionsXML . '</data>', null, LIBXML_NOERROR) === false
+        ) {
+            Mage::throwException(Mage::helper('dataflow')->__('Actions XML is not valid.'));
+        }
+
+        if (is_array($this->getGuiData())) {
+            $data = $this->getData();
+            $guiData = $this->getGuiData();
+            $charSingleList = ['\\', '/', '.', '!', '@', '#', '$', '%', '&', '*', '~', '^'];
+            if (isset($guiData['file']['type']) && $guiData['file']['type'] == 'file') {
+                if (empty($guiData['file']['path'])
+                    || (strlen($guiData['file']['path']) == 1
+                    && in_array($guiData['file']['path'], $charSingleList))
+                ) {
+                    $guiData['file']['path'] = self::DEFAULT_EXPORT_PATH;
+                }
+                if (empty($guiData['file']['filename'])) {
+                    $guiData['file']['filename'] = self::DEFAULT_EXPORT_FILENAME . $data['entity_type']
+                        . '.' . ($guiData['parse']['type'] == 'csv' ? $guiData['parse']['type'] : 'xml');
+                }
+
+                //validate export available path
+                $path = rtrim($guiData['file']['path'], '\\/')
+                      . DS . $guiData['file']['filename'];
+                /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
+                $validator = Mage::getModel('core/file_validator_availablePath');
+                /** @var Mage_ImportExport_Helper_Data $helperImportExport */
+                $helperImportExport = Mage::helper('importexport');
+                $validator->setPaths($helperImportExport->getLocalValidPaths());
+                if (!$validator->isValid($path)) {
+                    foreach ($validator->getMessages() as $message) {
+                        Mage::throwException($message);
+                    }
+                }
+
+                $this->setGuiData($guiData);
+            }
+            $this->_parseGuiData();
+
+            $this->setGuiData(serialize($this->getGuiData()));
+        }
+
+        if ($this->_getResource()->isProfileExists($this->getName(), $this->getId())) {
+            Mage::throwException(Mage::helper('dataflow')->__('Profile with the same name already exists.'));
+        }
+        return $this;
+    }
+
+    /**
+     * @SuppressWarnings("PHPMD.Superglobals")
+     */
+    protected function _afterSave()
+    {
+        if ($this->getGuiData() && is_string($this->getGuiData())) {
+            try {
+                $guiData = Mage::helper('core/unserializeArray')
+                    ->unserialize($this->getGuiData());
+                $this->setGuiData($guiData);
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
+        }
+
+        $profileHistory = Mage::getModel('dataflow/profile_history');
+
+        $adminUserId = $this->getAdminUserId();
+        if ($adminUserId) {
+            $profileHistory->setUserId($adminUserId);
+        }
+
+        $profileHistory
+            ->setProfileId($this->getId())
+            ->setActionCode($this->getOrigData('profile_id') ? 'update' : 'create')
+            ->save();
+        $csvParser = new Varien_File_Csv();
+        $delimiter = trim($this->getData('gui_data/parse/delimiter') ?? '');
+        if ($delimiter) {
+            $csvParser->setDelimiter($delimiter);
+        }
+        $xmlParser = new DOMDocument();
+        $newUploadedFilenames = [];
+
+        if (isset($_FILES['file_1']['tmp_name']) || isset($_FILES['file_2']['tmp_name'])
+            || isset($_FILES['file_3']['tmp_name'])
+        ) {
+            for ($index = 0; $index < 3; $index++) {
+                if ($file = $_FILES['file_' . ($index + 1)]['tmp_name']) {
+                    $uploader = Mage::getModel('core/file_uploader', 'file_' . ($index + 1));
+                    $uploader->setAllowedExtensions(['csv','xml']);
+                    $path = Mage::app()->getConfig()->getTempVarDir() . '/import/';
+                    $uploader->save($path);
+                    $uploadFile = $uploader->getUploadedFileName();
+
+                    if ($_FILES['file_' . ($index + 1)]['type'] == 'text/csv'
+                        || $_FILES['file_' . ($index + 1)]['type'] == 'application/vnd.ms-excel'
+                    ) {
+                        $fileData = $csvParser->getData($path . $uploadFile);
+                        $fileData = array_shift($fileData);
+                    } else {
+                        try {
+                            $xmlParser->loadXML(file_get_contents($path . $uploadFile));
+                            $cells = $this->getNode($xmlParser, 'Worksheet')->item(0);
+                            $cells = $this->getNode($cells, 'Row')->item(0);
+                            $cells = $this->getNode($cells, 'Cell');
+                            $fileData = [];
+                            foreach ($cells as $cell) {
+                                $fileData[] = $this->getNode($cell, 'Data')->item(0)->nodeValue;
+                            }
+                        } catch (Exception $e) {
+                            foreach ($newUploadedFilenames as $k => $v) {
+                                unlink($path . $v);
+                            }
+                            unlink($path . $uploadFile);
+                            Mage::throwException(
+                                Mage::helper('Dataflow')->__(
+                                    'Upload failed. Wrong data format in file: %s.',
+                                    $uploadFile,
+                                ),
+                            );
+                        }
+                    }
+
+                    if ($this->_data['entity_type'] == 'customer') {
+                        $attributes = $this->_customerTablePermanentAttributes;
+                    } else {
+                        $attributes = $this->_productTablePermanentAttributes;
+                    }
+                    $colsAbsent = array_diff($attributes, $fileData);
+                    if ($colsAbsent) {
+                        foreach ($newUploadedFilenames as $v) {
+                            unlink($path . $v);
+                        }
+                        unlink($path . $uploadFile);
+                        Mage::throwException(
+                            Mage::helper('Dataflow')->__(
+                                'Upload failed. Can not find required columns: %s in file %s.',
+                                implode(', ', $colsAbsent),
+                                $uploadFile,
+                            ),
+                        );
+                    }
+                    if ($uploadFile) {
+                        $newFilename = 'import-' . date('YmdHis') . '-' . ($index + 1) . '_' . $uploadFile;
+                        rename($path . $uploadFile, $path . $newFilename);
+                        $newUploadedFilenames[] = $newFilename;
+                    }
+                }
+                //BOM deleting for UTF files
+                if (isset($newFilename) && $newFilename) {
+                    $contents = file_get_contents($path . $newFilename);
+                    if (ord($contents[0]) == 0xEF && ord($contents[1]) == 0xBB && ord($contents[2]) == 0xBF) {
+                        $contents = substr($contents, 3);
+                        file_put_contents($path . $newFilename, $contents);
+                    }
+                    unset($contents);
+                }
+            }
+        }
+        parent::_afterSave();
         return $this;
     }
 

@@ -439,29 +439,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get all tax rates JSON for all product tax classes of specific store
-     *
-     * array(
-     *      value_{$productTaxClassId} => $rate
-     * )
-     *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
-     * @return string
-     */
-    protected function _getAllRatesByProductClass($store = null)
-    {
-        $result = [];
-        $calc = Mage::getSingleton('tax/calculation');
-        $rates = $calc->getRatesForAllProductTaxClasses($calc->getDefaultRateRequest($store));
-
-        foreach ($rates as $class => $rate) {
-            $result["value_{$class}"] = $rate;
-        }
-
-        return Mage::helper('core')->jsonEncode($result);
-    }
-
-    /**
      * Get product price with all tax settings processing
      *
      * @param Mage_Catalog_Model_Product|Varien_Object $product
@@ -607,23 +584,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Given a store price that includes tax at the store rate, this function will back out the store's tax, and add in
-     * the customer's tax.  Returns this new price which is the customer's price including tax.
-     *
-     * @param float $storePriceInclTax
-     * @param float $storePercent
-     * @param float $customerPercent
-     * @param Mage_Core_Model_Store $store
-     * @return float
-     */
-    protected function _calculatePriceInclTax($storePriceInclTax, $storePercent, $customerPercent, $store)
-    {
-        $priceExclTax         = $this->_calculatePrice($storePriceInclTax, $storePercent, false, false);
-        $customerTax          = $this->getCalculator()->calcTaxAmount($priceExclTax, $customerPercent, false, false);
-        return $store->roundPrice($priceExclTax + $customerTax);
-    }
-
-    /**
      * Check if we have display in catalog prices including tax
      *
      * @return bool
@@ -652,46 +612,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     public function displayBothPrices($store = null)
     {
         return $this->getPriceDisplayType($store) == Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH;
-    }
-
-    /**
-     * Calculate price including/excluding tax base on tax rate percent
-     *
-     * @param   float $price
-     * @param   float $percent
-     * @param   bool $type true - to calculate the price including tax and false if calculating price to exclude tax
-     * @param   bool $roundTaxFirst
-     * @return  float
-     */
-    protected function _calculatePrice($price, $percent, $type, $roundTaxFirst = false)
-    {
-        $calculator = $this->getCalculator();
-        if ($type) {
-            $taxAmount = $calculator->calcTaxAmount($price, $percent, false, $roundTaxFirst);
-            return $price + $taxAmount;
-        } else {
-            $taxAmount = $calculator->calcTaxAmount($price, $percent, true, $roundTaxFirst);
-            return $price - $taxAmount;
-        }
-    }
-
-    /**
-     * Calculate price including tax when multiple taxes is applied and rounded
-     * independently.
-     *
-     * @param float $price
-     * @param array $appliedRates
-     * @return float
-     */
-    protected function _calculatePriceInclTaxWithMultipleRates($price, $appliedRates)
-    {
-        $calculator = $this->getCalculator();
-        $tax = 0;
-        foreach ($appliedRates as $appliedRate) {
-            $taxRate = $appliedRate['percent'];
-            $tax += $calculator->round($price * $taxRate / 100);
-        }
-        return $tax + $price;
     }
 
     /**
@@ -1056,28 +976,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Returns the array of tax rates for the order
-     *
-     * @param Mage_Sales_Model_Order $order
-     * @return array
-     */
-    protected function _getTaxRateSubtotals($order)
-    {
-        return Mage::getModel('tax/sales_order_tax')->getCollection()->loadByOrder($order)->toArray();
-    }
-
-    /**
-     * Retrieve a value from registry by a key
-     *
-     * @param string $key
-     * @return mixed
-     */
-    protected function _getFromRegistry($key)
-    {
-        return Mage::registry($key);
-    }
-
-    /**
      * Get calculated Shipping & Handling Tax
      *
      * This method returns array with format:
@@ -1205,6 +1103,118 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * @return void
+     * @throws Throwable
+     */
+    public function setIsIgnored(string $key, bool $value)
+    {
+        $flag = Mage::getModel('core/flag', ['flag_code' => $key])->loadSelf();
+        $flag->setFlagData($value)->save();
+    }
+
+    /**
+     * Get all tax rates JSON for all product tax classes of specific store
+     *
+     * array(
+     *      value_{$productTaxClassId} => $rate
+     * )
+     *
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return string
+     */
+    protected function _getAllRatesByProductClass($store = null)
+    {
+        $result = [];
+        $calc = Mage::getSingleton('tax/calculation');
+        $rates = $calc->getRatesForAllProductTaxClasses($calc->getDefaultRateRequest($store));
+
+        foreach ($rates as $class => $rate) {
+            $result["value_{$class}"] = $rate;
+        }
+
+        return Mage::helper('core')->jsonEncode($result);
+    }
+
+    /**
+     * Given a store price that includes tax at the store rate, this function will back out the store's tax, and add in
+     * the customer's tax.  Returns this new price which is the customer's price including tax.
+     *
+     * @param float $storePriceInclTax
+     * @param float $storePercent
+     * @param float $customerPercent
+     * @param Mage_Core_Model_Store $store
+     * @return float
+     */
+    protected function _calculatePriceInclTax($storePriceInclTax, $storePercent, $customerPercent, $store)
+    {
+        $priceExclTax         = $this->_calculatePrice($storePriceInclTax, $storePercent, false, false);
+        $customerTax          = $this->getCalculator()->calcTaxAmount($priceExclTax, $customerPercent, false, false);
+        return $store->roundPrice($priceExclTax + $customerTax);
+    }
+
+    /**
+     * Calculate price including/excluding tax base on tax rate percent
+     *
+     * @param   float $price
+     * @param   float $percent
+     * @param   bool $type true - to calculate the price including tax and false if calculating price to exclude tax
+     * @param   bool $roundTaxFirst
+     * @return  float
+     */
+    protected function _calculatePrice($price, $percent, $type, $roundTaxFirst = false)
+    {
+        $calculator = $this->getCalculator();
+        if ($type) {
+            $taxAmount = $calculator->calcTaxAmount($price, $percent, false, $roundTaxFirst);
+            return $price + $taxAmount;
+        } else {
+            $taxAmount = $calculator->calcTaxAmount($price, $percent, true, $roundTaxFirst);
+            return $price - $taxAmount;
+        }
+    }
+
+    /**
+     * Calculate price including tax when multiple taxes is applied and rounded
+     * independently.
+     *
+     * @param float $price
+     * @param array $appliedRates
+     * @return float
+     */
+    protected function _calculatePriceInclTaxWithMultipleRates($price, $appliedRates)
+    {
+        $calculator = $this->getCalculator();
+        $tax = 0;
+        foreach ($appliedRates as $appliedRate) {
+            $taxRate = $appliedRate['percent'];
+            $tax += $calculator->round($price * $taxRate / 100);
+        }
+        return $tax + $price;
+    }
+
+    /**
+     * Returns the array of tax rates for the order
+     *
+     * @param Mage_Sales_Model_Order $order
+     * @return array
+     */
+    protected function _getTaxRateSubtotals($order)
+    {
+        return Mage::getModel('tax/sales_order_tax')->getCollection()->loadByOrder($order)->toArray();
+    }
+
+    /**
+     * Retrieve a value from registry by a key
+     *
+     * @param string $key
+     * @return mixed
+     */
+    protected function _getFromRegistry($key)
+    {
+        return Mage::registry($key);
+    }
+
+    /**
      * Use flag to store ignore setting rather than config to avoid config re-init/save
      * Read config value for backwards compatibility.
      *
@@ -1224,15 +1234,5 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             return (bool) $configValue;
         }
         return false;
-    }
-
-    /**
-     * @return void
-     * @throws Throwable
-     */
-    public function setIsIgnored(string $key, bool $value)
-    {
-        $flag = Mage::getModel('core/flag', ['flag_code' => $key])->loadSelf();
-        $flag->setFlagData($value)->save();
     }
 }

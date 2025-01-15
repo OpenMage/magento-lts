@@ -24,6 +24,8 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 {
     public const XML_PATH_LIST_DEFAULT_SORT_BY     = 'catalog/frontend/default_sort_by';
 
+    public const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
+
     protected $_attributeSetsById;
     protected $_attributeSetsByName;
 
@@ -62,13 +64,6 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     protected $_usedForSortBy;
 
     protected $_storeId = null;
-
-    public const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
-
-    protected function _construct()
-    {
-        $this->_init('catalog/config');
-    }
 
     /**
      * @param int $storeId
@@ -313,16 +308,6 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     }
 
     /**
-     * Retrieve resource model
-     *
-     * @return Mage_Catalog_Model_Resource_Config
-     */
-    protected function _getResource()
-    {
-        return Mage::getResourceModel('catalog/config');
-    }
-
-    /**
      * Retrieve Attributes used in product listing
      *
      * @return array
@@ -390,5 +375,20 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getProductListDefaultSortBy($store = null)
     {
         return Mage::getStoreConfig(self::XML_PATH_LIST_DEFAULT_SORT_BY, $store);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/config');
+    }
+
+    /**
+     * Retrieve resource model
+     *
+     * @return Mage_Catalog_Model_Resource_Config
+     */
+    protected function _getResource()
+    {
+        return Mage::getResourceModel('catalog/config');
     }
 }

@@ -123,6 +123,16 @@ class Mage_Api2_Model_Server
     }
 
     /**
+     * Retrieve api types
+     *
+     * @return array
+     */
+    public static function getApiTypes()
+    {
+        return self::$_apiTypes;
+    }
+
+    /**
      * Authenticate user
      *
      * @throws Exception
@@ -278,15 +288,5 @@ class Mage_Api2_Model_Server
         $response->setHttpResponseCode($httpCode);
 
         return $this;
-    }
-
-    /**
-     * Retrieve api types
-     *
-     * @return array
-     */
-    public static function getApiTypes()
-    {
-        return self::$_apiTypes;
     }
 }

@@ -42,6 +42,62 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Renders CMS Page with more flexibility then original renderPage function.
+     * Allows to use also backend action as first parameter.
+     * Also takes third parameter which allows not run renderLayout method.
+     *
+     * @param string $pageId
+     * @param bool $renderLayout
+     * @return bool
+     */
+    public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
+    {
+        return $this->_renderPage($action, $pageId, $renderLayout);
+    }
+
+    /**
+     * Retrieve page direct URL
+     *
+     * @param string $pageId
+     * @return string|null
+     */
+    public function getPageUrl($pageId = null)
+    {
+        $page = Mage::getModel('cms/page');
+        if (!is_null($pageId) && $pageId !== $page->getId()) {
+            $page->setStoreId(Mage::app()->getStore()->getId());
+            if (!$page->load($pageId)) {
+                return null;
+            }
+        }
+
+        if (!$page->getId()) {
+            return null;
+        }
+
+        return Mage::getUrl(null, ['_direct' => $page->getIdentifier()]);
+    }
+
+    public static function getUsedInStoreConfigPaths(?array $paths = []): array
+    {
+        $searchPaths = [
+            self::XML_PATH_NO_ROUTE_PAGE,
+            self::XML_PATH_NO_COOKIES_PAGE,
+            self::XML_PATH_HOME_PAGE,
+        ];
+
+        if (is_array($paths) && $paths !== []) {
+            $searchPaths = array_merge($searchPaths, $paths);
+        }
+
+        if (is_null($paths)) {
+            $searchPaths = [];
+        }
+
+        return $searchPaths;
+    }
+
+    /**
      * Renders CMS page
      *
      * @param string $pageId
@@ -125,61 +181,5 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         }
 
         return true;
-    }
-
-    /**
-     * Renders CMS Page with more flexibility then original renderPage function.
-     * Allows to use also backend action as first parameter.
-     * Also takes third parameter which allows not run renderLayout method.
-     *
-     * @param string $pageId
-     * @param bool $renderLayout
-     * @return bool
-     */
-    public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
-    {
-        return $this->_renderPage($action, $pageId, $renderLayout);
-    }
-
-    /**
-     * Retrieve page direct URL
-     *
-     * @param string $pageId
-     * @return string|null
-     */
-    public function getPageUrl($pageId = null)
-    {
-        $page = Mage::getModel('cms/page');
-        if (!is_null($pageId) && $pageId !== $page->getId()) {
-            $page->setStoreId(Mage::app()->getStore()->getId());
-            if (!$page->load($pageId)) {
-                return null;
-            }
-        }
-
-        if (!$page->getId()) {
-            return null;
-        }
-
-        return Mage::getUrl(null, ['_direct' => $page->getIdentifier()]);
-    }
-
-    public static function getUsedInStoreConfigPaths(?array $paths = []): array
-    {
-        $searchPaths = [
-            self::XML_PATH_NO_ROUTE_PAGE,
-            self::XML_PATH_NO_COOKIES_PAGE,
-            self::XML_PATH_HOME_PAGE,
-        ];
-
-        if (is_array($paths) && $paths !== []) {
-            $searchPaths = array_merge($searchPaths, $paths);
-        }
-
-        if (is_null($paths)) {
-            $searchPaths = [];
-        }
-
-        return $searchPaths;
     }
 }

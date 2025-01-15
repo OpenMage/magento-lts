@@ -136,78 +136,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected $_serializableFields = [];
 
     /**
-     * Standard resource model initialization
-     *
-     * @param string $mainTable
-     * @param string $idFieldName
-     */
-    protected function _init($mainTable, $idFieldName)
-    {
-        $this->_setMainTable($mainTable, $idFieldName);
-    }
-
-    /**
-     * Initialize connections and tables for this resource model
-     * If one or both arguments are string, will be used as prefix
-     * If $tables is null and $connections is string, $tables will be the same
-     *
-     * @param string|array $connections
-     * @param string|array|null $tables
-     * @return Mage_Core_Model_Resource_Abstract
-     */
-    protected function _setResource($connections, $tables = null)
-    {
-        $this->_resources = Mage::getSingleton('core/resource');
-
-        if (is_array($connections)) {
-            foreach ($connections as $k => $v) {
-                $this->_connections[$k] = $this->_resources->getConnection($v);
-            }
-        } elseif (is_string($connections)) {
-            $this->_resourcePrefix = $connections;
-        }
-
-        if (is_null($tables) && is_string($connections)) {
-            $this->_resourceModel = $this->_resourcePrefix;
-        } elseif (is_array($tables)) {
-            foreach ($tables as $k => $v) {
-                $this->_tables[$k] = $this->_resources->getTableName($v);
-            }
-        } elseif (is_string($tables)) {
-            $this->_resourceModel = $tables;
-        }
-        return $this;
-    }
-
-    /**
-     * Set main entity table name and primary key field name
-     * If field name is omitted {table_name}_id will be used
-     *
-     * @param string $mainTable
-     * @param string|null $idFieldName
-     * @return $this
-     */
-    protected function _setMainTable($mainTable, $idFieldName = null)
-    {
-        $mainTableArr = explode('/', $mainTable);
-
-        if (!empty($mainTableArr[1])) {
-            if (empty($this->_resourceModel)) {
-                $this->_setResource($mainTableArr[0]);
-            }
-            $this->_setMainTable($mainTableArr[1], $idFieldName);
-        } else {
-            $this->_mainTable = $mainTable;
-            if (is_null($idFieldName)) {
-                $idFieldName = $mainTable . '_id';
-            }
-            $this->_idFieldName = $idFieldName;
-        }
-
-        return $this;
-    }
-
-    /**
      * Get primary key field name
      *
      * @return string
@@ -291,62 +219,12 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * Get connection by name or type
-     *
-     * @param string $connectionName
-     * @return Magento_Db_Adapter_Pdo_Mysql
-     */
-    protected function _getConnection($connectionName)
-    {
-        if (isset($this->_connections[$connectionName])) {
-            return $this->_connections[$connectionName];
-        }
-        if (!empty($this->_resourcePrefix)) {
-            $this->_connections[$connectionName] = $this->_resources->getConnection(
-                $this->_resourcePrefix . '_' . $connectionName,
-            );
-        } else {
-            $this->_connections[$connectionName] = $this->_resources->getConnection($connectionName);
-        }
-
-        return $this->_connections[$connectionName];
-    }
-
-    /**
      * @param string $connectionName
      * @return bool
      */
     public function hasConnection($connectionName)
     {
         return isset($this->_connections[$connectionName]);
-    }
-
-    /**
-     * Retrieve connection for read data
-     *
-     * @return Magento_Db_Adapter_Pdo_Mysql
-     */
-    protected function _getReadAdapter()
-    {
-        if ($this->hasConnection('write')) {
-            $writeAdapter = $this->_getWriteAdapter();
-            if ($writeAdapter && $writeAdapter->getTransactionLevel() > 0) {
-                // if transaction is started we should use write connection for reading
-                return $writeAdapter;
-            }
-        }
-
-        return $this->_getConnection('read');
-    }
-
-    /**
-     * Retrieve connection for write data
-     *
-     * @return Magento_Db_Adapter_Pdo_Mysql
-     */
-    protected function _getWriteAdapter()
-    {
-        return $this->_getConnection('write');
     }
 
     /**
@@ -386,30 +264,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $this->_afterLoad($object);
 
         return $this;
-    }
-
-    /**
-     * Retrieve select object for load object data
-     *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
-     * @return Varien_Db_Select
-     * @throws Exception
-     */
-    protected function _getLoadSelect($field, $value, $object)
-    {
-        $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
-
-        if (!isset($fields[$field])) {
-            throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
-        }
-
-        $value = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
-        $field = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
-        return $this->_getReadAdapter()->select()
-            ->from($this->getMainTable())
-            ->where($field . '=?', $value);
     }
 
     /**
@@ -553,17 +407,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * Initialize unique fields
-     *
-     * @return $this
-     */
-    protected function _initUniqueFields()
-    {
-        $this->_uniqueFields = [];
-        return $this;
-    }
-
-    /**
      * Get configuration of all unique fields
      *
      * @return array
@@ -574,16 +417,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             $this->_initUniqueFields();
         }
         return $this->_uniqueFields;
-    }
-
-    /**
-     * Prepare data for save
-     *
-     * @return array
-     */
-    protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
-    {
-        return $this->_prepareDataForTable($object, $this->getMainTable());
     }
 
     /**
@@ -607,6 +440,199 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         }
 
         return false;
+    }
+
+    /**
+     * After load
+     */
+    public function afterLoad(Mage_Core_Model_Abstract $object)
+    {
+        $this->_afterLoad($object);
+    }
+
+    /**
+     * Retrieve table checksum
+     *
+     * @param string|array $table
+     * @return array|false
+     */
+    public function getChecksum($table)
+    {
+        if (!$this->_getReadAdapter()) {
+            return false;
+        }
+        $checksum = $this->_getReadAdapter()->getTablesChecksum($table);
+        if (count($checksum) == 1) {
+            return $checksum[$table];
+        }
+        return $checksum;
+    }
+
+    /**
+     * Standard resource model initialization
+     *
+     * @param string $mainTable
+     * @param string $idFieldName
+     */
+    protected function _init($mainTable, $idFieldName)
+    {
+        $this->_setMainTable($mainTable, $idFieldName);
+    }
+
+    /**
+     * Initialize connections and tables for this resource model
+     * If one or both arguments are string, will be used as prefix
+     * If $tables is null and $connections is string, $tables will be the same
+     *
+     * @param string|array $connections
+     * @param string|array|null $tables
+     * @return Mage_Core_Model_Resource_Abstract
+     */
+    protected function _setResource($connections, $tables = null)
+    {
+        $this->_resources = Mage::getSingleton('core/resource');
+
+        if (is_array($connections)) {
+            foreach ($connections as $k => $v) {
+                $this->_connections[$k] = $this->_resources->getConnection($v);
+            }
+        } elseif (is_string($connections)) {
+            $this->_resourcePrefix = $connections;
+        }
+
+        if (is_null($tables) && is_string($connections)) {
+            $this->_resourceModel = $this->_resourcePrefix;
+        } elseif (is_array($tables)) {
+            foreach ($tables as $k => $v) {
+                $this->_tables[$k] = $this->_resources->getTableName($v);
+            }
+        } elseif (is_string($tables)) {
+            $this->_resourceModel = $tables;
+        }
+        return $this;
+    }
+
+    /**
+     * Set main entity table name and primary key field name
+     * If field name is omitted {table_name}_id will be used
+     *
+     * @param string $mainTable
+     * @param string|null $idFieldName
+     * @return $this
+     */
+    protected function _setMainTable($mainTable, $idFieldName = null)
+    {
+        $mainTableArr = explode('/', $mainTable);
+
+        if (!empty($mainTableArr[1])) {
+            if (empty($this->_resourceModel)) {
+                $this->_setResource($mainTableArr[0]);
+            }
+            $this->_setMainTable($mainTableArr[1], $idFieldName);
+        } else {
+            $this->_mainTable = $mainTable;
+            if (is_null($idFieldName)) {
+                $idFieldName = $mainTable . '_id';
+            }
+            $this->_idFieldName = $idFieldName;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get connection by name or type
+     *
+     * @param string $connectionName
+     * @return Magento_Db_Adapter_Pdo_Mysql
+     */
+    protected function _getConnection($connectionName)
+    {
+        if (isset($this->_connections[$connectionName])) {
+            return $this->_connections[$connectionName];
+        }
+        if (!empty($this->_resourcePrefix)) {
+            $this->_connections[$connectionName] = $this->_resources->getConnection(
+                $this->_resourcePrefix . '_' . $connectionName,
+            );
+        } else {
+            $this->_connections[$connectionName] = $this->_resources->getConnection($connectionName);
+        }
+
+        return $this->_connections[$connectionName];
+    }
+
+    /**
+     * Retrieve connection for read data
+     *
+     * @return Magento_Db_Adapter_Pdo_Mysql
+     */
+    protected function _getReadAdapter()
+    {
+        if ($this->hasConnection('write')) {
+            $writeAdapter = $this->_getWriteAdapter();
+            if ($writeAdapter && $writeAdapter->getTransactionLevel() > 0) {
+                // if transaction is started we should use write connection for reading
+                return $writeAdapter;
+            }
+        }
+
+        return $this->_getConnection('read');
+    }
+
+    /**
+     * Retrieve connection for write data
+     *
+     * @return Magento_Db_Adapter_Pdo_Mysql
+     */
+    protected function _getWriteAdapter()
+    {
+        return $this->_getConnection('write');
+    }
+
+    /**
+     * Retrieve select object for load object data
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param Mage_Core_Model_Abstract $object
+     * @return Varien_Db_Select
+     * @throws Exception
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
+
+        if (!isset($fields[$field])) {
+            throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
+        }
+
+        $value = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
+        $field = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
+        return $this->_getReadAdapter()->select()
+            ->from($this->getMainTable())
+            ->where($field . '=?', $value);
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return $this
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = [];
+        return $this;
+    }
+
+    /**
+     * Prepare data for save
+     *
+     * @return array
+     */
+    protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
+    {
+        return $this->_prepareDataForTable($object, $this->getMainTable());
     }
 
     /**
@@ -679,14 +705,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * After load
-     */
-    public function afterLoad(Mage_Core_Model_Abstract $object)
-    {
-        $this->_afterLoad($object);
-    }
-
-    /**
      * Perform actions after object load
      *
      * @return $this
@@ -745,23 +763,5 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             list($serializeDefault, $unserializeDefault) = $parameters;
             $this->_serializeField($object, $field, $serializeDefault, isset($parameters[2]));
         }
-    }
-
-    /**
-     * Retrieve table checksum
-     *
-     * @param string|array $table
-     * @return array|false
-     */
-    public function getChecksum($table)
-    {
-        if (!$this->_getReadAdapter()) {
-            return false;
-        }
-        $checksum = $this->_getReadAdapter()->getTablesChecksum($table);
-        if (count($checksum) == 1) {
-            return $checksum[$table];
-        }
-        return $checksum;
     }
 }

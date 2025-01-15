@@ -33,11 +33,6 @@
  */
 class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('directory/region');
-    }
-
     /**
      * Retrieve region name
      *
@@ -76,5 +71,9 @@ class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->loadByName($this, $name, $countryId);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('directory/region');
     }
 }

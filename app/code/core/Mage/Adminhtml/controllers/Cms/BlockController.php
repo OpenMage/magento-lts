@@ -40,22 +40,6 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
     }
 
     /**
-     * Init actions
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        // load layout, set active menu and breadcrumbs
-        $this->loadLayout()
-            ->_setActiveMenu('cms/block')
-            ->_addBreadcrumb(Mage::helper('cms')->__('CMS'), Mage::helper('cms')->__('CMS'))
-            ->_addBreadcrumb(Mage::helper('cms')->__('Static Blocks'), Mage::helper('cms')->__('Static Blocks'))
-        ;
-        return $this;
-    }
-
-    /**
      * Index action
      */
     public function indexAction()
@@ -193,5 +177,21 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
         Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('Unable to find a block to delete.'));
         // go to grid
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * Init actions
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        // load layout, set active menu and breadcrumbs
+        $this->loadLayout()
+            ->_setActiveMenu('cms/block')
+            ->_addBreadcrumb(Mage::helper('cms')->__('CMS'), Mage::helper('cms')->__('CMS'))
+            ->_addBreadcrumb(Mage::helper('cms')->__('Static Blocks'), Mage::helper('cms')->__('Static Blocks'))
+        ;
+        return $this;
     }
 }

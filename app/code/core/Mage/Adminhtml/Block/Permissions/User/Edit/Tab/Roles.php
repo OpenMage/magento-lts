@@ -31,6 +31,11 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         $this->setUseAjax(true);
     }
 
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/rolesGrid', ['user_id' => Mage::registry('permissions_user')->getUserId()]);
+    }
+
     protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() == 'assigned_user_role') {
@@ -84,11 +89,6 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/rolesGrid', ['user_id' => Mage::registry('permissions_user')->getUserId()]);
     }
 
     protected function _getSelectedRoles($json = false)

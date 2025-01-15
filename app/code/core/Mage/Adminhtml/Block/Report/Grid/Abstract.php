@@ -68,24 +68,6 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @return array
-     */
-    protected function _getAggregatedColumns()
-    {
-        if (is_null($this->_aggregatedColumns)) {
-            foreach ($this->getColumns() as $column) {
-                if (!is_array($this->_aggregatedColumns)) {
-                    $this->_aggregatedColumns = [];
-                }
-                if ($column->hasTotal()) {
-                    $this->_aggregatedColumns[$column->getId()] = "{$column->getTotal()}({$column->getIndex()})";
-                }
-            }
-        }
-        return $this->_aggregatedColumns;
-    }
-
-    /**
      * Add column to grid
      * Overridden to add support for visibility_filter column option
      * It stands for conditional visibility of the column depending on filter field values
@@ -119,6 +101,98 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             }
         }
         return parent::addColumn($columnId, $column);
+    }
+
+    public function getCountTotals()
+    {
+        if (!$this->getTotals()) {
+            $filterData = $this->getFilterData();
+            /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $totalsCollection */
+            $totalsCollection = Mage::getResourceModel($this->getResourceCollectionName());
+            $totalsCollection
+                ->setPeriod($filterData->getData('period_type'))
+                ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
+                ->addStoreFilter($this->_getStoreIds())
+                ->setAggregatedColumns($this->_getAggregatedColumns())
+                ->isTotals(true);
+
+            $this->_addOrderStatusFilter($totalsCollection, $filterData);
+            $this->_addCustomFilter($totalsCollection, $filterData);
+
+            if (count($totalsCollection->getItems()) < 1 || !$filterData->getData('from')) {
+                $this->setTotals(new Varien_Object());
+            } else {
+                foreach ($totalsCollection->getItems() as $item) {
+                    $this->setTotals($item);
+                    break;
+                }
+            }
+        }
+        return parent::getCountTotals();
+    }
+
+    public function getSubTotals()
+    {
+        $filterData = $this->getFilterData();
+        /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $subTotalsCollection */
+        $subTotalsCollection = Mage::getResourceModel($this->getResourceCollectionName());
+        $subTotalsCollection
+            ->setPeriod($filterData->getData('period_type'))
+            ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
+            ->addStoreFilter($this->_getStoreIds())
+            ->setAggregatedColumns($this->_getAggregatedColumns())
+            ->isSubTotals(true);
+
+        $this->_addOrderStatusFilter($subTotalsCollection, $filterData);
+        $this->_addCustomFilter($subTotalsCollection, $filterData);
+
+        $this->setSubTotals($subTotalsCollection->getItems());
+        return parent::getSubTotals();
+    }
+
+    public function setStoreIds($storeIds)
+    {
+        $this->_storeIds = $storeIds;
+        return $this;
+    }
+
+    public function getCurrentCurrencyCode()
+    {
+        if (is_null($this->_currentCurrencyCode)) {
+            $this->_currentCurrencyCode = (count($this->_storeIds) > 0)
+                ? Mage::app()->getStore(array_shift($this->_storeIds))->getBaseCurrencyCode()
+                : Mage::app()->getStore()->getBaseCurrencyCode();
+        }
+        return $this->_currentCurrencyCode;
+    }
+
+    /**
+     * Get currency rate (base to given currency)
+     *
+     * @param string|Mage_Directory_Model_Currency $toCurrency
+     * @return double
+     */
+    public function getRate($toCurrency)
+    {
+        return Mage::app()->getStore()->getBaseCurrency()->getRate($toCurrency);
+    }
+
+    /**
+     * @return array
+     */
+    protected function _getAggregatedColumns()
+    {
+        if (is_null($this->_aggregatedColumns)) {
+            foreach ($this->getColumns() as $column) {
+                if (!is_array($this->_aggregatedColumns)) {
+                    $this->_aggregatedColumns = [];
+                }
+                if ($column->hasTotal()) {
+                    $this->_aggregatedColumns[$column->getId()] = "{$column->getTotal()}({$column->getIndex()})";
+                }
+            }
+        }
+        return $this->_aggregatedColumns;
     }
 
     /**
@@ -219,80 +293,6 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $this->getCollection()->setResourceCollection($resourceCollection);
 
         return parent::_prepareCollection();
-    }
-
-    public function getCountTotals()
-    {
-        if (!$this->getTotals()) {
-            $filterData = $this->getFilterData();
-            /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $totalsCollection */
-            $totalsCollection = Mage::getResourceModel($this->getResourceCollectionName());
-            $totalsCollection
-                ->setPeriod($filterData->getData('period_type'))
-                ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
-                ->addStoreFilter($this->_getStoreIds())
-                ->setAggregatedColumns($this->_getAggregatedColumns())
-                ->isTotals(true);
-
-            $this->_addOrderStatusFilter($totalsCollection, $filterData);
-            $this->_addCustomFilter($totalsCollection, $filterData);
-
-            if (count($totalsCollection->getItems()) < 1 || !$filterData->getData('from')) {
-                $this->setTotals(new Varien_Object());
-            } else {
-                foreach ($totalsCollection->getItems() as $item) {
-                    $this->setTotals($item);
-                    break;
-                }
-            }
-        }
-        return parent::getCountTotals();
-    }
-
-    public function getSubTotals()
-    {
-        $filterData = $this->getFilterData();
-        /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $subTotalsCollection */
-        $subTotalsCollection = Mage::getResourceModel($this->getResourceCollectionName());
-        $subTotalsCollection
-            ->setPeriod($filterData->getData('period_type'))
-            ->setDateRange($filterData->getData('from', null), $filterData->getData('to', null))
-            ->addStoreFilter($this->_getStoreIds())
-            ->setAggregatedColumns($this->_getAggregatedColumns())
-            ->isSubTotals(true);
-
-        $this->_addOrderStatusFilter($subTotalsCollection, $filterData);
-        $this->_addCustomFilter($subTotalsCollection, $filterData);
-
-        $this->setSubTotals($subTotalsCollection->getItems());
-        return parent::getSubTotals();
-    }
-
-    public function setStoreIds($storeIds)
-    {
-        $this->_storeIds = $storeIds;
-        return $this;
-    }
-
-    public function getCurrentCurrencyCode()
-    {
-        if (is_null($this->_currentCurrencyCode)) {
-            $this->_currentCurrencyCode = (count($this->_storeIds) > 0)
-                ? Mage::app()->getStore(array_shift($this->_storeIds))->getBaseCurrencyCode()
-                : Mage::app()->getStore()->getBaseCurrencyCode();
-        }
-        return $this->_currentCurrencyCode;
-    }
-
-    /**
-     * Get currency rate (base to given currency)
-     *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
-     * @return double
-     */
-    public function getRate($toCurrency)
-    {
-        return Mage::app()->getStore()->getBaseCurrency()->getRate($toCurrency);
     }
 
     /**

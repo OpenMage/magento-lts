@@ -207,17 +207,6 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     }
 
     /**
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        if (!Mage::app()->isSingleStoreMode()) {
-            return parent::_toHtml();
-        }
-        return '';
-    }
-
-    /**
      * Set/Get whether the switcher should show default option
      *
      * @param bool $hasDefaultOption
@@ -229,5 +218,16 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
             $this->_hasDefaultOption = $hasDefaultOption;
         }
         return $this->_hasDefaultOption;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if (!Mage::app()->isSingleStoreMode()) {
+            return parent::_toHtml();
+        }
+        return '';
     }
 }

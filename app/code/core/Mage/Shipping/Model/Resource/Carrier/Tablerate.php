@@ -86,11 +86,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      */
     protected $_conditionFullNames  = [];
 
-    protected function _construct()
-    {
-        $this->_init('shipping/tablerate', 'pk');
-    }
-
     /**
      * Return table rate array or false by rate request
      *
@@ -268,6 +263,11 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
 
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('shipping/tablerate', 'pk');
     }
 
     /**

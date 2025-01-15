@@ -28,6 +28,15 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
         $this->setId('lastOrdersGrid');
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
+    }
+
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_Reports')) {
@@ -101,14 +110,5 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
         $this->setPagerVisibility(false);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
     }
 }

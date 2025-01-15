@@ -29,6 +29,18 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type extends Mage_A
     ];
 
     /**
+     * @return array|null
+     */
+    public function getCondition()
+    {
+        if (is_null($this->getValue())) {
+            return null;
+        }
+
+        return ['eq' => $this->getValue()];
+    }
+
+    /**
      * @return array
      */
     protected function _getOptions()
@@ -39,17 +51,5 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type extends Mage_A
         }
 
         return $result;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getCondition()
-    {
-        if (is_null($this->getValue())) {
-            return null;
-        }
-
-        return ['eq' => $this->getValue()];
     }
 }

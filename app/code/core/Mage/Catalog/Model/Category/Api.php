@@ -144,50 +144,6 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Convert node to array
-     *
-     * @return array
-     */
-    protected function _nodeToArray(Varien_Data_Tree_Node $node)
-    {
-        // Only basic category data
-        $result = [];
-        $result['category_id'] = $node->getId();
-        $result['parent_id']   = $node->getParentId();
-        $result['name']        = $node->getName();
-        $result['is_active']   = $node->getIsActive();
-        $result['position']    = $node->getPosition();
-        $result['level']       = $node->getLevel();
-        $result['children']    = [];
-
-        foreach ($node->getChildren() as $child) {
-            $result['children'][] = $this->_nodeToArray($child);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Initialize and return category model
-     *
-     * @param int $categoryId
-     * @param string|int $store
-     * @return Mage_Catalog_Model_Category
-     */
-    protected function _initCategory($categoryId, $store = null)
-    {
-        $category = Mage::getModel('catalog/category')
-            ->setStoreId($this->_getStoreId($store))
-            ->load($categoryId);
-
-        if (!$category->getId()) {
-            $this->_fault('not_exists');
-        }
-
-        return $category;
-    }
-
-    /**
      * Retrieve category data
      *
      * @param int $categoryId
@@ -391,25 +347,6 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Get the product ID from a product ID or SKU. When $identifierType is left empty the helper will try to
-     * automatically parse the given $productId and determine if it is a SKU or ID value
-     *
-     * @param int|string  $productId      The product ID or SKU
-     * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
-     *
-     * @return int
-     * @throws Mage_Api_Exception
-     */
-    protected function _getProductId($productId, $identifierType = null)
-    {
-        $product = Mage::helper('catalog/product')->getProduct($productId, null, $identifierType);
-        if (!$product->getId()) {
-            $this->_fault('not_exists', 'Product not exists.');
-        }
-        return $product->getId();
-    }
-
-    /**
      * Retrieve list of assigned products to category
      *
      * @param int $categoryId
@@ -524,5 +461,68 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         return true;
+    }
+
+    /**
+     * Convert node to array
+     *
+     * @return array
+     */
+    protected function _nodeToArray(Varien_Data_Tree_Node $node)
+    {
+        // Only basic category data
+        $result = [];
+        $result['category_id'] = $node->getId();
+        $result['parent_id']   = $node->getParentId();
+        $result['name']        = $node->getName();
+        $result['is_active']   = $node->getIsActive();
+        $result['position']    = $node->getPosition();
+        $result['level']       = $node->getLevel();
+        $result['children']    = [];
+
+        foreach ($node->getChildren() as $child) {
+            $result['children'][] = $this->_nodeToArray($child);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Initialize and return category model
+     *
+     * @param int $categoryId
+     * @param string|int $store
+     * @return Mage_Catalog_Model_Category
+     */
+    protected function _initCategory($categoryId, $store = null)
+    {
+        $category = Mage::getModel('catalog/category')
+            ->setStoreId($this->_getStoreId($store))
+            ->load($categoryId);
+
+        if (!$category->getId()) {
+            $this->_fault('not_exists');
+        }
+
+        return $category;
+    }
+
+    /**
+     * Get the product ID from a product ID or SKU. When $identifierType is left empty the helper will try to
+     * automatically parse the given $productId and determine if it is a SKU or ID value
+     *
+     * @param int|string  $productId      The product ID or SKU
+     * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
+     *
+     * @return int
+     * @throws Mage_Api_Exception
+     */
+    protected function _getProductId($productId, $identifierType = null)
+    {
+        $product = Mage::helper('catalog/product')->getProduct($productId, null, $identifierType);
+        if (!$product->getId()) {
+            $this->_fault('not_exists', 'Product not exists.');
+        }
+        return $product->getId();
     }
 }

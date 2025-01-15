@@ -58,25 +58,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     }
 
     /**
-     * Prepare block layout
-     *
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'selection_delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Delete'),
-                    'class' => 'delete icon-btn',
-                    'on_click' => 'bSelection.remove(event)',
-                ]),
-        );
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve delete button html
      *
      * @return string
@@ -163,5 +144,24 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
             $checkboxHtml .= '<label class="normal" for="' . $id . '">' . $label . '</label>';
         }
         return $checkboxHtml;
+    }
+
+    /**
+     * Prepare block layout
+     *
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'selection_delete_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label' => Mage::helper('catalog')->__('Delete'),
+                    'class' => 'delete icon-btn',
+                    'on_click' => 'bSelection.remove(event)',
+                ]),
+        );
+        return parent::_prepareLayout();
     }
 }

@@ -145,6 +145,66 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     }
 
     /**
+     * Editor config retriever
+     *
+     * @param string $key Config var key
+     * @return mixed
+     */
+    public function getConfig($key = null)
+    {
+        if (!($this->_getData('config') instanceof Varien_Object)) {
+            $config = new Varien_Object();
+            $this->setConfig($config);
+        }
+        if ($key !== null) {
+            return $this->_getData('config')->getData($key);
+        }
+        return $this->_getData('config');
+    }
+
+    /**
+     * Translate string using defined helper
+     *
+     * @param string $string String to be translated
+     * @return string
+     */
+    public function translate($string)
+    {
+        $translator = $this->getConfig('translator');
+        if ($translator && method_exists($translator, '__')) {
+            $result = $translator->__($string);
+            if (is_string($result)) {
+                return $result;
+            }
+        }
+
+        return $string;
+    }
+
+    /**
+     * Check whether Wysiwyg is enabled or not
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        if ($this->hasData('wysiwyg')) {
+            return $this->getWysiwyg();
+        }
+        return $this->getConfig('enabled');
+    }
+
+    /**
+     * Check whether Wysiwyg is loaded on demand or not
+     *
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return $this->getConfig('hidden');
+    }
+
+    /**
      * Return Editor top Buttons HTML
      *
      * @return string
@@ -323,65 +383,5 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
               . '>'
               . $html
               . '</div>';
-    }
-
-    /**
-     * Editor config retriever
-     *
-     * @param string $key Config var key
-     * @return mixed
-     */
-    public function getConfig($key = null)
-    {
-        if (!($this->_getData('config') instanceof Varien_Object)) {
-            $config = new Varien_Object();
-            $this->setConfig($config);
-        }
-        if ($key !== null) {
-            return $this->_getData('config')->getData($key);
-        }
-        return $this->_getData('config');
-    }
-
-    /**
-     * Translate string using defined helper
-     *
-     * @param string $string String to be translated
-     * @return string
-     */
-    public function translate($string)
-    {
-        $translator = $this->getConfig('translator');
-        if ($translator && method_exists($translator, '__')) {
-            $result = $translator->__($string);
-            if (is_string($result)) {
-                return $result;
-            }
-        }
-
-        return $string;
-    }
-
-    /**
-     * Check whether Wysiwyg is enabled or not
-     *
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        if ($this->hasData('wysiwyg')) {
-            return $this->getWysiwyg();
-        }
-        return $this->getConfig('enabled');
-    }
-
-    /**
-     * Check whether Wysiwyg is loaded on demand or not
-     *
-     * @return bool
-     */
-    public function isHidden()
-    {
-        return $this->getConfig('hidden');
     }
 }

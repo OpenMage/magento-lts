@@ -36,11 +36,6 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      */
     protected $_isPkAutoIncrement = false;
 
-    protected function _construct()
-    {
-        $this->_setMainTable('tax/tax_calculation');
-    }
-
     /**
      * Delete calculation settings by rule id
      *
@@ -183,6 +178,131 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         }
 
         return $result;
+    }
+
+    /**
+     * Get rate ids applicable for some address
+     *
+     * @param Varien_Object $request
+     * @return array
+     */
+    public function getApplicableRateIds($request)
+    {
+        $countryId = $request->getCountryId();
+        $regionId = $request->getRegionId();
+        $postcode = $request->getPostcode();
+
+        $select = $this->_getReadAdapter()->select()
+            ->from(['rate' => $this->getTable('tax/tax_calculation_rate')], ['tax_calculation_rate_id'])
+            ->where('rate.tax_country_id = ?', $countryId)
+            ->where('rate.tax_region_id IN(?)', [0, (int) $regionId]);
+
+        $expr = $this->_getWriteAdapter()->getCheckSql(
+            'zip_is_range is NULL',
+            $this->_getWriteAdapter()->quoteInto(
+                "rate.tax_postcode IS NULL OR rate.tax_postcode IN('*', '', ?)",
+                $this->_createSearchPostCodeTemplates($postcode),
+            ),
+            $this->_getWriteAdapter()->quoteInto('? BETWEEN rate.zip_from AND rate.zip_to', $postcode),
+        );
+        $select->where($expr);
+        $select->order('tax_calculation_rate_id');
+        return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    /**
+     * Retrieve rate ids
+     *
+     * @param Varien_Object $request
+     * @return array
+     */
+    public function getRateIds($request)
+    {
+        $result = [];
+        $rates  = $this->_getRates($request);
+        $countedRates = count($rates);
+        for ($i = 0; $i < $countedRates; $i++) {
+            $rate = $rates[$i];
+            $rule = $rate['tax_calculation_rule_id'];
+            $result[] = $rate['tax_calculation_rate_id'];
+            while (isset($rates[$i + 1]) && $rates[$i + 1]['tax_calculation_rule_id'] == $rule) {
+                $i++;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Retrieve rates by customer tax class
+     *
+     * @param int $customerTaxClass
+     * @param int|null $productTaxClass
+     * @return array
+     */
+    public function getRatesByCustomerTaxClass($customerTaxClass, $productTaxClass = null)
+    {
+        $adapter = $this->_getReadAdapter();
+        $customerTaxClassId = (int) $customerTaxClass;
+        $calcJoinConditions = [
+            'calc_table.tax_calculation_rate_id = main_table.tax_calculation_rate_id',
+            $adapter->quoteInto('calc_table.customer_tax_class_id = ?', $customerTaxClassId),
+
+        ];
+        if ($productTaxClass !== null) {
+            $productTaxClassId = (int) $productTaxClass;
+            $calcJoinConditions[] = $adapter->quoteInto('calc_table.product_tax_class_id = ?', $productTaxClassId);
+        }
+
+        $selectCSP = $adapter->select();
+        $selectCSP
+            ->from(
+                ['main_table' => $this->getTable('tax/tax_calculation_rate')],
+                ['country' => 'tax_country_id', 'region_id' => 'tax_region_id', 'postcode' => 'tax_postcode'],
+            )
+            ->joinInner(
+                ['calc_table' => $this->getTable('tax/tax_calculation')],
+                implode(' AND ', $calcJoinConditions),
+                ['product_class' => 'calc_table.product_tax_class_id'],
+            )
+            ->joinLeft(
+                ['state_table' => $this->getTable('directory/country_region')],
+                'state_table.region_id = main_table.tax_region_id',
+                ['region_code' => 'state_table.code'],
+            )
+            ->distinct(true);
+
+        $csp = $adapter->fetchAll($selectCSP);
+
+        $result = [];
+        foreach ($csp as $one) {
+            $request = new Varien_Object();
+            $request->setCountryId($one['country'])
+                ->setRegionId($one['region_id'])
+                ->setPostcode($one['postcode'])
+                ->setCustomerClassId($customerTaxClassId)
+                ->setProductClassId($one['product_class']);
+
+            $rate = $this->getRate($request);
+            if ($rate) {
+                $row = [
+                    'value'         => $rate / 100,
+                    'country'       => $one['country'],
+                    'state'         => $one['region_code'],
+                    'postcode'      => $one['postcode'],
+                    'product_class' => $one['product_class'],
+                ];
+
+                $result[] = $row;
+            }
+        }
+
+        return $result;
+    }
+
+    protected function _construct()
+    {
+        $this->_setMainTable('tax/tax_calculation');
     }
 
     /**
@@ -358,36 +478,6 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     }
 
     /**
-     * Get rate ids applicable for some address
-     *
-     * @param Varien_Object $request
-     * @return array
-     */
-    public function getApplicableRateIds($request)
-    {
-        $countryId = $request->getCountryId();
-        $regionId = $request->getRegionId();
-        $postcode = $request->getPostcode();
-
-        $select = $this->_getReadAdapter()->select()
-            ->from(['rate' => $this->getTable('tax/tax_calculation_rate')], ['tax_calculation_rate_id'])
-            ->where('rate.tax_country_id = ?', $countryId)
-            ->where('rate.tax_region_id IN(?)', [0, (int) $regionId]);
-
-        $expr = $this->_getWriteAdapter()->getCheckSql(
-            'zip_is_range is NULL',
-            $this->_getWriteAdapter()->quoteInto(
-                "rate.tax_postcode IS NULL OR rate.tax_postcode IN('*', '', ?)",
-                $this->_createSearchPostCodeTemplates($postcode),
-            ),
-            $this->_getWriteAdapter()->quoteInto('? BETWEEN rate.zip_from AND rate.zip_to', $postcode),
-        );
-        $select->where($expr);
-        $select->order('tax_calculation_rate_id');
-        return $this->_getReadAdapter()->fetchCol($select);
-    }
-
-    /**
      * Calculate rate
      *
      * @param array $rates
@@ -417,96 +507,6 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                     $result += $this->_collectPercent($result, $currentRate);
                 }
                 $currentRate = 0;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Retrieve rate ids
-     *
-     * @param Varien_Object $request
-     * @return array
-     */
-    public function getRateIds($request)
-    {
-        $result = [];
-        $rates  = $this->_getRates($request);
-        $countedRates = count($rates);
-        for ($i = 0; $i < $countedRates; $i++) {
-            $rate = $rates[$i];
-            $rule = $rate['tax_calculation_rule_id'];
-            $result[] = $rate['tax_calculation_rate_id'];
-            while (isset($rates[$i + 1]) && $rates[$i + 1]['tax_calculation_rule_id'] == $rule) {
-                $i++;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Retrieve rates by customer tax class
-     *
-     * @param int $customerTaxClass
-     * @param int|null $productTaxClass
-     * @return array
-     */
-    public function getRatesByCustomerTaxClass($customerTaxClass, $productTaxClass = null)
-    {
-        $adapter = $this->_getReadAdapter();
-        $customerTaxClassId = (int) $customerTaxClass;
-        $calcJoinConditions = [
-            'calc_table.tax_calculation_rate_id = main_table.tax_calculation_rate_id',
-            $adapter->quoteInto('calc_table.customer_tax_class_id = ?', $customerTaxClassId),
-
-        ];
-        if ($productTaxClass !== null) {
-            $productTaxClassId = (int) $productTaxClass;
-            $calcJoinConditions[] = $adapter->quoteInto('calc_table.product_tax_class_id = ?', $productTaxClassId);
-        }
-
-        $selectCSP = $adapter->select();
-        $selectCSP
-            ->from(
-                ['main_table' => $this->getTable('tax/tax_calculation_rate')],
-                ['country' => 'tax_country_id', 'region_id' => 'tax_region_id', 'postcode' => 'tax_postcode'],
-            )
-            ->joinInner(
-                ['calc_table' => $this->getTable('tax/tax_calculation')],
-                implode(' AND ', $calcJoinConditions),
-                ['product_class' => 'calc_table.product_tax_class_id'],
-            )
-            ->joinLeft(
-                ['state_table' => $this->getTable('directory/country_region')],
-                'state_table.region_id = main_table.tax_region_id',
-                ['region_code' => 'state_table.code'],
-            )
-            ->distinct(true);
-
-        $csp = $adapter->fetchAll($selectCSP);
-
-        $result = [];
-        foreach ($csp as $one) {
-            $request = new Varien_Object();
-            $request->setCountryId($one['country'])
-                ->setRegionId($one['region_id'])
-                ->setPostcode($one['postcode'])
-                ->setCustomerClassId($customerTaxClassId)
-                ->setProductClassId($one['product_class']);
-
-            $rate = $this->getRate($request);
-            if ($rate) {
-                $row = [
-                    'value'         => $rate / 100,
-                    'country'       => $one['country'],
-                    'state'         => $one['region_code'],
-                    'postcode'      => $one['postcode'],
-                    'product_class' => $one['product_class'],
-                ];
-
-                $result[] = $row;
             }
         }
 

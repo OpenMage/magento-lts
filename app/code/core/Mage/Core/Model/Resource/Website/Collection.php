@@ -38,16 +38,6 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     protected $_map = ['fields' => ['website_id' => 'main_table.website_id']];
 
     /**
-     * Define resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->setFlag('load_default_website', false);
-        $this->_init('core/website');
-    }
-
-    /**
      * Set flag for load default (admin) website
      *
      * @param bool $loadDefault
@@ -168,5 +158,15 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
             $this->addFieldToFilter('group_table.group_id', $groupIds);
         }
         return $this;
+    }
+
+    /**
+     * Define resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->setFlag('load_default_website', false);
+        $this->_init('core/website');
     }
 }

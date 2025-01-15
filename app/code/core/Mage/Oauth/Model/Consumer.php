@@ -51,28 +51,6 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      */
     public const SECRET_LENGTH = 32;
 
-    protected function _construct()
-    {
-        $this->_init('oauth/consumer');
-    }
-
-    /**
-     * BeforeSave actions
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        if (!$this->getId()) {
-            $this->setUpdatedAt(time());
-        }
-        $this->setCallbackUrl(trim($this->getCallbackUrl()));
-        $this->setRejectedCallbackUrl(trim($this->getRejectedCallbackUrl()));
-        $this->validate();
-        parent::_beforeSave();
-        return $this;
-    }
-
     /**
      * Validate data
      *
@@ -97,5 +75,27 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
             Mage::throwException(array_shift($messages));
         }
         return true;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('oauth/consumer');
+    }
+
+    /**
+     * BeforeSave actions
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        if (!$this->getId()) {
+            $this->setUpdatedAt(time());
+        }
+        $this->setCallbackUrl(trim($this->getCallbackUrl()));
+        $this->setRejectedCallbackUrl(trim($this->getRejectedCallbackUrl()));
+        $this->validate();
+        parent::_beforeSave();
+        return $this;
     }
 }

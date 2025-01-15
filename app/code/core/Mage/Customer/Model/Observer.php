@@ -33,53 +33,6 @@ class Mage_Customer_Model_Observer
     public const VIV_CURRENTLY_SAVED_ADDRESS = 'currently_saved_address';
 
     /**
-     * Check whether specified billing address is default for its customer
-     *
-     * @param Mage_Customer_Model_Address $address
-     * @return bool
-     */
-    protected function _isDefaultBilling($address)
-    {
-        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling())
-            || $address->getIsPrimaryBilling() || $address->getIsDefaultBilling();
-    }
-
-    /**
-     * Check whether specified shipping address is default for its customer
-     *
-     * @param Mage_Customer_Model_Address $address
-     * @return bool
-     */
-    protected function _isDefaultShipping($address)
-    {
-        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultShipping())
-            || $address->getIsPrimaryShipping() || $address->getIsDefaultShipping();
-    }
-
-    /**
-     * Check whether specified address should be processed in after_save event handler
-     *
-     * @param Mage_Customer_Model_Address $address
-     * @return bool
-     */
-    protected function _canProcessAddress($address)
-    {
-        if ($address->getForceProcess()) {
-            return true;
-        }
-
-        if (Mage::registry(self::VIV_CURRENTLY_SAVED_ADDRESS) != $address->getId()) {
-            return false;
-        }
-
-        $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
-        if ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING) {
-            return $this->_isDefaultShipping($address);
-        }
-        return $this->_isDefaultBilling($address);
-    }
-
-    /**
      * Before load layout event handler
      *
      * @param Varien_Event_Observer $observer
@@ -254,5 +207,52 @@ class Mage_Customer_Model_Observer
         if (Mage_Core_Model_Encryption::HASH_VERSION_SHA256 !== $currentVersionHash) {
             $model->changePassword($password, false);
         }
+    }
+
+    /**
+     * Check whether specified billing address is default for its customer
+     *
+     * @param Mage_Customer_Model_Address $address
+     * @return bool
+     */
+    protected function _isDefaultBilling($address)
+    {
+        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultBilling())
+            || $address->getIsPrimaryBilling() || $address->getIsDefaultBilling();
+    }
+
+    /**
+     * Check whether specified shipping address is default for its customer
+     *
+     * @param Mage_Customer_Model_Address $address
+     * @return bool
+     */
+    protected function _isDefaultShipping($address)
+    {
+        return ($address->getId() && $address->getId() == $address->getCustomer()->getDefaultShipping())
+            || $address->getIsPrimaryShipping() || $address->getIsDefaultShipping();
+    }
+
+    /**
+     * Check whether specified address should be processed in after_save event handler
+     *
+     * @param Mage_Customer_Model_Address $address
+     * @return bool
+     */
+    protected function _canProcessAddress($address)
+    {
+        if ($address->getForceProcess()) {
+            return true;
+        }
+
+        if (Mage::registry(self::VIV_CURRENTLY_SAVED_ADDRESS) != $address->getId()) {
+            return false;
+        }
+
+        $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType();
+        if ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING) {
+            return $this->_isDefaultShipping($address);
+        }
+        return $this->_isDefaultBilling($address);
     }
 }

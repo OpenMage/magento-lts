@@ -43,6 +43,28 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
+     * Retrieve Grid Url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/assignedGridOnly', ['_current' => true]);
+    }
+
+    /**
+     * Retrieve related products
+     *
+     * @return array
+     */
+    public function getRelatedProducts()
+    {
+        return $this->_currentTagModel
+            ->setStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED)
+            ->getRelatedProductIds();
+    }
+
+    /**
      * Tag ID getter
      *
      * @return int
@@ -252,27 +274,5 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
             $products = $this->getRelatedProducts();
         }
         return $products;
-    }
-
-    /**
-     * Retrieve Grid Url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/assignedGridOnly', ['_current' => true]);
-    }
-
-    /**
-     * Retrieve related products
-     *
-     * @return array
-     */
-    public function getRelatedProducts()
-    {
-        return $this->_currentTagModel
-            ->setStatusFilter(Mage_Tag_Model_Tag::STATUS_APPROVED)
-            ->getRelatedProductIds();
     }
 }

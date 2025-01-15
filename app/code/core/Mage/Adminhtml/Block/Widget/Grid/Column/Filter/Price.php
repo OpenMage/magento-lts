@@ -58,39 +58,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         }
     }
 
-    protected function _getCurrencyModel()
-    {
-        if (is_null($this->_currencyModel)) {
-            $this->_currencyModel = Mage::getModel('directory/currency');
-        }
-
-        return $this->_currencyModel;
-    }
-
-    protected function _getCurrencySelectHtml()
-    {
-        $value = $this->getEscapedValue('currency');
-        if (!$value) {
-            $value = $this->getColumn()->getCurrencyCode();
-        }
-
-        $html  = '';
-        $html .= '<select name="' . $this->_getHtmlName() . '[currency]" id="' . $this->_getHtmlId() . '_currency">';
-        foreach ($this->_getCurrencyList() as $currency) {
-            $html .= '<option value="' . $currency . '" ' . ($currency == $value ? 'selected="selected"' : '') . '>'
-                . $currency . '</option>';
-        }
-        return $html . '</select>';
-    }
-
-    protected function _getCurrencyList()
-    {
-        if (is_null($this->_currencyList)) {
-            $this->_currencyList = $this->_getCurrencyModel()->getConfigAllowCurrencies();
-        }
-        return $this->_currencyList;
-    }
-
     public function getValue($index = null)
     {
         if ($index) {
@@ -126,11 +93,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
         return $value;
     }
 
-    protected function _getRate($from, $to)
-    {
-        return Mage::getModel('directory/currency')->load($from)->getAnyRate($to);
-    }
-
     public function prepareRates($displayCurrency)
     {
         $storeCurrency = $this->getColumn()->getCurrencyCode();
@@ -140,5 +102,43 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
             $this->getColumn()->setRate($rate);
             $this->getColumn()->setCurrencyCode($displayCurrency);
         }
+    }
+
+    protected function _getCurrencyModel()
+    {
+        if (is_null($this->_currencyModel)) {
+            $this->_currencyModel = Mage::getModel('directory/currency');
+        }
+
+        return $this->_currencyModel;
+    }
+
+    protected function _getCurrencySelectHtml()
+    {
+        $value = $this->getEscapedValue('currency');
+        if (!$value) {
+            $value = $this->getColumn()->getCurrencyCode();
+        }
+
+        $html  = '';
+        $html .= '<select name="' . $this->_getHtmlName() . '[currency]" id="' . $this->_getHtmlId() . '_currency">';
+        foreach ($this->_getCurrencyList() as $currency) {
+            $html .= '<option value="' . $currency . '" ' . ($currency == $value ? 'selected="selected"' : '') . '>'
+                . $currency . '</option>';
+        }
+        return $html . '</select>';
+    }
+
+    protected function _getCurrencyList()
+    {
+        if (is_null($this->_currencyList)) {
+            $this->_currencyList = $this->_getCurrencyModel()->getConfigAllowCurrencies();
+        }
+        return $this->_currencyList;
+    }
+
+    protected function _getRate($from, $to)
+    {
+        return Mage::getModel('directory/currency')->load($from)->getAnyRate($to);
     }
 }

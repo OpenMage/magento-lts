@@ -25,16 +25,6 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Abstract extends Mage_Core_B
     public const XML_PATH_STOCK_THRESHOLD_QTY = 'cataloginventory/options/stock_threshold_qty';
 
     /**
-     * Retrieve current product object
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    protected function _getProduct()
-    {
-        return Mage::registry('current_product');
-    }
-
-    /**
      * Retrieve current product stock qty
      *
      * @return float
@@ -83,5 +73,15 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Abstract extends Mage_Core_B
     public function isMsgVisible()
     {
         return ($this->getStockQty() > 0 && $this->getStockQty() <= $this->getThresholdQty());
+    }
+
+    /**
+     * Retrieve current product object
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    protected function _getProduct()
+    {
+        return Mage::registry('current_product');
     }
 }

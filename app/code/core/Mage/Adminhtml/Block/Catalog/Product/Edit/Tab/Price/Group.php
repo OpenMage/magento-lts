@@ -31,6 +31,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adm
     }
 
     /**
+     *  Get is percent flag
+     *
+     * @return int
+     */
+    public function getIsPercent()
+    {
+        return $this->getData('is_percent') ? $this->getData('is_percent') : 0;
+    }
+
+    /**
      * Sort values
      *
      * @param array $data
@@ -79,15 +89,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group extends Mage_Adm
 
         $this->setChild('add_button', $button);
         return parent::_prepareLayout();
-    }
-
-    /**
-     *  Get is percent flag
-     *
-     * @return int
-     */
-    public function getIsPercent()
-    {
-        return $this->getData('is_percent') ? $this->getData('is_percent') : 0;
     }
 }

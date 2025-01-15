@@ -31,6 +31,21 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
             ->addQueueInfo();
     }
 
+    public function getUnsubscribeButtonHtml()
+    {
+        return $this->getChildHtml('unsubscribeButton');
+    }
+
+    public function getDeleteButtonHtml()
+    {
+        return $this->getChildHtml('deleteButton');
+    }
+
+    public function getShowButtons()
+    {
+        return  Mage::getResourceSingleton('newsletter/problem_collection')->getSize() > 0;
+    }
+
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -60,20 +75,5 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
                 ),
         );
         return parent::_prepareLayout();
-    }
-
-    public function getUnsubscribeButtonHtml()
-    {
-        return $this->getChildHtml('unsubscribeButton');
-    }
-
-    public function getDeleteButtonHtml()
-    {
-        return $this->getChildHtml('deleteButton');
-    }
-
-    public function getShowButtons()
-    {
-        return  Mage::getResourceSingleton('newsletter/problem_collection')->getSize() > 0;
     }
 }

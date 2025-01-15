@@ -30,6 +30,17 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     protected $_name = 'Key';
 
     /**
+     * Additional variables available for validation failure messages
+     *
+     * @var array
+     */
+    protected $_messageVariables = [
+        'min'  => '_min',
+        'max'  => '_max',
+        'name' => '_name',
+    ];
+
+    /**
      * Sets validator options
      *
      * @param  int|array|Zend_Config $options
@@ -55,32 +66,6 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
         }
         parent::__construct($options);
     }
-
-    /**
-     * Init validation failure message template definitions
-     *
-     * @return $this
-     */
-    protected function _initMessageTemplates()
-    {
-        $_messageTemplates[self::TOO_LONG] =
-            Mage::helper('oauth')->__("%name% '%value%' is too long. It must has length %min% symbols.");
-        $_messageTemplates[self::TOO_SHORT] =
-            Mage::helper('oauth')->__("%name% '%value%' is too short. It must has length %min% symbols.");
-
-        return $this;
-    }
-
-    /**
-     * Additional variables available for validation failure messages
-     *
-     * @var array
-     */
-    protected $_messageVariables = [
-        'min'  => '_min',
-        'max'  => '_max',
-        'name' => '_name',
-    ];
 
     /**
      * Set length
@@ -143,5 +128,20 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     public function getName()
     {
         return $this->_name;
+    }
+
+    /**
+     * Init validation failure message template definitions
+     *
+     * @return $this
+     */
+    protected function _initMessageTemplates()
+    {
+        $_messageTemplates[self::TOO_LONG] =
+            Mage::helper('oauth')->__("%name% '%value%' is too long. It must has length %min% symbols.");
+        $_messageTemplates[self::TOO_SHORT] =
+            Mage::helper('oauth')->__("%name% '%value%' is too short. It must has length %min% symbols.");
+
+        return $this;
     }
 }

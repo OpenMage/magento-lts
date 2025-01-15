@@ -193,6 +193,17 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     protected $_optionsByCode;
 
     /**
+     * Clone quote item
+     */
+    public function __clone()
+    {
+        $this->setId(null);
+        $this->_parentItem  = null;
+        $this->_children    = [];
+        $this->_messages    = [];
+    }
+
+    /**
      * Retrieve Quote instance
      *
      * @return Mage_Sales_Model_Quote
@@ -234,20 +245,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function getFileDownloadParams()
     {
         return null;
-    }
-
-    /**
-     * Specify parent item id before saving data
-     *
-     * @return  $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        if ($this->getParentItem()) {
-            $this->setParentItemId($this->getParentItem()->getId());
-        }
-        return $this;
     }
 
     /**
@@ -688,17 +685,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     }
 
     /**
-     * Clone quote item
-     */
-    public function __clone()
-    {
-        $this->setId(null);
-        $this->_parentItem  = null;
-        $this->_children    = [];
-        $this->_messages    = [];
-    }
-
-    /**
      * Checking if there children calculated or parent item
      * when we have parent quote item and its children
      *
@@ -819,6 +805,20 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function getBaseTaxAmount()
     {
         return $this->_getData('base_tax_amount');
+    }
+
+    /**
+     * Specify parent item id before saving data
+     *
+     * @return  $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        if ($this->getParentItem()) {
+            $this->setParentItemId($this->getParentItem()->getId());
+        }
+        return $this;
     }
 
     /**

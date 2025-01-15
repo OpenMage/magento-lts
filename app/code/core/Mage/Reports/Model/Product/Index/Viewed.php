@@ -40,15 +40,6 @@ class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product
     protected $_countCacheKey   = 'product_index_viewed_count';
 
     /**
-     * Initialize resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('reports/product_index_viewed');
-    }
-
-    /**
      * Retrieve Exclude Product Ids List for Collection
      *
      * @return array
@@ -62,5 +53,14 @@ class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product
         }
 
         return $productIds;
+    }
+
+    /**
+     * Initialize resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('reports/product_index_viewed');
     }
 }

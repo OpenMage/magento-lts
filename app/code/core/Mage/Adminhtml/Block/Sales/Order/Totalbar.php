@@ -24,6 +24,16 @@ class Mage_Adminhtml_Block_Sales_Order_Totalbar extends Mage_Adminhtml_Block_Sal
 {
     protected $_totals = [];
 
+    public function addTotal($label, $value, $grand = false)
+    {
+        $this->_totals[] = [
+            'label' => $label,
+            'value' => $value,
+            'grand' => $grand,
+        ];
+        return $this;
+    }
+
     /**
      * Retrieve required options from parent
      */
@@ -46,15 +56,5 @@ class Mage_Adminhtml_Block_Sales_Order_Totalbar extends Mage_Adminhtml_Block_Sal
     protected function getTotals()
     {
         return $this->_totals;
-    }
-
-    public function addTotal($label, $value, $grand = false)
-    {
-        $this->_totals[] = [
-            'label' => $label,
-            'value' => $value,
-            'grand' => $grand,
-        ];
-        return $this;
     }
 }

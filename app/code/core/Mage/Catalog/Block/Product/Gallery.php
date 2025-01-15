@@ -23,17 +23,6 @@
 class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
 {
     /**
-     * @return Mage_Core_Block_Template
-     */
-    protected function _prepareLayout()
-    {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
-            $headBlock->setTitle($this->getProduct()->getMetaTitle());
-        }
-        return parent::_prepareLayout();
-    }
-
-    /**
      * @return Mage_Catalog_Model_Product
      */
     public function getProduct()
@@ -169,5 +158,15 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
             return $this->getUrl('*/*/*', ['_current' => true, 'image' => $image->getValueId()]);
         }
         return false;
+    }
+    /**
+     * @return Mage_Core_Block_Template
+     */
+    protected function _prepareLayout()
+    {
+        if ($headBlock = $this->getLayout()->getBlock('head')) {
+            $headBlock->setTitle($this->getProduct()->getMetaTitle());
+        }
+        return parent::_prepareLayout();
     }
 }

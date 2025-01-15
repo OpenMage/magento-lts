@@ -50,23 +50,6 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
 {
     protected $_address;
 
-    protected function _construct()
-    {
-        $this->_init('sales/quote_address_rate');
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        if ($this->getAddress()) {
-            $this->setAddressId($this->getAddress()->getId());
-        }
-        return $this;
-    }
-
     /**
      * @return $this
      */
@@ -106,6 +89,23 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
                 ->setMethodDescription($rate->getMethodDescription())
                 ->setPrice($rate->getPrice())
             ;
+        }
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/quote_address_rate');
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        if ($this->getAddress()) {
+            $this->setAddressId($this->getAddress()->getId());
         }
         return $this;
     }

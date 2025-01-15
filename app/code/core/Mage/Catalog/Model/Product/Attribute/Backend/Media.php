@@ -58,16 +58,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
-     * @param string $key
-     * @param array $image
-     * @return string
-     */
-    protected function _getDefaultValue($key, &$image)
-    {
-        return $image[$key . '_default'] ?? '';
-    }
-
-    /**
      * Validate media_gallery attribute data
      *
      * @param Mage_Catalog_Model_Product $object
@@ -555,6 +545,39 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
+     * @param Mage_Catalog_Model_Product $object
+     * @return $this
+     */
+    public function duplicate($object)
+    {
+        $attrCode = $this->getAttribute()->getAttributeCode();
+        $mediaGalleryData = $object->getData($attrCode);
+
+        if (!isset($mediaGalleryData['images']) || !is_array($mediaGalleryData['images'])) {
+            return $this;
+        }
+
+        $this->_getResource()->duplicate(
+            $this,
+            $mediaGalleryData['duplicate'] ?? [],
+            $object->getOriginalId(),
+            $object->getId(),
+        );
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param array $image
+     * @return string
+     */
+    protected function _getDefaultValue($key, &$image)
+    {
+        return $image[$key . '_default'] ?? '';
+    }
+
+    /**
      * Retrieve resource model
      *
      * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media|object
@@ -686,29 +709,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         return str_replace($ioObject->dirsep(), '/', $destFile);
-    }
-
-    /**
-     * @param Mage_Catalog_Model_Product $object
-     * @return $this
-     */
-    public function duplicate($object)
-    {
-        $attrCode = $this->getAttribute()->getAttributeCode();
-        $mediaGalleryData = $object->getData($attrCode);
-
-        if (!isset($mediaGalleryData['images']) || !is_array($mediaGalleryData['images'])) {
-            return $this;
-        }
-
-        $this->_getResource()->duplicate(
-            $this,
-            $mediaGalleryData['duplicate'] ?? [],
-            $object->getOriginalId(),
-            $object->getId(),
-        );
-
-        return $this;
     }
 
     /**

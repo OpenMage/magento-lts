@@ -129,21 +129,6 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return Varien_Object
-     */
-    protected function _initOldFieldsMap()
-    {
-        // pre 1.6 fields names, old => new
-        $this->_oldFieldsMap = [
-            'base_weee_tax_applied_row_amount' => 'base_weee_tax_applied_row_amnt',
-        ];
-        return $this;
-    }
-
-    /**
      * Retrieve creditmemo instance
      *
      * @return Mage_Sales_Model_Order_Creditmemo
@@ -303,6 +288,21 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
             return true;
         }
         return false;
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return Varien_Object
+     */
+    protected function _initOldFieldsMap()
+    {
+        // pre 1.6 fields names, old => new
+        $this->_oldFieldsMap = [
+            'base_weee_tax_applied_row_amount' => 'base_weee_tax_applied_row_amnt',
+        ];
+        return $this;
     }
 
     /**

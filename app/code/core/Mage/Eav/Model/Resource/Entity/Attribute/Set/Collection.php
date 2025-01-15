@@ -22,11 +22,6 @@
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('eav/entity_attribute_set');
-    }
-
     /**
      * Add filter by entity type id to collection
      *
@@ -56,5 +51,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection extends Mage_Core_
     public function toOptionHash()
     {
         return parent::_toOptionHash('attribute_set_id', 'attribute_set_name');
+    }
+    protected function _construct()
+    {
+        $this->_init('eav/entity_attribute_set');
     }
 }

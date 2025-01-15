@@ -151,6 +151,16 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
     }
 
     /**
+     * Getter for $this->_cookieName
+     *
+     * @return string
+     */
+    public function getCookieName()
+    {
+        return $this->_cookieName;
+    }
+
+    /**
      * Try to load order by cookie hash
      *
      * @param string|null $cookie
@@ -174,15 +184,5 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             }
         }
         return null;
-    }
-
-    /**
-     * Getter for $this->_cookieName
-     *
-     * @return string
-     */
-    public function getCookieName()
-    {
-        return $this->_cookieName;
     }
 }

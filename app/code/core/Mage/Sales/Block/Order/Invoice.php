@@ -22,33 +22,6 @@
  */
 class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Items
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('sales/order/invoice.phtml');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        /** @var Mage_Page_Block_Html_Head $headBlock */
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
-        }
-
-        /** @var Mage_Payment_Helper_Data $helper */
-        $helper = $this->helper('payment');
-        $this->setChild(
-            'payment_info',
-            $helper->getInfoBlock($this->getOrder()->getPayment()),
-        );
-
-        return parent::_prepareLayout();
-    }
-
     /**
      * @return string
      */
@@ -146,5 +119,31 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable($helper::TYPE_ORDER, $this->getOrder());
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('sales/order/invoice.phtml');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
+        }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
+        $this->setChild(
+            'payment_info',
+            $helper->getInfoBlock($this->getOrder()->getPayment()),
+        );
+
+        return parent::_prepareLayout();
     }
 }

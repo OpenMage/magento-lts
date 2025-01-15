@@ -34,16 +34,6 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     protected $_loadDefault    = false;
 
     /**
-     *  Define resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->setFlag('load_default_store', false);
-        $this->_init('core/store');
-    }
-
-    /**
      * Set flag for load default (admin) store
      *
      * @param bool $loadDefault
@@ -240,5 +230,15 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
         }
 
         return $this;
+    }
+
+    /**
+     *  Define resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->setFlag('load_default_store', false);
+        $this->_init('core/store');
     }
 }

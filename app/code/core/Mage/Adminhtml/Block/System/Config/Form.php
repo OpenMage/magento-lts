@@ -85,22 +85,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @return $this
      */
-    protected function _initObjects()
-    {
-        $this->_configDataObject = Mage::getSingleton('adminhtml/config_data');
-        $this->_configRoot = $this->_configDataObject->getConfigRoot();
-        $this->_configData = $this->_configDataObject->load();
-
-        $this->_configFields = Mage::getSingleton('adminhtml/config');
-
-        $this->_defaultFieldsetRenderer = Mage::getBlockSingleton('adminhtml/system_config_form_fieldset');
-        $this->_defaultFieldRenderer = Mage::getBlockSingleton('adminhtml/system_config_form_field');
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
     public function initForm()
     {
         $this->_initObjects();
@@ -136,81 +120,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
         $this->setForm($form);
         return $this;
-    }
-
-    /**
-     * Init config group
-     *
-     * @param Varien_Data_Form $form
-     * @param Varien_Simplexml_Element $group
-     * @param Varien_Simplexml_Element $section
-     * @param Varien_Data_Form_Element_Fieldset|null $parentElement
-     */
-    protected function _initGroup($form, $group, $section, $parentElement = null)
-    {
-        /** @var Mage_Adminhtml_Block_System_Config_Form_Fieldset $fieldsetRenderer */
-        $fieldsetRenderer = $group->frontend_model
-            ? Mage::getBlockSingleton((string) $group->frontend_model)
-            : $this->_defaultFieldsetRenderer;
-        $fieldsetRenderer->setForm($this)
-            ->setConfigData($this->_configData);
-
-        if ($this->_configFields->hasChildren($group, $this->getWebsiteCode(), $this->getStoreCode())) {
-            $helperName = $this->_configFields->getAttributeModule($section, $group);
-            $fieldsetConfig = ['legend' => Mage::helper($helperName)->__((string) $group->label)];
-            if (!empty($group->comment)) {
-                $fieldsetConfig['comment'] = $this->_prepareGroupComment($group, $helperName);
-            }
-            if (!empty($group->expanded)) {
-                $fieldsetConfig['expanded'] = (bool) $group->expanded;
-            }
-
-            $fieldset = new Varien_Data_Form_Element_Fieldset($fieldsetConfig);
-            $fieldset->setId($section->getName() . '_' . $group->getName())
-                ->setRenderer($fieldsetRenderer)
-                ->setGroup($group);
-
-            if ($parentElement) {
-                $fieldset->setIsNested(true);
-                $parentElement->addElement($fieldset);
-            } else {
-                $form->addElement($fieldset);
-            }
-
-            $this->_prepareFieldOriginalData($fieldset, $group);
-            $this->_addElementTypes($fieldset);
-
-            $this->_fieldsets[$group->getName()] = $fieldset;
-
-            if ($group->clone_fields) {
-                if ($group->clone_model) {
-                    $cloneModel = Mage::getModel((string) $group->clone_model);
-                } else {
-                    Mage::throwException($this->__('Config form fieldset clone model required to be able to clone fields'));
-                }
-                foreach ($cloneModel->getPrefixes() as $prefix) {
-                    $this->initFields($fieldset, $group, $section, $prefix['field'], $prefix['label']);
-                }
-            } else {
-                $this->initFields($fieldset, $group, $section);
-            }
-        }
-    }
-
-    /**
-     * Return dependency block object
-     *
-     * @return Mage_Adminhtml_Block_Widget_Form_Element_Dependence
-     */
-    protected function _getDependence()
-    {
-        if (!$this->getChild('element_dependense')) {
-            $this->setChild(
-                'element_dependense',
-                $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence'),
-            );
-        }
-        return $this->getChild('element_dependense');
     }
 
     /**
@@ -462,6 +371,236 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * @param Varien_Simplexml_Element $field
+     * @return bool
+     */
+    public function canUseDefaultValue($field)
+    {
+        if ($this->getScope() == self::SCOPE_STORES && $field) {
+            return true;
+        }
+        if ($this->getScope() == self::SCOPE_WEBSITES && $field) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param Varien_Simplexml_Element $field
+     * @return bool
+     */
+    public function canUseWebsiteValue($field)
+    {
+        if ($this->getScope() == self::SCOPE_STORES && $field) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Retrieve current scope
+     *
+     * @return string
+     */
+    public function getScope()
+    {
+        $scope = $this->getData('scope');
+        if (is_null($scope)) {
+            if ($this->getStoreCode()) {
+                $scope = self::SCOPE_STORES;
+            } elseif ($this->getWebsiteCode()) {
+                $scope = self::SCOPE_WEBSITES;
+            } else {
+                $scope = self::SCOPE_DEFAULT;
+            }
+            $this->setScope($scope);
+        }
+
+        return $scope;
+    }
+
+    /**
+     * Retrieve label for scope
+     *
+     * @param Mage_Core_Model_Config_Element $element
+     * @return string
+     */
+    public function getScopeLabel($element)
+    {
+        if ((int) $element->show_in_store === 1) {
+            return $this->_scopeLabels[self::SCOPE_STORES];
+        } elseif ((int) $element->show_in_website === 1) {
+            return $this->_scopeLabels[self::SCOPE_WEBSITES];
+        }
+        return $this->_scopeLabels[self::SCOPE_DEFAULT];
+    }
+
+    /**
+     * Get current scope code
+     *
+     * @return string
+     */
+    public function getScopeCode()
+    {
+        $scopeCode = $this->getData('scope_code');
+        if (is_null($scopeCode)) {
+            if ($this->getStoreCode()) {
+                $scopeCode = $this->getStoreCode();
+            } elseif ($this->getWebsiteCode()) {
+                $scopeCode = $this->getWebsiteCode();
+            } else {
+                $scopeCode = '';
+            }
+            $this->setScopeCode($scopeCode);
+        }
+
+        return $scopeCode;
+    }
+
+    /**
+     * Get current scope code
+     *
+     * @return int|string
+     */
+    public function getScopeId()
+    {
+        $scopeId = $this->getData('scope_id');
+        if (is_null($scopeId)) {
+            if ($this->getStoreCode()) {
+                $scopeId = Mage::app()->getStore($this->getStoreCode())->getId();
+            } elseif ($this->getWebsiteCode()) {
+                $scopeId = Mage::app()->getWebsite($this->getWebsiteCode())->getId();
+            } else {
+                $scopeId = '';
+            }
+            $this->setScopeId($scopeId);
+        }
+        return $scopeId;
+    }
+
+    /**
+     * Temporary moved those $this->getRequest()->getParam('blabla') from the code across this block
+     * to getBlala() methods to be later set from controller with setters
+     */
+    /**
+     * @TODO delete this methods when {^see above^} is done
+     * @return string
+     */
+    public function getSectionCode()
+    {
+        return $this->getRequest()->getParam('section', '');
+    }
+
+    /**
+     * @TODO delete this methods when {^see above^} is done
+     * @return string
+     */
+    public function getWebsiteCode()
+    {
+        return $this->getRequest()->getParam('website', '');
+    }
+
+    /**
+     * @TODO delete this methods when {^see above^} is done
+     * @return string
+     */
+    public function getStoreCode()
+    {
+        return $this->getRequest()->getParam('store', '');
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _initObjects()
+    {
+        $this->_configDataObject = Mage::getSingleton('adminhtml/config_data');
+        $this->_configRoot = $this->_configDataObject->getConfigRoot();
+        $this->_configData = $this->_configDataObject->load();
+
+        $this->_configFields = Mage::getSingleton('adminhtml/config');
+
+        $this->_defaultFieldsetRenderer = Mage::getBlockSingleton('adminhtml/system_config_form_fieldset');
+        $this->_defaultFieldRenderer = Mage::getBlockSingleton('adminhtml/system_config_form_field');
+        return $this;
+    }
+
+    /**
+     * Init config group
+     *
+     * @param Varien_Data_Form $form
+     * @param Varien_Simplexml_Element $group
+     * @param Varien_Simplexml_Element $section
+     * @param Varien_Data_Form_Element_Fieldset|null $parentElement
+     */
+    protected function _initGroup($form, $group, $section, $parentElement = null)
+    {
+        /** @var Mage_Adminhtml_Block_System_Config_Form_Fieldset $fieldsetRenderer */
+        $fieldsetRenderer = $group->frontend_model
+            ? Mage::getBlockSingleton((string) $group->frontend_model)
+            : $this->_defaultFieldsetRenderer;
+        $fieldsetRenderer->setForm($this)
+            ->setConfigData($this->_configData);
+
+        if ($this->_configFields->hasChildren($group, $this->getWebsiteCode(), $this->getStoreCode())) {
+            $helperName = $this->_configFields->getAttributeModule($section, $group);
+            $fieldsetConfig = ['legend' => Mage::helper($helperName)->__((string) $group->label)];
+            if (!empty($group->comment)) {
+                $fieldsetConfig['comment'] = $this->_prepareGroupComment($group, $helperName);
+            }
+            if (!empty($group->expanded)) {
+                $fieldsetConfig['expanded'] = (bool) $group->expanded;
+            }
+
+            $fieldset = new Varien_Data_Form_Element_Fieldset($fieldsetConfig);
+            $fieldset->setId($section->getName() . '_' . $group->getName())
+                ->setRenderer($fieldsetRenderer)
+                ->setGroup($group);
+
+            if ($parentElement) {
+                $fieldset->setIsNested(true);
+                $parentElement->addElement($fieldset);
+            } else {
+                $form->addElement($fieldset);
+            }
+
+            $this->_prepareFieldOriginalData($fieldset, $group);
+            $this->_addElementTypes($fieldset);
+
+            $this->_fieldsets[$group->getName()] = $fieldset;
+
+            if ($group->clone_fields) {
+                if ($group->clone_model) {
+                    $cloneModel = Mage::getModel((string) $group->clone_model);
+                } else {
+                    Mage::throwException($this->__('Config form fieldset clone model required to be able to clone fields'));
+                }
+                foreach ($cloneModel->getPrefixes() as $prefix) {
+                    $this->initFields($fieldset, $group, $section, $prefix['field'], $prefix['label']);
+                }
+            } else {
+                $this->initFields($fieldset, $group, $section);
+            }
+        }
+    }
+
+    /**
+     * Return dependency block object
+     *
+     * @return Mage_Adminhtml_Block_Widget_Form_Element_Dependence
+     */
+    protected function _getDependence()
+    {
+        if (!$this->getChild('element_dependense')) {
+            $this->setChild(
+                'element_dependense',
+                $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence'),
+            );
+        }
+        return $this->getChild('element_dependense');
+    }
+
+    /**
      * Set "original_data" array to the element, composed from nodes with scalar values
      *
      * @param Varien_Data_Form_Element_Abstract $field
@@ -557,33 +696,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Varien_Simplexml_Element $field
-     * @return bool
-     */
-    public function canUseDefaultValue($field)
-    {
-        if ($this->getScope() == self::SCOPE_STORES && $field) {
-            return true;
-        }
-        if ($this->getScope() == self::SCOPE_WEBSITES && $field) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @param Varien_Simplexml_Element $field
-     * @return bool
-     */
-    public function canUseWebsiteValue($field)
-    {
-        if ($this->getScope() == self::SCOPE_STORES && $field) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Checking field visibility
      *
      * @param   Varien_Simplexml_Element $field
@@ -608,87 +720,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Retrieve current scope
-     *
-     * @return string
-     */
-    public function getScope()
-    {
-        $scope = $this->getData('scope');
-        if (is_null($scope)) {
-            if ($this->getStoreCode()) {
-                $scope = self::SCOPE_STORES;
-            } elseif ($this->getWebsiteCode()) {
-                $scope = self::SCOPE_WEBSITES;
-            } else {
-                $scope = self::SCOPE_DEFAULT;
-            }
-            $this->setScope($scope);
-        }
-
-        return $scope;
-    }
-
-    /**
-     * Retrieve label for scope
-     *
-     * @param Mage_Core_Model_Config_Element $element
-     * @return string
-     */
-    public function getScopeLabel($element)
-    {
-        if ((int) $element->show_in_store === 1) {
-            return $this->_scopeLabels[self::SCOPE_STORES];
-        } elseif ((int) $element->show_in_website === 1) {
-            return $this->_scopeLabels[self::SCOPE_WEBSITES];
-        }
-        return $this->_scopeLabels[self::SCOPE_DEFAULT];
-    }
-
-    /**
-     * Get current scope code
-     *
-     * @return string
-     */
-    public function getScopeCode()
-    {
-        $scopeCode = $this->getData('scope_code');
-        if (is_null($scopeCode)) {
-            if ($this->getStoreCode()) {
-                $scopeCode = $this->getStoreCode();
-            } elseif ($this->getWebsiteCode()) {
-                $scopeCode = $this->getWebsiteCode();
-            } else {
-                $scopeCode = '';
-            }
-            $this->setScopeCode($scopeCode);
-        }
-
-        return $scopeCode;
-    }
-
-    /**
-     * Get current scope code
-     *
-     * @return int|string
-     */
-    public function getScopeId()
-    {
-        $scopeId = $this->getData('scope_id');
-        if (is_null($scopeId)) {
-            if ($this->getStoreCode()) {
-                $scopeId = Mage::app()->getStore($this->getStoreCode())->getId();
-            } elseif ($this->getWebsiteCode()) {
-                $scopeId = Mage::app()->getWebsite($this->getWebsiteCode())->getId();
-            } else {
-                $scopeId = '';
-            }
-            $this->setScopeId($scopeId);
-        }
-        return $scopeId;
-    }
-
-    /**
      * @return array
      */
     protected function _getAdditionalElementTypes()
@@ -701,36 +732,5 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             'image'         => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_image'),
             'file'          => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_file'),
         ];
-    }
-
-    /**
-     * Temporary moved those $this->getRequest()->getParam('blabla') from the code across this block
-     * to getBlala() methods to be later set from controller with setters
-     */
-    /**
-     * @TODO delete this methods when {^see above^} is done
-     * @return string
-     */
-    public function getSectionCode()
-    {
-        return $this->getRequest()->getParam('section', '');
-    }
-
-    /**
-     * @TODO delete this methods when {^see above^} is done
-     * @return string
-     */
-    public function getWebsiteCode()
-    {
-        return $this->getRequest()->getParam('website', '');
-    }
-
-    /**
-     * @TODO delete this methods when {^see above^} is done
-     * @return string
-     */
-    public function getStoreCode()
-    {
-        return $this->getRequest()->getParam('store', '');
     }
 }

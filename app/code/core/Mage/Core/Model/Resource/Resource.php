@@ -36,50 +36,6 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      */
     protected static $_dataVersions    = null;
 
-    protected function _construct()
-    {
-        $this->_init('core/resource', 'store_id');
-    }
-
-    /**
-     * Fill static versions arrays.
-     * This routine fetches Db and Data versions of at once to optimize sql requests. However, when upgrading, it's
-     * possible that 'data' column will be created only after all Db installs are passed. So $neededType contains
-     * information on main purpose of calling this routine, and even when 'data' column is absent - it won't require
-     * reissuing new sql just to get 'db' version of module.
-     *
-     * @param string $needType Can be 'db' or 'data'
-     * @return $this
-     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
-     */
-    protected function _loadVersionData($needType)
-    {
-        if ((($needType == 'db') && is_null(self::$_versions))
-            || (($needType == 'data') && is_null(self::$_dataVersions))
-        ) {
-            self::$_versions     = []; // Db version column always exists
-            self::$_dataVersions = null; // Data version array will be filled only if Data column exist
-
-            if ($this->_getReadAdapter()->isTableExists($this->getMainTable())) {
-                $select = $this->_getReadAdapter()->select()
-                    ->from($this->getMainTable(), '*');
-                // phpcs:ignore Ecg.Performance.FetchAll.Found
-                $rowSet = $this->_getReadAdapter()->fetchAll($select);
-                foreach ($rowSet as $row) {
-                    self::$_versions[$row['code']] = $row['version'];
-                    if (array_key_exists('data_version', $row)) {
-                        if (is_null(self::$_dataVersions)) {
-                            self::$_dataVersions = [];
-                        }
-                        self::$_dataVersions[$row['code']] = $row['data_version'];
-                    }
-                }
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * Get Module version from DB
      *
@@ -164,6 +120,50 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
             self::$_dataVersions[$resName] = $version;
             $this->_getWriteAdapter()->insert($this->getMainTable(), $data);
         }
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('core/resource', 'store_id');
+    }
+
+    /**
+     * Fill static versions arrays.
+     * This routine fetches Db and Data versions of at once to optimize sql requests. However, when upgrading, it's
+     * possible that 'data' column will be created only after all Db installs are passed. So $neededType contains
+     * information on main purpose of calling this routine, and even when 'data' column is absent - it won't require
+     * reissuing new sql just to get 'db' version of module.
+     *
+     * @param string $needType Can be 'db' or 'data'
+     * @return $this
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
+     */
+    protected function _loadVersionData($needType)
+    {
+        if ((($needType == 'db') && is_null(self::$_versions))
+            || (($needType == 'data') && is_null(self::$_dataVersions))
+        ) {
+            self::$_versions     = []; // Db version column always exists
+            self::$_dataVersions = null; // Data version array will be filled only if Data column exist
+
+            if ($this->_getReadAdapter()->isTableExists($this->getMainTable())) {
+                $select = $this->_getReadAdapter()->select()
+                    ->from($this->getMainTable(), '*');
+                // phpcs:ignore Ecg.Performance.FetchAll.Found
+                $rowSet = $this->_getReadAdapter()->fetchAll($select);
+                foreach ($rowSet as $row) {
+                    self::$_versions[$row['code']] = $row['version'];
+                    if (array_key_exists('data_version', $row)) {
+                        if (is_null(self::$_dataVersions)) {
+                            self::$_dataVersions = [];
+                        }
+                        self::$_dataVersions[$row['code']] = $row['data_version'];
+                    }
+                }
+            }
+        }
+
         return $this;
     }
 }

@@ -50,51 +50,6 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     protected $_productCollection;
 
     /**
-     * Retrieve loaded category collection
-     *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
-     */
-    protected function _getProductCollection()
-    {
-        if (is_null($this->_productCollection)) {
-            $layer = $this->getLayer();
-            /** @var Mage_Catalog_Model_Layer $layer */
-            if ($this->getShowRootCategory()) {
-                $this->setCategoryId(Mage::app()->getStore()->getRootCategoryId());
-            }
-
-            if (Mage::registry('product')) {
-                /** @var Mage_Catalog_Model_Resource_Category_Collection $categories */
-                $categories = Mage::registry('product')->getCategoryCollection()
-                    ->setPage(1, 1)
-                    ->load();
-                if ($categories->count()) {
-                    $this->setCategoryId($categories->getFirstItem()->getId());
-                }
-            }
-
-            $origCategory = null;
-            if ($this->getCategoryId()) {
-                $category = Mage::getModel('catalog/category')->load($this->getCategoryId());
-                if ($category->getId()) {
-                    $origCategory = $layer->getCurrentCategory();
-                    $layer->setCurrentCategory($category);
-                    $this->addModelTags($category);
-                }
-            }
-            $this->_productCollection = $layer->getProductCollection();
-
-            $this->prepareSortableFieldsByCategory($layer->getCurrentCategory());
-
-            if ($origCategory) {
-                $layer->setCurrentCategory($origCategory);
-            }
-        }
-
-        return $this->_productCollection;
-    }
-
-    /**
      * Get catalog layer model
      *
      * @return Mage_Catalog_Model_Layer
@@ -126,44 +81,6 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     public function getMode()
     {
         return $this->getChild('toolbar')->getCurrentMode();
-    }
-
-    /**
-     * Need use as _prepareLayout - but problem in declaring collection from
-     * another block (was problem with search result)
-     */
-    protected function _beforeToHtml()
-    {
-        $toolbar = $this->getToolbarBlock();
-
-        // called prepare sortable parameters
-        $collection = $this->_getProductCollection();
-
-        // use sortable parameters
-        if ($orders = $this->getAvailableOrders()) {
-            $toolbar->setAvailableOrders($orders);
-        }
-        if ($sort = $this->getSortBy()) {
-            $toolbar->setDefaultOrder($sort);
-        }
-        if ($dir = $this->getDefaultDirection()) {
-            $toolbar->setDefaultDirection($dir);
-        }
-        if ($modes = $this->getModes()) {
-            $toolbar->setModes($modes);
-        }
-
-        // set collection to toolbar and apply sort
-        $toolbar->setCollection($collection);
-
-        $this->setChild('toolbar', $toolbar);
-        Mage::dispatchEvent('catalog_block_product_list_collection', [
-            'collection' => $this->_getProductCollection(),
-        ]);
-
-        $this->_getProductCollection()->load();
-
-        return parent::_beforeToHtml();
     }
 
     /**
@@ -231,16 +148,6 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * Retrieve Catalog Config object
-     *
-     * @return Mage_Catalog_Model_Config
-     */
-    protected function _getConfig()
-    {
-        return Mage::getSingleton('catalog/config');
-    }
-
-    /**
      * Prepare Sort By fields from Category Data
      *
      * @param Mage_Catalog_Model_Category $category
@@ -277,5 +184,98 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
             parent::getCacheTags(),
             $this->getItemsTags($this->_getProductCollection()),
         );
+    }
+
+    /**
+     * Retrieve loaded category collection
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
+    protected function _getProductCollection()
+    {
+        if (is_null($this->_productCollection)) {
+            $layer = $this->getLayer();
+            /** @var Mage_Catalog_Model_Layer $layer */
+            if ($this->getShowRootCategory()) {
+                $this->setCategoryId(Mage::app()->getStore()->getRootCategoryId());
+            }
+
+            if (Mage::registry('product')) {
+                /** @var Mage_Catalog_Model_Resource_Category_Collection $categories */
+                $categories = Mage::registry('product')->getCategoryCollection()
+                    ->setPage(1, 1)
+                    ->load();
+                if ($categories->count()) {
+                    $this->setCategoryId($categories->getFirstItem()->getId());
+                }
+            }
+
+            $origCategory = null;
+            if ($this->getCategoryId()) {
+                $category = Mage::getModel('catalog/category')->load($this->getCategoryId());
+                if ($category->getId()) {
+                    $origCategory = $layer->getCurrentCategory();
+                    $layer->setCurrentCategory($category);
+                    $this->addModelTags($category);
+                }
+            }
+            $this->_productCollection = $layer->getProductCollection();
+
+            $this->prepareSortableFieldsByCategory($layer->getCurrentCategory());
+
+            if ($origCategory) {
+                $layer->setCurrentCategory($origCategory);
+            }
+        }
+
+        return $this->_productCollection;
+    }
+
+    /**
+     * Need use as _prepareLayout - but problem in declaring collection from
+     * another block (was problem with search result)
+     */
+    protected function _beforeToHtml()
+    {
+        $toolbar = $this->getToolbarBlock();
+
+        // called prepare sortable parameters
+        $collection = $this->_getProductCollection();
+
+        // use sortable parameters
+        if ($orders = $this->getAvailableOrders()) {
+            $toolbar->setAvailableOrders($orders);
+        }
+        if ($sort = $this->getSortBy()) {
+            $toolbar->setDefaultOrder($sort);
+        }
+        if ($dir = $this->getDefaultDirection()) {
+            $toolbar->setDefaultDirection($dir);
+        }
+        if ($modes = $this->getModes()) {
+            $toolbar->setModes($modes);
+        }
+
+        // set collection to toolbar and apply sort
+        $toolbar->setCollection($collection);
+
+        $this->setChild('toolbar', $toolbar);
+        Mage::dispatchEvent('catalog_block_product_list_collection', [
+            'collection' => $this->_getProductCollection(),
+        ]);
+
+        $this->_getProductCollection()->load();
+
+        return parent::_beforeToHtml();
+    }
+
+    /**
+     * Retrieve Catalog Config object
+     *
+     * @return Mage_Catalog_Model_Config
+     */
+    protected function _getConfig()
+    {
+        return Mage::getSingleton('catalog/config');
     }
 }

@@ -118,23 +118,6 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
     protected $_address;
     protected $_quote;
 
-    protected function _construct()
-    {
-        $this->_init('sales/quote_address_item');
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        if ($this->getAddress()) {
-            $this->setQuoteAddressId($this->getAddress()->getId());
-        }
-        return $this;
-    }
-
     /**
      * Declare address model
      *
@@ -204,5 +187,22 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
             return $this->getQuoteItem()->getOptionBycode($code);
         }
         return null;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/quote_address_item');
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        if ($this->getAddress()) {
+            $this->setQuoteAddressId($this->getAddress()->getId());
+        }
+        return $this;
     }
 }

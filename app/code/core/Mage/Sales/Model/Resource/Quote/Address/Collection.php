@@ -32,11 +32,6 @@ class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model
      */
     protected $_eventObject    = 'quote_address_collection';
 
-    protected function _construct()
-    {
-        $this->_init('sales/quote_address');
-    }
-
     /**
      * Setting filter on quote_id field but if quote_id is 0
      * we should exclude loading junk data from DB
@@ -48,6 +43,11 @@ class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model
     {
         $this->addFieldToFilter('quote_id', $quoteId ? $quoteId : ['null' => 1]);
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/quote_address');
     }
 
     /**

@@ -125,71 +125,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     protected $_hasAvailableResources = true;
 
     /**
-     * Initialize user model
-     */
-    protected function _construct()
-    {
-        $this->_init('admin/user');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        $data = [
-            'firstname' => $this->getFirstname(),
-            'lastname'  => $this->getLastname(),
-            'email'     => $this->getEmail(),
-            'modified'  => $this->_getDateNow(),
-            'extra'     => serialize($this->getExtra()),
-        ];
-
-        if ($this->getId() > 0) {
-            $data['user_id'] = $this->getId();
-        }
-
-        if ($this->getUsername()) {
-            $data['username'] = $this->getUsername();
-        }
-
-        if ($this->getNewPassword()) {
-            // Change user password
-            $data['password'] = $this->_getEncodedPassword($this->getNewPassword());
-            $data['new_password'] = $data['password'];
-            $sessionUser = $this->getSession()->getUser();
-            if ($sessionUser && $sessionUser->getId() == $this->getId()) {
-                $this->getSession()->setUserPasswordChanged(true);
-            }
-        } elseif ($this->getPassword() && $this->getPassword() != $this->getOrigData('password')) {
-            // New user password
-            $data['password'] = $this->_getEncodedPassword($this->getPassword());
-        } elseif (!$this->getPassword() && $this->getOrigData('password') // Change user data
-            || $this->getPassword() == $this->getOrigData('password')     // Retrieve user password
-        ) {
-            $data['password'] = $this->getOrigData('password');
-        }
-
-        $this->cleanPasswordsValidationData();
-
-        if (!is_null($this->getIsActive())) {
-            $data['is_active'] = (int) $this->getIsActive();
-        }
-
-        $this->addData($data);
-
-        return parent::_beforeSave();
-    }
-
-    /**
-     * @return Mage_Admin_Model_Session
-*/
-    protected function getSession()
-    {
-        return  Mage::getSingleton('admin/session');
-    }
-
-    /**
      * Save admin user extra data (like configuration sections state)
      *
      * @param   array|string $data
@@ -484,28 +419,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve encoded password
-     *
-     * @param string $password
-     * @return string
-     */
-    protected function _getEncodedPassword($password)
-    {
-        return Mage::helper('core')->getHash($password, self::HASH_SALT_LENGTH);
-    }
-
-    /**
-     * Returns helper instance
-     *
-     * @param string $helperName
-     * @return Mage_Core_Helper_Abstract
-     */
-    protected function _getHelper($helperName)
-    {
-        return Mage::helper($helperName);
-    }
-
-    /**
      * Find first menu item that user is able to access
      *
      * @param Mage_Core_Model_Config_Element|Varien_Simplexml_Element $parent
@@ -730,17 +643,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Simple sql format date
-     *
-     * @param string|bool $dayOnly
-     * @return string
-     */
-    protected function _getDateNow($dayOnly = false)
-    {
-        return Varien_Date::now($dayOnly);
-    }
-
-    /**
      * Send notification to general Contact and additional emails when new admin user created.
      * You can declare additional emails in Mage_Core general/additional_notification_emails/admin_user_create node.
      *
@@ -799,5 +701,103 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $minLength = Mage::getStoreConfigAsInt(self::XML_PATH_MIN_ADMIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
         return ($minLength < $absoluteMinLength) ? $absoluteMinLength : $minLength;
+    }
+
+    /**
+     * Initialize user model
+     */
+    protected function _construct()
+    {
+        $this->_init('admin/user');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        $data = [
+            'firstname' => $this->getFirstname(),
+            'lastname'  => $this->getLastname(),
+            'email'     => $this->getEmail(),
+            'modified'  => $this->_getDateNow(),
+            'extra'     => serialize($this->getExtra()),
+        ];
+
+        if ($this->getId() > 0) {
+            $data['user_id'] = $this->getId();
+        }
+
+        if ($this->getUsername()) {
+            $data['username'] = $this->getUsername();
+        }
+
+        if ($this->getNewPassword()) {
+            // Change user password
+            $data['password'] = $this->_getEncodedPassword($this->getNewPassword());
+            $data['new_password'] = $data['password'];
+            $sessionUser = $this->getSession()->getUser();
+            if ($sessionUser && $sessionUser->getId() == $this->getId()) {
+                $this->getSession()->setUserPasswordChanged(true);
+            }
+        } elseif ($this->getPassword() && $this->getPassword() != $this->getOrigData('password')) {
+            // New user password
+            $data['password'] = $this->_getEncodedPassword($this->getPassword());
+        } elseif (!$this->getPassword() && $this->getOrigData('password') // Change user data
+            || $this->getPassword() == $this->getOrigData('password')     // Retrieve user password
+        ) {
+            $data['password'] = $this->getOrigData('password');
+        }
+
+        $this->cleanPasswordsValidationData();
+
+        if (!is_null($this->getIsActive())) {
+            $data['is_active'] = (int) $this->getIsActive();
+        }
+
+        $this->addData($data);
+
+        return parent::_beforeSave();
+    }
+
+    /**
+     * @return Mage_Admin_Model_Session
+*/
+    protected function getSession()
+    {
+        return  Mage::getSingleton('admin/session');
+    }
+
+    /**
+     * Retrieve encoded password
+     *
+     * @param string $password
+     * @return string
+     */
+    protected function _getEncodedPassword($password)
+    {
+        return Mage::helper('core')->getHash($password, self::HASH_SALT_LENGTH);
+    }
+
+    /**
+     * Returns helper instance
+     *
+     * @param string $helperName
+     * @return Mage_Core_Helper_Abstract
+     */
+    protected function _getHelper($helperName)
+    {
+        return Mage::helper($helperName);
+    }
+
+    /**
+     * Simple sql format date
+     *
+     * @param string|bool $dayOnly
+     * @return string
+     */
+    protected function _getDateNow($dayOnly = false)
+    {
+        return Varien_Date::now($dayOnly);
     }
 }

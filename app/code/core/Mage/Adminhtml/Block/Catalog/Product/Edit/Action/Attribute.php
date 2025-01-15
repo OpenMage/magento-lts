@@ -22,44 +22,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Adminhtml_Block_Widget
 {
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Back'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs(
-                        $this->getUrl(
-                            '*/catalog_product/',
-                            ['store' => $this->getRequest()->getParam('store', 0)],
-                        ),
-                    ),
-                    'class' => 'back',
-                ]),
-        );
-
-        $this->setChild(
-            'reset_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Reset'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])),
-                ]),
-        );
-
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('catalog')->__('Save'),
-                    'onclick'   => 'attributesForm.submit()',
-                    'class'     => 'save',
-                ]),
-        );
-        return $this;
-    }
-
     /**
      * Retrieve selected products for update
      *
@@ -68,16 +30,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
     public function getProducts()
     {
         return $this->_getHelper()->getProducts();
-    }
-
-    /**
-     * Retrieve block attributes update helper
-     *
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute
-     */
-    protected function _getHelper()
-    {
-        return $this->helper('adminhtml/catalog_product_edit_action_attribute');
     }
 
     /**
@@ -128,5 +80,52 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
     public function getValidationUrl()
     {
         return $this->getUrl('*/*/validate', ['_current' => true]);
+    }
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'back_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('catalog')->__('Back'),
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs(
+                        $this->getUrl(
+                            '*/catalog_product/',
+                            ['store' => $this->getRequest()->getParam('store', 0)],
+                        ),
+                    ),
+                    'class' => 'back',
+                ]),
+        );
+
+        $this->setChild(
+            'reset_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('catalog')->__('Reset'),
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])),
+                ]),
+        );
+
+        $this->setChild(
+            'save_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('catalog')->__('Save'),
+                    'onclick'   => 'attributesForm.submit()',
+                    'class'     => 'save',
+                ]),
+        );
+        return $this;
+    }
+
+    /**
+     * Retrieve block attributes update helper
+     *
+     * @return Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute
+     */
+    protected function _getHelper()
+    {
+        return $this->helper('adminhtml/catalog_product_edit_action_attribute');
     }
 }

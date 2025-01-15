@@ -37,6 +37,27 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
     protected $_dependsOnChildren = true;
 
     /**
+     * Wrapper element tag name getter
+     * @return string
+     */
+    public function getElementTagName()
+    {
+        $tagName = $this->_getData('html_tag_name');
+        return $tagName ? $tagName : 'div';
+    }
+
+    /**
+     * Setter whether this block depends on children
+     * @param string $depends
+     * @return $this
+     */
+    public function dependsOnChildren($depends = '0')
+    {
+        $this->_dependsOnChildren = (bool) (int) $depends;
+        return $this;
+    }
+
+    /**
      * Render the wrapper element html
      * Supports different optional parameters, set in data by keys:
      * - element_tag_name (div by default)
@@ -61,27 +82,6 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
         $class       = $this->hasElementClass() ? sprintf(' class="%s"', $this->getElementClass()) : '';
         $otherParams = $this->hasOtherParams() ? ' ' . $this->getOtherParams() : '';
         return sprintf('<%1$s%2$s%3$s%4$s>%5$s</%1$s>', $this->getElementTagName(), $id, $class, $otherParams, $html);
-    }
-
-    /**
-     * Wrapper element tag name getter
-     * @return string
-     */
-    public function getElementTagName()
-    {
-        $tagName = $this->_getData('html_tag_name');
-        return $tagName ? $tagName : 'div';
-    }
-
-    /**
-     * Setter whether this block depends on children
-     * @param string $depends
-     * @return $this
-     */
-    public function dependsOnChildren($depends = '0')
-    {
-        $this->_dependsOnChildren = (bool) (int) $depends;
-        return $this;
     }
 
     /**

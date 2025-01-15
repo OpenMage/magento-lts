@@ -264,6 +264,31 @@ class Mage_Paypal_Model_Cart
     }
 
     /**
+     * Check whether items are valid
+     *
+     * @return bool
+     */
+    public function areItemsValid()
+    {
+        return $this->_areItemsValid;
+    }
+
+    /**
+     * Check whether any item has negative amount
+     *
+     * @return bool
+     */
+    public function hasNegativeItemAmount()
+    {
+        foreach ($this->_items as $item) {
+            if ($item->getAmount() < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * (re)Render all items and totals
      */
     protected function _render()
@@ -416,16 +441,6 @@ class Mage_Paypal_Model_Cart
     }
 
     /**
-     * Check whether items are valid
-     *
-     * @return bool
-     */
-    public function areItemsValid()
-    {
-        return $this->_areItemsValid;
-    }
-
-    /**
      * Add a usual line item with amount and qty
      *
      * @return Varien_Object
@@ -503,20 +518,5 @@ class Mage_Paypal_Model_Cart
     {
         $this->_totals[self::TOTAL_TAX] += (float) $salesEntity->getBaseHiddenTaxAmount();
         $this->_totals[self::TOTAL_TAX] += (float) $salesEntity->getBaseShippingHiddenTaxAmount();
-    }
-
-    /**
-     * Check whether any item has negative amount
-     *
-     * @return bool
-     */
-    public function hasNegativeItemAmount()
-    {
-        foreach ($this->_items as $item) {
-            if ($item->getAmount() < 0) {
-                return true;
-            }
-        }
-        return false;
     }
 }

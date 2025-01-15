@@ -22,11 +22,6 @@
  */
 class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Resource_Review_Collection
 {
-    protected function _construct()
-    {
-        $this->_init('review/review');
-    }
-
     /**
      * @param string|int $productId
      * @return $this
@@ -83,5 +78,9 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
         }
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('review/review');
     }
 }

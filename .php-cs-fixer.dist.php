@@ -1,9 +1,7 @@
 <?php
-/*
-* This document has been generated with
-* https://mlocati.github.io/php-cs-fixer-configurator/#version:3.4.0|configurator
-* you can change this configuration by importing this file.
-*/
+
+declare(strict_types=1);
+
 $config = new PhpCsFixer\Config();
 return $config
     ->setRiskyAllowed(true)
@@ -16,6 +14,8 @@ return $config
         'modernize_types_casting' => true,
         // PHP84: Adds or removes ? before single type declarations or |null at the end of union types when parameters have a default null value.
         'nullable_type_declaration_for_default_null_value' => true,
+        // Orders the elements of classes/interfaces/traits/enums.
+        'ordered_class_elements' => true,
         // Convert double quotes to single quotes for simple strings.
         'single_quote' => true,
         // Arguments lists, array destructuring lists, arrays that are multi-line, match-lines and parameters lists must have a trailing comma.
@@ -35,5 +35,5 @@ return $config
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)
-            ->ignoreVCS(true)
+            ->ignoreVCS(true),
     );

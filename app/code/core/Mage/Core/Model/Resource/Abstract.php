@@ -23,6 +23,12 @@
 abstract class Mage_Core_Model_Resource_Abstract
 {
     /**
+     * Array of callbacks subscribed to commit transaction commit
+     *
+     * @var array
+     */
+    protected static $_commitCallbacks = [];
+    /**
      * Main constructor
      */
     public function __construct()
@@ -32,27 +38,6 @@ abstract class Mage_Core_Model_Resource_Abstract
          */
         $this->_construct();
     }
-
-    /**
-     * Array of callbacks subscribed to commit transaction commit
-     *
-     * @var array
-     */
-    protected static $_commitCallbacks = [];
-
-    abstract protected function _construct();
-
-    /**
-     * Retrieve connection for read data
-     * @return Varien_Db_Adapter_Interface
-     */
-    abstract protected function _getReadAdapter();
-
-    /**
-     * Retrieve connection for write data
-     * @return Varien_Db_Adapter_Interface
-     */
-    abstract protected function _getWriteAdapter();
 
     /**
      * Start resource transaction
@@ -145,6 +130,25 @@ abstract class Mage_Core_Model_Resource_Abstract
         return Varien_Date::toTimestamp($str);
     }
 
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
+
+    abstract protected function _construct();
+
+    /**
+     * Retrieve connection for read data
+     * @return Varien_Db_Adapter_Interface
+     */
+    abstract protected function _getReadAdapter();
+
+    /**
+     * Retrieve connection for write data
+     * @return Varien_Db_Adapter_Interface
+     */
+    abstract protected function _getWriteAdapter();
+
     /**
      * Serialize specified field in an object
      *
@@ -229,10 +233,5 @@ abstract class Mage_Core_Model_Resource_Abstract
             return Mage::app()->getLocale()->getNumber($value);
         }
         return $value;
-    }
-
-    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
-    {
-        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

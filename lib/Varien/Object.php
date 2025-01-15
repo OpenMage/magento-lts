@@ -96,44 +96,129 @@ class Varien_Object implements ArrayAccess
         $this->_construct();
     }
 
-    protected function _addFullNames()
+    /**
+     * Convert object attributes to array
+     *
+     * @param  array $arrAttributes array of required attributes
+     * @return array
+     */
+    public function __toArray(array $arrAttributes = [])
     {
-        if (empty($this->_syncFieldsMap)) {
-            return;
+        if (empty($arrAttributes)) {
+            return $this->_data;
         }
 
-        $existedShortKeys = array_intersect_key(array_flip($this->_syncFieldsMap), $this->_data);
-        foreach ($existedShortKeys as $key => $fullFieldName) {
-            $this->_data[$fullFieldName] = $this->_data[$key];
+        $arrRes = [];
+        foreach ($arrAttributes as $attribute) {
+            if (isset($this->_data[$attribute])) {
+                $arrRes[$attribute] = $this->_data[$attribute];
+            } else {
+                $arrRes[$attribute] = null;
+            }
         }
+        return $arrRes;
     }
 
     /**
-     * Inits mapping array of object's previously used fields to new fields.
-     * Must be overloaded by descendants to set concrete fields map.
-     */
-    protected function _initOldFieldsMap() {}
-
-    /**
-     * Called after old fields are inited. Forms synchronization map to sync old fields and new fields
-     * between each other.
+     * Convert object attributes to XML
      *
-     * @return $this
+     * @param array $arrAttributes array of required attributes
+     * @param string $rootName name of the root element
+     * @param bool $addOpenTag
+     * @param bool $addCdata
+     * @return string
      */
-    protected function _prepareSyncFieldsMap()
+    protected function __toXml(array $arrAttributes = [], $rootName = 'item', $addOpenTag = false, $addCdata = true)
     {
-        $old2New = $this->_oldFieldsMap;
-        $new2Old = array_flip($this->_oldFieldsMap);
-        $this->_syncFieldsMap = array_merge($old2New, $new2Old);
-        return $this;
+        $xml = '';
+        if ($addOpenTag) {
+            $xml .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        }
+        if (!empty($rootName)) {
+            $xml .= '<' . $rootName . '>' . "\n";
+        }
+        $xmlModel = new Varien_Simplexml_Element('<node></node>');
+        $arrData = $this->toArray($arrAttributes);
+        foreach ($arrData as $fieldName => $fieldValue) {
+            if ($addCdata === true) {
+                $fieldValue = "<![CDATA[$fieldValue]]>";
+            } else {
+                $fieldValue = $xmlModel->xmlentities($fieldValue);
+            }
+            $xml .= "<$fieldName>$fieldValue</$fieldName>" . "\n";
+        }
+        if (!empty($rootName)) {
+            $xml .= '</' . $rootName . '>' . "\n";
+        }
+        return $xml;
     }
 
     /**
-     * Internal constructor not depended on params. Can be used for object initialization
+     * Convert object attributes to JSON
      *
-     * @return void
+     * @param  array $arrAttributes array of required attributes
+     * @return string
      */
-    protected function _construct() {}
+    protected function __toJson(array $arrAttributes = [])
+    {
+        $arrData = $this->toArray($arrAttributes);
+        return Zend_Json::encode($arrData);
+    }
+
+    /**
+     * Set/Get attribute wrapper
+     *
+     * @param   string $method
+     * @param   array $args
+     * @return  mixed
+     */
+    public function __call($method, $args)
+    {
+        switch (substr($method, 0, 3)) {
+            case 'get':
+                $key = $this->_underscore(substr($method, 3));
+                return $this->getData($key, $args[0] ?? null);
+
+            case 'set':
+                $key = $this->_underscore(substr($method, 3));
+                return $this->setData($key, $args[0] ?? null);
+
+            case 'uns':
+                $key = $this->_underscore(substr($method, 3));
+                return $this->unsetData($key);
+
+            case 'has':
+                $key = $this->_underscore(substr($method, 3));
+                return isset($this->_data[$key]);
+        }
+        throw new Varien_Exception(
+            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')',
+        );
+    }
+
+    /**
+     * Attribute getter (deprecated)
+     *
+     * @param string $var
+     * @return mixed
+     */
+    public function __get($var)
+    {
+        $var = $this->_underscore($var);
+        return $this->getData($var);
+    }
+
+    /**
+     * Attribute setter (deprecated)
+     *
+     * @param string $var
+     * @param mixed $value
+     */
+    public function __set($var, $value)
+    {
+        $var = $this->_underscore($var);
+        $this->setData($var, $value);
+    }
 
     /**
      * Set _isDeleted flag value (if $isDeleted param is defined) and return current flag value
@@ -376,17 +461,6 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * Get value from _data array without parse key
-     *
-     * @param   string $key
-     * @return  mixed
-     */
-    protected function _getData($key)
-    {
-        return $this->_data[$key] ?? null;
-    }
-
-    /**
      * Set object data with calling setter method
      *
      * @param string $key
@@ -444,29 +518,6 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * Convert object attributes to array
-     *
-     * @param  array $arrAttributes array of required attributes
-     * @return array
-     */
-    public function __toArray(array $arrAttributes = [])
-    {
-        if (empty($arrAttributes)) {
-            return $this->_data;
-        }
-
-        $arrRes = [];
-        foreach ($arrAttributes as $attribute) {
-            if (isset($this->_data[$attribute])) {
-                $arrRes[$attribute] = $this->_data[$attribute];
-            } else {
-                $arrRes[$attribute] = null;
-            }
-        }
-        return $arrRes;
-    }
-
-    /**
      * Public wrapper for __toArray
      *
      * @return array
@@ -474,56 +525,6 @@ class Varien_Object implements ArrayAccess
     public function toArray(array $arrAttributes = [])
     {
         return $this->__toArray($arrAttributes);
-    }
-
-    /**
-     * Set required array elements
-     *
-     * @param   array $arr
-     * @return  array
-     */
-    protected function _prepareArray(&$arr, array $elements = [])
-    {
-        foreach ($elements as $element) {
-            if (!isset($arr[$element])) {
-                $arr[$element] = null;
-            }
-        }
-        return $arr;
-    }
-
-    /**
-     * Convert object attributes to XML
-     *
-     * @param array $arrAttributes array of required attributes
-     * @param string $rootName name of the root element
-     * @param bool $addOpenTag
-     * @param bool $addCdata
-     * @return string
-     */
-    protected function __toXml(array $arrAttributes = [], $rootName = 'item', $addOpenTag = false, $addCdata = true)
-    {
-        $xml = '';
-        if ($addOpenTag) {
-            $xml .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-        }
-        if (!empty($rootName)) {
-            $xml .= '<' . $rootName . '>' . "\n";
-        }
-        $xmlModel = new Varien_Simplexml_Element('<node></node>');
-        $arrData = $this->toArray($arrAttributes);
-        foreach ($arrData as $fieldName => $fieldValue) {
-            if ($addCdata === true) {
-                $fieldValue = "<![CDATA[$fieldValue]]>";
-            } else {
-                $fieldValue = $xmlModel->xmlentities($fieldValue);
-            }
-            $xml .= "<$fieldName>$fieldValue</$fieldName>" . "\n";
-        }
-        if (!empty($rootName)) {
-            $xml .= '</' . $rootName . '>' . "\n";
-        }
-        return $xml;
     }
 
     /**
@@ -537,18 +538,6 @@ class Varien_Object implements ArrayAccess
     public function toXml(array $arrAttributes = [], $rootName = 'item', $addOpenTag = false, $addCdata = true)
     {
         return $this->__toXml($arrAttributes, $rootName, $addOpenTag, $addCdata);
-    }
-
-    /**
-     * Convert object attributes to JSON
-     *
-     * @param  array $arrAttributes array of required attributes
-     * @return string
-     */
-    protected function __toJson(array $arrAttributes = [])
-    {
-        $arrData = $this->toArray($arrAttributes);
-        return Zend_Json::encode($arrData);
     }
 
     /**
@@ -597,61 +586,6 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * Set/Get attribute wrapper
-     *
-     * @param   string $method
-     * @param   array $args
-     * @return  mixed
-     */
-    public function __call($method, $args)
-    {
-        switch (substr($method, 0, 3)) {
-            case 'get':
-                $key = $this->_underscore(substr($method, 3));
-                return $this->getData($key, $args[0] ?? null);
-
-            case 'set':
-                $key = $this->_underscore(substr($method, 3));
-                return $this->setData($key, $args[0] ?? null);
-
-            case 'uns':
-                $key = $this->_underscore(substr($method, 3));
-                return $this->unsetData($key);
-
-            case 'has':
-                $key = $this->_underscore(substr($method, 3));
-                return isset($this->_data[$key]);
-        }
-        throw new Varien_Exception(
-            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')',
-        );
-    }
-
-    /**
-     * Attribute getter (deprecated)
-     *
-     * @param string $var
-     * @return mixed
-     */
-    public function __get($var)
-    {
-        $var = $this->_underscore($var);
-        return $this->getData($var);
-    }
-
-    /**
-     * Attribute setter (deprecated)
-     *
-     * @param string $var
-     * @param mixed $value
-     */
-    public function __set($var, $value)
-    {
-        $var = $this->_underscore($var);
-        $this->setData($var, $value);
-    }
-
-    /**
      * checks whether the object is empty
      *
      * @return boolean
@@ -662,36 +596,6 @@ class Varien_Object implements ArrayAccess
             return true;
         }
         return false;
-    }
-
-    /**
-     * Converts field names for setters and getters
-     *
-     * $this->setMyField($value) === $this->setData('my_field', $value)
-     * Uses cache to eliminate unnecessary preg_replace
-     *
-     * @param string $name
-     * @return string
-     */
-    protected function _underscore($name)
-    {
-        if (isset(self::$_underscoreCache[$name])) {
-            return self::$_underscoreCache[$name];
-        }
-        #Varien_Profiler::start('underscore');
-        $result = strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($name)));
-        #Varien_Profiler::stop('underscore');
-        self::$_underscoreCache[$name] = $result;
-        return $result;
-    }
-
-    /**
-     * @param string $name
-     * @return string
-     */
-    protected function _camelize($name)
-    {
-        return uc_words($name, '');
     }
 
     /**
@@ -841,5 +745,101 @@ class Varien_Object implements ArrayAccess
             }
         }
         return $this;
+    }
+
+    protected function _addFullNames()
+    {
+        if (empty($this->_syncFieldsMap)) {
+            return;
+        }
+
+        $existedShortKeys = array_intersect_key(array_flip($this->_syncFieldsMap), $this->_data);
+        foreach ($existedShortKeys as $key => $fullFieldName) {
+            $this->_data[$fullFieldName] = $this->_data[$key];
+        }
+    }
+
+    /**
+     * Inits mapping array of object's previously used fields to new fields.
+     * Must be overloaded by descendants to set concrete fields map.
+     */
+    protected function _initOldFieldsMap() {}
+
+    /**
+     * Called after old fields are inited. Forms synchronization map to sync old fields and new fields
+     * between each other.
+     *
+     * @return $this
+     */
+    protected function _prepareSyncFieldsMap()
+    {
+        $old2New = $this->_oldFieldsMap;
+        $new2Old = array_flip($this->_oldFieldsMap);
+        $this->_syncFieldsMap = array_merge($old2New, $new2Old);
+        return $this;
+    }
+
+    /**
+     * Internal constructor not depended on params. Can be used for object initialization
+     *
+     * @return void
+     */
+    protected function _construct() {}
+
+    /**
+     * Get value from _data array without parse key
+     *
+     * @param   string $key
+     * @return  mixed
+     */
+    protected function _getData($key)
+    {
+        return $this->_data[$key] ?? null;
+    }
+
+    /**
+     * Set required array elements
+     *
+     * @param   array $arr
+     * @return  array
+     */
+    protected function _prepareArray(&$arr, array $elements = [])
+    {
+        foreach ($elements as $element) {
+            if (!isset($arr[$element])) {
+                $arr[$element] = null;
+            }
+        }
+        return $arr;
+    }
+
+    /**
+     * Converts field names for setters and getters
+     *
+     * $this->setMyField($value) === $this->setData('my_field', $value)
+     * Uses cache to eliminate unnecessary preg_replace
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function _underscore($name)
+    {
+        if (isset(self::$_underscoreCache[$name])) {
+            return self::$_underscoreCache[$name];
+        }
+        #Varien_Profiler::start('underscore');
+        $result = strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($name)));
+        #Varien_Profiler::stop('underscore');
+        self::$_underscoreCache[$name] = $result;
+        return $result;
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    protected function _camelize($name)
+    {
+        return uc_words($name, '');
     }
 }

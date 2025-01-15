@@ -61,11 +61,6 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 
     protected static $_taxClassIds = [];
 
-    protected function _construct()
-    {
-        $this->_init('customer/group');
-    }
-
     /**
      * Alias for setCustomerGroupCode
      *
@@ -130,6 +125,11 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
             Mage_Index_Model_Event::TYPE_SAVE,
         );
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('customer/group');
     }
 
     /**

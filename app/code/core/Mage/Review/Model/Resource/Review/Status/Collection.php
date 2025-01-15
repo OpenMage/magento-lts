@@ -30,15 +30,6 @@ class Mage_Review_Model_Resource_Review_Status_Collection extends Mage_Core_Mode
     protected $_reviewStatusTable;
 
     /**
-     * Collection model initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('review/review_status');
-    }
-
-    /**
      * Convert items array to array for select options
      *
      * @return array
@@ -46,5 +37,14 @@ class Mage_Review_Model_Resource_Review_Status_Collection extends Mage_Core_Mode
     public function toOptionArray()
     {
         return parent::_toOptionArray('status_id', 'status_code');
+    }
+
+    /**
+     * Collection model initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('review/review_status');
     }
 }

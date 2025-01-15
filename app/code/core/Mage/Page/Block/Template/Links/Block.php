@@ -92,15 +92,6 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     protected $_position = 0;
 
     /**
-     * Set default template
-     *
-     */
-    protected function _construct()
-    {
-        $this->setTemplate('page/template/linksblock.phtml');
-    }
-
-    /**
      * Return link position in link list
      *
      * @return int
@@ -187,26 +178,6 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     }
 
     /**
-     * Prepare tag attributes
-     *
-     * @param string|array $params
-     * @return string
-     */
-    protected function _prepareParams($params)
-    {
-        if (is_string($params)) {
-            return $params;
-        } elseif (is_array($params)) {
-            $result = '';
-            foreach ($params as $key => $value) {
-                $result .= ' ' . $key . '="' . addslashes($value) . '"';
-            }
-            return $result;
-        }
-        return '';
-    }
-
-    /**
     * Return Li Params
     *
     * @return string
@@ -224,5 +195,34 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     public function getAParams()
     {
         return $this->_prepareParams($this->_aParams);
+    }
+
+    /**
+     * Set default template
+     *
+     */
+    protected function _construct()
+    {
+        $this->setTemplate('page/template/linksblock.phtml');
+    }
+
+    /**
+     * Prepare tag attributes
+     *
+     * @param string|array $params
+     * @return string
+     */
+    protected function _prepareParams($params)
+    {
+        if (is_string($params)) {
+            return $params;
+        } elseif (is_array($params)) {
+            $result = '';
+            foreach ($params as $key => $value) {
+                $result .= ' ' . $key . '="' . addslashes($value) . '"';
+            }
+            return $result;
+        }
+        return '';
     }
 }

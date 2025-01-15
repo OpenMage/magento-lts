@@ -20,6 +20,13 @@
  */
 class Mage_Uploader_Block_Single extends Mage_Uploader_Block_Abstract
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->getUploaderConfig()->setSingleFile(true);
+        $this->getButtonConfig()->setSingleFile(true);
+    }
     /**
      * Prepare layout, change button and set front-end element ids mapping
      *
@@ -31,13 +38,5 @@ class Mage_Uploader_Block_Single extends Mage_Uploader_Block_Abstract
         $this->getChild('browse_button')->setLabel(Mage::helper('uploader')->__('...'));
 
         return $this;
-    }
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->getUploaderConfig()->setSingleFile(true);
-        $this->getButtonConfig()->setSingleFile(true);
     }
 }

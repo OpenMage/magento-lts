@@ -22,11 +22,6 @@
  */
 class Mage_Sales_Model_Entity_Order_Shipment_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('sales/order_shipment_item');
-    }
-
     /**
      * @param int $shipmentId
      * @return $this
@@ -35,5 +30,9 @@ class Mage_Sales_Model_Entity_Order_Shipment_Item_Collection extends Mage_Eav_Mo
     {
         $this->addAttributeToFilter('parent_id', $shipmentId);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('sales/order_shipment_item');
     }
 }

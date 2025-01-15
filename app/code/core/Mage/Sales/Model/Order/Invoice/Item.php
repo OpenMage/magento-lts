@@ -104,21 +104,6 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     {
         $this->_init('sales/order_invoice_item');
     }
-
-    /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return $this
-     */
-    protected function _initOldFieldsMap()
-    {
-        // pre 1.6 fields names, old => new
-        $this->_oldFieldsMap = [
-            'base_weee_tax_applied_row_amount' => 'base_weee_tax_applied_row_amnt',
-        ];
-        return $this;
-    }
     /**
      * Declare invoice instance
      *
@@ -290,6 +275,21 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
             return true;
         }
         return false;
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return $this
+     */
+    protected function _initOldFieldsMap()
+    {
+        // pre 1.6 fields names, old => new
+        $this->_oldFieldsMap = [
+            'base_weee_tax_applied_row_amount' => 'base_weee_tax_applied_row_amnt',
+        ];
+        return $this;
     }
 
     /**

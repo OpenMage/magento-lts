@@ -54,81 +54,6 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     protected $_writer;
 
     /**
-     * Create instance of entity adapter and returns it.
-     *
-     * @throws Exception
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
-     */
-    protected function _getEntityAdapter()
-    {
-        if (!$this->_entityAdapter) {
-            $validTypes = Mage_ImportExport_Model_Config::getModels(self::CONFIG_KEY_ENTITIES);
-
-            if (isset($validTypes[$this->getEntity()])) {
-                try {
-                    /** @var Mage_ImportExport_Model_Export_Entity_Abstract $_entityAdapter */
-                    $_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
-                    $this->_entityAdapter = $_entityAdapter;
-                } catch (Exception $e) {
-                    Mage::logException($e);
-                    Mage::throwException(
-                        Mage::helper('importexport')->__('Invalid entity model'),
-                    );
-                }
-                if (!$this->_entityAdapter instanceof Mage_ImportExport_Model_Export_Entity_Abstract) {
-                    Mage::throwException(
-                        Mage::helper('importexport')->__('Entity adapter obejct must be an instance of Mage_ImportExport_Model_Export_Entity_Abstract'),
-                    );
-                }
-            } else {
-                Mage::throwException(Mage::helper('importexport')->__('Invalid entity'));
-            }
-            // check for entity codes integrity
-            if ($this->getEntity() != $this->_entityAdapter->getEntityTypeCode()) {
-                Mage::throwException(
-                    Mage::helper('importexport')->__('Input entity code is not equal to entity adapter code'),
-                );
-            }
-            $this->_entityAdapter->setParameters($this->getData());
-        }
-        return $this->_entityAdapter;
-    }
-
-    /**
-     * Get writer object.
-     *
-     * @throws Mage_Core_Exception
-     * @return Mage_ImportExport_Model_Export_Adapter_Abstract
-     */
-    protected function _getWriter()
-    {
-        if (!$this->_writer) {
-            $validWriters = Mage_ImportExport_Model_Config::getModels(self::CONFIG_KEY_FORMATS);
-
-            if (isset($validWriters[$this->getFileFormat()])) {
-                try {
-                    /** @var Mage_ImportExport_Model_Export_Adapter_Abstract $_writer */
-                    $_writer = Mage::getModel($validWriters[$this->getFileFormat()]['model']);
-                    $this->_writer = $_writer;
-                } catch (Exception $e) {
-                    Mage::logException($e);
-                    Mage::throwException(
-                        Mage::helper('importexport')->__('Invalid entity model'),
-                    );
-                }
-                if (!$this->_writer instanceof Mage_ImportExport_Model_Export_Adapter_Abstract) {
-                    Mage::throwException(
-                        Mage::helper('importexport')->__('Adapter object must be an instance of %s', 'Mage_ImportExport_Model_Export_Adapter_Abstract'),
-                    );
-                }
-            } else {
-                Mage::throwException(Mage::helper('importexport')->__('Invalid file format'));
-            }
-        }
-        return $this->_writer;
-    }
-
-    /**
      * Export data and return contents of temporary file.
      *
      * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
@@ -299,5 +224,80 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     public function getFileName()
     {
         return $this->getEntity() . '_' . date('Ymd_His') . '.' . $this->_getWriter()->getFileExtension();
+    }
+
+    /**
+     * Create instance of entity adapter and returns it.
+     *
+     * @throws Exception
+     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     */
+    protected function _getEntityAdapter()
+    {
+        if (!$this->_entityAdapter) {
+            $validTypes = Mage_ImportExport_Model_Config::getModels(self::CONFIG_KEY_ENTITIES);
+
+            if (isset($validTypes[$this->getEntity()])) {
+                try {
+                    /** @var Mage_ImportExport_Model_Export_Entity_Abstract $_entityAdapter */
+                    $_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                    $this->_entityAdapter = $_entityAdapter;
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Invalid entity model'),
+                    );
+                }
+                if (!$this->_entityAdapter instanceof Mage_ImportExport_Model_Export_Entity_Abstract) {
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Entity adapter obejct must be an instance of Mage_ImportExport_Model_Export_Entity_Abstract'),
+                    );
+                }
+            } else {
+                Mage::throwException(Mage::helper('importexport')->__('Invalid entity'));
+            }
+            // check for entity codes integrity
+            if ($this->getEntity() != $this->_entityAdapter->getEntityTypeCode()) {
+                Mage::throwException(
+                    Mage::helper('importexport')->__('Input entity code is not equal to entity adapter code'),
+                );
+            }
+            $this->_entityAdapter->setParameters($this->getData());
+        }
+        return $this->_entityAdapter;
+    }
+
+    /**
+     * Get writer object.
+     *
+     * @throws Mage_Core_Exception
+     * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     */
+    protected function _getWriter()
+    {
+        if (!$this->_writer) {
+            $validWriters = Mage_ImportExport_Model_Config::getModels(self::CONFIG_KEY_FORMATS);
+
+            if (isset($validWriters[$this->getFileFormat()])) {
+                try {
+                    /** @var Mage_ImportExport_Model_Export_Adapter_Abstract $_writer */
+                    $_writer = Mage::getModel($validWriters[$this->getFileFormat()]['model']);
+                    $this->_writer = $_writer;
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Invalid entity model'),
+                    );
+                }
+                if (!$this->_writer instanceof Mage_ImportExport_Model_Export_Adapter_Abstract) {
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Adapter object must be an instance of %s', 'Mage_ImportExport_Model_Export_Adapter_Abstract'),
+                    );
+                }
+            } else {
+                Mage::throwException(Mage::helper('importexport')->__('Invalid file format'));
+            }
+        }
+        return $this->_writer;
     }
 }

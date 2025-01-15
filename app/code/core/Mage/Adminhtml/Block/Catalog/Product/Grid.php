@@ -37,6 +37,25 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->setVarNameFilter('product_filter');
     }
 
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
+     * @param Mage_Catalog_Model_Product $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', [
+            'store' => $this->getRequest()->getParam('store'),
+            'id' => $row->getId()]);
+    }
+
     protected function _getStore()
     {
         $storeId = (int) $this->getRequest()->getParam('store', 0);
@@ -332,24 +351,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
 
         Mage::dispatchEvent('adminhtml_catalog_product_grid_prepare_massaction', ['block' => $this]);
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
-    }
-
-    /**
-     * @param Mage_Catalog_Model_Product $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', [
-            'store' => $this->getRequest()->getParam('store'),
-            'id' => $row->getId()]);
     }
 }

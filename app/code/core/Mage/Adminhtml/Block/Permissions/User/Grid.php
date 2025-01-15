@@ -31,6 +31,17 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
         $this->setUseAjax(true);
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['user_id' => $row->getId()]);
+    }
+
+    public function getGridUrl()
+    {
+        //$uid = $this->getRequest()->getParam('user_id');
+        return $this->getUrl('*/*/roleGrid', []);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('admin/user_collection');
@@ -77,16 +88,5 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['user_id' => $row->getId()]);
-    }
-
-    public function getGridUrl()
-    {
-        //$uid = $this->getRequest()->getParam('user_id');
-        return $this->getUrl('*/*/roleGrid', []);
     }
 }

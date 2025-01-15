@@ -32,6 +32,16 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
         $this->setUseAjax(true);
     }
 
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/roleGrid', ['_current' => true]);
+    }
+
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/editrole', ['rid' => $row->getRoleId()]);
+    }
+
     protected function _prepareCollection()
     {
         $collection =  Mage::getModel('api/roles')->getCollection();
@@ -55,15 +65,5 @@ class Mage_Adminhtml_Block_Api_Grid_Role extends Mage_Adminhtml_Block_Widget_Gri
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/roleGrid', ['_current' => true]);
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/editrole', ['rid' => $row->getRoleId()]);
     }
 }

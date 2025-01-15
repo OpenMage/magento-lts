@@ -33,11 +33,6 @@
  */
 class Mage_Tax_Model_Calculation_Rate_Title extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('tax/calculation_rate_title');
-    }
-
     /**
      * @param int $rateId
      * @return $this
@@ -46,5 +41,9 @@ class Mage_Tax_Model_Calculation_Rate_Title extends Mage_Core_Model_Abstract
     {
         $this->getResource()->deleteByRateId($rateId);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('tax/calculation_rate_title');
     }
 }

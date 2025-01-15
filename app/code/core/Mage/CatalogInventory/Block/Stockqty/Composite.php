@@ -30,13 +30,6 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Composite extends Mage_Catal
     private $_childProducts;
 
     /**
-     * Retrieve child products
-     *
-     * @return array
-     */
-    abstract protected function _getChildProducts();
-
-    /**
      * Retrieve child products (using cache)
      *
      * @return array
@@ -69,4 +62,11 @@ abstract class Mage_CatalogInventory_Block_Stockqty_Composite extends Mage_Catal
     {
         return $this->getPlaceholderId() . '-details';
     }
+
+    /**
+     * Retrieve child products
+     *
+     * @return array
+     */
+    abstract protected function _getChildProducts();
 }

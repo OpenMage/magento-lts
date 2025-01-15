@@ -34,16 +34,6 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     protected $_loadDefault = false;
 
     /**
-     * Define resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->setFlag('load_default_store_group', false);
-        $this->_init('core/store_group');
-    }
-
-    /**
      * Set flag for load default (admin) store
      *
      * @param bool $loadDefault
@@ -117,5 +107,15 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
     public function addWebsiteFilter($website)
     {
         return $this->addFieldToFilter('main_table.website_id', ['in' => $website]);
+    }
+
+    /**
+     * Define resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->setFlag('load_default_store_group', false);
+        $this->_init('core/store_group');
     }
 }

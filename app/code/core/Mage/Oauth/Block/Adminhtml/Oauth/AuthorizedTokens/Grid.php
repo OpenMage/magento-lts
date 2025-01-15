@@ -36,6 +36,67 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     }
 
     /**
+     * Get grid URL
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
+     * Get revoke URL
+     *
+     * @param Mage_Oauth_Model_Token $row
+     * @return string|null
+     */
+    public function getRevokeUrl($row)
+    {
+        return $this->getUrl('*/*/revoke', ['id' => $row->getId()]);
+    }
+
+    /**
+     * Get delete URL
+     *
+     * @param Mage_Oauth_Model_Token $row
+     * @return string|null
+     */
+    public function getDeleteUrl($row)
+    {
+        return $this->getUrl('*/*/delete', ['id' => $row->getId()]);
+    }
+
+    /**
+     * Decorate user type column
+     *
+     * @param string $value
+     * @param Mage_Oauth_Model_Token $row
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param bool $isExport
+     * @return mixed
+     */
+    public function decorateUserType($value, $row, $column, $isExport)
+    {
+        $options = $column->getOptions();
+        return ($row->getCustomerId()) ? $options[1] : $options[0];
+    }
+
+    /**
+     * Decorate user type column
+     *
+     * @param string $value
+     * @param Mage_Oauth_Model_Token $row
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param bool $isExport
+     * @return mixed
+     */
+    public function decorateUserId($value, $row, $column, $isExport)
+    {
+        return $row->getCustomerId() ? $row->getCustomerId() : $row->getAdminId();
+    }
+
+    /**
      * Prepare collection
      *
      * @return $this
@@ -98,38 +159,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
     }
 
     /**
-     * Get grid URL
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
-    }
-
-    /**
-     * Get revoke URL
-     *
-     * @param Mage_Oauth_Model_Token $row
-     * @return string|null
-     */
-    public function getRevokeUrl($row)
-    {
-        return $this->getUrl('*/*/revoke', ['id' => $row->getId()]);
-    }
-
-    /**
-     * Get delete URL
-     *
-     * @param Mage_Oauth_Model_Token $row
-     * @return string|null
-     */
-    public function getDeleteUrl($row)
-    {
-        return $this->getUrl('*/*/delete', ['id' => $row->getId()]);
-    }
-
-    /**
      * Add mass-actions to grid
      *
      * @return $this
@@ -158,35 +187,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
         ]);
 
         return $this;
-    }
-
-    /**
-     * Decorate user type column
-     *
-     * @param string $value
-     * @param Mage_Oauth_Model_Token $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
-     * @return mixed
-     */
-    public function decorateUserType($value, $row, $column, $isExport)
-    {
-        $options = $column->getOptions();
-        return ($row->getCustomerId()) ? $options[1] : $options[0];
-    }
-
-    /**
-     * Decorate user type column
-     *
-     * @param string $value
-     * @param Mage_Oauth_Model_Token $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
-     * @return mixed
-     */
-    public function decorateUserId($value, $row, $column, $isExport)
-    {
-        return $row->getCustomerId() ? $row->getCustomerId() : $row->getAdminId();
     }
 
     /**

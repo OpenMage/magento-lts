@@ -86,11 +86,6 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'cms_page';
 
-    protected function _construct()
-    {
-        $this->_init('cms/page');
-    }
-
     /**
      * @inheritDoc
      */
@@ -179,5 +174,10 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     public function isUsedInStoreConfig(?array $paths = []): bool
     {
         return $this->_getResource()->isUsedInStoreConfig($this, $paths);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('cms/page');
     }
 }

@@ -27,6 +27,32 @@ class Mage_Tag_Block_All extends Mage_Core_Block_Template
     protected $_maxPopularity;
 
     /**
+     * @return Mage_Tag_Model_Tag[]
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function getTags()
+    {
+        $this->_loadTags();
+        return $this->_tags;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxPopularity()
+    {
+        return $this->_maxPopularity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinPopularity()
+    {
+        return $this->_minPopularity;
+    }
+
+    /**
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -56,32 +82,6 @@ class Mage_Tag_Block_All extends Mage_Core_Block_Template
             ksort($this->_tags);
         }
         return $this;
-    }
-
-    /**
-     * @return Mage_Tag_Model_Tag[]
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    public function getTags()
-    {
-        $this->_loadTags();
-        return $this->_tags;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMaxPopularity()
-    {
-        return $this->_maxPopularity;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMinPopularity()
-    {
-        return $this->_minPopularity;
     }
 
     /**

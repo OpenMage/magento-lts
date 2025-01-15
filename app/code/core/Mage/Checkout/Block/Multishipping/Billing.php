@@ -23,31 +23,6 @@
 class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_Container
 {
     /**
-     * Prepare children blocks
-     */
-    protected function _prepareLayout()
-    {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
-            $headBlock->setTitle(
-                Mage::helper('checkout')->__('Billing Information - %s', $headBlock->getDefaultTitle()),
-            );
-        }
-
-        return parent::_prepareLayout();
-    }
-
-    /**
-     * Check payment method model
-     *
-     * @param Mage_Payment_Model_Method_Abstract|null $method
-     * @return bool
-     */
-    protected function _canUseMethod($method)
-    {
-        return $method && $method->canUseForMultishipping() && parent::_canUseMethod($method);
-    }
-
-    /**
      * Retrieve code of current payment method
      *
      * @return false|string
@@ -124,5 +99,29 @@ class Mage_Checkout_Block_Multishipping_Billing extends Mage_Payment_Block_Form_
     public function getBackUrl()
     {
         return $this->getUrl('*/*/backtoshipping');
+    }
+    /**
+     * Prepare children blocks
+     */
+    protected function _prepareLayout()
+    {
+        if ($headBlock = $this->getLayout()->getBlock('head')) {
+            $headBlock->setTitle(
+                Mage::helper('checkout')->__('Billing Information - %s', $headBlock->getDefaultTitle()),
+            );
+        }
+
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * Check payment method model
+     *
+     * @param Mage_Payment_Model_Method_Abstract|null $method
+     * @return bool
+     */
+    protected function _canUseMethod($method)
+    {
+        return $method && $method->canUseForMultishipping() && parent::_canUseMethod($method);
     }
 }

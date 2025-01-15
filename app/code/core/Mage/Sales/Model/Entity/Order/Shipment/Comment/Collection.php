@@ -22,11 +22,6 @@
  */
 class Mage_Sales_Model_Entity_Order_Shipment_Comment_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('sales/order_shipment_comment');
-    }
-
     /**
      * @param int $shipmentId
      * @return $this
@@ -45,5 +40,9 @@ class Mage_Sales_Model_Entity_Order_Shipment_Comment_Collection extends Mage_Eav
     {
         $this->setOrder('created_at', $order);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('sales/order_shipment_comment');
     }
 }

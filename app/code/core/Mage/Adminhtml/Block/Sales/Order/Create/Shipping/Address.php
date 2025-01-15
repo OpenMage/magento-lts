@@ -43,23 +43,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address extends Mage_Admi
     }
 
     /**
-     * Prepare Form and add elements to form
-     *
-     * @return $this
-     */
-    protected function _prepareForm()
-    {
-        $this->setJsVariablePrefix('shippingAddress');
-        parent::_prepareForm();
-
-        $this->_form->addFieldNameSuffix('order[shipping_address]');
-        $this->_form->setHtmlNamePrefix('order[shipping_address]');
-        $this->_form->setHtmlIdPrefix('order-shipping_address_');
-
-        return $this;
-    }
-
-    /**
      * Return is shipping address flag
      *
      * @return bool
@@ -133,5 +116,22 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address extends Mage_Admi
     public function getIsDisabled()
     {
         return $this->getQuote()->isVirtual();
+    }
+
+    /**
+     * Prepare Form and add elements to form
+     *
+     * @return $this
+     */
+    protected function _prepareForm()
+    {
+        $this->setJsVariablePrefix('shippingAddress');
+        parent::_prepareForm();
+
+        $this->_form->addFieldNameSuffix('order[shipping_address]');
+        $this->_form->setHtmlNamePrefix('order[shipping_address]');
+        $this->_form->setHtmlIdPrefix('order-shipping_address_');
+
+        return $this;
     }
 }

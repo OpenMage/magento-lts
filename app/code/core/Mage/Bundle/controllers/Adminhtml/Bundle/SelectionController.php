@@ -28,11 +28,6 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
      */
     public const ADMIN_RESOURCE = 'catalog/products';
 
-    protected function _construct()
-    {
-        $this->setUsedModuleName('Mage_Bundle');
-    }
-
     /**
      * @return Zend_Controller_Response_Abstract
      */
@@ -61,5 +56,10 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
                 ->setIndex($this->getRequest()->getParam('index'))
                 ->toHtml(),
         );
+    }
+
+    protected function _construct()
+    {
+        $this->setUsedModuleName('Mage_Bundle');
     }
 }

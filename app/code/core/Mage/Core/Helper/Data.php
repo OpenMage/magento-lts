@@ -583,24 +583,6 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param Varien_Object $element
-     * @param string $key
-     * @param mixed $value
-     * @param bool $dontSkip
-     */
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private function _decorateArrayObject($element, $key, $value, $dontSkip)
-    {
-        if ($dontSkip) {
-            if ($element instanceof Varien_Object) {
-                $element->setData($key, $value);
-            } else {
-                $element->$key = $value;
-            }
-        }
-    }
-
-    /**
      * Transform an assoc array to SimpleXMLElement object
      * Array has some limitations. Appropriate exceptions will be thrown
      *
@@ -625,40 +607,6 @@ XML;
             }
         }
         return self::_assocToXml($array, $rootName, $xml);
-    }
-
-    /**
-     * Function, that actually recursively transforms array to xml
-     *
-     * @param string $rootName
-     * @return SimpleXMLElement
-     * @throws Exception
-     */
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private function _assocToXml(array $array, $rootName, SimpleXMLElement &$xml)
-    {
-        $hasNumericKey = false;
-        $hasStringKey  = false;
-        foreach ($array as $key => $value) {
-            if (!is_array($value)) {
-                if (is_string($key)) {
-                    if ($key === $rootName) {
-                        throw new Exception('Associative key must not be the same as its parent associative key.');
-                    }
-                    $hasStringKey = true;
-                    $xml->$key = $value;
-                } elseif (is_int($key)) {
-                    $hasNumericKey = true;
-                    $xml->{$rootName}[$key] = $value;
-                }
-            } else {
-                self::_assocToXml($value, $key, $xml->$key);
-            }
-        }
-        if ($hasNumericKey && $hasStringKey) {
-            throw new Exception('Associative and numeric keys must not be mixed at one level.');
-        }
-        return $xml;
     }
 
     /**
@@ -1049,5 +997,57 @@ XML;
             $cacheTag = 'rate_limit_' . $remoteAddr;
             Mage::app()->saveCache(1, $cacheTag, ['brute_force'], Mage::getStoreConfig('system/rate_limit/timeframe'));
         }
+    }
+
+    /**
+     * @param Varien_Object $element
+     * @param string $key
+     * @param mixed $value
+     * @param bool $dontSkip
+     */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private function _decorateArrayObject($element, $key, $value, $dontSkip)
+    {
+        if ($dontSkip) {
+            if ($element instanceof Varien_Object) {
+                $element->setData($key, $value);
+            } else {
+                $element->$key = $value;
+            }
+        }
+    }
+
+    /**
+     * Function, that actually recursively transforms array to xml
+     *
+     * @param string $rootName
+     * @return SimpleXMLElement
+     * @throws Exception
+     */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private function _assocToXml(array $array, $rootName, SimpleXMLElement &$xml)
+    {
+        $hasNumericKey = false;
+        $hasStringKey  = false;
+        foreach ($array as $key => $value) {
+            if (!is_array($value)) {
+                if (is_string($key)) {
+                    if ($key === $rootName) {
+                        throw new Exception('Associative key must not be the same as its parent associative key.');
+                    }
+                    $hasStringKey = true;
+                    $xml->$key = $value;
+                } elseif (is_int($key)) {
+                    $hasNumericKey = true;
+                    $xml->{$rootName}[$key] = $value;
+                }
+            } else {
+                self::_assocToXml($value, $key, $xml->$key);
+            }
+        }
+        if ($hasNumericKey && $hasStringKey) {
+            throw new Exception('Associative and numeric keys must not be mixed at one level.');
+        }
+        return $xml;
     }
 }

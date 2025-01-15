@@ -56,20 +56,6 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
     }
 
     /**
-     * Get resource instance
-     *
-     * @return Mage_Core_Model_Resource_File_Storage_Database
-     */
-    protected function _getResource()
-    {
-        /** @var Mage_Core_Model_Resource_File_Storage_Database $resource */
-        $resource = parent::_getResource();
-        $resource->setConnectionName($this->getConnectionName());
-
-        return $resource;
-    }
-
-    /**
      * Prepare data storage
      *
      * @return $this
@@ -95,5 +81,19 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
         }
 
         return $this;
+    }
+
+    /**
+     * Get resource instance
+     *
+     * @return Mage_Core_Model_Resource_File_Storage_Database
+     */
+    protected function _getResource()
+    {
+        /** @var Mage_Core_Model_Resource_File_Storage_Database $resource */
+        $resource = parent::_getResource();
+        $resource->setConnectionName($this->getConnectionName());
+
+        return $resource;
     }
 }

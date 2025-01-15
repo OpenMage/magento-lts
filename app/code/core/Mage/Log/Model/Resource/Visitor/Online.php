@@ -22,11 +22,6 @@
  */
 class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('log/visitor_online', 'visitor_id');
-    }
-
     /**
      * Prepare online visitors for collection
      *
@@ -129,5 +124,9 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
         $object->setPrepareAt();
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('log/visitor_online', 'visitor_id');
     }
 }

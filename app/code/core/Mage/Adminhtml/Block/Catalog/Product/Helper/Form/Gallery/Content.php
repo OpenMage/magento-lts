@@ -36,34 +36,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'uploader',
-            $this->getLayout()->createBlock($this->_uploaderType),
-        );
-
-        $this->getUploader()->getUploaderConfig()
-            ->setFileParameterName('image')
-            ->setTarget(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl(
-                '*/catalog_product_gallery/upload',
-                ['_query' => false],
-            ));
-
-        $browseConfig = $this->getUploader()->getButtonConfig();
-        $browseConfig
-            ->setAttributes([
-                'accept' => $browseConfig->getMimeTypesByExtensions(Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS),
-            ]);
-
-        Mage::dispatchEvent('catalog_product_gallery_prepare_layout', ['block' => $this]);
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve uploader block
      *
      * @return Mage_Uploader_Block_Multiple
@@ -181,5 +153,33 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     public function getImageTypesJson()
     {
         return Mage::helper('core')->jsonEncode($this->getImageTypes());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'uploader',
+            $this->getLayout()->createBlock($this->_uploaderType),
+        );
+
+        $this->getUploader()->getUploaderConfig()
+            ->setFileParameterName('image')
+            ->setTarget(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl(
+                '*/catalog_product_gallery/upload',
+                ['_query' => false],
+            ));
+
+        $browseConfig = $this->getUploader()->getButtonConfig();
+        $browseConfig
+            ->setAttributes([
+                'accept' => $browseConfig->getMimeTypesByExtensions(Varien_Io_File::ALLOWED_IMAGES_EXTENSIONS),
+            ]);
+
+        Mage::dispatchEvent('catalog_product_gallery_prepare_layout', ['block' => $this]);
+
+        return parent::_prepareLayout();
     }
 }

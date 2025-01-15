@@ -23,15 +23,6 @@
 class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * AdminNotification Resource initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('adminnotification/inbox', 'notification_id');
-    }
-
-    /**
      * Load latest notice
      *
      * @return $this
@@ -102,5 +93,13 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
                 $adapter->insert($this->getMainTable(), $item);
             }
         }
+    }
+    /**
+     * AdminNotification Resource initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('adminnotification/inbox', 'notification_id');
     }
 }

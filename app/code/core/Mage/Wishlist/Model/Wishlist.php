@@ -69,14 +69,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     protected $_cacheTag = 'wishlist';
 
     /**
-     * Initialize resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('wishlist/wishlist');
-    }
-
-    /**
      * Load wishlist by customer
      *
      * @param mixed $customer
@@ -140,88 +132,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         }
 
         return $this;
-    }
-
-    /**
-     * Retrieve sharing code (random string)
-     *
-     * @return string
-     */
-    protected function _getSharingRandomCode()
-    {
-        return Mage::helper('core')->uniqHash();
-    }
-
-    /**
-     * Set date of last update for wishlist
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        $this->setUpdatedAt(Mage::getSingleton('core/date')->gmtDate());
-        return $this;
-    }
-
-    /**
-     * Save related items
-     *
-     * @return $this
-     */
-    protected function _afterSave()
-    {
-        parent::_afterSave();
-
-        if ($this->_itemCollection !== null) {
-            $this->getItemCollection()->save();
-        }
-        return $this;
-    }
-
-    /**
-     * Add catalog product object data to wishlist
-     *
-     * @param   int $qty
-     * @param   bool $forciblySetQty
-     * @return  Mage_Wishlist_Model_Item
-     */
-    protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1, $forciblySetQty = false)
-    {
-        $item = null;
-        foreach ($this->getItemCollection() as $wishlistItem) {
-            if ($wishlistItem->representProduct($product)) {
-                $item = $wishlistItem;
-                break;
-            }
-        }
-
-        if ($item === null) {
-            $storeId = $product->hasWishlistStoreId() ? $product->getWishlistStoreId() : $this->getStore()->getId();
-            $item = Mage::getModel('wishlist/item');
-            $item->setProductId($product->getId())
-                ->setWishlistId($this->getId())
-                ->setAddedAt(Varien_Date::now())
-                ->setStoreId($storeId)
-                ->setOptions($product->getCustomOptions())
-                ->setProduct($product)
-                ->setQty($qty)
-                ->save();
-
-            Mage::dispatchEvent('wishlist_item_add_after', ['wishlist' => $this]);
-
-            if ($item->getId()) {
-                $this->getItemCollection()->addItem($item);
-            }
-        } else {
-            $qty = $forciblySetQty ? $qty : $item->getQty() + $qty;
-            $item->setQty($qty)
-                ->save();
-        }
-
-        $this->addItem($item);
-
-        return $item;
     }
 
     /**
@@ -602,5 +512,95 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     {
         $this->_hasDataChanges = true;
         return parent::save();
+    }
+
+    /**
+     * Initialize resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('wishlist/wishlist');
+    }
+
+    /**
+     * Retrieve sharing code (random string)
+     *
+     * @return string
+     */
+    protected function _getSharingRandomCode()
+    {
+        return Mage::helper('core')->uniqHash();
+    }
+
+    /**
+     * Set date of last update for wishlist
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        $this->setUpdatedAt(Mage::getSingleton('core/date')->gmtDate());
+        return $this;
+    }
+
+    /**
+     * Save related items
+     *
+     * @return $this
+     */
+    protected function _afterSave()
+    {
+        parent::_afterSave();
+
+        if ($this->_itemCollection !== null) {
+            $this->getItemCollection()->save();
+        }
+        return $this;
+    }
+
+    /**
+     * Add catalog product object data to wishlist
+     *
+     * @param   int $qty
+     * @param   bool $forciblySetQty
+     * @return  Mage_Wishlist_Model_Item
+     */
+    protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1, $forciblySetQty = false)
+    {
+        $item = null;
+        foreach ($this->getItemCollection() as $wishlistItem) {
+            if ($wishlistItem->representProduct($product)) {
+                $item = $wishlistItem;
+                break;
+            }
+        }
+
+        if ($item === null) {
+            $storeId = $product->hasWishlistStoreId() ? $product->getWishlistStoreId() : $this->getStore()->getId();
+            $item = Mage::getModel('wishlist/item');
+            $item->setProductId($product->getId())
+                ->setWishlistId($this->getId())
+                ->setAddedAt(Varien_Date::now())
+                ->setStoreId($storeId)
+                ->setOptions($product->getCustomOptions())
+                ->setProduct($product)
+                ->setQty($qty)
+                ->save();
+
+            Mage::dispatchEvent('wishlist_item_add_after', ['wishlist' => $this]);
+
+            if ($item->getId()) {
+                $this->getItemCollection()->addItem($item);
+            }
+        } else {
+            $qty = $forciblySetQty ? $qty : $item->getQty() + $qty;
+            $item->setQty($qty)
+                ->save();
+        }
+
+        $this->addItem($item);
+
+        return $item;
     }
 }

@@ -39,22 +39,6 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
      */
     protected $_orderField     = 'order_id';
 
-    protected function _construct()
-    {
-        $this->_init('sales/order_creditmemo');
-    }
-
-    /**
-     * Used to emulate after load functionality for each item without loading them
-     *
-     * @return $this
-     */
-    protected function _afterLoad()
-    {
-        $this->walk('afterLoad');
-        return $this;
-    }
-
     /**
      * Add filtration conditions
      *
@@ -68,6 +52,22 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
                 $this->addFieldToFilter($field, $value);
             }
         }
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order_creditmemo');
+    }
+
+    /**
+     * Used to emulate after load functionality for each item without loading them
+     *
+     * @return $this
+     */
+    protected function _afterLoad()
+    {
+        $this->walk('afterLoad');
         return $this;
     }
 }

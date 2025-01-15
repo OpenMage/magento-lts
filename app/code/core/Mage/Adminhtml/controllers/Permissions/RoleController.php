@@ -40,42 +40,6 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     }
 
     /**
-     * Preparing layout for output
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout();
-        $this->_setActiveMenu('system/acl/roles');
-        $this->_addBreadcrumb($this->__('System'), $this->__('System'));
-        $this->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'));
-        $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));
-        return $this;
-    }
-
-    /**
-     * Initialize role model by passed parameter in request
-     *
-     * @return Mage_Admin_Model_Roles
-     */
-    protected function _initRole($requestVariable = 'rid')
-    {
-        $this->_title($this->__('System'))
-             ->_title($this->__('Permissions'))
-             ->_title($this->__('Roles'));
-
-        $role = Mage::getModel('admin/roles')->load($this->getRequest()->getParam($requestVariable));
-        // preventing edit of relation role
-        if ($role->getId() && $role->getRoleType() != 'G') {
-            $role->unsetData($role->getIdFieldName());
-        }
-
-        Mage::register('current_role', $role);
-        return Mage::registry('current_role');
-    }
-
-    /**
      * Show grid with roles existing in systems
      */
     public function indexAction()
@@ -262,46 +226,6 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     }
 
     /**
-     * Remove user from role
-     *
-     * @param int $userId
-     * @param int $roleId
-     * @return true
-     */
-    protected function _deleteUserFromRole($userId, $roleId)
-    {
-        try {
-            Mage::getModel('admin/user')
-                ->setRoleId($roleId)
-                ->setUserId($userId)
-                ->deleteFromRole();
-        } catch (Exception $e) {
-            throw $e;
-        }
-        return true;
-    }
-
-    /**
-     * Assign user to role
-     *
-     * @param int $userId
-     * @param int $roleId
-     * @return bool
-     */
-    protected function _addUserToRole($userId, $roleId)
-    {
-        $user = Mage::getModel('admin/user')->load($userId);
-        $user->setRoleId($roleId)->setUserId($userId);
-
-        if ($user->roleUserExists() === true) {
-            return false;
-        } else {
-            $user->add();
-            return true;
-        }
-    }
-
-    /**
      * Action to refresh role-rule relations.
      * This method will make sure the rendered ACL resource tree checkboxes match the actual ACL permissions.
      * To be used after adding a new ACL resource via config
@@ -344,5 +268,81 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         }
 
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * Preparing layout for output
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout();
+        $this->_setActiveMenu('system/acl/roles');
+        $this->_addBreadcrumb($this->__('System'), $this->__('System'));
+        $this->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'));
+        $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));
+        return $this;
+    }
+
+    /**
+     * Initialize role model by passed parameter in request
+     *
+     * @return Mage_Admin_Model_Roles
+     */
+    protected function _initRole($requestVariable = 'rid')
+    {
+        $this->_title($this->__('System'))
+             ->_title($this->__('Permissions'))
+             ->_title($this->__('Roles'));
+
+        $role = Mage::getModel('admin/roles')->load($this->getRequest()->getParam($requestVariable));
+        // preventing edit of relation role
+        if ($role->getId() && $role->getRoleType() != 'G') {
+            $role->unsetData($role->getIdFieldName());
+        }
+
+        Mage::register('current_role', $role);
+        return Mage::registry('current_role');
+    }
+
+    /**
+     * Remove user from role
+     *
+     * @param int $userId
+     * @param int $roleId
+     * @return true
+     */
+    protected function _deleteUserFromRole($userId, $roleId)
+    {
+        try {
+            Mage::getModel('admin/user')
+                ->setRoleId($roleId)
+                ->setUserId($userId)
+                ->deleteFromRole();
+        } catch (Exception $e) {
+            throw $e;
+        }
+        return true;
+    }
+
+    /**
+     * Assign user to role
+     *
+     * @param int $userId
+     * @param int $roleId
+     * @return bool
+     */
+    protected function _addUserToRole($userId, $roleId)
+    {
+        $user = Mage::getModel('admin/user')->load($userId);
+        $user->setRoleId($roleId)->setUserId($userId);
+
+        if ($user->roleUserExists() === true) {
+            return false;
+        } else {
+            $user->add();
+            return true;
+        }
     }
 }

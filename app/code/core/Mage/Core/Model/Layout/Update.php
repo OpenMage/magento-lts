@@ -382,17 +382,6 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * Get update string
-     *
-     * @param string $handle
-     * @return mixed
-     */
-    protected function _getUpdateString($handle)
-    {
-        return Mage::getResourceModel('core/layout')->fetchUpdatesByHandle($handle);
-    }
-
-    /**
      * @param SimpleXMLElement $updateXml
      * @return $this
      */
@@ -472,5 +461,16 @@ class Mage_Core_Model_Layout_Update
             $layoutStr .= $fileXml->innerXml();
         }
         return simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
+    }
+
+    /**
+     * Get update string
+     *
+     * @param string $handle
+     * @return mixed
+     */
+    protected function _getUpdateString($handle)
+    {
+        return Mage::getResourceModel('core/layout')->fetchUpdatesByHandle($handle);
     }
 }

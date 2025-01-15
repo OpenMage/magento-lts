@@ -66,19 +66,6 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     }
 
     /**
-     * Get request interpreter
-     *
-     * @return Mage_Api2_Model_Request_Interpreter_Interface
-     */
-    protected function _getInterpreter()
-    {
-        if ($this->_interpreter === null) {
-            $this->_interpreter = Mage_Api2_Model_Request_Interpreter::factory($this->getContentType());
-        }
-        return $this->_interpreter;
-    }
-
-    /**
      * Retrieve accept types understandable by requester in a form of array sorted by quality descending
      *
      * @return array
@@ -310,5 +297,18 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             return !is_numeric($keys[0]);
         }
         return false;
+    }
+
+    /**
+     * Get request interpreter
+     *
+     * @return Mage_Api2_Model_Request_Interpreter_Interface
+     */
+    protected function _getInterpreter()
+    {
+        if ($this->_interpreter === null) {
+            $this->_interpreter = Mage_Api2_Model_Request_Interpreter::factory($this->getContentType());
+        }
+        return $this->_interpreter;
     }
 }

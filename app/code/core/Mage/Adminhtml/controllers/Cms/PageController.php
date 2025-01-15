@@ -23,22 +23,6 @@
 class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Init actions
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        // load layout, set active menu and breadcrumbs
-        $this->loadLayout()
-            ->_setActiveMenu('cms/page')
-            ->_addBreadcrumb(Mage::helper('cms')->__('CMS'), Mage::helper('cms')->__('CMS'))
-            ->_addBreadcrumb(Mage::helper('cms')->__('Manage Pages'), Mage::helper('cms')->__('Manage Pages'))
-        ;
-        return $this;
-    }
-
-    /**
      * Index action
      */
     public function indexAction()
@@ -215,6 +199,21 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         $this->_setForcedFormKeyActions('delete');
         return parent::preDispatch();
+    }
+    /**
+     * Init actions
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        // load layout, set active menu and breadcrumbs
+        $this->loadLayout()
+            ->_setActiveMenu('cms/page')
+            ->_addBreadcrumb(Mage::helper('cms')->__('CMS'), Mage::helper('cms')->__('CMS'))
+            ->_addBreadcrumb(Mage::helper('cms')->__('Manage Pages'), Mage::helper('cms')->__('Manage Pages'))
+        ;
+        return $this;
     }
 
     /**

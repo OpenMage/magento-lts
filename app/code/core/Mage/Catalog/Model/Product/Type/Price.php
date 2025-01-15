@@ -93,22 +93,6 @@ class Mage_Catalog_Model_Product_Type_Price
     }
 
     /**
-     * Apply group price for product
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param float $finalPrice
-     * @return float
-     */
-    protected function _applyGroupPrice($product, $finalPrice)
-    {
-        $groupPrice = $product->getGroupPrice();
-        if (is_numeric($groupPrice)) {
-            $finalPrice = min($finalPrice, $groupPrice);
-        }
-        return $finalPrice;
-    }
-
-    /**
      * Get product group price
      *
      * @param Mage_Catalog_Model_Product $product
@@ -141,27 +125,6 @@ class Mage_Catalog_Model_Product_Type_Price
         }
 
         return $matchedPrice;
-    }
-
-    /**
-     * Apply tier price for product if not return price that was before
-     *
-     * @param   Mage_Catalog_Model_Product $product
-     * @param   float|null $qty
-     * @param   float $finalPrice
-     * @return  float
-     */
-    protected function _applyTierPrice($product, $qty, $finalPrice)
-    {
-        if (is_null($qty)) {
-            return $finalPrice;
-        }
-
-        $tierPrice  = $product->getTierPrice($qty);
-        if (is_numeric($tierPrice)) {
-            $finalPrice = min($finalPrice, $tierPrice);
-        }
-        return $finalPrice;
     }
 
     /**
@@ -249,36 +212,6 @@ class Mage_Catalog_Model_Product_Type_Price
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $product
-     * @return int
-     */
-    protected function _getCustomerGroupId($product)
-    {
-        if ($product->getCustomerGroupId()) {
-            return $product->getCustomerGroupId();
-        }
-        return Mage::getSingleton('customer/session')->getCustomerGroupId();
-    }
-
-    /**
-     * Apply special price for product if not return price that was before
-     *
-     * @param   Mage_Catalog_Model_Product $product
-     * @param   float $finalPrice
-     * @return  float
-     */
-    protected function _applySpecialPrice($product, $finalPrice)
-    {
-        return static::calculateSpecialPrice(
-            $finalPrice,
-            $product->getSpecialPrice(),
-            $product->getSpecialFromDate(),
-            $product->getSpecialToDate(),
-            $product->getStore(),
-        );
-    }
-
-    /**
      * Count how many tier prices we have for the product
      *
      * @param   Mage_Catalog_Model_Product $product
@@ -324,33 +257,6 @@ class Mage_Catalog_Model_Product_Type_Price
     public function getFormatedPrice($product)
     {
         return Mage::app()->getStore()->formatPrice($product->getFinalPrice());
-    }
-
-    /**
-     * Apply options price
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param int $qty
-     * @param float $finalPrice
-     * @return float
-     */
-    protected function _applyOptionsPrice($product, $qty, $finalPrice)
-    {
-        if ($optionIds = $product->getCustomOption('option_ids')) {
-            $basePrice = $finalPrice;
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
-                if ($option = $product->getOptionById($optionId)) {
-                    $confItemOption = $product->getCustomOption('option_' . $option->getId());
-
-                    $group = $option->groupFactory($option->getType())
-                        ->setOption($option)
-                        ->setConfigurationItemOption($confItemOption);
-                    $finalPrice += $group->getOptionPrice($confItemOption->getValue(), $basePrice);
-                }
-            }
-        }
-
-        return $finalPrice;
     }
 
     /**
@@ -449,5 +355,99 @@ class Mage_Catalog_Model_Product_Type_Price
     public function isGroupPriceFixed()
     {
         return true;
+    }
+
+    /**
+     * Apply group price for product
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param float $finalPrice
+     * @return float
+     */
+    protected function _applyGroupPrice($product, $finalPrice)
+    {
+        $groupPrice = $product->getGroupPrice();
+        if (is_numeric($groupPrice)) {
+            $finalPrice = min($finalPrice, $groupPrice);
+        }
+        return $finalPrice;
+    }
+
+    /**
+     * Apply tier price for product if not return price that was before
+     *
+     * @param   Mage_Catalog_Model_Product $product
+     * @param   float|null $qty
+     * @param   float $finalPrice
+     * @return  float
+     */
+    protected function _applyTierPrice($product, $qty, $finalPrice)
+    {
+        if (is_null($qty)) {
+            return $finalPrice;
+        }
+
+        $tierPrice  = $product->getTierPrice($qty);
+        if (is_numeric($tierPrice)) {
+            $finalPrice = min($finalPrice, $tierPrice);
+        }
+        return $finalPrice;
+    }
+
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @return int
+     */
+    protected function _getCustomerGroupId($product)
+    {
+        if ($product->getCustomerGroupId()) {
+            return $product->getCustomerGroupId();
+        }
+        return Mage::getSingleton('customer/session')->getCustomerGroupId();
+    }
+
+    /**
+     * Apply special price for product if not return price that was before
+     *
+     * @param   Mage_Catalog_Model_Product $product
+     * @param   float $finalPrice
+     * @return  float
+     */
+    protected function _applySpecialPrice($product, $finalPrice)
+    {
+        return static::calculateSpecialPrice(
+            $finalPrice,
+            $product->getSpecialPrice(),
+            $product->getSpecialFromDate(),
+            $product->getSpecialToDate(),
+            $product->getStore(),
+        );
+    }
+
+    /**
+     * Apply options price
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param int $qty
+     * @param float $finalPrice
+     * @return float
+     */
+    protected function _applyOptionsPrice($product, $qty, $finalPrice)
+    {
+        if ($optionIds = $product->getCustomOption('option_ids')) {
+            $basePrice = $finalPrice;
+            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+                if ($option = $product->getOptionById($optionId)) {
+                    $confItemOption = $product->getCustomOption('option_' . $option->getId());
+
+                    $group = $option->groupFactory($option->getType())
+                        ->setOption($option)
+                        ->setConfigurationItemOption($confItemOption);
+                    $finalPrice += $group->getOptionPrice($confItemOption->getValue(), $basePrice);
+                }
+            }
+        }
+
+        return $finalPrice;
     }
 }

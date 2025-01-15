@@ -23,14 +23,6 @@
 class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize collection model
-     */
-    protected function _construct()
-    {
-        $this->_init('eav/form_element');
-    }
-
-    /**
      * Add Form Type filter to collection
      *
      * @param Mage_Eav_Model_Form_Type|int $type
@@ -89,6 +81,26 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     }
 
     /**
+     * Load data (join attribute data)
+     *
+     * @inheritDoc
+     */
+    public function load($printQuery = false, $logQuery = false)
+    {
+        if (!$this->isLoaded()) {
+            $this->_joinAttributeData();
+        }
+        return parent::load($printQuery, $logQuery);
+    }
+    /**
+     * Initialize collection model
+     */
+    protected function _construct()
+    {
+        $this->_init('eav/form_element');
+    }
+
+    /**
      * Join attribute data
      *
      * @return $this
@@ -102,18 +114,5 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
         );
 
         return $this;
-    }
-
-    /**
-     * Load data (join attribute data)
-     *
-     * @inheritDoc
-     */
-    public function load($printQuery = false, $logQuery = false)
-    {
-        if (!$this->isLoaded()) {
-            $this->_joinAttributeData();
-        }
-        return parent::load($printQuery, $logQuery);
     }
 }

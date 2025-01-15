@@ -23,22 +23,6 @@
 class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
     /**
-     * Join fields
-     *
-     * @param string $from
-     * @param string $to
-     * @return $this
-     */
-    protected function _joinFields($from = '', $to = '')
-    {
-        $this->addAttributeToSelect('*')
-            ->addOrderedQty($from, $to)
-            ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
-
-        return $this;
-    }
-
-    /**
      * @param int $from
      * @param int $to
      * @return $this
@@ -61,6 +45,21 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
         $storeId = array_pop($storeIds);
         $this->setStoreId($storeId);
         $this->addStoreFilter($storeId);
+        return $this;
+    }
+    /**
+     * Join fields
+     *
+     * @param string $from
+     * @param string $to
+     * @return $this
+     */
+    protected function _joinFields($from = '', $to = '')
+    {
+        $this->addAttributeToSelect('*')
+            ->addOrderedQty($from, $to)
+            ->setOrder('ordered_qty', self::SORT_ORDER_DESC);
+
         return $this;
     }
 }

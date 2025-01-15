@@ -234,6 +234,20 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     private static $_isConfirmationRequired;
 
     /**
+     * Clone current object
+     */
+    public function __clone()
+    {
+        $newAddressCollection = $this->getPrimaryAddresses();
+        $newAddressCollection = array_merge($newAddressCollection, $this->getAdditionalAddresses());
+        $this->setId(null);
+        $this->cleanAllAddresses();
+        foreach ($newAddressCollection as $address) {
+            $this->addAddress(clone $address);
+        }
+    }
+
+    /**
      * Initialize customer model
      */
     public function _construct()
@@ -294,25 +308,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function loadByEmail($customerEmail)
     {
         $this->_getResource()->loadByEmail($this, $customerEmail);
-        return $this;
-    }
-
-    /**
-     * Processing object before save data
-     *
-     * @return $this
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-
-        $storeId = $this->getStoreId();
-        if ($storeId === null) {
-            $this->setStoreId(Mage::app()->getStore()->getId());
-        }
-
-        $this->getGroupId();
         return $this;
     }
 
@@ -511,17 +506,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         /** @var Mage_Core_Helper_Data $helper */
         $helper = $this->_getHelper('core');
         return $helper->getHash(trim($password), (bool) $salt ? $salt : Mage_Admin_Model_User::HASH_SALT_LENGTH);
-    }
-
-    /**
-     * Get helper instance
-     *
-     * @param string $helperName
-     * @return Mage_Core_Helper_Abstract
-     */
-    protected function _getHelper($helperName)
-    {
-        return Mage::helper($helperName);
     }
 
     /**
@@ -826,34 +810,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $this->getOldEmail(),
         );
 
-        return $this;
-    }
-
-    /**
-     * Send corresponding email template
-     *
-     * @param string $template configuration path of email template
-     * @param string $sender configuration path of email identity
-     * @param array $templateParams
-     * @param int|null $storeId
-     * @param string|null $customerEmail
-     * @return $this
-     */
-    protected function _sendEmailTemplate($template, $sender, $templateParams = [], $storeId = null, $customerEmail = null)
-    {
-        $customerEmail = ($customerEmail) ? $customerEmail : $this->getEmail();
-        /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
-        $mailer = Mage::getModel('core/email_template_mailer');
-        $emailInfo = Mage::getModel('core/email_info');
-        $emailInfo->addTo($customerEmail, $this->getName());
-        $mailer->addEmailInfo($emailInfo);
-
-        // Set all required params and send emails
-        $mailer->setSender(Mage::getStoreConfig($sender, $storeId));
-        $mailer->setStoreId($storeId);
-        $mailer->setTemplateId(Mage::getStoreConfig($template, $storeId));
-        $mailer->setTemplateParams($templateParams);
-        $mailer->send();
         return $this;
     }
 
@@ -1426,15 +1382,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare customer for delete
-     */
-    protected function _beforeDelete()
-    {
-        $this->_protectFromNonAdmin();
-        return parent::_beforeDelete();
-    }
-
-    /**
      * Get customer created at date timestamp
      *
      * @return int|null
@@ -1518,20 +1465,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Clone current object
-     */
-    public function __clone()
-    {
-        $newAddressCollection = $this->getPrimaryAddresses();
-        $newAddressCollection = array_merge($newAddressCollection, $this->getAdditionalAddresses());
-        $this->setId(null);
-        $this->cleanAllAddresses();
-        foreach ($newAddressCollection as $address) {
-            $this->addAddress(clone $address);
-        }
-    }
-
-    /**
      * Return Entity Type instance
      *
      * @return Mage_Eav_Model_Entity_Type
@@ -1556,23 +1489,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $this->setData('entity_type_id', $entityTypeId);
         }
         return $entityTypeId;
-    }
-
-    /**
-     * Get either first store ID from a set website or the provided as default
-     *
-     * @param int|string|null $defaultStoreId
-     * @return int
-     * @throws Mage_Core_Exception
-     */
-    protected function _getWebsiteStoreId($defaultStoreId = null)
-    {
-        if ($this->getWebsiteId() != 0 && empty($defaultStoreId)) {
-            $storeIds = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
-            reset($storeIds);
-            $defaultStoreId = current($storeIds);
-        }
-        return $defaultStoreId;
     }
 
     /**
@@ -1669,5 +1585,89 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $minLength = Mage::getStoreConfigAsInt(self::XML_PATH_MIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
         return ($minLength < $absoluteMinLength) ? $absoluteMinLength : $minLength;
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+
+        $storeId = $this->getStoreId();
+        if ($storeId === null) {
+            $this->setStoreId(Mage::app()->getStore()->getId());
+        }
+
+        $this->getGroupId();
+        return $this;
+    }
+
+    /**
+     * Get helper instance
+     *
+     * @param string $helperName
+     * @return Mage_Core_Helper_Abstract
+     */
+    protected function _getHelper($helperName)
+    {
+        return Mage::helper($helperName);
+    }
+
+    /**
+     * Send corresponding email template
+     *
+     * @param string $template configuration path of email template
+     * @param string $sender configuration path of email identity
+     * @param array $templateParams
+     * @param int|null $storeId
+     * @param string|null $customerEmail
+     * @return $this
+     */
+    protected function _sendEmailTemplate($template, $sender, $templateParams = [], $storeId = null, $customerEmail = null)
+    {
+        $customerEmail = ($customerEmail) ? $customerEmail : $this->getEmail();
+        /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
+        $mailer = Mage::getModel('core/email_template_mailer');
+        $emailInfo = Mage::getModel('core/email_info');
+        $emailInfo->addTo($customerEmail, $this->getName());
+        $mailer->addEmailInfo($emailInfo);
+
+        // Set all required params and send emails
+        $mailer->setSender(Mage::getStoreConfig($sender, $storeId));
+        $mailer->setStoreId($storeId);
+        $mailer->setTemplateId(Mage::getStoreConfig($template, $storeId));
+        $mailer->setTemplateParams($templateParams);
+        $mailer->send();
+        return $this;
+    }
+
+    /**
+     * Prepare customer for delete
+     */
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
+    }
+
+    /**
+     * Get either first store ID from a set website or the provided as default
+     *
+     * @param int|string|null $defaultStoreId
+     * @return int
+     * @throws Mage_Core_Exception
+     */
+    protected function _getWebsiteStoreId($defaultStoreId = null)
+    {
+        if ($this->getWebsiteId() != 0 && empty($defaultStoreId)) {
+            $storeIds = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
+            reset($storeIds);
+            $defaultStoreId = current($storeIds);
+        }
+        return $defaultStoreId;
     }
 }

@@ -38,6 +38,26 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
+     * Retrieve grid url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
+     * Retrieve row url
+     *
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/view', ['txn_id' => $row->getId()]);
+    }
+
+    /**
      * Prepare collection for grid
      *
      * @return Mage_Adminhtml_Block_Widget_Grid
@@ -122,25 +142,5 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Retrieve grid url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
-    }
-
-    /**
-     * Retrieve row url
-     *
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/view', ['txn_id' => $row->getId()]);
     }
 }

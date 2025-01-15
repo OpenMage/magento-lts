@@ -37,12 +37,6 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
      */
     protected $_customerModeFlag = false;
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setMainTable('sales/order_grid');
-    }
-
     /**
      * Get SQL for get record count
      *
@@ -89,5 +83,11 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
     public function getIsCustomerMode()
     {
         return $this->_customerModeFlag;
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setMainTable('sales/order_grid');
     }
 }

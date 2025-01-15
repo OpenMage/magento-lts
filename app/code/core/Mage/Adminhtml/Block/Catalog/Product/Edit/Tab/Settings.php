@@ -22,6 +22,14 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
+    public function getContinueUrl()
+    {
+        return $this->getUrl('*/*/new', [
+            '_current'  => true,
+            'set'       => '{{attribute_set}}',
+            'type'      => '{{type}}',
+        ]);
+    }
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -69,14 +77,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
 
         $this->setForm($form);
         return $this;
-    }
-
-    public function getContinueUrl()
-    {
-        return $this->getUrl('*/*/new', [
-            '_current'  => true,
-            'set'       => '{{attribute_set}}',
-            'type'      => '{{type}}',
-        ]);
     }
 }

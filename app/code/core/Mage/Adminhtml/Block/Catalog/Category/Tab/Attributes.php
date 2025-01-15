@@ -23,16 +23,6 @@
 class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtml_Block_Catalog_Form
 {
     /**
-     * Retrieve Category object
-     *
-     * @return Mage_Catalog_Model_Category
-     */
-    public function getCategory()
-    {
-        return Mage::registry('current_category');
-    }
-
-    /**
      * Initialize tab
      *
      */
@@ -40,6 +30,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
     {
         parent::__construct();
         $this->setShowGlobalIcon(true);
+    }
+    /**
+     * Retrieve Category object
+     *
+     * @return Mage_Catalog_Model_Category
+     */
+    public function getCategory()
+    {
+        return Mage::registry('current_category');
     }
 
     /**

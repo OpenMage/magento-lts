@@ -32,6 +32,23 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
+     * @param Mage_Admin_Model_Variable $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/variableGrid', []);
+    }
+
+    /**
      * @return Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareCollection()
@@ -67,22 +84,5 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @param Mage_Admin_Model_Variable $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/variableGrid', []);
     }
 }

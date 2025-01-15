@@ -192,131 +192,6 @@ class Mage_Core_Model_Translate
     }
 
     /**
-     * Loading data from module translation files
-     *
-     * @param string $moduleName
-     * @param array $files
-     * @param bool $forceReload
-     * @return $this
-     */
-    protected function _loadModuleTranslation($moduleName, $files, $forceReload = false)
-    {
-        foreach ($files as $file) {
-            $file = $this->_getModuleFilePath($moduleName, $file);
-            $this->_addData($this->_getFileData($file), $moduleName, $forceReload);
-        }
-        return $this;
-    }
-
-    /**
-     * Adding translation data
-     *
-     * @param array $data
-     * @param string $scope
-     * @param bool $forceReload
-     * @return $this
-     */
-    protected function _addData($data, $scope, $forceReload = false)
-    {
-        foreach ($data as $key => $value) {
-            if ($key === $value) {
-                continue;
-            }
-            $key    = $this->_prepareDataString($key);
-            $value  = $value === null ? '' : $this->_prepareDataString($value);
-            if ($scope && isset($this->_dataScope[$key]) && !$forceReload) {
-                /**
-                 * Checking previous value
-                 */
-                $scopeKey = $this->_dataScope[$key] . self::SCOPE_SEPARATOR . $key;
-                if (!isset($this->_data[$scopeKey])) {
-                    if (isset($this->_data[$key])) {
-                        $this->_data[$scopeKey] = $this->_data[$key];
-                        /**
-                         * Not allow use translation not related to module
-                         */
-                        if (Mage::getIsDeveloperMode()) {
-                            unset($this->_data[$key]);
-                        }
-                    }
-                }
-                $scopeKey = $scope . self::SCOPE_SEPARATOR . $key;
-                $this->_data[$scopeKey] = $value;
-            } else {
-                $this->_data[$key]     = $value;
-                $this->_dataScope[$key] = $scope;
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * @param string $string
-     * @return string
-     */
-    protected function _prepareDataString($string)
-    {
-        return str_replace('""', '"', $string);
-    }
-
-    /**
-     * Loading current theme translation
-     *
-     * @param bool $forceReload
-     * @return $this
-     */
-    protected function _loadThemeTranslation($forceReload = false)
-    {
-        $file = Mage::getDesign()->getLocaleFileName('translate.csv');
-        $this->_addData($this->_getFileData($file), false, $forceReload);
-        return $this;
-    }
-
-    /**
-     * Loading current store translation from DB
-     *
-     * @param bool $forceReload
-     * @return $this
-     */
-    protected function _loadDbTranslation($forceReload = false)
-    {
-        $arr = $this->getResource()->getTranslationArray(null, $this->getLocale());
-        $this->_addData($arr, $this->getConfig(self::CONFIG_KEY_STORE), $forceReload);
-        return $this;
-    }
-
-    /**
-     * Retrieve translation file for module
-     *
-     * @param string $module
-     * @param string $fileName
-     * @return string
-     */
-    protected function _getModuleFilePath($module, $fileName)
-    {
-        //$file = Mage::getConfig()->getModuleDir('locale', $module);
-        $file = Mage::getBaseDir('locale');
-        return $file . (DS . $this->getLocale() . DS . $fileName);
-    }
-
-    /**
-     * Retrieve data from file
-     *
-     * @param   string $file
-     * @return  array
-     */
-    protected function _getFileData($file)
-    {
-        $data = [];
-        if (file_exists($file)) {
-            $parser = new Varien_File_Csv();
-            $parser->setDelimiter(self::CSV_SEPARATOR);
-            $data = $parser->getDataPairs($file);
-        }
-        return $data;
-    }
-
-    /**
      * Retrieve translation data
      *
      * @return array
@@ -513,6 +388,131 @@ class Mage_Core_Model_Translate
             }
         }
         return $this->_cacheId;
+    }
+
+    /**
+     * Loading data from module translation files
+     *
+     * @param string $moduleName
+     * @param array $files
+     * @param bool $forceReload
+     * @return $this
+     */
+    protected function _loadModuleTranslation($moduleName, $files, $forceReload = false)
+    {
+        foreach ($files as $file) {
+            $file = $this->_getModuleFilePath($moduleName, $file);
+            $this->_addData($this->_getFileData($file), $moduleName, $forceReload);
+        }
+        return $this;
+    }
+
+    /**
+     * Adding translation data
+     *
+     * @param array $data
+     * @param string $scope
+     * @param bool $forceReload
+     * @return $this
+     */
+    protected function _addData($data, $scope, $forceReload = false)
+    {
+        foreach ($data as $key => $value) {
+            if ($key === $value) {
+                continue;
+            }
+            $key    = $this->_prepareDataString($key);
+            $value  = $value === null ? '' : $this->_prepareDataString($value);
+            if ($scope && isset($this->_dataScope[$key]) && !$forceReload) {
+                /**
+                 * Checking previous value
+                 */
+                $scopeKey = $this->_dataScope[$key] . self::SCOPE_SEPARATOR . $key;
+                if (!isset($this->_data[$scopeKey])) {
+                    if (isset($this->_data[$key])) {
+                        $this->_data[$scopeKey] = $this->_data[$key];
+                        /**
+                         * Not allow use translation not related to module
+                         */
+                        if (Mage::getIsDeveloperMode()) {
+                            unset($this->_data[$key]);
+                        }
+                    }
+                }
+                $scopeKey = $scope . self::SCOPE_SEPARATOR . $key;
+                $this->_data[$scopeKey] = $value;
+            } else {
+                $this->_data[$key]     = $value;
+                $this->_dataScope[$key] = $scope;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    protected function _prepareDataString($string)
+    {
+        return str_replace('""', '"', $string);
+    }
+
+    /**
+     * Loading current theme translation
+     *
+     * @param bool $forceReload
+     * @return $this
+     */
+    protected function _loadThemeTranslation($forceReload = false)
+    {
+        $file = Mage::getDesign()->getLocaleFileName('translate.csv');
+        $this->_addData($this->_getFileData($file), false, $forceReload);
+        return $this;
+    }
+
+    /**
+     * Loading current store translation from DB
+     *
+     * @param bool $forceReload
+     * @return $this
+     */
+    protected function _loadDbTranslation($forceReload = false)
+    {
+        $arr = $this->getResource()->getTranslationArray(null, $this->getLocale());
+        $this->_addData($arr, $this->getConfig(self::CONFIG_KEY_STORE), $forceReload);
+        return $this;
+    }
+
+    /**
+     * Retrieve translation file for module
+     *
+     * @param string $module
+     * @param string $fileName
+     * @return string
+     */
+    protected function _getModuleFilePath($module, $fileName)
+    {
+        //$file = Mage::getConfig()->getModuleDir('locale', $module);
+        $file = Mage::getBaseDir('locale');
+        return $file . (DS . $this->getLocale() . DS . $fileName);
+    }
+
+    /**
+     * Retrieve data from file
+     *
+     * @param   string $file
+     * @return  array
+     */
+    protected function _getFileData($file)
+    {
+        $data = [];
+        if (file_exists($file)) {
+            $parser = new Varien_File_Csv();
+            $parser->setDelimiter(self::CSV_SEPARATOR);
+            $data = $parser->getDataPairs($file);
+        }
+        return $data;
     }
 
     /**

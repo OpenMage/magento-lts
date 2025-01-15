@@ -24,11 +24,6 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('tax/calculation_rule');
-    }
-
     /**
      * Join calculation data to result
      *
@@ -43,52 +38,6 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
             [],
         );
         $this->getSelect()->group('main_table.tax_calculation_rule_id');
-
-        return $this;
-    }
-
-    /**
-     * Join tax data to collection
-     *
-     * @param string $itemTable
-     * @param string $primaryJoinField
-     * @param string $secondaryJoinField
-     * @param string $titleField
-     * @param string $dataField
-     * @return $this
-     */
-    protected function _add($itemTable, $primaryJoinField, $secondaryJoinField, $titleField, $dataField)
-    {
-        $children = [];
-        foreach ($this as $rule) {
-            $children[$rule->getId()] = [];
-        }
-        if (!empty($children)) {
-            $joinCondition = sprintf('item.%s = calculation.%s', $secondaryJoinField, $primaryJoinField);
-            $select = $this->getConnection()->select()
-                ->from(
-                    ['calculation' => $this->getTable('tax/tax_calculation')],
-                    ['calculation.tax_calculation_rule_id'],
-                )
-                ->join(
-                    ['item' => $this->getTable($itemTable)],
-                    $joinCondition,
-                    ["item.{$titleField}", "item.{$secondaryJoinField}"],
-                )
-                ->where('calculation.tax_calculation_rule_id IN (?)', array_keys($children))
-                ->distinct(true);
-
-            $data = $this->getConnection()->fetchAll($select);
-            foreach ($data as $row) {
-                $children[$row['tax_calculation_rule_id']][$row[$secondaryJoinField]] = $row[$titleField];
-            }
-        }
-
-        foreach ($this as $rule) {
-            if (isset($children[$rule->getId()])) {
-                $rule->setData($dataField, array_keys($children[$rule->getId()]));
-            }
-        }
 
         return $this;
     }
@@ -146,6 +95,56 @@ class Mage_Tax_Model_Resource_Calculation_Rule_Collection extends Mage_Core_Mode
 
         $this->joinCalculationData('cd');
         $this->addFieldToFilter($field, $id);
+        return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('tax/calculation_rule');
+    }
+
+    /**
+     * Join tax data to collection
+     *
+     * @param string $itemTable
+     * @param string $primaryJoinField
+     * @param string $secondaryJoinField
+     * @param string $titleField
+     * @param string $dataField
+     * @return $this
+     */
+    protected function _add($itemTable, $primaryJoinField, $secondaryJoinField, $titleField, $dataField)
+    {
+        $children = [];
+        foreach ($this as $rule) {
+            $children[$rule->getId()] = [];
+        }
+        if (!empty($children)) {
+            $joinCondition = sprintf('item.%s = calculation.%s', $secondaryJoinField, $primaryJoinField);
+            $select = $this->getConnection()->select()
+                ->from(
+                    ['calculation' => $this->getTable('tax/tax_calculation')],
+                    ['calculation.tax_calculation_rule_id'],
+                )
+                ->join(
+                    ['item' => $this->getTable($itemTable)],
+                    $joinCondition,
+                    ["item.{$titleField}", "item.{$secondaryJoinField}"],
+                )
+                ->where('calculation.tax_calculation_rule_id IN (?)', array_keys($children))
+                ->distinct(true);
+
+            $data = $this->getConnection()->fetchAll($select);
+            foreach ($data as $row) {
+                $children[$row['tax_calculation_rule_id']][$row[$secondaryJoinField]] = $row[$titleField];
+            }
+        }
+
+        foreach ($this as $rule) {
+            if (isset($children[$rule->getId()])) {
+                $rule->setData($dataField, array_keys($children[$rule->getId()]));
+            }
+        }
+
         return $this;
     }
 }

@@ -23,17 +23,6 @@
 class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
     /**
-     * Retrieve required options from parent
-     */
-    protected function _beforeToHtml()
-    {
-        if (!$this->getParentBlock()) {
-            Mage::throwException(Mage::helper('adminhtml')->__('Invalid parent block for this block'));
-        }
-        return parent::_beforeToHtml();
-    }
-
-    /**
      * Return current recurring profile
      *
      * @return Mage_Sales_Model_Recurring_Profile
@@ -63,5 +52,15 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items extends Mage_Admin
     {
         $store = Mage::app()->getStore($this->_getRecurringProfile()->getStore());
         return $store->formatPrice($value);
+    }
+    /**
+     * Retrieve required options from parent
+     */
+    protected function _beforeToHtml()
+    {
+        if (!$this->getParentBlock()) {
+            Mage::throwException(Mage::helper('adminhtml')->__('Invalid parent block for this block'));
+        }
+        return parent::_beforeToHtml();
     }
 }

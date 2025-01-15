@@ -22,34 +22,6 @@
  */
 class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Controller_Action
 {
-    /**
-     * Initialize payment transaction model
-     *
-     * @return Mage_Sales_Model_Order_Payment_Transaction | bool
-     */
-    protected function _initTransaction()
-    {
-        $txn = Mage::getModel('sales/order_payment_transaction')->load(
-            $this->getRequest()->getParam('txn_id'),
-        );
-
-        if (!$txn->getId()) {
-            $this->_getSession()->addError($this->__('Wrong transaction ID specified.'));
-            $this->_redirect('*/*/');
-            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-            return false;
-        }
-        $orderId = $this->getRequest()->getParam('order_id');
-        if ($orderId) {
-            $txn->setOrderUrl(
-                $this->getUrl('*/sales_order/view', ['order_id' => $orderId]),
-            );
-        }
-
-        Mage::register('current_transaction', $txn);
-        return $txn;
-    }
-
     public function indexAction()
     {
         $this->_title($this->__('Sales'))
@@ -113,6 +85,33 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
             Mage::logException($e);
         }
         $this->_redirect('*/sales_transactions/view', ['_current' => true]);
+    }
+    /**
+     * Initialize payment transaction model
+     *
+     * @return Mage_Sales_Model_Order_Payment_Transaction | bool
+     */
+    protected function _initTransaction()
+    {
+        $txn = Mage::getModel('sales/order_payment_transaction')->load(
+            $this->getRequest()->getParam('txn_id'),
+        );
+
+        if (!$txn->getId()) {
+            $this->_getSession()->addError($this->__('Wrong transaction ID specified.'));
+            $this->_redirect('*/*/');
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            return false;
+        }
+        $orderId = $this->getRequest()->getParam('order_id');
+        if ($orderId) {
+            $txn->setOrderUrl(
+                $this->getUrl('*/sales_order/view', ['order_id' => $orderId]),
+            );
+        }
+
+        Mage::register('current_transaction', $txn);
+        return $txn;
     }
 
     /**

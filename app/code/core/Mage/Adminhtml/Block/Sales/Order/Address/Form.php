@@ -22,6 +22,25 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Address_Form extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
 {
+    /**
+     * Form header text getter
+     *
+     * @return string
+     */
+    public function getHeaderText()
+    {
+        return Mage::helper('sales')->__('Order Address Information');
+    }
+
+    /**
+     * Return Form Elements values
+     *
+     * @return array
+     */
+    public function getFormValues()
+    {
+        return $this->_getAddress()->getData();
+    }
     protected function _construct()
     {
         parent::_construct();
@@ -51,25 +70,5 @@ class Mage_Adminhtml_Block_Sales_Order_Address_Form extends Mage_Adminhtml_Block
         $this->_form->setAction($this->getUrl('*/*/addressSave', ['address_id' => $this->_getAddress()->getId()]));
         $this->_form->setUseContainer(true);
         return $this;
-    }
-
-    /**
-     * Form header text getter
-     *
-     * @return string
-     */
-    public function getHeaderText()
-    {
-        return Mage::helper('sales')->__('Order Address Information');
-    }
-
-    /**
-     * Return Form Elements values
-     *
-     * @return array
-     */
-    public function getFormValues()
-    {
-        return $this->_getAddress()->getData();
     }
 }

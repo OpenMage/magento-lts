@@ -46,125 +46,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * Retrieve webservice session
-     *
-     * @return Mage_Api_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('api/session');
-    }
-
-    /**
-     * Retrieve webservice configuration
-     *
-     * @return Mage_Api_Model_Config
-     */
-    protected function _getConfig()
-    {
-        return Mage::getSingleton('api/config');
-    }
-
-    /**
-     * Retrieve webservice server
-     *
-     * @return Mage_Api_Model_Server
-     */
-    protected function _getServer()
-    {
-        return Mage::getSingleton('api/server');
-    }
-
-    /**
-     * Start webservice session
-     *
-     * @param string $sessionId
-     * @return Mage_Api_Model_Server_Handler_Abstract
-     */
-    protected function _startSession($sessionId = null)
-    {
-        $this->_getSession()->setSessionId($sessionId);
-        $this->_getSession()->init('api', 'api');
-        return $this;
-    }
-
-    /**
-     * Allow insta-login via HTTP Basic Auth
-     *
-     * @param stdClass|string|null $sessionId
-     * @return $this
-     * @SuppressWarnings("PHPMD.Superglobals")
-     */
-    protected function _instaLogin(&$sessionId)
-    {
-        if ($sessionId === null && !empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
-            $this->_getSession()->setIsInstaLogin();
-            $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
-        }
-        return $this;
-    }
-
-    /**
-     * Check current user permission on resource and privilege
-     *
-     *
-     * @param   string $resource
-     * @param   string $privilege
-     * @return  bool
-     */
-    protected function _isAllowed($resource, $privilege = null)
-    {
-        return $this->_getSession()->isAllowed($resource, $privilege);
-    }
-
-    /**
-     * Dispatch webservice fault
-     *
-     * @param string $faultName
-     * @param string $resourceName
-     * @param string $customMessage
-     */
-    protected function _fault($faultName, $resourceName = null, $customMessage = null)
-    {
-        $faults = $this->_getConfig()->getFaults($resourceName);
-        if (!isset($faults[$faultName]) && !is_null($resourceName)) {
-            $this->_fault($faultName);
-            return;
-        } elseif (!isset($faults[$faultName])) {
-            $this->_fault('unknown');
-            return;
-        }
-        $this->_getServer()->getAdapter()->fault(
-            $faults[$faultName]['code'],
-            (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
-        );
-    }
-
-    /**
-     * Retrieve webservice fault as array
-     *
-     * @param string $faultName
-     * @param string $resourceName
-     * @param string $customMessage
-     * @return array
-     */
-    protected function _faultAsArray($faultName, $resourceName = null, $customMessage = null)
-    {
-        $faults = $this->_getConfig()->getFaults($resourceName);
-        if (!isset($faults[$faultName]) && !is_null($resourceName)) {
-            return $this->_faultAsArray($faultName);
-        } elseif (!isset($faults[$faultName])) {
-            return $this->_faultAsArray('unknown');
-        }
-
-        return [
-            'isFault'      => true,
-            'faultCode'    => $faults[$faultName]['code'],
-            'faultMessage' => (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
-        ];
-    }
-
-    /**
      * Start web service session
      *
      * @return string
@@ -186,18 +67,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         $this->_startSession($sessionId);
         $this->_getSession()->clear();
         return true;
-    }
-
-    /**
-     * @param string $resource
-     * @return string
-     */
-    protected function _prepareResourceModelName($resource)
-    {
-        if ($this->_resourceSuffix !== null) {
-            return $resource . $this->_resourceSuffix;
-        }
-        return $resource;
     }
 
     /**
@@ -613,5 +482,136 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             },
             $row,
         );
+    }
+
+    /**
+     * Retrieve webservice session
+     *
+     * @return Mage_Api_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('api/session');
+    }
+
+    /**
+     * Retrieve webservice configuration
+     *
+     * @return Mage_Api_Model_Config
+     */
+    protected function _getConfig()
+    {
+        return Mage::getSingleton('api/config');
+    }
+
+    /**
+     * Retrieve webservice server
+     *
+     * @return Mage_Api_Model_Server
+     */
+    protected function _getServer()
+    {
+        return Mage::getSingleton('api/server');
+    }
+
+    /**
+     * Start webservice session
+     *
+     * @param string $sessionId
+     * @return Mage_Api_Model_Server_Handler_Abstract
+     */
+    protected function _startSession($sessionId = null)
+    {
+        $this->_getSession()->setSessionId($sessionId);
+        $this->_getSession()->init('api', 'api');
+        return $this;
+    }
+
+    /**
+     * Allow insta-login via HTTP Basic Auth
+     *
+     * @param stdClass|string|null $sessionId
+     * @return $this
+     * @SuppressWarnings("PHPMD.Superglobals")
+     */
+    protected function _instaLogin(&$sessionId)
+    {
+        if ($sessionId === null && !empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
+            $this->_getSession()->setIsInstaLogin();
+            $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+        }
+        return $this;
+    }
+
+    /**
+     * Check current user permission on resource and privilege
+     *
+     *
+     * @param   string $resource
+     * @param   string $privilege
+     * @return  bool
+     */
+    protected function _isAllowed($resource, $privilege = null)
+    {
+        return $this->_getSession()->isAllowed($resource, $privilege);
+    }
+
+    /**
+     * Dispatch webservice fault
+     *
+     * @param string $faultName
+     * @param string $resourceName
+     * @param string $customMessage
+     */
+    protected function _fault($faultName, $resourceName = null, $customMessage = null)
+    {
+        $faults = $this->_getConfig()->getFaults($resourceName);
+        if (!isset($faults[$faultName]) && !is_null($resourceName)) {
+            $this->_fault($faultName);
+            return;
+        } elseif (!isset($faults[$faultName])) {
+            $this->_fault('unknown');
+            return;
+        }
+        $this->_getServer()->getAdapter()->fault(
+            $faults[$faultName]['code'],
+            (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
+        );
+    }
+
+    /**
+     * Retrieve webservice fault as array
+     *
+     * @param string $faultName
+     * @param string $resourceName
+     * @param string $customMessage
+     * @return array
+     */
+    protected function _faultAsArray($faultName, $resourceName = null, $customMessage = null)
+    {
+        $faults = $this->_getConfig()->getFaults($resourceName);
+        if (!isset($faults[$faultName]) && !is_null($resourceName)) {
+            return $this->_faultAsArray($faultName);
+        } elseif (!isset($faults[$faultName])) {
+            return $this->_faultAsArray('unknown');
+        }
+
+        return [
+            'isFault'      => true,
+            'faultCode'    => $faults[$faultName]['code'],
+            'faultMessage' => (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
+        ];
+    }
+
+    /**
+     * @param string $resource
+     * @return string
+     */
+    protected function _prepareResourceModelName($resource)
+    {
+        if ($this->_resourceSuffix !== null) {
+            return $resource . $this->_resourceSuffix;
+        }
+        return $resource;
     }
 }

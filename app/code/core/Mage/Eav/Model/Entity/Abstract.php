@@ -177,34 +177,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         return $this;
     }
 
-    protected function _construct() {}
-
-    /**
-     * Retrieve connection for read data
-     *
-     * @return Varien_Db_Adapter_Interface|false
-     */
-    protected function _getReadAdapter()
-    {
-        if (is_string($this->_read)) {
-            $this->_read = Mage::getSingleton('core/resource')->getConnection($this->_read);
-        }
-        return $this->_read;
-    }
-
-    /**
-     * Retrieve connection for write data
-     *
-     * @return Varien_Db_Adapter_Interface|false
-     */
-    protected function _getWriteAdapter()
-    {
-        if (is_string($this->_write)) {
-            $this->_write = Mage::getSingleton('core/resource')->getConnection($this->_write);
-        }
-        return $this->_write;
-    }
-
     /**
      * Retrieve read DB connection
      *
@@ -408,28 +380,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Return default static virtual attribute that doesn't exists in EAV attributes
-     *
-     * @param string $attributeCode
-     * @return Mage_Eav_Model_Entity_Attribute
-     */
-    protected function _getDefaultAttribute($attributeCode)
-    {
-        $entityTypeId = $this->getEntityType()->getId();
-        if (!isset(self::$_defaultAttributes[$entityTypeId][$attributeCode])) {
-            $attribute = Mage::getModel($this->getEntityType()->getAttributeModel())
-                ->setAttributeCode($attributeCode)
-                ->setBackendType(Mage_Eav_Model_Entity_Attribute_Abstract::TYPE_STATIC)
-                ->setIsGlobal(1)
-                ->setEntityType($this->getEntityType())
-                ->setEntityTypeId($this->getEntityType()->getId());
-            self::$_defaultAttributes[$entityTypeId][$attributeCode] = $attribute;
-        }
-
-        return self::$_defaultAttributes[$entityTypeId][$attributeCode];
-    }
-
-    /**
      * Adding attribute to entity
      *
      * @return  $this
@@ -568,18 +518,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Check whether the attribute is Applicable to the object
-     *
-     * @param   Varien_Object $object
-     * @param   Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @return bool
-     */
-    protected function _isApplicableAttribute($object, $attribute)
-    {
-        return true;
-    }
-
-    /**
      * Walk through the attributes and run method with optional arguments
      *
      * Returns array with results for each attribute
@@ -645,23 +583,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         }
 
         return $results;
-    }
-
-    /**
-     * Check whether attribute instance (attribute, backend, frontend or source) has method and applicable
-     *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|Mage_Eav_Model_Entity_Attribute_Frontend_Abstract|Mage_Eav_Model_Entity_Attribute_Source_Abstract $instance
-     * @param string $method
-     * @param array $args array of arguments
-     * @return bool
-     */
-    protected function _isCallableAttributeInstance($instance, $method, $args)
-    {
-        if (!is_object($instance) || !method_exists($instance, $method)) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -943,6 +864,218 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
+     * Save entity's attributes into the object's resource
+     *
+     * @return  $this
+     */
+    public function save(Varien_Object $object)
+    {
+        if ($object->isDeleted()) {
+            return $this->delete($object);
+        }
+
+        if (!$this->isPartialSave()) {
+            $this->loadAllAttributes($object);
+        }
+
+        if (!$object->getEntityTypeId()) {
+            $object->setEntityTypeId($this->getTypeId());
+        }
+
+        $object->setParentId((int) $object->getParentId());
+
+        $this->_beforeSave($object);
+        $this->_processSaveData($this->_collectSaveData($object));
+        $this->_afterSave($object);
+
+        return $this;
+    }
+
+    /**
+     * Save attribute
+     *
+     * @param string $attributeCode
+     * @return $this
+     */
+    public function saveAttribute(Varien_Object $object, $attributeCode)
+    {
+        $this->_attributeValuesToSave   = [];
+        $this->_attributeValuesToDelete = [];
+
+        $attribute      = $this->getAttribute($attributeCode);
+        $backend        = $attribute->getBackend();
+        $table          = $backend->getTable();
+        $entity         = $attribute->getEntity();
+        $entityIdField  = $entity->getEntityIdField();
+        $adapter        = $this->_getWriteAdapter();
+
+        $row = [
+            'entity_type_id' => $entity->getTypeId(),
+            'attribute_id'   => $attribute->getId(),
+            $entityIdField   => $object->getData($entityIdField),
+        ];
+
+        $newValue = $object->getData($attributeCode);
+        if ($attribute->isValueEmpty($newValue)) {
+            $newValue = null;
+        }
+
+        $whereArr = [];
+        foreach ($row as $field => $value) {
+            $whereArr[] = $adapter->quoteInto($field . '=?', $value);
+        }
+        $where = implode(' AND ', $whereArr);
+
+        $adapter->beginTransaction();
+
+        try {
+            $select = $adapter->select()
+                ->from($table, 'value_id')
+                ->where($where);
+            $origValueId = $adapter->fetchOne($select);
+
+            if ($origValueId === false && ($newValue !== null)) {
+                $this->_insertAttribute($object, $attribute, $newValue);
+            } elseif ($origValueId !== false && ($newValue !== null)) {
+                $this->_updateAttribute($object, $attribute, $origValueId, $newValue);
+            } elseif ($origValueId !== false && ($newValue === null)) {
+                $adapter->delete($table, $where);
+            }
+            $this->_processAttributeValues();
+            $adapter->commit();
+        } catch (Exception $e) {
+            $adapter->rollBack();
+            throw $e;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Delete entity using current object's data
+     *
+     * @param int|string|Varien_Object $object
+     * @return $this
+     * @throws Exception
+     */
+    public function delete($object)
+    {
+        if (is_numeric($object)) {
+            $id = (int) $object;
+        } elseif ($object instanceof Varien_Object) {
+            $id = (int) $object->getId();
+        }
+
+        $this->_beforeDelete($object);
+
+        try {
+            $where = [
+                $this->getEntityIdField() . '=?' => $id,
+            ];
+            $this->_getWriteAdapter()->delete($this->getEntityTable(), $where);
+            $this->loadAllAttributes($object);
+            foreach (array_keys($this->getAttributesByTable()) as $table) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $this->_getWriteAdapter()->delete($table, $where);
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        $this->_afterDelete($object);
+        return $this;
+    }
+
+    /**
+     * Retrieve default entity static attributes
+     *
+     * @return array
+     */
+    public function getDefaultAttributes()
+    {
+        return array_unique(array_merge($this->_getDefaultAttributes(), [$this->getEntityIdField()]));
+    }
+
+    protected function _construct() {}
+
+    /**
+     * Retrieve connection for read data
+     *
+     * @return Varien_Db_Adapter_Interface|false
+     */
+    protected function _getReadAdapter()
+    {
+        if (is_string($this->_read)) {
+            $this->_read = Mage::getSingleton('core/resource')->getConnection($this->_read);
+        }
+        return $this->_read;
+    }
+
+    /**
+     * Retrieve connection for write data
+     *
+     * @return Varien_Db_Adapter_Interface|false
+     */
+    protected function _getWriteAdapter()
+    {
+        if (is_string($this->_write)) {
+            $this->_write = Mage::getSingleton('core/resource')->getConnection($this->_write);
+        }
+        return $this->_write;
+    }
+
+    /**
+     * Return default static virtual attribute that doesn't exists in EAV attributes
+     *
+     * @param string $attributeCode
+     * @return Mage_Eav_Model_Entity_Attribute
+     */
+    protected function _getDefaultAttribute($attributeCode)
+    {
+        $entityTypeId = $this->getEntityType()->getId();
+        if (!isset(self::$_defaultAttributes[$entityTypeId][$attributeCode])) {
+            $attribute = Mage::getModel($this->getEntityType()->getAttributeModel())
+                ->setAttributeCode($attributeCode)
+                ->setBackendType(Mage_Eav_Model_Entity_Attribute_Abstract::TYPE_STATIC)
+                ->setIsGlobal(1)
+                ->setEntityType($this->getEntityType())
+                ->setEntityTypeId($this->getEntityType()->getId());
+            self::$_defaultAttributes[$entityTypeId][$attributeCode] = $attribute;
+        }
+
+        return self::$_defaultAttributes[$entityTypeId][$attributeCode];
+    }
+
+    /**
+     * Check whether the attribute is Applicable to the object
+     *
+     * @param   Varien_Object $object
+     * @param   Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @return bool
+     */
+    protected function _isApplicableAttribute($object, $attribute)
+    {
+        return true;
+    }
+
+    /**
+     * Check whether attribute instance (attribute, backend, frontend or source) has method and applicable
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|Mage_Eav_Model_Entity_Attribute_Frontend_Abstract|Mage_Eav_Model_Entity_Attribute_Source_Abstract $instance
+     * @param string $method
+     * @param array $args array of arguments
+     * @return bool
+     */
+    protected function _isCallableAttributeInstance($instance, $method, $args)
+    {
+        if (!is_object($instance) || !method_exists($instance, $method)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Load model attributes data
      *
      * @param Mage_Core_Model_Abstract|Varien_Object $object
@@ -1055,34 +1188,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $object->setData($attributeCode, $valueRow['value']);
             $attribute->getBackend()->setEntityValueId($object, $valueRow['value_id']);
         }
-
-        return $this;
-    }
-
-    /**
-     * Save entity's attributes into the object's resource
-     *
-     * @return  $this
-     */
-    public function save(Varien_Object $object)
-    {
-        if ($object->isDeleted()) {
-            return $this->delete($object);
-        }
-
-        if (!$this->isPartialSave()) {
-            $this->loadAllAttributes($object);
-        }
-
-        if (!$object->getEntityTypeId()) {
-            $object->setEntityTypeId($this->getTypeId());
-        }
-
-        $object->setParentId((int) $object->getParentId());
-
-        $this->_beforeSave($object);
-        $this->_processSaveData($this->_collectSaveData($object));
-        $this->_afterSave($object);
 
         return $this;
     }
@@ -1502,101 +1607,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Save attribute
-     *
-     * @param string $attributeCode
-     * @return $this
-     */
-    public function saveAttribute(Varien_Object $object, $attributeCode)
-    {
-        $this->_attributeValuesToSave   = [];
-        $this->_attributeValuesToDelete = [];
-
-        $attribute      = $this->getAttribute($attributeCode);
-        $backend        = $attribute->getBackend();
-        $table          = $backend->getTable();
-        $entity         = $attribute->getEntity();
-        $entityIdField  = $entity->getEntityIdField();
-        $adapter        = $this->_getWriteAdapter();
-
-        $row = [
-            'entity_type_id' => $entity->getTypeId(),
-            'attribute_id'   => $attribute->getId(),
-            $entityIdField   => $object->getData($entityIdField),
-        ];
-
-        $newValue = $object->getData($attributeCode);
-        if ($attribute->isValueEmpty($newValue)) {
-            $newValue = null;
-        }
-
-        $whereArr = [];
-        foreach ($row as $field => $value) {
-            $whereArr[] = $adapter->quoteInto($field . '=?', $value);
-        }
-        $where = implode(' AND ', $whereArr);
-
-        $adapter->beginTransaction();
-
-        try {
-            $select = $adapter->select()
-                ->from($table, 'value_id')
-                ->where($where);
-            $origValueId = $adapter->fetchOne($select);
-
-            if ($origValueId === false && ($newValue !== null)) {
-                $this->_insertAttribute($object, $attribute, $newValue);
-            } elseif ($origValueId !== false && ($newValue !== null)) {
-                $this->_updateAttribute($object, $attribute, $origValueId, $newValue);
-            } elseif ($origValueId !== false && ($newValue === null)) {
-                $adapter->delete($table, $where);
-            }
-            $this->_processAttributeValues();
-            $adapter->commit();
-        } catch (Exception $e) {
-            $adapter->rollBack();
-            throw $e;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Delete entity using current object's data
-     *
-     * @param int|string|Varien_Object $object
-     * @return $this
-     * @throws Exception
-     */
-    public function delete($object)
-    {
-        if (is_numeric($object)) {
-            $id = (int) $object;
-        } elseif ($object instanceof Varien_Object) {
-            $id = (int) $object->getId();
-        }
-
-        $this->_beforeDelete($object);
-
-        try {
-            $where = [
-                $this->getEntityIdField() . '=?' => $id,
-            ];
-            $this->_getWriteAdapter()->delete($this->getEntityTable(), $where);
-            $this->loadAllAttributes($object);
-            foreach (array_keys($this->getAttributesByTable()) as $table) {
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $this->_getWriteAdapter()->delete($table, $where);
-            }
-        } catch (Exception $e) {
-            throw $e;
-        }
-
-        $this->_afterDelete($object);
-        return $this;
-    }
-
-    /**
      * After Load Entity process
      *
      * @return $this
@@ -1669,16 +1679,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     protected function _getDefaultAttributes()
     {
         return ['entity_type_id', 'attribute_set_id', 'created_at', 'updated_at', 'parent_id', 'increment_id'];
-    }
-
-    /**
-     * Retrieve default entity static attributes
-     *
-     * @return array
-     */
-    public function getDefaultAttributes()
-    {
-        return array_unique(array_merge($this->_getDefaultAttributes(), [$this->getEntityIdField()]));
     }
 
     /**

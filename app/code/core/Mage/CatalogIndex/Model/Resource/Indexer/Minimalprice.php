@@ -22,14 +22,6 @@
  */
 class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_CatalogIndex_Model_Resource_Indexer_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalogindex/minimal_price', 'index_id');
-
-        $this->_entityIdFieldName   = 'entity_id';
-        $this->_storeIdFieldName    = 'store_id';
-    }
-
     /**
      * @param array $conditions
      * @return string
@@ -65,5 +57,12 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_Catalog
 
         $conditions = implode(' AND ', $conditions);
         $this->_getWriteAdapter()->delete($this->getMainTable(), $conditions);
+    }
+    protected function _construct()
+    {
+        $this->_init('catalogindex/minimal_price', 'index_id');
+
+        $this->_entityIdFieldName   = 'entity_id';
+        $this->_storeIdFieldName    = 'store_id';
     }
 }

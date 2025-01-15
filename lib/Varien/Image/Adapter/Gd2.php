@@ -17,6 +17,13 @@
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
     protected $_requiredExtensions = ['gd'];
+
+    /**
+     * Whether image was resized or not
+     *
+     * @var bool
+     */
+    protected $_resized = false;
     private static $_callbacks = [
         IMAGETYPE_WEBP => ['output' => 'imagewebp', 'create' => 'imagecreatefromwebp'],
         IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
@@ -25,13 +32,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         IMAGETYPE_XBM  => ['output' => 'imagexbm',  'create' => 'imagecreatefromxbm'],
         IMAGETYPE_WBMP => ['output' => 'imagewbmp', 'create' => 'imagecreatefromwbmp'],
     ];
-
-    /**
-     * Whether image was resized or not
-     *
-     * @var bool
-     */
-    protected $_resized = false;
 
     public function __construct()
     {
@@ -63,66 +63,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->getMimeType();
         $this->_getFileAttributes();
         $this->_imageHandler = call_user_func($this->_getCallback('create'), $this->_fileName);
-    }
-
-    /**
-     * Checks whether memory limit is reached.
-     *
-     * @deprecated
-     * @return bool
-     */
-    protected function _isMemoryLimitReached()
-    {
-        $limit = $this->_convertToByte(ini_get('memory_limit'));
-        /**
-         * In case if memory limit was converted to 0, treat it as unlimited
-         */
-        if ($limit === 0) {
-            return false;
-        }
-        $size = getimagesize($this->_fileName);
-        $requiredMemory = $size[0] * $size[1] * 3;
-
-        return (memory_get_usage(true) + $requiredMemory) > $limit;
-    }
-
-    /**
-     * Convert PHP memory limit value into bytes
-     * Notation in value is supported only for PHP
-     * Shorthand byte options are case insensitive
-     *
-     * @deprecated
-     * @param string $memoryValue
-     * @throws Varien_Exception
-     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
-     * @return int
-     */
-    protected function _convertToByte($memoryValue)
-    {
-        $memoryValue = trim($memoryValue);
-        if (empty($memoryValue)) {
-            return 0;
-        }
-        if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
-            $option = strtolower($matches[2]);
-            $memoryValue = (int) $matches[1];
-            switch ($option) {
-                case 'g':
-                    $memoryValue *= 1024;
-                    // no break
-                case 'm':
-                    $memoryValue *= 1024;
-                    // no break
-                case 'k':
-                    $memoryValue *= 1024;
-                    break;
-                default:
-                    break;
-            }
-        }
-        $memoryValue = (int) $memoryValue;
-
-        return $memoryValue > 0 ? $memoryValue : 0;
     }
 
     public function save($destination = null, $newName = null)
@@ -215,80 +155,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     }
 
     /**
-     * Obtain function name, basing on image type and callback type
-     *
-     * @param string $callbackType
-     * @param int $fileType
-     * @return string
-     * @throws Exception
-     */
-    private function _getCallback($callbackType, $fileType = null, $unsupportedText = 'Unsupported image format.')
-    {
-        if (null === $fileType) {
-            $fileType = $this->_fileType;
-        }
-        if (empty(self::$_callbacks[$fileType])) {
-            throw new Exception("{$unsupportedText}. Type: {$fileType}. File: {$this->_fileName}");
-        }
-        if (empty(self::$_callbacks[$fileType][$callbackType])) {
-            throw new Exception("Callback not found. Callbacktype: {$callbackType}. File: {$this->_fileName}");
-        }
-        return self::$_callbacks[$fileType][$callbackType];
-    }
-
-    private function _fillBackgroundColor(&$imageResourceTo)
-    {
-        // try to keep transparency, if any
-        if ($this->_keepTransparency) {
-            $isAlpha = false;
-            $transparentIndex = $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha);
-            try {
-                // fill truecolor png with alpha transparency
-                if ($isAlpha) {
-                    if (!imagealphablending($imageResourceTo, false)) {
-                        throw new Exception('Failed to set alpha blending for PNG image. File: {$this->_fileName}');
-                    }
-                    $transparentAlphaColor = imagecolorallocatealpha($imageResourceTo, 0, 0, 0, 127);
-                    if (false === $transparentAlphaColor) {
-                        throw new Exception('Failed to allocate alpha transparency for PNG image. File: {$this->_fileName}');
-                    }
-                    if (!imagefill($imageResourceTo, 0, 0, $transparentAlphaColor)) {
-                        throw new Exception('Failed to fill PNG image with alpha transparency. File: {$this->_fileName}');
-                    }
-                    if (!imagesavealpha($imageResourceTo, true)) {
-                        throw new Exception('Failed to save alpha transparency into PNG image. File: {$this->_fileName}');
-                    }
-
-                    return $transparentAlphaColor;
-                } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
-                    $transparentColor = false;
-                    if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
-                        list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
-                        $transparentColor = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
-                    }
-                    if (false === $transparentColor) {
-                        throw new Exception('Failed to allocate transparent color for image.');
-                    }
-                    if (!imagefill($imageResourceTo, 0, 0, $transparentColor)) {
-                        throw new Exception('Failed to fill image with transparency.');
-                    }
-                    imagecolortransparent($imageResourceTo, $transparentColor);
-                    return $transparentColor;
-                }
-            } catch (Exception $e) {
-                // fallback to default background color
-            }
-        }
-        list($r, $g, $b) = $this->_backgroundColor;
-        $color = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
-        if (!imagefill($imageResourceTo, 0, 0, $color)) {
-            throw new Exception("Failed to fill image background with color {$r} {$g} {$b}. File: {$this->_fileName}");
-        }
-
-        return $color;
-    }
-
-    /**
      * Gives true for a PNG with alpha, false otherwise
      *
      * @param string $fileName
@@ -297,28 +163,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     public function checkAlpha($fileName)
     {
         return ((ord(file_get_contents($fileName, false, null, 25, 1)) & 6) & 4) == 4;
-    }
-
-    private function _getTransparency($imageResource, $fileType, &$isAlpha = false, &$isTrueColor = false)
-    {
-        $isAlpha     = false;
-        $isTrueColor = false;
-        // assume that transparency is supported by gif/png/webp only
-        if (($fileType === IMAGETYPE_GIF) || ($fileType === IMAGETYPE_PNG) || ($fileType === IMAGETYPE_WEBP)) {
-            // check for specific transparent color
-            $transparentIndex = imagecolortransparent($imageResource);
-            if ($transparentIndex >= 0) {
-                return $transparentIndex;
-            } elseif ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
-                $isAlpha = $this->checkAlpha($this->_fileName);
-                $isTrueColor = true;
-                return $transparentIndex; // -1
-            }
-        }
-        if ($fileType === IMAGETYPE_JPEG) {
-            $isTrueColor = true;
-        }
-        return false;
     }
 
     /**
@@ -638,6 +482,172 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         }
     }
 
+    /**
+     * Gives real mime-type with not considering file type field
+     *
+     * @return string
+     */
+    public function getMimeTypeWithOutFileType()
+    {
+        return $this->_fileMimeType;
+    }
+
+    /**
+     * Checks whether memory limit is reached.
+     *
+     * @deprecated
+     * @return bool
+     */
+    protected function _isMemoryLimitReached()
+    {
+        $limit = $this->_convertToByte(ini_get('memory_limit'));
+        /**
+         * In case if memory limit was converted to 0, treat it as unlimited
+         */
+        if ($limit === 0) {
+            return false;
+        }
+        $size = getimagesize($this->_fileName);
+        $requiredMemory = $size[0] * $size[1] * 3;
+
+        return (memory_get_usage(true) + $requiredMemory) > $limit;
+    }
+
+    /**
+     * Convert PHP memory limit value into bytes
+     * Notation in value is supported only for PHP
+     * Shorthand byte options are case insensitive
+     *
+     * @deprecated
+     * @param string $memoryValue
+     * @throws Varien_Exception
+     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
+     * @return int
+     */
+    protected function _convertToByte($memoryValue)
+    {
+        $memoryValue = trim($memoryValue);
+        if (empty($memoryValue)) {
+            return 0;
+        }
+        if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
+            $option = strtolower($matches[2]);
+            $memoryValue = (int) $matches[1];
+            switch ($option) {
+                case 'g':
+                    $memoryValue *= 1024;
+                    // no break
+                case 'm':
+                    $memoryValue *= 1024;
+                    // no break
+                case 'k':
+                    $memoryValue *= 1024;
+                    break;
+                default:
+                    break;
+            }
+        }
+        $memoryValue = (int) $memoryValue;
+
+        return $memoryValue > 0 ? $memoryValue : 0;
+    }
+
+    /**
+     * Obtain function name, basing on image type and callback type
+     *
+     * @param string $callbackType
+     * @param int $fileType
+     * @return string
+     * @throws Exception
+     */
+    private function _getCallback($callbackType, $fileType = null, $unsupportedText = 'Unsupported image format.')
+    {
+        if (null === $fileType) {
+            $fileType = $this->_fileType;
+        }
+        if (empty(self::$_callbacks[$fileType])) {
+            throw new Exception("{$unsupportedText}. Type: {$fileType}. File: {$this->_fileName}");
+        }
+        if (empty(self::$_callbacks[$fileType][$callbackType])) {
+            throw new Exception("Callback not found. Callbacktype: {$callbackType}. File: {$this->_fileName}");
+        }
+        return self::$_callbacks[$fileType][$callbackType];
+    }
+
+    private function _fillBackgroundColor(&$imageResourceTo)
+    {
+        // try to keep transparency, if any
+        if ($this->_keepTransparency) {
+            $isAlpha = false;
+            $transparentIndex = $this->_getTransparency($this->_imageHandler, $this->_fileType, $isAlpha);
+            try {
+                // fill truecolor png with alpha transparency
+                if ($isAlpha) {
+                    if (!imagealphablending($imageResourceTo, false)) {
+                        throw new Exception('Failed to set alpha blending for PNG image. File: {$this->_fileName}');
+                    }
+                    $transparentAlphaColor = imagecolorallocatealpha($imageResourceTo, 0, 0, 0, 127);
+                    if (false === $transparentAlphaColor) {
+                        throw new Exception('Failed to allocate alpha transparency for PNG image. File: {$this->_fileName}');
+                    }
+                    if (!imagefill($imageResourceTo, 0, 0, $transparentAlphaColor)) {
+                        throw new Exception('Failed to fill PNG image with alpha transparency. File: {$this->_fileName}');
+                    }
+                    if (!imagesavealpha($imageResourceTo, true)) {
+                        throw new Exception('Failed to save alpha transparency into PNG image. File: {$this->_fileName}');
+                    }
+
+                    return $transparentAlphaColor;
+                } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
+                    $transparentColor = false;
+                    if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
+                        list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
+                        $transparentColor = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
+                    }
+                    if (false === $transparentColor) {
+                        throw new Exception('Failed to allocate transparent color for image.');
+                    }
+                    if (!imagefill($imageResourceTo, 0, 0, $transparentColor)) {
+                        throw new Exception('Failed to fill image with transparency.');
+                    }
+                    imagecolortransparent($imageResourceTo, $transparentColor);
+                    return $transparentColor;
+                }
+            } catch (Exception $e) {
+                // fallback to default background color
+            }
+        }
+        list($r, $g, $b) = $this->_backgroundColor;
+        $color = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
+        if (!imagefill($imageResourceTo, 0, 0, $color)) {
+            throw new Exception("Failed to fill image background with color {$r} {$g} {$b}. File: {$this->_fileName}");
+        }
+
+        return $color;
+    }
+
+    private function _getTransparency($imageResource, $fileType, &$isAlpha = false, &$isTrueColor = false)
+    {
+        $isAlpha     = false;
+        $isTrueColor = false;
+        // assume that transparency is supported by gif/png/webp only
+        if (($fileType === IMAGETYPE_GIF) || ($fileType === IMAGETYPE_PNG) || ($fileType === IMAGETYPE_WEBP)) {
+            // check for specific transparent color
+            $transparentIndex = imagecolortransparent($imageResource);
+            if ($transparentIndex >= 0) {
+                return $transparentIndex;
+            } elseif ($fileType === IMAGETYPE_PNG || $fileType === IMAGETYPE_WEBP) {
+                $isAlpha = $this->checkAlpha($this->_fileName);
+                $isTrueColor = true;
+                return $transparentIndex; // -1
+            }
+        }
+        if ($fileType === IMAGETYPE_JPEG) {
+            $isTrueColor = true;
+        }
+        return false;
+    }
+
     private function refreshImageDimensions()
     {
         $this->_imageSrcWidth = imagesx($this->_imageHandler);
@@ -653,15 +663,5 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         imagecolortransparent($imageHandler, $background);
         imagealphablending($imageHandler, false);
         imagesavealpha($imageHandler, true);
-    }
-
-    /**
-     * Gives real mime-type with not considering file type field
-     *
-     * @return string
-     */
-    public function getMimeTypeWithOutFileType()
-    {
-        return $this->_fileMimeType;
     }
 }

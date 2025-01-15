@@ -58,28 +58,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     *  Collection initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/category_flat');
-        $this->setModel('catalog/category');
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _initSelect()
-    {
-        $this->getSelect()->from(
-            ['main_table' => $this->getResource()->getMainStoreTable($this->getStoreId())],
-            ['entity_id', 'level', 'path', 'position', 'is_active', 'is_anchor'],
-        );
-        return $this;
-    }
-
-    /**
      * Add filter by entity id(s).
      *
      * @param mixed $categoryIds
@@ -293,16 +271,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     * Retrieves store_id from current store
-     *
-     * @return int
-     */
-    protected function _getCurrentStoreId()
-    {
-        return (int) Mage::app()->getStore()->getId();
-    }
-
-    /**
      * Add category path filter
      *
      * @param array|string $paths
@@ -360,5 +328,37 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
         $this->setCurPage($pageNum)
             ->setPageSize($pageSize);
         return $this;
+    }
+
+    /**
+     *  Collection initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/category_flat');
+        $this->setModel('catalog/category');
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _initSelect()
+    {
+        $this->getSelect()->from(
+            ['main_table' => $this->getResource()->getMainStoreTable($this->getStoreId())],
+            ['entity_id', 'level', 'path', 'position', 'is_active', 'is_anchor'],
+        );
+        return $this;
+    }
+
+    /**
+     * Retrieves store_id from current store
+     *
+     * @return int
+     */
+    protected function _getCurrentStoreId()
+    {
+        return (int) Mage::app()->getStore()->getId();
     }
 }

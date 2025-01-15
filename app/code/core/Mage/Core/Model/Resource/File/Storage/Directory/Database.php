@@ -23,14 +23,6 @@
 class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core_Model_Resource_File_Storage_Abstract
 {
     /**
-     * Define table name and id field for resource
-     */
-    protected function _construct()
-    {
-        $this->_init('core/directory_storage', 'directory_id');
-    }
-
-    /**
      * Create database scheme for storing files
      *
      * @return $this
@@ -216,5 +208,12 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
         $where[] = new Zend_Db_Expr($adapter->prepareSqlCondition('path', ['seq' => $path]));
 
         $adapter->delete($this->getMainTable(), $where);
+    }
+    /**
+     * Define table name and id field for resource
+     */
+    protected function _construct()
+    {
+        $this->_init('core/directory_storage', 'directory_id');
     }
 }

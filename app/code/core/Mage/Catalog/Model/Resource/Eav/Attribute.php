@@ -87,91 +87,6 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      */
     protected static $_labels                   = null;
 
-    protected function _construct()
-    {
-        $this->_init('catalog/attribute');
-    }
-
-    /**
-     * Processing object before save data
-     *
-     * @throws Mage_Core_Exception
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _beforeSave()
-    {
-        $this->setData('modulePrefix', self::MODULE_NAME);
-        if (isset($this->_origData['is_global'])) {
-            if (!isset($this->_data['is_global'])) {
-                $this->_data['is_global'] = self::SCOPE_GLOBAL;
-            }
-            if (($this->_data['is_global'] != $this->_origData['is_global'])
-                && $this->_getResource()->isUsedBySuperProducts($this)
-            ) {
-                Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
-            }
-        }
-        if ($this->getFrontendInput() == 'price') {
-            if (!$this->getBackendModel()) {
-                $this->setBackendModel('catalog/product_attribute_backend_price');
-            }
-        }
-        if ($this->getFrontendInput() == 'textarea') {
-            if ($this->getIsWysiwygEnabled()) {
-                $this->setIsHtmlAllowedOnFront(1);
-            }
-        }
-        return parent::_beforeSave();
-    }
-
-    /**
-     * Processing object after save data
-     *
-     * @inheritDoc
-     */
-    protected function _afterSave()
-    {
-        /**
-         * Fix saving attribute in admin
-         */
-        Mage::getSingleton('eav/config')->clear();
-
-        return parent::_afterSave();
-    }
-
-    /**
-     * Register indexing event before delete catalog eav attribute
-     *
-     * @inheritDoc
-     */
-    protected function _beforeDelete()
-    {
-        if ($this->_getResource()->isUsedBySuperProducts($this)) {
-            Mage::throwException(Mage::helper('catalog')->__('This attribute is used in configurable products.'));
-        }
-        Mage::getSingleton('index/indexer')->logEvent(
-            $this,
-            self::ENTITY,
-            Mage_Index_Model_Event::TYPE_DELETE,
-        );
-        return parent::_beforeDelete();
-    }
-
-    /**
-     * Init indexing process after catalog eav attribute delete commit
-     *
-     * @return $this
-     */
-    protected function _afterDeleteCommit()
-    {
-        parent::_afterDeleteCommit();
-        Mage::getSingleton('index/indexer')->indexEvents(
-            self::ENTITY,
-            Mage_Index_Model_Event::TYPE_DELETE,
-        );
-        return $this;
-    }
-
     /**
      * Return is attribute global
      *
@@ -293,17 +208,6 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     }
 
     /**
-     * Get Attribute translated label for store
-     *
-     * @deprecated
-     * @return string
-     */
-    protected function _getLabelForStore()
-    {
-        return $this->getFrontendLabel();
-    }
-
-    /**
      * Initialize store Labels for attributes
      *
      * @deprecated
@@ -399,5 +303,101 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
 
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/attribute');
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @throws Mage_Core_Exception
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _beforeSave()
+    {
+        $this->setData('modulePrefix', self::MODULE_NAME);
+        if (isset($this->_origData['is_global'])) {
+            if (!isset($this->_data['is_global'])) {
+                $this->_data['is_global'] = self::SCOPE_GLOBAL;
+            }
+            if (($this->_data['is_global'] != $this->_origData['is_global'])
+                && $this->_getResource()->isUsedBySuperProducts($this)
+            ) {
+                Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
+            }
+        }
+        if ($this->getFrontendInput() == 'price') {
+            if (!$this->getBackendModel()) {
+                $this->setBackendModel('catalog/product_attribute_backend_price');
+            }
+        }
+        if ($this->getFrontendInput() == 'textarea') {
+            if ($this->getIsWysiwygEnabled()) {
+                $this->setIsHtmlAllowedOnFront(1);
+            }
+        }
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Processing object after save data
+     *
+     * @inheritDoc
+     */
+    protected function _afterSave()
+    {
+        /**
+         * Fix saving attribute in admin
+         */
+        Mage::getSingleton('eav/config')->clear();
+
+        return parent::_afterSave();
+    }
+
+    /**
+     * Register indexing event before delete catalog eav attribute
+     *
+     * @inheritDoc
+     */
+    protected function _beforeDelete()
+    {
+        if ($this->_getResource()->isUsedBySuperProducts($this)) {
+            Mage::throwException(Mage::helper('catalog')->__('This attribute is used in configurable products.'));
+        }
+        Mage::getSingleton('index/indexer')->logEvent(
+            $this,
+            self::ENTITY,
+            Mage_Index_Model_Event::TYPE_DELETE,
+        );
+        return parent::_beforeDelete();
+    }
+
+    /**
+     * Init indexing process after catalog eav attribute delete commit
+     *
+     * @return $this
+     */
+    protected function _afterDeleteCommit()
+    {
+        parent::_afterDeleteCommit();
+        Mage::getSingleton('index/indexer')->indexEvents(
+            self::ENTITY,
+            Mage_Index_Model_Event::TYPE_DELETE,
+        );
+        return $this;
+    }
+
+    /**
+     * Get Attribute translated label for store
+     *
+     * @deprecated
+     * @return string
+     */
+    protected function _getLabelForStore()
+    {
+        return $this->getFrontendLabel();
     }
 }

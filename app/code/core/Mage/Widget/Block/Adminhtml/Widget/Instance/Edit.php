@@ -22,14 +22,6 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_objectId = 'instance_id';
-        $this->_blockGroup = 'widget';
-        $this->_controller = 'adminhtml_widget_instance';
-    }
-
     /**
      * Getter
      *
@@ -38,30 +30,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
     public function getWidgetInstance()
     {
         return Mage::registry('current_widget_instance');
-    }
-
-    /**
-     * Prepare layout.
-     * Adding save_and_continue button
-     *
-     * @inheritDoc
-     */
-    protected function _preparelayout()
-    {
-        if ($this->getWidgetInstance()->isCompleteToCreate()) {
-            $this->_addButton(
-                'save_and_edit_button',
-                [
-                    'label'     => Mage::helper('widget')->__('Save and Continue Edit'),
-                    'class'     => 'save',
-                    'onclick'   => 'saveAndContinueEdit()',
-                ],
-                100,
-            );
-        } else {
-            $this->removeButton('save');
-        }
-        return parent::_prepareLayout();
     }
 
     /**
@@ -95,5 +63,36 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
     public function getSaveUrl()
     {
         return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_objectId = 'instance_id';
+        $this->_blockGroup = 'widget';
+        $this->_controller = 'adminhtml_widget_instance';
+    }
+
+    /**
+     * Prepare layout.
+     * Adding save_and_continue button
+     *
+     * @inheritDoc
+     */
+    protected function _preparelayout()
+    {
+        if ($this->getWidgetInstance()->isCompleteToCreate()) {
+            $this->_addButton(
+                'save_and_edit_button',
+                [
+                    'label'     => Mage::helper('widget')->__('Save and Continue Edit'),
+                    'class'     => 'save',
+                    'onclick'   => 'saveAndContinueEdit()',
+                ],
+                100,
+            );
+        } else {
+            $this->removeButton('save');
+        }
+        return parent::_prepareLayout();
     }
 }

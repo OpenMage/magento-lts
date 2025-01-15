@@ -88,6 +88,470 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     }
 
     /**
+     * Delete children categories of specific category
+     *
+     * @return $this
+     */
+    public function deleteChildren(Varien_Object $object)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $pathField = $adapter->quoteIdentifier('path');
+
+        $select = $adapter->select()
+            ->from($this->getEntityTable(), ['entity_id'])
+            ->where($pathField . ' LIKE :c_path');
+
+        $childrenIds = $adapter->fetchCol($select, ['c_path' => $object->getPath() . '/%']);
+
+        if (!empty($childrenIds)) {
+            $adapter->delete(
+                $this->getEntityTable(),
+                ['entity_id IN (?)' => $childrenIds],
+            );
+        }
+
+        /**
+         * Add deleted children ids to object
+         * This data can be used in after delete event
+         */
+        $object->setDeletedChildrenIds($childrenIds);
+        return $this;
+    }
+
+    /**
+     * Get positions of associated to category products
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return array
+     */
+    public function getProductsPosition($category)
+    {
+        $select = $this->_getWriteAdapter()->select()
+            ->from($this->_categoryProductTable, ['product_id', 'position'])
+            ->where('category_id = :category_id');
+        $bind = ['category_id' => (int) $category->getId()];
+
+        return $this->_getWriteAdapter()->fetchPairs($select, $bind);
+    }
+
+    /**
+     * Get children categories count
+     *
+     * @param int $categoryId
+     * @return string
+     */
+    public function getChildrenCount($categoryId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), 'children_count')
+            ->where('entity_id = :entity_id');
+        $bind = ['entity_id' => $categoryId];
+
+        return $this->_getReadAdapter()->fetchOne($select, $bind);
+    }
+
+    /**
+     * Check if category id exist
+     *
+     * @param int $entityId
+     * @return string
+     */
+    public function checkId($entityId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), 'entity_id')
+            ->where('entity_id = :entity_id');
+        $bind =  ['entity_id' => $entityId];
+
+        return $this->_getReadAdapter()->fetchOne($select, $bind);
+    }
+
+    /**
+     * Check array of category identifiers
+     *
+     * @return array
+     */
+    public function verifyIds(array $ids)
+    {
+        if (empty($ids)) {
+            return [];
+        }
+
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), 'entity_id')
+            ->where('entity_id IN(?)', $ids);
+
+        return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    /**
+     * Get count of active/not active children categories
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @param bool $isActiveFlag
+     * @return string
+     */
+    public function getChildrenAmount($category, $isActiveFlag = true)
+    {
+        $storeId = Mage::app()->getStore()->getId();
+        $attributeId = $this->_getIsActiveAttributeId();
+        $table   = $this->getTable([$this->getEntityTablePrefix(), 'int']);
+        $adapter = $this->_getReadAdapter();
+        $checkSql = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
+
+        $bind = [
+            'attribute_id' => $attributeId,
+            'store_id'     => $storeId,
+            'active_flag'  => $isActiveFlag,
+            'c_path'       => $category->getPath() . '/%',
+        ];
+        $select = $adapter->select()
+            ->from(['m' => $this->getEntityTable()], ['COUNT(m.entity_id)'])
+            ->joinLeft(
+                ['d' => $table],
+                'd.attribute_id = :attribute_id AND d.store_id = 0 AND d.entity_id = m.entity_id',
+                [],
+            )
+            ->joinLeft(
+                ['c' => $table],
+                'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = m.entity_id',
+                [],
+            )
+            ->where('m.path LIKE :c_path')
+            ->where($checkSql . ' = :active_flag');
+
+        return $this->_getReadAdapter()->fetchOne($select, $bind);
+    }
+
+    /**
+     * Return entities where attribute value is
+     *
+     * @param array|int $entityIdsFilter
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param mixed $expectedValue
+     * @return array
+     */
+    public function findWhereAttributeIs($entityIdsFilter, $attribute, $expectedValue)
+    {
+        $bind = [
+            'attribute_id' => $attribute->getId(),
+            'value'        => $expectedValue,
+        ];
+        $select = $this->_getReadAdapter()->select()
+            ->from($attribute->getBackend()->getTable(), ['entity_id'])
+            ->where('attribute_id = :attribute_id')
+            ->where('value = :value')
+            ->where('entity_id IN(?)', $entityIdsFilter);
+
+        return $this->_getReadAdapter()->fetchCol($select, $bind);
+    }
+
+    /**
+     * Get products count in category
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return int
+     */
+    public function getProductCount($category)
+    {
+        $productTable = Mage::getSingleton('core/resource')->getTableName('catalog/category_product');
+
+        $select = $this->getReadConnection()->select()
+            ->from(
+                ['main_table' => $productTable],
+                [new Zend_Db_Expr('COUNT(main_table.product_id)')],
+            )
+            ->where('main_table.category_id = :category_id');
+
+        $bind = ['category_id' => (int) $category->getId()];
+        $counts = $this->getReadConnection()->fetchOne($select, $bind);
+
+        return (int) $counts;
+    }
+
+    /**
+     * Retrieve categories
+     *
+     * @param int $parent
+     * @param int $recursionLevel
+     * @param bool|string $sorted
+     * @param bool $asCollection
+     * @param bool $toLoad
+     * @return Varien_Data_Tree_Node_Collection|Mage_Catalog_Model_Resource_Category_Collection
+     */
+    public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
+    {
+        $tree = Mage::getResourceModel('catalog/category_tree');
+        /** @var Mage_Catalog_Model_Resource_Category_Tree $tree */
+        $nodes = $tree->loadNode($parent)
+            ->loadChildren($recursionLevel)
+            ->getChildren();
+
+        $tree->addCollectionData(null, $sorted, $parent, $toLoad, true);
+
+        if ($asCollection) {
+            return $tree->getCollection();
+        }
+        return $nodes;
+    }
+
+    /**
+     * Return parent categories of category
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return Mage_Catalog_Model_Category[]
+     */
+    public function getParentCategories($category)
+    {
+        $pathIds = array_reverse(explode(',', $category->getPathInStore()));
+        return Mage::getResourceModel('catalog/category_collection')
+            ->setStore(Mage::app()->getStore())
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('url_key')
+            ->addFieldToFilter('entity_id', ['in' => $pathIds])
+            ->addFieldToFilter('is_active', 1)
+            ->load()
+            ->getItems();
+    }
+
+    /**
+     * Return parent category of current category with own custom design settings
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return Mage_Catalog_Model_Category
+     */
+    public function getParentDesignCategory($category)
+    {
+        $pathIds = array_reverse($category->getPathIds());
+        $collection = $category->getCollection()
+            ->setStore(Mage::app()->getStore())
+            ->addAttributeToSelect('custom_design')
+            ->addAttributeToSelect('custom_design_from')
+            ->addAttributeToSelect('custom_design_to')
+            ->addAttributeToSelect('page_layout')
+            ->addAttributeToSelect('custom_layout_update')
+            ->addAttributeToSelect('custom_apply_to_products')
+            ->addFieldToFilter('entity_id', ['in' => $pathIds])
+            ->addAttributeToFilter('custom_use_parent_settings', [['eq' => 0], ['null' => 0]], 'left')
+            ->addFieldToFilter('level', ['neq' => 0])
+            ->setOrder('level', 'DESC')
+            ->load();
+        return $collection->getFirstItem();
+    }
+
+    /**
+     * Return child categories
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return Mage_Catalog_Model_Resource_Category_Collection
+     */
+    public function getChildrenCategories($category)
+    {
+        $collection = $this->_getChildrenCategoriesBase($category);
+        $collection->addAttributeToFilter('is_active', 1)
+            ->addIdFilter($category->getChildren())
+            ->load();
+
+        return $collection;
+    }
+
+    /**
+     * Return children categories lists with inactive
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return Mage_Catalog_Model_Resource_Category_Collection
+     */
+    public function getChildrenCategoriesWithInactive($category)
+    {
+        $collection = $this->_getChildrenCategoriesBase($category);
+        $collection->addFieldToFilter('parent_id', $category->getId());
+
+        return $collection;
+    }
+
+    /**
+     * Return children ids of category
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @param bool $recursive
+     * @return array
+     */
+    public function getChildren($category, $recursive = true)
+    {
+        $attributeId  = (int) $this->_getIsActiveAttributeId();
+        $backendTable = $this->getTable([$this->getEntityTablePrefix(), 'int']);
+        $adapter      = $this->_getReadAdapter();
+        $checkSql     = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
+        $bind = [
+            'attribute_id' => $attributeId,
+            'store_id'     => $category->getStoreId(),
+            'scope'        => 1,
+        ];
+        $select = $this->_getChildrenIdSelect($category, $recursive);
+        $select
+            ->joinLeft(
+                ['d' => $backendTable],
+                'd.attribute_id = :attribute_id AND d.store_id = 0 AND d.entity_id = m.entity_id',
+                [],
+            )
+            ->joinLeft(
+                ['c' => $backendTable],
+                'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = m.entity_id',
+                [],
+            )
+            ->where($checkSql . ' = :scope')
+            ->order('m.position ASC');
+
+        return $adapter->fetchCol($select, $bind);
+    }
+
+    /**
+     * Return IDs of category's children along with inactive categories.
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @param bool $recursive
+     * @return array
+     */
+    public function getChildrenIds($category, $recursive = true)
+    {
+        $select = $this->_getChildrenIdSelect($category, $recursive);
+        return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    /**
+     * Return all children ids of category (with category id)
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return array
+     */
+    public function getAllChildren($category)
+    {
+        $children = $this->getChildren($category);
+        $myId = [$category->getId()];
+
+        return array_merge($myId, $children);
+    }
+
+    /**
+     * Check is category in list of store categories
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return bool
+     */
+    public function isInRootCategoryList($category)
+    {
+        $rootCategoryId = Mage::app()->getStore()->getRootCategoryId();
+
+        return in_array($rootCategoryId, $category->getParentIds());
+    }
+
+    /**
+     * Check category is forbidden to delete.
+     * If category is root and assigned to store group return false
+     *
+     * @param int $categoryId
+     * @return bool
+     */
+    public function isForbiddenToDelete($categoryId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('core/store_group'), ['group_id'])
+            ->where('root_category_id = :root_category_id');
+        $result = $this->_getReadAdapter()->fetchOne($select, ['root_category_id' => $categoryId]);
+
+        if ($result) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get category path value by its id
+     *
+     * @param int $categoryId
+     * @return string
+     */
+    public function getCategoryPathById($categoryId)
+    {
+        $select = $this->getReadConnection()->select()
+            ->from($this->getEntityTable(), ['path'])
+            ->where('entity_id = :entity_id');
+        $bind = ['entity_id' => (int) $categoryId];
+
+        return $this->getReadConnection()->fetchOne($select, $bind);
+    }
+
+    /**
+     * Move category to another parent node
+     *
+     * @param null|int $afterCategoryId
+     * @return $this
+     */
+    public function changeParent(
+        Mage_Catalog_Model_Category $category,
+        Mage_Catalog_Model_Category $newParent,
+        $afterCategoryId = null
+    ) {
+        $childrenCount  = (int) $this->getChildrenCount($category->getId()) + 1;
+        $table          = $this->getEntityTable();
+        $adapter        = $this->_getWriteAdapter();
+        $levelFiled     = $adapter->quoteIdentifier('level');
+        $pathField      = $adapter->quoteIdentifier('path');
+
+        /**
+         * Decrease children count for all old category parent categories
+         */
+        $adapter->update(
+            $table,
+            ['children_count' => new Zend_Db_Expr('children_count - ' . $childrenCount)],
+            ['entity_id IN(?)' => $category->getParentIds()],
+        );
+
+        /**
+         * Increase children count for new category parents
+         */
+        $adapter->update(
+            $table,
+            ['children_count' => new Zend_Db_Expr('children_count + ' . $childrenCount)],
+            ['entity_id IN(?)' => $newParent->getPathIds()],
+        );
+
+        $position = $this->_processPositions($category, $newParent, $afterCategoryId);
+
+        $newPath          = sprintf('%s/%s', $newParent->getPath(), $category->getId());
+        $newLevel         = $newParent->getLevel() + 1;
+        $levelDisposition = $newLevel - $category->getLevel();
+
+        /**
+         * Update children nodes path
+         */
+        $adapter->update(
+            $table,
+            [
+                'path' => new Zend_Db_Expr('REPLACE(' . $pathField . ',' .
+                    $adapter->quote($category->getPath() . '/') . ', ' . $adapter->quote($newPath . '/') . ')'),
+                'level' => new Zend_Db_Expr($levelFiled . ' + ' . $levelDisposition),
+            ],
+            [$pathField . ' LIKE ?' => $category->getPath() . '/%'],
+        );
+        /**
+         * Update moved category data
+         */
+        $data = [
+            'path'      => $newPath,
+            'level'     => $newLevel,
+            'position'  => $position,
+            'parent_id' => $newParent->getId(),
+        ];
+        $adapter->update($table, $data, ['entity_id = ?' => $category->getId()]);
+
+        // Update category object to new data
+        $category->addData($data);
+
+        return $this;
+    }
+
+    /**
      * Retrieve category tree object
      *
      * @return Varien_Data_Tree_Db
@@ -123,37 +587,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $this->_getWriteAdapter()->update($this->getEntityTable(), $data, $where);
         }
         $this->deleteChildren($object);
-        return $this;
-    }
-
-    /**
-     * Delete children categories of specific category
-     *
-     * @return $this
-     */
-    public function deleteChildren(Varien_Object $object)
-    {
-        $adapter = $this->_getWriteAdapter();
-        $pathField = $adapter->quoteIdentifier('path');
-
-        $select = $adapter->select()
-            ->from($this->getEntityTable(), ['entity_id'])
-            ->where($pathField . ' LIKE :c_path');
-
-        $childrenIds = $adapter->fetchCol($select, ['c_path' => $object->getPath() . '/%']);
-
-        if (!empty($childrenIds)) {
-            $adapter->delete(
-                $this->getEntityTable(),
-                ['entity_id IN (?)' => $childrenIds],
-            );
-        }
-
-        /**
-         * Add deleted children ids to object
-         * This data can be used in after delete event
-         */
-        $object->setDeletedChildrenIds($childrenIds);
         return $this;
     }
 
@@ -361,111 +794,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     }
 
     /**
-     * Get positions of associated to category products
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @return array
-     */
-    public function getProductsPosition($category)
-    {
-        $select = $this->_getWriteAdapter()->select()
-            ->from($this->_categoryProductTable, ['product_id', 'position'])
-            ->where('category_id = :category_id');
-        $bind = ['category_id' => (int) $category->getId()];
-
-        return $this->_getWriteAdapter()->fetchPairs($select, $bind);
-    }
-
-    /**
-     * Get children categories count
-     *
-     * @param int $categoryId
-     * @return string
-     */
-    public function getChildrenCount($categoryId)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getEntityTable(), 'children_count')
-            ->where('entity_id = :entity_id');
-        $bind = ['entity_id' => $categoryId];
-
-        return $this->_getReadAdapter()->fetchOne($select, $bind);
-    }
-
-    /**
-     * Check if category id exist
-     *
-     * @param int $entityId
-     * @return string
-     */
-    public function checkId($entityId)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getEntityTable(), 'entity_id')
-            ->where('entity_id = :entity_id');
-        $bind =  ['entity_id' => $entityId];
-
-        return $this->_getReadAdapter()->fetchOne($select, $bind);
-    }
-
-    /**
-     * Check array of category identifiers
-     *
-     * @return array
-     */
-    public function verifyIds(array $ids)
-    {
-        if (empty($ids)) {
-            return [];
-        }
-
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getEntityTable(), 'entity_id')
-            ->where('entity_id IN(?)', $ids);
-
-        return $this->_getReadAdapter()->fetchCol($select);
-    }
-
-    /**
-     * Get count of active/not active children categories
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @param bool $isActiveFlag
-     * @return string
-     */
-    public function getChildrenAmount($category, $isActiveFlag = true)
-    {
-        $storeId = Mage::app()->getStore()->getId();
-        $attributeId = $this->_getIsActiveAttributeId();
-        $table   = $this->getTable([$this->getEntityTablePrefix(), 'int']);
-        $adapter = $this->_getReadAdapter();
-        $checkSql = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
-
-        $bind = [
-            'attribute_id' => $attributeId,
-            'store_id'     => $storeId,
-            'active_flag'  => $isActiveFlag,
-            'c_path'       => $category->getPath() . '/%',
-        ];
-        $select = $adapter->select()
-            ->from(['m' => $this->getEntityTable()], ['COUNT(m.entity_id)'])
-            ->joinLeft(
-                ['d' => $table],
-                'd.attribute_id = :attribute_id AND d.store_id = 0 AND d.entity_id = m.entity_id',
-                [],
-            )
-            ->joinLeft(
-                ['c' => $table],
-                'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = m.entity_id',
-                [],
-            )
-            ->where('m.path LIKE :c_path')
-            ->where($checkSql . ' = :active_flag');
-
-        return $this->_getReadAdapter()->fetchOne($select, $bind);
-    }
-
-    /**
      * Get "is_active" attribute identifier
      *
      * @return int
@@ -483,122 +811,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         }
 
         return $this->_isActiveAttributeId;
-    }
-
-    /**
-     * Return entities where attribute value is
-     *
-     * @param array|int $entityIdsFilter
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param mixed $expectedValue
-     * @return array
-     */
-    public function findWhereAttributeIs($entityIdsFilter, $attribute, $expectedValue)
-    {
-        $bind = [
-            'attribute_id' => $attribute->getId(),
-            'value'        => $expectedValue,
-        ];
-        $select = $this->_getReadAdapter()->select()
-            ->from($attribute->getBackend()->getTable(), ['entity_id'])
-            ->where('attribute_id = :attribute_id')
-            ->where('value = :value')
-            ->where('entity_id IN(?)', $entityIdsFilter);
-
-        return $this->_getReadAdapter()->fetchCol($select, $bind);
-    }
-
-    /**
-     * Get products count in category
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @return int
-     */
-    public function getProductCount($category)
-    {
-        $productTable = Mage::getSingleton('core/resource')->getTableName('catalog/category_product');
-
-        $select = $this->getReadConnection()->select()
-            ->from(
-                ['main_table' => $productTable],
-                [new Zend_Db_Expr('COUNT(main_table.product_id)')],
-            )
-            ->where('main_table.category_id = :category_id');
-
-        $bind = ['category_id' => (int) $category->getId()];
-        $counts = $this->getReadConnection()->fetchOne($select, $bind);
-
-        return (int) $counts;
-    }
-
-    /**
-     * Retrieve categories
-     *
-     * @param int $parent
-     * @param int $recursionLevel
-     * @param bool|string $sorted
-     * @param bool $asCollection
-     * @param bool $toLoad
-     * @return Varien_Data_Tree_Node_Collection|Mage_Catalog_Model_Resource_Category_Collection
-     */
-    public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
-    {
-        $tree = Mage::getResourceModel('catalog/category_tree');
-        /** @var Mage_Catalog_Model_Resource_Category_Tree $tree */
-        $nodes = $tree->loadNode($parent)
-            ->loadChildren($recursionLevel)
-            ->getChildren();
-
-        $tree->addCollectionData(null, $sorted, $parent, $toLoad, true);
-
-        if ($asCollection) {
-            return $tree->getCollection();
-        }
-        return $nodes;
-    }
-
-    /**
-     * Return parent categories of category
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @return Mage_Catalog_Model_Category[]
-     */
-    public function getParentCategories($category)
-    {
-        $pathIds = array_reverse(explode(',', $category->getPathInStore()));
-        return Mage::getResourceModel('catalog/category_collection')
-            ->setStore(Mage::app()->getStore())
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('url_key')
-            ->addFieldToFilter('entity_id', ['in' => $pathIds])
-            ->addFieldToFilter('is_active', 1)
-            ->load()
-            ->getItems();
-    }
-
-    /**
-     * Return parent category of current category with own custom design settings
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @return Mage_Catalog_Model_Category
-     */
-    public function getParentDesignCategory($category)
-    {
-        $pathIds = array_reverse($category->getPathIds());
-        $collection = $category->getCollection()
-            ->setStore(Mage::app()->getStore())
-            ->addAttributeToSelect('custom_design')
-            ->addAttributeToSelect('custom_design_from')
-            ->addAttributeToSelect('custom_design_to')
-            ->addAttributeToSelect('page_layout')
-            ->addAttributeToSelect('custom_layout_update')
-            ->addAttributeToSelect('custom_apply_to_products')
-            ->addFieldToFilter('entity_id', ['in' => $pathIds])
-            ->addAttributeToFilter('custom_use_parent_settings', [['eq' => 0], ['null' => 0]], 'left')
-            ->addFieldToFilter('level', ['neq' => 0])
-            ->setOrder('level', 'DESC')
-            ->load();
-        return $collection->getFirstItem();
     }
 
     /**
@@ -621,36 +833,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     }
 
     /**
-     * Return child categories
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @return Mage_Catalog_Model_Resource_Category_Collection
-     */
-    public function getChildrenCategories($category)
-    {
-        $collection = $this->_getChildrenCategoriesBase($category);
-        $collection->addAttributeToFilter('is_active', 1)
-            ->addIdFilter($category->getChildren())
-            ->load();
-
-        return $collection;
-    }
-
-    /**
-     * Return children categories lists with inactive
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @return Mage_Catalog_Model_Resource_Category_Collection
-     */
-    public function getChildrenCategoriesWithInactive($category)
-    {
-        $collection = $this->_getChildrenCategoriesBase($category);
-        $collection->addFieldToFilter('parent_id', $category->getId());
-
-        return $collection;
-    }
-
-    /**
      * Returns select for category's children.
      *
      * @param Mage_Catalog_Model_Category $category
@@ -668,188 +850,6 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $select->where($adapter->quoteIdentifier('level') . ' <= ?', $category->getLevel() + 1);
         }
         return $select;
-    }
-
-    /**
-     * Return children ids of category
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @param bool $recursive
-     * @return array
-     */
-    public function getChildren($category, $recursive = true)
-    {
-        $attributeId  = (int) $this->_getIsActiveAttributeId();
-        $backendTable = $this->getTable([$this->getEntityTablePrefix(), 'int']);
-        $adapter      = $this->_getReadAdapter();
-        $checkSql     = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
-        $bind = [
-            'attribute_id' => $attributeId,
-            'store_id'     => $category->getStoreId(),
-            'scope'        => 1,
-        ];
-        $select = $this->_getChildrenIdSelect($category, $recursive);
-        $select
-            ->joinLeft(
-                ['d' => $backendTable],
-                'd.attribute_id = :attribute_id AND d.store_id = 0 AND d.entity_id = m.entity_id',
-                [],
-            )
-            ->joinLeft(
-                ['c' => $backendTable],
-                'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = m.entity_id',
-                [],
-            )
-            ->where($checkSql . ' = :scope')
-            ->order('m.position ASC');
-
-        return $adapter->fetchCol($select, $bind);
-    }
-
-    /**
-     * Return IDs of category's children along with inactive categories.
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @param bool $recursive
-     * @return array
-     */
-    public function getChildrenIds($category, $recursive = true)
-    {
-        $select = $this->_getChildrenIdSelect($category, $recursive);
-        return $this->_getReadAdapter()->fetchCol($select);
-    }
-
-    /**
-     * Return all children ids of category (with category id)
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @return array
-     */
-    public function getAllChildren($category)
-    {
-        $children = $this->getChildren($category);
-        $myId = [$category->getId()];
-
-        return array_merge($myId, $children);
-    }
-
-    /**
-     * Check is category in list of store categories
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @return bool
-     */
-    public function isInRootCategoryList($category)
-    {
-        $rootCategoryId = Mage::app()->getStore()->getRootCategoryId();
-
-        return in_array($rootCategoryId, $category->getParentIds());
-    }
-
-    /**
-     * Check category is forbidden to delete.
-     * If category is root and assigned to store group return false
-     *
-     * @param int $categoryId
-     * @return bool
-     */
-    public function isForbiddenToDelete($categoryId)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('core/store_group'), ['group_id'])
-            ->where('root_category_id = :root_category_id');
-        $result = $this->_getReadAdapter()->fetchOne($select, ['root_category_id' => $categoryId]);
-
-        if ($result) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Get category path value by its id
-     *
-     * @param int $categoryId
-     * @return string
-     */
-    public function getCategoryPathById($categoryId)
-    {
-        $select = $this->getReadConnection()->select()
-            ->from($this->getEntityTable(), ['path'])
-            ->where('entity_id = :entity_id');
-        $bind = ['entity_id' => (int) $categoryId];
-
-        return $this->getReadConnection()->fetchOne($select, $bind);
-    }
-
-    /**
-     * Move category to another parent node
-     *
-     * @param null|int $afterCategoryId
-     * @return $this
-     */
-    public function changeParent(
-        Mage_Catalog_Model_Category $category,
-        Mage_Catalog_Model_Category $newParent,
-        $afterCategoryId = null
-    ) {
-        $childrenCount  = (int) $this->getChildrenCount($category->getId()) + 1;
-        $table          = $this->getEntityTable();
-        $adapter        = $this->_getWriteAdapter();
-        $levelFiled     = $adapter->quoteIdentifier('level');
-        $pathField      = $adapter->quoteIdentifier('path');
-
-        /**
-         * Decrease children count for all old category parent categories
-         */
-        $adapter->update(
-            $table,
-            ['children_count' => new Zend_Db_Expr('children_count - ' . $childrenCount)],
-            ['entity_id IN(?)' => $category->getParentIds()],
-        );
-
-        /**
-         * Increase children count for new category parents
-         */
-        $adapter->update(
-            $table,
-            ['children_count' => new Zend_Db_Expr('children_count + ' . $childrenCount)],
-            ['entity_id IN(?)' => $newParent->getPathIds()],
-        );
-
-        $position = $this->_processPositions($category, $newParent, $afterCategoryId);
-
-        $newPath          = sprintf('%s/%s', $newParent->getPath(), $category->getId());
-        $newLevel         = $newParent->getLevel() + 1;
-        $levelDisposition = $newLevel - $category->getLevel();
-
-        /**
-         * Update children nodes path
-         */
-        $adapter->update(
-            $table,
-            [
-                'path' => new Zend_Db_Expr('REPLACE(' . $pathField . ',' .
-                    $adapter->quote($category->getPath() . '/') . ', ' . $adapter->quote($newPath . '/') . ')'),
-                'level' => new Zend_Db_Expr($levelFiled . ' + ' . $levelDisposition),
-            ],
-            [$pathField . ' LIKE ?' => $category->getPath() . '/%'],
-        );
-        /**
-         * Update moved category data
-         */
-        $data = [
-            'path'      => $newPath,
-            'level'     => $newLevel,
-            'position'  => $position,
-            'parent_id' => $newParent->getId(),
-        ];
-        $adapter->update($table, $data, ['entity_id = ?' => $category->getId()]);
-
-        // Update category object to new data
-        $category->addData($data);
-
-        return $this;
     }
 
     /**

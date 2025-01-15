@@ -60,11 +60,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      */
     protected $_destElementId = 'content';
 
-    protected function _construct()
-    {
-        $this->setTemplate('widget/tabs.phtml');
-    }
-
     /**
      * retrieve destination html element id
      *
@@ -178,93 +173,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             $this->_activeTab = $tabId;
         }
         return $this;
-    }
-
-    /**
-     * Set Active Tab
-     *
-     * @param string $tabId
-     * @return $this
-     */
-    protected function _setActiveTab($tabId)
-    {
-        foreach ($this->_tabs as $id => $tab) {
-            if ($this->getTabId($tab) == $tabId) {
-                $this->_activeTab = $id;
-                $tab->setActive(true);
-                return $this;
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _beforeToHtml()
-    {
-        Mage::dispatchEvent('adminhtml_block_widget_tabs_html_before', ['block' => $this]);
-        if ($activeTab = $this->getRequest()->getParam('active_tab')) {
-            $this->setActiveTab($activeTab);
-        } elseif ($activeTabId = Mage::getSingleton('admin/session')->getActiveTabId()) {
-            $this->_setActiveTab($activeTabId);
-        }
-
-        if ($this->_activeTab === null && !empty($this->_tabs)) {
-            $this->_activeTab = (reset($this->_tabs))->getId();
-        }
-
-        if (!empty($this->_afterTabIds)) {
-            $this->_tabs = $this->_reorderTabs();
-        }
-
-        $this->assign('tabs', $this->_tabs);
-        return parent::_beforeToHtml();
-    }
-
-    /**
-     * Find the root parent Tab ID recursively.
-     *
-     * @param string $currentAfterTabId
-     * @param int $degree Degrees of separation between child and root parent.
-     * @return string The parent tab ID.
-     */
-    protected function _getRootParentTabId($currentAfterTabId, &$degree)
-    {
-        if (array_key_exists($currentAfterTabId, $this->_afterTabIds)) {
-            $degree++;
-            return $this->_getRootParentTabId($this->_afterTabIds[$currentAfterTabId], $degree);
-        } else {
-            return $currentAfterTabId;
-        }
-    }
-
-    /**
-     * @return array
-     */
-    protected function _reorderTabs()
-    {
-        // Set new position based on $afterTabId.
-        foreach ($this->_afterTabIds as $tabId => $afterTabId) {
-            if (array_key_exists($afterTabId, $this->_tabs)) {
-                $degree = 1; // Initialize to 1 degree of separation.
-                $parentAfterTabId = $this->_getRootParentTabId($afterTabId, $degree);
-                $this->_tabPositions[$tabId] = $this->_tabPositions[$parentAfterTabId] + $degree;
-                $degree++;
-            }
-        }
-
-        asort($this->_tabPositions);
-
-        $ordered = [];
-        foreach (array_keys($this->_tabPositions) as $tabId) {
-            if (isset($this->_tabs[$tabId])) {
-                $tab = $this->_tabs[$tabId];
-                $ordered[$tabId] = $tab;
-            }
-        }
-
-        return $ordered;
     }
 
     /**
@@ -485,5 +393,97 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             unset($this->_tabs[$tabId]);
         }
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->setTemplate('widget/tabs.phtml');
+    }
+
+    /**
+     * Set Active Tab
+     *
+     * @param string $tabId
+     * @return $this
+     */
+    protected function _setActiveTab($tabId)
+    {
+        foreach ($this->_tabs as $id => $tab) {
+            if ($this->getTabId($tab) == $tabId) {
+                $this->_activeTab = $id;
+                $tab->setActive(true);
+                return $this;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeToHtml()
+    {
+        Mage::dispatchEvent('adminhtml_block_widget_tabs_html_before', ['block' => $this]);
+        if ($activeTab = $this->getRequest()->getParam('active_tab')) {
+            $this->setActiveTab($activeTab);
+        } elseif ($activeTabId = Mage::getSingleton('admin/session')->getActiveTabId()) {
+            $this->_setActiveTab($activeTabId);
+        }
+
+        if ($this->_activeTab === null && !empty($this->_tabs)) {
+            $this->_activeTab = (reset($this->_tabs))->getId();
+        }
+
+        if (!empty($this->_afterTabIds)) {
+            $this->_tabs = $this->_reorderTabs();
+        }
+
+        $this->assign('tabs', $this->_tabs);
+        return parent::_beforeToHtml();
+    }
+
+    /**
+     * Find the root parent Tab ID recursively.
+     *
+     * @param string $currentAfterTabId
+     * @param int $degree Degrees of separation between child and root parent.
+     * @return string The parent tab ID.
+     */
+    protected function _getRootParentTabId($currentAfterTabId, &$degree)
+    {
+        if (array_key_exists($currentAfterTabId, $this->_afterTabIds)) {
+            $degree++;
+            return $this->_getRootParentTabId($this->_afterTabIds[$currentAfterTabId], $degree);
+        } else {
+            return $currentAfterTabId;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    protected function _reorderTabs()
+    {
+        // Set new position based on $afterTabId.
+        foreach ($this->_afterTabIds as $tabId => $afterTabId) {
+            if (array_key_exists($afterTabId, $this->_tabs)) {
+                $degree = 1; // Initialize to 1 degree of separation.
+                $parentAfterTabId = $this->_getRootParentTabId($afterTabId, $degree);
+                $this->_tabPositions[$tabId] = $this->_tabPositions[$parentAfterTabId] + $degree;
+                $degree++;
+            }
+        }
+
+        asort($this->_tabPositions);
+
+        $ordered = [];
+        foreach (array_keys($this->_tabPositions) as $tabId) {
+            if (isset($this->_tabs[$tabId])) {
+                $tab = $this->_tabs[$tabId];
+                $ordered[$tabId] = $tab;
+            }
+        }
+
+        return $ordered;
     }
 }

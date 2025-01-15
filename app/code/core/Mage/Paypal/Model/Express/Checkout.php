@@ -631,20 +631,6 @@ class Mage_Paypal_Model_Express_Checkout
     }
 
     /**
-     * Make sure addresses will be saved without validation errors
-     */
-    private function _ignoreAddressValidation()
-    {
-        $this->_quote->getBillingAddress()->setShouldIgnoreValidation(true);
-        if (!$this->_quote->getIsVirtual()) {
-            $this->_quote->getShippingAddress()->setShouldIgnoreValidation(true);
-            if (!$this->_config->requireBillingAddress && !$this->_quote->getBillingAddress()->getEmail()) {
-                $this->_quote->getBillingAddress()->setSameAsBilling(1);
-            }
-        }
-    }
-
-    /**
      * Determine whether redirect somewhere specifically is required
      *
      * @return string
@@ -702,6 +688,16 @@ class Mage_Paypal_Model_Express_Checkout
             }
         }
         return $this->_quote->getCheckoutMethod();
+    }
+
+    /**
+     * Get customer session object
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    public function getCustomerSession()
+    {
+        return $this->_customerSession;
     }
 
     /**
@@ -1050,16 +1046,6 @@ class Mage_Paypal_Model_Express_Checkout
     }
 
     /**
-     * Get customer session object
-     *
-     * @return Mage_Customer_Model_Session
-     */
-    public function getCustomerSession()
-    {
-        return $this->_customerSession;
-    }
-
-    /**
      * Check if customer email exists
      *
      * @param string $email
@@ -1079,5 +1065,19 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         return $result;
+    }
+
+    /**
+     * Make sure addresses will be saved without validation errors
+     */
+    private function _ignoreAddressValidation()
+    {
+        $this->_quote->getBillingAddress()->setShouldIgnoreValidation(true);
+        if (!$this->_quote->getIsVirtual()) {
+            $this->_quote->getShippingAddress()->setShouldIgnoreValidation(true);
+            if (!$this->_config->requireBillingAddress && !$this->_quote->getBillingAddress()->getEmail()) {
+                $this->_quote->getBillingAddress()->setSameAsBilling(1);
+            }
+        }
     }
 }

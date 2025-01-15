@@ -23,6 +23,15 @@
 class Mage_Adminhtml_Block_Sales_Order_View_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
     /**
+     * Retrieve order items collection
+     *
+     * @return Mage_Sales_Model_Order_Item[]|Mage_Sales_Model_Resource_Order_Item_Collection
+     */
+    public function getItemsCollection()
+    {
+        return $this->getOrder()->getItemsCollection();
+    }
+    /**
      * Retrieve required options from parent
      */
     protected function _beforeToHtml()
@@ -32,15 +41,5 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items extends Mage_Adminhtml_Block_S
         }
         $this->setOrder($this->getParentBlock()->getOrder());
         return parent::_beforeToHtml();
-    }
-
-    /**
-     * Retrieve order items collection
-     *
-     * @return Mage_Sales_Model_Order_Item[]|Mage_Sales_Model_Resource_Order_Item_Collection
-     */
-    public function getItemsCollection()
-    {
-        return $this->getOrder()->getItemsCollection();
     }
 }

@@ -79,20 +79,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Formatting string
-     *
-     * @param string $string
-     * @return string
-     */
-    protected function _prepareString($string)
-    {
-        $string = preg_replace('#[^0-9a-z]+#i', '-', $string);
-        $string = strtolower($string);
-
-        return trim($string, '-');
-    }
-
-    /**
      * Add request parameter into url
      *
      * @param string $url
@@ -155,18 +141,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Return singleton model instance
-     *
-     * @param string $name
-     * @param array $arguments
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _getSingletonModel($name, $arguments = [])
-    {
-        return Mage::getSingleton($name, $arguments);
-    }
-
-    /**
      * Retrieve encoding domain name in punycode
      *
      * @param string $url encode url to Punycode
@@ -199,6 +173,32 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         }
 
         return $url;
+    }
+
+    /**
+     * Formatting string
+     *
+     * @param string $string
+     * @return string
+     */
+    protected function _prepareString($string)
+    {
+        $string = preg_replace('#[^0-9a-z]+#i', '-', $string);
+        $string = strtolower($string);
+
+        return trim($string, '-');
+    }
+
+    /**
+     * Return singleton model instance
+     *
+     * @param string $name
+     * @param array $arguments
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _getSingletonModel($name, $arguments = [])
+    {
+        return Mage::getSingleton($name, $arguments);
     }
 
     /**

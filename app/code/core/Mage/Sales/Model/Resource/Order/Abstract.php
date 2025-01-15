@@ -115,22 +115,6 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     }
 
     /**
-     * Init virtual grid records for entity
-     *
-     * @return $this
-     */
-    protected function _initVirtualGridColumns()
-    {
-        $this->_virtualGridColumns = [];
-        if ($this->_eventPrefix && $this->_eventObject) {
-            Mage::dispatchEvent($this->_eventPrefix . '_init_virtual_grid_columns', [
-                $this->_eventObject => $this,
-            ]);
-        }
-        return $this;
-    }
-
-    /**
      * Update records in grid table
      *
      * @param array|int $ids
@@ -265,42 +249,6 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     }
 
     /**
-     * Before save object attribute
-     *
-     * @param string $attribute
-     * @return $this
-     */
-    protected function _beforeSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)
-    {
-        if ($this->_eventObject && $this->_eventPrefix) {
-            Mage::dispatchEvent($this->_eventPrefix . '_save_attribute_before', [
-                $this->_eventObject => $this,
-                'object' => $object,
-                'attribute' => $attribute,
-            ]);
-        }
-        return $this;
-    }
-
-    /**
-     * After save object attribute
-     *
-     * @param string $attribute
-     * @return $this
-     */
-    protected function _afterSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)
-    {
-        if ($this->_eventObject && $this->_eventPrefix) {
-            Mage::dispatchEvent($this->_eventPrefix . '_save_attribute_after', [
-                $this->_eventObject => $this,
-                'object' => $object,
-                'attribute' => $attribute,
-            ]);
-        }
-        return $this;
-    }
-
-    /**
      * Perform actions after object save
      *
      * @param string|string[]|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
@@ -338,44 +286,6 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
                 $this->rollBack();
                 throw $e;
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Perform actions before object save
-     *
-     * @return $this
-     */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
-    {
-        if ($this->_useIncrementId && !$object->getIncrementId()) {
-            /** @var Mage_Eav_Model_Entity_Type $entityType */
-            $entityType = Mage::getSingleton('eav/config')->getEntityType($this->_entityTypeForIncrementId);
-            $object->setIncrementId($entityType->fetchNewIncrementId($object->getStoreId()));
-        }
-        parent::_beforeSave($object);
-        return $this;
-    }
-
-    /**
-     * Update field in table if model have been already saved
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @param array $data
-     * @return $this
-     */
-    protected function _postSaveFieldsUpdate($object, $data)
-    {
-        if ($object->getId() && !empty($data)) {
-            $table = $this->getMainTable();
-            $this->_getWriteAdapter()->update(
-                $table,
-                $data,
-                [$this->getIdFieldName() . '=?' => (int) $object->getId()],
-            );
-            $object->addData($data);
         }
 
         return $this;
@@ -430,6 +340,96 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
                 $adapter->quoteInto($this->getGridTable() . '.' . $field . ' = ?', $entityId),
             );
         }
+        return $this;
+    }
+
+    /**
+     * Init virtual grid records for entity
+     *
+     * @return $this
+     */
+    protected function _initVirtualGridColumns()
+    {
+        $this->_virtualGridColumns = [];
+        if ($this->_eventPrefix && $this->_eventObject) {
+            Mage::dispatchEvent($this->_eventPrefix . '_init_virtual_grid_columns', [
+                $this->_eventObject => $this,
+            ]);
+        }
+        return $this;
+    }
+
+    /**
+     * Before save object attribute
+     *
+     * @param string $attribute
+     * @return $this
+     */
+    protected function _beforeSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)
+    {
+        if ($this->_eventObject && $this->_eventPrefix) {
+            Mage::dispatchEvent($this->_eventPrefix . '_save_attribute_before', [
+                $this->_eventObject => $this,
+                'object' => $object,
+                'attribute' => $attribute,
+            ]);
+        }
+        return $this;
+    }
+
+    /**
+     * After save object attribute
+     *
+     * @param string $attribute
+     * @return $this
+     */
+    protected function _afterSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)
+    {
+        if ($this->_eventObject && $this->_eventPrefix) {
+            Mage::dispatchEvent($this->_eventPrefix . '_save_attribute_after', [
+                $this->_eventObject => $this,
+                'object' => $object,
+                'attribute' => $attribute,
+            ]);
+        }
+        return $this;
+    }
+
+    /**
+     * Perform actions before object save
+     *
+     * @return $this
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    {
+        if ($this->_useIncrementId && !$object->getIncrementId()) {
+            /** @var Mage_Eav_Model_Entity_Type $entityType */
+            $entityType = Mage::getSingleton('eav/config')->getEntityType($this->_entityTypeForIncrementId);
+            $object->setIncrementId($entityType->fetchNewIncrementId($object->getStoreId()));
+        }
+        parent::_beforeSave($object);
+        return $this;
+    }
+
+    /**
+     * Update field in table if model have been already saved
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @param array $data
+     * @return $this
+     */
+    protected function _postSaveFieldsUpdate($object, $data)
+    {
+        if ($object->getId() && !empty($data)) {
+            $table = $this->getMainTable();
+            $this->_getWriteAdapter()->update(
+                $table,
+                $data,
+                [$this->getIdFieldName() . '=?' => (int) $object->getId()],
+            );
+            $object->addData($data);
+        }
+
         return $this;
     }
 }

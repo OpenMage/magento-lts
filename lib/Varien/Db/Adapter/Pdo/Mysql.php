@@ -213,6 +213,16 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     protected $_queryHook = null;
 
     /**
+     * Check if all transactions have been committed
+     */
+    public function __destruct()
+    {
+        if ($this->_transactionLevel > 0) {
+            trigger_error('Some transactions have not been committed or rolled back', E_USER_ERROR);
+        }
+    }
+
+    /**
      * Begin new DB transaction for connection
      *
      * @return $this
@@ -297,97 +307,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Parse a source hostname and generate a host info
-     * @param $hostName
-     *
-     * @return Varien_Object
-     */
-    protected function _getHostInfo($hostName)
-    {
-        $hostInfo = new Varien_Object();
-        $matches = [];
-        if (str_contains($hostName, '/')) {
-            $hostInfo->setAddressType(self::ADDRESS_TYPE_UNIX_SOCKET)
-                ->setUnixSocket($hostName);
-        } elseif (preg_match('/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i', $hostName, $matches)) {
-            $hostName = $matches[1];
-            $hostName .= $matches[6] ?? '';
-            $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
-                ->setHostName($hostName)
-                ->setPort($matches[8] ?? null);
-        } elseif (preg_match('/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i', $hostName, $matches)) {
-            $hostName = $matches[1];
-            $hostName .= $matches[6] ?? '';
-            $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
-                ->setHostName($hostName);
-        } elseif (str_contains($hostName, ':')) {
-            list($hostAddress, $hostPort) = explode(':', $hostName);
-            $hostInfo->setAddressType(
-                filter_var($hostAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
-                    ? self::ADDRESS_TYPE_IPV4_ADDRESS
-                    : self::ADDRESS_TYPE_HOSTNAME,
-            )->setHostName($hostAddress)
-                ->setPort($hostPort);
-        } else {
-            $hostInfo->setAddressType(
-                filter_var($hostName, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
-                    ? self::ADDRESS_TYPE_IPV4_ADDRESS
-                    : self::ADDRESS_TYPE_HOSTNAME,
-            )->setHostName($hostName);
-        }
-
-        return $hostInfo;
-    }
-
-    /**
-     * Creates a PDO object and connects to the database.
-     *
-     * @throws Zend_Db_Adapter_Exception
-     */
-    protected function _connect()
-    {
-        if ($this->_connection) {
-            return;
-        }
-
-        if (!extension_loaded('pdo_mysql')) {
-            throw new Zend_Db_Adapter_Exception('pdo_mysql extension is not installed');
-        }
-
-        $hostInfo = $this->_getHostInfo($this->_config['host'] ?? $this->_config['unix_socket'] ?? null);
-
-        switch ($hostInfo->getAddressType()) {
-            case self::ADDRESS_TYPE_UNIX_SOCKET:
-                $this->_config['unix_socket'] = $hostInfo->getUnixSocket();
-                unset($this->_config['host']);
-                break;
-            case self::ADDRESS_TYPE_IPV6_ADDRESS: // break intentionally omitted
-            case self::ADDRESS_TYPE_IPV4_ADDRESS: // break intentionally omitted
-            case self::ADDRESS_TYPE_HOSTNAME:
-                $this->_config['host'] = $hostInfo->getHostName();
-                if ($hostInfo->getPort()) {
-                    $this->_config['port'] = $hostInfo->getPort();
-                }
-                break;
-            default:
-                break;
-        }
-
-        $this->_debugTimer();
-        parent::_connect();
-        $this->_debugStat(self::DEBUG_CONNECT, '');
-
-        /** @link http://bugs.mysql.com/bug.php?id=18551 */
-        $this->_connection->query("SET SQL_MODE=''");
-
-        if (!$this->_connectionFlagsSet) {
-            $this->_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
-            $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-            $this->_connectionFlagsSet = true;
-        }
-    }
-
-    /**
      * Run RAW Query
      *
      * @param string $sql
@@ -452,24 +371,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Check transaction level in case of DDL query
-     *
-     * @param string|Zend_Db_Select $sql
-     * @throws Zend_Db_Adapter_Exception
-     */
-    protected function _checkDdlTransaction($sql)
-    {
-        if (is_string($sql) && $this->getTransactionLevel() > 0) {
-            $startSql = strtolower(substr(ltrim($sql), 0, 3));
-            if (in_array($startSql, $this->_ddlRoutines)
-                && (preg_match($this->_tempRoutines, $sql) !== 1)
-            ) {
-                trigger_error(Varien_Db_Adapter_Interface::ERROR_DDL_MESSAGE, E_USER_ERROR);
-            }
-        }
-    }
-
-    /**
      * Special handling for PDO query().
      * All bind parameter names must begin with ':'.
      *
@@ -507,47 +408,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Prepares SQL query by moving to bind all special parameters that can be confused with bind placeholders
-     * (e.g. "foo:bar"). And also changes named bind to positional one, because underlying library has problems
-     * with named binds.
-     *
-     * @param Zend_Db_Select|string $sql
-     * @param-out string $sql
-     * @param mixed $bind
-     * @return $this
-     */
-    protected function _prepareQuery(&$sql, &$bind = [])
-    {
-        $sql = (string) $sql;
-        if (!is_array($bind)) {
-            $bind = [$bind];
-        }
-
-        // Mixed bind is not supported - so remember whether it is named bind, to normalize later if required
-        $isNamedBind = false;
-        if ($bind) {
-            foreach ($bind as $k => $v) {
-                if (!is_int($k)) {
-                    $isNamedBind = true;
-                    if ($k[0] != ':') {
-                        $bind[":{$k}"] = $v;
-                        unset($bind[$k]);
-                    }
-                }
-            }
-        }
-
-        // Special query hook
-        if ($this->_queryHook) {
-            $object = $this->_queryHook['object'];
-            $method = $this->_queryHook['method'];
-            $object->$method($sql, $bind);
-        }
-
-        return $this;
-    }
-
-    /**
      * Callback function for preparation of query and bind by regexp.
      * Checks query parameters for special symbols and moves such parameters to bind array as named ones.
      * This method writes to $_bindParams, where query bind parameters are kept.
@@ -570,80 +430,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             return ' ' . $bindName;
         }
         return $matches[0];
-    }
-
-    /**
-     * Unquote raw string (use for auto-bind)
-     *
-     * @param string $string
-     * @return string
-     */
-    protected function _unQuote($string)
-    {
-        $translate = [
-            '\\000' => "\000",
-            '\\n'   => "\n",
-            '\\r'   => "\r",
-            '\\\\'  => '\\',
-            "\'"    => "'",
-            '\\"'  => '"',
-            '\\032' => "\032",
-        ];
-        return strtr($string, $translate);
-    }
-
-    /**
-     * Normalizes mixed positional-named bind to positional bind, and replaces named placeholders in query to
-     * '?' placeholders.
-     *
-     * @param string $sql
-     * @param array $bind
-     * @return $this
-     */
-    protected function _convertMixedBind(&$sql, &$bind)
-    {
-        $positions  = [];
-        $offset     = 0;
-        // get positions
-        while (true) {
-            $pos = strpos($sql, '?', $offset);
-            if ($pos !== false) {
-                $positions[] = $pos;
-                $offset      = ++$pos;
-            } else {
-                break;
-            }
-        }
-
-        $bindResult = [];
-        $map = [];
-        foreach ($bind as $k => $v) {
-            // positional
-            if (is_int($k)) {
-                if (!isset($positions[$k])) {
-                    continue;
-                }
-                $bindResult[$positions[$k]] = $v;
-            } else {
-                $offset = 0;
-                while (true) {
-                    $pos = strpos($sql, $k, $offset);
-                    if ($pos === false) {
-                        break;
-                    } else {
-                        $offset = $pos + strlen($k);
-                        $bindResult[$pos] = $v;
-                    }
-                }
-                $map[$k] = '?';
-            }
-        }
-
-        ksort($bindResult);
-        $bind = array_values($bindResult);
-        $sql = strtr($sql, $map);
-
-        return $this;
     }
 
     /**
@@ -701,67 +487,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $this->resetDdlCache();
 
         return $result;
-    }
-
-    /**
-     * Split multi statement query
-     *
-     * @param string $sql
-     * @return array
-     */
-    protected function _splitMultiQuery($sql)
-    {
-        $parts = preg_split(
-            '#(;|\'|"|\\\\|//|--|\n|/\*|\*/)#',
-            $sql,
-            -1,
-            PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE,
-        );
-
-        $q      = false;
-        $c      = false;
-        $stmts  = [];
-        $s      = '';
-
-        foreach ($parts as $i => $part) {
-            // strings
-            if (($part === "'" || $part === '"') && ($i === 0 || $parts[$i - 1] !== '\\')) {
-                if ($q === false) {
-                    $q = $part;
-                } elseif ($q === $part) {
-                    $q = false;
-                }
-            }
-
-            // single line comments
-            if (($part === '//' || $part === '--') && ($i === 0 || $parts[$i - 1] === "\n")) {
-                $c = $part;
-            } elseif ($part === "\n" && ($c === '//' || $c === '--')) {
-                $c = false;
-            }
-
-            // multi line comments
-            if ($part === '/*' && $c === false) {
-                $c = '/*';
-            } elseif ($part === '*/' && $c === '/*') {
-                $c = false;
-            }
-
-            // statements
-            if ($part === ';' && $q === false && $c === false) {
-                if (trim($s) !== '') {
-                    $stmts[] = trim($s);
-                    $s = '';
-                }
-            } else {
-                $s .= $part;
-            }
-        }
-        if (trim($s) !== '') {
-            $stmts[] = trim($s);
-        }
-
-        return $stmts;
     }
 
     /**
@@ -1371,42 +1096,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Remove duplicate entry for create key
-     *
-     * @param string $table
-     * @param array $fields
-     * @param array $ids
-     * @return $this
-     */
-    protected function _removeDuplicateEntry($table, $fields, $ids)
-    {
-        $where = [];
-        $i = 0;
-        foreach ($fields as $field) {
-            $where[] = $this->quoteInto($field . '=?', $ids[$i++]);
-        }
-
-        if (!$where) {
-            return $this;
-        }
-        $whereCond = implode(' AND ', $where);
-        $sql = sprintf('SELECT COUNT(*) as `cnt` FROM `%s` WHERE %s', $table, $whereCond);
-
-        $cnt = $this->raw_fetchRow($sql, 'cnt');
-        if ($cnt > 1) {
-            $sql = sprintf(
-                'DELETE FROM `%s` WHERE %s LIMIT %d',
-                $table,
-                $whereCond,
-                $cnt - 1,
-            );
-            $this->raw_query($sql);
-        }
-
-        return $this;
-    }
-
-    /**
      * Creates and returns a new Zend_Db_Select object for this adapter.
      *
      * @return Varien_Db_Select
@@ -1414,114 +1103,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     public function select()
     {
         return new Varien_Db_Select($this);
-    }
-
-    /**
-     * Start debug timer
-     *
-     * @return $this
-     */
-    protected function _debugTimer()
-    {
-        if ($this->_debug) {
-            $this->_debugTimer = microtime(true);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Logging debug information
-     *
-     * @param int $type
-     * @param string $sql
-     * @param array $bind
-     * @param Zend_Db_Statement_Pdo $result
-     * @return $this
-     */
-    protected function _debugStat($type, $sql, $bind = [], $result = null)
-    {
-        if (!$this->_debug) {
-            return $this;
-        }
-
-        $code = '## ' . getmypid() . ' ## ';
-        $nl   = "\n";
-        $time = sprintf('%.4f', microtime(true) - $this->_debugTimer);
-
-        if (!$this->_logAllQueries && $time < $this->_logQueryTime) {
-            return $this;
-        }
-        switch ($type) {
-            case self::DEBUG_CONNECT:
-                $code .= 'CONNECT' . $nl;
-                break;
-            case self::DEBUG_TRANSACTION:
-                $code .= 'TRANSACTION ' . $sql . $nl;
-                break;
-            case self::DEBUG_QUERY:
-                $code .= 'QUERY' . $nl;
-                $code .= 'SQL: ' . $sql . $nl;
-                if ($bind) {
-                    $code .= 'BIND: ' . var_export($bind, true) . $nl;
-                }
-                if ($result instanceof Zend_Db_Statement_Pdo) {
-                    $code .= 'AFF: ' . $result->rowCount() . $nl;
-                }
-                break;
-        }
-        $code .= 'TIME: ' . $time . $nl;
-
-        if ($this->_logCallStack) {
-            $code .= 'TRACE: ' . Varien_Debug::backtrace(true, false) . $nl;
-        }
-
-        $code .= $nl;
-
-        $this->_debugWriteToFile($code);
-
-        return $this;
-    }
-
-    /**
-     * Write exception and throw
-     *
-     * @throws Exception
-     */
-    protected function _debugException(Exception $e)
-    {
-        if (!$this->_debug) {
-            throw $e;
-        }
-
-        $nl   = "\n";
-        $code = 'EXCEPTION ' . $nl . $e . $nl . $nl;
-        $this->_debugWriteToFile($code);
-
-        throw $e;
-    }
-
-    /**
-     * Debug write to file process
-     *
-     * @param string $str
-     */
-    protected function _debugWriteToFile($str)
-    {
-        $str = '## ' . date(self::TIMESTAMP_FORMAT) . "\r\n" . $str;
-        if (!$this->_debugIoAdapter) {
-            $this->_debugIoAdapter = new Varien_Io_File();
-            $dir = Mage::getBaseDir() . DS . $this->_debugIoAdapter->dirname($this->_debugFile);
-            $this->_debugIoAdapter->checkAndCreateFolder($dir);
-            $this->_debugIoAdapter->open(['path' => $dir]);
-            $this->_debugFile = basename($this->_debugFile);
-        }
-
-        $this->_debugIoAdapter->streamOpen($this->_debugFile, 'a');
-        $this->_debugIoAdapter->streamLock();
-        $this->_debugIoAdapter->streamWrite($str);
-        $this->_debugIoAdapter->streamUnlock();
-        $this->_debugIoAdapter->streamClose();
     }
 
     /**
@@ -1542,29 +1123,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         return parent::quoteInto($text, $value, $type, $count);
-    }
-
-    /**
-     * Retrieve ddl cache name
-     *
-     * @param string $tableName
-     * @param string $schemaName
-     */
-    protected function _getTableName($tableName, $schemaName = null)
-    {
-        return ($schemaName ? $schemaName . '.' : '') . $tableName;
-    }
-
-    /**
-     * Retrieve Id for cache
-     *
-     * @param string $tableKey
-     * @param int $ddlType
-     * @return string
-     */
-    protected function _getCacheId($tableKey, $ddlType)
-    {
-        return sprintf('%s_%s_%s', self::DDL_CACHE_PREFIX, $tableKey, $ddlType);
     }
 
     /**
@@ -1888,56 +1446,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         return $this->modifyColumn($tableName, $columnName, $definition, $flushData, $schemaName);
-    }
-
-    /**
-     * Retrieve column data type by data from describe table
-     *
-     * @param array $column
-     * @return string|void
-     */
-    protected function _getColumnTypeByDdl($column)
-    {
-        switch ($column['DATA_TYPE']) {
-            case 'bool':
-                return Varien_Db_Ddl_Table::TYPE_BOOLEAN;
-            case 'tinytext':
-            case 'char':
-            case 'varchar':
-            case 'text':
-            case 'mediumtext':
-            case 'longtext':
-                return Varien_Db_Ddl_Table::TYPE_TEXT;
-            case 'blob':
-            case 'mediumblob':
-            case 'longblob':
-                return Varien_Db_Ddl_Table::TYPE_BLOB;
-            case 'tinyint':
-            case 'tinyint unsigned':
-            case 'smallint':
-            case 'smallint unsigned':
-                return Varien_Db_Ddl_Table::TYPE_SMALLINT;
-            case 'mediumint':
-            case 'int':
-            case 'int unsigned':
-                return Varien_Db_Ddl_Table::TYPE_INTEGER;
-            case 'bigint':
-            case 'bigint unsigned':
-                return Varien_Db_Ddl_Table::TYPE_BIGINT;
-            case 'datetime':
-                return Varien_Db_Ddl_Table::TYPE_DATETIME;
-            case 'timestamp':
-                return Varien_Db_Ddl_Table::TYPE_TIMESTAMP;
-            case 'date':
-                return Varien_Db_Ddl_Table::TYPE_DATE;
-            case 'float':
-                return Varien_Db_Ddl_Table::TYPE_FLOAT;
-            case 'decimal':
-            case 'numeric':
-                return Varien_Db_Ddl_Table::TYPE_DECIMAL;
-            case 'varbinary':
-                return Varien_Db_Ddl_Table::TYPE_VARBINARY;
-        }
     }
 
     /**
@@ -2288,157 +1796,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Retrieve columns and primary keys definition array for create table
-     *
-     * @return array
-     * @throws Zend_Db_Exception
-     */
-    protected function _getColumnsDefinition(Varien_Db_Ddl_Table $table)
-    {
-        $definition = [];
-        $primary    = [];
-        $columns    = $table->getColumns();
-        if (empty($columns)) {
-            throw new Zend_Db_Exception('Table columns are not defined');
-        }
-
-        foreach ($columns as $columnData) {
-            $columnDefinition = $this->_getColumnDefinition($columnData);
-            if ($columnData['PRIMARY']) {
-                $primary[$columnData['COLUMN_NAME']] = $columnData['PRIMARY_POSITION'];
-            }
-
-            $definition[] = sprintf(
-                '  %s %s',
-                $this->quoteIdentifier($columnData['COLUMN_NAME']),
-                $columnDefinition,
-            );
-        }
-
-        // PRIMARY KEY
-        if (!empty($primary)) {
-            asort($primary, SORT_NUMERIC);
-            $primary      = array_map([$this, 'quoteIdentifier'], array_keys($primary));
-            $definition[] = sprintf('  PRIMARY KEY (%s)', implode(', ', $primary));
-        }
-
-        return $definition;
-    }
-
-    /**
-     * Retrieve table indexes definition array for create table
-     *
-     * @return array
-     */
-    protected function _getIndexesDefinition(Varien_Db_Ddl_Table $table)
-    {
-        $definition = [];
-        $indexes    = $table->getIndexes();
-        if (!empty($indexes)) {
-            foreach ($indexes as $indexData) {
-                if (!empty($indexData['TYPE'])) {
-                    switch ($indexData['TYPE']) {
-                        case 'primary':
-                            $indexType = 'PRIMARY KEY';
-                            unset($indexData['INDEX_NAME']);
-                            break;
-                        default:
-                            $indexType = strtoupper($indexData['TYPE']);
-                            break;
-                    }
-                } else {
-                    $indexType = 'KEY';
-                }
-
-                $columns = [];
-                foreach ($indexData['COLUMNS'] as $columnData) {
-                    $column = $this->quoteIdentifier($columnData['NAME']);
-                    if (!empty($columnData['SIZE'])) {
-                        $column .= sprintf('(%d)', $columnData['SIZE']);
-                    }
-                    $columns[] = $column;
-                }
-                $indexName = isset($indexData['INDEX_NAME']) ? $this->quoteIdentifier($indexData['INDEX_NAME']) : '';
-                $definition[] = sprintf(
-                    '  %s %s (%s)',
-                    $indexType,
-                    $indexName,
-                    implode(', ', $columns),
-                );
-            }
-        }
-
-        return $definition;
-    }
-
-    /**
-     * Retrieve table foreign keys definition array for create table
-     *
-     * @return array
-     */
-    protected function _getForeignKeysDefinition(Varien_Db_Ddl_Table $table)
-    {
-        $definition = [];
-        $relations  = $table->getForeignKeys();
-
-        if (!empty($relations)) {
-            foreach ($relations as $fkData) {
-                $onDelete = $this->_getDdlAction($fkData['ON_DELETE']);
-                $onUpdate = $this->_getDdlAction($fkData['ON_UPDATE']);
-
-                $definition[] = sprintf(
-                    '  CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s) ON DELETE %s ON UPDATE %s',
-                    $this->quoteIdentifier($fkData['FK_NAME']),
-                    $this->quoteIdentifier($fkData['COLUMN_NAME']),
-                    $this->quoteIdentifier($fkData['REF_TABLE_NAME']),
-                    $this->quoteIdentifier($fkData['REF_COLUMN_NAME']),
-                    $onDelete,
-                    $onUpdate,
-                );
-            }
-        }
-
-        return $definition;
-    }
-
-    /**
-     * Retrieve table options definition array for create table
-     *
-     * @return array
-     * @throws Zend_Db_Exception
-     */
-    protected function _getOptionsDefinition(Varien_Db_Ddl_Table $table)
-    {
-        $definition = [];
-        $comment    = $table->getComment();
-        if (empty($comment)) {
-            throw new Zend_Db_Exception('Comment for table is required and must be defined');
-        }
-        $definition[] = $this->quoteInto('COMMENT=?', $comment);
-
-        $tableProps = [
-            'type'              => 'ENGINE=%s',
-            'checksum'          => 'CHECKSUM=%d',
-            'auto_increment'    => 'AUTO_INCREMENT=%d',
-            'avg_row_length'    => 'AVG_ROW_LENGTH=%d',
-            'max_rows'          => 'MAX_ROWS=%d',
-            'min_rows'          => 'MIN_ROWS=%d',
-            'delay_key_write'   => 'DELAY_KEY_WRITE=%d',
-            'row_format'        => 'row_format=%s',
-            'charset'           => 'charset=%s',
-            'collate'           => 'COLLATE=%s',
-        ];
-        foreach ($tableProps as $key => $mask) {
-            $v = $table->getOption($key);
-            if ($v !== null) {
-                $definition[] = sprintf($mask, $v);
-            }
-        }
-
-        return $definition;
-    }
-
-    /**
      * Get column definition from description
      *
      * @param  array $options
@@ -2452,144 +1809,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $columnInfo[$key] = $value;
         }
         return $this->_getColumnDefinition($columnInfo, $ddlType);
-    }
-
-    /**
-     * Retrieve column definition fragment
-     *
-     * @param array $options
-     * @param string $ddlType Table DDL Column type constant
-     * @throws Varien_Exception
-     * @return string
-     * @throws Zend_Db_Exception
-     */
-    protected function _getColumnDefinition($options, $ddlType = null)
-    {
-        // convert keys to uppercase
-        $options    = array_change_key_case($options, CASE_UPPER);
-        $cType      = null;
-        $cUnsigned  = false;
-        $cNullable  = true;
-        $cDefault   = false;
-        $cIdentity  = false;
-
-        // detect and validate column type
-        if ($ddlType === null) {
-            $ddlType = $this->_getDdlType($options);
-        }
-
-        if (empty($ddlType) || !isset($this->_ddlColumnTypes[$ddlType])) {
-            throw new Zend_Db_Exception('Invalid column definition data');
-        }
-
-        // column size
-        $cType = $this->_ddlColumnTypes[$ddlType];
-        switch ($ddlType) {
-            case Varien_Db_Ddl_Table::TYPE_SMALLINT:
-            case Varien_Db_Ddl_Table::TYPE_INTEGER:
-            case Varien_Db_Ddl_Table::TYPE_BIGINT:
-                if (!empty($options['UNSIGNED'])) {
-                    $cUnsigned = true;
-                }
-                break;
-            case Varien_Db_Ddl_Table::TYPE_DECIMAL:
-            case Varien_Db_Ddl_Table::TYPE_NUMERIC:
-                $precision  = 10;
-                $scale      = 0;
-                $match      = [];
-                if (!empty($options['LENGTH']) && preg_match('#^\(?(\d+),(\d+)\)?$#', $options['LENGTH'], $match)) {
-                    $precision  = $match[1];
-                    $scale      = $match[2];
-                } else {
-                    if (isset($options['SCALE']) && is_numeric($options['SCALE'])) {
-                        $scale = $options['SCALE'];
-                    }
-                    if (isset($options['PRECISION']) && is_numeric($options['PRECISION'])) {
-                        $precision = $options['PRECISION'];
-                    }
-                }
-                $cType .= sprintf('(%d,%d)', $precision, $scale);
-                break;
-            case Varien_Db_Ddl_Table::TYPE_TEXT:
-            case Varien_Db_Ddl_Table::TYPE_BLOB:
-            case Varien_Db_Ddl_Table::TYPE_VARBINARY:
-                if (empty($options['LENGTH'])) {
-                    $length = Varien_Db_Ddl_Table::DEFAULT_TEXT_SIZE;
-                } else {
-                    $length = $this->_parseTextSize($options['LENGTH']);
-                }
-                if ($length <= 255) {
-                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'varchar' : 'varbinary';
-                    $cType = sprintf('%s(%d)', $cType, $length);
-                } elseif ($length > 255 && $length <= 65536) {
-                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'text' : 'blob';
-                } elseif ($length > 65536 && $length <= 16777216) {
-                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'mediumtext' : 'mediumblob';
-                } else {
-                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'longtext' : 'longblob';
-                }
-                break;
-        }
-
-        if (array_key_exists('DEFAULT', $options)) {
-            $cDefault = $options['DEFAULT'];
-        }
-        if (array_key_exists('NULLABLE', $options)) {
-            $cNullable = (bool) $options['NULLABLE'];
-        }
-        if (!empty($options['IDENTITY']) || !empty($options['AUTO_INCREMENT'])) {
-            $cIdentity = true;
-        }
-
-        /*  For cases when tables created from createTableByDdl()
-         *  where default value can be quoted already.
-         *  We need to avoid "double-quoting" here
-         */
-        if ($cDefault !== null && strlen($cDefault)) {
-            $cDefault = str_replace("'", '', $cDefault);
-        }
-
-        // prepare default value string
-        if ($ddlType == Varien_Db_Ddl_Table::TYPE_TIMESTAMP) {
-            if ($cDefault === null) {
-                $cDefault = new Zend_Db_Expr('NULL');
-            } elseif ($cDefault == Varien_Db_Ddl_Table::TIMESTAMP_INIT) {
-                $cDefault = new Zend_Db_Expr('CURRENT_TIMESTAMP');
-            } elseif ($cDefault == Varien_Db_Ddl_Table::TIMESTAMP_UPDATE) {
-                $cDefault = new Zend_Db_Expr('0 ON UPDATE CURRENT_TIMESTAMP');
-            } elseif ($cDefault == Varien_Db_Ddl_Table::TIMESTAMP_INIT_UPDATE) {
-                $cDefault = new Zend_Db_Expr('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
-            } elseif ($cNullable && !$cDefault) {
-                $cDefault = new Zend_Db_Expr('NULL');
-            } else {
-                $cDefault = new Zend_Db_Expr('0');
-            }
-        } elseif (is_null($cDefault) && $cNullable) {
-            $cDefault = new Zend_Db_Expr('NULL');
-        }
-
-        if (empty($options['COMMENT'])) {
-            $comment = '';
-        } else {
-            $comment = $options['COMMENT'];
-        }
-
-        //set column position
-        $after = null;
-        if (!empty($options['AFTER'])) {
-            $after = $options['AFTER'];
-        }
-
-        return sprintf(
-            '%s%s%s%s%s COMMENT %s %s',
-            $cType,
-            $cUnsigned ? ' UNSIGNED' : '',
-            $cNullable ? ' NULL' : ' NOT NULL',
-            $cDefault !== false ? $this->quoteInto(' default ?', $cDefault) : '',
-            $cIdentity ? ' auto_increment' : '',
-            $this->quote($comment),
-            $after ? 'AFTER ' . $this->quoteIdentifier($after) : '',
-        );
     }
 
     /**
@@ -3047,40 +2266,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Prepare Sql condition
-     *
-     * @param  string $text Condition value
-     * @param  mixed $value
-     * @param  string $fieldName
-     * @return string
-     */
-    protected function _prepareQuotedSqlCondition($text, $value, $fieldName)
-    {
-        $value = is_string($value) ? str_replace("\0", '', $value) : $value;
-        $sql = $this->quoteInto($text, $value);
-        return str_replace('{{fieldName}}', (string) $fieldName, $sql);
-    }
-
-    /**
-     * Transforms sql condition key 'seq' / 'sneq' that is used for comparing string values to its analog:
-     * - 'null' / 'notnull' for empty strings
-     * - 'eq' / 'neq' for non-empty strings
-     *
-     * @param string $conditionKey
-     * @param mixed $value
-     * @return string
-     */
-    protected function _transformStringSqlCondition($conditionKey, $value)
-    {
-        $value = str_replace("\0", '', (string) $value);
-        if ($value == '') {
-            return ($conditionKey == 'seq') ? 'null' : 'notnull';
-        } else {
-            return ($conditionKey == 'seq') ? 'eq' : 'neq';
-        }
-    }
-
-    /**
      * Prepare value for save in column
      * Return converted to column data type value
      *
@@ -3275,23 +2460,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Get Interval Unit SQL fragment
-     *
-     * @param int $interval
-     * @param string $unit
-     * @return string
-     * @throws Zend_Db_Exception
-     */
-    protected function _getIntervalUnitSql($interval, $unit)
-    {
-        if (!isset($this->_intervalUnits[$unit])) {
-            throw new Zend_Db_Exception(sprintf('Undefined interval unit "%s" specified', $unit));
-        }
-
-        return sprintf('INTERVAL %d %s', $interval, $this->_intervalUnits[$unit]);
-    }
-
-    /**
      * Add time values (intervals) to a date value
      *
      * @see INTERVAL_ constants for $unit
@@ -3401,22 +2569,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         $expr = sprintf('EXTRACT(%s FROM %s)', $this->_intervalUnits[$unit], $date);
         return new Zend_Db_Expr($expr);
-    }
-
-    /**
-     * Minus superfluous characters from hash.
-     *
-     * @param  $hash
-     * @param  $prefix
-     * @param  $maxCharacters
-     * @return string
-     */
-    protected function _minusSuperfluous($hash, $prefix, $maxCharacters)
-    {
-        $diff        = strlen($hash) + strlen($prefix) -  $maxCharacters;
-        $superfluous = $diff / 2;
-        $odd         = $diff % 2;
-        return substr($hash, $superfluous, - ($superfluous + $odd));
     }
 
     /**
@@ -3855,6 +3007,941 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
+     * Try to find installed primary key name, if not - format new one.
+     *
+     * @param string $tableName Table name
+     * @param string $schemaName OPTIONAL
+     * @return string Primary Key name
+     */
+    public function getPrimaryKeyName($tableName, $schemaName = null)
+    {
+        $indexes = $this->getIndexList($tableName, $schemaName);
+        if (isset($indexes['PRIMARY'])) {
+            return $indexes['PRIMARY']['KEY_NAME'];
+        } else {
+            return 'PK_' . strtoupper($tableName);
+        }
+    }
+
+    /**
+     * Converts fetched blob into raw binary PHP data.
+     * The MySQL drivers do it nice, no processing required.
+     *
+     * @mixed $value
+     * @return mixed
+     */
+    public function decodeVarbinary($value)
+    {
+        return $value;
+    }
+
+    /**
+     * Returns date that fits into TYPE_DATETIME range and is suggested to act as default 'zero' value
+     * for a column for current RDBMS. Deprecated and left for compatibility only.
+     * In Magento at MySQL there was zero date used for datetime columns. However, zero date it is not supported across
+     * different RDBMS. Thus now it is recommended to use same default value equal for all RDBMS - either NULL
+     * or specific date supported by all RDBMS.
+     *
+     * @deprecated after 1.5.1.0
+     * @return string
+     */
+    public function getSuggestedZeroDate()
+    {
+        return '0000-00-00 00:00:00';
+    }
+
+    /**
+     * Drop trigger
+     *
+     * @param string $triggerName
+     * @return Varien_Db_Adapter_Interface
+     */
+    public function dropTrigger($triggerName)
+    {
+        $query = sprintf(
+            'DROP TRIGGER IF EXISTS %s',
+            $this->_getTableName($triggerName),
+        );
+        $this->query($query);
+        return $this;
+    }
+
+    /**
+     * Create new table from provided select statement
+     *
+     * @param string $tableName
+     * @param bool $temporary
+     * @return mixed
+     */
+    public function createTableFromSelect($tableName, Zend_Db_Select $select, $temporary = false)
+    {
+        $query = sprintf(
+            'CREATE' . ($temporary ? ' TEMPORARY' : '') . ' TABLE `%s` AS (%s)',
+            $this->_getTableName($tableName),
+            (string) $select,
+        );
+        $this->query($query);
+    }
+
+    /**
+     * Parse a source hostname and generate a host info
+     * @param $hostName
+     *
+     * @return Varien_Object
+     */
+    protected function _getHostInfo($hostName)
+    {
+        $hostInfo = new Varien_Object();
+        $matches = [];
+        if (str_contains($hostName, '/')) {
+            $hostInfo->setAddressType(self::ADDRESS_TYPE_UNIX_SOCKET)
+                ->setUnixSocket($hostName);
+        } elseif (preg_match('/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i', $hostName, $matches)) {
+            $hostName = $matches[1];
+            $hostName .= $matches[6] ?? '';
+            $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
+                ->setHostName($hostName)
+                ->setPort($matches[8] ?? null);
+        } elseif (preg_match('/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i', $hostName, $matches)) {
+            $hostName = $matches[1];
+            $hostName .= $matches[6] ?? '';
+            $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
+                ->setHostName($hostName);
+        } elseif (str_contains($hostName, ':')) {
+            list($hostAddress, $hostPort) = explode(':', $hostName);
+            $hostInfo->setAddressType(
+                filter_var($hostAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
+                    ? self::ADDRESS_TYPE_IPV4_ADDRESS
+                    : self::ADDRESS_TYPE_HOSTNAME,
+            )->setHostName($hostAddress)
+                ->setPort($hostPort);
+        } else {
+            $hostInfo->setAddressType(
+                filter_var($hostName, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
+                    ? self::ADDRESS_TYPE_IPV4_ADDRESS
+                    : self::ADDRESS_TYPE_HOSTNAME,
+            )->setHostName($hostName);
+        }
+
+        return $hostInfo;
+    }
+
+    /**
+     * Creates a PDO object and connects to the database.
+     *
+     * @throws Zend_Db_Adapter_Exception
+     */
+    protected function _connect()
+    {
+        if ($this->_connection) {
+            return;
+        }
+
+        if (!extension_loaded('pdo_mysql')) {
+            throw new Zend_Db_Adapter_Exception('pdo_mysql extension is not installed');
+        }
+
+        $hostInfo = $this->_getHostInfo($this->_config['host'] ?? $this->_config['unix_socket'] ?? null);
+
+        switch ($hostInfo->getAddressType()) {
+            case self::ADDRESS_TYPE_UNIX_SOCKET:
+                $this->_config['unix_socket'] = $hostInfo->getUnixSocket();
+                unset($this->_config['host']);
+                break;
+            case self::ADDRESS_TYPE_IPV6_ADDRESS: // break intentionally omitted
+            case self::ADDRESS_TYPE_IPV4_ADDRESS: // break intentionally omitted
+            case self::ADDRESS_TYPE_HOSTNAME:
+                $this->_config['host'] = $hostInfo->getHostName();
+                if ($hostInfo->getPort()) {
+                    $this->_config['port'] = $hostInfo->getPort();
+                }
+                break;
+            default:
+                break;
+        }
+
+        $this->_debugTimer();
+        parent::_connect();
+        $this->_debugStat(self::DEBUG_CONNECT, '');
+
+        /** @link http://bugs.mysql.com/bug.php?id=18551 */
+        $this->_connection->query("SET SQL_MODE=''");
+
+        if (!$this->_connectionFlagsSet) {
+            $this->_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
+            $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+            $this->_connectionFlagsSet = true;
+        }
+    }
+
+    /**
+     * Check transaction level in case of DDL query
+     *
+     * @param string|Zend_Db_Select $sql
+     * @throws Zend_Db_Adapter_Exception
+     */
+    protected function _checkDdlTransaction($sql)
+    {
+        if (is_string($sql) && $this->getTransactionLevel() > 0) {
+            $startSql = strtolower(substr(ltrim($sql), 0, 3));
+            if (in_array($startSql, $this->_ddlRoutines)
+                && (preg_match($this->_tempRoutines, $sql) !== 1)
+            ) {
+                trigger_error(Varien_Db_Adapter_Interface::ERROR_DDL_MESSAGE, E_USER_ERROR);
+            }
+        }
+    }
+
+    /**
+     * Prepares SQL query by moving to bind all special parameters that can be confused with bind placeholders
+     * (e.g. "foo:bar"). And also changes named bind to positional one, because underlying library has problems
+     * with named binds.
+     *
+     * @param Zend_Db_Select|string $sql
+     * @param-out string $sql
+     * @param mixed $bind
+     * @return $this
+     */
+    protected function _prepareQuery(&$sql, &$bind = [])
+    {
+        $sql = (string) $sql;
+        if (!is_array($bind)) {
+            $bind = [$bind];
+        }
+
+        // Mixed bind is not supported - so remember whether it is named bind, to normalize later if required
+        $isNamedBind = false;
+        if ($bind) {
+            foreach ($bind as $k => $v) {
+                if (!is_int($k)) {
+                    $isNamedBind = true;
+                    if ($k[0] != ':') {
+                        $bind[":{$k}"] = $v;
+                        unset($bind[$k]);
+                    }
+                }
+            }
+        }
+
+        // Special query hook
+        if ($this->_queryHook) {
+            $object = $this->_queryHook['object'];
+            $method = $this->_queryHook['method'];
+            $object->$method($sql, $bind);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Unquote raw string (use for auto-bind)
+     *
+     * @param string $string
+     * @return string
+     */
+    protected function _unQuote($string)
+    {
+        $translate = [
+            '\\000' => "\000",
+            '\\n'   => "\n",
+            '\\r'   => "\r",
+            '\\\\'  => '\\',
+            "\'"    => "'",
+            '\\"'  => '"',
+            '\\032' => "\032",
+        ];
+        return strtr($string, $translate);
+    }
+
+    /**
+     * Normalizes mixed positional-named bind to positional bind, and replaces named placeholders in query to
+     * '?' placeholders.
+     *
+     * @param string $sql
+     * @param array $bind
+     * @return $this
+     */
+    protected function _convertMixedBind(&$sql, &$bind)
+    {
+        $positions  = [];
+        $offset     = 0;
+        // get positions
+        while (true) {
+            $pos = strpos($sql, '?', $offset);
+            if ($pos !== false) {
+                $positions[] = $pos;
+                $offset      = ++$pos;
+            } else {
+                break;
+            }
+        }
+
+        $bindResult = [];
+        $map = [];
+        foreach ($bind as $k => $v) {
+            // positional
+            if (is_int($k)) {
+                if (!isset($positions[$k])) {
+                    continue;
+                }
+                $bindResult[$positions[$k]] = $v;
+            } else {
+                $offset = 0;
+                while (true) {
+                    $pos = strpos($sql, $k, $offset);
+                    if ($pos === false) {
+                        break;
+                    } else {
+                        $offset = $pos + strlen($k);
+                        $bindResult[$pos] = $v;
+                    }
+                }
+                $map[$k] = '?';
+            }
+        }
+
+        ksort($bindResult);
+        $bind = array_values($bindResult);
+        $sql = strtr($sql, $map);
+
+        return $this;
+    }
+
+    /**
+     * Split multi statement query
+     *
+     * @param string $sql
+     * @return array
+     */
+    protected function _splitMultiQuery($sql)
+    {
+        $parts = preg_split(
+            '#(;|\'|"|\\\\|//|--|\n|/\*|\*/)#',
+            $sql,
+            -1,
+            PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE,
+        );
+
+        $q      = false;
+        $c      = false;
+        $stmts  = [];
+        $s      = '';
+
+        foreach ($parts as $i => $part) {
+            // strings
+            if (($part === "'" || $part === '"') && ($i === 0 || $parts[$i - 1] !== '\\')) {
+                if ($q === false) {
+                    $q = $part;
+                } elseif ($q === $part) {
+                    $q = false;
+                }
+            }
+
+            // single line comments
+            if (($part === '//' || $part === '--') && ($i === 0 || $parts[$i - 1] === "\n")) {
+                $c = $part;
+            } elseif ($part === "\n" && ($c === '//' || $c === '--')) {
+                $c = false;
+            }
+
+            // multi line comments
+            if ($part === '/*' && $c === false) {
+                $c = '/*';
+            } elseif ($part === '*/' && $c === '/*') {
+                $c = false;
+            }
+
+            // statements
+            if ($part === ';' && $q === false && $c === false) {
+                if (trim($s) !== '') {
+                    $stmts[] = trim($s);
+                    $s = '';
+                }
+            } else {
+                $s .= $part;
+            }
+        }
+        if (trim($s) !== '') {
+            $stmts[] = trim($s);
+        }
+
+        return $stmts;
+    }
+
+    /**
+     * Remove duplicate entry for create key
+     *
+     * @param string $table
+     * @param array $fields
+     * @param array $ids
+     * @return $this
+     */
+    protected function _removeDuplicateEntry($table, $fields, $ids)
+    {
+        $where = [];
+        $i = 0;
+        foreach ($fields as $field) {
+            $where[] = $this->quoteInto($field . '=?', $ids[$i++]);
+        }
+
+        if (!$where) {
+            return $this;
+        }
+        $whereCond = implode(' AND ', $where);
+        $sql = sprintf('SELECT COUNT(*) as `cnt` FROM `%s` WHERE %s', $table, $whereCond);
+
+        $cnt = $this->raw_fetchRow($sql, 'cnt');
+        if ($cnt > 1) {
+            $sql = sprintf(
+                'DELETE FROM `%s` WHERE %s LIMIT %d',
+                $table,
+                $whereCond,
+                $cnt - 1,
+            );
+            $this->raw_query($sql);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Start debug timer
+     *
+     * @return $this
+     */
+    protected function _debugTimer()
+    {
+        if ($this->_debug) {
+            $this->_debugTimer = microtime(true);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Logging debug information
+     *
+     * @param int $type
+     * @param string $sql
+     * @param array $bind
+     * @param Zend_Db_Statement_Pdo $result
+     * @return $this
+     */
+    protected function _debugStat($type, $sql, $bind = [], $result = null)
+    {
+        if (!$this->_debug) {
+            return $this;
+        }
+
+        $code = '## ' . getmypid() . ' ## ';
+        $nl   = "\n";
+        $time = sprintf('%.4f', microtime(true) - $this->_debugTimer);
+
+        if (!$this->_logAllQueries && $time < $this->_logQueryTime) {
+            return $this;
+        }
+        switch ($type) {
+            case self::DEBUG_CONNECT:
+                $code .= 'CONNECT' . $nl;
+                break;
+            case self::DEBUG_TRANSACTION:
+                $code .= 'TRANSACTION ' . $sql . $nl;
+                break;
+            case self::DEBUG_QUERY:
+                $code .= 'QUERY' . $nl;
+                $code .= 'SQL: ' . $sql . $nl;
+                if ($bind) {
+                    $code .= 'BIND: ' . var_export($bind, true) . $nl;
+                }
+                if ($result instanceof Zend_Db_Statement_Pdo) {
+                    $code .= 'AFF: ' . $result->rowCount() . $nl;
+                }
+                break;
+        }
+        $code .= 'TIME: ' . $time . $nl;
+
+        if ($this->_logCallStack) {
+            $code .= 'TRACE: ' . Varien_Debug::backtrace(true, false) . $nl;
+        }
+
+        $code .= $nl;
+
+        $this->_debugWriteToFile($code);
+
+        return $this;
+    }
+
+    /**
+     * Write exception and throw
+     *
+     * @throws Exception
+     */
+    protected function _debugException(Exception $e)
+    {
+        if (!$this->_debug) {
+            throw $e;
+        }
+
+        $nl   = "\n";
+        $code = 'EXCEPTION ' . $nl . $e . $nl . $nl;
+        $this->_debugWriteToFile($code);
+
+        throw $e;
+    }
+
+    /**
+     * Debug write to file process
+     *
+     * @param string $str
+     */
+    protected function _debugWriteToFile($str)
+    {
+        $str = '## ' . date(self::TIMESTAMP_FORMAT) . "\r\n" . $str;
+        if (!$this->_debugIoAdapter) {
+            $this->_debugIoAdapter = new Varien_Io_File();
+            $dir = Mage::getBaseDir() . DS . $this->_debugIoAdapter->dirname($this->_debugFile);
+            $this->_debugIoAdapter->checkAndCreateFolder($dir);
+            $this->_debugIoAdapter->open(['path' => $dir]);
+            $this->_debugFile = basename($this->_debugFile);
+        }
+
+        $this->_debugIoAdapter->streamOpen($this->_debugFile, 'a');
+        $this->_debugIoAdapter->streamLock();
+        $this->_debugIoAdapter->streamWrite($str);
+        $this->_debugIoAdapter->streamUnlock();
+        $this->_debugIoAdapter->streamClose();
+    }
+
+    /**
+     * Retrieve ddl cache name
+     *
+     * @param string $tableName
+     * @param string $schemaName
+     */
+    protected function _getTableName($tableName, $schemaName = null)
+    {
+        return ($schemaName ? $schemaName . '.' : '') . $tableName;
+    }
+
+    /**
+     * Retrieve Id for cache
+     *
+     * @param string $tableKey
+     * @param int $ddlType
+     * @return string
+     */
+    protected function _getCacheId($tableKey, $ddlType)
+    {
+        return sprintf('%s_%s_%s', self::DDL_CACHE_PREFIX, $tableKey, $ddlType);
+    }
+
+    /**
+     * Retrieve column data type by data from describe table
+     *
+     * @param array $column
+     * @return string|void
+     */
+    protected function _getColumnTypeByDdl($column)
+    {
+        switch ($column['DATA_TYPE']) {
+            case 'bool':
+                return Varien_Db_Ddl_Table::TYPE_BOOLEAN;
+            case 'tinytext':
+            case 'char':
+            case 'varchar':
+            case 'text':
+            case 'mediumtext':
+            case 'longtext':
+                return Varien_Db_Ddl_Table::TYPE_TEXT;
+            case 'blob':
+            case 'mediumblob':
+            case 'longblob':
+                return Varien_Db_Ddl_Table::TYPE_BLOB;
+            case 'tinyint':
+            case 'tinyint unsigned':
+            case 'smallint':
+            case 'smallint unsigned':
+                return Varien_Db_Ddl_Table::TYPE_SMALLINT;
+            case 'mediumint':
+            case 'int':
+            case 'int unsigned':
+                return Varien_Db_Ddl_Table::TYPE_INTEGER;
+            case 'bigint':
+            case 'bigint unsigned':
+                return Varien_Db_Ddl_Table::TYPE_BIGINT;
+            case 'datetime':
+                return Varien_Db_Ddl_Table::TYPE_DATETIME;
+            case 'timestamp':
+                return Varien_Db_Ddl_Table::TYPE_TIMESTAMP;
+            case 'date':
+                return Varien_Db_Ddl_Table::TYPE_DATE;
+            case 'float':
+                return Varien_Db_Ddl_Table::TYPE_FLOAT;
+            case 'decimal':
+            case 'numeric':
+                return Varien_Db_Ddl_Table::TYPE_DECIMAL;
+            case 'varbinary':
+                return Varien_Db_Ddl_Table::TYPE_VARBINARY;
+        }
+    }
+
+    /**
+     * Retrieve columns and primary keys definition array for create table
+     *
+     * @return array
+     * @throws Zend_Db_Exception
+     */
+    protected function _getColumnsDefinition(Varien_Db_Ddl_Table $table)
+    {
+        $definition = [];
+        $primary    = [];
+        $columns    = $table->getColumns();
+        if (empty($columns)) {
+            throw new Zend_Db_Exception('Table columns are not defined');
+        }
+
+        foreach ($columns as $columnData) {
+            $columnDefinition = $this->_getColumnDefinition($columnData);
+            if ($columnData['PRIMARY']) {
+                $primary[$columnData['COLUMN_NAME']] = $columnData['PRIMARY_POSITION'];
+            }
+
+            $definition[] = sprintf(
+                '  %s %s',
+                $this->quoteIdentifier($columnData['COLUMN_NAME']),
+                $columnDefinition,
+            );
+        }
+
+        // PRIMARY KEY
+        if (!empty($primary)) {
+            asort($primary, SORT_NUMERIC);
+            $primary      = array_map([$this, 'quoteIdentifier'], array_keys($primary));
+            $definition[] = sprintf('  PRIMARY KEY (%s)', implode(', ', $primary));
+        }
+
+        return $definition;
+    }
+
+    /**
+     * Retrieve table indexes definition array for create table
+     *
+     * @return array
+     */
+    protected function _getIndexesDefinition(Varien_Db_Ddl_Table $table)
+    {
+        $definition = [];
+        $indexes    = $table->getIndexes();
+        if (!empty($indexes)) {
+            foreach ($indexes as $indexData) {
+                if (!empty($indexData['TYPE'])) {
+                    switch ($indexData['TYPE']) {
+                        case 'primary':
+                            $indexType = 'PRIMARY KEY';
+                            unset($indexData['INDEX_NAME']);
+                            break;
+                        default:
+                            $indexType = strtoupper($indexData['TYPE']);
+                            break;
+                    }
+                } else {
+                    $indexType = 'KEY';
+                }
+
+                $columns = [];
+                foreach ($indexData['COLUMNS'] as $columnData) {
+                    $column = $this->quoteIdentifier($columnData['NAME']);
+                    if (!empty($columnData['SIZE'])) {
+                        $column .= sprintf('(%d)', $columnData['SIZE']);
+                    }
+                    $columns[] = $column;
+                }
+                $indexName = isset($indexData['INDEX_NAME']) ? $this->quoteIdentifier($indexData['INDEX_NAME']) : '';
+                $definition[] = sprintf(
+                    '  %s %s (%s)',
+                    $indexType,
+                    $indexName,
+                    implode(', ', $columns),
+                );
+            }
+        }
+
+        return $definition;
+    }
+
+    /**
+     * Retrieve table foreign keys definition array for create table
+     *
+     * @return array
+     */
+    protected function _getForeignKeysDefinition(Varien_Db_Ddl_Table $table)
+    {
+        $definition = [];
+        $relations  = $table->getForeignKeys();
+
+        if (!empty($relations)) {
+            foreach ($relations as $fkData) {
+                $onDelete = $this->_getDdlAction($fkData['ON_DELETE']);
+                $onUpdate = $this->_getDdlAction($fkData['ON_UPDATE']);
+
+                $definition[] = sprintf(
+                    '  CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s) ON DELETE %s ON UPDATE %s',
+                    $this->quoteIdentifier($fkData['FK_NAME']),
+                    $this->quoteIdentifier($fkData['COLUMN_NAME']),
+                    $this->quoteIdentifier($fkData['REF_TABLE_NAME']),
+                    $this->quoteIdentifier($fkData['REF_COLUMN_NAME']),
+                    $onDelete,
+                    $onUpdate,
+                );
+            }
+        }
+
+        return $definition;
+    }
+
+    /**
+     * Retrieve table options definition array for create table
+     *
+     * @return array
+     * @throws Zend_Db_Exception
+     */
+    protected function _getOptionsDefinition(Varien_Db_Ddl_Table $table)
+    {
+        $definition = [];
+        $comment    = $table->getComment();
+        if (empty($comment)) {
+            throw new Zend_Db_Exception('Comment for table is required and must be defined');
+        }
+        $definition[] = $this->quoteInto('COMMENT=?', $comment);
+
+        $tableProps = [
+            'type'              => 'ENGINE=%s',
+            'checksum'          => 'CHECKSUM=%d',
+            'auto_increment'    => 'AUTO_INCREMENT=%d',
+            'avg_row_length'    => 'AVG_ROW_LENGTH=%d',
+            'max_rows'          => 'MAX_ROWS=%d',
+            'min_rows'          => 'MIN_ROWS=%d',
+            'delay_key_write'   => 'DELAY_KEY_WRITE=%d',
+            'row_format'        => 'row_format=%s',
+            'charset'           => 'charset=%s',
+            'collate'           => 'COLLATE=%s',
+        ];
+        foreach ($tableProps as $key => $mask) {
+            $v = $table->getOption($key);
+            if ($v !== null) {
+                $definition[] = sprintf($mask, $v);
+            }
+        }
+
+        return $definition;
+    }
+
+    /**
+     * Retrieve column definition fragment
+     *
+     * @param array $options
+     * @param string $ddlType Table DDL Column type constant
+     * @throws Varien_Exception
+     * @return string
+     * @throws Zend_Db_Exception
+     */
+    protected function _getColumnDefinition($options, $ddlType = null)
+    {
+        // convert keys to uppercase
+        $options    = array_change_key_case($options, CASE_UPPER);
+        $cType      = null;
+        $cUnsigned  = false;
+        $cNullable  = true;
+        $cDefault   = false;
+        $cIdentity  = false;
+
+        // detect and validate column type
+        if ($ddlType === null) {
+            $ddlType = $this->_getDdlType($options);
+        }
+
+        if (empty($ddlType) || !isset($this->_ddlColumnTypes[$ddlType])) {
+            throw new Zend_Db_Exception('Invalid column definition data');
+        }
+
+        // column size
+        $cType = $this->_ddlColumnTypes[$ddlType];
+        switch ($ddlType) {
+            case Varien_Db_Ddl_Table::TYPE_SMALLINT:
+            case Varien_Db_Ddl_Table::TYPE_INTEGER:
+            case Varien_Db_Ddl_Table::TYPE_BIGINT:
+                if (!empty($options['UNSIGNED'])) {
+                    $cUnsigned = true;
+                }
+                break;
+            case Varien_Db_Ddl_Table::TYPE_DECIMAL:
+            case Varien_Db_Ddl_Table::TYPE_NUMERIC:
+                $precision  = 10;
+                $scale      = 0;
+                $match      = [];
+                if (!empty($options['LENGTH']) && preg_match('#^\(?(\d+),(\d+)\)?$#', $options['LENGTH'], $match)) {
+                    $precision  = $match[1];
+                    $scale      = $match[2];
+                } else {
+                    if (isset($options['SCALE']) && is_numeric($options['SCALE'])) {
+                        $scale = $options['SCALE'];
+                    }
+                    if (isset($options['PRECISION']) && is_numeric($options['PRECISION'])) {
+                        $precision = $options['PRECISION'];
+                    }
+                }
+                $cType .= sprintf('(%d,%d)', $precision, $scale);
+                break;
+            case Varien_Db_Ddl_Table::TYPE_TEXT:
+            case Varien_Db_Ddl_Table::TYPE_BLOB:
+            case Varien_Db_Ddl_Table::TYPE_VARBINARY:
+                if (empty($options['LENGTH'])) {
+                    $length = Varien_Db_Ddl_Table::DEFAULT_TEXT_SIZE;
+                } else {
+                    $length = $this->_parseTextSize($options['LENGTH']);
+                }
+                if ($length <= 255) {
+                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'varchar' : 'varbinary';
+                    $cType = sprintf('%s(%d)', $cType, $length);
+                } elseif ($length > 255 && $length <= 65536) {
+                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'text' : 'blob';
+                } elseif ($length > 65536 && $length <= 16777216) {
+                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'mediumtext' : 'mediumblob';
+                } else {
+                    $cType = $ddlType == Varien_Db_Ddl_Table::TYPE_TEXT ? 'longtext' : 'longblob';
+                }
+                break;
+        }
+
+        if (array_key_exists('DEFAULT', $options)) {
+            $cDefault = $options['DEFAULT'];
+        }
+        if (array_key_exists('NULLABLE', $options)) {
+            $cNullable = (bool) $options['NULLABLE'];
+        }
+        if (!empty($options['IDENTITY']) || !empty($options['AUTO_INCREMENT'])) {
+            $cIdentity = true;
+        }
+
+        /*  For cases when tables created from createTableByDdl()
+         *  where default value can be quoted already.
+         *  We need to avoid "double-quoting" here
+         */
+        if ($cDefault !== null && strlen($cDefault)) {
+            $cDefault = str_replace("'", '', $cDefault);
+        }
+
+        // prepare default value string
+        if ($ddlType == Varien_Db_Ddl_Table::TYPE_TIMESTAMP) {
+            if ($cDefault === null) {
+                $cDefault = new Zend_Db_Expr('NULL');
+            } elseif ($cDefault == Varien_Db_Ddl_Table::TIMESTAMP_INIT) {
+                $cDefault = new Zend_Db_Expr('CURRENT_TIMESTAMP');
+            } elseif ($cDefault == Varien_Db_Ddl_Table::TIMESTAMP_UPDATE) {
+                $cDefault = new Zend_Db_Expr('0 ON UPDATE CURRENT_TIMESTAMP');
+            } elseif ($cDefault == Varien_Db_Ddl_Table::TIMESTAMP_INIT_UPDATE) {
+                $cDefault = new Zend_Db_Expr('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP');
+            } elseif ($cNullable && !$cDefault) {
+                $cDefault = new Zend_Db_Expr('NULL');
+            } else {
+                $cDefault = new Zend_Db_Expr('0');
+            }
+        } elseif (is_null($cDefault) && $cNullable) {
+            $cDefault = new Zend_Db_Expr('NULL');
+        }
+
+        if (empty($options['COMMENT'])) {
+            $comment = '';
+        } else {
+            $comment = $options['COMMENT'];
+        }
+
+        //set column position
+        $after = null;
+        if (!empty($options['AFTER'])) {
+            $after = $options['AFTER'];
+        }
+
+        return sprintf(
+            '%s%s%s%s%s COMMENT %s %s',
+            $cType,
+            $cUnsigned ? ' UNSIGNED' : '',
+            $cNullable ? ' NULL' : ' NOT NULL',
+            $cDefault !== false ? $this->quoteInto(' default ?', $cDefault) : '',
+            $cIdentity ? ' auto_increment' : '',
+            $this->quote($comment),
+            $after ? 'AFTER ' . $this->quoteIdentifier($after) : '',
+        );
+    }
+
+    /**
+     * Prepare Sql condition
+     *
+     * @param  string $text Condition value
+     * @param  mixed $value
+     * @param  string $fieldName
+     * @return string
+     */
+    protected function _prepareQuotedSqlCondition($text, $value, $fieldName)
+    {
+        $value = is_string($value) ? str_replace("\0", '', $value) : $value;
+        $sql = $this->quoteInto($text, $value);
+        return str_replace('{{fieldName}}', (string) $fieldName, $sql);
+    }
+
+    /**
+     * Transforms sql condition key 'seq' / 'sneq' that is used for comparing string values to its analog:
+     * - 'null' / 'notnull' for empty strings
+     * - 'eq' / 'neq' for non-empty strings
+     *
+     * @param string $conditionKey
+     * @param mixed $value
+     * @return string
+     */
+    protected function _transformStringSqlCondition($conditionKey, $value)
+    {
+        $value = str_replace("\0", '', (string) $value);
+        if ($value == '') {
+            return ($conditionKey == 'seq') ? 'null' : 'notnull';
+        } else {
+            return ($conditionKey == 'seq') ? 'eq' : 'neq';
+        }
+    }
+
+    /**
+     * Get Interval Unit SQL fragment
+     *
+     * @param int $interval
+     * @param string $unit
+     * @return string
+     * @throws Zend_Db_Exception
+     */
+    protected function _getIntervalUnitSql($interval, $unit)
+    {
+        if (!isset($this->_intervalUnits[$unit])) {
+            throw new Zend_Db_Exception(sprintf('Undefined interval unit "%s" specified', $unit));
+        }
+
+        return sprintf('INTERVAL %d %s', $interval, $this->_intervalUnits[$unit]);
+    }
+
+    /**
+     * Minus superfluous characters from hash.
+     *
+     * @param  $hash
+     * @param  $prefix
+     * @param  $maxCharacters
+     * @return string
+     */
+    protected function _minusSuperfluous($hash, $prefix, $maxCharacters)
+    {
+        $diff        = strlen($hash) + strlen($prefix) -  $maxCharacters;
+        $superfluous = $diff / 2;
+        $odd         = $diff % 2;
+        return substr($hash, $superfluous, - ($superfluous + $odd));
+    }
+
+    /**
      * Prepare insert data
      *
      * @param mixed $row
@@ -3961,23 +4048,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Try to find installed primary key name, if not - format new one.
-     *
-     * @param string $tableName Table name
-     * @param string $schemaName OPTIONAL
-     * @return string Primary Key name
-     */
-    public function getPrimaryKeyName($tableName, $schemaName = null)
-    {
-        $indexes = $this->getIndexList($tableName, $schemaName);
-        if (isset($indexes['PRIMARY'])) {
-            return $indexes['PRIMARY']['KEY_NAME'];
-        } else {
-            return 'PK_' . strtoupper($tableName);
-        }
-    }
-
-    /**
      * Parse text size
      * Returns max allowed size if value great it
      *
@@ -4012,33 +4082,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     }
 
     /**
-     * Converts fetched blob into raw binary PHP data.
-     * The MySQL drivers do it nice, no processing required.
-     *
-     * @mixed $value
-     * @return mixed
-     */
-    public function decodeVarbinary($value)
-    {
-        return $value;
-    }
-
-    /**
-     * Returns date that fits into TYPE_DATETIME range and is suggested to act as default 'zero' value
-     * for a column for current RDBMS. Deprecated and left for compatibility only.
-     * In Magento at MySQL there was zero date used for datetime columns. However, zero date it is not supported across
-     * different RDBMS. Thus now it is recommended to use same default value equal for all RDBMS - either NULL
-     * or specific date supported by all RDBMS.
-     *
-     * @deprecated after 1.5.1.0
-     * @return string
-     */
-    public function getSuggestedZeroDate()
-    {
-        return '0000-00-00 00:00:00';
-    }
-
-    /**
      * Retrieve Foreign Key name
      *
      * @deprecated after 1.6.0.0
@@ -4053,48 +4096,5 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         return $fkName;
-    }
-
-    /**
-     * Drop trigger
-     *
-     * @param string $triggerName
-     * @return Varien_Db_Adapter_Interface
-     */
-    public function dropTrigger($triggerName)
-    {
-        $query = sprintf(
-            'DROP TRIGGER IF EXISTS %s',
-            $this->_getTableName($triggerName),
-        );
-        $this->query($query);
-        return $this;
-    }
-
-    /**
-     * Create new table from provided select statement
-     *
-     * @param string $tableName
-     * @param bool $temporary
-     * @return mixed
-     */
-    public function createTableFromSelect($tableName, Zend_Db_Select $select, $temporary = false)
-    {
-        $query = sprintf(
-            'CREATE' . ($temporary ? ' TEMPORARY' : '') . ' TABLE `%s` AS (%s)',
-            $this->_getTableName($tableName),
-            (string) $select,
-        );
-        $this->query($query);
-    }
-
-    /**
-     * Check if all transactions have been committed
-     */
-    public function __destruct()
-    {
-        if ($this->_transactionLevel > 0) {
-            trigger_error('Some transactions have not been committed or rolled back', E_USER_ERROR);
-        }
     }
 }

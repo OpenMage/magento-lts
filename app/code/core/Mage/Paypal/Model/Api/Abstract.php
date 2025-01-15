@@ -317,6 +317,26 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
     }
 
     /**
+     * Define if debugging is enabled
+     *
+     * @return bool
+     */
+    public function getDebugFlag()
+    {
+        return $this->_config->debug;
+    }
+
+    /**
+     * Check whether API certificate authentication should be used
+     *
+     * @return bool
+     */
+    public function getUseCertAuthentication()
+    {
+        return (bool) $this->_config->apiAuthentication;
+    }
+
+    /**
      * Export $this public data to private request array
      *
      * @return array
@@ -558,25 +578,5 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
                ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
                ->log($debugData);
         }
-    }
-
-    /**
-     * Define if debugging is enabled
-     *
-     * @return bool
-     */
-    public function getDebugFlag()
-    {
-        return $this->_config->debug;
-    }
-
-    /**
-     * Check whether API certificate authentication should be used
-     *
-     * @return bool
-     */
-    public function getUseCertAuthentication()
-    {
-        return (bool) $this->_config->apiAuthentication;
     }
 }

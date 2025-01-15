@@ -44,18 +44,6 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return Mage_Uploader_Helper_File
-     */
-    protected function _getFileHelper()
-    {
-        if (!$this->_fileHelper) {
-            $this->_fileHelper = Mage::helper('uploader/file');
-        }
-
-        return $this->_fileHelper;
-    }
-
-    /**
      * Checking file for moving and move it
      *
      * @param string $baseTmpPath
@@ -81,6 +69,85 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
             return $fileName;
         }
         return '';
+    }
+
+    /**
+     * Return full path to file
+     *
+     * @param string $path
+     * @param string|null $file
+     * @return string
+     */
+    public function getFilePath($path, $file)
+    {
+        if ($file === null || $file === '') {
+            return $path . DS;
+        }
+
+        $file = $this->_prepareFileForPath($file);
+
+        if (substr($file, 0, 1) == DS) {
+            return $path . DS . substr($file, 1);
+        }
+
+        return $path . DS . $file;
+    }
+
+    /**
+     * Return file name form file path
+     *
+     * @param string $pathFile
+     * @return string
+     */
+    public function getFileFromPathFile($pathFile)
+    {
+        $file = '';
+
+        return substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
+    }
+
+    /**
+     * Get MIME type for $filePath
+     *
+     * @param string $filePath
+     * @return string
+     */
+    public function getFileType($filePath)
+    {
+        $ext = substr($filePath, strrpos($filePath, '.') + 1);
+        return $this->_getFileTypeByExt($ext);
+    }
+
+    /**
+     * Get all MIME types
+     *
+     * @return array
+     */
+    public function getAllFileTypes()
+    {
+        return array_values($this->getAllMineTypes());
+    }
+
+    /**
+     * Get list of all MIME types
+     *
+     * @return array
+     */
+    public function getAllMineTypes()
+    {
+        return $this->_mimeTypes;
+    }
+
+    /**
+     * @return Mage_Uploader_Helper_File
+     */
+    protected function _getFileHelper()
+    {
+        if (!$this->_fileHelper) {
+            $this->_fileHelper = Mage::helper('uploader/file');
+        }
+
+        return $this->_fileHelper;
     }
 
     /**
@@ -122,28 +189,6 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Return full path to file
-     *
-     * @param string $path
-     * @param string|null $file
-     * @return string
-     */
-    public function getFilePath($path, $file)
-    {
-        if ($file === null || $file === '') {
-            return $path . DS;
-        }
-
-        $file = $this->_prepareFileForPath($file);
-
-        if (substr($file, 0, 1) == DS) {
-            return $path . DS . substr($file, 1);
-        }
-
-        return $path . DS . $file;
-    }
-
-    /**
      * Replace slashes with directory separator
      *
      * @param string $file
@@ -152,31 +197,6 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     protected function _prepareFileForPath($file)
     {
         return str_replace('/', DS, $file);
-    }
-
-    /**
-     * Return file name form file path
-     *
-     * @param string $pathFile
-     * @return string
-     */
-    public function getFileFromPathFile($pathFile)
-    {
-        $file = '';
-
-        return substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS) + 1);
-    }
-
-    /**
-     * Get MIME type for $filePath
-     *
-     * @param string $filePath
-     * @return string
-     */
-    public function getFileType($filePath)
-    {
-        $ext = substr($filePath, strrpos($filePath, '.') + 1);
-        return $this->_getFileTypeByExt($ext);
     }
 
     /**
@@ -189,25 +209,5 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     protected function _getFileTypeByExt($ext)
     {
         return $this->_getFileHelper()->getMimeTypeByExtension($ext);
-    }
-
-    /**
-     * Get all MIME types
-     *
-     * @return array
-     */
-    public function getAllFileTypes()
-    {
-        return array_values($this->getAllMineTypes());
-    }
-
-    /**
-     * Get list of all MIME types
-     *
-     * @return array
-     */
-    public function getAllMineTypes()
-    {
-        return $this->_mimeTypes;
     }
 }

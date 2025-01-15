@@ -23,15 +23,6 @@
 class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init cms page service model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('cms/page', 'page_id');
-    }
-
-    /**
      * Unlinks from $fromStoreId store pages that have same identifiers as pages in $byStoreId
      *
      * Routine is intended to be used before linking pages of some store ($byStoreId) to other store ($fromStoreId)
@@ -84,5 +75,13 @@ class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_A
             $writeAdapter->delete($linkTable, $where);
         }
         return $this;
+    }
+    /**
+     * Init cms page service model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('cms/page', 'page_id');
     }
 }

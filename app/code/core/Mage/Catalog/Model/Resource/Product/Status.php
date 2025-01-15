@@ -29,11 +29,6 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      */
     protected $_productAttributes  = [];
 
-    protected function _construct()
-    {
-        $this->_init('catalog/product_enabled_index', 'product_id');
-    }
-
     /**
      * Retrieve product attribute (public method for status model)
      *
@@ -43,21 +38,6 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     public function getProductAttribute($attributeCode)
     {
         return $this->_getProductAttribute($attributeCode);
-    }
-
-    /**
-     * Retrieve product attribute
-     *
-     * @param string|int|Mage_Core_Model_Config_Element $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
-     */
-    protected function _getProductAttribute($attribute)
-    {
-        if (empty($this->_productAttributes[$attribute])) {
-            $this->_productAttributes[$attribute] =
-                Mage::getSingleton('catalog/product')->getResource()->getAttribute($attribute);
-        }
-        return $this->_productAttributes[$attribute];
     }
 
     /**
@@ -193,5 +173,25 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
         }
 
         return $statuses;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/product_enabled_index', 'product_id');
+    }
+
+    /**
+     * Retrieve product attribute
+     *
+     * @param string|int|Mage_Core_Model_Config_Element $attribute
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
+    protected function _getProductAttribute($attribute)
+    {
+        if (empty($this->_productAttributes[$attribute])) {
+            $this->_productAttributes[$attribute] =
+                Mage::getSingleton('catalog/product')->getResource()->getAttribute($attribute);
+        }
+        return $this->_productAttributes[$attribute];
     }
 }

@@ -23,15 +23,6 @@
 class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
-     * Set template
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('system/config/system/storage/media/synchronize.phtml');
-    }
-
-    /**
      * Remove scope label
      *
      * @return string
@@ -40,16 +31,6 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
     {
         $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
         return parent::render($element);
-    }
-
-    /**
-     * Return element html
-     *
-     * @return string
-     */
-    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
-    {
-        return $this->_toHtml();
     }
 
     /**
@@ -121,5 +102,23 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize extend
             'storage_type'      => $storageType,
             'connection_name'   => $connectionName,
         ];
+    }
+    /**
+     * Set template
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('system/config/system/storage/media/synchronize.phtml');
+    }
+
+    /**
+     * Return element html
+     *
+     * @return string
+     */
+    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
+    {
+        return $this->_toHtml();
     }
 }

@@ -32,12 +32,6 @@
  */
 class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalogindex/attribute');
-        $this->_getResource()->setStoreId(Mage::app()->getStore()->getId());
-    }
-
     /**
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $filter
@@ -80,5 +74,10 @@ class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->applyFilterToCollection($collection, $attribute, $value);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('catalogindex/attribute');
+        $this->_getResource()->setStoreId(Mage::app()->getStore()->getId());
     }
 }

@@ -35,27 +35,6 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     }
 
     /**
-     * Initialize basic order model
-     *
-     * @param mixed $orderIncrementId
-     * @return Mage_Sales_Model_Order
-     */
-    protected function _initOrder($orderIncrementId)
-    {
-        $order = Mage::getModel('sales/order');
-
-        /** @var Mage_Sales_Model_Order $order */
-
-        $order->loadByIncrementId($orderIncrementId);
-
-        if (!$order->getId()) {
-            $this->_fault('not_exists');
-        }
-
-        return $order;
-    }
-
-    /**
      * Retrieve list of orders. Filtration could be applied
      *
      * @param null|object|array $filters
@@ -266,5 +245,26 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
             $this->_fault('status_not_changed');
         }
         return true;
+    }
+
+    /**
+     * Initialize basic order model
+     *
+     * @param mixed $orderIncrementId
+     * @return Mage_Sales_Model_Order
+     */
+    protected function _initOrder($orderIncrementId)
+    {
+        $order = Mage::getModel('sales/order');
+
+        /** @var Mage_Sales_Model_Order $order */
+
+        $order->loadByIncrementId($orderIncrementId);
+
+        if (!$order->getId()) {
+            $this->_fault('not_exists');
+        }
+
+        return $order;
     }
 }

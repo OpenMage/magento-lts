@@ -117,6 +117,40 @@ class Mage_Paypal_Model_Ipn
     }
 
     /**
+     * Process payment pending notification
+     *
+     * @throws Exception
+     */
+    public function _registerPaymentPending()
+    {
+        $reason = $this->getRequestData('pending_reason');
+        if ($reason === 'authorization') {
+            $this->_registerPaymentAuthorization();
+            return;
+        }
+        if ($reason === 'order') {
+            throw new Exception('The "order" authorizations are not implemented.');
+        }
+
+        // case when was placed using PayPal standard
+        if (Mage_Sales_Model_Order::STATE_PENDING_PAYMENT == $this->_order->getState()
+            && !$this->getRequestData('transaction_entity')
+        ) {
+            $this->_registerPaymentCapture();
+            return;
+        }
+
+        $this->_importPaymentInformation();
+
+        $this->_order->getPayment()
+            ->setPreparedMessage($this->_createIpnComment($this->_info::explainPendingReason($reason)))
+            ->setTransactionId($this->getRequestData('txn_id'))
+            ->setIsTransactionClosed(0)
+            ->registerPaymentReviewAction(Mage_Sales_Model_Order_Payment::REVIEW_ACTION_UPDATE, false);
+        $this->_order->save();
+    }
+
+    /**
      * Post back to PayPal to check whether this request is a valid one
      *
      * @throws Exception
@@ -602,40 +636,6 @@ class Mage_Paypal_Model_Ipn
         $this->_order->addStatusHistoryComment($message, $orderStatus)
             ->setIsCustomerNotified(false)
             ->save();
-    }
-
-    /**
-     * Process payment pending notification
-     *
-     * @throws Exception
-     */
-    public function _registerPaymentPending()
-    {
-        $reason = $this->getRequestData('pending_reason');
-        if ($reason === 'authorization') {
-            $this->_registerPaymentAuthorization();
-            return;
-        }
-        if ($reason === 'order') {
-            throw new Exception('The "order" authorizations are not implemented.');
-        }
-
-        // case when was placed using PayPal standard
-        if (Mage_Sales_Model_Order::STATE_PENDING_PAYMENT == $this->_order->getState()
-            && !$this->getRequestData('transaction_entity')
-        ) {
-            $this->_registerPaymentCapture();
-            return;
-        }
-
-        $this->_importPaymentInformation();
-
-        $this->_order->getPayment()
-            ->setPreparedMessage($this->_createIpnComment($this->_info::explainPendingReason($reason)))
-            ->setTransactionId($this->getRequestData('txn_id'))
-            ->setIsTransactionClosed(0)
-            ->registerPaymentReviewAction(Mage_Sales_Model_Order_Payment::REVIEW_ACTION_UPDATE, false);
-        $this->_order->save();
     }
 
     /**

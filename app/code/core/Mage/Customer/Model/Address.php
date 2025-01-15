@@ -32,9 +32,9 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
 {
     protected $_customer;
 
-    protected function _construct()
+    public function __clone()
     {
-        $this->_init('customer/address');
+        $this->setId(null);
     }
 
     /**
@@ -120,11 +120,6 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
         return $attributes;
     }
 
-    public function __clone()
-    {
-        $this->setId(null);
-    }
-
     /**
      * Return Entity Type instance
      *
@@ -170,5 +165,10 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     {
         $this->setData('region_id', (int) $regionId);
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('customer/address');
     }
 }

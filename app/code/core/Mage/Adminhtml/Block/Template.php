@@ -23,14 +23,6 @@
 class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
 {
     /**
-     * @return string
-     */
-    protected function _getUrlModelClass()
-    {
-        return 'adminhtml/url';
-    }
-
-    /**
      * Retrieve Session Form Key
      *
      * @return string
@@ -52,17 +44,6 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     }
 
     /**
-     * Prepare html output
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        Mage::dispatchEvent('adminhtml_block_html_before', ['block' => $this]);
-        return parent::_toHtml();
-    }
-
-    /**
      * Deleting script tags from string
      *
      * @param string $html
@@ -71,5 +52,23 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
     public function maliciousCodeFilter($html)
     {
         return Mage::getSingleton('core/input_filter_maliciousCode')->filter($html);
+    }
+    /**
+     * @return string
+     */
+    protected function _getUrlModelClass()
+    {
+        return 'adminhtml/url';
+    }
+
+    /**
+     * Prepare html output
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        Mage::dispatchEvent('adminhtml_block_html_before', ['block' => $this]);
+        return parent::_toHtml();
     }
 }

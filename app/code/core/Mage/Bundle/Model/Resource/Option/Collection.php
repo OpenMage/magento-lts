@@ -40,15 +40,6 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     protected $_selectionsAppended   = false;
 
     /**
-     * Init model and resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('bundle/option');
-    }
-
-    /**
      * Joins values to options
      *
      * @param int $storeId
@@ -142,20 +133,6 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     }
 
     /**
-     * Removes appended selections before
-     *
-     * @return $this
-     */
-    protected function _stripSelections()
-    {
-        foreach ($this->getItems() as $option) {
-            $option->setSelections([]);
-        }
-        $this->_selectionsAppended = false;
-        return $this;
-    }
-
-    /**
      * Sets filter by option id
      *
      * @param array|int $ids
@@ -193,5 +170,28 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
             $this->_itemIds = parent::getAllIds();
         }
         return $this->_itemIds;
+    }
+
+    /**
+     * Init model and resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('bundle/option');
+    }
+
+    /**
+     * Removes appended selections before
+     *
+     * @return $this
+     */
+    protected function _stripSelections()
+    {
+        foreach ($this->getItems() as $option) {
+            $option->setSelections([]);
+        }
+        $this->_selectionsAppended = false;
+        return $this;
     }
 }

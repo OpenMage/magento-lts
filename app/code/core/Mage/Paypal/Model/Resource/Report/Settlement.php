@@ -30,6 +30,29 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
     protected $_rowsTable;
 
     /**
+     * Check if report with same account and report date already fetched
+     *
+     * @param string $accountId
+     * @param string $reportDate
+     * @return $this
+     */
+    public function loadByAccountAndDate(Mage_Paypal_Model_Report_Settlement $report, $accountId, $reportDate)
+    {
+        $adapter = $this->_getReadAdapter();
+        $select  = $adapter->select()
+            ->from($this->getMainTable())
+            ->where('account_id = :account_id')
+            ->where('report_date = :report_date');
+
+        $data = $adapter->fetchRow($select, [':account_id' => $accountId, ':report_date' => $reportDate]);
+        if ($data) {
+            $report->addData($data);
+        }
+
+        return $this;
+    }
+
+    /**
      * Init main table
      *
      */
@@ -83,29 +106,6 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
             } catch (Exception $e) {
                 $adapter->rollBack();
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if report with same account and report date already fetched
-     *
-     * @param string $accountId
-     * @param string $reportDate
-     * @return $this
-     */
-    public function loadByAccountAndDate(Mage_Paypal_Model_Report_Settlement $report, $accountId, $reportDate)
-    {
-        $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('account_id = :account_id')
-            ->where('report_date = :report_date');
-
-        $data = $adapter->fetchRow($select, [':account_id' => $accountId, ':report_date' => $reportDate]);
-        if ($data) {
-            $report->addData($data);
         }
 
         return $this;

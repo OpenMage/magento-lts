@@ -23,15 +23,6 @@
 class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalogsearch/fulltext', 'product_id');
-    }
-
-    /**
      * Add entity data to fulltext search table
      *
      * @param int $entityId
@@ -183,5 +174,13 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
     public function test()
     {
         return true;
+    }
+    /**
+     * Init resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalogsearch/fulltext', 'product_id');
     }
 }

@@ -65,14 +65,6 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
     }
 
     /**
-     * @return Mage_Sales_Helper_Data
-     */
-    protected function _getSalesHelper()
-    {
-        return Mage::helper('sales');
-    }
-
-    /**
      * Get array of arrays with tax information for display in PDF
      * array(
      *  $index => array(
@@ -127,6 +119,45 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
     }
 
     /**
+     * Check if we can display total information in PDF
+     *
+     * @return bool
+     */
+    public function canDisplay()
+    {
+        $amount = $this->getAmount();
+        return $this->getDisplayZero() || ($amount != 0);
+    }
+
+    /**
+     * Get Total amount from source
+     *
+     * @return float
+     */
+    public function getAmount()
+    {
+        return $this->getSource()->getDataUsingMethod($this->getSourceField());
+    }
+
+    /**
+     * Get title description from source
+     *
+     * @return mixed
+     */
+    public function getTitleDescription()
+    {
+        return $this->getSource()->getDataUsingMethod($this->getTitleSourceField());
+    }
+
+    /**
+     * @return Mage_Sales_Helper_Data
+     */
+    protected function _getSalesHelper()
+    {
+        return Mage::helper('sales');
+    }
+
+    /**
      * Get full rate info
      *
      * @return array
@@ -163,36 +194,5 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
     protected function _getCalculatedTaxes()
     {
         return $this->_getTaxHelper()->getCalculatedTaxes($this->getOrder());
-    }
-
-    /**
-     * Check if we can display total information in PDF
-     *
-     * @return bool
-     */
-    public function canDisplay()
-    {
-        $amount = $this->getAmount();
-        return $this->getDisplayZero() || ($amount != 0);
-    }
-
-    /**
-     * Get Total amount from source
-     *
-     * @return float
-     */
-    public function getAmount()
-    {
-        return $this->getSource()->getDataUsingMethod($this->getSourceField());
-    }
-
-    /**
-     * Get title description from source
-     *
-     * @return mixed
-     */
-    public function getTitleDescription()
-    {
-        return $this->getSource()->getDataUsingMethod($this->getTitleSourceField());
     }
 }

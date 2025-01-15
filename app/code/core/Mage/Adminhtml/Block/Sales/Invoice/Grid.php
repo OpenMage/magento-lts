@@ -35,6 +35,32 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * @param Mage_Sales_Model_Order_Invoice $row
+     * @return false|string
+     */
+    public function getRowUrl($row)
+    {
+        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/invoice')) {
+            return false;
+        }
+
+        return $this->getUrl(
+            '*/sales_invoice/view',
+            [
+                'invoice_id' => $row->getId(),
+            ],
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
      * Retrieve collection class
      *
      * @return string
@@ -142,31 +168,5 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         ]);
 
         return $this;
-    }
-
-    /**
-     * @param Mage_Sales_Model_Order_Invoice $row
-     * @return false|string
-     */
-    public function getRowUrl($row)
-    {
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/invoice')) {
-            return false;
-        }
-
-        return $this->getUrl(
-            '*/sales_invoice/view',
-            [
-                'invoice_id' => $row->getId(),
-            ],
-        );
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 }

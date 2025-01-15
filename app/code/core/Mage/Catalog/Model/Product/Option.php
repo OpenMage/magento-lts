@@ -151,11 +151,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      */
     protected $_values = [];
 
-    protected function _construct()
-    {
-        $this->_init('catalog/product_option');
-    }
-
     /**
      * Add value of option to values array
      *
@@ -383,28 +378,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     }
 
     /**
-     * After save
-     *
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _afterSave()
-    {
-        $this->getValueInstance()->unsetValues();
-        if (is_array($this->getData('values'))) {
-            foreach ($this->getData('values') as $value) {
-                $this->getValueInstance()->addValue($value);
-            }
-
-            $this->getValueInstance()->setOption($this)
-                ->saveValues();
-        } elseif ($this->getGroupByType($this->getType()) == self::OPTION_GROUP_SELECT) {
-            Mage::throwException(Mage::helper('catalog')->__('Select type options required values rows.'));
-        }
-
-        return parent::_afterSave();
-    }
-
-    /**
      * Return price. If $flag is true and price is percent
      *  return converted percent to price
      *
@@ -539,6 +512,48 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Check whether custom option could have multiple values
+     *
+     * @return bool
+     */
+    public function isMultipleType()
+    {
+        switch ($this->getType()) {
+            case self::OPTION_TYPE_MULTIPLE:
+            case self::OPTION_TYPE_CHECKBOX:
+                return true;
+        }
+        return false;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/product_option');
+    }
+
+    /**
+     * After save
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterSave()
+    {
+        $this->getValueInstance()->unsetValues();
+        if (is_array($this->getData('values'))) {
+            foreach ($this->getData('values') as $value) {
+                $this->getValueInstance()->addValue($value);
+            }
+
+            $this->getValueInstance()->setOption($this)
+                ->saveValues();
+        } elseif ($this->getGroupByType($this->getType()) == self::OPTION_GROUP_SELECT) {
+            Mage::throwException(Mage::helper('catalog')->__('Select type options required values rows.'));
+        }
+
+        return parent::_afterSave();
+    }
+
+    /**
      * Clearing object's data
      *
      * @return $this
@@ -563,20 +578,5 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             }
         }
         return $this;
-    }
-
-    /**
-     * Check whether custom option could have multiple values
-     *
-     * @return bool
-     */
-    public function isMultipleType()
-    {
-        switch ($this->getType()) {
-            case self::OPTION_TYPE_MULTIPLE:
-            case self::OPTION_TYPE_CHECKBOX:
-                return true;
-        }
-        return false;
     }
 }

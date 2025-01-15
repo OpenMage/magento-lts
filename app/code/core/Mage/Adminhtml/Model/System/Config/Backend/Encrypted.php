@@ -23,6 +23,15 @@
 class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Model_Config_Data
 {
     /**
+     * Get & decrypt old value from configuration
+     *
+     * @return string
+     */
+    public function getOldValue()
+    {
+        return Mage::helper('core')->decrypt(parent::getOldValue());
+    }
+    /**
      * Decrypt value after loading
      */
     protected function _afterLoad()
@@ -49,15 +58,5 @@ class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Mod
             $this->setValue($encrypted);
         }
         return $this;
-    }
-
-    /**
-     * Get & decrypt old value from configuration
-     *
-     * @return string
-     */
-    public function getOldValue()
-    {
-        return Mage::helper('core')->decrypt(parent::getOldValue());
     }
 }

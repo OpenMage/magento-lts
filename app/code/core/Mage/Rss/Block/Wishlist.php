@@ -37,6 +37,36 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     protected $_mapRenderer = 'msrp_rss';
 
     /**
+     * Retrieve Product View URL
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $additional
+     * @return string
+     */
+    public function getProductUrl($product, $additional = [])
+    {
+        $additional['_rss'] = true;
+        return parent::getProductUrl($product, $additional);
+    }
+
+    /**
+     * Adding customized price template for product type, used as action in layouts
+     *
+     * @param string $type Catalog Product Type
+     * @param string $block Block Type
+     * @param string $template Template
+     */
+    public function addPriceBlockType($type, $block = '', $template = '')
+    {
+        if ($type) {
+            $this->_priceBlockTypes[$type] = [
+                'block' => $block,
+                'template' => $template,
+            ];
+        }
+    }
+
+    /**
      * Retrieve Wishlist model
      *
      * @return Mage_Wishlist_Model_Wishlist
@@ -177,35 +207,5 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
         }
 
         return $rssObj->createRssXml();
-    }
-
-    /**
-     * Retrieve Product View URL
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @return string
-     */
-    public function getProductUrl($product, $additional = [])
-    {
-        $additional['_rss'] = true;
-        return parent::getProductUrl($product, $additional);
-    }
-
-    /**
-     * Adding customized price template for product type, used as action in layouts
-     *
-     * @param string $type Catalog Product Type
-     * @param string $block Block Type
-     * @param string $template Template
-     */
-    public function addPriceBlockType($type, $block = '', $template = '')
-    {
-        if ($type) {
-            $this->_priceBlockTypes[$type] = [
-                'block' => $block,
-                'template' => $template,
-            ];
-        }
     }
 }

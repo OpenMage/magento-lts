@@ -25,13 +25,6 @@
  */
 class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTagName('script');
-        $this->setTagParams(['language' => 'javascript', 'type' => 'text/javascript']);
-    }
-
     /**
      * @param string $src
      * @param string|null $type
@@ -46,5 +39,11 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
         $url = Mage::getBaseUrl($type) . $src;
 
         return $this->setTagParam('src', $url);
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTagName('script');
+        $this->setTagParams(['language' => 'javascript', 'type' => 'text/javascript']);
     }
 }

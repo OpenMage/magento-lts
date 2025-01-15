@@ -22,12 +22,6 @@
  */
 class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('salesrule/coupon');
-    }
-
     /**
      * Add rule to filter
      *
@@ -84,5 +78,10 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
         $fieldExpression = $this->getConnection()->getCheckSql('main_table.times_used > 0', '1', '0');
         $resultCondition = $this->_getConditionSql($fieldExpression, ['eq' => $filterValue]);
         $collection->getSelect()->where($resultCondition);
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('salesrule/coupon');
     }
 }

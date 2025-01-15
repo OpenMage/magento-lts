@@ -23,16 +23,6 @@
 class Mage_Paypal_Block_Payflow_Advanced_Form extends Mage_Paypal_Block_Payflow_Link_Form
 {
     /**
-     * Set payment method code
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('paypal/payflowadvanced/info.phtml');
-    }
-
-    /**
      * Get frame action URL
      *
      * @return string
@@ -40,5 +30,14 @@ class Mage_Paypal_Block_Payflow_Advanced_Form extends Mage_Paypal_Block_Payflow_
     public function getFrameActionUrl()
     {
         return $this->getUrl('paypal/payflowadvanced/form', ['_secure' => true]);
+    }
+    /**
+     * Set payment method code
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('paypal/payflowadvanced/info.phtml');
     }
 }

@@ -32,6 +32,27 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
     }
 
     /**
+     * @return string
+     */
+    public function getCloseButtonHtml()
+    {
+        return $this->getChildHtml('close_button');
+    }
+
+    /**
+     * @return string
+     * @throws Exception
+     */
+    public function getAttributesBlockJson()
+    {
+        $result = [
+            $this->getRequest()->getParam('tab') => $this->getChildHtml('attributes'),
+        ];
+
+        return Mage::helper('core')->jsonEncode($result);
+    }
+
+    /**
      * @return $this
      * @throws Exception
      */
@@ -70,26 +91,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
             }
         }
         return $attributes;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCloseButtonHtml()
-    {
-        return $this->getChildHtml('close_button');
-    }
-
-    /**
-     * @return string
-     * @throws Exception
-     */
-    public function getAttributesBlockJson()
-    {
-        $result = [
-            $this->getRequest()->getParam('tab') => $this->getChildHtml('attributes'),
-        ];
-
-        return Mage::helper('core')->jsonEncode($result);
     }
 }

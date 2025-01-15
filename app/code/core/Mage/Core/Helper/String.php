@@ -344,6 +344,115 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Set array helper
+     *
+     * @param Mage_Core_Helper_Array $helper
+     * @return $this
+     */
+    public function setArrayHelper(Mage_Core_Helper_Abstract $helper)
+    {
+        $this->_arrayHelper = $helper;
+        return $this;
+    }
+
+    /**
+     * Get Array Helper
+     *
+     * @return Mage_Core_Helper_Array
+     */
+    public function getArrayHelper()
+    {
+        if (!$this->_arrayHelper) {
+            $this->_arrayHelper = Mage::helper('core/array');
+        }
+        return $this->_arrayHelper;
+    }
+
+    /**
+     * Unicode compatible ord() method
+     *
+     * @param  string $c char to get value from
+     * @return int
+     */
+    public function uniOrd($c)
+    {
+        $ord = 0;
+        $h   = ord($c[0]);
+
+        if ($h <= 0x7F) {
+            $ord = $h;
+        } elseif ($h < 0xC2) {
+            $ord = 0;
+        } elseif ($h <= 0xDF) {
+            $ord = (($h & 0x1F) << 6 | (ord($c[1]) & 0x3F));
+        } elseif ($h <= 0xEF) {
+            $ord = (($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) << 6 | (ord($c[2]) & 0x3F));
+        } elseif ($h <= 0xF4) {
+            $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12 |
+                (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
+        }
+
+        return $ord;
+    }
+
+    /**
+     * UnSerialize string
+     * @param string|null $str
+     * @return null|void
+     * @throws Exception
+     */
+    public function unserialize($str)
+    {
+        if (is_null($str)) {
+            return null;
+        }
+        $reader = new Unserialize_Reader_ArrValue('data');
+        $prevChar = null;
+
+        $strLen = strlen($str);
+        for ($i = 0; $i < $strLen; $i++) {
+            $char = $str[$i];
+            $result = $reader->read($char, $prevChar);
+            if (!is_null($result)) {
+                return $result;
+            }
+            $prevChar = $char;
+        }
+    }
+
+    /**
+     * Detect serialization of data Array or Object
+     *
+     * @param mixed $data
+     * @return bool
+     */
+    public function isSerializedArrayOrObject($data)
+    {
+        $pattern =
+            '/^a:\d+:\{(i:\d+;|s:\d+:\".+\";|N;|O:\d+:\"\w+\":\d+:\{\w:\d+:)+|^O:\d+:\"\w+\":\d+:\{(s:\d+:\"|i:\d+;)/';
+        return is_string($data) && preg_match($pattern, $data);
+    }
+
+    /**
+     * Validate is Serialized Data Object in string
+     *
+     * @param string $str
+     * @return bool
+     */
+    public function validateSerializedObject($str)
+    {
+        if ($this->isSerializedArrayOrObject($str)) {
+            try {
+                $this->unserialize($str);
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Validate query pair string
      *
      * @param string $str
@@ -459,114 +568,5 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             }
         }
         return $subKey;
-    }
-
-    /**
-     * Set array helper
-     *
-     * @param Mage_Core_Helper_Array $helper
-     * @return $this
-     */
-    public function setArrayHelper(Mage_Core_Helper_Abstract $helper)
-    {
-        $this->_arrayHelper = $helper;
-        return $this;
-    }
-
-    /**
-     * Get Array Helper
-     *
-     * @return Mage_Core_Helper_Array
-     */
-    public function getArrayHelper()
-    {
-        if (!$this->_arrayHelper) {
-            $this->_arrayHelper = Mage::helper('core/array');
-        }
-        return $this->_arrayHelper;
-    }
-
-    /**
-     * Unicode compatible ord() method
-     *
-     * @param  string $c char to get value from
-     * @return int
-     */
-    public function uniOrd($c)
-    {
-        $ord = 0;
-        $h   = ord($c[0]);
-
-        if ($h <= 0x7F) {
-            $ord = $h;
-        } elseif ($h < 0xC2) {
-            $ord = 0;
-        } elseif ($h <= 0xDF) {
-            $ord = (($h & 0x1F) << 6 | (ord($c[1]) & 0x3F));
-        } elseif ($h <= 0xEF) {
-            $ord = (($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) << 6 | (ord($c[2]) & 0x3F));
-        } elseif ($h <= 0xF4) {
-            $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12 |
-                (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
-        }
-
-        return $ord;
-    }
-
-    /**
-     * UnSerialize string
-     * @param string|null $str
-     * @return null|void
-     * @throws Exception
-     */
-    public function unserialize($str)
-    {
-        if (is_null($str)) {
-            return null;
-        }
-        $reader = new Unserialize_Reader_ArrValue('data');
-        $prevChar = null;
-
-        $strLen = strlen($str);
-        for ($i = 0; $i < $strLen; $i++) {
-            $char = $str[$i];
-            $result = $reader->read($char, $prevChar);
-            if (!is_null($result)) {
-                return $result;
-            }
-            $prevChar = $char;
-        }
-    }
-
-    /**
-     * Detect serialization of data Array or Object
-     *
-     * @param mixed $data
-     * @return bool
-     */
-    public function isSerializedArrayOrObject($data)
-    {
-        $pattern =
-            '/^a:\d+:\{(i:\d+;|s:\d+:\".+\";|N;|O:\d+:\"\w+\":\d+:\{\w:\d+:)+|^O:\d+:\"\w+\":\d+:\{(s:\d+:\"|i:\d+;)/';
-        return is_string($data) && preg_match($pattern, $data);
-    }
-
-    /**
-     * Validate is Serialized Data Object in string
-     *
-     * @param string $str
-     * @return bool
-     */
-    public function validateSerializedObject($str)
-    {
-        if ($this->isSerializedArrayOrObject($str)) {
-            try {
-                $this->unserialize($str);
-            } catch (Exception $e) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

@@ -40,21 +40,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
     protected $_translationHelper = null;
 
     /**
-     * Prepare Widget Options Form and values according to specified type
-     *
-     * widget_type must be set in data before
-     * widget_values may be set before to render element values
-     *
-     * @return $this
-     */
-    protected function _prepareForm()
-    {
-        $this->getForm()->setUseContainer(false);
-        $this->addFields();
-        return $this;
-    }
-
-    /**
      * Form getter/instantiation
      *
      * @return Varien_Data_Form
@@ -115,6 +100,21 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
             $this->_addField($parameter);
         }
 
+        return $this;
+    }
+
+    /**
+     * Prepare Widget Options Form and values according to specified type
+     *
+     * widget_type must be set in data before
+     * widget_values may be set before to render element values
+     *
+     * @return $this
+     */
+    protected function _prepareForm()
+    {
+        $this->getForm()->setUseContainer(false);
+        $this->addFields();
         return $this;
     }
 

@@ -23,15 +23,6 @@
 class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define price collection
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('productalert/price');
-    }
-
-    /**
      * Add customer filter
      *
      * @param mixed $customer
@@ -82,5 +73,13 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
     {
         $this->getSelect()->order('customer_id ' . $sort);
         return $this;
+    }
+    /**
+     * Define price collection
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('productalert/price');
     }
 }

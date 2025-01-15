@@ -46,30 +46,6 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * @param string $code
-     * @return false|Mage_Core_Block_Abstract|string
-     */
-    protected function _getTotalRenderer($code)
-    {
-        $blockName = $code . '_total_renderer';
-        $block = $this->getLayout()->getBlock($blockName);
-        if (!$block) {
-            $block = $this->_defaultRenderer;
-            $config = Mage::getConfig()->getNode("global/sales/quote/totals/{$code}/renderer");
-            if ($config) {
-                $block = (string) $config;
-            }
-
-            $block = $this->getLayout()->createBlock($block, $blockName);
-        }
-        /**
-         * Transfer totals to renderer
-         */
-        $block->setTotals($this->getTotals());
-        return $block;
-    }
-
-    /**
      * @param Mage_Sales_Model_Quote_Address_Total $total
      * @param string|null $area
      * @param int $colspan
@@ -151,5 +127,29 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
             $this->_quote = $this->getCheckout()->getQuote();
         }
         return $this->_quote;
+    }
+
+    /**
+     * @param string $code
+     * @return false|Mage_Core_Block_Abstract|string
+     */
+    protected function _getTotalRenderer($code)
+    {
+        $blockName = $code . '_total_renderer';
+        $block = $this->getLayout()->getBlock($blockName);
+        if (!$block) {
+            $block = $this->_defaultRenderer;
+            $config = Mage::getConfig()->getNode("global/sales/quote/totals/{$code}/renderer");
+            if ($config) {
+                $block = (string) $config;
+            }
+
+            $block = $this->getLayout()->createBlock($block, $blockName);
+        }
+        /**
+         * Transfer totals to renderer
+         */
+        $block->setTotals($this->getTotals());
+        return $block;
     }
 }

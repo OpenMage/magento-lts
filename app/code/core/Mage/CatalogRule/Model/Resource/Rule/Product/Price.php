@@ -22,11 +22,6 @@
  */
 class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalogrule/rule_product_price', 'rule_product_price_id');
-    }
-
     /**
      * Apply price rule price to price index table
      *
@@ -77,5 +72,9 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
         $this->_getWriteAdapter()->query($query);
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('catalogrule/rule_product_price', 'rule_product_price_id');
     }
 }

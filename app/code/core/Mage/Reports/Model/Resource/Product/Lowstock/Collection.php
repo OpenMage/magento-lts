@@ -44,86 +44,6 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     protected $_inventoryItemTableAlias    = 'lowstock_inventory_item';
 
     /**
-     * Retrieve CatalogInventory Stock Item Resource instance
-     *
-     * @return Mage_CatalogInventory_Model_Resource_Stock_Item
-     */
-    protected function _getInventoryItemResource()
-    {
-        if ($this->_inventoryItemResource === null) {
-            $this->_inventoryItemResource = Mage::getResourceSingleton('cataloginventory/stock_item');
-        }
-        return $this->_inventoryItemResource;
-    }
-
-    /**
-     * Retrieve CatalogInventory Stock Item Table
-     *
-     * @return string
-     */
-    protected function _getInventoryItemTable()
-    {
-        return $this->_getInventoryItemResource()->getMainTable();
-    }
-
-    /**
-     * Retrieve CatalogInventory Stock Item Table Id field name
-     *
-     * @return string
-     */
-    protected function _getInventoryItemIdField()
-    {
-        return $this->_getInventoryItemResource()->getIdFieldName();
-    }
-
-    /**
-     * Retrieve alias for CatalogInventory Stock Item Table
-     *
-     * @return string
-     */
-    protected function _getInventoryItemTableAlias()
-    {
-        return $this->_inventoryItemTableAlias;
-    }
-
-    /**
-     * Add catalog inventory stock item field to select
-     *
-     * @param string $field
-     * @param string $alias
-     * @return $this
-     */
-    protected function _addInventoryItemFieldToSelect($field, $alias = null)
-    {
-        if (empty($alias)) {
-            $alias = $field;
-        }
-
-        if (isset($this->_joinFields[$alias])) {
-            return $this;
-        }
-
-        $this->_joinFields[$alias] = [
-            'table' => $this->_getInventoryItemTableAlias(),
-            'field' => $field,
-        ];
-
-        $this->getSelect()->columns([$alias => $field], $this->_getInventoryItemTableAlias());
-        return $this;
-    }
-
-    /**
-     * Retrieve catalog inventory stock item field correlation name
-     *
-     * @param string $field
-     * @return string
-     */
-    protected function _getInventoryItemField($field)
-    {
-        return sprintf('%s.%s', $this->_getInventoryItemTableAlias(), $field);
-    }
-
-    /**
      * Join catalog inventory stock item table for further stock_item values filters
      *
      * @param array|string $fields
@@ -228,5 +148,85 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
         );
         $this->getSelect()->where('qty < ?', $notifyStockExpr);
         return $this;
+    }
+
+    /**
+     * Retrieve CatalogInventory Stock Item Resource instance
+     *
+     * @return Mage_CatalogInventory_Model_Resource_Stock_Item
+     */
+    protected function _getInventoryItemResource()
+    {
+        if ($this->_inventoryItemResource === null) {
+            $this->_inventoryItemResource = Mage::getResourceSingleton('cataloginventory/stock_item');
+        }
+        return $this->_inventoryItemResource;
+    }
+
+    /**
+     * Retrieve CatalogInventory Stock Item Table
+     *
+     * @return string
+     */
+    protected function _getInventoryItemTable()
+    {
+        return $this->_getInventoryItemResource()->getMainTable();
+    }
+
+    /**
+     * Retrieve CatalogInventory Stock Item Table Id field name
+     *
+     * @return string
+     */
+    protected function _getInventoryItemIdField()
+    {
+        return $this->_getInventoryItemResource()->getIdFieldName();
+    }
+
+    /**
+     * Retrieve alias for CatalogInventory Stock Item Table
+     *
+     * @return string
+     */
+    protected function _getInventoryItemTableAlias()
+    {
+        return $this->_inventoryItemTableAlias;
+    }
+
+    /**
+     * Add catalog inventory stock item field to select
+     *
+     * @param string $field
+     * @param string $alias
+     * @return $this
+     */
+    protected function _addInventoryItemFieldToSelect($field, $alias = null)
+    {
+        if (empty($alias)) {
+            $alias = $field;
+        }
+
+        if (isset($this->_joinFields[$alias])) {
+            return $this;
+        }
+
+        $this->_joinFields[$alias] = [
+            'table' => $this->_getInventoryItemTableAlias(),
+            'field' => $field,
+        ];
+
+        $this->getSelect()->columns([$alias => $field], $this->_getInventoryItemTableAlias());
+        return $this;
+    }
+
+    /**
+     * Retrieve catalog inventory stock item field correlation name
+     *
+     * @param string $field
+     * @return string
+     */
+    protected function _getInventoryItemField($field)
+    {
+        return sprintf('%s.%s', $this->_getInventoryItemTableAlias(), $field);
     }
 }

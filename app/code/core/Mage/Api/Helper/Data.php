@@ -288,37 +288,6 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Parses complex filter, which may contain several nodes, e.g. when user want to fetch orders which were updated
-     * between two dates.
-     *
-     * @param array $complexFilter
-     * @return array
-     */
-    protected function _parseComplexFilter($complexFilter)
-    {
-        $parsedFilters = [];
-
-        foreach ($complexFilter as $filter) {
-            if (!isset($filter->key) || !isset($filter->value)) {
-                continue;
-            }
-            $fieldName = $filter->key;
-            $condition = $filter->value;
-            $conditionName = $condition->key;
-            $conditionValue = $condition->value;
-            $this->formatFilterConditionValue($conditionName, $conditionValue);
-
-            if (array_key_exists($fieldName, $parsedFilters)) {
-                $parsedFilters[$fieldName] += [$conditionName => $conditionValue];
-            } else {
-                $parsedFilters[$fieldName] = [$conditionName => $conditionValue];
-            }
-        }
-
-        return $parsedFilters;
-    }
-
-    /**
      * Convert condition value from the string into the array
      * for the condition operators that require value to be an array.
      * Condition value is changed by reference
@@ -378,5 +347,36 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $htmlSpecialChars === true ? htmlspecialchars($uri) : (string) $uri;
+    }
+
+    /**
+     * Parses complex filter, which may contain several nodes, e.g. when user want to fetch orders which were updated
+     * between two dates.
+     *
+     * @param array $complexFilter
+     * @return array
+     */
+    protected function _parseComplexFilter($complexFilter)
+    {
+        $parsedFilters = [];
+
+        foreach ($complexFilter as $filter) {
+            if (!isset($filter->key) || !isset($filter->value)) {
+                continue;
+            }
+            $fieldName = $filter->key;
+            $condition = $filter->value;
+            $conditionName = $condition->key;
+            $conditionValue = $condition->value;
+            $this->formatFilterConditionValue($conditionName, $conditionValue);
+
+            if (array_key_exists($fieldName, $parsedFilters)) {
+                $parsedFilters[$fieldName] += [$conditionName => $conditionValue];
+            } else {
+                $parsedFilters[$fieldName] = [$conditionName => $conditionValue];
+            }
+        }
+
+        return $parsedFilters;
     }
 }

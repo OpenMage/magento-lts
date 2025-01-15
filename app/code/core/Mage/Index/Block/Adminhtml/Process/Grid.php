@@ -49,6 +49,87 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * Decorate status column values
+     *
+     * @param string $value
+     * @param Mage_Index_Model_Process $row
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param bool $isExport
+     *
+     * @return string
+     */
+    public function decorateStatus($value, $row, $column, $isExport)
+    {
+        $class = '';
+        switch ($row->getStatus()) {
+            case Mage_Index_Model_Process::STATUS_PENDING:
+                $class = 'grid-severity-notice';
+                break;
+            case Mage_Index_Model_Process::STATUS_RUNNING:
+                $class = 'grid-severity-major';
+                break;
+            case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX:
+                $class = 'grid-severity-critical';
+                break;
+        }
+        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
+    }
+
+    /**
+     * Decorate "Update Required" column values
+     *
+     * @param string $value
+     * @param Mage_Index_Model_Process $row
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param bool $isExport
+     *
+     * @return string
+     */
+    public function decorateUpdateRequired($value, $row, $column, $isExport)
+    {
+        $class = '';
+        switch ($row->getUpdateRequired()) {
+            case 0:
+                $class = 'grid-severity-notice';
+                break;
+            case 1:
+                $class = 'grid-severity-critical';
+                break;
+        }
+        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
+    }
+
+    /**
+     * Decorate last run date coumn
+     *
+     * @param string $value
+     * @param Mage_Index_Model_Process $row
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param bool $isExport
+     *
+     * @return string
+     */
+    public function decorateDate($value, $row, $column, $isExport)
+    {
+        if (!$value) {
+            return $this->__('Never');
+        }
+        return $value;
+    }
+
+    /**
+     * Get row edit url
+     *
+     * @param Mage_Index_Model_Process $row
+     *
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['process' => $row->getId()]);
+    }
+
+    /**
      * Prepare grid collection
      *
      * @return $this
@@ -166,87 +247,6 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         parent::_prepareColumns();
 
         return $this;
-    }
-
-    /**
-     * Decorate status column values
-     *
-     * @param string $value
-     * @param Mage_Index_Model_Process $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
-     *
-     * @return string
-     */
-    public function decorateStatus($value, $row, $column, $isExport)
-    {
-        $class = '';
-        switch ($row->getStatus()) {
-            case Mage_Index_Model_Process::STATUS_PENDING:
-                $class = 'grid-severity-notice';
-                break;
-            case Mage_Index_Model_Process::STATUS_RUNNING:
-                $class = 'grid-severity-major';
-                break;
-            case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX:
-                $class = 'grid-severity-critical';
-                break;
-        }
-        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
-    }
-
-    /**
-     * Decorate "Update Required" column values
-     *
-     * @param string $value
-     * @param Mage_Index_Model_Process $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
-     *
-     * @return string
-     */
-    public function decorateUpdateRequired($value, $row, $column, $isExport)
-    {
-        $class = '';
-        switch ($row->getUpdateRequired()) {
-            case 0:
-                $class = 'grid-severity-notice';
-                break;
-            case 1:
-                $class = 'grid-severity-critical';
-                break;
-        }
-        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
-    }
-
-    /**
-     * Decorate last run date coumn
-     *
-     * @param string $value
-     * @param Mage_Index_Model_Process $row
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @param bool $isExport
-     *
-     * @return string
-     */
-    public function decorateDate($value, $row, $column, $isExport)
-    {
-        if (!$value) {
-            return $this->__('Never');
-        }
-        return $value;
-    }
-
-    /**
-     * Get row edit url
-     *
-     * @param Mage_Index_Model_Process $row
-     *
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['process' => $row->getId()]);
     }
 
     /**

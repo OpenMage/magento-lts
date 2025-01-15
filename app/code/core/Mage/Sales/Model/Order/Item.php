@@ -220,46 +220,6 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     protected $_children    = [];
 
     /**
-     * Init resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/order_item');
-    }
-
-    /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return Varien_Object
-     */
-    protected function _initOldFieldsMap()
-    {
-        // pre 1.6 fields names, old => new
-        $this->_oldFieldsMap = [
-            'base_weee_tax_applied_row_amount' => 'base_weee_tax_applied_row_amnt',
-        ];
-        return $this;
-    }
-
-    /**
-     * Prepare data before save
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        if (!$this->getOrderId() && $this->getOrder()) {
-            $this->setOrderId($this->getOrder()->getId());
-        }
-        if ($this->getParentItem()) {
-            $this->setParentItemId($this->getParentItem()->getId());
-        }
-        return $this;
-    }
-
-    /**
      * Set parent item
      *
      * @param   Mage_Sales_Model_Order_Item $item
@@ -499,21 +459,6 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
         }
 
         return self::STATUS_MIXED;
-    }
-
-    /**
-     * Retrieve backordered qty of children items
-     *
-     * @return float|null
-     */
-    protected function _getQtyChildrenBackordered()
-    {
-        $backordered = null;
-        foreach ($this->_children as $childItem) {
-            $backordered += (float) $childItem->getQtyBackordered();
-        }
-
-        return $backordered;
     }
 
     /**
@@ -855,5 +800,60 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             }
         }
         return $totalDiscount;
+    }
+
+    /**
+     * Init resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/order_item');
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return Varien_Object
+     */
+    protected function _initOldFieldsMap()
+    {
+        // pre 1.6 fields names, old => new
+        $this->_oldFieldsMap = [
+            'base_weee_tax_applied_row_amount' => 'base_weee_tax_applied_row_amnt',
+        ];
+        return $this;
+    }
+
+    /**
+     * Prepare data before save
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        if (!$this->getOrderId() && $this->getOrder()) {
+            $this->setOrderId($this->getOrder()->getId());
+        }
+        if ($this->getParentItem()) {
+            $this->setParentItemId($this->getParentItem()->getId());
+        }
+        return $this;
+    }
+
+    /**
+     * Retrieve backordered qty of children items
+     *
+     * @return float|null
+     */
+    protected function _getQtyChildrenBackordered()
+    {
+        $backordered = null;
+        foreach ($this->_children as $childItem) {
+            $backordered += (float) $childItem->getQtyBackordered();
+        }
+
+        return $backordered;
     }
 }

@@ -120,17 +120,6 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     }
 
     /**
-     * Check existing element
-     *
-     * @param   string $elementId
-     * @return  bool
-     */
-    protected function _elementIdExists($elementId)
-    {
-        return isset($this->_elementsIndex[$elementId]);
-    }
-
-    /**
      * @param Varien_Data_Form_Element_Abstract $element
      * @return $this
      */
@@ -308,5 +297,16 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     public function getHtml()
     {
         return $this->toHtml();
+    }
+
+    /**
+     * Check existing element
+     *
+     * @param   string $elementId
+     * @return  bool
+     */
+    protected function _elementIdExists($elementId)
+    {
+        return isset($this->_elementsIndex[$elementId]);
     }
 }

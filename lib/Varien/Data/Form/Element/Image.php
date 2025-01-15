@@ -64,6 +64,16 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
     }
 
     /**
+     * Return name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return  $this->getData('name');
+    }
+
+    /**
      * Return html code of delete checkbox element
      *
      * @return string
@@ -105,15 +115,5 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
     protected function _getUrl()
     {
         return $this->getValue();
-    }
-
-    /**
-     * Return name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return  $this->getData('name');
     }
 }

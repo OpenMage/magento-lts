@@ -44,18 +44,18 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
     protected $_addButtonLabel;
 
     /**
-     * Rows cache
-     *
-     * @var array|null
-     */
-    private $_arrayRowsCache;
-
-    /**
      * Indication whether block is prepared to render or no
      *
      * @var bool
      */
     protected $_isPreparedToRender = false;
+
+    /**
+     * Rows cache
+     *
+     * @var array|null
+     */
+    private $_arrayRowsCache;
 
     /**
      * Check if columns are defined, set template
@@ -93,27 +93,6 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
     }
 
     /**
-     * Get the grid and scripts contents
-     *
-     * @return string
-     */
-    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
-    {
-        $this->setElement($element);
-        $html = $this->_toHtml();
-        $this->_arrayRowsCache = null; // doh, the object is used as singleton!
-        return $html;
-    }
-
-    /**
-     * Prepare existing row data object
-     */
-    protected function _prepareArrayRow(Varien_Object $row)
-    {
-        // override in descendants
-    }
-
-    /**
      * Obtain existing data from form element
      *
      * Each row will be instance of Varien_Object
@@ -140,6 +119,27 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
         }
         $this->_arrayRowsCache = $result;
         return $this->_arrayRowsCache;
+    }
+
+    /**
+     * Get the grid and scripts contents
+     *
+     * @return string
+     */
+    protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
+    {
+        $this->setElement($element);
+        $html = $this->_toHtml();
+        $this->_arrayRowsCache = null; // doh, the object is used as singleton!
+        return $html;
+    }
+
+    /**
+     * Prepare existing row data object
+     */
+    protected function _prepareArrayRow(Varien_Object $row)
+    {
+        // override in descendants
     }
 
     /**

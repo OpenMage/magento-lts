@@ -34,6 +34,25 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
         $this->setFilterVisibility(false);
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/tag/edit', [
+            'tag_id' => $row->getTagId(),
+            'customer_id' => $this->getCustomerId(),
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/customer/tagGrid', [
+            '_current' => true,
+            'id'       => $this->getCustomerId(),
+        ]);
+    }
+
     protected function _prepareCollection()
     {
         $tagId = Mage::registry('tagId');
@@ -98,24 +117,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tag extends Mage_Adminhtml_Block_Wi
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/tag/edit', [
-            'tag_id' => $row->getTagId(),
-            'customer_id' => $this->getCustomerId(),
-        ]);
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/customer/tagGrid', [
-            '_current' => true,
-            'id'       => $this->getCustomerId(),
-        ]);
     }
 }

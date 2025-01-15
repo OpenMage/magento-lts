@@ -20,17 +20,24 @@
  */
 class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
 {
-    protected $_locale;
-
     /**
      * Location of the "Enable Chart" config param
      */
     public const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
+    protected $_locale;
 
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('dashboard/index.phtml');
+    }
+
+    public function getSwitchUrl()
+    {
+        if ($url = $this->getData('switch_url')) {
+            return $url;
+        }
+        return $this->getUrl('*/*/*', ['_current' => true, 'period' => null]);
     }
 
     protected function _prepareLayout()
@@ -75,13 +82,5 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
         );
 
         return parent::_prepareLayout();
-    }
-
-    public function getSwitchUrl()
-    {
-        if ($url = $this->getData('switch_url')) {
-            return $url;
-        }
-        return $this->getUrl('*/*/*', ['_current' => true, 'period' => null]);
     }
 }

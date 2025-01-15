@@ -22,11 +22,6 @@
  */
 class Mage_Sales_Model_Resource_Report_Order extends Mage_Sales_Model_Resource_Report_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('sales/order_aggregated_created', 'id');
-    }
-
     /**
      * Aggregate Orders data
      *
@@ -41,5 +36,9 @@ class Mage_Sales_Model_Resource_Report_Order extends Mage_Sales_Model_Resource_R
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_ORDER_FLAG_CODE);
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('sales/order_aggregated_created', 'id');
     }
 }

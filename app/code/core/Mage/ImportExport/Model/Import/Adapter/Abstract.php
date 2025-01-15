@@ -95,16 +95,6 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     public function destruct() {}
 
     /**
-     * Method called as last step of object instance creation. Can be overridden in child classes.
-     *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
-     */
-    protected function _init()
-    {
-        return $this;
-    }
-
-    /**
      * Return the current element.
      *
      * @return array
@@ -181,5 +171,15 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     public function getSource()
     {
         return $this->_source;
+    }
+
+    /**
+     * Method called as last step of object instance creation. Can be overridden in child classes.
+     *
+     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     */
+    protected function _init()
+    {
+        return $this;
     }
 }

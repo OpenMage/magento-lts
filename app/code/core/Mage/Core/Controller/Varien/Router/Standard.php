@@ -78,29 +78,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * checking if this admin if yes then we don't use this router
-     *
-     * @return bool
-     */
-    protected function _beforeModuleMatch()
-    {
-        if (Mage::app()->getStore()->isAdmin()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * dummy call to pass through checking
-     *
-     * @return bool
-     */
-    protected function _afterModuleMatch()
-    {
-        return true;
-    }
-
-    /**
      * Match the request
      *
      * @param Mage_Core_Controller_Request_Http $request
@@ -259,100 +236,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * Get router default request path
-     * @return string
-     */
-    protected function _getDefaultPath()
-    {
-        return Mage::getStoreConfig('web/default/front');
-    }
-
-    /**
-     * Allow to control if we need to enable no route functionality in current router
-     *
-     * @return bool
-     */
-    protected function _noRouteShouldBeApplied()
-    {
-        return false;
-    }
-
-    /**
-     * Check if current controller instance is allowed in current router.
-     *
-     * @param Mage_Core_Controller_Varien_Action $controllerInstance
-     * @return bool
-     */
-    protected function _validateControllerInstance($controllerInstance)
-    {
-        return $controllerInstance instanceof Mage_Core_Controller_Front_Action;
-    }
-
-    /**
-     * Generating and validating class file name,
-     * class and if everything ok do include if needed and return of class name
-     *
-     * @param string $realModule
-     * @param string $controller
-     * @return false|string
-     * @throws Mage_Core_Exception
-     */
-    protected function _validateControllerClassName($realModule, $controller)
-    {
-        $controllerFileName = $this->getControllerFileName($realModule, $controller);
-        if (!$this->validateControllerFileName($controllerFileName)) {
-            return false;
-        }
-
-        $controllerClassName = $this->getControllerClassName($realModule, $controller);
-        if (!$controllerClassName) {
-            return false;
-        }
-
-        // include controller file if needed
-        if (!$this->_includeControllerClass($controllerFileName, $controllerClassName)) {
-            return false;
-        }
-
-        return $controllerClassName;
-    }
-
-    /**
-     * @param string $controllerFileName
-     * @param string $controllerClassName
-     * @return bool
-     * @throws Mage_Core_Exception
-     * @deprecated
-     * @see _includeControllerClass()
-     */
-    protected function _inludeControllerClass($controllerFileName, $controllerClassName)
-    {
-        return $this->_includeControllerClass($controllerFileName, $controllerClassName);
-    }
-
-    /**
-     * Include the file containing controller class if this class is not defined yet
-     *
-     * @param string $controllerFileName
-     * @param string $controllerClassName
-     * @return bool
-     */
-    protected function _includeControllerClass($controllerFileName, $controllerClassName)
-    {
-        if (!class_exists($controllerClassName, false)) {
-            if (!file_exists($controllerFileName)) {
-                return false;
-            }
-            include $controllerFileName;
-
-            if (!class_exists($controllerClassName, false)) {
-                throw Mage::exception('Mage_Core', Mage::helper('core')->__('Controller file was loaded but class does not exist'));
-            }
-        }
-        return true;
-    }
-
-    /**
      * @param string $frontName
      * @param array $moduleNames
      * @param string $routeName
@@ -470,6 +353,123 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         }
 
         return $p;
+    }
+
+    /**
+     * checking if this admin if yes then we don't use this router
+     *
+     * @return bool
+     */
+    protected function _beforeModuleMatch()
+    {
+        if (Mage::app()->getStore()->isAdmin()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * dummy call to pass through checking
+     *
+     * @return bool
+     */
+    protected function _afterModuleMatch()
+    {
+        return true;
+    }
+
+    /**
+     * Get router default request path
+     * @return string
+     */
+    protected function _getDefaultPath()
+    {
+        return Mage::getStoreConfig('web/default/front');
+    }
+
+    /**
+     * Allow to control if we need to enable no route functionality in current router
+     *
+     * @return bool
+     */
+    protected function _noRouteShouldBeApplied()
+    {
+        return false;
+    }
+
+    /**
+     * Check if current controller instance is allowed in current router.
+     *
+     * @param Mage_Core_Controller_Varien_Action $controllerInstance
+     * @return bool
+     */
+    protected function _validateControllerInstance($controllerInstance)
+    {
+        return $controllerInstance instanceof Mage_Core_Controller_Front_Action;
+    }
+
+    /**
+     * Generating and validating class file name,
+     * class and if everything ok do include if needed and return of class name
+     *
+     * @param string $realModule
+     * @param string $controller
+     * @return false|string
+     * @throws Mage_Core_Exception
+     */
+    protected function _validateControllerClassName($realModule, $controller)
+    {
+        $controllerFileName = $this->getControllerFileName($realModule, $controller);
+        if (!$this->validateControllerFileName($controllerFileName)) {
+            return false;
+        }
+
+        $controllerClassName = $this->getControllerClassName($realModule, $controller);
+        if (!$controllerClassName) {
+            return false;
+        }
+
+        // include controller file if needed
+        if (!$this->_includeControllerClass($controllerFileName, $controllerClassName)) {
+            return false;
+        }
+
+        return $controllerClassName;
+    }
+
+    /**
+     * @param string $controllerFileName
+     * @param string $controllerClassName
+     * @return bool
+     * @throws Mage_Core_Exception
+     * @deprecated
+     * @see _includeControllerClass()
+     */
+    protected function _inludeControllerClass($controllerFileName, $controllerClassName)
+    {
+        return $this->_includeControllerClass($controllerFileName, $controllerClassName);
+    }
+
+    /**
+     * Include the file containing controller class if this class is not defined yet
+     *
+     * @param string $controllerFileName
+     * @param string $controllerClassName
+     * @return bool
+     */
+    protected function _includeControllerClass($controllerFileName, $controllerClassName)
+    {
+        if (!class_exists($controllerClassName, false)) {
+            if (!file_exists($controllerFileName)) {
+                return false;
+            }
+            include $controllerFileName;
+
+            if (!class_exists($controllerClassName, false)) {
+                throw Mage::exception('Mage_Core', Mage::helper('core')->__('Controller file was loaded but class does not exist'));
+            }
+        }
+        return true;
     }
 
     /**

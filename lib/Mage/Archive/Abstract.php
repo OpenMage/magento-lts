@@ -23,6 +23,21 @@
 class Mage_Archive_Abstract
 {
     /**
+     * Get file name from source (URI) without last extension.
+     *
+     * @param string $source
+     * @param bool $withExtension
+     * @return mixed|string
+     */
+    public function getFilename($source, $withExtension = false)
+    {
+        $file = str_replace(dirname($source) . DS, '', $source);
+        if (!$withExtension) {
+            $file = substr($file, 0, strrpos($file, '.'));
+        }
+        return $file;
+    }
+    /**
      * Write data to file. If file can't be opened - throw exception
      *
      * @param string $destination
@@ -58,21 +73,5 @@ class Mage_Archive_Abstract
             }
         }
         return $data;
-    }
-
-    /**
-     * Get file name from source (URI) without last extension.
-     *
-     * @param string $source
-     * @param bool $withExtension
-     * @return mixed|string
-     */
-    public function getFilename($source, $withExtension = false)
-    {
-        $file = str_replace(dirname($source) . DS, '', $source);
-        if (!$withExtension) {
-            $file = substr($file, 0, strrpos($file, '.'));
-        }
-        return $file;
     }
 }

@@ -28,6 +28,11 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
         $this->setId('grid');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/tagDetail', ['id' => $row->getTagId()]);
+    }
+
     protected function _prepareCollection()
     {
         if ($this->getRequest()->getParam('website')) {
@@ -87,10 +92,5 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
         $this->addExportType('*/*/exportPopularExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/tagDetail', ['id' => $row->getTagId()]);
     }
 }

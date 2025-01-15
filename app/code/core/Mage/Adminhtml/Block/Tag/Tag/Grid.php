@@ -37,6 +37,27 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
+     * Retrieves Grid Url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/tag/ajaxGrid', ['_current' => true]);
+    }
+
+    /**
+     * Retrieves row click URL
+     *
+     * @param  Mage_Tag_Model_Tag $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['tag_id' => $row->getId()]);
+    }
+
+    /**
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
@@ -146,26 +167,5 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         ]);
 
         return $this;
-    }
-
-    /**
-     * Retrieves Grid Url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/tag/ajaxGrid', ['_current' => true]);
-    }
-
-    /**
-     * Retrieves row click URL
-     *
-     * @param  Mage_Tag_Model_Tag $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['tag_id' => $row->getId()]);
     }
 }

@@ -39,11 +39,6 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
      */
     protected $_productIds   = [];
 
-    protected function _construct()
-    {
-        $this->_init('sales/quote_item');
-    }
-
     /**
      * Retrieve store Id (From Quote)
      *
@@ -97,6 +92,11 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
             $this->getSelect()->where('qi.product_id = ?', (int) $productId);
         }
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/quote_item');
     }
 
     /**

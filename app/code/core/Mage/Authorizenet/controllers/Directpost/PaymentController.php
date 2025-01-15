@@ -23,34 +23,6 @@
 class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * @return Mage_Checkout_Model_Session
-     */
-    protected function _getCheckout()
-    {
-        return Mage::getSingleton('checkout/session');
-    }
-
-    /**
-     * Get session model
-
-     * @return Mage_Authorizenet_Model_Directpost_Session
-     */
-    protected function _getDirectPostSession()
-    {
-        return Mage::getSingleton('authorizenet/directpost_session');
-    }
-
-    /**
-     * Get iframe block instance
-     *
-     * @return Mage_Authorizenet_Block_Directpost_Iframe
-     */
-    protected function _getIframeBlock()
-    {
-        return $this->getLayout()->createBlock('directpost/iframe');
-    }
-
-    /**
      * Response action.
      * Action for Authorize.net SIM Relay Request.
      */
@@ -154,6 +126,33 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
     {
         $this->_returnCustomerQuote();
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(['success' => 1]));
+    }
+    /**
+     * @return Mage_Checkout_Model_Session
+     */
+    protected function _getCheckout()
+    {
+        return Mage::getSingleton('checkout/session');
+    }
+
+    /**
+     * Get session model
+
+     * @return Mage_Authorizenet_Model_Directpost_Session
+     */
+    protected function _getDirectPostSession()
+    {
+        return Mage::getSingleton('authorizenet/directpost_session');
+    }
+
+    /**
+     * Get iframe block instance
+     *
+     * @return Mage_Authorizenet_Block_Directpost_Iframe
+     */
+    protected function _getIframeBlock()
+    {
+        return $this->getLayout()->createBlock('directpost/iframe');
     }
 
     /**

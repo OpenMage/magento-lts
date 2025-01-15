@@ -63,17 +63,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
     }
 
     /**
-     * @param $attribute
-     * @return string
-     */
-    protected function _getTaxObservingCode($attribute)
-    {
-        $spanId = "dynamic-tax-{$attribute->getAttributeCode()}";
-
-        return "<script type='text/javascript'>if (dynamicTaxes == undefined) var dynamicTaxes = new Array(); dynamicTaxes[dynamicTaxes.length]='{$attribute->getAttributeCode()}'</script>";
-    }
-
-    /**
      * @param null $index deprecated
      * @return string|null
      */
@@ -86,5 +75,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
         }
 
         return number_format((float) $value, 2, null, '');
+    }
+
+    /**
+     * @param $attribute
+     * @return string
+     */
+    protected function _getTaxObservingCode($attribute)
+    {
+        $spanId = "dynamic-tax-{$attribute->getAttributeCode()}";
+
+        return "<script type='text/javascript'>if (dynamicTaxes == undefined) var dynamicTaxes = new Array(); dynamicTaxes[dynamicTaxes.length]='{$attribute->getAttributeCode()}'</script>";
     }
 }

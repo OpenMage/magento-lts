@@ -55,6 +55,86 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     }
 
     /**
+     * Create filter fields for 'Filter' column.
+     *
+     * @param mixed $value
+     * @param bool $isExport
+     * @return string
+     */
+    public function decorateFilter($value, Mage_Eav_Model_Entity_Attribute $row, Varien_Object $column, $isExport)
+    {
+        $value  = null;
+        $values = $column->getValues();
+        if (is_array($values) && isset($values[$row->getAttributeCode()])) {
+            $value = $values[$row->getAttributeCode()];
+        }
+        switch (Mage_ImportExport_Model_Export::getAttributeFilterType($row)) {
+            case Mage_ImportExport_Model_Export::FILTER_TYPE_SELECT:
+                $cell = $this->_getSelectHtmlWithValue($row, $value);
+                break;
+            case Mage_ImportExport_Model_Export::FILTER_TYPE_INPUT:
+                $cell = $this->_getInputHtmlWithValue($row, $value);
+                break;
+            case Mage_ImportExport_Model_Export::FILTER_TYPE_DATE:
+                $cell = $this->_getDateFromToHtmlWithValue($row, $value);
+                break;
+            case Mage_ImportExport_Model_Export::FILTER_TYPE_NUMBER:
+                $cell = $this->_getNumberFromToHtmlWithValue($row, $value);
+                break;
+            default:
+                $cell = Mage::helper('importexport')->__('Unknown attribute filter type');
+        }
+        return $cell;
+    }
+
+    /**
+     * Element filter ID getter.
+     *
+     * @param string $attributeCode
+     * @return string
+     */
+    public function getFilterElementId($attributeCode)
+    {
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_{$attributeCode}";
+    }
+
+    /**
+     * Element filter full name getter.
+     *
+     * @param string $attributeCode
+     * @return string
+     */
+    public function getFilterElementName($attributeCode)
+    {
+        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[{$attributeCode}]";
+    }
+
+    /**
+     * Get row edit URL.
+     *
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return '';
+    }
+
+    /**
+     * Prepare collection by setting page number, sorting etc..
+     *
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     */
+    public function prepareCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
+    {
+        $this->_collection = $collection;
+
+        $this->_prepareGrid();
+
+        return $this->_collection;
+    }
+
+    /**
      * Date 'from-to' filter HTML.
      *
      * @deprecated
@@ -367,85 +447,5 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         }
 
         return $this;
-    }
-
-    /**
-     * Create filter fields for 'Filter' column.
-     *
-     * @param mixed $value
-     * @param bool $isExport
-     * @return string
-     */
-    public function decorateFilter($value, Mage_Eav_Model_Entity_Attribute $row, Varien_Object $column, $isExport)
-    {
-        $value  = null;
-        $values = $column->getValues();
-        if (is_array($values) && isset($values[$row->getAttributeCode()])) {
-            $value = $values[$row->getAttributeCode()];
-        }
-        switch (Mage_ImportExport_Model_Export::getAttributeFilterType($row)) {
-            case Mage_ImportExport_Model_Export::FILTER_TYPE_SELECT:
-                $cell = $this->_getSelectHtmlWithValue($row, $value);
-                break;
-            case Mage_ImportExport_Model_Export::FILTER_TYPE_INPUT:
-                $cell = $this->_getInputHtmlWithValue($row, $value);
-                break;
-            case Mage_ImportExport_Model_Export::FILTER_TYPE_DATE:
-                $cell = $this->_getDateFromToHtmlWithValue($row, $value);
-                break;
-            case Mage_ImportExport_Model_Export::FILTER_TYPE_NUMBER:
-                $cell = $this->_getNumberFromToHtmlWithValue($row, $value);
-                break;
-            default:
-                $cell = Mage::helper('importexport')->__('Unknown attribute filter type');
-        }
-        return $cell;
-    }
-
-    /**
-     * Element filter ID getter.
-     *
-     * @param string $attributeCode
-     * @return string
-     */
-    public function getFilterElementId($attributeCode)
-    {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "_{$attributeCode}";
-    }
-
-    /**
-     * Element filter full name getter.
-     *
-     * @param string $attributeCode
-     * @return string
-     */
-    public function getFilterElementName($attributeCode)
-    {
-        return Mage_ImportExport_Model_Export::FILTER_ELEMENT_GROUP . "[{$attributeCode}]";
-    }
-
-    /**
-     * Get row edit URL.
-     *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return '';
-    }
-
-    /**
-     * Prepare collection by setting page number, sorting etc..
-     *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
-     */
-    public function prepareCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
-    {
-        $this->_collection = $collection;
-
-        $this->_prepareGrid();
-
-        return $this->_collection;
     }
 }

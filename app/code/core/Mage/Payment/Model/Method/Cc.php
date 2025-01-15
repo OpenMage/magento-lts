@@ -198,23 +198,6 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * @param string $expYear
-     * @param string $expMonth
-     * @return bool
-     * @throws Zend_Date_Exception
-     */
-    protected function _validateExpDate($expYear, $expMonth)
-    {
-        $date = Mage::app()->getLocale()->date();
-        if (!$expYear || !$expMonth || ($date->compareYear($expYear) == 1)
-            || ($date->compareYear($expYear) == 0 && ($date->compareMonth($expMonth) == 1))
-        ) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * @param string $type
      * @return bool
      */
@@ -330,6 +313,23 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             ->setCurrencyCode($this->_getCurrencyCode())
             ->setOrderNumber($this->_getOrderId());
         return $params;
+    }
+
+    /**
+     * @param string $expYear
+     * @param string $expMonth
+     * @return bool
+     * @throws Zend_Date_Exception
+     */
+    protected function _validateExpDate($expYear, $expMonth)
+    {
+        $date = Mage::app()->getLocale()->date();
+        if (!$expYear || !$expMonth || ($date->compareYear($expYear) == 1)
+            || ($date->compareYear($expYear) == 0 && ($date->compareMonth($expMonth) == 1))
+        ) {
+            return false;
+        }
+        return true;
     }
 
     /**

@@ -51,32 +51,6 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
     protected $_entityType;
 
     /**
-     * @throws Mage_Core_Exception
-     */
-    protected function _construct()
-    {
-        if (empty($this->_moduleName)) {
-            Mage::throwException(Mage::helper('eav')->__('Current module pathname is undefined'));
-        }
-        if (empty($this->_entityTypeCode)) {
-            Mage::throwException(Mage::helper('eav')->__('Current module EAV entity is undefined'));
-        }
-    }
-
-    /**
-     * Get EAV website table
-     *
-     * Get table, where website-dependent attribute parameters are stored
-     * If realization doesn't demand this functionality, let this function just return null
-     *
-     * @return string|null
-     */
-    protected function _getEavWebsiteTable()
-    {
-        return null;
-    }
-
-    /**
      * Set current store to collection
      *
      * @param Mage_Core_Model_Store|string|int $store
@@ -147,6 +121,32 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
     {
         $this->setOrder('ea.is_user_defined', self::SORT_ORDER_ASC);
         return $this->setOrder('ca.sort_order', $direction);
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    protected function _construct()
+    {
+        if (empty($this->_moduleName)) {
+            Mage::throwException(Mage::helper('eav')->__('Current module pathname is undefined'));
+        }
+        if (empty($this->_entityTypeCode)) {
+            Mage::throwException(Mage::helper('eav')->__('Current module EAV entity is undefined'));
+        }
+    }
+
+    /**
+     * Get EAV website table
+     *
+     * Get table, where website-dependent attribute parameters are stored
+     * If realization doesn't demand this functionality, let this function just return null
+     *
+     * @return string|null
+     */
+    protected function _getEavWebsiteTable()
+    {
+        return null;
     }
 
     /**

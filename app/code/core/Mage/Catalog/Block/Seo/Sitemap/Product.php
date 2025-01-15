@@ -25,6 +25,18 @@
 class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Sitemap_Abstract
 {
     /**
+     * Get item URL
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return string
+     */
+    public function getItemUrl($product)
+    {
+        /** @var Mage_Catalog_Helper_Product $helper */
+        $helper = Mage::helper('catalog/product');
+        return $helper->getProductUrl($product);
+    }
+    /**
      * Initialize products collection
      *
      * @return $this
@@ -44,18 +56,5 @@ class Mage_Catalog_Block_Seo_Sitemap_Product extends Mage_Catalog_Block_Seo_Site
 
         $this->setCollection($collection);
         return $this;
-    }
-
-    /**
-     * Get item URL
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @return string
-     */
-    public function getItemUrl($product)
-    {
-        /** @var Mage_Catalog_Helper_Product $helper */
-        $helper = Mage::helper('catalog/product');
-        return $helper->getProductUrl($product);
     }
 }

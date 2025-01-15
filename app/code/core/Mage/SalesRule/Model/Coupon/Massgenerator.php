@@ -51,14 +51,6 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     protected $_generatedCount = 0;
 
     /**
-     * Initialize resource
-     */
-    protected function _construct()
-    {
-        $this->_init('salesrule/coupon');
-    }
-
-    /**
      * Generate coupon code
      *
      * @return string
@@ -189,5 +181,13 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     public function getGeneratedCount()
     {
         return $this->_generatedCount;
+    }
+
+    /**
+     * Initialize resource
+     */
+    protected function _construct()
+    {
+        $this->_init('salesrule/coupon');
     }
 }

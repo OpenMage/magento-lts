@@ -47,35 +47,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
     }
 
     /**
-     * Prepare layout
-     *
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('bundle')->__('Add New Option'),
-                    'class' => 'add',
-                    'id'    => 'add_new_option',
-                    'on_click' => 'bOption.add()',
-                ]),
-        );
-
-        $this->setChild(
-            'options_box',
-            $this->getLayout()->createBlock(
-                'bundle/adminhtml_catalog_product_edit_tab_bundle_option',
-                'adminhtml.catalog.product.edit.tab.bundle.option',
-            ),
-        );
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Check block readonly
      *
      * @return bool
@@ -147,5 +118,34 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
     public function isHidden()
     {
         return false;
+    }
+
+    /**
+     * Prepare layout
+     *
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'add_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label' => Mage::helper('bundle')->__('Add New Option'),
+                    'class' => 'add',
+                    'id'    => 'add_new_option',
+                    'on_click' => 'bOption.add()',
+                ]),
+        );
+
+        $this->setChild(
+            'options_box',
+            $this->getLayout()->createBlock(
+                'bundle/adminhtml_catalog_product_edit_tab_bundle_option',
+                'adminhtml.catalog.product.edit.tab.bundle.option',
+            ),
+        );
+
+        return parent::_prepareLayout();
     }
 }

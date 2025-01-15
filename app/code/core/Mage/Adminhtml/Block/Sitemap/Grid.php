@@ -29,6 +29,16 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setDefaultSort('sitemap_id');
     }
 
+    /**
+     * Row click url
+     *
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['sitemap_id' => $row->getId()]);
+    }
+
     protected function _prepareCollection()
     {
         /** @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
@@ -80,15 +90,5 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Row click url
-     *
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['sitemap_id' => $row->getId()]);
     }
 }

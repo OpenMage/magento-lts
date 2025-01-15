@@ -37,31 +37,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         return parent::preDispatch();
     }
 
-    protected function _initRule()
-    {
-        $this->_title($this->__('Promotions'))->_title($this->__('Shopping Cart Price Rules'));
-
-        Mage::register('current_promo_quote_rule', Mage::getModel('salesrule/rule'));
-        $id = (int) $this->getRequest()->getParam('id');
-
-        if (!$id && $this->getRequest()->getParam('rule_id')) {
-            $id = (int) $this->getRequest()->getParam('rule_id');
-        }
-
-        if ($id) {
-            Mage::registry('current_promo_quote_rule')->load($id);
-        }
-    }
-
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('promo/quote')
-            ->_addBreadcrumb(Mage::helper('salesrule')->__('Promotions'), Mage::helper('salesrule')->__('Promotions'))
-        ;
-        return $this;
-    }
-
     public function indexAction()
     {
         $this->_title($this->__('Promotions'))->_title($this->__('Shopping Cart Price Rules'));
@@ -443,5 +418,30 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
             'id' => $uniqId,
         ]);
         $this->getResponse()->setBody($chooserBlock->toHtml());
+    }
+
+    protected function _initRule()
+    {
+        $this->_title($this->__('Promotions'))->_title($this->__('Shopping Cart Price Rules'));
+
+        Mage::register('current_promo_quote_rule', Mage::getModel('salesrule/rule'));
+        $id = (int) $this->getRequest()->getParam('id');
+
+        if (!$id && $this->getRequest()->getParam('rule_id')) {
+            $id = (int) $this->getRequest()->getParam('rule_id');
+        }
+
+        if ($id) {
+            Mage::registry('current_promo_quote_rule')->load($id);
+        }
+    }
+
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('promo/quote')
+            ->_addBreadcrumb(Mage::helper('salesrule')->__('Promotions'), Mage::helper('salesrule')->__('Promotions'))
+        ;
+        return $this;
     }
 }

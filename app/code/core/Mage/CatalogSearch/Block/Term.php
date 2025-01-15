@@ -30,6 +30,46 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     protected $_maxPopularity;
 
     /**
+     * @return array
+     */
+    public function getTerms()
+    {
+        $this->_loadTerms();
+        return $this->_terms;
+    }
+
+    /**
+     * @param Varien_Object $obj
+     * @return string
+     */
+    public function getSearchUrl($obj)
+    {
+        $url = Mage::getModel('core/url');
+        /*
+        * url encoding will be done in Url.php http_build_query
+        * so no need to explicitly called urlencode for the text
+        */
+        $url->setQueryParam('q', $obj->getName());
+        return $url->getUrl('catalogsearch/result');
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxPopularity()
+    {
+        return $this->_maxPopularity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinPopularity()
+    {
+        return $this->_minPopularity;
+    }
+
+    /**
      * Load terms and try to sort it by names
      *
      * @return $this
@@ -70,45 +110,5 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             }
         }
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getTerms()
-    {
-        $this->_loadTerms();
-        return $this->_terms;
-    }
-
-    /**
-     * @param Varien_Object $obj
-     * @return string
-     */
-    public function getSearchUrl($obj)
-    {
-        $url = Mage::getModel('core/url');
-        /*
-        * url encoding will be done in Url.php http_build_query
-        * so no need to explicitly called urlencode for the text
-        */
-        $url->setQueryParam('q', $obj->getName());
-        return $url->getUrl('catalogsearch/result');
-    }
-
-    /**
-     * @return int
-     */
-    public function getMaxPopularity()
-    {
-        return $this->_maxPopularity;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMinPopularity()
-    {
-        return $this->_minPopularity;
     }
 }

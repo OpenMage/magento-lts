@@ -133,31 +133,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
     }
 
     /**
-     * Prepare layout
-     *
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-        $this->setChild(
-            'upload_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData([
-                    'id'      => '',
-                    'label'   => Mage::helper('adminhtml')->__('Upload Files'),
-                    'type'    => 'button',
-                    'onclick' => 'Downloadable.massUploadByType(\'samples\')',
-                ]),
-        );
-
-        $this->_addElementIdsMapping([
-            'container' => $this->getHtmlId() . '-new',
-            'delete'    => $this->getHtmlId() . '-delete',
-        ]);
-        return $this;
-    }
-
-    /**
      * Retrieve Upload button HTML
      *
      * @return string
@@ -219,6 +194,31 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
      */
     public function getConfig()
     {
+        return $this;
+    }
+
+    /**
+     * Prepare layout
+     *
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+        $this->setChild(
+            'upload_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->addData([
+                    'id'      => '',
+                    'label'   => Mage::helper('adminhtml')->__('Upload Files'),
+                    'type'    => 'button',
+                    'onclick' => 'Downloadable.massUploadByType(\'samples\')',
+                ]),
+        );
+
+        $this->_addElementIdsMapping([
+            'container' => $this->getHtmlId() . '-new',
+            'delete'    => $this->getHtmlId() . '-delete',
+        ]);
         return $this;
     }
 }

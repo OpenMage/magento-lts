@@ -29,19 +29,6 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
     public const ADMIN_RESOURCE = 'system/config';
 
     /**
-     * Perform customer VAT ID validation
-     *
-     * @return Varien_Object
-     */
-    protected function _validate()
-    {
-        return Mage::helper('customer')->checkVatNumber(
-            $this->getRequest()->getParam('country'),
-            $this->getRequest()->getParam('vat'),
-        );
-    }
-
-    /**
      * Check whether vat is valid
      */
     public function validateAction()
@@ -80,5 +67,18 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
             'success' => $success,
         ]);
         $this->getResponse()->setBody($body);
+    }
+
+    /**
+     * Perform customer VAT ID validation
+     *
+     * @return Varien_Object
+     */
+    protected function _validate()
+    {
+        return Mage::helper('customer')->checkVatNumber(
+            $this->getRequest()->getParam('country'),
+            $this->getRequest()->getParam('vat'),
+        );
     }
 }

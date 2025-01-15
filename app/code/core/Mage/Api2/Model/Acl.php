@@ -70,6 +70,22 @@ class Mage_Api2_Model_Acl extends Zend_Acl
     }
 
     /**
+     * Adds a Role having an identifier unique to the registry
+     * OVERRIDE to allow numeric roles identifiers
+     *
+     * @param int $roleId Role identifier
+     * @param Zend_Acl_Role_Interface|string|array $parents
+     * @return Zend_Acl Provides a fluent interface
+     */
+    public function addRole($roleId, $parents = null)
+    {
+        if (!is_numeric($roleId)) {
+            throw new Exception('Invalid role identifier');
+        }
+        return parent::addRole((string) $roleId);
+    }
+
+    /**
      * Retrieve REST ACL roles collection
      *
      * @return Mage_Api2_Model_Resource_Acl_Global_Role_Collection
@@ -154,21 +170,5 @@ class Mage_Api2_Model_Acl extends Zend_Acl
             }
         }
         return $this;
-    }
-
-    /**
-     * Adds a Role having an identifier unique to the registry
-     * OVERRIDE to allow numeric roles identifiers
-     *
-     * @param int $roleId Role identifier
-     * @param Zend_Acl_Role_Interface|string|array $parents
-     * @return Zend_Acl Provides a fluent interface
-     */
-    public function addRole($roleId, $parents = null)
-    {
-        if (!is_numeric($roleId)) {
-            throw new Exception('Invalid role identifier');
-        }
-        return parent::addRole((string) $roleId);
     }
 }

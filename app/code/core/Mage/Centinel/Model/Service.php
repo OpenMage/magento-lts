@@ -60,152 +60,6 @@ class Mage_Centinel_Model_Service extends Varien_Object
     protected $_validationState;
 
     /**
-     * Return validation session object
-     *
-     * @return Mage_Centinel_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('centinel/session');
-    }
-
-    /**
-     * Return value from section of centinel config
-     *
-     * @return Mage_Centinel_Model_Config
-     */
-    protected function _getConfig()
-    {
-        $config = Mage::getSingleton('centinel/config');
-        return $config->setStore($this->getStore());
-    }
-
-    /**
-     * Generate checksum from all passed parameters
-     *
-     * @param string $cardType
-     * @param string $cardNumber
-     * @param string $cardExpMonth
-     * @param string $cardExpYear
-     * @param double $amount
-     * @param string $currencyCode
-     * @return string
-     */
-    protected function _generateChecksum($paymentMethodCode, $cardType, $cardNumber, $cardExpMonth, $cardExpYear, $amount, $currencyCode)
-    {
-        return md5(implode('_', func_get_args()));
-    }
-
-    /**
-     * Unified validation/authentication URL getter
-     *
-     * @param string $suffix
-     * @param bool $current
-     * @return string
-     */
-    private function _getUrl($suffix, $current = false)
-    {
-        $params = [
-            '_secure'  => true,
-            '_current' => $current,
-            'form_key' => Mage::getSingleton('core/session')->getFormKey(),
-            'isIframe' => true,
-        ];
-        if (Mage::app()->getStore()->isAdmin()) {
-            return Mage::getSingleton('adminhtml/url')->getUrl('*/centinel_index/' . $suffix, $params);
-        } else {
-            return Mage::getUrl('centinel/index/' . $suffix, $params);
-        }
-    }
-
-    /**
-     * Return validation api model
-     *
-     * @return Mage_Centinel_Model_Api
-     */
-    protected function _getApi()
-    {
-        if ($this->_api !== null) {
-            return $this->_api;
-        }
-
-        $this->_api = Mage::getSingleton('centinel/api');
-        $config = $this->_getConfig();
-        $this->_api
-           ->setProcessorId($config->getProcessorId())
-           ->setMerchantId($config->getMerchantId())
-           ->setTransactionPwd($config->getTransactionPwd())
-           ->setIsTestMode($config->getIsTestMode())
-           ->setDebugFlag($config->getDebugFlag())
-           ->setApiEndpointUrl($this->getCustomApiEndpointUrl());
-        return $this->_api;
-    }
-
-    /**
-     * Create and return validation state model for card type
-     *
-     * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract|false
-     */
-    protected function _getValidationStateModel($cardType)
-    {
-        if ($modelClass = $this->_getConfig()->getStateModelClass($cardType)) {
-            /** @var Mage_Centinel_Model_StateAbstract $model */
-            $model = Mage::getModel($modelClass);
-            return $model;
-        }
-        return false;
-    }
-
-    /**
-     * Return validation state model
-     *
-     * @param string $cardType
-     * @return Mage_Centinel_Model_StateAbstract|false
-     */
-    protected function _getValidationState($cardType = null)
-    {
-        $type = $cardType ? $cardType : $this->_getSession()->getData('card_type');
-        if (!$this->_validationState && $type) {
-            $model = $this->_getValidationStateModel($type);
-            if (!$model) {
-                return false;
-            }
-            $model->setDataStorage($this->_getSession());
-            $this->_validationState = $model;
-        }
-        return $this->_validationState;
-    }
-
-    /**
-     * Drop validation state model
-     *
-     */
-    protected function _resetValidationState()
-    {
-        $this->_getSession()->setData([]);
-        $this->_validationState = false;
-    }
-
-    /**
-     * Drop old and init new validation state model
-     *
-     * @param string $cardType
-     * @param string $dataChecksum
-     * @return Mage_Centinel_Model_StateAbstract
-     */
-    protected function _initValidationState($cardType, $dataChecksum)
-    {
-        $this->_resetValidationState();
-        $state = $this->_getValidationStateModel($cardType);
-        $state->setDataStorage($this->_getSession())
-            ->setCardType($cardType)
-            ->setChecksum($dataChecksum)
-            ->setIsModeStrict($this->getIsModeStrict());
-        return $this->_getValidationState();
-    }
-
-    /**
      * Process lookup validation and init new validation state model
      *
      * @param Varien_Object $data
@@ -386,5 +240,151 @@ class Mage_Centinel_Model_Service extends Varien_Object
             $to = Varien_Object_Mapper::accumulateByMap($validationState, $to, $map);
         }
         return $to;
+    }
+
+    /**
+     * Return validation session object
+     *
+     * @return Mage_Centinel_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('centinel/session');
+    }
+
+    /**
+     * Return value from section of centinel config
+     *
+     * @return Mage_Centinel_Model_Config
+     */
+    protected function _getConfig()
+    {
+        $config = Mage::getSingleton('centinel/config');
+        return $config->setStore($this->getStore());
+    }
+
+    /**
+     * Generate checksum from all passed parameters
+     *
+     * @param string $cardType
+     * @param string $cardNumber
+     * @param string $cardExpMonth
+     * @param string $cardExpYear
+     * @param double $amount
+     * @param string $currencyCode
+     * @return string
+     */
+    protected function _generateChecksum($paymentMethodCode, $cardType, $cardNumber, $cardExpMonth, $cardExpYear, $amount, $currencyCode)
+    {
+        return md5(implode('_', func_get_args()));
+    }
+
+    /**
+     * Return validation api model
+     *
+     * @return Mage_Centinel_Model_Api
+     */
+    protected function _getApi()
+    {
+        if ($this->_api !== null) {
+            return $this->_api;
+        }
+
+        $this->_api = Mage::getSingleton('centinel/api');
+        $config = $this->_getConfig();
+        $this->_api
+           ->setProcessorId($config->getProcessorId())
+           ->setMerchantId($config->getMerchantId())
+           ->setTransactionPwd($config->getTransactionPwd())
+           ->setIsTestMode($config->getIsTestMode())
+           ->setDebugFlag($config->getDebugFlag())
+           ->setApiEndpointUrl($this->getCustomApiEndpointUrl());
+        return $this->_api;
+    }
+
+    /**
+     * Create and return validation state model for card type
+     *
+     * @param string $cardType
+     * @return Mage_Centinel_Model_StateAbstract|false
+     */
+    protected function _getValidationStateModel($cardType)
+    {
+        if ($modelClass = $this->_getConfig()->getStateModelClass($cardType)) {
+            /** @var Mage_Centinel_Model_StateAbstract $model */
+            $model = Mage::getModel($modelClass);
+            return $model;
+        }
+        return false;
+    }
+
+    /**
+     * Return validation state model
+     *
+     * @param string $cardType
+     * @return Mage_Centinel_Model_StateAbstract|false
+     */
+    protected function _getValidationState($cardType = null)
+    {
+        $type = $cardType ? $cardType : $this->_getSession()->getData('card_type');
+        if (!$this->_validationState && $type) {
+            $model = $this->_getValidationStateModel($type);
+            if (!$model) {
+                return false;
+            }
+            $model->setDataStorage($this->_getSession());
+            $this->_validationState = $model;
+        }
+        return $this->_validationState;
+    }
+
+    /**
+     * Drop validation state model
+     *
+     */
+    protected function _resetValidationState()
+    {
+        $this->_getSession()->setData([]);
+        $this->_validationState = false;
+    }
+
+    /**
+     * Drop old and init new validation state model
+     *
+     * @param string $cardType
+     * @param string $dataChecksum
+     * @return Mage_Centinel_Model_StateAbstract
+     */
+    protected function _initValidationState($cardType, $dataChecksum)
+    {
+        $this->_resetValidationState();
+        $state = $this->_getValidationStateModel($cardType);
+        $state->setDataStorage($this->_getSession())
+            ->setCardType($cardType)
+            ->setChecksum($dataChecksum)
+            ->setIsModeStrict($this->getIsModeStrict());
+        return $this->_getValidationState();
+    }
+
+    /**
+     * Unified validation/authentication URL getter
+     *
+     * @param string $suffix
+     * @param bool $current
+     * @return string
+     */
+    private function _getUrl($suffix, $current = false)
+    {
+        $params = [
+            '_secure'  => true,
+            '_current' => $current,
+            'form_key' => Mage::getSingleton('core/session')->getFormKey(),
+            'isIframe' => true,
+        ];
+        if (Mage::app()->getStore()->isAdmin()) {
+            return Mage::getSingleton('adminhtml/url')->getUrl('*/centinel_index/' . $suffix, $params);
+        } else {
+            return Mage::getUrl('centinel/index/' . $suffix, $params);
+        }
     }
 }

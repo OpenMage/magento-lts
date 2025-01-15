@@ -25,11 +25,6 @@
  */
 class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('api2/acl_role', 'entity_id');
-    }
-
     /**
      * Create/update relation row of admin user to API2 role
      *
@@ -99,5 +94,9 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
             ->where('role_id=?', $role->getId());
 
         return $adapter->fetchCol($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('api2/acl_role', 'entity_id');
     }
 }

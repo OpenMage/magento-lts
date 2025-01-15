@@ -22,21 +22,6 @@
  */
 class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product_website', 'product_id');
-    }
-
-    /**
-     * Get catalog product resource model
-     *
-     * @return Mage_Catalog_Model_Resource_Product
-     */
-    protected function _getProductResource()
-    {
-        return Mage::getResourceSingleton('catalog/product');
-    }
-
     /**
      * Removes products from websites
      *
@@ -140,5 +125,19 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
         }
 
         return $result;
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product_website', 'product_id');
+    }
+
+    /**
+     * Get catalog product resource model
+     *
+     * @return Mage_Catalog_Model_Resource_Product
+     */
+    protected function _getProductResource()
+    {
+        return Mage::getResourceSingleton('catalog/product');
     }
 }

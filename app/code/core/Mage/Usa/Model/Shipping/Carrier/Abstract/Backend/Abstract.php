@@ -38,16 +38,6 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract extends
     protected $_nameErrorField;
 
     /**
-     * Set source model to get allowed values
-     */
-    abstract protected function _setSourceModelData();
-
-    /**
-     * Set field name to display in error block
-     */
-    abstract protected function _setNameErrorField();
-
-    /**
      * Mage_Usa_Model_Shipping_Carrier_Ups_Backend_Abstract constructor.
      */
     public function __construct()
@@ -56,6 +46,16 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract extends
         $this->_setSourceModelData();
         $this->_setNameErrorField();
     }
+
+    /**
+     * Set source model to get allowed values
+     */
+    abstract protected function _setSourceModelData();
+
+    /**
+     * Set field name to display in error block
+     */
+    abstract protected function _setNameErrorField();
 
     /**
      * Check for presence in array with allow value.

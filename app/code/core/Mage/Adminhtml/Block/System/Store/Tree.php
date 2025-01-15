@@ -39,19 +39,6 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Prepare block layout
-     *
-     * @return Mage_Core_Block_Abstract
-     */
-    protected function _prepareLayout()
-    {
-        $this->_cellTemplate = $this->getLayout()
-            ->createBlock('adminhtml/template')
-            ->setTemplate('system/store/cell.phtml');
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Get table data
      *
      * @return array
@@ -100,16 +87,6 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Create new cell template
-     *
-     * @return Mage_Adminhtml_Block_Template
-     */
-    protected function _createCellTemplate()
-    {
-        return clone($this->_cellTemplate);
-    }
-
-    /**
      * Render website
      *
      * @return string
@@ -153,5 +130,28 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
             $cell->setClass('strike');
         }
         return $cell->toHtml();
+    }
+
+    /**
+     * Prepare block layout
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    protected function _prepareLayout()
+    {
+        $this->_cellTemplate = $this->getLayout()
+            ->createBlock('adminhtml/template')
+            ->setTemplate('system/store/cell.phtml');
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * Create new cell template
+     *
+     * @return Mage_Adminhtml_Block_Template
+     */
+    protected function _createCellTemplate()
+    {
+        return clone($this->_cellTemplate);
     }
 }

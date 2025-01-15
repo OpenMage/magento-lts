@@ -22,11 +22,6 @@
  */
 class Mage_Directory_Model_Resource_Country extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('directory/country', 'country_id');
-    }
-
     /**
      * Load country by ISO code
      *
@@ -51,5 +46,9 @@ class Mage_Directory_Model_Resource_Country extends Mage_Core_Model_Resource_Db_
         }
 
         return $this->load($country, $code, $field);
+    }
+    protected function _construct()
+    {
+        $this->_init('directory/country', 'country_id');
     }
 }

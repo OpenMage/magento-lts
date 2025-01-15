@@ -29,11 +29,6 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element extends
      */
     protected $_element;
 
-    protected function _construct()
-    {
-        $this->setTemplate('store/switcher/form/renderer/fieldset/element.phtml');
-    }
-
     /**
      * Retrieve an element
      *
@@ -53,5 +48,10 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element extends
     {
         $this->_element = $element;
         return $this->toHtml();
+    }
+
+    protected function _construct()
+    {
+        $this->setTemplate('store/switcher/form/renderer/fieldset/element.phtml');
     }
 }

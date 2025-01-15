@@ -74,30 +74,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     }
 
     /**
-     * Calculate x coordinate with indentation
-     *
-     * @param int $pt
-     * @return int
-     * @SuppressWarnings("PHPMD.ShortMethodName")
-     */
-    protected function _x($pt)
-    {
-        return $pt + self::X_INDENT;
-    }
-
-    /**
-     * Calculate y coordinate with indentation
-     *
-     * @param int $pt
-     * @return int
-     * @SuppressWarnings("PHPMD.ShortMethodName")
-     */
-    protected function _y($pt)
-    {
-        return 595 - self::Y_INDENT - $pt;
-    }
-
-    /**
      * Add Border
      *
      * @return $this
@@ -278,37 +254,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
 
         $this->_page->restoreGS();
         return $this;
-    }
-
-    /**
-     * Draw Sender Address
-     *
-     * @param string $phoneNumber
-     * @return float
-     */
-    protected function _drawSenderAddress(SimpleXMLElement $addressLines, $phoneNumber)
-    {
-        $lines = [];
-        foreach ($addressLines as $line) {
-            $lines [] = $line;
-        }
-
-        $pageY = 0;
-        if (strlen($lines[0]) > 28) {
-            $firstLine = array_shift($lines);
-            $pageY = $this->_page->drawLines([$firstLine], $this->_x(25), $this->_y(42), 28);
-            $this->_page->drawText($phoneNumber, $this->_x(103), $this->_y(42));
-        } else {
-            $pageY = $this->_y(42);
-            $lineLength = $this->_page->getTextWidth(
-                $lines[0] . ' ',
-                $this->_page->getFont(),
-                $this->_page->getFontSize(),
-            );
-            $this->_page->drawText($phoneNumber, $this->_x(25 + $lineLength), $this->_y(42));
-        }
-
-        return $this->_page->drawLines($lines, $this->_x(25), $pageY, 49);
     }
 
     /**
@@ -655,5 +600,60 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
 
         $this->_page->restoreGS();
         return $this;
+    }
+
+    /**
+     * Calculate x coordinate with indentation
+     *
+     * @param int $pt
+     * @return int
+     * @SuppressWarnings("PHPMD.ShortMethodName")
+     */
+    protected function _x($pt)
+    {
+        return $pt + self::X_INDENT;
+    }
+
+    /**
+     * Calculate y coordinate with indentation
+     *
+     * @param int $pt
+     * @return int
+     * @SuppressWarnings("PHPMD.ShortMethodName")
+     */
+    protected function _y($pt)
+    {
+        return 595 - self::Y_INDENT - $pt;
+    }
+
+    /**
+     * Draw Sender Address
+     *
+     * @param string $phoneNumber
+     * @return float
+     */
+    protected function _drawSenderAddress(SimpleXMLElement $addressLines, $phoneNumber)
+    {
+        $lines = [];
+        foreach ($addressLines as $line) {
+            $lines [] = $line;
+        }
+
+        $pageY = 0;
+        if (strlen($lines[0]) > 28) {
+            $firstLine = array_shift($lines);
+            $pageY = $this->_page->drawLines([$firstLine], $this->_x(25), $this->_y(42), 28);
+            $this->_page->drawText($phoneNumber, $this->_x(103), $this->_y(42));
+        } else {
+            $pageY = $this->_y(42);
+            $lineLength = $this->_page->getTextWidth(
+                $lines[0] . ' ',
+                $this->_page->getFont(),
+                $this->_page->getFontSize(),
+            );
+            $this->_page->drawText($phoneNumber, $this->_x(25 + $lineLength), $this->_y(42));
+        }
+
+        return $this->_page->drawLines($lines, $this->_x(25), $pageY, 49);
     }
 }

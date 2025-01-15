@@ -69,36 +69,6 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     }
 
     /**
-     * @param string $id
-     * @return bool|mixed
-     */
-    protected function _loadCache($id)
-    {
-        return Mage::app()->loadCache($id);
-    }
-
-    /**
-     * @param string $data
-     * @param string $id
-     * @param array $tags
-     * @param int|false|null $lifetime
-     * @return bool|Mage_Core_Model_App
-     */
-    protected function _saveCache($data, $id, $tags = [], $lifetime = false)
-    {
-        return Mage::app()->saveCache($data, $id, $tags, $lifetime);
-    }
-
-    /**
-     * @param string $id
-     * @return Mage_Core_Model_App
-     */
-    protected function _removeCache($id)
-    {
-        return Mage::app()->removeCache($id);
-    }
-
-    /**
      * @return $this
      */
     public function init()
@@ -153,5 +123,35 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     public function getXmlString()
     {
         return $this->getNode()->asXML();
+    }
+
+    /**
+     * @param string $id
+     * @return bool|mixed
+     */
+    protected function _loadCache($id)
+    {
+        return Mage::app()->loadCache($id);
+    }
+
+    /**
+     * @param string $data
+     * @param string $id
+     * @param array $tags
+     * @param int|false|null $lifetime
+     * @return bool|Mage_Core_Model_App
+     */
+    protected function _saveCache($data, $id, $tags = [], $lifetime = false)
+    {
+        return Mage::app()->saveCache($data, $id, $tags, $lifetime);
+    }
+
+    /**
+     * @param string $id
+     * @return Mage_Core_Model_App
+     */
+    protected function _removeCache($id)
+    {
+        return Mage::app()->removeCache($id);
     }
 }

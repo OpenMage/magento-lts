@@ -88,21 +88,6 @@ class Varien_Date
         }
         return $value;
     }
-
-    /**
-     * Convert value by dictionary
-     *
-     * @param string $value
-     * @param array $dictionary
-     * @return string
-     */
-    protected static function _convert($value, $dictionary)
-    {
-        foreach ($dictionary as $search => $replace) {
-            $value = preg_replace('/(^|[^%])' . $search . '/', '$1' . $replace, $value);
-        }
-        return $value;
-    }
     /**
      * Convert date to UNIX timestamp
      * Returns current UNIX timestamp if date is true
@@ -166,5 +151,20 @@ class Varien_Date
 
         $format = $includeTime ? self::DATETIME_PHP_FORMAT : self::DATE_PHP_FORMAT;
         return date($format, $date);
+    }
+
+    /**
+     * Convert value by dictionary
+     *
+     * @param string $value
+     * @param array $dictionary
+     * @return string
+     */
+    protected static function _convert($value, $dictionary)
+    {
+        foreach ($dictionary as $search => $replace) {
+            $value = preg_replace('/(^|[^%])' . $search . '/', '$1' . $replace, $value);
+        }
+        return $value;
     }
 }

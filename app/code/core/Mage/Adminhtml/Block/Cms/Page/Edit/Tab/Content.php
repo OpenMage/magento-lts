@@ -23,6 +23,45 @@
 class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
+     * Prepare label for tab
+     *
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return Mage::helper('cms')->__('Content');
+    }
+
+    /**
+     * Prepare title for tab
+     *
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return Mage::helper('cms')->__('Content');
+    }
+
+    /**
+     * Returns status flag about this tab can be shown or not
+     *
+     * @return true
+     */
+    public function canShowTab()
+    {
+        return true;
+    }
+
+    /**
+     * Returns status flag about this tab hidden or not
+     *
+     * @return false
+     */
+    public function isHidden()
+    {
+        return false;
+    }
+    /**
      * Load Wysiwyg on demand and Prepare layout
      */
     protected function _prepareLayout()
@@ -87,46 +126,6 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content extends Mage_Adminhtml_Bloc
         Mage::dispatchEvent('adminhtml_cms_page_edit_tab_content_prepare_form', ['form' => $form]);
 
         return parent::_prepareForm();
-    }
-
-    /**
-     * Prepare label for tab
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return Mage::helper('cms')->__('Content');
-    }
-
-    /**
-     * Prepare title for tab
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return Mage::helper('cms')->__('Content');
-    }
-
-    /**
-     * Returns status flag about this tab can be shown or not
-     *
-     * @return true
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * Returns status flag about this tab hidden or not
-     *
-     * @return false
-     */
-    public function isHidden()
-    {
-        return false;
     }
 
     /**

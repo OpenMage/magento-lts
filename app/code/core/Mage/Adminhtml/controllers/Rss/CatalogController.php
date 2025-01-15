@@ -22,21 +22,6 @@
  */
 class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss_Abstract
 {
-    /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        $path = '';
-        $action = strtolower($this->getRequest()->getActionName());
-        if ($action == 'review') {
-            $path = 'catalog/reviews_ratings';
-        } elseif ($action == 'notifystock') {
-            $path = 'catalog/products';
-        }
-        return Mage::getSingleton('admin/session')->isAllowed($path);
-    }
-
     public function notifystockAction()
     {
         if ($this->checkFeedEnable('admin_catalog/notifystock')) {
@@ -51,5 +36,19 @@ class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss
             $this->loadLayout(false);
             $this->renderLayout();
         }
+    }
+    /**
+     * @inheritDoc
+     */
+    protected function _isAllowed()
+    {
+        $path = '';
+        $action = strtolower($this->getRequest()->getActionName());
+        if ($action == 'review') {
+            $path = 'catalog/reviews_ratings';
+        } elseif ($action == 'notifystock') {
+            $path = 'catalog/products';
+        }
+        return Mage::getSingleton('admin/session')->isAllowed($path);
     }
 }

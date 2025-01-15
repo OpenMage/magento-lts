@@ -23,12 +23,6 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
     protected $_payableTo;
     protected $_mailingAddress;
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('payment/info/checkmo.phtml');
-    }
-
     /**
      * @return string
      */
@@ -52,6 +46,21 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
     }
 
     /**
+     * @return string
+     */
+    public function toPdf()
+    {
+        $this->setTemplate('payment/info/pdf/checkmo.phtml');
+        return $this->toHtml();
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('payment/info/checkmo.phtml');
+    }
+
+    /**
      * @return $this
      */
     protected function _convertAdditionalData()
@@ -71,14 +80,5 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
             $this->_mailingAddress = '';
         }
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function toPdf()
-    {
-        $this->setTemplate('payment/info/pdf/checkmo.phtml');
-        return $this->toHtml();
     }
 }

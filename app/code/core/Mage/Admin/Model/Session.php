@@ -116,25 +116,6 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * Logout user if was logged not from admin
-     */
-    protected function logoutIndirect()
-    {
-        $user = $this->getUser();
-        if ($user) {
-            $extraData = $user->getExtra();
-            if (!is_null(Mage::app()->getRequest()->getParam('SID'))
-                && !$this->allowAdminSid()
-                || isset($extraData['indirect_login'])
-                && $this->getIndirectLogin()
-            ) {
-                $this->unsetData('user');
-                $this->setIndirectLogin(false);
-            }
-        }
-    }
-
-    /**
      * Try to login user in admin
      *
      * @param  string $username
@@ -282,6 +263,25 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     {
         $this->_isFirstPageAfterLogin = (bool) $value;
         return $this->setIsFirstVisit($this->_isFirstPageAfterLogin);
+    }
+
+    /**
+     * Logout user if was logged not from admin
+     */
+    protected function logoutIndirect()
+    {
+        $user = $this->getUser();
+        if ($user) {
+            $extraData = $user->getExtra();
+            if (!is_null(Mage::app()->getRequest()->getParam('SID'))
+                && !$this->allowAdminSid()
+                || isset($extraData['indirect_login'])
+                && $this->getIndirectLogin()
+            ) {
+                $this->unsetData('user');
+                $this->setIndirectLogin(false);
+            }
+        }
     }
 
     /**

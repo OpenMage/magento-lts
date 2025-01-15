@@ -22,11 +22,6 @@
  */
 class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resource_Report_Abstract
 {
-    protected function _construct()
-    {
-        $this->_setResource('sales');
-    }
-
     /**
      * Aggregate Shipping data
      *
@@ -45,6 +40,10 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
         $this->_aggregateByShippingCreatedAt($from, $to);
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_SHIPPING_FLAG_CODE);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_setResource('sales');
     }
 
     /**

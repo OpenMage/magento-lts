@@ -43,34 +43,6 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
     protected $_wishlistItem = null;
 
     /**
-     * Loads wishlist and wishlist item
-     *
-     * @return $this
-     */
-    protected function _initData()
-    {
-        $wishlistItemId = (int) $this->getRequest()->getParam('id');
-        if (!$wishlistItemId) {
-            Mage::throwException($this->__('No wishlist item id defined.'));
-        }
-
-        /** @var Mage_Wishlist_Model_Item $wishlistItem */
-        $wishlistItem = Mage::getModel('wishlist/item')
-            ->loadWithOptions($wishlistItemId);
-
-        if (!$wishlistItem->getWishlistId()) {
-            Mage::throwException($this->__('Wishlist item is not loaded.'));
-        }
-
-        $this->_wishlist = Mage::getModel('wishlist/wishlist')
-            ->load($wishlistItem->getWishlistId());
-
-        $this->_wishlistItem = $wishlistItem;
-
-        return $this;
-    }
-
-    /**
      * Ajax handler to response configuration fieldset of composite product in customer's wishlist
      *
      * @return $this
@@ -128,5 +100,33 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
         $this->_redirect('*/catalog_product/showUpdateResult');
 
         return false;
+    }
+
+    /**
+     * Loads wishlist and wishlist item
+     *
+     * @return $this
+     */
+    protected function _initData()
+    {
+        $wishlistItemId = (int) $this->getRequest()->getParam('id');
+        if (!$wishlistItemId) {
+            Mage::throwException($this->__('No wishlist item id defined.'));
+        }
+
+        /** @var Mage_Wishlist_Model_Item $wishlistItem */
+        $wishlistItem = Mage::getModel('wishlist/item')
+            ->loadWithOptions($wishlistItemId);
+
+        if (!$wishlistItem->getWishlistId()) {
+            Mage::throwException($this->__('Wishlist item is not loaded.'));
+        }
+
+        $this->_wishlist = Mage::getModel('wishlist/wishlist')
+            ->load($wishlistItem->getWishlistId());
+
+        $this->_wishlistItem = $wishlistItem;
+
+        return $this;
     }
 }

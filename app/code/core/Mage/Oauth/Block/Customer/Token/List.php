@@ -30,22 +30,6 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     protected $_collection;
 
     /**
-     * Prepare collection
-     */
-    protected function _construct()
-    {
-        /** @var Mage_Customer_Model_Session $session */
-        $session = Mage::getSingleton('customer/session');
-
-        /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
-        $collection = Mage::getModel('oauth/token')->getCollection();
-        $collection->joinConsumerAsApplication()
-                ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS)
-                ->addFilterByCustomerId($session->getCustomerId());
-        $this->_collection = $collection;
-    }
-
-    /**
      * Get count of total records
      *
      * @return int
@@ -63,21 +47,6 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     public function getToolbarHtml()
     {
         return $this->getChildHtml('toolbar');
-    }
-
-    /**
-     * Prepare layout
-     *
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        /** @var Mage_Page_Block_Html_Pager $toolbar */
-        $toolbar = $this->getLayout()->createBlock('page/html_pager', 'customer_token.toolbar');
-        $toolbar->setCollection($this->_collection);
-        $this->setChild('toolbar', $toolbar);
-        parent::_prepareLayout();
-        return $this;
     }
 
     /**
@@ -156,5 +125,36 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
             $this->__('Are you sure you want to enable this application?'),
         ];
         return $messages[$revokedStatus];
+    }
+
+    /**
+     * Prepare collection
+     */
+    protected function _construct()
+    {
+        /** @var Mage_Customer_Model_Session $session */
+        $session = Mage::getSingleton('customer/session');
+
+        /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
+        $collection = Mage::getModel('oauth/token')->getCollection();
+        $collection->joinConsumerAsApplication()
+                ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS)
+                ->addFilterByCustomerId($session->getCustomerId());
+        $this->_collection = $collection;
+    }
+
+    /**
+     * Prepare layout
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        /** @var Mage_Page_Block_Html_Pager $toolbar */
+        $toolbar = $this->getLayout()->createBlock('page/html_pager', 'customer_token.toolbar');
+        $toolbar->setCollection($this->_collection);
+        $this->setChild('toolbar', $toolbar);
+        parent::_prepareLayout();
+        return $this;
     }
 }

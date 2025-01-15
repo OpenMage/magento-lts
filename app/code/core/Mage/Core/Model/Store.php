@@ -249,40 +249,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     private $_isReadOnly = false;
 
     /**
-     * Initialize object
-     */
-    protected function _construct()
-    {
-        $this->_init('core/store');
-        $this->_configCacheBaseNodes = [
-            self::XML_PATH_PRICE_SCOPE,
-            self::XML_PATH_SECURE_BASE_URL,
-            self::XML_PATH_SECURE_IN_ADMINHTML,
-            self::XML_PATH_SECURE_IN_FRONTEND,
-            self::XML_PATH_STORE_IN_URL,
-            self::XML_PATH_UNSECURE_BASE_URL,
-            self::XML_PATH_USE_REWRITES,
-            self::XML_PATH_UNSECURE_BASE_LINK_URL,
-            self::XML_PATH_SECURE_BASE_LINK_URL,
-            'general/locale/code',
-        ];
-    }
-
-    /**
-     * Retrieve store session object
-     *
-     * @return Mage_Core_Model_Session
-     */
-    protected function _getSession()
-    {
-        if (!$this->_session) {
-            $this->_session = Mage::getModel('core/session')
-                ->init('store_' . $this->getCode());
-        }
-        return $this->_session;
-    }
-
-    /**
      * @inheritDoc
      */
     public function load($id, $field = null)
@@ -464,53 +430,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Process config value
-     *
-     * @param string $fullPath
-     * @param string $path
-     * @param Varien_Simplexml_Element $node
-     * @return array|string
-     */
-    protected function _processConfigValue($fullPath, $path, $node)
-    {
-        if (isset($this->_configCache[$path])) {
-            return $this->_configCache[$path];
-        }
-
-        if ($node->hasChildren()) {
-            $aValue = [];
-            foreach ($node->children() as $k => $v) {
-                $aValue[$k] = $this->_processConfigValue($fullPath . '/' . $k, $path . '/' . $k, $v);
-            }
-            $this->_configCache[$path] = $aValue;
-            return $aValue;
-        }
-
-        $sValue = (string) $node;
-        if (!empty($node['backend_model']) && !empty($sValue)) {
-            $backend = Mage::getModel((string) $node['backend_model']);
-            $backend->setPath($path)->setValue($sValue)->afterLoad();
-            $sValue = $backend->getValue();
-        }
-
-        if (is_string($sValue) && strpos($sValue, '{{') !== false) {
-            if (strpos($sValue, '{{unsecure_base_url}}') !== false) {
-                $unsecureBaseUrl = $this->getConfig(self::XML_PATH_UNSECURE_BASE_URL);
-                $sValue = str_replace('{{unsecure_base_url}}', $unsecureBaseUrl, $sValue);
-            } elseif (strpos($sValue, '{{secure_base_url}}') !== false) {
-                $secureBaseUrl = $this->getConfig(self::XML_PATH_SECURE_BASE_URL);
-                $sValue = str_replace('{{secure_base_url}}', $secureBaseUrl, $sValue);
-            } elseif (strpos($sValue, '{{base_url}}') !== false) {
-                $sValue = Mage::getConfig()->substDistroServerVars($sValue);
-            }
-        }
-
-        $this->_configCache[$path] = $sValue;
-
-        return $sValue;
-    }
-
-    /**
      * Convert config values for url paths
      *
      * @deprecated after 1.4.2.0
@@ -622,71 +541,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         }
 
         return $this->_baseUrlCache[$cacheKey];
-    }
-
-    /**
-     * Remove script file name from url in case when server rewrites are enabled
-     *
-     * @param   string $url
-     * @return  string
-     * @SuppressWarnings("PHPMD.Superglobals")
-     */
-    protected function _updatePathUseRewrites($url)
-    {
-        if ($this->isAdmin() || !$this->getConfig(self::XML_PATH_USE_REWRITES) || !Mage::isInstalled()) {
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Ecg.Security.Superglobal.SuperglobalUsageWarning
-            $indexFileName = $this->_isCustomEntryPoint() ? 'index.php' : basename($_SERVER['SCRIPT_FILENAME']);
-            $url .= $indexFileName . '/';
-        }
-        return $url;
-    }
-
-    /**
-     * Check if used entry point is custom
-     *
-     * @return bool
-     */
-    protected function _isCustomEntryPoint()
-    {
-        return (bool) Mage::registry('custom_entry_point');
-    }
-
-    /**
-     * Retrieve URL for media catalog
-     *
-     * If we use Database file storage and server doesn't support rewrites (.htaccess in media folder)
-     * we have to put name of fetching media script exactly into URL
-     *
-     * @param null|bool $secure
-     * @param string $type
-     * @return string
-     */
-    protected function _updateMediaPathUseRewrites($secure = null, $type = self::URL_TYPE_MEDIA)
-    {
-        $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool) $secure;
-        $secureStringFlag = $secure ? 'secure' : 'unsecure';
-        $url = $this->getConfig('web/' . $secureStringFlag . '/base_' . $type . '_url');
-        if (!$this->getConfig(self::XML_PATH_USE_REWRITES)
-            && Mage::helper('core/file_storage_database')->checkDbUsage()
-        ) {
-            $urlStart = $this->getConfig('web/' . $secureStringFlag . '/base_url');
-            $url = str_replace($urlStart, $urlStart . self::MEDIA_REWRITE_SCRIPT, $url);
-        }
-        return $url;
-    }
-
-    /**
-     * Add store code to url in case if it is enabled in configuration
-     *
-     * @param   string $url
-     * @return  string
-     */
-    protected function _updatePathUseStoreView($url)
-    {
-        if ($this->getStoreInUrl()) {
-            $url .= $this->getCode() . '/';
-        }
-        return $url;
     }
 
     /**
@@ -1157,44 +1011,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Protect delete from non admin area
-     *
-     * Register indexing event before delete store
-     *
-     * {@inheritDoc}
-     */
-    protected function _beforeDelete()
-    {
-        $this->_protectFromNonAdmin();
-        Mage::getSingleton('index/indexer')->logEvent($this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
-        return parent::_beforeDelete();
-    }
-
-    /**
-     * rewrite in order to clear configuration cache
-     *
-     * @return $this
-     */
-    protected function _afterDelete()
-    {
-        parent::_afterDelete();
-        Mage::getConfig()->removeCache();
-        return $this;
-    }
-
-    /**
-     * Init indexing process after store delete commit
-     *
-     * @return $this
-     */
-    protected function _afterDeleteCommit()
-    {
-        parent::_afterDeleteCommit();
-        Mage::getSingleton('index/indexer')->indexEvents(self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
-        return $this;
-    }
-
-    /**
      * Reinit and reset Config Data
      *
      * @return $this
@@ -1236,5 +1052,189 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $this->_frontendName = (!empty($storeGroupName)) ? $storeGroupName : $this->getGroup()->getName();
         }
         return $this->_frontendName;
+    }
+
+    /**
+     * Initialize object
+     */
+    protected function _construct()
+    {
+        $this->_init('core/store');
+        $this->_configCacheBaseNodes = [
+            self::XML_PATH_PRICE_SCOPE,
+            self::XML_PATH_SECURE_BASE_URL,
+            self::XML_PATH_SECURE_IN_ADMINHTML,
+            self::XML_PATH_SECURE_IN_FRONTEND,
+            self::XML_PATH_STORE_IN_URL,
+            self::XML_PATH_UNSECURE_BASE_URL,
+            self::XML_PATH_USE_REWRITES,
+            self::XML_PATH_UNSECURE_BASE_LINK_URL,
+            self::XML_PATH_SECURE_BASE_LINK_URL,
+            'general/locale/code',
+        ];
+    }
+
+    /**
+     * Retrieve store session object
+     *
+     * @return Mage_Core_Model_Session
+     */
+    protected function _getSession()
+    {
+        if (!$this->_session) {
+            $this->_session = Mage::getModel('core/session')
+                ->init('store_' . $this->getCode());
+        }
+        return $this->_session;
+    }
+
+    /**
+     * Process config value
+     *
+     * @param string $fullPath
+     * @param string $path
+     * @param Varien_Simplexml_Element $node
+     * @return array|string
+     */
+    protected function _processConfigValue($fullPath, $path, $node)
+    {
+        if (isset($this->_configCache[$path])) {
+            return $this->_configCache[$path];
+        }
+
+        if ($node->hasChildren()) {
+            $aValue = [];
+            foreach ($node->children() as $k => $v) {
+                $aValue[$k] = $this->_processConfigValue($fullPath . '/' . $k, $path . '/' . $k, $v);
+            }
+            $this->_configCache[$path] = $aValue;
+            return $aValue;
+        }
+
+        $sValue = (string) $node;
+        if (!empty($node['backend_model']) && !empty($sValue)) {
+            $backend = Mage::getModel((string) $node['backend_model']);
+            $backend->setPath($path)->setValue($sValue)->afterLoad();
+            $sValue = $backend->getValue();
+        }
+
+        if (is_string($sValue) && strpos($sValue, '{{') !== false) {
+            if (strpos($sValue, '{{unsecure_base_url}}') !== false) {
+                $unsecureBaseUrl = $this->getConfig(self::XML_PATH_UNSECURE_BASE_URL);
+                $sValue = str_replace('{{unsecure_base_url}}', $unsecureBaseUrl, $sValue);
+            } elseif (strpos($sValue, '{{secure_base_url}}') !== false) {
+                $secureBaseUrl = $this->getConfig(self::XML_PATH_SECURE_BASE_URL);
+                $sValue = str_replace('{{secure_base_url}}', $secureBaseUrl, $sValue);
+            } elseif (strpos($sValue, '{{base_url}}') !== false) {
+                $sValue = Mage::getConfig()->substDistroServerVars($sValue);
+            }
+        }
+
+        $this->_configCache[$path] = $sValue;
+
+        return $sValue;
+    }
+
+    /**
+     * Remove script file name from url in case when server rewrites are enabled
+     *
+     * @param   string $url
+     * @return  string
+     * @SuppressWarnings("PHPMD.Superglobals")
+     */
+    protected function _updatePathUseRewrites($url)
+    {
+        if ($this->isAdmin() || !$this->getConfig(self::XML_PATH_USE_REWRITES) || !Mage::isInstalled()) {
+            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Ecg.Security.Superglobal.SuperglobalUsageWarning
+            $indexFileName = $this->_isCustomEntryPoint() ? 'index.php' : basename($_SERVER['SCRIPT_FILENAME']);
+            $url .= $indexFileName . '/';
+        }
+        return $url;
+    }
+
+    /**
+     * Check if used entry point is custom
+     *
+     * @return bool
+     */
+    protected function _isCustomEntryPoint()
+    {
+        return (bool) Mage::registry('custom_entry_point');
+    }
+
+    /**
+     * Retrieve URL for media catalog
+     *
+     * If we use Database file storage and server doesn't support rewrites (.htaccess in media folder)
+     * we have to put name of fetching media script exactly into URL
+     *
+     * @param null|bool $secure
+     * @param string $type
+     * @return string
+     */
+    protected function _updateMediaPathUseRewrites($secure = null, $type = self::URL_TYPE_MEDIA)
+    {
+        $secure = is_null($secure) ? $this->isCurrentlySecure() : (bool) $secure;
+        $secureStringFlag = $secure ? 'secure' : 'unsecure';
+        $url = $this->getConfig('web/' . $secureStringFlag . '/base_' . $type . '_url');
+        if (!$this->getConfig(self::XML_PATH_USE_REWRITES)
+            && Mage::helper('core/file_storage_database')->checkDbUsage()
+        ) {
+            $urlStart = $this->getConfig('web/' . $secureStringFlag . '/base_url');
+            $url = str_replace($urlStart, $urlStart . self::MEDIA_REWRITE_SCRIPT, $url);
+        }
+        return $url;
+    }
+
+    /**
+     * Add store code to url in case if it is enabled in configuration
+     *
+     * @param   string $url
+     * @return  string
+     */
+    protected function _updatePathUseStoreView($url)
+    {
+        if ($this->getStoreInUrl()) {
+            $url .= $this->getCode() . '/';
+        }
+        return $url;
+    }
+
+    /**
+     * Protect delete from non admin area
+     *
+     * Register indexing event before delete store
+     *
+     * {@inheritDoc}
+     */
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        Mage::getSingleton('index/indexer')->logEvent($this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
+        return parent::_beforeDelete();
+    }
+
+    /**
+     * rewrite in order to clear configuration cache
+     *
+     * @return $this
+     */
+    protected function _afterDelete()
+    {
+        parent::_afterDelete();
+        Mage::getConfig()->removeCache();
+        return $this;
+    }
+
+    /**
+     * Init indexing process after store delete commit
+     *
+     * @return $this
+     */
+    protected function _afterDeleteCommit()
+    {
+        parent::_afterDeleteCommit();
+        Mage::getSingleton('index/indexer')->indexEvents(self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
+        return $this;
     }
 }

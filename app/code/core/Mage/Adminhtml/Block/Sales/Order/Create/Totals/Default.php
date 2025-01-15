@@ -24,21 +24,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default extends Mage_Adminh
 {
     protected $_template = 'sales/order/create/totals/default.phtml';
 
-    protected function _construct()
-    {
-        $this->setTemplate($this->_template);
-    }
-
-    /**
-     * Retrieve quote session object
-     *
-     * @return Mage_Adminhtml_Model_Session_Quote
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('adminhtml/session_quote');
-    }
-
     /**
      * Retrieve store model object
      *
@@ -52,5 +37,20 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default extends Mage_Adminh
     public function formatPrice($value)
     {
         return $this->getStore()->formatPrice($value);
+    }
+
+    protected function _construct()
+    {
+        $this->setTemplate($this->_template);
+    }
+
+    /**
+     * Retrieve quote session object
+     *
+     * @return Mage_Adminhtml_Model_Session_Quote
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('adminhtml/session_quote');
     }
 }

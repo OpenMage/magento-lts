@@ -37,16 +37,6 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     protected $_isStoreFilter        = false;
 
     /**
-     * Initializes collection
-     *
-     */
-    protected function _construct()
-    {
-        $this->_map['fields']['queue_id'] = 'main_table.queue_id';
-        $this->_init('newsletter/queue');
-    }
-
-    /**
      * Joines templates information
      *
      * @deprecated since 1.4.0.1
@@ -61,31 +51,6 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
             ['template_subject','template_sender_name','template_sender_email'],
         );
         $this->_joinedTables['template'] = true;
-        return $this;
-    }
-
-    /**
-     * Adds subscribers info to selelect
-     *
-     * @return $this
-     */
-    protected function _addSubscriberInfoToSelect()
-    {
-        /** @var Varien_Db_Select $select */
-        $select = $this->getConnection()->select()
-            ->from(['qlt' => $this->getTable('newsletter/queue_link')], 'COUNT(qlt.queue_link_id)')
-            ->where('qlt.queue_id = main_table.queue_id');
-        $totalExpr = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
-        $select = $this->getConnection()->select()
-            ->from(['qls' => $this->getTable('newsletter/queue_link')], 'COUNT(qls.queue_link_id)')
-            ->where('qls.queue_id = main_table.queue_id')
-            ->where('qls.letter_sent_at IS NOT NULL');
-        $sentExpr  = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
-
-        $this->getSelect()->columns([
-            'subscribers_sent'  => $sentExpr,
-            'subscribers_total' => $totalExpr,
-        ]);
         return $this;
     }
 
@@ -127,36 +92,6 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
         } else {
             return parent::addFieldToFilter($field, $condition);
         }
-    }
-
-    /**
-     * Returns ids from queue_link table
-     *
-     * @param string $field
-     * @param mixed $condition
-     * @return array
-     */
-    protected function _getIdsFromLink($field, $condition)
-    {
-        $select = $this->getConnection()->select()
-            ->from(
-                $this->getTable('newsletter/queue_link'),
-                ['queue_id', 'total' => new Zend_Db_Expr('COUNT(queue_link_id)')],
-            )
-            ->group('queue_id')
-            ->having($this->_getConditionSql('total', $condition));
-
-        if ($field == 'subscribers_sent') {
-            $select->where('letter_sent_at IS NOT NULL');
-        }
-
-        $idList = $this->getConnection()->fetchCol($select);
-
-        if (count($idList)) {
-            return $idList;
-        }
-
-        return [0];
     }
 
     /**
@@ -234,5 +169,70 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
             $this->_isStoreFilter = true;
         }
         return $this;
+    }
+
+    /**
+     * Initializes collection
+     *
+     */
+    protected function _construct()
+    {
+        $this->_map['fields']['queue_id'] = 'main_table.queue_id';
+        $this->_init('newsletter/queue');
+    }
+
+    /**
+     * Adds subscribers info to selelect
+     *
+     * @return $this
+     */
+    protected function _addSubscriberInfoToSelect()
+    {
+        /** @var Varien_Db_Select $select */
+        $select = $this->getConnection()->select()
+            ->from(['qlt' => $this->getTable('newsletter/queue_link')], 'COUNT(qlt.queue_link_id)')
+            ->where('qlt.queue_id = main_table.queue_id');
+        $totalExpr = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
+        $select = $this->getConnection()->select()
+            ->from(['qls' => $this->getTable('newsletter/queue_link')], 'COUNT(qls.queue_link_id)')
+            ->where('qls.queue_id = main_table.queue_id')
+            ->where('qls.letter_sent_at IS NOT NULL');
+        $sentExpr  = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
+
+        $this->getSelect()->columns([
+            'subscribers_sent'  => $sentExpr,
+            'subscribers_total' => $totalExpr,
+        ]);
+        return $this;
+    }
+
+    /**
+     * Returns ids from queue_link table
+     *
+     * @param string $field
+     * @param mixed $condition
+     * @return array
+     */
+    protected function _getIdsFromLink($field, $condition)
+    {
+        $select = $this->getConnection()->select()
+            ->from(
+                $this->getTable('newsletter/queue_link'),
+                ['queue_id', 'total' => new Zend_Db_Expr('COUNT(queue_link_id)')],
+            )
+            ->group('queue_id')
+            ->having($this->_getConditionSql('total', $condition));
+
+        if ($field == 'subscribers_sent') {
+            $select->where('letter_sent_at IS NOT NULL');
+        }
+
+        $idList = $this->getConnection()->fetchCol($select);
+
+        if (count($idList)) {
+            return $idList;
+        }
+
+        return [0];
     }
 }

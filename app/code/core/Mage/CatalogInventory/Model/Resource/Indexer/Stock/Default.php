@@ -36,11 +36,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      */
     protected $_isComposite    = false;
 
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/stock_status', 'product_id');
-    }
-
     /**
      * Reindex all stock status data for default logic product type
      *
@@ -119,6 +114,25 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
     public function getIsComposite()
     {
         return $this->_isComposite;
+    }
+
+    /**
+     * Retrieve temporary index table name
+     *
+     * @param string $table
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('cataloginventory/stock_status_indexer_idx');
+        }
+        return $this->getTable('cataloginventory/stock_status_indexer_tmp');
+    }
+
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/stock_status', 'product_id');
     }
 
     /**
@@ -256,19 +270,5 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         $adapter->insertOnDuplicate($this->getMainTable(), $data, ['qty', 'stock_status']);
 
         return $this;
-    }
-
-    /**
-     * Retrieve temporary index table name
-     *
-     * @param string $table
-     * @return string
-     */
-    public function getIdxTable($table = null)
-    {
-        if ($this->useIdxTable()) {
-            return $this->getTable('cataloginventory/stock_status_indexer_idx');
-        }
-        return $this->getTable('cataloginventory/stock_status_indexer_tmp');
     }
 }

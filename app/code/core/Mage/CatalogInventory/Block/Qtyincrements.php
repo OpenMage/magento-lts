@@ -30,16 +30,6 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
     protected $_qtyIncrements;
 
     /**
-     * Retrieve current product object
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    protected function _getProduct()
-    {
-        return Mage::registry('current_product');
-    }
-
-    /**
      * Retrieve current product name
      *
      * @return string
@@ -73,5 +63,15 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->_getProduct()->getCacheIdTags());
+    }
+
+    /**
+     * Retrieve current product object
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    protected function _getProduct()
+    {
+        return Mage::registry('current_product');
     }
 }

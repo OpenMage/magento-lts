@@ -22,11 +22,6 @@
  */
 class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Resource_Catalog_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product', 'entity_id');
-    }
-
     /**
      * Get product collection array
      *
@@ -68,6 +63,10 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
         );
 
         return $this->_loadEntities();
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product', 'entity_id');
     }
 
     /**

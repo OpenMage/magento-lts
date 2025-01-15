@@ -27,50 +27,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
     public const ADMIN_RESOURCE = 'catalog/categories';
-
-    /**
-     * Initialize requested category and put it into registry.
-     * Root category can be returned, if inappropriate store/category is specified
-     *
-     * @param bool $getRootInstead
-     * @return Mage_Catalog_Model_Category|false
-     */
-    protected function _initCategory($getRootInstead = false)
-    {
-        $this->_title($this->__('Catalog'))
-             ->_title($this->__('Categories'))
-             ->_title($this->__('Manage Categories'));
-
-        $categoryId = (int) $this->getRequest()->getParam('id', false);
-        $storeId    = (int) $this->getRequest()->getParam('store');
-        $category = Mage::getModel('catalog/category');
-        $category->setStoreId($storeId);
-
-        if ($categoryId) {
-            $category->load($categoryId);
-            if ($storeId) {
-                $rootId = Mage::app()->getStore($storeId)->getRootCategoryId();
-                if (!in_array($rootId, $category->getPathIds())) {
-                    // load root category instead wrong one
-                    if ($getRootInstead) {
-                        $category->load($rootId);
-                    } else {
-                        $this->_redirect('*/*/', ['_current' => true, 'id' => null]);
-                        return false;
-                    }
-                }
-            }
-        }
-
-        if ($activeTabId = (string) $this->getRequest()->getParam('active_tab_id')) {
-            Mage::getSingleton('admin/session')->setActiveTabId($activeTabId);
-        }
-
-        Mage::register('category', $category);
-        Mage::register('current_category', $category);
-        Mage::getSingleton('cms/wysiwyg_config')->setStoreId($this->getRequest()->getParam('store'));
-        return $category;
-    }
     /**
      * Catalog categories index action
      */
@@ -488,5 +444,49 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     {
         $this->_setForcedFormKeyActions('delete');
         return parent::preDispatch();
+    }
+
+    /**
+     * Initialize requested category and put it into registry.
+     * Root category can be returned, if inappropriate store/category is specified
+     *
+     * @param bool $getRootInstead
+     * @return Mage_Catalog_Model_Category|false
+     */
+    protected function _initCategory($getRootInstead = false)
+    {
+        $this->_title($this->__('Catalog'))
+             ->_title($this->__('Categories'))
+             ->_title($this->__('Manage Categories'));
+
+        $categoryId = (int) $this->getRequest()->getParam('id', false);
+        $storeId    = (int) $this->getRequest()->getParam('store');
+        $category = Mage::getModel('catalog/category');
+        $category->setStoreId($storeId);
+
+        if ($categoryId) {
+            $category->load($categoryId);
+            if ($storeId) {
+                $rootId = Mage::app()->getStore($storeId)->getRootCategoryId();
+                if (!in_array($rootId, $category->getPathIds())) {
+                    // load root category instead wrong one
+                    if ($getRootInstead) {
+                        $category->load($rootId);
+                    } else {
+                        $this->_redirect('*/*/', ['_current' => true, 'id' => null]);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        if ($activeTabId = (string) $this->getRequest()->getParam('active_tab_id')) {
+            Mage::getSingleton('admin/session')->setActiveTabId($activeTabId);
+        }
+
+        Mage::register('category', $category);
+        Mage::register('current_category', $category);
+        Mage::getSingleton('cms/wysiwyg_config')->setStoreId($this->getRequest()->getParam('store'));
+        return $category;
     }
 }

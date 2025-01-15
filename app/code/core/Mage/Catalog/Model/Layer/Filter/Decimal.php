@@ -44,19 +44,6 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     }
 
     /**
-     * Retrieve resource instance
-     *
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Decimal
-     */
-    protected function _getResource()
-    {
-        if (is_null($this->_resource)) {
-            $this->_resource = Mage::getResourceModel('catalog/layer_filter_decimal');
-        }
-        return $this->_resource;
-    }
-
-    /**
      * Apply decimal range filter to product collection
      *
      * @param Mage_Catalog_Block_Layer_Filter_Decimal $filterBlock
@@ -92,31 +79,6 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         }
 
         return $this;
-    }
-
-    /**
-     * Retrieve price aggreagation data cache key
-     *
-     * @return string
-     */
-    protected function _getCacheKey()
-    {
-        return $this->getLayer()->getStateKey()
-            . '_ATTR_' . $this->getAttributeModel()->getAttributeCode();
-    }
-
-    /**
-     * Prepare text of item label
-     *
-     * @param   int $range
-     * @param   float $value
-     * @return  string
-     */
-    protected function _renderItemLabel($range, $value)
-    {
-        $from   = Mage::app()->getStore()->formatPrice(($value - 1) * $range, false);
-        $to     = Mage::app()->getStore()->formatPrice($value * $range, false);
-        return Mage::helper('catalog')->__('%s - %s', $from, $to);
     }
 
     /**
@@ -188,6 +150,44 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             $this->setData($rangeKey, $items);
         }
         return $items;
+    }
+
+    /**
+     * Retrieve resource instance
+     *
+     * @return Mage_Catalog_Model_Resource_Layer_Filter_Decimal
+     */
+    protected function _getResource()
+    {
+        if (is_null($this->_resource)) {
+            $this->_resource = Mage::getResourceModel('catalog/layer_filter_decimal');
+        }
+        return $this->_resource;
+    }
+
+    /**
+     * Retrieve price aggreagation data cache key
+     *
+     * @return string
+     */
+    protected function _getCacheKey()
+    {
+        return $this->getLayer()->getStateKey()
+            . '_ATTR_' . $this->getAttributeModel()->getAttributeCode();
+    }
+
+    /**
+     * Prepare text of item label
+     *
+     * @param   int $range
+     * @param   float $value
+     * @return  string
+     */
+    protected function _renderItemLabel($range, $value)
+    {
+        $from   = Mage::app()->getStore()->formatPrice(($value - 1) * $range, false);
+        $to     = Mage::app()->getStore()->formatPrice($value * $range, false);
+        return Mage::helper('catalog')->__('%s - %s', $from, $to);
     }
 
     /**

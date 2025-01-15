@@ -20,12 +20,6 @@
  */
 class Mage_Payment_Block_Info_Purchaseorder extends Mage_Payment_Block_Info
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('payment/info/purchaseorder.phtml');
-    }
-
     /**
      * @return string
      */
@@ -33,5 +27,10 @@ class Mage_Payment_Block_Info_Purchaseorder extends Mage_Payment_Block_Info
     {
         $this->setTemplate('payment/info/pdf/purchaseorder.phtml');
         return $this->toHtml();
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('payment/info/purchaseorder.phtml');
     }
 }

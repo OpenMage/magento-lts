@@ -22,11 +22,6 @@
  */
 class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('log/summary_table', 'log_summary_id');
-    }
-
     /**
      * Retrieve last added record
      *
@@ -133,5 +128,9 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
             ->where('add_date <= ?', $to);
 
         return $adapter->fetchOne($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('log/summary_table', 'log_summary_id');
     }
 }

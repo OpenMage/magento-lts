@@ -23,43 +23,6 @@
 class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
 {
     /**
-     * Try to load valid order and register it
-     *
-     * @param int $orderId
-     * @return bool
-     */
-    protected function _loadValidOrder($orderId = null)
-    {
-        return Mage::helper('sales/guest')->loadValidOrder();
-    }
-
-    /**
-     * Check order view availability
-     *
-     * @param   Mage_Sales_Model_Order $order
-     * @return  bool
-     */
-    protected function _canViewOrder($order)
-    {
-        $currentOrder = Mage::registry('current_order');
-        if ($order->getId() && ($order->getId() === $currentOrder->getId())) {
-            return true;
-        }
-        return false;
-    }
-
-    protected function _viewAction()
-    {
-        if (!$this->_loadValidOrder()) {
-            return;
-        }
-
-        $this->loadLayout();
-        Mage::helper('sales/guest')->getBreadcrumbs($this);
-        $this->renderLayout();
-    }
-
-    /**
      * Order view form page
      */
     public function formAction()
@@ -145,5 +108,41 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
         } else {
             $this->_redirect('sales/guest/form');
         }
+    }
+    /**
+     * Try to load valid order and register it
+     *
+     * @param int $orderId
+     * @return bool
+     */
+    protected function _loadValidOrder($orderId = null)
+    {
+        return Mage::helper('sales/guest')->loadValidOrder();
+    }
+
+    /**
+     * Check order view availability
+     *
+     * @param   Mage_Sales_Model_Order $order
+     * @return  bool
+     */
+    protected function _canViewOrder($order)
+    {
+        $currentOrder = Mage::registry('current_order');
+        if ($order->getId() && ($order->getId() === $currentOrder->getId())) {
+            return true;
+        }
+        return false;
+    }
+
+    protected function _viewAction()
+    {
+        if (!$this->_loadValidOrder()) {
+            return;
+        }
+
+        $this->loadLayout();
+        Mage::helper('sales/guest')->getBreadcrumbs($this);
+        $this->renderLayout();
     }
 }

@@ -22,13 +22,12 @@
  */
 class Mage_Admin_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    protected $_moduleName = 'Mage_Admin';
-
     /**
      * Configuration path to expiration period of reset password link
      */
     public const XML_PATH_ADMIN_RESET_PASSWORD_LINK_EXPIRATION_PERIOD
         = 'default/admin/emails/password_reset_link_expiration_period';
+    protected $_moduleName = 'Mage_Admin';
 
     /**
      * Generate unique token for reset password confirmation link

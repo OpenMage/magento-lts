@@ -32,11 +32,6 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     public const TYPE_LOGIN = 2;
 
-    protected function _construct()
-    {
-        $this->_setMainTable('captcha/log');
-    }
-
     /**
      * Save or Update count Attempts
      *
@@ -137,5 +132,10 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
             $this->getMainTable(),
             ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60 * 30)],
         );
+    }
+
+    protected function _construct()
+    {
+        $this->_setMainTable('captcha/log');
     }
 }

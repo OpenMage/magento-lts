@@ -205,40 +205,6 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * Returns the node and children as an array
-     *
-     * @param bool $isCanonical - whether to ignore attributes
-     * @return array|string
-     */
-    protected function _asArray($isCanonical = false)
-    {
-        $result = [];
-        if (!$isCanonical) {
-            // add attributes
-            foreach ($this->attributes() as $attributeName => $attribute) {
-                if ($attribute) {
-                    $result['@'][$attributeName] = (string) $attribute;
-                }
-            }
-        }
-        // add children values
-        if ($this->hasChildren()) {
-            foreach ($this->children() as $childName => $child) {
-                $result[$childName] = $child->_asArray($isCanonical);
-            }
-        } else {
-            if (empty($result)) {
-                // return as string, if nothing was found
-                $result = (string) $this;
-            } else {
-                // value has zero key element
-                $result[0] = (string) $this;
-            }
-        }
-        return $result;
-    }
-
-    /**
      * Makes nicely formatted XML from the node
      *
      * @param string $filename
@@ -454,5 +420,39 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             }
         }
         return $this;
+    }
+
+    /**
+     * Returns the node and children as an array
+     *
+     * @param bool $isCanonical - whether to ignore attributes
+     * @return array|string
+     */
+    protected function _asArray($isCanonical = false)
+    {
+        $result = [];
+        if (!$isCanonical) {
+            // add attributes
+            foreach ($this->attributes() as $attributeName => $attribute) {
+                if ($attribute) {
+                    $result['@'][$attributeName] = (string) $attribute;
+                }
+            }
+        }
+        // add children values
+        if ($this->hasChildren()) {
+            foreach ($this->children() as $childName => $child) {
+                $result[$childName] = $child->_asArray($isCanonical);
+            }
+        } else {
+            if (empty($result)) {
+                // return as string, if nothing was found
+                $result = (string) $this;
+            } else {
+                // value has zero key element
+                $result[0] = (string) $this;
+            }
+        }
+        return $result;
     }
 }

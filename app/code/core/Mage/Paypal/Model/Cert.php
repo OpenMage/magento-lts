@@ -27,11 +27,6 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
      */
     public const BASEPATH_PAYPAL_CERT  = 'cert/paypal';
 
-    protected function _construct()
-    {
-        $this->_init('paypal/cert');
-    }
-
     /**
      * Load model by website id
      *
@@ -64,6 +59,11 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
             $this->_createCertFile($certFile);
         }
         return $certFile;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('paypal/cert');
     }
 
     /**

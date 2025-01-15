@@ -26,15 +26,6 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
      */
     public const ADMIN_RESOURCE = 'catalog/search';
 
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('catalog/search')
-            ->_addBreadcrumb(Mage::helper('catalog')->__('Search'), Mage::helper('catalog')->__('Search'))
-        ;
-        return $this;
-    }
-
     public function indexAction()
     {
         $this->_title($this->__('Catalog'))->_title($this->__('Search Terms'));
@@ -198,5 +189,14 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
     {
         $this->_setForcedFormKeyActions('delete', 'massDelete');
         return parent::preDispatch();
+    }
+
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('catalog/search')
+            ->_addBreadcrumb(Mage::helper('catalog')->__('Search'), Mage::helper('catalog')->__('Search'))
+        ;
+        return $this;
     }
 }

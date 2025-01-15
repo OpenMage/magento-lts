@@ -69,32 +69,6 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     ];
 
     /**
-     * Generate random string for token or secret or verifier
-     *
-     * @param int $length String length
-     * @return string
-     */
-    protected function _generateRandomString($length)
-    {
-        if (function_exists('openssl_random_pseudo_bytes')) {
-            // use openssl lib if it is install. It provides a better randomness
-            $bytes = openssl_random_pseudo_bytes((int) ceil($length / 2), $strong);
-            $hex = bin2hex($bytes); // hex() doubles the length of the string
-            $randomString = substr($hex, 0, $length); // we truncate at most 1 char if length parameter is an odd number
-        } else {
-            // fallback to mt_rand() if openssl is not installed
-            /** @var Mage_Core_Helper_Data $helper */
-            $helper = Mage::helper('core');
-            $randomString = $helper->getRandomString(
-                $length,
-                Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS,
-            );
-        }
-
-        return $randomString;
-    }
-
-    /**
      * Generate random string for token
      *
      * @return string
@@ -241,23 +215,6 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Is current authorize page is simple
-     *
-     * @return bool
-     */
-    protected function _getIsSimple()
-    {
-        $simple = false;
-        if (stristr($this->_getRequest()->getActionName(), 'simple')
-            || !is_null($this->_getRequest()->getParam('simple', null))
-        ) {
-            $simple = true;
-        }
-
-        return $simple;
-    }
-
-    /**
      * Get authorize endpoint url
      *
      * @param string $userType
@@ -294,5 +251,48 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     public function getOauthToken()
     {
         return $this->_getRequest()->getParam('oauth_token', null);
+    }
+
+    /**
+     * Generate random string for token or secret or verifier
+     *
+     * @param int $length String length
+     * @return string
+     */
+    protected function _generateRandomString($length)
+    {
+        if (function_exists('openssl_random_pseudo_bytes')) {
+            // use openssl lib if it is install. It provides a better randomness
+            $bytes = openssl_random_pseudo_bytes((int) ceil($length / 2), $strong);
+            $hex = bin2hex($bytes); // hex() doubles the length of the string
+            $randomString = substr($hex, 0, $length); // we truncate at most 1 char if length parameter is an odd number
+        } else {
+            // fallback to mt_rand() if openssl is not installed
+            /** @var Mage_Core_Helper_Data $helper */
+            $helper = Mage::helper('core');
+            $randomString = $helper->getRandomString(
+                $length,
+                Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS,
+            );
+        }
+
+        return $randomString;
+    }
+
+    /**
+     * Is current authorize page is simple
+     *
+     * @return bool
+     */
+    protected function _getIsSimple()
+    {
+        $simple = false;
+        if (stristr($this->_getRequest()->getActionName(), 'simple')
+            || !is_null($this->_getRequest()->getParam('simple', null))
+        ) {
+            $simple = true;
+        }
+
+        return $simple;
     }
 }

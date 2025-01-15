@@ -25,11 +25,6 @@
  */
 class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product_action');
-    }
-
     /**
      * Update attribute values for entity list per store
      *
@@ -111,5 +106,9 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
             'product_ids'   => $productIds,
             'action'        => $type,
         ]);
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product_action');
     }
 }

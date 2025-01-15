@@ -63,6 +63,26 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
     }
 
     /**
+     * Validate is valid association for website unassignment from product.
+     * If fails validation, then this method returns false, and
+     * getErrors() will return an array of errors that explain why the
+     * validation failed.
+     *
+     * @return bool
+     */
+    public function isWebsiteAssignedToProduct(Mage_Core_Model_Website $website, Mage_Catalog_Model_Product $product)
+    {
+        if (!in_array($website->getId(), $product->getWebsiteIds())) {
+            $this->_addError(sprintf(
+                'Product #%d isn\'t assigned to website #%d',
+                $product->getId(),
+                $website->getId(),
+            ));
+        }
+        return !count($this->getErrors());
+    }
+
+    /**
      * Validate "Copy To Stores" data and associations.
      *
      * @param Mage_Catalog_Model_Product $product
@@ -154,25 +174,5 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
         }
 
         return $this;
-    }
-
-    /**
-     * Validate is valid association for website unassignment from product.
-     * If fails validation, then this method returns false, and
-     * getErrors() will return an array of errors that explain why the
-     * validation failed.
-     *
-     * @return bool
-     */
-    public function isWebsiteAssignedToProduct(Mage_Core_Model_Website $website, Mage_Catalog_Model_Product $product)
-    {
-        if (!in_array($website->getId(), $product->getWebsiteIds())) {
-            $this->_addError(sprintf(
-                'Product #%d isn\'t assigned to website #%d',
-                $product->getId(),
-                $website->getId(),
-            ));
-        }
-        return !count($this->getErrors());
     }
 }

@@ -23,6 +23,25 @@
 class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Template
 {
     /**
+     * Get URL for create new email template
+     *
+     * @return string
+     */
+    public function getCreateUrl()
+    {
+        return $this->getUrl('*/*/new');
+    }
+
+    /**
+     * Get transactional emails page header text
+     *
+     * @return string
+     */
+    public function getHeaderText()
+    {
+        return Mage::helper('adminhtml')->__('Transactional Emails');
+    }
+    /**
      * Set transactional emails grid template
      */
     protected function _construct()
@@ -47,26 +66,6 @@ class Mage_Adminhtml_Block_System_Email_Template extends Mage_Adminhtml_Block_Te
         );
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/system_email_template_grid', 'email.template.grid'));
         return parent::_prepareLayout();
-    }
-
-    /**
-     * Get URL for create new email template
-     *
-     * @return string
-     */
-    public function getCreateUrl()
-    {
-        return $this->getUrl('*/*/new');
-    }
-
-    /**
-     * Get transactional emails page header text
-     *
-     * @return string
-     */
-    public function getHeaderText()
-    {
-        return Mage::helper('adminhtml')->__('Transactional Emails');
     }
 
     /**

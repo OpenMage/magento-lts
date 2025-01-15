@@ -67,14 +67,6 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
     protected $_eventObject = 'config_data';
 
     /**
-     * Varien model constructor
-     */
-    protected function _construct()
-    {
-        $this->_init('core/config_data');
-    }
-
-    /**
      * Add availability call after load as public
      * @return $this
      */
@@ -124,5 +116,13 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
     {
         $data = $this->_getData('fieldset_data');
         return (is_array($data) && isset($data[$key])) ? $data[$key] : null;
+    }
+
+    /**
+     * Varien model constructor
+     */
+    protected function _construct()
+    {
+        $this->_init('core/config_data');
     }
 }

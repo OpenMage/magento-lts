@@ -164,12 +164,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected static $_urlModel;
 
     /**
-     * @var Varien_Object
-     */
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private static $_transportObject;
-
-    /**
      * Array of block sort priority instructions
      *
      * @var array
@@ -191,6 +185,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected $_app;
 
     /**
+     * @var Varien_Object
+     */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private static $_transportObject;
+
+    /**
      * Initialize factory instance
      */
     public function __construct(array $args = [])
@@ -205,36 +205,19 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Internal constructor, that is called from real constructor
+     * Translate block sentence
      *
-     * Please override this one instead of overriding real __construct constructor
+     * @return string
      *
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
-    protected function _construct()
+    public function __()
     {
-        /**
-         * Please override this one instead of overriding real __construct constructor
-         */
-    }
-
-    /**
-     * Retrieve factory instance
-     *
-     * @return Mage_Core_Model_Factory
-     */
-    protected function _getFactory()
-    {
-        return is_null($this->_factory) ? Mage::getSingleton('core/factory') : $this->_factory;
-    }
-
-    /**
-     * Retrieve application instance
-     *
-     * @return Mage_Core_Model_App
-     */
-    protected function _getApp()
-    {
-        return is_null($this->_app) ? Mage::app() : $this->_app;
+        $args = func_get_args();
+        $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getModuleName());
+        array_unshift($args, $expr);
+        return $this->_getApp()->getTranslator()->translate($args);
     }
 
     /**
@@ -296,18 +279,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         Mage::dispatchEvent('core_block_abstract_prepare_layout_before', ['block' => $this]);
         $this->_prepareLayout();
         Mage::dispatchEvent('core_block_abstract_prepare_layout_after', ['block' => $this]);
-        return $this;
-    }
-
-    /**
-     * Preparing global layout
-     *
-     * You can redefine this method in child classes for changing layout
-     *
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
         return $this;
     }
 
@@ -620,40 +591,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Retrieve child block HTML
-     *
-     * @param   string $name
-     * @param   bool $useCache
-     * @return  string
-     */
-    protected function _getChildHtml($name, $useCache = true)
-    {
-        if ($useCache && isset($this->_childrenHtmlCache[$name])) {
-            return $this->_childrenHtmlCache[$name];
-        }
-
-        $child = $this->getChild($name);
-
-        if (!$child) {
-            $html = '';
-        } else {
-            $this->_beforeChildToHtml($name, $child);
-            $html = $child->toHtml();
-        }
-
-        $this->_childrenHtmlCache[$name] = $html;
-        return $html;
-    }
-
-    /**
-     * Prepare child block before generate html
-     *
-     * @param   string $name
-     * @param   Mage_Core_Block_Abstract $child
-     */
-    protected function _beforeChildToHtml($name, $child) {}
-
-    /**
      * Retrieve block html
      *
      * @param   string $name
@@ -873,16 +810,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Before rendering html, but after trying to load cache
-     *
-     * @return $this
-     */
-    protected function _beforeToHtml()
-    {
-        return $this;
-    }
-
-    /**
      * Specify block output frame tags
      *
      * @param string $openTag
@@ -951,49 +878,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         );
 
         return self::$_transportObject->getHtml();
-    }
-
-    /**
-     * Processing block html after rendering
-     *
-     * @param   string $html
-     * @return  string
-     */
-    protected function _afterToHtml($html)
-    {
-        return $html;
-    }
-
-    /**
-     * Override this method in descendants to produce html
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        return '';
-    }
-
-    /**
-     * Returns url model class name
-     *
-     * @return string
-     */
-    protected function _getUrlModelClass()
-    {
-        return 'core/url';
-    }
-
-    /**
-     * Create and return url object
-     *
-     * @return Mage_Core_Model_Url
-     */
-    protected function _getUrlModel()
-    {
-        /** @var Mage_Core_Model_Url $model */
-        $model = Mage::getModel($this->_getUrlModelClass());
-        return $model;
     }
 
     /**
@@ -1171,22 +1055,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Translate block sentence
-     *
-     * @return string
-     *
-     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
-     * @SuppressWarnings("PHPMD.ShortMethodName")
-     */
-    public function __()
-    {
-        $args = func_get_args();
-        $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getModuleName());
-        array_unshift($args, $expr);
-        return $this->_getApp()->getTranslator()->translate($args);
-    }
-
-    /**
      * @param string|array $data
      * @param array $allowedTags
      * @return string
@@ -1321,38 +1189,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Prepare url for save to cache
-     *
-     * @return $this
-     */
-    protected function _beforeCacheUrl()
-    {
-        if ($this->_getApp()->useCache(self::CACHE_GROUP)) {
-            $this->_getApp()->setUseSessionVar(true);
-        }
-        return $this;
-    }
-
-    /**
-     * Replace URLs from cache
-     *
-     * @param string $html
-     * @return string
-     */
-    protected function _afterCacheUrl($html)
-    {
-        if ($this->_getApp()->useCache(self::CACHE_GROUP)) {
-            $this->_getApp()->setUseSessionVar(false);
-            Varien_Profiler::start('CACHE_URL');
-            /** @var Mage_Core_Model_Url $model */
-            $model = Mage::getSingleton($this->_getUrlModelClass());
-            $html = $model->sessionUrlVar($html);
-            Varien_Profiler::stop('CACHE_URL');
-        }
-        return $html;
-    }
-
-    /**
      * Get cache key informative items
      * Provide string array key to share specific info item with FPC placeholder
      *
@@ -1465,6 +1301,215 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
+     * Collect and retrieve items tags.
+     * Item should implement Mage_Core_Model_Abstract::getCacheIdTags method
+     *
+     * @param array|Varien_Data_Collection $items
+     * @return array
+     */
+    public function getItemsTags($items)
+    {
+        $tags = [];
+        /** @var Mage_Core_Model_Abstract $item */
+        foreach ($items as $item) {
+            $itemTags = $item->getCacheIdTags();
+            if ($itemTags === false) {
+                continue;
+            }
+            $tags = array_merge($tags, $itemTags);
+        }
+        return $tags;
+    }
+
+    public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
+    {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
+
+    /**
+     * Check whether the module output is enabled
+     *
+     * Because many module blocks belong to Adminhtml module,
+     * the feature "Disable module output" doesn't cover Admin area
+     */
+    public function isModuleOutputEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
+    {
+        if ($moduleName === null) {
+            $moduleName = $this->getModuleName();
+        }
+
+        return Mage::helper($helperAlias)->isModuleOutputEnabled($moduleName);
+    }
+
+    /**
+     * Internal constructor, that is called from real constructor
+     *
+     * Please override this one instead of overriding real __construct constructor
+     *
+     */
+    protected function _construct()
+    {
+        /**
+         * Please override this one instead of overriding real __construct constructor
+         */
+    }
+
+    /**
+     * Retrieve factory instance
+     *
+     * @return Mage_Core_Model_Factory
+     */
+    protected function _getFactory()
+    {
+        return is_null($this->_factory) ? Mage::getSingleton('core/factory') : $this->_factory;
+    }
+
+    /**
+     * Retrieve application instance
+     *
+     * @return Mage_Core_Model_App
+     */
+    protected function _getApp()
+    {
+        return is_null($this->_app) ? Mage::app() : $this->_app;
+    }
+
+    /**
+     * Preparing global layout
+     *
+     * You can redefine this method in child classes for changing layout
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        return $this;
+    }
+
+    /**
+     * Retrieve child block HTML
+     *
+     * @param   string $name
+     * @param   bool $useCache
+     * @return  string
+     */
+    protected function _getChildHtml($name, $useCache = true)
+    {
+        if ($useCache && isset($this->_childrenHtmlCache[$name])) {
+            return $this->_childrenHtmlCache[$name];
+        }
+
+        $child = $this->getChild($name);
+
+        if (!$child) {
+            $html = '';
+        } else {
+            $this->_beforeChildToHtml($name, $child);
+            $html = $child->toHtml();
+        }
+
+        $this->_childrenHtmlCache[$name] = $html;
+        return $html;
+    }
+
+    /**
+     * Prepare child block before generate html
+     *
+     * @param   string $name
+     * @param   Mage_Core_Block_Abstract $child
+     */
+    protected function _beforeChildToHtml($name, $child) {}
+
+    /**
+     * Before rendering html, but after trying to load cache
+     *
+     * @return $this
+     */
+    protected function _beforeToHtml()
+    {
+        return $this;
+    }
+
+    /**
+     * Processing block html after rendering
+     *
+     * @param   string $html
+     * @return  string
+     */
+    protected function _afterToHtml($html)
+    {
+        return $html;
+    }
+
+    /**
+     * Override this method in descendants to produce html
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        return '';
+    }
+
+    /**
+     * Returns url model class name
+     *
+     * @return string
+     */
+    protected function _getUrlModelClass()
+    {
+        return 'core/url';
+    }
+
+    /**
+     * Create and return url object
+     *
+     * @return Mage_Core_Model_Url
+     */
+    protected function _getUrlModel()
+    {
+        /** @var Mage_Core_Model_Url $model */
+        $model = Mage::getModel($this->_getUrlModelClass());
+        return $model;
+    }
+
+    /**
+     * Prepare url for save to cache
+     *
+     * @return $this
+     */
+    protected function _beforeCacheUrl()
+    {
+        if ($this->_getApp()->useCache(self::CACHE_GROUP)) {
+            $this->_getApp()->setUseSessionVar(true);
+        }
+        return $this;
+    }
+
+    /**
+     * Replace URLs from cache
+     *
+     * @param string $html
+     * @return string
+     */
+    protected function _afterCacheUrl($html)
+    {
+        if ($this->_getApp()->useCache(self::CACHE_GROUP)) {
+            $this->_getApp()->setUseSessionVar(false);
+            Varien_Profiler::start('CACHE_URL');
+            /** @var Mage_Core_Model_Url $model */
+            $model = Mage::getSingleton($this->_getUrlModelClass());
+            $html = $model->sessionUrlVar($html);
+            Varien_Profiler::stop('CACHE_URL');
+        }
+        return $html;
+    }
+
+    /**
      * Load block html from cache storage
      *
      * @return string | false
@@ -1548,27 +1593,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Collect and retrieve items tags.
-     * Item should implement Mage_Core_Model_Abstract::getCacheIdTags method
-     *
-     * @param array|Varien_Data_Collection $items
-     * @return array
-     */
-    public function getItemsTags($items)
-    {
-        $tags = [];
-        /** @var Mage_Core_Model_Abstract $item */
-        foreach ($items as $item) {
-            $itemTags = $item->getCacheIdTags();
-            if ($itemTags === false) {
-                continue;
-            }
-            $tags = array_merge($tags, $itemTags);
-        }
-        return $tags;
-    }
-
-    /**
      * Checks is request Url is secure
      *
      * @return bool
@@ -1576,29 +1600,5 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     protected function _isSecure()
     {
         return $this->_getApp()->getFrontController()->getRequest()->isSecure();
-    }
-
-    public function isModuleEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
-    {
-        if ($moduleName === null) {
-            $moduleName = $this->getModuleName();
-        }
-
-        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
-    }
-
-    /**
-     * Check whether the module output is enabled
-     *
-     * Because many module blocks belong to Adminhtml module,
-     * the feature "Disable module output" doesn't cover Admin area
-     */
-    public function isModuleOutputEnabled(?string $moduleName = null, string $helperAlias = 'core'): bool
-    {
-        if ($moduleName === null) {
-            $moduleName = $this->getModuleName();
-        }
-
-        return Mage::helper($helperAlias)->isModuleOutputEnabled($moduleName);
     }
 }

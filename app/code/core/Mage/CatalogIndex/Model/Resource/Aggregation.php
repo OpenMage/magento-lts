@@ -37,17 +37,6 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     protected $_toTagTable;
 
     /**
-     * Initialize resource tables
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalogindex/aggregation', 'aggregation_id');
-        $this->_tagTable    = $this->getTable('catalogindex/aggregation_tag');
-        $this->_toTagTable  = $this->getTable('catalogindex/aggregation_to_tag');
-    }
-
-    /**
      * Get aggregated cache data by data key and store
      *
      * @param string $key
@@ -150,6 +139,38 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
     }
 
     /**
+     * ProductCategoryPaths getter
+     *
+     * @param array $productIds
+     * @return array
+     */
+    public function getProductCategoryPaths($productIds)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from(['cat' => $this->getTable('catalog/category')], 'path')
+            ->joinInner(
+                ['cat_prod' => $this->getTable('catalog/category_product')],
+                $this->_getReadAdapter()->quoteInto(
+                    'cat.entity_id=cat_prod.category_id AND cat_prod.product_id IN (?)',
+                    $productIds,
+                ),
+                [],
+            );
+        return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    /**
+     * Initialize resource tables
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalogindex/aggregation', 'aggregation_id');
+        $this->_tagTable    = $this->getTable('catalogindex/aggregation_tag');
+        $this->_toTagTable  = $this->getTable('catalogindex/aggregation_to_tag');
+    }
+
+    /**
      * Save related tags for aggreagation data
      *
      * @param int $aggregationId
@@ -222,26 +243,5 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             ]);
         }
         return $this;
-    }
-
-    /**
-     * ProductCategoryPaths getter
-     *
-     * @param array $productIds
-     * @return array
-     */
-    public function getProductCategoryPaths($productIds)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from(['cat' => $this->getTable('catalog/category')], 'path')
-            ->joinInner(
-                ['cat_prod' => $this->getTable('catalog/category_product')],
-                $this->_getReadAdapter()->quoteInto(
-                    'cat.entity_id=cat_prod.category_id AND cat_prod.product_id IN (?)',
-                    $productIds,
-                ),
-                [],
-            );
-        return $this->_getReadAdapter()->fetchCol($select);
     }
 }

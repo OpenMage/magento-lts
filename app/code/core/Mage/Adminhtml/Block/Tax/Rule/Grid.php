@@ -37,6 +37,17 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
+     * Return url
+     *
+     * @param Mage_Tax_Model_Calculation_Rule $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['rule' => $row->getId()]);
+    }
+
+    /**
      * Prepare grid collection
      *
      * @return $this
@@ -168,16 +179,5 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $actionsUrl = $this->getUrl('*/*/');
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Return url
-     *
-     * @param Mage_Tax_Model_Calculation_Rule $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['rule' => $row->getId()]);
     }
 }

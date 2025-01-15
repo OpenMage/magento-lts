@@ -84,6 +84,40 @@ abstract class Mage_Shell_Abstract
     }
 
     /**
+     * Run script
+     *
+     */
+    abstract public function run();
+
+    /**
+     * Retrieve Usage Help Message
+     *
+     */
+    public function usageHelp()
+    {
+        return <<<USAGE
+Usage:  php -f script.php -- [options]
+
+  -h            Short alias for help
+  help          This help
+USAGE;
+    }
+
+    /**
+     * Retrieve argument value by name or false
+     *
+     * @param string $name the argument name
+     * @return mixed
+     */
+    public function getArg($name)
+    {
+        if (isset($this->_args[$name])) {
+            return $this->_args[$name];
+        }
+        return false;
+    }
+
+    /**
      * Get Magento Root path (with last directory separator)
      *
      * @return string
@@ -172,12 +206,6 @@ abstract class Mage_Shell_Abstract
     }
 
     /**
-     * Run script
-     *
-     */
-    abstract public function run();
-
-    /**
      * Check is show usage help
      *
      */
@@ -186,33 +214,5 @@ abstract class Mage_Shell_Abstract
         if (isset($this->_args['h']) || isset($this->_args['help'])) {
             die($this->usageHelp());
         }
-    }
-
-    /**
-     * Retrieve Usage Help Message
-     *
-     */
-    public function usageHelp()
-    {
-        return <<<USAGE
-Usage:  php -f script.php -- [options]
-
-  -h            Short alias for help
-  help          This help
-USAGE;
-    }
-
-    /**
-     * Retrieve argument value by name or false
-     *
-     * @param string $name the argument name
-     * @return mixed
-     */
-    public function getArg($name)
-    {
-        if (isset($this->_args[$name])) {
-            return $this->_args[$name];
-        }
-        return false;
     }
 }

@@ -30,6 +30,30 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
     protected $_regionNameTable;
 
     /**
+     * Loads region by region code and country id
+     *
+     * @param string $regionCode
+     * @param string $countryId
+     * @return $this
+     */
+    public function loadByCode(Mage_Directory_Model_Region $region, $regionCode, $countryId)
+    {
+        return $this->_loadByCountry($region, $countryId, (string) $regionCode, 'code');
+    }
+
+    /**
+     * Load data by country id and default region name
+     *
+     * @param string $regionName
+     * @param string $countryId
+     * @return $this
+     */
+    public function loadByName(Mage_Directory_Model_Region $region, $regionName, $countryId)
+    {
+        return $this->_loadByCountry($region, $countryId, (string) $regionName, 'default_name');
+    }
+
+    /**
      * Define main and locale region name tables
      *
      */
@@ -113,29 +137,5 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
         $this->_afterLoad($object);
 
         return $this;
-    }
-
-    /**
-     * Loads region by region code and country id
-     *
-     * @param string $regionCode
-     * @param string $countryId
-     * @return $this
-     */
-    public function loadByCode(Mage_Directory_Model_Region $region, $regionCode, $countryId)
-    {
-        return $this->_loadByCountry($region, $countryId, (string) $regionCode, 'code');
-    }
-
-    /**
-     * Load data by country id and default region name
-     *
-     * @param string $regionName
-     * @param string $countryId
-     * @return $this
-     */
-    public function loadByName(Mage_Directory_Model_Region $region, $regionName, $countryId)
-    {
-        return $this->_loadByCountry($region, $countryId, (string) $regionName, 'default_name');
     }
 }

@@ -58,6 +58,23 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
     }
 
     /**
+     * Retrieve filter condition for collection
+     *
+     * @return mixed
+     */
+    public function getCondition()
+    {
+        if (is_null($this->getValue())) {
+            return null;
+        }
+        $value = $this->getValue();
+        if ($value == 'all') {
+            $value = '';
+        }
+        return ['eq' => $value];
+    }
+
+    /**
      * Render SELECT options
      *
      * @param array $options
@@ -87,22 +104,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
         }
 
         return $html;
-    }
-
-    /**
-     * Retrieve filter condition for collection
-     *
-     * @return mixed
-     */
-    public function getCondition()
-    {
-        if (is_null($this->getValue())) {
-            return null;
-        }
-        $value = $this->getValue();
-        if ($value == 'all') {
-            $value = '';
-        }
-        return ['eq' => $value];
     }
 }

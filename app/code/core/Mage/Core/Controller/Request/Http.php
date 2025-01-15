@@ -190,16 +190,6 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     }
 
     /**
-     * Check if can be store code as part of url
-     *
-     * @return bool
-     */
-    protected function _canBeStoreCodeInUrl()
-    {
-        return Mage::isInstalled() && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL);
-    }
-
-    /**
      * Check if code declared as direct access frontend name
      * this mean what this url can be used without store code
      *
@@ -591,5 +581,15 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function getInternallyForwarded()
     {
         return $this->_internallyForwarded;
+    }
+
+    /**
+     * Check if can be store code as part of url
+     *
+     * @return bool
+     */
+    protected function _canBeStoreCodeInUrl()
+    {
+        return Mage::isInstalled() && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL);
     }
 }

@@ -34,6 +34,16 @@ class Mage_ImportExport_Block_Adminhtml_Import_Edit extends Mage_Adminhtml_Block
     }
 
     /**
+     * Get header text
+     *
+     * @return string
+     */
+    public function getHeaderText()
+    {
+        return Mage::helper('importexport')->__('Import');
+    }
+
+    /**
      * Internal constructor
      */
     protected function _construct()
@@ -43,15 +53,5 @@ class Mage_ImportExport_Block_Adminhtml_Import_Edit extends Mage_Adminhtml_Block
         $this->_objectId   = 'import_id';
         $this->_blockGroup = 'importexport';
         $this->_controller = 'adminhtml_import';
-    }
-
-    /**
-     * Get header text
-     *
-     * @return string
-     */
-    public function getHeaderText()
-    {
-        return Mage::helper('importexport')->__('Import');
     }
 }

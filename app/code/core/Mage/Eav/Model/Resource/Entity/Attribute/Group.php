@@ -22,11 +22,6 @@
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('eav/attribute_group', 'attribute_group_id');
-    }
-
     /**
      * Checks if attribute group exists
      *
@@ -46,6 +41,37 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
             ->where('attribute_group_name = :attribute_group_name');
 
         return $adapter->fetchRow($select, $bind) > 0;
+    }
+
+    /**
+     * Set any group default if old one was removed
+     *
+     * @param int $attributeSetId
+     * @return $this
+     */
+    public function updateDefaultGroup($attributeSetId)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $bind    = [':attribute_set_id' => $attributeSetId];
+        $select  = $adapter->select()
+            ->from($this->getMainTable(), $this->getIdFieldName())
+            ->where('attribute_set_id = :attribute_set_id')
+            ->order('default_id ' . Varien_Data_Collection::SORT_ORDER_DESC)
+            ->limit(1);
+
+        $groupId = $adapter->fetchOne($select, $bind);
+
+        if ($groupId) {
+            $data  = ['default_id' => 1];
+            $where = ['attribute_group_id =?' => $groupId];
+            $adapter->update($this->getMainTable(), $data, $where);
+        }
+
+        return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('eav/attribute_group', 'attribute_group_id');
     }
 
     /**
@@ -93,32 +119,5 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
             ->where('attribute_set_id = :attribute_set_id');
 
         return $adapter->fetchOne($select, $bind);
-    }
-
-    /**
-     * Set any group default if old one was removed
-     *
-     * @param int $attributeSetId
-     * @return $this
-     */
-    public function updateDefaultGroup($attributeSetId)
-    {
-        $adapter = $this->_getWriteAdapter();
-        $bind    = [':attribute_set_id' => $attributeSetId];
-        $select  = $adapter->select()
-            ->from($this->getMainTable(), $this->getIdFieldName())
-            ->where('attribute_set_id = :attribute_set_id')
-            ->order('default_id ' . Varien_Data_Collection::SORT_ORDER_DESC)
-            ->limit(1);
-
-        $groupId = $adapter->fetchOne($select, $bind);
-
-        if ($groupId) {
-            $data  = ['default_id' => 1];
-            $where = ['attribute_group_id =?' => $groupId];
-            $adapter->update($this->getMainTable(), $data, $where);
-        }
-
-        return $this;
     }
 }

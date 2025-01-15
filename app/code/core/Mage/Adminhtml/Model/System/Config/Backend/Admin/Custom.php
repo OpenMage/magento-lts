@@ -31,23 +31,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
     public const XML_PATH_SECURE_BASE_LINK_URL     = 'web/secure/base_link_url';
 
     /**
-     * Validate value before save
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        $value = $this->getValue();
-
-        if (!empty($value) && substr($value, -2) !== '}}') {
-            $value = rtrim($value, '/') . '/';
-        }
-
-        $this->setValue($value);
-        return $this;
-    }
-
-    /**
      * Change secure/unsecure base_url after use_custom_url was modified
      *
      * @return $this
@@ -76,6 +59,23 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
             );
         }
 
+        return $this;
+    }
+
+    /**
+     * Validate value before save
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        $value = $this->getValue();
+
+        if (!empty($value) && substr($value, -2) !== '}}') {
+            $value = rtrim($value, '/') . '/';
+        }
+
+        $this->setValue($value);
         return $this;
     }
 }

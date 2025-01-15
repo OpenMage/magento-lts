@@ -30,6 +30,54 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
     protected static $_currentDate = null;
 
     /**
+     * Preparing data and adding to rss object
+     *
+     * @param array $args
+     * @throws Zend_Date_Exception
+     */
+    public function addSpecialXmlCallback($args)
+    {
+        if (!isset(self::$_currentDate)) {
+            self::$_currentDate = new Zend_Date();
+        }
+
+        // dispatch event to determine whether the product will eventually get to the result
+        $product = new Varien_Object(['allowed_in_rss' => true, 'allowed_price_in_rss' => true]);
+        $args['product'] = $product;
+        Mage::dispatchEvent('rss_catalog_special_xml_callback', $args);
+        if (!$product->getAllowedInRss()) {
+            return;
+        }
+
+        // add row to result and determine whether special price is active (less or equal to the final price)
+        $row = $args['row'];
+        $row['use_special'] = false;
+        $row['allowed_price_in_rss'] = $product->getAllowedPriceInRss();
+        if (isset($row['special_to_date']) && $row['final_price'] <= $row['special_price']
+            && $row['allowed_price_in_rss']
+        ) {
+            $compareDate = self::$_currentDate->compareDate($row['special_to_date'], Varien_Date::DATE_INTERNAL_FORMAT);
+            if ($compareDate === -1 || $compareDate === 0) {
+                $row['use_special'] = true;
+            }
+        }
+
+        $args['results'][] = $row;
+    }
+
+    /**
+     * Function for comparing two items in collection
+     *
+     * @param Varien_Object $a
+     * @param Varien_Object $b
+     * @return int
+     */
+    public function sortByStartDate($a, $b)
+    {
+        return $a['start_date'] > $b['start_date'] ? -1 : ($a['start_date'] < $b['start_date'] ? 1 : 0);
+    }
+
+    /**
      * @throws Mage_Core_Model_Store_Exception
      * @throws Exception
      */
@@ -153,53 +201,5 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             }
         }
         return $rssObj->createRssXml();
-    }
-
-    /**
-     * Preparing data and adding to rss object
-     *
-     * @param array $args
-     * @throws Zend_Date_Exception
-     */
-    public function addSpecialXmlCallback($args)
-    {
-        if (!isset(self::$_currentDate)) {
-            self::$_currentDate = new Zend_Date();
-        }
-
-        // dispatch event to determine whether the product will eventually get to the result
-        $product = new Varien_Object(['allowed_in_rss' => true, 'allowed_price_in_rss' => true]);
-        $args['product'] = $product;
-        Mage::dispatchEvent('rss_catalog_special_xml_callback', $args);
-        if (!$product->getAllowedInRss()) {
-            return;
-        }
-
-        // add row to result and determine whether special price is active (less or equal to the final price)
-        $row = $args['row'];
-        $row['use_special'] = false;
-        $row['allowed_price_in_rss'] = $product->getAllowedPriceInRss();
-        if (isset($row['special_to_date']) && $row['final_price'] <= $row['special_price']
-            && $row['allowed_price_in_rss']
-        ) {
-            $compareDate = self::$_currentDate->compareDate($row['special_to_date'], Varien_Date::DATE_INTERNAL_FORMAT);
-            if ($compareDate === -1 || $compareDate === 0) {
-                $row['use_special'] = true;
-            }
-        }
-
-        $args['results'][] = $row;
-    }
-
-    /**
-     * Function for comparing two items in collection
-     *
-     * @param Varien_Object $a
-     * @param Varien_Object $b
-     * @return int
-     */
-    public function sortByStartDate($a, $b)
-    {
-        return $a['start_date'] > $b['start_date'] ? -1 : ($a['start_date'] < $b['start_date'] ? 1 : 0);
     }
 }

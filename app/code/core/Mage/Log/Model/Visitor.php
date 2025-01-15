@@ -96,40 +96,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Object initialization
-     */
-    protected function _construct()
-    {
-        $this->_init('log/visitor');
-        if ($this->_logCondition->isLogDisabled()) {
-            $this->_skipRequestLogging = true;
-            return;
-        }
-
-        $ignoreAgents = $this->_config->getNode('global/ignore_user_agents');
-        if ($ignoreAgents) {
-            $ignoreAgents = $ignoreAgents->asArray();
-            $userAgent = $this->_httpHelper->getHttpUserAgent();
-            foreach ($ignoreAgents as $ignoreAgent) {
-                if (stripos($userAgent, $ignoreAgent) !== false) {
-                    $this->_skipRequestLogging = true;
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * Retrieve session object
-     *
-     * @return Mage_Core_Model_Session_Abstract
-     */
-    protected function _getSession()
-    {
-        return $this->_session;
-    }
-
-    /**
      * Initialize visitor information from server data
      *
      * @return $this
@@ -225,21 +191,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             Mage::dispatchEvent('visitor_init', ['visitor' => $this]);
         }
         return $this;
-    }
-
-    /**
-     * Check is session new
-     *
-     * @return bool
-     */
-    protected function _isVisitorSessionNew()
-    {
-        $visitorData = $this->_session->getVisitorData();
-        $visitorSessionId = null;
-        if (is_array($visitorData) && isset($visitorData['session_id'])) {
-            $visitorSessionId = $visitorData['session_id'];
-        }
-        return $this->_session->getSessionId() != $visitorSessionId;
     }
 
     /**
@@ -394,5 +345,54 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             }
         }
         return false;
+    }
+
+    /**
+     * Object initialization
+     */
+    protected function _construct()
+    {
+        $this->_init('log/visitor');
+        if ($this->_logCondition->isLogDisabled()) {
+            $this->_skipRequestLogging = true;
+            return;
+        }
+
+        $ignoreAgents = $this->_config->getNode('global/ignore_user_agents');
+        if ($ignoreAgents) {
+            $ignoreAgents = $ignoreAgents->asArray();
+            $userAgent = $this->_httpHelper->getHttpUserAgent();
+            foreach ($ignoreAgents as $ignoreAgent) {
+                if (stripos($userAgent, $ignoreAgent) !== false) {
+                    $this->_skipRequestLogging = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Retrieve session object
+     *
+     * @return Mage_Core_Model_Session_Abstract
+     */
+    protected function _getSession()
+    {
+        return $this->_session;
+    }
+
+    /**
+     * Check is session new
+     *
+     * @return bool
+     */
+    protected function _isVisitorSessionNew()
+    {
+        $visitorData = $this->_session->getVisitorData();
+        $visitorSessionId = null;
+        if (is_array($visitorData) && isset($visitorData['session_id'])) {
+            $visitorSessionId = $visitorData['session_id'];
+        }
+        return $this->_session->getSessionId() != $visitorSessionId;
     }
 }

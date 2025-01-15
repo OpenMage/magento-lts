@@ -64,18 +64,6 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     ];
 
     /**
-     * Check if table exist for flat entity
-     *
-     * @param string $table
-     * @return bool
-     */
-    protected function _flatTableExist($table)
-    {
-        $tablesList = $this->getConnection()->listTables();
-        return in_array(strtoupper($this->getTable($table)), array_map('strtoupper', $tablesList));
-    }
-
-    /**
      * Add entity attribute. Overwrited for flat entities support
      *
      * @param int|string $entityTypeId
@@ -93,90 +81,6 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             parent::addAttribute($entityTypeId, $code, $attr);
         }
         return $this;
-    }
-
-    /**
-     * Add attribute as separate column in the table
-     *
-     * @param string $table
-     * @param string $attribute
-     * @param array $attr
-     * @return $this
-     */
-    protected function _addFlatAttribute($table, $attribute, $attr)
-    {
-        $tableInfo = $this->getConnection()->describeTable($this->getTable($table));
-        if (isset($tableInfo[$attribute])) {
-            return $this;
-        }
-        $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
-        $this->getConnection()->addColumn($this->getTable($table), $attribute, $columnDefinition);
-        return $this;
-    }
-
-    /**
-     * Add attribute to grid table if necessary
-     *
-     * @param string $table
-     * @param string $attribute
-     * @param array $attr
-     * @param string $entityTypeId
-     * @return $this
-     */
-    protected function _addGridAttribute($table, $attribute, $attr, $entityTypeId)
-    {
-        if (in_array($entityTypeId, $this->_flatEntitiesGrid) && !empty($attr['grid'])) {
-            $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
-            $this->getConnection()->addColumn($this->getTable($table . '_grid'), $attribute, $columnDefinition);
-        }
-        return $this;
-    }
-
-    /**
-     * Retrieve definition of column for create in flat table
-     *
-     * @param string $code
-     * @param array $data
-     * @return array
-     */
-    protected function _getAttributeColumnDefinition($code, $data)
-    {
-        // Convert attribute type to column info
-        $data['type'] = $data['type'] ?? 'varchar';
-        $type = null;
-        $length = null;
-        switch ($data['type']) {
-            case 'timestamp':
-                $type = Varien_Db_Ddl_Table::TYPE_TIMESTAMP;
-                break;
-            case 'datetime':
-                $type = Varien_Db_Ddl_Table::TYPE_DATETIME;
-                break;
-            case 'decimal':
-                $type = Varien_Db_Ddl_Table::TYPE_DECIMAL;
-                $length = '12,4';
-                break;
-            case 'int':
-                $type = Varien_Db_Ddl_Table::TYPE_INTEGER;
-                break;
-            case 'text':
-                $type = Varien_Db_Ddl_Table::TYPE_TEXT;
-                $length = 65536;
-                break;
-            case 'char':
-            case 'varchar':
-                $type = Varien_Db_Ddl_Table::TYPE_TEXT;
-                $length = 255;
-                break;
-        }
-        if ($type !== null) {
-            $data['type'] = $type;
-            $data['length'] = $length;
-        }
-
-        $data['nullable'] = isset($data['required']) ? !$data['required'] : true;
-        $data['comment']  = $data['comment'] ?? ucwords(str_replace('_', ' ', $code));
-        return $data;
     }
 
     /**
@@ -971,5 +875,101 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             ],
 
         ];
+    }
+
+    /**
+     * Check if table exist for flat entity
+     *
+     * @param string $table
+     * @return bool
+     */
+    protected function _flatTableExist($table)
+    {
+        $tablesList = $this->getConnection()->listTables();
+        return in_array(strtoupper($this->getTable($table)), array_map('strtoupper', $tablesList));
+    }
+
+    /**
+     * Add attribute as separate column in the table
+     *
+     * @param string $table
+     * @param string $attribute
+     * @param array $attr
+     * @return $this
+     */
+    protected function _addFlatAttribute($table, $attribute, $attr)
+    {
+        $tableInfo = $this->getConnection()->describeTable($this->getTable($table));
+        if (isset($tableInfo[$attribute])) {
+            return $this;
+        }
+        $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
+        $this->getConnection()->addColumn($this->getTable($table), $attribute, $columnDefinition);
+        return $this;
+    }
+
+    /**
+     * Add attribute to grid table if necessary
+     *
+     * @param string $table
+     * @param string $attribute
+     * @param array $attr
+     * @param string $entityTypeId
+     * @return $this
+     */
+    protected function _addGridAttribute($table, $attribute, $attr, $entityTypeId)
+    {
+        if (in_array($entityTypeId, $this->_flatEntitiesGrid) && !empty($attr['grid'])) {
+            $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
+            $this->getConnection()->addColumn($this->getTable($table . '_grid'), $attribute, $columnDefinition);
+        }
+        return $this;
+    }
+
+    /**
+     * Retrieve definition of column for create in flat table
+     *
+     * @param string $code
+     * @param array $data
+     * @return array
+     */
+    protected function _getAttributeColumnDefinition($code, $data)
+    {
+        // Convert attribute type to column info
+        $data['type'] = $data['type'] ?? 'varchar';
+        $type = null;
+        $length = null;
+        switch ($data['type']) {
+            case 'timestamp':
+                $type = Varien_Db_Ddl_Table::TYPE_TIMESTAMP;
+                break;
+            case 'datetime':
+                $type = Varien_Db_Ddl_Table::TYPE_DATETIME;
+                break;
+            case 'decimal':
+                $type = Varien_Db_Ddl_Table::TYPE_DECIMAL;
+                $length = '12,4';
+                break;
+            case 'int':
+                $type = Varien_Db_Ddl_Table::TYPE_INTEGER;
+                break;
+            case 'text':
+                $type = Varien_Db_Ddl_Table::TYPE_TEXT;
+                $length = 65536;
+                break;
+            case 'char':
+            case 'varchar':
+                $type = Varien_Db_Ddl_Table::TYPE_TEXT;
+                $length = 255;
+                break;
+        }
+        if ($type !== null) {
+            $data['type'] = $type;
+            $data['length'] = $length;
+        }
+
+        $data['nullable'] = isset($data['required']) ? !$data['required'] : true;
+        $data['comment']  = $data['comment'] ?? ucwords(str_replace('_', ' ', $code));
+        return $data;
     }
 }

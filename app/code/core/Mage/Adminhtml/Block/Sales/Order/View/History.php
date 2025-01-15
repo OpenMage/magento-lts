@@ -22,19 +22,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block_Template
 {
-    protected function _prepareLayout()
-    {
-        $onclick = "submitAndReloadArea($('order_history_block').parentNode, '" . $this->getSubmitUrl() . "')";
-        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData([
-                'label'   => Mage::helper('sales')->__('Submit Comment'),
-                'class'   => 'save',
-                'onclick' => $onclick,
-            ]);
-        $this->setChild('submit_button', $button);
-        return parent::_prepareLayout();
-    }
-
     public function getStatuses()
     {
         $state = $this->getOrder()->getState();
@@ -87,5 +74,17 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
     public function escapeHtml($data, $allowedTags = null)
     {
         return Mage::helper('adminhtml/sales')->escapeHtmlWithLinks($data, $allowedTags);
+    }
+    protected function _prepareLayout()
+    {
+        $onclick = "submitAndReloadArea($('order_history_block').parentNode, '" . $this->getSubmitUrl() . "')";
+        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
+            ->setData([
+                'label'   => Mage::helper('sales')->__('Submit Comment'),
+                'class'   => 'save',
+                'onclick' => $onclick,
+            ]);
+        $this->setChild('submit_button', $button);
+        return parent::_prepareLayout();
     }
 }

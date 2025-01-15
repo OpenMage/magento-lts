@@ -25,15 +25,6 @@
 class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('rating/rating_option_vote');
-    }
-
-    /**
      * Set review filter
      *
      * @param int $reviewId
@@ -163,5 +154,13 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
             }
         }
         return $this;
+    }
+    /**
+     * Define model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('rating/rating_option_vote');
     }
 }

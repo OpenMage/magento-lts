@@ -286,20 +286,6 @@ class Varien_Image
     }
 
     /**
-     * Retrieve image adapter object
-     *
-     * @param string $adapter
-     * @return Varien_Image_Adapter_Abstract
-     */
-    protected function _getAdapter($adapter = null)
-    {
-        if (!isset($this->_adapter)) {
-            $this->_adapter = Varien_Image_Adapter::factory($adapter);
-        }
-        return $this->_adapter;
-    }
-
-    /**
      * Retrieve original image width
      *
      * @return int|null
@@ -317,5 +303,19 @@ class Varien_Image
     public function getOriginalHeight()
     {
         return $this->_getAdapter()->getOriginalHeight();
+    }
+
+    /**
+     * Retrieve image adapter object
+     *
+     * @param string $adapter
+     * @return Varien_Image_Adapter_Abstract
+     */
+    protected function _getAdapter($adapter = null)
+    {
+        if (!isset($this->_adapter)) {
+            $this->_adapter = Varien_Image_Adapter::factory($adapter);
+        }
+        return $this->_adapter;
     }
 }

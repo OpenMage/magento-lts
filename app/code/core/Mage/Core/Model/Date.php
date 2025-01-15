@@ -47,16 +47,6 @@ class Mage_Core_Model_Date
     }
 
     /**
-     * Gets the store config timezone
-     *
-     * @return string
-     */
-    protected function _getConfigTimezone()
-    {
-        return Mage::app()->getStore()->getConfig('general/locale/timezone');
-    }
-
-    /**
      * Calculates timezone offset
      *
      * @param  string $timezone
@@ -284,5 +274,15 @@ class Mage_Core_Model_Date
         }
 
         return $result;
+    }
+
+    /**
+     * Gets the store config timezone
+     *
+     * @return string
+     */
+    protected function _getConfigTimezone()
+    {
+        return Mage::app()->getStore()->getConfig('general/locale/timezone');
     }
 }

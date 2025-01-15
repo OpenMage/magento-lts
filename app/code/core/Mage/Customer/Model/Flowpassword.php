@@ -27,33 +27,6 @@
  */
 class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('customer/flowpassword');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        $this->_prepareData();
-        return parent::_beforeSave();
-    }
-
-    /**
-     * Prepare customer flow password data
-     *
-     * @return $this
-     */
-    protected function _prepareData()
-    {
-        $validatorData = Mage::getSingleton('customer/session')->getValidatorData();
-        $this->setIp($validatorData[Mage_Customer_Model_Session::VALIDATOR_REMOTE_ADDR_KEY])
-            ->setRequestedDate(Mage::getModel('core/date')->date());
-        return $this;
-    }
-
     /**
      * Check forgot password requests to times per 24 hours from 1 e-mail
      *
@@ -111,5 +84,31 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
             }
         }
         return true;
+    }
+    protected function _construct()
+    {
+        $this->_init('customer/flowpassword');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        $this->_prepareData();
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Prepare customer flow password data
+     *
+     * @return $this
+     */
+    protected function _prepareData()
+    {
+        $validatorData = Mage::getSingleton('customer/session')->getValidatorData();
+        $this->setIp($validatorData[Mage_Customer_Model_Session::VALIDATOR_REMOTE_ADDR_KEY])
+            ->setRequestedDate(Mage::getModel('core/date')->date());
+        return $this;
     }
 }

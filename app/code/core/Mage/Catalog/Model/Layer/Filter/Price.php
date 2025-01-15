@@ -66,19 +66,6 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     }
 
     /**
-     * Retrieve resource instance
-     *
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Price
-     */
-    protected function _getResource()
-    {
-        if (is_null($this->_resource)) {
-            $this->_resource = Mage::getResourceModel('catalog/layer_filter_price');
-        }
-        return $this->_resource;
-    }
-
-    /**
      * Get price range for building filter steps
      *
      * @return int
@@ -162,6 +149,232 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         }
 
         return $items;
+    }
+
+    /**
+     * Apply price range filter
+     *
+     * @param null $filterBlock deprecated
+     * @return $this
+     */
+    public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
+    {
+        /**
+         * Filter must be string: $fromPrice-$toPrice
+         */
+        $filter = $request->getParam($this->getRequestVar());
+        if (!$filter) {
+            return $this;
+        }
+
+        //validate filter
+        $filterParams = explode(',', $filter);
+        $filter = $this->_validateFilter($filterParams[0]);
+        if (!$filter) {
+            return $this;
+        }
+
+        list($from, $to) = $filter;
+
+        $this->setInterval([$from, $to]);
+
+        $priorFilters = [];
+        for ($i = 1; $i < count($filterParams); ++$i) {
+            $priorFilter = $this->_validateFilter($filterParams[$i]);
+            if ($priorFilter) {
+                $priorFilters[] = $priorFilter;
+            } else {
+                //not valid data
+                $priorFilters = [];
+                break;
+            }
+        }
+        if ($priorFilters) {
+            $this->setPriorIntervals($priorFilters);
+        }
+
+        $this->_applyPriceRange();
+        $this->getLayer()->getState()->addFilter($this->_createItem(
+            $this->_renderRangeLabel(empty($from) ? 0 : $from, $to),
+            $filter,
+        ));
+
+        return $this;
+    }
+
+    /**
+     * Retrieve active customer group id
+     *
+     * @return int
+     */
+    public function getCustomerGroupId()
+    {
+        $customerGroupId = $this->_getData('customer_group_id');
+        if (is_null($customerGroupId)) {
+            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        }
+        return $customerGroupId;
+    }
+
+    /**
+     * Set active customer group id for filter
+     *
+     * @param int $customerGroupId
+     * @return $this
+     */
+    public function setCustomerGroupId($customerGroupId)
+    {
+        return $this->setData('customer_group_id', $customerGroupId);
+    }
+
+    /**
+     * Retrieve active currency rate for filter
+     *
+     * @return float
+     */
+    public function getCurrencyRate()
+    {
+        $rate = $this->_getData('currency_rate');
+        if (is_null($rate)) {
+            $rate = Mage::app()->getStore($this->getStoreId())->getCurrentCurrencyRate();
+        }
+        if (!$rate) {
+            $rate = 1;
+        }
+        return $rate;
+    }
+
+    /**
+     * Set active currency rate for filter
+     *
+     * @param float $rate
+     * @return $this
+     */
+    public function setCurrencyRate($rate)
+    {
+        return $this->setData('currency_rate', $rate);
+    }
+
+    /**
+     * Get maximum number of intervals
+     *
+     * @return int
+     */
+    public function getMaxIntervalsNumber()
+    {
+        return (int) Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_MAX_INTERVALS);
+    }
+
+    /**
+     * Get interval division limit
+     *
+     * @return int
+     */
+    public function getIntervalDivisionLimit()
+    {
+        return (int) Mage::app()->getStore()->getConfig(self::XML_PATH_INTERVAL_DIVISION_LIMIT);
+    }
+
+    /**
+     * Get filter value for reset current filter state
+     *
+     * @return null|string
+     */
+    public function getResetValue()
+    {
+        $priorIntervals = $this->getPriorIntervals();
+        $value = [];
+        if ($priorIntervals) {
+            foreach ($priorIntervals as $priorInterval) {
+                $value[] = implode('-', $priorInterval);
+            }
+            return implode(',', $value);
+        }
+        return parent::getResetValue();
+    }
+
+    /**
+     * Get 'clear price' link text
+     *
+     * @return false|string
+     */
+    public function getClearLinkText()
+    {
+        if (Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION) == self::RANGE_CALCULATION_IMPROVED
+            && $this->getPriorIntervals()
+        ) {
+            return Mage::helper('catalog')->__('Clear Price');
+        }
+
+        return parent::getClearLinkText();
+    }
+
+    /**
+     * Load range of product prices
+     *
+     * @param int $limit
+     * @param null|int $offset
+     * @param null|int $lowerPrice
+     * @param null|int $upperPrice
+     * @return array
+     */
+    public function loadPrices($limit, $offset = null, $lowerPrice = null, $upperPrice = null)
+    {
+        $prices = $this->_getResource()->loadPrices($this, $limit, $offset, $lowerPrice, $upperPrice);
+        if ($prices) {
+            $prices = array_map('\floatval', $prices);
+        }
+
+        return $prices;
+    }
+
+    /**
+     * Load range of product prices, preceding the price
+     *
+     * @param float $price
+     * @param int $index
+     * @param null|int $lowerPrice
+     * @return array|false
+     */
+    public function loadPreviousPrices($price, $index, $lowerPrice = null)
+    {
+        $prices = $this->_getResource()->loadPreviousPrices($this, $price, $index, $lowerPrice);
+        if ($prices) {
+            $prices = array_map('\floatval', $prices);
+        }
+
+        return $prices;
+    }
+
+    /**
+     * Load range of product prices, next to the price
+     *
+     * @param float $price
+     * @param int $rightIndex
+     * @param null|int $upperPrice
+     * @return array|false
+     */
+    public function loadNextPrices($price, $rightIndex, $upperPrice = null)
+    {
+        $prices = $this->_getResource()->loadNextPrices($this, $price, $rightIndex, $upperPrice);
+        if ($prices) {
+            $prices = array_map('\floatval', $prices);
+        }
+
+        return $prices;
+    }
+
+    /**
+     * Retrieve resource instance
+     *
+     * @return Mage_Catalog_Model_Resource_Layer_Filter_Price
+     */
+    protected function _getResource()
+    {
+        if (is_null($this->_resource)) {
+            $this->_resource = Mage::getResourceModel('catalog/layer_filter_price');
+        }
+        return $this->_resource;
     }
 
     /**
@@ -354,57 +567,6 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     }
 
     /**
-     * Apply price range filter
-     *
-     * @param null $filterBlock deprecated
-     * @return $this
-     */
-    public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
-    {
-        /**
-         * Filter must be string: $fromPrice-$toPrice
-         */
-        $filter = $request->getParam($this->getRequestVar());
-        if (!$filter) {
-            return $this;
-        }
-
-        //validate filter
-        $filterParams = explode(',', $filter);
-        $filter = $this->_validateFilter($filterParams[0]);
-        if (!$filter) {
-            return $this;
-        }
-
-        list($from, $to) = $filter;
-
-        $this->setInterval([$from, $to]);
-
-        $priorFilters = [];
-        for ($i = 1; $i < count($filterParams); ++$i) {
-            $priorFilter = $this->_validateFilter($filterParams[$i]);
-            if ($priorFilter) {
-                $priorFilters[] = $priorFilter;
-            } else {
-                //not valid data
-                $priorFilters = [];
-                break;
-            }
-        }
-        if ($priorFilters) {
-            $this->setPriorIntervals($priorFilters);
-        }
-
-        $this->_applyPriceRange();
-        $this->getLayer()->getState()->addFilter($this->_createItem(
-            $this->_renderRangeLabel(empty($from) ? 0 : $from, $to),
-            $filter,
-        ));
-
-        return $this;
-    }
-
-    /**
      * Apply filter value to product collection based on filter range and selected value
      *
      * @deprecated since 1.7.0.0
@@ -416,167 +578,5 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $this->_getResource()->applyFilterToCollection($this, $range, $index);
         return $this;
-    }
-
-    /**
-     * Retrieve active customer group id
-     *
-     * @return int
-     */
-    public function getCustomerGroupId()
-    {
-        $customerGroupId = $this->_getData('customer_group_id');
-        if (is_null($customerGroupId)) {
-            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
-        }
-        return $customerGroupId;
-    }
-
-    /**
-     * Set active customer group id for filter
-     *
-     * @param int $customerGroupId
-     * @return $this
-     */
-    public function setCustomerGroupId($customerGroupId)
-    {
-        return $this->setData('customer_group_id', $customerGroupId);
-    }
-
-    /**
-     * Retrieve active currency rate for filter
-     *
-     * @return float
-     */
-    public function getCurrencyRate()
-    {
-        $rate = $this->_getData('currency_rate');
-        if (is_null($rate)) {
-            $rate = Mage::app()->getStore($this->getStoreId())->getCurrentCurrencyRate();
-        }
-        if (!$rate) {
-            $rate = 1;
-        }
-        return $rate;
-    }
-
-    /**
-     * Set active currency rate for filter
-     *
-     * @param float $rate
-     * @return $this
-     */
-    public function setCurrencyRate($rate)
-    {
-        return $this->setData('currency_rate', $rate);
-    }
-
-    /**
-     * Get maximum number of intervals
-     *
-     * @return int
-     */
-    public function getMaxIntervalsNumber()
-    {
-        return (int) Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_MAX_INTERVALS);
-    }
-
-    /**
-     * Get interval division limit
-     *
-     * @return int
-     */
-    public function getIntervalDivisionLimit()
-    {
-        return (int) Mage::app()->getStore()->getConfig(self::XML_PATH_INTERVAL_DIVISION_LIMIT);
-    }
-
-    /**
-     * Get filter value for reset current filter state
-     *
-     * @return null|string
-     */
-    public function getResetValue()
-    {
-        $priorIntervals = $this->getPriorIntervals();
-        $value = [];
-        if ($priorIntervals) {
-            foreach ($priorIntervals as $priorInterval) {
-                $value[] = implode('-', $priorInterval);
-            }
-            return implode(',', $value);
-        }
-        return parent::getResetValue();
-    }
-
-    /**
-     * Get 'clear price' link text
-     *
-     * @return false|string
-     */
-    public function getClearLinkText()
-    {
-        if (Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION) == self::RANGE_CALCULATION_IMPROVED
-            && $this->getPriorIntervals()
-        ) {
-            return Mage::helper('catalog')->__('Clear Price');
-        }
-
-        return parent::getClearLinkText();
-    }
-
-    /**
-     * Load range of product prices
-     *
-     * @param int $limit
-     * @param null|int $offset
-     * @param null|int $lowerPrice
-     * @param null|int $upperPrice
-     * @return array
-     */
-    public function loadPrices($limit, $offset = null, $lowerPrice = null, $upperPrice = null)
-    {
-        $prices = $this->_getResource()->loadPrices($this, $limit, $offset, $lowerPrice, $upperPrice);
-        if ($prices) {
-            $prices = array_map('\floatval', $prices);
-        }
-
-        return $prices;
-    }
-
-    /**
-     * Load range of product prices, preceding the price
-     *
-     * @param float $price
-     * @param int $index
-     * @param null|int $lowerPrice
-     * @return array|false
-     */
-    public function loadPreviousPrices($price, $index, $lowerPrice = null)
-    {
-        $prices = $this->_getResource()->loadPreviousPrices($this, $price, $index, $lowerPrice);
-        if ($prices) {
-            $prices = array_map('\floatval', $prices);
-        }
-
-        return $prices;
-    }
-
-    /**
-     * Load range of product prices, next to the price
-     *
-     * @param float $price
-     * @param int $rightIndex
-     * @param null|int $upperPrice
-     * @return array|false
-     */
-    public function loadNextPrices($price, $rightIndex, $upperPrice = null)
-    {
-        $prices = $this->_getResource()->loadNextPrices($this, $price, $rightIndex, $upperPrice);
-        if ($prices) {
-            $prices = array_map('\floatval', $prices);
-        }
-
-        return $prices;
     }
 }

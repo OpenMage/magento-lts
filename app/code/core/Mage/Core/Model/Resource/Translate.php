@@ -22,11 +22,6 @@
  */
 class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('core/translate', 'key_id');
-    }
-
     /**
      * Retrieve translation array for store / locale code
      *
@@ -107,5 +102,9 @@ class Mage_Core_Model_Resource_Translate extends Mage_Core_Model_Resource_Db_Abs
     public function getMainChecksum()
     {
         return $this->getChecksum($this->getMainTable());
+    }
+    protected function _construct()
+    {
+        $this->_init('core/translate', 'key_id');
     }
 }

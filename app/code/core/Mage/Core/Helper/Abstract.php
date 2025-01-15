@@ -46,80 +46,18 @@ abstract class Mage_Core_Helper_Abstract
     protected array $modulesDisabled = [];
 
     /**
-     * Retrieve request object
-     *
-     * @return Mage_Core_Controller_Request_Http
-     */
-    protected function _getRequest()
-    {
-        if (!$this->_request) {
-            $this->_request = Mage::app()->getRequest();
-        }
-        return $this->_request;
-    }
-
-    /**
-     * Loading cache data
-     *
-     * @param   string $id
-     * @return  mixed
-     */
-    protected function _loadCache($id)
-    {
-        return Mage::app()->loadCache($id);
-    }
-
-    /**
-     * Saving cache
-     *
-     * @param mixed $data
-     * @param string $id
-     * @param array $tags
-     * @param null|false|int $lifeTime
-     * @return  Mage_Core_Helper_Abstract
-     */
-    protected function _saveCache($data, $id, $tags = [], $lifeTime = false)
-    {
-        Mage::app()->saveCache($data, $id, $tags, $lifeTime);
-        return $this;
-    }
-
-    /**
-     * Removing cache
-     *
-     * @param   string $id
-     * @return  Mage_Core_Helper_Abstract
-     */
-    protected function _removeCache($id)
-    {
-        Mage::app()->removeCache($id);
-        return $this;
-    }
-
-    /**
-     * Cleaning cache
-     *
-     * @param   array $tags
-     * @return  Mage_Core_Helper_Abstract
-     */
-    protected function _cleanCache($tags = [])
-    {
-        Mage::app()->cleanCache($tags);
-        return $this;
-    }
-
-    /**
-     * Retrieve helper module name
+     * Translate
      *
      * @return string
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
-    protected function _getModuleName()
+    public function __()
     {
-        if (!$this->_moduleName) {
-            $class = get_class($this);
-            $this->_moduleName = implode('_', array_slice(explode('_', $class), 0, 2));
-        }
-        return $this->_moduleName;
+        $args = func_get_args();
+        $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->_getModuleName());
+        array_unshift($args, $expr);
+        return Mage::app()->getTranslator()->translate($args);
     }
 
     /**
@@ -166,21 +104,6 @@ abstract class Mage_Core_Helper_Abstract
             return $this->modulesDisabled[$moduleName] = false;
         }
         return $this->modulesDisabled[$moduleName] = true;
-    }
-
-    /**
-     * Translate
-     *
-     * @return string
-     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
-     * @SuppressWarnings("PHPMD.ShortMethodName")
-     */
-    public function __()
-    {
-        $args = func_get_args();
-        $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->_getModuleName());
-        array_unshift($args, $expr);
-        return Mage::app()->getTranslator()->translate($args);
     }
 
     /**
@@ -363,18 +286,6 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve url
-     *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
-     */
-    protected function _getUrl($route, $params = [])
-    {
-        return Mage::getUrl($route, $params);
-    }
-
-    /**
      * Declare layout
      *
      * @param   Mage_Core_Model_Layout $layout
@@ -487,5 +398,94 @@ abstract class Mage_Core_Helper_Abstract
             }
         }
         return false;
+    }
+
+    /**
+     * Retrieve request object
+     *
+     * @return Mage_Core_Controller_Request_Http
+     */
+    protected function _getRequest()
+    {
+        if (!$this->_request) {
+            $this->_request = Mage::app()->getRequest();
+        }
+        return $this->_request;
+    }
+
+    /**
+     * Loading cache data
+     *
+     * @param   string $id
+     * @return  mixed
+     */
+    protected function _loadCache($id)
+    {
+        return Mage::app()->loadCache($id);
+    }
+
+    /**
+     * Saving cache
+     *
+     * @param mixed $data
+     * @param string $id
+     * @param array $tags
+     * @param null|false|int $lifeTime
+     * @return  Mage_Core_Helper_Abstract
+     */
+    protected function _saveCache($data, $id, $tags = [], $lifeTime = false)
+    {
+        Mage::app()->saveCache($data, $id, $tags, $lifeTime);
+        return $this;
+    }
+
+    /**
+     * Removing cache
+     *
+     * @param   string $id
+     * @return  Mage_Core_Helper_Abstract
+     */
+    protected function _removeCache($id)
+    {
+        Mage::app()->removeCache($id);
+        return $this;
+    }
+
+    /**
+     * Cleaning cache
+     *
+     * @param   array $tags
+     * @return  Mage_Core_Helper_Abstract
+     */
+    protected function _cleanCache($tags = [])
+    {
+        Mage::app()->cleanCache($tags);
+        return $this;
+    }
+
+    /**
+     * Retrieve helper module name
+     *
+     * @return string
+     */
+    protected function _getModuleName()
+    {
+        if (!$this->_moduleName) {
+            $class = get_class($this);
+            $this->_moduleName = implode('_', array_slice(explode('_', $class), 0, 2));
+        }
+        return $this->_moduleName;
+    }
+
+    /**
+     * Retrieve url
+     *
+     * @param   string $route
+     * @param   array $params
+     * @return  string
+     */
+    protected function _getUrl($route, $params = [])
+    {
+        return Mage::getUrl($route, $params);
     }
 }

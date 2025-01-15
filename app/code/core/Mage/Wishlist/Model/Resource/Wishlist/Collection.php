@@ -25,15 +25,6 @@
 class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('wishlist/wishlist');
-    }
-
-    /**
      * Filter collection by customer
      *
      * @return $this
@@ -64,5 +55,13 @@ class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_R
     {
         $this->addFieldToFilter('customer_id', ['in' => $customerIds]);
         return $this;
+    }
+    /**
+     * Initialize resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('wishlist/wishlist');
     }
 }

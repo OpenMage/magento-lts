@@ -25,13 +25,6 @@
 class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 {
     /**
-     * General Attribute Group Name
-     *
-     * @var string
-     */
-    protected $_generalGroupName        = 'General';
-
-    /**
      * Default attribute group name to id pairs
      *
      * @var array
@@ -39,6 +32,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     public $defaultGroupIdAssociations  = [
         'General'   => 1,
     ];
+    /**
+     * General Attribute Group Name
+     *
+     * @var string
+     */
+    protected $_generalGroupName        = 'General';
 
     /**
      * Default attribute group name
@@ -591,73 +590,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this->getConnection()->fetchOne($select, $bind);
     }
 
-    /******************* ATTRIBUTES *****************/
-
-    /**
-     * Retrieve value from array by key or return default value
-     *
-     * @param array $array
-     * @param string $key
-     * @param string $default
-     * @return string
-     */
-    protected function _getValue($array, $key, $default = null)
-    {
-        if (isset($array[$key]) && is_bool($array[$key])) {
-            $array[$key] = (int) $array[$key];
-        }
-        return $array[$key] ?? $default;
-    }
-
-    /**
-     * Prepare attribute values to save
-     *
-     * @param array $attr
-     * @return array
-     */
-    protected function _prepareValues($attr)
-    {
-        return [
-            'backend_model'   => $this->_getValue($attr, 'backend'),
-            'backend_type'    => $this->_getValue($attr, 'type', 'varchar'),
-            'backend_table'   => $this->_getValue($attr, 'table'),
-            'frontend_model'  => $this->_getValue($attr, 'frontend'),
-            'frontend_input'  => $this->_getValue($attr, 'input', 'text'),
-            'frontend_label'  => $this->_getValue($attr, 'label'),
-            'frontend_class'  => $this->_getValue($attr, 'frontend_class'),
-            'source_model'    => $this->_getValue($attr, 'source'),
-            'is_required'     => $this->_getValue($attr, 'required', 1),
-            'is_user_defined' => $this->_getValue($attr, 'user_defined', 0),
-            'default_value'   => $this->_getValue($attr, 'default'),
-            'is_unique'       => $this->_getValue($attr, 'unique', 0),
-            'note'            => $this->_getValue($attr, 'note'),
-            'is_global'       => $this->_getValue($attr, 'global', 1),
-        ];
-    }
-
-    /**
-     * Validate attribute data before insert into table
-     *
-     * @param  array $data
-     * @throws Mage_Eav_Exception
-     * @return true
-     */
-    protected function _validateAttributeData($data)
-    {
-        $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
-
-        if (isset($data['attribute_code']) &&
-            !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])
-        ) {
-            throw Mage::exception(
-                'Mage_Eav',
-                Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', $attributeCodeMaxLength),
-            );
-        }
-
-        return true;
-    }
-
     /**
      * Add attribute to an entity type
      *
@@ -812,105 +744,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     {
         $this->_updateAttribute($entityTypeId, $id, $field, $value, $sortOrder);
         $this->_updateAttributeAdditionalData($entityTypeId, $id, $field, $value);
-        return $this;
-    }
-
-    /**
-     * Update Attribute data
-     *
-     * @param mixed $entityTypeId
-     * @param mixed $id
-     * @param string $field
-     * @param mixed $value
-     * @param int $sortOrder
-     * @return $this
-     */
-    protected function _updateAttribute($entityTypeId, $id, $field, $value = null, $sortOrder = null)
-    {
-        if ($sortOrder !== null) {
-            $this->updateTableRow(
-                'eav/entity_attribute',
-                'attribute_id',
-                $this->getAttributeId($entityTypeId, $id),
-                'sort_order',
-                $sortOrder,
-            );
-        }
-
-        $attributeFields = $this->_getAttributeTableFields();
-        if (is_array($field)) {
-            $bind = [];
-            foreach ($field as $k => $v) {
-                if (isset($attributeFields[$k])) {
-                    $bind[$k] = $this->getConnection()->prepareColumnValue($attributeFields[$k], $v);
-                }
-            }
-            if (!$bind) {
-                return $this;
-            }
-            $field = $bind;
-        } else {
-            if (!isset($attributeFields[$field])) {
-                return $this;
-            }
-        }
-
-        $this->updateTableRow(
-            'eav/attribute',
-            'attribute_id',
-            $this->getAttributeId($entityTypeId, $id),
-            $field,
-            $value,
-            'entity_type_id',
-            $this->getEntityTypeId($entityTypeId),
-        );
-
-        return $this;
-    }
-
-    /**
-     * Update Attribute Additional data
-     *
-     * @param mixed $entityTypeId
-     * @param mixed $id
-     * @param string $field
-     * @param mixed $value
-     * @return $this
-     */
-    protected function _updateAttributeAdditionalData($entityTypeId, $id, $field, $value = null)
-    {
-        $additionalTable = $this->getEntityType($entityTypeId, 'additional_attribute_table');
-        if (!$additionalTable) {
-            return $this;
-        }
-        $additionalTableExists = $this->getConnection()->isTableExists($this->getTable($additionalTable));
-        if ($additionalTable && $additionalTableExists) {
-            $attributeFields = $this->getConnection()->describeTable($this->getTable($additionalTable));
-            if (is_array($field)) {
-                $bind = [];
-                foreach ($field as $k => $v) {
-                    if (isset($attributeFields[$k])) {
-                        $bind[$k] = $this->getConnection()->prepareColumnValue($attributeFields[$k], $v);
-                    }
-                }
-                if (!$bind) {
-                    return $this;
-                }
-                $field = $bind;
-            } else {
-                if (!isset($attributeFields[$field])) {
-                    return $this;
-                }
-            }
-            $this->updateTableRow(
-                $this->getTable($additionalTable),
-                'attribute_id',
-                $this->getAttributeId($entityTypeId, $id),
-                $field,
-                $value,
-            );
-        }
-
         return $this;
     }
 
@@ -1452,6 +1285,172 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             }
         } catch (Exception $e) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Can\'t create table: %s', $tableName));
+        }
+
+        return $this;
+    }
+
+    /******************* ATTRIBUTES *****************/
+
+    /**
+     * Retrieve value from array by key or return default value
+     *
+     * @param array $array
+     * @param string $key
+     * @param string $default
+     * @return string
+     */
+    protected function _getValue($array, $key, $default = null)
+    {
+        if (isset($array[$key]) && is_bool($array[$key])) {
+            $array[$key] = (int) $array[$key];
+        }
+        return $array[$key] ?? $default;
+    }
+
+    /**
+     * Prepare attribute values to save
+     *
+     * @param array $attr
+     * @return array
+     */
+    protected function _prepareValues($attr)
+    {
+        return [
+            'backend_model'   => $this->_getValue($attr, 'backend'),
+            'backend_type'    => $this->_getValue($attr, 'type', 'varchar'),
+            'backend_table'   => $this->_getValue($attr, 'table'),
+            'frontend_model'  => $this->_getValue($attr, 'frontend'),
+            'frontend_input'  => $this->_getValue($attr, 'input', 'text'),
+            'frontend_label'  => $this->_getValue($attr, 'label'),
+            'frontend_class'  => $this->_getValue($attr, 'frontend_class'),
+            'source_model'    => $this->_getValue($attr, 'source'),
+            'is_required'     => $this->_getValue($attr, 'required', 1),
+            'is_user_defined' => $this->_getValue($attr, 'user_defined', 0),
+            'default_value'   => $this->_getValue($attr, 'default'),
+            'is_unique'       => $this->_getValue($attr, 'unique', 0),
+            'note'            => $this->_getValue($attr, 'note'),
+            'is_global'       => $this->_getValue($attr, 'global', 1),
+        ];
+    }
+
+    /**
+     * Validate attribute data before insert into table
+     *
+     * @param  array $data
+     * @throws Mage_Eav_Exception
+     * @return true
+     */
+    protected function _validateAttributeData($data)
+    {
+        $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
+
+        if (isset($data['attribute_code']) &&
+            !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])
+        ) {
+            throw Mage::exception(
+                'Mage_Eav',
+                Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', $attributeCodeMaxLength),
+            );
+        }
+
+        return true;
+    }
+
+    /**
+     * Update Attribute data
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $id
+     * @param string $field
+     * @param mixed $value
+     * @param int $sortOrder
+     * @return $this
+     */
+    protected function _updateAttribute($entityTypeId, $id, $field, $value = null, $sortOrder = null)
+    {
+        if ($sortOrder !== null) {
+            $this->updateTableRow(
+                'eav/entity_attribute',
+                'attribute_id',
+                $this->getAttributeId($entityTypeId, $id),
+                'sort_order',
+                $sortOrder,
+            );
+        }
+
+        $attributeFields = $this->_getAttributeTableFields();
+        if (is_array($field)) {
+            $bind = [];
+            foreach ($field as $k => $v) {
+                if (isset($attributeFields[$k])) {
+                    $bind[$k] = $this->getConnection()->prepareColumnValue($attributeFields[$k], $v);
+                }
+            }
+            if (!$bind) {
+                return $this;
+            }
+            $field = $bind;
+        } else {
+            if (!isset($attributeFields[$field])) {
+                return $this;
+            }
+        }
+
+        $this->updateTableRow(
+            'eav/attribute',
+            'attribute_id',
+            $this->getAttributeId($entityTypeId, $id),
+            $field,
+            $value,
+            'entity_type_id',
+            $this->getEntityTypeId($entityTypeId),
+        );
+
+        return $this;
+    }
+
+    /**
+     * Update Attribute Additional data
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $id
+     * @param string $field
+     * @param mixed $value
+     * @return $this
+     */
+    protected function _updateAttributeAdditionalData($entityTypeId, $id, $field, $value = null)
+    {
+        $additionalTable = $this->getEntityType($entityTypeId, 'additional_attribute_table');
+        if (!$additionalTable) {
+            return $this;
+        }
+        $additionalTableExists = $this->getConnection()->isTableExists($this->getTable($additionalTable));
+        if ($additionalTable && $additionalTableExists) {
+            $attributeFields = $this->getConnection()->describeTable($this->getTable($additionalTable));
+            if (is_array($field)) {
+                $bind = [];
+                foreach ($field as $k => $v) {
+                    if (isset($attributeFields[$k])) {
+                        $bind[$k] = $this->getConnection()->prepareColumnValue($attributeFields[$k], $v);
+                    }
+                }
+                if (!$bind) {
+                    return $this;
+                }
+                $field = $bind;
+            } else {
+                if (!isset($attributeFields[$field])) {
+                    return $this;
+                }
+            }
+            $this->updateTableRow(
+                $this->getTable($additionalTable),
+                'attribute_id',
+                $this->getAttributeId($entityTypeId, $id),
+                $field,
+                $value,
+            );
         }
 
         return $this;

@@ -23,14 +23,6 @@
 class Mage_Api2_Model_Resource_Acl_Global_Role_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize collection model
-     */
-    protected function _construct()
-    {
-        $this->_init('api2/acl_global_role');
-    }
-
-    /**
      * Add filter by admin user id and join table with appropriate information
      *
      * @param int $id Admin user id
@@ -47,5 +39,12 @@ class Mage_Api2_Model_Resource_Acl_Global_Role_Collection extends Mage_Core_Mode
             ->where('user.admin_id = ?', $id, Zend_Db::INT_TYPE);
 
         return $this;
+    }
+    /**
+     * Initialize collection model
+     */
+    protected function _construct()
+    {
+        $this->_init('api2/acl_global_role');
     }
 }

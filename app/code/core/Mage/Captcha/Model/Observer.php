@@ -162,16 +162,6 @@ class Mage_Captcha_Model_Observer
     }
 
     /**
-     * Returns backend session
-     *
-     * @return Mage_Adminhtml_Model_Session
-     */
-    protected function _getBackendSession()
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
-    /**
      * Check Captcha On User Login Backend Page
      *
      * @param Varien_Event_Observer $observer
@@ -253,31 +243,6 @@ class Mage_Captcha_Model_Observer
     }
 
     /**
-     * Reset Attempts
-     *
-     * @param string $login
-     * @return $this
-     */
-    protected function _resetAttempt($login)
-    {
-        Mage::getResourceModel('captcha/log')->deleteUserAttempts($login);
-        return $this;
-    }
-
-    /**
-     * Get Captcha String
-     *
-     * @param Mage_Core_Controller_Request_Http $request
-     * @param string $formId
-     * @return string
-     */
-    protected function _getCaptchaString($request, $formId)
-    {
-        $captchaParams = $request->getPost(Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE);
-        return $captchaParams[$formId] ?? '';
-    }
-
-    /**
      * Check Captcha On Share Wishlist Page
      *
      * @param Varien_Event_Observer $observer
@@ -328,5 +293,40 @@ class Mage_Captcha_Model_Observer
             }
         }
         return $this;
+    }
+
+    /**
+     * Returns backend session
+     *
+     * @return Mage_Adminhtml_Model_Session
+     */
+    protected function _getBackendSession()
+    {
+        return Mage::getSingleton('adminhtml/session');
+    }
+
+    /**
+     * Reset Attempts
+     *
+     * @param string $login
+     * @return $this
+     */
+    protected function _resetAttempt($login)
+    {
+        Mage::getResourceModel('captcha/log')->deleteUserAttempts($login);
+        return $this;
+    }
+
+    /**
+     * Get Captcha String
+     *
+     * @param Mage_Core_Controller_Request_Http $request
+     * @param string $formId
+     * @return string
+     */
+    protected function _getCaptchaString($request, $formId)
+    {
+        $captchaParams = $request->getPost(Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE);
+        return $captchaParams[$formId] ?? '';
     }
 }

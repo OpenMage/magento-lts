@@ -36,6 +36,22 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected $_ruleTable;
 
+    /**
+     * Get role users
+     *
+     * @return array
+     */
+    public function getRoleUsers(Mage_Admin_Model_Roles $role)
+    {
+        $adapter = $this->_getReadAdapter();
+        $select  = $adapter->select()
+            ->from($this->getMainTable(), ['user_id'])
+            ->where('parent_id = ?', $role->getId())
+            ->where('role_type = ?', Mage_Admin_Model_Acl::ROLE_TYPE_USER)
+            ->where('user_id > 0');
+        return $adapter->fetchCol($select);
+    }
+
     protected function _construct()
     {
         $this->_init('admin/role', 'role_id');
@@ -105,22 +121,6 @@ class Mage_Admin_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstra
         $adapter->delete($this->getMainTable(), ['parent_id = ?' => (int) $role->getId()]);
         $adapter->delete($this->_ruleTable, ['role_id = ?' => (int) $role->getId()]);
         return $this;
-    }
-
-    /**
-     * Get role users
-     *
-     * @return array
-     */
-    public function getRoleUsers(Mage_Admin_Model_Roles $role)
-    {
-        $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->from($this->getMainTable(), ['user_id'])
-            ->where('parent_id = ?', $role->getId())
-            ->where('role_type = ?', Mage_Admin_Model_Acl::ROLE_TYPE_USER)
-            ->where('user_id > 0');
-        return $adapter->fetchCol($select);
     }
 
     /**

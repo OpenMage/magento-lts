@@ -411,16 +411,6 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        $this->getRegion();
-        return $this;
-    }
-
-    /**
      * Validate address attribute values
      *
      * @return array | bool
@@ -443,6 +433,28 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             return true;
         }
         return $errors;
+    }
+
+    /**
+     * Add error
+     *
+     * @param string $error
+     * @return $this
+     */
+    public function addError($error)
+    {
+        $this->_errors[] = $error;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        $this->getRegion();
+        return $this;
     }
 
     /**
@@ -487,18 +499,6 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         ) {
             $this->addError(Mage::helper('customer')->__('Please enter the state/province.'));
         }
-    }
-
-    /**
-     * Add error
-     *
-     * @param string $error
-     * @return $this
-     */
-    public function addError($error)
-    {
-        $this->_errors[] = $error;
-        return $this;
     }
 
     /**

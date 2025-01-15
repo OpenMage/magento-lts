@@ -29,6 +29,15 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * @param Mage_Tax_Model_Calculation_Rate $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['rate' => $row->getTaxCalculationRateId()]);
+    }
+
     protected function _prepareCollection()
     {
         $rateCollection = Mage::getModel('tax/calculation_rate')->getCollection()
@@ -100,14 +109,5 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->addExportType('*/*/exportXml', Mage::helper('tax')->__('Excel XML'));
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @param Mage_Tax_Model_Calculation_Rate $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['rate' => $row->getTaxCalculationRateId()]);
     }
 }

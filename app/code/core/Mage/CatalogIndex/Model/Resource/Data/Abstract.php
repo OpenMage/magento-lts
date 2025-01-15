@@ -37,37 +37,6 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     protected $_linkSelect           = null;
 
     /**
-     * Set link select
-     *
-     * @param Zend_Db_Select $select
-     * @return $this
-     */
-    protected function _setLinkSelect($select)
-    {
-        $this->_linkSelect = $select;
-        return $this;
-    }
-
-    /**
-     * Get link select
-     *
-     * @return Zend_Db_Select $select
-     */
-    protected function _getLinkSelect()
-    {
-        return $this->_linkSelect;
-    }
-
-    /**
-     * Init resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product', 'entity_id');
-    }
-
-    /**
      * Retrieve specified attribute data for specified products from specified store
      *
      * @param array|string $products
@@ -159,18 +128,6 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     }
 
     /**
-     * Prepare select statement before 'fetchLinkInformation' function result fetch
-     *
-     * @param int $store
-     * @param string $table
-     * @param string $idField
-     * @param string $whereField
-     * @param int $id
-     * @param array $additionalWheres
-     */
-    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = []) {}
-
-    /**
      * Return minimal prices for specified products
      *
      * @param array $products
@@ -225,6 +182,49 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
 
         return $this->_getReadAdapter()->fetchAll($select);
     }
+
+    /**
+     * Set link select
+     *
+     * @param Zend_Db_Select $select
+     * @return $this
+     */
+    protected function _setLinkSelect($select)
+    {
+        $this->_linkSelect = $select;
+        return $this;
+    }
+
+    /**
+     * Get link select
+     *
+     * @return Zend_Db_Select $select
+     */
+    protected function _getLinkSelect()
+    {
+        return $this->_linkSelect;
+    }
+
+    /**
+     * Init resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product', 'entity_id');
+    }
+
+    /**
+     * Prepare select statement before 'fetchLinkInformation' function result fetch
+     *
+     * @param int $store
+     * @param string $table
+     * @param string $idField
+     * @param string $whereField
+     * @param int $id
+     * @param array $additionalWheres
+     */
+    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = []) {}
 
     /**
      * Add attribute filter to select

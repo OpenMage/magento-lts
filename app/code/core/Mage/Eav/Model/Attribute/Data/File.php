@@ -87,56 +87,6 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     }
 
     /**
-     * Validate file by attribute validate rules
-     * Return array of errors
-     *
-     * @param array $value
-     * @return array
-     */
-    protected function _validateByRules($value)
-    {
-        $label  = $this->getAttribute()->getStoreLabel();
-        $rules  = $this->getAttribute()->getValidateRules();
-        $extension  = pathinfo($value['name'], PATHINFO_EXTENSION);
-
-        if (!empty($rules['file_extensions'])) {
-            $extensions = explode(',', $rules['file_extensions']);
-            $extensions = array_map('trim', $extensions);
-            if (!in_array($extension, $extensions)) {
-                return [
-                    Mage::helper('eav')->__('"%s" is not a valid file extension.', $label),
-                ];
-            }
-        }
-
-        /**
-         * Check protected file extension
-         */
-        /** @var Mage_Core_Model_File_Validator_NotProtectedExtension $validator */
-        $validator = Mage::getSingleton('core/file_validator_notProtectedExtension');
-        if (!$validator->isValid($extension)) {
-            return $validator->getMessages();
-        }
-
-        if (!is_uploaded_file($value['tmp_name'])) {
-            return [
-                Mage::helper('eav')->__('"%s" is not a valid file.', $label),
-            ];
-        }
-
-        if (!empty($rules['max_file_size'])) {
-            $size = $value['size'];
-            if ($rules['max_file_size'] < $size) {
-                return [
-                    Mage::helper('eav')->__('"%s" exceeds the allowed file size.', $label),
-                ];
-            }
-        }
-
-        return [];
-    }
-
-    /**
      * Validate data
      *
      * @param array|string $value
@@ -275,5 +225,55 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         }
 
         return $output;
+    }
+
+    /**
+     * Validate file by attribute validate rules
+     * Return array of errors
+     *
+     * @param array $value
+     * @return array
+     */
+    protected function _validateByRules($value)
+    {
+        $label  = $this->getAttribute()->getStoreLabel();
+        $rules  = $this->getAttribute()->getValidateRules();
+        $extension  = pathinfo($value['name'], PATHINFO_EXTENSION);
+
+        if (!empty($rules['file_extensions'])) {
+            $extensions = explode(',', $rules['file_extensions']);
+            $extensions = array_map('trim', $extensions);
+            if (!in_array($extension, $extensions)) {
+                return [
+                    Mage::helper('eav')->__('"%s" is not a valid file extension.', $label),
+                ];
+            }
+        }
+
+        /**
+         * Check protected file extension
+         */
+        /** @var Mage_Core_Model_File_Validator_NotProtectedExtension $validator */
+        $validator = Mage::getSingleton('core/file_validator_notProtectedExtension');
+        if (!$validator->isValid($extension)) {
+            return $validator->getMessages();
+        }
+
+        if (!is_uploaded_file($value['tmp_name'])) {
+            return [
+                Mage::helper('eav')->__('"%s" is not a valid file.', $label),
+            ];
+        }
+
+        if (!empty($rules['max_file_size'])) {
+            $size = $value['size'];
+            if ($rules['max_file_size'] < $size) {
+                return [
+                    Mage::helper('eav')->__('"%s" exceeds the allowed file size.', $label),
+                ];
+            }
+        }
+
+        return [];
     }
 }

@@ -24,11 +24,6 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('tax/calculation_rate_title', 'tax/calculation_rate_title');
-    }
-
     /**
      * Add rate id filter
      *
@@ -39,5 +34,9 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection extends Mage_Cor
     {
         $this->addFieldToFilter('main_table.tax_calculation_rate_id', $rateId);
         return $this->load();
+    }
+    protected function _construct()
+    {
+        $this->_init('tax/calculation_rate_title', 'tax/calculation_rate_title');
     }
 }

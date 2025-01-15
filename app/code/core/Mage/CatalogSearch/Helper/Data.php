@@ -181,16 +181,6 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get App
-     *
-     * @return Mage_Core_Model_App
-     */
-    protected function _getApp()
-    {
-        return Mage::app();
-    }
-
-    /**
      * Retrieve search term url
      *
      * @return string
@@ -353,5 +343,15 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $this->_engine;
+    }
+
+    /**
+     * Get App
+     *
+     * @return Mage_Core_Model_App
+     */
+    protected function _getApp()
+    {
+        return Mage::app();
     }
 }

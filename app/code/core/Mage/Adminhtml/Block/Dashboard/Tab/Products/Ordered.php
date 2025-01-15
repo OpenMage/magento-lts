@@ -28,6 +28,30 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
         $this->setId('productsOrderedGrid');
     }
 
+    /**
+     * Returns row url to show in admin dashboard
+     * $row is bestseller row wrapped in Product model
+     *
+     * @param Mage_Catalog_Model_Product $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        // getId() would return id of bestseller row, and product id we get by getProductId()
+        $productId = $row->getProductId();
+
+        // No url is possible for non-existing products
+        if (!$productId) {
+            return '';
+        }
+
+        $params = ['id' => $productId];
+        if ($this->getRequest()->getParam('store')) {
+            $params['store'] = $this->getRequest()->getParam('store');
+        }
+        return $this->getUrl('*/catalog_product/edit', $params);
+    }
+
     protected function _prepareCollection()
     {
         if (!$this->isModuleEnabled('Mage_Sales')) {
@@ -82,29 +106,5 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
         $this->setPagerVisibility(false);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Returns row url to show in admin dashboard
-     * $row is bestseller row wrapped in Product model
-     *
-     * @param Mage_Catalog_Model_Product $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        // getId() would return id of bestseller row, and product id we get by getProductId()
-        $productId = $row->getProductId();
-
-        // No url is possible for non-existing products
-        if (!$productId) {
-            return '';
-        }
-
-        $params = ['id' => $productId];
-        if ($this->getRequest()->getParam('store')) {
-            $params['store'] = $this->getRequest()->getParam('store');
-        }
-        return $this->getUrl('*/catalog_product/edit', $params);
     }
 }

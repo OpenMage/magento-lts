@@ -23,6 +23,16 @@
 class Mage_Catalog_Model_Resource_Category_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
+     * Specify attribute entity type filter
+     *
+     * @param int $typeId
+     * @return $this
+     */
+    public function setEntityTypeFilter($typeId)
+    {
+        return $this;
+    }
+    /**
      * Main select object initialization.
      * Joins catalog/eav_attribute table
      *
@@ -36,17 +46,6 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Collection extends Mage_Eav
                 ['additional_table' => $this->getTable('catalog/eav_attribute')],
                 'additional_table.attribute_id = main_table.attribute_id',
             );
-        return $this;
-    }
-
-    /**
-     * Specify attribute entity type filter
-     *
-     * @param int $typeId
-     * @return $this
-     */
-    public function setEntityTypeFilter($typeId)
-    {
         return $this;
     }
 }

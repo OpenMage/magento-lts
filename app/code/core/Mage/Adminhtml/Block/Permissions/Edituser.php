@@ -27,6 +27,11 @@ class Mage_Adminhtml_Block_Permissions_Edituser extends Mage_Adminhtml_Block_Wid
         $this->setDestElementId('user_edit_form');
     }
 
+    public function getUser()
+    {
+        return Mage::registry('user_data');
+    }
+
     protected function _beforeToHtml()
     {
         $this->addTab('account', [
@@ -43,10 +48,5 @@ class Mage_Adminhtml_Block_Permissions_Edituser extends Mage_Adminhtml_Block_Wid
             ]);
         }
         return parent::_beforeToHtml();
-    }
-
-    public function getUser()
-    {
-        return Mage::registry('user_data');
     }
 }

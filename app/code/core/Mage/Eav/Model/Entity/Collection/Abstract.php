@@ -117,11 +117,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Initialize collection
-     */
-    protected function _construct() {}
-
-    /**
      * Retrieve table name
      *
      * @param string $table
@@ -130,54 +125,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function getTable($table)
     {
         return $this->getResource()->getTable($table);
-    }
-
-    /**
-     * Prepare static entity fields
-     *
-     * @return $this
-     */
-    protected function _prepareStaticFields()
-    {
-        foreach ($this->getEntity()->getDefaultAttributes() as $field) {
-            $this->_staticFields[$field] = $field;
-        }
-        return $this;
-    }
-
-    /**
-     * Init select
-     *
-     * @return $this
-     */
-    protected function _initSelect()
-    {
-        $this->getSelect()->from(['e' => $this->getEntity()->getEntityTable()]);
-
-        if ($this->getEntity()->getEntityTable() === Mage_Eav_Model_Entity::DEFAULT_ENTITY_TABLE && $this->getEntity()->getTypeId()) {
-            $this->addAttributeToFilter('entity_type_id', $this->getEntity()->getTypeId());
-        }
-
-        return $this;
-    }
-
-    /**
-     * Standard resource collection initialization
-     *
-     * @param string $model
-     * @param null|string $entityModel
-     * @return $this
-     */
-    protected function _init($model, $entityModel = null)
-    {
-        $this->setItemObjectClass(Mage::getConfig()->getModelClassName($model));
-        if ($entityModel === null) {
-            $entityModel = $model;
-        }
-        $entity = Mage::getResourceSingleton($entityModel);
-        $this->setEntity($entity);
-
-        return $this;
     }
 
     /**
@@ -376,25 +323,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $this->getSelect()->order($orderExpr);
         }
         return $this;
-    }
-
-    /**
-     * Retrieve attribute expression by specified column
-     *
-     * @param string $field
-     * @return string|Zend_Db_Expr
-     */
-    protected function _prepareOrderExpression($field)
-    {
-        foreach ($this->getSelect()->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
-            if ($columnEntry[2] != $field) {
-                continue;
-            }
-            if ($columnEntry[1] instanceof Zend_Db_Expr) {
-                return $columnEntry[1];
-            }
-        }
-        return $field;
     }
 
     /**
@@ -888,27 +816,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Clone and reset collection
-     *
-     * @param int $limit
-     * @param int $offset
-     * @return Varien_Db_Select
-     * @throws Mage_Core_Exception
-     */
-    protected function _getAllIdsSelect($limit = null, $offset = null)
-    {
-        $idsSelect = clone $this->getSelect();
-        $idsSelect->reset(Zend_Db_Select::ORDER);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->columns('e.' . $this->getEntity()->getIdFieldName());
-        $idsSelect->limit($limit, $offset);
-
-        return $idsSelect;
-    }
-
-    /**
      * Retrieve all ids for collection
      *
      * @param int $limit
@@ -1140,6 +1047,164 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         return $this;
+    }
+
+    /**
+     * Set sorting order
+     *
+     * $attribute can also be an array of attributes
+     *
+     * @inheritDoc
+     */
+    public function setOrder($attribute, $dir = self::SORT_ORDER_ASC)
+    {
+        if (is_array($attribute)) {
+            foreach ($attribute as $attr) {
+                parent::setOrder($attr, $dir);
+            }
+            return $this;
+        }
+        return parent::setOrder($attribute, $dir);
+    }
+
+    /**
+     * Retrieve array of attributes
+     *
+     * @param array $arrAttributes
+     * @return array
+     */
+    public function toArray($arrAttributes = [])
+    {
+        $arr = [];
+        foreach ($this->_items as $k => $item) {
+            $arr[$k] = $item->toArray($arrAttributes);
+        }
+        return $arr;
+    }
+
+    /**
+     * Returns already loaded element ids
+     *
+     * return array
+     */
+    public function getLoadedIds()
+    {
+        return array_keys($this->_items);
+    }
+
+    /**
+     * Prepare select for load
+     *
+     * @param Varien_Db_Select $select OPTIONAL
+     * @return string
+     */
+    public function _prepareSelect(Varien_Db_Select $select)
+    {
+        if ($this->_useAnalyticFunction) {
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('core');
+            return $helper->getQueryUsingAnalyticFunction($select);
+        }
+
+        return (string) $select;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
+
+    /**
+     * Initialize collection
+     */
+    protected function _construct() {}
+
+    /**
+     * Prepare static entity fields
+     *
+     * @return $this
+     */
+    protected function _prepareStaticFields()
+    {
+        foreach ($this->getEntity()->getDefaultAttributes() as $field) {
+            $this->_staticFields[$field] = $field;
+        }
+        return $this;
+    }
+
+    /**
+     * Init select
+     *
+     * @return $this
+     */
+    protected function _initSelect()
+    {
+        $this->getSelect()->from(['e' => $this->getEntity()->getEntityTable()]);
+
+        if ($this->getEntity()->getEntityTable() === Mage_Eav_Model_Entity::DEFAULT_ENTITY_TABLE && $this->getEntity()->getTypeId()) {
+            $this->addAttributeToFilter('entity_type_id', $this->getEntity()->getTypeId());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Standard resource collection initialization
+     *
+     * @param string $model
+     * @param null|string $entityModel
+     * @return $this
+     */
+    protected function _init($model, $entityModel = null)
+    {
+        $this->setItemObjectClass(Mage::getConfig()->getModelClassName($model));
+        if ($entityModel === null) {
+            $entityModel = $model;
+        }
+        $entity = Mage::getResourceSingleton($entityModel);
+        $this->setEntity($entity);
+
+        return $this;
+    }
+
+    /**
+     * Retrieve attribute expression by specified column
+     *
+     * @param string $field
+     * @return string|Zend_Db_Expr
+     */
+    protected function _prepareOrderExpression($field)
+    {
+        foreach ($this->getSelect()->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
+            if ($columnEntry[2] != $field) {
+                continue;
+            }
+            if ($columnEntry[1] instanceof Zend_Db_Expr) {
+                return $columnEntry[1];
+            }
+        }
+        return $field;
+    }
+
+    /**
+     * Clone and reset collection
+     *
+     * @param int $limit
+     * @param int $offset
+     * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
+     */
+    protected function _getAllIdsSelect($limit = null, $offset = null)
+    {
+        $idsSelect = clone $this->getSelect();
+        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->columns('e.' . $this->getEntity()->getIdFieldName());
+        $idsSelect->limit($limit, $offset);
+
+        return $idsSelect;
     }
 
     /**
@@ -1413,39 +1478,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Set sorting order
-     *
-     * $attribute can also be an array of attributes
-     *
-     * @inheritDoc
-     */
-    public function setOrder($attribute, $dir = self::SORT_ORDER_ASC)
-    {
-        if (is_array($attribute)) {
-            foreach ($attribute as $attr) {
-                parent::setOrder($attr, $dir);
-            }
-            return $this;
-        }
-        return parent::setOrder($attribute, $dir);
-    }
-
-    /**
-     * Retrieve array of attributes
-     *
-     * @param array $arrAttributes
-     * @return array
-     */
-    public function toArray($arrAttributes = [])
-    {
-        $arr = [];
-        foreach ($this->_items as $k => $item) {
-            $arr[$k] = $item->toArray($arrAttributes);
-        }
-        return $arr;
-    }
-
-    /**
      * Treat "order by" items as attributes to sort
      *
      * @return $this
@@ -1488,37 +1520,5 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $this->_joinFields        = [];
 
         return $this;
-    }
-
-    /**
-     * Returns already loaded element ids
-     *
-     * return array
-     */
-    public function getLoadedIds()
-    {
-        return array_keys($this->_items);
-    }
-
-    /**
-     * Prepare select for load
-     *
-     * @param Varien_Db_Select $select OPTIONAL
-     * @return string
-     */
-    public function _prepareSelect(Varien_Db_Select $select)
-    {
-        if ($this->_useAnalyticFunction) {
-            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
-            $helper = Mage::getResourceHelper('core');
-            return $helper->getQueryUsingAnalyticFunction($select);
-        }
-
-        return (string) $select;
-    }
-
-    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
-    {
-        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

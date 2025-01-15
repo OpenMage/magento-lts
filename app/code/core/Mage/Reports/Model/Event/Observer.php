@@ -33,42 +33,6 @@ class Mage_Reports_Model_Event_Observer
     }
 
     /**
-     * Abstract Event obeserver logic
-     *
-     * Save event
-     *
-     * @param int $eventTypeId
-     * @param int $objectId
-     * @param int $subjectId
-     * @param int $subtype
-     * @return $this
-     */
-    protected function _event($eventTypeId, $objectId, $subjectId = null, $subtype = 0)
-    {
-        if (is_null($subjectId)) {
-            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $customer = Mage::getSingleton('customer/session')->getCustomer();
-                $subjectId = $customer->getId();
-            } else {
-                $subjectId = Mage::getSingleton('log/visitor')->getId();
-                $subtype = 1;
-            }
-        }
-
-        $eventModel = Mage::getModel('reports/event');
-        $storeId    = Mage::app()->getStore()->getId();
-        $eventModel
-            ->setEventTypeId($eventTypeId)
-            ->setObjectId($objectId)
-            ->setSubjectId($subjectId)
-            ->setSubtype($subtype)
-            ->setStoreId($storeId);
-        $eventModel->save();
-
-        return $this;
-    }
-
-    /**
      * Customer login action
      *
      * @return $this
@@ -274,6 +238,42 @@ class Mage_Reports_Model_Event_Observer
 
         Mage::getModel('reports/product_index_compared')->clean();
         Mage::getModel('reports/product_index_viewed')->clean();
+
+        return $this;
+    }
+
+    /**
+     * Abstract Event obeserver logic
+     *
+     * Save event
+     *
+     * @param int $eventTypeId
+     * @param int $objectId
+     * @param int $subjectId
+     * @param int $subtype
+     * @return $this
+     */
+    protected function _event($eventTypeId, $objectId, $subjectId = null, $subtype = 0)
+    {
+        if (is_null($subjectId)) {
+            if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $customer = Mage::getSingleton('customer/session')->getCustomer();
+                $subjectId = $customer->getId();
+            } else {
+                $subjectId = Mage::getSingleton('log/visitor')->getId();
+                $subtype = 1;
+            }
+        }
+
+        $eventModel = Mage::getModel('reports/event');
+        $storeId    = Mage::app()->getStore()->getId();
+        $eventModel
+            ->setEventTypeId($eventTypeId)
+            ->setObjectId($objectId)
+            ->setSubjectId($subjectId)
+            ->setSubtype($subtype)
+            ->setStoreId($storeId);
+        $eventModel->save();
 
         return $this;
     }

@@ -43,35 +43,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     protected $_addedStoreLabelsFlag = false;
 
     /**
-     * Resource model initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('eav/entity_attribute');
-    }
-
-    /**
-     * Return array of fields to load attribute values
-     *
-     * @return array
-     */
-    protected function _getLoadDataFields()
-    {
-        return [
-            'attribute_id',
-            'entity_type_id',
-            'attribute_code',
-            'attribute_model',
-            'backend_model',
-            'backend_type',
-            'backend_table',
-            'frontend_input',
-            'source_model',
-        ];
-    }
-
-    /**
      * Specify select columns which are used for load attribute values
      *
      * @return $this
@@ -319,6 +290,91 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     }
 
     /**
+     * Load is used in configurable products flag
+     * @deprecated
+     *
+     * @return $this
+     */
+    public function checkConfigurableProducts()
+    {
+        return $this;
+    }
+
+    /**
+     * Specify collection attribute codes filter
+     *
+     * @param string | array $code
+     * @return $this
+     */
+    public function setCodeFilter($code)
+    {
+        if (empty($code)) {
+            return $this;
+        }
+        if (!is_array($code)) {
+            $code = [$code];
+        }
+
+        return $this->addFieldToFilter('attribute_code', ['in' => $code]);
+    }
+
+    /**
+     * Add store label to attribute by specified store id
+     *
+     * @param int $storeId
+     * @return $this
+     */
+    public function addStoreLabel($storeId)
+    {
+        // if not called previously
+        if ($this->_addedStoreLabelsFlag === false) {
+            $adapter = $this->getConnection();
+            $joinExpression = $adapter
+                ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int) $storeId);
+            $this->getSelect()->joinLeft(
+                ['al' => $this->getTable('eav/attribute_label')],
+                $joinExpression,
+                ['store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label')],
+            );
+            $this->_addedStoreLabelsFlag = $storeId;
+        } elseif ($this->_addedStoreLabelsFlag !== $storeId) {
+            // check that previous call $storeId matches current call
+            throw new Exception('Cannot call addStoreLabel for different store views on the same collection');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Resource model initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('eav/entity_attribute');
+    }
+
+    /**
+     * Return array of fields to load attribute values
+     *
+     * @return array
+     */
+    protected function _getLoadDataFields()
+    {
+        return [
+            'attribute_id',
+            'entity_type_id',
+            'attribute_code',
+            'attribute_model',
+            'backend_model',
+            'backend_type',
+            'backend_table',
+            'frontend_input',
+            'source_model',
+        ];
+    }
+
+    /**
      * Ad information about attribute sets to collection result data
      *
      * @return $this
@@ -378,61 +434,5 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
         $this->_addSetInfo();
 
         return parent::_afterLoadData();
-    }
-
-    /**
-     * Load is used in configurable products flag
-     * @deprecated
-     *
-     * @return $this
-     */
-    public function checkConfigurableProducts()
-    {
-        return $this;
-    }
-
-    /**
-     * Specify collection attribute codes filter
-     *
-     * @param string | array $code
-     * @return $this
-     */
-    public function setCodeFilter($code)
-    {
-        if (empty($code)) {
-            return $this;
-        }
-        if (!is_array($code)) {
-            $code = [$code];
-        }
-
-        return $this->addFieldToFilter('attribute_code', ['in' => $code]);
-    }
-
-    /**
-     * Add store label to attribute by specified store id
-     *
-     * @param int $storeId
-     * @return $this
-     */
-    public function addStoreLabel($storeId)
-    {
-        // if not called previously
-        if ($this->_addedStoreLabelsFlag === false) {
-            $adapter = $this->getConnection();
-            $joinExpression = $adapter
-                ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int) $storeId);
-            $this->getSelect()->joinLeft(
-                ['al' => $this->getTable('eav/attribute_label')],
-                $joinExpression,
-                ['store_label' => $adapter->getIfNullSql('al.value', 'main_table.frontend_label')],
-            );
-            $this->_addedStoreLabelsFlag = $storeId;
-        } elseif ($this->_addedStoreLabelsFlag !== $storeId) {
-            // check that previous call $storeId matches current call
-            throw new Exception('Cannot call addStoreLabel for different store views on the same collection');
-        }
-
-        return $this;
     }
 }

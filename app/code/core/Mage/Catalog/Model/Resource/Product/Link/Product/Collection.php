@@ -184,57 +184,6 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     }
 
     /**
-     * Join linked products when specified link model
-     *
-     * @inheritDoc
-     */
-    protected function _beforeLoad()
-    {
-        if ($this->getLinkModel()) {
-            $this->_joinLinks();
-        }
-        return parent::_beforeLoad();
-    }
-
-    /**
-     * Join linked products and their attributes
-     *
-     * @return $this
-     */
-    protected function _joinLinks()
-    {
-        $select  = $this->getSelect();
-        $adapter = $select->getAdapter();
-
-        $joinCondition = [
-            'links.linked_product_id = e.entity_id',
-            $adapter->quoteInto('links.link_type_id = ?', $this->_linkTypeId),
-        ];
-        $joinType = 'join';
-        if ($this->getProduct() && $this->getProduct()->getId()) {
-            $productId = $this->getProduct()->getId();
-            if ($this->_isStrongMode) {
-                $this->getSelect()->where('links.product_id = ?', (int) $productId);
-            } else {
-                $joinType = 'joinLeft';
-                $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
-            }
-            $this->addFieldToFilter('entity_id', ['neq' => $productId]);
-        } elseif ($this->_isStrongMode) {
-            $this->addFieldToFilter('entity_id', ['eq' => -1]);
-        }
-        if ($this->_hasLinkFilter) {
-            $select->$joinType(
-                ['links' => $this->getTable('catalog/product_link')],
-                implode(' AND ', $joinCondition),
-                ['link_id'],
-            );
-            $this->joinAttributes();
-        }
-        return $this;
-    }
-
-    /**
      * Enable sorting products by its position
      *
      * @param string $dir sort type asc|desc
@@ -264,19 +213,6 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             )
             ->order('set.attribute_set_name ' . $dir);
         return $this;
-    }
-
-    /**
-     * Get table alias for link model attribute
-     *
-     * @param string $attributeCode
-     * @param string $attributeType
-     *
-     * @return string
-     */
-    protected function _getLinkAttributeTableAlias($attributeCode, $attributeType)
-    {
-        return sprintf('link_attribute_%s_%s', $attributeCode, $attributeType);
     }
 
     /**
@@ -358,5 +294,69 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         $this->getSelect()->where($this->_getConditionSql($field, $condition));
 
         return $this;
+    }
+
+    /**
+     * Join linked products when specified link model
+     *
+     * @inheritDoc
+     */
+    protected function _beforeLoad()
+    {
+        if ($this->getLinkModel()) {
+            $this->_joinLinks();
+        }
+        return parent::_beforeLoad();
+    }
+
+    /**
+     * Join linked products and their attributes
+     *
+     * @return $this
+     */
+    protected function _joinLinks()
+    {
+        $select  = $this->getSelect();
+        $adapter = $select->getAdapter();
+
+        $joinCondition = [
+            'links.linked_product_id = e.entity_id',
+            $adapter->quoteInto('links.link_type_id = ?', $this->_linkTypeId),
+        ];
+        $joinType = 'join';
+        if ($this->getProduct() && $this->getProduct()->getId()) {
+            $productId = $this->getProduct()->getId();
+            if ($this->_isStrongMode) {
+                $this->getSelect()->where('links.product_id = ?', (int) $productId);
+            } else {
+                $joinType = 'joinLeft';
+                $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
+            }
+            $this->addFieldToFilter('entity_id', ['neq' => $productId]);
+        } elseif ($this->_isStrongMode) {
+            $this->addFieldToFilter('entity_id', ['eq' => -1]);
+        }
+        if ($this->_hasLinkFilter) {
+            $select->$joinType(
+                ['links' => $this->getTable('catalog/product_link')],
+                implode(' AND ', $joinCondition),
+                ['link_id'],
+            );
+            $this->joinAttributes();
+        }
+        return $this;
+    }
+
+    /**
+     * Get table alias for link model attribute
+     *
+     * @param string $attributeCode
+     * @param string $attributeType
+     *
+     * @return string
+     */
+    protected function _getLinkAttributeTableAlias($attributeCode, $attributeType)
+    {
+        return sprintf('link_attribute_%s_%s', $attributeCode, $attributeType);
     }
 }

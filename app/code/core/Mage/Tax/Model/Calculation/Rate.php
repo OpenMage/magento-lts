@@ -63,6 +63,82 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     protected $_titleModel = null;
 
     /**
+     * Saves the tax titles
+     *
+     * @param array | null $titles
+     */
+    public function saveTitles($titles = null)
+    {
+        if (is_null($titles)) {
+            $titles = $this->getTitle();
+        }
+
+        $this->getTitleModel()->deleteByRateId($this->getId());
+        if (is_array($titles) && $titles) {
+            foreach ($titles as $store => $title) {
+                if ($title !== '') {
+                    $this->getTitleModel()
+                        ->setId(null)
+                        ->setTaxCalculationRateId($this->getId())
+                        ->setStoreId((int) $store)
+                        ->setValue($title)
+                        ->save();
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns the Mage_Tax_Model_Calculation_Rate_Title
+     *
+     * @return Mage_Tax_Model_Calculation_Rate_Title
+     */
+    public function getTitleModel()
+    {
+        if (is_null($this->_titleModel)) {
+            $this->_titleModel = Mage::getModel('tax/calculation_rate_title');
+        }
+        return $this->_titleModel;
+    }
+
+    /**
+     * Returns the list of tax titles
+     *
+     * @return array
+     */
+    public function getTitles()
+    {
+        if (is_null($this->_titles)) {
+            $this->_titles = $this->getTitleModel()->getCollection()->loadByRateId($this->getId());
+        }
+        return $this->_titles;
+    }
+
+    /**
+     * Deletes all tax rates
+     *
+     * @return $this
+     */
+    public function deleteAllRates()
+    {
+        $this->_getResource()->deleteAllRates();
+        Mage::dispatchEvent('tax_settings_change_after');
+        return $this;
+    }
+
+    /**
+     * Load rate model by code
+     *
+     * @param  string $code
+     * @return $this
+     */
+    public function loadByCode($code)
+    {
+        $this->load($code, 'code');
+        return $this;
+    }
+
+    /**
      * Varien model constructor
      */
     protected function _construct()
@@ -164,82 +240,6 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     {
         Mage::dispatchEvent('tax_settings_change_after');
         return parent::_afterDelete();
-    }
-
-    /**
-     * Saves the tax titles
-     *
-     * @param array | null $titles
-     */
-    public function saveTitles($titles = null)
-    {
-        if (is_null($titles)) {
-            $titles = $this->getTitle();
-        }
-
-        $this->getTitleModel()->deleteByRateId($this->getId());
-        if (is_array($titles) && $titles) {
-            foreach ($titles as $store => $title) {
-                if ($title !== '') {
-                    $this->getTitleModel()
-                        ->setId(null)
-                        ->setTaxCalculationRateId($this->getId())
-                        ->setStoreId((int) $store)
-                        ->setValue($title)
-                        ->save();
-                }
-            }
-        }
-    }
-
-    /**
-     * Returns the Mage_Tax_Model_Calculation_Rate_Title
-     *
-     * @return Mage_Tax_Model_Calculation_Rate_Title
-     */
-    public function getTitleModel()
-    {
-        if (is_null($this->_titleModel)) {
-            $this->_titleModel = Mage::getModel('tax/calculation_rate_title');
-        }
-        return $this->_titleModel;
-    }
-
-    /**
-     * Returns the list of tax titles
-     *
-     * @return array
-     */
-    public function getTitles()
-    {
-        if (is_null($this->_titles)) {
-            $this->_titles = $this->getTitleModel()->getCollection()->loadByRateId($this->getId());
-        }
-        return $this->_titles;
-    }
-
-    /**
-     * Deletes all tax rates
-     *
-     * @return $this
-     */
-    public function deleteAllRates()
-    {
-        $this->_getResource()->deleteAllRates();
-        Mage::dispatchEvent('tax_settings_change_after');
-        return $this;
-    }
-
-    /**
-     * Load rate model by code
-     *
-     * @param  string $code
-     * @return $this
-     */
-    public function loadByCode($code)
-    {
-        $this->load($code, 'code');
-        return $this;
     }
 
     /**

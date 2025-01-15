@@ -133,6 +133,23 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
     }
 
     /**
+     * Rebuild all index data
+     */
+    public function reindexAll()
+    {
+        /** @var Mage_Catalog_Model_Resource_Url $resourceModel */
+        $resourceModel = Mage::getResourceSingleton('catalog/url');
+        $resourceModel->beginTransaction();
+        try {
+            Mage::getSingleton('catalog/url')->refreshRewrites();
+            $resourceModel->commit();
+        } catch (Exception $e) {
+            $resourceModel->rollBack();
+            throw $e;
+        }
+    }
+
+    /**
      * Register data required by process in event object
      *
      * @return Mage_Catalog_Model_Indexer_Url
@@ -229,23 +246,6 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             foreach (array_unique($data['rewrite_category_ids']) as $categoryId) {
                 $urlModel->refreshCategoryRewrite($categoryId);
             }
-        }
-    }
-
-    /**
-     * Rebuild all index data
-     */
-    public function reindexAll()
-    {
-        /** @var Mage_Catalog_Model_Resource_Url $resourceModel */
-        $resourceModel = Mage::getResourceSingleton('catalog/url');
-        $resourceModel->beginTransaction();
-        try {
-            Mage::getSingleton('catalog/url')->refreshRewrites();
-            $resourceModel->commit();
-        } catch (Exception $e) {
-            $resourceModel->rollBack();
-            throw $e;
         }
     }
 }

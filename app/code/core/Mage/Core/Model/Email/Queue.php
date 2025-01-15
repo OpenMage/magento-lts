@@ -61,39 +61,6 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     protected $_recipients = [];
 
     /**
-     * Initialize object
-     */
-    protected function _construct()
-    {
-        $this->_init('core/email_queue');
-    }
-
-    /**
-     * Save bind recipients to message
-     *
-     * @inheritDoc
-     */
-    protected function _afterSave()
-    {
-        $this->_getResource()->saveRecipients($this->getId(), $this->getRecipients());
-        return parent::_afterSave();
-    }
-
-    /**
-     * Validate recipients before saving
-     *
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        if (empty($this->_recipients) || !is_array($this->_recipients) || empty($this->_recipients[0])) { // additional check of recipients information (email address)
-            $error = Mage::helper('core')->__('Message recipients data must be set.');
-            Mage::throwException("{$error} - ID: " . $this->getId());
-        }
-        return parent::_beforeSave();
-    }
-
-    /**
      * Add message to queue
      *
      * @return $this
@@ -274,5 +241,38 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->removeSentMessages();
         return $this;
+    }
+
+    /**
+     * Initialize object
+     */
+    protected function _construct()
+    {
+        $this->_init('core/email_queue');
+    }
+
+    /**
+     * Save bind recipients to message
+     *
+     * @inheritDoc
+     */
+    protected function _afterSave()
+    {
+        $this->_getResource()->saveRecipients($this->getId(), $this->getRecipients());
+        return parent::_afterSave();
+    }
+
+    /**
+     * Validate recipients before saving
+     *
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        if (empty($this->_recipients) || !is_array($this->_recipients) || empty($this->_recipients[0])) { // additional check of recipients information (email address)
+            $error = Mage::helper('core')->__('Message recipients data must be set.');
+            Mage::throwException("{$error} - ID: " . $this->getId());
+        }
+        return parent::_beforeSave();
     }
 }

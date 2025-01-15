@@ -29,28 +29,6 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
     public const ADMIN_RESOURCE = 'sales/shipment';
 
     /**
-     * Additional initialization
-     */
-    protected function _construct()
-    {
-        $this->setUsedModuleName('Mage_Sales');
-    }
-
-    /**
-     * Init layout, menu and breadcrumb
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('sales/shipment')
-            ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
-            ->_addBreadcrumb($this->__('Shipments'), $this->__('Shipments'));
-        return $this;
-    }
-
-    /**
      * Shipments grid
      */
     public function indexAction()
@@ -100,5 +78,27 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
         } else {
             $this->_forward('noRoute');
         }
+    }
+
+    /**
+     * Additional initialization
+     */
+    protected function _construct()
+    {
+        $this->setUsedModuleName('Mage_Sales');
+    }
+
+    /**
+     * Init layout, menu and breadcrumb
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('sales/shipment')
+            ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
+            ->_addBreadcrumb($this->__('Shipments'), $this->__('Shipments'));
+        return $this;
     }
 }

@@ -30,11 +30,6 @@
  */
 class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('sales/order_status');
-    }
-
     /**
      * Assign order status to particular state
      *
@@ -118,5 +113,9 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
     {
         $this->load($state, 'default_state');
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('sales/order_status');
     }
 }

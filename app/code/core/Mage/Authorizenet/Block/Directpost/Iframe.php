@@ -29,15 +29,6 @@ class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
     protected $_params = [];
 
     /**
-     * Set template for iframe
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('authorizenet/directpost/iframe.phtml');
-    }
-
-    /**
      * Set output params
      *
      * @param array $params
@@ -57,5 +48,14 @@ class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
     public function getParams()
     {
         return $this->_params;
+    }
+
+    /**
+     * Set template for iframe
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('authorizenet/directpost/iframe.phtml');
     }
 }

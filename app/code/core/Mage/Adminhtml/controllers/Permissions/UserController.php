@@ -37,17 +37,6 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         return parent::preDispatch();
     }
 
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('system/acl/users')
-            ->_addBreadcrumb($this->__('System'), $this->__('System'))
-            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
-            ->_addBreadcrumb($this->__('Users'), $this->__('Users'))
-        ;
-        return $this;
-    }
-
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -242,5 +231,16 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             ->setBody($this->getLayout()
             ->createBlock('adminhtml/permissions_user_grid')
             ->toHtml());
+    }
+
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('system/acl/users')
+            ->_addBreadcrumb($this->__('System'), $this->__('System'))
+            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
+            ->_addBreadcrumb($this->__('Users'), $this->__('Users'))
+        ;
+        return $this;
     }
 }

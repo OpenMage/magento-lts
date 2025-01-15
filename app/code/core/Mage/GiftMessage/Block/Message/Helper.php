@@ -119,17 +119,6 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
     }
 
     /**
-     * @return $this
-     */
-    protected function _initMessage()
-    {
-        /** @var Mage_GiftMessage_Helper_Message $helper */
-        $helper = $this->helper('giftmessage/message');
-        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
-        return $this;
-    }
-
-    /**
      * @return Mage_GiftMessage_Model_Message
      */
     public function getMessage()
@@ -139,5 +128,16 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
         }
 
         return $this->_giftMessage;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _initMessage()
+    {
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
+        return $this;
     }
 }

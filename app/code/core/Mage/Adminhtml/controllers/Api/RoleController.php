@@ -39,16 +39,6 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         return parent::preDispatch();
     }
 
-    protected function _initAction()
-    {
-        $this->loadLayout();
-        $this->_setActiveMenu('system/api/roles');
-        $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'));
-        $this->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'));
-        $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));
-        return $this;
-    }
-
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -204,6 +194,16 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
     public function editrolegridAction()
     {
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/api_role_grid_user')->toHtml());
+    }
+
+    protected function _initAction()
+    {
+        $this->loadLayout();
+        $this->_setActiveMenu('system/api/roles');
+        $this->_addBreadcrumb($this->__('Web services'), $this->__('Web services'));
+        $this->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'));
+        $this->_addBreadcrumb($this->__('Roles'), $this->__('Roles'));
+        return $this;
     }
 
     protected function _deleteUserFromRole($userId, $roleId)

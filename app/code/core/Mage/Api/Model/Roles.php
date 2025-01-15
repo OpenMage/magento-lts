@@ -45,11 +45,6 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      */
     protected $_filters;
 
-    protected function _construct()
-    {
-        $this->_init('api/roles');
-    }
-
     /**
      * @return $this
      */
@@ -97,6 +92,29 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     public function getRoleUsers()
     {
         return $this->getResource()->getRoleUsers($this);
+    }
+
+    /**
+     * Filter set data
+     *
+     * @return $this
+     */
+    public function filter()
+    {
+        $data = $this->getData();
+        if (!$this->_filters || !$data) {
+            return $this;
+        }
+        /** @var Mage_Core_Model_Input_Filter $filter */
+        $filter = Mage::getModel('core/input_filter');
+        $filter->setFilters($this->_filters);
+        $this->setData($filter->filter($data));
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('api/roles');
     }
 
     /**
@@ -175,24 +193,6 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     {
         $this->filter();
         parent::_beforeSave();
-        return $this;
-    }
-
-    /**
-     * Filter set data
-     *
-     * @return $this
-     */
-    public function filter()
-    {
-        $data = $this->getData();
-        if (!$this->_filters || !$data) {
-            return $this;
-        }
-        /** @var Mage_Core_Model_Input_Filter $filter */
-        $filter = Mage::getModel('core/input_filter');
-        $filter->setFilters($this->_filters);
-        $this->setData($filter->filter($data));
         return $this;
     }
 }

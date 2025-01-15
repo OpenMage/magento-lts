@@ -51,67 +51,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     protected $_cachedItemPriceBlocks = [];
 
     /**
-     * Internal constructor, that is called from real constructor
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->addItemPriceBlockType('default', 'wishlist/render_item_price', 'wishlist/render/item/price.phtml');
-    }
-
-    /**
-     * Retrieve Wishlist Data Helper
-     *
-     * @return Mage_Wishlist_Helper_Data
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('wishlist');
-    }
-
-    /**
-     * Retrieve Customer Session instance
-     *
-     * @return Mage_Customer_Model_Session
-     */
-    protected function _getCustomerSession()
-    {
-        return Mage::getSingleton('customer/session');
-    }
-
-    /**
-     * Retrieve Wishlist model
-     *
-     * @return Mage_Wishlist_Model_Wishlist
-     */
-    protected function _getWishlist()
-    {
-        return $this->_getHelper()->getWishlist();
-    }
-
-    /**
-     * Prepare additional conditions to collection
-     *
-     * @param Mage_Wishlist_Model_Resource_Item_Collection $collection
-     * @return $this
-     */
-    protected function _prepareCollection($collection)
-    {
-        return $this;
-    }
-
-    /**
-     * Create wishlist item collection
-     *
-     * @return Mage_Wishlist_Model_Resource_Item_Collection
-     */
-    protected function _createWishlistItemCollection()
-    {
-        return $this->_getWishlist()->getItemCollection();
-    }
-
-    /**
      * Retrieve Wishlist Product Items collection
      *
      * @return Mage_Wishlist_Model_Resource_Item_Collection
@@ -316,28 +255,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     }
 
     /**
-     * Returns block to render item with some product type
-     *
-     * @param string $productType
-     * @return Mage_Core_Block_Template
-     */
-    protected function _getItemPriceBlock($productType)
-    {
-        if (!isset($this->_itemPriceBlockTypes[$productType])) {
-            $productType = 'default';
-        }
-
-        if (!isset($this->_cachedItemPriceBlocks[$productType])) {
-            $blockType = $this->_itemPriceBlockTypes[$productType]['block'];
-            $template = $this->_itemPriceBlockTypes[$productType]['template'];
-            $block = $this->getLayout()->createBlock($blockType)
-                ->setTemplate($template);
-            $this->_cachedItemPriceBlocks[$productType] = $block;
-        }
-        return $this->_cachedItemPriceBlocks[$productType];
-    }
-
-    /**
      * Returns product price block html
      * Overwrites parent price html return to be ready to show configured, partially configured and
      * non-configured products
@@ -439,5 +356,88 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
             return $this->_getHelper()->getAddToCartUrlCustom($item, false);
         }
         return $this->_getHelper()->getAddToCartUrl($item);
+    }
+
+    /**
+     * Internal constructor, that is called from real constructor
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->addItemPriceBlockType('default', 'wishlist/render_item_price', 'wishlist/render/item/price.phtml');
+    }
+
+    /**
+     * Retrieve Wishlist Data Helper
+     *
+     * @return Mage_Wishlist_Helper_Data
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('wishlist');
+    }
+
+    /**
+     * Retrieve Customer Session instance
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _getCustomerSession()
+    {
+        return Mage::getSingleton('customer/session');
+    }
+
+    /**
+     * Retrieve Wishlist model
+     *
+     * @return Mage_Wishlist_Model_Wishlist
+     */
+    protected function _getWishlist()
+    {
+        return $this->_getHelper()->getWishlist();
+    }
+
+    /**
+     * Prepare additional conditions to collection
+     *
+     * @param Mage_Wishlist_Model_Resource_Item_Collection $collection
+     * @return $this
+     */
+    protected function _prepareCollection($collection)
+    {
+        return $this;
+    }
+
+    /**
+     * Create wishlist item collection
+     *
+     * @return Mage_Wishlist_Model_Resource_Item_Collection
+     */
+    protected function _createWishlistItemCollection()
+    {
+        return $this->_getWishlist()->getItemCollection();
+    }
+
+    /**
+     * Returns block to render item with some product type
+     *
+     * @param string $productType
+     * @return Mage_Core_Block_Template
+     */
+    protected function _getItemPriceBlock($productType)
+    {
+        if (!isset($this->_itemPriceBlockTypes[$productType])) {
+            $productType = 'default';
+        }
+
+        if (!isset($this->_cachedItemPriceBlocks[$productType])) {
+            $blockType = $this->_itemPriceBlockTypes[$productType]['block'];
+            $template = $this->_itemPriceBlockTypes[$productType]['template'];
+            $block = $this->getLayout()->createBlock($blockType)
+                ->setTemplate($template);
+            $this->_cachedItemPriceBlocks[$productType] = $block;
+        }
+        return $this->_cachedItemPriceBlocks[$productType];
     }
 }

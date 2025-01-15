@@ -39,14 +39,6 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
     protected $_attributeCollection = null;
 
     /**
-     * Initialize resource
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product_link');
-    }
-
-    /**
      * @return $this
      */
     public function useRelatedLinks()
@@ -161,5 +153,13 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
             $this->_getResource()->saveGroupedLinks($product, $data, self::LINK_TYPE_GROUPED);
         }
         return $this;
+    }
+
+    /**
+     * Initialize resource
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product_link');
     }
 }

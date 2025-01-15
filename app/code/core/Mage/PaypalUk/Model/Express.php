@@ -61,6 +61,18 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
     }
 
     /**
+     * Checkout redirect URL getter for onepage checkout (hardcode)
+     *
+     * @see Mage_Checkout_OnepageController::savePaymentAction()
+     * @see Mage_Sales_Model_Quote_Payment::getCheckoutRedirectUrl()
+     * @return string
+     */
+    public function getCheckoutRedirectUrl()
+    {
+        return Mage::getUrl('paypaluk/express/start');
+    }
+
+    /**
      * Import payment info to payment
      *
      * @param Mage_Paypal_Model_Api_Nvp $api
@@ -78,17 +90,5 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
         ;
         $payment->setPreparedMessage(Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId()));
         Mage::getModel('paypal/info')->importToPayment($api, $payment);
-    }
-
-    /**
-     * Checkout redirect URL getter for onepage checkout (hardcode)
-     *
-     * @see Mage_Checkout_OnepageController::savePaymentAction()
-     * @see Mage_Sales_Model_Quote_Payment::getCheckoutRedirectUrl()
-     * @return string
-     */
-    public function getCheckoutRedirectUrl()
-    {
-        return Mage::getUrl('paypaluk/express/start');
     }
 }

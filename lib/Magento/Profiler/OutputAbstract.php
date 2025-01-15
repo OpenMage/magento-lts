@@ -56,6 +56,22 @@ abstract class Magento_Profiler_OutputAbstract
     abstract public function display();
 
     /**
+     * Set threshold (minimal allowed) value for timer column.
+     * Timer is being rendered if at least one of its columns is not less than the minimal allowed value.
+     *
+     * @param string $fetchKey
+     * @param int|float|null $minAllowedValue
+     */
+    public function setThreshold($fetchKey, $minAllowedValue)
+    {
+        if ($minAllowedValue === null) {
+            unset($this->_thresholds[$fetchKey]);
+        } else {
+            $this->_thresholds[$fetchKey] = $minAllowedValue;
+        }
+    }
+
+    /**
      * Retrieve the list of (column_label; column_id) pairs
      *
      * @return array
@@ -101,6 +117,48 @@ abstract class Magento_Profiler_OutputAbstract
     protected function _renderTimerId($timerId)
     {
         return $timerId;
+    }
+
+    /**
+     * Retrieve the list of timer Ids
+     *
+     * @return array
+     */
+    protected function _getTimers()
+    {
+        $pattern = $this->_filter;
+        $timerIds = $this->_getSortedTimers();
+        $result = [];
+        foreach ($timerIds as $timerId) {
+            /* Filter by timer id pattern */
+            if ($pattern && !preg_match($pattern, $timerId)) {
+                continue;
+            }
+            /* Filter by column value thresholds */
+            $skip = false;
+            foreach ($this->_thresholds as $fetchKey => $minAllowedValue) {
+                $skip = (Magento_Profiler::fetch($timerId, $fetchKey) < $minAllowedValue);
+                /* First value not less than the allowed one forces to include timer to the result */
+                if (!$skip) {
+                    break;
+                }
+            }
+            if (!$skip) {
+                $result[] = $timerId;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Render a caption for the profiling results
+     *
+     * @return string
+     */
+    protected function _renderCaption()
+    {
+        $result = 'Code Profiler (Memory usage: real - %s, emalloc - %s)';
+        return sprintf($result, memory_get_usage(true), memory_get_usage());
     }
 
     /**
@@ -152,63 +210,5 @@ abstract class Magento_Profiler_OutputAbstract
             $prevTimerId = $timerId;
         }
         return $result;
-    }
-
-    /**
-     * Retrieve the list of timer Ids
-     *
-     * @return array
-     */
-    protected function _getTimers()
-    {
-        $pattern = $this->_filter;
-        $timerIds = $this->_getSortedTimers();
-        $result = [];
-        foreach ($timerIds as $timerId) {
-            /* Filter by timer id pattern */
-            if ($pattern && !preg_match($pattern, $timerId)) {
-                continue;
-            }
-            /* Filter by column value thresholds */
-            $skip = false;
-            foreach ($this->_thresholds as $fetchKey => $minAllowedValue) {
-                $skip = (Magento_Profiler::fetch($timerId, $fetchKey) < $minAllowedValue);
-                /* First value not less than the allowed one forces to include timer to the result */
-                if (!$skip) {
-                    break;
-                }
-            }
-            if (!$skip) {
-                $result[] = $timerId;
-            }
-        }
-        return $result;
-    }
-
-    /**
-     * Render a caption for the profiling results
-     *
-     * @return string
-     */
-    protected function _renderCaption()
-    {
-        $result = 'Code Profiler (Memory usage: real - %s, emalloc - %s)';
-        return sprintf($result, memory_get_usage(true), memory_get_usage());
-    }
-
-    /**
-     * Set threshold (minimal allowed) value for timer column.
-     * Timer is being rendered if at least one of its columns is not less than the minimal allowed value.
-     *
-     * @param string $fetchKey
-     * @param int|float|null $minAllowedValue
-     */
-    public function setThreshold($fetchKey, $minAllowedValue)
-    {
-        if ($minAllowedValue === null) {
-            unset($this->_thresholds[$fetchKey]);
-        } else {
-            $this->_thresholds[$fetchKey] = $minAllowedValue;
-        }
     }
 }

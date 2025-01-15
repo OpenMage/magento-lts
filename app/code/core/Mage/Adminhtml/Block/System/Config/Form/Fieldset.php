@@ -40,6 +40,24 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     }
 
     /**
+     * Get group xml data of the element
+     *
+     * @param null|Varien_Data_Form_Element_Abstract $element
+     * @return Mage_Core_Model_Config_Element
+     */
+    public function getGroup($element = null)
+    {
+        if (is_null($element)) {
+            $element = $this->getElement();
+        }
+        if ($element && $element->getGroup() instanceof Mage_Core_Model_Config_Element) {
+            return $element->getGroup();
+        }
+
+        return new Mage_Core_Model_Config_Element('<config/>');
+    }
+
+    /**
      * Return header html for fieldset
      *
      * @param Varien_Data_Form_Element_Abstract $element
@@ -81,24 +99,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
     {
         $frontendClass = (string) $this->getGroup($element)->frontend_class;
         return 'section-config' . (empty($frontendClass) ? '' : (' ' . $frontendClass));
-    }
-
-    /**
-     * Get group xml data of the element
-     *
-     * @param null|Varien_Data_Form_Element_Abstract $element
-     * @return Mage_Core_Model_Config_Element
-     */
-    public function getGroup($element = null)
-    {
-        if (is_null($element)) {
-            $element = $this->getElement();
-        }
-        if ($element && $element->getGroup() instanceof Mage_Core_Model_Config_Element) {
-            return $element->getGroup();
-        }
-
-        return new Mage_Core_Model_Config_Element('<config/>');
     }
 
     /**

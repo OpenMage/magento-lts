@@ -87,40 +87,6 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     protected $_calculationModel    = null;
 
     /**
-     * Varien model constructor
-     */
-    protected function _construct()
-    {
-        $this->_init('tax/calculation_rule');
-    }
-
-    /**
-     * After save rule
-     * Re - declared for populate rate calculations
-     *
-     * @return $this
-     */
-    protected function _afterSave()
-    {
-        parent::_afterSave();
-        $this->saveCalculationData();
-        Mage::dispatchEvent('tax_settings_change_after');
-        return $this;
-    }
-
-    /**
-     * After rule delete
-     * redeclared for dispatch tax_settings_change_after event
-     *
-     * @inheritDoc
-     */
-    protected function _afterDelete()
-    {
-        Mage::dispatchEvent('tax_settings_change_after');
-        return parent::_afterDelete();
-    }
-
-    /**
      * Saves the Calculation Data
      */
     public function saveCalculationData()
@@ -192,5 +158,39 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     public function fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId)
     {
         return $this->getResource()->fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId);
+    }
+
+    /**
+     * Varien model constructor
+     */
+    protected function _construct()
+    {
+        $this->_init('tax/calculation_rule');
+    }
+
+    /**
+     * After save rule
+     * Re - declared for populate rate calculations
+     *
+     * @return $this
+     */
+    protected function _afterSave()
+    {
+        parent::_afterSave();
+        $this->saveCalculationData();
+        Mage::dispatchEvent('tax_settings_change_after');
+        return $this;
+    }
+
+    /**
+     * After rule delete
+     * redeclared for dispatch tax_settings_change_after event
+     *
+     * @inheritDoc
+     */
+    protected function _afterDelete()
+    {
+        Mage::dispatchEvent('tax_settings_change_after');
+        return parent::_afterDelete();
     }
 }

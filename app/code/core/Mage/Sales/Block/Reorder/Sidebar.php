@@ -125,6 +125,19 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     }
 
     /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(
+            parent::getCacheTags(),
+            $this->getItemsTags($this->_getItemProducts()),
+        );
+    }
+
+    /**
      * Render "My Orders" sidebar block
      *
      * @return string
@@ -142,19 +155,6 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     protected function _getCustomerSession()
     {
         return Mage::getSingleton('customer/session');
-    }
-
-    /**
-     * Retrieve block cache tags
-     *
-     * @return array
-     */
-    public function getCacheTags()
-    {
-        return array_merge(
-            parent::getCacheTags(),
-            $this->getItemsTags($this->_getItemProducts()),
-        );
     }
 
     /**

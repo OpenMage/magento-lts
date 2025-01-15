@@ -144,20 +144,6 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Join fields
-     *
-     * @return $this
-     */
-    protected function _joinFields()
-    {
-        $this->addAttributeToSelect('entity_id')
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('price');
-
-        return $this;
-    }
-
-    /**
      * Get select count sql
      *
      * @return Varien_Db_Select
@@ -382,24 +368,6 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Prepare between sql
-     *
-     * @param  string $fieldName Field name with table suffix ('created_at' or 'main_table.created_at')
-     * @param  string $from
-     * @param  string $to
-     * @return string Formatted sql string
-     */
-    protected function _prepareBetweenSql($fieldName, $from, $to)
-    {
-        return sprintf(
-            '(%s BETWEEN %s AND %s)',
-            $fieldName,
-            $this->getConnection()->quote($from),
-            $this->getConnection()->quote($to),
-        );
-    }
-
-    /**
      * Add store restrictions to product collection
      *
      * @param  array $storeIds
@@ -427,5 +395,37 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
 
         return $this;
+    }
+
+    /**
+     * Join fields
+     *
+     * @return $this
+     */
+    protected function _joinFields()
+    {
+        $this->addAttributeToSelect('entity_id')
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('price');
+
+        return $this;
+    }
+
+    /**
+     * Prepare between sql
+     *
+     * @param  string $fieldName Field name with table suffix ('created_at' or 'main_table.created_at')
+     * @param  string $from
+     * @param  string $to
+     * @return string Formatted sql string
+     */
+    protected function _prepareBetweenSql($fieldName, $from, $to)
+    {
+        return sprintf(
+            '(%s BETWEEN %s AND %s)',
+            $fieldName,
+            $this->getConnection()->quote($from),
+            $this->getConnection()->quote($to),
+        );
     }
 }

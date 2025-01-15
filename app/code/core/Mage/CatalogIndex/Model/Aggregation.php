@@ -35,19 +35,6 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
 {
     public const CACHE_FLAG_NAME   = 'layered_navigation';
 
-    protected function _construct()
-    {
-        $this->_init('catalogindex/aggregation');
-    }
-
-    /**
-     * @return array|bool
-     */
-    protected function _isEnabled()
-    {
-        return Mage::app()->useCache(self::CACHE_FLAG_NAME);
-    }
-
     /**
      * Get aggregated data by data key and store
      *
@@ -127,6 +114,19 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
             $this->clearCacheData($tags);
         }
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalogindex/aggregation');
+    }
+
+    /**
+     * @return array|bool
+     */
+    protected function _isEnabled()
+    {
+        return Mage::app()->useCache(self::CACHE_FLAG_NAME);
     }
 
     /**

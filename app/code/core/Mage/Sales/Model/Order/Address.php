@@ -87,24 +87,6 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
     protected $_eventObject = 'address';
 
     /**
-     * Initialize resource
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/order_address');
-    }
-
-    /**
-     * Init mapping array of short fields to its full names
-     *
-     * @return $this
-     */
-    protected function _initOldFieldsMap()
-    {
-        return $this;
-    }
-
-    /**
      * Set order
      *
      * @return $this
@@ -126,6 +108,24 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
             $this->_order = Mage::getModel('sales/order')->load($this->getParentId());
         }
         return $this->_order;
+    }
+
+    /**
+     * Initialize resource
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/order_address');
+    }
+
+    /**
+     * Init mapping array of short fields to its full names
+     *
+     * @return $this
+     */
+    protected function _initOldFieldsMap()
+    {
+        return $this;
     }
 
     /**

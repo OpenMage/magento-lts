@@ -29,12 +29,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
      */
     protected $_optionValueTable;
 
-    protected function _construct()
-    {
-        $this->_init('eav/entity_attribute_option');
-        $this->_optionValueTable = Mage::getSingleton('core/resource')->getTableName('eav/attribute_option_value');
-    }
-
     /**
      * Set attribute filter
      *
@@ -138,5 +132,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
         }
 
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('eav/entity_attribute_option');
+        $this->_optionValueTable = Mage::getSingleton('core/resource')->getTableName('eav/attribute_option_value');
     }
 }

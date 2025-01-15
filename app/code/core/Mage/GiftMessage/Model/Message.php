@@ -50,11 +50,6 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
         'quote_address_item' => 'sales/quote_address_item',
     ];
 
-    protected function _construct()
-    {
-        $this->_init('giftmessage/message');
-    }
-
     /**
      * Return model from entity type
      *
@@ -89,5 +84,10 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
     public static function getAllowedEntityTypes()
     {
         return self::$_allowedEntityTypes;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('giftmessage/message');
     }
 }

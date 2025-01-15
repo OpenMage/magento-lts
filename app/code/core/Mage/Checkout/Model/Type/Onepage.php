@@ -30,13 +30,6 @@ class Mage_Checkout_Model_Type_Onepage
     public const METHOD_CUSTOMER = 'customer';
 
     /**
-     * Error message of "customer already exists"
-     *
-     * @var string
-     */
-    private $_customerEmailExistsMessage = '';
-
-    /**
      * @var Mage_Customer_Model_Session
      */
     protected $_customerSession;
@@ -55,6 +48,13 @@ class Mage_Checkout_Model_Type_Onepage
      * @var Mage_Checkout_Helper_Data
      */
     protected $_helper;
+
+    /**
+     * Error message of "customer already exists"
+     *
+     * @var string
+     */
+    private $_customerEmailExistsMessage = '';
 
     /**
      * Class constructor
@@ -374,150 +374,6 @@ class Mage_Checkout_Model_Type_Onepage
     }
 
     /**
-     * Validate customer data and set some its data for further usage in quote
-     * Will return either true or array with error messages
-     *
-     * @return true|array
-     */
-    protected function _validateCustomerData(array $data)
-    {
-        /** @var Mage_Customer_Model_Form $customerForm */
-        $customerForm = Mage::getModel('customer/form');
-        $customerForm->setFormCode('checkout_register')
-            ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
-
-        $quote = $this->getQuote();
-        if ($quote->getCustomerId()) {
-            $customer = $quote->getCustomer();
-            $customerForm->setEntity($customer);
-            $customerData = $quote->getCustomer()->getData();
-        } else {
-            /** @var Mage_Customer_Model_Customer $customer */
-            $customer = Mage::getModel('customer/customer');
-            $customerForm->setEntity($customer);
-            $customerRequest = $customerForm->prepareRequest($data);
-            $customerData = $customerForm->extractData($customerRequest);
-        }
-
-        $customerErrors = $customerForm->validateData($customerData);
-        if ($customerErrors !== true) {
-            return [
-                'error'     => -1,
-                'message'   => implode(', ', $customerErrors),
-            ];
-        }
-
-        if ($quote->getCustomerId()) {
-            return true;
-        }
-
-        $customerForm->compactData($customerData);
-
-        if ($quote->getCheckoutMethod() == self::METHOD_REGISTER) {
-            // set customer password
-            $customer->setPassword($customerRequest->getParam('customer_password'));
-            $customer->setPasswordConfirmation($customerRequest->getParam('confirm_password'));
-        } else {
-            // spoof customer password for guest
-            $password = $customer->generatePassword();
-            $customer->setPassword($password);
-            $customer->setPasswordConfirmation($password);
-            // set NOT LOGGED IN group id explicitly,
-            // otherwise copyFieldset('customer_account', 'to_quote') will fill it with default group id value
-            $customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
-        }
-
-        $result = $customer->validate();
-        if ($result !== true && is_array($result)) {
-            return [
-                'error'   => -1,
-                'message' => implode(', ', $result),
-            ];
-        }
-
-        if ($quote->getCheckoutMethod() == self::METHOD_REGISTER) {
-            // save customer encrypted password in quote
-            $quote->setPasswordHash($customer->encryptPassword($customer->getPassword()));
-        }
-
-        // copy customer/guest email to address
-        $quote->getBillingAddress()->setEmail($customer->getEmail());
-
-        // copy customer data to quote
-        Mage::helper('core')->copyFieldset('customer_account', 'to_quote', $customer, $quote);
-
-        return true;
-    }
-
-    /**
-     * Validate customer data and set some its data for further usage in quote
-     * Will return either true or array with error messages
-     *
-     * @deprecated since 1.4.0.1
-     * @return true|array
-     */
-    protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)
-    {
-        // set customer date of birth for further usage
-        $dob = '';
-        if ($address->getDob()) {
-            $dob = Mage::app()->getLocale()->date($address->getDob(), null, null, false)->toString('yyyy-MM-dd');
-            $this->getQuote()->setCustomerDob($dob);
-        }
-
-        // set customer tax/vat number for further usage
-        if ($address->getTaxvat()) {
-            $this->getQuote()->setCustomerTaxvat($address->getTaxvat());
-        }
-
-        // set customer gender for further usage
-        if ($address->getGender()) {
-            $this->getQuote()->setCustomerGender($address->getGender());
-        }
-
-        // invoke customer model, if it is registering
-        if (self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
-            // set customer password hash for further usage
-            $customer = Mage::getModel('customer/customer');
-            $this->getQuote()->setPasswordHash($customer->encryptPassword($address->getCustomerPassword()));
-
-            // validate customer
-            foreach ([
-                'firstname'    => 'firstname',
-                'lastname'     => 'lastname',
-                'email'        => 'email',
-                'password'     => 'customer_password',
-                'confirmation' => 'confirm_password',
-                'taxvat'       => 'taxvat',
-                'gender'       => 'gender',
-            ] as $key => $dataKey
-            ) {
-                $customer->setData($key, $address->getData($dataKey));
-            }
-            if ($dob) {
-                $customer->setDob($dob);
-            }
-            $validationResult = $customer->validate();
-            if ($validationResult !== true && is_array($validationResult)) {
-                return [
-                    'error'   => -1,
-                    'message' => implode(', ', $validationResult),
-                ];
-            }
-        } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
-            $email = $address->getData('email');
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
-                return [
-                    'error'   => -1,
-                    'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email),
-                ];
-            }
-        }
-
-        return true;
-    }
-
-    /**
      * Save checkout shipping address
      *
      * @param array $data
@@ -675,6 +531,259 @@ class Mage_Checkout_Model_Type_Onepage
     }
 
     /**
+     * Create order based on checkout type. Create customer if necessary.
+     *
+     * @return $this
+     */
+    public function saveOrder()
+    {
+        $this->validate();
+        $isNewCustomer = false;
+        switch ($this->getCheckoutMethod()) {
+            case self::METHOD_GUEST:
+                $this->_prepareGuestQuote();
+                break;
+            case self::METHOD_REGISTER:
+                $this->_prepareNewCustomerQuote();
+                $isNewCustomer = true;
+                break;
+            default:
+                $this->_prepareCustomerQuote();
+                break;
+        }
+
+        $service = Mage::getModel('sales/service_quote', $this->getQuote());
+        $service->submitAll();
+
+        if ($isNewCustomer) {
+            try {
+                $this->_involveNewCustomer();
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
+        }
+
+        $this->_checkoutSession->setLastQuoteId($this->getQuote()->getId())
+            ->setLastSuccessQuoteId($this->getQuote()->getId())
+            ->clearHelperData();
+
+        $order = $service->getOrder();
+        if ($order) {
+            Mage::dispatchEvent(
+                'checkout_type_onepage_save_order_after',
+                ['order' => $order, 'quote' => $this->getQuote()],
+            );
+
+            /**
+             * a flag to set that there will be redirect to third party after confirmation
+             * eg: paypal standard ipn
+             */
+            $redirectUrl = $this->getQuote()->getPayment()->getOrderPlaceRedirectUrl();
+            /**
+             * we only want to send to customer about new order when there is no redirect to third party
+             */
+            if (!$redirectUrl && $order->getCanSendNewEmailFlag()) {
+                try {
+                    $order->queueNewOrderEmail();
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                }
+            }
+
+            // add order information to the session
+            $this->_checkoutSession->setLastOrderId($order->getId())
+                ->setRedirectUrl($redirectUrl)
+                ->setLastRealOrderId($order->getIncrementId());
+
+            // as well a billing agreement can be created
+            $agreement = $order->getPayment()->getBillingAgreement();
+            if ($agreement) {
+                $this->_checkoutSession->setLastBillingAgreementId($agreement->getId());
+            }
+        }
+
+        // add recurring profiles information to the session
+        $profiles = $service->getRecurringPaymentProfiles();
+        if ($profiles) {
+            $ids = [];
+            /** @var Mage_Sales_Model_Recurring_Profile $profile */
+            foreach ($profiles as $profile) {
+                $ids[] = $profile->getId();
+            }
+            $this->_checkoutSession->setLastRecurringProfileIds($ids);
+            // TODO: send recurring profile emails
+        }
+
+        Mage::dispatchEvent(
+            'checkout_submit_all_after',
+            ['order' => $order, 'quote' => $this->getQuote(), 'recurring_profiles' => $profiles],
+        );
+
+        return $this;
+    }
+
+    /**
+     * Get last order increment id by order id
+     *
+     * @return string
+     */
+    public function getLastOrderId()
+    {
+        $lastId  = $this->getCheckout()->getLastOrderId();
+        $orderId = false;
+        if ($lastId) {
+            $order = Mage::getModel('sales/order');
+            $order->load($lastId);
+            $orderId = $order->getIncrementId();
+        }
+        return $orderId;
+    }
+
+    /**
+     * Validate customer data and set some its data for further usage in quote
+     * Will return either true or array with error messages
+     *
+     * @return true|array
+     */
+    protected function _validateCustomerData(array $data)
+    {
+        /** @var Mage_Customer_Model_Form $customerForm */
+        $customerForm = Mage::getModel('customer/form');
+        $customerForm->setFormCode('checkout_register')
+            ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
+
+        $quote = $this->getQuote();
+        if ($quote->getCustomerId()) {
+            $customer = $quote->getCustomer();
+            $customerForm->setEntity($customer);
+            $customerData = $quote->getCustomer()->getData();
+        } else {
+            /** @var Mage_Customer_Model_Customer $customer */
+            $customer = Mage::getModel('customer/customer');
+            $customerForm->setEntity($customer);
+            $customerRequest = $customerForm->prepareRequest($data);
+            $customerData = $customerForm->extractData($customerRequest);
+        }
+
+        $customerErrors = $customerForm->validateData($customerData);
+        if ($customerErrors !== true) {
+            return [
+                'error'     => -1,
+                'message'   => implode(', ', $customerErrors),
+            ];
+        }
+
+        if ($quote->getCustomerId()) {
+            return true;
+        }
+
+        $customerForm->compactData($customerData);
+
+        if ($quote->getCheckoutMethod() == self::METHOD_REGISTER) {
+            // set customer password
+            $customer->setPassword($customerRequest->getParam('customer_password'));
+            $customer->setPasswordConfirmation($customerRequest->getParam('confirm_password'));
+        } else {
+            // spoof customer password for guest
+            $password = $customer->generatePassword();
+            $customer->setPassword($password);
+            $customer->setPasswordConfirmation($password);
+            // set NOT LOGGED IN group id explicitly,
+            // otherwise copyFieldset('customer_account', 'to_quote') will fill it with default group id value
+            $customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+        }
+
+        $result = $customer->validate();
+        if ($result !== true && is_array($result)) {
+            return [
+                'error'   => -1,
+                'message' => implode(', ', $result),
+            ];
+        }
+
+        if ($quote->getCheckoutMethod() == self::METHOD_REGISTER) {
+            // save customer encrypted password in quote
+            $quote->setPasswordHash($customer->encryptPassword($customer->getPassword()));
+        }
+
+        // copy customer/guest email to address
+        $quote->getBillingAddress()->setEmail($customer->getEmail());
+
+        // copy customer data to quote
+        Mage::helper('core')->copyFieldset('customer_account', 'to_quote', $customer, $quote);
+
+        return true;
+    }
+
+    /**
+     * Validate customer data and set some its data for further usage in quote
+     * Will return either true or array with error messages
+     *
+     * @deprecated since 1.4.0.1
+     * @return true|array
+     */
+    protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)
+    {
+        // set customer date of birth for further usage
+        $dob = '';
+        if ($address->getDob()) {
+            $dob = Mage::app()->getLocale()->date($address->getDob(), null, null, false)->toString('yyyy-MM-dd');
+            $this->getQuote()->setCustomerDob($dob);
+        }
+
+        // set customer tax/vat number for further usage
+        if ($address->getTaxvat()) {
+            $this->getQuote()->setCustomerTaxvat($address->getTaxvat());
+        }
+
+        // set customer gender for further usage
+        if ($address->getGender()) {
+            $this->getQuote()->setCustomerGender($address->getGender());
+        }
+
+        // invoke customer model, if it is registering
+        if (self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
+            // set customer password hash for further usage
+            $customer = Mage::getModel('customer/customer');
+            $this->getQuote()->setPasswordHash($customer->encryptPassword($address->getCustomerPassword()));
+
+            // validate customer
+            foreach ([
+                'firstname'    => 'firstname',
+                'lastname'     => 'lastname',
+                'email'        => 'email',
+                'password'     => 'customer_password',
+                'confirmation' => 'confirm_password',
+                'taxvat'       => 'taxvat',
+                'gender'       => 'gender',
+            ] as $key => $dataKey
+            ) {
+                $customer->setData($key, $address->getData($dataKey));
+            }
+            if ($dob) {
+                $customer->setDob($dob);
+            }
+            $validationResult = $customer->validate();
+            if ($validationResult !== true && is_array($validationResult)) {
+                return [
+                    'error'   => -1,
+                    'message' => implode(', ', $validationResult),
+                ];
+            }
+        } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
+            $email = $address->getData('email');
+            if (!Zend_Validate::is($email, 'EmailAddress')) {
+                return [
+                    'error'   => -1,
+                    'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email),
+                ];
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Prepare quote for guest checkout order submit
      *
      * @return $this
@@ -778,98 +887,6 @@ class Mage_Checkout_Model_Type_Onepage
     }
 
     /**
-     * Create order based on checkout type. Create customer if necessary.
-     *
-     * @return $this
-     */
-    public function saveOrder()
-    {
-        $this->validate();
-        $isNewCustomer = false;
-        switch ($this->getCheckoutMethod()) {
-            case self::METHOD_GUEST:
-                $this->_prepareGuestQuote();
-                break;
-            case self::METHOD_REGISTER:
-                $this->_prepareNewCustomerQuote();
-                $isNewCustomer = true;
-                break;
-            default:
-                $this->_prepareCustomerQuote();
-                break;
-        }
-
-        $service = Mage::getModel('sales/service_quote', $this->getQuote());
-        $service->submitAll();
-
-        if ($isNewCustomer) {
-            try {
-                $this->_involveNewCustomer();
-            } catch (Exception $e) {
-                Mage::logException($e);
-            }
-        }
-
-        $this->_checkoutSession->setLastQuoteId($this->getQuote()->getId())
-            ->setLastSuccessQuoteId($this->getQuote()->getId())
-            ->clearHelperData();
-
-        $order = $service->getOrder();
-        if ($order) {
-            Mage::dispatchEvent(
-                'checkout_type_onepage_save_order_after',
-                ['order' => $order, 'quote' => $this->getQuote()],
-            );
-
-            /**
-             * a flag to set that there will be redirect to third party after confirmation
-             * eg: paypal standard ipn
-             */
-            $redirectUrl = $this->getQuote()->getPayment()->getOrderPlaceRedirectUrl();
-            /**
-             * we only want to send to customer about new order when there is no redirect to third party
-             */
-            if (!$redirectUrl && $order->getCanSendNewEmailFlag()) {
-                try {
-                    $order->queueNewOrderEmail();
-                } catch (Exception $e) {
-                    Mage::logException($e);
-                }
-            }
-
-            // add order information to the session
-            $this->_checkoutSession->setLastOrderId($order->getId())
-                ->setRedirectUrl($redirectUrl)
-                ->setLastRealOrderId($order->getIncrementId());
-
-            // as well a billing agreement can be created
-            $agreement = $order->getPayment()->getBillingAgreement();
-            if ($agreement) {
-                $this->_checkoutSession->setLastBillingAgreementId($agreement->getId());
-            }
-        }
-
-        // add recurring profiles information to the session
-        $profiles = $service->getRecurringPaymentProfiles();
-        if ($profiles) {
-            $ids = [];
-            /** @var Mage_Sales_Model_Recurring_Profile $profile */
-            foreach ($profiles as $profile) {
-                $ids[] = $profile->getId();
-            }
-            $this->_checkoutSession->setLastRecurringProfileIds($ids);
-            // TODO: send recurring profile emails
-        }
-
-        Mage::dispatchEvent(
-            'checkout_submit_all_after',
-            ['order' => $order, 'quote' => $this->getQuote(), 'recurring_profiles' => $profiles],
-        );
-
-        return $this;
-    }
-
-    /**
      * Validate quote state to be able submitted from one page checkout page
      *
      * @throws Mage_Core_Exception
@@ -922,23 +939,6 @@ class Mage_Checkout_Model_Type_Onepage
             return $customer;
         }
         return false;
-    }
-
-    /**
-     * Get last order increment id by order id
-     *
-     * @return string
-     */
-    public function getLastOrderId()
-    {
-        $lastId  = $this->getCheckout()->getLastOrderId();
-        $orderId = false;
-        if ($lastId) {
-            $order = Mage::getModel('sales/order');
-            $order->load($lastId);
-            $orderId = $order->getIncrementId();
-        }
-        return $orderId;
     }
 
     /**

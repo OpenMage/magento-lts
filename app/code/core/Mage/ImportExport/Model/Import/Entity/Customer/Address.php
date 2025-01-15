@@ -137,6 +137,92 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     }
 
     /**
+     * Get column name which holds value for attribute with specified code.
+     *
+     * @static
+     * @param string $attrCode
+     * @return string
+     */
+    public static function getColNameForAttrCode($attrCode)
+    {
+        return self::COL_NAME_PREFIX . $attrCode;
+    }
+
+    /**
+     * Customer default addresses column name to customer attribute mapping array.
+     *
+     * @static
+     * @return array
+     */
+    public static function getDefaultAddressAttrMapping()
+    {
+        return self::$_defaultAddressAttrMapping;
+    }
+
+    /**
+     * EAV entity type code getter.
+     *
+     * @return string
+     */
+    public function getEntityTypeCode()
+    {
+        return 'customer_address';
+    }
+
+    /**
+     * Is attribute contains particular data (not plain entity attribute).
+     *
+     * @param string $attrCode
+     * @return bool
+     */
+    public function isAttributeParticular($attrCode)
+    {
+        return isset($this->_attributes[$attrCode]) || in_array($attrCode, $this->_particularAttributes);
+    }
+
+    /**
+     * Validate data row.
+     *
+     * @param int $rowNum
+     * @return bool
+     */
+    public function validateRow(array $rowData, $rowNum)
+    {
+        $rowIsValid = true;
+
+        if ($this->_isRowWithAddress($rowData)) {
+            foreach ($this->_attributes as $colName => $attrParams) {
+                if (isset($rowData[$colName]) && strlen($rowData[$colName])) {
+                    $rowIsValid &= $this->_customer->isAttributeValid($colName, $attrParams, $rowData, $rowNum);
+                } elseif ($attrParams['is_required']) {
+                    $this->_customer->addRowError(
+                        Mage_ImportExport_Model_Import_Entity_Customer::ERROR_VALUE_IS_REQUIRED,
+                        $rowNum,
+                        $colName,
+                    );
+                    $rowIsValid = false;
+                }
+            }
+            // validate region for countries with known region list
+            if ($rowIsValid) {
+                $regionColName  = self::getColNameForAttrCode('region');
+                $countryColName = self::getColNameForAttrCode('country_id');
+                $countryRegions = $this->_countryRegions[strtolower($rowData[$countryColName])] ?? [];
+
+                if (!empty($rowData[$regionColName])
+                    && !empty($countryRegions)
+                    && !isset($countryRegions[strtolower($rowData[$regionColName])])
+                ) {
+                    $this->_customer->addRowError(self::ERROR_INVALID_REGION, $rowNum);
+
+                    $rowIsValid = false;
+                }
+            }
+        }
+        return $rowIsValid;
+    }
+
+    /**
      * Import data rows.
      *
      * @return bool
@@ -405,92 +491,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             $this->_connection->insertOnDuplicate($tableName, $tableData, ['value']);
         }
         return $this;
-    }
-
-    /**
-     * Get column name which holds value for attribute with specified code.
-     *
-     * @static
-     * @param string $attrCode
-     * @return string
-     */
-    public static function getColNameForAttrCode($attrCode)
-    {
-        return self::COL_NAME_PREFIX . $attrCode;
-    }
-
-    /**
-     * Customer default addresses column name to customer attribute mapping array.
-     *
-     * @static
-     * @return array
-     */
-    public static function getDefaultAddressAttrMapping()
-    {
-        return self::$_defaultAddressAttrMapping;
-    }
-
-    /**
-     * EAV entity type code getter.
-     *
-     * @return string
-     */
-    public function getEntityTypeCode()
-    {
-        return 'customer_address';
-    }
-
-    /**
-     * Is attribute contains particular data (not plain entity attribute).
-     *
-     * @param string $attrCode
-     * @return bool
-     */
-    public function isAttributeParticular($attrCode)
-    {
-        return isset($this->_attributes[$attrCode]) || in_array($attrCode, $this->_particularAttributes);
-    }
-
-    /**
-     * Validate data row.
-     *
-     * @param int $rowNum
-     * @return bool
-     */
-    public function validateRow(array $rowData, $rowNum)
-    {
-        $rowIsValid = true;
-
-        if ($this->_isRowWithAddress($rowData)) {
-            foreach ($this->_attributes as $colName => $attrParams) {
-                if (isset($rowData[$colName]) && strlen($rowData[$colName])) {
-                    $rowIsValid &= $this->_customer->isAttributeValid($colName, $attrParams, $rowData, $rowNum);
-                } elseif ($attrParams['is_required']) {
-                    $this->_customer->addRowError(
-                        Mage_ImportExport_Model_Import_Entity_Customer::ERROR_VALUE_IS_REQUIRED,
-                        $rowNum,
-                        $colName,
-                    );
-                    $rowIsValid = false;
-                }
-            }
-            // validate region for countries with known region list
-            if ($rowIsValid) {
-                $regionColName  = self::getColNameForAttrCode('region');
-                $countryColName = self::getColNameForAttrCode('country_id');
-                $countryRegions = $this->_countryRegions[strtolower($rowData[$countryColName])] ?? [];
-
-                if (!empty($rowData[$regionColName])
-                    && !empty($countryRegions)
-                    && !isset($countryRegions[strtolower($rowData[$regionColName])])
-                ) {
-                    $this->_customer->addRowError(self::ERROR_INVALID_REGION, $rowNum);
-
-                    $rowIsValid = false;
-                }
-            }
-        }
-        return $rowIsValid;
     }
 
     /**

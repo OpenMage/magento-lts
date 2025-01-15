@@ -139,20 +139,6 @@ class Mage_Core_Model_Resource_File_Storage_File
     }
 
     /**
-     * Returns list of files/directories that should be ignored when cleaning and reading files from the filesystem
-     * @return array
-     */
-    protected function _getIgnoredFiles()
-    {
-        if ($this->_ignoredFiles === null) {
-            $ignored = (string) Mage::app()->getConfig()
-                ->getNode(Mage_Core_Model_File_Storage::XML_PATH_MEDIA_RESOURCE_IGNORED);
-            $this->_ignoredFiles = $ignored ? explode(',', $ignored) : [];
-        }
-        return $this->_ignoredFiles;
-    }
-
-    /**
      * Save directory to storage
      *
      * @param  array $dir
@@ -309,5 +295,19 @@ class Mage_Core_Model_Resource_File_Storage_File
         if (rand() % 1000 === 0) {
             @exec("find {$this->getMediaBaseDirectory()} -empty -type d -delete"); // TODO - replace with native PHP?
         }
+    }
+
+    /**
+     * Returns list of files/directories that should be ignored when cleaning and reading files from the filesystem
+     * @return array
+     */
+    protected function _getIgnoredFiles()
+    {
+        if ($this->_ignoredFiles === null) {
+            $ignored = (string) Mage::app()->getConfig()
+                ->getNode(Mage_Core_Model_File_Storage::XML_PATH_MEDIA_RESOURCE_IGNORED);
+            $this->_ignoredFiles = $ignored ? explode(',', $ignored) : [];
+        }
+        return $this->_ignoredFiles;
     }
 }

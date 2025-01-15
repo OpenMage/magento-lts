@@ -87,17 +87,6 @@ class Mage_Sales_Model_Service_Order
     }
 
     /**
-     * Perform numbers conversion according to locale
-     *
-     * @param mixed $value
-     * @return float
-     */
-    protected function _getLocaleNumber($value)
-    {
-        return Mage::app()->getLocale()->getNumber($value);
-    }
-
-    /**
      * Prepare order invoice based on order data and requested items qtys. If $qtys is not empty - the function will
      * prepare only specified items, otherwise all containing in the order.
      *
@@ -326,6 +315,17 @@ class Mage_Sales_Model_Service_Order
 
         $creditmemo->collectTotals();
         return $creditmemo;
+    }
+
+    /**
+     * Perform numbers conversion according to locale
+     *
+     * @param mixed $value
+     * @return float
+     */
+    protected function _getLocaleNumber($value)
+    {
+        return Mage::app()->getLocale()->getNumber($value);
     }
 
     /**

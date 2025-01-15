@@ -33,23 +33,6 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Save Cache Settings'),
-                    'onclick'   => 'configForm.submit()',
-                    'class' => 'save',
-                ]),
-        );
-        return parent::_prepareLayout();
-    }
-
-    /**
      * @return string
      */
     public function getSaveButtonHtml()
@@ -185,5 +168,22 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                 ],
             ],
         ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'save_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('adminhtml')->__('Save Cache Settings'),
+                    'onclick'   => 'configForm.submit()',
+                    'class' => 'save',
+                ]),
+        );
+        return parent::_prepareLayout();
     }
 }

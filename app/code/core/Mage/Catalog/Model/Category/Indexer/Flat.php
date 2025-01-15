@@ -83,16 +83,6 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
     }
 
     /**
-     * Retrieve Catalog Category Flat Indexer model
-     *
-     * @return Mage_Catalog_Model_Resource_Category_Flat
-     */
-    protected function _getIndexer()
-    {
-        return Mage::getResourceSingleton('catalog/category_flat');
-    }
-
-    /**
      * Check if event can be matched by process
      * Overwrote for check is flat catalog category is enabled and specific save
      * category, store, store_group
@@ -150,6 +140,25 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
         $event->addNewData(self::EVENT_MATCH_RESULT_KEY, $result);
 
         return $result;
+    }
+
+    /**
+     * Rebuild all index data
+     *
+     */
+    public function reindexAll()
+    {
+        $this->_getIndexer()->reindexAll();
+    }
+
+    /**
+     * Retrieve Catalog Category Flat Indexer model
+     *
+     * @return Mage_Catalog_Model_Resource_Category_Flat
+     */
+    protected function _getIndexer()
+    {
+        return Mage::getResourceSingleton('catalog/category_flat');
     }
 
     /**
@@ -239,14 +248,5 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
             $storeId = $data['catalog_category_flat_delete_store_id'];
             $this->_getIndexer()->deleteStores($storeId);
         }
-    }
-
-    /**
-     * Rebuild all index data
-     *
-     */
-    public function reindexAll()
-    {
-        $this->_getIndexer()->reindexAll();
     }
 }

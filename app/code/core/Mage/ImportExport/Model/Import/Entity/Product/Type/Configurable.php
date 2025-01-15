@@ -117,6 +117,157 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     protected $_superAttrValuesCombs = null;
 
     /**
+     * Save product type specific data.
+     *
+     * @throws Exception
+     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+     */
+    public function saveData()
+    {
+        $connection      = $this->_entityModel->getConnection();
+        $mainTable       = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute');
+        $labelTable      = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute_label');
+        $priceTable      = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute_pricing');
+        $linkTable       = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_link');
+        $relationTable   = Mage::getSingleton('core/resource')->getTableName('catalog/product_relation');
+        $newSku          = $this->_entityModel->getNewSku();
+        $oldSku          = $this->_entityModel->getOldSku();
+        $productSuperData = [];
+        $productSuperAttrId = null;
+        $productId       = null;
+        $productData     = null;
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper          = Mage::getResourceHelper('importexport');
+        $nextAttrId      = $helper->getNextAutoincrement($mainTable);
+
+        if ($this->_entityModel->getBehavior() == Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
+            $this->_loadSkuSuperData();
+        }
+        $this->_loadSkuSuperAttributeValues();
+
+        while ($bunch = $this->_entityModel->getNextBunch()) {
+            $superAttributes = [
+                'attributes' => [],
+                'labels'     => [],
+                'pricing'    => [],
+                'super_link' => [],
+                'relation'   => [],
+            ];
+            foreach ($bunch as $rowNum => $rowData) {
+                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)) {
+                    continue;
+                }
+                // remember SCOPE_DEFAULT row data
+                $scope = $this->_entityModel->getRowScope($rowData);
+                if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $scope) {
+                    $productData = $newSku[$rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_SKU]];
+
+                    if ($this->_type != $productData['type_id']) {
+                        $productData = null;
+                        continue;
+                    }
+                    $productId = $productData['entity_id'];
+
+                    $this->_processSuperData($productSuperData, $superAttributes);
+
+                    $productSuperData = [
+                        'product_id'      => $productId,
+                        'attr_set_code'   => $productData['attr_set_code'],
+                        'used_attributes' => empty($this->_skuSuperData[$productId])
+                                             ? [] : $this->_skuSuperData[$productId],
+                        'assoc_ids'       => [],
+                    ];
+                } elseif ($productData === null) {
+                    continue;
+                }
+                if (!empty($rowData['_super_products_sku'])) {
+                    if (isset($newSku[$rowData['_super_products_sku']])) {
+                        $productSuperData['assoc_ids'][$newSku[$rowData['_super_products_sku']]['entity_id']] = true;
+                    } elseif (isset($oldSku[$rowData['_super_products_sku']])) {
+                        $productSuperData['assoc_ids'][$oldSku[$rowData['_super_products_sku']]['entity_id']] = true;
+                    }
+                }
+                if (empty($rowData['_super_attribute_code'])) {
+                    continue;
+                }
+                $attrParams = $this->_superAttributes[$rowData['_super_attribute_code']];
+
+                if ($this->_getSuperAttributeId($productId, $attrParams['id'])) {
+                    $productSuperAttrId = $this->_getSuperAttributeId($productId, $attrParams['id']);
+                } elseif (!isset($superAttributes['attributes'][$productId][$attrParams['id']])) {
+                    $productSuperAttrId = $nextAttrId++;
+                    $superAttributes['attributes'][$productId][$attrParams['id']] = [
+                        'product_super_attribute_id' => $productSuperAttrId, 'position' => 0,
+                    ];
+                    $superAttributes['labels'][] = [
+                        'product_super_attribute_id' => $productSuperAttrId,
+                        'store_id'    => 0,
+                        'use_default' => 1,
+                        'value'       => $attrParams['frontend_label'],
+                    ];
+                }
+                if (isset($rowData['_super_attribute_option']) && strlen($rowData['_super_attribute_option'])) {
+                    $optionId = $attrParams['options'][strtolower($rowData['_super_attribute_option'])];
+
+                    if (!isset($productSuperData['used_attributes'][$attrParams['id']][$optionId])) {
+                        $productSuperData['used_attributes'][$attrParams['id']][$optionId] = false;
+                    }
+                    if (!empty($rowData['_super_attribute_price_corr'])) {
+                        $superAttributes['pricing'][] = [
+                            'product_super_attribute_id' => $productSuperAttrId,
+                            'value_index'   => $optionId,
+                            'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) === '%',
+                            'pricing_value' => (float) rtrim($rowData['_super_attribute_price_corr'], '%'),
+                            'website_id'    => 0,
+                        ];
+                    }
+                }
+            }
+            // save last product super data
+            $this->_processSuperData($productSuperData, $superAttributes);
+
+            // remove old data if needed
+            if ($this->_entityModel->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
+                && $superAttributes['attributes']
+            ) {
+                $quoted = $connection->quoteInto('IN (?)', array_keys($superAttributes['attributes']));
+                $connection->delete($mainTable, "product_id {$quoted}");
+                $connection->delete($linkTable, "parent_id {$quoted}");
+                $connection->delete($relationTable, "parent_id {$quoted}");
+            }
+            $mainData = [];
+
+            foreach ($superAttributes['attributes'] as $productId => $attributesData) {
+                foreach ($attributesData as $attrId => $row) {
+                    $row['product_id']   = $productId;
+                    $row['attribute_id'] = $attrId;
+                    $mainData[]          = $row;
+                }
+            }
+            if ($mainData) {
+                $connection->insertOnDuplicate($mainTable, $mainData);
+            }
+            if ($superAttributes['labels']) {
+                $connection->insertOnDuplicate($labelTable, $superAttributes['labels']);
+            }
+            if ($superAttributes['pricing']) {
+                $connection->insertOnDuplicate(
+                    $priceTable,
+                    $superAttributes['pricing'],
+                    ['is_percent', 'pricing_value'],
+                );
+            }
+            if ($superAttributes['super_link']) {
+                $connection->insertOnDuplicate($linkTable, $superAttributes['super_link']);
+            }
+            if ($superAttributes['relation']) {
+                $connection->insertOnDuplicate($relationTable, $superAttributes['relation']);
+            }
+        }
+        return $this;
+    }
+
+    /**
      * Add attribute parameters to appropriate attribute set.
      *
      * @param string $attrSetName
@@ -332,157 +483,6 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                         }
                     }
                 }
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Save product type specific data.
-     *
-     * @throws Exception
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
-     */
-    public function saveData()
-    {
-        $connection      = $this->_entityModel->getConnection();
-        $mainTable       = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute');
-        $labelTable      = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute_label');
-        $priceTable      = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_attribute_pricing');
-        $linkTable       = Mage::getSingleton('core/resource')->getTableName('catalog/product_super_link');
-        $relationTable   = Mage::getSingleton('core/resource')->getTableName('catalog/product_relation');
-        $newSku          = $this->_entityModel->getNewSku();
-        $oldSku          = $this->_entityModel->getOldSku();
-        $productSuperData = [];
-        $productSuperAttrId = null;
-        $productId       = null;
-        $productData     = null;
-        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
-        $helper          = Mage::getResourceHelper('importexport');
-        $nextAttrId      = $helper->getNextAutoincrement($mainTable);
-
-        if ($this->_entityModel->getBehavior() == Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
-            $this->_loadSkuSuperData();
-        }
-        $this->_loadSkuSuperAttributeValues();
-
-        while ($bunch = $this->_entityModel->getNextBunch()) {
-            $superAttributes = [
-                'attributes' => [],
-                'labels'     => [],
-                'pricing'    => [],
-                'super_link' => [],
-                'relation'   => [],
-            ];
-            foreach ($bunch as $rowNum => $rowData) {
-                if (!$this->_entityModel->isRowAllowedToImport($rowData, $rowNum)) {
-                    continue;
-                }
-                // remember SCOPE_DEFAULT row data
-                $scope = $this->_entityModel->getRowScope($rowData);
-                if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $scope) {
-                    $productData = $newSku[$rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_SKU]];
-
-                    if ($this->_type != $productData['type_id']) {
-                        $productData = null;
-                        continue;
-                    }
-                    $productId = $productData['entity_id'];
-
-                    $this->_processSuperData($productSuperData, $superAttributes);
-
-                    $productSuperData = [
-                        'product_id'      => $productId,
-                        'attr_set_code'   => $productData['attr_set_code'],
-                        'used_attributes' => empty($this->_skuSuperData[$productId])
-                                             ? [] : $this->_skuSuperData[$productId],
-                        'assoc_ids'       => [],
-                    ];
-                } elseif ($productData === null) {
-                    continue;
-                }
-                if (!empty($rowData['_super_products_sku'])) {
-                    if (isset($newSku[$rowData['_super_products_sku']])) {
-                        $productSuperData['assoc_ids'][$newSku[$rowData['_super_products_sku']]['entity_id']] = true;
-                    } elseif (isset($oldSku[$rowData['_super_products_sku']])) {
-                        $productSuperData['assoc_ids'][$oldSku[$rowData['_super_products_sku']]['entity_id']] = true;
-                    }
-                }
-                if (empty($rowData['_super_attribute_code'])) {
-                    continue;
-                }
-                $attrParams = $this->_superAttributes[$rowData['_super_attribute_code']];
-
-                if ($this->_getSuperAttributeId($productId, $attrParams['id'])) {
-                    $productSuperAttrId = $this->_getSuperAttributeId($productId, $attrParams['id']);
-                } elseif (!isset($superAttributes['attributes'][$productId][$attrParams['id']])) {
-                    $productSuperAttrId = $nextAttrId++;
-                    $superAttributes['attributes'][$productId][$attrParams['id']] = [
-                        'product_super_attribute_id' => $productSuperAttrId, 'position' => 0,
-                    ];
-                    $superAttributes['labels'][] = [
-                        'product_super_attribute_id' => $productSuperAttrId,
-                        'store_id'    => 0,
-                        'use_default' => 1,
-                        'value'       => $attrParams['frontend_label'],
-                    ];
-                }
-                if (isset($rowData['_super_attribute_option']) && strlen($rowData['_super_attribute_option'])) {
-                    $optionId = $attrParams['options'][strtolower($rowData['_super_attribute_option'])];
-
-                    if (!isset($productSuperData['used_attributes'][$attrParams['id']][$optionId])) {
-                        $productSuperData['used_attributes'][$attrParams['id']][$optionId] = false;
-                    }
-                    if (!empty($rowData['_super_attribute_price_corr'])) {
-                        $superAttributes['pricing'][] = [
-                            'product_super_attribute_id' => $productSuperAttrId,
-                            'value_index'   => $optionId,
-                            'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) === '%',
-                            'pricing_value' => (float) rtrim($rowData['_super_attribute_price_corr'], '%'),
-                            'website_id'    => 0,
-                        ];
-                    }
-                }
-            }
-            // save last product super data
-            $this->_processSuperData($productSuperData, $superAttributes);
-
-            // remove old data if needed
-            if ($this->_entityModel->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND
-                && $superAttributes['attributes']
-            ) {
-                $quoted = $connection->quoteInto('IN (?)', array_keys($superAttributes['attributes']));
-                $connection->delete($mainTable, "product_id {$quoted}");
-                $connection->delete($linkTable, "parent_id {$quoted}");
-                $connection->delete($relationTable, "parent_id {$quoted}");
-            }
-            $mainData = [];
-
-            foreach ($superAttributes['attributes'] as $productId => $attributesData) {
-                foreach ($attributesData as $attrId => $row) {
-                    $row['product_id']   = $productId;
-                    $row['attribute_id'] = $attrId;
-                    $mainData[]          = $row;
-                }
-            }
-            if ($mainData) {
-                $connection->insertOnDuplicate($mainTable, $mainData);
-            }
-            if ($superAttributes['labels']) {
-                $connection->insertOnDuplicate($labelTable, $superAttributes['labels']);
-            }
-            if ($superAttributes['pricing']) {
-                $connection->insertOnDuplicate(
-                    $priceTable,
-                    $superAttributes['pricing'],
-                    ['is_percent', 'pricing_value'],
-                );
-            }
-            if ($superAttributes['super_link']) {
-                $connection->insertOnDuplicate($linkTable, $superAttributes['super_link']);
-            }
-            if ($superAttributes['relation']) {
-                $connection->insertOnDuplicate($relationTable, $superAttributes['relation']);
             }
         }
         return $this;

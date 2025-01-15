@@ -25,23 +25,6 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     protected $_mapAttributes = [
         'customer_id' => 'entity_id',
     ];
-    /**
-     * Prepare data to insert/update.
-     * Creating array for stdClass Object
-     *
-     * @param array $data
-     * @return array
-     */
-    protected function _prepareData($data)
-    {
-        foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
-            if (isset($data[$attributeAlias])) {
-                $data[$attributeCode] = $data[$attributeAlias];
-                unset($data[$attributeAlias]);
-            }
-        }
-        return $data;
-    }
 
     /**
      * Create new customer
@@ -181,5 +164,22 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         }
 
         return true;
+    }
+    /**
+     * Prepare data to insert/update.
+     * Creating array for stdClass Object
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function _prepareData($data)
+    {
+        foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
+            if (isset($data[$attributeAlias])) {
+                $data[$attributeCode] = $data[$attributeAlias];
+                unset($data[$attributeAlias]);
+            }
+        }
+        return $data;
     }
 }

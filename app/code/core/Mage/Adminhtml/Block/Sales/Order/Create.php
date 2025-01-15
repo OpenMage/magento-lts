@@ -67,16 +67,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Check access for cancel action
-     *
-     * @return bool
-     */
-    protected function _isCanCancel()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/cancel');
-    }
-
-    /**
      * Prepare header html
      *
      * @return string
@@ -108,16 +98,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Retrieve quote session object
-     *
-     * @return Mage_Adminhtml_Model_Session_Quote
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('adminhtml/session_quote');
-    }
-
-    /**
      * @return string
      */
     public function getCancelUrl()
@@ -141,5 +121,25 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
     public function getBackUrl()
     {
         return $this->getUrl('*/' . $this->_controller . '/');
+    }
+
+    /**
+     * Check access for cancel action
+     *
+     * @return bool
+     */
+    protected function _isCanCancel()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/cancel');
+    }
+
+    /**
+     * Retrieve quote session object
+     *
+     * @return Mage_Adminhtml_Model_Session_Quote
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('adminhtml/session_quote');
     }
 }

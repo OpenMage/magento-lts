@@ -121,6 +121,32 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             ->setEnableCharts('1');
     }
 
+    public function replaceTmpInstallDate($date = null)
+    {
+        $stamp    = strtotime((string) $date);
+        $localXml = file_get_contents($this->_localConfigFile);
+        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, date('r', $stamp ? $stamp : time()), $localXml);
+        file_put_contents($this->_localConfigFile, $localXml);
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $key
+     * @return $this
+     */
+    public function replaceTmpEncryptKey($key = null)
+    {
+        if (!$key) {
+            $key = md5(Mage::helper('core')->getRandomString(10));
+        }
+        $localXml = file_get_contents($this->_localConfigFile);
+        $localXml = str_replace(self::TMP_ENCRYPT_KEY_VALUE, $key, $localXml);
+        file_put_contents($this->_localConfigFile, $localXml);
+
+        return $this;
+    }
+
     /**
      * @param array $data
      * @return $this
@@ -164,32 +190,6 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
                 ->addError(Mage::helper('install')->__('The URL "%s" is invalid.', $url));
             Mage::throwException(Mage::helper('install')->__('Response from server isn\'t valid.'));
         }
-        return $this;
-    }
-
-    public function replaceTmpInstallDate($date = null)
-    {
-        $stamp    = strtotime((string) $date);
-        $localXml = file_get_contents($this->_localConfigFile);
-        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, date('r', $stamp ? $stamp : time()), $localXml);
-        file_put_contents($this->_localConfigFile, $localXml);
-
-        return $this;
-    }
-
-    /**
-     * @param string|null $key
-     * @return $this
-     */
-    public function replaceTmpEncryptKey($key = null)
-    {
-        if (!$key) {
-            $key = md5(Mage::helper('core')->getRandomString(10));
-        }
-        $localXml = file_get_contents($this->_localConfigFile);
-        $localXml = str_replace(self::TMP_ENCRYPT_KEY_VALUE, $key, $localXml);
-        file_put_contents($this->_localConfigFile, $localXml);
-
         return $this;
     }
 }

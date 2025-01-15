@@ -23,14 +23,6 @@
 class Mage_Oauth_Model_Resource_Token_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize collection model
-     */
-    protected function _construct()
-    {
-        $this->_init('oauth/token');
-    }
-
-    /**
      * Load collection with consumer data
      *
      * Method use for show applications list (token-consumer)
@@ -119,5 +111,12 @@ class Mage_Oauth_Model_Resource_Token_Collection extends Mage_Core_Model_Resourc
     {
         $this->addFilter('main_table.revoked', (int) $flag, 'public');
         return $this;
+    }
+    /**
+     * Initialize collection model
+     */
+    protected function _construct()
+    {
+        $this->_init('oauth/token');
     }
 }

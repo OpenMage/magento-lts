@@ -24,11 +24,6 @@ require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
  */
 class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Mage_Adminhtml_Catalog_ProductController
 {
-    protected function _construct()
-    {
-        $this->setUsedModuleName('Mage_Downloadable');
-    }
-
     /**
      * Load downloadable tab fieldsets
      *
@@ -40,6 +35,41 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
             $this->getLayout()->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable', 'admin.product.downloadable.information')
                 ->toHtml(),
         );
+    }
+
+    /**
+     * Download link action
+     *
+     * @SuppressWarnings("PHPMD.ExitExpression")
+     */
+    public function linkAction()
+    {
+        $linkId = $this->getRequest()->getParam('id', 0);
+        $link = Mage::getModel('downloadable/link')->load($linkId);
+        if ($link->getId()) {
+            $resource = '';
+            $resourceType = '';
+            if ($link->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_URL) {
+                $resource = $link->getLinkUrl();
+                $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_URL;
+            } elseif ($link->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_FILE) {
+                $resource = Mage::helper('downloadable/file')->getFilePath(
+                    Mage_Downloadable_Model_Link::getBasePath(),
+                    $link->getLinkFile(),
+                );
+                $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_FILE;
+            }
+            try {
+                $this->_processDownload($resource, $resourceType);
+            } catch (Mage_Core_Exception $e) {
+                $this->_getSession()->addError(Mage::helper('downloadable')->__('An error occurred while getting the requested content.'));
+            }
+        }
+        exit(0);
+    }
+    protected function _construct()
+    {
+        $this->setUsedModuleName('Mage_Downloadable');
     }
 
     /**
@@ -80,36 +110,5 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
             ->sendHeaders();
 
         $helper->output();
-    }
-
-    /**
-     * Download link action
-     *
-     * @SuppressWarnings("PHPMD.ExitExpression")
-     */
-    public function linkAction()
-    {
-        $linkId = $this->getRequest()->getParam('id', 0);
-        $link = Mage::getModel('downloadable/link')->load($linkId);
-        if ($link->getId()) {
-            $resource = '';
-            $resourceType = '';
-            if ($link->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_URL) {
-                $resource = $link->getLinkUrl();
-                $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_URL;
-            } elseif ($link->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_FILE) {
-                $resource = Mage::helper('downloadable/file')->getFilePath(
-                    Mage_Downloadable_Model_Link::getBasePath(),
-                    $link->getLinkFile(),
-                );
-                $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_FILE;
-            }
-            try {
-                $this->_processDownload($resource, $resourceType);
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError(Mage::helper('downloadable')->__('An error occurred while getting the requested content.'));
-            }
-        }
-        exit(0);
     }
 }

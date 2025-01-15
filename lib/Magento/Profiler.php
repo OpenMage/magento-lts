@@ -82,21 +82,6 @@ class Magento_Profiler
     ];
 
     /**
-     * Retrieve unique identifier among all timers
-     *
-     * @param string|null $timerName Timer name
-     * @return string
-     */
-    private static function _getTimerId($timerName = null)
-    {
-        $currentPath = self::$_currentPath;
-        if ($timerName) {
-            $currentPath[] = $timerName;
-        }
-        return implode(self::NESTING_SEPARATOR, $currentPath);
-    }
-
-    /**
      * Enable profiling.
      * Any call to profiler does nothing until profiler is enabled.
      */
@@ -273,5 +258,20 @@ class Magento_Profiler
         foreach (self::$_outputs as $output) {
             $output->display();
         }
+    }
+
+    /**
+     * Retrieve unique identifier among all timers
+     *
+     * @param string|null $timerName Timer name
+     * @return string
+     */
+    private static function _getTimerId($timerName = null)
+    {
+        $currentPath = self::$_currentPath;
+        if ($timerName) {
+            $currentPath[] = $timerName;
+        }
+        return implode(self::NESTING_SEPARATOR, $currentPath);
     }
 }

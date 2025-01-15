@@ -71,25 +71,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     }
 
     /**
-     * @return string|null
-     */
-    protected function _getValue(Varien_Object $row)
-    {
-        if ($getter = $this->getColumn()->getGetter()) {
-            if (is_string($getter)) {
-                return $row->$getter();
-            } elseif (is_callable($getter)) {
-                return call_user_func($getter, $row);
-            }
-            return '';
-        }
-        if ($index = $this->getColumn()->getIndex()) {
-            return $row->getData($index);
-        }
-        return null;
-    }
-
-    /**
      * @return string
      */
     public function _getInputValueElement(Varien_Object $row)
@@ -98,14 +79,6 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
                 . $this->getColumn()->getValidateClass()
                 . '" name="' . $this->getColumn()->getId()
                 . '" value="' . $this->_getInputValue($row) . '"/>';
-    }
-
-    /**
-     * @return string|null
-     */
-    protected function _getInputValue(Varien_Object $row)
-    {
-        return $this->_getValue($row);
     }
 
     /**
@@ -164,6 +137,33 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
      * @return string|null
      */
     public function getCopyableText(Varien_Object $row)
+    {
+        return $this->_getValue($row);
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function _getValue(Varien_Object $row)
+    {
+        if ($getter = $this->getColumn()->getGetter()) {
+            if (is_string($getter)) {
+                return $row->$getter();
+            } elseif (is_callable($getter)) {
+                return call_user_func($getter, $row);
+            }
+            return '';
+        }
+        if ($index = $this->getColumn()->getIndex()) {
+            return $row->getData($index);
+        }
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function _getInputValue(Varien_Object $row)
     {
         return $this->_getValue($row);
     }

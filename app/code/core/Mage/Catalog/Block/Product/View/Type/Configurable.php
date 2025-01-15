@@ -39,16 +39,6 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     protected $_resPrices   = [];
 
     /**
-     * Get helper for calculation purposes
-     *
-     * @return Mage_Catalog_Helper_Product_Type_Composite
-     */
-    protected function _getHelper()
-    {
-        return $this->helper('catalog/product_type_composite');
-    }
-
-    /**
      * Get allowed attributes
      *
      * @return array
@@ -115,16 +105,6 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     public function getCurrentStore()
     {
         return $this->_getHelper()->getCurrentStore();
-    }
-
-    /**
-     * Returns additional values for js config, con be overridden by descendants
-     *
-     * @return array
-     */
-    protected function _getAdditionalConfig()
-    {
-        return [];
     }
 
     /**
@@ -270,6 +250,26 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         $config = array_merge($config, $this->_getAdditionalConfig());
 
         return Mage::helper('core')->jsonEncode($config);
+    }
+
+    /**
+     * Get helper for calculation purposes
+     *
+     * @return Mage_Catalog_Helper_Product_Type_Composite
+     */
+    protected function _getHelper()
+    {
+        return $this->helper('catalog/product_type_composite');
+    }
+
+    /**
+     * Returns additional values for js config, con be overridden by descendants
+     *
+     * @return array
+     */
+    protected function _getAdditionalConfig()
+    {
+        return [];
     }
 
     /**

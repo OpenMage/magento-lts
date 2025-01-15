@@ -29,41 +29,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
     public const ADMIN_RESOURCE = 'system/variable';
 
     /**
-     * Initialize Layout and set breadcrumbs
-     *
-     * @return $this
-     */
-    protected function _initLayout()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('system/variable')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Custom Variables'), Mage::helper('adminhtml')->__('Custom Variables'));
-        return $this;
-    }
-
-    /**
-     * Initialize Variable object
-     *
-     * @return Mage_Core_Model_Variable
-     * @throws Mage_Core_Exception
-     */
-    protected function _initVariable()
-    {
-        $this->_title($this->__('System'))->_title($this->__('Custom Variables'));
-
-        $variableId = $this->getRequest()->getParam('variable_id', null);
-        $storeId = (int) $this->getRequest()->getParam('store', 0);
-        /** @var Mage_Core_Model_Variable $variable */
-        $variable = Mage::getModel('core/variable');
-        if ($variableId) {
-            $variable->setStoreId($storeId)
-                ->load($variableId);
-        }
-        Mage::register('current_variable', $variable);
-        return $variable;
-    }
-
-    /**
      * Index Action
      */
     public function indexAction()
@@ -184,5 +149,40 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
         $storeContactVariabls = Mage::getModel('core/source_email_variables')->toOptionArray(true);
         $variables = [$storeContactVariabls, $customVariables];
         $this->getResponse()->setBody(Zend_Json::encode($variables));
+    }
+
+    /**
+     * Initialize Layout and set breadcrumbs
+     *
+     * @return $this
+     */
+    protected function _initLayout()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('system/variable')
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Custom Variables'), Mage::helper('adminhtml')->__('Custom Variables'));
+        return $this;
+    }
+
+    /**
+     * Initialize Variable object
+     *
+     * @return Mage_Core_Model_Variable
+     * @throws Mage_Core_Exception
+     */
+    protected function _initVariable()
+    {
+        $this->_title($this->__('System'))->_title($this->__('Custom Variables'));
+
+        $variableId = $this->getRequest()->getParam('variable_id', null);
+        $storeId = (int) $this->getRequest()->getParam('store', 0);
+        /** @var Mage_Core_Model_Variable $variable */
+        $variable = Mage::getModel('core/variable');
+        if ($variableId) {
+            $variable->setStoreId($storeId)
+                ->load($variableId);
+        }
+        Mage::register('current_variable', $variable);
+        return $variable;
     }
 }

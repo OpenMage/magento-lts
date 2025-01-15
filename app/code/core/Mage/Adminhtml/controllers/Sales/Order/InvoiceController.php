@@ -23,107 +23,6 @@
 class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Controller_Sales_Invoice
 {
     /**
-     * Get requested items qty's from request
-     */
-    protected function _getItemQtys()
-    {
-        $data = $this->getRequest()->getParam('invoice');
-        return $data['items'] ?? [];
-    }
-
-    /**
-     * Initialize invoice model instance
-     *
-     * @return Mage_Sales_Model_Order_Invoice|false
-     * @throws Mage_Core_Exception
-     */
-    protected function _initInvoice($update = false)
-    {
-        $this->_title($this->__('Sales'))->_title($this->__('Invoices'));
-
-        $invoice = false;
-        $itemsToInvoice = 0;
-        $invoiceId = $this->getRequest()->getParam('invoice_id');
-        $orderId = $this->getRequest()->getParam('order_id');
-        if ($invoiceId) {
-            $invoice = Mage::getModel('sales/order_invoice')->load($invoiceId);
-            if (!$invoice->getId()) {
-                $this->_getSession()->addError($this->__('The invoice no longer exists.'));
-                return false;
-            }
-        } elseif ($orderId) {
-            $order = Mage::getModel('sales/order')->load($orderId);
-            /**
-             * Check order existing
-             */
-            if (!$order->getId()) {
-                $this->_getSession()->addError($this->__('The order no longer exists.'));
-                return false;
-            }
-            /**
-             * Check invoice create availability
-             */
-            if (!$order->canInvoice()) {
-                $this->_getSession()->addError($this->__('The order does not allow creating an invoice.'));
-                return false;
-            }
-            $savedQtys = $this->_getItemQtys();
-            $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice($savedQtys);
-            if (!$invoice->getTotalQty()) {
-                Mage::throwException($this->__('Cannot create an invoice without products.'));
-            }
-        }
-
-        Mage::register('current_invoice', $invoice);
-        return $invoice;
-    }
-
-    /**
-     * Save data for invoice and related order
-     *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return  Mage_Adminhtml_Sales_Order_InvoiceController
-     * @throws Exception
-     */
-    protected function _saveInvoice($invoice)
-    {
-        $invoice->getOrder()->setIsInProcess(true);
-        $transactionSave = Mage::getModel('core/resource_transaction')
-            ->addObject($invoice)
-            ->addObject($invoice->getOrder())
-            ->save();
-
-        return $this;
-    }
-
-    /**
-     * Prepare shipment
-     *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Sales_Model_Order_Shipment|false
-     * @throws Mage_Core_Exception
-     */
-    protected function _prepareShipment($invoice)
-    {
-        $savedQtys = $this->_getItemQtys();
-        $shipment = Mage::getModel('sales/service_order', $invoice->getOrder())->prepareShipment($savedQtys);
-        if (!$shipment->getTotalQty()) {
-            return false;
-        }
-
-        $shipment->register();
-        $tracks = $this->getRequest()->getPost('tracking');
-        if ($tracks) {
-            foreach ($tracks as $data) {
-                $track = Mage::getModel('sales/order_shipment_track')
-                    ->addData($data);
-                $shipment->addTrack($track);
-            }
-        }
-        return $shipment;
-    }
-
-    /**
      * Invoice information page
      */
     public function viewAction()
@@ -399,6 +298,115 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     }
 
     /**
+     * Create pdf for current invoice
+     */
+    public function printAction()
+    {
+        $this->_initInvoice();
+        parent::printAction();
+    }
+    /**
+     * Get requested items qty's from request
+     */
+    protected function _getItemQtys()
+    {
+        $data = $this->getRequest()->getParam('invoice');
+        return $data['items'] ?? [];
+    }
+
+    /**
+     * Initialize invoice model instance
+     *
+     * @return Mage_Sales_Model_Order_Invoice|false
+     * @throws Mage_Core_Exception
+     */
+    protected function _initInvoice($update = false)
+    {
+        $this->_title($this->__('Sales'))->_title($this->__('Invoices'));
+
+        $invoice = false;
+        $itemsToInvoice = 0;
+        $invoiceId = $this->getRequest()->getParam('invoice_id');
+        $orderId = $this->getRequest()->getParam('order_id');
+        if ($invoiceId) {
+            $invoice = Mage::getModel('sales/order_invoice')->load($invoiceId);
+            if (!$invoice->getId()) {
+                $this->_getSession()->addError($this->__('The invoice no longer exists.'));
+                return false;
+            }
+        } elseif ($orderId) {
+            $order = Mage::getModel('sales/order')->load($orderId);
+            /**
+             * Check order existing
+             */
+            if (!$order->getId()) {
+                $this->_getSession()->addError($this->__('The order no longer exists.'));
+                return false;
+            }
+            /**
+             * Check invoice create availability
+             */
+            if (!$order->canInvoice()) {
+                $this->_getSession()->addError($this->__('The order does not allow creating an invoice.'));
+                return false;
+            }
+            $savedQtys = $this->_getItemQtys();
+            $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice($savedQtys);
+            if (!$invoice->getTotalQty()) {
+                Mage::throwException($this->__('Cannot create an invoice without products.'));
+            }
+        }
+
+        Mage::register('current_invoice', $invoice);
+        return $invoice;
+    }
+
+    /**
+     * Save data for invoice and related order
+     *
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @return  Mage_Adminhtml_Sales_Order_InvoiceController
+     * @throws Exception
+     */
+    protected function _saveInvoice($invoice)
+    {
+        $invoice->getOrder()->setIsInProcess(true);
+        $transactionSave = Mage::getModel('core/resource_transaction')
+            ->addObject($invoice)
+            ->addObject($invoice->getOrder())
+            ->save();
+
+        return $this;
+    }
+
+    /**
+     * Prepare shipment
+     *
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @return Mage_Sales_Model_Order_Shipment|false
+     * @throws Mage_Core_Exception
+     */
+    protected function _prepareShipment($invoice)
+    {
+        $savedQtys = $this->_getItemQtys();
+        $shipment = Mage::getModel('sales/service_order', $invoice->getOrder())->prepareShipment($savedQtys);
+        if (!$shipment->getTotalQty()) {
+            return false;
+        }
+
+        $shipment->register();
+        $tracks = $this->getRequest()->getPost('tracking');
+        if ($tracks) {
+            foreach ($tracks as $data) {
+                $track = Mage::getModel('sales/order_shipment_track')
+                    ->addData($data);
+                $shipment->addTrack($track);
+            }
+        }
+        return $shipment;
+    }
+
+    /**
      * Decides if we need to create dummy invoice item or not
      * for example we don't need create dummy parent if all
      * children are not in process
@@ -467,14 +475,5 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         }
 
         return false;
-    }
-
-    /**
-     * Create pdf for current invoice
-     */
-    public function printAction()
-    {
-        $this->_initInvoice();
-        parent::printAction();
     }
 }

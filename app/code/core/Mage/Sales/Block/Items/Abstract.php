@@ -33,15 +33,6 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     protected $_itemRenders = [];
 
     /**
-     * Initialize default item renderer
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->addItemRender('default', 'checkout/cart_item_renderer', 'checkout/cart/item/default.phtml');
-    }
-
-    /**
      * Add renderer for item product type
      *
      * @param   string $type
@@ -82,6 +73,30 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     }
 
     /**
+     * Get item row html
+     *
+     * @return  string
+     */
+    public function getItemHtml(Varien_Object $item)
+    {
+        $type = $this->_getItemType($item);
+
+        $block = $this->getItemRenderer($type)
+            ->setItem($item);
+        $this->_prepareItem($block);
+        return $block->toHtml();
+    }
+
+    /**
+     * Initialize default item renderer
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->addItemRender('default', 'checkout/cart_item_renderer', 'checkout/cart/item/default.phtml');
+    }
+
+    /**
      * Prepare item before output
      *
      * @return $this
@@ -106,20 +121,5 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
             $type = $item->getProductType();
         }
         return $type;
-    }
-
-    /**
-     * Get item row html
-     *
-     * @return  string
-     */
-    public function getItemHtml(Varien_Object $item)
-    {
-        $type = $this->_getItemType($item);
-
-        $block = $this->getItemRenderer($type)
-            ->setItem($item);
-        $this->_prepareItem($block);
-        return $block->toHtml();
     }
 }

@@ -30,18 +30,6 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     protected $_collection;
 
     /**
-     * Initializes collection
-     */
-    protected function _construct()
-    {
-        $this->_collection = Mage::getModel('review/review')->getProductCollection();
-        $this->_collection
-            ->addStoreFilter(Mage::app()->getStore()->getId())
-            ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
-            ->setDateOrder();
-    }
-
-    /**
      * Gets collection items count
      *
      * @return int
@@ -59,30 +47,6 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     public function getToolbarHtml()
     {
         return $this->getChildHtml('toolbar');
-    }
-
-    /**
-     * Initializes toolbar
-     *
-     * @return Mage_Core_Block_Abstract
-     */
-    protected function _prepareLayout()
-    {
-        $toolbar = $this->getLayout()->createBlock('page/html_pager', 'customer_review_list.toolbar')
-            ->setCollection($this->getCollection());
-
-        $this->setChild('toolbar', $toolbar);
-        return parent::_prepareLayout();
-    }
-
-    /**
-     * Get collection
-     *
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
-     */
-    protected function _getCollection()
-    {
-        return $this->_collection;
     }
 
     /**
@@ -124,6 +88,42 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     public function dateFormat($date)
     {
         return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+    }
+
+    /**
+     * Initializes collection
+     */
+    protected function _construct()
+    {
+        $this->_collection = Mage::getModel('review/review')->getProductCollection();
+        $this->_collection
+            ->addStoreFilter(Mage::app()->getStore()->getId())
+            ->addCustomerFilter(Mage::getSingleton('customer/session')->getCustomerId())
+            ->setDateOrder();
+    }
+
+    /**
+     * Initializes toolbar
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    protected function _prepareLayout()
+    {
+        $toolbar = $this->getLayout()->createBlock('page/html_pager', 'customer_review_list.toolbar')
+            ->setCollection($this->getCollection());
+
+        $this->setChild('toolbar', $toolbar);
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * Get collection
+     *
+     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     */
+    protected function _getCollection()
+    {
+        return $this->_collection;
     }
 
     /**

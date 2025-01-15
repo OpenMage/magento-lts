@@ -50,21 +50,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     }
 
     /**
-     * Return customer address form instance
-     *
-     * @return Mage_Customer_Model_Form
-     */
-    protected function _getAddressForm()
-    {
-        if (is_null($this->_addressForm)) {
-            $this->_addressForm = Mage::getModel('customer/form')
-                ->setFormCode('adminhtml_customer_address')
-                ->setStore($this->getStore());
-        }
-        return $this->_addressForm;
-    }
-
-    /**
      * Return Customer Address Collection as JSON
      *
      * @return string
@@ -87,6 +72,42 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
             );
         }
         return Mage::helper('core')->jsonEncode($data);
+    }
+
+    /**
+     * Return customer address id
+     *
+     * @return false
+     */
+    public function getAddressId()
+    {
+        return false;
+    }
+
+    /**
+     * Return customer address formatted as one-line string
+     *
+     * @param Mage_Customer_Model_Address $address
+     * @return string
+     */
+    public function getAddressAsString($address)
+    {
+        return $this->escapeHtml($address->format('oneline'));
+    }
+
+    /**
+     * Return customer address form instance
+     *
+     * @return Mage_Customer_Model_Form
+     */
+    protected function _getAddressForm()
+    {
+        if (is_null($this->_addressForm)) {
+            $this->_addressForm = Mage::getModel('customer/form')
+                ->setFormCode('adminhtml_customer_address')
+                ->setStore($this->getStore());
+        }
+        return $this->_addressForm;
     }
 
     /**
@@ -198,26 +219,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
             $element->setNoDisplay(true);
         }
         return $this;
-    }
-
-    /**
-     * Return customer address id
-     *
-     * @return false
-     */
-    public function getAddressId()
-    {
-        return false;
-    }
-
-    /**
-     * Return customer address formatted as one-line string
-     *
-     * @param Mage_Customer_Model_Address $address
-     * @return string
-     */
-    public function getAddressAsString($address)
-    {
-        return $this->escapeHtml($address->format('oneline'));
     }
 }

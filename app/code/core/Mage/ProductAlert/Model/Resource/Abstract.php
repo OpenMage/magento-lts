@@ -23,30 +23,6 @@
 abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Retrieve alert row by object parameters
-     *
-     * @return array|false
-     */
-    protected function _getAlertRow(Mage_Core_Model_Abstract $object)
-    {
-        $adapter = $this->_getReadAdapter();
-        if ($object->getCustomerId() && $object->getProductId() && $object->getWebsiteId()) {
-            $select = $adapter->select()
-                ->from($this->getMainTable())
-                ->where('customer_id = :customer_id')
-                ->where('product_id  = :product_id')
-                ->where('website_id  = :website_id');
-            $bind = [
-                ':customer_id' => $object->getCustomerId(),
-                ':product_id'  => $object->getProductId(),
-                ':website_id'  => $object->getWebsiteId(),
-            ];
-            return $adapter->fetchRow($select, $bind);
-        }
-        return false;
-    }
-
-    /**
      * Load object data by parameters
      *
      * @return Mage_ProductAlert_Model_Resource_Abstract
@@ -77,5 +53,28 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
         }
         $adapter->delete($this->getMainTable(), $where);
         return $this;
+    }
+    /**
+     * Retrieve alert row by object parameters
+     *
+     * @return array|false
+     */
+    protected function _getAlertRow(Mage_Core_Model_Abstract $object)
+    {
+        $adapter = $this->_getReadAdapter();
+        if ($object->getCustomerId() && $object->getProductId() && $object->getWebsiteId()) {
+            $select = $adapter->select()
+                ->from($this->getMainTable())
+                ->where('customer_id = :customer_id')
+                ->where('product_id  = :product_id')
+                ->where('website_id  = :website_id');
+            $bind = [
+                ':customer_id' => $object->getCustomerId(),
+                ':product_id'  => $object->getProductId(),
+                ':website_id'  => $object->getWebsiteId(),
+            ];
+            return $adapter->fetchRow($select, $bind);
+        }
+        return false;
     }
 }

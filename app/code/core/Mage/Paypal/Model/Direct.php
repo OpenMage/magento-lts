@@ -281,6 +281,22 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     }
 
     /**
+     * Check void availability
+     *
+     * @return  bool
+     */
+    public function canVoid(Varien_Object $payment)
+    {
+        if ($payment instanceof Mage_Sales_Model_Order_Invoice
+            || $payment instanceof Mage_Sales_Model_Order_Creditmemo
+        ) {
+            return false;
+        }
+
+        return $this->_canVoid;
+    }
+
+    /**
      * Place an order with authorization or capture action
      *
      * @param float $amount
@@ -365,21 +381,5 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     {
         $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(0);
         $this->_pro->importPaymentInfo($api, $payment);
-    }
-
-    /**
-     * Check void availability
-     *
-     * @return  bool
-     */
-    public function canVoid(Varien_Object $payment)
-    {
-        if ($payment instanceof Mage_Sales_Model_Order_Invoice
-            || $payment instanceof Mage_Sales_Model_Order_Creditmemo
-        ) {
-            return false;
-        }
-
-        return $this->_canVoid;
     }
 }

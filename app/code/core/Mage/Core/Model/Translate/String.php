@@ -33,11 +33,6 @@
  */
 class Mage_Core_Model_Translate_String extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('core/translate_string');
-    }
-
     /**
      * @param string $string
      * @return $this
@@ -58,5 +53,9 @@ class Mage_Core_Model_Translate_String extends Mage_Core_Model_Abstract
     {
         //return strtolower($this->getData('string'));
         return $this->getData('string');
+    }
+    protected function _construct()
+    {
+        $this->_init('core/translate_string');
     }
 }

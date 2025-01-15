@@ -30,6 +30,52 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
     }
 
     /**
+     * Retrieve order model instance
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function getOrder()
+    {
+        return Mage::registry('current_order');
+    }
+
+    public function getRowUrl($row)
+    {
+        return $this->getUrl(
+            '*/sales_order_invoice/view',
+            [
+                'invoice_id' => $row->getId(),
+                'order_id'  => $row->getOrderId(),
+            ],
+        );
+    }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/invoices', ['_current' => true]);
+    }
+
+    public function getTabLabel()
+    {
+        return Mage::helper('sales')->__('Invoices');
+    }
+
+    public function getTabTitle()
+    {
+        return Mage::helper('sales')->__('Invoices');
+    }
+
+    public function canShowTab()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/invoice');
+    }
+
+    public function isHidden()
+    {
+        return false;
+    }
+
+    /**
      * Retrieve collection class
      *
      * @return string
@@ -93,51 +139,5 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices extends Mage_Adminhtml_
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Retrieve order model instance
-     *
-     * @return Mage_Sales_Model_Order
-     */
-    public function getOrder()
-    {
-        return Mage::registry('current_order');
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl(
-            '*/sales_order_invoice/view',
-            [
-                'invoice_id' => $row->getId(),
-                'order_id'  => $row->getOrderId(),
-            ],
-        );
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/invoices', ['_current' => true]);
-    }
-
-    public function getTabLabel()
-    {
-        return Mage::helper('sales')->__('Invoices');
-    }
-
-    public function getTabTitle()
-    {
-        return Mage::helper('sales')->__('Invoices');
-    }
-
-    public function canShowTab()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/invoice');
-    }
-
-    public function isHidden()
-    {
-        return false;
     }
 }

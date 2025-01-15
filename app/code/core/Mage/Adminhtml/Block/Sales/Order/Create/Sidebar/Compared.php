@@ -22,13 +22,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setId('sales_order_create_sidebar_compared');
-        $this->setDataId('compared');
-    }
-
     /**
      * @return string
      */
@@ -66,5 +59,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
     public function getItemId($item)
     {
         return $item->getCatalogCompareItemId();
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setId('sales_order_create_sidebar_compared');
+        $this->setDataId('compared');
     }
 }

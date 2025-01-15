@@ -24,11 +24,6 @@
  */
 class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('tax/sales_order_tax');
-    }
-
     /**
      * Retrieve order tax collection by order identifier
      *
@@ -42,5 +37,9 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Collection extends Mage_Core_Model
             ->where('main_table.order_id = ?', (int) $orderId)
             ->order('process');
         return $this->load();
+    }
+    protected function _construct()
+    {
+        $this->_init('tax/sales_order_tax');
     }
 }

@@ -23,17 +23,6 @@
 class Mage_SalesRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condition_Product_Abstract
 {
     /**
-     * Add special attributes
-     */
-    protected function _addSpecialAttributes(array &$attributes)
-    {
-        parent::_addSpecialAttributes($attributes);
-        $attributes['quote_item_qty'] = Mage::helper('salesrule')->__('Quantity in cart');
-        $attributes['quote_item_price'] = Mage::helper('salesrule')->__('Price in cart');
-        $attributes['quote_item_row_total'] = Mage::helper('salesrule')->__('Row total in cart');
-    }
-
-    /**
      * Validate Product Rule Condition
      *
      *
@@ -53,5 +42,15 @@ class Mage_SalesRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condit
             ->setQuoteItemRowTotal($object->getBaseRowTotal());
 
         return parent::validate($product);
+    }
+    /**
+     * Add special attributes
+     */
+    protected function _addSpecialAttributes(array &$attributes)
+    {
+        parent::_addSpecialAttributes($attributes);
+        $attributes['quote_item_qty'] = Mage::helper('salesrule')->__('Quantity in cart');
+        $attributes['quote_item_price'] = Mage::helper('salesrule')->__('Price in cart');
+        $attributes['quote_item_row_total'] = Mage::helper('salesrule')->__('Row total in cart');
     }
 }

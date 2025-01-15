@@ -74,52 +74,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     }
 
     /**
-     * Retrieve wishlist object
-     * @param int $wishlistId
-     * @return Mage_Wishlist_Model_Wishlist|false
-     */
-    protected function _getWishlist($wishlistId = null)
-    {
-        $wishlist = Mage::registry('wishlist');
-        if ($wishlist) {
-            return $wishlist;
-        }
-
-        try {
-            if (!$wishlistId) {
-                $wishlistId = $this->getRequest()->getParam('wishlist_id');
-            }
-            $customerId = Mage::getSingleton('customer/session')->getCustomerId();
-            $wishlist = Mage::getModel('wishlist/wishlist');
-            if ($wishlistId) {
-                $wishlist->load($wishlistId);
-            } else {
-                $wishlist->loadByCustomer($customerId, true);
-            }
-
-            if (!$wishlist->getId() || $wishlist->getCustomerId() != $customerId) {
-                $wishlist = null;
-                Mage::throwException(
-                    Mage::helper('wishlist')->__("Requested wishlist doesn't exist"),
-                );
-            }
-
-            Mage::register('wishlist', $wishlist);
-        } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('wishlist/session')->addError($e->getMessage());
-            return false;
-        } catch (Exception $e) {
-            Mage::getSingleton('wishlist/session')->addException(
-                $e,
-                Mage::helper('wishlist')->__('Wishlist could not be created.'),
-            );
-            return false;
-        }
-
-        return $wishlist;
-    }
-
-    /**
      * Display customer wishlist
      *
      * @return Mage_Core_Controller_Varien_Action|void
@@ -168,87 +122,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             return $this->_redirect('*/*');
         }
         $this->_addItemToWishList();
-    }
-
-    /**
-     * Add the item to wish list
-     *
-     * @return void
-     * @throws Throwable
-     */
-    protected function _addItemToWishList()
-    {
-        $wishlist = $this->_getWishlist();
-        if (!$wishlist) {
-            $this->norouteAction();
-            return;
-        }
-
-        $session = Mage::getSingleton('customer/session');
-
-        $productId = (int) $this->getRequest()->getParam('product');
-        if (!$productId) {
-            $this->_redirect('*/');
-            return;
-        }
-
-        $product = Mage::getModel('catalog/product')->load($productId);
-        if (!$product->getId() || !$product->isVisibleInCatalog()) {
-            $session->addError($this->__('Cannot specify product.'));
-            $this->_redirect('*/');
-            return;
-        }
-
-        try {
-            $requestParams = $this->getRequest()->getParams();
-            if ($session->getBeforeWishlistRequest()) {
-                $requestParams = $session->getBeforeWishlistRequest();
-                $session->unsBeforeWishlistRequest();
-            }
-            $buyRequest = new Varien_Object($requestParams);
-
-            $result = $wishlist->addNewItem($product, $buyRequest);
-            if (is_string($result)) {
-                Mage::throwException($result);
-            }
-            $wishlist->save();
-
-            Mage::dispatchEvent(
-                'wishlist_add_product',
-                [
-                    'wishlist' => $wishlist,
-                    'product' => $product,
-                    'item' => $result,
-                ],
-            );
-
-            $referer = $session->getBeforeWishlistUrl();
-            if ($referer) {
-                $session->setBeforeWishlistUrl(null);
-            } else {
-                $referer = $this->_getRefererUrl();
-            }
-
-            /**
-             *  Set referer to avoid referring to the compare popup window
-             */
-            $session->setAddActionReferer($referer);
-
-            Mage::helper('wishlist')->calculate();
-
-            $message = $this->__(
-                '%1$s has been added to your wishlist. Click <a href="%2$s">here</a> to continue shopping.',
-                $product->getName(),
-                Mage::helper('core')->escapeUrl($referer),
-            );
-            $session->addSuccess($message);
-        } catch (Mage_Core_Exception $e) {
-            $session->addError($this->__('An error occurred while adding item to wishlist: %s', $e->getMessage()));
-        } catch (Exception $e) {
-            $session->addError($this->__('An error occurred while adding item to wishlist.'));
-        }
-
-        $this->_redirect('*', ['wishlist_id' => $wishlist->getId()]);
     }
 
     /**
@@ -778,5 +651,132 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $this->_forward('noRoute');
         }
         exit(0);
+    }
+
+    /**
+     * Retrieve wishlist object
+     * @param int $wishlistId
+     * @return Mage_Wishlist_Model_Wishlist|false
+     */
+    protected function _getWishlist($wishlistId = null)
+    {
+        $wishlist = Mage::registry('wishlist');
+        if ($wishlist) {
+            return $wishlist;
+        }
+
+        try {
+            if (!$wishlistId) {
+                $wishlistId = $this->getRequest()->getParam('wishlist_id');
+            }
+            $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+            $wishlist = Mage::getModel('wishlist/wishlist');
+            if ($wishlistId) {
+                $wishlist->load($wishlistId);
+            } else {
+                $wishlist->loadByCustomer($customerId, true);
+            }
+
+            if (!$wishlist->getId() || $wishlist->getCustomerId() != $customerId) {
+                $wishlist = null;
+                Mage::throwException(
+                    Mage::helper('wishlist')->__("Requested wishlist doesn't exist"),
+                );
+            }
+
+            Mage::register('wishlist', $wishlist);
+        } catch (Mage_Core_Exception $e) {
+            Mage::getSingleton('wishlist/session')->addError($e->getMessage());
+            return false;
+        } catch (Exception $e) {
+            Mage::getSingleton('wishlist/session')->addException(
+                $e,
+                Mage::helper('wishlist')->__('Wishlist could not be created.'),
+            );
+            return false;
+        }
+
+        return $wishlist;
+    }
+
+    /**
+     * Add the item to wish list
+     *
+     * @return void
+     * @throws Throwable
+     */
+    protected function _addItemToWishList()
+    {
+        $wishlist = $this->_getWishlist();
+        if (!$wishlist) {
+            $this->norouteAction();
+            return;
+        }
+
+        $session = Mage::getSingleton('customer/session');
+
+        $productId = (int) $this->getRequest()->getParam('product');
+        if (!$productId) {
+            $this->_redirect('*/');
+            return;
+        }
+
+        $product = Mage::getModel('catalog/product')->load($productId);
+        if (!$product->getId() || !$product->isVisibleInCatalog()) {
+            $session->addError($this->__('Cannot specify product.'));
+            $this->_redirect('*/');
+            return;
+        }
+
+        try {
+            $requestParams = $this->getRequest()->getParams();
+            if ($session->getBeforeWishlistRequest()) {
+                $requestParams = $session->getBeforeWishlistRequest();
+                $session->unsBeforeWishlistRequest();
+            }
+            $buyRequest = new Varien_Object($requestParams);
+
+            $result = $wishlist->addNewItem($product, $buyRequest);
+            if (is_string($result)) {
+                Mage::throwException($result);
+            }
+            $wishlist->save();
+
+            Mage::dispatchEvent(
+                'wishlist_add_product',
+                [
+                    'wishlist' => $wishlist,
+                    'product' => $product,
+                    'item' => $result,
+                ],
+            );
+
+            $referer = $session->getBeforeWishlistUrl();
+            if ($referer) {
+                $session->setBeforeWishlistUrl(null);
+            } else {
+                $referer = $this->_getRefererUrl();
+            }
+
+            /**
+             *  Set referer to avoid referring to the compare popup window
+             */
+            $session->setAddActionReferer($referer);
+
+            Mage::helper('wishlist')->calculate();
+
+            $message = $this->__(
+                '%1$s has been added to your wishlist. Click <a href="%2$s">here</a> to continue shopping.',
+                $product->getName(),
+                Mage::helper('core')->escapeUrl($referer),
+            );
+            $session->addSuccess($message);
+        } catch (Mage_Core_Exception $e) {
+            $session->addError($this->__('An error occurred while adding item to wishlist: %s', $e->getMessage()));
+        } catch (Exception $e) {
+            $session->addError($this->__('An error occurred while adding item to wishlist.'));
+        }
+
+        $this->_redirect('*', ['wishlist_id' => $wishlist->getId()]);
     }
 }

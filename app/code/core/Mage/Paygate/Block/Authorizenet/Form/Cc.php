@@ -21,15 +21,6 @@
 class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
 {
     /**
-     * Set block template
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('paygate/form/cc.phtml');
-    }
-
-    /**
      * Retrieve payment method form html
      *
      * @return string
@@ -72,18 +63,6 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     public function getAdminCancelUrl()
     {
         return Mage::getModel('adminhtml/url')->getUrl('adminhtml/paygate_authorizenet_payment/cancel');
-    }
-
-    /**
-     * Render block HTML
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        $this->setChild('cards', $this->getCardsBlock());
-        $this->setChild('method_form_block', $this->getMethodFormBlock());
-        return parent::_toHtml();
     }
 
     /**
@@ -176,5 +155,25 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
                 'onclick' => 'cancelPaymentAuthorizations()',
             ]);
         return $cancelButton->toHtml();
+    }
+    /**
+     * Set block template
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('paygate/form/cc.phtml');
+    }
+
+    /**
+     * Render block HTML
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        $this->setChild('cards', $this->getCardsBlock());
+        $this->setChild('method_form_block', $this->getMethodFormBlock());
+        return parent::_toHtml();
     }
 }

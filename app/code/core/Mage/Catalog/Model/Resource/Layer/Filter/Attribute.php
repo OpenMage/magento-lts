@@ -22,11 +22,6 @@
  */
 class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product_index_eav', 'entity_id');
-    }
-
     /**
      * Apply attribute filter to product collection
      *
@@ -90,5 +85,9 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
             ->group("{$tableAlias}.value");
 
         return $connection->fetchPairs($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product_index_eav', 'entity_id');
     }
 }

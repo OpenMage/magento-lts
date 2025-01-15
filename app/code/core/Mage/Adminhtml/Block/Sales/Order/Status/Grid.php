@@ -32,6 +32,41 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         $this->setDefaultDir('DESC');
     }
 
+    /**
+     * Decorate status column values
+     *
+     * @return string
+     */
+    public function decorateState($value, $row, $column, $isExport)
+    {
+        if ($value) {
+            $cell = $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']';
+        } else {
+            $cell = $value;
+        }
+        return $cell;
+    }
+
+    public function decorateAction($value, $row, $column, $isExport)
+    {
+        $cell = '';
+        $state = $row->getState();
+        if (!empty($state)) {
+            $url = $this->getUrl(
+                '*/*/unassign',
+                ['status' => $row->getStatus(), 'state' => $row->getState()],
+            );
+            $label = Mage::helper('sales')->__('Unassign');
+            $cell = '<a href="' . $url . '">' . $label . '</a>';
+        }
+        return $cell;
+    }
+
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/sales_order_status/edit', ['status' => $row->getStatus()]);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_status_collection');
@@ -87,45 +122,10 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Decorate status column values
-     *
-     * @return string
-     */
-    public function decorateState($value, $row, $column, $isExport)
-    {
-        if ($value) {
-            $cell = $value . ' [' . Mage::getSingleton('sales/order_config')->getStateLabel($value) . ']';
-        } else {
-            $cell = $value;
-        }
-        return $cell;
-    }
-
-    public function decorateAction($value, $row, $column, $isExport)
-    {
-        $cell = '';
-        $state = $row->getState();
-        if (!empty($state)) {
-            $url = $this->getUrl(
-                '*/*/unassign',
-                ['status' => $row->getStatus(), 'state' => $row->getState()],
-            );
-            $label = Mage::helper('sales')->__('Unassign');
-            $cell = '<a href="' . $url . '">' . $label . '</a>';
-        }
-        return $cell;
-    }
-
-    /**
      * No pegination for this grid
      */
     protected function _preparePage()
     {
         return $this;
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/sales_order_status/edit', ['status' => $row->getStatus()]);
     }
 }

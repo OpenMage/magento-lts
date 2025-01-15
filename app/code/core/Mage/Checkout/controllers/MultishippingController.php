@@ -23,46 +23,6 @@
 class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Action
 {
     /**
-     * Retrieve checkout model
-     *
-     * @return Mage_Checkout_Model_Type_Multishipping
-     */
-    protected function _getCheckout()
-    {
-        return Mage::getSingleton('checkout/type_multishipping');
-    }
-
-    /**
-     * Retrieve checkout state model
-     *
-     * @return Mage_Checkout_Model_Type_Multishipping_State
-     */
-    protected function _getState()
-    {
-        return Mage::getSingleton('checkout/type_multishipping_state');
-    }
-
-    /**
-     * Retrieve checkout url heler
-     *
-     * @return Mage_Checkout_Helper_Url
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('checkout/url');
-    }
-
-    /**
-     * Retrieve checkout session
-     *
-     * @return Mage_Checkout_Model_Session
-     */
-    protected function _getCheckoutSession()
-    {
-        return Mage::getSingleton('checkout/session');
-    }
-
-    /**
      * Action predispatch
      *
      * Check customer authentication for some actions
@@ -292,22 +252,6 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
     }
 
     /**
-     * Returns whether the minimum amount has been reached
-     *
-     * @return bool
-     */
-    protected function _validateMinimumAmount()
-    {
-        if (!$this->_getCheckout()->validateMinimumAmount()) {
-            $error = $this->_getCheckout()->getMinimumAmountError();
-            $this->_getCheckout()->getCheckoutSession()->addError($error);
-            $this->_forward('backToAddresses');
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Multishipping checkout shipping information page
      */
     public function shippingAction()
@@ -423,20 +367,6 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('checkout/session');
         $this->renderLayout();
-    }
-
-    /**
-     * Validation of selecting of billing address
-     *
-     * @return bool
-     */
-    protected function _validateBilling()
-    {
-        if (!$this->_getCheckout()->getQuote()->getBillingAddress()->getFirstname()) {
-            $this->_redirect('*/multishipping_address/selectBilling');
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -597,5 +527,74 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         );
 
         $this->setFlag('', 'redirectLogin', true);
+    }
+    /**
+     * Retrieve checkout model
+     *
+     * @return Mage_Checkout_Model_Type_Multishipping
+     */
+    protected function _getCheckout()
+    {
+        return Mage::getSingleton('checkout/type_multishipping');
+    }
+
+    /**
+     * Retrieve checkout state model
+     *
+     * @return Mage_Checkout_Model_Type_Multishipping_State
+     */
+    protected function _getState()
+    {
+        return Mage::getSingleton('checkout/type_multishipping_state');
+    }
+
+    /**
+     * Retrieve checkout url heler
+     *
+     * @return Mage_Checkout_Helper_Url
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('checkout/url');
+    }
+
+    /**
+     * Retrieve checkout session
+     *
+     * @return Mage_Checkout_Model_Session
+     */
+    protected function _getCheckoutSession()
+    {
+        return Mage::getSingleton('checkout/session');
+    }
+
+    /**
+     * Returns whether the minimum amount has been reached
+     *
+     * @return bool
+     */
+    protected function _validateMinimumAmount()
+    {
+        if (!$this->_getCheckout()->validateMinimumAmount()) {
+            $error = $this->_getCheckout()->getMinimumAmountError();
+            $this->_getCheckout()->getCheckoutSession()->addError($error);
+            $this->_forward('backToAddresses');
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Validation of selecting of billing address
+     *
+     * @return bool
+     */
+    protected function _validateBilling()
+    {
+        if (!$this->_getCheckout()->getQuote()->getBillingAddress()->getFirstname()) {
+            $this->_redirect('*/multishipping_address/selectBilling');
+            return false;
+        }
+        return true;
     }
 }

@@ -66,26 +66,6 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     protected $_template = '';
 
     /**
-     * Internal constructor, that is called from real constructor
-     *
-     * @return void
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-
-        /*
-         * In case template was passed through constructor
-         * we assign it to block's property _template
-         * Mainly for those cases when block created
-         * not via Mage_Core_Model_Layout::addBlock()
-         */
-        if ($this->hasData('template')) {
-            $this->setTemplate($this->getData('template'));
-        }
-    }
-
-    /**
      * Get relevant path to template
      *
      * @return string
@@ -208,26 +188,6 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     }
 
     /**
-     * Retrieve block cache status
-     */
-    private function _getCacheHintStatusColor(): string
-    {
-        if (!is_null($this->getCacheLifetime())) {
-            return 'green';
-        } else {
-            $currentParentBlock = $this;
-            $i = 0;
-            while ($i++ < 20 && $currentParentBlock instanceof Mage_Core_Block_Abstract) {
-                if (!is_null($currentParentBlock->getCacheLifetime())) {
-                    return 'orange'; // not cached, but within cached
-                }
-                $currentParentBlock = $currentParentBlock->getParentBlock();
-            }
-        }
-        return 'red';
-    }
-
-    /**
      * Retrieve block view from file (template)
      *
      * @param   string $fileName
@@ -311,19 +271,6 @@ HTML;
     }
 
     /**
-     * Render block HTML
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        if (!$this->getTemplate()) {
-            return '';
-        }
-        return $this->renderView();
-    }
-
-    /**
      * Get base url of the application
      *
      * @return string
@@ -377,6 +324,39 @@ HTML;
     }
 
     /**
+     * Internal constructor, that is called from real constructor
+     *
+     * @return void
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+
+        /*
+         * In case template was passed through constructor
+         * we assign it to block's property _template
+         * Mainly for those cases when block created
+         * not via Mage_Core_Model_Layout::addBlock()
+         */
+        if ($this->hasData('template')) {
+            $this->setTemplate($this->getData('template'));
+        }
+    }
+
+    /**
+     * Render block HTML
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if (!$this->getTemplate()) {
+            return '';
+        }
+        return $this->renderView();
+    }
+
+    /**
      * Get is allowed symlinks flag
      *
      * @deprecated
@@ -385,5 +365,25 @@ HTML;
     protected function _getAllowSymlinks()
     {
         return false;
+    }
+
+    /**
+     * Retrieve block cache status
+     */
+    private function _getCacheHintStatusColor(): string
+    {
+        if (!is_null($this->getCacheLifetime())) {
+            return 'green';
+        } else {
+            $currentParentBlock = $this;
+            $i = 0;
+            while ($i++ < 20 && $currentParentBlock instanceof Mage_Core_Block_Abstract) {
+                if (!is_null($currentParentBlock->getCacheLifetime())) {
+                    return 'orange'; // not cached, but within cached
+                }
+                $currentParentBlock = $currentParentBlock->getParentBlock();
+            }
+        }
+        return 'red';
     }
 }

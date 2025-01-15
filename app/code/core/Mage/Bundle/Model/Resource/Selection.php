@@ -22,11 +22,6 @@
  */
 class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('bundle/selection', 'selection_id');
-    }
-
     /**
      * Retrieve Price From index
      *
@@ -177,5 +172,9 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
                 ['selection_price_type', 'selection_price_value'],
             );
         }
+    }
+    protected function _construct()
+    {
+        $this->_init('bundle/selection', 'selection_id');
     }
 }

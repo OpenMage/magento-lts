@@ -35,6 +35,16 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * @return string
+     * @throws Exception
+     */
+    public function getGridUrl()
+    {
+        $roleId = $this->getRequest()->getParam('rid');
+        return $this->getUrl('*/*/editrolegrid', ['rid' => $roleId]);
+    }
+
+    /**
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      * @throws Exception
@@ -126,16 +136,6 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @return string
-     * @throws Exception
-     */
-    public function getGridUrl()
-    {
-        $roleId = $this->getRequest()->getParam('rid');
-        return $this->getUrl('*/*/editrolegrid', ['rid' => $roleId]);
     }
 
     /**

@@ -22,25 +22,6 @@
  */
 class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('tag/tag', 'tag_id');
-    }
-
-    /**
-     * Initialize unique fields
-     *
-     * @return $this
-     */
-    protected function _initUniqueFields()
-    {
-        $this->_uniqueFields = [[
-            'field' => 'name',
-            'title' => Mage::helper('tag')->__('Tag'),
-        ]];
-        return $this;
-    }
-
     /**
      * Loading tag by name
      *
@@ -65,6 +46,137 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         } else {
             return false;
         }
+    }
+
+    /**
+     * Getting statistics data into buffer.
+     * Replacing our buffer array with new statistics and incoming data.
+     *
+     * @deprecated after 1.4.0.0
+     *
+     * @param Mage_Tag_Model_Tag $object
+     * @return Mage_Tag_Model_Tag
+     */
+    public function aggregate($object)
+    {
+        $tagId   = (int) $object->getId();
+        $storeId = (int) $object->getStore();
+
+        // create final summary from existing data and add specified base popularity
+        $finalSummary = $this->_getExistingBasePopularity($tagId);
+        if ($object->hasBasePopularity() && $storeId) {
+            $finalSummary[$storeId]['store_id'] = $storeId;
+            $finalSummary[$storeId]['base_popularity'] = $object->getBasePopularity();
+        }
+
+        // calculate aggregation data
+        $summaries = $this->_getAggregationPerStoreView($tagId);
+        $summariesGlobal = $this->_getGlobalAggregation($tagId);
+        if ($summariesGlobal) {
+            $summaries[] = $summariesGlobal;
+        }
+
+        // override final summary with aggregated data
+        foreach ($summaries as $row) {
+            $storeId = (int) $row['store_id'];
+            foreach ($row as $key => $value) {
+                $finalSummary[$storeId][$key] = $value;
+            }
+        }
+
+        // prepare static parameters to final summary for insertion
+        foreach ($finalSummary as $key => $row) {
+            $finalSummary[$key]['tag_id'] = $tagId;
+            foreach (['base_popularity', 'popularity', 'historical_uses', 'uses', 'products', 'customers'] as $k) {
+                if (!isset($row[$k])) {
+                    $finalSummary[$key][$k] = 0;
+                }
+            }
+            $finalSummary[$key]['popularity'] = $finalSummary[$key]['historical_uses'];
+        }
+
+        // remove old and insert new data
+        $write = $this->_getWriteAdapter();
+        $write->delete(
+            $this->getTable('tag/summary'),
+            ['tag_id = ?' => $tagId],
+        );
+        $write->insertMultiple($this->getTable('tag/summary'), $finalSummary);
+
+        return $object;
+    }
+
+    /**
+     * Decrementing tag products quantity as action for product delete
+     *
+     * @return int The number of affected rows
+     */
+    public function decrementProducts(array $tagsId)
+    {
+        $writeAdapter = $this->_getWriteAdapter();
+        if (empty($tagsId)) {
+            return 0;
+        }
+
+        return $writeAdapter->update(
+            $this->getTable('tag/summary'),
+            ['products' => new Zend_Db_Expr('products - 1')],
+            ['tag_id IN (?)' => $tagsId],
+        );
+    }
+
+    /**
+     * Add summary data to specified object
+     *
+     * @deprecated after 1.4.0.0
+     *
+     * @param Mage_Tag_Model_Tag $object
+     * @return Mage_Tag_Model_Tag
+     */
+    public function addSummary($object)
+    {
+        $read = $this->_getReadAdapter();
+        $select = $read->select()
+            ->from(['relation' => $this->getTable('tag/relation')], [])
+            ->joinLeft(
+                ['summary' => $this->getTable('tag/summary')],
+                'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id',
+                [
+                    'customers',
+                    'products',
+                    'popularity',
+                ],
+            )
+            ->where('relation.tag_id = :tag_id')
+            ->where('relation.store_id = :store_id')
+            ->limit(1);
+        $bind = [
+            'tag_id' => (int) $object->getId(),
+            'store_id' => (int) $object->getStoreId(),
+        ];
+        $row = $read->fetchRow($select, $bind);
+        if ($row) {
+            $object->addData($row);
+        }
+        return $object;
+    }
+    protected function _construct()
+    {
+        $this->_init('tag/tag', 'tag_id');
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return $this
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = [[
+            'field' => 'name',
+            'title' => Mage::helper('tag')->__('Tag'),
+        ]];
+        return $this;
     }
 
     /**
@@ -269,119 +381,6 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         $result['historical_uses'] = (int) $readAdapter->fetchOne($selectHistoricalGlobal, ['tag_id' => $tagId]);
 
         return $result;
-    }
-
-    /**
-     * Getting statistics data into buffer.
-     * Replacing our buffer array with new statistics and incoming data.
-     *
-     * @deprecated after 1.4.0.0
-     *
-     * @param Mage_Tag_Model_Tag $object
-     * @return Mage_Tag_Model_Tag
-     */
-    public function aggregate($object)
-    {
-        $tagId   = (int) $object->getId();
-        $storeId = (int) $object->getStore();
-
-        // create final summary from existing data and add specified base popularity
-        $finalSummary = $this->_getExistingBasePopularity($tagId);
-        if ($object->hasBasePopularity() && $storeId) {
-            $finalSummary[$storeId]['store_id'] = $storeId;
-            $finalSummary[$storeId]['base_popularity'] = $object->getBasePopularity();
-        }
-
-        // calculate aggregation data
-        $summaries = $this->_getAggregationPerStoreView($tagId);
-        $summariesGlobal = $this->_getGlobalAggregation($tagId);
-        if ($summariesGlobal) {
-            $summaries[] = $summariesGlobal;
-        }
-
-        // override final summary with aggregated data
-        foreach ($summaries as $row) {
-            $storeId = (int) $row['store_id'];
-            foreach ($row as $key => $value) {
-                $finalSummary[$storeId][$key] = $value;
-            }
-        }
-
-        // prepare static parameters to final summary for insertion
-        foreach ($finalSummary as $key => $row) {
-            $finalSummary[$key]['tag_id'] = $tagId;
-            foreach (['base_popularity', 'popularity', 'historical_uses', 'uses', 'products', 'customers'] as $k) {
-                if (!isset($row[$k])) {
-                    $finalSummary[$key][$k] = 0;
-                }
-            }
-            $finalSummary[$key]['popularity'] = $finalSummary[$key]['historical_uses'];
-        }
-
-        // remove old and insert new data
-        $write = $this->_getWriteAdapter();
-        $write->delete(
-            $this->getTable('tag/summary'),
-            ['tag_id = ?' => $tagId],
-        );
-        $write->insertMultiple($this->getTable('tag/summary'), $finalSummary);
-
-        return $object;
-    }
-
-    /**
-     * Decrementing tag products quantity as action for product delete
-     *
-     * @return int The number of affected rows
-     */
-    public function decrementProducts(array $tagsId)
-    {
-        $writeAdapter = $this->_getWriteAdapter();
-        if (empty($tagsId)) {
-            return 0;
-        }
-
-        return $writeAdapter->update(
-            $this->getTable('tag/summary'),
-            ['products' => new Zend_Db_Expr('products - 1')],
-            ['tag_id IN (?)' => $tagsId],
-        );
-    }
-
-    /**
-     * Add summary data to specified object
-     *
-     * @deprecated after 1.4.0.0
-     *
-     * @param Mage_Tag_Model_Tag $object
-     * @return Mage_Tag_Model_Tag
-     */
-    public function addSummary($object)
-    {
-        $read = $this->_getReadAdapter();
-        $select = $read->select()
-            ->from(['relation' => $this->getTable('tag/relation')], [])
-            ->joinLeft(
-                ['summary' => $this->getTable('tag/summary')],
-                'relation.tag_id = summary.tag_id AND relation.store_id = summary.store_id',
-                [
-                    'customers',
-                    'products',
-                    'popularity',
-                ],
-            )
-            ->where('relation.tag_id = :tag_id')
-            ->where('relation.store_id = :store_id')
-            ->limit(1);
-        $bind = [
-            'tag_id' => (int) $object->getId(),
-            'store_id' => (int) $object->getStoreId(),
-        ];
-        $row = $read->fetchRow($select, $bind);
-        if ($row) {
-            $object->addData($row);
-        }
-        return $object;
     }
 
     /**

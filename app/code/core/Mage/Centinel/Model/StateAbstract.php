@@ -132,20 +132,6 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
     }
 
     /**
-     * Analyse lookup`s results. If lookup is strict successful return true
-     *
-     * @return bool
-     */
-    abstract protected function _isLookupStrictSuccessful();
-
-    /**
-     * Analyse lookup`s results. If lookup is soft successful return true
-     *
-     * @return bool
-     */
-    abstract protected function _isLookupSoftSuccessful();
-
-    /**
      * Analyse lookup`s results. If it has require params for authenticate, return true
      *
      * @return bool
@@ -159,4 +145,18 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * @return bool
      */
     abstract public function isAuthenticateSuccessful();
+
+    /**
+     * Analyse lookup`s results. If lookup is strict successful return true
+     *
+     * @return bool
+     */
+    abstract protected function _isLookupStrictSuccessful();
+
+    /**
+     * Analyse lookup`s results. If lookup is soft successful return true
+     *
+     * @return bool
+     */
+    abstract protected function _isLookupSoftSuccessful();
 }

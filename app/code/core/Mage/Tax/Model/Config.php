@@ -146,18 +146,6 @@ class Mage_Tax_Model_Config
     protected $_shippingPriceIncludeTax = null;
 
     /**
-     * Retrieve config value for store by path
-     *
-     * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
-     * @return mixed
-     */
-    protected function _getStoreConfig($path, $store)
-    {
-        return Mage::getStoreConfig($path, $store);
-    }
-
-    /**
      * Check if product prices inputted include tax
      *
      * @param  null|string|bool|int|Mage_Core_Model_Store $store
@@ -758,5 +746,17 @@ class Mage_Tax_Model_Config
     public function crossBorderTradeEnabled($store = null)
     {
         return $this->_getStoreConfig(self::CONFIG_XML_PATH_CROSS_BORDER_TRADE_ENABLED, $store);
+    }
+
+    /**
+     * Retrieve config value for store by path
+     *
+     * @param string $path
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return mixed
+     */
+    protected function _getStoreConfig($path, $store)
+    {
+        return Mage::getStoreConfig($path, $store);
     }
 }

@@ -113,45 +113,6 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     }
 
     /**
-     * Get data array for building filter items
-     *
-     * result array should have next structure:
-     * array(
-     *      $index => array(
-     *          'label' => $label,
-     *          'value' => $value,
-     *          'count' => $count
-     *      )
-     * )
-     *
-     * @return array
-     */
-    protected function _getItemsData()
-    {
-        return [];
-    }
-
-    /**
-     * Initialize filter items
-     *
-     * @return  $this
-     */
-    protected function _initItems()
-    {
-        $data = $this->_getItemsData();
-        $items = [];
-        foreach ($data as $itemData) {
-            $items[] = $this->_createItem(
-                $itemData['label'],
-                $itemData['value'],
-                $itemData['count'],
-            );
-        }
-        $this->_items = $items;
-        return $this;
-    }
-
-    /**
      * Retrieve layer object
      *
      * @return Mage_Catalog_Model_Layer
@@ -164,43 +125,6 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
             $this->setData('layer', $layer);
         }
         return $layer;
-    }
-
-    /**
-     * Create filter item object
-     *
-     * @param   string $label
-     * @param   mixed $value
-     * @param   int $count
-     * @return  Mage_Catalog_Model_Layer_Filter_Item
-     */
-    protected function _createItem($label, $value, $count = 0)
-    {
-        return Mage::getModel('catalog/layer_filter_item')
-            ->setFilter($this)
-            ->setLabel($label)
-            ->setValue($value)
-            ->setCount($count);
-    }
-
-    /**
-     * Get all product ids from from collection with applied filters
-     *
-     * @return array
-     */
-    protected function _getFilterEntityIds()
-    {
-        return $this->getLayer()->getProductCollection()->getAllIdsCache();
-    }
-
-    /**
-     * Get product collection select object with applied filters
-     *
-     * @return Varien_Db_Select
-     */
-    protected function _getBaseCollectionSql()
-    {
-        return $this->getLayer()->getProductCollection()->getSelect();
     }
 
     /**
@@ -298,5 +222,81 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     public function getClearLinkText()
     {
         return false;
+    }
+
+    /**
+     * Get data array for building filter items
+     *
+     * result array should have next structure:
+     * array(
+     *      $index => array(
+     *          'label' => $label,
+     *          'value' => $value,
+     *          'count' => $count
+     *      )
+     * )
+     *
+     * @return array
+     */
+    protected function _getItemsData()
+    {
+        return [];
+    }
+
+    /**
+     * Initialize filter items
+     *
+     * @return  $this
+     */
+    protected function _initItems()
+    {
+        $data = $this->_getItemsData();
+        $items = [];
+        foreach ($data as $itemData) {
+            $items[] = $this->_createItem(
+                $itemData['label'],
+                $itemData['value'],
+                $itemData['count'],
+            );
+        }
+        $this->_items = $items;
+        return $this;
+    }
+
+    /**
+     * Create filter item object
+     *
+     * @param   string $label
+     * @param   mixed $value
+     * @param   int $count
+     * @return  Mage_Catalog_Model_Layer_Filter_Item
+     */
+    protected function _createItem($label, $value, $count = 0)
+    {
+        return Mage::getModel('catalog/layer_filter_item')
+            ->setFilter($this)
+            ->setLabel($label)
+            ->setValue($value)
+            ->setCount($count);
+    }
+
+    /**
+     * Get all product ids from from collection with applied filters
+     *
+     * @return array
+     */
+    protected function _getFilterEntityIds()
+    {
+        return $this->getLayer()->getProductCollection()->getAllIdsCache();
+    }
+
+    /**
+     * Get product collection select object with applied filters
+     *
+     * @return Varien_Db_Select
+     */
+    protected function _getBaseCollectionSql()
+    {
+        return $this->getLayer()->getProductCollection()->getSelect();
     }
 }

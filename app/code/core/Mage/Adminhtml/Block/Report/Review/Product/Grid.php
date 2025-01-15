@@ -30,6 +30,11 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
         $this->setDefaultDir('desc');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/catalog_product_review/', ['productId' => $row->getId()]);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/review_product_collection')
@@ -94,10 +99,5 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
         $this->addExportType('*/*/exportProductExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/catalog_product_review/', ['productId' => $row->getId()]);
     }
 }

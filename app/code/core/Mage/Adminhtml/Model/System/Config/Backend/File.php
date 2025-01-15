@@ -32,6 +32,19 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     protected $_maxFileSize = 0;
 
     /**
+     * Validation callback for checking max file size
+     *
+     * @param  string $filePath Path to temporary uploaded file
+     * @throws Mage_Core_Exception
+     */
+    public function validateMaxSize($filePath)
+    {
+        if ($this->_maxFileSize > 0 && filesize($filePath) > ($this->_maxFileSize * 1024)) {
+            throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Uploaded file is larger than %.2f kilobytes allowed by server', $this->_maxFileSize));
+        }
+    }
+
+    /**
      * Save uploaded file before saving config value
      *
      * @return $this
@@ -77,19 +90,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         }
 
         return $this;
-    }
-
-    /**
-     * Validation callback for checking max file size
-     *
-     * @param  string $filePath Path to temporary uploaded file
-     * @throws Mage_Core_Exception
-     */
-    public function validateMaxSize($filePath)
-    {
-        if ($this->_maxFileSize > 0 && filesize($filePath) > ($this->_maxFileSize * 1024)) {
-            throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Uploaded file is larger than %.2f kilobytes allowed by server', $this->_maxFileSize));
-        }
     }
 
     /**

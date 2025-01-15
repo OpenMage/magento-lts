@@ -26,6 +26,34 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
         $this->setTemplate('api/userinfo.phtml');
     }
 
+    public function getBackButtonHtml()
+    {
+        return $this->getChildHtml('backButton');
+    }
+
+    public function getResetButtonHtml()
+    {
+        return $this->getChildHtml('resetButton');
+    }
+
+    public function getSaveButtonHtml()
+    {
+        return $this->getChildHtml('saveButton');
+    }
+
+    public function getDeleteButtonHtml()
+    {
+        if ((int) $this->getRequest()->getParam('rid') == 0) {
+            return;
+        }
+        return $this->getChildHtml('deleteButton');
+    }
+
+    public function getUser()
+    {
+        return Mage::registry('user_data');
+    }
+
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -69,33 +97,5 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
                 ]),
         );
         return parent::_prepareLayout();
-    }
-
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('backButton');
-    }
-
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('resetButton');
-    }
-
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('saveButton');
-    }
-
-    public function getDeleteButtonHtml()
-    {
-        if ((int) $this->getRequest()->getParam('rid') == 0) {
-            return;
-        }
-        return $this->getChildHtml('deleteButton');
-    }
-
-    public function getUser()
-    {
-        return Mage::registry('user_data');
     }
 }

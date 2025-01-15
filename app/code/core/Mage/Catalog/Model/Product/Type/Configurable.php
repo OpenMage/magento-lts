@@ -27,6 +27,13 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public const TYPE_CODE = 'configurable';
 
     /**
+     * Product attributes to include on the children of configurable products
+     *
+     * @var string
+     */
+    public const XML_PATH_PRODUCT_CONFIGURABLE_CHILD_ATTRIBUTES = 'frontend/product/configurable/child/attributes';
+
+    /**
      * Cache key for Used Product Attribute Ids
      *
      * @var string
@@ -81,13 +88,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      * @var bool
      */
     protected $_canConfigure            = true;
-
-    /**
-     * Product attributes to include on the children of configurable products
-     *
-     * @var string
-     */
-    public const XML_PATH_PRODUCT_CONFIGURABLE_CHILD_ATTRIBUTES = 'frontend/product/configurable/child/attributes';
 
     /**
      * Return relation info about used products
@@ -562,99 +562,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     }
 
     /**
-     * Prepare product and its configuration to be added to some products list.
-     * Perform standard preparation process and then add Configurable specific options.
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $processMode
-     * @return array|string
-     */
-    protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
-    {
-        $attributes = $buyRequest->getSuperAttribute();
-        if ($attributes || !$this->_isStrictProcessMode($processMode)) {
-            if (!$this->_isStrictProcessMode($processMode)) {
-                if (is_array($attributes)) {
-                    foreach ($attributes as $key => $val) {
-                        if (empty($val)) {
-                            unset($attributes[$key]);
-                        }
-                    }
-                } else {
-                    $attributes = [];
-                }
-            }
-
-            $result = parent::_prepareProduct($buyRequest, $product, $processMode);
-            if (is_array($result)) {
-                $product = $this->getProduct($product);
-                /**
-                 * $attributes = array($attributeId=>$attributeValue)
-                 */
-                $subProduct = true;
-                if ($this->_isStrictProcessMode($processMode)) {
-                    foreach ($this->getConfigurableAttributes($product) as $attributeItem) {
-                        $attrId = $attributeItem->getData('attribute_id');
-                        if (!isset($attributes[$attrId]) || empty($attributes[$attrId])) {
-                            $subProduct = null;
-                            break;
-                        }
-                    }
-                }
-                if ($subProduct) {
-                    $subProduct = $this->getProductByAttributes($attributes, $product);
-                }
-
-                if ($subProduct) {
-                    $product->addCustomOption('attributes', serialize($attributes));
-                    $product->addCustomOption('product_qty_' . $subProduct->getId(), 1, $subProduct);
-                    $product->addCustomOption('simple_product', $subProduct->getId(), $subProduct);
-
-                    $_result = $subProduct->getTypeInstance(true)->_prepareProduct(
-                        $buyRequest,
-                        $subProduct,
-                        $processMode,
-                    );
-                    if (is_string($_result) && !is_array($_result)) {
-                        return $_result;
-                    }
-
-                    if (!isset($_result[0])) {
-                        return Mage::helper('checkout')->__('Cannot add the item to shopping cart');
-                    }
-
-                    /**
-                     * Adding parent product custom options to child product
-                     * to be sure that it will be unique as its parent
-                     */
-                    if ($optionIds = $product->getCustomOption('option_ids')) {
-                        $optionIds = explode(',', $optionIds->getValue());
-                        foreach ($optionIds as $optionId) {
-                            if ($option = $product->getCustomOption('option_' . $optionId)) {
-                                $_result[0]->addCustomOption('option_' . $optionId, $option->getValue());
-                            }
-                        }
-                    }
-
-                    $_result[0]->setParentProductId($product->getId())
-                        // add custom option to simple product for protection of process
-                        //when we add simple product separately
-                        ->addCustomOption('parent_product_id', $product->getId());
-                    if ($this->_isStrictProcessMode($processMode)) {
-                        $_result[0]->setCartQty(1);
-                    }
-                    $result[] = $_result[0];
-                    return $result;
-                } elseif (!$this->_isStrictProcessMode($processMode)) {
-                    return $result;
-                }
-            }
-        }
-
-        return $this->getSpecifyOptionMessage();
-    }
-
-    /**
      * Check if product can be bought
      *
      * @param  Mage_Catalog_Model_Product $product
@@ -872,5 +779,98 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         return Mage::getResourceSingleton('catalog/product_type_configurable')
             ->getConfigurableOptions($product, $this->getUsedProductAttributes($product));
+    }
+
+    /**
+     * Prepare product and its configuration to be added to some products list.
+     * Perform standard preparation process and then add Configurable specific options.
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param string $processMode
+     * @return array|string
+     */
+    protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
+    {
+        $attributes = $buyRequest->getSuperAttribute();
+        if ($attributes || !$this->_isStrictProcessMode($processMode)) {
+            if (!$this->_isStrictProcessMode($processMode)) {
+                if (is_array($attributes)) {
+                    foreach ($attributes as $key => $val) {
+                        if (empty($val)) {
+                            unset($attributes[$key]);
+                        }
+                    }
+                } else {
+                    $attributes = [];
+                }
+            }
+
+            $result = parent::_prepareProduct($buyRequest, $product, $processMode);
+            if (is_array($result)) {
+                $product = $this->getProduct($product);
+                /**
+                 * $attributes = array($attributeId=>$attributeValue)
+                 */
+                $subProduct = true;
+                if ($this->_isStrictProcessMode($processMode)) {
+                    foreach ($this->getConfigurableAttributes($product) as $attributeItem) {
+                        $attrId = $attributeItem->getData('attribute_id');
+                        if (!isset($attributes[$attrId]) || empty($attributes[$attrId])) {
+                            $subProduct = null;
+                            break;
+                        }
+                    }
+                }
+                if ($subProduct) {
+                    $subProduct = $this->getProductByAttributes($attributes, $product);
+                }
+
+                if ($subProduct) {
+                    $product->addCustomOption('attributes', serialize($attributes));
+                    $product->addCustomOption('product_qty_' . $subProduct->getId(), 1, $subProduct);
+                    $product->addCustomOption('simple_product', $subProduct->getId(), $subProduct);
+
+                    $_result = $subProduct->getTypeInstance(true)->_prepareProduct(
+                        $buyRequest,
+                        $subProduct,
+                        $processMode,
+                    );
+                    if (is_string($_result) && !is_array($_result)) {
+                        return $_result;
+                    }
+
+                    if (!isset($_result[0])) {
+                        return Mage::helper('checkout')->__('Cannot add the item to shopping cart');
+                    }
+
+                    /**
+                     * Adding parent product custom options to child product
+                     * to be sure that it will be unique as its parent
+                     */
+                    if ($optionIds = $product->getCustomOption('option_ids')) {
+                        $optionIds = explode(',', $optionIds->getValue());
+                        foreach ($optionIds as $optionId) {
+                            if ($option = $product->getCustomOption('option_' . $optionId)) {
+                                $_result[0]->addCustomOption('option_' . $optionId, $option->getValue());
+                            }
+                        }
+                    }
+
+                    $_result[0]->setParentProductId($product->getId())
+                        // add custom option to simple product for protection of process
+                        //when we add simple product separately
+                        ->addCustomOption('parent_product_id', $product->getId());
+                    if ($this->_isStrictProcessMode($processMode)) {
+                        $_result[0]->setCartQty(1);
+                    }
+                    $result[] = $_result[0];
+                    return $result;
+                } elseif (!$this->_isStrictProcessMode($processMode)) {
+                    return $result;
+                }
+            }
+        }
+
+        return $this->getSpecifyOptionMessage();
     }
 }

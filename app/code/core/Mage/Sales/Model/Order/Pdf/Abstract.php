@@ -23,6 +23,12 @@
 abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 {
     /**
+     * Predefined constants
+     */
+    public const XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID       = 'sales_pdf/invoice/put_order_id';
+    public const XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID      = 'sales_pdf/shipment/put_order_id';
+    public const XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID    = 'sales_pdf/creditmemo/put_order_id';
+    /**
      * Y coordinate
      *
      * @var int
@@ -38,13 +44,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @var array
      */
     protected $_renderers = [];
-
-    /**
-     * Predefined constants
-     */
-    public const XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID       = 'sales_pdf/invoice/put_order_id';
-    public const XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID      = 'sales_pdf/shipment/put_order_id';
-    public const XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID    = 'sales_pdf/creditmemo/put_order_id';
 
     /**
      * Zend PDF object
@@ -127,6 +126,185 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     {
         $width = $this->widthForStringUsingFontSize($string, $font, $fontSize);
         return $x + round(($columnWidth - $width) / 2);
+    }
+
+    /**
+     * Insert title and number for concrete document type
+     *
+     * @param  string $text
+     */
+    public function insertDocumentNumber(Zend_Pdf_Page $page, $text)
+    {
+        $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
+        $this->_setFontRegular($page, 10);
+        $docHeader = $this->getDocHeaderCoordinates();
+        $page->drawText($text, 35, $docHeader[1] - 15, 'UTF-8');
+    }
+
+    /**
+     * Public method of protected @see _getRenderer()
+     *
+     * Retrieve renderer model
+     *
+     * @param  string $type
+     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     */
+    public function getRenderer($type)
+    {
+        return $this->_getRenderer($type);
+    }
+
+    /**
+     * Render item
+     *
+     * @param Mage_Sales_Model_Order_Pdf_Items_Abstract $renderer
+     *
+     * @return Mage_Sales_Model_Order_Pdf_Abstract
+     */
+    public function renderItem(Varien_Object $item, Zend_Pdf_Page $page, Mage_Sales_Model_Order $order, $renderer)
+    {
+        $renderer->setOrder($order)
+            ->setItem($item)
+            ->setPdf($this)
+            ->setPage($page)
+            ->setRenderedModel($this)
+            ->draw();
+
+        return $this;
+    }
+
+    /**
+     * Create new page and assign to PDF object
+     *
+     * @return Zend_Pdf_Page
+     */
+    public function newPage(array $settings = [])
+    {
+        $pageSize = !empty($settings['page_size']) ? $settings['page_size'] : Zend_Pdf_Page::SIZE_A4;
+        $page = $this->_getPdf()->newPage($pageSize);
+        $this->_getPdf()->pages[] = $page;
+        $this->y = 800;
+
+        return $page;
+    }
+
+    /**
+     * Draw lines
+     *
+     * draw items array format:
+     * lines        array;array of line blocks (required)
+     * shift        int; full line height (optional)
+     * height       int;line spacing (default 10)
+     *
+     * line block has line columns array
+     *
+     * column array format
+     * text         string|array; draw text (required)
+     * feed         int; x position (required)
+     * font         string; font style, optional: bold, italic, regular
+     * font_file    string; path to font file (optional for use your custom font)
+     * font_size    int; font size (default 7)
+     * align        string; text align (also see feed parameter), optional left, right
+     * height       int;line spacing (default 10)
+     *
+     * @throws Mage_Core_Exception
+     * @return Zend_Pdf_Page
+     */
+    public function drawLineBlocks(Zend_Pdf_Page $page, array $draw, array $pageSettings = [])
+    {
+        foreach ($draw as $itemsProp) {
+            if (!isset($itemsProp['lines']) || !is_array($itemsProp['lines'])) {
+                Mage::throwException(Mage::helper('sales')->__('Invalid draw line data. Please define "lines" array.'));
+            }
+            $lines  = $itemsProp['lines'];
+            $height = $itemsProp['height'] ?? 10;
+
+            if (empty($itemsProp['shift'])) {
+                $shift = 0;
+                foreach ($lines as $line) {
+                    $maxHeight = 0;
+                    foreach ($line as $column) {
+                        $lineSpacing = !empty($column['height']) ? $column['height'] : $height;
+                        if (!is_array($column['text'])) {
+                            $column['text'] = [$column['text']];
+                        }
+                        $top = 0;
+                        foreach ($column['text'] as $part) {
+                            $top += $lineSpacing;
+                        }
+
+                        $maxHeight = $top > $maxHeight ? $top : $maxHeight;
+                    }
+                    $shift += $maxHeight;
+                }
+                $itemsProp['shift'] = $shift;
+            }
+
+            if ($this->y - $itemsProp['shift'] < 15) {
+                $page = $this->newPage($pageSettings);
+            }
+
+            foreach ($lines as $line) {
+                $maxHeight = 0;
+                foreach ($line as $column) {
+                    $fontSize = empty($column['font_size']) ? 10 : $column['font_size'];
+                    if (!empty($column['font_file'])) {
+                        $font = Zend_Pdf_Font::fontWithPath($column['font_file']);
+                        $page->setFont($font, $fontSize);
+                    } else {
+                        $fontStyle = empty($column['font']) ? 'regular' : $column['font'];
+                        switch ($fontStyle) {
+                            case 'bold':
+                                $font = $this->_setFontBold($page, $fontSize);
+                                break;
+                            case 'italic':
+                                $font = $this->_setFontItalic($page, $fontSize);
+                                break;
+                            default:
+                                $font = $this->_setFontRegular($page, $fontSize);
+                                break;
+                        }
+                    }
+
+                    if (!is_array($column['text'])) {
+                        $column['text'] = [$column['text']];
+                    }
+
+                    $lineSpacing = !empty($column['height']) ? $column['height'] : $height;
+                    $top = 0;
+                    foreach ($column['text'] as $part) {
+                        if ($this->y - $lineSpacing < 15) {
+                            $page = $this->newPage($pageSettings);
+                        }
+
+                        $feed = $column['feed'];
+                        $textAlign = empty($column['align']) ? 'left' : $column['align'];
+                        $width = empty($column['width']) ? 0 : $column['width'];
+                        switch ($textAlign) {
+                            case 'right':
+                                if ($width) {
+                                    $feed = $this->getAlignRight($part, $feed, $width, $font, $fontSize);
+                                } else {
+                                    $feed = $feed - $this->widthForStringUsingFontSize($part, $font, $fontSize);
+                                }
+                                break;
+                            case 'center':
+                                if ($width) {
+                                    $feed = $this->getAlignCenter($part, $feed, $width, $font, $fontSize);
+                                }
+                                break;
+                        }
+                        $page->drawText($part, $feed, $this->y - $top, 'UTF-8');
+                        $top += $lineSpacing;
+                    }
+
+                    $maxHeight = $top > $maxHeight ? $top : $maxHeight;
+                }
+                $this->y -= $maxHeight;
+            }
+        }
+
+        return $page;
     }
 
     /**
@@ -496,19 +674,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     }
 
     /**
-     * Insert title and number for concrete document type
-     *
-     * @param  string $text
-     */
-    public function insertDocumentNumber(Zend_Pdf_Page $page, $text)
-    {
-        $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
-        $this->_setFontRegular($page, 10);
-        $docHeader = $this->getDocHeaderCoordinates();
-        $page->drawText($text, 35, $docHeader[1] - 15, 'UTF-8');
-    }
-
-    /**
      * Sort totals list
      *
      * @param  array $a
@@ -709,38 +874,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     }
 
     /**
-     * Public method of protected @see _getRenderer()
-     *
-     * Retrieve renderer model
-     *
-     * @param  string $type
-     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
-     */
-    public function getRenderer($type)
-    {
-        return $this->_getRenderer($type);
-    }
-
-    /**
-     * Render item
-     *
-     * @param Mage_Sales_Model_Order_Pdf_Items_Abstract $renderer
-     *
-     * @return Mage_Sales_Model_Order_Pdf_Abstract
-     */
-    public function renderItem(Varien_Object $item, Zend_Pdf_Page $page, Mage_Sales_Model_Order $order, $renderer)
-    {
-        $renderer->setOrder($order)
-            ->setItem($item)
-            ->setPdf($this)
-            ->setPage($page)
-            ->setRenderedModel($this)
-            ->draw();
-
-        return $this;
-    }
-
-    /**
      * Draw Item process
      *
      * @return Zend_Pdf_Page
@@ -835,139 +968,5 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         }
 
         return $this->_pdf;
-    }
-
-    /**
-     * Create new page and assign to PDF object
-     *
-     * @return Zend_Pdf_Page
-     */
-    public function newPage(array $settings = [])
-    {
-        $pageSize = !empty($settings['page_size']) ? $settings['page_size'] : Zend_Pdf_Page::SIZE_A4;
-        $page = $this->_getPdf()->newPage($pageSize);
-        $this->_getPdf()->pages[] = $page;
-        $this->y = 800;
-
-        return $page;
-    }
-
-    /**
-     * Draw lines
-     *
-     * draw items array format:
-     * lines        array;array of line blocks (required)
-     * shift        int; full line height (optional)
-     * height       int;line spacing (default 10)
-     *
-     * line block has line columns array
-     *
-     * column array format
-     * text         string|array; draw text (required)
-     * feed         int; x position (required)
-     * font         string; font style, optional: bold, italic, regular
-     * font_file    string; path to font file (optional for use your custom font)
-     * font_size    int; font size (default 7)
-     * align        string; text align (also see feed parameter), optional left, right
-     * height       int;line spacing (default 10)
-     *
-     * @throws Mage_Core_Exception
-     * @return Zend_Pdf_Page
-     */
-    public function drawLineBlocks(Zend_Pdf_Page $page, array $draw, array $pageSettings = [])
-    {
-        foreach ($draw as $itemsProp) {
-            if (!isset($itemsProp['lines']) || !is_array($itemsProp['lines'])) {
-                Mage::throwException(Mage::helper('sales')->__('Invalid draw line data. Please define "lines" array.'));
-            }
-            $lines  = $itemsProp['lines'];
-            $height = $itemsProp['height'] ?? 10;
-
-            if (empty($itemsProp['shift'])) {
-                $shift = 0;
-                foreach ($lines as $line) {
-                    $maxHeight = 0;
-                    foreach ($line as $column) {
-                        $lineSpacing = !empty($column['height']) ? $column['height'] : $height;
-                        if (!is_array($column['text'])) {
-                            $column['text'] = [$column['text']];
-                        }
-                        $top = 0;
-                        foreach ($column['text'] as $part) {
-                            $top += $lineSpacing;
-                        }
-
-                        $maxHeight = $top > $maxHeight ? $top : $maxHeight;
-                    }
-                    $shift += $maxHeight;
-                }
-                $itemsProp['shift'] = $shift;
-            }
-
-            if ($this->y - $itemsProp['shift'] < 15) {
-                $page = $this->newPage($pageSettings);
-            }
-
-            foreach ($lines as $line) {
-                $maxHeight = 0;
-                foreach ($line as $column) {
-                    $fontSize = empty($column['font_size']) ? 10 : $column['font_size'];
-                    if (!empty($column['font_file'])) {
-                        $font = Zend_Pdf_Font::fontWithPath($column['font_file']);
-                        $page->setFont($font, $fontSize);
-                    } else {
-                        $fontStyle = empty($column['font']) ? 'regular' : $column['font'];
-                        switch ($fontStyle) {
-                            case 'bold':
-                                $font = $this->_setFontBold($page, $fontSize);
-                                break;
-                            case 'italic':
-                                $font = $this->_setFontItalic($page, $fontSize);
-                                break;
-                            default:
-                                $font = $this->_setFontRegular($page, $fontSize);
-                                break;
-                        }
-                    }
-
-                    if (!is_array($column['text'])) {
-                        $column['text'] = [$column['text']];
-                    }
-
-                    $lineSpacing = !empty($column['height']) ? $column['height'] : $height;
-                    $top = 0;
-                    foreach ($column['text'] as $part) {
-                        if ($this->y - $lineSpacing < 15) {
-                            $page = $this->newPage($pageSettings);
-                        }
-
-                        $feed = $column['feed'];
-                        $textAlign = empty($column['align']) ? 'left' : $column['align'];
-                        $width = empty($column['width']) ? 0 : $column['width'];
-                        switch ($textAlign) {
-                            case 'right':
-                                if ($width) {
-                                    $feed = $this->getAlignRight($part, $feed, $width, $font, $fontSize);
-                                } else {
-                                    $feed = $feed - $this->widthForStringUsingFontSize($part, $font, $fontSize);
-                                }
-                                break;
-                            case 'center':
-                                if ($width) {
-                                    $feed = $this->getAlignCenter($part, $feed, $width, $font, $fontSize);
-                                }
-                                break;
-                        }
-                        $page->drawText($part, $feed, $this->y - $top, 'UTF-8');
-                        $top += $lineSpacing;
-                    }
-
-                    $maxHeight = $top > $maxHeight ? $top : $maxHeight;
-                }
-                $this->y -= $maxHeight;
-            }
-        }
-
-        return $page;
     }
 }

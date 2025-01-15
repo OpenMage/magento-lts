@@ -23,55 +23,6 @@
 class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
-     * Retrieve an instance of the fallback helper
-     * @return Mage_Admin_Helper_Rules_Fallback
-     */
-    protected function _getFallbackHelper()
-    {
-        return Mage::helper('admin/rules_fallback');
-    }
-
-    /**
-     * Get tab label
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return Mage::helper('adminhtml')->__('Role Resources');
-    }
-
-    /**
-     * Get tab title
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return $this->getTabLabel();
-    }
-
-    /**
-     * Whether tab is available
-     *
-     * @return bool
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * Whether tab is visible
-     *
-     * @return bool
-     */
-    public function isHidden()
-    {
-        return false;
-    }
-
-    /**
      * Class constructor
      *
      */
@@ -118,6 +69,46 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
     }
 
     /**
+     * Get tab label
+     *
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return Mage::helper('adminhtml')->__('Role Resources');
+    }
+
+    /**
+     * Get tab title
+     *
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return $this->getTabLabel();
+    }
+
+    /**
+     * Whether tab is available
+     *
+     * @return bool
+     */
+    public function canShowTab()
+    {
+        return true;
+    }
+
+    /**
+     * Whether tab is visible
+     *
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return false;
+    }
+
+    /**
      * Check if everything is allowed
      *
      * @return bool
@@ -140,6 +131,14 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         $rootArray = $this->_getNodeJson($resources->admin, 1);
 
         return Mage::helper('core')->jsonEncode($rootArray['children'] ?? []);
+    }
+    /**
+     * Retrieve an instance of the fallback helper
+     * @return Mage_Admin_Helper_Rules_Fallback
+     */
+    protected function _getFallbackHelper()
+    {
+        return Mage::helper('admin/rules_fallback');
     }
 
     /**

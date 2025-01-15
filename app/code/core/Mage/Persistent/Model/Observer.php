@@ -112,16 +112,6 @@ class Mage_Persistent_Model_Observer
 
     /**
      * Emulate 'account links' block with persistent data
-     */
-    protected function _applyAccountLinksPersistentData()
-    {
-        if (!Mage::app()->getLayout()->getBlock('header.additional')) {
-            Mage::app()->getLayout()->addBlock('persistent/header_additional', 'header.additional');
-        }
-    }
-
-    /**
-     * Emulate 'account links' block with persistent data
      *
      * @param Mage_Page_Block_Template_Links $block
      */
@@ -256,27 +246,6 @@ class Mage_Persistent_Model_Observer
     }
 
     /**
-     * Check if checkout session should NOT be cleared
-     *
-     * @param Varien_Event_Observer $observer
-     * @return bool|Mage_Persistent_IndexController
-     */
-    protected function _checkClearCheckoutSessionNecessity($observer)
-    {
-        if (!$this->_isGuestShoppingCart()) {
-            return false;
-        }
-
-        /** @var Mage_Persistent_IndexController $action */
-        $action = $observer->getEvent()->getControllerAction();
-        if ($action instanceof Mage_Persistent_IndexController) {
-            return $action;
-        }
-
-        return false;
-    }
-
-    /**
      * Reset session data when customer re-authenticates
      *
      * @param Varien_Event_Observer $observer
@@ -354,80 +323,6 @@ class Mage_Persistent_Model_Observer
     }
 
     /**
-     * Retrieve persistent customer instance
-     *
-     * @return Mage_Customer_Model_Customer
-     */
-    protected function _getPersistentCustomer()
-    {
-        return Mage::getModel('customer/customer')->load(
-            $this->_getPersistentHelper()->getSession()->getCustomerId(),
-        );
-    }
-
-    /**
-     * Retrieve persistent helper
-     *
-     * @return Mage_Persistent_Helper_Session
-     */
-    protected function _getPersistentHelper()
-    {
-        return Mage::helper('persistent/session');
-    }
-
-    /**
-     * Return current active quote for persistent customer
-     *
-     * @return Mage_Sales_Model_Quote
-     */
-    protected function _getQuote()
-    {
-        $quote = Mage::getModel('sales/quote');
-        $quote->loadByCustomer($this->_getPersistentCustomer());
-        return $quote;
-    }
-
-    /**
-     * Check whether shopping cart is persistent
-     *
-     * @return bool
-     */
-    protected function _isShoppingCartPersist()
-    {
-        return Mage::helper('persistent')->isShoppingCartPersist();
-    }
-
-    /**
-     * Check whether persistent mode is running
-     *
-     * @return bool
-     */
-    protected function _isPersistent()
-    {
-        return $this->_getPersistentHelper()->isPersistent();
-    }
-
-    /**
-     * Check if persistent mode is running and customer is logged out
-     *
-     * @return bool
-     */
-    protected function _isLoggedOut()
-    {
-        return $this->_isPersistent() && !Mage::getSingleton('customer/session')->isLoggedIn();
-    }
-
-    /**
-     * Check if shopping cart is guest while persistent session and user is logged out
-     *
-     * @return bool
-     */
-    protected function _isGuestShoppingCart()
-    {
-        return $this->_isLoggedOut() && !Mage::helper('persistent')->isShoppingCartPersist();
-    }
-
-    /**
      * Make quote to be guest
      *
      * @param bool $checkQuote Check quote to be persistent (not stolen)
@@ -485,25 +380,6 @@ class Mage_Persistent_Model_Observer
             Mage::dispatchEvent('persistent_session_expired');
             $this->_expirePersistentSession();
             $customerSession->setCustomerId(null)->setCustomerGroupId(null);
-        }
-    }
-    /**
-     * Active Persistent Sessions
-     */
-    protected function _expirePersistentSession()
-    {
-        /** @var Mage_Checkout_Model_Session $checkoutSession */
-        $checkoutSession = Mage::getSingleton('checkout/session');
-
-        $quote = $checkoutSession->setLoadInactive()->getQuote();
-        if ($quote->getIsActive() && $quote->getCustomerId()) {
-            $checkoutSession->setCustomer(null)->unsetAll();
-        } else {
-            $quote
-                ->setIsActive(true)
-                ->setIsPersistent(false)
-                ->setCustomerId(null)
-                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         }
     }
 
@@ -584,5 +460,129 @@ class Mage_Persistent_Model_Observer
                 ->setCustomerGroupId($customer->getGroupId());
         }
         return $this;
+    }
+
+    /**
+     * Emulate 'account links' block with persistent data
+     */
+    protected function _applyAccountLinksPersistentData()
+    {
+        if (!Mage::app()->getLayout()->getBlock('header.additional')) {
+            Mage::app()->getLayout()->addBlock('persistent/header_additional', 'header.additional');
+        }
+    }
+
+    /**
+     * Check if checkout session should NOT be cleared
+     *
+     * @param Varien_Event_Observer $observer
+     * @return bool|Mage_Persistent_IndexController
+     */
+    protected function _checkClearCheckoutSessionNecessity($observer)
+    {
+        if (!$this->_isGuestShoppingCart()) {
+            return false;
+        }
+
+        /** @var Mage_Persistent_IndexController $action */
+        $action = $observer->getEvent()->getControllerAction();
+        if ($action instanceof Mage_Persistent_IndexController) {
+            return $action;
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieve persistent customer instance
+     *
+     * @return Mage_Customer_Model_Customer
+     */
+    protected function _getPersistentCustomer()
+    {
+        return Mage::getModel('customer/customer')->load(
+            $this->_getPersistentHelper()->getSession()->getCustomerId(),
+        );
+    }
+
+    /**
+     * Retrieve persistent helper
+     *
+     * @return Mage_Persistent_Helper_Session
+     */
+    protected function _getPersistentHelper()
+    {
+        return Mage::helper('persistent/session');
+    }
+
+    /**
+     * Return current active quote for persistent customer
+     *
+     * @return Mage_Sales_Model_Quote
+     */
+    protected function _getQuote()
+    {
+        $quote = Mage::getModel('sales/quote');
+        $quote->loadByCustomer($this->_getPersistentCustomer());
+        return $quote;
+    }
+
+    /**
+     * Check whether shopping cart is persistent
+     *
+     * @return bool
+     */
+    protected function _isShoppingCartPersist()
+    {
+        return Mage::helper('persistent')->isShoppingCartPersist();
+    }
+
+    /**
+     * Check whether persistent mode is running
+     *
+     * @return bool
+     */
+    protected function _isPersistent()
+    {
+        return $this->_getPersistentHelper()->isPersistent();
+    }
+
+    /**
+     * Check if persistent mode is running and customer is logged out
+     *
+     * @return bool
+     */
+    protected function _isLoggedOut()
+    {
+        return $this->_isPersistent() && !Mage::getSingleton('customer/session')->isLoggedIn();
+    }
+
+    /**
+     * Check if shopping cart is guest while persistent session and user is logged out
+     *
+     * @return bool
+     */
+    protected function _isGuestShoppingCart()
+    {
+        return $this->_isLoggedOut() && !Mage::helper('persistent')->isShoppingCartPersist();
+    }
+    /**
+     * Active Persistent Sessions
+     */
+    protected function _expirePersistentSession()
+    {
+        /** @var Mage_Checkout_Model_Session $checkoutSession */
+        $checkoutSession = Mage::getSingleton('checkout/session');
+
+        $quote = $checkoutSession->setLoadInactive()->getQuote();
+        if ($quote->getIsActive() && $quote->getCustomerId()) {
+            $checkoutSession->setCustomer(null)->unsetAll();
+        } else {
+            $quote
+                ->setIsActive(true)
+                ->setIsPersistent(false)
+                ->setCustomerId(null)
+                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+        }
     }
 }

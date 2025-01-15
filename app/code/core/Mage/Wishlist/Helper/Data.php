@@ -61,36 +61,6 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_wishlistItemCollection = null;
 
     /**
-     * Retrieve customer session
-     *
-     * @return Mage_Customer_Model_Session
-     */
-    protected function _getCustomerSession()
-    {
-        return Mage::getSingleton('customer/session');
-    }
-
-    /**
-     * Retrieve customer login status
-     *
-     * @return bool
-     */
-    protected function _isCustomerLogIn()
-    {
-        return $this->_getCustomerSession()->isLoggedIn();
-    }
-
-    /**
-     * Retrieve logged in customer
-     *
-     * @return Mage_Customer_Model_Customer
-     */
-    protected function _getCurrentCustomer()
-    {
-        return $this->getCustomer();
-    }
-
-    /**
      * Set current customer
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
@@ -185,16 +155,6 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Create wishlist item collection
-     *
-     * @return Mage_Wishlist_Model_Resource_Item_Collection
-     */
-    protected function _createWishlistItemCollection()
-    {
-        return $this->getWishlist()->getItemCollection();
-    }
-
-    /**
      * Retrieve wishlist items collection
      *
      * @return Mage_Wishlist_Model_Resource_Item_Collection
@@ -225,31 +185,6 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
                 ->addVisibleInSiteFilterToCollection($this->_productCollection);
         }
         return $this->_productCollection;
-    }
-
-    /**
-     * Retrieve Item Store for URL
-     *
-     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
-     * @return Mage_Core_Model_Store
-     */
-    protected function _getUrlStore($item)
-    {
-        $storeId = null;
-        $product = null;
-        if ($item instanceof Mage_Wishlist_Model_Item) {
-            $product = $item->getProduct();
-        } elseif ($item instanceof Mage_Catalog_Model_Product) {
-            $product = $item;
-        }
-        if ($product) {
-            if ($product->isVisibleInSiteVisibility()) {
-                $storeId = $product->getStoreId();
-            } elseif ($product->hasUrlDataObject()) {
-                $storeId = $product->getUrlDataObject()->getStoreId();
-            }
-        }
-        return Mage::app()->getStore($storeId);
     }
 
     /**
@@ -345,29 +280,6 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     public function getAddToCartUrl($item)
     {
         return $this->getAddToCartUrlCustom($item);
-    }
-
-    /**
-     * Return helper instance
-     *
-     * @param string $helperName
-     * @return Mage_Core_Helper_Abstract
-     */
-    protected function _getHelperInstance($helperName)
-    {
-        return Mage::helper($helperName);
-    }
-
-    /**
-     * Return model instance
-     *
-     * @param string $className
-     * @param array $arguments
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _getSingletonModel($className, $arguments = [])
-    {
-        return Mage::getSingleton($className, $arguments);
     }
 
     /**
@@ -619,5 +531,93 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
         }
         return $this->_getUrlStore($item)->getUrl('wishlist/index/cart', $params);
+    }
+
+    /**
+     * Retrieve customer session
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _getCustomerSession()
+    {
+        return Mage::getSingleton('customer/session');
+    }
+
+    /**
+     * Retrieve customer login status
+     *
+     * @return bool
+     */
+    protected function _isCustomerLogIn()
+    {
+        return $this->_getCustomerSession()->isLoggedIn();
+    }
+
+    /**
+     * Retrieve logged in customer
+     *
+     * @return Mage_Customer_Model_Customer
+     */
+    protected function _getCurrentCustomer()
+    {
+        return $this->getCustomer();
+    }
+
+    /**
+     * Create wishlist item collection
+     *
+     * @return Mage_Wishlist_Model_Resource_Item_Collection
+     */
+    protected function _createWishlistItemCollection()
+    {
+        return $this->getWishlist()->getItemCollection();
+    }
+
+    /**
+     * Retrieve Item Store for URL
+     *
+     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
+     * @return Mage_Core_Model_Store
+     */
+    protected function _getUrlStore($item)
+    {
+        $storeId = null;
+        $product = null;
+        if ($item instanceof Mage_Wishlist_Model_Item) {
+            $product = $item->getProduct();
+        } elseif ($item instanceof Mage_Catalog_Model_Product) {
+            $product = $item;
+        }
+        if ($product) {
+            if ($product->isVisibleInSiteVisibility()) {
+                $storeId = $product->getStoreId();
+            } elseif ($product->hasUrlDataObject()) {
+                $storeId = $product->getUrlDataObject()->getStoreId();
+            }
+        }
+        return Mage::app()->getStore($storeId);
+    }
+
+    /**
+     * Return helper instance
+     *
+     * @param string $helperName
+     * @return Mage_Core_Helper_Abstract
+     */
+    protected function _getHelperInstance($helperName)
+    {
+        return Mage::helper($helperName);
+    }
+
+    /**
+     * Return model instance
+     *
+     * @param string $className
+     * @param array $arguments
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _getSingletonModel($className, $arguments = [])
+    {
+        return Mage::getSingleton($className, $arguments);
     }
 }

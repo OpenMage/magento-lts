@@ -36,6 +36,36 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected static $_attributes    = [];
 
+    /**
+     * Retrieve entity type data
+     *
+     * @param string $entityType
+     * @return array
+     */
+    public function fetchEntityTypeData($entityType)
+    {
+        $this->_loadTypes();
+
+        if (is_numeric($entityType)) {
+            $info = self::$_entityTypes['by_id'][$entityType] ?? null;
+        } else {
+            $info = self::$_entityTypes['by_code'][$entityType] ?? null;
+        }
+
+        $data = [];
+        if ($info) {
+            $data['entity']     = $info;
+            $attributes         = $this->_loadTypeAttributes($info['entity_type_id']);
+            $data['attributes'] = [];
+            foreach ($attributes as $attribute) {
+                $data['attributes'][$attribute['attribute_id']] = $attribute;
+                $data['attributes'][$attribute['attribute_code']] = $attribute['attribute_id'];
+            }
+        }
+
+        return $data;
+    }
+
     protected function _construct()
     {
         $this->_init('eav/entity_type', 'entity_type_id');
@@ -83,35 +113,5 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
         }
 
         return self::$_attributes[$typeId];
-    }
-
-    /**
-     * Retrieve entity type data
-     *
-     * @param string $entityType
-     * @return array
-     */
-    public function fetchEntityTypeData($entityType)
-    {
-        $this->_loadTypes();
-
-        if (is_numeric($entityType)) {
-            $info = self::$_entityTypes['by_id'][$entityType] ?? null;
-        } else {
-            $info = self::$_entityTypes['by_code'][$entityType] ?? null;
-        }
-
-        $data = [];
-        if ($info) {
-            $data['entity']     = $info;
-            $attributes         = $this->_loadTypeAttributes($info['entity_type_id']);
-            $data['attributes'] = [];
-            foreach ($attributes as $attribute) {
-                $data['attributes'][$attribute['attribute_id']] = $attribute;
-                $data['attributes'][$attribute['attribute_code']] = $attribute['attribute_id'];
-            }
-        }
-
-        return $data;
     }
 }

@@ -25,52 +25,6 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     protected $_disableSubmitButton = false;
 
     /**
-     * Prepare child blocks
-     *
-     * @return $this
-     */
-    protected function _beforeToHtml()
-    {
-        $onclick = "submitAndReloadArea($('invoice_item_container'),'" . $this->getUpdateUrl() . "')";
-        $this->setChild(
-            'update_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'class'     => 'update-button',
-                'label'     => Mage::helper('sales')->__('Update Qty\'s'),
-                'onclick'   => $onclick,
-            ]),
-        );
-        $this->_disableSubmitButton = true;
-        $submitButtonClass = ' disabled';
-        foreach ($this->getInvoice()->getAllItems() as $item) {
-            /**
-             * @see bug #14839
-             */
-            if ($item->getQty()/* || $this->getSource()->getData('base_grand_total')*/) {
-                $this->_disableSubmitButton = false;
-                $submitButtonClass = '';
-                break;
-            }
-        }
-        if ($this->getOrder()->getForcedDoShipmentWithInvoice()) {
-            $submitLabel = Mage::helper('sales')->__('Submit Invoice and Shipment');
-        } else {
-            $submitLabel = Mage::helper('sales')->__('Submit Invoice');
-        }
-        $this->setChild(
-            'submit_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => $submitLabel,
-                'class'     => 'save submit-button' . $submitButtonClass,
-                'onclick'   => 'disableElements(\'submit-button\');$(\'edit_form\').submit()',
-                'disabled'  => $this->_disableSubmitButton,
-            ]),
-        );
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Get is submit button disabled or not
      *
      * @return bool
@@ -206,5 +160,51 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     public function canSendInvoiceEmail()
     {
         return Mage::helper('sales')->canSendNewInvoiceEmail($this->getOrder()->getStore()->getId());
+    }
+
+    /**
+     * Prepare child blocks
+     *
+     * @return $this
+     */
+    protected function _beforeToHtml()
+    {
+        $onclick = "submitAndReloadArea($('invoice_item_container'),'" . $this->getUpdateUrl() . "')";
+        $this->setChild(
+            'update_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'class'     => 'update-button',
+                'label'     => Mage::helper('sales')->__('Update Qty\'s'),
+                'onclick'   => $onclick,
+            ]),
+        );
+        $this->_disableSubmitButton = true;
+        $submitButtonClass = ' disabled';
+        foreach ($this->getInvoice()->getAllItems() as $item) {
+            /**
+             * @see bug #14839
+             */
+            if ($item->getQty()/* || $this->getSource()->getData('base_grand_total')*/) {
+                $this->_disableSubmitButton = false;
+                $submitButtonClass = '';
+                break;
+            }
+        }
+        if ($this->getOrder()->getForcedDoShipmentWithInvoice()) {
+            $submitLabel = Mage::helper('sales')->__('Submit Invoice and Shipment');
+        } else {
+            $submitLabel = Mage::helper('sales')->__('Submit Invoice');
+        }
+        $this->setChild(
+            'submit_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'label'     => $submitLabel,
+                'class'     => 'save submit-button' . $submitButtonClass,
+                'onclick'   => 'disableElements(\'submit-button\');$(\'edit_form\').submit()',
+                'disabled'  => $this->_disableSubmitButton,
+            ]),
+        );
+
+        return parent::_prepareLayout();
     }
 }

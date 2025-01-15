@@ -53,23 +53,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
     }
 
     /**
-     * Prepare child blocks
-     */
-    protected function _beforeToHtml()
-    {
-        $this->setChild(
-            'submit_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('sales')->__('Submit Shipment'),
-                'class'     => 'save submit-button',
-                'onclick'   => 'submitShipment(this);',
-            ]),
-        );
-
-        return parent::_beforeToHtml();
-    }
-
-    /**
      * Format given price
      *
      * @param float $price
@@ -119,5 +102,22 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
     {
         $shippingCarrier = $this->getOrder()->getShippingCarrier();
         return $shippingCarrier && $shippingCarrier->isShippingLabelsAvailable();
+    }
+
+    /**
+     * Prepare child blocks
+     */
+    protected function _beforeToHtml()
+    {
+        $this->setChild(
+            'submit_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'label'     => Mage::helper('sales')->__('Submit Shipment'),
+                'class'     => 'save submit-button',
+                'onclick'   => 'submitShipment(this);',
+            ]),
+        );
+
+        return parent::_beforeToHtml();
     }
 }

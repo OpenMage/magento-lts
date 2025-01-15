@@ -336,15 +336,6 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * @param string $action
-     * @return bool
-     */
-    protected function _isAllowedAction($action)
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/' . $action);
-    }
-
-    /**
      * Return back url for view grid
      *
      * @return string
@@ -375,5 +366,14 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     public function getHeaderHtml()
     {
         return '<h3 class="' . $this->getHeaderCssClass() . '">' . $this->escapeHtml($this->getHeaderText()) . '</h3>';
+    }
+
+    /**
+     * @param string $action
+     * @return bool
+     */
+    protected function _isAllowedAction($action)
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/' . $action);
     }
 }

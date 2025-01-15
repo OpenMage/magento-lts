@@ -22,11 +22,6 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/stock_status', 'product_id');
-    }
-
     /**
      * Save Product Status per website
      *
@@ -249,5 +244,9 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
             ->where('stock_status_index.stock_status=?', Mage_CatalogInventory_Model_Stock_Status::STATUS_IN_STOCK);
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/stock_status', 'product_id');
     }
 }

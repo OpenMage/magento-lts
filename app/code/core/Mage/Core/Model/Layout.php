@@ -214,6 +214,226 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
+     * Save block in blocks registry
+     *
+     * @param string $name
+     * @param Mage_Core_Block_Abstract $block
+     * @return $this
+     */
+    public function setBlock($name, $block)
+    {
+        $this->_blocks[$name] = $block;
+        return $this;
+    }
+
+    /**
+     * Remove block from registry
+     *
+     * @param string $name
+     * @return $this
+     */
+    public function unsetBlock($name)
+    {
+        $this->_blocks[$name] = null;
+        unset($this->_blocks[$name]);
+        return $this;
+    }
+
+    /**
+     * Block Factory
+     *
+     * @param     string $type
+     * @param     string|null $name
+     * @return    Mage_Core_Block_Abstract|false
+     */
+    public function createBlock($type, $name = '', array $attributes = [])
+    {
+        try {
+            $block = $this->_getBlockInstance($type, $attributes);
+        } catch (Exception $e) {
+            Mage::logException($e);
+            return false;
+        }
+
+        if (empty($name) || $name[0] === '.') {
+            $block->setIsAnonymous(true);
+            if (!empty($name)) {
+                $block->setAnonSuffix(substr($name, 1));
+            }
+            $name = 'ANONYMOUS_' . count($this->_blocks);
+        } elseif (isset($this->_blocks[$name]) && Mage::getIsDeveloperMode()) {
+            //Mage::throwException(Mage::helper('core')->__('Block with name "%s" already exists', $name));
+        }
+
+        $block->setType($type);
+        $block->setNameInLayout($name);
+        $block->addData($attributes);
+        $block->setLayout($this);
+
+        $this->_blocks[$name] = $block;
+        Mage::dispatchEvent('core_layout_block_create_after', ['block' => $block]);
+        return $this->_blocks[$name];
+    }
+
+    /**
+     * Add a block to registry, create new object if needed
+     *
+     * @param string|Mage_Core_Block_Abstract $block
+     * @param string $blockName
+     * @return Mage_Core_Block_Abstract
+     */
+    public function addBlock($block, $blockName)
+    {
+        return $this->createBlock($block, $blockName);
+    }
+
+    /**
+     * Retrieve all blocks from registry as array
+     *
+     * @return array
+     */
+    public function getAllBlocks()
+    {
+        return $this->_blocks;
+    }
+
+    /**
+     * Get block object by name
+     *
+     * @param string $name
+     * @return Mage_Core_Block_Abstract|false
+     */
+    public function getBlock($name)
+    {
+        return $this->_blocks[$name] ?? false;
+    }
+
+    /**
+     * Add a block to output
+     *
+     * @param string $blockName
+     * @param string $method
+     * @return $this
+     */
+    public function addOutputBlock($blockName, $method = 'toHtml')
+    {
+        //$this->_output[] = array($blockName, $method);
+        $this->_output[$blockName] = [$blockName, $method];
+        return $this;
+    }
+
+    /**
+     * @param string $blockName
+     * @return $this
+     */
+    public function removeOutputBlock($blockName)
+    {
+        unset($this->_output[$blockName]);
+        return $this;
+    }
+
+    /**
+     * Get all blocks marked for output
+     *
+     * @return string
+     */
+    public function getOutput()
+    {
+        $out = '';
+        if (!empty($this->_output)) {
+            foreach ($this->_output as $callback) {
+                $out .= $this->getBlock($callback[0])->{$callback[1]}();
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * Retrieve messages block
+     *
+     * @return Mage_Core_Block_Messages
+     */
+    public function getMessagesBlock()
+    {
+        $block = $this->getBlock('messages');
+        if ($block) {
+            return $block;
+        }
+        return $this->createBlock('core/messages', 'messages');
+    }
+
+    /**
+     * @param string $type
+     * @return Mage_Core_Block_Abstract|object
+     */
+    public function getBlockSingleton($type)
+    {
+        if (!isset($this->_helpers[$type])) {
+            $className = Mage::getConfig()->getBlockClassName($type);
+            if (!$className) {
+                Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
+            }
+
+            $helper = new $className();
+            if ($helper) {
+                if ($helper instanceof Mage_Core_Block_Abstract) {
+                    $helper->setLayout($this);
+                }
+                $this->_helpers[$type] = $helper;
+            }
+        }
+        return $this->_helpers[$type];
+    }
+
+    /**
+     * Retrieve helper object
+     *
+     * @param   string $name
+     * @return  Mage_Core_Helper_Abstract|false
+     */
+    public function helper($name)
+    {
+        $helper = Mage::helper($name);
+        if (!$helper) {
+            return false;
+        }
+        return $helper->setLayout($this);
+    }
+
+    /**
+     * Lookup module name for translation from current specified layout node
+     *
+     * Priorities:
+     * 1) "module" attribute in the element
+     * 2) "module" attribute in any ancestor element
+     * 3) layout handle name - first 1 or 2 parts (namespace is determined automatically)
+     *
+     * @return string
+     */
+    public static function findTranslationModuleName(Varien_Simplexml_Element $node)
+    {
+        $result = $node->getAttribute('module');
+        if ($result) {
+            return (string) $result;
+        }
+        /** @var Varien_Simplexml_Element $element */
+        foreach (array_reverse($node->xpath('ancestor::*[@module]')) as $element) {
+            $result = $element->getAttribute('module');
+            if ($result) {
+                return (string) $result;
+            }
+        }
+        foreach ($node->xpath('ancestor-or-self::*[last()-1]') as $handle) {
+            $name = Mage::getConfig()->determineOmittedNamespace($handle->getName());
+            if ($name) {
+                return $name;
+            }
+        }
+        return 'core';
+    }
+
+    /**
      * Add block object to layout based on xml node data
      *
      * @param Varien_Simplexml_Element $node
@@ -418,80 +638,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * Save block in blocks registry
-     *
-     * @param string $name
-     * @param Mage_Core_Block_Abstract $block
-     * @return $this
-     */
-    public function setBlock($name, $block)
-    {
-        $this->_blocks[$name] = $block;
-        return $this;
-    }
-
-    /**
-     * Remove block from registry
-     *
-     * @param string $name
-     * @return $this
-     */
-    public function unsetBlock($name)
-    {
-        $this->_blocks[$name] = null;
-        unset($this->_blocks[$name]);
-        return $this;
-    }
-
-    /**
-     * Block Factory
-     *
-     * @param     string $type
-     * @param     string|null $name
-     * @return    Mage_Core_Block_Abstract|false
-     */
-    public function createBlock($type, $name = '', array $attributes = [])
-    {
-        try {
-            $block = $this->_getBlockInstance($type, $attributes);
-        } catch (Exception $e) {
-            Mage::logException($e);
-            return false;
-        }
-
-        if (empty($name) || $name[0] === '.') {
-            $block->setIsAnonymous(true);
-            if (!empty($name)) {
-                $block->setAnonSuffix(substr($name, 1));
-            }
-            $name = 'ANONYMOUS_' . count($this->_blocks);
-        } elseif (isset($this->_blocks[$name]) && Mage::getIsDeveloperMode()) {
-            //Mage::throwException(Mage::helper('core')->__('Block with name "%s" already exists', $name));
-        }
-
-        $block->setType($type);
-        $block->setNameInLayout($name);
-        $block->addData($attributes);
-        $block->setLayout($this);
-
-        $this->_blocks[$name] = $block;
-        Mage::dispatchEvent('core_layout_block_create_after', ['block' => $block]);
-        return $this->_blocks[$name];
-    }
-
-    /**
-     * Add a block to registry, create new object if needed
-     *
-     * @param string|Mage_Core_Block_Abstract $block
-     * @param string $blockName
-     * @return Mage_Core_Block_Abstract
-     */
-    public function addBlock($block, $blockName)
-    {
-        return $this->createBlock($block, $blockName);
-    }
-
-    /**
      * Create block object instance based on block type
      *
      * @param string $block
@@ -514,151 +660,5 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             Mage::throwException(Mage::helper('core')->__('Invalid block type: %s (not instance of Mage_Core_Block_Abstract)', $block));
         }
         return $block;
-    }
-
-    /**
-     * Retrieve all blocks from registry as array
-     *
-     * @return array
-     */
-    public function getAllBlocks()
-    {
-        return $this->_blocks;
-    }
-
-    /**
-     * Get block object by name
-     *
-     * @param string $name
-     * @return Mage_Core_Block_Abstract|false
-     */
-    public function getBlock($name)
-    {
-        return $this->_blocks[$name] ?? false;
-    }
-
-    /**
-     * Add a block to output
-     *
-     * @param string $blockName
-     * @param string $method
-     * @return $this
-     */
-    public function addOutputBlock($blockName, $method = 'toHtml')
-    {
-        //$this->_output[] = array($blockName, $method);
-        $this->_output[$blockName] = [$blockName, $method];
-        return $this;
-    }
-
-    /**
-     * @param string $blockName
-     * @return $this
-     */
-    public function removeOutputBlock($blockName)
-    {
-        unset($this->_output[$blockName]);
-        return $this;
-    }
-
-    /**
-     * Get all blocks marked for output
-     *
-     * @return string
-     */
-    public function getOutput()
-    {
-        $out = '';
-        if (!empty($this->_output)) {
-            foreach ($this->_output as $callback) {
-                $out .= $this->getBlock($callback[0])->{$callback[1]}();
-            }
-        }
-
-        return $out;
-    }
-
-    /**
-     * Retrieve messages block
-     *
-     * @return Mage_Core_Block_Messages
-     */
-    public function getMessagesBlock()
-    {
-        $block = $this->getBlock('messages');
-        if ($block) {
-            return $block;
-        }
-        return $this->createBlock('core/messages', 'messages');
-    }
-
-    /**
-     * @param string $type
-     * @return Mage_Core_Block_Abstract|object
-     */
-    public function getBlockSingleton($type)
-    {
-        if (!isset($this->_helpers[$type])) {
-            $className = Mage::getConfig()->getBlockClassName($type);
-            if (!$className) {
-                Mage::throwException(Mage::helper('core')->__('Invalid block type: %s', $type));
-            }
-
-            $helper = new $className();
-            if ($helper) {
-                if ($helper instanceof Mage_Core_Block_Abstract) {
-                    $helper->setLayout($this);
-                }
-                $this->_helpers[$type] = $helper;
-            }
-        }
-        return $this->_helpers[$type];
-    }
-
-    /**
-     * Retrieve helper object
-     *
-     * @param   string $name
-     * @return  Mage_Core_Helper_Abstract|false
-     */
-    public function helper($name)
-    {
-        $helper = Mage::helper($name);
-        if (!$helper) {
-            return false;
-        }
-        return $helper->setLayout($this);
-    }
-
-    /**
-     * Lookup module name for translation from current specified layout node
-     *
-     * Priorities:
-     * 1) "module" attribute in the element
-     * 2) "module" attribute in any ancestor element
-     * 3) layout handle name - first 1 or 2 parts (namespace is determined automatically)
-     *
-     * @return string
-     */
-    public static function findTranslationModuleName(Varien_Simplexml_Element $node)
-    {
-        $result = $node->getAttribute('module');
-        if ($result) {
-            return (string) $result;
-        }
-        /** @var Varien_Simplexml_Element $element */
-        foreach (array_reverse($node->xpath('ancestor::*[@module]')) as $element) {
-            $result = $element->getAttribute('module');
-            if ($result) {
-                return (string) $result;
-            }
-        }
-        foreach ($node->xpath('ancestor-or-self::*[last()-1]') as $handle) {
-            $name = Mage::getConfig()->determineOmittedNamespace($handle->getName());
-            if ($name) {
-                return $name;
-            }
-        }
-        return 'core';
     }
 }

@@ -37,15 +37,6 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
     ]];
 
     /**
-     * Collection initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/billing_agreement');
-    }
-
-    /**
      * Add cutomer details(email, firstname, lastname) to select
      *
      * @return $this
@@ -93,5 +84,14 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
             ['customer_lastname' => 'value'],
         );
         return $this;
+    }
+
+    /**
+     * Collection initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/billing_agreement');
     }
 }

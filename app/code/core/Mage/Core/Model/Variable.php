@@ -38,15 +38,6 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
     protected $_storeId = 0;
 
     /**
-     * Internal Constructor
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('core/variable');
-    }
-
-    /**
      * Setter
      *
      * @param int $storeId
@@ -146,5 +137,14 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
             ];
         }
         return $variables;
+    }
+
+    /**
+     * Internal Constructor
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('core/variable');
     }
 }

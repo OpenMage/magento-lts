@@ -31,6 +31,23 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
     }
 
     /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/productGrid', ['_current' => true]);
+    }
+
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/jsonProductInfo', ['id' => $row->getId()]);
+    }
+
+    /**
      * @return $this
      */
     protected function _prepareColumns()
@@ -95,23 +112,6 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
         }
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/productGrid', ['_current' => true]);
-    }
-
-    /**
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/jsonProductInfo', ['id' => $row->getId()]);
     }
 
     /**

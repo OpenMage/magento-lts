@@ -23,6 +23,16 @@
 class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
+     * Mapping for fields
+     *
+     * @var array
+     */
+    public $_map               = [
+        'fields' => [
+            'tag_id' => 'main_table.tag_id',
+        ],
+    ];
+    /**
      * Use getFlag('store_filter') & setFlag('store_filter', true) instead.
      *
      * @var bool
@@ -35,26 +45,6 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      * @var array
      */
     protected $_joinFlags      = [];
-
-    /**
-     * Mapping for fields
-     *
-     * @var array
-     */
-    public $_map               = [
-        'fields' => [
-            'tag_id' => 'main_table.tag_id',
-        ],
-    ];
-
-    /**
-     * Define resource model and model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('tag/tag');
-    }
 
     /**
      * Loads collection
@@ -206,42 +196,6 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
     public function addStoresVisibility()
     {
         $this->setFlag('add_stores_after', true);
-        return $this;
-    }
-
-    /**
-     * Adds store visibility
-     *
-     * @return $this
-     */
-    protected function _addStoresVisibility()
-    {
-        $tagIds = $this->getColumnValues('tag_id');
-
-        $tagsStores = [];
-        if (count($tagIds)) {
-            $select = $this->getConnection()->select()
-                ->from($this->getTable('tag/summary'), ['store_id', 'tag_id'])
-                ->where('tag_id IN(?)', $tagIds);
-            $tagsRaw = $this->getConnection()->fetchAll($select);
-
-            foreach ($tagsRaw as $tag) {
-                if (!isset($tagsStores[$tag['tag_id']])) {
-                    $tagsStores[$tag['tag_id']] = [];
-                }
-
-                $tagsStores[$tag['tag_id']][] = $tag['store_id'];
-            }
-        }
-
-        foreach ($this as $item) {
-            if (isset($tagsStores[$item->getId()])) {
-                $item->setStores($tagsStores[$item->getId()]);
-            } else {
-                $item->setStores([]);
-            }
-        }
-
         return $this;
     }
 
@@ -406,6 +360,51 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             ['relation' => $this->getTable('tag/relation')],
             'main_table.tag_id=relation.tag_id',
         );
+        return $this;
+    }
+
+    /**
+     * Define resource model and model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('tag/tag');
+    }
+
+    /**
+     * Adds store visibility
+     *
+     * @return $this
+     */
+    protected function _addStoresVisibility()
+    {
+        $tagIds = $this->getColumnValues('tag_id');
+
+        $tagsStores = [];
+        if (count($tagIds)) {
+            $select = $this->getConnection()->select()
+                ->from($this->getTable('tag/summary'), ['store_id', 'tag_id'])
+                ->where('tag_id IN(?)', $tagIds);
+            $tagsRaw = $this->getConnection()->fetchAll($select);
+
+            foreach ($tagsRaw as $tag) {
+                if (!isset($tagsStores[$tag['tag_id']])) {
+                    $tagsStores[$tag['tag_id']] = [];
+                }
+
+                $tagsStores[$tag['tag_id']][] = $tag['store_id'];
+            }
+        }
+
+        foreach ($this as $item) {
+            if (isset($tagsStores[$item->getId()])) {
+                $item->setStores($tagsStores[$item->getId()]);
+            } else {
+                $item->setStores([]);
+            }
+        }
+
         return $this;
     }
 }

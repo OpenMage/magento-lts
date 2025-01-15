@@ -49,16 +49,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     }
 
     /**
-     * Default product attributes
-     *
-     * @return array
-     */
-    protected function _getDefaultAttributes()
-    {
-        return ['entity_id', 'entity_type_id', 'attribute_set_id', 'type_id', 'created_at', 'updated_at'];
-    }
-
-    /**
      * Retrieve product website identifiers
      *
      * @param Mage_Catalog_Model_Product|int $product
@@ -138,157 +128,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         $bind = [':sku' => (string) $sku];
 
         return $adapter->fetchOne($select, $bind);
-    }
-
-    /**
-     * Process product data before save
-     *
-     * @param Mage_Catalog_Model_Product $object
-     * @inheritDoc
-     */
-    protected function _beforeSave(Varien_Object $object)
-    {
-        /**
-         * Try to detect product id by sku if id is not declared
-         */
-        if (!$object->getId() && $object->getSku()) {
-            $object->setId($this->getIdBySku($object->getSku()));
-        }
-
-        /**
-         * Check if declared category ids in object data.
-         */
-        if ($object->hasCategoryIds()) {
-            $categoryIds = Mage::getResourceSingleton('catalog/category')->verifyIds(
-                $object->getCategoryIds(),
-            );
-            $object->setCategoryIds($categoryIds);
-        }
-
-        return parent::_beforeSave($object);
-    }
-
-    /**
-     * Save data related with product
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @inheritDoc
-     */
-    protected function _afterSave(Varien_Object $product)
-    {
-        $this->_saveWebsiteIds($product)
-            ->_saveCategories($product);
-
-        return parent::_afterSave($product);
-    }
-
-    /**
-     * Save product website relations
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @return $this
-     */
-    protected function _saveWebsiteIds($product)
-    {
-        $websiteIds = $product->getWebsiteIds();
-        $oldWebsiteIds = [];
-
-        $product->setIsChangedWebsites(false);
-
-        $adapter = $this->_getWriteAdapter();
-
-        $oldWebsiteIds = $this->getWebsiteIds($product);
-
-        $insert = array_diff($websiteIds, $oldWebsiteIds);
-        $delete = array_diff($oldWebsiteIds, $websiteIds);
-
-        if (!empty($insert)) {
-            $data = [];
-            foreach ($insert as $websiteId) {
-                $data[] = [
-                    'product_id' => (int) $product->getId(),
-                    'website_id' => (int) $websiteId,
-                ];
-            }
-            $adapter->insertMultiple($this->_productWebsiteTable, $data);
-        }
-
-        if (!empty($delete)) {
-            foreach ($delete as $websiteId) {
-                $condition = [
-                    'product_id = ?' => (int) $product->getId(),
-                    'website_id = ?' => (int) $websiteId,
-                ];
-
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $adapter->delete($this->_productWebsiteTable, $condition);
-            }
-        }
-
-        if (!empty($insert) || !empty($delete)) {
-            $product->setIsChangedWebsites(true);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Save product category relations
-     *
-     * @return $this
-     */
-    protected function _saveCategories(Varien_Object $object)
-    {
-        /**
-         * If category ids data is not declared we haven't do manipulations
-         */
-        if (!$object->hasCategoryIds()) {
-            return $this;
-        }
-        $categoryIds = $object->getCategoryIds();
-        $oldCategoryIds = $this->getCategoryIds($object);
-
-        $object->setIsChangedCategories(false);
-
-        $insert = array_diff($categoryIds, $oldCategoryIds);
-        $delete = array_diff($oldCategoryIds, $categoryIds);
-
-        $write = $this->_getWriteAdapter();
-        if (!empty($insert)) {
-            $data = [];
-            foreach ($insert as $categoryId) {
-                if (empty($categoryId)) {
-                    continue;
-                }
-                $data[] = [
-                    'category_id' => (int) $categoryId,
-                    'product_id'  => (int) $object->getId(),
-                    'position'    => 1,
-                ];
-            }
-            if ($data) {
-                $write->insertMultiple($this->_productCategoryTable, $data);
-            }
-        }
-
-        if (!empty($delete)) {
-            foreach ($delete as $categoryId) {
-                $where = [
-                    'product_id = ?'  => (int) $object->getId(),
-                    'category_id = ?' => (int) $categoryId,
-                ];
-
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $write->delete($this->_productCategoryTable, $where);
-            }
-        }
-
-        if (!empty($insert) || !empty($delete)) {
-            $object->setAffectedCategoryIds(array_merge($insert, $delete));
-            $object->setIsChangedCategories(true);
-        }
-
-        return $this;
     }
 
     /**
@@ -713,5 +552,166 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->where('category_id NOT IN(?)', $rootIds);
 
         return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    /**
+     * Default product attributes
+     *
+     * @return array
+     */
+    protected function _getDefaultAttributes()
+    {
+        return ['entity_id', 'entity_type_id', 'attribute_set_id', 'type_id', 'created_at', 'updated_at'];
+    }
+
+    /**
+     * Process product data before save
+     *
+     * @param Mage_Catalog_Model_Product $object
+     * @inheritDoc
+     */
+    protected function _beforeSave(Varien_Object $object)
+    {
+        /**
+         * Try to detect product id by sku if id is not declared
+         */
+        if (!$object->getId() && $object->getSku()) {
+            $object->setId($this->getIdBySku($object->getSku()));
+        }
+
+        /**
+         * Check if declared category ids in object data.
+         */
+        if ($object->hasCategoryIds()) {
+            $categoryIds = Mage::getResourceSingleton('catalog/category')->verifyIds(
+                $object->getCategoryIds(),
+            );
+            $object->setCategoryIds($categoryIds);
+        }
+
+        return parent::_beforeSave($object);
+    }
+
+    /**
+     * Save data related with product
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @inheritDoc
+     */
+    protected function _afterSave(Varien_Object $product)
+    {
+        $this->_saveWebsiteIds($product)
+            ->_saveCategories($product);
+
+        return parent::_afterSave($product);
+    }
+
+    /**
+     * Save product website relations
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return $this
+     */
+    protected function _saveWebsiteIds($product)
+    {
+        $websiteIds = $product->getWebsiteIds();
+        $oldWebsiteIds = [];
+
+        $product->setIsChangedWebsites(false);
+
+        $adapter = $this->_getWriteAdapter();
+
+        $oldWebsiteIds = $this->getWebsiteIds($product);
+
+        $insert = array_diff($websiteIds, $oldWebsiteIds);
+        $delete = array_diff($oldWebsiteIds, $websiteIds);
+
+        if (!empty($insert)) {
+            $data = [];
+            foreach ($insert as $websiteId) {
+                $data[] = [
+                    'product_id' => (int) $product->getId(),
+                    'website_id' => (int) $websiteId,
+                ];
+            }
+            $adapter->insertMultiple($this->_productWebsiteTable, $data);
+        }
+
+        if (!empty($delete)) {
+            foreach ($delete as $websiteId) {
+                $condition = [
+                    'product_id = ?' => (int) $product->getId(),
+                    'website_id = ?' => (int) $websiteId,
+                ];
+
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $adapter->delete($this->_productWebsiteTable, $condition);
+            }
+        }
+
+        if (!empty($insert) || !empty($delete)) {
+            $product->setIsChangedWebsites(true);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Save product category relations
+     *
+     * @return $this
+     */
+    protected function _saveCategories(Varien_Object $object)
+    {
+        /**
+         * If category ids data is not declared we haven't do manipulations
+         */
+        if (!$object->hasCategoryIds()) {
+            return $this;
+        }
+        $categoryIds = $object->getCategoryIds();
+        $oldCategoryIds = $this->getCategoryIds($object);
+
+        $object->setIsChangedCategories(false);
+
+        $insert = array_diff($categoryIds, $oldCategoryIds);
+        $delete = array_diff($oldCategoryIds, $categoryIds);
+
+        $write = $this->_getWriteAdapter();
+        if (!empty($insert)) {
+            $data = [];
+            foreach ($insert as $categoryId) {
+                if (empty($categoryId)) {
+                    continue;
+                }
+                $data[] = [
+                    'category_id' => (int) $categoryId,
+                    'product_id'  => (int) $object->getId(),
+                    'position'    => 1,
+                ];
+            }
+            if ($data) {
+                $write->insertMultiple($this->_productCategoryTable, $data);
+            }
+        }
+
+        if (!empty($delete)) {
+            foreach ($delete as $categoryId) {
+                $where = [
+                    'product_id = ?'  => (int) $object->getId(),
+                    'category_id = ?' => (int) $categoryId,
+                ];
+
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $write->delete($this->_productCategoryTable, $where);
+            }
+        }
+
+        if (!empty($insert) || !empty($delete)) {
+            $object->setAffectedCategoryIds(array_merge($insert, $delete));
+            $object->setIsChangedCategories(true);
+        }
+
+        return $this;
     }
 }

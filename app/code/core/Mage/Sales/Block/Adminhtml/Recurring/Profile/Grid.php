@@ -32,6 +32,27 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
     }
 
     /**
+     * Return row url for js event handlers
+     *
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/sales_recurring_profile/view', ['profile' => $row->getId()]);
+    }
+
+    /**
+     * Return grid url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
      * Prepare grid collection object
      *
      * @inheritDoc
@@ -112,26 +133,5 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Grid extends Mage_Adminhtml_B
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Return row url for js event handlers
-     *
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/sales_recurring_profile/view', ['profile' => $row->getId()]);
-    }
-
-    /**
-     * Return grid url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 }

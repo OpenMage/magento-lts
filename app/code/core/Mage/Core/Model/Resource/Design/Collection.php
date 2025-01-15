@@ -23,15 +23,6 @@
 class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Core Design resource collection
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('core/design');
-    }
-
-    /**
      * Join store data to collection
      *
      * @return $this
@@ -73,5 +64,13 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
     public function addStoreFilter($storeId)
     {
         return $this->addFieldToFilter('store_id', ['in' => $storeId]);
+    }
+    /**
+     * Core Design resource collection
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('core/design');
     }
 }

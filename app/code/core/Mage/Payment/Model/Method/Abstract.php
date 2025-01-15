@@ -324,16 +324,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * Retrieve model helper
-     *
-     * @return Mage_Payment_Helper_Data
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('payment');
-    }
-
-    /**
      * Retrieve payment method code
      *
      * @return string
@@ -741,20 +731,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * Log debug data to file
-     *
-     * @param mixed $debugData
-     */
-    protected function _debug($debugData)
-    {
-        if ($this->getDebugFlag()) {
-            Mage::getModel('core/log_adapter', 'payment_' . $this->getCode() . '.log')
-               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
-               ->log($debugData);
-        }
-    }
-
-    /**
      * Define if debugging is enabled
      *
      * @return bool
@@ -772,5 +748,29 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function debugData($debugData)
     {
         $this->_debug($debugData);
+    }
+
+    /**
+     * Retrieve model helper
+     *
+     * @return Mage_Payment_Helper_Data
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('payment');
+    }
+
+    /**
+     * Log debug data to file
+     *
+     * @param mixed $debugData
+     */
+    protected function _debug($debugData)
+    {
+        if ($this->getDebugFlag()) {
+            Mage::getModel('core/log_adapter', 'payment_' . $this->getCode() . '.log')
+               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
+               ->log($debugData);
+        }
     }
 }

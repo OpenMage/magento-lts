@@ -58,33 +58,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     protected $_options = [];
 
     /**
-     * Apply current configuration array to transport resource
-     *
-     * @return Varien_Http_Adapter_Curl
-     */
-    protected function _applyConfig()
-    {
-        curl_setopt_array($this->_getResource(), $this->_options);
-
-        if (empty($this->_config)) {
-            return $this;
-        }
-
-        $verifyPeer = isset($this->_config['verifypeer']) ? $this->_config['verifypeer'] : 0;
-        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYPEER, $verifyPeer);
-
-        $verifyHost = isset($this->_config['verifyhost']) ? $this->_config['verifyhost'] : 0;
-        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYHOST, $verifyHost);
-
-        foreach (array_keys($this->_config) as $param) {
-            if (array_key_exists($param, $this->_allowedParams)) {
-                curl_setopt($this->_getResource(), $this->_allowedParams[$param], $this->_config[$param]);
-            }
-        }
-        return $this;
-    }
-
-    /**
      * Set array of additional cURL options
      *
      * @return Varien_Http_Adapter_Curl
@@ -220,19 +193,6 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     }
 
     /**
-     * Returns a cURL handle on success
-     *
-     * @return resource|CurlHandle
-     */
-    protected function _getResource()
-    {
-        if (is_null($this->_resource)) {
-            $this->_resource = curl_init();
-        }
-        return $this->_resource;
-    }
-
-    /**
      * Get last error number
      *
      * @return int
@@ -303,5 +263,45 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         }
         curl_multi_close($multihandle);
         return $result;
+    }
+
+    /**
+     * Apply current configuration array to transport resource
+     *
+     * @return Varien_Http_Adapter_Curl
+     */
+    protected function _applyConfig()
+    {
+        curl_setopt_array($this->_getResource(), $this->_options);
+
+        if (empty($this->_config)) {
+            return $this;
+        }
+
+        $verifyPeer = isset($this->_config['verifypeer']) ? $this->_config['verifypeer'] : 0;
+        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYPEER, $verifyPeer);
+
+        $verifyHost = isset($this->_config['verifyhost']) ? $this->_config['verifyhost'] : 0;
+        curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYHOST, $verifyHost);
+
+        foreach (array_keys($this->_config) as $param) {
+            if (array_key_exists($param, $this->_allowedParams)) {
+                curl_setopt($this->_getResource(), $this->_allowedParams[$param], $this->_config[$param]);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Returns a cURL handle on success
+     *
+     * @return resource|CurlHandle
+     */
+    protected function _getResource()
+    {
+        if (is_null($this->_resource)) {
+            $this->_resource = curl_init();
+        }
+        return $this->_resource;
     }
 }

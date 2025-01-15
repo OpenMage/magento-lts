@@ -72,76 +72,18 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected $_sessionNamespace = self::SESSION_NAMESPACE;
 
     /**
-     * Check current user permission on resource and privilege
+     * Translate a phrase
      *
-     * @return bool
+     * @return string
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
-    protected function _isAllowed()
+    public function __()
     {
-        return Mage::getSingleton('admin/session')->isAllowed(static::ADMIN_RESOURCE);
-    }
-
-    /**
-     * Retrieve adminhtml session model object
-     *
-     * @return Mage_Adminhtml_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
-    /**
-     * Retrieve base admihtml helper
-     *
-     * @return Mage_Adminhtml_Helper_Data
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('adminhtml');
-    }
-
-    /**
-     * Define active menu item in menu block
-     *
-     * @return $this
-     */
-    protected function _setActiveMenu($menuPath)
-    {
-        $this->getLayout()->getBlock('menu')->setActive($menuPath);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _addBreadcrumb($label, $title, $link = null)
-    {
-        /** @var Mage_Adminhtml_Block_Widget_Breadcrumbs $block */
-        $block = $this->getLayout()->getBlock('breadcrumbs');
-        $block->addLink($label, $title, $link);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _addContent(Mage_Core_Block_Abstract $block)
-    {
-        $this->getLayout()->getBlock('content')->append($block);
-        return $this;
-    }
-
-    protected function _addLeft(Mage_Core_Block_Abstract $block)
-    {
-        $this->getLayout()->getBlock('left')->append($block);
-        return $this;
-    }
-
-    protected function _addJs(Mage_Core_Block_Abstract $block)
-    {
-        $this->getLayout()->getBlock('js')->append($block);
-        return $this;
+        $args = func_get_args();
+        $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getUsedModuleName());
+        array_unshift($args, $expr);
+        return Mage::app()->getTranslator()->translate($args);
     }
 
     /**
@@ -225,6 +167,139 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return $this;
     }
 
+    public function deniedAction()
+    {
+        $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
+        if (!Mage::getSingleton('admin/session')->isLoggedIn()) {
+            $this->_redirect('*/index/login');
+            return;
+        }
+        $this->loadLayout(['default', 'adminhtml_denied']);
+        $this->renderLayout();
+    }
+
+    public function loadLayout($ids = null, $generateBlocks = true, $generateXml = true)
+    {
+        parent::loadLayout($ids, $generateBlocks, $generateXml);
+        $this->_initLayoutMessages('adminhtml/session');
+        return $this;
+    }
+
+    public function norouteAction($coreRoute = null)
+    {
+        $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
+        $this->getResponse()->setHeader('Status', '404 File not found');
+        $this->loadLayout(['default', 'adminhtml_noroute']);
+        $this->renderLayout();
+    }
+
+    /**
+     * Retrieve currently used module name
+     *
+     * @return string
+     */
+    public function getUsedModuleName()
+    {
+        return $this->_usedModuleName;
+    }
+
+    /**
+     * Set currently used module name
+     *
+     * @param string $moduleName
+     * @return $this
+     */
+    public function setUsedModuleName($moduleName)
+    {
+        $this->_usedModuleName = $moduleName;
+        return $this;
+    }
+
+    /**
+     * Generate url by route and parameters
+     *
+     * @param   string $route
+     * @param   array $params
+     * @return  string
+     */
+    public function getUrl($route = '', $params = [])
+    {
+        return Mage::helper('adminhtml')->getUrl($route, $params);
+    }
+
+    /**
+     * Check current user permission on resource and privilege
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed(static::ADMIN_RESOURCE);
+    }
+
+    /**
+     * Retrieve adminhtml session model object
+     *
+     * @return Mage_Adminhtml_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('adminhtml/session');
+    }
+
+    /**
+     * Retrieve base admihtml helper
+     *
+     * @return Mage_Adminhtml_Helper_Data
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('adminhtml');
+    }
+
+    /**
+     * Define active menu item in menu block
+     *
+     * @return $this
+     */
+    protected function _setActiveMenu($menuPath)
+    {
+        $this->getLayout()->getBlock('menu')->setActive($menuPath);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _addBreadcrumb($label, $title, $link = null)
+    {
+        /** @var Mage_Adminhtml_Block_Widget_Breadcrumbs $block */
+        $block = $this->getLayout()->getBlock('breadcrumbs');
+        $block->addLink($label, $title, $link);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _addContent(Mage_Core_Block_Abstract $block)
+    {
+        $this->getLayout()->getBlock('content')->append($block);
+        return $this;
+    }
+
+    protected function _addLeft(Mage_Core_Block_Abstract $block)
+    {
+        $this->getLayout()->getBlock('left')->append($block);
+        return $this;
+    }
+
+    protected function _addJs(Mage_Core_Block_Abstract $block)
+    {
+        $this->getLayout()->getBlock('js')->append($block);
+        return $this;
+    }
+
     /**
      * @deprecated after 1.4.0.0 alpha, logic moved to Mage_Adminhtml_Block_Notification_Baseurl
      * @return $this
@@ -278,69 +353,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return $this;
     }
 
-    public function deniedAction()
-    {
-        $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
-        if (!Mage::getSingleton('admin/session')->isLoggedIn()) {
-            $this->_redirect('*/index/login');
-            return;
-        }
-        $this->loadLayout(['default', 'adminhtml_denied']);
-        $this->renderLayout();
-    }
-
-    public function loadLayout($ids = null, $generateBlocks = true, $generateXml = true)
-    {
-        parent::loadLayout($ids, $generateBlocks, $generateXml);
-        $this->_initLayoutMessages('adminhtml/session');
-        return $this;
-    }
-
-    public function norouteAction($coreRoute = null)
-    {
-        $this->getResponse()->setHeader('HTTP/1.1', '404 Not Found');
-        $this->getResponse()->setHeader('Status', '404 File not found');
-        $this->loadLayout(['default', 'adminhtml_noroute']);
-        $this->renderLayout();
-    }
-
-    /**
-     * Retrieve currently used module name
-     *
-     * @return string
-     */
-    public function getUsedModuleName()
-    {
-        return $this->_usedModuleName;
-    }
-
-    /**
-     * Set currently used module name
-     *
-     * @param string $moduleName
-     * @return $this
-     */
-    public function setUsedModuleName($moduleName)
-    {
-        $this->_usedModuleName = $moduleName;
-        return $this;
-    }
-
-    /**
-     * Translate a phrase
-     *
-     * @return string
-     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
-     * @SuppressWarnings("PHPMD.ShortMethodName")
-     */
-    public function __()
-    {
-        $args = func_get_args();
-        $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->getUsedModuleName());
-        array_unshift($args, $expr);
-        return Mage::app()->getTranslator()->translate($args);
-    }
-
     /**
      * Set referer url for redirect in response
      *
@@ -374,18 +386,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         $this->_getSession()->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
         return parent::_forward($action, $controller, $module, $params);
-    }
-
-    /**
-     * Generate url by route and parameters
-     *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
-     */
-    public function getUrl($route = '', $params = [])
-    {
-        return Mage::helper('adminhtml')->getUrl($route, $params);
     }
 
     /**

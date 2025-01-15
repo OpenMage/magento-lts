@@ -29,34 +29,6 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     }
 
     /**
-     * Preparing layout, adding buttons
-     *
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('eav')->__('Delete'),
-                    'class' => 'delete delete-option',
-                ]),
-        );
-
-        $this->setChild(
-            'add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('eav')->__('Add Option'),
-                    'class' => 'add',
-                    'id'    => 'add_new_option_button',
-                ]),
-        );
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve HTML of delete button
      *
      * @return string
@@ -220,5 +192,33 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     {
         return $this->isModuleEnabled('Mage_ConfigurableSwatches')
             && Mage::helper('configurableswatches')->attrIsSwatchType($this->getAttributeObject());
+    }
+
+    /**
+     * Preparing layout, adding buttons
+     *
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'delete_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label' => Mage::helper('eav')->__('Delete'),
+                    'class' => 'delete delete-option',
+                ]),
+        );
+
+        $this->setChild(
+            'add_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label' => Mage::helper('eav')->__('Add Option'),
+                    'class' => 'add',
+                    'id'    => 'add_new_option_button',
+                ]),
+        );
+        return parent::_prepareLayout();
     }
 }

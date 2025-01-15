@@ -64,15 +64,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     protected $_mail;
 
     /**
-     * Initialize resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('newsletter/template');
-    }
-
-    /**
      * Validate Newsletter template
      *
      * @throws Mage_Core_Exception
@@ -105,17 +96,6 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
             Mage::throwException(implode("\n", $errorMessages));
         }
-    }
-
-    /**
-     * Processing object before save data
-     *
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        $this->validate();
-        return parent::_beforeSave();
     }
 
     /**
@@ -416,5 +396,25 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         }
 
         return $this->getData('template_text');
+    }
+
+    /**
+     * Initialize resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('newsletter/template');
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        $this->validate();
+        return parent::_beforeSave();
     }
 }

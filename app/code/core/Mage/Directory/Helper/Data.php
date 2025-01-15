@@ -173,46 +173,6 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get Regions for specific Countries
-     * @param string|int|null $storeId
-     * @return array|null
-     * @throws Mage_Core_Exception
-     */
-    protected function _getRegions($storeId)
-    {
-        $countryIds = [];
-
-        $countryCollection = $this->getCountryCollection()->loadByStore($storeId);
-        /** @var Mage_Directory_Model_Country $country */
-        foreach ($countryCollection as $country) {
-            $countryIds[] = $country->getCountryId();
-        }
-
-        /** @var Mage_Directory_Model_Region $regionModel */
-        $regionModel = $this->_factory->getModel('directory/region');
-        $collection = $regionModel->getResourceCollection()
-            ->addCountryFilter($countryIds)
-            ->load();
-
-        $regions = [
-            'config' => [
-                'show_all_regions' => $this->getShowNonRequiredState(),
-                'regions_required' => $this->getCountriesWithStatesRequired(),
-            ],
-        ];
-        foreach ($collection as $region) {
-            if (!$region->getRegionId()) {
-                continue;
-            }
-            $regions[$region->getCountryId()][$region->getRegionId()] = [
-                'code' => $region->getCode(),
-                'name' => $this->__($region->getName()),
-            ];
-        }
-        return $regions;
-    }
-
-    /**
      * Convert currency
      *
      * @param float $amount
@@ -321,5 +281,45 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         Mage::dispatchEvent('directory_get_top_countries', ['topCountries' => $transportObject]);
 
         return $transportObject->getData('top_countries');
+    }
+
+    /**
+     * Get Regions for specific Countries
+     * @param string|int|null $storeId
+     * @return array|null
+     * @throws Mage_Core_Exception
+     */
+    protected function _getRegions($storeId)
+    {
+        $countryIds = [];
+
+        $countryCollection = $this->getCountryCollection()->loadByStore($storeId);
+        /** @var Mage_Directory_Model_Country $country */
+        foreach ($countryCollection as $country) {
+            $countryIds[] = $country->getCountryId();
+        }
+
+        /** @var Mage_Directory_Model_Region $regionModel */
+        $regionModel = $this->_factory->getModel('directory/region');
+        $collection = $regionModel->getResourceCollection()
+            ->addCountryFilter($countryIds)
+            ->load();
+
+        $regions = [
+            'config' => [
+                'show_all_regions' => $this->getShowNonRequiredState(),
+                'regions_required' => $this->getCountriesWithStatesRequired(),
+            ],
+        ];
+        foreach ($collection as $region) {
+            if (!$region->getRegionId()) {
+                continue;
+            }
+            $regions[$region->getCountryId()][$region->getRegionId()] = [
+                'code' => $region->getCode(),
+                'name' => $this->__($region->getName()),
+            ];
+        }
+        return $regions;
     }
 }

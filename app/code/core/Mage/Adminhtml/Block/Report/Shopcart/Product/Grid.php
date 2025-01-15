@@ -28,6 +28,11 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
         $this->setId('gridProducts');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getEntityId()]);
+    }
+
     protected function _prepareCollection()
     {
         /** @var Mage_Reports_Model_Resource_Quote_Collection $collection */
@@ -79,10 +84,5 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
         $this->addExportType('*/*/exportProductExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getEntityId()]);
     }
 }

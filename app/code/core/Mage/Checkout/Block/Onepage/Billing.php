@@ -37,23 +37,6 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     protected $_taxvat;
 
     /**
-     * Initialize billing address step
-     *
-     */
-    protected function _construct()
-    {
-        $this->getCheckout()->setStepData('billing', [
-            'label'     => Mage::helper('checkout')->__('Billing Information'),
-            'is_show'   => $this->isShow(),
-        ]);
-
-        if ($this->isCustomerLoggedIn()) {
-            $this->getCheckout()->setStepData('billing', 'allow', true);
-        }
-        parent::_construct();
-    }
-
-    /**
      * @return bool
      */
     public function isUseBillingAddressForShipping()
@@ -171,20 +154,6 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     public function getSaveUrl() {}
 
     /**
-     * Get Customer Taxvat Widget block
-     *
-     * @return Mage_Customer_Block_Widget_Taxvat
-     */
-    protected function _getTaxvat()
-    {
-        if (!$this->_taxvat) {
-            $this->_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat');
-        }
-
-        return $this->_taxvat;
-    }
-
-    /**
      * Check whether taxvat is enabled
      *
      * @return bool
@@ -204,5 +173,36 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
             ->setFieldIdFormat('billing:%s')
             ->setFieldNameFormat('billing[%s]')
             ->toHtml();
+    }
+
+    /**
+     * Initialize billing address step
+     *
+     */
+    protected function _construct()
+    {
+        $this->getCheckout()->setStepData('billing', [
+            'label'     => Mage::helper('checkout')->__('Billing Information'),
+            'is_show'   => $this->isShow(),
+        ]);
+
+        if ($this->isCustomerLoggedIn()) {
+            $this->getCheckout()->setStepData('billing', 'allow', true);
+        }
+        parent::_construct();
+    }
+
+    /**
+     * Get Customer Taxvat Widget block
+     *
+     * @return Mage_Customer_Block_Widget_Taxvat
+     */
+    protected function _getTaxvat()
+    {
+        if (!$this->_taxvat) {
+            $this->_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat');
+        }
+
+        return $this->_taxvat;
     }
 }

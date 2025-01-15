@@ -219,61 +219,6 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * Get options array for locale dropdown
-     *
-     * @param   bool $translatedName translation flag
-     * @return  array
-     */
-    protected function _getOptionLocales($translatedName = false)
-    {
-        $options = [];
-        $zendLocales = $this->getLocale()->getLocaleList();
-        $languages = $this->getLocale()->getTranslationList('language', $this->getLocale());
-        $countries = $this->getCountryTranslationList();
-
-        //Zend locale codes for internal allowed locale codes
-        $allowed = $this->getAllowLocales();
-        $allowedAliases = [];
-        foreach ($allowed as $code) {
-            $allowedAliases[Zend_Locale::getAlias($code)] = $code;
-        }
-
-        //Internal locale codes translated from Zend locale codes
-        $locales = [];
-        foreach ($zendLocales as $code => $active) {
-            if (array_key_exists($code, $allowedAliases)) {
-                $locales[$allowedAliases[$code]] = $active;
-            } else {
-                $locales[$code] = $active;
-            }
-        }
-
-        foreach (array_keys($locales) as $code) {
-            if (strstr($code, '_')) {
-                if (!in_array($code, $allowed)) {
-                    continue;
-                }
-                $data = explode('_', $code);
-                if (!isset($languages[$data[0]]) || !isset($countries[$data[1]])) {
-                    continue;
-                }
-                if ($translatedName) {
-                    $label = ucwords($this->getLocale()->getTranslation($data[0], 'language', $code))
-                        . ' (' . $this->getLocale()->getTranslation($data[1], 'country', $code) . ') / '
-                        . $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
-                } else {
-                    $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
-                }
-                $options[] = [
-                    'value' => $code,
-                    'label' => $label,
-                ];
-            }
-        }
-        return $this->_sortOptionArray($options);
-    }
-
-    /**
      * Retrieve timezone option list
      *
      * @return array
@@ -384,27 +329,6 @@ class Mage_Core_Model_Locale
             ];
         }
         return $this->_sortOptionArray($options);
-    }
-
-    /**
-     * @param array $option
-     * @return array
-     */
-    protected function _sortOptionArray($option)
-    {
-        $data = [];
-        foreach ($option as $item) {
-            $data[$item['value']] = $item['label'];
-        }
-        asort($data);
-        $option = [];
-        foreach ($data as $key => $label) {
-            $option[] = [
-                'value' => $key,
-                'label' => $label,
-            ];
-        }
-        return $option;
     }
 
     /**
@@ -790,17 +714,6 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * Replace all yy date format to yyyy
-     *
-     * @param string $currentFormat
-     * @return string|string[]|null
-     */
-    protected function _convertYearTwoDigitTo4($currentFormat)
-    {
-        return preg_replace('/(\byy\b)/', 'yyyy', $currentFormat);
-    }
-
-    /**
      * Returns the localized country name
      *
      * @param string $value Name to get detailed information about
@@ -851,5 +764,92 @@ class Mage_Core_Model_Locale
         }
 
         return $result;
+    }
+
+    /**
+     * Get options array for locale dropdown
+     *
+     * @param   bool $translatedName translation flag
+     * @return  array
+     */
+    protected function _getOptionLocales($translatedName = false)
+    {
+        $options = [];
+        $zendLocales = $this->getLocale()->getLocaleList();
+        $languages = $this->getLocale()->getTranslationList('language', $this->getLocale());
+        $countries = $this->getCountryTranslationList();
+
+        //Zend locale codes for internal allowed locale codes
+        $allowed = $this->getAllowLocales();
+        $allowedAliases = [];
+        foreach ($allowed as $code) {
+            $allowedAliases[Zend_Locale::getAlias($code)] = $code;
+        }
+
+        //Internal locale codes translated from Zend locale codes
+        $locales = [];
+        foreach ($zendLocales as $code => $active) {
+            if (array_key_exists($code, $allowedAliases)) {
+                $locales[$allowedAliases[$code]] = $active;
+            } else {
+                $locales[$code] = $active;
+            }
+        }
+
+        foreach (array_keys($locales) as $code) {
+            if (strstr($code, '_')) {
+                if (!in_array($code, $allowed)) {
+                    continue;
+                }
+                $data = explode('_', $code);
+                if (!isset($languages[$data[0]]) || !isset($countries[$data[1]])) {
+                    continue;
+                }
+                if ($translatedName) {
+                    $label = ucwords($this->getLocale()->getTranslation($data[0], 'language', $code))
+                        . ' (' . $this->getLocale()->getTranslation($data[1], 'country', $code) . ') / '
+                        . $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
+                } else {
+                    $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
+                }
+                $options[] = [
+                    'value' => $code,
+                    'label' => $label,
+                ];
+            }
+        }
+        return $this->_sortOptionArray($options);
+    }
+
+    /**
+     * @param array $option
+     * @return array
+     */
+    protected function _sortOptionArray($option)
+    {
+        $data = [];
+        foreach ($option as $item) {
+            $data[$item['value']] = $item['label'];
+        }
+        asort($data);
+        $option = [];
+        foreach ($data as $key => $label) {
+            $option[] = [
+                'value' => $key,
+                'label' => $label,
+            ];
+        }
+        return $option;
+    }
+
+    /**
+     * Replace all yy date format to yyyy
+     *
+     * @param string $currentFormat
+     * @return string|string[]|null
+     */
+    protected function _convertYearTwoDigitTo4($currentFormat)
+    {
+        return preg_replace('/(\byy\b)/', 'yyyy', $currentFormat);
     }
 }

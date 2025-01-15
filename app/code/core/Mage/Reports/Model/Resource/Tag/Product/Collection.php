@@ -22,14 +22,6 @@
  */
 class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_Resource_Product_Collection
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        /**
-         * Allow to use analytic function
-         */
-        $this->_useAnalyticFunction = true;
-    }
     /**
      * Add unique target count to result
      *
@@ -130,6 +122,14 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
         }
 
         return $this;
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        /**
+         * Allow to use analytic function
+         */
+        $this->_useAnalyticFunction = true;
     }
 
     /**

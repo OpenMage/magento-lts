@@ -41,6 +41,59 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     }
 
     /**
+     * Prepare label for tab
+     *
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return $this->__('REST Role');
+    }
+
+    /**
+     * Prepare title for tab
+     *
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return $this->__('REST Role');
+    }
+
+    /**
+     * Returns status flag about this tab can be shown or not
+     *
+     * @return true
+     */
+    public function canShowTab()
+    {
+        return true;
+    }
+
+    /**
+     * Returns status flag about this tab hidden or not
+     *
+     * @return false
+     */
+    public function isHidden()
+    {
+        return false;
+    }
+
+    /**
+     * Get controller action url for grid ajax actions
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl(
+            '*/api2_role/rolesGrid',
+            ['user_id' => Mage::registry('permissions_user')->getUserId()],
+        );
+    }
+
+    /**
      * Prepare grid collection object
      *
      * @inheritDoc
@@ -129,58 +182,5 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
         }
 
         return $this->_selectedRoles;
-    }
-
-    /**
-     * Prepare label for tab
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return $this->__('REST Role');
-    }
-
-    /**
-     * Prepare title for tab
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return $this->__('REST Role');
-    }
-
-    /**
-     * Returns status flag about this tab can be shown or not
-     *
-     * @return true
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * Returns status flag about this tab hidden or not
-     *
-     * @return false
-     */
-    public function isHidden()
-    {
-        return false;
-    }
-
-    /**
-     * Get controller action url for grid ajax actions
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl(
-            '*/api2_role/rolesGrid',
-            ['user_id' => Mage::registry('permissions_user')->getUserId()],
-        );
     }
 }

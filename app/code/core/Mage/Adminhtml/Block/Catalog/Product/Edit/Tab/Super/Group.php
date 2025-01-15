@@ -56,6 +56,52 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     }
 
     /**
+     * Get Grid Url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->_getData('grid_url') ?: $this->getUrl('*/*/superGroupGridOnly', ['_current' => true]);
+    }
+
+    /**
+     * Retrieve grouped products
+     *
+     * @return array
+     */
+    public function getSelectedGroupedProducts()
+    {
+        $associatedProducts = Mage::registry('current_product')->getTypeInstance(true)
+            ->getAssociatedProducts(Mage::registry('current_product'));
+        $products = [];
+        foreach ($associatedProducts as $product) {
+            $products[$product->getId()] = [
+                'qty'       => $product->getQty(),
+                'position'  => $product->getPosition(),
+            ];
+        }
+        return $products;
+    }
+
+    public function getTabLabel()
+    {
+        return Mage::helper('catalog')->__('Associated Products');
+    }
+    public function getTabTitle()
+    {
+        return Mage::helper('catalog')->__('Associated Products');
+    }
+    public function canShowTab()
+    {
+        return true;
+    }
+    public function isHidden()
+    {
+        return false;
+    }
+
+    /**
      * Retrieve currently edited product model
      *
      * @return Mage_Catalog_Model_Product
@@ -195,16 +241,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     }
 
     /**
-     * Get Grid Url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->_getData('grid_url') ?: $this->getUrl('*/*/superGroupGridOnly', ['_current' => true]);
-    }
-
-    /**
      * Retrieve selected grouped products
      *
      * @return array
@@ -216,41 +252,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             $products = array_keys($this->getSelectedGroupedProducts());
         }
         return $products;
-    }
-
-    /**
-     * Retrieve grouped products
-     *
-     * @return array
-     */
-    public function getSelectedGroupedProducts()
-    {
-        $associatedProducts = Mage::registry('current_product')->getTypeInstance(true)
-            ->getAssociatedProducts(Mage::registry('current_product'));
-        $products = [];
-        foreach ($associatedProducts as $product) {
-            $products[$product->getId()] = [
-                'qty'       => $product->getQty(),
-                'position'  => $product->getPosition(),
-            ];
-        }
-        return $products;
-    }
-
-    public function getTabLabel()
-    {
-        return Mage::helper('catalog')->__('Associated Products');
-    }
-    public function getTabTitle()
-    {
-        return Mage::helper('catalog')->__('Associated Products');
-    }
-    public function canShowTab()
-    {
-        return true;
-    }
-    public function isHidden()
-    {
-        return false;
     }
 }

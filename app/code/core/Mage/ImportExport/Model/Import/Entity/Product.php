@@ -28,11 +28,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     public const CONFIG_KEY_PRODUCT_TYPES = 'global/importexport/import_product_types';
 
     /**
-     * Allowed column name format
-     */
-    private const COL_NAME_FORMAT = '/[\x00-\x1F\x7F]/';
-
-    /**
      * Size of bunch - part of products to save in one step.
      */
     public const BUNCH_SIZE = 20;
@@ -230,6 +225,11 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      * Error - invalid product sku
      */
     public const ERROR_INVALID_PRODUCT_SKU          = 'invalidSku';
+
+    /**
+     * Allowed column name format
+     */
+    private const COL_NAME_FORMAT = '/[\x00-\x1F\x7F]/';
 
     /**
      * Pairs of attribute set ID-to-name.
@@ -443,6 +443,212 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             ->_initCategories()
             ->_initSkus()
             ->_initCustomerGroups();
+    }
+
+    /**
+     * Attribute set ID-to-name pairs getter.
+     *
+     * @return array
+     */
+    public function getAttrSetIdToName()
+    {
+        return $this->_attrSetIdToName;
+    }
+
+    /**
+     * DB connection getter.
+     *
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
+    public function getConnection()
+    {
+        return $this->_connection;
+    }
+
+    /**
+     * EAV entity type code getter.
+     *
+     * @abstract
+     * @return string
+     */
+    public function getEntityTypeCode()
+    {
+        return 'catalog_product';
+    }
+
+    /**
+     * New products SKU data.
+     *
+     * @return array
+     */
+    public function getNewSku()
+    {
+        return $this->_newSku;
+    }
+
+    /**
+     * Get next bunch of validatetd rows.
+     *
+     * @return array|null
+     */
+    public function getNextBunch()
+    {
+        return $this->_dataSourceModel->getNextBunch();
+    }
+
+    /**
+     * Existing products SKU getter.
+     *
+     * @return array
+     */
+    public function getOldSku()
+    {
+        return $this->_oldSku;
+    }
+
+    /**
+     * Obtain scope of the row from row data.
+     *
+     * @return int
+     */
+    public function getRowScope(array $rowData)
+    {
+        if (isset($rowData[self::COL_SKU]) && strlen(trim($rowData[self::COL_SKU]))) {
+            return self::SCOPE_DEFAULT;
+        } elseif (empty($rowData[self::COL_STORE])) {
+            return self::SCOPE_NULL;
+        } else {
+            return self::SCOPE_STORE;
+        }
+    }
+
+    /**
+     * All website codes to ID getter.
+     *
+     * @return array
+     */
+    public function getWebsiteCodes()
+    {
+        return $this->_websiteCodeToId;
+    }
+
+    /**
+     * Validate data row.
+     *
+     * @param int $rowNum
+     * @return bool
+     */
+    public function validateRow(array $rowData, $rowNum)
+    {
+        static $sku = null; // SKU is remembered through all product rows
+
+        if (isset($this->_validatedRows[$rowNum])) { // check that row is already validated
+            return !isset($this->_invalidRows[$rowNum]);
+        }
+        $this->_validatedRows[$rowNum] = true;
+
+        if (isset($this->_newSku[$rowData[self::COL_SKU]])) {
+            $this->addRowError(self::ERROR_DUPLICATE_SKU, $rowNum);
+            return false;
+        }
+        $rowScope = $this->getRowScope($rowData);
+
+        // BEHAVIOR_DELETE use specific validation logic
+        if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $this->getBehavior()) {
+            if (self::SCOPE_DEFAULT == $rowScope && !isset($this->_oldSku[$rowData[self::COL_SKU]])) {
+                $this->addRowError(self::ERROR_SKU_NOT_FOUND_FOR_DELETE, $rowNum);
+                return false;
+            }
+            return true;
+        }
+
+        $this->_validate($rowData, $rowNum, $sku);
+
+        if (self::SCOPE_DEFAULT == $rowScope) { // SKU is specified, row is SCOPE_DEFAULT, new product block begins
+            $this->_processedEntitiesCount++;
+
+            $sku = $rowData[self::COL_SKU];
+
+            if (isset($this->_oldSku[$sku])) { // can we get all necessary data from existent DB product?
+                // check for supported type of existing product
+                if (isset($this->_productTypeModels[$this->_oldSku[$sku]['type_id']])) {
+                    $this->_newSku[$sku] = [
+                        'entity_id'     => $this->_oldSku[$sku]['entity_id'],
+                        'type_id'       => $this->_oldSku[$sku]['type_id'],
+                        'attr_set_id'   => $this->_oldSku[$sku]['attr_set_id'],
+                        'attr_set_code' => $this->_attrSetIdToName[$this->_oldSku[$sku]['attr_set_id']],
+                    ];
+                } else {
+                    $this->addRowError(self::ERROR_TYPE_UNSUPPORTED, $rowNum);
+                    $sku = false; // child rows of legacy products with unsupported types are orphans
+                }
+            } else { // validate new product type and attribute set
+                if (!isset($rowData[self::COL_TYPE])
+                    || !isset($this->_productTypeModels[$rowData[self::COL_TYPE]])
+                ) {
+                    $this->addRowError(self::ERROR_INVALID_TYPE, $rowNum);
+                } elseif (!isset($rowData[self::COL_ATTR_SET])
+                          || !isset($this->_attrSetNameToId[$rowData[self::COL_ATTR_SET]])
+                ) {
+                    $this->addRowError(self::ERROR_INVALID_ATTR_SET, $rowNum);
+                } elseif (!isset($this->_newSku[$sku])) {
+                    $this->_newSku[$sku] = [
+                        'entity_id'     => null,
+                        'type_id'       => $rowData[self::COL_TYPE],
+                        'attr_set_id'   => $this->_attrSetNameToId[$rowData[self::COL_ATTR_SET]],
+                        'attr_set_code' => $rowData[self::COL_ATTR_SET],
+                    ];
+                }
+                if (isset($this->_invalidRows[$rowNum])) {
+                    // mark SCOPE_DEFAULT row as invalid for future child rows if product not in DB already
+                    $sku = false;
+                }
+            }
+        } else {
+            if ($sku === null) {
+                $this->addRowError(self::ERROR_SKU_IS_EMPTY, $rowNum);
+            } elseif ($sku === false) {
+                $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);
+            } elseif (self::SCOPE_STORE == $rowScope && !isset($this->_storeCodeToId[$rowData[self::COL_STORE]])) {
+                $this->addRowError(self::ERROR_INVALID_STORE, $rowNum);
+            }
+        }
+        if (!isset($this->_invalidRows[$rowNum])) {
+            // set attribute set code into row data for followed attribute validation in type model
+            $rowData[self::COL_ATTR_SET] = $this->_newSku[$sku]['attr_set_code'];
+
+            $rowAttributesValid = $this->_productTypeModels[$this->_newSku[$sku]['type_id']]->isRowValid(
+                $rowData,
+                $rowNum,
+                !isset($this->_oldSku[$sku]),
+            );
+            if (!$rowAttributesValid && self::SCOPE_DEFAULT == $rowScope) {
+                $sku = false; // mark SCOPE_DEFAULT row as invalid for future child rows
+            }
+        }
+        return !isset($this->_invalidRows[$rowNum]);
+    }
+
+    /**
+     * Get array of affected products
+     *
+     * @return array
+     */
+    public function getAffectedEntityIds()
+    {
+        $productIds = [];
+        while ($bunch = $this->_dataSourceModel->getNextBunch()) {
+            foreach ($bunch as $rowNum => $rowData) {
+                if (!$this->isRowAllowedToImport($rowData, $rowNum)) {
+                    continue;
+                }
+                if (!isset($this->_newSku[$rowData[self::COL_SKU]]['entity_id'])) {
+                    continue;
+                }
+                $productIds[] = $this->_newSku[$rowData[self::COL_SKU]]['entity_id'];
+            }
+        }
+        return $productIds;
     }
 
     /**
@@ -1991,190 +2197,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
-     * Attribute set ID-to-name pairs getter.
-     *
-     * @return array
-     */
-    public function getAttrSetIdToName()
-    {
-        return $this->_attrSetIdToName;
-    }
-
-    /**
-     * DB connection getter.
-     *
-     * @return Varien_Db_Adapter_Pdo_Mysql
-     */
-    public function getConnection()
-    {
-        return $this->_connection;
-    }
-
-    /**
-     * EAV entity type code getter.
-     *
-     * @abstract
-     * @return string
-     */
-    public function getEntityTypeCode()
-    {
-        return 'catalog_product';
-    }
-
-    /**
-     * New products SKU data.
-     *
-     * @return array
-     */
-    public function getNewSku()
-    {
-        return $this->_newSku;
-    }
-
-    /**
-     * Get next bunch of validatetd rows.
-     *
-     * @return array|null
-     */
-    public function getNextBunch()
-    {
-        return $this->_dataSourceModel->getNextBunch();
-    }
-
-    /**
-     * Existing products SKU getter.
-     *
-     * @return array
-     */
-    public function getOldSku()
-    {
-        return $this->_oldSku;
-    }
-
-    /**
-     * Obtain scope of the row from row data.
-     *
-     * @return int
-     */
-    public function getRowScope(array $rowData)
-    {
-        if (isset($rowData[self::COL_SKU]) && strlen(trim($rowData[self::COL_SKU]))) {
-            return self::SCOPE_DEFAULT;
-        } elseif (empty($rowData[self::COL_STORE])) {
-            return self::SCOPE_NULL;
-        } else {
-            return self::SCOPE_STORE;
-        }
-    }
-
-    /**
-     * All website codes to ID getter.
-     *
-     * @return array
-     */
-    public function getWebsiteCodes()
-    {
-        return $this->_websiteCodeToId;
-    }
-
-    /**
-     * Validate data row.
-     *
-     * @param int $rowNum
-     * @return bool
-     */
-    public function validateRow(array $rowData, $rowNum)
-    {
-        static $sku = null; // SKU is remembered through all product rows
-
-        if (isset($this->_validatedRows[$rowNum])) { // check that row is already validated
-            return !isset($this->_invalidRows[$rowNum]);
-        }
-        $this->_validatedRows[$rowNum] = true;
-
-        if (isset($this->_newSku[$rowData[self::COL_SKU]])) {
-            $this->addRowError(self::ERROR_DUPLICATE_SKU, $rowNum);
-            return false;
-        }
-        $rowScope = $this->getRowScope($rowData);
-
-        // BEHAVIOR_DELETE use specific validation logic
-        if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $this->getBehavior()) {
-            if (self::SCOPE_DEFAULT == $rowScope && !isset($this->_oldSku[$rowData[self::COL_SKU]])) {
-                $this->addRowError(self::ERROR_SKU_NOT_FOUND_FOR_DELETE, $rowNum);
-                return false;
-            }
-            return true;
-        }
-
-        $this->_validate($rowData, $rowNum, $sku);
-
-        if (self::SCOPE_DEFAULT == $rowScope) { // SKU is specified, row is SCOPE_DEFAULT, new product block begins
-            $this->_processedEntitiesCount++;
-
-            $sku = $rowData[self::COL_SKU];
-
-            if (isset($this->_oldSku[$sku])) { // can we get all necessary data from existent DB product?
-                // check for supported type of existing product
-                if (isset($this->_productTypeModels[$this->_oldSku[$sku]['type_id']])) {
-                    $this->_newSku[$sku] = [
-                        'entity_id'     => $this->_oldSku[$sku]['entity_id'],
-                        'type_id'       => $this->_oldSku[$sku]['type_id'],
-                        'attr_set_id'   => $this->_oldSku[$sku]['attr_set_id'],
-                        'attr_set_code' => $this->_attrSetIdToName[$this->_oldSku[$sku]['attr_set_id']],
-                    ];
-                } else {
-                    $this->addRowError(self::ERROR_TYPE_UNSUPPORTED, $rowNum);
-                    $sku = false; // child rows of legacy products with unsupported types are orphans
-                }
-            } else { // validate new product type and attribute set
-                if (!isset($rowData[self::COL_TYPE])
-                    || !isset($this->_productTypeModels[$rowData[self::COL_TYPE]])
-                ) {
-                    $this->addRowError(self::ERROR_INVALID_TYPE, $rowNum);
-                } elseif (!isset($rowData[self::COL_ATTR_SET])
-                          || !isset($this->_attrSetNameToId[$rowData[self::COL_ATTR_SET]])
-                ) {
-                    $this->addRowError(self::ERROR_INVALID_ATTR_SET, $rowNum);
-                } elseif (!isset($this->_newSku[$sku])) {
-                    $this->_newSku[$sku] = [
-                        'entity_id'     => null,
-                        'type_id'       => $rowData[self::COL_TYPE],
-                        'attr_set_id'   => $this->_attrSetNameToId[$rowData[self::COL_ATTR_SET]],
-                        'attr_set_code' => $rowData[self::COL_ATTR_SET],
-                    ];
-                }
-                if (isset($this->_invalidRows[$rowNum])) {
-                    // mark SCOPE_DEFAULT row as invalid for future child rows if product not in DB already
-                    $sku = false;
-                }
-            }
-        } else {
-            if ($sku === null) {
-                $this->addRowError(self::ERROR_SKU_IS_EMPTY, $rowNum);
-            } elseif ($sku === false) {
-                $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);
-            } elseif (self::SCOPE_STORE == $rowScope && !isset($this->_storeCodeToId[$rowData[self::COL_STORE]])) {
-                $this->addRowError(self::ERROR_INVALID_STORE, $rowNum);
-            }
-        }
-        if (!isset($this->_invalidRows[$rowNum])) {
-            // set attribute set code into row data for followed attribute validation in type model
-            $rowData[self::COL_ATTR_SET] = $this->_newSku[$sku]['attr_set_code'];
-
-            $rowAttributesValid = $this->_productTypeModels[$this->_newSku[$sku]['type_id']]->isRowValid(
-                $rowData,
-                $rowNum,
-                !isset($this->_oldSku[$sku]),
-            );
-            if (!$rowAttributesValid && self::SCOPE_DEFAULT == $rowScope) {
-                $sku = false; // mark SCOPE_DEFAULT row as invalid for future child rows
-            }
-        }
-        return !isset($this->_invalidRows[$rowNum]);
-    }
-
-    /**
      * Common validation
      *
      * @param array $rowData
@@ -2189,28 +2211,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $this->_isGroupPriceValid($rowData, $rowNum);
         $this->_isSuperProductsSkuValid($rowData, $rowNum);
         $this->_isProductSkuValid($rowData, $rowNum);
-    }
-
-    /**
-     * Get array of affected products
-     *
-     * @return array
-     */
-    public function getAffectedEntityIds()
-    {
-        $productIds = [];
-        while ($bunch = $this->_dataSourceModel->getNextBunch()) {
-            foreach ($bunch as $rowNum => $rowData) {
-                if (!$this->isRowAllowedToImport($rowData, $rowNum)) {
-                    continue;
-                }
-                if (!isset($this->_newSku[$rowData[self::COL_SKU]]['entity_id'])) {
-                    continue;
-                }
-                $productIds[] = $this->_newSku[$rowData[self::COL_SKU]]['entity_id'];
-            }
-        }
-        return $productIds;
     }
 
     /**

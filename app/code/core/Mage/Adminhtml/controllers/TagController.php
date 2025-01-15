@@ -22,41 +22,6 @@
  */
 class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 {
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('catalog/tag')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Catalog'), Mage::helper('adminhtml')->__('Catalog'))
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Tags'), Mage::helper('adminhtml')->__('Tags'));
-
-        return $this;
-    }
-
-    /**
-     * Prepare tag model for manipulation
-     *
-     * @return Mage_Tag_Model_Tag | false
-     */
-    protected function _initTag()
-    {
-        $model = Mage::getModel('tag/tag');
-        $storeId = $this->getRequest()->getParam('store');
-        $model->setStoreId($storeId);
-
-        if (($id = $this->getRequest()->getParam('tag_id'))) {
-            $model->setAddBasePopularity();
-            $model->load($id);
-            $model->setStoreId($storeId);
-
-            if (!$model->getId()) {
-                return false;
-            }
-        }
-
-        Mage::register('current_tag', $model);
-        return $model;
-    }
-
     /**
      * Show grid action
      *
@@ -323,6 +288,40 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         }
         $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
         $this->_redirect('*/*/' . $ret);
+    }
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('catalog/tag')
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Catalog'), Mage::helper('adminhtml')->__('Catalog'))
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Tags'), Mage::helper('adminhtml')->__('Tags'));
+
+        return $this;
+    }
+
+    /**
+     * Prepare tag model for manipulation
+     *
+     * @return Mage_Tag_Model_Tag | false
+     */
+    protected function _initTag()
+    {
+        $model = Mage::getModel('tag/tag');
+        $storeId = $this->getRequest()->getParam('store');
+        $model->setStoreId($storeId);
+
+        if (($id = $this->getRequest()->getParam('tag_id'))) {
+            $model->setAddBasePopularity();
+            $model->load($id);
+            $model->setStoreId($storeId);
+
+            if (!$model->getId()) {
+                return false;
+            }
+        }
+
+        Mage::register('current_tag', $model);
+        return $model;
     }
 
     /**

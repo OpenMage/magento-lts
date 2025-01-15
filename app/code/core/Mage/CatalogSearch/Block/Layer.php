@@ -23,37 +23,6 @@
 class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
 {
     /**
-     * Internal constructor
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        Mage::register('current_layer', $this->getLayer(), true);
-    }
-
-    /**
-     * Get attribute filter block name
-     *
-     * @deprecated after 1.4.1.0
-     *
-     * @return string
-     */
-    protected function _getAttributeFilterBlockName()
-    {
-        return 'catalogsearch/layer_filter_attribute';
-    }
-
-    /**
-     * Initialize blocks names
-     */
-    protected function _initBlocks()
-    {
-        parent::_initBlocks();
-
-        $this->_attributeFilterBlockName = 'catalogsearch/layer_filter_attribute';
-    }
-
-    /**
      * Get layer object
      *
      * @return Mage_Catalog_Model_Layer
@@ -83,5 +52,35 @@ class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
             return parent::canShowBlock();
         }
         return false;
+    }
+    /**
+     * Internal constructor
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        Mage::register('current_layer', $this->getLayer(), true);
+    }
+
+    /**
+     * Get attribute filter block name
+     *
+     * @deprecated after 1.4.1.0
+     *
+     * @return string
+     */
+    protected function _getAttributeFilterBlockName()
+    {
+        return 'catalogsearch/layer_filter_attribute';
+    }
+
+    /**
+     * Initialize blocks names
+     */
+    protected function _initBlocks()
+    {
+        parent::_initBlocks();
+
+        $this->_attributeFilterBlockName = 'catalogsearch/layer_filter_attribute';
     }
 }

@@ -32,12 +32,6 @@
  */
 class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalogindex/indexer_eav');
-        parent::_construct();
-    }
-
     /**
      * @return array
      */
@@ -64,6 +58,11 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
 
         //return $this->_spreadDataForStores($object, $attribute, $data);
         return $data;
+    }
+    protected function _construct()
+    {
+        $this->_init('catalogindex/indexer_eav');
+        parent::_construct();
     }
 
     /**

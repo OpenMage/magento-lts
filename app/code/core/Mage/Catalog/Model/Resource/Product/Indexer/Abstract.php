@@ -23,6 +23,45 @@
 abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage_Index_Model_Resource_Abstract
 {
     /**
+     * Retrieve product relations by children
+     *
+     * @param int|array $childIds
+     * @return array
+     */
+    public function getRelationsByChild($childIds)
+    {
+        $write = $this->_getWriteAdapter();
+        $select = $write->select()
+            ->from($this->getTable('catalog/product_relation'), 'parent_id')
+            ->where('child_id IN(?)', $childIds);
+
+        return $write->fetchCol($select);
+    }
+
+    /**
+     * Retrieve product relations by parents
+     *
+     * @param int|array $parentIds
+     * @return array
+     */
+    public function getRelationsByParent($parentIds)
+    {
+        if (!is_array($parentIds)) {
+            $parentIds = [$parentIds];
+        }
+
+        $result = [];
+        if (!empty($parentIds)) {
+            $write = $this->_getWriteAdapter();
+            $select = $write->select()
+                ->from($this->getTable('catalog/product_relation'), 'child_id')
+                ->where('parent_id IN(?)', $parentIds);
+            $result = $write->fetchCol($select);
+        }
+
+        return $result;
+    }
+    /**
      * Retrieve catalog_product attribute instance by attribute code
      *
      * @param string $attributeCode
@@ -152,45 +191,5 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
         );
 
         return $this;
-    }
-
-    /**
-     * Retrieve product relations by children
-     *
-     * @param int|array $childIds
-     * @return array
-     */
-    public function getRelationsByChild($childIds)
-    {
-        $write = $this->_getWriteAdapter();
-        $select = $write->select()
-            ->from($this->getTable('catalog/product_relation'), 'parent_id')
-            ->where('child_id IN(?)', $childIds);
-
-        return $write->fetchCol($select);
-    }
-
-    /**
-     * Retrieve product relations by parents
-     *
-     * @param int|array $parentIds
-     * @return array
-     */
-    public function getRelationsByParent($parentIds)
-    {
-        if (!is_array($parentIds)) {
-            $parentIds = [$parentIds];
-        }
-
-        $result = [];
-        if (!empty($parentIds)) {
-            $write = $this->_getWriteAdapter();
-            $select = $write->select()
-                ->from($this->getTable('catalog/product_relation'), 'child_id')
-                ->where('parent_id IN(?)', $parentIds);
-            $result = $write->fetchCol($select);
-        }
-
-        return $result;
     }
 }

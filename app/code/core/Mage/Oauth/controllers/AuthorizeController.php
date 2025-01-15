@@ -30,6 +30,58 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
     protected $_sessionName = 'customer/session';
 
     /**
+     * Index action.
+     */
+    public function indexAction()
+    {
+        $this->_initForm();
+        $this->_initLayoutMessages($this->_sessionName);
+        $this->renderLayout();
+    }
+
+    /**
+     * OAuth authorize or allow decline access simple page
+     */
+    public function simpleAction()
+    {
+        $this->_initForm(true);
+        $this->_initLayoutMessages($this->_sessionName);
+        $this->renderLayout();
+    }
+
+    /**
+     * Confirm token authorization action
+     */
+    public function confirmAction()
+    {
+        $this->_initConfirmPage();
+    }
+
+    /**
+     * Confirm token authorization simple page
+     */
+    public function confirmSimpleAction()
+    {
+        $this->_initConfirmPage(true);
+    }
+
+    /**
+     * Reject token authorization action
+     */
+    public function rejectAction()
+    {
+        $this->_initRejectPage();
+    }
+
+    /**
+     * Reject token authorization simple page
+     */
+    public function rejectSimpleAction()
+    {
+        $this->_initRejectPage(true);
+    }
+
+    /**
      * Init authorize page
      *
      * @param bool $simple      Is simple page?
@@ -174,57 +226,5 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
 
         return $this;
-    }
-
-    /**
-     * Index action.
-     */
-    public function indexAction()
-    {
-        $this->_initForm();
-        $this->_initLayoutMessages($this->_sessionName);
-        $this->renderLayout();
-    }
-
-    /**
-     * OAuth authorize or allow decline access simple page
-     */
-    public function simpleAction()
-    {
-        $this->_initForm(true);
-        $this->_initLayoutMessages($this->_sessionName);
-        $this->renderLayout();
-    }
-
-    /**
-     * Confirm token authorization action
-     */
-    public function confirmAction()
-    {
-        $this->_initConfirmPage();
-    }
-
-    /**
-     * Confirm token authorization simple page
-     */
-    public function confirmSimpleAction()
-    {
-        $this->_initConfirmPage(true);
-    }
-
-    /**
-     * Reject token authorization action
-     */
-    public function rejectAction()
-    {
-        $this->_initRejectPage();
-    }
-
-    /**
-     * Reject token authorization simple page
-     */
-    public function rejectSimpleAction()
-    {
-        $this->_initRejectPage(true);
     }
 }

@@ -36,6 +36,18 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
+     * Retrieve Row URL
+     *
+     * @param Mage_Core_Model_Abstract $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return (Mage::getSingleton('admin/session')->isAllowed('customer/manage') && $row->getCustomerId())
+            ? $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]) : '';
+    }
+
+    /**
      * Prepare collection for grid
      *
      * @return $this
@@ -140,17 +152,5 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Retrieve Row URL
-     *
-     * @param Mage_Core_Model_Abstract $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return (Mage::getSingleton('admin/session')->isAllowed('customer/manage') && $row->getCustomerId())
-            ? $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]) : '';
     }
 }

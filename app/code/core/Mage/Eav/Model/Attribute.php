@@ -69,17 +69,6 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     }
 
     /**
-     * Processing object after save data
-     *
-     * @inheritDoc
-     */
-    protected function _afterSave()
-    {
-        Mage::getSingleton('eav/config')->clear();
-        return parent::_afterSave();
-    }
-
-    /**
      * Return forms in which the attribute
      *
      * @return array
@@ -129,18 +118,6 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     }
 
     /**
-     * Return scope value by key
-     *
-     * @param string $key
-     * @return mixed
-     */
-    protected function _getScopeValue($key)
-    {
-        $scopeKey = sprintf('scope_%s', $key);
-        return $this->getData($scopeKey) ?? $this->getData($key);
-    }
-
-    /**
      * Return is attribute value required
      *
      * @return mixed
@@ -178,5 +155,28 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
     public function getMultilineCount()
     {
         return $this->_getScopeValue('multiline_count');
+    }
+
+    /**
+     * Processing object after save data
+     *
+     * @inheritDoc
+     */
+    protected function _afterSave()
+    {
+        Mage::getSingleton('eav/config')->clear();
+        return parent::_afterSave();
+    }
+
+    /**
+     * Return scope value by key
+     *
+     * @param string $key
+     * @return mixed
+     */
+    protected function _getScopeValue($key)
+    {
+        $scopeKey = sprintf('scope_%s', $key);
+        return $this->getData($scopeKey) ?? $this->getData($key);
     }
 }

@@ -29,29 +29,6 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
     public const ADMIN_RESOURCE = 'sales/creditmemo';
 
     /**
-     * Additional initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->setUsedModuleName('Mage_Sales');
-    }
-
-    /**
-     * Init layout, menu and breadcrumb
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('sales/creditmemo')
-            ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
-            ->_addBreadcrumb($this->__('Credit Memos'), $this->__('Credit Memos'));
-        return $this;
-    }
-
-    /**
      * Creditmemos grid
      */
     public function indexAction()
@@ -124,5 +101,28 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
         } else {
             $this->_forward('noRoute');
         }
+    }
+
+    /**
+     * Additional initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->setUsedModuleName('Mage_Sales');
+    }
+
+    /**
+     * Init layout, menu and breadcrumb
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('sales/creditmemo')
+            ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
+            ->_addBreadcrumb($this->__('Credit Memos'), $this->__('Credit Memos'));
+        return $this;
     }
 }

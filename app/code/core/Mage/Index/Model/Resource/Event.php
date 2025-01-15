@@ -22,6 +22,46 @@
  */
 class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * Update status for events of process
+     *
+     * @param int|array|Mage_Index_Model_Process $process
+     * @param string $status
+     * @return $this
+     */
+    public function updateProcessEvents($process, $status = Mage_Index_Model_Process::EVENT_STATUS_DONE)
+    {
+        $whereCondition = '';
+        if ($process instanceof Mage_Index_Model_Process) {
+            $whereCondition = ['process_id = ?' => $process->getId()];
+        } elseif (is_array($process) && !empty($process)) {
+            $whereCondition = ['process_id IN (?)' => $process];
+        } elseif (!is_array($whereCondition)) {
+            $whereCondition = ['process_id = ?' => $process];
+        }
+        $this->_getWriteAdapter()->update(
+            $this->getTable('index/process_event'),
+            ['status' => $status],
+            $whereCondition,
+        );
+        return $this;
+    }
+
+    /**
+     * Retrieve unprocessed events list by specified process
+     *
+     * @param Mage_Index_Model_Process $process
+     * @return array
+     */
+    public function getUnprocessedEvents($process)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('index/process_event'))
+            ->where('process_id = ?', $process->getId())
+            ->where('status = ?', Mage_Index_Model_Process::EVENT_STATUS_NEW);
+
+        return $this->_getReadAdapter()->fetchAll($select);
+    }
     protected function _construct()
     {
         $this->_init('index/event', 'event_id');
@@ -87,46 +127,5 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
             }
         }
         return parent::_afterSave($object);
-    }
-
-    /**
-     * Update status for events of process
-     *
-     * @param int|array|Mage_Index_Model_Process $process
-     * @param string $status
-     * @return $this
-     */
-    public function updateProcessEvents($process, $status = Mage_Index_Model_Process::EVENT_STATUS_DONE)
-    {
-        $whereCondition = '';
-        if ($process instanceof Mage_Index_Model_Process) {
-            $whereCondition = ['process_id = ?' => $process->getId()];
-        } elseif (is_array($process) && !empty($process)) {
-            $whereCondition = ['process_id IN (?)' => $process];
-        } elseif (!is_array($whereCondition)) {
-            $whereCondition = ['process_id = ?' => $process];
-        }
-        $this->_getWriteAdapter()->update(
-            $this->getTable('index/process_event'),
-            ['status' => $status],
-            $whereCondition,
-        );
-        return $this;
-    }
-
-    /**
-     * Retrieve unprocessed events list by specified process
-     *
-     * @param Mage_Index_Model_Process $process
-     * @return array
-     */
-    public function getUnprocessedEvents($process)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('index/process_event'))
-            ->where('process_id = ?', $process->getId())
-            ->where('status = ?', Mage_Index_Model_Process::EVENT_STATUS_NEW);
-
-        return $this->_getReadAdapter()->fetchAll($select);
     }
 }

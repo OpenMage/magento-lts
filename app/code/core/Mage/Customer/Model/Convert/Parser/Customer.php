@@ -421,27 +421,6 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     }
 
     /**
-     * Gets group code by customer's groupId
-     *
-     * @param Mage_Customer_Model_Customer $customer
-     * @return string|null
-     */
-    protected function _getCustomerGroupCode($customer)
-    {
-        if (is_null($this->_customerGroups)) {
-            $groups = Mage::getResourceModel('customer/group_collection')
-                    ->load();
-
-            /** @var Mage_Customer_Model_Group $group */
-            foreach ($groups as $group) {
-                $this->_customerGroups[$group->getId()] = $group->getData('customer_group_code');
-            }
-        }
-
-        return $this->_customerGroups[$customer->getGroupId()] ?? null;
-    }
-
-    /**
      * @deprecated not used anymore
      */
     public function parse()
@@ -632,5 +611,26 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         }
         $this->setData($this->_collections);
         return $this;
+    }
+
+    /**
+     * Gets group code by customer's groupId
+     *
+     * @param Mage_Customer_Model_Customer $customer
+     * @return string|null
+     */
+    protected function _getCustomerGroupCode($customer)
+    {
+        if (is_null($this->_customerGroups)) {
+            $groups = Mage::getResourceModel('customer/group_collection')
+                    ->load();
+
+            /** @var Mage_Customer_Model_Group $group */
+            foreach ($groups as $group) {
+                $this->_customerGroups[$group->getId()] = $group->getData('customer_group_code');
+            }
+        }
+
+        return $this->_customerGroups[$customer->getGroupId()] ?? null;
     }
 }

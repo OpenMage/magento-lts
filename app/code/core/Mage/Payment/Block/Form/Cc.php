@@ -20,22 +20,6 @@
  */
 class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('payment/form/cc.phtml');
-    }
-
-    /**
-     * Retrieve payment configuration object
-     *
-     * @return Mage_Payment_Model_Config
-     */
-    protected function _getConfig()
-    {
-        return Mage::getSingleton('payment/config');
-    }
-
     /**
      * Retrieve availables credit card types
      *
@@ -140,6 +124,21 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $years[$year] = $year;
         }
         return [0 => $this->__('Year')] + $years;
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('payment/form/cc.phtml');
+    }
+
+    /**
+     * Retrieve payment configuration object
+     *
+     * @return Mage_Payment_Model_Config
+     */
+    protected function _getConfig()
+    {
+        return Mage::getSingleton('payment/config');
     }
 
     /**

@@ -23,15 +23,6 @@
 class Mage_Dataflow_Model_Resource_Profile_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model and model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('dataflow/profile');
-    }
-
-    /**
      * Filter collection by specified store ids
      *
      * @param array|int $storeIds
@@ -42,5 +33,13 @@ class Mage_Dataflow_Model_Resource_Profile_Collection extends Mage_Core_Model_Re
         $this->getSelect()
             ->where('main_table.store_id IN (?)', [0, $storeIds]);
         return $this;
+    }
+    /**
+     * Define resource model and model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('dataflow/profile');
     }
 }

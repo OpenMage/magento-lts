@@ -114,6 +114,39 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
     /**
      * @return bool
      */
+    public function isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
+    {
+        return $this->_isAttributeIndexable($attribute);
+    }
+
+    /**
+     * @return array
+     */
+    public function getIndexableAttributeCodes()
+    {
+        return $this->_getResource()->loadAttributeCodesByCondition($this->_getIndexableAttributeConditions());
+    }
+
+    /**
+     * @param int $productId
+     * @param int $storeId
+     */
+    public function cleanup($productId, $storeId = null)
+    {
+        $this->_getResource()->cleanup($productId, $storeId);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAttributeIdUsed()
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
     protected function _isObjectIndexable(Mage_Catalog_Model_Product $object)
     {
         if ($object->getStatus() != Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
@@ -132,14 +165,6 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
     /**
      * @return bool
      */
-    public function isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
-    {
-        return $this->_isAttributeIndexable($attribute);
-    }
-
-    /**
-     * @return bool
-     */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         return true;
@@ -148,33 +173,8 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
     /**
      * @return array
      */
-    public function getIndexableAttributeCodes()
-    {
-        return $this->_getResource()->loadAttributeCodesByCondition($this->_getIndexableAttributeConditions());
-    }
-
-    /**
-     * @return array
-     */
     protected function _getIndexableAttributeConditions()
     {
         return [];
-    }
-
-    /**
-     * @param int $productId
-     * @param int $storeId
-     */
-    public function cleanup($productId, $storeId = null)
-    {
-        $this->_getResource()->cleanup($productId, $storeId);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAttributeIdUsed()
-    {
-        return true;
     }
 }

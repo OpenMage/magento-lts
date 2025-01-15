@@ -22,11 +22,6 @@
  */
 class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
 {
-    protected function _construct()
-    {
-        $this->setTemplate('core/link.phtml');
-        parent::_construct();
-    }
     /**
      * Prepare link attributes as serialized and formatted string
      *
@@ -75,5 +70,10 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
             $data[] = $key . $valueSeparator . $quote . $value . $quote;
         }
         return implode($fieldSeparator, $data);
+    }
+    protected function _construct()
+    {
+        $this->setTemplate('core/link.phtml');
+        parent::_construct();
     }
 }

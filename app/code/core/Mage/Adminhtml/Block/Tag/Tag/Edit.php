@@ -79,18 +79,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
     }
 
     /**
-     * Add to layout accordion block
-     *
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-        $this->setChild('accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_accordion'));
-        return $this;
-    }
-
-    /**
      * Adds to html of form html of accordion block
      *
      * @return string
@@ -110,5 +98,17 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
             return Mage::helper('tag')->__("Edit Tag '%s'", $this->escapeHtml(Mage::registry('tag_tag')->getName()));
         }
         return Mage::helper('tag')->__('New Tag');
+    }
+
+    /**
+     * Add to layout accordion block
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+        $this->setChild('accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_accordion'));
+        return $this;
     }
 }

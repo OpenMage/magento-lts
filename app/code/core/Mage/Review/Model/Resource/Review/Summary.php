@@ -23,30 +23,6 @@
 class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Define module
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('review/review_aggregate', 'entity_pk_value');
-    }
-
-    /**
-     * Retrieve select object for load object data
-     *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
-     * @return Varien_Db_Select
-     */
-    protected function _getLoadSelect($field, $value, $object)
-    {
-        $select = parent::_getLoadSelect($field, $value, $object);
-        $select->where('store_id = ?', (int) $object->getStoreId());
-        return $select;
-    }
-
-    /**
      * Reaggregate all data by rating summary
      *
      * @param array $summary
@@ -83,5 +59,28 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
             );
         }
         return $this;
+    }
+    /**
+     * Define module
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('review/review_aggregate', 'entity_pk_value');
+    }
+
+    /**
+     * Retrieve select object for load object data
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param Mage_Core_Model_Abstract $object
+     * @return Varien_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $select = parent::_getLoadSelect($field, $value, $object);
+        $select->where('store_id = ?', (int) $object->getStoreId());
+        return $select;
     }
 }

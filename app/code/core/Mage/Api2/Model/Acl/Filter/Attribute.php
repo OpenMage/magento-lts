@@ -42,11 +42,6 @@ class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
      */
     protected $_permissionModel;
 
-    protected function _construct()
-    {
-        $this->_init('api2/acl_filter_attribute');
-    }
-
     /**
      * Get pairs resources-permissions for current attribute
      *
@@ -58,5 +53,10 @@ class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
             $this->_permissionModel = Mage::getModel('api2/acl_filter_attribute_resourcePermission');
         }
         return $this->_permissionModel;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('api2/acl_filter_attribute');
     }
 }

@@ -47,6 +47,21 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     protected $_sessionNamespace = self::SESSION_NAMESPACE;
 
     /**
+     * Translate a phrase
+     *
+     * @return string
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
+     */
+    public function __()
+    {
+        $args = func_get_args();
+        $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->_getRealModuleName());
+        array_unshift($args, $expr);
+        return Mage::app()->getTranslator()->translate($args);
+    }
+
+    /**
      * Predispatch: should set layout area
      *
      * @return $this
@@ -71,21 +86,6 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', ['_current' => true]));
         }
         return $this;
-    }
-
-    /**
-     * Translate a phrase
-     *
-     * @return string
-     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
-     * @SuppressWarnings("PHPMD.ShortMethodName")
-     */
-    public function __()
-    {
-        $args = func_get_args();
-        $expr = new Mage_Core_Model_Translate_Expr(array_shift($args), $this->_getRealModuleName());
-        array_unshift($args, $expr);
-        return Mage::app()->getTranslator()->translate($args);
     }
 
     /**

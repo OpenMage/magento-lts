@@ -75,81 +75,6 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     }
 
     /**
-     * Save a single gift message
-     *
-     * @param int $entityId
-     * @param array $giftmessage
-     * @return $this
-     * @throws Throwable
-     */
-    protected function _saveOne($entityId, $giftmessage)
-    {
-        /** @var Mage_GiftMessage_Model_Message $giftmessageModel */
-        $giftmessageModel = Mage::getModel('giftmessage/message');
-        $entityType = $this->_getMappedType($giftmessage['type']);
-
-        switch ($entityType) {
-            case 'quote':
-                $entityModel = $this->_getQuote();
-                break;
-
-            case 'quote_item':
-                $entityModel = $this->_getQuote()->getItemById($entityId);
-                break;
-
-            default:
-                $entityModel = $giftmessageModel->getEntityModelByType($entityType)
-                    ->load($entityId);
-                break;
-        }
-
-        if (!$entityModel) {
-            return $this;
-        }
-
-        if ($entityModel->getGiftMessageId()) {
-            $giftmessageModel->load($entityModel->getGiftMessageId());
-        }
-
-        $giftmessageModel->addData($giftmessage);
-
-        if ($giftmessageModel->isMessageEmpty() && $giftmessageModel->getId()) {
-            // remove empty giftmessage
-            $this->_deleteOne($entityModel, $giftmessageModel);
-            $this->_saved = false;
-        } elseif (!$giftmessageModel->isMessageEmpty()) {
-            $giftmessageModel->save();
-            $entityModel->setGiftMessageId($giftmessageModel->getId());
-            if ($entityType != 'quote') {
-                $entityModel->save();
-            }
-            $this->_saved = true;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Delete a single gift message from entity
-     *
-     * @param Mage_GiftMessage_Model_Message|null $giftmessageModel
-     * @param Varien_Object $entityModel
-     * @return $this
-     * @throws Throwable
-     */
-    protected function _deleteOne($entityModel, $giftmessageModel = null)
-    {
-        if (is_null($giftmessageModel)) {
-            $giftmessageModel = Mage::getModel('giftmessage/message')
-                ->load($entityModel->getGiftMessageId());
-        }
-        $giftmessageModel->delete();
-        $entityModel->setGiftMessageId(0)
-            ->save();
-        return $this;
-    }
-
-    /**
      * Set allowed quote items for gift messages
      *
      * @param array $items
@@ -308,6 +233,81 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
 
         $allowedItems = array_diff($allowedItems, $deleteAllowedItems);
         $this->setAllowQuoteItems($allowedItems);
+        return $this;
+    }
+
+    /**
+     * Save a single gift message
+     *
+     * @param int $entityId
+     * @param array $giftmessage
+     * @return $this
+     * @throws Throwable
+     */
+    protected function _saveOne($entityId, $giftmessage)
+    {
+        /** @var Mage_GiftMessage_Model_Message $giftmessageModel */
+        $giftmessageModel = Mage::getModel('giftmessage/message');
+        $entityType = $this->_getMappedType($giftmessage['type']);
+
+        switch ($entityType) {
+            case 'quote':
+                $entityModel = $this->_getQuote();
+                break;
+
+            case 'quote_item':
+                $entityModel = $this->_getQuote()->getItemById($entityId);
+                break;
+
+            default:
+                $entityModel = $giftmessageModel->getEntityModelByType($entityType)
+                    ->load($entityId);
+                break;
+        }
+
+        if (!$entityModel) {
+            return $this;
+        }
+
+        if ($entityModel->getGiftMessageId()) {
+            $giftmessageModel->load($entityModel->getGiftMessageId());
+        }
+
+        $giftmessageModel->addData($giftmessage);
+
+        if ($giftmessageModel->isMessageEmpty() && $giftmessageModel->getId()) {
+            // remove empty giftmessage
+            $this->_deleteOne($entityModel, $giftmessageModel);
+            $this->_saved = false;
+        } elseif (!$giftmessageModel->isMessageEmpty()) {
+            $giftmessageModel->save();
+            $entityModel->setGiftMessageId($giftmessageModel->getId());
+            if ($entityType != 'quote') {
+                $entityModel->save();
+            }
+            $this->_saved = true;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Delete a single gift message from entity
+     *
+     * @param Mage_GiftMessage_Model_Message|null $giftmessageModel
+     * @param Varien_Object $entityModel
+     * @return $this
+     * @throws Throwable
+     */
+    protected function _deleteOne($entityModel, $giftmessageModel = null)
+    {
+        if (is_null($giftmessageModel)) {
+            $giftmessageModel = Mage::getModel('giftmessage/message')
+                ->load($entityModel->getGiftMessageId());
+        }
+        $giftmessageModel->delete();
+        $entityModel->setGiftMessageId(0)
+            ->save();
         return $this;
     }
 

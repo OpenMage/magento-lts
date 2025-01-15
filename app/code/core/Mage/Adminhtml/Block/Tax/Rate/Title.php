@@ -24,11 +24,6 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
 {
     protected $_titles;
 
-    protected function _construct()
-    {
-        $this->setTemplate('tax/rate/title.phtml');
-    }
-
     public function getTitles()
     {
         if (is_null($this->_titles)) {
@@ -57,5 +52,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
             $this->setData('stores', $stores);
         }
         return $stores;
+    }
+
+    protected function _construct()
+    {
+        $this->setTemplate('tax/rate/title.phtml');
     }
 }

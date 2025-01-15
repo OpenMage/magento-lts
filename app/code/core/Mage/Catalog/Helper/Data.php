@@ -112,23 +112,6 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check is category link
-     *
-     * @param int $categoryId
-     * @return bool
-     */
-    protected function _isCategoryLink($categoryId)
-    {
-        if ($this->getProduct()) {
-            return true;
-        }
-        if ($categoryId != $this->getCategory()->getId()) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Return current category object
      *
      * @return Mage_Catalog_Model_Category|null
@@ -456,5 +439,22 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     public function shouldDisplayProductCountOnLayer($storeId = null)
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_DISPLAY_PRODUCT_COUNT, $storeId);
+    }
+
+    /**
+     * Check is category link
+     *
+     * @param int $categoryId
+     * @return bool
+     */
+    protected function _isCategoryLink($categoryId)
+    {
+        if ($this->getProduct()) {
+            return true;
+        }
+        if ($categoryId != $this->getCategory()->getId()) {
+            return true;
+        }
+        return false;
     }
 }

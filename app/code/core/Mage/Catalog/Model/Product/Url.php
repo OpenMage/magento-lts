@@ -39,20 +39,6 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
     }
 
     /**
-     * 'no_selection' shouldn't be a valid image attribute value
-     *
-     * @param string $image
-     * @return string
-     */
-    protected function _validImage($image)
-    {
-        if ($image == 'no_selection') {
-            $image = null;
-        }
-        return $image;
-    }
-
-    /**
      * Retrieve URL in current store
      *
      * @param array $params the URL route params
@@ -146,6 +132,20 @@ class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
         $productUrl = $this->_getProductUrl($product, $requestPath, $params);
         $product->setData('url', $productUrl);
         return $product->getData('url');
+    }
+
+    /**
+     * 'no_selection' shouldn't be a valid image attribute value
+     *
+     * @param string $image
+     * @return string
+     */
+    protected function _validImage($image)
+    {
+        if ($image == 'no_selection') {
+            $image = null;
+        }
+        return $image;
     }
 
     /**

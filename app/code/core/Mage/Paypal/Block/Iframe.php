@@ -49,6 +49,61 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
     protected $_block;
 
     /**
+     * Get iframe action URL
+     *
+     * @return string
+     * @throws Mage_Core_Exception
+     */
+    public function getFrameActionUrl()
+    {
+        return $this->_getBlock()->getFrameActionUrl();
+    }
+
+    /**
+     * Get secure token
+     *
+     * @return string
+     * @throws Mage_Core_Exception
+     */
+    public function getSecureToken()
+    {
+        return $this->_getBlock()->getSecureToken();
+    }
+
+    /**
+     * Get secure token ID
+     *
+     * @return string
+     * @throws Mage_Core_Exception
+     */
+    public function getSecureTokenId()
+    {
+        return $this->_getBlock()->getSecureTokenId();
+    }
+
+    /**
+     * Get payflow transaction URL
+     *
+     * @return string
+     * @throws Mage_Core_Exception
+     */
+    public function getTransactionUrl()
+    {
+        return $this->_getBlock()->getTransactionUrl();
+    }
+
+    /**
+     * Check sandbox mode
+     *
+     * @return bool
+     * @throws Mage_Core_Exception
+     */
+    public function isTestMode()
+    {
+        return $this->_getBlock()->isTestMode();
+    }
+
+    /**
      * Internal constructor
      * Set info template for payment step
      *
@@ -177,60 +232,5 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
         }
 
         return false;
-    }
-
-    /**
-     * Get iframe action URL
-     *
-     * @return string
-     * @throws Mage_Core_Exception
-     */
-    public function getFrameActionUrl()
-    {
-        return $this->_getBlock()->getFrameActionUrl();
-    }
-
-    /**
-     * Get secure token
-     *
-     * @return string
-     * @throws Mage_Core_Exception
-     */
-    public function getSecureToken()
-    {
-        return $this->_getBlock()->getSecureToken();
-    }
-
-    /**
-     * Get secure token ID
-     *
-     * @return string
-     * @throws Mage_Core_Exception
-     */
-    public function getSecureTokenId()
-    {
-        return $this->_getBlock()->getSecureTokenId();
-    }
-
-    /**
-     * Get payflow transaction URL
-     *
-     * @return string
-     * @throws Mage_Core_Exception
-     */
-    public function getTransactionUrl()
-    {
-        return $this->_getBlock()->getTransactionUrl();
-    }
-
-    /**
-     * Check sandbox mode
-     *
-     * @return bool
-     * @throws Mage_Core_Exception
-     */
-    public function isTestMode()
-    {
-        return $this->_getBlock()->isTestMode();
     }
 }

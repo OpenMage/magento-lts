@@ -60,6 +60,18 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     }
 
     /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/chooser', [
+            '_current'          => true,
+            'current_grid_id'   => $this->getId(),
+            'collapse'          => null,
+        ]);
+    }
+
+    /**
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
@@ -160,18 +172,6 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/chooser', [
-            '_current'          => true,
-            'current_grid_id'   => $this->getId(),
-            'collapse'          => null,
-        ]);
     }
 
     /**

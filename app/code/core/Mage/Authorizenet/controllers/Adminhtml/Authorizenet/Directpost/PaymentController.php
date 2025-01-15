@@ -24,36 +24,6 @@ require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
 class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController extends Mage_Adminhtml_Sales_Order_CreateController
 {
     /**
-     * Get session model
-     *
-     * @return Mage_Authorizenet_Model_Directpost_Session
-     */
-    protected function _getDirectPostSession()
-    {
-        return Mage::getSingleton('authorizenet/directpost_session');
-    }
-
-    /**
-     * Retrieve session object
-     *
-     * @return Mage_Adminhtml_Model_Session_Quote
-     */
-    protected function _getOrderSession()
-    {
-        return Mage::getSingleton('adminhtml/session_quote');
-    }
-
-    /**
-     * Retrieve order create model
-     *
-     * @return Mage_Adminhtml_Model_Sales_Order_Create
-     */
-    protected function _getOrderCreateModel()
-    {
-        return Mage::getSingleton('adminhtml/sales_order_create');
-    }
-
-    /**
      * Send request to authorize.net
      *
      */
@@ -194,6 +164,35 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
     {
         $this->_returnQuote();
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(['success' => 1]));
+    }
+    /**
+     * Get session model
+     *
+     * @return Mage_Authorizenet_Model_Directpost_Session
+     */
+    protected function _getDirectPostSession()
+    {
+        return Mage::getSingleton('authorizenet/directpost_session');
+    }
+
+    /**
+     * Retrieve session object
+     *
+     * @return Mage_Adminhtml_Model_Session_Quote
+     */
+    protected function _getOrderSession()
+    {
+        return Mage::getSingleton('adminhtml/session_quote');
+    }
+
+    /**
+     * Retrieve order create model
+     *
+     * @return Mage_Adminhtml_Model_Sales_Order_Create
+     */
+    protected function _getOrderCreateModel()
+    {
+        return Mage::getSingleton('adminhtml/sales_order_create');
     }
 
     /**

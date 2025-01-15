@@ -220,55 +220,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     }
 
     /**
-     * refund the amount with transaction id
-     *
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @param string $amount
-     * @return $this
-     * @throws Mage_Core_Exception
-     */
-    protected function _refund(Varien_Object $payment, $amount)
-    {
-        if ($amount <= 0) {
-            Mage::throwException(Mage::helper('paygate')->__('Invalid amount for refund.'));
-        }
-
-        if (!$payment->getParentTransactionId()) {
-            Mage::throwException(Mage::helper('paygate')->__('Invalid transaction ID.'));
-        }
-
-        $payment->setAnetTransType(self::REQUEST_TYPE_CREDIT);
-        $payment->setAmount($amount);
-        $payment->setXTransId($this->_getRealParentTransactionId($payment));
-
-        $request = $this->_buildRequest($payment);
-        $result = $this->_postRequest($request);
-
-        switch ($result->getResponseCode()) {
-            case self::RESPONSE_CODE_APPROVED:
-                if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
-                    if ($result->getTransactionId() != $payment->getParentTransactionId()) {
-                        $payment->setTransactionId($result->getTransactionId());
-                    }
-                    $shouldCloseCaptureTransaction = $payment->getOrder()->canCreditmemo() ? 0 : 1;
-                    $payment
-                         ->setIsTransactionClosed(1)
-                         ->setShouldCloseParentTransaction($shouldCloseCaptureTransaction)
-                         ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
-                    return $this;
-                }
-                Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
-                // no break
-            case self::RESPONSE_CODE_DECLINED:
-            case self::RESPONSE_CODE_ERROR:
-                Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
-                // no break
-            default:
-                Mage::throwException(Mage::helper('paygate')->__('Payment refunding error.'));
-        }
-    }
-
-    /**
      * Get CGI url
      *
      * @return string
@@ -293,16 +244,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         return Mage::app()->getStore($storeId)
             ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) .
             'authorizenet/directpost_payment/response';
-    }
-
-    /**
-     * Return request model for form data building
-     *
-     * @return Mage_Authorizenet_Model_Directpost_Request
-     */
-    protected function _getRequestModel()
-    {
-        return Mage::getModel('authorizenet/directpost_request');
     }
 
     /**
@@ -452,23 +393,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     }
 
     /**
-     * Fill payment with credit card data from response from Authorize.net.
-     */
-    protected function _fillPaymentByResponse(Varien_Object $payment)
-    {
-        $response = $this->getResponse();
-        $payment->setTransactionId($response->getXTransId())
-            ->setParentTransactionId(null)
-            ->setIsTransactionClosed(0)
-            ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $response->getXTransId());
-
-        if ($response->getXMethod() == self::REQUEST_METHOD_CC) {
-            $payment->setCcAvsStatus($response->getXAvsCode())
-                ->setCcLast4($payment->encrypt(substr($response->getXAccountNumber(), -4)));
-        }
-    }
-
-    /**
      * Check response code came from authorize.net.
      *
      * @return true in case of Approved response
@@ -502,6 +426,82 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             );
         }
         return true;
+    }
+
+    /**
+     * refund the amount with transaction id
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param string $amount
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    protected function _refund(Varien_Object $payment, $amount)
+    {
+        if ($amount <= 0) {
+            Mage::throwException(Mage::helper('paygate')->__('Invalid amount for refund.'));
+        }
+
+        if (!$payment->getParentTransactionId()) {
+            Mage::throwException(Mage::helper('paygate')->__('Invalid transaction ID.'));
+        }
+
+        $payment->setAnetTransType(self::REQUEST_TYPE_CREDIT);
+        $payment->setAmount($amount);
+        $payment->setXTransId($this->_getRealParentTransactionId($payment));
+
+        $request = $this->_buildRequest($payment);
+        $result = $this->_postRequest($request);
+
+        switch ($result->getResponseCode()) {
+            case self::RESPONSE_CODE_APPROVED:
+                if ($result->getResponseReasonCode() == self::RESPONSE_REASON_CODE_APPROVED) {
+                    if ($result->getTransactionId() != $payment->getParentTransactionId()) {
+                        $payment->setTransactionId($result->getTransactionId());
+                    }
+                    $shouldCloseCaptureTransaction = $payment->getOrder()->canCreditmemo() ? 0 : 1;
+                    $payment
+                         ->setIsTransactionClosed(1)
+                         ->setShouldCloseParentTransaction($shouldCloseCaptureTransaction)
+                         ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
+                    return $this;
+                }
+                Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
+            case self::RESPONSE_CODE_DECLINED:
+            case self::RESPONSE_CODE_ERROR:
+                Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+                // no break
+            default:
+                Mage::throwException(Mage::helper('paygate')->__('Payment refunding error.'));
+        }
+    }
+
+    /**
+     * Return request model for form data building
+     *
+     * @return Mage_Authorizenet_Model_Directpost_Request
+     */
+    protected function _getRequestModel()
+    {
+        return Mage::getModel('authorizenet/directpost_request');
+    }
+
+    /**
+     * Fill payment with credit card data from response from Authorize.net.
+     */
+    protected function _fillPaymentByResponse(Varien_Object $payment)
+    {
+        $response = $this->getResponse();
+        $payment->setTransactionId($response->getXTransId())
+            ->setParentTransactionId(null)
+            ->setIsTransactionClosed(0)
+            ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $response->getXTransId());
+
+        if ($response->getXMethod() == self::REQUEST_METHOD_CC) {
+            $payment->setCcAvsStatus($response->getXAvsCode())
+                ->setCcLast4($payment->encrypt(substr($response->getXAccountNumber(), -4)));
+        }
     }
 
     /**

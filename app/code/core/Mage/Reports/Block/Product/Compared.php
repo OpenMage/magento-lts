@@ -47,6 +47,19 @@ class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abs
     }
 
     /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(
+            parent::getCacheTags(),
+            $this->getItemsTags($this->getItemsCollection()),
+        );
+    }
+
+    /**
      * Prepare to html
      * Check has compared products
      *
@@ -61,18 +74,5 @@ class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abs
         $this->setRecentlyComparedProducts($this->getItemsCollection());
 
         return parent::_toHtml();
-    }
-
-    /**
-     * Retrieve block cache tags
-     *
-     * @return array
-     */
-    public function getCacheTags()
-    {
-        return array_merge(
-            parent::getCacheTags(),
-            $this->getItemsTags($this->getItemsCollection()),
-        );
     }
 }

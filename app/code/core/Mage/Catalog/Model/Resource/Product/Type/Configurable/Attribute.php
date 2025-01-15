@@ -37,17 +37,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     protected $_priceTable;
 
     /**
-     * Inititalize connection and define tables
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product_super_attribute', 'product_super_attribute_id');
-        $this->_labelTable = $this->getTable('catalog/product_super_attribute_label');
-        $this->_priceTable = $this->getTable('catalog/product_super_attribute_pricing');
-    }
-
-    /**
      * Retrieve Catalog Helper
      *
      * @return Mage_Catalog_Helper_Data
@@ -287,5 +276,16 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
         ];
 
         return $adapter->fetchCol($select, $bind);
+    }
+
+    /**
+     * Inititalize connection and define tables
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product_super_attribute', 'product_super_attribute_id');
+        $this->_labelTable = $this->getTable('catalog/product_super_attribute_label');
+        $this->_priceTable = $this->getTable('catalog/product_super_attribute_pricing');
     }
 }

@@ -205,30 +205,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     *  Custom save logic for section
-     */
-    protected function _saveSection()
-    {
-        $method = '_save' . uc_words($this->getRequest()->getParam('section'), '');
-        if (method_exists($this, $method)) {
-            $this->$method();
-        }
-    }
-
-    /**
-     *  Advanced save procedure
-     */
-    protected function _saveAdvanced()
-    {
-        Mage::app()->cleanCache(
-            [
-                'layout',
-                Mage_Core_Model_Layout_Update::LAYOUT_GENERAL_CACHE_TAG,
-            ],
-        );
-    }
-
-    /**
      * Save fieldset state through AJAX
      *
      */
@@ -264,6 +240,30 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $gridBlock->setWebsiteId($website->getId())->setConditionName($conditionName);
         $content    = $gridBlock->getCsvFile();
         $this->_prepareDownloadResponse($fileName, $content);
+    }
+
+    /**
+     *  Custom save logic for section
+     */
+    protected function _saveSection()
+    {
+        $method = '_save' . uc_words($this->getRequest()->getParam('section'), '');
+        if (method_exists($this, $method)) {
+            $this->$method();
+        }
+    }
+
+    /**
+     *  Advanced save procedure
+     */
+    protected function _saveAdvanced()
+    {
+        Mage::app()->cleanCache(
+            [
+                'layout',
+                Mage_Core_Model_Layout_Update::LAYOUT_GENERAL_CACHE_TAG,
+            ],
+        );
     }
 
     /**

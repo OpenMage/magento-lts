@@ -22,11 +22,6 @@
  */
 class Mage_CatalogSearch_Model_Resource_Indexer_Fulltext extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalogsearch/fulltext', 'product_id');
-    }
-
     /**
      * Retrieve product relations by children
      *
@@ -41,5 +36,9 @@ class Mage_CatalogSearch_Model_Resource_Indexer_Fulltext extends Mage_Core_Model
             ->where('child_id IN(?)', $childIds);
 
         return $write->fetchCol($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('catalogsearch/fulltext', 'product_id');
     }
 }

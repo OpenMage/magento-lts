@@ -136,22 +136,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     }
 
     /**
-     * Retrieve quote item
-     *
-     * @param   int|Mage_Sales_Model_Quote_Item $item
-     * @return  Mage_Sales_Model_Quote_Item|false
-     */
-    protected function _getQuoteItem($item)
-    {
-        if ($item instanceof Mage_Sales_Model_Quote_Item) {
-            return $item;
-        } elseif (is_numeric($item)) {
-            return $this->getSession()->getQuote()->getItemById($item);
-        }
-        return false;
-    }
-
-    /**
      * Initialize data for price rules
      *
      * @return $this
@@ -377,31 +361,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         $quote->save();
 
         return $this;
-    }
-
-    protected function _initBillingAddressFromOrder(Mage_Sales_Model_Order $order)
-    {
-        $this->getQuote()->getBillingAddress()->setCustomerAddressId('');
-        Mage::helper('core')->copyFieldset(
-            'sales_copy_order_billing_address',
-            'to_order',
-            $order->getBillingAddress(),
-            $this->getQuote()->getBillingAddress(),
-        );
-    }
-
-    protected function _initShippingAddressFromOrder(Mage_Sales_Model_Order $order)
-    {
-        $orderShippingAddress = $order->getShippingAddress();
-        $quoteShippingAddress = $this->getQuote()->getShippingAddress()
-            ->setCustomerAddressId('')
-            ->setSameAsBilling($orderShippingAddress && $orderShippingAddress->getSameAsBilling());
-        Mage::helper('core')->copyFieldset(
-            'sales_copy_order_shipping_address',
-            'to_order',
-            $orderShippingAddress,
-            $quoteShippingAddress,
-        );
     }
 
     /**
@@ -885,152 +844,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     }
 
     /**
-     * Parse additional options and sync them with product options
-     *
-     * @param string $additionalOptions
-     * @return array
-     */
-    protected function _parseOptions(Mage_Sales_Model_Quote_Item $item, $additionalOptions)
-    {
-        $productOptions = Mage::getSingleton('catalog/product_option_type_default')
-            ->setProduct($item->getProduct())
-            ->getProductOptions();
-
-        $newOptions = [];
-        $newAdditionalOptions = [];
-
-        foreach (explode("\n", $additionalOptions) as $additionalOption) {
-            if (strlen(trim($additionalOption))) {
-                try {
-                    if (!str_contains($additionalOption, ':')) {
-                        Mage::throwException(
-                            Mage::helper('adminhtml')->__('There is an error in one of the option rows.'),
-                        );
-                    }
-                    list($label, $value) = explode(':', $additionalOption, 2);
-                } catch (Exception $e) {
-                    Mage::throwException(Mage::helper('adminhtml')->__('There is an error in one of the option rows.'));
-                }
-                $label = trim($label);
-                $value = trim($value);
-                if (empty($value)) {
-                    continue;
-                }
-
-                if (array_key_exists($label, $productOptions)) {
-                    $optionId = $productOptions[$label]['option_id'];
-                    $option = $item->getProduct()->getOptionById($optionId);
-
-                    $group = Mage::getSingleton('catalog/product_option')->groupFactory($option->getType())
-                        ->setOption($option)
-                        ->setProduct($item->getProduct());
-
-                    $parsedValue = $group->parseOptionValue($value, $productOptions[$label]['values']);
-
-                    if ($parsedValue !== null) {
-                        $newOptions[$optionId] = $parsedValue;
-                    } else {
-                        $newAdditionalOptions[] = [
-                            'label' => $label,
-                            'value' => $value,
-                        ];
-                    }
-                } else {
-                    $newAdditionalOptions[] = [
-                        'label' => $label,
-                        'value' => $value,
-                    ];
-                }
-            }
-        }
-
-        return [
-            'options' => $newOptions,
-            'additional_options' => $newAdditionalOptions,
-        ];
-    }
-
-    /**
-     * Assign options to item
-     *
-     * @param array $options
-     * @return $this
-     */
-    protected function _assignOptionsToItem(Mage_Sales_Model_Quote_Item $item, $options)
-    {
-        if ($optionIds = $item->getOptionByCode('option_ids')) {
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
-                $item->removeOption('option_' . $optionId);
-            }
-            $item->removeOption('option_ids');
-        }
-        if ($item->getOptionByCode('additional_options')) {
-            $item->removeOption('additional_options');
-        }
-        $item->save();
-        if (!empty($options['options'])) {
-            $item->addOption(new Varien_Object(
-                [
-                    'product' => $item->getProduct(),
-                    'code' => 'option_ids',
-                    'value' => implode(',', array_keys($options['options'])),
-                ],
-            ));
-
-            foreach ($options['options'] as $optionId => $optionValue) {
-                $item->addOption(new Varien_Object(
-                    [
-                        'product' => $item->getProduct(),
-                        'code' => 'option_' . $optionId,
-                        'value' => $optionValue,
-                    ],
-                ));
-            }
-        }
-        if (!empty($options['additional_options'])) {
-            $item->addOption(new Varien_Object(
-                [
-                    'product' => $item->getProduct(),
-                    'code' => 'additional_options',
-                    'value' => serialize($options['additional_options']),
-                ],
-            ));
-        }
-
-        return $this;
-    }
-
-    /**
-     * Prepare options array for info buy request
-     *
-     * @param Mage_Sales_Model_Quote_Item $item
-     * @return array
-     */
-    protected function _prepareOptionsForRequest($item)
-    {
-        $newInfoOptions = [];
-        if ($optionIds = $item->getOptionByCode('option_ids')) {
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
-                $option = $item->getProduct()->getOptionById($optionId);
-                $optionValue = $item->getOptionByCode('option_' . $optionId)->getValue();
-
-                $group = Mage::getSingleton('catalog/product_option')->groupFactory($option->getType())
-                    ->setOption($option)
-                    ->setQuoteItem($item);
-
-                $newInfoOptions[$optionId] = $group->prepareOptionValueForRequest($optionValue);
-            }
-        }
-        return $newInfoOptions;
-    }
-
-    protected function _parseCustomPrice($price)
-    {
-        $price = Mage::app()->getLocale()->getNumber($price);
-        return $price > 0 ? $price : 0;
-    }
-
-    /**
      * Retrieve oreder quote shipping address
      *
      * @return Mage_Sales_Model_Quote_Address
@@ -1038,82 +851,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     public function getShippingAddress()
     {
         return $this->getQuote()->getShippingAddress();
-    }
-
-    /**
-     * Return Customer (Checkout) Form instance
-     *
-     * @return Mage_Customer_Model_Form
-     */
-    protected function _getCustomerForm()
-    {
-        if (is_null($this->_customerForm)) {
-            $this->_customerForm = Mage::getModel('customer/form')
-                ->setFormCode('adminhtml_checkout')
-                ->ignoreInvisible(false);
-        }
-        return $this->_customerForm;
-    }
-
-    /**
-     * Return Customer Address Form instance
-     *
-     * @return Mage_Customer_Model_Form
-     */
-    protected function _getCustomerAddressForm()
-    {
-        if (is_null($this->_customerAddressForm)) {
-            $this->_customerAddressForm = Mage::getModel('customer/form')
-                ->setFormCode('adminhtml_customer_address')
-                ->ignoreInvisible(false);
-        }
-        return $this->_customerAddressForm;
-    }
-
-    /**
-     * Set and validate Quote address
-     * All errors added to _errors
-     *
-     * @return $this
-     */
-    protected function _setQuoteAddress(Mage_Sales_Model_Quote_Address $address, array $data)
-    {
-        $addressForm    = $this->_getCustomerAddressForm()
-            ->setEntity($address)
-            ->setEntityType(Mage::getSingleton('eav/config')->getEntityType('customer_address'))
-            ->setIsAjaxRequest(!$this->getIsValidate());
-
-        // prepare request
-        // save original request structure for files
-        if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING) {
-            $requestData  = ['order' => ['shipping_address' => $data]];
-            $requestScope = 'order/shipping_address';
-        } else {
-            $requestData = ['order' => ['billing_address' => $data]];
-            $requestScope = 'order/billing_address';
-        }
-        $request        = $addressForm->prepareRequest($requestData);
-        $addressData    = $addressForm->extractData($request, $requestScope);
-        if ($this->getIsValidate()) {
-            $errors = $addressForm->validateData($addressData);
-            if ($errors !== true) {
-                if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING) {
-                    $typeName = Mage::helper('adminhtml')->__('Shipping Address: ');
-                } else {
-                    $typeName = Mage::helper('adminhtml')->__('Billing Address: ');
-                }
-                foreach ($errors as $error) {
-                    $this->_errors[] = $typeName . $error;
-                }
-                $addressForm->restoreData($addressData);
-            } else {
-                $addressForm->compactData($addressData);
-            }
-        } else {
-            $addressForm->restoreData($addressData);
-        }
-
-        return $this;
     }
 
     /**
@@ -1330,51 +1067,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     }
 
     /**
-     * Check whether we need to create new customer (for another website) during order creation
-     *
-     * @param   Mage_Core_Model_Store $store
-     * @return bool
-     */
-    protected function _customerIsInStore($store)
-    {
-        $customer = $this->getSession()->getCustomer();
-        if ($customer->getWebsiteId() == $store->getWebsiteId()) {
-            return true;
-        }
-        return $customer->isInStore($store);
-    }
-
-    /**
-     * Set and validate Customer data
-     *
-     * @return $this
-     */
-    protected function _setCustomerData(Mage_Customer_Model_Customer $customer)
-    {
-        $form = $this->_getCustomerForm();
-        $form->setEntity($customer);
-
-        // emulate request
-        $request = $form->prepareRequest(['order' => $this->getData()]);
-        $data    = $form->extractData($request, 'order/account');
-        if ($this->getIsValidate()) {
-            $errors = $form->validateData($data);
-            if ($errors !== true) {
-                foreach ($errors as $error) {
-                    $this->_errors[] = $error;
-                }
-                $form->restoreData($data);
-            } else {
-                $form->compactData($data);
-            }
-        } else {
-            $form->restoreData($data);
-        }
-
-        return $this;
-    }
-
-    /**
      * Prepare quote customer
      *
      * @return $this
@@ -1492,27 +1184,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     }
 
     /**
-     * Prepare item options
-     */
-    protected function _prepareQuoteItems()
-    {
-        foreach ($this->getQuote()->getAllItems() as $item) {
-            $options = [];
-            $productOptions = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
-            if ($productOptions) {
-                $productOptions['info_buyRequest']['options'] = $this->_prepareOptionsForRequest($item);
-                $options = $productOptions;
-            }
-            $addOptions = $item->getOptionByCode('additional_options');
-            if ($addOptions) {
-                $options['additional_options'] = unserialize($addOptions->getValue(), ['allowed_classes' => false]);
-            }
-            $item->setProductOrderOptions($options);
-        }
-        return $this;
-    }
-
-    /**
      * Create new order
      *
      * @return Mage_Sales_Model_Order
@@ -1576,6 +1247,335 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         Mage::dispatchEvent('checkout_submit_all_after', ['order' => $order, 'quote' => $quote]);
 
         return $order;
+    }
+
+    /**
+     * Retrieve quote item
+     *
+     * @param   int|Mage_Sales_Model_Quote_Item $item
+     * @return  Mage_Sales_Model_Quote_Item|false
+     */
+    protected function _getQuoteItem($item)
+    {
+        if ($item instanceof Mage_Sales_Model_Quote_Item) {
+            return $item;
+        } elseif (is_numeric($item)) {
+            return $this->getSession()->getQuote()->getItemById($item);
+        }
+        return false;
+    }
+
+    protected function _initBillingAddressFromOrder(Mage_Sales_Model_Order $order)
+    {
+        $this->getQuote()->getBillingAddress()->setCustomerAddressId('');
+        Mage::helper('core')->copyFieldset(
+            'sales_copy_order_billing_address',
+            'to_order',
+            $order->getBillingAddress(),
+            $this->getQuote()->getBillingAddress(),
+        );
+    }
+
+    protected function _initShippingAddressFromOrder(Mage_Sales_Model_Order $order)
+    {
+        $orderShippingAddress = $order->getShippingAddress();
+        $quoteShippingAddress = $this->getQuote()->getShippingAddress()
+            ->setCustomerAddressId('')
+            ->setSameAsBilling($orderShippingAddress && $orderShippingAddress->getSameAsBilling());
+        Mage::helper('core')->copyFieldset(
+            'sales_copy_order_shipping_address',
+            'to_order',
+            $orderShippingAddress,
+            $quoteShippingAddress,
+        );
+    }
+
+    /**
+     * Parse additional options and sync them with product options
+     *
+     * @param string $additionalOptions
+     * @return array
+     */
+    protected function _parseOptions(Mage_Sales_Model_Quote_Item $item, $additionalOptions)
+    {
+        $productOptions = Mage::getSingleton('catalog/product_option_type_default')
+            ->setProduct($item->getProduct())
+            ->getProductOptions();
+
+        $newOptions = [];
+        $newAdditionalOptions = [];
+
+        foreach (explode("\n", $additionalOptions) as $additionalOption) {
+            if (strlen(trim($additionalOption))) {
+                try {
+                    if (!str_contains($additionalOption, ':')) {
+                        Mage::throwException(
+                            Mage::helper('adminhtml')->__('There is an error in one of the option rows.'),
+                        );
+                    }
+                    list($label, $value) = explode(':', $additionalOption, 2);
+                } catch (Exception $e) {
+                    Mage::throwException(Mage::helper('adminhtml')->__('There is an error in one of the option rows.'));
+                }
+                $label = trim($label);
+                $value = trim($value);
+                if (empty($value)) {
+                    continue;
+                }
+
+                if (array_key_exists($label, $productOptions)) {
+                    $optionId = $productOptions[$label]['option_id'];
+                    $option = $item->getProduct()->getOptionById($optionId);
+
+                    $group = Mage::getSingleton('catalog/product_option')->groupFactory($option->getType())
+                        ->setOption($option)
+                        ->setProduct($item->getProduct());
+
+                    $parsedValue = $group->parseOptionValue($value, $productOptions[$label]['values']);
+
+                    if ($parsedValue !== null) {
+                        $newOptions[$optionId] = $parsedValue;
+                    } else {
+                        $newAdditionalOptions[] = [
+                            'label' => $label,
+                            'value' => $value,
+                        ];
+                    }
+                } else {
+                    $newAdditionalOptions[] = [
+                        'label' => $label,
+                        'value' => $value,
+                    ];
+                }
+            }
+        }
+
+        return [
+            'options' => $newOptions,
+            'additional_options' => $newAdditionalOptions,
+        ];
+    }
+
+    /**
+     * Assign options to item
+     *
+     * @param array $options
+     * @return $this
+     */
+    protected function _assignOptionsToItem(Mage_Sales_Model_Quote_Item $item, $options)
+    {
+        if ($optionIds = $item->getOptionByCode('option_ids')) {
+            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+                $item->removeOption('option_' . $optionId);
+            }
+            $item->removeOption('option_ids');
+        }
+        if ($item->getOptionByCode('additional_options')) {
+            $item->removeOption('additional_options');
+        }
+        $item->save();
+        if (!empty($options['options'])) {
+            $item->addOption(new Varien_Object(
+                [
+                    'product' => $item->getProduct(),
+                    'code' => 'option_ids',
+                    'value' => implode(',', array_keys($options['options'])),
+                ],
+            ));
+
+            foreach ($options['options'] as $optionId => $optionValue) {
+                $item->addOption(new Varien_Object(
+                    [
+                        'product' => $item->getProduct(),
+                        'code' => 'option_' . $optionId,
+                        'value' => $optionValue,
+                    ],
+                ));
+            }
+        }
+        if (!empty($options['additional_options'])) {
+            $item->addOption(new Varien_Object(
+                [
+                    'product' => $item->getProduct(),
+                    'code' => 'additional_options',
+                    'value' => serialize($options['additional_options']),
+                ],
+            ));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Prepare options array for info buy request
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @return array
+     */
+    protected function _prepareOptionsForRequest($item)
+    {
+        $newInfoOptions = [];
+        if ($optionIds = $item->getOptionByCode('option_ids')) {
+            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+                $option = $item->getProduct()->getOptionById($optionId);
+                $optionValue = $item->getOptionByCode('option_' . $optionId)->getValue();
+
+                $group = Mage::getSingleton('catalog/product_option')->groupFactory($option->getType())
+                    ->setOption($option)
+                    ->setQuoteItem($item);
+
+                $newInfoOptions[$optionId] = $group->prepareOptionValueForRequest($optionValue);
+            }
+        }
+        return $newInfoOptions;
+    }
+
+    protected function _parseCustomPrice($price)
+    {
+        $price = Mage::app()->getLocale()->getNumber($price);
+        return $price > 0 ? $price : 0;
+    }
+
+    /**
+     * Return Customer (Checkout) Form instance
+     *
+     * @return Mage_Customer_Model_Form
+     */
+    protected function _getCustomerForm()
+    {
+        if (is_null($this->_customerForm)) {
+            $this->_customerForm = Mage::getModel('customer/form')
+                ->setFormCode('adminhtml_checkout')
+                ->ignoreInvisible(false);
+        }
+        return $this->_customerForm;
+    }
+
+    /**
+     * Return Customer Address Form instance
+     *
+     * @return Mage_Customer_Model_Form
+     */
+    protected function _getCustomerAddressForm()
+    {
+        if (is_null($this->_customerAddressForm)) {
+            $this->_customerAddressForm = Mage::getModel('customer/form')
+                ->setFormCode('adminhtml_customer_address')
+                ->ignoreInvisible(false);
+        }
+        return $this->_customerAddressForm;
+    }
+
+    /**
+     * Set and validate Quote address
+     * All errors added to _errors
+     *
+     * @return $this
+     */
+    protected function _setQuoteAddress(Mage_Sales_Model_Quote_Address $address, array $data)
+    {
+        $addressForm    = $this->_getCustomerAddressForm()
+            ->setEntity($address)
+            ->setEntityType(Mage::getSingleton('eav/config')->getEntityType('customer_address'))
+            ->setIsAjaxRequest(!$this->getIsValidate());
+
+        // prepare request
+        // save original request structure for files
+        if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING) {
+            $requestData  = ['order' => ['shipping_address' => $data]];
+            $requestScope = 'order/shipping_address';
+        } else {
+            $requestData = ['order' => ['billing_address' => $data]];
+            $requestScope = 'order/billing_address';
+        }
+        $request        = $addressForm->prepareRequest($requestData);
+        $addressData    = $addressForm->extractData($request, $requestScope);
+        if ($this->getIsValidate()) {
+            $errors = $addressForm->validateData($addressData);
+            if ($errors !== true) {
+                if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING) {
+                    $typeName = Mage::helper('adminhtml')->__('Shipping Address: ');
+                } else {
+                    $typeName = Mage::helper('adminhtml')->__('Billing Address: ');
+                }
+                foreach ($errors as $error) {
+                    $this->_errors[] = $typeName . $error;
+                }
+                $addressForm->restoreData($addressData);
+            } else {
+                $addressForm->compactData($addressData);
+            }
+        } else {
+            $addressForm->restoreData($addressData);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check whether we need to create new customer (for another website) during order creation
+     *
+     * @param   Mage_Core_Model_Store $store
+     * @return bool
+     */
+    protected function _customerIsInStore($store)
+    {
+        $customer = $this->getSession()->getCustomer();
+        if ($customer->getWebsiteId() == $store->getWebsiteId()) {
+            return true;
+        }
+        return $customer->isInStore($store);
+    }
+
+    /**
+     * Set and validate Customer data
+     *
+     * @return $this
+     */
+    protected function _setCustomerData(Mage_Customer_Model_Customer $customer)
+    {
+        $form = $this->_getCustomerForm();
+        $form->setEntity($customer);
+
+        // emulate request
+        $request = $form->prepareRequest(['order' => $this->getData()]);
+        $data    = $form->extractData($request, 'order/account');
+        if ($this->getIsValidate()) {
+            $errors = $form->validateData($data);
+            if ($errors !== true) {
+                foreach ($errors as $error) {
+                    $this->_errors[] = $error;
+                }
+                $form->restoreData($data);
+            } else {
+                $form->compactData($data);
+            }
+        } else {
+            $form->restoreData($data);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Prepare item options
+     */
+    protected function _prepareQuoteItems()
+    {
+        foreach ($this->getQuote()->getAllItems() as $item) {
+            $options = [];
+            $productOptions = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
+            if ($productOptions) {
+                $productOptions['info_buyRequest']['options'] = $this->_prepareOptionsForRequest($item);
+                $options = $productOptions;
+            }
+            $addOptions = $item->getOptionByCode('additional_options');
+            if ($addOptions) {
+                $options['additional_options'] = unserialize($addOptions->getValue(), ['allowed_classes' => false]);
+            }
+            $item->setProductOrderOptions($options);
+        }
+        return $this;
     }
 
     /**

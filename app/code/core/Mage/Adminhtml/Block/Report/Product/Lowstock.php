@@ -30,18 +30,6 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock extends Mage_Adminhtml_Block_
         $this->_removeButton('add');
     }
 
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'store_switcher',
-            $this->getLayout()->createBlock('adminhtml/store_switcher')
-                ->setUseConfirm(false)
-                ->setSwitchUrl($this->getUrl('*/*/*', ['store' => null]))
-                ->setTemplate('report/store/switcher.phtml'),
-        );
-        return parent::_prepareLayout();
-    }
-
     public function getStoreSwitcherHtml()
     {
         return Mage::app()->isSingleStoreMode() ? '' : $this->getChildHtml('store_switcher');
@@ -55,5 +43,17 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock extends Mage_Adminhtml_Block_
     public function getHeaderCssClass()
     {
         return 'icon-head head-report';
+    }
+
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'store_switcher',
+            $this->getLayout()->createBlock('adminhtml/store_switcher')
+                ->setUseConfirm(false)
+                ->setSwitchUrl($this->getUrl('*/*/*', ['store' => null]))
+                ->setTemplate('report/store/switcher.phtml'),
+        );
+        return parent::_prepareLayout();
     }
 }

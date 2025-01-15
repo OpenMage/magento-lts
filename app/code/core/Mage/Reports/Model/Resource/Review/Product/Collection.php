@@ -22,11 +22,6 @@
  */
 class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_useAnalyticFunction = true;
-    }
     /**
      * Join review table to result
      *
@@ -115,5 +110,10 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
         $countSelect->from($select, 'COUNT(*)');
 
         return $countSelect;
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_useAnalyticFunction = true;
     }
 }

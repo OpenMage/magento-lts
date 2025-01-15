@@ -76,6 +76,49 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
     }
 
     /**
+     * Validate data.
+     * If fails validation, then this method returns false, and
+     * getErrors() will return an array of errors that explain why the
+     * validation failed.
+     *
+     * @param bool $isPartial
+     * @return bool
+     */
+    public function isValidData(array $data, $isPartial = false)
+    {
+        $isValid = true;
+
+        // required fields
+        if (!$isPartial && count($this->_requiredFields) > 0) {
+            $notEmptyValidator = new Zend_Validate_NotEmpty();
+            foreach ($this->_requiredFields as $requiredField) {
+                if (!$notEmptyValidator->isValid($data[$requiredField] ?? null)) {
+                    $isValid = false;
+                    foreach ($notEmptyValidator->getMessages() as $message) {
+                        $this->_addError(sprintf('%s: %s', $requiredField, $message));
+                    }
+                }
+            }
+        }
+
+        // fields rules
+        foreach ($data as $field => $value) {
+            if (isset($this->_validators[$field])) {
+                /** @var Zend_Validate_Interface $validator */
+                $validator = $this->_validators[$field];
+                if (!$validator->isValid($value)) {
+                    $isValid = false;
+                    foreach ($validator->getMessages() as $message) {
+                        $this->_addError(sprintf('%s: %s', $field, $message));
+                    }
+                }
+            }
+        }
+
+        return $isValid;
+    }
+
+    /**
      * Build validator chain with config data
      *
      * @throws Exception If validator type is not set
@@ -128,48 +171,5 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
             throw new Exception("Validator {$type} is not exist");
         }
         return new $validatorClass($options);
-    }
-
-    /**
-     * Validate data.
-     * If fails validation, then this method returns false, and
-     * getErrors() will return an array of errors that explain why the
-     * validation failed.
-     *
-     * @param bool $isPartial
-     * @return bool
-     */
-    public function isValidData(array $data, $isPartial = false)
-    {
-        $isValid = true;
-
-        // required fields
-        if (!$isPartial && count($this->_requiredFields) > 0) {
-            $notEmptyValidator = new Zend_Validate_NotEmpty();
-            foreach ($this->_requiredFields as $requiredField) {
-                if (!$notEmptyValidator->isValid($data[$requiredField] ?? null)) {
-                    $isValid = false;
-                    foreach ($notEmptyValidator->getMessages() as $message) {
-                        $this->_addError(sprintf('%s: %s', $requiredField, $message));
-                    }
-                }
-            }
-        }
-
-        // fields rules
-        foreach ($data as $field => $value) {
-            if (isset($this->_validators[$field])) {
-                /** @var Zend_Validate_Interface $validator */
-                $validator = $this->_validators[$field];
-                if (!$validator->isValid($value)) {
-                    $isValid = false;
-                    foreach ($validator->getMessages() as $message) {
-                        $this->_addError(sprintf('%s: %s', $field, $message));
-                    }
-                }
-            }
-        }
-
-        return $isValid;
     }
 }

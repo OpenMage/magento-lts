@@ -23,14 +23,6 @@
 class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
     /**
-     * Initialize block template
-     */
-    protected function _construct()
-    {
-        $this->setTemplate('catalog/form/renderer/fieldset/element.phtml');
-    }
-
-    /**
      * Retrieve data object related with form
      *
      * @return Mage_Catalog_Model_Product | Mage_Catalog_Model_Category
@@ -176,6 +168,13 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element extends Mage_A
     public function getElementHtml()
     {
         return $this->getElement()->getElementHtml();
+    }
+    /**
+     * Initialize block template
+     */
+    protected function _construct()
+    {
+        $this->setTemplate('catalog/form/renderer/fieldset/element.phtml');
     }
 
     /**

@@ -22,13 +22,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setId('sales_order_create_sidebar_pviewed');
-        $this->setDataId('pviewed');
-    }
-
     /**
      * @return string
      */
@@ -97,5 +90,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Admin
     public function getIdentifierId($item)
     {
         return $item->getId();
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setId('sales_order_create_sidebar_pviewed');
+        $this->setDataId('pviewed');
     }
 }

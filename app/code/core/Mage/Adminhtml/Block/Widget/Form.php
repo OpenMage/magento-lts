@@ -30,45 +30,6 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     protected $_form;
 
     /**
-     * Class constructor
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('widget/form.phtml');
-        $this->setDestElementId('edit_form');
-        $this->setShowGlobalIcon(false);
-    }
-
-    /**
-     * Preparing global layout
-     *
-     * You can redefine this method in child classes for changin layout
-     *
-     * @return Mage_Core_Block_Abstract
-     */
-    protected function _prepareLayout()
-    {
-        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element');
-        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-            Varien_Data_Form::setElementRenderer($renderer);
-        }
-
-        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
-        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-            Varien_Data_Form::setFieldsetRenderer($renderer);
-        }
-
-        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
-        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-            Varien_Data_Form::setFieldsetElementRenderer($renderer);
-        }
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Get form object
      *
      * @return Varien_Data_Form
@@ -114,6 +75,45 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         $this->_form->setParent($this);
         $this->_form->setBaseUrl(Mage::getBaseUrl());
         return $this;
+    }
+
+    /**
+     * Class constructor
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('widget/form.phtml');
+        $this->setDestElementId('edit_form');
+        $this->setShowGlobalIcon(false);
+    }
+
+    /**
+     * Preparing global layout
+     *
+     * You can redefine this method in child classes for changin layout
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    protected function _prepareLayout()
+    {
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            Varien_Data_Form::setElementRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            Varien_Data_Form::setFieldsetRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            Varien_Data_Form::setFieldsetElementRenderer($renderer);
+        }
+
+        return parent::_prepareLayout();
     }
 
     /**

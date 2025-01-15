@@ -251,79 +251,6 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     *  Set additional data before product saved
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $productData
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _prepareDataForSave($product, $productData)
-    {
-        if (isset($productData['website_ids']) && is_array($productData['website_ids'])) {
-            $product->setWebsiteIds($productData['website_ids']);
-        }
-
-        foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
-            //Unset data if object attribute has no value in current store
-            if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID !== (int) $product->getStoreId()
-                && !$product->getExistsStoreValueFlag($attribute->getAttributeCode())
-                && !$attribute->isScopeGlobal()
-            ) {
-                $product->setData($attribute->getAttributeCode(), false);
-            }
-
-            if ($this->_isAllowedAttribute($attribute)) {
-                if (isset($productData[$attribute->getAttributeCode()])) {
-                    $product->setData(
-                        $attribute->getAttributeCode(),
-                        $productData[$attribute->getAttributeCode()],
-                    );
-                } elseif (isset($productData['additional_attributes']['single_data'][$attribute->getAttributeCode()])) {
-                    $product->setData(
-                        $attribute->getAttributeCode(),
-                        $productData['additional_attributes']['single_data'][$attribute->getAttributeCode()],
-                    );
-                } elseif (isset($productData['additional_attributes']['multi_data'][$attribute->getAttributeCode()])) {
-                    $product->setData(
-                        $attribute->getAttributeCode(),
-                        $productData['additional_attributes']['multi_data'][$attribute->getAttributeCode()],
-                    );
-                }
-            }
-        }
-
-        if (isset($productData['categories']) && is_array($productData['categories'])) {
-            $product->setCategoryIds($productData['categories']);
-        }
-
-        if (isset($productData['websites']) && is_array($productData['websites'])) {
-            foreach ($productData['websites'] as &$website) {
-                if (is_string($website)) {
-                    try {
-                        $website = Mage::app()->getWebsite($website)->getId();
-                    } catch (Exception $e) {
-                    }
-                }
-            }
-            $product->setWebsiteIds($productData['websites']);
-        }
-
-        if (Mage::app()->isSingleStoreMode()) {
-            $product->setWebsiteIds([Mage::app()->getStore(true)->getWebsite()->getId()]);
-        }
-
-        if (isset($productData['stock_data']) && is_array($productData['stock_data'])) {
-            $product->setStockData($productData['stock_data']);
-        }
-
-        if (isset($productData['tier_price']) && is_array($productData['tier_price'])) {
-            $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api')
-                 ->prepareTierPrices($product, $productData['tier_price']);
-            $product->setData(Mage_Catalog_Model_Product_Attribute_Tierprice_Api::ATTRIBUTE_CODE, $tierPrices);
-        }
-    }
-
-    /**
      * Update product special price
      *
      * @param int|string $productId
@@ -424,6 +351,79 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         return $result;
+    }
+
+    /**
+     *  Set additional data before product saved
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $productData
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _prepareDataForSave($product, $productData)
+    {
+        if (isset($productData['website_ids']) && is_array($productData['website_ids'])) {
+            $product->setWebsiteIds($productData['website_ids']);
+        }
+
+        foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
+            //Unset data if object attribute has no value in current store
+            if (Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID !== (int) $product->getStoreId()
+                && !$product->getExistsStoreValueFlag($attribute->getAttributeCode())
+                && !$attribute->isScopeGlobal()
+            ) {
+                $product->setData($attribute->getAttributeCode(), false);
+            }
+
+            if ($this->_isAllowedAttribute($attribute)) {
+                if (isset($productData[$attribute->getAttributeCode()])) {
+                    $product->setData(
+                        $attribute->getAttributeCode(),
+                        $productData[$attribute->getAttributeCode()],
+                    );
+                } elseif (isset($productData['additional_attributes']['single_data'][$attribute->getAttributeCode()])) {
+                    $product->setData(
+                        $attribute->getAttributeCode(),
+                        $productData['additional_attributes']['single_data'][$attribute->getAttributeCode()],
+                    );
+                } elseif (isset($productData['additional_attributes']['multi_data'][$attribute->getAttributeCode()])) {
+                    $product->setData(
+                        $attribute->getAttributeCode(),
+                        $productData['additional_attributes']['multi_data'][$attribute->getAttributeCode()],
+                    );
+                }
+            }
+        }
+
+        if (isset($productData['categories']) && is_array($productData['categories'])) {
+            $product->setCategoryIds($productData['categories']);
+        }
+
+        if (isset($productData['websites']) && is_array($productData['websites'])) {
+            foreach ($productData['websites'] as &$website) {
+                if (is_string($website)) {
+                    try {
+                        $website = Mage::app()->getWebsite($website)->getId();
+                    } catch (Exception $e) {
+                    }
+                }
+            }
+            $product->setWebsiteIds($productData['websites']);
+        }
+
+        if (Mage::app()->isSingleStoreMode()) {
+            $product->setWebsiteIds([Mage::app()->getStore(true)->getWebsite()->getId()]);
+        }
+
+        if (isset($productData['stock_data']) && is_array($productData['stock_data'])) {
+            $product->setStockData($productData['stock_data']);
+        }
+
+        if (isset($productData['tier_price']) && is_array($productData['tier_price'])) {
+            $tierPrices = Mage::getModel('catalog/product_attribute_tierprice_api')
+                 ->prepareTierPrices($product, $productData['tier_price']);
+            $product->setData(Mage_Catalog_Model_Product_Attribute_Tierprice_Api::ATTRIBUTE_CODE, $tierPrices);
+        }
     }
 
     /**

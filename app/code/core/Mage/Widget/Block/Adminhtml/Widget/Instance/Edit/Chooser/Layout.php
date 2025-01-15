@@ -104,6 +104,25 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     }
 
     /**
+     * Retrieve layout handles
+     *
+     * @param string $area
+     * @param string $package
+     * @param string $theme
+     * @return array
+     */
+    public function getLayoutHandles($area, $package, $theme)
+    {
+        if (empty($this->_layoutHandles)) {
+            /** @var Mage_Core_Model_Layout_Update $update */
+            $update = Mage::getModel('core/layout')->getUpdate();
+            $this->_layoutHandles[''] = Mage::helper('widget')->__('-- Please Select --');
+            $this->_collectLayoutHandles($update->getFileLayoutUpdatesXml($area, $package, $theme));
+        }
+        return $this->_layoutHandles;
+    }
+
+    /**
      * Prepare html output
      *
      * @return string
@@ -122,25 +141,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
                 $this->getTheme(),
             ));
         return parent::_toHtml() . $selectBlock->toHtml();
-    }
-
-    /**
-     * Retrieve layout handles
-     *
-     * @param string $area
-     * @param string $package
-     * @param string $theme
-     * @return array
-     */
-    public function getLayoutHandles($area, $package, $theme)
-    {
-        if (empty($this->_layoutHandles)) {
-            /** @var Mage_Core_Model_Layout_Update $update */
-            $update = Mage::getModel('core/layout')->getUpdate();
-            $this->_layoutHandles[''] = Mage::helper('widget')->__('-- Please Select --');
-            $this->_collectLayoutHandles($update->getFileLayoutUpdatesXml($area, $package, $theme));
-        }
-        return $this->_layoutHandles;
     }
 
     /**

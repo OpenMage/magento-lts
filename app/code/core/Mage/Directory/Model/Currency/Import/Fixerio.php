@@ -62,14 +62,6 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     }
 
     /**
-     * @inheritdoc
-     */
-    protected function _convert($currencyFrom, $currencyTo)
-    {
-        return 1;
-    }
-
-    /**
      * Fetching of the currency rates data
      *
      * @return array
@@ -90,6 +82,14 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
         }
 
         return $data;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function _convert($currencyFrom, $currencyTo)
+    {
+        return 1;
     }
 
     /**

@@ -30,20 +30,6 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
     protected $_storeIds = [];
 
     /**
-     * Join fields
-     *
-     * @param string $from
-     * @param string $to
-     * @return $this
-     */
-    protected function _joinFields($from = '', $to = '')
-    {
-        $this->addAttributeToSelect('*')
-            ->addViewsCount($from, $to);
-        return $this;
-    }
-
-    /**
      * Set date range
      *
      * @param string $from
@@ -85,6 +71,20 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
         } else {
             $this->_storeIds[] = $storeIds;
         }
+        return $this;
+    }
+
+    /**
+     * Join fields
+     *
+     * @param string $from
+     * @param string $to
+     * @return $this
+     */
+    protected function _joinFields($from = '', $to = '')
+    {
+        $this->addAttributeToSelect('*')
+            ->addViewsCount($from, $to);
         return $this;
     }
 

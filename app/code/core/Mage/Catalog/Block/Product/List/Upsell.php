@@ -38,58 +38,6 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
     protected $_itemLimits = [];
 
     /**
-     * @return $this
-     */
-    protected function _prepareData()
-    {
-        $product = Mage::registry('product');
-        /** @var Mage_Catalog_Model_Product $product */
-        $this->_itemCollection = $product->getUpSellProductCollection()
-            ->setPositionOrder()
-            ->addStoreFilter()
-        ;
-        if ($this->isModuleEnabled('Mage_Checkout', 'catalog')) {
-            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter(
-                $this->_itemCollection,
-                Mage::getSingleton('checkout/session')->getQuoteId(),
-            );
-
-            $this->_addProductAttributesAndPrices($this->_itemCollection);
-        }
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
-
-        if ($this->getItemLimit('upsell') > 0) {
-            $this->_itemCollection->setPageSize($this->getItemLimit('upsell'));
-        }
-
-        $this->_itemCollection->load();
-
-        /**
-         * Updating collection with desired items
-         */
-        Mage::dispatchEvent('catalog_product_upsell', [
-            'product'       => $product,
-            'collection'    => $this->_itemCollection,
-            'limit'         => $this->getItemLimit(),
-        ]);
-
-        foreach ($this->_itemCollection as $product) {
-            $product->setDoNotUseCategoryId(true);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Mage_Catalog_Block_Product_Abstract
-     */
-    protected function _beforeToHtml()
-    {
-        $this->_prepareData();
-        return parent::_beforeToHtml();
-    }
-
-    /**
      * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
      */
     public function getItemCollection()
@@ -188,5 +136,57 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getItemsTags($this->getItems()));
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _prepareData()
+    {
+        $product = Mage::registry('product');
+        /** @var Mage_Catalog_Model_Product $product */
+        $this->_itemCollection = $product->getUpSellProductCollection()
+            ->setPositionOrder()
+            ->addStoreFilter()
+        ;
+        if ($this->isModuleEnabled('Mage_Checkout', 'catalog')) {
+            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter(
+                $this->_itemCollection,
+                Mage::getSingleton('checkout/session')->getQuoteId(),
+            );
+
+            $this->_addProductAttributesAndPrices($this->_itemCollection);
+        }
+        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
+
+        if ($this->getItemLimit('upsell') > 0) {
+            $this->_itemCollection->setPageSize($this->getItemLimit('upsell'));
+        }
+
+        $this->_itemCollection->load();
+
+        /**
+         * Updating collection with desired items
+         */
+        Mage::dispatchEvent('catalog_product_upsell', [
+            'product'       => $product,
+            'collection'    => $this->_itemCollection,
+            'limit'         => $this->getItemLimit(),
+        ]);
+
+        foreach ($this->_itemCollection as $product) {
+            $product->setDoNotUseCategoryId(true);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Mage_Catalog_Block_Product_Abstract
+     */
+    protected function _beforeToHtml()
+    {
+        $this->_prepareData();
+        return parent::_beforeToHtml();
     }
 }

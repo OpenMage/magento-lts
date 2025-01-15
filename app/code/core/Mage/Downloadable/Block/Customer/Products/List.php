@@ -64,24 +64,6 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     }
 
     /**
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-
-        $pager = $this->getLayout()->createBlock('page/html_pager', 'downloadable.customer.products.pager')
-            ->setCollection($this->getItems());
-        $this->setChild('pager', $pager);
-        $this->getItems()->load();
-        /** @var Mage_Downloadable_Model_Link_Purchased_Item $item */
-        foreach ($this->getItems() as $item) {
-            $item->setPurchased($this->getPurchased()->getItemById($item->getPurchasedId()));
-        }
-        return $this;
-    }
-
-    /**
      * Return order view url
      *
      * @param int $orderId
@@ -136,5 +118,23 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     public function getIsOpenInNewWindow()
     {
         return Mage::getStoreConfigFlag(Mage_Downloadable_Model_Link::XML_PATH_TARGET_NEW_WINDOW);
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+
+        $pager = $this->getLayout()->createBlock('page/html_pager', 'downloadable.customer.products.pager')
+            ->setCollection($this->getItems());
+        $this->setChild('pager', $pager);
+        $this->getItems()->load();
+        /** @var Mage_Downloadable_Model_Link_Purchased_Item $item */
+        foreach ($this->getItems() as $item) {
+            $item->setPurchased($this->getPurchased()->getItemById($item->getPurchasedId()));
+        }
+        return $this;
     }
 }

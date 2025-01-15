@@ -22,6 +22,16 @@
  */
 class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstract
 {
+    public const SWATCH_LABEL_SUFFIX = '-swatch';
+    public const SWATCH_FALLBACK_MEDIA_DIR = 'wysiwyg/swatches';
+    public const SWATCH_CACHE_DIR = 'catalog/swatches';
+    public const SWATCH_FILE_EXT = '.png';
+
+    public const MEDIA_IMAGE_TYPE_BASE = 'base_image';
+    public const MEDIA_IMAGE_TYPE_SMALL = 'small_image';
+
+    public const SWATCH_DEFAULT_WIDTH = 21;
+    public const SWATCH_DEFAULT_HEIGHT = 21;
     protected $_moduleName = 'Mage_ConfigurableSwatches';
 
     /**
@@ -39,17 +49,6 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @var array
      */
     protected $_productImageFilters = [];
-
-    public const SWATCH_LABEL_SUFFIX = '-swatch';
-    public const SWATCH_FALLBACK_MEDIA_DIR = 'wysiwyg/swatches';
-    public const SWATCH_CACHE_DIR = 'catalog/swatches';
-    public const SWATCH_FILE_EXT = '.png';
-
-    public const MEDIA_IMAGE_TYPE_BASE = 'base_image';
-    public const MEDIA_IMAGE_TYPE_SMALL = 'small_image';
-
-    public const SWATCH_DEFAULT_WIDTH = 21;
-    public const SWATCH_DEFAULT_HEIGHT = 21;
 
     /**
      * Determine if the passed text matches the label of any of the passed product's images
@@ -311,6 +310,46 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     }
 
     /**
+     * Cleans out the swatch image cache dir
+     */
+    public function clearSwatchesCache()
+    {
+        $directory = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . self::SWATCH_CACHE_DIR;
+        $io = new Varien_Io_File();
+        $io->rmdir($directory, true);
+
+        Mage::helper('core/file_storage_database')->deleteFolder($directory);
+    }
+
+    /**
+     * Determine whether to show an image in the product media gallery
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param Varien_Object $image
+     * @return bool
+     */
+    public function filterImageInGallery($product, $image)
+    {
+        if (!Mage::helper('configurableswatches')->isEnabled()) {
+            return true;
+        }
+
+        if (!isset($this->_productImageFilters[$product->getId()])) {
+            $mapping = call_user_func_array('array_merge_recursive', array_values($product->getChildAttributeLabelMapping()));
+            $filters = array_unique($mapping['labels']);
+            $filters = array_merge($filters, array_map(function ($label) {
+                return $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX;
+            }, $filters));
+            $this->_productImageFilters[$product->getId()] = $filters;
+        }
+
+        return !in_array(
+            Mage_ConfigurableSwatches_Helper_Data::normalizeKey($image->getLabel()),
+            $this->_productImageFilters[$product->getId()],
+        );
+    }
+
+    /**
      * Performs the resize operation on the given swatch image file and returns a
      * relative path to the resulting image file
      *
@@ -355,45 +394,5 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         return $destPath;
-    }
-
-    /**
-     * Cleans out the swatch image cache dir
-     */
-    public function clearSwatchesCache()
-    {
-        $directory = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . self::SWATCH_CACHE_DIR;
-        $io = new Varien_Io_File();
-        $io->rmdir($directory, true);
-
-        Mage::helper('core/file_storage_database')->deleteFolder($directory);
-    }
-
-    /**
-     * Determine whether to show an image in the product media gallery
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Varien_Object $image
-     * @return bool
-     */
-    public function filterImageInGallery($product, $image)
-    {
-        if (!Mage::helper('configurableswatches')->isEnabled()) {
-            return true;
-        }
-
-        if (!isset($this->_productImageFilters[$product->getId()])) {
-            $mapping = call_user_func_array('array_merge_recursive', array_values($product->getChildAttributeLabelMapping()));
-            $filters = array_unique($mapping['labels']);
-            $filters = array_merge($filters, array_map(function ($label) {
-                return $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX;
-            }, $filters));
-            $this->_productImageFilters[$product->getId()] = $filters;
-        }
-
-        return !in_array(
-            Mage_ConfigurableSwatches_Helper_Data::normalizeKey($image->getLabel()),
-            $this->_productImageFilters[$product->getId()],
-        );
     }
 }

@@ -22,11 +22,6 @@
  */
 class Mage_Oauth_Model_Resource_Nonce extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('oauth/nonce', null);
-    }
-
     /**
      * Delete old entries
      *
@@ -45,5 +40,9 @@ class Mage_Oauth_Model_Resource_Nonce extends Mage_Core_Model_Resource_Db_Abstra
         } else {
             return 0;
         }
+    }
+    protected function _construct()
+    {
+        $this->_init('oauth/nonce', null);
     }
 }

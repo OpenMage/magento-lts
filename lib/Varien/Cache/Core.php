@@ -17,16 +17,15 @@
 class Varien_Cache_Core extends Zend_Cache_Core
 {
     /**
+     * Used to tell chunked data from ordinary
+     */
+    public const CODE_WORD = '{splitted}';
+    /**
      * Specific slab size = 1Mb minus overhead
      *
      * @var array $_specificOptions
      */
     protected $_specificOptions = ['slab_size' => 0];
-
-    /**
-     * Used to tell chunked data from ordinary
-     */
-    public const CODE_WORD = '{splitted}';
 
     /**
      * Constructor
@@ -40,66 +39,6 @@ class Varien_Cache_Core extends Zend_Cache_Core
         if (!is_numeric($this->getOption('slab_size'))) {
             throw new Varien_Exception('Invalid value for the node <slab_size>. Expected to be integer.');
         }
-    }
-
-    /**
-     * Returns ID of a specific chunk on the basis of data's ID
-     *
-     * @param string $id    Main data's ID
-     * @param int    $index Particular chunk number to return ID for
-     * @return string
-     */
-    protected function _getChunkId($id, $index)
-    {
-        return "{$id}[{$index}]";
-    }
-
-    /**
-     * Remove saved chunks in case something gone wrong (e.g. some chunk from the chain can not be found)
-     *
-     * @param string $id     ID of data's info cell
-     * @param int    $chunks Number of chunks to remove (basically, the number after '{splitted}|')
-     */
-    protected function _cleanTheMess($id, $chunks)
-    {
-        for ($i = 0; $i < $chunks; $i++) {
-            $this->remove($this->_getChunkId($id, $i));
-        }
-
-        $this->remove($id);
-    }
-
-    /**
-     * Make and return a cache id
-     *
-     * Checks 'cache_id_prefix' and returns new id with prefix or simply the id if null
-     *
-     * @param  string $id Cache id
-     * @return string Cache id (with or without prefix)
-     */
-    protected function _id($id)
-    {
-        if ($id !== null) {
-            $id = preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
-            if (isset($this->_options['cache_id_prefix'])) {
-                $id = $this->_options['cache_id_prefix'] . $id;
-            }
-        }
-        return $id;
-    }
-
-    /**
-     * Prepare tags
-     *
-     * @param array $tags
-     * @return array
-     */
-    protected function _tags($tags)
-    {
-        foreach ($tags as $key => $tag) {
-            $tags[$key] = $this->_id($tag);
-        }
-        return $tags;
     }
 
     /**
@@ -226,5 +165,65 @@ class Varien_Cache_Core extends Zend_Cache_Core
     {
         $tags = $this->_tags($tags);
         return parent::getIdsNotMatchingTags($tags);
+    }
+
+    /**
+     * Returns ID of a specific chunk on the basis of data's ID
+     *
+     * @param string $id    Main data's ID
+     * @param int    $index Particular chunk number to return ID for
+     * @return string
+     */
+    protected function _getChunkId($id, $index)
+    {
+        return "{$id}[{$index}]";
+    }
+
+    /**
+     * Remove saved chunks in case something gone wrong (e.g. some chunk from the chain can not be found)
+     *
+     * @param string $id     ID of data's info cell
+     * @param int    $chunks Number of chunks to remove (basically, the number after '{splitted}|')
+     */
+    protected function _cleanTheMess($id, $chunks)
+    {
+        for ($i = 0; $i < $chunks; $i++) {
+            $this->remove($this->_getChunkId($id, $i));
+        }
+
+        $this->remove($id);
+    }
+
+    /**
+     * Make and return a cache id
+     *
+     * Checks 'cache_id_prefix' and returns new id with prefix or simply the id if null
+     *
+     * @param  string $id Cache id
+     * @return string Cache id (with or without prefix)
+     */
+    protected function _id($id)
+    {
+        if ($id !== null) {
+            $id = preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
+            if (isset($this->_options['cache_id_prefix'])) {
+                $id = $this->_options['cache_id_prefix'] . $id;
+            }
+        }
+        return $id;
+    }
+
+    /**
+     * Prepare tags
+     *
+     * @param array $tags
+     * @return array
+     */
+    protected function _tags($tags)
+    {
+        foreach ($tags as $key => $tag) {
+            $tags[$key] = $this->_id($tag);
+        }
+        return $tags;
     }
 }

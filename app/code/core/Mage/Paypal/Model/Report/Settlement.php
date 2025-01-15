@@ -153,28 +153,6 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         ],
     ];
 
-    protected function _construct()
-    {
-        $this->_init('paypal/report_settlement');
-    }
-
-    /**
-     * Stop saving process if file with same report date, account ID and last modified date was already ferched
-     *
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _beforeSave()
-    {
-        $this->_dataSaveAllowed = true;
-        if ($this->getId()) {
-            if ($this->getLastModified() == $this->getReportLastModified()) {
-                $this->_dataSaveAllowed = false;
-            }
-        }
-        $this->setLastModified($this->getReportLastModified());
-        return parent::_beforeSave();
-    }
-
     /**
      * Goes to specified host/path and fetches reports from there.
      * Save reports to database.
@@ -405,6 +383,28 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             $configs[] = $cfg;
         }
         return $configs;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('paypal/report_settlement');
+    }
+
+    /**
+     * Stop saving process if file with same report date, account ID and last modified date was already ferched
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _beforeSave()
+    {
+        $this->_dataSaveAllowed = true;
+        if ($this->getId()) {
+            if ($this->getLastModified() == $this->getReportLastModified()) {
+                $this->_dataSaveAllowed = false;
+            }
+        }
+        $this->setLastModified($this->getReportLastModified());
+        return parent::_beforeSave();
     }
 
     /**

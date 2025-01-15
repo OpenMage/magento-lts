@@ -93,19 +93,6 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param object $a
-     * @param object $b
-     * @return int
-     */
-    protected function _sortMethods($a, $b)
-    {
-        if (is_object($a)) {
-            return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
-        }
-        return 0;
-    }
-
-    /**
      * Retrieve payment method form html
      *
      * @return  Mage_Payment_Block_Form|Mage_Core_Block_Abstract
@@ -315,5 +302,18 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     public function getZeroSubTotalPaymentAutomaticInvoice($store = null)
     {
         return Mage::getStoreConfig(Mage_Payment_Model_Method_Free::XML_PATH_PAYMENT_FREE_PAYMENT_ACTION, $store);
+    }
+
+    /**
+     * @param object $a
+     * @param object $b
+     * @return int
+     */
+    protected function _sortMethods($a, $b)
+    {
+        if (is_object($a)) {
+            return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
+        }
+        return 0;
     }
 }

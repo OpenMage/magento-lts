@@ -22,6 +22,51 @@
  */
 class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 {
+    /**
+     * Preparing data and adding to rss object
+     *
+     * @param array $args
+     */
+    public function addNewItemXmlCallback($args)
+    {
+        $product = $args['product'];
+
+        $product->setAllowedInRss(true);
+        $product->setAllowedPriceInRss(true);
+        Mage::dispatchEvent('rss_catalog_new_xml_callback', $args);
+
+        if (!$product->getAllowedInRss()) {
+            //Skip adding product to RSS
+            return;
+        }
+
+        $allowedPriceInRss = $product->getAllowedPriceInRss();
+
+        /** @var Mage_Catalog_Helper_Image $helper */
+        $helper = $this->helper('catalog/image');
+
+        $product->setData($args['row']);
+        $description = '<table><tr>'
+            . '<td><a href="' . $product->getProductUrl() . '"><img src="'
+            . $helper->init($product, 'thumbnail')->resize(75, 75)
+            . '" border="0" align="left" height="75" width="75"></a></td>' .
+            '<td  style="text-decoration:none;">' . $product->getDescription();
+
+        if ($allowedPriceInRss) {
+            $description .= $this->getPriceHtml($product, true);
+        }
+
+        $description .= '</td>' .
+            '</tr></table>';
+
+        $rssObj = $args['rssObj'];
+        $data = [
+            'title'         => $product->getName(),
+            'link'          => $product->getProductUrl(),
+            'description'   => $description,
+        ];
+        $rssObj->_addEntry($data);
+    }
     protected function _construct() {}
 
     /**
@@ -100,51 +145,5 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         );
 
         return $rssObj->createRssXml();
-    }
-
-    /**
-     * Preparing data and adding to rss object
-     *
-     * @param array $args
-     */
-    public function addNewItemXmlCallback($args)
-    {
-        $product = $args['product'];
-
-        $product->setAllowedInRss(true);
-        $product->setAllowedPriceInRss(true);
-        Mage::dispatchEvent('rss_catalog_new_xml_callback', $args);
-
-        if (!$product->getAllowedInRss()) {
-            //Skip adding product to RSS
-            return;
-        }
-
-        $allowedPriceInRss = $product->getAllowedPriceInRss();
-
-        /** @var Mage_Catalog_Helper_Image $helper */
-        $helper = $this->helper('catalog/image');
-
-        $product->setData($args['row']);
-        $description = '<table><tr>'
-            . '<td><a href="' . $product->getProductUrl() . '"><img src="'
-            . $helper->init($product, 'thumbnail')->resize(75, 75)
-            . '" border="0" align="left" height="75" width="75"></a></td>' .
-            '<td  style="text-decoration:none;">' . $product->getDescription();
-
-        if ($allowedPriceInRss) {
-            $description .= $this->getPriceHtml($product, true);
-        }
-
-        $description .= '</td>' .
-            '</tr></table>';
-
-        $rssObj = $args['rssObj'];
-        $data = [
-            'title'         => $product->getName(),
-            'link'          => $product->getProductUrl(),
-            'description'   => $description,
-        ];
-        $rssObj->_addEntry($data);
     }
 }

@@ -23,17 +23,6 @@
 class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resource_Product
 {
     /**
-     * Base preparation of product data
-     *
-     * @param mixed $data
-     * @return null|array
-     */
-    protected function _prepareProductsData($data)
-    {
-        return is_array($data) ? $data : null;
-    }
-
-    /**
      * @param  int $quoteId
      * @param  array $productsData
      * @param  string|int $store
@@ -319,5 +308,15 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
         }
 
         return true;
+    }
+    /**
+     * Base preparation of product data
+     *
+     * @param mixed $data
+     * @return null|array
+     */
+    protected function _prepareProductsData($data)
+    {
+        return is_array($data) ? $data : null;
     }
 }

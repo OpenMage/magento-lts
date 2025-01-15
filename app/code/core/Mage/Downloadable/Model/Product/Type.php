@@ -264,56 +264,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     }
 
     /**
-     * Prepare product and its configuration to be added to some products list.
-     * Perform standard preparation process and then prepare options for downloadable links.
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $processMode
-     * @return array|string
-     */
-    protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
-    {
-        $result = parent::_prepareProduct($buyRequest, $product, $processMode);
-
-        if (is_string($result)) {
-            return $result;
-        }
-        // if adding product from admin area we add all links to product
-        $originalLinksPurchasedSeparately = null;
-        if ($this->getProduct($product)->getSkipCheckRequiredOption()) {
-            $originalLinksPurchasedSeparately = $this->getProduct($product)
-                ->getLinksPurchasedSeparately();
-            $this->getProduct($product)->setLinksPurchasedSeparately(false);
-        }
-        $preparedLinks = [];
-        if ($this->getProduct($product)->getLinksPurchasedSeparately()) {
-            if ($links = $buyRequest->getLinks()) {
-                foreach ($this->getLinks($product) as $link) {
-                    if (in_array($link->getId(), $links)) {
-                        $preparedLinks[] = $link->getId();
-                    }
-                }
-            }
-        } else {
-            foreach ($this->getLinks($product) as $link) {
-                $preparedLinks[] = $link->getId();
-            }
-        }
-        if ($originalLinksPurchasedSeparately !== null) {
-            $this->getProduct($product)
-                ->setLinksPurchasedSeparately($originalLinksPurchasedSeparately);
-        }
-        if ($preparedLinks) {
-            $this->getProduct($product)->addCustomOption('downloadable_link_ids', implode(',', $preparedLinks));
-            return $result;
-        }
-        if ($this->getLinkSelectionRequired($product) && $this->_isStrictProcessMode($processMode)) {
-            return Mage::helper('downloadable')->__('Please specify product link(s).');
-        }
-        return $result;
-    }
-
-    /**
      * Check if product can be bought
      *
      * @param Mage_Catalog_Model_Product $product
@@ -467,5 +417,55 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function canConfigure($product = null)
     {
         return $this->hasLinks($product) && $this->getProduct($product)->getLinksPurchasedSeparately();
+    }
+
+    /**
+     * Prepare product and its configuration to be added to some products list.
+     * Perform standard preparation process and then prepare options for downloadable links.
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param string $processMode
+     * @return array|string
+     */
+    protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
+    {
+        $result = parent::_prepareProduct($buyRequest, $product, $processMode);
+
+        if (is_string($result)) {
+            return $result;
+        }
+        // if adding product from admin area we add all links to product
+        $originalLinksPurchasedSeparately = null;
+        if ($this->getProduct($product)->getSkipCheckRequiredOption()) {
+            $originalLinksPurchasedSeparately = $this->getProduct($product)
+                ->getLinksPurchasedSeparately();
+            $this->getProduct($product)->setLinksPurchasedSeparately(false);
+        }
+        $preparedLinks = [];
+        if ($this->getProduct($product)->getLinksPurchasedSeparately()) {
+            if ($links = $buyRequest->getLinks()) {
+                foreach ($this->getLinks($product) as $link) {
+                    if (in_array($link->getId(), $links)) {
+                        $preparedLinks[] = $link->getId();
+                    }
+                }
+            }
+        } else {
+            foreach ($this->getLinks($product) as $link) {
+                $preparedLinks[] = $link->getId();
+            }
+        }
+        if ($originalLinksPurchasedSeparately !== null) {
+            $this->getProduct($product)
+                ->setLinksPurchasedSeparately($originalLinksPurchasedSeparately);
+        }
+        if ($preparedLinks) {
+            $this->getProduct($product)->addCustomOption('downloadable_link_ids', implode(',', $preparedLinks));
+            return $result;
+        }
+        if ($this->getLinkSelectionRequired($product) && $this->_isStrictProcessMode($processMode)) {
+            return Mage::helper('downloadable')->__('Please specify product link(s).');
+        }
+        return $result;
     }
 }

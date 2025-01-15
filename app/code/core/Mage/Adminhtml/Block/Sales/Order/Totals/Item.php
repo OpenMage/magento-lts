@@ -23,22 +23,6 @@
 class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
     /**
-     * Determine display parameters before rendering HTML
-     *
-     * @return $this
-     */
-    protected function _beforeToHtml()
-    {
-        parent::_beforeToHtml();
-
-        $this->setCanDisplayTotalPaid($this->getParentBlock()->getCanDisplayTotalPaid());
-        $this->setCanDisplayTotalRefunded($this->getParentBlock()->getCanDisplayTotalRefunded());
-        $this->setCanDisplayTotalDue($this->getParentBlock()->getCanDisplayTotalDue());
-
-        return $this;
-    }
-
-    /**
      * Initialize totals object
      *
      * @return $this
@@ -96,5 +80,20 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
     public function getSource()
     {
         return $this->getParentBlock()->getSource();
+    }
+    /**
+     * Determine display parameters before rendering HTML
+     *
+     * @return $this
+     */
+    protected function _beforeToHtml()
+    {
+        parent::_beforeToHtml();
+
+        $this->setCanDisplayTotalPaid($this->getParentBlock()->getCanDisplayTotalPaid());
+        $this->setCanDisplayTotalRefunded($this->getParentBlock()->getCanDisplayTotalRefunded());
+        $this->setCanDisplayTotalDue($this->getParentBlock()->getCanDisplayTotalDue());
+
+        return $this;
     }
 }

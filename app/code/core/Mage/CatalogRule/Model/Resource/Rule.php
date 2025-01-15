@@ -78,57 +78,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     }
 
     /**
-     * Initialize main table and table id field
-     */
-    protected function _construct()
-    {
-        $this->_init('catalogrule/rule', 'rule_id');
-    }
-
-    /**
-     * Add customer group ids and website ids to rule data after load
-     *
-     *
-     * @inheritDoc
-     */
-    protected function _afterLoad(Mage_Core_Model_Abstract $object)
-    {
-        $object->setData('customer_group_ids', (array) $this->getCustomerGroupIds($object->getId()));
-        $object->setData('website_ids', (array) $this->getWebsiteIds($object->getId()));
-
-        return parent::_afterLoad($object);
-    }
-
-    /**
-     * Bind catalog rule to customer group(s) and website(s).
-     * Update products which are matched for rule.
-     *
-     *
-     * @return $this
-     */
-    protected function _afterSave(Mage_Core_Model_Abstract $object)
-    {
-        if ($object->hasWebsiteIds()) {
-            $websiteIds = $object->getWebsiteIds();
-            if (!is_array($websiteIds)) {
-                $websiteIds = explode(',', (string) $websiteIds);
-            }
-            $this->bindRuleToEntity($object->getId(), $websiteIds, 'website');
-        }
-
-        if ($object->hasCustomerGroupIds()) {
-            $customerGroupIds = $object->getCustomerGroupIds();
-            if (!is_array($customerGroupIds)) {
-                $customerGroupIds = explode(',', (string) $customerGroupIds);
-            }
-            $this->bindRuleToEntity($object->getId(), $customerGroupIds, 'customer_group');
-        }
-
-        parent::_afterSave($object);
-        return $this;
-    }
-
-    /**
      * Deletes records in catalogrule/product_data by rule ID and product IDs
      *
      * @param int $ruleId
@@ -424,102 +373,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     }
 
     /**
-     * Get DB resource statement for processing query result
-     *
-     * @param int $fromDate
-     * @param int $toDate
-     * @param int|null $productId
-     * @param int|null $websiteId
-     *
-     * @return Zend_Db_Statement_Interface
-     */
-    protected function _getRuleProductsStmt($fromDate, $toDate, $productId = null, $websiteId = null)
-    {
-        $read = $this->_getReadAdapter();
-        /**
-         * Sort order is important
-         * It used for check stop price rule condition.
-         * website_id   customer_group_id   product_id  sort_order
-         *  1           1                   1           0
-         *  1           1                   1           1
-         *  1           1                   1           2
-         * if row with sort order 1 will have stop flag we should exclude
-         * all next rows for same product id from price calculation
-         */
-        $select = $read->select()
-            ->from(['rp' => $this->getTable('catalogrule/rule_product')])
-            ->where($read->quoteInto('rp.from_time = 0 or rp.from_time <= ?', $toDate)
-            . ' OR ' . $read->quoteInto('rp.to_time = 0 or rp.to_time >= ?', $fromDate))
-            ->order(['rp.website_id', 'rp.customer_group_id', 'rp.product_id', 'rp.sort_order', 'rp.rule_id']);
-
-        if (!is_null($productId)) {
-            $select->where('rp.product_id=?', $productId);
-        }
-
-        /**
-         * Join default price and websites prices to result
-         */
-        $priceAttr  = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'price');
-        $priceTable = $priceAttr->getBackend()->getTable();
-        $attributeId = $priceAttr->getId();
-
-        $joinCondition = '%1$s.entity_id=rp.product_id AND (%1$s.attribute_id=' . $attributeId
-            . ') and %1$s.store_id=%2$s';
-
-        $select->join(
-            ['pp_default' => $priceTable],
-            sprintf($joinCondition, 'pp_default', Mage_Core_Model_App::ADMIN_STORE_ID),
-            ['default_price' => 'pp_default.value'],
-        );
-
-        if ($websiteId !== null) {
-            $website  = Mage::app()->getWebsite($websiteId);
-            $defaultGroup = $website->getDefaultGroup();
-            if ($defaultGroup instanceof Mage_Core_Model_Store_Group) {
-                $storeId = $defaultGroup->getDefaultStoreId();
-            } else {
-                $storeId = Mage_Core_Model_App::ADMIN_STORE_ID;
-            }
-
-            $select->joinInner(
-                ['product_website' => $this->getTable('catalog/product_website')],
-                'product_website.product_id=rp.product_id ' .
-                'AND rp.website_id=product_website.website_id ' .
-                'AND product_website.website_id=' . $websiteId,
-                [],
-            );
-
-            $tableAlias = 'pp' . $websiteId;
-            $fieldAlias = 'website_' . $websiteId . '_price';
-            $select->joinLeft(
-                [$tableAlias => $priceTable],
-                sprintf($joinCondition, $tableAlias, $storeId),
-                [$fieldAlias => $tableAlias . '.value'],
-            );
-        } else {
-            foreach (Mage::app()->getWebsites() as $website) {
-                $websiteId  = $website->getId();
-                $defaultGroup = $website->getDefaultGroup();
-                if ($defaultGroup instanceof Mage_Core_Model_Store_Group) {
-                    $storeId = $defaultGroup->getDefaultStoreId();
-                } else {
-                    $storeId = Mage_Core_Model_App::ADMIN_STORE_ID;
-                }
-
-                $tableAlias = 'pp' . $websiteId;
-                $fieldAlias = 'website_' . $websiteId . '_price';
-                $select->joinLeft(
-                    [$tableAlias => $priceTable],
-                    sprintf($joinCondition, $tableAlias, $storeId),
-                    [$fieldAlias => $tableAlias . '.value'],
-                );
-            }
-        }
-
-        return $read->query($select);
-    }
-
-    /**
      * Generate catalog price rules prices for specified date range
      * If from date is not defined - will be used previous day by UTC
      * If to date is not defined - will be used next day by UTC
@@ -551,95 +404,6 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     public function applyAllRulesForDateRange($fromDate = null, $toDate = null, $productId = null)
     {
         return $this->applyAllRules($productId);
-    }
-
-    /**
-     * Run reindex
-     *
-     * @param int|Mage_Catalog_Model_Product $product
-     */
-    protected function _reindexCatalogRule($product = null)
-    {
-        $indexerCode = 'catalogrule/action_index_refresh';
-        $value = null;
-        if ($product) {
-            $value = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
-            $indexerCode = 'catalogrule/action_index_refresh_row';
-        }
-
-        /** @var Mage_CatalogRule_Model_Action_Index_Refresh $indexer */
-        $indexer = Mage::getModel(
-            $indexerCode,
-            [
-                'connection' => $this->_getWriteAdapter(),
-                'factory'    => Mage::getModel('core/factory'),
-                'resource'   => $this,
-                'app'        => Mage::app(),
-                'value'      => $value,
-            ],
-        );
-        $indexer->execute();
-    }
-
-    /**
-     * Calculate product price based on price rule data and previous information
-     *
-     * @param array $ruleData
-     * @param null|array $productData
-     *
-     * @return float
-     */
-    protected function _calcRuleProductPrice($ruleData, $productData = null)
-    {
-        if ($productData !== null && isset($productData['rule_price'])) {
-            $productPrice = $productData['rule_price'];
-        } else {
-            $websiteId = $ruleData['website_id'];
-            $productPrice = $ruleData['website_' . $websiteId . '_price'] ?? $ruleData['default_price'];
-        }
-
-        $productPrice = Mage::helper('catalogrule')->calcPriceRule(
-            $ruleData['action_operator'],
-            $ruleData['action_amount'],
-            $productPrice,
-        );
-
-        return Mage::app()->getStore()->roundPrice($productPrice);
-    }
-
-    /**
-     * Save rule prices for products to DB
-     *
-     * @param array $arrData
-     *
-     * @return $this
-     */
-    protected function _saveRuleProductPrices($arrData)
-    {
-        if (empty($arrData)) {
-            return $this;
-        }
-
-        $adapter    = $this->_getWriteAdapter();
-        $productIds = [];
-
-        $adapter->beginTransaction();
-        try {
-            foreach ($arrData as $key => $data) {
-                $productIds['product_id'] = $data['product_id'];
-                $arrData[$key]['rule_date'] = $this->formatDate($data['rule_date'], false);
-                $arrData[$key]['latest_start_date'] = $this->formatDate($data['latest_start_date'], false);
-                $arrData[$key]['earliest_end_date'] = $this->formatDate($data['earliest_end_date'], false);
-            }
-            $adapter->insertOnDuplicate($this->getTable('catalogrule/affected_product'), array_unique($productIds));
-            $adapter->insertOnDuplicate($this->getTable('catalogrule/rule_product_price'), $arrData);
-            $adapter->commit();
-        } catch (Exception $e) {
-            $adapter->rollBack();
-            throw $e;
-        }
-
-        return $this;
     }
 
     /**
@@ -784,6 +548,242 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $select = $read->select()->from($this->getTable('catalogrule/rule_product'), 'rule_id');
         $select->where('product_id = ?', $productId);
         return array_flip($read->fetchCol($select));
+    }
+
+    /**
+     * Initialize main table and table id field
+     */
+    protected function _construct()
+    {
+        $this->_init('catalogrule/rule', 'rule_id');
+    }
+
+    /**
+     * Add customer group ids and website ids to rule data after load
+     *
+     *
+     * @inheritDoc
+     */
+    protected function _afterLoad(Mage_Core_Model_Abstract $object)
+    {
+        $object->setData('customer_group_ids', (array) $this->getCustomerGroupIds($object->getId()));
+        $object->setData('website_ids', (array) $this->getWebsiteIds($object->getId()));
+
+        return parent::_afterLoad($object);
+    }
+
+    /**
+     * Bind catalog rule to customer group(s) and website(s).
+     * Update products which are matched for rule.
+     *
+     *
+     * @return $this
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
+        if ($object->hasWebsiteIds()) {
+            $websiteIds = $object->getWebsiteIds();
+            if (!is_array($websiteIds)) {
+                $websiteIds = explode(',', (string) $websiteIds);
+            }
+            $this->bindRuleToEntity($object->getId(), $websiteIds, 'website');
+        }
+
+        if ($object->hasCustomerGroupIds()) {
+            $customerGroupIds = $object->getCustomerGroupIds();
+            if (!is_array($customerGroupIds)) {
+                $customerGroupIds = explode(',', (string) $customerGroupIds);
+            }
+            $this->bindRuleToEntity($object->getId(), $customerGroupIds, 'customer_group');
+        }
+
+        parent::_afterSave($object);
+        return $this;
+    }
+
+    /**
+     * Get DB resource statement for processing query result
+     *
+     * @param int $fromDate
+     * @param int $toDate
+     * @param int|null $productId
+     * @param int|null $websiteId
+     *
+     * @return Zend_Db_Statement_Interface
+     */
+    protected function _getRuleProductsStmt($fromDate, $toDate, $productId = null, $websiteId = null)
+    {
+        $read = $this->_getReadAdapter();
+        /**
+         * Sort order is important
+         * It used for check stop price rule condition.
+         * website_id   customer_group_id   product_id  sort_order
+         *  1           1                   1           0
+         *  1           1                   1           1
+         *  1           1                   1           2
+         * if row with sort order 1 will have stop flag we should exclude
+         * all next rows for same product id from price calculation
+         */
+        $select = $read->select()
+            ->from(['rp' => $this->getTable('catalogrule/rule_product')])
+            ->where($read->quoteInto('rp.from_time = 0 or rp.from_time <= ?', $toDate)
+            . ' OR ' . $read->quoteInto('rp.to_time = 0 or rp.to_time >= ?', $fromDate))
+            ->order(['rp.website_id', 'rp.customer_group_id', 'rp.product_id', 'rp.sort_order', 'rp.rule_id']);
+
+        if (!is_null($productId)) {
+            $select->where('rp.product_id=?', $productId);
+        }
+
+        /**
+         * Join default price and websites prices to result
+         */
+        $priceAttr  = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'price');
+        $priceTable = $priceAttr->getBackend()->getTable();
+        $attributeId = $priceAttr->getId();
+
+        $joinCondition = '%1$s.entity_id=rp.product_id AND (%1$s.attribute_id=' . $attributeId
+            . ') and %1$s.store_id=%2$s';
+
+        $select->join(
+            ['pp_default' => $priceTable],
+            sprintf($joinCondition, 'pp_default', Mage_Core_Model_App::ADMIN_STORE_ID),
+            ['default_price' => 'pp_default.value'],
+        );
+
+        if ($websiteId !== null) {
+            $website  = Mage::app()->getWebsite($websiteId);
+            $defaultGroup = $website->getDefaultGroup();
+            if ($defaultGroup instanceof Mage_Core_Model_Store_Group) {
+                $storeId = $defaultGroup->getDefaultStoreId();
+            } else {
+                $storeId = Mage_Core_Model_App::ADMIN_STORE_ID;
+            }
+
+            $select->joinInner(
+                ['product_website' => $this->getTable('catalog/product_website')],
+                'product_website.product_id=rp.product_id ' .
+                'AND rp.website_id=product_website.website_id ' .
+                'AND product_website.website_id=' . $websiteId,
+                [],
+            );
+
+            $tableAlias = 'pp' . $websiteId;
+            $fieldAlias = 'website_' . $websiteId . '_price';
+            $select->joinLeft(
+                [$tableAlias => $priceTable],
+                sprintf($joinCondition, $tableAlias, $storeId),
+                [$fieldAlias => $tableAlias . '.value'],
+            );
+        } else {
+            foreach (Mage::app()->getWebsites() as $website) {
+                $websiteId  = $website->getId();
+                $defaultGroup = $website->getDefaultGroup();
+                if ($defaultGroup instanceof Mage_Core_Model_Store_Group) {
+                    $storeId = $defaultGroup->getDefaultStoreId();
+                } else {
+                    $storeId = Mage_Core_Model_App::ADMIN_STORE_ID;
+                }
+
+                $tableAlias = 'pp' . $websiteId;
+                $fieldAlias = 'website_' . $websiteId . '_price';
+                $select->joinLeft(
+                    [$tableAlias => $priceTable],
+                    sprintf($joinCondition, $tableAlias, $storeId),
+                    [$fieldAlias => $tableAlias . '.value'],
+                );
+            }
+        }
+
+        return $read->query($select);
+    }
+
+    /**
+     * Run reindex
+     *
+     * @param int|Mage_Catalog_Model_Product $product
+     */
+    protected function _reindexCatalogRule($product = null)
+    {
+        $indexerCode = 'catalogrule/action_index_refresh';
+        $value = null;
+        if ($product) {
+            $value = $product instanceof Mage_Catalog_Model_Product ? $product->getId() : $product;
+            $indexerCode = 'catalogrule/action_index_refresh_row';
+        }
+
+        /** @var Mage_CatalogRule_Model_Action_Index_Refresh $indexer */
+        $indexer = Mage::getModel(
+            $indexerCode,
+            [
+                'connection' => $this->_getWriteAdapter(),
+                'factory'    => Mage::getModel('core/factory'),
+                'resource'   => $this,
+                'app'        => Mage::app(),
+                'value'      => $value,
+            ],
+        );
+        $indexer->execute();
+    }
+
+    /**
+     * Calculate product price based on price rule data and previous information
+     *
+     * @param array $ruleData
+     * @param null|array $productData
+     *
+     * @return float
+     */
+    protected function _calcRuleProductPrice($ruleData, $productData = null)
+    {
+        if ($productData !== null && isset($productData['rule_price'])) {
+            $productPrice = $productData['rule_price'];
+        } else {
+            $websiteId = $ruleData['website_id'];
+            $productPrice = $ruleData['website_' . $websiteId . '_price'] ?? $ruleData['default_price'];
+        }
+
+        $productPrice = Mage::helper('catalogrule')->calcPriceRule(
+            $ruleData['action_operator'],
+            $ruleData['action_amount'],
+            $productPrice,
+        );
+
+        return Mage::app()->getStore()->roundPrice($productPrice);
+    }
+
+    /**
+     * Save rule prices for products to DB
+     *
+     * @param array $arrData
+     *
+     * @return $this
+     */
+    protected function _saveRuleProductPrices($arrData)
+    {
+        if (empty($arrData)) {
+            return $this;
+        }
+
+        $adapter    = $this->_getWriteAdapter();
+        $productIds = [];
+
+        $adapter->beginTransaction();
+        try {
+            foreach ($arrData as $key => $data) {
+                $productIds['product_id'] = $data['product_id'];
+                $arrData[$key]['rule_date'] = $this->formatDate($data['rule_date'], false);
+                $arrData[$key]['latest_start_date'] = $this->formatDate($data['latest_start_date'], false);
+                $arrData[$key]['earliest_end_date'] = $this->formatDate($data['earliest_end_date'], false);
+            }
+            $adapter->insertOnDuplicate($this->getTable('catalogrule/affected_product'), array_unique($productIds));
+            $adapter->insertOnDuplicate($this->getTable('catalogrule/rule_product_price'), $arrData);
+            $adapter->commit();
+        } catch (Exception $e) {
+            $adapter->rollBack();
+            throw $e;
+        }
+
+        return $this;
     }
 
     /**

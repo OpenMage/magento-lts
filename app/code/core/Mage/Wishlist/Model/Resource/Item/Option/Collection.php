@@ -37,42 +37,6 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
     protected $_optionsByProduct = [];
 
     /**
-     * Define resource model for collection
-     */
-    protected function _construct()
-    {
-        $this->_init('wishlist/item_option');
-    }
-
-    /**
-     * Fill array of options by item and product
-     *
-     * @return $this
-     */
-    protected function _afterLoad()
-    {
-        parent::_afterLoad();
-
-        foreach ($this as $option) {
-            $optionId   = $option->getId();
-            $itemId     = $option->getWishlistItemId();
-            $productId  = $option->getProductId();
-            if (isset($this->_optionsByItem[$itemId])) {
-                $this->_optionsByItem[$itemId][] = $optionId;
-            } else {
-                $this->_optionsByItem[$itemId] = [$optionId];
-            }
-            if (isset($this->_optionsByProduct[$productId])) {
-                $this->_optionsByProduct[$productId][] = $optionId;
-            } else {
-                $this->_optionsByProduct[$productId] = [$optionId];
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Apply quote item(s) filter to collection
      *
      * @param  int|array|Mage_Wishlist_Model_Item $item
@@ -156,5 +120,41 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
         }
 
         return $options;
+    }
+
+    /**
+     * Define resource model for collection
+     */
+    protected function _construct()
+    {
+        $this->_init('wishlist/item_option');
+    }
+
+    /**
+     * Fill array of options by item and product
+     *
+     * @return $this
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+
+        foreach ($this as $option) {
+            $optionId   = $option->getId();
+            $itemId     = $option->getWishlistItemId();
+            $productId  = $option->getProductId();
+            if (isset($this->_optionsByItem[$itemId])) {
+                $this->_optionsByItem[$itemId][] = $optionId;
+            } else {
+                $this->_optionsByItem[$itemId] = [$optionId];
+            }
+            if (isset($this->_optionsByProduct[$productId])) {
+                $this->_optionsByProduct[$productId][] = $optionId;
+            } else {
+                $this->_optionsByProduct[$productId] = [$optionId];
+            }
+        }
+
+        return $this;
     }
 }

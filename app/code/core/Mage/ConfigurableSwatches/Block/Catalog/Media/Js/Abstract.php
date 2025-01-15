@@ -37,26 +37,6 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
     abstract public function getProducts();
 
     /**
-     * json encode image fallback array
-     *
-     * @return string
-     */
-    protected function _getJsImageFallbackString(array $imageFallback)
-    {
-        /** @var Mage_Core_Helper_Data $coreHelper */
-        $coreHelper = Mage::helper('core');
-
-        return $coreHelper->jsonEncode($imageFallback);
-    }
-
-    /**
-     * Image size(s) to attach to children products as array
-     *
-     * @return array
-     */
-    abstract protected function _getImageSizes();
-
-    /**
      * Get image fallbacks by product as
      * array(product ID => array( product => product, image_fallback => image fallback ) )
      *
@@ -117,6 +97,26 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
     {
         return parent::getImageType();
     }
+
+    /**
+     * json encode image fallback array
+     *
+     * @return string
+     */
+    protected function _getJsImageFallbackString(array $imageFallback)
+    {
+        /** @var Mage_Core_Helper_Data $coreHelper */
+        $coreHelper = Mage::helper('core');
+
+        return $coreHelper->jsonEncode($imageFallback);
+    }
+
+    /**
+     * Image size(s) to attach to children products as array
+     *
+     * @return array
+     */
+    abstract protected function _getImageSizes();
 
     /**
      * Prevent actual block render if we are disabled, and i.e. via the module

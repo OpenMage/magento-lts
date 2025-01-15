@@ -96,16 +96,6 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrieve Catalog Session instance
-     *
-     * @return Mage_Catalog_Model_Session
-     */
-    protected function _getSession()
-    {
-        return $this->_catalogSession;
-    }
-
-    /**
      * Retrieve compare list url
      *
      * @return string
@@ -123,17 +113,6 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         ];
 
         return $this->_getUrl('catalog/product_compare', $params);
-    }
-
-    /**
-     * Get parameters used for build add product to compare list urls
-     *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  array
-     */
-    protected function _getUrlParams($product)
-    {
-        return $this->_getUrlCustomParams($product);
     }
 
     /**
@@ -375,6 +354,27 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         }
 
         return $this->_getUrl('checkout/cart/add', $params);
+    }
+
+    /**
+     * Retrieve Catalog Session instance
+     *
+     * @return Mage_Catalog_Model_Session
+     */
+    protected function _getSession()
+    {
+        return $this->_catalogSession;
+    }
+
+    /**
+     * Get parameters used for build add product to compare list urls
+     *
+     * @param   Mage_Catalog_Model_Product $product
+     * @return  array
+     */
+    protected function _getUrlParams($product)
+    {
+        return $this->_getUrlCustomParams($product);
     }
 
     /**

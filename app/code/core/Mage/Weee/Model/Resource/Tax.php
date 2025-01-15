@@ -22,11 +22,6 @@
  */
 class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('weee/tax', 'value_id');
-    }
-
     /**
      * Fetch one
      *
@@ -68,6 +63,29 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     public function updateProductsDiscountPercent($condition)
     {
         return $this->_updateDiscountPercents($condition);
+    }
+
+    /**
+     * Retrieve product discount percent
+     *
+     * @param int $productId
+     * @param int $websiteId
+     * @param int $customerGroupId
+     * @return string
+     */
+    public function getProductDiscountPercent($productId, $websiteId, $customerGroupId)
+    {
+        $select = $this->_getReadAdapter()->select();
+        $select->from($this->getTable('weee/discount'), 'value')
+            ->where('website_id = ?', (int) $websiteId)
+            ->where('entity_id = ?', (int) $productId)
+            ->where('customer_group_id = ?', (int) $customerGroupId);
+
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('weee/tax', 'value_id');
     }
 
     /**
@@ -145,24 +163,5 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         return $this;
-    }
-
-    /**
-     * Retrieve product discount percent
-     *
-     * @param int $productId
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @return string
-     */
-    public function getProductDiscountPercent($productId, $websiteId, $customerGroupId)
-    {
-        $select = $this->_getReadAdapter()->select();
-        $select->from($this->getTable('weee/discount'), 'value')
-            ->where('website_id = ?', (int) $websiteId)
-            ->where('entity_id = ?', (int) $productId)
-            ->where('customer_group_id = ?', (int) $customerGroupId);
-
-        return $this->_getReadAdapter()->fetchOne($select);
     }
 }

@@ -52,26 +52,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
         return 'head-money';
     }
 
-    protected function _getTotalRenderer($code)
-    {
-        $blockName = $code . '_total_renderer';
-        $block = $this->getLayout()->getBlock($blockName);
-        if (!$block) {
-            $block = $this->_defaultRenderer;
-            $config = Mage::getConfig()->getNode("global/sales/quote/totals/{$code}/admin_renderer");
-            if ($config) {
-                $block = (string) $config;
-            }
-
-            $block = $this->getLayout()->createBlock($block, $blockName);
-        }
-        /**
-         * Transfer totals to renderer
-         */
-        $block->setTotals($this->getTotals());
-        return $block;
-    }
-
     public function renderTotal($total, $area = null, $colspan = 1)
     {
         return $this->_getTotalRenderer($total->getCode())
@@ -99,5 +79,25 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
     public function canSendNewOrderConfirmationEmail()
     {
         return Mage::helper('sales')->canSendNewOrderConfirmationEmail($this->getQuote()->getStoreId());
+    }
+
+    protected function _getTotalRenderer($code)
+    {
+        $blockName = $code . '_total_renderer';
+        $block = $this->getLayout()->getBlock($blockName);
+        if (!$block) {
+            $block = $this->_defaultRenderer;
+            $config = Mage::getConfig()->getNode("global/sales/quote/totals/{$code}/admin_renderer");
+            if ($config) {
+                $block = (string) $config;
+            }
+
+            $block = $this->getLayout()->createBlock($block, $blockName);
+        }
+        /**
+         * Transfer totals to renderer
+         */
+        $block->setTotals($this->getTotals());
+        return $block;
     }
 }

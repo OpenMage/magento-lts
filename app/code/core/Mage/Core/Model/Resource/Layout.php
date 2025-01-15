@@ -22,11 +22,6 @@
  */
 class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('core/layout_update', 'layout_update_id');
-    }
-
     /**
      * Retrieve layout updates by handle
      *
@@ -70,5 +65,9 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
             $result = implode('', $readAdapter->fetchCol($select, $bind));
         }
         return $result;
+    }
+    protected function _construct()
+    {
+        $this->_init('core/layout_update', 'layout_update_id');
     }
 }

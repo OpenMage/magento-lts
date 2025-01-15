@@ -60,19 +60,6 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Apply package and theme
-     *
-     * @param string $package
-     * @param string $theme
-     */
-    protected function _apply($package, $theme)
-    {
-        Mage::getSingleton('core/design_package')
-            ->setPackageName($package)
-            ->setTheme($theme);
-    }
-
-    /**
      * Apply custom design
      *
      * @param string $design
@@ -87,6 +74,49 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         $package = $designInfo[0];
         $theme   = $designInfo[1];
         $this->_apply($package, $theme);
+    }
+
+    /**
+     * Get custom layout settings
+     *
+     * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
+     * @return Varien_Object
+     */
+    public function getDesignSettings($object)
+    {
+        if ($object instanceof Mage_Catalog_Model_Product) {
+            $currentCategory = $object->getCategory();
+        } else {
+            $currentCategory = $object;
+        }
+
+        $category = null;
+        if ($currentCategory) {
+            $category = $currentCategory->getParentDesignCategory($currentCategory);
+        }
+
+        if ($object instanceof Mage_Catalog_Model_Product) {
+            if ($category && $category->getCustomApplyToProducts()) {
+                return $this->_mergeSettings($this->_extractSettings($category), $this->_extractSettings($object));
+            } else {
+                return $this->_extractSettings($object);
+            }
+        } else {
+            return $this->_extractSettings($category);
+        }
+    }
+
+    /**
+     * Apply package and theme
+     *
+     * @param string $package
+     * @param string $theme
+     */
+    protected function _apply($package, $theme)
+    {
+        Mage::getSingleton('core/design_package')
+            ->setPackageName($package)
+            ->setTheme($theme);
     }
 
     /**
@@ -321,36 +351,6 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             }
         }
         return $this;
-    }
-
-    /**
-     * Get custom layout settings
-     *
-     * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
-     * @return Varien_Object
-     */
-    public function getDesignSettings($object)
-    {
-        if ($object instanceof Mage_Catalog_Model_Product) {
-            $currentCategory = $object->getCategory();
-        } else {
-            $currentCategory = $object;
-        }
-
-        $category = null;
-        if ($currentCategory) {
-            $category = $currentCategory->getParentDesignCategory($currentCategory);
-        }
-
-        if ($object instanceof Mage_Catalog_Model_Product) {
-            if ($category && $category->getCustomApplyToProducts()) {
-                return $this->_mergeSettings($this->_extractSettings($category), $this->_extractSettings($object));
-            } else {
-                return $this->_extractSettings($object);
-            }
-        } else {
-            return $this->_extractSettings($category);
-        }
     }
 
     /**

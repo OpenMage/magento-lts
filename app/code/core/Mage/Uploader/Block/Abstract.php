@@ -23,6 +23,10 @@
 abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
 {
     /**
+     * Default browse button ID suffix
+     */
+    public const DEFAULT_BROWSE_BUTTON_ID_SUFFIX = 'browse';
+    /**
      * Template used for uploader
      *
      * @var string
@@ -55,11 +59,6 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     protected $_idsMapping = [];
 
     /**
-     * Default browse button ID suffix
-     */
-    public const DEFAULT_BROWSE_BUTTON_ID_SUFFIX = 'browse';
-
-    /**
      * Constructor for uploader block
      *
      * @see https://github.com/flowjs/flow.js/tree/v2.9.0#configuration
@@ -69,16 +68,6 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     {
         parent::__construct();
         $this->setId($this->getId() . '_Uploader');
-    }
-
-    /**
-     * Helper for file manipulation
-     *
-     * @return Mage_Uploader_Helper_File
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('uploader/file');
     }
 
     /**
@@ -94,72 +83,6 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
             'browseConfig'      => $this->getButtonConfig()->getData(),
             'miscConfig'        => $this->getMiscConfig()->getData(),
         ]);
-    }
-
-    /**
-     * Get mapping of ids for front-end use
-     *
-     * @return array
-     */
-    protected function _getElementIdsMapping()
-    {
-        return $this->_idsMapping;
-    }
-
-    /**
-     * Add mapping ids for front-end use
-     *
-     * @param array $additionalButtons
-     * @return $this
-     */
-    protected function _addElementIdsMapping($additionalButtons = [])
-    {
-        $this->_idsMapping = array_merge($this->_idsMapping, $additionalButtons);
-
-        return $this;
-    }
-
-    /**
-     * Prepare layout, create buttons, set front-end elements ids
-     *
-     * @return Mage_Core_Block_Abstract
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'browse_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData([
-                    // Workaround for IE9
-                    'before_html'   => sprintf(
-                        '<div style="display:inline-block;" id="%s">',
-                        $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX),
-                    ),
-                    'after_html'    => '</div>',
-                    'id'            => $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX . '_button'),
-                    'label'         => Mage::helper('uploader')->__('Browse Files...'),
-                    'type'          => 'button',
-                ]),
-        );
-
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData([
-                    'id'      => '{{id}}',
-                    'class'   => 'delete',
-                    'type'    => 'button',
-                    'label'   => Mage::helper('uploader')->__('Remove'),
-                ]),
-        );
-
-        $this->_addElementIdsMapping([
-            'container'         => $this->getHtmlId(),
-            'templateFile'      => $this->getElementId('template'),
-            'browse'            => $this->_prepareElementsIds([self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX]),
-        ]);
-
-        return parent::_prepareLayout();
     }
 
     /**
@@ -230,6 +153,82 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     public function getElementId($suffix)
     {
         return $this->getHtmlId() . '-' . $suffix;
+    }
+
+    /**
+     * Helper for file manipulation
+     *
+     * @return Mage_Uploader_Helper_File
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('uploader/file');
+    }
+
+    /**
+     * Get mapping of ids for front-end use
+     *
+     * @return array
+     */
+    protected function _getElementIdsMapping()
+    {
+        return $this->_idsMapping;
+    }
+
+    /**
+     * Add mapping ids for front-end use
+     *
+     * @param array $additionalButtons
+     * @return $this
+     */
+    protected function _addElementIdsMapping($additionalButtons = [])
+    {
+        $this->_idsMapping = array_merge($this->_idsMapping, $additionalButtons);
+
+        return $this;
+    }
+
+    /**
+     * Prepare layout, create buttons, set front-end elements ids
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'browse_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->addData([
+                    // Workaround for IE9
+                    'before_html'   => sprintf(
+                        '<div style="display:inline-block;" id="%s">',
+                        $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX),
+                    ),
+                    'after_html'    => '</div>',
+                    'id'            => $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX . '_button'),
+                    'label'         => Mage::helper('uploader')->__('Browse Files...'),
+                    'type'          => 'button',
+                ]),
+        );
+
+        $this->setChild(
+            'delete_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->addData([
+                    'id'      => '{{id}}',
+                    'class'   => 'delete',
+                    'type'    => 'button',
+                    'label'   => Mage::helper('uploader')->__('Remove'),
+                ]),
+        );
+
+        $this->_addElementIdsMapping([
+            'container'         => $this->getHtmlId(),
+            'templateFile'      => $this->getElementId('template'),
+            'browse'            => $this->_prepareElementsIds([self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX]),
+        ]);
+
+        return parent::_prepareLayout();
     }
 
     /**

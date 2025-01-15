@@ -47,11 +47,6 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'eav_entity_attribute_set';
 
-    protected function _construct()
-    {
-        $this->_init('eav/entity_attribute_set');
-    }
-
     /**
      * Init attribute set from skeleton (another attribute set)
      *
@@ -263,5 +258,10 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
             $groupId = null;
         }
         return $groupId;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('eav/entity_attribute_set');
     }
 }

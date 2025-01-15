@@ -172,6 +172,68 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     }
 
     /**
+     * Set is AJAX Request flag
+     *
+     * @param bool $flag
+     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     */
+    public function setIsAjaxRequest($flag = true)
+    {
+        $this->_isAjax = (bool) $flag;
+        return $this;
+    }
+
+    /**
+     * Return is AJAX Request
+     *
+     * @return bool
+     */
+    public function getIsAjaxRequest()
+    {
+        return $this->_isAjax;
+    }
+
+    /**
+     * Extract data from request and return value
+     *
+     * @return array|string
+     */
+    abstract public function extractValue(Zend_Controller_Request_Http $request);
+
+    /**
+     * Validate data
+     *
+     * @param array|string $value
+     * @throws Mage_Core_Exception
+     * @return bool
+     */
+    abstract public function validateValue($value);
+
+    /**
+     * Export attribute value to entity model
+     *
+     * @param array|string $value
+     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     */
+    abstract public function compactValue($value);
+
+    /**
+     * Restore attribute value from SESSION to entity model
+     *
+     * @param array|string $value
+     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     */
+    abstract public function restoreValue($value);
+
+    /**
+     * Return formatted attribute value from entity model
+     *
+     * @param string $format
+     * @return string|array
+     */
+    abstract public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT);
+
+    /**
      * Apply attribute input filter to value
      *
      * @param string $value
@@ -445,28 +507,6 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     }
 
     /**
-     * Set is AJAX Request flag
-     *
-     * @param bool $flag
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
-     */
-    public function setIsAjaxRequest($flag = true)
-    {
-        $this->_isAjax = (bool) $flag;
-        return $this;
-    }
-
-    /**
-     * Return is AJAX Request
-     *
-     * @return bool
-     */
-    public function getIsAjaxRequest()
-    {
-        return $this->_isAjax;
-    }
-
-    /**
      * Return Original Attribute value from Request
      *
      * @return mixed
@@ -495,44 +535,4 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         }
         return $value;
     }
-
-    /**
-     * Extract data from request and return value
-     *
-     * @return array|string
-     */
-    abstract public function extractValue(Zend_Controller_Request_Http $request);
-
-    /**
-     * Validate data
-     *
-     * @param array|string $value
-     * @throws Mage_Core_Exception
-     * @return bool
-     */
-    abstract public function validateValue($value);
-
-    /**
-     * Export attribute value to entity model
-     *
-     * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
-     */
-    abstract public function compactValue($value);
-
-    /**
-     * Restore attribute value from SESSION to entity model
-     *
-     * @param array|string $value
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
-     */
-    abstract public function restoreValue($value);
-
-    /**
-     * Return formatted attribute value from entity model
-     *
-     * @param string $format
-     * @return string|array
-     */
-    abstract public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT);
 }

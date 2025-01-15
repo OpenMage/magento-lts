@@ -23,16 +23,15 @@
 class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Uploader
 {
     /**
+     * Default file type
+     */
+    public const DEFAULT_FILE_TYPE = 'application/octet-stream';
+    /**
      * Filename prefix
      *
      * @var string
      */
     protected $_filePrefix = 'Api';
-
-    /**
-     * Default file type
-     */
-    public const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
     /**
      * Check if the uploaded file exists
@@ -48,6 +47,18 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
         } else {
             $this->_fileExists = true;
         }
+    }
+
+    /**
+     * Moves a file
+     *
+     * @param string $sourceFile
+     * @param string $destinationFile
+     * @return bool
+     */
+    protected function _moveFile($sourceFile, $destinationFile)
+    {
+        return rename($sourceFile, $destinationFile);
     }
 
     /**
@@ -99,17 +110,5 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
     private function _getTmpFilePath()
     {
         return tempnam(sys_get_temp_dir(), $this->_filePrefix);
-    }
-
-    /**
-     * Moves a file
-     *
-     * @param string $sourceFile
-     * @param string $destinationFile
-     * @return bool
-     */
-    protected function _moveFile($sourceFile, $destinationFile)
-    {
-        return rename($sourceFile, $destinationFile);
     }
 }

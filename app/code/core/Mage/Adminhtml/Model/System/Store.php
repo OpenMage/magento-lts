@@ -62,44 +62,6 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     }
 
     /**
-     * Load/Reload Website collection
-     *
-     * @return $this
-     */
-    protected function _loadWebsiteCollection()
-    {
-        $this->_websiteCollection = Mage::app()->getWebsites();
-        return $this;
-    }
-
-    /**
-     * Load/Reload Group collection
-     *
-     * @return $this
-     */
-    protected function _loadGroupCollection()
-    {
-        $this->_groupCollection = [];
-        foreach (Mage::app()->getWebsites() as $website) {
-            foreach ($website->getGroups() as $group) {
-                $this->_groupCollection[$group->getId()] = $group;
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Load/Reload Store collection
-     *
-     * @return $this
-     */
-    protected function _loadStoreCollection()
-    {
-        $this->_storeCollection = Mage::app()->getStores();
-        return $this;
-    }
-
-    /**
      * Retrieve store values for form
      *
      * @param bool $empty
@@ -484,6 +446,44 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     public function setIsAdminScopeAllowed($value)
     {
         $this->_isAdminScopeAllowed = (bool) $value;
+        return $this;
+    }
+
+    /**
+     * Load/Reload Website collection
+     *
+     * @return $this
+     */
+    protected function _loadWebsiteCollection()
+    {
+        $this->_websiteCollection = Mage::app()->getWebsites();
+        return $this;
+    }
+
+    /**
+     * Load/Reload Group collection
+     *
+     * @return $this
+     */
+    protected function _loadGroupCollection()
+    {
+        $this->_groupCollection = [];
+        foreach (Mage::app()->getWebsites() as $website) {
+            foreach ($website->getGroups() as $group) {
+                $this->_groupCollection[$group->getId()] = $group;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Load/Reload Store collection
+     *
+     * @return $this
+     */
+    protected function _loadStoreCollection()
+    {
+        $this->_storeCollection = Mage::app()->getStores();
         return $this;
     }
 }

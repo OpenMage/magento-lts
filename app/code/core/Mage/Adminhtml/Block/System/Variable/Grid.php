@@ -23,6 +23,15 @@
 class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
+     * Row click url
+     *
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);
+    }
+    /**
      * Internal constructor
      *
      */
@@ -71,15 +80,5 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Row click url
-     *
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);
     }
 }

@@ -50,45 +50,6 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     protected $_app;
 
     /**
-     * Get available options list
-     *
-     * @return array
-     */
-    protected function _getOptions()
-    {
-        if (is_null($this->_options)) {
-            $this->_options = [
-                'license_agreement_accepted'    => ['required' => true, 'comment' => ''],
-                'locale'              => ['required' => true, 'comment' => ''],
-                'timezone'            => ['required' => true, 'comment' => ''],
-                'default_currency'    => ['required' => true, 'comment' => ''],
-                'db_model'            => ['comment' => ''],
-                'db_host'             => ['required' => true, 'comment' => ''],
-                'db_name'             => ['required' => true, 'comment' => ''],
-                'db_user'             => ['required' => true, 'comment' => ''],
-                'db_pass'             => ['comment' => ''],
-                'db_prefix'           => ['comment' => ''],
-                'url'                 => ['required' => true, 'comment' => ''],
-                'skip_url_validation' => ['comment' => ''],
-                'use_rewrites'      => ['required' => true, 'comment' => ''],
-                'use_secure'        => ['required' => true, 'comment' => ''],
-                'secure_base_url'   => ['required' => true, 'comment' => ''],
-                'use_secure_admin'  => ['required' => true, 'comment' => ''],
-                'admin_lastname'    => ['required' => true, 'comment' => ''],
-                'admin_firstname'   => ['required' => true, 'comment' => ''],
-                'admin_email'       => ['required' => true, 'comment' => ''],
-                'admin_username'    => ['required' => true, 'comment' => ''],
-                'admin_password'    => ['required' => true, 'comment' => ''],
-                'encryption_key'    => ['comment' => ''],
-                'session_save'      => ['comment' => ''],
-                'admin_frontname'   => ['comment' => ''],
-                'enable_charts'     => ['comment' => ''],
-            ];
-        }
-        return $this->_options;
-    }
-
-    /**
      * Set and validate arguments
      *
      * @param array $args
@@ -197,34 +158,6 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     }
 
     /**
-     * Check flag value
-     *
-     * Returns true for 'yes', 1, 'true'
-     * Case insensitive
-     *
-     * @param string $value
-     * @return bool
-     */
-    protected function _checkFlag($value)
-    {
-        return ($value == 1)
-            || preg_match('/^(yes|y|true)$/i', $value);
-    }
-
-    /**
-     * Get data model (used to store data between installation steps
-     *
-     * @return Mage_Install_Model_Installer_Data
-     */
-    protected function _getDataModel()
-    {
-        if (is_null($this->_dataModel)) {
-            $this->_dataModel = Mage::getModel('install/installer_data');
-        }
-        return $this->_dataModel;
-    }
-
-    /**
      * Get encryption key from data model
      *
      * @return string
@@ -253,57 +186,6 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         }
 
         return true;
-    }
-
-    /**
-     * Prepare data and save it in data model
-     *
-     * @return $this
-     */
-    protected function _prepareData()
-    {
-        /**
-         * Locale settings
-         */
-        $this->_getDataModel()->setLocaleData([
-            'locale'            => $this->_args['locale'],
-            'timezone'          => $this->_args['timezone'],
-            'currency'          => $this->_args['default_currency'],
-        ]);
-
-        /**
-         * Database and web config
-         */
-        $this->_getDataModel()->setConfigData([
-            'db_model'            => $this->_args['db_model'],
-            'db_host'             => $this->_args['db_host'],
-            'db_name'             => $this->_args['db_name'],
-            'db_user'             => $this->_args['db_user'],
-            'db_pass'             => $this->_args['db_pass'],
-            'db_prefix'           => $this->_args['db_prefix'],
-            'use_rewrites'        => $this->_checkFlag($this->_args['use_rewrites']),
-            'use_secure'          => $this->_checkFlag($this->_args['use_secure']),
-            'unsecure_base_url'   => $this->_args['url'],
-            'secure_base_url'     => $this->_args['secure_base_url'],
-            'use_secure_admin'    => $this->_checkFlag($this->_args['use_secure_admin']),
-            'session_save'        => $this->_checkSessionSave($this->_args['session_save']),
-            'admin_frontname'     => $this->_checkAdminFrontname($this->_args['admin_frontname']),
-            'skip_url_validation' => $this->_checkFlag($this->_args['skip_url_validation']),
-            'enable_charts'       => $this->_checkFlag($this->_args['enable_charts']),
-        ]);
-
-        /**
-         * Primary admin user
-         */
-        $this->_getDataModel()->setAdminData([
-            'firstname'         => $this->_args['admin_firstname'],
-            'lastname'          => $this->_args['admin_lastname'],
-            'email'             => $this->_args['admin_email'],
-            'username'          => $this->_args['admin_username'],
-            'new_password'      => $this->_args['admin_password'],
-        ]);
-
-        return $this;
     }
 
     /**
@@ -464,5 +346,123 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         }
         header('Location: ' . $url);
         return false;
+    }
+
+    /**
+     * Get available options list
+     *
+     * @return array
+     */
+    protected function _getOptions()
+    {
+        if (is_null($this->_options)) {
+            $this->_options = [
+                'license_agreement_accepted'    => ['required' => true, 'comment' => ''],
+                'locale'              => ['required' => true, 'comment' => ''],
+                'timezone'            => ['required' => true, 'comment' => ''],
+                'default_currency'    => ['required' => true, 'comment' => ''],
+                'db_model'            => ['comment' => ''],
+                'db_host'             => ['required' => true, 'comment' => ''],
+                'db_name'             => ['required' => true, 'comment' => ''],
+                'db_user'             => ['required' => true, 'comment' => ''],
+                'db_pass'             => ['comment' => ''],
+                'db_prefix'           => ['comment' => ''],
+                'url'                 => ['required' => true, 'comment' => ''],
+                'skip_url_validation' => ['comment' => ''],
+                'use_rewrites'      => ['required' => true, 'comment' => ''],
+                'use_secure'        => ['required' => true, 'comment' => ''],
+                'secure_base_url'   => ['required' => true, 'comment' => ''],
+                'use_secure_admin'  => ['required' => true, 'comment' => ''],
+                'admin_lastname'    => ['required' => true, 'comment' => ''],
+                'admin_firstname'   => ['required' => true, 'comment' => ''],
+                'admin_email'       => ['required' => true, 'comment' => ''],
+                'admin_username'    => ['required' => true, 'comment' => ''],
+                'admin_password'    => ['required' => true, 'comment' => ''],
+                'encryption_key'    => ['comment' => ''],
+                'session_save'      => ['comment' => ''],
+                'admin_frontname'   => ['comment' => ''],
+                'enable_charts'     => ['comment' => ''],
+            ];
+        }
+        return $this->_options;
+    }
+
+    /**
+     * Check flag value
+     *
+     * Returns true for 'yes', 1, 'true'
+     * Case insensitive
+     *
+     * @param string $value
+     * @return bool
+     */
+    protected function _checkFlag($value)
+    {
+        return ($value == 1)
+            || preg_match('/^(yes|y|true)$/i', $value);
+    }
+
+    /**
+     * Get data model (used to store data between installation steps
+     *
+     * @return Mage_Install_Model_Installer_Data
+     */
+    protected function _getDataModel()
+    {
+        if (is_null($this->_dataModel)) {
+            $this->_dataModel = Mage::getModel('install/installer_data');
+        }
+        return $this->_dataModel;
+    }
+
+    /**
+     * Prepare data and save it in data model
+     *
+     * @return $this
+     */
+    protected function _prepareData()
+    {
+        /**
+         * Locale settings
+         */
+        $this->_getDataModel()->setLocaleData([
+            'locale'            => $this->_args['locale'],
+            'timezone'          => $this->_args['timezone'],
+            'currency'          => $this->_args['default_currency'],
+        ]);
+
+        /**
+         * Database and web config
+         */
+        $this->_getDataModel()->setConfigData([
+            'db_model'            => $this->_args['db_model'],
+            'db_host'             => $this->_args['db_host'],
+            'db_name'             => $this->_args['db_name'],
+            'db_user'             => $this->_args['db_user'],
+            'db_pass'             => $this->_args['db_pass'],
+            'db_prefix'           => $this->_args['db_prefix'],
+            'use_rewrites'        => $this->_checkFlag($this->_args['use_rewrites']),
+            'use_secure'          => $this->_checkFlag($this->_args['use_secure']),
+            'unsecure_base_url'   => $this->_args['url'],
+            'secure_base_url'     => $this->_args['secure_base_url'],
+            'use_secure_admin'    => $this->_checkFlag($this->_args['use_secure_admin']),
+            'session_save'        => $this->_checkSessionSave($this->_args['session_save']),
+            'admin_frontname'     => $this->_checkAdminFrontname($this->_args['admin_frontname']),
+            'skip_url_validation' => $this->_checkFlag($this->_args['skip_url_validation']),
+            'enable_charts'       => $this->_checkFlag($this->_args['enable_charts']),
+        ]);
+
+        /**
+         * Primary admin user
+         */
+        $this->_getDataModel()->setAdminData([
+            'firstname'         => $this->_args['admin_firstname'],
+            'lastname'          => $this->_args['admin_lastname'],
+            'email'             => $this->_args['admin_email'],
+            'username'          => $this->_args['admin_username'],
+            'new_password'      => $this->_args['admin_password'],
+        ]);
+
+        return $this;
     }
 }

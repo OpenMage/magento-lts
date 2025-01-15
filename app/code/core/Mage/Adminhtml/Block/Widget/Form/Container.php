@@ -65,22 +65,6 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        if ($this->_blockGroup && $this->_controller && $this->_mode) {
-            $this->setChild('form', $this->getLayout()->createBlock($this->_blockGroup
-                . '/'
-                . $this->_controller
-                . '_'
-                . $this->_mode
-                . '_form'));
-        }
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Get URL for back (reset) button
      *
      * @return string
@@ -192,5 +176,21 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     {
         $this->getChild('form')->setDataObject($object);
         return $this->setData('data_object', $object);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        if ($this->_blockGroup && $this->_controller && $this->_mode) {
+            $this->setChild('form', $this->getLayout()->createBlock($this->_blockGroup
+                . '/'
+                . $this->_controller
+                . '_'
+                . $this->_mode
+                . '_form'));
+        }
+        return parent::_prepareLayout();
     }
 }

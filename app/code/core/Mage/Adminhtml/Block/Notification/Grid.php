@@ -24,6 +24,22 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
  */
 class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * @param Mage_AdminNotification_Model_Inbox $row
+     * @return string
+     */
+    public function getRowClass(Varien_Object $row)
+    {
+        return $row->getIsRead() ? 'read' : 'unread';
+    }
+
+    /**
+     * @return false
+     */
+    public function getRowClickCallback()
+    {
+        return false;
+    }
     protected function _construct()
     {
         $this->setSaveParametersInSession(true);
@@ -102,22 +118,5 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         ]);
 
         return $this;
-    }
-
-    /**
-     * @param Mage_AdminNotification_Model_Inbox $row
-     * @return string
-     */
-    public function getRowClass(Varien_Object $row)
-    {
-        return $row->getIsRead() ? 'read' : 'unread';
-    }
-
-    /**
-     * @return false
-     */
-    public function getRowClickCallback()
-    {
-        return false;
     }
 }

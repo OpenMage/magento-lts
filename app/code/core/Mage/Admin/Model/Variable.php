@@ -30,14 +30,6 @@
 class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
 {
     /**
-     * Initialize variable model
-     */
-    protected function _construct()
-    {
-        $this->_init('admin/variable');
-    }
-
-    /**
      * @return array|bool
      * @throws Exception
      * @throws Zend_Validate_Exception
@@ -72,5 +64,12 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
     public function isPathAllowed($path)
     {
         return Mage::helper('admin/variable')->isPathAllowed($path);
+    }
+    /**
+     * Initialize variable model
+     */
+    protected function _construct()
+    {
+        $this->_init('admin/variable');
     }
 }

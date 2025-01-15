@@ -38,19 +38,6 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Send expire header to ajax response
-     *
-     * @SuppressWarnings("PHPMD.ExitExpression")
-     */
-    protected function _expireAjax()
-    {
-        if (!Mage::getSingleton('checkout/session')->getQuote()->hasItems()) {
-            $this->getResponse()->setHeader('HTTP/1.1', '403 Session Expired');
-            exit;
-        }
-    }
-
-    /**
      * Get singleton with PayPal standard order transaction information
      *
      * @return Mage_Paypal_Model_Standard
@@ -102,5 +89,18 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
         $session->setQuoteId($session->getPaypalStandardQuoteId(true));
         Mage::getSingleton('checkout/session')->getQuote()->setIsActive(false)->save();
         $this->_redirect('checkout/onepage/success', ['_secure' => true]);
+    }
+
+    /**
+     * Send expire header to ajax response
+     *
+     * @SuppressWarnings("PHPMD.ExitExpression")
+     */
+    protected function _expireAjax()
+    {
+        if (!Mage::getSingleton('checkout/session')->getQuote()->hasItems()) {
+            $this->getResponse()->setHeader('HTTP/1.1', '403 Session Expired');
+            exit;
+        }
     }
 }

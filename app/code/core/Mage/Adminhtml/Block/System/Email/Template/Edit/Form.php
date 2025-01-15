@@ -23,6 +23,38 @@
 class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
+     * Return current email template model
+     *
+     * @return Mage_Core_Model_Email_Template
+     */
+    public function getEmailTemplate()
+    {
+        return Mage::registry('current_email_template');
+    }
+
+    /**
+     * Retrieve variables to insert into email
+     *
+     * @return array
+     */
+    public function getVariables()
+    {
+        $variables = [];
+        $variables[] = Mage::getModel('core/source_email_variables')
+            ->toOptionArray(true);
+        $customVariables = Mage::getModel('core/variable')
+            ->getVariablesOptionArray(true);
+        if ($customVariables) {
+            $variables[] = $customVariables;
+        }
+        /** @var Mage_Core_Model_Email_Template $template */
+        $template = Mage::registry('current_email_template');
+        if ($template->getId() && $templateVariables = $template->getVariablesOptionArray(true)) {
+            $variables[] = $templateVariables;
+        }
+        return $variables;
+    }
+    /**
      * Prepare layout.
      * Add files to use dialog windows
      *
@@ -144,38 +176,5 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         $this->setForm($form);
 
         return parent::_prepareForm();
-    }
-
-    /**
-     * Return current email template model
-     *
-     * @return Mage_Core_Model_Email_Template
-     */
-    public function getEmailTemplate()
-    {
-        return Mage::registry('current_email_template');
-    }
-
-    /**
-     * Retrieve variables to insert into email
-     *
-     * @return array
-     */
-    public function getVariables()
-    {
-        $variables = [];
-        $variables[] = Mage::getModel('core/source_email_variables')
-            ->toOptionArray(true);
-        $customVariables = Mage::getModel('core/variable')
-            ->getVariablesOptionArray(true);
-        if ($customVariables) {
-            $variables[] = $customVariables;
-        }
-        /** @var Mage_Core_Model_Email_Template $template */
-        $template = Mage::registry('current_email_template');
-        if ($template->getId() && $templateVariables = $template->getVariablesOptionArray(true)) {
-            $variables[] = $templateVariables;
-        }
-        return $variables;
     }
 }

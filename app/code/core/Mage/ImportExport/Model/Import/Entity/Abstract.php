@@ -194,118 +194,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     }
 
     /**
-     * Inner source object getter.
-     *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
-     */
-    protected function _getSource()
-    {
-        if (!$this->_source) {
-            Mage::throwException(Mage::helper('importexport')->__('No source specified'));
-        }
-        return $this->_source;
-    }
-
-    /**
-     * Import data rows.
-     *
-     * @abstract
-     * @return bool
-     */
-    abstract protected function _importData();
-
-    /**
-     * Returns boolean TRUE if row scope is default (fundamental) scope.
-     *
-     * @return true
-     */
-    protected function _isRowScopeDefault(array $rowData)
-    {
-        return true;
-    }
-
-    /**
-     * Change row data before saving in DB table.
-     *
-     * @return array
-     */
-    protected function _prepareRowForDb(array $rowData)
-    {
-        /**
-         * Convert all empty strings to null values, as
-         * a) we don't use empty string in DB
-         * b) empty strings instead of numeric values will product errors in Sql Server
-         */
-        foreach ($rowData as $key => $val) {
-            if ($val === '') {
-                $rowData[$key] = null;
-            }
-        }
-        return $rowData;
-    }
-
-    /**
-     * Validate data rows and save bunches to DB.
-     *
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract|void
-     */
-    protected function _saveValidatedBunches()
-    {
-        $source          = $this->_getSource();
-        $productDataSize = 0;
-        $bunchRows       = [];
-        $startNewBunch   = false;
-        $nextRowBackup   = [];
-        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
-        $helper          = Mage::getResourceHelper('importexport');
-        $maxDataSize     = $helper->getMaxDataSize();
-        $bunchSize       = Mage::helper('importexport')->getBunchSize();
-
-        /** @var Mage_Core_Helper_Data $coreHelper */
-        $coreHelper = Mage::helper('core');
-
-        $source->rewind();
-        $this->_dataSourceModel->cleanBunches();
-
-        while ($source->valid() || $bunchRows) {
-            if ($startNewBunch || !$source->valid()) {
-                $this->_dataSourceModel->saveBunch($this->getEntityTypeCode(), $this->getBehavior(), $bunchRows);
-
-                $bunchRows       = $nextRowBackup;
-                $productDataSize = strlen(serialize($bunchRows));
-                $startNewBunch   = false;
-                $nextRowBackup   = [];
-            }
-            if ($source->valid()) {
-                if ($this->_errorsCount >= $this->_errorsLimit) { // errors limit check
-                    return;
-                }
-                $rowData = $coreHelper->unEscapeCSVData($source->current());
-
-                $this->_processedRowsCount++;
-
-                if ($this->validateRow($rowData, $source->key())) { // add row to bunch for save
-                    $rowData = $this->_prepareRowForDb($rowData);
-                    $rowSize = strlen(Mage::helper('core')->jsonEncode($rowData));
-
-                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                    $isBunchSizeExceeded = ($bunchSize > 0 && count($bunchRows) >= $bunchSize);
-
-                    if (($productDataSize + $rowSize) >= $maxDataSize || $isBunchSizeExceeded) {
-                        $startNewBunch = true;
-                        $nextRowBackup = [$source->key() => $rowData];
-                    } else {
-                        $bunchRows[$source->key()] = $rowData;
-                        $productDataSize += $rowSize;
-                    }
-                }
-                $source->next();
-            }
-        }
-        return $this;
-    }
-
-    /**
      * Add error with corresponding current data source row number.
      *
      * @param string $errorCode Error code or simply column name
@@ -679,6 +567,118 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             $this->_saveValidatedBunches();
 
             $this->_dataValidated = true;
+        }
+        return $this;
+    }
+
+    /**
+     * Inner source object getter.
+     *
+     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     */
+    protected function _getSource()
+    {
+        if (!$this->_source) {
+            Mage::throwException(Mage::helper('importexport')->__('No source specified'));
+        }
+        return $this->_source;
+    }
+
+    /**
+     * Import data rows.
+     *
+     * @abstract
+     * @return bool
+     */
+    abstract protected function _importData();
+
+    /**
+     * Returns boolean TRUE if row scope is default (fundamental) scope.
+     *
+     * @return true
+     */
+    protected function _isRowScopeDefault(array $rowData)
+    {
+        return true;
+    }
+
+    /**
+     * Change row data before saving in DB table.
+     *
+     * @return array
+     */
+    protected function _prepareRowForDb(array $rowData)
+    {
+        /**
+         * Convert all empty strings to null values, as
+         * a) we don't use empty string in DB
+         * b) empty strings instead of numeric values will product errors in Sql Server
+         */
+        foreach ($rowData as $key => $val) {
+            if ($val === '') {
+                $rowData[$key] = null;
+            }
+        }
+        return $rowData;
+    }
+
+    /**
+     * Validate data rows and save bunches to DB.
+     *
+     * @return Mage_ImportExport_Model_Import_Entity_Abstract|void
+     */
+    protected function _saveValidatedBunches()
+    {
+        $source          = $this->_getSource();
+        $productDataSize = 0;
+        $bunchRows       = [];
+        $startNewBunch   = false;
+        $nextRowBackup   = [];
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper          = Mage::getResourceHelper('importexport');
+        $maxDataSize     = $helper->getMaxDataSize();
+        $bunchSize       = Mage::helper('importexport')->getBunchSize();
+
+        /** @var Mage_Core_Helper_Data $coreHelper */
+        $coreHelper = Mage::helper('core');
+
+        $source->rewind();
+        $this->_dataSourceModel->cleanBunches();
+
+        while ($source->valid() || $bunchRows) {
+            if ($startNewBunch || !$source->valid()) {
+                $this->_dataSourceModel->saveBunch($this->getEntityTypeCode(), $this->getBehavior(), $bunchRows);
+
+                $bunchRows       = $nextRowBackup;
+                $productDataSize = strlen(serialize($bunchRows));
+                $startNewBunch   = false;
+                $nextRowBackup   = [];
+            }
+            if ($source->valid()) {
+                if ($this->_errorsCount >= $this->_errorsLimit) { // errors limit check
+                    return;
+                }
+                $rowData = $coreHelper->unEscapeCSVData($source->current());
+
+                $this->_processedRowsCount++;
+
+                if ($this->validateRow($rowData, $source->key())) { // add row to bunch for save
+                    $rowData = $this->_prepareRowForDb($rowData);
+                    $rowSize = strlen(Mage::helper('core')->jsonEncode($rowData));
+
+                    // phpcs:ignore Ecg.Performance.Loop.ArraySize
+                    $isBunchSizeExceeded = ($bunchSize > 0 && count($bunchRows) >= $bunchSize);
+
+                    if (($productDataSize + $rowSize) >= $maxDataSize || $isBunchSizeExceeded) {
+                        $startNewBunch = true;
+                        $nextRowBackup = [$source->key() => $rowData];
+                    } else {
+                        $bunchRows[$source->key()] = $rowData;
+                        $productDataSize += $rowSize;
+                    }
+                }
+                $source->next();
+            }
         }
         return $this;
     }

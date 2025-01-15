@@ -31,12 +31,6 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
      */
     protected $_store;
 
-    protected function _construct()
-    {
-        $this->setTemplate($this->_template);
-        $this->_store = Mage::app()->getStore();
-    }
-
     /**
      * Get style assigned to total object
      *
@@ -66,5 +60,11 @@ class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
     public function getStore()
     {
         return $this->_store;
+    }
+
+    protected function _construct()
+    {
+        $this->setTemplate($this->_template);
+        $this->_store = Mage::app()->getStore();
     }
 }

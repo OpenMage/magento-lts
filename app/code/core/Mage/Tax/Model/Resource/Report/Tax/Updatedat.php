@@ -22,11 +22,6 @@
  */
 class Mage_Tax_Model_Resource_Report_Tax_Updatedat extends Mage_Tax_Model_Resource_Report_Tax_Createdat
 {
-    protected function _construct()
-    {
-        $this->_init('tax/tax_order_aggregated_updated', 'id');
-    }
-
     /**
      * Aggregate Tax data by order updated at
      *
@@ -37,5 +32,9 @@ class Mage_Tax_Model_Resource_Report_Tax_Updatedat extends Mage_Tax_Model_Resour
     public function aggregate($from = null, $to = null)
     {
         return $this->_aggregateByOrder('updated_at', $from, $to);
+    }
+    protected function _construct()
+    {
+        $this->_init('tax/tax_order_aggregated_updated', 'id');
     }
 }

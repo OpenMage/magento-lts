@@ -164,20 +164,6 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Get capture amount
-     *
-     * @param float $amount
-     * @return float
-     */
-    protected function _getCaptureAmount($amount)
-    {
-        $infoInstance = $this->getInfoInstance();
-        $amountToPay = round($amount, 2);
-        $authorizedAmount = round($infoInstance->getAmountAuthorized(), 2);
-        return $amountToPay != $authorizedAmount ? $amountToPay : 0;
-    }
-
-    /**
      * Capture payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
@@ -325,6 +311,20 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
 
         $rawData = $response->getData();
         return ($rawData) ? $rawData : [];
+    }
+
+    /**
+     * Get capture amount
+     *
+     * @param float $amount
+     * @return float
+     */
+    protected function _getCaptureAmount($amount)
+    {
+        $infoInstance = $this->getInfoInstance();
+        $amountToPay = round($amount, 2);
+        $authorizedAmount = round($infoInstance->getAmountAuthorized(), 2);
+        return $amountToPay != $authorizedAmount ? $amountToPay : 0;
     }
 
     /**

@@ -23,6 +23,16 @@
 class Mage_Core_Model_Resource_Email_Queue_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
+     * Add filter by only ready for sending item
+     *
+     * @return $this
+     */
+    public function addOnlyForSendingFilter()
+    {
+        $this->getSelect()->where('main_table.processed_at IS NULL');
+        return $this;
+    }
+    /**
      * Internal constructor
      */
     protected function _construct()
@@ -38,17 +48,6 @@ class Mage_Core_Model_Resource_Email_Queue_Collection extends Mage_Core_Model_Re
     protected function _afterLoad()
     {
         $this->walk('afterLoad');
-        return $this;
-    }
-
-    /**
-     * Add filter by only ready for sending item
-     *
-     * @return $this
-     */
-    public function addOnlyForSendingFilter()
-    {
-        $this->getSelect()->where('main_table.processed_at IS NULL');
         return $this;
     }
 }

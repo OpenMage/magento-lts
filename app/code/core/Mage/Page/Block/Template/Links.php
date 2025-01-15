@@ -37,15 +37,6 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     protected $_cacheKeyInfo = null;
 
     /**
-     * Set default template
-     *
-     */
-    protected function _construct()
-    {
-        $this->setTemplate('page/template/links.phtml');
-    }
-
-    /**
      * Get all links
      *
      * @return array
@@ -97,24 +88,6 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         ]);
 
         $this->_addIntoPosition($link, $position);
-
-        return $this;
-    }
-
-    /**
-     * Add link into collection
-     *
-     * @param Varien_Object $link
-     * @param int $position
-     * @return $this
-     */
-    protected function _addIntoPosition($link, $position)
-    {
-        $this->_links[$this->_getNewPosition($position)] = $link;
-
-        if ((int) $position > 0) {
-            ksort($this->_links);
-        }
 
         return $this;
     }
@@ -195,6 +168,47 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     }
 
     /**
+     * Get tags array for saving cache
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            $this->addModelTags(Mage::getSingleton('customer/session')->getCustomer());
+        }
+
+        return parent::getCacheTags();
+    }
+
+    /**
+     * Set default template
+     *
+     */
+    protected function _construct()
+    {
+        $this->setTemplate('page/template/links.phtml');
+    }
+
+    /**
+     * Add link into collection
+     *
+     * @param Varien_Object $link
+     * @param int $position
+     * @return $this
+     */
+    protected function _addIntoPosition($link, $position)
+    {
+        $this->_links[$this->_getNewPosition($position)] = $link;
+
+        if ((int) $position > 0) {
+            ksort($this->_links);
+        }
+
+        return $this;
+    }
+
+    /**
      * Prepare tag attributes
      *
      * @param string|array $params
@@ -250,19 +264,5 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             $position += 10;
         }
         return $position;
-    }
-
-    /**
-     * Get tags array for saving cache
-     *
-     * @return array
-     */
-    public function getCacheTags()
-    {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $this->addModelTags(Mage::getSingleton('customer/session')->getCustomer());
-        }
-
-        return parent::getCacheTags();
     }
 }

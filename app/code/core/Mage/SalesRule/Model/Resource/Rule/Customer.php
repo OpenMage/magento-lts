@@ -22,11 +22,6 @@
  */
 class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('salesrule/rule_customer', 'rule_customer_id');
-    }
-
     /**
      * Get rule usage record for a customer
      *
@@ -48,5 +43,9 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
         }
         $rule->setData($data);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('salesrule/rule_customer', 'rule_customer_id');
     }
 }

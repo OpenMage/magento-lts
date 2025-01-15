@@ -49,15 +49,6 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     protected $_runOnce = true;
     protected $_processChildren = false;
 
-    protected function _construct()
-    {
-        $this->_init('catalogindex/indexer_minimalprice');
-        $this->_currencyModel = Mage::getModel('directory/currency');
-        $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
-
-        parent::_construct();
-    }
-
     /**
      * @return Mage_Eav_Model_Entity_Attribute_Abstract|mixed
      * @throws Mage_Core_Exception
@@ -140,6 +131,15 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
     public function isAttributeIdUsed()
     {
         return false;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalogindex/indexer_minimalprice');
+        $this->_currencyModel = Mage::getModel('directory/currency');
+        $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
+
+        parent::_construct();
     }
 
     /**

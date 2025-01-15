@@ -74,34 +74,6 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
     }
 
     /**
-     * Retrieve product ids, that must not be included in collection
-     *
-     * @return array
-     */
-    protected function _getProductsToSkip()
-    {
-        return [];
-    }
-
-    /**
-     * Retrieve Product Index model instance
-     *
-     * @return Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
-     */
-    protected function _getModel()
-    {
-        if (is_null($this->_indexModel)) {
-            if (is_null($this->_indexName)) {
-                Mage::throwException(Mage::helper('reports')->__('Index model name must be defined'));
-            }
-
-            $this->_indexModel = Mage::getModel($this->_indexName);
-        }
-
-        return $this->_indexModel;
-    }
-
-    /**
      * Public method for retrieve Product Index model
      *
      * @return Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
@@ -178,6 +150,34 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
             return 0;
         }
         return $this->getItemsCollection()->count();
+    }
+
+    /**
+     * Retrieve product ids, that must not be included in collection
+     *
+     * @return array
+     */
+    protected function _getProductsToSkip()
+    {
+        return [];
+    }
+
+    /**
+     * Retrieve Product Index model instance
+     *
+     * @return Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract
+     */
+    protected function _getModel()
+    {
+        if (is_null($this->_indexModel)) {
+            if (is_null($this->_indexName)) {
+                Mage::throwException(Mage::helper('reports')->__('Index model name must be defined'));
+            }
+
+            $this->_indexModel = Mage::getModel($this->_indexName);
+        }
+
+        return $this->_indexModel;
     }
 
     /**

@@ -32,6 +32,30 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * Retrieve grid
+     *
+     * @return string
+     */
+    public function getGridHtml()
+    {
+        return $this->getLayout()->createBlock('adminhtml/system_store_tree')->toHtml();
+    }
+
+    /**
+     * Retrieve buttons
+     *
+     * @return string
+     */
+    public function getAddNewButtonHtml()
+    {
+        return implode(' ', [
+            $this->getChildHtml('add_new_website'),
+            $this->getChildHtml('add_new_group'),
+            $this->getChildHtml('add_new_store'),
+        ]);
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -58,29 +82,5 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
         ]);
 
         return parent::_prepareLayout();
-    }
-
-    /**
-     * Retrieve grid
-     *
-     * @return string
-     */
-    public function getGridHtml()
-    {
-        return $this->getLayout()->createBlock('adminhtml/system_store_tree')->toHtml();
-    }
-
-    /**
-     * Retrieve buttons
-     *
-     * @return string
-     */
-    public function getAddNewButtonHtml()
-    {
-        return implode(' ', [
-            $this->getChildHtml('add_new_website'),
-            $this->getChildHtml('add_new_group'),
-            $this->getChildHtml('add_new_store'),
-        ]);
     }
 }

@@ -48,6 +48,92 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     }
 
     /**
+     * Processes query, modifies targeted columns to fit foreign keys restrictions
+     *
+     * @param string $sql
+     * @param array $bind
+     * @return $this
+     */
+    public function processQuery(&$sql, &$bind)
+    {
+        // Quick test to skip queries without foreign keys
+        if (!stripos($sql, 'foreign')) {
+            return $this;
+        }
+
+        // Find foreign keys set
+        $pattern = '/CONSTRAINT\s+[^\s]+\s+FOREIGN\s+KEY[^(]+\\(([^),]+)\\)\s+REFERENCES\s+([^\s.]+)\s+\\(([^)]+)\\)/i';
+        if (!preg_match_all($pattern, $sql, $matchesFk, PREG_SET_ORDER)) {
+            return $this;
+        }
+
+        // Get current table name
+        if (!preg_match('/\s*(CREATE|ALTER)\s+TABLE\s+([^\s.]+)/i', $sql, $match)) {
+            return $this;
+        }
+
+        $operation = $this->_prepareIdentifier($match[1]);
+        $table = $this->_prepareIdentifier($match[2]);
+
+        // Process all
+        foreach ($matchesFk as $match) {
+            $column = $this->_prepareIdentifier($match[1]);
+            $refTable = $this->_prepareIdentifier($match[2]);
+            $refColumn = $this->_prepareIdentifier($match[3]);
+
+            // Check tables existence
+            if (($operation != 'create') && !($this->_tableExists($table))) {
+                continue;
+            }
+            if (!$this->_tableExists($refTable)) {
+                continue;
+            }
+
+            // Self references are out of our fix scope
+            if ($refTable == $table) {
+                continue;
+            }
+
+            // Extract column type
+            if ($operation == 'create') {
+                $columnDefinition = $this->_getColumnDefinitionFromSql($sql, $column);
+            } else {
+                $columnDefinition = $this->_getColumnDefinitionFromTable($table, $column);
+            }
+
+            // We fix only int columns
+            if (!$columnDefinition || !in_array($columnDefinition['type'], $this->_processedTypes)) {
+                continue;
+            }
+
+            // Extract referenced column type
+            $refColumnDefinition = $this->_getColumnDefinitionFromTable($refTable, $refColumn);
+            if (!$refColumnDefinition) {
+                continue;
+            }
+
+            // We fix only int columns
+            if (!$refColumnDefinition || !in_array($refColumnDefinition['type'], $this->_processedTypes)) {
+                continue;
+            }
+
+            // Whether we need to fix
+            if ($refColumnDefinition == $columnDefinition) {
+                continue;
+            }
+
+            // Fix column to be the same type as referenced one
+            if ($operation == 'create') {
+                $this->_fixColumnDefinitionInSql($sql, $column, $refColumnDefinition);
+            } else {
+                $this->_fixColumnDefinitionInTable($table, $column, $refColumnDefinition);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Returns column definition from CREATE TABLE sql
      *
      * @param string $sql
@@ -247,91 +333,5 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     protected function _prepareIdentifier($identifier)
     {
         return strtolower(trim($identifier, "`\n\r\t"));
-    }
-
-    /**
-     * Processes query, modifies targeted columns to fit foreign keys restrictions
-     *
-     * @param string $sql
-     * @param array $bind
-     * @return $this
-     */
-    public function processQuery(&$sql, &$bind)
-    {
-        // Quick test to skip queries without foreign keys
-        if (!stripos($sql, 'foreign')) {
-            return $this;
-        }
-
-        // Find foreign keys set
-        $pattern = '/CONSTRAINT\s+[^\s]+\s+FOREIGN\s+KEY[^(]+\\(([^),]+)\\)\s+REFERENCES\s+([^\s.]+)\s+\\(([^)]+)\\)/i';
-        if (!preg_match_all($pattern, $sql, $matchesFk, PREG_SET_ORDER)) {
-            return $this;
-        }
-
-        // Get current table name
-        if (!preg_match('/\s*(CREATE|ALTER)\s+TABLE\s+([^\s.]+)/i', $sql, $match)) {
-            return $this;
-        }
-
-        $operation = $this->_prepareIdentifier($match[1]);
-        $table = $this->_prepareIdentifier($match[2]);
-
-        // Process all
-        foreach ($matchesFk as $match) {
-            $column = $this->_prepareIdentifier($match[1]);
-            $refTable = $this->_prepareIdentifier($match[2]);
-            $refColumn = $this->_prepareIdentifier($match[3]);
-
-            // Check tables existence
-            if (($operation != 'create') && !($this->_tableExists($table))) {
-                continue;
-            }
-            if (!$this->_tableExists($refTable)) {
-                continue;
-            }
-
-            // Self references are out of our fix scope
-            if ($refTable == $table) {
-                continue;
-            }
-
-            // Extract column type
-            if ($operation == 'create') {
-                $columnDefinition = $this->_getColumnDefinitionFromSql($sql, $column);
-            } else {
-                $columnDefinition = $this->_getColumnDefinitionFromTable($table, $column);
-            }
-
-            // We fix only int columns
-            if (!$columnDefinition || !in_array($columnDefinition['type'], $this->_processedTypes)) {
-                continue;
-            }
-
-            // Extract referenced column type
-            $refColumnDefinition = $this->_getColumnDefinitionFromTable($refTable, $refColumn);
-            if (!$refColumnDefinition) {
-                continue;
-            }
-
-            // We fix only int columns
-            if (!$refColumnDefinition || !in_array($refColumnDefinition['type'], $this->_processedTypes)) {
-                continue;
-            }
-
-            // Whether we need to fix
-            if ($refColumnDefinition == $columnDefinition) {
-                continue;
-            }
-
-            // Fix column to be the same type as referenced one
-            if ($operation == 'create') {
-                $this->_fixColumnDefinitionInSql($sql, $column, $refColumnDefinition);
-            } else {
-                $this->_fixColumnDefinitionInTable($table, $column, $refColumnDefinition);
-            }
-        }
-
-        return $this;
     }
 }

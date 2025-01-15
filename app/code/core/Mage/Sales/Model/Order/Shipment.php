@@ -102,24 +102,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'shipment';
 
     /**
-     * Initialize shipment resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/order_shipment');
-    }
-
-    /**
-     * Init mapping array of short fields to its full names
-     *
-     * @return $this
-     */
-    protected function _initOldFieldsMap()
-    {
-        return $this;
-    }
-
-    /**
      * Load shipment by increment id
      *
      * @param string $incrementId
@@ -576,6 +558,60 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * Retrieve store model instance
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        return $this->getOrder()->getStore();
+    }
+
+    /**
+     * Set shipping label
+     *
+     * @param string $label   label representation (image or pdf file)
+     * @return $this
+     */
+    public function setShippingLabel($label)
+    {
+        $this->setData('shipping_label', $label);
+        return $this;
+    }
+
+    /**
+     * Get shipping label and decode by db adapter
+     *
+     * @return string
+     */
+    public function getShippingLabel()
+    {
+        $label = $this->getData('shipping_label');
+        if ($label) {
+            return $this->getResource()->getReadConnection()->decodeVarbinary($label);
+        }
+        return $label;
+    }
+
+    /**
+     * Initialize shipment resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/order_shipment');
+    }
+
+    /**
+     * Init mapping array of short fields to its full names
+     *
+     * @return $this
+     */
+    protected function _initOldFieldsMap()
+    {
+        return $this;
+    }
+
+    /**
      * @param string $configPath
      * @return array|false
      */
@@ -649,41 +685,5 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
 
         return parent::_afterSave();
-    }
-
-    /**
-     * Retrieve store model instance
-     *
-     * @return Mage_Core_Model_Store
-     */
-    public function getStore()
-    {
-        return $this->getOrder()->getStore();
-    }
-
-    /**
-     * Set shipping label
-     *
-     * @param string $label   label representation (image or pdf file)
-     * @return $this
-     */
-    public function setShippingLabel($label)
-    {
-        $this->setData('shipping_label', $label);
-        return $this;
-    }
-
-    /**
-     * Get shipping label and decode by db adapter
-     *
-     * @return string
-     */
-    public function getShippingLabel()
-    {
-        $label = $this->getData('shipping_label');
-        if ($label) {
-            return $this->getResource()->getReadConnection()->decodeVarbinary($label);
-        }
-        return $label;
     }
 }

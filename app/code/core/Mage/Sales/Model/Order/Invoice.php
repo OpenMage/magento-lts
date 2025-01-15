@@ -195,24 +195,6 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Initialize invoice resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/order_invoice');
-    }
-
-    /**
-     * Init mapping array of short fields to its full names
-     *
-     * @return $this
-     */
-    protected function _initOldFieldsMap()
-    {
-        return $this;
-    }
-
-    /**
      * Load invoice by increment id
      *
      * @param string $incrementId
@@ -939,6 +921,41 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * Reset invoice object
+     *
+     * @return $this
+     */
+    public function reset()
+    {
+        $this->unsetData();
+        $this->_origData = null;
+        $this->_items = null;
+        $this->_comments = null;
+        $this->_order = null;
+        $this->_saveBeforeDestruct = false;
+        $this->_wasPayCalled = false;
+        return $this;
+    }
+
+    /**
+     * Initialize invoice resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/order_invoice');
+    }
+
+    /**
+     * Init mapping array of short fields to its full names
+     *
+     * @return $this
+     */
+    protected function _initOldFieldsMap()
+    {
+        return $this;
+    }
+
+    /**
      * @param string $configPath
      * @return array|bool
      */
@@ -959,23 +976,6 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     {
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
-    }
-
-    /**
-     * Reset invoice object
-     *
-     * @return $this
-     */
-    public function reset()
-    {
-        $this->unsetData();
-        $this->_origData = null;
-        $this->_items = null;
-        $this->_comments = null;
-        $this->_order = null;
-        $this->_saveBeforeDestruct = false;
-        $this->_wasPayCalled = false;
-        return $this;
     }
 
     /**

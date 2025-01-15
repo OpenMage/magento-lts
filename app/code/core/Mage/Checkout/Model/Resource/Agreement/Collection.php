@@ -34,15 +34,6 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
     protected $_isStoreFilterWithAdmin   = true;
 
     /**
-     * Initialize resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('checkout/agreement');
-    }
-
-    /**
      * Filter collection by specified store ids
      *
      * @param int|Mage_Core_Model_Store $store
@@ -96,5 +87,14 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
     {
         $this->_isStoreFilterWithAdmin = (bool) $value;
         return $this;
+    }
+
+    /**
+     * Initialize resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('checkout/agreement');
     }
 }

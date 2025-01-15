@@ -28,12 +28,6 @@ class Mage_Adminhtml_Block_Tag_Pending extends Mage_Adminhtml_Block_Template
         $this->setTemplate('tag/index.phtml');
     }
 
-    protected function _prepareLayout()
-    {
-        $this->setChild('tagsGrid', $this->getLayout()->createBlock('adminhtml/tag_grid_pending'));
-        return parent::_prepareLayout();
-    }
-
     public function getCreateButtonHtml()
     {
         return '';
@@ -52,5 +46,11 @@ class Mage_Adminhtml_Block_Tag_Pending extends Mage_Adminhtml_Block_Template
     public function getHeaderCssClass()
     {
         return 'icon-head head-tag';
+    }
+
+    protected function _prepareLayout()
+    {
+        $this->setChild('tagsGrid', $this->getLayout()->createBlock('adminhtml/tag_grid_pending'));
+        return parent::_prepareLayout();
     }
 }

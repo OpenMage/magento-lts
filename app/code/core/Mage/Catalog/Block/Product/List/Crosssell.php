@@ -37,6 +37,16 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
     protected $_itemCollection;
 
     /**
+     * Retrieve crosssell items collection
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
+    public function getItems()
+    {
+        return $this->_itemCollection;
+    }
+
+    /**
      * Prepare crosssell items data
      *
      * @return $this
@@ -72,15 +82,5 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
     {
         $this->_prepareData();
         return parent::_beforeToHtml();
-    }
-
-    /**
-     * Retrieve crosssell items collection
-     *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
-     */
-    public function getItems()
-    {
-        return $this->_itemCollection;
     }
 }

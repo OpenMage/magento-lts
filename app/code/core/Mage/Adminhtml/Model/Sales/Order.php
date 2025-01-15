@@ -22,16 +22,6 @@
  */
 class Mage_Adminhtml_Model_Sales_Order
 {
-    /**
-     * Retrieve adminhtml session singleton
-     *
-     * @return Mage_Adminhtml_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
     public function checkRelation(Mage_Sales_Model_Order $order)
     {
         /**
@@ -75,5 +65,14 @@ class Mage_Adminhtml_Model_Sales_Order
             );
         }
         return $this;
+    }
+    /**
+     * Retrieve adminhtml session singleton
+     *
+     * @return Mage_Adminhtml_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('adminhtml/session');
     }
 }

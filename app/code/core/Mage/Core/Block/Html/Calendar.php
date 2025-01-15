@@ -24,6 +24,26 @@
 class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
 {
     /**
+     * Return offset of current timezone with GMT in seconds
+     *
+     * @return int
+     */
+    public function getTimezoneOffsetSeconds()
+    {
+        return Mage::getSingleton('core/date')->getGmtOffset();
+    }
+
+    /**
+     * Getter for store timestamp based on store timezone settings
+     *
+     * @param mixed $store
+     * @return int
+     */
+    public function getStoreTimestamp($store = null)
+    {
+        return Mage::getSingleton('core/locale')->storeTimeStamp($store);
+    }
+    /**
      * @return string
      * @throws Zend_Locale_Exception
      */
@@ -71,26 +91,5 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         $this->assign('enUS', Mage::helper('core')->jsonEncode($enUS));
 
         return parent::_toHtml();
-    }
-
-    /**
-     * Return offset of current timezone with GMT in seconds
-     *
-     * @return int
-     */
-    public function getTimezoneOffsetSeconds()
-    {
-        return Mage::getSingleton('core/date')->getGmtOffset();
-    }
-
-    /**
-     * Getter for store timestamp based on store timezone settings
-     *
-     * @param mixed $store
-     * @return int
-     */
-    public function getStoreTimestamp($store = null)
-    {
-        return Mage::getSingleton('core/locale')->storeTimeStamp($store);
     }
 }

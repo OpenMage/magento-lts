@@ -63,6 +63,18 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     }
 
     /**
+     * Add filtering by rules ids
+     *
+     * @param array $rulesList
+     * @return $this
+     */
+    public function addRuleFilter($rulesList)
+    {
+        $this->_rulesIdsFilter = $rulesList;
+        return $this;
+    }
+
+    /**
      * collect columns for collection
      *
      * @return array
@@ -124,18 +136,6 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
             ]);
         }
 
-        return $this;
-    }
-
-    /**
-     * Add filtering by rules ids
-     *
-     * @param array $rulesList
-     * @return $this
-     */
-    public function addRuleFilter($rulesList)
-    {
-        $this->_rulesIdsFilter = $rulesList;
         return $this;
     }
 

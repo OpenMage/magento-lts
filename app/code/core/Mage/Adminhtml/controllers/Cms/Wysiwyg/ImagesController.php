@@ -28,17 +28,6 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
      */
     public const ADMIN_RESOURCE = 'cms/media_gallery';
 
-    /**
-     * Init storage
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->getStorage();
-        return $this;
-    }
-
     public function indexAction()
     {
         $storeId = (int) $this->getRequest()->getParam('store');
@@ -202,6 +191,17 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             Mage::register('storage', $storage);
         }
         return Mage::registry('storage');
+    }
+
+    /**
+     * Init storage
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->getStorage();
+        return $this;
     }
 
     /**

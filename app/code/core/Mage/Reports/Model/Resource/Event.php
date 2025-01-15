@@ -23,15 +23,6 @@
 class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize main table and identifier field.
-     * Set main entity table name and primary key field name.
-     */
-    protected function _construct()
-    {
-        $this->_init('reports/event', 'event_id');
-    }
-
-    /**
      * Update customer type after customer login
      *
      * @param int $visitorId
@@ -173,5 +164,13 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
             $this->_getWriteAdapter()->delete($this->getMainTable(), ['event_id IN(?)' => $eventIds]);
         }
         return $this;
+    }
+    /**
+     * Initialize main table and identifier field.
+     * Set main entity table name and primary key field name.
+     */
+    protected function _construct()
+    {
+        $this->_init('reports/event', 'event_id');
     }
 }

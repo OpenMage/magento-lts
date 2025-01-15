@@ -192,6 +192,37 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     }
 
     /**
+     * Order by customer registration
+     *
+     * @param string $dir
+     * @return $this
+     */
+    public function orderByCustomerRegistration($dir = self::SORT_ORDER_DESC)
+    {
+        $this->addAttributeToSort('entity_id', $dir);
+        return $this;
+    }
+
+    /**
+     * Get select count sql
+     *
+     * @return Varien_Db_Select
+     */
+    public function getSelectCountSql()
+    {
+        $countSelect = clone $this->getSelect();
+        $countSelect->reset(Zend_Db_Select::ORDER);
+        $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $countSelect->reset(Zend_Db_Select::COLUMNS);
+        $countSelect->reset(Zend_Db_Select::GROUP);
+        $countSelect->reset(Zend_Db_Select::HAVING);
+        $countSelect->columns('count(DISTINCT e.entity_id)');
+
+        return $countSelect;
+    }
+
+    /**
      * Add orders statistics to collection items
      *
      * @return $this
@@ -244,36 +275,5 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     {
         $this->_addOrdersStatistics();
         return $this;
-    }
-
-    /**
-     * Order by customer registration
-     *
-     * @param string $dir
-     * @return $this
-     */
-    public function orderByCustomerRegistration($dir = self::SORT_ORDER_DESC)
-    {
-        $this->addAttributeToSort('entity_id', $dir);
-        return $this;
-    }
-
-    /**
-     * Get select count sql
-     *
-     * @return Varien_Db_Select
-     */
-    public function getSelectCountSql()
-    {
-        $countSelect = clone $this->getSelect();
-        $countSelect->reset(Zend_Db_Select::ORDER);
-        $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $countSelect->reset(Zend_Db_Select::COLUMNS);
-        $countSelect->reset(Zend_Db_Select::GROUP);
-        $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns('count(DISTINCT e.entity_id)');
-
-        return $countSelect;
     }
 }

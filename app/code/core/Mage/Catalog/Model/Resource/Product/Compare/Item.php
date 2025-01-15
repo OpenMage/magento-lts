@@ -22,11 +22,6 @@
  */
 class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/compare_item', 'catalog_compare_item_id');
-    }
-
     /**
      * Load object by product
      *
@@ -231,5 +226,9 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
         }
         $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/compare_item', 'catalog_compare_item_id');
     }
 }

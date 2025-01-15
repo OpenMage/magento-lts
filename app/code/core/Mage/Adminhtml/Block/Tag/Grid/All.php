@@ -36,6 +36,15 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/products', ['tag_id' => $row->getId()]);
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -97,14 +106,5 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
             }
         }
         return $this;
-    }
-
-    /**
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/products', ['tag_id' => $row->getId()]);
     }
 }

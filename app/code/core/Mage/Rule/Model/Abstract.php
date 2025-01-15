@@ -104,58 +104,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare data before saving
-     *
-     * @return Mage_Rule_Model_Abstract
-     */
-    protected function _beforeSave()
-    {
-        // Check if discount amount not negative
-        if ($this->hasDiscountAmount()) {
-            if ((int) $this->getDiscountAmount() < 0) {
-                Mage::throwException(Mage::helper('rule')->__('Invalid discount amount.'));
-            }
-        }
-
-        // Serialize conditions
-        if ($this->getConditions()) {
-            $this->setConditionsSerialized(serialize($this->getConditions()->asArray()));
-            $this->unsConditions();
-        }
-
-        // Serialize actions
-        if ($this->getActions()) {
-            $this->setActionsSerialized(serialize($this->getActions()->asArray()));
-            $this->unsActions();
-        }
-
-        /**
-         * Prepare website Ids if applicable and if they were set as string in comma separated format.
-         * Backwards compatibility.
-         */
-        if ($this->hasWebsiteIds()) {
-            $websiteIds = $this->getWebsiteIds();
-            if (is_string($websiteIds) && !empty($websiteIds)) {
-                $this->setWebsiteIds(explode(',', $websiteIds));
-            }
-        }
-
-        /**
-         * Prepare customer group Ids if applicable and if they were set as string in comma separated format.
-         * Backwards compatibility.
-         */
-        if ($this->hasCustomerGroupIds()) {
-            $groupIds = $this->getCustomerGroupIds();
-            if (is_string($groupIds) && !empty($groupIds)) {
-                $this->setCustomerGroupIds(explode(',', $groupIds));
-            }
-        }
-
-        parent::_beforeSave();
-        return $this;
-    }
-
-    /**
      * Set rule combine conditions model
      *
      * @param Mage_Rule_Model_Condition_Combine $conditions
@@ -234,42 +182,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Reset rule combine conditions
-     *
-     * @param null|Mage_Rule_Model_Condition_Combine $conditions
-     *
-     * @return Mage_Rule_Model_Abstract
-     */
-    protected function _resetConditions($conditions = null)
-    {
-        if (is_null($conditions)) {
-            $conditions = $this->getConditionsInstance();
-        }
-        $conditions->setRule($this)->setId('1')->setPrefix('conditions');
-        $this->setConditions($conditions);
-
-        return $this;
-    }
-
-    /**
-     * Reset rule actions
-     *
-     * @param null|Mage_Rule_Model_Action_Collection $actions
-     *
-     * @return Mage_Rule_Model_Abstract
-     */
-    protected function _resetActions($actions = null)
-    {
-        if (is_null($actions)) {
-            $actions = $this->getActionsInstance();
-        }
-        $actions->setRule($this)->setId('1')->setPrefix('actions');
-        $this->setActions($actions);
-
-        return $this;
-    }
-
-    /**
      * Rule form getter
      *
      * @return Varien_Data_Form
@@ -299,48 +211,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         }
 
         return $this;
-    }
-
-    /**
-     * Set specified data to current rule.
-     * Set conditions and actions recursively.
-     * Convert dates into Zend_Date.
-     *
-     *
-     * @return array
-     */
-    protected function _convertFlatToRecursive(array $data)
-    {
-        $arr = [];
-        foreach ($data as $key => $value) {
-            if (($key === 'conditions' || $key === 'actions') && is_array($value)) {
-                foreach ($value as $id => $data) {
-                    $path = explode('--', $id);
-                    $node = & $arr;
-                    for ($i = 0, $l = count($path); $i < $l; $i++) {
-                        $node = & $node[$key][$path[$i]] ?? [];
-                    }
-                    foreach ($data as $k => $v) {
-                        $node[$k] = $v;
-                    }
-                }
-            } else {
-                /**
-                 * Convert dates into Zend_Date
-                 */
-                if (in_array($key, ['from_date', 'to_date']) && $value) {
-                    $value = Mage::app()->getLocale()->date(
-                        $value,
-                        Varien_Date::DATE_INTERNAL_FORMAT,
-                        null,
-                        false,
-                    );
-                }
-                $this->setData($key, $value);
-            }
-        }
-
-        return $arr;
     }
 
     /**
@@ -488,6 +358,136 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     public function asArray(array $arrAttributes = [])
     {
         return [];
+    }
+
+    /**
+     * Prepare data before saving
+     *
+     * @return Mage_Rule_Model_Abstract
+     */
+    protected function _beforeSave()
+    {
+        // Check if discount amount not negative
+        if ($this->hasDiscountAmount()) {
+            if ((int) $this->getDiscountAmount() < 0) {
+                Mage::throwException(Mage::helper('rule')->__('Invalid discount amount.'));
+            }
+        }
+
+        // Serialize conditions
+        if ($this->getConditions()) {
+            $this->setConditionsSerialized(serialize($this->getConditions()->asArray()));
+            $this->unsConditions();
+        }
+
+        // Serialize actions
+        if ($this->getActions()) {
+            $this->setActionsSerialized(serialize($this->getActions()->asArray()));
+            $this->unsActions();
+        }
+
+        /**
+         * Prepare website Ids if applicable and if they were set as string in comma separated format.
+         * Backwards compatibility.
+         */
+        if ($this->hasWebsiteIds()) {
+            $websiteIds = $this->getWebsiteIds();
+            if (is_string($websiteIds) && !empty($websiteIds)) {
+                $this->setWebsiteIds(explode(',', $websiteIds));
+            }
+        }
+
+        /**
+         * Prepare customer group Ids if applicable and if they were set as string in comma separated format.
+         * Backwards compatibility.
+         */
+        if ($this->hasCustomerGroupIds()) {
+            $groupIds = $this->getCustomerGroupIds();
+            if (is_string($groupIds) && !empty($groupIds)) {
+                $this->setCustomerGroupIds(explode(',', $groupIds));
+            }
+        }
+
+        parent::_beforeSave();
+        return $this;
+    }
+
+    /**
+     * Reset rule combine conditions
+     *
+     * @param null|Mage_Rule_Model_Condition_Combine $conditions
+     *
+     * @return Mage_Rule_Model_Abstract
+     */
+    protected function _resetConditions($conditions = null)
+    {
+        if (is_null($conditions)) {
+            $conditions = $this->getConditionsInstance();
+        }
+        $conditions->setRule($this)->setId('1')->setPrefix('conditions');
+        $this->setConditions($conditions);
+
+        return $this;
+    }
+
+    /**
+     * Reset rule actions
+     *
+     * @param null|Mage_Rule_Model_Action_Collection $actions
+     *
+     * @return Mage_Rule_Model_Abstract
+     */
+    protected function _resetActions($actions = null)
+    {
+        if (is_null($actions)) {
+            $actions = $this->getActionsInstance();
+        }
+        $actions->setRule($this)->setId('1')->setPrefix('actions');
+        $this->setActions($actions);
+
+        return $this;
+    }
+
+    /**
+     * Set specified data to current rule.
+     * Set conditions and actions recursively.
+     * Convert dates into Zend_Date.
+     *
+     *
+     * @return array
+     */
+    protected function _convertFlatToRecursive(array $data)
+    {
+        $arr = [];
+        foreach ($data as $key => $value) {
+            if (($key === 'conditions' || $key === 'actions') && is_array($value)) {
+                foreach ($value as $id => $data) {
+                    $path = explode('--', $id);
+                    $node = & $arr;
+                    for ($i = 0, $l = count($path); $i < $l; $i++) {
+                        $node = & $node[$key][$path[$i]] ?? [];
+                    }
+                    foreach ($data as $k => $v) {
+                        $node[$k] = $v;
+                    }
+                }
+            } else {
+                /**
+                 * Convert dates into Zend_Date
+                 */
+                if (in_array($key, ['from_date', 'to_date']) && $value) {
+                    $value = Mage::app()->getLocale()->date(
+                        $value,
+                        Varien_Date::DATE_INTERNAL_FORMAT,
+                        null,
+                        false,
+                    );
+                }
+                $this->setData($key, $value);
+            }
+        }
+
+        return $arr;
     }
 
     /**

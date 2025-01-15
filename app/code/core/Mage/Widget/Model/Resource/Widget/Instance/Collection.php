@@ -29,12 +29,6 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
      */
     protected $_map = ['fields' => ['type' => 'instance_type']];
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('widget/widget_instance');
-    }
-
     /**
      * Filter by store ids
      *
@@ -58,5 +52,11 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
         $this->_select->where(implode(' OR ', $where));
 
         return $this;
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('widget/widget_instance');
     }
 }

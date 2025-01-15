@@ -28,6 +28,17 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
     protected $_wizardTemplate = 'paypal/system/config/api_wizard.phtml';
 
     /**
+     * Unset some non-related element parameters
+     *
+     * @return string
+     */
+    public function render(Varien_Data_Form_Element_Abstract $element)
+    {
+        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
+        return parent::render($element);
+    }
+
+    /**
      * Set template to itself
      */
     protected function _prepareLayout()
@@ -37,17 +48,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
             $this->setTemplate($this->_wizardTemplate);
         }
         return $this;
-    }
-
-    /**
-     * Unset some non-related element parameters
-     *
-     * @return string
-     */
-    public function render(Varien_Data_Form_Element_Abstract $element)
-    {
-        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
-        return parent::render($element);
     }
 
     /**

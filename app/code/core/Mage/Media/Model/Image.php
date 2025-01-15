@@ -49,11 +49,6 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     protected $_params = [];
 
-    protected function _construct()
-    {
-        $this->_init('media/image');
-    }
-
     /**
      * Set media image config instance
      * @return Mage_Media_Model_Image
@@ -285,6 +280,11 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     public function hasSpecialImage()
     {
         return $this->_getResource()->hasSpecialImage($this);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('media/image');
     }
 
     protected function _removeResources()

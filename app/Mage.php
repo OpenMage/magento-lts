@@ -65,6 +65,20 @@ foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as 
 final class Mage
 {
     /**
+     * Magento edition constants
+     */
+    public const EDITION_COMMUNITY    = 'Community';
+    public const EDITION_ENTERPRISE   = 'Enterprise';
+    public const EDITION_PROFESSIONAL = 'Professional';
+    public const EDITION_GO           = 'Go';
+
+    /**
+     * Is allow throw Exception about headers already sent
+     *
+     * @var bool
+     */
+    public static $headersSentThrowsException = true;
+    /**
      * Registry collection
      *
      * @var array
@@ -114,26 +128,11 @@ final class Mage
     private static $_isDeveloperMode = false;
 
     /**
-     * Is allow throw Exception about headers already sent
-     *
-     * @var bool
-     */
-    public static $headersSentThrowsException = true;
-
-    /**
      * Is installed flag
      *
      * @var bool|null
      */
     private static $_isInstalled;
-
-    /**
-     * Magento edition constants
-     */
-    public const EDITION_COMMUNITY    = 'Community';
-    public const EDITION_ENTERPRISE   = 'Enterprise';
-    public const EDITION_PROFESSIONAL = 'Professional';
-    public const EDITION_GO           = 'Go';
 
     /**
      * Current Magento edition.
@@ -778,40 +777,6 @@ final class Mage
     }
 
     /**
-     * Set application isInstalled flag based on given options
-     *
-     * @param array $options
-     */
-    private static function _setIsInstalled($options = [])
-    {
-        if (isset($options['is_installed']) && $options['is_installed']) {
-            self::$_isInstalled = true;
-        }
-    }
-
-    /**
-     * Set application Config model
-     *
-     * @param array $options
-     */
-    private static function _setConfigModel($options = [])
-    {
-        if (isset($options['config_model']) && class_exists($options['config_model'])) {
-            $alternativeConfigModelName = $options['config_model'];
-            unset($options['config_model']);
-            $alternativeConfigModel = new $alternativeConfigModelName($options);
-        } else {
-            $alternativeConfigModel = null;
-        }
-
-        if (!is_null($alternativeConfigModel) && ($alternativeConfigModel instanceof Mage_Core_Model_Config)) {
-            self::$_config = $alternativeConfigModel;
-        } else {
-            self::$_config = new Mage_Core_Model_Config($options);
-        }
-    }
-
-    /**
      * Retrieve application installation flag
      *
      * @param string|array $options
@@ -1058,5 +1023,39 @@ final class Mage
         }
 
         return $baseUrl;
+    }
+
+    /**
+     * Set application isInstalled flag based on given options
+     *
+     * @param array $options
+     */
+    private static function _setIsInstalled($options = [])
+    {
+        if (isset($options['is_installed']) && $options['is_installed']) {
+            self::$_isInstalled = true;
+        }
+    }
+
+    /**
+     * Set application Config model
+     *
+     * @param array $options
+     */
+    private static function _setConfigModel($options = [])
+    {
+        if (isset($options['config_model']) && class_exists($options['config_model'])) {
+            $alternativeConfigModelName = $options['config_model'];
+            unset($options['config_model']);
+            $alternativeConfigModel = new $alternativeConfigModelName($options);
+        } else {
+            $alternativeConfigModel = null;
+        }
+
+        if (!is_null($alternativeConfigModel) && ($alternativeConfigModel instanceof Mage_Core_Model_Config)) {
+            self::$_config = $alternativeConfigModel;
+        } else {
+            self::$_config = new Mage_Core_Model_Config($options);
+        }
     }
 }

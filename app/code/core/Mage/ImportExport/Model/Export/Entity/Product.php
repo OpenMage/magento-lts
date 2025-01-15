@@ -117,6 +117,90 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     }
 
     /**
+     * Export process and return contents of temporary file.
+     *
+     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
+     *
+     * @return string
+     */
+    public function export()
+    {
+        $this->_prepareExport();
+
+        return $this->getWriter()->getContents();
+    }
+
+    /**
+     * Export process and return temporary file through array.
+     *
+     * This method will return following array:
+     *
+     * array(
+     *     'rows'  => count of written rows,
+     *     'value' => path to created file
+     * )
+     *
+     * @return array
+     */
+    public function exportFile()
+    {
+        $this->_prepareExport();
+
+        $writer = $this->getWriter();
+
+        return [
+            'rows'  => $writer->getRowsCount(),
+            'value' => $writer->getDestination(),
+        ];
+    }
+
+    /**
+     * Clean up already loaded attribute collection.
+     *
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     */
+    public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
+    {
+        $validTypes = array_keys($this->_productTypeModels);
+
+        foreach (parent::filterAttributeCollection($collection) as $attribute) {
+            $attrApplyTo = $attribute->getApplyTo();
+            $attrApplyTo = $attrApplyTo ? array_intersect($attrApplyTo, $validTypes) : $validTypes;
+
+            if ($attrApplyTo) {
+                foreach ($attrApplyTo as $productType) { // override attributes by its product type model
+                    if ($this->_productTypeModels[$productType]->overrideAttribute($attribute)) {
+                        break;
+                    }
+                }
+            } else { // remove attributes of not-supported product types
+                $collection->removeItemByKey($attribute->getId());
+            }
+        }
+        return $collection;
+    }
+
+    /**
+     * Entity attributes collection getter.
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
+     */
+    public function getAttributeCollection()
+    {
+        return Mage::getResourceModel('catalog/product_attribute_collection');
+    }
+
+    /**
+     * EAV entity type code getter.
+     *
+     * @return string
+     */
+    public function getEntityTypeCode()
+    {
+        return 'catalog_product';
+    }
+
+    /**
      * Initialize attribute sets code-to-id pairs.
      *
      * @return $this
@@ -517,44 +601,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         }
 
         return true;
-    }
-
-    /**
-     * Export process and return contents of temporary file.
-     *
-     * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
-     *
-     * @return string
-     */
-    public function export()
-    {
-        $this->_prepareExport();
-
-        return $this->getWriter()->getContents();
-    }
-
-    /**
-     * Export process and return temporary file through array.
-     *
-     * This method will return following array:
-     *
-     * array(
-     *     'rows'  => count of written rows,
-     *     'value' => path to created file
-     * )
-     *
-     * @return array
-     */
-    public function exportFile()
-    {
-        $this->_prepareExport();
-
-        $writer = $this->getWriter();
-
-        return [
-            'rows'  => $writer->getRowsCount(),
-            'value' => $writer->getDestination(),
-        ];
     }
 
     /**
@@ -1047,52 +1093,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             }
         }
         return $writer->getContents();
-    }
-
-    /**
-     * Clean up already loaded attribute collection.
-     *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
-     */
-    public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
-    {
-        $validTypes = array_keys($this->_productTypeModels);
-
-        foreach (parent::filterAttributeCollection($collection) as $attribute) {
-            $attrApplyTo = $attribute->getApplyTo();
-            $attrApplyTo = $attrApplyTo ? array_intersect($attrApplyTo, $validTypes) : $validTypes;
-
-            if ($attrApplyTo) {
-                foreach ($attrApplyTo as $productType) { // override attributes by its product type model
-                    if ($this->_productTypeModels[$productType]->overrideAttribute($attribute)) {
-                        break;
-                    }
-                }
-            } else { // remove attributes of not-supported product types
-                $collection->removeItemByKey($attribute->getId());
-            }
-        }
-        return $collection;
-    }
-
-    /**
-     * Entity attributes collection getter.
-     *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
-     */
-    public function getAttributeCollection()
-    {
-        return Mage::getResourceModel('catalog/product_attribute_collection');
-    }
-
-    /**
-     * EAV entity type code getter.
-     *
-     * @return string
-     */
-    public function getEntityTypeCode()
-    {
-        return 'catalog_product';
     }
 
     /**

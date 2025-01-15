@@ -45,16 +45,6 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     public const XML_PATH_SAMPLES_TITLE = 'catalog/downloadable/samples_title';
 
     /**
-     * Initialize resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('downloadable/sample');
-        parent::_construct();
-    }
-
-    /**
      * Return sample files path
      *
      * @return string
@@ -62,18 +52,6 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     public static function getSampleDir()
     {
         return Mage::getBaseDir();
-    }
-
-    /**
-     * After save process
-     *
-     * @inheritDoc
-     */
-    protected function _afterSave()
-    {
-        $this->getResource()
-            ->saveItemTitle($this);
-        return parent::_afterSave();
     }
 
     /**
@@ -121,5 +99,27 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()
             ->getSearchableData($productId, $storeId);
+    }
+
+    /**
+     * Initialize resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('downloadable/sample');
+        parent::_construct();
+    }
+
+    /**
+     * After save process
+     *
+     * @inheritDoc
+     */
+    protected function _afterSave()
+    {
+        $this->getResource()
+            ->saveItemTitle($this);
+        return parent::_afterSave();
     }
 }

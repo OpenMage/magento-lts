@@ -120,6 +120,17 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     }
 
     /**
+     * For unit testing only
+     *
+     * @param $id
+     */
+    public function ___expire($id)
+    {
+        $metadata = $this->_getMetadatas($id);
+        $this->touch($id, 1 - $metadata['expire']);
+    }
+
+    /**
      * Trying to load cached value by id, in case of failure will return false, in other case will return cached string
      *
      * @param  string  $id                     Cache id
@@ -779,16 +790,5 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
             }
         }
         return true;
-    }
-
-    /**
-     * For unit testing only
-     *
-     * @param $id
-     */
-    public function ___expire($id)
-    {
-        $metadata = $this->_getMetadatas($id);
-        $this->touch($id, 1 - $metadata['expire']);
     }
 }

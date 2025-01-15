@@ -324,6 +324,28 @@ class Mage_Index_Model_Indexer
     }
 
     /**
+     * Allow DDL operations while indexing
+     *
+     * @return $this
+     */
+    public function allowTableChanges()
+    {
+        $this->_allowTableChanges = true;
+        return $this;
+    }
+
+    /**
+     * Disallow DDL operations while indexing
+     *
+     * @return $this
+     */
+    public function disallowTableChanges()
+    {
+        $this->_allowTableChanges = false;
+        return $this;
+    }
+
+    /**
      * Run all processes method with parameters
      * Run by depends priority
      * Not recursive call is not implement
@@ -428,28 +450,6 @@ class Mage_Index_Model_Indexer
             return true;
         }
         return false;
-    }
-
-    /**
-     * Allow DDL operations while indexing
-     *
-     * @return $this
-     */
-    public function allowTableChanges()
-    {
-        $this->_allowTableChanges = true;
-        return $this;
-    }
-
-    /**
-     * Disallow DDL operations while indexing
-     *
-     * @return $this
-     */
-    public function disallowTableChanges()
-    {
-        $this->_allowTableChanges = false;
-        return $this;
     }
 
     /**

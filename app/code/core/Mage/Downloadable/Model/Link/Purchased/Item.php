@@ -66,12 +66,6 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
     public const LINK_STATUS_PENDING_PAYMENT = 'pending_payment';
     public const LINK_STATUS_PAYMENT_REVIEW = 'payment_review';
 
-    protected function _construct()
-    {
-        $this->_init('downloadable/link_purchased_item');
-        parent::_construct();
-    }
-
     /**
      * Check order item id
      *
@@ -85,5 +79,11 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
             );
         }
         return parent::_beforeSave();
+    }
+
+    protected function _construct()
+    {
+        $this->_init('downloadable/link_purchased_item');
+        parent::_construct();
     }
 }

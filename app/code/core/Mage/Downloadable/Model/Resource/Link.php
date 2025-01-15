@@ -22,11 +22,6 @@
  */
 class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('downloadable/link', 'link_id');
-    }
-
     /**
      * Save title and price of link item
      *
@@ -204,5 +199,9 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
         ];
 
         return $adapter->fetchCol($select, $bind);
+    }
+    protected function _construct()
+    {
+        $this->_init('downloadable/link', 'link_id');
     }
 }

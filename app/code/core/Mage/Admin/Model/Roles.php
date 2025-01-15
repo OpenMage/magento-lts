@@ -46,11 +46,6 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'admin_roles';
 
-    protected function _construct()
-    {
-        $this->_init('admin/roles');
-    }
-
     /**
      * Update object into database
      *
@@ -110,6 +105,11 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     public function getRoleUsers()
     {
         return $this->getResource()->getRoleUsers($this);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('admin/roles');
     }
 
     /**

@@ -28,25 +28,6 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking extends Mage_Admi
     }
 
     /**
-     * Prepares layout of block
-     *
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'   => Mage::helper('sales')->__('Add Tracking Number'),
-                    'class'   => '',
-                    'onclick' => 'trackingControl.add()',
-                ]),
-        );
-        return $this;
-    }
-
-    /**
      * Retrieve shipment model instance
      *
      * @return Mage_Sales_Model_Order_Shipment
@@ -84,5 +65,24 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking extends Mage_Admi
             }
         }
         return $carriers;
+    }
+
+    /**
+     * Prepares layout of block
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'add_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'   => Mage::helper('sales')->__('Add Tracking Number'),
+                    'class'   => '',
+                    'onclick' => 'trackingControl.add()',
+                ]),
+        );
+        return $this;
     }
 }

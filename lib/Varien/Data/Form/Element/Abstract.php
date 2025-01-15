@@ -197,15 +197,6 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     }
 
     /**
-     * @param string $string
-     * @return string
-     */
-    protected function _escape($string)
-    {
-        return htmlspecialchars((string) $string, ENT_COMPAT);
-    }
-
-    /**
      * @param string|null $index
      * @return string
      */
@@ -381,5 +372,14 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         $this->setValues($values);
 
         return $this;
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    protected function _escape($string)
+    {
+        return htmlspecialchars((string) $string, ENT_COMPAT);
     }
 }

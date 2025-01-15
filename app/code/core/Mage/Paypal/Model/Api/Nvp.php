@@ -901,19 +901,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     }
 
     /**
-     * Add method to request array
-     *
-     * @param string $methodName
-     * @param array $request
-     * @return array
-     */
-    protected function _addMethodToRequest($methodName, $request)
-    {
-        $request['METHOD'] = $methodName;
-        return $request;
-    }
-
-    /**
      * Do the API call
      *
      * @param string $methodName
@@ -1009,6 +996,19 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         $this->_rawResponseNeeded = $flag;
         return $this;
+    }
+
+    /**
+     * Add method to request array
+     *
+     * @param string $methodName
+     * @param array $request
+     * @return array
+     */
+    protected function _addMethodToRequest($methodName, $request)
+    {
+        $request['METHOD'] = $methodName;
+        return $request;
     }
 
     /**

@@ -128,12 +128,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected $_orderWebsiteId = null;
 
-    protected function _construct()
-    {
-        $this->_init('sales/order_payment_transaction');
-        parent::_construct();
-    }
-
     /**
      * Payment instance setter
      * @return $this
@@ -388,21 +382,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     }
 
     /**
-     * Check object before loading by by specified transaction ID
-     * @param int $txnId
-     * @return $this
-     */
-    protected function _beforeLoadByTxnId($txnId)
-    {
-        $this->_verifyPaymentObject();
-        Mage::dispatchEvent(
-            $this->_eventPrefix . '_load_by_txn_id_before',
-            $this->_getEventData() + ['txn_id' => $txnId],
-        );
-        return $this;
-    }
-
-    /**
      * Load self by specified transaction ID. Requires the valid payment object to be set
      * @param string $txnId
      * @return $this
@@ -417,16 +396,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             $txnId,
         );
         $this->_afterLoadByTxnId();
-        return $this;
-    }
-
-    /**
-     * Check object after loading by by specified transaction ID
-     * @return $this
-     */
-    protected function _afterLoadByTxnId()
-    {
-        Mage::dispatchEvent($this->_eventPrefix . '_load_by_txn_id_after', $this->_getEventData());
         return $this;
     }
 
@@ -613,6 +582,86 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     }
 
     /**
+     * Check whether this transaction is voided
+     * @return bool
+     */
+    public function isVoided()
+    {
+        return $this->_isVoided();
+    }
+
+    /**
+     * Retrieve transaction types
+     *
+     * @return array
+     */
+    public function getTransactionTypes()
+    {
+        return [
+            self::TYPE_ORDER   => Mage::helper('sales')->__('Order'),
+            self::TYPE_AUTH    => Mage::helper('sales')->__('Authorization'),
+            self::TYPE_CAPTURE => Mage::helper('sales')->__('Capture'),
+            self::TYPE_VOID    => Mage::helper('sales')->__('Void'),
+            self::TYPE_REFUND  => Mage::helper('sales')->__('Refund'),
+        ];
+    }
+
+    /**
+     * Retrieve order website id
+     *
+     * @return int
+     */
+    public function getOrderWebsiteId()
+    {
+        if (is_null($this->_orderWebsiteId)) {
+            $this->_orderWebsiteId = (int) $this->getResource()->getOrderWebsiteId($this->getOrderId());
+        }
+        return $this->_orderWebsiteId;
+    }
+
+    /**
+     * Get HTML format for transaction id
+     *
+     * @return string
+     */
+    public function getHtmlTxnId()
+    {
+        Mage::dispatchEvent('sales_html_txn_id', ['transaction' => $this, 'payment' => $this->_paymentObject]);
+        return $this->_data['html_txn_id'] ?? $this->getTxnId();
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order_payment_transaction');
+        parent::_construct();
+    }
+
+    /**
+     * Check object before loading by by specified transaction ID
+     * @param int $txnId
+     * @return $this
+     */
+    protected function _beforeLoadByTxnId($txnId)
+    {
+        $this->_verifyPaymentObject();
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_load_by_txn_id_before',
+            $this->_getEventData() + ['txn_id' => $txnId],
+        );
+        return $this;
+    }
+
+    /**
+     * Check object after loading by by specified transaction ID
+     * @return $this
+     */
+    protected function _afterLoadByTxnId()
+    {
+        Mage::dispatchEvent($this->_eventPrefix . '_load_by_txn_id_after', $this->_getEventData());
+        return $this;
+    }
+
+    /**
      * Verify data required for saving
      * @inheritDoc
      * @throws Mage_Core_Exception
@@ -700,44 +749,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     }
 
     /**
-     * Check whether this transaction is voided
-     * @return bool
-     */
-    public function isVoided()
-    {
-        return $this->_isVoided();
-    }
-
-    /**
-     * Retrieve transaction types
-     *
-     * @return array
-     */
-    public function getTransactionTypes()
-    {
-        return [
-            self::TYPE_ORDER   => Mage::helper('sales')->__('Order'),
-            self::TYPE_AUTH    => Mage::helper('sales')->__('Authorization'),
-            self::TYPE_CAPTURE => Mage::helper('sales')->__('Capture'),
-            self::TYPE_VOID    => Mage::helper('sales')->__('Void'),
-            self::TYPE_REFUND  => Mage::helper('sales')->__('Refund'),
-        ];
-    }
-
-    /**
-     * Retrieve order website id
-     *
-     * @return int
-     */
-    public function getOrderWebsiteId()
-    {
-        if (is_null($this->_orderWebsiteId)) {
-            $this->_orderWebsiteId = (int) $this->getResource()->getOrderWebsiteId($this->getOrderId());
-        }
-        return $this->_orderWebsiteId;
-    }
-
-    /**
      * Check whether specified or set transaction type is supported
      * @param string $txnType
      * @throws Mage_Core_Exception
@@ -800,16 +811,5 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             Mage::throwException(Mage::helper('sales')->__('This operation requires an existing transaction object.'));
         }
         $this->_verifyTxnType();
-    }
-
-    /**
-     * Get HTML format for transaction id
-     *
-     * @return string
-     */
-    public function getHtmlTxnId()
-    {
-        Mage::dispatchEvent('sales_html_txn_id', ['transaction' => $this, 'payment' => $this->_paymentObject]);
-        return $this->_data['html_txn_id'] ?? $this->getTxnId();
     }
 }

@@ -26,14 +26,6 @@
 class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Internal constructor
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/order_status');
-    }
-
-    /**
      * Get collection data as options array
      *
      * @return array
@@ -106,5 +98,12 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
     {
         $this->getSelect()->order('main_table.label ' . $dir);
         return $this;
+    }
+    /**
+     * Internal constructor
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/order_status');
     }
 }

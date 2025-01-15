@@ -22,11 +22,6 @@
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('eav/attribute_option', 'option_id');
-    }
-
     /**
      * Add Join with option value for collection select
      *
@@ -130,5 +125,9 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option extends Mage_Core_Model_Re
         }
 
         return $select;
+    }
+    protected function _construct()
+    {
+        $this->_init('eav/attribute_option', 'option_id');
     }
 }

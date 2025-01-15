@@ -116,18 +116,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     }
 
     /**
-     * Return model instance
-     *
-     * @param string $className
-     * @param array $arguments
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _getSingletonModel($className, $arguments = [])
-    {
-        return Mage::getSingleton($className, $arguments);
-    }
-
-    /**
      * Retrieves url for form submitting:
      * some objects can use setSubmitRouteData() to set route and params for form submitting,
      * otherwise default url will be used
@@ -172,42 +160,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     public function getMinimalQty($product)
     {
         return $this->getProductHelper()->getMinimalQty($product);
-    }
-
-    /**
-     * Return price block
-     *
-     * @param string $productTypeId
-     * @return mixed
-     */
-    protected function _getPriceBlock($productTypeId)
-    {
-        if (!isset($this->_priceBlock[$productTypeId])) {
-            $block = $this->_block;
-            if (isset($this->_priceBlockTypes[$productTypeId])) {
-                if ($this->_priceBlockTypes[$productTypeId]['block'] != '') {
-                    $block = $this->_priceBlockTypes[$productTypeId]['block'];
-                }
-            }
-            $this->_priceBlock[$productTypeId] = $this->getLayout()->createBlock($block);
-        }
-        return $this->_priceBlock[$productTypeId];
-    }
-
-    /**
-     * Return Block template
-     *
-     * @param string $productTypeId
-     * @return string
-     */
-    protected function _getPriceBlockTemplate($productTypeId)
-    {
-        if (isset($this->_priceBlockTypes[$productTypeId])) {
-            if ($this->_priceBlockTypes[$productTypeId]['template'] != '') {
-                return $this->_priceBlockTypes[$productTypeId]['template'];
-            }
-        }
-        return $this->_priceBlockDefaultTemplate;
     }
 
     /**
@@ -306,26 +258,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     }
 
     /**
-     * Create reviews summary helper block once
-     *
-     * @return bool
-     */
-    protected function _initReviewsHelperBlock()
-    {
-        if (!$this->_reviewsHelperBlock) {
-            if (!$this->isModuleEnabled('Mage_Review', 'catalog')) {
-                return false;
-            }
-
-            /** @var Mage_Review_Block_Helper $block */
-            $block = $this->getLayout()->createBlock('review/helper');
-            $this->_reviewsHelperBlock = $block;
-        }
-
-        return true;
-    }
-
-    /**
      * Retrieve currently viewed product object
      *
      * @return Mage_Catalog_Model_Product
@@ -370,19 +302,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             ->setInGrouped($product->isGrouped())
             ->setParent($parent)
             ->callParentToHtml();
-    }
-
-    /**
-     * Calls the object's to Html method.
-     * This method exists to make the code more testable.
-     * By having a protected wrapper for the final method toHtml, we can 'mock' out this method
-     * when unit testing
-     *
-     * @return string
-     */
-    protected function callParentToHtml()
-    {
-        return $this->toHtml();
     }
 
     /**
@@ -447,22 +366,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         }
 
         return $res;
-    }
-
-    /**
-     * Add all attributes and apply pricing logic to products collection
-     * to get correct values in different products lists.
-     * E.g. crosssells, upsells, new products, recently viewed
-     *
-     * @return Mage_Catalog_Model_Resource_Product_Collection
-     */
-    protected function _addProductAttributesAndPrices(Mage_Catalog_Model_Resource_Product_Collection $collection)
-    {
-        return $collection
-            ->addPriceData()
-            ->addTaxPercents()
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addUrlRewrite();
     }
 
     /**
@@ -653,26 +556,6 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     }
 
     /**
-     * If exists price template block, retrieve price blocks from it
-     *
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-
-        /** @var Mage_Catalog_Block_Product_Price_Template $block */
-        $block = $this->getLayout()->getBlock('catalog_product_price_template');
-        if ($block) {
-            foreach ($block->getPriceBlockTypes() as $type => $priceBlock) {
-                $this->addPriceBlockType($type, $priceBlock['block'], $priceBlock['template']);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Retrieve url for add product to cart with or without Form Key
      * Will return product view page URL if product has required options
      *
@@ -732,5 +615,122 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             $submitUrl = $this->getAddToCartUrlCustom($product, $additional, false);
         }
         return $submitUrl;
+    }
+
+    /**
+     * Return model instance
+     *
+     * @param string $className
+     * @param array $arguments
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _getSingletonModel($className, $arguments = [])
+    {
+        return Mage::getSingleton($className, $arguments);
+    }
+
+    /**
+     * Return price block
+     *
+     * @param string $productTypeId
+     * @return mixed
+     */
+    protected function _getPriceBlock($productTypeId)
+    {
+        if (!isset($this->_priceBlock[$productTypeId])) {
+            $block = $this->_block;
+            if (isset($this->_priceBlockTypes[$productTypeId])) {
+                if ($this->_priceBlockTypes[$productTypeId]['block'] != '') {
+                    $block = $this->_priceBlockTypes[$productTypeId]['block'];
+                }
+            }
+            $this->_priceBlock[$productTypeId] = $this->getLayout()->createBlock($block);
+        }
+        return $this->_priceBlock[$productTypeId];
+    }
+
+    /**
+     * Return Block template
+     *
+     * @param string $productTypeId
+     * @return string
+     */
+    protected function _getPriceBlockTemplate($productTypeId)
+    {
+        if (isset($this->_priceBlockTypes[$productTypeId])) {
+            if ($this->_priceBlockTypes[$productTypeId]['template'] != '') {
+                return $this->_priceBlockTypes[$productTypeId]['template'];
+            }
+        }
+        return $this->_priceBlockDefaultTemplate;
+    }
+
+    /**
+     * Create reviews summary helper block once
+     *
+     * @return bool
+     */
+    protected function _initReviewsHelperBlock()
+    {
+        if (!$this->_reviewsHelperBlock) {
+            if (!$this->isModuleEnabled('Mage_Review', 'catalog')) {
+                return false;
+            }
+
+            /** @var Mage_Review_Block_Helper $block */
+            $block = $this->getLayout()->createBlock('review/helper');
+            $this->_reviewsHelperBlock = $block;
+        }
+
+        return true;
+    }
+
+    /**
+     * Calls the object's to Html method.
+     * This method exists to make the code more testable.
+     * By having a protected wrapper for the final method toHtml, we can 'mock' out this method
+     * when unit testing
+     *
+     * @return string
+     */
+    protected function callParentToHtml()
+    {
+        return $this->toHtml();
+    }
+
+    /**
+     * Add all attributes and apply pricing logic to products collection
+     * to get correct values in different products lists.
+     * E.g. crosssells, upsells, new products, recently viewed
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
+    protected function _addProductAttributesAndPrices(Mage_Catalog_Model_Resource_Product_Collection $collection)
+    {
+        return $collection
+            ->addPriceData()
+            ->addTaxPercents()
+            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            ->addUrlRewrite();
+    }
+
+    /**
+     * If exists price template block, retrieve price blocks from it
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+
+        /** @var Mage_Catalog_Block_Product_Price_Template $block */
+        $block = $this->getLayout()->getBlock('catalog_product_price_template');
+        if ($block) {
+            foreach ($block->getPriceBlockTypes() as $type => $priceBlock) {
+                $this->addPriceBlockType($type, $priceBlock['block'], $priceBlock['template']);
+            }
+        }
+
+        return $this;
     }
 }

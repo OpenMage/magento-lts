@@ -23,27 +23,6 @@
 class Mage_Sales_Block_Order_Print_Invoice extends Mage_Sales_Block_Items_Abstract
 {
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        /** @var Mage_Page_Block_Html_Head $headBlock */
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
-        }
-
-        /** @var Mage_Payment_Helper_Data $helper */
-        $helper = $this->helper('payment');
-        $this->setChild(
-            'payment_info',
-            $helper->getInfoBlock($this->getOrder()->getPayment()),
-        );
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * @return string
      */
     public function getBackUrl()
@@ -84,15 +63,6 @@ class Mage_Sales_Block_Order_Print_Invoice extends Mage_Sales_Block_Items_Abstra
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract
-     */
-    protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
-    {
-        $renderer->setPrintStatus(true);
-        return parent::_prepareItem($renderer);
-    }
-
-    /**
      * Get html of invoice totlas block
      *
      * @param   Mage_Sales_Model_Order_Invoice $invoice
@@ -107,5 +77,34 @@ class Mage_Sales_Block_Order_Print_Invoice extends Mage_Sales_Block_Items_Abstra
             $html = $totals->toHtml();
         }
         return $html;
+    }
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
+        }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
+        $this->setChild(
+            'payment_info',
+            $helper->getInfoBlock($this->getOrder()->getPayment()),
+        );
+
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @return Mage_Sales_Block_Items_Abstract
+     */
+    protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
+    {
+        $renderer->setPrintStatus(true);
+        return parent::_prepareItem($renderer);
     }
 }

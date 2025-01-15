@@ -27,18 +27,39 @@
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search extends Mage_Adminhtml_Block_Widget
 {
-    protected function _construct()
-    {
-        $this->setId('bundle_option_selection_search');
-        $this->setTemplate('bundle/product/edit/bundle/option/search.phtml');
-    }
-
     /**
      * @return string
      */
     public function getHeaderText()
     {
         return Mage::helper('bundle')->__('Please Select Products to Add');
+    }
+
+    /**
+     * @return string
+     */
+    public function getButtonsHtml()
+    {
+        $addButtonData = [
+            'id'    => 'add_button_' . $this->getIndex(),
+            'label' => Mage::helper('sales')->__('Add Selected Product(s) to Option'),
+            'onclick' => 'bSelection.productGridAddSelected(event)',
+            'class' => 'add',
+        ];
+        return $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeaderCssClass()
+    {
+        return 'head-catalog-product';
+    }
+    protected function _construct()
+    {
+        $this->setId('bundle_option_selection_search');
+        $this->setTemplate('bundle/product/edit/bundle/option/search.phtml');
     }
 
     /**
@@ -65,27 +86,5 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search 
             ->setFirstShow($this->getFirstShow());
 
         return parent::_beforeToHtml();
-    }
-
-    /**
-     * @return string
-     */
-    public function getButtonsHtml()
-    {
-        $addButtonData = [
-            'id'    => 'add_button_' . $this->getIndex(),
-            'label' => Mage::helper('sales')->__('Add Selected Product(s) to Option'),
-            'onclick' => 'bSelection.productGridAddSelected(event)',
-            'class' => 'add',
-        ];
-        return $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
-    }
-
-    /**
-     * @return string
-     */
-    public function getHeaderCssClass()
-    {
-        return 'head-catalog-product';
     }
 }

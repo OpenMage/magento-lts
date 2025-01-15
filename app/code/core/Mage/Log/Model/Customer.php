@@ -36,16 +36,6 @@
 class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
 {
     /**
-     * Define resource model
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('log/customer');
-    }
-
-    /**
      * Load last log by customer id
      *
      * @param Mage_Log_Model_Customer|int $customer
@@ -73,5 +63,14 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
         }
 
         return null;
+    }
+    /**
+     * Define resource model
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('log/customer');
     }
 }

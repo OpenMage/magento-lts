@@ -24,11 +24,6 @@ class Mage_Adminhtml_Block_Widget_Form_Renderer_Element extends Mage_Adminhtml_B
 {
     protected $_element;
 
-    protected function _construct()
-    {
-        $this->setTemplate('widget/form/renderer/element.phtml');
-    }
-
     public function getElement()
     {
         return $this->_element;
@@ -38,5 +33,10 @@ class Mage_Adminhtml_Block_Widget_Form_Renderer_Element extends Mage_Adminhtml_B
     {
         $this->_element = $element;
         return $this->toHtml();
+    }
+
+    protected function _construct()
+    {
+        $this->setTemplate('widget/form/renderer/element.phtml');
     }
 }

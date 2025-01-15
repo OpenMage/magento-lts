@@ -232,32 +232,6 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Mage_Core_Block_Abstract|Mage_Core_Block_Html_Select
-     */
-    protected function _getSelectBlock()
-    {
-        $block = $this->getData('_select_block');
-        if (is_null($block)) {
-            $block = $this->getLayout()->createBlock('core/html_select');
-            $this->setData('_select_block', $block);
-        }
-        return $block;
-    }
-
-    /**
-     * @return Mage_Core_Block_Abstract|Mage_Core_Block_Html_Date
-     */
-    protected function _getDateBlock()
-    {
-        $block = $this->getData('_date_block');
-        if (is_null($block)) {
-            $block = $this->getLayout()->createBlock('core/html_date');
-            $this->setData('_date_block', $block);
-        }
-        return $block;
-    }
-
-    /**
      * Retrieve advanced search model object
      *
      * @return Mage_CatalogSearch_Model_Advanced
@@ -298,5 +272,31 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
             ->setFormat('%m/%d/%y')
             ->setClass('input-text')
             ->getHtml();
+    }
+
+    /**
+     * @return Mage_Core_Block_Abstract|Mage_Core_Block_Html_Select
+     */
+    protected function _getSelectBlock()
+    {
+        $block = $this->getData('_select_block');
+        if (is_null($block)) {
+            $block = $this->getLayout()->createBlock('core/html_select');
+            $this->setData('_select_block', $block);
+        }
+        return $block;
+    }
+
+    /**
+     * @return Mage_Core_Block_Abstract|Mage_Core_Block_Html_Date
+     */
+    protected function _getDateBlock()
+    {
+        $block = $this->getData('_date_block');
+        if (is_null($block)) {
+            $block = $this->getLayout()->createBlock('core/html_date');
+            $this->setData('_date_block', $block);
+        }
+        return $block;
     }
 }

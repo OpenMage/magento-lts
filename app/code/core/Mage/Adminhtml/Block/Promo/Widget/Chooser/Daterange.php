@@ -45,42 +45,6 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     protected $_rangeDelimiter  = '...';
 
     /**
-     * Render the chooser HTML
-     * Target element should be set.
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        if (empty($this->_targetElementId)) {
-            return '';
-        }
-
-        $idSuffix = Mage::helper('core')->uniqHash();
-        $form = new Varien_Data_Form();
-        foreach ([
-            'from' => Mage::helper('adminhtml')->__('From'),
-            'to'   => Mage::helper('adminhtml')->__('To')] as $key => $label
-        ) {
-            $id = "{$key}_{$idSuffix}";
-            $element = new Varien_Data_Form_Element_Date([
-                'format'   => Varien_Date::DATE_INTERNAL_FORMAT, // hardcode because hardcoded values delimiter
-                'label'    => $label,
-                'image'    => $this->getSkinUrl('images/grid-cal.gif'),
-                'onchange' => "dateTimeChoose_{$idSuffix}()", // won't work through Event.observe()
-                'value'    => $this->_rangeValues[$key],
-            ]);
-            $element->setId($id);
-            $form->addElement($element);
-        }
-        return $form->toHtml() . "<script type=\"text/javascript\">
-            dateTimeChoose_{$idSuffix} = function() {
-                $('{$this->_targetElementId}').value = $('from_{$idSuffix}').value + '{$this->_rangeDelimiter}' + $('to_{$idSuffix}').value;
-            };
-            </script>";
-    }
-
-    /**
      * Target element ID setter
      *
      * @param string $value
@@ -130,5 +94,41 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     {
         $this->_rangeDelimiter = (string) $value;
         return $this;
+    }
+
+    /**
+     * Render the chooser HTML
+     * Target element should be set.
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if (empty($this->_targetElementId)) {
+            return '';
+        }
+
+        $idSuffix = Mage::helper('core')->uniqHash();
+        $form = new Varien_Data_Form();
+        foreach ([
+            'from' => Mage::helper('adminhtml')->__('From'),
+            'to'   => Mage::helper('adminhtml')->__('To')] as $key => $label
+        ) {
+            $id = "{$key}_{$idSuffix}";
+            $element = new Varien_Data_Form_Element_Date([
+                'format'   => Varien_Date::DATE_INTERNAL_FORMAT, // hardcode because hardcoded values delimiter
+                'label'    => $label,
+                'image'    => $this->getSkinUrl('images/grid-cal.gif'),
+                'onchange' => "dateTimeChoose_{$idSuffix}()", // won't work through Event.observe()
+                'value'    => $this->_rangeValues[$key],
+            ]);
+            $element->setId($id);
+            $form->addElement($element);
+        }
+        return $form->toHtml() . "<script type=\"text/javascript\">
+            dateTimeChoose_{$idSuffix} = function() {
+                $('{$this->_targetElementId}').value = $('from_{$idSuffix}').value + '{$this->_rangeDelimiter}' + $('to_{$idSuffix}').value;
+            };
+            </script>";
     }
 }

@@ -55,6 +55,20 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
+     * @return array
+     */
+    public function __toArray(array $arrAttributes = [])
+    {
+        $res = [];
+        $res['config']  = $this->getData();
+        $res['formElements'] = [];
+        foreach ($this->getElements() as $element) {
+            $res['formElements'][] = $element->toArray();
+        }
+        return $res;
+    }
+
+    /**
      * @param string $type
      * @param string $className
      * @return $this
@@ -180,19 +194,5 @@ class Varien_Data_Form_Abstract extends Varien_Object
             ->setId($elementId);
         $this->addElement($element);
         return $element;
-    }
-
-    /**
-     * @return array
-     */
-    public function __toArray(array $arrAttributes = [])
-    {
-        $res = [];
-        $res['config']  = $this->getData();
-        $res['formElements'] = [];
-        foreach ($this->getElements() as $element) {
-            $res['formElements'][] = $element->toArray();
-        }
-        return $res;
     }
 }

@@ -23,15 +23,6 @@
 class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize resource connection and define table resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('tag/relation', 'tag_relation_id');
-    }
-
-    /**
      * Load by Tag and Customer
      *
      * @param Mage_Tag_Model_Tag_Relation $model
@@ -190,5 +181,13 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
         }
 
         return $this;
+    }
+    /**
+     * Initialize resource connection and define table resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('tag/relation', 'tag_relation_id');
     }
 }

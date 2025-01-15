@@ -342,25 +342,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected ?string $locale = null;
 
     /**
-     * Initialize resources
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product');
-    }
-
-    /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return Varien_Object
-     */
-    protected function _initOldFieldsMap()
-    {
-        return $this;
-    }
-
-    /**
      * Retrieve Store Id
      *
      * @return int
@@ -718,71 +699,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Check product options and type options and save them, too
-     *
-     * @throws Mage_Core_Exception
-     */
-    protected function _beforeSave()
-    {
-        $this->cleanCache();
-        $this->setTypeHasOptions(false);
-        $this->setTypeHasRequiredOptions(false);
-
-        $this->getTypeInstance(true)->beforeSave($this);
-
-        $hasOptions         = false;
-        $hasRequiredOptions = false;
-
-        /**
-         * $this->_canAffectOptions - set by type instance only
-         * $this->getCanSaveCustomOptions() - set either in controller when "Custom Options" ajax tab is loaded,
-         * or in type instance as well
-         */
-        $this->canAffectOptions($this->_canAffectOptions && $this->getCanSaveCustomOptions());
-        if ($this->getCanSaveCustomOptions()) {
-            $options = $this->getProductOptions();
-            if (is_array($options)) {
-                $this->setIsCustomOptionChanged(true);
-                foreach ($this->getProductOptions() as $option) {
-                    $this->getOptionInstance()->addOption($option);
-                    if ((!isset($option['is_delete'])) || $option['is_delete'] != '1') {
-                        if (!empty($option['file_extension'])) {
-                            $fileExtension = $option['file_extension'];
-                            if (strcmp($fileExtension, Mage::helper('core')->removeTags($fileExtension)) !== 0) {
-                                Mage::throwException(Mage::helper('catalog')->__('Invalid custom option(s).'));
-                            }
-                        }
-                        $hasOptions = true;
-                    }
-                }
-                foreach ($this->getOptionInstance()->getOptions() as $option) {
-                    if ($option['is_require'] == '1') {
-                        $hasRequiredOptions = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        /**
-         * Set true, if any
-         * Set false, ONLY if options have been affected by Options tab and Type instance tab
-         */
-        if ($hasOptions || (bool) $this->getTypeHasOptions()) {
-            $this->setHasOptions(true);
-            if ($hasRequiredOptions || (bool) $this->getTypeHasRequiredOptions()) {
-                $this->setRequiredOptions(true);
-            } elseif ($this->canAffectOptions()) {
-                $this->setRequiredOptions(false);
-            }
-        } elseif ($this->canAffectOptions()) {
-            $this->setHasOptions(false);
-            $this->setRequiredOptions(false);
-        }
-        return parent::_beforeSave();
-    }
-
-    /**
      * Check/set if options can be affected when saving product
      * If value specified, it will be set.
      *
@@ -795,73 +711,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->_canAffectOptions = (bool) $value;
         }
         return $this->_canAffectOptions;
-    }
-
-    /**
-     * Saving product type related data and init index
-     *
-     * @inheritDoc
-     */
-    protected function _afterSave()
-    {
-        $this->getLinkInstance()->saveProductRelations($this);
-        $this->getTypeInstance(true)->save($this);
-
-        /**
-         * Product Options
-         */
-        $this->getOptionInstance()->setProduct($this)
-            ->saveOptions();
-
-        return parent::_afterSave();
-    }
-
-    /**
-     * Clear cache related with product and protect delete from not admin
-     * Register indexing event before delete product
-     *
-     * @inheritDoc
-     */
-    protected function _beforeDelete()
-    {
-        $this->_protectFromNonAdmin();
-        $this->cleanCache();
-
-        return parent::_beforeDelete();
-    }
-
-    /**
-     * Init indexing process after product delete commit
-     */
-    protected function _afterDeleteCommit()
-    {
-        parent::_afterDeleteCommit();
-
-        /** @var \Mage_Index_Model_Indexer $indexer */
-        $indexer = Mage::getSingleton('index/indexer');
-
-        $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
-        return $this;
-    }
-
-    /**
-     * Load product options if they exists
-     *
-     * @return $this
-     */
-    protected function _afterLoad()
-    {
-        parent::_afterLoad();
-        /**
-         * Load product options
-         */
-        if ($this->getHasOptions()) {
-            foreach ($this->getProductOptionsCollection() as $option) {
-                $option->setProduct($this);
-                $this->addOption($option);
-            }
-        }
-        return $this;
     }
 
     /**
@@ -2025,16 +1874,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Return Catalog Product Image helper instance
-     *
-     * @return Mage_Catalog_Helper_Image
-     */
-    protected function _getImageHelper()
-    {
-        return Mage::helper('catalog/image');
-    }
-
-    /**
      * Return re-sized image URL
      *
      * @deprecated since 1.1.5
@@ -2248,73 +2087,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Clearing references on product
-     *
-     * @return $this
-     */
-    protected function _clearReferences()
-    {
-        $this->_clearOptionReferences();
-        return $this;
-    }
-
-    /**
-     * Clearing product's data
-     *
-     * @return $this
-     */
-    protected function _clearData()
-    {
-        foreach ($this->_data as $data) {
-            if (is_object($data) && method_exists($data, 'reset')) {
-                $data->reset();
-            }
-        }
-
-        $this->setData([]);
-        $this->setOrigData();
-        $this->_customOptions         = [];
-        $this->_optionInstance        = null;
-        $this->_options               = [];
-        $this->_canAffectOptions      = false;
-        $this->_errors                = [];
-        $this->_defaultValues         = [];
-        $this->_storeValuesFlags      = [];
-        $this->_lockedAttributes      = [];
-        $this->_typeInstance          = null;
-        $this->_typeInstanceSingleton = null;
-        $this->_linkInstance          = null;
-        $this->_reservedAttributes    = null;
-        $this->_isDuplicable          = true;
-        $this->_calculatePrice        = true;
-        $this->_stockItem             = null;
-        $this->_isDeleteable          = true;
-        $this->_isReadonly            = false;
-
-        return $this;
-    }
-
-    /**
-     * Clearing references to product from product's options
-     *
-     * @return $this
-     */
-    protected function _clearOptionReferences()
-    {
-        /**
-         * unload product options
-         */
-        if (!empty($this->_options)) {
-            foreach ($this->_options as $key => $option) {
-                $option->setProduct();
-                $option->clearInstance();
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Retrieve product entities info as array
      *
      * @param string|array $columns One or several columns
@@ -2379,5 +2151,233 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 ->load($this->getId());
         }
         return $this->_reviewSummary[$storeId];
+    }
+
+    /**
+     * Initialize resources
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product');
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return Varien_Object
+     */
+    protected function _initOldFieldsMap()
+    {
+        return $this;
+    }
+
+    /**
+     * Check product options and type options and save them, too
+     *
+     * @throws Mage_Core_Exception
+     */
+    protected function _beforeSave()
+    {
+        $this->cleanCache();
+        $this->setTypeHasOptions(false);
+        $this->setTypeHasRequiredOptions(false);
+
+        $this->getTypeInstance(true)->beforeSave($this);
+
+        $hasOptions         = false;
+        $hasRequiredOptions = false;
+
+        /**
+         * $this->_canAffectOptions - set by type instance only
+         * $this->getCanSaveCustomOptions() - set either in controller when "Custom Options" ajax tab is loaded,
+         * or in type instance as well
+         */
+        $this->canAffectOptions($this->_canAffectOptions && $this->getCanSaveCustomOptions());
+        if ($this->getCanSaveCustomOptions()) {
+            $options = $this->getProductOptions();
+            if (is_array($options)) {
+                $this->setIsCustomOptionChanged(true);
+                foreach ($this->getProductOptions() as $option) {
+                    $this->getOptionInstance()->addOption($option);
+                    if ((!isset($option['is_delete'])) || $option['is_delete'] != '1') {
+                        if (!empty($option['file_extension'])) {
+                            $fileExtension = $option['file_extension'];
+                            if (strcmp($fileExtension, Mage::helper('core')->removeTags($fileExtension)) !== 0) {
+                                Mage::throwException(Mage::helper('catalog')->__('Invalid custom option(s).'));
+                            }
+                        }
+                        $hasOptions = true;
+                    }
+                }
+                foreach ($this->getOptionInstance()->getOptions() as $option) {
+                    if ($option['is_require'] == '1') {
+                        $hasRequiredOptions = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        /**
+         * Set true, if any
+         * Set false, ONLY if options have been affected by Options tab and Type instance tab
+         */
+        if ($hasOptions || (bool) $this->getTypeHasOptions()) {
+            $this->setHasOptions(true);
+            if ($hasRequiredOptions || (bool) $this->getTypeHasRequiredOptions()) {
+                $this->setRequiredOptions(true);
+            } elseif ($this->canAffectOptions()) {
+                $this->setRequiredOptions(false);
+            }
+        } elseif ($this->canAffectOptions()) {
+            $this->setHasOptions(false);
+            $this->setRequiredOptions(false);
+        }
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Saving product type related data and init index
+     *
+     * @inheritDoc
+     */
+    protected function _afterSave()
+    {
+        $this->getLinkInstance()->saveProductRelations($this);
+        $this->getTypeInstance(true)->save($this);
+
+        /**
+         * Product Options
+         */
+        $this->getOptionInstance()->setProduct($this)
+            ->saveOptions();
+
+        return parent::_afterSave();
+    }
+
+    /**
+     * Clear cache related with product and protect delete from not admin
+     * Register indexing event before delete product
+     *
+     * @inheritDoc
+     */
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        $this->cleanCache();
+
+        return parent::_beforeDelete();
+    }
+
+    /**
+     * Init indexing process after product delete commit
+     */
+    protected function _afterDeleteCommit()
+    {
+        parent::_afterDeleteCommit();
+
+        /** @var \Mage_Index_Model_Indexer $indexer */
+        $indexer = Mage::getSingleton('index/indexer');
+
+        $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE);
+        return $this;
+    }
+
+    /**
+     * Load product options if they exists
+     *
+     * @return $this
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+        /**
+         * Load product options
+         */
+        if ($this->getHasOptions()) {
+            foreach ($this->getProductOptionsCollection() as $option) {
+                $option->setProduct($this);
+                $this->addOption($option);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Return Catalog Product Image helper instance
+     *
+     * @return Mage_Catalog_Helper_Image
+     */
+    protected function _getImageHelper()
+    {
+        return Mage::helper('catalog/image');
+    }
+
+    /**
+     * Clearing references on product
+     *
+     * @return $this
+     */
+    protected function _clearReferences()
+    {
+        $this->_clearOptionReferences();
+        return $this;
+    }
+
+    /**
+     * Clearing product's data
+     *
+     * @return $this
+     */
+    protected function _clearData()
+    {
+        foreach ($this->_data as $data) {
+            if (is_object($data) && method_exists($data, 'reset')) {
+                $data->reset();
+            }
+        }
+
+        $this->setData([]);
+        $this->setOrigData();
+        $this->_customOptions         = [];
+        $this->_optionInstance        = null;
+        $this->_options               = [];
+        $this->_canAffectOptions      = false;
+        $this->_errors                = [];
+        $this->_defaultValues         = [];
+        $this->_storeValuesFlags      = [];
+        $this->_lockedAttributes      = [];
+        $this->_typeInstance          = null;
+        $this->_typeInstanceSingleton = null;
+        $this->_linkInstance          = null;
+        $this->_reservedAttributes    = null;
+        $this->_isDuplicable          = true;
+        $this->_calculatePrice        = true;
+        $this->_stockItem             = null;
+        $this->_isDeleteable          = true;
+        $this->_isReadonly            = false;
+
+        return $this;
+    }
+
+    /**
+     * Clearing references to product from product's options
+     *
+     * @return $this
+     */
+    protected function _clearOptionReferences()
+    {
+        /**
+         * unload product options
+         */
+        if (!empty($this->_options)) {
+            foreach ($this->_options as $key => $option) {
+                $option->setProduct();
+                $option->clearInstance();
+            }
+        }
+
+        return $this;
     }
 }

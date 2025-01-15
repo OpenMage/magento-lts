@@ -33,17 +33,6 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Prepares block to render
-     *
-     * @return $this
-     */
-    protected function _beforeToHtml()
-    {
-        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid', 'grid'));
-        return parent::_beforeToHtml();
-    }
-
-    /**
      * Return queue collection with loaded neversent queues
      *
      * @return Mage_Newsletter_Model_Resource_Queue_Collection
@@ -73,5 +62,16 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber extends Mage_Adminhtml_Block_Te
     public function getQueueAsOptions()
     {
         return $this->getQueueCollection()->toOptionArray();
+    }
+
+    /**
+     * Prepares block to render
+     *
+     * @return $this
+     */
+    protected function _beforeToHtml()
+    {
+        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid', 'grid'));
+        return parent::_beforeToHtml();
     }
 }

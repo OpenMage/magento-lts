@@ -22,11 +22,6 @@
  */
 class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('admin/rule', 'rule_id');
-    }
-
     /**
      * Save ACL resources
      */
@@ -117,5 +112,9 @@ class Mage_Admin_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstra
 
         return $this->_getWriteAdapter()
             ->delete($this->getMainTable(), ['resource_id IN (?)' => $orphanedIds]);
+    }
+    protected function _construct()
+    {
+        $this->_init('admin/rule', 'rule_id');
     }
 }

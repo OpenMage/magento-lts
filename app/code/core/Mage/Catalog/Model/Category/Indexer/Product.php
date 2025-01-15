@@ -70,14 +70,6 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
     ];
 
     /**
-     * Initialize resource
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/category_indexer_product');
-    }
-
-    /**
      * Get Indexer name
      *
      * @return string
@@ -134,6 +126,14 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         $event->addNewData(self::EVENT_MATCH_RESULT_KEY, $result);
 
         return $result;
+    }
+
+    /**
+     * Initialize resource
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/category_indexer_product');
     }
 
     /**

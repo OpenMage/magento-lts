@@ -24,6 +24,7 @@
  */
 class Mage_Core_Controller_Varien_Front extends Varien_Object
 {
+    public const XML_STORE_ROUTERS_PATH = 'web/routers';
     protected $_defaults = [];
 
     /**
@@ -34,8 +35,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     protected $_routers = [];
 
     protected $_urlCache = [];
-
-    public const XML_STORE_ROUTERS_PATH = 'web/routers';
 
     /**
      * @param array|string $key
@@ -198,20 +197,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     }
 
     /**
-     * Returns request rewrite instance.
-     * Class name alias is declared in the configuration
-     *
-     * @return Mage_Core_Model_Url_Rewrite_Request
-     */
-    protected function _getRequestRewriteController()
-    {
-        $className = (string) Mage::getConfig()->getNode('global/request_rewrite/model');
-        return Mage::getSingleton('core/factory')->getModel($className, [
-            'routers' => $this->getRouters(),
-        ]);
-    }
-
-    /**
      * Returns router instance by route name
      *
      * @param string $routeName
@@ -292,6 +277,20 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
                 $request->rewritePathInfo($pathInfo);
             }
         }
+    }
+
+    /**
+     * Returns request rewrite instance.
+     * Class name alias is declared in the configuration
+     *
+     * @return Mage_Core_Model_Url_Rewrite_Request
+     */
+    protected function _getRequestRewriteController()
+    {
+        $className = (string) Mage::getConfig()->getNode('global/request_rewrite/model');
+        return Mage::getSingleton('core/factory')->getModel($className, [
+            'routers' => $this->getRouters(),
+        ]);
     }
 
     /**

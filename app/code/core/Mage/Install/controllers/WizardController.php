@@ -34,59 +34,6 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     }
 
     /**
-     * Retrieve installer object
-     *
-     * @return Mage_Install_Model_Installer
-     */
-    protected function _getInstaller()
-    {
-        return Mage::getSingleton('install/installer');
-    }
-
-    /**
-     * Retrieve wizard
-     *
-     * @return Mage_Install_Model_Wizard
-     */
-    protected function _getWizard()
-    {
-        return Mage::getSingleton('install/wizard');
-    }
-
-    /**
-     * Prepare layout
-     *
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        $this->loadLayout('install_wizard');
-        $step = $this->_getWizard()->getStepByRequest($this->getRequest());
-        if ($step) {
-            $step->setActive(true);
-        }
-
-        $leftBlock = $this->getLayout()->createBlock('install/state', 'install.state');
-        $this->getLayout()->getBlock('left')->append($leftBlock);
-        return $this;
-    }
-
-    /**
-     * Checking installation status
-     *
-     * @return bool
-     * @SuppressWarnings("PHPMD.ExitExpression")
-     */
-    protected function _checkIfInstalled()
-    {
-        if ($this->_getInstaller()->isApplicationInstalled()) {
-            $this->getResponse()->setRedirect(Mage::getBaseUrl())->sendResponse();
-            exit;
-        }
-        return true;
-    }
-
-    /**
      * Index action
      */
     public function indexAction()
@@ -365,5 +312,58 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     {
         $this->getResponse()->setHeader('Transfer-encoding', '', true);
         $this->getResponse()->setBody(Mage_Install_Model_Installer::INSTALLER_HOST_RESPONSE);
+    }
+
+    /**
+     * Retrieve installer object
+     *
+     * @return Mage_Install_Model_Installer
+     */
+    protected function _getInstaller()
+    {
+        return Mage::getSingleton('install/installer');
+    }
+
+    /**
+     * Retrieve wizard
+     *
+     * @return Mage_Install_Model_Wizard
+     */
+    protected function _getWizard()
+    {
+        return Mage::getSingleton('install/wizard');
+    }
+
+    /**
+     * Prepare layout
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        $this->loadLayout('install_wizard');
+        $step = $this->_getWizard()->getStepByRequest($this->getRequest());
+        if ($step) {
+            $step->setActive(true);
+        }
+
+        $leftBlock = $this->getLayout()->createBlock('install/state', 'install.state');
+        $this->getLayout()->getBlock('left')->append($leftBlock);
+        return $this;
+    }
+
+    /**
+     * Checking installation status
+     *
+     * @return bool
+     * @SuppressWarnings("PHPMD.ExitExpression")
+     */
+    protected function _checkIfInstalled()
+    {
+        if ($this->_getInstaller()->isApplicationInstalled()) {
+            $this->getResponse()->setRedirect(Mage::getBaseUrl())->sendResponse();
+            exit;
+        }
+        return true;
     }
 }

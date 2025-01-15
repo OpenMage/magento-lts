@@ -159,23 +159,6 @@ class Mage_Core_Model_Encryption
     }
 
     /**
-     * Instantiate crypt model
-     *
-     * @param string $key
-     * @return Varien_Crypt_Mcrypt
-     */
-    protected function _getCrypt($key = null)
-    {
-        if (!$this->_crypt) {
-            if ($key === null) {
-                $key = (string) Mage::getConfig()->getNode('global/crypt/key');
-            }
-            $this->_crypt = Varien_Crypt::factory()->init($key);
-        }
-        return $this->_crypt;
-    }
-
-    /**
      * Encrypt a string
      *
      * @param string $data
@@ -206,5 +189,22 @@ class Mage_Core_Model_Encryption
     public function validateKey($key)
     {
         return $this->_getCrypt($key);
+    }
+
+    /**
+     * Instantiate crypt model
+     *
+     * @param string $key
+     * @return Varien_Crypt_Mcrypt
+     */
+    protected function _getCrypt($key = null)
+    {
+        if (!$this->_crypt) {
+            if ($key === null) {
+                $key = (string) Mage::getConfig()->getNode('global/crypt/key');
+            }
+            $this->_crypt = Varien_Crypt::factory()->init($key);
+        }
+        return $this->_crypt;
     }
 }

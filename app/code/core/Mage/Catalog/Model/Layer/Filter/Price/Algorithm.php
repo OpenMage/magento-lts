@@ -136,48 +136,6 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
     }
 
     /**
-     * Search first index of price, that satisfy conditions to be 'greater or equal' than $value
-     * Returns -1 if index was not found
-     *
-     * @param float $value
-     * @param null|array $limits search [from, to]
-     * @return int
-     */
-    protected function _binarySearch($value, $limits = null)
-    {
-        if (empty($this->_prices)) {
-            return -1;
-        }
-
-        if (!is_array($limits)) {
-            $limits = [];
-        }
-        if (!isset($limits[0])) {
-            $limits[0] = 0;
-        }
-        if (!isset($limits[1])) {
-            $limits[1] = count($this->_prices) - 1;
-        }
-
-        if ($limits[0] > $limits[1] || $this->_prices[$limits[1]] < $value) {
-            return -1;
-        }
-
-        if ($limits[1] - $limits[0] <= 1) {
-            return ($this->_prices[$limits[0]] < $value) ? $limits[1] : $limits[0];
-        }
-
-        $separator = floor(($limits[0] + $limits[1]) / 2);
-        if ($this->_prices[$separator] < $value) {
-            $limits[0] = $separator + 1;
-        } else {
-            $limits[1] = $separator;
-        }
-
-        return $this->_binarySearch($value, [$limits[0], $limits[1]]);
-    }
-
-    /**
      * Set prices statistics
      *
      * @param float $min
@@ -233,6 +191,129 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         }
 
         return 1;
+    }
+
+    /**
+     * Calculate separators, each contains 'from', 'to' and 'count'
+     *
+     * @return array
+     */
+    public function calculateSeparators()
+    {
+        $result = [];
+        $lastCount = 0;
+        $intervalFirstPrice = $this->_minPrice;
+        $lastSeparator = is_null($this->_lowerLimit) ? 0 : $this->_lowerLimit;
+
+        for ($i = 1; $i < $this->getIntervalsNumber(); ++$i) {
+            $separator = $this->_findPriceSeparator($i);
+            if (empty($separator)) {
+                continue;
+            }
+            if ($this->_quantileInterval[0] == 0) {
+                $intervalFirstPrice = $this->_prices[0];
+            }
+            $separatorCandidate = false;
+            $newIntervalFirstPrice = $intervalFirstPrice;
+            $newLastSeparator = $lastSeparator;
+
+            $pricesPerInterval = $this->_count / $this->_getCalculatedIntervalsNumber();
+            while (!empty($separator) && !array_key_exists($i, $result)) {
+                $separatorsPortion = array_shift($separator);
+                $bestSeparator = $this->_findBestSeparator($i, $separatorsPortion);
+                if ($bestSeparator && $bestSeparator[2] > 0) {
+                    $isEqualPrice = ($intervalFirstPrice == $this->_prices[$bestSeparator[2] - 1])
+                        ? $this->_prices[0]
+                        : false;
+                    $count = $bestSeparator[2] + $this->_quantileInterval[0] - $lastCount;
+                    $separatorData = [
+                        'from'  => ($isEqualPrice !== false) ? $isEqualPrice : $lastSeparator,
+                        'to'    => ($isEqualPrice !== false) ? $isEqualPrice : $bestSeparator[1],
+                        'count' => $count,
+                    ];
+                    if (abs(1 - $count / $pricesPerInterval) <= self::INTERVAL_DEFLECTION_LIMIT) {
+                        $newLastSeparator = $bestSeparator[1];
+                        $newIntervalFirstPrice = $this->_prices[$bestSeparator[2]];
+                        $result[$i] = $separatorData;
+                    } elseif (!$separatorCandidate || $bestSeparator[0] < $separatorCandidate[0]) {
+                        $separatorCandidate = [
+                            $bestSeparator[0],
+                            $separatorData,
+                            $bestSeparator[1],
+                            $this->_prices[$bestSeparator[2]],
+                        ];
+                    }
+                }
+            }
+
+            if (!array_key_exists($i, $result) && $separatorCandidate) {
+                $newLastSeparator = $separatorCandidate[2];
+                $newIntervalFirstPrice = $separatorCandidate[3];
+                $result[$i] = $separatorCandidate[1];
+            }
+
+            if (array_key_exists($i, $result)) {
+                $lastSeparator = $newLastSeparator;
+                $intervalFirstPrice = $newIntervalFirstPrice;
+                $priceIndex = $this->_binarySearch($lastSeparator);
+                $lastCount += $result[$i]['count'];
+                if ($priceIndex != -1 && $lastSeparator > $this->_lastPriceLimiter[1]) {
+                    $this->_lastPriceLimiter = [$priceIndex + $this->_quantileInterval[0], $lastSeparator];
+                }
+            }
+        }
+        if ($this->_lastPriceLimiter[0] < $this->_count) {
+            $isEqualPrice = ($intervalFirstPrice == $this->_maxPrice) ? $intervalFirstPrice : false;
+            $result[$this->getIntervalsNumber()] = [
+                'from'  => $isEqualPrice ? $isEqualPrice : $lastSeparator,
+                'to'    => $isEqualPrice ? $isEqualPrice : (is_null($this->_upperLimit) ? '' : $this->_upperLimit),
+                'count' => $this->_count - $lastCount,
+            ];
+        }
+
+        return array_values($result);
+    }
+
+    /**
+     * Search first index of price, that satisfy conditions to be 'greater or equal' than $value
+     * Returns -1 if index was not found
+     *
+     * @param float $value
+     * @param null|array $limits search [from, to]
+     * @return int
+     */
+    protected function _binarySearch($value, $limits = null)
+    {
+        if (empty($this->_prices)) {
+            return -1;
+        }
+
+        if (!is_array($limits)) {
+            $limits = [];
+        }
+        if (!isset($limits[0])) {
+            $limits[0] = 0;
+        }
+        if (!isset($limits[1])) {
+            $limits[1] = count($this->_prices) - 1;
+        }
+
+        if ($limits[0] > $limits[1] || $this->_prices[$limits[1]] < $value) {
+            return -1;
+        }
+
+        if ($limits[1] - $limits[0] <= 1) {
+            return ($this->_prices[$limits[0]] < $value) ? $limits[1] : $limits[0];
+        }
+
+        $separator = floor(($limits[0] + $limits[1]) / 2);
+        if ($this->_prices[$separator] < $value) {
+            $limits[0] = $separator + 1;
+        } else {
+            $limits[1] = $separator;
+        }
+
+        return $this->_binarySearch($value, [$limits[0], $limits[1]]);
     }
 
     /**
@@ -516,86 +597,5 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         }
 
         return $result ? $result : false;
-    }
-
-    /**
-     * Calculate separators, each contains 'from', 'to' and 'count'
-     *
-     * @return array
-     */
-    public function calculateSeparators()
-    {
-        $result = [];
-        $lastCount = 0;
-        $intervalFirstPrice = $this->_minPrice;
-        $lastSeparator = is_null($this->_lowerLimit) ? 0 : $this->_lowerLimit;
-
-        for ($i = 1; $i < $this->getIntervalsNumber(); ++$i) {
-            $separator = $this->_findPriceSeparator($i);
-            if (empty($separator)) {
-                continue;
-            }
-            if ($this->_quantileInterval[0] == 0) {
-                $intervalFirstPrice = $this->_prices[0];
-            }
-            $separatorCandidate = false;
-            $newIntervalFirstPrice = $intervalFirstPrice;
-            $newLastSeparator = $lastSeparator;
-
-            $pricesPerInterval = $this->_count / $this->_getCalculatedIntervalsNumber();
-            while (!empty($separator) && !array_key_exists($i, $result)) {
-                $separatorsPortion = array_shift($separator);
-                $bestSeparator = $this->_findBestSeparator($i, $separatorsPortion);
-                if ($bestSeparator && $bestSeparator[2] > 0) {
-                    $isEqualPrice = ($intervalFirstPrice == $this->_prices[$bestSeparator[2] - 1])
-                        ? $this->_prices[0]
-                        : false;
-                    $count = $bestSeparator[2] + $this->_quantileInterval[0] - $lastCount;
-                    $separatorData = [
-                        'from'  => ($isEqualPrice !== false) ? $isEqualPrice : $lastSeparator,
-                        'to'    => ($isEqualPrice !== false) ? $isEqualPrice : $bestSeparator[1],
-                        'count' => $count,
-                    ];
-                    if (abs(1 - $count / $pricesPerInterval) <= self::INTERVAL_DEFLECTION_LIMIT) {
-                        $newLastSeparator = $bestSeparator[1];
-                        $newIntervalFirstPrice = $this->_prices[$bestSeparator[2]];
-                        $result[$i] = $separatorData;
-                    } elseif (!$separatorCandidate || $bestSeparator[0] < $separatorCandidate[0]) {
-                        $separatorCandidate = [
-                            $bestSeparator[0],
-                            $separatorData,
-                            $bestSeparator[1],
-                            $this->_prices[$bestSeparator[2]],
-                        ];
-                    }
-                }
-            }
-
-            if (!array_key_exists($i, $result) && $separatorCandidate) {
-                $newLastSeparator = $separatorCandidate[2];
-                $newIntervalFirstPrice = $separatorCandidate[3];
-                $result[$i] = $separatorCandidate[1];
-            }
-
-            if (array_key_exists($i, $result)) {
-                $lastSeparator = $newLastSeparator;
-                $intervalFirstPrice = $newIntervalFirstPrice;
-                $priceIndex = $this->_binarySearch($lastSeparator);
-                $lastCount += $result[$i]['count'];
-                if ($priceIndex != -1 && $lastSeparator > $this->_lastPriceLimiter[1]) {
-                    $this->_lastPriceLimiter = [$priceIndex + $this->_quantileInterval[0], $lastSeparator];
-                }
-            }
-        }
-        if ($this->_lastPriceLimiter[0] < $this->_count) {
-            $isEqualPrice = ($intervalFirstPrice == $this->_maxPrice) ? $intervalFirstPrice : false;
-            $result[$this->getIntervalsNumber()] = [
-                'from'  => $isEqualPrice ? $isEqualPrice : $lastSeparator,
-                'to'    => $isEqualPrice ? $isEqualPrice : (is_null($this->_upperLimit) ? '' : $this->_upperLimit),
-                'count' => $this->_count - $lastCount,
-            ];
-        }
-
-        return array_values($result);
     }
 }

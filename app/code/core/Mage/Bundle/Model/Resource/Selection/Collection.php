@@ -30,17 +30,6 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     protected $_selectionTable;
 
     /**
-     * Initialize collection
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setRowIdFieldName('selection_id');
-        $this->_selectionTable = $this->getTable('bundle/selection');
-    }
-
-    /**
      * Set store id for each collection item when collection was loaded
      *
      * @return $this
@@ -53,22 +42,6 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
                 $item->setStoreId($this->getStoreId());
             }
         }
-        return $this;
-    }
-
-    /**
-     * Initialize collection select
-     *
-     */
-    protected function _initSelect()
-    {
-        parent::_initSelect();
-        $this->getSelect()->join(
-            ['selection' => $this->_selectionTable],
-            'selection.product_id = e.entity_id',
-            ['*'],
-        );
-
         return $this;
     }
 
@@ -140,6 +113,33 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     {
         $this->getSelect()->order('selection.position asc')
             ->order('selection.selection_id asc');
+        return $this;
+    }
+
+    /**
+     * Initialize collection
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setRowIdFieldName('selection_id');
+        $this->_selectionTable = $this->getTable('bundle/selection');
+    }
+
+    /**
+     * Initialize collection select
+     *
+     */
+    protected function _initSelect()
+    {
+        parent::_initSelect();
+        $this->getSelect()->join(
+            ['selection' => $this->_selectionTable],
+            'selection.product_id = e.entity_id',
+            ['*'],
+        );
+
         return $this;
     }
 }

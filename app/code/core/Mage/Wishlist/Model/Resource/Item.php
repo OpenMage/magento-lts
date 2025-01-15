@@ -22,11 +22,6 @@
  */
 class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('wishlist/item', 'wishlist_item_id');
-    }
-
     /**
      * Load item by wishlist, product and shared stores
      *
@@ -56,5 +51,9 @@ class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abst
         $this->_afterLoad($object);
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('wishlist/item', 'wishlist_item_id');
     }
 }

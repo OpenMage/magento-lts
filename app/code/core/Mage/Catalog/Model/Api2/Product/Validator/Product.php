@@ -63,26 +63,6 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     }
 
     /**
-     * Get validator product
-     *
-     * @return Mage_Catalog_Model_Product|null
-     */
-    protected function _getProduct()
-    {
-        return $this->_product;
-    }
-
-    /**
-     * Is update mode
-     *
-     * @return bool
-     */
-    protected function _isUpdate()
-    {
-        return $this->_operation == Mage_Api2_Model_Resource::OPERATION_UPDATE;
-    }
-
-    /**
      * Validate product data
      *
      * @return bool
@@ -115,6 +95,26 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         }
 
         return $isSatisfied;
+    }
+
+    /**
+     * Get validator product
+     *
+     * @return Mage_Catalog_Model_Product|null
+     */
+    protected function _getProduct()
+    {
+        return $this->_product;
+    }
+
+    /**
+     * Is update mode
+     *
+     * @return bool
+     */
+    protected function _isUpdate()
+    {
+        return $this->_operation == Mage_Api2_Model_Resource::OPERATION_UPDATE;
     }
 
     /**

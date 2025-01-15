@@ -23,16 +23,6 @@
 class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract
 {
     /**
-     * Retrieve resource instance
-     *
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
-     */
-    protected function _getResource()
-    {
-        return Mage::getResourceSingleton('catalog/product_attribute_backend_tierprice');
-    }
-
-    /**
      * Retrieve websites rates and base currency codes
      *
      * @deprecated since 1.12.0.0
@@ -41,6 +31,15 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     public function _getWebsiteRates()
     {
         return $this->_getWebsiteCurrencyRates();
+    }
+    /**
+     * Retrieve resource instance
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
+     */
+    protected function _getResource()
+    {
+        return Mage::getResourceSingleton('catalog/product_attribute_backend_tierprice');
     }
 
     /**

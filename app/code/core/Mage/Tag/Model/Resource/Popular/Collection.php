@@ -23,15 +23,6 @@
 class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Defines resource model and model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('tag/tag');
-    }
-
-    /**
      * Replacing popularity by sum of popularity and base_popularity
      *
      * @param int $storeId
@@ -112,5 +103,13 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
         $countSelect = $this->getConnection()->select();
         $countSelect->from(['a' => $select], 'COUNT(popularity)');
         return $countSelect;
+    }
+    /**
+     * Defines resource model and model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('tag/tag');
     }
 }

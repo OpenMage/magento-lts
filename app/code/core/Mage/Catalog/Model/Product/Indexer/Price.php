@@ -77,11 +77,6 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
         Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
     ];
 
-    protected function _construct()
-    {
-        $this->_init('catalog/product_indexer_price');
-    }
-
     /**
      * Retrieve Indexer name
      *
@@ -100,25 +95,6 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
     public function getDescription()
     {
         return Mage::helper('catalog')->__('Index product prices');
-    }
-
-    /**
-     * Retrieve attribute list has an effect on product price
-     *
-     * @return array
-     */
-    protected function _getDependentAttributes()
-    {
-        return [
-            'price',
-            'special_price',
-            'special_from_date',
-            'special_to_date',
-            'tax_class_id',
-            'status',
-            'required_options',
-            'force_reindex_required',
-        ];
     }
 
     /**
@@ -150,6 +126,30 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
         $event->addNewData(self::EVENT_MATCH_RESULT_KEY, $result);
 
         return $result;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/product_indexer_price');
+    }
+
+    /**
+     * Retrieve attribute list has an effect on product price
+     *
+     * @return array
+     */
+    protected function _getDependentAttributes()
+    {
+        return [
+            'price',
+            'special_price',
+            'special_from_date',
+            'special_to_date',
+            'tax_class_id',
+            'status',
+            'required_options',
+            'force_reindex_required',
+        ];
     }
 
     /**

@@ -22,12 +22,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('sales/order/view/tab/history.phtml');
-    }
-
     /**
      * Retrieve order model instance
      *
@@ -181,25 +175,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     }
 
     /**
-     * Map history items as array
-     *
-     * @param string $label
-     * @param bool $notified
-     * @param Zend_Date $created
-     * @param string $comment
-     * @return array
-     */
-    protected function _prepareHistoryItem($label, $notified, $created, $comment = '')
-    {
-        return [
-            'title'      => $label,
-            'notified'   => $notified,
-            'comment'    => $comment,
-            'created_at' => $created,
-        ];
-    }
-
-    /**
      * Get Tab Label
      *
      * @return string
@@ -278,6 +253,30 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     public function isCustomerNotificationNotApplicable($historyItem)
     {
         return $historyItem['notified'] == Mage_Sales_Model_Order_Status_History::CUSTOMER_NOTIFICATION_NOT_APPLICABLE;
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('sales/order/view/tab/history.phtml');
+    }
+
+    /**
+     * Map history items as array
+     *
+     * @param string $label
+     * @param bool $notified
+     * @param Zend_Date $created
+     * @param string $comment
+     * @return array
+     */
+    protected function _prepareHistoryItem($label, $notified, $created, $comment = '')
+    {
+        return [
+            'title'      => $label,
+            'notified'   => $notified,
+            'comment'    => $comment,
+            'created_at' => $created,
+        ];
     }
 
     /**

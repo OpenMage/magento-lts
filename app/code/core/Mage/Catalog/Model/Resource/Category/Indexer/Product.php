@@ -64,16 +64,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      */
     protected $_storesInfo;
 
-    protected function _construct()
-    {
-        $this->_init('catalog/category_product_index', 'category_id');
-        $this->_categoryTable        = $this->getTable('catalog/category');
-        $this->_categoryProductTable = $this->getTable('catalog/category_product');
-        $this->_productWebsiteTable  = $this->getTable('catalog/product_website');
-        $this->_storeTable           = $this->getTable('core/store');
-        $this->_groupTable           = $this->getTable('core/store_group');
-    }
-
     /**
      * Process product save.
      * Method is responsible for index support
@@ -185,24 +175,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     }
 
     /**
-     * Return array of used root category id - path pairs
-     *
-     * @return array
-     */
-    protected function _getRootCategories()
-    {
-        $rootCategories = [];
-        $stores = $this->_getStoresInfo();
-        foreach ($stores as $storeInfo) {
-            if ($storeInfo['root_id']) {
-                $rootCategories[$storeInfo['root_id']] = $storeInfo['root_path'];
-            }
-        }
-
-        return $rootCategories;
-    }
-
-    /**
      * Process category index after category save
      */
     public function catalogCategorySave(Mage_Index_Model_Event $event)
@@ -299,6 +271,236 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                 $this->_refreshNotAnchorRootCategories($reindexRootCategoryIds);
             }
         }
+    }
+
+    /**
+     * Rebuild all index data
+     *
+     * @return $this
+     */
+    public function reindexAll()
+    {
+        $this->useIdxTable(true);
+        $this->beginTransaction();
+        try {
+            $this->clearTemporaryIndexTable();
+            $idxTable = $this->getIdxTable();
+            $idxAdapter = $this->_getIndexAdapter();
+            $stores = $this->_getStoresInfo();
+            /**
+             * Build index for each store
+             */
+            foreach ($stores as $storeData) {
+                $storeId    = $storeData['store_id'];
+                $websiteId  = $storeData['website_id'];
+                $rootPath   = $storeData['root_path'];
+                $rootId     = $storeData['root_id'];
+                /**
+                 * Prepare visibility for all enabled store products
+                 */
+                $enabledTable = $this->_prepareEnabledProductsVisibility($websiteId, $storeId);
+                /**
+                 * Select information about anchor categories
+                 */
+                $anchorTable = $this->_prepareAnchorCategories($storeId, $rootPath);
+                /**
+                 * Add relations between not anchor categories and products
+                 */
+                $select = $idxAdapter->select();
+                $select->from(
+                    ['cp' => $this->_categoryProductTable],
+                    ['category_id', 'product_id', 'position', 'is_parent' => new Zend_Db_Expr('1'),
+                        'store_id' => new Zend_Db_Expr($storeId)],
+                )
+                ->joinInner(['pv' => $enabledTable], 'pv.product_id=cp.product_id', ['visibility'])
+                ->joinLeft(['ac' => $anchorTable], 'ac.category_id=cp.category_id', [])
+                ->where('ac.category_id IS NULL');
+
+                $query = $select->insertFromSelect(
+                    $idxTable,
+                    ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
+                    false,
+                );
+                $idxAdapter->query($query);
+
+                /**
+                 * Assign products not associated to any category to root category in index
+                 */
+
+                $select = $idxAdapter->select();
+                $select->from(
+                    ['pv' => $enabledTable],
+                    [new Zend_Db_Expr($rootId), 'product_id', new Zend_Db_Expr('0'), new Zend_Db_Expr('1'),
+                        new Zend_Db_Expr($storeId), 'visibility'],
+                )
+                ->joinLeft(['cp' => $this->_categoryProductTable], 'pv.product_id=cp.product_id', [])
+                ->where('cp.product_id IS NULL');
+
+                $query = $select->insertFromSelect(
+                    $idxTable,
+                    ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
+                    false,
+                );
+                $idxAdapter->query($query);
+
+                /**
+                 * Prepare anchor categories products
+                 */
+                $anchorProductsTable = $this->_getAnchorCategoriesProductsTemporaryTable();
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $idxAdapter->delete($anchorProductsTable);
+
+                $position = 'MIN(' .
+                    $idxAdapter->getCheckSql(
+                        'ca.category_id = ce.entity_id',
+                        $idxAdapter->quoteIdentifier('cp.position'),
+                        '(' . $idxAdapter->quoteIdentifier('ce.position') . ' + 1) * '
+                        . '(' . $idxAdapter->quoteIdentifier('ce.level') . ' + 1 * 10000)'
+                        . ' + ' . $idxAdapter->quoteIdentifier('cp.position'),
+                    )
+                . ')';
+
+                $select = $idxAdapter->select()
+                ->useStraightJoin(true)
+                ->distinct()
+                ->from(['ca' => $anchorTable], ['category_id'])
+                ->joinInner(
+                    ['ce' => $this->_categoryTable],
+                    $idxAdapter->quoteIdentifier('ce.path') . ' LIKE ' .
+                    $idxAdapter->quoteIdentifier('ca.path') . ' OR ce.entity_id = ca.category_id',
+                    [],
+                )
+                ->joinInner(
+                    ['cp' => $this->_categoryProductTable],
+                    'cp.category_id = ce.entity_id',
+                    ['product_id'],
+                )
+                ->joinInner(
+                    ['pv' => $enabledTable],
+                    'pv.product_id = cp.product_id',
+                    ['position' => $position],
+                )
+                ->group(['ca.category_id', 'cp.product_id']);
+                $query = $select->insertFromSelect(
+                    $anchorProductsTable,
+                    ['category_id', 'product_id', 'position'],
+                    false,
+                );
+                $idxAdapter->query($query);
+
+                /**
+                 * Add anchor categories products to index
+                 */
+                $select = $idxAdapter->select()
+                ->from(
+                    ['ap' => $anchorProductsTable],
+                    ['category_id', 'product_id',
+                        'position', // => new Zend_Db_Expr('MIN('. $idxAdapter->quoteIdentifier('ap.position').')'),
+                        'is_parent' => $idxAdapter->getCheckSql('cp.product_id > 0', '1', '0'),
+                        'store_id' => new Zend_Db_Expr($storeId)],
+                )
+                ->joinLeft(
+                    ['cp' => $this->_categoryProductTable],
+                    'cp.category_id=ap.category_id AND cp.product_id=ap.product_id',
+                    [],
+                )
+                ->joinInner(['pv' => $enabledTable], 'pv.product_id = ap.product_id', ['visibility']);
+
+                $query = $select->insertFromSelect(
+                    $idxTable,
+                    ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
+                    false,
+                );
+                $idxAdapter->query($query);
+
+                $select = $idxAdapter->select()
+                    ->from(['e' => $this->getTable('catalog/product')], null)
+                    ->join(
+                        ['ei' => $enabledTable],
+                        'ei.product_id = e.entity_id',
+                        [],
+                    )
+                    ->joinLeft(
+                        ['i' => $idxTable],
+                        'i.product_id = e.entity_id AND i.category_id = :category_id AND i.store_id = :store_id',
+                        [],
+                    )
+                    ->where('i.product_id IS NULL')
+                    ->columns([
+                        'category_id'   => new Zend_Db_Expr($rootId),
+                        'product_id'    => 'e.entity_id',
+                        'position'      => new Zend_Db_Expr('0'),
+                        'is_parent'     => new Zend_Db_Expr('1'),
+                        'store_id'      => new Zend_Db_Expr($storeId),
+                        'visibility'    => 'ei.visibility',
+                    ]);
+
+                $query = $select->insertFromSelect(
+                    $idxTable,
+                    ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
+                    false,
+                );
+
+                $idxAdapter->query($query, ['store_id' => $storeId, 'category_id' => $rootId]);
+            }
+
+            $this->syncData();
+
+            /**
+             * Clean up temporary tables
+             */
+            $this->clearTemporaryIndexTable();
+            $idxAdapter->delete($enabledTable);
+            $idxAdapter->delete($anchorTable);
+            $idxAdapter->delete($anchorProductsTable);
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
+        return $this;
+    }
+
+    /**
+     * Retrieve temporary decimal index table name
+     *
+     * @param string $table
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/category_product_indexer_idx');
+        }
+        return $this->getTable('catalog/category_product_indexer_tmp');
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/category_product_index', 'category_id');
+        $this->_categoryTable        = $this->getTable('catalog/category');
+        $this->_categoryProductTable = $this->getTable('catalog/category_product');
+        $this->_productWebsiteTable  = $this->getTable('catalog/product_website');
+        $this->_storeTable           = $this->getTable('core/store');
+        $this->_groupTable           = $this->getTable('core/store_group');
+    }
+
+    /**
+     * Return array of used root category id - path pairs
+     *
+     * @return array
+     */
+    protected function _getRootCategories()
+    {
+        $rootCategories = [];
+        $stores = $this->_getStoresInfo();
+        foreach ($stores as $storeInfo) {
+            if ($storeInfo['root_id']) {
+                $rootCategories[$storeInfo['root_id']] = $storeInfo['root_path'];
+            }
+        }
+
+        return $rootCategories;
     }
 
     /**
@@ -788,194 +990,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     }
 
     /**
-     * Rebuild all index data
-     *
-     * @return $this
-     */
-    public function reindexAll()
-    {
-        $this->useIdxTable(true);
-        $this->beginTransaction();
-        try {
-            $this->clearTemporaryIndexTable();
-            $idxTable = $this->getIdxTable();
-            $idxAdapter = $this->_getIndexAdapter();
-            $stores = $this->_getStoresInfo();
-            /**
-             * Build index for each store
-             */
-            foreach ($stores as $storeData) {
-                $storeId    = $storeData['store_id'];
-                $websiteId  = $storeData['website_id'];
-                $rootPath   = $storeData['root_path'];
-                $rootId     = $storeData['root_id'];
-                /**
-                 * Prepare visibility for all enabled store products
-                 */
-                $enabledTable = $this->_prepareEnabledProductsVisibility($websiteId, $storeId);
-                /**
-                 * Select information about anchor categories
-                 */
-                $anchorTable = $this->_prepareAnchorCategories($storeId, $rootPath);
-                /**
-                 * Add relations between not anchor categories and products
-                 */
-                $select = $idxAdapter->select();
-                $select->from(
-                    ['cp' => $this->_categoryProductTable],
-                    ['category_id', 'product_id', 'position', 'is_parent' => new Zend_Db_Expr('1'),
-                        'store_id' => new Zend_Db_Expr($storeId)],
-                )
-                ->joinInner(['pv' => $enabledTable], 'pv.product_id=cp.product_id', ['visibility'])
-                ->joinLeft(['ac' => $anchorTable], 'ac.category_id=cp.category_id', [])
-                ->where('ac.category_id IS NULL');
-
-                $query = $select->insertFromSelect(
-                    $idxTable,
-                    ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
-                    false,
-                );
-                $idxAdapter->query($query);
-
-                /**
-                 * Assign products not associated to any category to root category in index
-                 */
-
-                $select = $idxAdapter->select();
-                $select->from(
-                    ['pv' => $enabledTable],
-                    [new Zend_Db_Expr($rootId), 'product_id', new Zend_Db_Expr('0'), new Zend_Db_Expr('1'),
-                        new Zend_Db_Expr($storeId), 'visibility'],
-                )
-                ->joinLeft(['cp' => $this->_categoryProductTable], 'pv.product_id=cp.product_id', [])
-                ->where('cp.product_id IS NULL');
-
-                $query = $select->insertFromSelect(
-                    $idxTable,
-                    ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
-                    false,
-                );
-                $idxAdapter->query($query);
-
-                /**
-                 * Prepare anchor categories products
-                 */
-                $anchorProductsTable = $this->_getAnchorCategoriesProductsTemporaryTable();
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $idxAdapter->delete($anchorProductsTable);
-
-                $position = 'MIN(' .
-                    $idxAdapter->getCheckSql(
-                        'ca.category_id = ce.entity_id',
-                        $idxAdapter->quoteIdentifier('cp.position'),
-                        '(' . $idxAdapter->quoteIdentifier('ce.position') . ' + 1) * '
-                        . '(' . $idxAdapter->quoteIdentifier('ce.level') . ' + 1 * 10000)'
-                        . ' + ' . $idxAdapter->quoteIdentifier('cp.position'),
-                    )
-                . ')';
-
-                $select = $idxAdapter->select()
-                ->useStraightJoin(true)
-                ->distinct()
-                ->from(['ca' => $anchorTable], ['category_id'])
-                ->joinInner(
-                    ['ce' => $this->_categoryTable],
-                    $idxAdapter->quoteIdentifier('ce.path') . ' LIKE ' .
-                    $idxAdapter->quoteIdentifier('ca.path') . ' OR ce.entity_id = ca.category_id',
-                    [],
-                )
-                ->joinInner(
-                    ['cp' => $this->_categoryProductTable],
-                    'cp.category_id = ce.entity_id',
-                    ['product_id'],
-                )
-                ->joinInner(
-                    ['pv' => $enabledTable],
-                    'pv.product_id = cp.product_id',
-                    ['position' => $position],
-                )
-                ->group(['ca.category_id', 'cp.product_id']);
-                $query = $select->insertFromSelect(
-                    $anchorProductsTable,
-                    ['category_id', 'product_id', 'position'],
-                    false,
-                );
-                $idxAdapter->query($query);
-
-                /**
-                 * Add anchor categories products to index
-                 */
-                $select = $idxAdapter->select()
-                ->from(
-                    ['ap' => $anchorProductsTable],
-                    ['category_id', 'product_id',
-                        'position', // => new Zend_Db_Expr('MIN('. $idxAdapter->quoteIdentifier('ap.position').')'),
-                        'is_parent' => $idxAdapter->getCheckSql('cp.product_id > 0', '1', '0'),
-                        'store_id' => new Zend_Db_Expr($storeId)],
-                )
-                ->joinLeft(
-                    ['cp' => $this->_categoryProductTable],
-                    'cp.category_id=ap.category_id AND cp.product_id=ap.product_id',
-                    [],
-                )
-                ->joinInner(['pv' => $enabledTable], 'pv.product_id = ap.product_id', ['visibility']);
-
-                $query = $select->insertFromSelect(
-                    $idxTable,
-                    ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
-                    false,
-                );
-                $idxAdapter->query($query);
-
-                $select = $idxAdapter->select()
-                    ->from(['e' => $this->getTable('catalog/product')], null)
-                    ->join(
-                        ['ei' => $enabledTable],
-                        'ei.product_id = e.entity_id',
-                        [],
-                    )
-                    ->joinLeft(
-                        ['i' => $idxTable],
-                        'i.product_id = e.entity_id AND i.category_id = :category_id AND i.store_id = :store_id',
-                        [],
-                    )
-                    ->where('i.product_id IS NULL')
-                    ->columns([
-                        'category_id'   => new Zend_Db_Expr($rootId),
-                        'product_id'    => 'e.entity_id',
-                        'position'      => new Zend_Db_Expr('0'),
-                        'is_parent'     => new Zend_Db_Expr('1'),
-                        'store_id'      => new Zend_Db_Expr($storeId),
-                        'visibility'    => 'ei.visibility',
-                    ]);
-
-                $query = $select->insertFromSelect(
-                    $idxTable,
-                    ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
-                    false,
-                );
-
-                $idxAdapter->query($query, ['store_id' => $storeId, 'category_id' => $rootId]);
-            }
-
-            $this->syncData();
-
-            /**
-             * Clean up temporary tables
-             */
-            $this->clearTemporaryIndexTable();
-            $idxAdapter->delete($enabledTable);
-            $idxAdapter->delete($anchorTable);
-            $idxAdapter->delete($anchorProductsTable);
-            $this->commit();
-        } catch (Exception $e) {
-            $this->rollBack();
-            throw $e;
-        }
-        return $this;
-    }
-
-    /**
      * Create temporary table with enabled products visibility info
      *
      * @param int $websiteId
@@ -1161,19 +1175,5 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             return $this->getTable('catalog/category_anchor_products_indexer_idx');
         }
         return $this->getTable('catalog/category_anchor_products_indexer_tmp');
-    }
-
-    /**
-     * Retrieve temporary decimal index table name
-     *
-     * @param string $table
-     * @return string
-     */
-    public function getIdxTable($table = null)
-    {
-        if ($this->useIdxTable()) {
-            return $this->getTable('catalog/category_product_indexer_idx');
-        }
-        return $this->getTable('catalog/category_product_indexer_tmp');
     }
 }

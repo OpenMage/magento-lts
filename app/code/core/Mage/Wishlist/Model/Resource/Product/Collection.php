@@ -146,19 +146,6 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     }
 
     /**
-     * Rewrite retrieve attribute field name for wishlist attributes
-     *
-     * @inheritDoc
-     */
-    protected function _getAttributeFieldName($attributeCode)
-    {
-        if ($attributeCode === 'days_in_wishlist') {
-            return $this->_joinFields[$attributeCode]['field'];
-        }
-        return parent::_getAttributeFieldName($attributeCode);
-    }
-
-    /**
      * Prevent loading collection because after Magento 1.4.2.0 it's impossible
      * to use product collection in wishlist
      *
@@ -169,5 +156,18 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     public function load($printQuery = false, $logQuery = false)
     {
         return $this;
+    }
+
+    /**
+     * Rewrite retrieve attribute field name for wishlist attributes
+     *
+     * @inheritDoc
+     */
+    protected function _getAttributeFieldName($attributeCode)
+    {
+        if ($attributeCode === 'days_in_wishlist') {
+            return $this->_joinFields[$attributeCode]['field'];
+        }
+        return parent::_getAttributeFieldName($attributeCode);
     }
 }

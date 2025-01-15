@@ -291,17 +291,6 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Before save unlock attributes
-     *
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        $this->unlockAttributes();
-        return parent::_beforeSave();
-    }
-
-    /**
      * Checks model is deletable
      *
      * @return bool
@@ -343,5 +332,16 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     {
         $this->_isReadonly = (bool) $value;
         return $this;
+    }
+
+    /**
+     * Before save unlock attributes
+     *
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        $this->unlockAttributes();
+        return parent::_beforeSave();
     }
 }

@@ -22,6 +22,33 @@
  */
 class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * Retrieve default stores select object
+     * Select fields website_id, store_id
+     *
+     * @param bool $withDefault include/exclude default admin website
+     * @return Varien_Db_Select
+     */
+    public function getDefaultStoresSelect($withDefault = false)
+    {
+        $ifNull  = $this->_getReadAdapter()
+            ->getCheckSql('store_group_table.default_store_id IS NULL', '0', 'store_group_table.default_store_id');
+        $select = $this->_getReadAdapter()->select()
+            ->from(
+                ['website_table' => $this->getTable('core/website')],
+                ['website_id'],
+            )
+            ->joinLeft(
+                ['store_group_table' => $this->getTable('core/store_group')],
+                'website_table.website_id=store_group_table.website_id'
+                    . ' AND website_table.default_group_id = store_group_table.group_id',
+                ['store_id' => $ifNull],
+            );
+        if (!$withDefault) {
+            $select->where('website_table.website_id <> ?', 0);
+        }
+        return $select;
+    }
     protected function _construct()
     {
         $this->_init('core/website', 'website_id');
@@ -86,33 +113,5 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
         $this->_getWriteAdapter()->delete($this->getTable('core/config_data'), $where);
 
         return $this;
-    }
-
-    /**
-     * Retrieve default stores select object
-     * Select fields website_id, store_id
-     *
-     * @param bool $withDefault include/exclude default admin website
-     * @return Varien_Db_Select
-     */
-    public function getDefaultStoresSelect($withDefault = false)
-    {
-        $ifNull  = $this->_getReadAdapter()
-            ->getCheckSql('store_group_table.default_store_id IS NULL', '0', 'store_group_table.default_store_id');
-        $select = $this->_getReadAdapter()->select()
-            ->from(
-                ['website_table' => $this->getTable('core/website')],
-                ['website_id'],
-            )
-            ->joinLeft(
-                ['store_group_table' => $this->getTable('core/store_group')],
-                'website_table.website_id=store_group_table.website_id'
-                    . ' AND website_table.default_group_id = store_group_table.group_id',
-                ['store_id' => $ifNull],
-            );
-        if (!$withDefault) {
-            $select->where('website_table.website_id <> ?', 0);
-        }
-        return $select;
     }
 }

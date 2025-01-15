@@ -43,6 +43,38 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
     }
 
     /**
+     * Return customer data
+     *
+     * @deprecated since 1.4.0.1
+     * @return array
+     */
+    public function getCustomerData()
+    {
+        return $this->getFormValues();
+    }
+
+    /**
+     * Return Form Elements values
+     *
+     * @return array
+     */
+    public function getFormValues()
+    {
+        $data = $this->getCustomer()->getData();
+        foreach ($this->getQuote()->getData() as $key => $value) {
+            if (str_starts_with($key, 'customer_')) {
+                $data[substr($key, 9)] = $value;
+            }
+        }
+
+        if ($this->getQuote()->getCustomerEmail()) {
+            $data['email']  = $this->getQuote()->getCustomerEmail();
+        }
+
+        return $data;
+    }
+
+    /**
      * Prepare Form and add elements to form
      *
      * @return $this
@@ -104,37 +136,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
                 break;
         }
         return $this;
-    }
-
-    /**
-     * Return customer data
-     *
-     * @deprecated since 1.4.0.1
-     * @return array
-     */
-    public function getCustomerData()
-    {
-        return $this->getFormValues();
-    }
-
-    /**
-     * Return Form Elements values
-     *
-     * @return array
-     */
-    public function getFormValues()
-    {
-        $data = $this->getCustomer()->getData();
-        foreach ($this->getQuote()->getData() as $key => $value) {
-            if (str_starts_with($key, 'customer_')) {
-                $data[substr($key, 9)] = $value;
-            }
-        }
-
-        if ($this->getQuote()->getCustomerEmail()) {
-            $data['email']  = $this->getQuote()->getCustomerEmail();
-        }
-
-        return $data;
     }
 }

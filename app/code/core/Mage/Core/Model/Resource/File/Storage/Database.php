@@ -23,14 +23,6 @@
 class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Resource_File_Storage_Abstract
 {
     /**
-     * Define table name and id field for resource
-     */
-    protected function _construct()
-    {
-        $this->_init('core/file_storage', 'file_id');
-    }
-
-    /**
      * Create database scheme for storing files
      *
      * @return $this
@@ -91,32 +83,6 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
 
         $adapter->createTable($ddlTable);
         return $this;
-    }
-
-    /**
-     * Decodes blob content retrieved by DB driver
-     *
-     * @param  array $row Table row with 'content' key in it
-     * @return array
-     */
-    protected function _decodeFileContent($row)
-    {
-        $row['content'] = $this->_getReadAdapter()->decodeVarbinary($row['content']);
-        return $row;
-    }
-
-    /**
-     * Decodes blob content retrieved by Database driver
-     *
-     * @param  array $rows Array of table rows (files), each containing 'content' key
-     * @return array
-     */
-    protected function _decodeAllFilesContent($rows)
-    {
-        foreach ($rows as $key => $row) {
-            $rows[$key] = $this->_decodeFileContent($row);
-        }
-        return $rows;
     }
 
     /**
@@ -344,5 +310,38 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
 
         $rows = $adapter->fetchAll($select);
         return $this->_decodeAllFilesContent($rows);
+    }
+    /**
+     * Define table name and id field for resource
+     */
+    protected function _construct()
+    {
+        $this->_init('core/file_storage', 'file_id');
+    }
+
+    /**
+     * Decodes blob content retrieved by DB driver
+     *
+     * @param  array $row Table row with 'content' key in it
+     * @return array
+     */
+    protected function _decodeFileContent($row)
+    {
+        $row['content'] = $this->_getReadAdapter()->decodeVarbinary($row['content']);
+        return $row;
+    }
+
+    /**
+     * Decodes blob content retrieved by Database driver
+     *
+     * @param  array $rows Array of table rows (files), each containing 'content' key
+     * @return array
+     */
+    protected function _decodeAllFilesContent($rows)
+    {
+        foreach ($rows as $key => $row) {
+            $rows[$key] = $this->_decodeFileContent($row);
+        }
+        return $rows;
     }
 }

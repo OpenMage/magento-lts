@@ -37,14 +37,6 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     protected $_source;
 
     /**
-     * Initialize configuration object
-     */
-    protected function _construct()
-    {
-        $this->_config = Mage::getSingleton('tax/config');
-    }
-
-    /**
      * Check if we need display full tax total info
      *
      * @return bool
@@ -91,6 +83,48 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     }
 
     /**
+     * Get order store object
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        return $this->_order->getStore();
+    }
+
+    /**
+     * @return Mage_Sales_Model_Order
+     */
+    public function getOrder()
+    {
+        return $this->_order;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLabelProperties()
+    {
+        return $this->getParentBlock()->getLabelProperties();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValueProperties()
+    {
+        return $this->getParentBlock()->getValueProperties();
+    }
+
+    /**
+     * Initialize configuration object
+     */
+    protected function _construct()
+    {
+        $this->_config = Mage::getSingleton('tax/config');
+    }
+
+    /**
      * Add tax total string
      *
      * @param string $after
@@ -104,16 +138,6 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
         ]);
         $this->getParentBlock()->addTotal($taxTotal, $after);
         return $this;
-    }
-
-    /**
-     * Get order store object
-     *
-     * @return Mage_Core_Model_Store
-     */
-    public function getStore()
-    {
-        return $this->_order->getStore();
     }
 
     /**
@@ -289,29 +313,5 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
             $parent->addTotal($totalIncl, 'tax');
         }
         return $this;
-    }
-
-    /**
-     * @return Mage_Sales_Model_Order
-     */
-    public function getOrder()
-    {
-        return $this->_order;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLabelProperties()
-    {
-        return $this->getParentBlock()->getLabelProperties();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getValueProperties()
-    {
-        return $this->getParentBlock()->getValueProperties();
     }
 }

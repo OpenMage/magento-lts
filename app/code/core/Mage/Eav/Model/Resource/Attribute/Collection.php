@@ -42,23 +42,6 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
     protected $_entityType;
 
     /**
-     * Default attribute entity type code
-     *
-     * @return string
-     */
-    abstract protected function _getEntityTypeCode();
-
-    /**
-     * Get EAV website table
-     *
-     * Get table, where website-dependent attribute parameters are stored
-     * If realization doesn't demand this functionality, let this function just return null
-     *
-     * @return string|null
-     */
-    abstract protected function _getEavWebsiteTable();
-
-    /**
      * Return eav entity type instance
      *
      * @return Mage_Eav_Model_Entity_Type
@@ -96,6 +79,82 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         }
         return $this->_website;
     }
+
+    /**
+     * Specify attribute entity type filter.
+     * Entity type is defined.
+     *
+     * @param  int $type
+     * @return $this
+     */
+    public function setEntityTypeFilter($type)
+    {
+        return $this;
+    }
+
+    /**
+     * Specify filter by "is_visible" field
+     *
+     * @return $this
+     */
+    public function addVisibleFilter()
+    {
+        return $this->addFieldToFilter('is_visible', 1);
+    }
+
+    /**
+     * Exclude system hidden attributes
+     *
+     * @return $this
+     */
+    public function addSystemHiddenFilter()
+    {
+        $field = '(CASE WHEN additional_table.is_system = 1 AND additional_table.is_visible = 0 THEN 1 ELSE 0 END)';
+        $resultCondition = $this->_getConditionSql($field, 0);
+        $this->_select->where($resultCondition);
+        return $this;
+    }
+
+    /**
+     * Exclude system hidden attributes but include password hash
+     *
+     * @return $this
+     */
+    public function addSystemHiddenFilterWithPasswordHash()
+    {
+        $field = '(CASE WHEN additional_table.is_system = 1 AND additional_table.is_visible = 0
+            AND main_table.attribute_code != "' . self::EAV_CODE_PASSWORD_HASH . '" THEN 1 ELSE 0 END)';
+        $resultCondition = $this->_getConditionSql($field, 0);
+        $this->_select->where($resultCondition);
+        return $this;
+    }
+
+    /**
+     * Add exclude hidden frontend input attribute filter to collection
+     *
+     * @return $this
+     */
+    public function addExcludeHiddenFrontendFilter()
+    {
+        return $this->addFieldToFilter('main_table.frontend_input', ['neq' => 'hidden']);
+    }
+
+    /**
+     * Default attribute entity type code
+     *
+     * @return string
+     */
+    abstract protected function _getEntityTypeCode();
+
+    /**
+     * Get EAV website table
+     *
+     * Get table, where website-dependent attribute parameters are stored
+     * If realization doesn't demand this functionality, let this function just return null
+     *
+     * @return string|null
+     */
+    abstract protected function _getEavWebsiteTable();
 
     /**
      * Initialize collection select
@@ -178,64 +237,5 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         $this->addBindParam('scope_website_id', $websiteId);
 
         return $this;
-    }
-
-    /**
-     * Specify attribute entity type filter.
-     * Entity type is defined.
-     *
-     * @param  int $type
-     * @return $this
-     */
-    public function setEntityTypeFilter($type)
-    {
-        return $this;
-    }
-
-    /**
-     * Specify filter by "is_visible" field
-     *
-     * @return $this
-     */
-    public function addVisibleFilter()
-    {
-        return $this->addFieldToFilter('is_visible', 1);
-    }
-
-    /**
-     * Exclude system hidden attributes
-     *
-     * @return $this
-     */
-    public function addSystemHiddenFilter()
-    {
-        $field = '(CASE WHEN additional_table.is_system = 1 AND additional_table.is_visible = 0 THEN 1 ELSE 0 END)';
-        $resultCondition = $this->_getConditionSql($field, 0);
-        $this->_select->where($resultCondition);
-        return $this;
-    }
-
-    /**
-     * Exclude system hidden attributes but include password hash
-     *
-     * @return $this
-     */
-    public function addSystemHiddenFilterWithPasswordHash()
-    {
-        $field = '(CASE WHEN additional_table.is_system = 1 AND additional_table.is_visible = 0
-            AND main_table.attribute_code != "' . self::EAV_CODE_PASSWORD_HASH . '" THEN 1 ELSE 0 END)';
-        $resultCondition = $this->_getConditionSql($field, 0);
-        $this->_select->where($resultCondition);
-        return $this;
-    }
-
-    /**
-     * Add exclude hidden frontend input attribute filter to collection
-     *
-     * @return $this
-     */
-    public function addExcludeHiddenFrontendFilter()
-    {
-        return $this->addFieldToFilter('main_table.frontend_input', ['neq' => 'hidden']);
     }
 }

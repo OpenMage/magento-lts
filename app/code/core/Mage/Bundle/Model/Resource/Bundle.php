@@ -23,28 +23,6 @@
 class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource_Data_Abstract
 {
     /**
-     * Preparing select for getting selection's raw data by product id
-     * also can be specified extra parameter for limit which columns should be selected
-     *
-     * @param int $productId
-     * @param array $columns
-     * @return Zend_Db_Select
-     */
-    protected function _getSelect($productId, $columns = [])
-    {
-        return $this->_getReadAdapter()->select()
-            ->from(['bundle_option' => $this->getTable('bundle/option')], ['type', 'option_id'])
-            ->where('bundle_option.parent_id = ?', $productId)
-            ->where('bundle_option.required = 1')
-            ->joinLeft(
-                [
-                    'bundle_selection' => $this->getTable('bundle/selection')],
-                'bundle_selection.option_id = bundle_option.option_id',
-                $columns,
-            );
-    }
-
-    /**
      * Retrieve selection data for specified product id
      *
      * @param int $productId
@@ -111,5 +89,26 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
             ->processRelations($parentId, $childIds);
 
         return $this;
+    }
+    /**
+     * Preparing select for getting selection's raw data by product id
+     * also can be specified extra parameter for limit which columns should be selected
+     *
+     * @param int $productId
+     * @param array $columns
+     * @return Zend_Db_Select
+     */
+    protected function _getSelect($productId, $columns = [])
+    {
+        return $this->_getReadAdapter()->select()
+            ->from(['bundle_option' => $this->getTable('bundle/option')], ['type', 'option_id'])
+            ->where('bundle_option.parent_id = ?', $productId)
+            ->where('bundle_option.required = 1')
+            ->joinLeft(
+                [
+                    'bundle_selection' => $this->getTable('bundle/selection')],
+                'bundle_selection.option_id = bundle_option.option_id',
+                $columns,
+            );
     }
 }

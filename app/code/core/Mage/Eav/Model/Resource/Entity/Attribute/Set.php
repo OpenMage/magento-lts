@@ -22,42 +22,6 @@
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('eav/attribute_set', 'attribute_set_id');
-    }
-
-    /**
-     * Perform actions after object save
-     *
-     * @inheritDoc
-     */
-    protected function _afterSave(Mage_Core_Model_Abstract $object)
-    {
-        if ($object->getGroups()) {
-            foreach ($object->getGroups() as $group) {
-                $group->setAttributeSetId($object->getId());
-                if ($group->itemExists() && !$group->getId()) {
-                    continue;
-                }
-                $group->save();
-            }
-        }
-        if ($object->getRemoveGroups()) {
-            foreach ($object->getRemoveGroups() as $group) {
-                $group->delete();
-            }
-            Mage::getResourceModel('eav/entity_attribute_group')->updateDefaultGroup($object->getId());
-        }
-        if ($object->getRemoveAttributes()) {
-            foreach ($object->getRemoveAttributes() as $attribute) {
-                $attribute->deleteEntity();
-            }
-        }
-
-        return parent::_afterSave($object);
-    }
-
     /**
      * Validate attribute set name
      *
@@ -155,5 +119,40 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
             ->where('default_id = 1')
             ->limit(1);
         return $adapter->fetchOne($select, $bind);
+    }
+    protected function _construct()
+    {
+        $this->_init('eav/attribute_set', 'attribute_set_id');
+    }
+
+    /**
+     * Perform actions after object save
+     *
+     * @inheritDoc
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
+        if ($object->getGroups()) {
+            foreach ($object->getGroups() as $group) {
+                $group->setAttributeSetId($object->getId());
+                if ($group->itemExists() && !$group->getId()) {
+                    continue;
+                }
+                $group->save();
+            }
+        }
+        if ($object->getRemoveGroups()) {
+            foreach ($object->getRemoveGroups() as $group) {
+                $group->delete();
+            }
+            Mage::getResourceModel('eav/entity_attribute_group')->updateDefaultGroup($object->getId());
+        }
+        if ($object->getRemoveAttributes()) {
+            foreach ($object->getRemoveAttributes() as $attribute) {
+                $attribute->deleteEntity();
+            }
+        }
+
+        return parent::_afterSave($object);
     }
 }

@@ -27,23 +27,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     protected $_tabs;
 
-    protected function _construct()
-    {
-        $this->setId('system_config_tabs');
-        $this->setTitle(Mage::helper('adminhtml')->__('Configuration'));
-        $this->setTemplate('system/config/tabs.phtml');
-    }
-
-    /**
-     * @param Mage_Core_Model_Config_Element $a
-     * @param Mage_Core_Model_Config_Element $b
-     * @return int
-     */
-    protected function _sort($a, $b)
-    {
-        return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
-    }
-
     public function initTabs()
     {
         $current = $this->getRequest()->getParam('section');
@@ -316,5 +299,22 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
             $showTab = true;
         }
         return $showTab;
+    }
+
+    protected function _construct()
+    {
+        $this->setId('system_config_tabs');
+        $this->setTitle(Mage::helper('adminhtml')->__('Configuration'));
+        $this->setTemplate('system/config/tabs.phtml');
+    }
+
+    /**
+     * @param Mage_Core_Model_Config_Element $a
+     * @param Mage_Core_Model_Config_Element $b
+     * @return int
+     */
+    protected function _sort($a, $b)
+    {
+        return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
     }
 }

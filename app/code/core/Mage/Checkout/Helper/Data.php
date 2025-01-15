@@ -134,16 +134,6 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Returns the helper for weee
-     *
-     * @return Mage_Weee_Helper_Data
-     */
-    protected function _getWeeeHelper()
-    {
-        return Mage::helper('weee');
-    }
-
-    /**
      * Get the base price of the item including tax , excluding weee
      *
      * @param Mage_Core_Model_Abstract $item
@@ -259,20 +249,6 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $configPath
-     * @param int $storeId
-     * @return array|false
-     */
-    protected function _getEmails($configPath, $storeId)
-    {
-        $data = Mage::getStoreConfig($configPath, $storeId);
-        if (!empty($data)) {
-            return explode(',', $data);
-        }
-        return false;
-    }
-
-    /**
      * Check if multishipping checkout is available.
      * There should be a valid quote in checkout session. If not, only the config value will be returned.
      *
@@ -342,5 +318,29 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     public function isCustomerMustBeLogged()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_MUST_BE_LOGGED);
+    }
+
+    /**
+     * Returns the helper for weee
+     *
+     * @return Mage_Weee_Helper_Data
+     */
+    protected function _getWeeeHelper()
+    {
+        return Mage::helper('weee');
+    }
+
+    /**
+     * @param string $configPath
+     * @param int $storeId
+     * @return array|false
+     */
+    protected function _getEmails($configPath, $storeId)
+    {
+        $data = Mage::getStoreConfig($configPath, $storeId);
+        if (!empty($data)) {
+            return explode(',', $data);
+        }
+        return false;
     }
 }

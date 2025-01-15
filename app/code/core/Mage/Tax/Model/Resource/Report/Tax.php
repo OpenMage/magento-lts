@@ -22,11 +22,6 @@
  */
 class Mage_Tax_Model_Resource_Report_Tax extends Mage_Reports_Model_Resource_Report_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('tax/tax_order_aggregated_created', 'id');
-    }
-
     /**
      * Aggregate Tax data
      *
@@ -41,5 +36,9 @@ class Mage_Tax_Model_Resource_Report_Tax extends Mage_Reports_Model_Resource_Rep
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_TAX_FLAG_CODE);
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('tax/tax_order_aggregated_created', 'id');
     }
 }

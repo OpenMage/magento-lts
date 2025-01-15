@@ -249,14 +249,6 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     }
 
     /**
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        return $this->getGroupedHtml();
-    }
-
-    /**
      * Set messages first level html tag name for output messages as html
      *
      * @param string $tagName
@@ -296,5 +288,13 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     public function addStorageType($type)
     {
         $this->_usedStorageTypes[] = $type;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        return $this->getGroupedHtml();
     }
 }

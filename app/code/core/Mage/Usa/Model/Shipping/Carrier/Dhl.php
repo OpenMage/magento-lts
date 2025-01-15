@@ -29,6 +29,20 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      */
     public const CODE = 'dhl';
 
+    public const SUCCESS_CODE = 203;
+    public const SUCCESS_LABEL_CODE = 100;
+
+    public const ADDITIONAL_PROTECTION_ASSET = 'AP';
+    public const ADDITIONAL_PROTECTION_NOT_REQUIRED = 'NR';
+
+    public const ADDITIONAL_PROTECTION_VALUE_CONFIG = 0;
+    public const ADDITIONAL_PROTECTION_VALUE_SUBTOTAL = 1;
+    public const ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT = 2;
+
+    public const ADDITIONAL_PROTECTION_ROUNDING_FLOOR = 0;
+    public const ADDITIONAL_PROTECTION_ROUNDING_CEIL = 1;
+    public const ADDITIONAL_PROTECTION_ROUNDING_ROUND = 2;
+
     /**
      * Code of the carrier
      *
@@ -84,20 +98,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
      * @var array
      */
     protected $_customizableContainerTypes = ['P'];
-
-    public const SUCCESS_CODE = 203;
-    public const SUCCESS_LABEL_CODE = 100;
-
-    public const ADDITIONAL_PROTECTION_ASSET = 'AP';
-    public const ADDITIONAL_PROTECTION_NOT_REQUIRED = 'NR';
-
-    public const ADDITIONAL_PROTECTION_VALUE_CONFIG = 0;
-    public const ADDITIONAL_PROTECTION_VALUE_SUBTOTAL = 1;
-    public const ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT = 2;
-
-    public const ADDITIONAL_PROTECTION_ROUNDING_FLOOR = 0;
-    public const ADDITIONAL_PROTECTION_ROUNDING_CEIL = 1;
-    public const ADDITIONAL_PROTECTION_ROUNDING_ROUND = 2;
 
     /**
      * Collect and get rates
@@ -377,6 +377,166 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     public function getResult()
     {
         return $this->_result;
+    }
+
+    /**
+     * Get configuration data of carrier
+     *
+     * @param string $type
+     * @param string $code
+     * @return array|bool
+     */
+    public function getCode($type, $code = '')
+    {
+        static $codes;
+        $codes = [
+            'service' => [
+                'IE' => Mage::helper('usa')->__('International Express'),
+                'E SAT' => Mage::helper('usa')->__('Express Saturday'),
+                'E 10:30AM' => Mage::helper('usa')->__('Express 10:30 AM'),
+                'E' => Mage::helper('usa')->__('Express'),
+                'N' => Mage::helper('usa')->__('Next Afternoon'),
+                'S' => Mage::helper('usa')->__('Second Day Service'),
+                'G' => Mage::helper('usa')->__('Ground'),
+            ],
+            'shipment_type' => [
+                'L' => Mage::helper('usa')->__('Letter'),
+                'P' => Mage::helper('usa')->__('Package'),
+            ],
+            'international_searvice' => 'IE',
+            'dutypayment_type' => [
+                'S' => Mage::helper('usa')->__('Sender'),
+                'R' => Mage::helper('usa')->__('Receiver'),
+                '3' => Mage::helper('usa')->__('Third Party'),
+            ],
+
+            'special_express' => [
+                'E SAT' => 'SAT',
+                'E 10:30AM' => '1030',
+            ],
+
+            'descr_to_service' => [
+                'E SAT' => 'Saturday',
+                'E 10:30AM' => '10:30 A.M',
+            ],
+
+        ];
+
+        if (!isset($codes[$type])) {
+            return false;
+        } elseif ($code === '') {
+            return $codes[$type];
+        }
+
+        return $codes[$type][$code] ?? false;
+    }
+
+    /**
+     * Get tracking
+     *
+     * @param mixed $trackings
+     * @return Mage_Shipping_Model_Rate_Result|null
+     */
+    public function getTracking($trackings)
+    {
+        $this->setTrackingReqeust();
+
+        if (!is_array($trackings)) {
+            $trackings = [$trackings];
+        }
+        $this->_getXMLTracking($trackings);
+
+        return $this->_result;
+    }
+
+    /**
+     * Get tracking response
+     *
+     * @return string
+     */
+    public function getResponse()
+    {
+        $statuses = '';
+        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
+            if ($trackings = $this->_result->getAllTrackings()) {
+                foreach ($trackings as $tracking) {
+                    if ($data = $tracking->getAllData()) {
+                        if (isset($data['status'])) {
+                            $statuses .= Mage::helper('usa')->__($data['status']) . "\n<br/>";
+                        } else {
+                            $statuses .= Mage::helper('usa')->__($data['error_message']) . "\n<br/>";
+                        }
+                    }
+                }
+            }
+        }
+        if (empty($statuses)) {
+            $statuses = Mage::helper('usa')->__('Empty response');
+        }
+        return $statuses;
+    }
+
+    /**
+     * Get allowed shipping methods
+     *
+     * @return array
+     */
+    public function getAllowedMethods()
+    {
+        $allowed = explode(',', $this->getConfigData('allowed_methods'));
+        $arr = [];
+        foreach ($allowed as $k) {
+            $arr[$k] = $this->getCode('service', $k);
+        }
+        return $arr;
+    }
+
+    /**
+     * Is state province required
+     *
+     * @return bool
+     */
+    public function isStateProvinceRequired()
+    {
+        return true;
+    }
+
+    /**
+     * Get additional protection value types
+     *
+     * @return array
+     */
+    public function getAdditionalProtectionValueTypes()
+    {
+        return [
+            self::ADDITIONAL_PROTECTION_VALUE_CONFIG => Mage::helper('usa')->__('Configuration'),
+            self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL => Mage::helper('usa')->__('Subtotal'),
+            self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT => Mage::helper('usa')->__('Subtotal With Discount'),
+        ];
+    }
+
+    /**
+     * Get additional protection rounding types
+     *
+     * @return array
+     */
+    public function getAdditionalProtectionRoundingTypes()
+    {
+        return [
+            self::ADDITIONAL_PROTECTION_ROUNDING_FLOOR => Mage::helper('usa')->__('To Lower'),
+            self::ADDITIONAL_PROTECTION_ROUNDING_CEIL => Mage::helper('usa')->__('To Upper'),
+            self::ADDITIONAL_PROTECTION_ROUNDING_ROUND => Mage::helper('usa')->__('Round'),
+        ];
+    }
+
+    /**
+     * Return container types of carrier
+     *
+     * @return array|bool
+     */
+    public function getContainerTypes(?Varien_Object $params = null)
+    {
+        return $this->getCode('shipment_type');
     }
 
     /**
@@ -845,58 +1005,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     }
 
     /**
-     * Get configuration data of carrier
-     *
-     * @param string $type
-     * @param string $code
-     * @return array|bool
-     */
-    public function getCode($type, $code = '')
-    {
-        static $codes;
-        $codes = [
-            'service' => [
-                'IE' => Mage::helper('usa')->__('International Express'),
-                'E SAT' => Mage::helper('usa')->__('Express Saturday'),
-                'E 10:30AM' => Mage::helper('usa')->__('Express 10:30 AM'),
-                'E' => Mage::helper('usa')->__('Express'),
-                'N' => Mage::helper('usa')->__('Next Afternoon'),
-                'S' => Mage::helper('usa')->__('Second Day Service'),
-                'G' => Mage::helper('usa')->__('Ground'),
-            ],
-            'shipment_type' => [
-                'L' => Mage::helper('usa')->__('Letter'),
-                'P' => Mage::helper('usa')->__('Package'),
-            ],
-            'international_searvice' => 'IE',
-            'dutypayment_type' => [
-                'S' => Mage::helper('usa')->__('Sender'),
-                'R' => Mage::helper('usa')->__('Receiver'),
-                '3' => Mage::helper('usa')->__('Third Party'),
-            ],
-
-            'special_express' => [
-                'E SAT' => 'SAT',
-                'E 10:30AM' => '1030',
-            ],
-
-            'descr_to_service' => [
-                'E SAT' => 'Saturday',
-                'E 10:30AM' => '10:30 A.M',
-            ],
-
-        ];
-
-        if (!isset($codes[$type])) {
-            return false;
-        } elseif ($code === '') {
-            return $codes[$type];
-        }
-
-        return $codes[$type][$code] ?? false;
-    }
-
-    /**
      * Parse xml and add rates to instance property
      *
      * @param mixed $shipXml
@@ -930,24 +1038,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             $data['price_total'] = $this->getMethodPrice($totalEstimate, $service);
             $this->_dhlRates[] = ['service' => $service, 'data' => $data];
         }
-    }
-
-    /**
-     * Get tracking
-     *
-     * @param mixed $trackings
-     * @return Mage_Shipping_Model_Rate_Result|null
-     */
-    public function getTracking($trackings)
-    {
-        $this->setTrackingReqeust();
-
-        if (!is_array($trackings)) {
-            $trackings = [$trackings];
-        }
-        $this->_getXMLTracking($trackings);
-
-        return $this->_result;
     }
 
     /**
@@ -1177,86 +1267,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
     }
 
     /**
-     * Get tracking response
-     *
-     * @return string
-     */
-    public function getResponse()
-    {
-        $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
-            if ($trackings = $this->_result->getAllTrackings()) {
-                foreach ($trackings as $tracking) {
-                    if ($data = $tracking->getAllData()) {
-                        if (isset($data['status'])) {
-                            $statuses .= Mage::helper('usa')->__($data['status']) . "\n<br/>";
-                        } else {
-                            $statuses .= Mage::helper('usa')->__($data['error_message']) . "\n<br/>";
-                        }
-                    }
-                }
-            }
-        }
-        if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
-        }
-        return $statuses;
-    }
-
-    /**
-     * Get allowed shipping methods
-     *
-     * @return array
-     */
-    public function getAllowedMethods()
-    {
-        $allowed = explode(',', $this->getConfigData('allowed_methods'));
-        $arr = [];
-        foreach ($allowed as $k) {
-            $arr[$k] = $this->getCode('service', $k);
-        }
-        return $arr;
-    }
-
-    /**
-     * Is state province required
-     *
-     * @return bool
-     */
-    public function isStateProvinceRequired()
-    {
-        return true;
-    }
-
-    /**
-     * Get additional protection value types
-     *
-     * @return array
-     */
-    public function getAdditionalProtectionValueTypes()
-    {
-        return [
-            self::ADDITIONAL_PROTECTION_VALUE_CONFIG => Mage::helper('usa')->__('Configuration'),
-            self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL => Mage::helper('usa')->__('Subtotal'),
-            self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT => Mage::helper('usa')->__('Subtotal With Discount'),
-        ];
-    }
-
-    /**
-     * Get additional protection rounding types
-     *
-     * @return array
-     */
-    public function getAdditionalProtectionRoundingTypes()
-    {
-        return [
-            self::ADDITIONAL_PROTECTION_ROUNDING_FLOOR => Mage::helper('usa')->__('To Lower'),
-            self::ADDITIONAL_PROTECTION_ROUNDING_CEIL => Mage::helper('usa')->__('To Upper'),
-            self::ADDITIONAL_PROTECTION_ROUNDING_ROUND => Mage::helper('usa')->__('Round'),
-        ];
-    }
-
-    /**
      * Map request to shipment
      */
     protected function _mapRequestToShipment(Varien_Object $request)
@@ -1305,15 +1315,5 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $this->setRequest($request);
 
         return $this->_doRequest();
-    }
-
-    /**
-     * Return container types of carrier
-     *
-     * @return array|bool
-     */
-    public function getContainerTypes(?Varien_Object $params = null)
-    {
-        return $this->getCode('shipment_type');
     }
 }

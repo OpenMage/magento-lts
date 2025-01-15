@@ -106,6 +106,17 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
     }
 
     /**
+     * See if the swatch matches a filter currently applied to the product list.
+     *
+     * @param int $optionId
+     * @return bool
+     */
+    public function swatchMatchesFilter($optionId)
+    {
+        return ($optionId == $this->_getSwatchAttributeFilteredValue());
+    }
+
+    /**
      * If the product list is currently filtered by the swatch attribute, get the selected value.
      *
      * @return int | false
@@ -125,16 +136,5 @@ class Mage_ConfigurableSwatches_Helper_Productlist extends Mage_Core_Helper_Abst
             }
         }
         return $this->_swatchAttributeFilteredValue;
-    }
-
-    /**
-     * See if the swatch matches a filter currently applied to the product list.
-     *
-     * @param int $optionId
-     * @return bool
-     */
-    public function swatchMatchesFilter($optionId)
-    {
-        return ($optionId == $this->_getSwatchAttributeFilteredValue());
     }
 }

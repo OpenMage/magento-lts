@@ -34,6 +34,27 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * Prepare row click url
+     *
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
+    }
+
+    /**
+     * Prepare grid url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
      * Prepare grid data collection
      *
      * @return $this
@@ -87,26 +108,5 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Prepare row click url
-     *
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
-    }
-
-    /**
-     * Prepare grid url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 }

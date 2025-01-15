@@ -42,6 +42,21 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'eav_form_element';
 
+    /**
+     * Retrieve EAV Attribute instance
+     *
+     * @return Mage_Eav_Model_Entity_Attribute
+     */
+    public function getAttribute()
+    {
+        if (!$this->hasData('attribute')) {
+            $attribute = Mage::getSingleton('eav/config')
+                ->getAttribute($this->getEntityTypeId(), $this->getAttributeId());
+            $this->setData('attribute', $attribute);
+        }
+        return $this->_getData('attribute');
+    }
+
     protected function _construct()
     {
         $this->_init('eav/form_element');
@@ -63,20 +78,5 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
         }
 
         return parent::_beforeSave();
-    }
-
-    /**
-     * Retrieve EAV Attribute instance
-     *
-     * @return Mage_Eav_Model_Entity_Attribute
-     */
-    public function getAttribute()
-    {
-        if (!$this->hasData('attribute')) {
-            $attribute = Mage::getSingleton('eav/config')
-                ->getAttribute($this->getEntityTypeId(), $this->getAttributeId());
-            $this->setData('attribute', $attribute);
-        }
-        return $this->_getData('attribute');
     }
 }

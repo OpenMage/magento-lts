@@ -22,12 +22,6 @@
  */
 class Mage_Centinel_Block_Logo extends Mage_Core_Block_Template
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('centinel/logo.phtml');
-    }
-
     /**
      * Return code of payment method
      *
@@ -36,5 +30,10 @@ class Mage_Centinel_Block_Logo extends Mage_Core_Block_Template
     public function getCode()
     {
         return $this->getMethod()->getCode();
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('centinel/logo.phtml');
     }
 }

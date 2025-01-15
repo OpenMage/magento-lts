@@ -42,23 +42,13 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
     protected $_item;
     protected $_product;
 
-    protected function _construct()
-    {
-        $this->_init('sales/quote_item_option');
-    }
-
     /**
-     * Checks that item option model has data changes
-     *
-     * @return bool
+     * Clone option object
      */
-    protected function _hasModelChanged()
+    public function __clone()
     {
-        if (!$this->hasDataChanges()) {
-            return false;
-        }
-
-        return $this->_getResource()->hasDataChanged($this);
+        $this->setId(null);
+        $this->_item    = null;
     }
 
     /**
@@ -121,6 +111,25 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
         return $this->_getData('value');
     }
 
+    protected function _construct()
+    {
+        $this->_init('sales/quote_item_option');
+    }
+
+    /**
+     * Checks that item option model has data changes
+     *
+     * @return bool
+     */
+    protected function _hasModelChanged()
+    {
+        if (!$this->hasDataChanges()) {
+            return false;
+        }
+
+        return $this->_getResource()->hasDataChanged($this);
+    }
+
     /**
      * Initialize item identifier before save data
      *
@@ -132,14 +141,5 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
             $this->setItemId($this->getItem()->getId());
         }
         return parent::_beforeSave();
-    }
-
-    /**
-     * Clone option object
-     */
-    public function __clone()
-    {
-        $this->setId(null);
-        $this->_item    = null;
     }
 }

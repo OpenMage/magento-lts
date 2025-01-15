@@ -30,19 +30,6 @@ class Mage_System_Ftp
     protected $_conn = false;
 
     /**
-     * Check connected, throw exception if not
-     *
-     * @throws Exception
-     * @return void
-     */
-    protected function checkConnected()
-    {
-        if (!$this->_conn) {
-            throw new Exception(__CLASS__ . ' - no connection established with server');
-        }
-    }
-
-    /**
      * ftp_mkdir wrapper
      *
      * @param string $name
@@ -525,5 +512,18 @@ class Mage_System_Ftp
         $this->checkConnected();
         $file = $this->correctFilePath($file);
         return @ftp_delete($this->_conn, $file);
+    }
+
+    /**
+     * Check connected, throw exception if not
+     *
+     * @throws Exception
+     * @return void
+     */
+    protected function checkConnected()
+    {
+        if (!$this->_conn) {
+            throw new Exception(__CLASS__ . ' - no connection established with server');
+        }
     }
 }

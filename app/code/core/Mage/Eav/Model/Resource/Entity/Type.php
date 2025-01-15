@@ -22,11 +22,6 @@
  */
 class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('eav/entity_type', 'entity_type_id');
-    }
-
     /**
      * Load Entity Type by Code
      *
@@ -54,5 +49,9 @@ class Mage_Eav_Model_Resource_Entity_Type extends Mage_Core_Model_Resource_Db_Ab
             ->where('entity_type_id = :entity_type_id');
 
         return $adapter->fetchOne($select, $bind);
+    }
+    protected function _construct()
+    {
+        $this->_init('eav/entity_type', 'entity_type_id');
     }
 }

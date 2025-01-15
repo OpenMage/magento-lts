@@ -221,30 +221,6 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     }
 
     /**
-     * Joins tables to select
-     *
-     */
-    protected function _joinFields()
-    {
-        $tagRelationTable = $this->getTable('tag/relation');
-        $tagTable = $this->getTable('tag/tag');
-
-        //TODO: add full name logic
-        $this->addAttributeToSelect('firstname')
-            ->addAttributeToSelect('middlename')
-            ->addAttributeToSelect('lastname')
-            ->addAttributeToSelect('email');
-
-        $this->getSelect()
-        ->join(
-            ['tr' => $tagRelationTable],
-            'tr.customer_id = e.entity_id',
-            ['tag_relation_id', 'product_id', 'active', 'added_in' => 'store_id'],
-        )
-        ->join(['t' => $tagTable], 't.tag_id = tr.tag_id', ['*']);
-    }
-
-    /**
      * Gets number of rows
      *
      * @return Varien_Db_Select
@@ -367,6 +343,30 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         } else {
             return parent::addFieldToFilter($attribute, $condition);
         }
+    }
+
+    /**
+     * Joins tables to select
+     *
+     */
+    protected function _joinFields()
+    {
+        $tagRelationTable = $this->getTable('tag/relation');
+        $tagTable = $this->getTable('tag/tag');
+
+        //TODO: add full name logic
+        $this->addAttributeToSelect('firstname')
+            ->addAttributeToSelect('middlename')
+            ->addAttributeToSelect('lastname')
+            ->addAttributeToSelect('email');
+
+        $this->getSelect()
+        ->join(
+            ['tr' => $tagRelationTable],
+            'tr.customer_id = e.entity_id',
+            ['tag_relation_id', 'product_id', 'active', 'added_in' => 'store_id'],
+        )
+        ->join(['t' => $tagTable], 't.tag_id = tr.tag_id', ['*']);
     }
 
     /**

@@ -44,6 +44,21 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
     protected $_totalsConfigNode = 'totals';
 
     /**
+     * Retrieve total calculation models
+     *
+     * @return array
+     */
+    public function getTotalModels()
+    {
+        if (empty($this->_totalModels)) {
+            $this->_initModels();
+            $this->_initCollectors();
+            $this->_totalModels = $this->_collectors;
+        }
+        return $this->_totalModels;
+    }
+
+    /**
      * Init model class by configuration
      *
      * @param string $class
@@ -64,20 +79,5 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
         $this->_modelsConfig[$totalCode] = $this->_prepareConfigArray($totalCode, $totalConfig);
         $this->_modelsConfig[$totalCode] = $model->processConfigArray($this->_modelsConfig[$totalCode]);
         return $model;
-    }
-
-    /**
-     * Retrieve total calculation models
-     *
-     * @return array
-     */
-    public function getTotalModels()
-    {
-        if (empty($this->_totalModels)) {
-            $this->_initModels();
-            $this->_initCollectors();
-            $this->_totalModels = $this->_collectors;
-        }
-        return $this->_totalModels;
     }
 }

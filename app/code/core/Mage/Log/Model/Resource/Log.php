@@ -22,11 +22,6 @@
  */
 class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('log/visitor', 'visitor_id');
-    }
-
     /**
      * Clean logs
      *
@@ -49,6 +44,10 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
         ]);
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('log/visitor', 'visitor_id');
     }
 
     /**

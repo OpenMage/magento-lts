@@ -24,11 +24,6 @@
  */
 class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product_option');
-    }
-
     /**
      * Adds title, price & price_type attributes to result
      *
@@ -218,5 +213,9 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     public function reset()
     {
         return $this->_reset();
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product_option');
     }
 }

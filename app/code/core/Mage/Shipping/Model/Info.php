@@ -72,39 +72,6 @@ class Mage_Shipping_Model_Info extends Varien_Object
     }
 
     /**
-     * Instantiate order model
-     *
-     * @return Mage_Sales_Model_Order|bool
-     */
-    protected function _initOrder()
-    {
-        $order = Mage::getModel('sales/order')->load($this->getOrderId());
-
-        if (!$order->getId() || $this->getProtectCode() !== $order->getProtectCode()) {
-            return false;
-        }
-
-        return $order;
-    }
-
-    /**
-     * Instantiate ship model
-     *
-     * @return Mage_Sales_Model_Order_Shipment|bool
-     */
-    protected function _initShipment()
-    {
-        /** @var Mage_Sales_Model_Order_Shipment $model */
-        $model = Mage::getModel('sales/order_shipment');
-        $ship = $model->load($this->getShipId());
-        if (!$ship->getEntityId() || $this->getProtectCode() !== $ship->getProtectCode()) {
-            return false;
-        }
-
-        return $ship;
-    }
-
-    /**
      * Retrieve all tracking by order id
      *
      * @return array
@@ -166,5 +133,38 @@ class Mage_Shipping_Model_Info extends Varien_Object
             $this->_trackingInfo = [[$track->getNumberDetail()]];
         }
         return $this->_trackingInfo;
+    }
+
+    /**
+     * Instantiate order model
+     *
+     * @return Mage_Sales_Model_Order|bool
+     */
+    protected function _initOrder()
+    {
+        $order = Mage::getModel('sales/order')->load($this->getOrderId());
+
+        if (!$order->getId() || $this->getProtectCode() !== $order->getProtectCode()) {
+            return false;
+        }
+
+        return $order;
+    }
+
+    /**
+     * Instantiate ship model
+     *
+     * @return Mage_Sales_Model_Order_Shipment|bool
+     */
+    protected function _initShipment()
+    {
+        /** @var Mage_Sales_Model_Order_Shipment $model */
+        $model = Mage::getModel('sales/order_shipment');
+        $ship = $model->load($this->getShipId());
+        if (!$ship->getEntityId() || $this->getProtectCode() !== $ship->getProtectCode()) {
+            return false;
+        }
+
+        return $ship;
     }
 }

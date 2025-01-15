@@ -22,11 +22,6 @@
  */
 class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('newsletter/template', 'template_id');
-    }
-
     /**
      * Load an object by template code
      *
@@ -98,6 +93,10 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
         } else {
             return false;
         }
+    }
+    protected function _construct()
+    {
+        $this->_init('newsletter/template', 'template_id');
     }
 
     /**

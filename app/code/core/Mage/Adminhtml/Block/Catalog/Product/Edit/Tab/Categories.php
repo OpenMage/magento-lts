@@ -55,16 +55,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
     }
 
     /**
-     * Return array with category IDs which the product is assigned to
-     *
-     * @return array
-     */
-    protected function getCategoryIds()
-    {
-        return $this->getProduct()->getCategoryIds();
-    }
-
-    /**
      * Forms string out of getCategoryIds()
      *
      * @return string
@@ -139,72 +129,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
     }
 
     /**
-     * Returns array with configuration of current node
-     *
-     * @param Varien_Data_Tree_Node $node
-     * @param int                   $level How deep is the node in the tree
-     * @return array
-     */
-    protected function _getNodeJson($node, $level = 1)
-    {
-        $item = parent::_getNodeJson($node, $level);
-
-        if ($this->_isParentSelectedCategory($node)) {
-            $item['expanded'] = true;
-        }
-
-        if (in_array($node->getId(), $this->getCategoryIds())) {
-            $item['checked'] = true;
-        }
-
-        if ($this->isReadonly()) {
-            $item['disabled'] = true;
-        }
-
-        return $item;
-    }
-
-    /**
-     * Returns whether $node is a parent (not exactly direct) of a selected node
-     *
-     * @param Varien_Data_Tree_Node $node
-     * @return bool
-     */
-    protected function _isParentSelectedCategory($node)
-    {
-        foreach ($this->_getSelectedNodes() as $selected) {
-            if ($selected) {
-                $pathIds = explode('/', $selected->getPathId());
-                if (in_array($node->getId(), $pathIds)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Returns array with nodes those are selected (contain current product)
-     *
-     * @return array
-     */
-    protected function _getSelectedNodes()
-    {
-        if ($this->_selectedNodes === null) {
-            $this->_selectedNodes = [];
-            $root = $this->getRoot();
-            foreach ($this->getCategoryIds() as $categoryId) {
-                if ($root) {
-                    $this->_selectedNodes[] = $root->getTree()->getNodeById($categoryId);
-                }
-            }
-        }
-
-        return $this->_selectedNodes;
-    }
-
-    /**
      * Returns JSON-encoded array of category children
      *
      * @param int $categoryId
@@ -273,5 +197,81 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
             }
         }
         return $ids;
+    }
+
+    /**
+     * Return array with category IDs which the product is assigned to
+     *
+     * @return array
+     */
+    protected function getCategoryIds()
+    {
+        return $this->getProduct()->getCategoryIds();
+    }
+
+    /**
+     * Returns array with configuration of current node
+     *
+     * @param Varien_Data_Tree_Node $node
+     * @param int                   $level How deep is the node in the tree
+     * @return array
+     */
+    protected function _getNodeJson($node, $level = 1)
+    {
+        $item = parent::_getNodeJson($node, $level);
+
+        if ($this->_isParentSelectedCategory($node)) {
+            $item['expanded'] = true;
+        }
+
+        if (in_array($node->getId(), $this->getCategoryIds())) {
+            $item['checked'] = true;
+        }
+
+        if ($this->isReadonly()) {
+            $item['disabled'] = true;
+        }
+
+        return $item;
+    }
+
+    /**
+     * Returns whether $node is a parent (not exactly direct) of a selected node
+     *
+     * @param Varien_Data_Tree_Node $node
+     * @return bool
+     */
+    protected function _isParentSelectedCategory($node)
+    {
+        foreach ($this->_getSelectedNodes() as $selected) {
+            if ($selected) {
+                $pathIds = explode('/', $selected->getPathId());
+                if (in_array($node->getId(), $pathIds)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns array with nodes those are selected (contain current product)
+     *
+     * @return array
+     */
+    protected function _getSelectedNodes()
+    {
+        if ($this->_selectedNodes === null) {
+            $this->_selectedNodes = [];
+            $root = $this->getRoot();
+            foreach ($this->getCategoryIds() as $categoryId) {
+                if ($root) {
+                    $this->_selectedNodes[] = $root->getTree()->getNodeById($categoryId);
+                }
+            }
+        }
+
+        return $this->_selectedNodes;
     }
 }

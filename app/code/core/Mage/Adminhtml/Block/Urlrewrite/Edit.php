@@ -38,6 +38,101 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     protected $_buttonsHtml;
 
     /**
+     * Get container buttons HTML
+     *
+     * Since buttons are set as children, we remove them as children after generating them
+     * not to duplicate them in future
+     *
+     * @return string
+     */
+    public function getButtonsHtml($area = null)
+    {
+        if ($this->_buttonsHtml === null) {
+            $this->_buttonsHtml = parent::getButtonsHtml();
+            foreach (array_keys($this->_children) as $alias) {
+                if (str_contains($alias, '_button')) {
+                    $this->unsetChild($alias);
+                }
+            }
+        }
+        return $this->_buttonsHtml;
+    }
+
+    /**
+     * Get current urlrewrite instance id
+     *
+     * @return int
+     */
+    public function getUrlrewriteId()
+    {
+        return Mage::registry('current_urlrewrite')->getId();
+    }
+
+    /**
+     * Get current product instance id
+     *
+     * @return int
+     */
+    public function getProductId()
+    {
+        return Mage::registry('current_product')->getId();
+    }
+
+    /**
+     * Return current category instance id
+     *
+     * @return int
+     */
+    public function getCategoryId()
+    {
+        return Mage::registry('current_category')->getId();
+    }
+
+    /**
+     * Check whether specified selection mode is set in request
+     *
+     * @param string $mode
+     * @return bool
+     */
+    public function isMode($mode)
+    {
+        return $this->getRequest()->has($mode);
+    }
+
+    /**
+     * Update layout by specified mode code
+     *
+     * @param string $mode
+     * @return $this
+     * @see Mage_Adminhtml_Block_Urlrewrite_Selector
+     */
+    public function updateModeLayout($mode = null)
+    {
+        if (!$mode) {
+            $modes = array_keys(Mage::getBlockSingleton('adminhtml/urlrewrite_selector')->getModes());
+            $mode  = array_shift($modes);
+        }
+
+        // edit form for new custom urlrewrite
+        if ($mode === 'id') {
+            $this->_setFormChild();
+        } elseif ($mode === 'product') { // products grid
+            $this->setChild('products_grid', $this->getLayout()->createBlock('adminhtml/urlrewrite_product_grid'));
+        } elseif ($mode === 'category') { // categories tree
+            $this->setChild('categories_tree', $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree'));
+        }
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-urlrewrite';
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -181,100 +276,5 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         );
 
         return $this;
-    }
-
-    /**
-     * Get container buttons HTML
-     *
-     * Since buttons are set as children, we remove them as children after generating them
-     * not to duplicate them in future
-     *
-     * @return string
-     */
-    public function getButtonsHtml($area = null)
-    {
-        if ($this->_buttonsHtml === null) {
-            $this->_buttonsHtml = parent::getButtonsHtml();
-            foreach (array_keys($this->_children) as $alias) {
-                if (str_contains($alias, '_button')) {
-                    $this->unsetChild($alias);
-                }
-            }
-        }
-        return $this->_buttonsHtml;
-    }
-
-    /**
-     * Get current urlrewrite instance id
-     *
-     * @return int
-     */
-    public function getUrlrewriteId()
-    {
-        return Mage::registry('current_urlrewrite')->getId();
-    }
-
-    /**
-     * Get current product instance id
-     *
-     * @return int
-     */
-    public function getProductId()
-    {
-        return Mage::registry('current_product')->getId();
-    }
-
-    /**
-     * Return current category instance id
-     *
-     * @return int
-     */
-    public function getCategoryId()
-    {
-        return Mage::registry('current_category')->getId();
-    }
-
-    /**
-     * Check whether specified selection mode is set in request
-     *
-     * @param string $mode
-     * @return bool
-     */
-    public function isMode($mode)
-    {
-        return $this->getRequest()->has($mode);
-    }
-
-    /**
-     * Update layout by specified mode code
-     *
-     * @param string $mode
-     * @return $this
-     * @see Mage_Adminhtml_Block_Urlrewrite_Selector
-     */
-    public function updateModeLayout($mode = null)
-    {
-        if (!$mode) {
-            $modes = array_keys(Mage::getBlockSingleton('adminhtml/urlrewrite_selector')->getModes());
-            $mode  = array_shift($modes);
-        }
-
-        // edit form for new custom urlrewrite
-        if ($mode === 'id') {
-            $this->_setFormChild();
-        } elseif ($mode === 'product') { // products grid
-            $this->setChild('products_grid', $this->getLayout()->createBlock('adminhtml/urlrewrite_product_grid'));
-        } elseif ($mode === 'category') { // categories tree
-            $this->setChild('categories_tree', $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree'));
-        }
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHeaderCssClass()
-    {
-        return 'icon-head head-urlrewrite';
     }
 }

@@ -26,6 +26,55 @@
 class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
+     * Get tab label
+     *
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return Mage::helper('api2')->__('Role Info');
+    }
+
+    /**
+     * Get tab title
+     *
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return $this->getTabLabel();
+    }
+
+    /**
+     * Whether tab is available
+     *
+     * @return bool
+     */
+    public function canShowTab()
+    {
+        return true;
+    }
+
+    /**
+     * Whether tab is hidden
+     *
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return false;
+    }
+
+    /**
+     * Whether role is system
+     *
+     * @return bool
+     */
+    public function isRoleSystem()
+    {
+        return $this->getRole() && Mage_Api2_Model_Acl_Global_Role::isSystemRole($this->getRole());
+    }
+    /**
      * Prepare form object
      */
     protected function _prepareForm()
@@ -88,55 +137,5 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
         }
         $this->setForm($form);
         return $this;
-    }
-
-    /**
-     * Get tab label
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return Mage::helper('api2')->__('Role Info');
-    }
-
-    /**
-     * Get tab title
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return $this->getTabLabel();
-    }
-
-    /**
-     * Whether tab is available
-     *
-     * @return bool
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * Whether tab is hidden
-     *
-     * @return bool
-     */
-    public function isHidden()
-    {
-        return false;
-    }
-
-    /**
-     * Whether role is system
-     *
-     * @return bool
-     */
-    public function isRoleSystem()
-    {
-        return $this->getRole() && Mage_Api2_Model_Acl_Global_Role::isSystemRole($this->getRole());
     }
 }

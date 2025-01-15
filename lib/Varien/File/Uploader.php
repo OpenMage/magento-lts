@@ -36,6 +36,14 @@ class Varien_File_Uploader
         UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload',
     ];
 
+    public const SINGLE_STYLE = 0;
+    public const MULTIPLE_STYLE = 1;
+
+    /**
+     * @deprecated Use UPLOAD_ERR_NO_FILE instead
+     */
+    public const TMP_NAME_EMPTY = UPLOAD_ERR_NO_FILE;
+
     /**
      * Uploaded file handle (copy of $_FILES[] element)
      *
@@ -138,14 +146,6 @@ class Varien_File_Uploader
      */
     protected $_validateCallbacks = [];
 
-    public const SINGLE_STYLE = 0;
-    public const MULTIPLE_STYLE = 1;
-
-    /**
-     * @deprecated Use UPLOAD_ERR_NO_FILE instead
-     */
-    public const TMP_NAME_EMPTY = UPLOAD_ERR_NO_FILE;
-
     /**
      * Resulting of uploaded file
      *
@@ -165,17 +165,6 @@ class Varien_File_Uploader
         } else {
             $this->_fileExists = true;
         }
-    }
-
-    /**
-     * After save logic
-     *
-     * @param  array $result
-     * @return Varien_File_Uploader
-     */
-    protected function _afterSave($result)
-    {
-        return $this;
     }
 
     /**
@@ -239,49 +228,6 @@ class Varien_File_Uploader
         }
 
         return $this->_result;
-    }
-
-    /**
-     * Move files from TMP folder into destination folder
-     *
-     * @param string $tmpPath
-     * @param string $destPath
-     * @return bool
-     */
-    protected function _moveFile($tmpPath, $destPath)
-    {
-        return move_uploaded_file($tmpPath, $destPath);
-    }
-
-    /**
-     * Validate file before save
-     *
-     * @access public
-     */
-    protected function _validateFile()
-    {
-        if ($this->_fileExists === false) {
-            return;
-        }
-
-        //is file extension allowed
-        if (!$this->checkAllowedExtension($this->getFileExtension())) {
-            throw new Exception('Disallowed file type.');
-        }
-
-        /*
-         * Validate MIME-Types.
-         */
-        if (!$this->checkMimeType($this->_validMimeTypes)) {
-            throw new Exception('Invalid MIME type.');
-        }
-
-        //run validate callbacks
-        foreach ($this->_validateCallbacks as $params) {
-            if (is_object($params['object']) && method_exists($params['object'], $params['method'])) {
-                $params['object']->{$params['method']}($this->_file['tmp_name']);
-            }
-        }
     }
 
     /**
@@ -356,14 +302,6 @@ class Varien_File_Uploader
             return strtolower($fileName);
         }
         return $fileName;
-    }
-
-    protected static function _addDirSeparator($dir)
-    {
-        if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
-            $dir .= DIRECTORY_SEPARATOR;
-        }
-        return $dir;
     }
 
     /**
@@ -497,6 +435,103 @@ class Varien_File_Uploader
         return $this->checkAllowedExtension($extension);
     }
 
+    public static function getNewFileName($destFile)
+    {
+        $fileInfo = pathinfo($destFile);
+        if (file_exists($destFile)) {
+            $index = 1;
+            $baseName = $fileInfo['filename'] . '.' . $fileInfo['extension'];
+            while (file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName)) {
+                $baseName = $fileInfo['filename'] . '_' . $index . '.' . $fileInfo['extension'];
+                $index++;
+            }
+            $destFileName = $baseName;
+        } else {
+            return $fileInfo['basename'];
+        }
+
+        return $destFileName;
+    }
+
+    public static function getDispretionPath($fileName)
+    {
+        $char = 0;
+        $dispretionPath = '';
+        while (($char < 2) && ($char < strlen($fileName))) {
+            if (empty($dispretionPath)) {
+                $dispretionPath = DIRECTORY_SEPARATOR
+                    . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
+            } else {
+                $dispretionPath = self::_addDirSeparator($dispretionPath)
+                      . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
+            }
+            $char++;
+        }
+        return $dispretionPath;
+    }
+
+    /**
+     * After save logic
+     *
+     * @param  array $result
+     * @return Varien_File_Uploader
+     */
+    protected function _afterSave($result)
+    {
+        return $this;
+    }
+
+    /**
+     * Move files from TMP folder into destination folder
+     *
+     * @param string $tmpPath
+     * @param string $destPath
+     * @return bool
+     */
+    protected function _moveFile($tmpPath, $destPath)
+    {
+        return move_uploaded_file($tmpPath, $destPath);
+    }
+
+    /**
+     * Validate file before save
+     *
+     * @access public
+     */
+    protected function _validateFile()
+    {
+        if ($this->_fileExists === false) {
+            return;
+        }
+
+        //is file extension allowed
+        if (!$this->checkAllowedExtension($this->getFileExtension())) {
+            throw new Exception('Disallowed file type.');
+        }
+
+        /*
+         * Validate MIME-Types.
+         */
+        if (!$this->checkMimeType($this->_validMimeTypes)) {
+            throw new Exception('Invalid MIME type.');
+        }
+
+        //run validate callbacks
+        foreach ($this->_validateCallbacks as $params) {
+            if (is_object($params['object']) && method_exists($params['object'], $params['method'])) {
+                $params['object']->{$params['method']}($this->_file['tmp_name']);
+            }
+        }
+    }
+
+    protected static function _addDirSeparator($dir)
+    {
+        if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
+            $dir .= DIRECTORY_SEPARATOR;
+        }
+        return $dir;
+    }
+
     private function _getMimeType()
     {
         return $this->_file['type'];
@@ -551,40 +586,5 @@ class Varien_File_Uploader
             throw new Exception("Unable to create directory '{$destinationFolder}'.");
         }
         return $this;
-    }
-
-    public static function getNewFileName($destFile)
-    {
-        $fileInfo = pathinfo($destFile);
-        if (file_exists($destFile)) {
-            $index = 1;
-            $baseName = $fileInfo['filename'] . '.' . $fileInfo['extension'];
-            while (file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName)) {
-                $baseName = $fileInfo['filename'] . '_' . $index . '.' . $fileInfo['extension'];
-                $index++;
-            }
-            $destFileName = $baseName;
-        } else {
-            return $fileInfo['basename'];
-        }
-
-        return $destFileName;
-    }
-
-    public static function getDispretionPath($fileName)
-    {
-        $char = 0;
-        $dispretionPath = '';
-        while (($char < 2) && ($char < strlen($fileName))) {
-            if (empty($dispretionPath)) {
-                $dispretionPath = DIRECTORY_SEPARATOR
-                    . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
-            } else {
-                $dispretionPath = self::_addDirSeparator($dispretionPath)
-                      . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
-            }
-            $char++;
-        }
-        return $dispretionPath;
     }
 }

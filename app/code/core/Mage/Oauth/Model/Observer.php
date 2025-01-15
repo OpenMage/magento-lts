@@ -23,16 +23,6 @@
 class Mage_Oauth_Model_Observer
 {
     /**
-     * Retrieve oauth_token param from request
-     *
-     * @return string|null
-     */
-    protected function _getOauthToken()
-    {
-        return Mage::helper('oauth')->getOauthToken();
-    }
-
-    /**
      * Redirect customer to callback page after login
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
@@ -88,5 +78,14 @@ class Mage_Oauth_Model_Observer
                 ->sendResponse();
             exit();
         }
+    }
+    /**
+     * Retrieve oauth_token param from request
+     *
+     * @return string|null
+     */
+    protected function _getOauthToken()
+    {
+        return Mage::helper('oauth')->getOauthToken();
     }
 }

@@ -63,26 +63,6 @@ class Mage_Core_Model_Cookie
     }
 
     /**
-     * Retrieve Request object
-     *
-     * @return Mage_Core_Controller_Request_Http
-     */
-    protected function _getRequest()
-    {
-        return Mage::app()->getRequest();
-    }
-
-    /**
-     * Retrieve Response object
-     *
-     * @return Mage_Core_Controller_Response_Http
-     */
-    protected function _getResponse()
-    {
-        return Mage::app()->getResponse();
-    }
-
-    /**
      * Retrieve Domain for cookie
      *
      * @return string
@@ -320,5 +300,25 @@ class Mage_Core_Model_Cookie
         }
 
         return $this->set($name, '', null, $path, $domain, $secure, $httponly, $sameSite);
+    }
+
+    /**
+     * Retrieve Request object
+     *
+     * @return Mage_Core_Controller_Request_Http
+     */
+    protected function _getRequest()
+    {
+        return Mage::app()->getRequest();
+    }
+
+    /**
+     * Retrieve Response object
+     *
+     * @return Mage_Core_Controller_Response_Http
+     */
+    protected function _getResponse()
+    {
+        return Mage::app()->getResponse();
     }
 }

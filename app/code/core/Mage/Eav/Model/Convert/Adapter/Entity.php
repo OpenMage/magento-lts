@@ -53,22 +53,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @return array
-     */
-    protected function _parseVars()
-    {
-        $varFilters = $this->getVars();
-        $filters = [];
-        foreach ($varFilters as $key => $val) {
-            if (substr($key, 0, 6) === 'filter') {
-                $keys = explode('/', $key, 2);
-                $filters[$keys[1]] = $val;
-            }
-        }
-        return $filters;
-    }
-
-    /**
      * @param array $attrFilterArray
      * @param array $attrToDb
      * @param string $bind
@@ -186,28 +170,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @param array $fields
-     * @param string $name
-     * @return array|bool
-     */
-    protected function getFieldValue($fields = [], $name = '')
-    {
-        $result = [];
-        if ($fields && $name) {
-            foreach ($fields as $index => $value) {
-                $exp = explode('/', $index);
-                if (isset($exp[1]) && $exp[0] == $name) {
-                    $result[$exp[1]] = $value;
-                }
-            }
-            if ($result) {
-                return $result;
-            }
-        }
-        return false;
-    }
-
-    /**
      * @param array $joinAttr
      * @throws Exception
      */
@@ -320,17 +282,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * Retrieve collection for load
-     *
-     * @param string $entityType
-     * @return Mage_Eav_Model_Entity_Collection|false
-     */
-    protected function _getCollectionForLoad($entityType)
-    {
-        return Mage::getResourceModel($entityType . '_collection');
-    }
-
-    /**
      * @return $this
      * @throws Varien_Convert_Exception
      */
@@ -363,5 +314,54 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             );
         }
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    protected function _parseVars()
+    {
+        $varFilters = $this->getVars();
+        $filters = [];
+        foreach ($varFilters as $key => $val) {
+            if (substr($key, 0, 6) === 'filter') {
+                $keys = explode('/', $key, 2);
+                $filters[$keys[1]] = $val;
+            }
+        }
+        return $filters;
+    }
+
+    /**
+     * @param array $fields
+     * @param string $name
+     * @return array|bool
+     */
+    protected function getFieldValue($fields = [], $name = '')
+    {
+        $result = [];
+        if ($fields && $name) {
+            foreach ($fields as $index => $value) {
+                $exp = explode('/', $index);
+                if (isset($exp[1]) && $exp[0] == $name) {
+                    $result[$exp[1]] = $value;
+                }
+            }
+            if ($result) {
+                return $result;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Retrieve collection for load
+     *
+     * @param string $entityType
+     * @return Mage_Eav_Model_Entity_Collection|false
+     */
+    protected function _getCollectionForLoad($entityType)
+    {
+        return Mage::getResourceModel($entityType . '_collection');
     }
 }

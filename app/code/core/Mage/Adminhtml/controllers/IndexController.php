@@ -23,24 +23,6 @@
 class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Render specified template
-     *
-     * @param string $tplName
-     * @param array $data parameters required by template
-     */
-    protected function _outTemplate($tplName, $data = [])
-    {
-        $this->_initLayoutMessages('adminhtml/session');
-        $block = $this->getLayout()->createBlock('adminhtml/template')->setTemplate("$tplName.phtml");
-        foreach ($data as $index => $value) {
-            $block->assign($index, $value);
-        }
-        $html = $block->toHtml();
-        Mage::getSingleton('core/translate_inline')->processResponseBody($html);
-        $this->getResponse()->setBody($html);
-    }
-
-    /**
      * Admin area entry point
      * Always redirects to the startup page url
      */
@@ -180,31 +162,11 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Retrieve response for deniedJsonAction()
-     */
-    protected function _getDeniedJson()
-    {
-        return Mage::helper('core')->jsonEncode([
-            'ajaxExpired' => 1,
-            'ajaxRedirect' => $this->getUrl('*/index/login'),
-        ]);
-    }
-
-    /**
      * Denied IFrame action
      */
     public function deniedIframeAction()
     {
         $this->getResponse()->setBody($this->_getDeniedIframe());
-    }
-
-    /**
-     * Retrieve response for deniedIframeAction()
-     */
-    protected function _getDeniedIframe()
-    {
-        return '<script type="text/javascript">parent.window.location = \''
-            . $this->getUrl('*/index/login') . '\';</script>';
     }
 
     /**
@@ -355,6 +317,43 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $this->_outTemplate('resetforgottenpassword', $data);
             return;
         }
+    }
+    /**
+     * Render specified template
+     *
+     * @param string $tplName
+     * @param array $data parameters required by template
+     */
+    protected function _outTemplate($tplName, $data = [])
+    {
+        $this->_initLayoutMessages('adminhtml/session');
+        $block = $this->getLayout()->createBlock('adminhtml/template')->setTemplate("$tplName.phtml");
+        foreach ($data as $index => $value) {
+            $block->assign($index, $value);
+        }
+        $html = $block->toHtml();
+        Mage::getSingleton('core/translate_inline')->processResponseBody($html);
+        $this->getResponse()->setBody($html);
+    }
+
+    /**
+     * Retrieve response for deniedJsonAction()
+     */
+    protected function _getDeniedJson()
+    {
+        return Mage::helper('core')->jsonEncode([
+            'ajaxExpired' => 1,
+            'ajaxRedirect' => $this->getUrl('*/index/login'),
+        ]);
+    }
+
+    /**
+     * Retrieve response for deniedIframeAction()
+     */
+    protected function _getDeniedIframe()
+    {
+        return '<script type="text/javascript">parent.window.location = \''
+            . $this->getUrl('*/index/login') . '\';</script>';
     }
 
     /**

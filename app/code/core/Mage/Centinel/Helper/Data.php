@@ -71,6 +71,45 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Return centinel block for payment form with logos
+     *
+     * @param Mage_Payment_Model_Method_Abstract $method
+     * @return Mage_Centinel_Block_Logo|Mage_Core_Block_Abstract|false
+     */
+    public function getMethodFormBlock($method)
+    {
+        $blockType = 'centinel/logo';
+        if ($this->getLayout()) {
+            $block = $this->getLayout()->createBlock($blockType);
+        } else {
+            $className = Mage::getConfig()->getBlockClassName($blockType);
+            $block = new $className();
+        }
+        $block->setMethod($method);
+        return $block;
+    }
+
+    /**
+     * Return url of page about visa verification
+     *
+     * @return string
+     */
+    public function getVisaLearnMorePageUrl()
+    {
+        return 'https://usa.visa.com/personal/security/vbv/index.html?ep=v_sym_verifiedbyvisa';
+    }
+
+    /**
+     * Return url of page about mastercard verification
+     *
+     * @return string
+     */
+    public function getMastercardLearnMorePageUrl()
+    {
+        return 'http://www.mastercardbusiness.com/mcbiz/index.jsp?template=/orphans&amp;content=securecodepopup';
+    }
+
+    /**
      * Return text value for cmpi eci flag field
      *
      * @param string $value
@@ -130,44 +169,5 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
             default:
                 return $value;
         }
-    }
-
-    /**
-     * Return centinel block for payment form with logos
-     *
-     * @param Mage_Payment_Model_Method_Abstract $method
-     * @return Mage_Centinel_Block_Logo|Mage_Core_Block_Abstract|false
-     */
-    public function getMethodFormBlock($method)
-    {
-        $blockType = 'centinel/logo';
-        if ($this->getLayout()) {
-            $block = $this->getLayout()->createBlock($blockType);
-        } else {
-            $className = Mage::getConfig()->getBlockClassName($blockType);
-            $block = new $className();
-        }
-        $block->setMethod($method);
-        return $block;
-    }
-
-    /**
-     * Return url of page about visa verification
-     *
-     * @return string
-     */
-    public function getVisaLearnMorePageUrl()
-    {
-        return 'https://usa.visa.com/personal/security/vbv/index.html?ep=v_sym_verifiedbyvisa';
-    }
-
-    /**
-     * Return url of page about mastercard verification
-     *
-     * @return string
-     */
-    public function getMastercardLearnMorePageUrl()
-    {
-        return 'http://www.mastercardbusiness.com/mcbiz/index.jsp?template=/orphans&amp;content=securecodepopup';
     }
 }

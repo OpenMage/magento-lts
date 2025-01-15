@@ -127,81 +127,6 @@ class Mage_Core_Model_Resource
     }
 
     /**
-     * Retrieve connection adapter class name by connection type
-     *
-     * @param string $type  the connection type
-     * @return string|false
-     */
-    protected function _getConnectionAdapterClassName($type)
-    {
-        $config = Mage::getConfig()->getResourceTypeConfig($type);
-        if (!empty($config->adapter)) {
-            return (string) $config->adapter;
-        }
-        return false;
-    }
-
-    /**
-     * Create new connection adapter instance by connection type and config
-     *
-     * @param string $type the connection type
-     * @param Mage_Core_Model_Config_Element|array $config the connection configuration
-     * @return Varien_Db_Adapter_Interface|false
-     */
-    protected function _newConnection($type, $config)
-    {
-        if ($config instanceof Mage_Core_Model_Config_Element) {
-            $config = $config->asArray();
-        }
-        if (!is_array($config)) {
-            return false;
-        }
-
-        $connection = false;
-        // try to get adapter and create connection
-        $className  = $this->_getConnectionAdapterClassName($type);
-        if ($className) {
-            // define profiler settings
-            $config['profiler'] = isset($config['profiler']) && $config['profiler'] != 'false';
-
-            $connection = new $className($config);
-            if ($connection instanceof Varien_Db_Adapter_Interface) {
-                // run after initialization statements
-                if (!empty($config['initStatements'])) {
-                    $connection->query($config['initStatements']);
-                }
-            } else {
-                $connection = false;
-            }
-        }
-
-        // try to get connection from type
-        if (!$connection) {
-            $typeInstance = $this->getConnectionTypeInstance($type);
-            $connection = $typeInstance->getConnection($config);
-            if (!$connection instanceof Varien_Db_Adapter_Interface) {
-                $connection = false;
-            }
-        }
-
-        return $connection;
-    }
-
-    /**
-     * Retrieve default connection name by required connection name
-     *
-     * @param string $requiredConnectionName
-     * @return string
-     */
-    protected function _getDefaultConnection($requiredConnectionName)
-    {
-        if (str_contains($requiredConnectionName, 'read')) {
-            return $this->getConnection(self::DEFAULT_READ_RESOURCE);
-        }
-        return $this->getConnection(self::DEFAULT_WRITE_RESOURCE);
-    }
-
-    /**
      * Get connection type instance
      *
      * Creates new if doesn't exist
@@ -416,5 +341,80 @@ class Mage_Core_Model_Resource
                 $this->getTableName($refTableName),
                 $refColumnName,
             );
+    }
+
+    /**
+     * Retrieve connection adapter class name by connection type
+     *
+     * @param string $type  the connection type
+     * @return string|false
+     */
+    protected function _getConnectionAdapterClassName($type)
+    {
+        $config = Mage::getConfig()->getResourceTypeConfig($type);
+        if (!empty($config->adapter)) {
+            return (string) $config->adapter;
+        }
+        return false;
+    }
+
+    /**
+     * Create new connection adapter instance by connection type and config
+     *
+     * @param string $type the connection type
+     * @param Mage_Core_Model_Config_Element|array $config the connection configuration
+     * @return Varien_Db_Adapter_Interface|false
+     */
+    protected function _newConnection($type, $config)
+    {
+        if ($config instanceof Mage_Core_Model_Config_Element) {
+            $config = $config->asArray();
+        }
+        if (!is_array($config)) {
+            return false;
+        }
+
+        $connection = false;
+        // try to get adapter and create connection
+        $className  = $this->_getConnectionAdapterClassName($type);
+        if ($className) {
+            // define profiler settings
+            $config['profiler'] = isset($config['profiler']) && $config['profiler'] != 'false';
+
+            $connection = new $className($config);
+            if ($connection instanceof Varien_Db_Adapter_Interface) {
+                // run after initialization statements
+                if (!empty($config['initStatements'])) {
+                    $connection->query($config['initStatements']);
+                }
+            } else {
+                $connection = false;
+            }
+        }
+
+        // try to get connection from type
+        if (!$connection) {
+            $typeInstance = $this->getConnectionTypeInstance($type);
+            $connection = $typeInstance->getConnection($config);
+            if (!$connection instanceof Varien_Db_Adapter_Interface) {
+                $connection = false;
+            }
+        }
+
+        return $connection;
+    }
+
+    /**
+     * Retrieve default connection name by required connection name
+     *
+     * @param string $requiredConnectionName
+     * @return string
+     */
+    protected function _getDefaultConnection($requiredConnectionName)
+    {
+        if (str_contains($requiredConnectionName, 'read')) {
+            return $this->getConnection(self::DEFAULT_READ_RESOURCE);
+        }
+        return $this->getConnection(self::DEFAULT_WRITE_RESOURCE);
     }
 }

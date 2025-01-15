@@ -76,11 +76,6 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     protected $_addBasePopularity = false;
 
-    protected function _construct()
-    {
-        $this->_init('tag/tag');
-    }
-
     /**
      * Init indexing process after tag data commit
      *
@@ -117,20 +112,6 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     public function getAddBasePopularity()
     {
         return $this->_addBasePopularity;
-    }
-
-    /**
-     * Product event tags collection getter
-     *
-     * @return Mage_Tag_Model_Resource_Tag_Collection
-     */
-    protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
-    {
-        return $this->getResourceCollection()
-            ->joinRel()
-            ->addProductFilter($observer->getEvent()->getProduct()->getId())
-            ->addTagGroup()
-            ->load();
     }
 
     /**
@@ -338,16 +319,6 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return Mage_Core_Model_Abstract
-     * @throws Mage_Core_Exception
-     */
-    protected function _beforeDelete()
-    {
-        $this->_protectFromNonAdmin();
-        return parent::_beforeDelete();
-    }
-
-    /**
      * Save tag relation with product, customer and store
      *
      * @param int $productId
@@ -414,6 +385,35 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         }
 
         return $result;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('tag/tag');
+    }
+
+    /**
+     * Product event tags collection getter
+     *
+     * @return Mage_Tag_Model_Resource_Tag_Collection
+     */
+    protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
+    {
+        return $this->getResourceCollection()
+            ->joinRel()
+            ->addProductFilter($observer->getEvent()->getProduct()->getId())
+            ->addTagGroup()
+            ->load();
+    }
+
+    /**
+     * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
+     */
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
     }
 
     /**

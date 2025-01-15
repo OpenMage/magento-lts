@@ -45,13 +45,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      */
     protected $_product;
 
-    protected function _construct()
-    {
-        $this->_init('catalog/product_type_configurable_attribute');
-        $this->_labelTable = $this->getTable('catalog/product_super_attribute_label');
-        $this->_priceTable = $this->getTable('catalog/product_super_attribute_pricing');
-    }
-
     /**
      * Retrieve catalog helper
      *
@@ -97,6 +90,36 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     }
 
     /**
+     * Add Associated Product Filters (From Product Type Instance)
+     *
+     * @return $this
+     */
+    public function _addAssociatedProductFilters()
+    {
+        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
+        $productType = $this->getProduct()->getTypeInstance(true);
+        $productType->getUsedProducts($this->getColumnValues('attribute_id'), $this->getProduct()); //Filter associated products
+        return $this;
+    }
+
+    /**
+     * Retrieve product instance
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        return $this->_product;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/product_type_configurable_attribute');
+        $this->_labelTable = $this->getTable('catalog/product_super_attribute_label');
+        $this->_priceTable = $this->getTable('catalog/product_super_attribute_pricing');
+    }
+
+    /**
      * After load collection process
      *
      * @return $this
@@ -131,19 +154,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 ->getAttributeById($item->getAttributeId(), $this->getProduct());
             $item->setProductAttribute($productAttribute);
         }
-        return $this;
-    }
-
-    /**
-     * Add Associated Product Filters (From Product Type Instance)
-     *
-     * @return $this
-     */
-    public function _addAssociatedProductFilters()
-    {
-        /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
-        $productType = $this->getProduct()->getTypeInstance(true);
-        $productType->getUsedProducts($this->getColumnValues('attribute_id'), $this->getProduct()); //Filter associated products
         return $this;
     }
 
@@ -301,15 +311,5 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
             }
         }
         return $this;
-    }
-
-    /**
-     * Retrieve product instance
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function getProduct()
-    {
-        return $this->_product;
     }
 }

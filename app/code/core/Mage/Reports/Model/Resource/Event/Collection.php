@@ -40,11 +40,6 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
      */
     protected $_useAnalyticFunction         = true;
 
-    protected function _construct()
-    {
-        $this->_init('reports/event');
-    }
-
     /**
      * Add store ids filter
      *
@@ -84,5 +79,10 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
         $select->group('object_id')
             ->limit($limit);
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('reports/event');
     }
 }

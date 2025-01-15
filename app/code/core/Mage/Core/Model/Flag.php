@@ -40,34 +40,6 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     protected $_flagCode = null;
 
     /**
-     * Init resource model
-     * Set flag_code if it is specified in arguments
-     *
-     */
-    protected function _construct()
-    {
-        if ($this->hasData('flag_code')) {
-            $this->_flagCode = $this->getData('flag_code');
-        }
-        $this->_init('core/flag');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        if (is_null($this->_flagCode)) {
-            Mage::throwException(Mage::helper('core')->__('Please define flag code.'));
-        }
-
-        $this->setFlagCode($this->_flagCode);
-        $this->setLastUpdate(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
-
-        return parent::_beforeSave();
-    }
-
-    /**
      * Retrieve flag data
      *
      * @return mixed
@@ -104,5 +76,33 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
         }
 
         return $this->load($this->_flagCode, 'flag_code');
+    }
+
+    /**
+     * Init resource model
+     * Set flag_code if it is specified in arguments
+     *
+     */
+    protected function _construct()
+    {
+        if ($this->hasData('flag_code')) {
+            $this->_flagCode = $this->getData('flag_code');
+        }
+        $this->_init('core/flag');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        if (is_null($this->_flagCode)) {
+            Mage::throwException(Mage::helper('core')->__('Please define flag code.'));
+        }
+
+        $this->setFlagCode($this->_flagCode);
+        $this->setLastUpdate(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
+
+        return parent::_beforeSave();
     }
 }

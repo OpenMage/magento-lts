@@ -38,6 +38,34 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
+     * @return string
+     * @throws Exception
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/bundle_selection/grid', ['index' => $this->getIndex(), 'productss' => implode(',', $this->_getProducts())]);
+    }
+
+    /**
+     * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function getStore()
+    {
+        return Mage::app()->getStore();
+    }
+
+    /**
+     * Retrieve array of allowed product types for bundle selection product
+     *
+     * @return array
+     */
+    public function getAllowedSelectionTypes()
+    {
+        return Mage::helper('bundle')->getAllowedSelectionTypes();
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _beforeToHtml()
@@ -154,15 +182,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
     }
 
     /**
-     * @return string
-     * @throws Exception
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/bundle_selection/grid', ['index' => $this->getIndex(), 'productss' => implode(',', $this->_getProducts())]);
-    }
-
-    /**
      * @return array
      * @throws Exception
      */
@@ -184,24 +203,5 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
         } else {
             return [];
         }
-    }
-
-    /**
-     * @return Mage_Core_Model_Store
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    public function getStore()
-    {
-        return Mage::app()->getStore();
-    }
-
-    /**
-     * Retrieve array of allowed product types for bundle selection product
-     *
-     * @return array
-     */
-    public function getAllowedSelectionTypes()
-    {
-        return Mage::helper('bundle')->getAllowedSelectionTypes();
     }
 }

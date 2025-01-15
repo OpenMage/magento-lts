@@ -141,15 +141,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     private $_isReadOnly = false;
 
     /**
-     * init model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('core/website');
-    }
-
-    /**
      * @inheritDoc
      */
     public function load($id, $field = null)
@@ -215,25 +206,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             $this->_configCache[$path] = $value;
         }
         return $this->_configCache[$path];
-    }
-
-    /**
-     * Load group collection and set internal data
-     *
-     */
-    protected function _loadGroups()
-    {
-        $this->_groups = [];
-        $this->_groupsCount = 0;
-        foreach ($this->getGroupCollection() as $group) {
-            $groupId = $group->getId();
-            $this->_groups[$groupId] = $group;
-            $this->_groupIds[$groupId] = $groupId;
-            if ($this->getDefaultGroupId() == $groupId) {
-                $this->_defaultGroup = $group;
-            }
-            $this->_groupsCount++;
-        }
     }
 
     /**
@@ -323,26 +295,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             $this->_loadGroups();
         }
         return $this->_defaultGroup;
-    }
-
-    /**
-     * Load store collection and set internal data
-     *
-     */
-    protected function _loadStores()
-    {
-        $this->_stores = [];
-        $this->_storesCount = 0;
-        foreach ($this->getStoreCollection() as $store) {
-            $storeId = $store->getId();
-            $this->_stores[$storeId] = $store;
-            $this->_storeIds[$storeId] = $storeId;
-            $this->_storeCodes[$storeId] = $store->getCode();
-            if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
-                $this->_defaultStore = $store;
-            }
-            $this->_storesCount++;
-        }
     }
 
     /**
@@ -474,29 +426,6 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _beforeDelete()
-    {
-        $this->_protectFromNonAdmin();
-        return parent::_beforeDelete();
-    }
-
-    /**
-     * rewrite in order to clear configuration cache
-     *
-     * @return $this
-     */
-    protected function _afterDelete()
-    {
-        Mage::app()->clearWebsiteCache($this->getId());
-
-        parent::_afterDelete();
-        Mage::getConfig()->removeCache();
-        return $this;
-    }
-
-    /**
      * Retrieve website base currency code
      *
      * @return string
@@ -563,5 +492,76 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;
+    }
+
+    /**
+     * init model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('core/website');
+    }
+
+    /**
+     * Load group collection and set internal data
+     *
+     */
+    protected function _loadGroups()
+    {
+        $this->_groups = [];
+        $this->_groupsCount = 0;
+        foreach ($this->getGroupCollection() as $group) {
+            $groupId = $group->getId();
+            $this->_groups[$groupId] = $group;
+            $this->_groupIds[$groupId] = $groupId;
+            if ($this->getDefaultGroupId() == $groupId) {
+                $this->_defaultGroup = $group;
+            }
+            $this->_groupsCount++;
+        }
+    }
+
+    /**
+     * Load store collection and set internal data
+     *
+     */
+    protected function _loadStores()
+    {
+        $this->_stores = [];
+        $this->_storesCount = 0;
+        foreach ($this->getStoreCollection() as $store) {
+            $storeId = $store->getId();
+            $this->_stores[$storeId] = $store;
+            $this->_storeIds[$storeId] = $storeId;
+            $this->_storeCodes[$storeId] = $store->getCode();
+            if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
+                $this->_defaultStore = $store;
+            }
+            $this->_storesCount++;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
+    }
+
+    /**
+     * rewrite in order to clear configuration cache
+     *
+     * @return $this
+     */
+    protected function _afterDelete()
+    {
+        Mage::app()->clearWebsiteCache($this->getId());
+
+        parent::_afterDelete();
+        Mage::getConfig()->removeCache();
+        return $this;
     }
 }

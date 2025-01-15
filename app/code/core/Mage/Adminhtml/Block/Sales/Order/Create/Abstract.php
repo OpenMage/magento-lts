@@ -33,16 +33,6 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Abstract extends Mage_Adm
     }
 
     /**
-     * Retrieve quote session object
-     *
-     * @return Mage_Adminhtml_Model_Session_Quote
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('adminhtml/session_quote');
-    }
-
-    /**
      * Retrieve quote model object
      *
      * @return Mage_Sales_Model_Quote
@@ -106,5 +96,15 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Abstract extends Mage_Adm
     public function convertPrice($value, $format = true)
     {
         return $this->getStore()->convertPrice($value, $format);
+    }
+
+    /**
+     * Retrieve quote session object
+     *
+     * @return Mage_Adminhtml_Model_Session_Quote
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('adminhtml/session_quote');
     }
 }

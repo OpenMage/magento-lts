@@ -22,6 +22,7 @@
  */
 class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploader
 {
+    public const DEFAULT_FILE_TYPE = 'application/octet-stream';
     protected $_tmpDir  = '';
     protected $_destDir = '';
     protected $_allowedMimeTypes = [
@@ -31,7 +32,6 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         'gif' => 'image/gif',
         'png' => 'image/png',
     ];
-    public const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
     /**
      * Mage_ImportExport_Model_Import_Uploader constructor.
@@ -80,6 +80,56 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         $result = $this->save($this->getDestDir());
         $result['name'] = self::getCorrectFileName($result['name']);
         return $result;
+    }
+
+    /**
+     * Obtain TMP file path prefix
+     *
+     * @return string
+     */
+    public function getTmpDir()
+    {
+        return $this->_tmpDir;
+    }
+
+    /**
+     * Set TMP file path prefix
+     *
+     * @param string $path
+     * @return bool
+     */
+    public function setTmpDir($path)
+    {
+        if (is_string($path) && is_readable($path)) {
+            $this->_tmpDir = $path;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Obtain destination file path prefix
+     *
+     * @return string
+     */
+    public function getDestDir()
+    {
+        return $this->_destDir;
+    }
+
+    /**
+     * Set destination file path prefix
+     *
+     * @param string $path
+     * @return bool
+     */
+    public function setDestDir($path)
+    {
+        if (is_string($path) && is_writable($path)) {
+            $this->_destDir = $path;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -152,56 +202,6 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             return $this->_allowedMimeTypes[$ext];
         }
         return '';
-    }
-
-    /**
-     * Obtain TMP file path prefix
-     *
-     * @return string
-     */
-    public function getTmpDir()
-    {
-        return $this->_tmpDir;
-    }
-
-    /**
-     * Set TMP file path prefix
-     *
-     * @param string $path
-     * @return bool
-     */
-    public function setTmpDir($path)
-    {
-        if (is_string($path) && is_readable($path)) {
-            $this->_tmpDir = $path;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Obtain destination file path prefix
-     *
-     * @return string
-     */
-    public function getDestDir()
-    {
-        return $this->_destDir;
-    }
-
-    /**
-     * Set destination file path prefix
-     *
-     * @param string $path
-     * @return bool
-     */
-    public function setDestDir($path)
-    {
-        if (is_string($path) && is_writable($path)) {
-            $this->_destDir = $path;
-            return true;
-        }
-        return false;
     }
 
     /**

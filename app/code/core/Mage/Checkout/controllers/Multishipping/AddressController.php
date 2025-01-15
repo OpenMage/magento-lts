@@ -23,26 +23,6 @@
 class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * Retrieve multishipping checkout model
-     *
-     * @return Mage_Checkout_Model_Type_Multishipping
-     */
-    protected function _getCheckout()
-    {
-        return Mage::getSingleton('checkout/type_multishipping');
-    }
-
-    /**
-     * Retrieve checkout state model
-     *
-     * @return Mage_Checkout_Model_Type_Multishipping_State
-     */
-    protected function _getState()
-    {
-        return Mage::getSingleton('checkout/type_multishipping_state');
-    }
-
-    /**
      * Create New Shipping address Form
      */
     public function newShippingAction()
@@ -187,5 +167,24 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setQuoteCustomerBillingAddress($addressId);
         }
         $this->_redirect('*/multishipping/overview');
+    }
+    /**
+     * Retrieve multishipping checkout model
+     *
+     * @return Mage_Checkout_Model_Type_Multishipping
+     */
+    protected function _getCheckout()
+    {
+        return Mage::getSingleton('checkout/type_multishipping');
+    }
+
+    /**
+     * Retrieve checkout state model
+     *
+     * @return Mage_Checkout_Model_Type_Multishipping_State
+     */
+    protected function _getState()
+    {
+        return Mage::getSingleton('checkout/type_multishipping_state');
     }
 }

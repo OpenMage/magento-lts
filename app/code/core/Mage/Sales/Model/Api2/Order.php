@@ -32,6 +32,56 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     public const PARAM_TAX_RATE       = '_tax_rate';
 
     /**
+     * Check gift messages information is allowed
+     *
+     * @return bool
+     */
+    public function _isGiftMessageAllowed()
+    {
+        return in_array(self::PARAM_GIFT_MESSAGE, $this->getFilter()->getAllowedAttributes());
+    }
+
+    /**
+     * Check order comments information is allowed
+     *
+     * @return bool
+     */
+    public function _isOrderCommentsAllowed()
+    {
+        return in_array(self::PARAM_ORDER_COMMENTS, $this->getFilter()->getAllowedAttributes());
+    }
+
+    /**
+     * Check payment method information is allowed
+     *
+     * @return bool
+     */
+    public function _isPaymentMethodAllowed()
+    {
+        return in_array(self::PARAM_PAYMENT_METHOD, $this->getFilter()->getAllowedAttributes());
+    }
+
+    /**
+     * Check tax name information is allowed
+     *
+     * @return bool
+     */
+    public function _isTaxNameAllowed()
+    {
+        return in_array(self::PARAM_TAX_NAME, $this->getFilter()->getAllowedAttributes());
+    }
+
+    /**
+     * Check tax rate information is allowed
+     *
+     * @return bool
+     */
+    public function _isTaxRateAllowed()
+    {
+        return in_array(self::PARAM_TAX_RATE, $this->getFilter()->getAllowedAttributes());
+    }
+
+    /**
      * Add gift message info to select
      *
      * @return $this
@@ -211,56 +261,6 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             }
         }
         return $items;
-    }
-
-    /**
-     * Check gift messages information is allowed
-     *
-     * @return bool
-     */
-    public function _isGiftMessageAllowed()
-    {
-        return in_array(self::PARAM_GIFT_MESSAGE, $this->getFilter()->getAllowedAttributes());
-    }
-
-    /**
-     * Check order comments information is allowed
-     *
-     * @return bool
-     */
-    public function _isOrderCommentsAllowed()
-    {
-        return in_array(self::PARAM_ORDER_COMMENTS, $this->getFilter()->getAllowedAttributes());
-    }
-
-    /**
-     * Check payment method information is allowed
-     *
-     * @return bool
-     */
-    public function _isPaymentMethodAllowed()
-    {
-        return in_array(self::PARAM_PAYMENT_METHOD, $this->getFilter()->getAllowedAttributes());
-    }
-
-    /**
-     * Check tax name information is allowed
-     *
-     * @return bool
-     */
-    public function _isTaxNameAllowed()
-    {
-        return in_array(self::PARAM_TAX_NAME, $this->getFilter()->getAllowedAttributes());
-    }
-
-    /**
-     * Check tax rate information is allowed
-     *
-     * @return bool
-     */
-    public function _isTaxRateAllowed()
-    {
-        return in_array(self::PARAM_TAX_RATE, $this->getFilter()->getAllowedAttributes());
     }
 
     /**

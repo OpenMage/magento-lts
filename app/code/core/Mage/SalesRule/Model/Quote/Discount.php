@@ -119,19 +119,6 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
     }
 
     /**
-     * Aggregate item discount information to address data and related properties
-     *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return  $this
-     */
-    protected function _aggregateItemDiscount($item)
-    {
-        $this->_addAmount(-$item->getDiscountAmount());
-        $this->_addBaseAmount(-$item->getBaseDiscountAmount());
-        return $this;
-    }
-
-    /**
      * Add discount total information to address
      *
      * @return $this|array
@@ -153,6 +140,19 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
                 'value' => $amount,
             ]);
         }
+        return $this;
+    }
+
+    /**
+     * Aggregate item discount information to address data and related properties
+     *
+     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return  $this
+     */
+    protected function _aggregateItemDiscount($item)
+    {
+        $this->_addAmount(-$item->getDiscountAmount());
+        $this->_addBaseAmount(-$item->getBaseDiscountAmount());
         return $this;
     }
 }

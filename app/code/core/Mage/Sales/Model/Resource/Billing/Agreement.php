@@ -22,11 +22,6 @@
  */
 class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('sales/billing_agreement', 'agreement_id');
-    }
-
     /**
      * Add order relation to billing agreement
      *
@@ -44,5 +39,9 @@ class Mage_Sales_Model_Resource_Billing_Agreement extends Mage_Core_Model_Resour
             ],
         );
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('sales/billing_agreement', 'agreement_id');
     }
 }

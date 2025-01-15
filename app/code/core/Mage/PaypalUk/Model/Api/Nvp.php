@@ -396,6 +396,11 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     }
 
     /**
+     * "GetTransactionDetails" method does not exists in PaypalUK
+     */
+    public function callGetTransactionDetails() {}
+
+    /**
      * Add method to request array
      *
      * @param string $methodName
@@ -515,11 +520,6 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     {
         return Mage::helper('core')->uniqHash();
     }
-
-    /**
-     * "GetTransactionDetails" method does not exists in PaypalUK
-     */
-    public function callGetTransactionDetails() {}
 
     /**
      * Get FMF results from response, if any

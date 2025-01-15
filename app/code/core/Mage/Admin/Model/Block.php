@@ -30,14 +30,6 @@
 class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
 {
     /**
-     * Initialize variable model
-     */
-    protected function _construct()
-    {
-        $this->_init('admin/block');
-    }
-
-    /**
      * @return array|true
      * @throws Exception
      * @throws Zend_Validate_Exception
@@ -76,5 +68,12 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
     public function isTypeAllowed($type)
     {
         return Mage::helper('admin/block')->isTypeAllowed($type);
+    }
+    /**
+     * Initialize variable model
+     */
+    protected function _construct()
+    {
+        $this->_init('admin/block');
     }
 }

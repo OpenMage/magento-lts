@@ -30,15 +30,6 @@ class Mage_Payment_Block_Form_Cashondelivery extends Mage_Payment_Block_Form
     protected $_instructions;
 
     /**
-     * Block construction. Set block template.
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('payment/form/cashondelivery.phtml');
-    }
-
-    /**
      * Get instructions text from config
      *
      * @return string
@@ -49,5 +40,14 @@ class Mage_Payment_Block_Form_Cashondelivery extends Mage_Payment_Block_Form
             $this->_instructions = $this->getMethod()->getInstructions();
         }
         return $this->_instructions;
+    }
+
+    /**
+     * Block construction. Set block template.
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('payment/form/cashondelivery.phtml');
     }
 }

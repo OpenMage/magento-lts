@@ -23,15 +23,6 @@
 class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('core/url_rewrite');
-    }
-
-    /**
      * Add filter for tags (combined by OR)
      *
      * @param string|array $tags
@@ -100,5 +91,13 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
         $this->getSelect()
             ->where('id_path LIKE ?', 'category/%');
         return $this;
+    }
+    /**
+     * Define resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('core/url_rewrite');
     }
 }

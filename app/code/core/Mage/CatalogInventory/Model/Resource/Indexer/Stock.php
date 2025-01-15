@@ -37,11 +37,6 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
      */
     protected $_defaultIndexer   = 'cataloginventory/indexer_stock_default';
 
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/stock_status', 'product_id');
-    }
-
     /**
      * Process stock item save action
      *
@@ -237,6 +232,46 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
     }
 
     /**
+     * Retrieve parent ids and types by child id
+     * Return array with key product_id and value as product type id
+     *
+     * @param int $childId
+     * @return array
+     */
+    public function getProductParentsByChild($childId)
+    {
+        $write = $this->_getWriteAdapter();
+        $select = $write->select()
+            ->from(['l' => $this->getTable('catalog/product_relation')], ['parent_id'])
+            ->join(
+                ['e' => $this->getTable('catalog/product')],
+                'l.parent_id=e.entity_id',
+                ['e.type_id'],
+            )
+            ->where('l.child_id = :child_id');
+        return $write->fetchPairs($select, [':child_id' => $childId]);
+    }
+
+    /**
+     * Retrieve temporary index table name
+     *
+     * @param string $table
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('cataloginventory/stock_status_indexer_idx');
+        }
+        return $this->getTable('cataloginventory/stock_status_indexer_tmp');
+    }
+
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/stock_status', 'product_id');
+    }
+
+    /**
      * Retrieve Stock Indexer Models per Product Type
      *
      * @return array
@@ -272,40 +307,5 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             Mage::throwException(Mage::helper('catalog')->__('Unsupported product type "%s".', $productTypeId));
         }
         return $types[$productTypeId];
-    }
-
-    /**
-     * Retrieve parent ids and types by child id
-     * Return array with key product_id and value as product type id
-     *
-     * @param int $childId
-     * @return array
-     */
-    public function getProductParentsByChild($childId)
-    {
-        $write = $this->_getWriteAdapter();
-        $select = $write->select()
-            ->from(['l' => $this->getTable('catalog/product_relation')], ['parent_id'])
-            ->join(
-                ['e' => $this->getTable('catalog/product')],
-                'l.parent_id=e.entity_id',
-                ['e.type_id'],
-            )
-            ->where('l.child_id = :child_id');
-        return $write->fetchPairs($select, [':child_id' => $childId]);
-    }
-
-    /**
-     * Retrieve temporary index table name
-     *
-     * @param string $table
-     * @return string
-     */
-    public function getIdxTable($table = null)
-    {
-        if ($this->useIdxTable()) {
-            return $this->getTable('cataloginventory/stock_status_indexer_idx');
-        }
-        return $this->getTable('cataloginventory/stock_status_indexer_tmp');
     }
 }

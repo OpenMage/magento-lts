@@ -23,6 +23,47 @@
 abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Entity_Attribute
 {
     /**
+     * Return scope values for attribute and website
+     *
+     * @return array
+     */
+    public function getScopeValues(Mage_Eav_Model_Attribute $object)
+    {
+        $adapter = $this->_getReadAdapter();
+        $bind    = [
+            'attribute_id' => (int) $object->getId(),
+            'website_id'   => (int) $object->getWebsite()->getId(),
+        ];
+        $select = $adapter->select()
+            ->from($this->_getEavWebsiteTable())
+            ->where('attribute_id = :attribute_id')
+            ->where('website_id = :website_id')
+            ->limit(1);
+        $result = $adapter->fetchRow($select, $bind);
+
+        if (!$result) {
+            $result = [];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Return forms in which the attribute
+     *
+     * @return array
+     */
+    public function getUsedInForms(Mage_Core_Model_Abstract $object)
+    {
+        $adapter = $this->_getReadAdapter();
+        $bind    = ['attribute_id' => (int) $object->getId()];
+        $select  = $adapter->select()
+            ->from($this->_getFormAttributeTable(), 'form_code')
+            ->where('attribute_id = :attribute_id');
+
+        return $adapter->fetchCol($select, $bind);
+    }
+    /**
      * Get EAV website table
      *
      * Get table, where website-dependent attribute parameters are stored
@@ -149,47 +190,5 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
         }
 
         return parent::_afterSave($object);
-    }
-
-    /**
-     * Return scope values for attribute and website
-     *
-     * @return array
-     */
-    public function getScopeValues(Mage_Eav_Model_Attribute $object)
-    {
-        $adapter = $this->_getReadAdapter();
-        $bind    = [
-            'attribute_id' => (int) $object->getId(),
-            'website_id'   => (int) $object->getWebsite()->getId(),
-        ];
-        $select = $adapter->select()
-            ->from($this->_getEavWebsiteTable())
-            ->where('attribute_id = :attribute_id')
-            ->where('website_id = :website_id')
-            ->limit(1);
-        $result = $adapter->fetchRow($select, $bind);
-
-        if (!$result) {
-            $result = [];
-        }
-
-        return $result;
-    }
-
-    /**
-     * Return forms in which the attribute
-     *
-     * @return array
-     */
-    public function getUsedInForms(Mage_Core_Model_Abstract $object)
-    {
-        $adapter = $this->_getReadAdapter();
-        $bind    = ['attribute_id' => (int) $object->getId()];
-        $select  = $adapter->select()
-            ->from($this->_getFormAttributeTable(), 'form_code')
-            ->where('attribute_id = :attribute_id');
-
-        return $adapter->fetchCol($select, $bind);
     }
 }

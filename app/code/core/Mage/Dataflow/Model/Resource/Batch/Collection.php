@@ -23,15 +23,6 @@
 class Mage_Dataflow_Model_Resource_Batch_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Init model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('dataflow/batch');
-    }
-
-    /**
      * Add expire filter (for abandoned batches)
      *
      */
@@ -43,5 +34,13 @@ class Mage_Dataflow_Model_Resource_Batch_Collection extends Mage_Core_Model_Reso
         $expire   = $date->gmtDate(null, $date->timestamp() - $lifetime);
 
         $this->getSelect()->where('created_at < ?', $expire);
+    }
+    /**
+     * Init model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('dataflow/batch');
     }
 }

@@ -37,6 +37,21 @@ abstract class Mage_Api2_Model_Resource_Validator
     protected $_errors = [];
 
     /**
+     * Returns an array of errors that explain why the most recent isValidData()
+     * call returned false. The array keys are validation failure error identifiers,
+     * and the array values are the corresponding human-readable error strings.
+     *
+     * If isValidData() was never called or if the most recent isValidData() call
+     * returned true, then this method returns an empty array.
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->_errors;
+    }
+
+    /**
      * Set an array of errors
      *
      * @return Mage_Api2_Model_Resource_Validator
@@ -71,20 +86,5 @@ abstract class Mage_Api2_Model_Resource_Validator
     {
         $this->_errors[] = $error;
         return $this;
-    }
-
-    /**
-     * Returns an array of errors that explain why the most recent isValidData()
-     * call returned false. The array keys are validation failure error identifiers,
-     * and the array values are the corresponding human-readable error strings.
-     *
-     * If isValidData() was never called or if the most recent isValidData() call
-     * returned true, then this method returns an empty array.
-     *
-     * @return array
-     */
-    public function getErrors()
-    {
-        return $this->_errors;
     }
 }

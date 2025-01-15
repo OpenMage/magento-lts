@@ -177,19 +177,6 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
     }
 
     /**
-     * Prevent displaying if the price is not available
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        if (!$this->getProduct() || $this->getProduct()->getCanShowPrice() === false) {
-            return '';
-        }
-        return parent::_toHtml();
-    }
-
-    /**
      * Get Product Price valid JS string
      *
      * @param Mage_Catalog_Model_Product $product
@@ -241,5 +228,18 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
             return $helper->getAddUrlCustom($product, $additional, false);
         }
         return $helper->getAddUrl($product, $additional);
+    }
+
+    /**
+     * Prevent displaying if the price is not available
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if (!$this->getProduct() || $this->getProduct()->getCanShowPrice() === false) {
+            return '';
+        }
+        return parent::_toHtml();
     }
 }

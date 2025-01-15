@@ -35,11 +35,6 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
     public static $_format = [];
 
-    protected function _construct()
-    {
-        $this->_init('directory/country');
-    }
-
     /**
      * @param string $code
      * @return $this
@@ -166,5 +161,10 @@ T: {{telephone}}';
             );
         }
         return $this->getData('name');
+    }
+
+    protected function _construct()
+    {
+        $this->_init('directory/country');
     }
 }

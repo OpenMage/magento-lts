@@ -31,6 +31,16 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
     }
 
     /**
+     * Row click url
+     *
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['block_id' => $row->getId()]);
+    }
+
+    /**
      * @inheritDoc
      * @throws Exception
      */
@@ -115,15 +125,5 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
         if ($value = $column->getFilter()->getValue()) {
             $collection->addStoreFilter($value);
         }
-    }
-
-    /**
-     * Row click url
-     *
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['block_id' => $row->getId()]);
     }
 }

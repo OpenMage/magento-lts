@@ -92,6 +92,18 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
     }
 
     /**
+     * Check database connection
+     *
+     * @param array $data
+     *
+     * @deprecated since 1.5.0.0
+     */
+    public function checkDatabase($data)
+    {
+        $this->checkDbConnectionData($data);
+    }
+
+    /**
      * Check database connection data
      *
      * @param  array $data
@@ -166,17 +178,5 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
     protected function _getConnenctionType()
     {
         return (string) Mage::getConfig()->getNode('global/resources/default_setup/connection/type');
-    }
-
-    /**
-     * Check database connection
-     *
-     * @param array $data
-     *
-     * @deprecated since 1.5.0.0
-     */
-    public function checkDatabase($data)
-    {
-        $this->checkDbConnectionData($data);
     }
 }

@@ -22,11 +22,6 @@
  */
 class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product_index_eav_decimal', 'entity_id');
-    }
-
     /**
      * Apply attribute filter to product collection
      *
@@ -82,6 +77,34 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
     }
 
     /**
+     * Retrieve array with products counts per range
+     *
+     * @param Mage_Catalog_Model_Layer_Filter_Decimal $filter
+     * @param int $range
+     * @return array
+     */
+    public function getCount($filter, $range)
+    {
+        $select     = $this->_getSelect($filter);
+        $adapter    = $this->_getReadAdapter();
+
+        $countExpr  = new Zend_Db_Expr('COUNT(*)');
+        $rangeExpr  = new Zend_Db_Expr("FLOOR(decimal_index.value / {$range}) + 1");
+
+        $select->columns([
+            'decimal_range' => $rangeExpr,
+            'count' => $countExpr,
+        ]);
+        $select->group($rangeExpr);
+
+        return $adapter->fetchPairs($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product_index_eav_decimal', 'entity_id');
+    }
+
+    /**
      * Retrieve clean select with joined index table
      * Joined table has index
      *
@@ -112,29 +135,5 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
         );
 
         return $select;
-    }
-
-    /**
-     * Retrieve array with products counts per range
-     *
-     * @param Mage_Catalog_Model_Layer_Filter_Decimal $filter
-     * @param int $range
-     * @return array
-     */
-    public function getCount($filter, $range)
-    {
-        $select     = $this->_getSelect($filter);
-        $adapter    = $this->_getReadAdapter();
-
-        $countExpr  = new Zend_Db_Expr('COUNT(*)');
-        $rangeExpr  = new Zend_Db_Expr("FLOOR(decimal_index.value / {$range}) + 1");
-
-        $select->columns([
-            'decimal_range' => $rangeExpr,
-            'count' => $countExpr,
-        ]);
-        $select->group($rangeExpr);
-
-        return $adapter->fetchPairs($select);
     }
 }

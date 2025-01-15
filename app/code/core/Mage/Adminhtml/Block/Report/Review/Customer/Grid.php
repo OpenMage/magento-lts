@@ -30,6 +30,11 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
         $this->setDefaultDir('desc');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/catalog_product_review', ['customerId' => $row->getCustomerId()]);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/review_customer_collection')
@@ -69,10 +74,5 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
         $this->addExportType('*/*/exportCustomerExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/catalog_product_review', ['customerId' => $row->getCustomerId()]);
     }
 }

@@ -35,15 +35,6 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     protected $_address;
 
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->getLayout()->getBlock('head')->setTitle(Mage::helper('customer')->__('Create New Customer Account'));
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve form posting url
      *
      * @return string
@@ -179,5 +170,14 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     public function getMinPasswordLength()
     {
         return Mage::getModel('customer/customer')->getMinPasswordLength();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->getLayout()->getBlock('head')->setTitle(Mage::helper('customer')->__('Create New Customer Account'));
+        return parent::_prepareLayout();
     }
 }

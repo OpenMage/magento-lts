@@ -66,21 +66,6 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
     }
 
     /**
-     * Redirect to referrer URL or otherwise to index page without params
-     *
-     * @return $this
-     */
-    protected function _redirectBack()
-    {
-        $url = $this->_getRefererUrl();
-        if (Mage::app()->getStore()->getBaseUrl() == $url) {
-            $url = Mage::getUrl('*/*/index');
-        }
-        $this->_redirectUrl($url);
-        return $this;
-    }
-
-    /**
      * Update revoke status action
      */
     public function revokeAction()
@@ -176,5 +161,20 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
             Mage::logException($e);
         }
         $this->_redirectBack();
+    }
+
+    /**
+     * Redirect to referrer URL or otherwise to index page without params
+     *
+     * @return $this
+     */
+    protected function _redirectBack()
+    {
+        $url = $this->_getRefererUrl();
+        if (Mage::app()->getStore()->getBaseUrl() == $url) {
+            $url = Mage::getUrl('*/*/index');
+        }
+        $this->_redirectUrl($url);
+        return $this;
     }
 }

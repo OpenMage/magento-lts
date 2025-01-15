@@ -25,6 +25,61 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     protected $_moduleName = 'Mage_CatalogInventory';
 
     /**
+     * Retrieve min_sale_qty value from config
+     *
+     * @param int $customerGroupId
+     * @param mixed $store
+     * @return float|null
+     */
+    public function getConfigValue($customerGroupId, $store = null)
+    {
+        $value = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MIN_SALE_QTY, $store);
+        $value = $this->_unserializeValue($value);
+        if ($this->_isEncodedArrayFieldValue($value)) {
+            $value = $this->_decodeArrayFieldValue($value);
+        }
+        $result = null;
+        foreach ($value as $groupId => $qty) {
+            if ($groupId == $customerGroupId) {
+                $result = $qty;
+                break;
+            } elseif ($groupId == Mage_Customer_Model_Group::CUST_GROUP_ALL) {
+                $result = $qty;
+            }
+        }
+        return $this->_fixQty($result);
+    }
+
+    /**
+     * Make value readable by Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
+     *
+     * @param mixed $value
+     * @return array
+     */
+    public function makeArrayFieldValue($value)
+    {
+        $value = $this->_unserializeValue($value);
+        if (!$this->_isEncodedArrayFieldValue($value)) {
+            $value = $this->_encodeArrayFieldValue($value);
+        }
+        return $value;
+    }
+
+    /**
+     * Make value ready for store
+     *
+     * @param mixed $value
+     * @return string
+     */
+    public function makeStorableArrayFieldValue($value)
+    {
+        if ($this->_isEncodedArrayFieldValue($value)) {
+            $value = $this->_decodeArrayFieldValue($value);
+        }
+        return $this->_serializeValue($value);
+    }
+
+    /**
      * Retrieve fixed qty value
      *
      * @param mixed $qty
@@ -141,60 +196,5 @@ class Mage_CatalogInventory_Helper_Minsaleqty
             $result[$groupId] = $qty;
         }
         return $result;
-    }
-
-    /**
-     * Retrieve min_sale_qty value from config
-     *
-     * @param int $customerGroupId
-     * @param mixed $store
-     * @return float|null
-     */
-    public function getConfigValue($customerGroupId, $store = null)
-    {
-        $value = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MIN_SALE_QTY, $store);
-        $value = $this->_unserializeValue($value);
-        if ($this->_isEncodedArrayFieldValue($value)) {
-            $value = $this->_decodeArrayFieldValue($value);
-        }
-        $result = null;
-        foreach ($value as $groupId => $qty) {
-            if ($groupId == $customerGroupId) {
-                $result = $qty;
-                break;
-            } elseif ($groupId == Mage_Customer_Model_Group::CUST_GROUP_ALL) {
-                $result = $qty;
-            }
-        }
-        return $this->_fixQty($result);
-    }
-
-    /**
-     * Make value readable by Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
-     *
-     * @param mixed $value
-     * @return array
-     */
-    public function makeArrayFieldValue($value)
-    {
-        $value = $this->_unserializeValue($value);
-        if (!$this->_isEncodedArrayFieldValue($value)) {
-            $value = $this->_encodeArrayFieldValue($value);
-        }
-        return $value;
-    }
-
-    /**
-     * Make value ready for store
-     *
-     * @param mixed $value
-     * @return string
-     */
-    public function makeStorableArrayFieldValue($value)
-    {
-        if ($this->_isEncodedArrayFieldValue($value)) {
-            $value = $this->_decodeArrayFieldValue($value);
-        }
-        return $this->_serializeValue($value);
     }
 }

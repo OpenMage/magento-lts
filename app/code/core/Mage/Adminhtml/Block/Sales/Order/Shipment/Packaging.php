@@ -122,20 +122,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     }
 
     /**
-     * Get codes of customizable container types of carrier
-     *
-     * @return array
-     */
-    protected function _getCustomizableContainers()
-    {
-        $carrier = $this->getShipment()->getOrder()->getShippingCarrier();
-        if ($carrier) {
-            return $carrier->getCustomizableContainerTypes();
-        }
-        return [];
-    }
-
-    /**
      * Return name of container type by its code
      *
      * @param string $code
@@ -359,5 +345,19 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         } else {
             return;
         }
+    }
+
+    /**
+     * Get codes of customizable container types of carrier
+     *
+     * @return array
+     */
+    protected function _getCustomizableContainers()
+    {
+        $carrier = $this->getShipment()->getOrder()->getShippingCarrier();
+        if ($carrier) {
+            return $carrier->getCustomizableContainerTypes();
+        }
+        return [];
     }
 }

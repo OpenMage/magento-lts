@@ -30,20 +30,6 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     protected $_enteredData = null;
 
     /**
-     * Prepare Global Layout
-     *
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle($this->__('Wishlist Sharing'));
-        }
-        return $this;
-    }
-
-    /**
      * Retrieve Send Form Action URL
      *
      * @return string
@@ -81,5 +67,19 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
     public function getBackUrl()
     {
         return $this->getUrl('*/*/index');
+    }
+
+    /**
+     * Prepare Global Layout
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->setTitle($this->__('Wishlist Sharing'));
+        }
+        return $this;
     }
 }

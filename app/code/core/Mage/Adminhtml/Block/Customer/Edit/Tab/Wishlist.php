@@ -60,6 +60,61 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     }
 
     /**
+     * Retrieve Grid URL
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/wishlist', ['_current' => true]);
+    }
+
+    /**
+     * Retrieve Grid Parent Block HTML
+     *
+     * @return string
+     */
+    public function getGridParentHtml()
+    {
+        $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, ['_relative' => true]);
+        return $this->fetchView($templateName);
+    }
+
+    /**
+     * Retrieve Row click URL
+     *
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
+    }
+
+    /**
+     * Adds product type helper depended on product type (used to show options in item cell)
+     *
+     * @param string $productType
+     * @param string $helperName
+     *
+     * @return $this
+     */
+    public function addProductConfigurationHelper($productType, $helperName)
+    {
+        $this->_productHelpers[$productType] = $helperName;
+        return $this;
+    }
+
+    /**
+     * Returns array of product configuration helpers
+     *
+     * @return array
+     */
+    public function getProductConfigurationHelpers()
+    {
+        return $this->_productHelpers;
+    }
+
+    /**
      * Retrieve current customer object
      *
      * @return Mage_Customer_Model_Customer
@@ -165,16 +220,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Retrieve Grid URL
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/wishlist', ['_current' => true]);
-    }
-
-    /**
      * Add column filter to collection
      *
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
@@ -223,50 +268,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
             }
         }
         return $this;
-    }
-
-    /**
-     * Retrieve Grid Parent Block HTML
-     *
-     * @return string
-     */
-    public function getGridParentHtml()
-    {
-        $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, ['_relative' => true]);
-        return $this->fetchView($templateName);
-    }
-
-    /**
-     * Retrieve Row click URL
-     *
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
-    }
-
-    /**
-     * Adds product type helper depended on product type (used to show options in item cell)
-     *
-     * @param string $productType
-     * @param string $helperName
-     *
-     * @return $this
-     */
-    public function addProductConfigurationHelper($productType, $helperName)
-    {
-        $this->_productHelpers[$productType] = $helperName;
-        return $this;
-    }
-
-    /**
-     * Returns array of product configuration helpers
-     *
-     * @return array
-     */
-    public function getProductConfigurationHelpers()
-    {
-        return $this->_productHelpers;
     }
 }

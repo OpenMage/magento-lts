@@ -135,6 +135,27 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
     }
 
     /**
+     * Alias for toHtml()
+     *
+     * @return string
+     */
+    public function getHtml()
+    {
+        return $this->toHtml();
+    }
+
+    /**
+     * Calculate CRC32 hash for option value
+     *
+     * @param string $optionValue Value of the option
+     * @return string
+     */
+    public function calcOptionHash($optionValue)
+    {
+        return sprintf('%u', crc32($this->getName() . $this->getId() . $optionValue));
+    }
+
+    /**
      * Render HTML
      *
      * @return string
@@ -233,26 +254,5 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
             $params,
             $this->escapeHtml($option['label']),
         );
-    }
-
-    /**
-     * Alias for toHtml()
-     *
-     * @return string
-     */
-    public function getHtml()
-    {
-        return $this->toHtml();
-    }
-
-    /**
-     * Calculate CRC32 hash for option value
-     *
-     * @param string $optionValue Value of the option
-     * @return string
-     */
-    public function calcOptionHash($optionValue)
-    {
-        return sprintf('%u', crc32($this->getName() . $this->getId() . $optionValue));
     }
 }

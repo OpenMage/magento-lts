@@ -61,28 +61,6 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     }
 
     /**
-     * Load specific sql columns
-     *
-     * @param array $columns
-     * @return array
-     */
-    protected function _loadPriceDataColumns($columns)
-    {
-        return $columns;
-    }
-
-    /**
-     * Load specific db-select data
-     *
-     * @param Varien_Db_Select $select
-     * @return Varien_Db_Select
-     */
-    protected function _loadPriceDataSelect($select)
-    {
-        return $select;
-    }
-
-    /**
      * Delete Tier Prices for product
      *
      * @param int $productId
@@ -129,5 +107,27 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
             $adapter->insert($this->getMainTable(), $data);
         }
         return $this;
+    }
+
+    /**
+     * Load specific sql columns
+     *
+     * @param array $columns
+     * @return array
+     */
+    protected function _loadPriceDataColumns($columns)
+    {
+        return $columns;
+    }
+
+    /**
+     * Load specific db-select data
+     *
+     * @param Varien_Db_Select $select
+     * @return Varien_Db_Select
+     */
+    protected function _loadPriceDataSelect($select)
+    {
+        return $select;
     }
 }

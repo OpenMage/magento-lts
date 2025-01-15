@@ -36,6 +36,23 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         $this->setFilterVisibility(false);
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHeadersVisibility()
+    {
+        return ($this->getCollection()->getSize() > 0);
+    }
+
     protected function _preparePage()
     {
         $this->getCollection()
@@ -106,22 +123,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
-    }
-
-    /**
-     * @return bool
-     */
-    public function getHeadersVisibility()
-    {
-        return ($this->getCollection()->getSize() > 0);
     }
 }

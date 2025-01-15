@@ -23,15 +23,6 @@
 class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Defines main resource table and table identifier field
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('weee/tax', 'value_id');
-    }
-
-    /**
      * Load product data
      *
      * @param Mage_Catalog_Model_Product $product
@@ -99,5 +90,13 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
 
         $this->_getWriteAdapter()->insert($this->getMainTable(), $data);
         return $this;
+    }
+    /**
+     * Defines main resource table and table identifier field
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('weee/tax', 'value_id');
     }
 }

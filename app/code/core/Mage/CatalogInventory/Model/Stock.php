@@ -40,11 +40,6 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 
     public const DEFAULT_STOCK_ID          = 1;
 
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/stock');
-    }
-
     /**
      * Retrieve stock identifier
      *
@@ -90,29 +85,6 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     {
         return Mage::getResourceModel('cataloginventory/stock_item_collection')
             ->addStockFilter($this->getId());
-    }
-
-    /**
-     * Prepare array($productId=>$qty) based on array($productId => array('qty'=>$qty, 'item'=>$stockItem))
-     *
-     * @param array $items
-     * @return array
-     */
-    protected function _prepareProductQtys($items)
-    {
-        $qtys = [];
-        foreach ($items as $productId => $item) {
-            if (empty($item['item'])) {
-                $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
-            } else {
-                $stockItem = $item['item'];
-            }
-            $canSubtractQty = $stockItem->getId() && $stockItem->canSubtractQty();
-            if ($canSubtractQty && Mage::helper('cataloginventory')->isQty($stockItem->getTypeId())) {
-                $qtys[$productId] = $item['qty'];
-            }
-        }
-        return $qtys;
     }
 
     /**
@@ -229,5 +201,33 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
     {
         $this->getResource()->setInStockFilterToCollection($collection);
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/stock');
+    }
+
+    /**
+     * Prepare array($productId=>$qty) based on array($productId => array('qty'=>$qty, 'item'=>$stockItem))
+     *
+     * @param array $items
+     * @return array
+     */
+    protected function _prepareProductQtys($items)
+    {
+        $qtys = [];
+        foreach ($items as $productId => $item) {
+            if (empty($item['item'])) {
+                $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
+            } else {
+                $stockItem = $item['item'];
+            }
+            $canSubtractQty = $stockItem->getId() && $stockItem->canSubtractQty();
+            if ($canSubtractQty && Mage::helper('cataloginventory')->isQty($stockItem->getTypeId())) {
+                $qtys[$productId] = $item['qty'];
+            }
+        }
+        return $qtys;
     }
 }

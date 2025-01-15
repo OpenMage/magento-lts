@@ -31,6 +31,21 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
     }
 
     /**
+     * @return array|null
+     */
+    public function getCondition()
+    {
+        if ($this->getValue()) {
+            return $this->getColumn()->getValue();
+        } else {
+            return [
+                ['neq' => $this->getColumn()->getValue()],
+                ['is' => new Zend_Db_Expr('NULL')],
+            ];
+        }
+    }
+
+    /**
      * @return array[]
      */
     protected function _getOptions()
@@ -49,20 +64,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
                 'value' => 0,
             ],
         ];
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getCondition()
-    {
-        if ($this->getValue()) {
-            return $this->getColumn()->getValue();
-        } else {
-            return [
-                ['neq' => $this->getColumn()->getValue()],
-                ['is' => new Zend_Db_Expr('NULL')],
-            ];
-        }
     }
 }

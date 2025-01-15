@@ -33,17 +33,6 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract
-     */
-    protected function _prepareLayout()
-    {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
-            $headBlock->setTitle(Mage::helper('checkout')->__('Shipping Methods') . ' - ' . $headBlock->getDefaultTitle());
-        }
-        return parent::_prepareLayout();
-    }
-
-    /**
      * @return array
      */
     public function getAddresses()
@@ -158,5 +147,16 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
         /** @var Mage_Tax_Helper_Data $helper */
         $helper = $this->helper('tax');
         return $address->getQuote()->getStore()->convertPrice($helper->getShippingPrice($price, $flag, $address), true);
+    }
+
+    /**
+     * @return Mage_Sales_Block_Items_Abstract
+     */
+    protected function _prepareLayout()
+    {
+        if ($headBlock = $this->getLayout()->getBlock('head')) {
+            $headBlock->setTitle(Mage::helper('checkout')->__('Shipping Methods') . ' - ' . $headBlock->getDefaultTitle());
+        }
+        return parent::_prepareLayout();
     }
 }

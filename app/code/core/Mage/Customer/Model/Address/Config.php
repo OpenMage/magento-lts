@@ -54,6 +54,15 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     private $_defaultType       = [];
 
     /**
+     * Define node
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct(Mage::getConfig()->getNode()->global->customer->address);
+    }
+
+    /**
      * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
@@ -75,15 +84,6 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
             $this->_store = Mage::app()->getStore();
         }
         return $this->_store;
-    }
-
-    /**
-     * Define node
-     *
-     */
-    public function __construct()
-    {
-        parent::__construct(Mage::getConfig()->getNode()->global->customer->address);
     }
 
     /**
@@ -125,6 +125,22 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
+     * Retrieve address format by code
+     *
+     * @param string $typeCode
+     * @return Varien_Object
+     */
+    public function getFormatByCode($typeCode)
+    {
+        foreach ($this->getFormats() as $type) {
+            if ($type->getCode() == $typeCode) {
+                return $type;
+            }
+        }
+        return $this->_getDefaultFormat();
+    }
+
+    /**
      * Retrieve default address format
      *
      * @return Varien_Object
@@ -146,21 +162,5 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
             );
         }
         return $this->_defaultType[$storeId];
-    }
-
-    /**
-     * Retrieve address format by code
-     *
-     * @param string $typeCode
-     * @return Varien_Object
-     */
-    public function getFormatByCode($typeCode)
-    {
-        foreach ($this->getFormats() as $type) {
-            if ($type->getCode() == $typeCode) {
-                return $type;
-            }
-        }
-        return $this->_getDefaultFormat();
     }
 }

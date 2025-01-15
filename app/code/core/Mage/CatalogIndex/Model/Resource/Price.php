@@ -37,11 +37,6 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
      */
     protected $_taxRates           = null;
 
-    protected function _construct()
-    {
-        $this->_init('catalogindex/price', 'index_id');
-    }
-
     /**
      * @param float $rate
      */
@@ -264,5 +259,10 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
             ->where('price_table.website_id = ?', $this->getWebsiteId())
             ->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
         return $this->_getReadAdapter()->fetchAll($select);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalogindex/price', 'index_id');
     }
 }

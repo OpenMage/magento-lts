@@ -40,6 +40,39 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     }
 
     /**
+     * Gets customer assigned to this block
+     *
+     * @return Mage_Customer_Model_Customer
+     */
+    public function getCustomer()
+    {
+        return Mage::registry('current_customer');
+    }
+
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/cart', ['_current' => true, 'website_id' => $this->getWebsiteId()]);
+    }
+
+    /**
+     * @return string
+     * @throws Exception
+     */
+    public function getGridParentHtml()
+    {
+        $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, ['_relative' => true]);
+        return $this->fetchView($templateName);
+    }
+
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareGrid()
@@ -134,38 +167,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Gets customer assigned to this block
-     *
-     * @return Mage_Customer_Model_Customer
-     */
-    public function getCustomer()
-    {
-        return Mage::registry('current_customer');
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/cart', ['_current' => true, 'website_id' => $this->getWebsiteId()]);
-    }
-
-    /**
-     * @return string
-     * @throws Exception
-     */
-    public function getGridParentHtml()
-    {
-        $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, ['_relative' => true]);
-        return $this->fetchView($templateName);
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
     }
 }

@@ -22,31 +22,6 @@
  */
 class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('api/user', 'user_id');
-    }
-
-    /**
-     * Initialize unique fields
-     *
-     * @return $this
-     */
-    protected function _initUniqueFields()
-    {
-        $this->_uniqueFields = [
-            [
-                'field' => 'email',
-                'title' => Mage::helper('api')->__('Email'),
-            ],
-            [
-                'field' => 'username',
-                'title' => Mage::helper('api')->__('User Name'),
-            ],
-        ];
-        return $this;
-    }
-
     /**
      * Authenticate user by $username and $password
      *
@@ -202,21 +177,6 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $result = $adapter->fetchAll($select);
         }
         return $result;
-    }
-
-    /**
-     * Action before save
-     *
-     * @return $this
-     */
-    protected function _beforeSave(Mage_Core_Model_Abstract $user)
-    {
-        $now = Varien_Date::now();
-        if (!$user->getId()) {
-            $user->setCreated($now);
-        }
-        $user->setModified($now);
-        return $this;
     }
 
     /**
@@ -415,5 +375,44 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             ->where(implode(' OR ', $condition))
             ->where($usersTable . '.user_id != ?', (int) $user->getId());
         return $adapter->fetchRow($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('api/user', 'user_id');
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return $this
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = [
+            [
+                'field' => 'email',
+                'title' => Mage::helper('api')->__('Email'),
+            ],
+            [
+                'field' => 'username',
+                'title' => Mage::helper('api')->__('User Name'),
+            ],
+        ];
+        return $this;
+    }
+
+    /**
+     * Action before save
+     *
+     * @return $this
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $user)
+    {
+        $now = Varien_Date::now();
+        if (!$user->getId()) {
+            $user->setCreated($now);
+        }
+        $user->setModified($now);
+        return $this;
     }
 }

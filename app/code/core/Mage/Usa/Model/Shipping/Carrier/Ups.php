@@ -280,30 +280,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     }
 
     /**
-     * Get correct weight.
-     *
-     * Namely:
-     * Checks the current weight to comply with the minimum weight standards set by the carrier.
-     * Then strictly rounds the weight up until the first significant digit after the decimal point.
-     *
-     * @param float|int $weight
-     * @return float
-     */
-    protected function _getCorrectWeight($weight)
-    {
-        $minWeight = $this->getConfigData('min_package_weight');
-
-        if ($weight < $minWeight) {
-            $weight = $minWeight;
-        }
-
-        //rounds a number to one significant figure
-        $weight = ceil($weight * 10) / 10;
-
-        return $weight;
-    }
-
-    /**
      * Get result of request
      *
      * @return Mage_Shipping_Model_Rate_Result|null
@@ -311,39 +287,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     public function getResult()
     {
         return $this->_result;
-    }
-
-    /**
-     * Do remote request for  and handle errors
-     *
-     * @return Mage_Shipping_Model_Rate_Result
-     */
-    protected function _getQuotes()
-    {
-        // this "if" will be removed after XML APIs will be shut down
-        if ($this->getConfigData('type') == 'UPS_XML') {
-            return $this->_getXmlQuotes();
-        }
-
-        // REST is default
-        return $this->_getRestQuotes();
-    }
-
-    /**
-     * Set free method request
-     *
-     * @param string $freeMethod
-     * @return void
-     */
-    protected function _setFreeMethodRequest($freeMethod)
-    {
-        $r = $this->_rawRequest;
-
-        $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
-        $weight = $this->_getCorrectWeight($weight);
-        $r->setWeight($weight);
-        $r->setAction($this->getCode('action', 'single'));
-        $r->setProduct($freeMethod);
     }
 
     /**
@@ -669,6 +612,260 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     }
 
     /**
+     * Get tracking
+     *
+     * @param mixed $trackings
+     * @return Mage_Shipping_Model_Tracking_Result|null
+     */
+    public function getTracking($trackings)
+    {
+        if (!is_array($trackings)) {
+            $trackings = [$trackings];
+        }
+
+        if ($this->getConfigData('type') === 'UPS_XML') {
+            $this->setXMLAccessRequest();
+            $this->_getXmlTracking($trackings);
+        } else {
+            $this->_getRestTracking($trackings);
+        }
+
+        return $this->_trackingResult;
+    }
+
+    /**
+     * Get tracking response
+     *
+     * @return string
+     */
+    public function getResponse()
+    {
+        if ($this->_trackingResult === null) {
+            $trackings = [];
+        } else {
+            $trackings = $this->_trackingResult->getAllTrackings();
+        }
+
+        $statuses = '';
+        foreach ($trackings as $tracking) {
+            if ($data = $tracking->getAllData()) {
+                if (isset($data['status'])) {
+                    $statuses .= Mage::helper('usa')->__($data['status']);
+                } else {
+                    $statuses .= Mage::helper('usa')->__($data['error_message']);
+                }
+            }
+        }
+        if (empty($statuses)) {
+            $statuses = Mage::helper('usa')->__('Empty response');
+        }
+        return $statuses;
+    }
+
+    /**
+     * Get allowed shipping methods.
+     *
+     * @return array
+     */
+    public function getAllowedMethods()
+    {
+        $allowedMethods = explode(',', (string) $this->getConfigData('allowed_methods'));
+        $availableByTypeMethods = $this->getCode('originShipment', $this->getConfigData('origin_shipment'));
+
+        $methods = [];
+        foreach ($availableByTypeMethods as $methodCode => $methodData) {
+            if (in_array($methodCode, $allowedMethods)) {
+                $methods[$methodCode] = $methodData;
+            }
+        }
+
+        return $methods;
+    }
+
+    /**
+     * Return container types of carrier
+     *
+     * @return array|bool
+     */
+    public function getContainerTypes(?Varien_Object $params = null)
+    {
+        if ($params == null) {
+            return $this->_getAllowedContainers($params);
+        }
+        $method             = $params->getMethod();
+        $countryShipper     = $params->getCountryShipper();
+        $countryRecipient   = $params->getCountryRecipient();
+
+        if (($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::CANADA_COUNTRY_ID)
+            || ($countryShipper == self::CANADA_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID)
+            || ($countryShipper == self::MEXICO_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID)
+            && $method == '11' // UPS Standard
+        ) {
+            $containerTypes = [];
+            if ($method == '07' // Worldwide Express
+                || $method == '08' // Worldwide Expedited
+                || $method == '65' // Worldwide Saver
+            ) {
+                // Worldwide Expedited
+                if ($method != '08') {
+                    $containerTypes = [
+                        '01'   => Mage::helper('usa')->__('UPS Letter Envelope'),
+                        '24'   => Mage::helper('usa')->__('UPS Worldwide 25 kilo'),
+                        '25'   => Mage::helper('usa')->__('UPS Worldwide 10 kilo'),
+                    ];
+                }
+                $containerTypes = $containerTypes + [
+                    '03'     => Mage::helper('usa')->__('UPS Tube'),
+                    '04'    => Mage::helper('usa')->__('PAK'),
+                    '2a'    => Mage::helper('usa')->__('Small Express Box'),
+                    '2b'    => Mage::helper('usa')->__('Medium Express Box'),
+                    '2c'    => Mage::helper('usa')->__('Large Express Box'),
+                ];
+            }
+            return ['00' => Mage::helper('usa')->__('Customer Packaging')] + $containerTypes;
+        } elseif ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::PUERTORICO_COUNTRY_ID
+            && (
+                $method == '03' // UPS Ground
+                || $method == '02' // UPS Second Day Air
+                || $method == '01' // UPS Next Day Air
+            )
+        ) {
+            // Container types should be the same as for domestic
+            $params->setCountryRecipient(self::USA_COUNTRY_ID);
+            $containerTypes = $this->_getAllowedContainers($params);
+            $params->setCountryRecipient($countryRecipient);
+            return $containerTypes;
+        }
+        return $this->_getAllowedContainers($params);
+    }
+
+    /**
+     * Return all container types of carrier
+     *
+     * @return array
+     */
+    public function getContainerTypesAll()
+    {
+        $codes        = $this->getCode('container');
+        $descriptions = $this->getCode('container_description');
+        $result       = [];
+        foreach ($codes as $key => &$code) {
+            $result[$code] = $descriptions[$key];
+        }
+        return $result;
+    }
+
+    /**
+     * Return structured data of containers witch related with shipping methods
+     *
+     * @return array|false
+     */
+    public function getContainerTypesFilter()
+    {
+        return $this->getCode('containers_filter');
+    }
+
+    /**
+     * Return delivery confirmation types of carrier
+     *
+     * @return array
+     */
+    public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
+    {
+        $countryRecipient           = $params != null ? $params->getCountryRecipient() : null;
+        $deliveryConfirmationTypes  = [];
+        switch ($this->_getDeliveryConfirmationLevel($countryRecipient)) {
+            case self::DELIVERY_CONFIRMATION_PACKAGE:
+                $deliveryConfirmationTypes = [
+                    1 => Mage::helper('usa')->__('Delivery Confirmation'),
+                    2 => Mage::helper('usa')->__('Signature Required'),
+                    3 => Mage::helper('usa')->__('Adult Signature Required'),
+                ];
+                break;
+            case self::DELIVERY_CONFIRMATION_SHIPMENT:
+                $deliveryConfirmationTypes = [
+                    1 => Mage::helper('usa')->__('Signature Required'),
+                    2 => Mage::helper('usa')->__('Adult Signature Required'),
+                ];
+        }
+        array_unshift($deliveryConfirmationTypes, Mage::helper('usa')->__('Not Required'));
+
+        return $deliveryConfirmationTypes;
+    }
+
+    /**
+     * Get Container Types, that could be customized for UPS carrier
+     *
+     * @return array
+     */
+    public function getCustomizableContainerTypes()
+    {
+        $result = [];
+        $containerTypes = $this->getCode('container');
+        foreach (parent::getCustomizableContainerTypes() as $containerType) {
+            $result[$containerType] = $containerTypes[$containerType];
+        }
+        return $result;
+    }
+
+    /**
+     * Get correct weight.
+     *
+     * Namely:
+     * Checks the current weight to comply with the minimum weight standards set by the carrier.
+     * Then strictly rounds the weight up until the first significant digit after the decimal point.
+     *
+     * @param float|int $weight
+     * @return float
+     */
+    protected function _getCorrectWeight($weight)
+    {
+        $minWeight = $this->getConfigData('min_package_weight');
+
+        if ($weight < $minWeight) {
+            $weight = $minWeight;
+        }
+
+        //rounds a number to one significant figure
+        $weight = ceil($weight * 10) / 10;
+
+        return $weight;
+    }
+
+    /**
+     * Do remote request for  and handle errors
+     *
+     * @return Mage_Shipping_Model_Rate_Result
+     */
+    protected function _getQuotes()
+    {
+        // this "if" will be removed after XML APIs will be shut down
+        if ($this->getConfigData('type') == 'UPS_XML') {
+            return $this->_getXmlQuotes();
+        }
+
+        // REST is default
+        return $this->_getRestQuotes();
+    }
+
+    /**
+     * Set free method request
+     *
+     * @param string $freeMethod
+     * @return void
+     */
+    protected function _setFreeMethodRequest($freeMethod)
+    {
+        $r = $this->_rawRequest;
+
+        $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
+        $weight = $this->_getCorrectWeight($weight);
+        $r->setWeight($weight);
+        $r->setAction($this->getCode('action', 'single'));
+        $r->setProduct($freeMethod);
+    }
+
+    /**
      * Get xml rates
      *
      * @return Mage_Shipping_Model_Rate_Result
@@ -924,28 +1121,6 @@ XMLRequest;
             }
         }
         return $result;
-    }
-
-    /**
-     * Get tracking
-     *
-     * @param mixed $trackings
-     * @return Mage_Shipping_Model_Tracking_Result|null
-     */
-    public function getTracking($trackings)
-    {
-        if (!is_array($trackings)) {
-            $trackings = [$trackings];
-        }
-
-        if ($this->getConfigData('type') === 'UPS_XML') {
-            $this->setXMLAccessRequest();
-            $this->_getXmlTracking($trackings);
-        } else {
-            $this->_getRestTracking($trackings);
-        }
-
-        return $this->_trackingResult;
     }
 
     /**
@@ -1258,87 +1433,6 @@ XMLAuth;
         }
 
         $this->setTrackingResultData($resultArr, $trackingValue, $errorTitle);
-    }
-
-    /**
-     * Set Tracking Response Data
-     *
-     * @param array $resultArr
-     * @param string $trackingValue
-     * @param string $errorTitle
-     */
-    private function setTrackingResultData($resultArr, $trackingValue, $errorTitle)
-    {
-        if (!$this->_trackingResult) {
-            $this->_trackingResult = Mage::getModel('shipping/tracking_result');
-        }
-
-        if ($resultArr) {
-            /** @var Mage_Shipping_Model_Tracking_Result_Status $tracking */
-            $tracking = Mage::getModel('shipping/tracking_result_status');
-            $tracking->setCarrier('ups');
-            $tracking->setCarrierTitle($this->getConfigData('title'));
-            $tracking->setTracking($trackingValue);
-            $tracking->addData($resultArr);
-            $this->_trackingResult->append($tracking);
-        } else {
-            /** @var Mage_Shipping_Model_Tracking_Result_Error $error */
-            $error = Mage::getModel('shipping/tracking_result_error');
-            $error->setCarrier('ups');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setTracking($trackingValue);
-            $error->setErrorMessage($errorTitle);
-            $this->_trackingResult->append($error);
-        }
-    }
-
-    /**
-     * Get tracking response
-     *
-     * @return string
-     */
-    public function getResponse()
-    {
-        if ($this->_trackingResult === null) {
-            $trackings = [];
-        } else {
-            $trackings = $this->_trackingResult->getAllTrackings();
-        }
-
-        $statuses = '';
-        foreach ($trackings as $tracking) {
-            if ($data = $tracking->getAllData()) {
-                if (isset($data['status'])) {
-                    $statuses .= Mage::helper('usa')->__($data['status']);
-                } else {
-                    $statuses .= Mage::helper('usa')->__($data['error_message']);
-                }
-            }
-        }
-        if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
-        }
-        return $statuses;
-    }
-
-    /**
-     * Get allowed shipping methods.
-     *
-     * @return array
-     */
-    public function getAllowedMethods()
-    {
-        $allowedMethods = explode(',', (string) $this->getConfigData('allowed_methods'));
-        $availableByTypeMethods = $this->getCode('originShipment', $this->getConfigData('origin_shipment'));
-
-        $methods = [];
-        foreach ($availableByTypeMethods as $methodCode => $methodData) {
-            if (in_array($methodCode, $allowedMethods)) {
-                $methods[$methodCode] = $methodData;
-            }
-        }
-
-        return $methods;
     }
 
     /**
@@ -1719,34 +1813,6 @@ XMLAuth;
         return $result;
     }
 
-    /**
-     * Return country code according to UPS
-     *
-     * @param string $countryCode
-     * @param string $regionCode
-     * @param string $postCode
-     * @return string
-     */
-    private function getNormalizedCountryCode($countryCode, $regionCode, $postCode)
-    {
-        //for UPS, puerto rico state for US will assume as puerto rico country
-        if ($countryCode == self::USA_COUNTRY_ID && ($postCode == '00912' || $regionCode == self::PUERTORICO_COUNTRY_ID)) {
-            $countryCode = self::PUERTORICO_COUNTRY_ID;
-        }
-
-        // For UPS, Guam state of the USA will be represented by Guam country
-        if ($countryCode == self::USA_COUNTRY_ID && $regionCode == self::GUAM_REGION_CODE) {
-            $countryCode = self::GUAM_COUNTRY_ID;
-        }
-
-        // For UPS, Las Palmas and Santa Cruz de Tenerife will be represented by Canary Islands country
-        if ($countryCode === 'ES' && ($regionCode === 'Las Palmas' || $regionCode === 'Santa Cruz de Tenerife')) {
-            $countryCode = 'IC';
-        }
-
-        return $countryCode;
-    }
-
     protected function _formShipmentRestRequest(Varien_Object $request): string
     {
         $shipmentDescription = $this->generateShipmentDescription($request->getPackageItems());
@@ -1932,19 +1998,6 @@ XMLAuth;
         return json_encode($shipParams);
     }
 
-    private function generateShipmentDescription(array $items): string
-    {
-        $itemsDesc = [];
-        $itemsShipment = $items;
-        foreach ($itemsShipment as $itemShipment) {
-            $item = new Varien_Object();
-            $item->setData($itemShipment);
-            $itemsDesc[] = $item->getName();
-        }
-
-        return substr(implode(' ', $itemsDesc), 0, 35);
-    }
-
     /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      */
@@ -2003,132 +2056,6 @@ XMLAuth;
         } else {
             return $this->_sendShipmentAcceptRequest($response);
         }
-    }
-
-    /**
-     * Return container types of carrier
-     *
-     * @return array|bool
-     */
-    public function getContainerTypes(?Varien_Object $params = null)
-    {
-        if ($params == null) {
-            return $this->_getAllowedContainers($params);
-        }
-        $method             = $params->getMethod();
-        $countryShipper     = $params->getCountryShipper();
-        $countryRecipient   = $params->getCountryRecipient();
-
-        if (($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::CANADA_COUNTRY_ID)
-            || ($countryShipper == self::CANADA_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID)
-            || ($countryShipper == self::MEXICO_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID)
-            && $method == '11' // UPS Standard
-        ) {
-            $containerTypes = [];
-            if ($method == '07' // Worldwide Express
-                || $method == '08' // Worldwide Expedited
-                || $method == '65' // Worldwide Saver
-            ) {
-                // Worldwide Expedited
-                if ($method != '08') {
-                    $containerTypes = [
-                        '01'   => Mage::helper('usa')->__('UPS Letter Envelope'),
-                        '24'   => Mage::helper('usa')->__('UPS Worldwide 25 kilo'),
-                        '25'   => Mage::helper('usa')->__('UPS Worldwide 10 kilo'),
-                    ];
-                }
-                $containerTypes = $containerTypes + [
-                    '03'     => Mage::helper('usa')->__('UPS Tube'),
-                    '04'    => Mage::helper('usa')->__('PAK'),
-                    '2a'    => Mage::helper('usa')->__('Small Express Box'),
-                    '2b'    => Mage::helper('usa')->__('Medium Express Box'),
-                    '2c'    => Mage::helper('usa')->__('Large Express Box'),
-                ];
-            }
-            return ['00' => Mage::helper('usa')->__('Customer Packaging')] + $containerTypes;
-        } elseif ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::PUERTORICO_COUNTRY_ID
-            && (
-                $method == '03' // UPS Ground
-                || $method == '02' // UPS Second Day Air
-                || $method == '01' // UPS Next Day Air
-            )
-        ) {
-            // Container types should be the same as for domestic
-            $params->setCountryRecipient(self::USA_COUNTRY_ID);
-            $containerTypes = $this->_getAllowedContainers($params);
-            $params->setCountryRecipient($countryRecipient);
-            return $containerTypes;
-        }
-        return $this->_getAllowedContainers($params);
-    }
-
-    /**
-     * Return all container types of carrier
-     *
-     * @return array
-     */
-    public function getContainerTypesAll()
-    {
-        $codes        = $this->getCode('container');
-        $descriptions = $this->getCode('container_description');
-        $result       = [];
-        foreach ($codes as $key => &$code) {
-            $result[$code] = $descriptions[$key];
-        }
-        return $result;
-    }
-
-    /**
-     * Return structured data of containers witch related with shipping methods
-     *
-     * @return array|false
-     */
-    public function getContainerTypesFilter()
-    {
-        return $this->getCode('containers_filter');
-    }
-
-    /**
-     * Return delivery confirmation types of carrier
-     *
-     * @return array
-     */
-    public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
-    {
-        $countryRecipient           = $params != null ? $params->getCountryRecipient() : null;
-        $deliveryConfirmationTypes  = [];
-        switch ($this->_getDeliveryConfirmationLevel($countryRecipient)) {
-            case self::DELIVERY_CONFIRMATION_PACKAGE:
-                $deliveryConfirmationTypes = [
-                    1 => Mage::helper('usa')->__('Delivery Confirmation'),
-                    2 => Mage::helper('usa')->__('Signature Required'),
-                    3 => Mage::helper('usa')->__('Adult Signature Required'),
-                ];
-                break;
-            case self::DELIVERY_CONFIRMATION_SHIPMENT:
-                $deliveryConfirmationTypes = [
-                    1 => Mage::helper('usa')->__('Signature Required'),
-                    2 => Mage::helper('usa')->__('Adult Signature Required'),
-                ];
-        }
-        array_unshift($deliveryConfirmationTypes, Mage::helper('usa')->__('Not Required'));
-
-        return $deliveryConfirmationTypes;
-    }
-
-    /**
-     * Get Container Types, that could be customized for UPS carrier
-     *
-     * @return array
-     */
-    public function getCustomizableContainerTypes()
-    {
-        $result = [];
-        $containerTypes = $this->getCode('container');
-        foreach (parent::getCustomizableContainerTypes() as $containerType) {
-            $result[$containerType] = $containerTypes[$containerType];
-        }
-        return $result;
     }
 
     /**
@@ -2356,6 +2283,97 @@ XMLAuth;
         return $this->setRatePriceData($priceArr, $costArr, $errorTitle);
     }
 
+    /**
+     * To receive access token
+     *
+     * @return string
+     * @throws Exception
+     */
+    protected function setAPIAccessRequest()
+    {
+        $userId = $this->getConfigData('client_id');
+        $userIdPass = $this->getConfigData('client_secret');
+        if ($this->getConfigFlag('mode_xml')) {
+            $authUrl = $this->_liveUrls['AuthUrl'];
+        } else {
+            $authUrl = $this->_defaultUrls['AuthUrl'];
+        }
+        return Mage::getModel('usa/shipping_carrier_upsAuth')->getAccessToken($userId, $userIdPass, $authUrl);
+    }
+
+    /**
+     * Set Tracking Response Data
+     *
+     * @param array $resultArr
+     * @param string $trackingValue
+     * @param string $errorTitle
+     */
+    private function setTrackingResultData($resultArr, $trackingValue, $errorTitle)
+    {
+        if (!$this->_trackingResult) {
+            $this->_trackingResult = Mage::getModel('shipping/tracking_result');
+        }
+
+        if ($resultArr) {
+            /** @var Mage_Shipping_Model_Tracking_Result_Status $tracking */
+            $tracking = Mage::getModel('shipping/tracking_result_status');
+            $tracking->setCarrier('ups');
+            $tracking->setCarrierTitle($this->getConfigData('title'));
+            $tracking->setTracking($trackingValue);
+            $tracking->addData($resultArr);
+            $this->_trackingResult->append($tracking);
+        } else {
+            /** @var Mage_Shipping_Model_Tracking_Result_Error $error */
+            $error = Mage::getModel('shipping/tracking_result_error');
+            $error->setCarrier('ups');
+            $error->setCarrierTitle($this->getConfigData('title'));
+            $error->setTracking($trackingValue);
+            $error->setErrorMessage($errorTitle);
+            $this->_trackingResult->append($error);
+        }
+    }
+
+    /**
+     * Return country code according to UPS
+     *
+     * @param string $countryCode
+     * @param string $regionCode
+     * @param string $postCode
+     * @return string
+     */
+    private function getNormalizedCountryCode($countryCode, $regionCode, $postCode)
+    {
+        //for UPS, puerto rico state for US will assume as puerto rico country
+        if ($countryCode == self::USA_COUNTRY_ID && ($postCode == '00912' || $regionCode == self::PUERTORICO_COUNTRY_ID)) {
+            $countryCode = self::PUERTORICO_COUNTRY_ID;
+        }
+
+        // For UPS, Guam state of the USA will be represented by Guam country
+        if ($countryCode == self::USA_COUNTRY_ID && $regionCode == self::GUAM_REGION_CODE) {
+            $countryCode = self::GUAM_COUNTRY_ID;
+        }
+
+        // For UPS, Las Palmas and Santa Cruz de Tenerife will be represented by Canary Islands country
+        if ($countryCode === 'ES' && ($regionCode === 'Las Palmas' || $regionCode === 'Santa Cruz de Tenerife')) {
+            $countryCode = 'IC';
+        }
+
+        return $countryCode;
+    }
+
+    private function generateShipmentDescription(array $items): string
+    {
+        $itemsDesc = [];
+        $itemsShipment = $items;
+        foreach ($itemsShipment as $itemShipment) {
+            $item = new Varien_Object();
+            $item->setData($itemShipment);
+            $itemsDesc[] = $item->getName();
+        }
+
+        return substr(implode(' ', $itemsDesc), 0, 35);
+    }
+
     private function setRatePriceData(array $priceArr, array $costArr, string $errorTitle): Mage_Shipping_Model_Rate_Result
     {
         $result = Mage::getModel('shipping/rate_result');
@@ -2461,24 +2479,6 @@ XMLAuth;
                 $priceArr[$code] = $this->getMethodPrice((float) $cost, $code);
             }
         }
-    }
-
-    /**
-     * To receive access token
-     *
-     * @return string
-     * @throws Exception
-     */
-    protected function setAPIAccessRequest()
-    {
-        $userId = $this->getConfigData('client_id');
-        $userIdPass = $this->getConfigData('client_secret');
-        if ($this->getConfigFlag('mode_xml')) {
-            $authUrl = $this->_liveUrls['AuthUrl'];
-        } else {
-            $authUrl = $this->_defaultUrls['AuthUrl'];
-        }
-        return Mage::getModel('usa/shipping_carrier_upsAuth')->getAccessToken($userId, $userIdPass, $authUrl);
     }
 
     /**

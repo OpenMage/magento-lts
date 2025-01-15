@@ -27,6 +27,8 @@
  */
 class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
 {
+    public const LINK_GET_CHILDREN = 1;
+    public const LINK_GET_PARENTS = 1;
     /**
      * Product Type instance
      *
@@ -51,18 +53,6 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
      * @var bool
      */
     protected $_haveParents = true;
-
-    public const LINK_GET_CHILDREN = 1;
-    public const LINK_GET_PARENTS = 1;
-
-    /**
-     * Initialize abstract resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalogindex/data_abstract');
-    }
 
     /**
      * Return all children ids
@@ -102,37 +92,6 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         }
 
         return $this->fetchLinkInformation($store, $this->_getLinkSettings(), self::LINK_GET_PARENTS, $childIds);
-    }
-
-    /**
-     * Returns an array of product children/parents
-     *
-     * @param Mage_Core_Model_Store $store
-     * @param array $settings
-     * @param int $type
-     * @param int|array $suppliedId
-     * @return array
-     */
-    protected function fetchLinkInformation($store, $settings, $type, $suppliedId)
-    {
-        switch ($type) {
-            case self::LINK_GET_CHILDREN:
-                $whereField = $settings['parent_field'];
-                $idField = $settings['child_field'];
-                break;
-
-            case self::LINK_GET_PARENTS:
-                $idField = $settings['parent_field'];
-                $whereField = $settings['child_field'];
-                break;
-        }
-
-        $additional = [];
-        if (isset($settings['additional']) && is_array($settings['additional'])) {
-            $additional = $settings['additional'];
-        }
-
-        return $this->getResource()->fetchLinkInformation($store->getId(), $settings['table'], $idField, $whereField, $suppliedId, $additional);
     }
 
     /**
@@ -253,16 +212,6 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get child link table and field settings
-     *
-     * @return mixed
-     */
-    protected function _getLinkSettings()
-    {
-        return false;
-    }
-
-    /**
      * Returns if type supports children of the specified type
      *
      * @param int $type
@@ -290,5 +239,55 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
                 ->factory($product, true);
         }
         return $this->_typeInstance;
+    }
+
+    /**
+     * Initialize abstract resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalogindex/data_abstract');
+    }
+
+    /**
+     * Returns an array of product children/parents
+     *
+     * @param Mage_Core_Model_Store $store
+     * @param array $settings
+     * @param int $type
+     * @param int|array $suppliedId
+     * @return array
+     */
+    protected function fetchLinkInformation($store, $settings, $type, $suppliedId)
+    {
+        switch ($type) {
+            case self::LINK_GET_CHILDREN:
+                $whereField = $settings['parent_field'];
+                $idField = $settings['child_field'];
+                break;
+
+            case self::LINK_GET_PARENTS:
+                $idField = $settings['parent_field'];
+                $whereField = $settings['child_field'];
+                break;
+        }
+
+        $additional = [];
+        if (isset($settings['additional']) && is_array($settings['additional'])) {
+            $additional = $settings['additional'];
+        }
+
+        return $this->getResource()->fetchLinkInformation($store->getId(), $settings['table'], $idField, $whereField, $suppliedId, $additional);
+    }
+
+    /**
+     * Get child link table and field settings
+     *
+     * @return mixed
+     */
+    protected function _getLinkSettings()
+    {
+        return false;
     }
 }

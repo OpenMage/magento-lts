@@ -63,14 +63,6 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     protected $_frameEnd;
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setData('show_amounts', true);
-        $this->setData('use_container', true);
-        $this->setTemplate('page/html/pager.phtml');
-    }
-
     /**
      * Return current page
      *
@@ -566,6 +558,56 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     }
 
     /**
+     * Check if frame data was initialized
+     *
+     * @return bool
+     */
+    public function isFrameInitialized()
+    {
+        return $this->_frameInitialized;
+    }
+
+    /**
+     * Getter for alternative text for Previous link in pagination frame
+     *
+     * @return string
+     */
+    public function getAnchorTextForPrevious()
+    {
+        return Mage::getStoreConfig('design/pagination/anchor_text_for_previous');
+    }
+
+    /**
+     * Getter for alternative text for Next link in pagination frame
+     *
+     * @return string
+     */
+    public function getAnchorTextForNext()
+    {
+        return Mage::getStoreConfig('design/pagination/anchor_text_for_next');
+    }
+
+    /**
+     * Set whether output of the pager is mandatory
+     *
+     * @param bool $isRequired
+     * @return $this
+     */
+    public function setIsOutputRequired($isRequired)
+    {
+        $this->_outputRequired = (bool) $isRequired;
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setData('show_amounts', true);
+        $this->setData('use_container', true);
+        $this->setTemplate('page/html/pager.phtml');
+    }
+
+    /**
      * Initialize frame data, such as frame start, frame start etc.
      *
      * @return $this
@@ -613,48 +655,6 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     protected function _setFrameInitialized($flag)
     {
         $this->_frameInitialized = (bool) $flag;
-        return $this;
-    }
-
-    /**
-     * Check if frame data was initialized
-     *
-     * @return bool
-     */
-    public function isFrameInitialized()
-    {
-        return $this->_frameInitialized;
-    }
-
-    /**
-     * Getter for alternative text for Previous link in pagination frame
-     *
-     * @return string
-     */
-    public function getAnchorTextForPrevious()
-    {
-        return Mage::getStoreConfig('design/pagination/anchor_text_for_previous');
-    }
-
-    /**
-     * Getter for alternative text for Next link in pagination frame
-     *
-     * @return string
-     */
-    public function getAnchorTextForNext()
-    {
-        return Mage::getStoreConfig('design/pagination/anchor_text_for_next');
-    }
-
-    /**
-     * Set whether output of the pager is mandatory
-     *
-     * @param bool $isRequired
-     * @return $this
-     */
-    public function setIsOutputRequired($isRequired)
-    {
-        $this->_outputRequired = (bool) $isRequired;
         return $this;
     }
 

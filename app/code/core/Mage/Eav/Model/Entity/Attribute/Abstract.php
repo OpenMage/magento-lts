@@ -113,11 +113,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     protected $_attributeValidationPassed   = false;
 
-    protected function _construct()
-    {
-        $this->_init('eav/entity_attribute');
-    }
-
     /**
      * Load attribute data by code
      *
@@ -500,30 +495,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @return string
-     */
-    protected function _getDefaultBackendModel()
-    {
-        return Mage_Eav_Model_Entity::DEFAULT_BACKEND_MODEL;
-    }
-
-    /**
-     * @return string
-     */
-    protected function _getDefaultFrontendModel()
-    {
-        return Mage_Eav_Model_Entity::DEFAULT_FRONTEND_MODEL;
-    }
-
-    /**
-     * @return string
-     */
-    protected function _getDefaultSourceModel()
-    {
-        return $this->getEntity()->getDefaultAttributeSourceModel();
-    }
-
-    /**
      * @param mixed $value
      * @return bool
      * @throws Mage_Core_Exception
@@ -741,85 +712,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Retrieve flat columns definition in old format (before MMDB support)
-     * Used in database compatible mode
-     *
-     * @return array
-     */
-    protected function _getFlatColumnsOldDefinition()
-    {
-        $columns = [];
-        switch ($this->getBackendType()) {
-            case 'static':
-                $describe = $this->_getResource()->describeTable($this->getBackend()->getTable());
-                if (!isset($describe[$this->getAttributeCode()])) {
-                    break;
-                }
-                $prop = $describe[$this->getAttributeCode()];
-                $type = $prop['DATA_TYPE'];
-                if (isset($prop['PRECISION'], $prop['SCALE'])) {
-                    $type .= "({$prop['PRECISION']},{$prop['SCALE']})";
-                } else {
-                    $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : '';
-                }
-                $columns[$this->getAttributeCode()] = [
-                    'type'      => $type,
-                    'unsigned'  => $prop['UNSIGNED'] ? true : false,
-                    'is_null'   => $prop['NULLABLE'],
-                    'default'   => $prop['DEFAULT'],
-                    'extra'     => null,
-                ];
-                break;
-            case 'datetime':
-                $columns[$this->getAttributeCode()] = [
-                    'type'      => 'datetime',
-                    'unsigned'  => false,
-                    'is_null'   => true,
-                    'default'   => null,
-                    'extra'     => null,
-                ];
-                break;
-            case 'decimal':
-                $columns[$this->getAttributeCode()] = [
-                    'type'      => 'decimal(12,4)',
-                    'unsigned'  => false,
-                    'is_null'   => true,
-                    'default'   => null,
-                    'extra'     => null,
-                ];
-                break;
-            case 'int':
-                $columns[$this->getAttributeCode()] = [
-                    'type'      => 'int',
-                    'unsigned'  => false,
-                    'is_null'   => true,
-                    'default'   => null,
-                    'extra'     => null,
-                ];
-                break;
-            case 'text':
-                $columns[$this->getAttributeCode()] = [
-                    'type'      => 'text',
-                    'unsigned'  => false,
-                    'is_null'   => true,
-                    'default'   => null,
-                    'extra'     => null,
-                ];
-                break;
-            case 'varchar':
-                $columns[$this->getAttributeCode()] = [
-                    'type'      => 'varchar(255)',
-                    'unsigned'  => false,
-                    'is_null'   => true,
-                    'default'   => null,
-                    'extra'     => null,
-                ];
-                break;
-        }
-        return $columns;
-    }
-
-    /**
      * Retrieve index data for flat table
      *
      * @return array
@@ -929,5 +821,113 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     public function getApplyTo()
     {
         return [];
+    }
+
+    protected function _construct()
+    {
+        $this->_init('eav/entity_attribute');
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getDefaultBackendModel()
+    {
+        return Mage_Eav_Model_Entity::DEFAULT_BACKEND_MODEL;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getDefaultFrontendModel()
+    {
+        return Mage_Eav_Model_Entity::DEFAULT_FRONTEND_MODEL;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getDefaultSourceModel()
+    {
+        return $this->getEntity()->getDefaultAttributeSourceModel();
+    }
+
+    /**
+     * Retrieve flat columns definition in old format (before MMDB support)
+     * Used in database compatible mode
+     *
+     * @return array
+     */
+    protected function _getFlatColumnsOldDefinition()
+    {
+        $columns = [];
+        switch ($this->getBackendType()) {
+            case 'static':
+                $describe = $this->_getResource()->describeTable($this->getBackend()->getTable());
+                if (!isset($describe[$this->getAttributeCode()])) {
+                    break;
+                }
+                $prop = $describe[$this->getAttributeCode()];
+                $type = $prop['DATA_TYPE'];
+                if (isset($prop['PRECISION'], $prop['SCALE'])) {
+                    $type .= "({$prop['PRECISION']},{$prop['SCALE']})";
+                } else {
+                    $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : '';
+                }
+                $columns[$this->getAttributeCode()] = [
+                    'type'      => $type,
+                    'unsigned'  => $prop['UNSIGNED'] ? true : false,
+                    'is_null'   => $prop['NULLABLE'],
+                    'default'   => $prop['DEFAULT'],
+                    'extra'     => null,
+                ];
+                break;
+            case 'datetime':
+                $columns[$this->getAttributeCode()] = [
+                    'type'      => 'datetime',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null,
+                ];
+                break;
+            case 'decimal':
+                $columns[$this->getAttributeCode()] = [
+                    'type'      => 'decimal(12,4)',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null,
+                ];
+                break;
+            case 'int':
+                $columns[$this->getAttributeCode()] = [
+                    'type'      => 'int',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null,
+                ];
+                break;
+            case 'text':
+                $columns[$this->getAttributeCode()] = [
+                    'type'      => 'text',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null,
+                ];
+                break;
+            case 'varchar':
+                $columns[$this->getAttributeCode()] = [
+                    'type'      => 'varchar(255)',
+                    'unsigned'  => false,
+                    'is_null'   => true,
+                    'default'   => null,
+                    'extra'     => null,
+                ];
+                break;
+        }
+        return $columns;
     }
 }

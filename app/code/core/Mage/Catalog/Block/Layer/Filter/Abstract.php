@@ -66,34 +66,6 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
     }
 
     /**
-     * Init filter model object
-     *
-     * @return Mage_Catalog_Block_Layer_Filter_Abstract
-     */
-    protected function _initFilter()
-    {
-        if (!$this->_filterModelName) {
-            Mage::throwException(Mage::helper('catalog')->__('Filter model name must be declared.'));
-        }
-        $this->_filter = Mage::getModel($this->_filterModelName)
-            ->setLayer($this->getLayer());
-        $this->_prepareFilter();
-
-        $this->_filter->apply($this->getRequest(), $this);
-        return $this;
-    }
-
-    /**
-     * Prepare filter process
-     *
-     * @return Mage_Catalog_Block_Layer_Filter_Abstract
-     */
-    protected function _prepareFilter()
-    {
-        return $this;
-    }
-
-    /**
      * Retrieve name of the filter block
      *
      * @return string
@@ -143,5 +115,33 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
     public function getHtml()
     {
         return parent::_toHtml();
+    }
+
+    /**
+     * Init filter model object
+     *
+     * @return Mage_Catalog_Block_Layer_Filter_Abstract
+     */
+    protected function _initFilter()
+    {
+        if (!$this->_filterModelName) {
+            Mage::throwException(Mage::helper('catalog')->__('Filter model name must be declared.'));
+        }
+        $this->_filter = Mage::getModel($this->_filterModelName)
+            ->setLayer($this->getLayer());
+        $this->_prepareFilter();
+
+        $this->_filter->apply($this->getRequest(), $this);
+        return $this;
+    }
+
+    /**
+     * Prepare filter process
+     *
+     * @return Mage_Catalog_Block_Layer_Filter_Abstract
+     */
+    protected function _prepareFilter()
+    {
+        return $this;
     }
 }

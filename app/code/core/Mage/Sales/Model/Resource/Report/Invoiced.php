@@ -22,11 +22,6 @@
  */
 class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resource_Report_Abstract
 {
-    protected function _construct()
-    {
-        $this->_setResource('sales');
-    }
-
     /**
      * Aggregate Invoiced data
      *
@@ -46,6 +41,10 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
 
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_INVOICE_FLAG_CODE);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_setResource('sales');
     }
 
     /**

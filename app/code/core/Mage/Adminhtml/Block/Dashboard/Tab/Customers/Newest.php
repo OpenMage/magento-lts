@@ -28,6 +28,11 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
         $this->setId('customersNewestGrid');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/customer_collection')
@@ -92,10 +97,5 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
         $this->setPagerVisibility(false);
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
     }
 }

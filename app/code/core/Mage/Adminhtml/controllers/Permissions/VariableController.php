@@ -29,19 +29,6 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
     public const ADMIN_RESOURCE = 'system/acl/variables';
 
     /**
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('system/acl/variables')
-            ->_addBreadcrumb($this->__('System'), $this->__('System'))
-            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
-            ->_addBreadcrumb($this->__('Variables'), $this->__('Variables'));
-        return $this;
-    }
-
-    /**
      * Index action
      */
     public function indexAction()
@@ -193,5 +180,18 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
             ->setBody($this->getLayout()
             ->createBlock('adminhtml/permissions_variable_grid')
             ->toHtml());
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('system/acl/variables')
+            ->_addBreadcrumb($this->__('System'), $this->__('System'))
+            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
+            ->_addBreadcrumb($this->__('Variables'), $this->__('Variables'));
+        return $this;
     }
 }

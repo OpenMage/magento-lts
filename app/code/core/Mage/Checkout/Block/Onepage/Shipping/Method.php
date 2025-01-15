@@ -22,15 +22,6 @@
  */
 class Mage_Checkout_Block_Onepage_Shipping_Method extends Mage_Checkout_Block_Onepage_Abstract
 {
-    protected function _construct()
-    {
-        $this->getCheckout()->setStepData('shipping_method', [
-            'label'     => Mage::helper('checkout')->__('Shipping Method'),
-            'is_show'   => $this->isShow(),
-        ]);
-        parent::_construct();
-    }
-
     /**
      * Retrieve is allow and show block
      *
@@ -39,5 +30,13 @@ class Mage_Checkout_Block_Onepage_Shipping_Method extends Mage_Checkout_Block_On
     public function isShow()
     {
         return !$this->getQuote()->isVirtual();
+    }
+    protected function _construct()
+    {
+        $this->getCheckout()->setStepData('shipping_method', [
+            'label'     => Mage::helper('checkout')->__('Shipping Method'),
+            'is_show'   => $this->isShow(),
+        ]);
+        parent::_construct();
     }
 }

@@ -279,249 +279,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-     * Get quotes
-     *
-     * @return Mage_Shipping_Model_Rate_Result
-     */
-    protected function _getQuotes()
-    {
-        return $this->_getXmlQuotes();
-    }
-
-    /**
-     * Set free method request
-     *
-     * @param  $freeMethod
-     */
-    protected function _setFreeMethodRequest($freeMethod)
-    {
-        $r = $this->_rawRequest;
-
-        $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
-        $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
-        $r->setService($freeMethod);
-    }
-
-    /**
-     * Build RateV3 request, send it to USPS gateway and retrieve quotes in XML format
-     *
-     * @link http://www.usps.com/webtools/htm/Rate-Calculators-v2-3.htm
-     * @return Mage_Shipping_Model_Rate_Result
-     */
-    protected function _getXmlQuotes()
-    {
-        $r = $this->_rawRequest;
-
-        // The origin address(shipper) must be only in USA
-        if (!$this->_isUSCountry($r->getOrigCountryId())) {
-            $responseBody = '';
-            return $this->_parseXmlResponse($responseBody);
-        }
-
-        if ($this->_isUSCountry($r->getDestCountryId())) {
-            $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><RateV4Request/>');
-            $xml->addAttribute('USERID', $r->getUserId());
-            // according to usps v4 documentation
-            $xml->addChild('Revision', '2');
-
-            $package = $xml->addChild('Package');
-            $package->addAttribute('ID', '0');
-            $service = $this->getCode('service_to_code', $r->getService());
-            if (!$service) {
-                $service = $r->getService();
-            }
-            if ($r->getContainer() == 'FLAT RATE BOX' || $r->getContainer() == 'FLAT RATE ENVELOPE') {
-                $service = 'Priority';
-            }
-            $package->addChild('Service', $service);
-
-            // no matter Letter, Flat or Parcel, use Parcel
-            if ($r->getService() == 'FIRST CLASS' || $r->getService() == 'FIRST CLASS HFP COMMERCIAL') {
-                $package->addChild('FirstClassMailType', 'PARCEL');
-            }
-            if ($r->getService() == 'FIRST CLASS COMMERCIAL') {
-                $package->addChild('FirstClassMailType', 'PACKAGE SERVICE');
-            }
-
-            $package->addChild('ZipOrigination', $r->getOrigPostal());
-            //only 5 chars available
-            $package->addChild('ZipDestination', substr($r->getDestPostal(), 0, 5));
-            $package->addChild('Pounds', $r->getWeightPounds());
-            $package->addChild('Ounces', $r->getWeightOunces());
-            // Because some methods don't accept VARIABLE and (NON)RECTANGULAR containers
-            $package->addChild('Container', $r->getContainer());
-            $package->addChild('Size', $r->getSize());
-            if ($r->getSize() == 'LARGE') {
-                $package->addChild('Width', $r->getWidth());
-                $package->addChild('Length', $r->getLength());
-                $package->addChild('Height', $r->getHeight());
-                if ($r->getContainer() == 'NONRECTANGULAR' || $r->getContainer() == 'VARIABLE') {
-                    $package->addChild('Girth', $r->getGirth());
-                }
-            }
-            $package->addChild('Machinable', $r->getMachinable());
-
-            $api = 'RateV4';
-        } else {
-            $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><IntlRateV2Request/>');
-            $xml->addAttribute('USERID', $r->getUserId());
-            // according to usps v4 documentation
-            $xml->addChild('Revision', '2');
-
-            $package = $xml->addChild('Package');
-            $package->addAttribute('ID', '0');
-            $package->addChild('Pounds', $r->getWeightPounds());
-            $package->addChild('Ounces', $r->getWeightOunces());
-            $package->addChild('MailType', 'All');
-            $package->addChild('ValueOfContents', $r->getValue());
-            $package->addChild('Country', $r->getDestCountryName());
-            $package->addChild('Container', $r->getContainer());
-            $package->addChild('Size', $r->getSize());
-            $width = $length = $height = $girth = '';
-            if ($r->getSize() == 'LARGE') {
-                $width = $r->getWidth();
-                $length = $r->getLength();
-                $height = $r->getHeight();
-                if ($r->getContainer() == 'NONRECTANGULAR') {
-                    $girth = $r->getGirth();
-                }
-            }
-            $package->addChild('Width', $width);
-            $package->addChild('Length', $length);
-            $package->addChild('Height', $height);
-            $package->addChild('Girth', $girth);
-
-            if ($this->_isCanada($r->getDestCountryId())) {
-                //only 5 chars available
-                $package->addChild('OriginZip', substr($r->getOrigPostal(), 0, 5));
-            }
-            $api = 'IntlRateV2';
-        }
-        $request = $xml->asXML();
-
-        $responseBody = $this->_getCachedQuotes($request);
-        if ($responseBody === null) {
-            $debugData = ['request' => $request];
-            try {
-                $url = $this->getConfigData('gateway_url');
-                if (!$url) {
-                    $url = $this->_defaultGatewayUrl;
-                }
-                $client = new Zend_Http_Client();
-                $client->setUri($url);
-                $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
-                $client->setParameterGet('API', $api);
-                $client->setParameterGet('XML', $request);
-                $response = $client->request();
-                $responseBody = $response->getBody();
-
-                $debugData['result'] = $responseBody;
-                $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
-                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-                $responseBody = '';
-            }
-            $this->_debug($debugData);
-        }
-        return $this->_parseXmlResponse($responseBody);
-    }
-
-    /**
-     * Parse calculated rates
-     *
-     * @link http://www.usps.com/webtools/htm/Rate-Calculators-v2-3.htm
-     * @param string $response
-     * @return Mage_Shipping_Model_Rate_Result|void
-     */
-    protected function _parseXmlResponse($response)
-    {
-        $r = $this->_rawRequest;
-        $costArr = [];
-        $priceArr = [];
-        if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
-                if (strpos($response, '<?xml version="1.0"?>') !== false) {
-                    $response = str_replace(
-                        '<?xml version="1.0"?>',
-                        '<?xml version="1.0" encoding="ISO-8859-1"?>',
-                        $response,
-                    );
-                }
-                $xml = simplexml_load_string($response);
-
-                if (is_object($xml)) {
-                    $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
-                    $serviceCodeToActualNameMap = [];
-                    /**
-                     * US Rates
-                     */
-                    if ($this->_isUSCountry($r->getDestCountryId())) {
-                        if (is_object($xml->Package) && is_object($xml->Package->Postage)) {
-                            foreach ($xml->Package->Postage as $postage) {
-                                $serviceName = $this->_filterServiceName((string) $postage->MailService);
-                                $serviceCodeMethod = $this->getCode('method_to_code', $serviceName);
-                                $serviceCode = $serviceCodeMethod ?: (string) $postage->attributes()->CLASSID;
-                                $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                                if (in_array($serviceCode, $allowedMethods)) {
-                                    $costArr[$serviceCode] = (string) $postage->Rate;
-                                    $priceArr[$serviceCode] = $this->getMethodPrice(
-                                        (float) $postage->Rate,
-                                        $serviceCode,
-                                    );
-                                }
-                            }
-                            asort($priceArr);
-                        }
-                    } else { // International Rates
-                        if (is_object($xml->Package) && is_object($xml->Package->Service)) {
-                            foreach ($xml->Package->Service as $service) {
-                                // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                                if ($service->ServiceErrors->count()) {
-                                    continue;
-                                }
-                                $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
-                                $serviceCode = 'INT_' . (string) $service->attributes()->ID;
-                                $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                                if (in_array($serviceCode, $allowedMethods)) {
-                                    $costArr[$serviceCode] = (string) $service->Postage;
-                                    $priceArr[$serviceCode] = $this->getMethodPrice(
-                                        (float) $service->Postage,
-                                        $serviceCode,
-                                    );
-                                }
-                            }
-                            asort($priceArr);
-                        }
-                    }
-                }
-
-                $result = Mage::getModel('shipping/rate_result');
-                if (empty($priceArr)) {
-                    $error = Mage::getModel('shipping/rate_result_error');
-                    $error->setCarrier('usps');
-                    $error->setCarrierTitle($this->getConfigData('title'));
-                    $error->setErrorMessage($this->getConfigData('specificerrmsg'));
-                    $result->append($error);
-                } else {
-                    foreach ($priceArr as $method => $price) {
-                        $rate = Mage::getModel('shipping/rate_result_method');
-                        $rate->setCarrier('usps');
-                        $rate->setCarrierTitle($this->getConfigData('title'));
-                        $rate->setMethod($method);
-                        $rate->setMethodTitle($serviceCodeToActualNameMap[$method] ?? $this->getCode('method', $method));
-                        $rate->setCost($costArr[$method]);
-                        $rate->setPrice($price);
-                        $result->append($rate);
-                    }
-                }
-
-                return $result;
-            }
-        }
-    }
-
-    /**
      * Get configuration data of carrier
      *
      * @param string $type
@@ -908,6 +665,395 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
+     * Get tracking response
+     *
+     * @return string
+     */
+    public function getResponse()
+    {
+        $statuses = '';
+        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
+            if ($trackingData = $this->_result->getAllTrackings()) {
+                foreach ($trackingData as $tracking) {
+                    if ($data = $tracking->getAllData()) {
+                        if (!empty($data['track_summary'])) {
+                            $statuses .= Mage::helper('usa')->__($data['track_summary']);
+                        } else {
+                            $statuses .= Mage::helper('usa')->__('Empty response');
+                        }
+                    }
+                }
+            }
+        }
+        if (empty($statuses)) {
+            $statuses = Mage::helper('usa')->__('Empty response');
+        }
+        return $statuses;
+    }
+
+    /**
+     * Get allowed shipping methods
+     *
+     * @return array
+     */
+    public function getAllowedMethods()
+    {
+        $allowed = explode(',', $this->getConfigData('allowed_methods'));
+        $arr = [];
+        foreach ($allowed as $k) {
+            $arr[$k] = $this->getCode('method', $k);
+        }
+        return $arr;
+    }
+
+    /**
+     * Return container types of carrier
+     *
+     * @return array|bool
+     */
+    public function getContainerTypes(?Varien_Object $params = null)
+    {
+        if (is_null($params)) {
+            return $this->_getAllowedContainers();
+        }
+        return $this->_isUSCountry($params->getCountryRecipient()) ? [] : $this->_getAllowedContainers($params);
+    }
+
+    /**
+     * Return all container types of carrier
+     *
+     * @return array|bool
+     */
+    public function getContainerTypesAll()
+    {
+        return $this->getCode('container');
+    }
+
+    /**
+     * Return structured data of containers witch related with shipping methods
+     *
+     * @return array|bool
+     */
+    public function getContainerTypesFilter()
+    {
+        return $this->getCode('containers_filter');
+    }
+
+    /**
+     * Return delivery confirmation types of carrier
+     *
+     * @return array
+     */
+    public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
+    {
+        if ($params == null) {
+            return [];
+        }
+        $countryRecipient = $params->getCountryRecipient();
+        if ($this->_isUSCountry($countryRecipient)) {
+            return $this->getCode('delivery_confirmation_types');
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * Check whether girth is allowed for the USPS
+     *
+     * @param null|string $countyDest
+     * @return bool
+     */
+    public function isGirthAllowed($countyDest = null)
+    {
+        return $this->_isUSCountry($countyDest) ? false : true;
+    }
+
+    /**
+     * Return content types of package
+     *
+     * @return array
+     */
+    public function getContentTypes(Varien_Object $params)
+    {
+        $countryShipper     = $params->getCountryShipper();
+        $countryRecipient   = $params->getCountryRecipient();
+
+        if ($countryShipper == self::USA_COUNTRY_ID
+            && $countryRecipient != self::USA_COUNTRY_ID
+        ) {
+            return [
+                'MERCHANDISE' => Mage::helper('usa')->__('Merchandise'),
+                'SAMPLE' => Mage::helper('usa')->__('Sample'),
+                'GIFT' => Mage::helper('usa')->__('Gift'),
+                'DOCUMENTS' => Mage::helper('usa')->__('Documents'),
+                'RETURN' => Mage::helper('usa')->__('Return'),
+                'OTHER' => Mage::helper('usa')->__('Other'),
+            ];
+        }
+        return [];
+    }
+
+    /**
+     * @deprecated
+     */
+    public function getMethodLabel($value)
+    {
+        return $this->_methodsMapper($value, true);
+    }
+
+    /**
+     * Get value of method by its label
+     * @deprecated
+     */
+    public function getMethodValue($label)
+    {
+        return $this->_methodsMapper($label, false);
+    }
+
+    /**
+     * Get quotes
+     *
+     * @return Mage_Shipping_Model_Rate_Result
+     */
+    protected function _getQuotes()
+    {
+        return $this->_getXmlQuotes();
+    }
+
+    /**
+     * Set free method request
+     *
+     * @param  $freeMethod
+     */
+    protected function _setFreeMethodRequest($freeMethod)
+    {
+        $r = $this->_rawRequest;
+
+        $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
+        $r->setWeightPounds(floor($weight));
+        $r->setWeightOunces(round(($weight - floor($weight)) * self::OUNCES_POUND, 1));
+        $r->setService($freeMethod);
+    }
+
+    /**
+     * Build RateV3 request, send it to USPS gateway and retrieve quotes in XML format
+     *
+     * @link http://www.usps.com/webtools/htm/Rate-Calculators-v2-3.htm
+     * @return Mage_Shipping_Model_Rate_Result
+     */
+    protected function _getXmlQuotes()
+    {
+        $r = $this->_rawRequest;
+
+        // The origin address(shipper) must be only in USA
+        if (!$this->_isUSCountry($r->getOrigCountryId())) {
+            $responseBody = '';
+            return $this->_parseXmlResponse($responseBody);
+        }
+
+        if ($this->_isUSCountry($r->getDestCountryId())) {
+            $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><RateV4Request/>');
+            $xml->addAttribute('USERID', $r->getUserId());
+            // according to usps v4 documentation
+            $xml->addChild('Revision', '2');
+
+            $package = $xml->addChild('Package');
+            $package->addAttribute('ID', '0');
+            $service = $this->getCode('service_to_code', $r->getService());
+            if (!$service) {
+                $service = $r->getService();
+            }
+            if ($r->getContainer() == 'FLAT RATE BOX' || $r->getContainer() == 'FLAT RATE ENVELOPE') {
+                $service = 'Priority';
+            }
+            $package->addChild('Service', $service);
+
+            // no matter Letter, Flat or Parcel, use Parcel
+            if ($r->getService() == 'FIRST CLASS' || $r->getService() == 'FIRST CLASS HFP COMMERCIAL') {
+                $package->addChild('FirstClassMailType', 'PARCEL');
+            }
+            if ($r->getService() == 'FIRST CLASS COMMERCIAL') {
+                $package->addChild('FirstClassMailType', 'PACKAGE SERVICE');
+            }
+
+            $package->addChild('ZipOrigination', $r->getOrigPostal());
+            //only 5 chars available
+            $package->addChild('ZipDestination', substr($r->getDestPostal(), 0, 5));
+            $package->addChild('Pounds', $r->getWeightPounds());
+            $package->addChild('Ounces', $r->getWeightOunces());
+            // Because some methods don't accept VARIABLE and (NON)RECTANGULAR containers
+            $package->addChild('Container', $r->getContainer());
+            $package->addChild('Size', $r->getSize());
+            if ($r->getSize() == 'LARGE') {
+                $package->addChild('Width', $r->getWidth());
+                $package->addChild('Length', $r->getLength());
+                $package->addChild('Height', $r->getHeight());
+                if ($r->getContainer() == 'NONRECTANGULAR' || $r->getContainer() == 'VARIABLE') {
+                    $package->addChild('Girth', $r->getGirth());
+                }
+            }
+            $package->addChild('Machinable', $r->getMachinable());
+
+            $api = 'RateV4';
+        } else {
+            $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><IntlRateV2Request/>');
+            $xml->addAttribute('USERID', $r->getUserId());
+            // according to usps v4 documentation
+            $xml->addChild('Revision', '2');
+
+            $package = $xml->addChild('Package');
+            $package->addAttribute('ID', '0');
+            $package->addChild('Pounds', $r->getWeightPounds());
+            $package->addChild('Ounces', $r->getWeightOunces());
+            $package->addChild('MailType', 'All');
+            $package->addChild('ValueOfContents', $r->getValue());
+            $package->addChild('Country', $r->getDestCountryName());
+            $package->addChild('Container', $r->getContainer());
+            $package->addChild('Size', $r->getSize());
+            $width = $length = $height = $girth = '';
+            if ($r->getSize() == 'LARGE') {
+                $width = $r->getWidth();
+                $length = $r->getLength();
+                $height = $r->getHeight();
+                if ($r->getContainer() == 'NONRECTANGULAR') {
+                    $girth = $r->getGirth();
+                }
+            }
+            $package->addChild('Width', $width);
+            $package->addChild('Length', $length);
+            $package->addChild('Height', $height);
+            $package->addChild('Girth', $girth);
+
+            if ($this->_isCanada($r->getDestCountryId())) {
+                //only 5 chars available
+                $package->addChild('OriginZip', substr($r->getOrigPostal(), 0, 5));
+            }
+            $api = 'IntlRateV2';
+        }
+        $request = $xml->asXML();
+
+        $responseBody = $this->_getCachedQuotes($request);
+        if ($responseBody === null) {
+            $debugData = ['request' => $request];
+            try {
+                $url = $this->getConfigData('gateway_url');
+                if (!$url) {
+                    $url = $this->_defaultGatewayUrl;
+                }
+                $client = new Zend_Http_Client();
+                $client->setUri($url);
+                $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
+                $client->setParameterGet('API', $api);
+                $client->setParameterGet('XML', $request);
+                $response = $client->request();
+                $responseBody = $response->getBody();
+
+                $debugData['result'] = $responseBody;
+                $this->_setCachedQuotes($request, $responseBody);
+            } catch (Exception $e) {
+                $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+                $responseBody = '';
+            }
+            $this->_debug($debugData);
+        }
+        return $this->_parseXmlResponse($responseBody);
+    }
+
+    /**
+     * Parse calculated rates
+     *
+     * @link http://www.usps.com/webtools/htm/Rate-Calculators-v2-3.htm
+     * @param string $response
+     * @return Mage_Shipping_Model_Rate_Result|void
+     */
+    protected function _parseXmlResponse($response)
+    {
+        $r = $this->_rawRequest;
+        $costArr = [];
+        $priceArr = [];
+        if (strlen(trim($response)) > 0) {
+            if (strpos(trim($response), '<?xml') === 0) {
+                if (strpos($response, '<?xml version="1.0"?>') !== false) {
+                    $response = str_replace(
+                        '<?xml version="1.0"?>',
+                        '<?xml version="1.0" encoding="ISO-8859-1"?>',
+                        $response,
+                    );
+                }
+                $xml = simplexml_load_string($response);
+
+                if (is_object($xml)) {
+                    $allowedMethods = explode(',', $this->getConfigData('allowed_methods'));
+                    $serviceCodeToActualNameMap = [];
+                    /**
+                     * US Rates
+                     */
+                    if ($this->_isUSCountry($r->getDestCountryId())) {
+                        if (is_object($xml->Package) && is_object($xml->Package->Postage)) {
+                            foreach ($xml->Package->Postage as $postage) {
+                                $serviceName = $this->_filterServiceName((string) $postage->MailService);
+                                $serviceCodeMethod = $this->getCode('method_to_code', $serviceName);
+                                $serviceCode = $serviceCodeMethod ?: (string) $postage->attributes()->CLASSID;
+                                $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
+                                if (in_array($serviceCode, $allowedMethods)) {
+                                    $costArr[$serviceCode] = (string) $postage->Rate;
+                                    $priceArr[$serviceCode] = $this->getMethodPrice(
+                                        (float) $postage->Rate,
+                                        $serviceCode,
+                                    );
+                                }
+                            }
+                            asort($priceArr);
+                        }
+                    } else { // International Rates
+                        if (is_object($xml->Package) && is_object($xml->Package->Service)) {
+                            foreach ($xml->Package->Service as $service) {
+                                // phpcs:ignore Ecg.Performance.Loop.ArraySize
+                                if ($service->ServiceErrors->count()) {
+                                    continue;
+                                }
+                                $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
+                                $serviceCode = 'INT_' . (string) $service->attributes()->ID;
+                                $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
+                                if (in_array($serviceCode, $allowedMethods)) {
+                                    $costArr[$serviceCode] = (string) $service->Postage;
+                                    $priceArr[$serviceCode] = $this->getMethodPrice(
+                                        (float) $service->Postage,
+                                        $serviceCode,
+                                    );
+                                }
+                            }
+                            asort($priceArr);
+                        }
+                    }
+                }
+
+                $result = Mage::getModel('shipping/rate_result');
+                if (empty($priceArr)) {
+                    $error = Mage::getModel('shipping/rate_result_error');
+                    $error->setCarrier('usps');
+                    $error->setCarrierTitle($this->getConfigData('title'));
+                    $error->setErrorMessage($this->getConfigData('specificerrmsg'));
+                    $result->append($error);
+                } else {
+                    foreach ($priceArr as $method => $price) {
+                        $rate = Mage::getModel('shipping/rate_result_method');
+                        $rate->setCarrier('usps');
+                        $rate->setCarrierTitle($this->getConfigData('title'));
+                        $rate->setMethod($method);
+                        $rate->setMethodTitle($serviceCodeToActualNameMap[$method] ?? $this->getCode('method', $method));
+                        $rate->setCost($costArr[$method]);
+                        $rate->setPrice($price);
+                        $result->append($rate);
+                    }
+                }
+
+                return $result;
+            }
+        }
+    }
+
+    /**
      * Set tracking request
      *
      * @return void
@@ -1017,48 +1163,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $error->setErrorMessage($errorTitle);
             $this->_result->append($error);
         }
-    }
-
-    /**
-     * Get tracking response
-     *
-     * @return string
-     */
-    public function getResponse()
-    {
-        $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
-            if ($trackingData = $this->_result->getAllTrackings()) {
-                foreach ($trackingData as $tracking) {
-                    if ($data = $tracking->getAllData()) {
-                        if (!empty($data['track_summary'])) {
-                            $statuses .= Mage::helper('usa')->__($data['track_summary']);
-                        } else {
-                            $statuses .= Mage::helper('usa')->__('Empty response');
-                        }
-                    }
-                }
-            }
-        }
-        if (empty($statuses)) {
-            $statuses = Mage::helper('usa')->__('Empty response');
-        }
-        return $statuses;
-    }
-
-    /**
-     * Get allowed shipping methods
-     *
-     * @return array
-     */
-    public function getAllowedMethods()
-    {
-        $allowed = explode(',', $this->getConfigData('allowed_methods'));
-        $arr = [];
-        foreach ($allowed as $k) {
-            $arr[$k] = $this->getCode('method', $k);
-        }
-        return $arr;
     }
 
     /**
@@ -1796,93 +1900,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-     * Return container types of carrier
-     *
-     * @return array|bool
-     */
-    public function getContainerTypes(?Varien_Object $params = null)
-    {
-        if (is_null($params)) {
-            return $this->_getAllowedContainers();
-        }
-        return $this->_isUSCountry($params->getCountryRecipient()) ? [] : $this->_getAllowedContainers($params);
-    }
-
-    /**
-     * Return all container types of carrier
-     *
-     * @return array|bool
-     */
-    public function getContainerTypesAll()
-    {
-        return $this->getCode('container');
-    }
-
-    /**
-     * Return structured data of containers witch related with shipping methods
-     *
-     * @return array|bool
-     */
-    public function getContainerTypesFilter()
-    {
-        return $this->getCode('containers_filter');
-    }
-
-    /**
-     * Return delivery confirmation types of carrier
-     *
-     * @return array
-     */
-    public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
-    {
-        if ($params == null) {
-            return [];
-        }
-        $countryRecipient = $params->getCountryRecipient();
-        if ($this->_isUSCountry($countryRecipient)) {
-            return $this->getCode('delivery_confirmation_types');
-        } else {
-            return [];
-        }
-    }
-
-    /**
-     * Check whether girth is allowed for the USPS
-     *
-     * @param null|string $countyDest
-     * @return bool
-     */
-    public function isGirthAllowed($countyDest = null)
-    {
-        return $this->_isUSCountry($countyDest) ? false : true;
-    }
-
-    /**
-     * Return content types of package
-     *
-     * @return array
-     */
-    public function getContentTypes(Varien_Object $params)
-    {
-        $countryShipper     = $params->getCountryShipper();
-        $countryRecipient   = $params->getCountryRecipient();
-
-        if ($countryShipper == self::USA_COUNTRY_ID
-            && $countryRecipient != self::USA_COUNTRY_ID
-        ) {
-            return [
-                'MERCHANDISE' => Mage::helper('usa')->__('Merchandise'),
-                'SAMPLE' => Mage::helper('usa')->__('Sample'),
-                'GIFT' => Mage::helper('usa')->__('Gift'),
-                'DOCUMENTS' => Mage::helper('usa')->__('Documents'),
-                'RETURN' => Mage::helper('usa')->__('Return'),
-                'OTHER' => Mage::helper('usa')->__('Other'),
-            ];
-        }
-        return [];
-    }
-
-    /**
      * Parse zip from string to zip5-zip4
      *
      * @param string $zipString
@@ -1918,23 +1935,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     protected function _methodsMapper($method, $valuesToLabels = true)
     {
         return $method;
-    }
-
-    /**
-     * @deprecated
-     */
-    public function getMethodLabel($value)
-    {
-        return $this->_methodsMapper($value, true);
-    }
-
-    /**
-     * Get value of method by its label
-     * @deprecated
-     */
-    public function getMethodValue($label)
-    {
-        return $this->_methodsMapper($label, false);
     }
 
     /**

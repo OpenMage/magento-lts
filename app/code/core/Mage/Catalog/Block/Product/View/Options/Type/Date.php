@@ -32,17 +32,6 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     protected $_fillLeadingZeros = true;
 
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        if ($head = $this->getLayout()->getBlock('head')) {
-            $head->setCanLoadCalendarJs(true);
-        }
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Use JS calendar settings
      *
      * @return bool
@@ -149,6 +138,17 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         $minutesHtml = $this->_getSelectFromToHtml('minute', 0, 59);
 
         return $hoursHtml . '&nbsp;<b>:</b>&nbsp;' . $minutesHtml . '&nbsp;' . $dayPartHtml;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        if ($head = $this->getLayout()->getBlock('head')) {
+            $head->setCanLoadCalendarJs(true);
+        }
+        return parent::_prepareLayout();
     }
 
     /**

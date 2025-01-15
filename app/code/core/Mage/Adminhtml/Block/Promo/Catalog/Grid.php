@@ -36,6 +36,18 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * Retrieve row click URL
+     *
+     * @param Mage_CatalogRule_Model_Rule $row
+     *
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);
+    }
+
+    /**
      * Add websites to catalog rules collection
      * Set collection
      *
@@ -114,17 +126,5 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
 
         parent::_prepareColumns();
         return $this;
-    }
-
-    /**
-     * Retrieve row click URL
-     *
-     * @param Mage_CatalogRule_Model_Rule $row
-     *
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);
     }
 }

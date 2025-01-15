@@ -23,21 +23,6 @@
 class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Shipment_Api
 {
     /**
-     * @param array $data
-     * @return array
-     */
-    protected function _prepareItemQtyData($data)
-    {
-        $_data = [];
-        foreach ($data as $item) {
-            if (isset($item->order_item_id) && isset($item->qty)) {
-                $_data[$item->order_item_id] = $item->qty;
-            }
-        }
-        return $_data;
-    }
-
-    /**
      * Create new shipment for order
      *
      * @param string $orderIncrementId
@@ -115,5 +100,19 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         }
 
         return $carriers;
+    }
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function _prepareItemQtyData($data)
+    {
+        $_data = [];
+        foreach ($data as $item) {
+            if (isset($item->order_item_id) && isset($item->qty)) {
+                $_data[$item->order_item_id] = $item->qty;
+            }
+        }
+        return $_data;
     }
 }

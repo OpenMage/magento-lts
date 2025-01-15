@@ -43,57 +43,6 @@ class Mage_Core_Model_Resource_Transaction
      * @var array
      */
     protected $_beforeCommitCallbacks = [];
-    /**
-     * Begin transaction for all involved object resources
-     *
-     * @return $this
-     */
-    protected function _startTransaction()
-    {
-        foreach ($this->_objects as $object) {
-            $object->getResource()->beginTransaction();
-        }
-        return $this;
-    }
-
-    /**
-     * Commit transaction for all resources
-     *
-     * @return $this
-     */
-    protected function _commitTransaction()
-    {
-        foreach ($this->_objects as $object) {
-            $object->getResource()->commit();
-        }
-        return $this;
-    }
-
-    /**
-     * Rollback transaction
-     *
-     * @return $this
-     */
-    protected function _rollbackTransaction()
-    {
-        foreach ($this->_objects as $object) {
-            $object->getResource()->rollBack();
-        }
-        return $this;
-    }
-
-    /**
-     * Run all configured object callbacks
-     *
-     * @return $this
-     */
-    protected function _runCallbacks()
-    {
-        foreach ($this->_beforeCommitCallbacks as $callback) {
-            call_user_func($callback);
-        }
-        return $this;
-    }
 
     /**
      * Adding object for using in transaction
@@ -191,6 +140,57 @@ class Mage_Core_Model_Resource_Transaction
             throw $error;
         } else {
             $this->_commitTransaction();
+        }
+        return $this;
+    }
+    /**
+     * Begin transaction for all involved object resources
+     *
+     * @return $this
+     */
+    protected function _startTransaction()
+    {
+        foreach ($this->_objects as $object) {
+            $object->getResource()->beginTransaction();
+        }
+        return $this;
+    }
+
+    /**
+     * Commit transaction for all resources
+     *
+     * @return $this
+     */
+    protected function _commitTransaction()
+    {
+        foreach ($this->_objects as $object) {
+            $object->getResource()->commit();
+        }
+        return $this;
+    }
+
+    /**
+     * Rollback transaction
+     *
+     * @return $this
+     */
+    protected function _rollbackTransaction()
+    {
+        foreach ($this->_objects as $object) {
+            $object->getResource()->rollBack();
+        }
+        return $this;
+    }
+
+    /**
+     * Run all configured object callbacks
+     *
+     * @return $this
+     */
+    protected function _runCallbacks()
+    {
+        foreach ($this->_beforeCommitCallbacks as $callback) {
+            call_user_func($callback);
         }
         return $this;
     }

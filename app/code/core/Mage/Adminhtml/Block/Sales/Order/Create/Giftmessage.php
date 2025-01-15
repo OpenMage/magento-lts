@@ -70,16 +70,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
         return false;
     }
 
-    /**
-     * Retrieve gift message save model
-     *
-     * @return Mage_Adminhtml_Model_Giftmessage_Save
-     */
-    protected function _getGiftmessageSaveModel()
-    {
-        return Mage::getSingleton('adminhtml/giftmessage_save');
-    }
-
     public function canDisplayGiftmessage(): bool
     {
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
@@ -88,5 +78,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable($helper::TYPE_CONFIG, $this->getQuote(), $this->getStoreId());
+    }
+
+    /**
+     * Retrieve gift message save model
+     *
+     * @return Mage_Adminhtml_Model_Giftmessage_Save
+     */
+    protected function _getGiftmessageSaveModel()
+    {
+        return Mage::getSingleton('adminhtml/giftmessage_save');
     }
 }

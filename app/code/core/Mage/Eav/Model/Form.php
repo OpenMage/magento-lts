@@ -115,16 +115,6 @@ abstract class Mage_Eav_Model_Form
     }
 
     /**
-     * Get EAV Entity Form Attribute Collection
-     *
-     * @return mixed
-     */
-    protected function _getFormAttributeCollection()
-    {
-        return Mage::getResourceModel($this->_moduleName . '/form_attribute_collection');
-    }
-
-    /**
      * Set current store
      *
      * @param Mage_Core_Model_Store|string|int $store
@@ -301,19 +291,6 @@ abstract class Mage_Eav_Model_Form
             $this->getAttributes();
         }
         return $this->_systemAttributes;
-    }
-
-    /**
-     * Return attribute data model by attribute
-     *
-     * @return Mage_Eav_Model_Attribute_Data_Abstract
-     */
-    protected function _getAttributeDataModel(Mage_Eav_Model_Entity_Attribute $attribute)
-    {
-        $dataModel = Mage_Eav_Model_Attribute_Data::factory($attribute, $this->getEntity());
-        $dataModel->setIsAjaxRequest($this->getIsAjaxRequest());
-
-        return $dataModel;
     }
 
     /**
@@ -516,6 +493,29 @@ abstract class Mage_Eav_Model_Form
             return $this;
         }
         return $this->_ignoreInvisible;
+    }
+
+    /**
+     * Get EAV Entity Form Attribute Collection
+     *
+     * @return mixed
+     */
+    protected function _getFormAttributeCollection()
+    {
+        return Mage::getResourceModel($this->_moduleName . '/form_attribute_collection');
+    }
+
+    /**
+     * Return attribute data model by attribute
+     *
+     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     */
+    protected function _getAttributeDataModel(Mage_Eav_Model_Entity_Attribute $attribute)
+    {
+        $dataModel = Mage_Eav_Model_Attribute_Data::factory($attribute, $this->getEntity());
+        $dataModel->setIsAjaxRequest($this->getIsAjaxRequest());
+
+        return $dataModel;
     }
 
     /**

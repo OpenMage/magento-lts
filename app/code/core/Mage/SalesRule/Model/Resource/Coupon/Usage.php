@@ -22,11 +22,6 @@
  */
 class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('salesrule/coupon_usage', '');
-    }
-
     /**
      * Increment times_used counter
      *
@@ -96,5 +91,9 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
             $this->_afterLoad($object);
         }
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('salesrule/coupon_usage', '');
     }
 }

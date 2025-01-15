@@ -23,15 +23,6 @@
 class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Resource collection initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('api/rules');
-    }
-
-    /**
      * Retrieve rules by role
      *
      * @param string $id
@@ -53,5 +44,13 @@ class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_
         $this->getSelect()->columns(['length' => $this->getConnection()->getLengthSql('resource_id')])
             ->order('length DESC');
         return $this;
+    }
+    /**
+     * Resource collection initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('api/rules');
     }
 }

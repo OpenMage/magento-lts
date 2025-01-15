@@ -91,17 +91,6 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
     }
 
     /**
-     * Return a text for option value
-     *
-     * @param int $value
-     * @return string
-     */
-    protected function _getOptionText($value)
-    {
-        return $this->getAttribute()->getSource()->getOptionText($value);
-    }
-
-    /**
      * Return formatted attribute value from entity model
      *
      * @param string $format
@@ -125,5 +114,16 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
         }
 
         return $output;
+    }
+
+    /**
+     * Return a text for option value
+     *
+     * @param int $value
+     * @return string
+     */
+    protected function _getOptionText($value)
+    {
+        return $this->getAttribute()->getSource()->getOptionText($value);
     }
 }

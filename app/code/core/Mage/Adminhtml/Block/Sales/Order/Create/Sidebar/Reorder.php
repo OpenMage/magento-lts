@@ -29,13 +29,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
      */
     protected $_sidebarStorageAction = 'add_order_item';
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setId('sales_order_create_sidebar_reorder');
-        $this->setDataId('reorder');
-    }
-
     /**
      * @return string
      */
@@ -116,5 +109,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     public function getIdentifierId($item)
     {
         return $item->getId();
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setId('sales_order_create_sidebar_reorder');
+        $this->setDataId('reorder');
     }
 }

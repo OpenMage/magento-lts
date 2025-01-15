@@ -60,16 +60,6 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     }
 
     /**
-     * Register indexer required data inside event object
-     */
-    abstract protected function _registerEvent(Mage_Index_Model_Event $event);
-
-    /**
-     * Process event based on event state data
-     */
-    abstract protected function _processEvent(Mage_Index_Model_Event $event);
-
-    /**
      * Register data required by process in event object
      *
      * @return Mage_Index_Model_Indexer_Abstract
@@ -213,4 +203,14 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
     {
         return $this->_isVisible;
     }
+
+    /**
+     * Register indexer required data inside event object
+     */
+    abstract protected function _registerEvent(Mage_Index_Model_Event $event);
+
+    /**
+     * Process event based on event state data
+     */
+    abstract protected function _processEvent(Mage_Index_Model_Event $event);
 }

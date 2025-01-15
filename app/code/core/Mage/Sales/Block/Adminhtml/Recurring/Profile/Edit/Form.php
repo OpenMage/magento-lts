@@ -73,6 +73,28 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     }
 
     /**
+     * Set readonly flag
+     *
+     * @param bool $isReadonly
+     * @return $this
+     */
+    public function setIsReadonly($isReadonly)
+    {
+        $this->_isReadOnly = $isReadonly;
+        return $this;
+    }
+
+    /**
+     * Get readonly flag
+     *
+     * @return bool
+     */
+    public function getIsReadonly()
+    {
+        return $this->_isReadOnly;
+    }
+
+    /**
      * Instantiate a recurring payment profile to use it as a helper
      */
     protected function _construct()
@@ -214,27 +236,5 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
             ['' => $emptyLabel],
             $this->_profile->getAllPeriodUnits(),
         );
-    }
-
-    /**
-     * Set readonly flag
-     *
-     * @param bool $isReadonly
-     * @return $this
-     */
-    public function setIsReadonly($isReadonly)
-    {
-        $this->_isReadOnly = $isReadonly;
-        return $this;
-    }
-
-    /**
-     * Get readonly flag
-     *
-     * @return bool
-     */
-    public function getIsReadonly()
-    {
-        return $this->_isReadOnly;
     }
 }

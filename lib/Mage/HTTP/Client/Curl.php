@@ -110,6 +110,11 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     protected $_headerCount = 0;
 
     /**
+     * Constructor
+     */
+    public function __construct() {}
+
+    /**
      * Set request timeout in seconds
      *
      * @param int $value
@@ -118,11 +123,6 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     {
         $this->_timeout = (int) $value;
     }
-
-    /**
-     * Constructor
-     */
-    public function __construct() {}
 
     /**
      * Set headers from hash
@@ -317,6 +317,33 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     }
 
     /**
+     * Throw error exception
+     * @param $string
+     * @throws Exception
+     * @return never
+     */
+    public function doError($string)
+    {
+        throw new Exception($string);
+    }
+
+    /**
+     * Set CURL options ovverides array  *
+     */
+    public function setOptions($arr)
+    {
+        $this->_curlUserOptions = $arr;
+    }
+
+    /**
+     * Set curl option
+     */
+    public function setOption($name, $value)
+    {
+        $this->_curlUserOptions[$name] = $value;
+    }
+
+    /**
      * Make request
      * @param string $method
      * @param string $uri
@@ -377,17 +404,6 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $this->doError(curl_error($this->_ch));
         }
         curl_close($this->_ch);
-    }
-
-    /**
-     * Throw error exception
-     * @param $string
-     * @throws Exception
-     * @return never
-     */
-    public function doError($string)
-    {
-        throw new Exception($string);
     }
 
     /**
@@ -460,21 +476,5 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     protected function curlOptions($array)
     {
         curl_setopt_array($this->_ch, $array);
-    }
-
-    /**
-     * Set CURL options ovverides array  *
-     */
-    public function setOptions($arr)
-    {
-        $this->_curlUserOptions = $arr;
-    }
-
-    /**
-     * Set curl option
-     */
-    public function setOption($name, $value)
-    {
-        $this->_curlUserOptions[$name] = $value;
     }
 }

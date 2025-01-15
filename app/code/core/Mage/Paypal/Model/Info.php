@@ -62,39 +62,6 @@ class Mage_Paypal_Model_Info
     public const BUYER_TAX_ID_TYPE_CNPJ = 'BR_CNPJ';
 
     /**
-     * All payment information map
-     *
-     * @var array
-     */
-    protected $_paymentMap = [
-        self::PAYER_ID       => 'paypal_payer_id',
-        self::PAYER_EMAIL    => 'paypal_payer_email',
-        self::PAYER_STATUS   => 'paypal_payer_status',
-        self::ADDRESS_ID     => 'paypal_address_id',
-        self::ADDRESS_STATUS => 'paypal_address_status',
-        self::PROTECTION_EL  => 'paypal_protection_eligibility',
-        self::FRAUD_FILTERS  => 'paypal_fraud_filters',
-        self::CORRELATION_ID => 'paypal_correlation_id',
-        self::AVS_CODE       => 'paypal_avs_code',
-        self::CVV2_MATCH     => 'paypal_cvv2_match',
-        self::CENTINEL_VPAS  => self::CENTINEL_VPAS,
-        self::CENTINEL_ECI   => self::CENTINEL_ECI,
-        self::BUYER_TAX_ID   => self::BUYER_TAX_ID,
-        self::BUYER_TAX_ID_TYPE => self::BUYER_TAX_ID_TYPE,
-    ];
-
-    /**
-     * System information map
-     *
-     * @var array
-     */
-    protected $_systemMap = [
-        self::PAYMENT_STATUS => self::PAYMENT_STATUS_GLOBAL,
-        self::PENDING_REASON => self::PENDING_REASON_GLOBAL,
-        self::IS_FRAUD       => self::IS_FRAUD_GLOBAL,
-    ];
-
-    /**
      * PayPal payment status possible values
      *
      * @var string
@@ -133,6 +100,39 @@ class Mage_Paypal_Model_Info
      * PayPal order status for Canceled Reversal payment status
      */
     public const ORDER_STATUS_CANCELED_REVERSAL = 'paypal_canceled_reversal';
+
+    /**
+     * All payment information map
+     *
+     * @var array
+     */
+    protected $_paymentMap = [
+        self::PAYER_ID       => 'paypal_payer_id',
+        self::PAYER_EMAIL    => 'paypal_payer_email',
+        self::PAYER_STATUS   => 'paypal_payer_status',
+        self::ADDRESS_ID     => 'paypal_address_id',
+        self::ADDRESS_STATUS => 'paypal_address_status',
+        self::PROTECTION_EL  => 'paypal_protection_eligibility',
+        self::FRAUD_FILTERS  => 'paypal_fraud_filters',
+        self::CORRELATION_ID => 'paypal_correlation_id',
+        self::AVS_CODE       => 'paypal_avs_code',
+        self::CVV2_MATCH     => 'paypal_cvv2_match',
+        self::CENTINEL_VPAS  => self::CENTINEL_VPAS,
+        self::CENTINEL_ECI   => self::CENTINEL_ECI,
+        self::BUYER_TAX_ID   => self::BUYER_TAX_ID,
+        self::BUYER_TAX_ID_TYPE => self::BUYER_TAX_ID_TYPE,
+    ];
+
+    /**
+     * System information map
+     *
+     * @var array
+     */
+    protected $_systemMap = [
+        self::PAYMENT_STATUS => self::PAYMENT_STATUS_GLOBAL,
+        self::PENDING_REASON => self::PENDING_REASON_GLOBAL,
+        self::IS_FRAUD       => self::IS_FRAUD_GLOBAL,
+    ];
 
     /**
      * Map of payment information available to customer
@@ -387,6 +387,22 @@ class Mage_Paypal_Model_Info
     }
 
     /**
+     * Get case type label
+     *
+     * @param string $key
+     * @return string
+     */
+    public static function getCaseTypeLabel($key)
+    {
+        $labels = [
+            'chargeback' => Mage::helper('paypal')->__('Chargeback'),
+            'complaint'  => Mage::helper('paypal')->__('Complaint'),
+            'dispute'    => Mage::helper('paypal')->__('Dispute'),
+        ];
+        return (array_key_exists($key, $labels) && !empty($labels[$key])) ? $labels[$key] : '';
+    }
+
+    /**
      * Render info item
      *
      * @param bool $labelValuesOnly
@@ -459,22 +475,6 @@ class Mage_Paypal_Model_Info
                 return Mage::helper('paypal')->__('PayPal/Centinel Electronic Commerce Indicator');
         }
         return '';
-    }
-
-    /**
-     * Get case type label
-     *
-     * @param string $key
-     * @return string
-     */
-    public static function getCaseTypeLabel($key)
-    {
-        $labels = [
-            'chargeback' => Mage::helper('paypal')->__('Chargeback'),
-            'complaint'  => Mage::helper('paypal')->__('Complaint'),
-            'dispute'    => Mage::helper('paypal')->__('Dispute'),
-        ];
-        return (array_key_exists($key, $labels) && !empty($labels[$key])) ? $labels[$key] : '';
     }
 
     /**
@@ -613,6 +613,26 @@ class Mage_Paypal_Model_Info
     }
 
     /**
+     * Retrieve buyer id type value based on code received from PayPal (Brazil only)
+     *
+     * @param string $code
+     * @return string
+     */
+    protected function _getBuyerIdTypeValue($code)
+    {
+        $value = '';
+        switch ($code) {
+            case self::BUYER_TAX_ID_TYPE_CNPJ:
+                $value = Mage::helper('paypal')->__('CNPJ');
+                break;
+            case self::BUYER_TAX_ID_TYPE_CPF:
+                $value = Mage::helper('paypal')->__('CPF');
+                break;
+        }
+        return $value;
+    }
+
+    /**
      * Attempt to convert centinel VPAS result into label
      *
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoDirectPayment
@@ -666,25 +686,5 @@ class Mage_Paypal_Model_Info
             default:
                 return $value;
         }
-    }
-
-    /**
-     * Retrieve buyer id type value based on code received from PayPal (Brazil only)
-     *
-     * @param string $code
-     * @return string
-     */
-    protected function _getBuyerIdTypeValue($code)
-    {
-        $value = '';
-        switch ($code) {
-            case self::BUYER_TAX_ID_TYPE_CNPJ:
-                $value = Mage::helper('paypal')->__('CNPJ');
-                break;
-            case self::BUYER_TAX_ID_TYPE_CPF:
-                $value = Mage::helper('paypal')->__('CPF');
-                break;
-        }
-        return $value;
     }
 }

@@ -22,11 +22,6 @@
  */
 class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resource_Report_Abstract
 {
-    protected function _construct()
-    {
-        $this->_setResource('salesrule');
-    }
-
     /**
      * Aggregate Coupons data
      *
@@ -70,6 +65,10 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
         }
 
         return $result;
+    }
+    protected function _construct()
+    {
+        $this->_setResource('salesrule');
     }
 
     /**

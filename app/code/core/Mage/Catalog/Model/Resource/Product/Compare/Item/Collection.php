@@ -44,15 +44,6 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     protected $_comparableAttributes;
 
     /**
-     * Initialize resources
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product_compare_item', 'catalog/product');
-        $this->_initTables();
-    }
-
-    /**
      * Set customer filter to collection
      *
      * @param int $customerId
@@ -139,66 +130,6 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
         $this->_productLimitationFilters['store_table']  = 't_compare';
 
         return $this;
-    }
-
-    /**
-     * Retrieve compare products attribute set ids
-     *
-     * @return array
-     */
-    protected function _getAttributeSetIds()
-    {
-        // prepare compare items table conditions
-        $compareConds = [
-            'compare.product_id=entity.entity_id',
-        ];
-        if ($this->getCustomerId()) {
-            $compareConds[] = $this->getConnection()
-                ->quoteInto('compare.customer_id = ?', $this->getCustomerId());
-        } else {
-            $compareConds[] = $this->getConnection()
-                ->quoteInto('compare.visitor_id = ?', $this->getVisitorId());
-        }
-
-        // prepare website filter
-        $websiteId    = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
-        $websiteConds = [
-            'website.product_id = entity.entity_id',
-            $this->getConnection()->quoteInto('website.website_id = ?', $websiteId),
-        ];
-
-        // retrieve attribute sets
-        $select = $this->getConnection()->select()
-            ->distinct(true)
-            ->from(
-                ['entity' => $this->getEntity()->getEntityTable()],
-                'attribute_set_id',
-            )
-            ->join(
-                ['website' => $this->getTable('catalog/product_website')],
-                implode(' AND ', $websiteConds),
-                [],
-            )
-            ->join(
-                ['compare' => $this->getTable('catalog/compare_item')],
-                implode(' AND ', $compareConds),
-                [],
-            );
-        return $this->getConnection()->fetchCol($select);
-    }
-
-    /**
-     * Retrieve attribute ids by set ids
-     *
-     * @return array
-     */
-    protected function _getAttributeIdsBySetIds(array $setIds)
-    {
-        $select = $this->getConnection()->select()
-            ->distinct(true)
-            ->from($this->getTable('eav/entity_attribute'), 'attribute_id')
-            ->where('attribute_set_id IN(?)', $setIds);
-        return $this->getConnection()->fetchCol($select);
     }
 
     /**
@@ -311,5 +242,74 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
             return false;
         }
         return parent::isEnabledFlat();
+    }
+
+    /**
+     * Initialize resources
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product_compare_item', 'catalog/product');
+        $this->_initTables();
+    }
+
+    /**
+     * Retrieve compare products attribute set ids
+     *
+     * @return array
+     */
+    protected function _getAttributeSetIds()
+    {
+        // prepare compare items table conditions
+        $compareConds = [
+            'compare.product_id=entity.entity_id',
+        ];
+        if ($this->getCustomerId()) {
+            $compareConds[] = $this->getConnection()
+                ->quoteInto('compare.customer_id = ?', $this->getCustomerId());
+        } else {
+            $compareConds[] = $this->getConnection()
+                ->quoteInto('compare.visitor_id = ?', $this->getVisitorId());
+        }
+
+        // prepare website filter
+        $websiteId    = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+        $websiteConds = [
+            'website.product_id = entity.entity_id',
+            $this->getConnection()->quoteInto('website.website_id = ?', $websiteId),
+        ];
+
+        // retrieve attribute sets
+        $select = $this->getConnection()->select()
+            ->distinct(true)
+            ->from(
+                ['entity' => $this->getEntity()->getEntityTable()],
+                'attribute_set_id',
+            )
+            ->join(
+                ['website' => $this->getTable('catalog/product_website')],
+                implode(' AND ', $websiteConds),
+                [],
+            )
+            ->join(
+                ['compare' => $this->getTable('catalog/compare_item')],
+                implode(' AND ', $compareConds),
+                [],
+            );
+        return $this->getConnection()->fetchCol($select);
+    }
+
+    /**
+     * Retrieve attribute ids by set ids
+     *
+     * @return array
+     */
+    protected function _getAttributeIdsBySetIds(array $setIds)
+    {
+        $select = $this->getConnection()->select()
+            ->distinct(true)
+            ->from($this->getTable('eav/entity_attribute'), 'attribute_id')
+            ->where('attribute_set_id IN(?)', $setIds);
+        return $this->getConnection()->fetchCol($select);
     }
 }

@@ -225,6 +225,33 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
     }
 
     /**
+     * Update product special priceim
+     *
+     * @param int|string $productId
+     * @param float $specialPrice
+     * @param string $fromDate
+     * @param string $toDate
+     * @param string|int $store
+     * @param string $identifierType OPTIONAL If 'sku' - search product by SKU, if any except for NULL - search by ID,
+     *                                        otherwise - try to determine identifier type automatically
+     * @return bool
+     */
+    public function setSpecialPrice(
+        $productId,
+        $specialPrice = null,
+        $fromDate = null,
+        $toDate = null,
+        $store = null,
+        $identifierType = null
+    ) {
+        $obj = new stdClass();
+        $obj->special_price = $specialPrice;
+        $obj->special_from_date = $fromDate;
+        $obj->special_to_date = $toDate;
+        return $this->update($productId, $obj, $store, $identifierType);
+    }
+
+    /**
      *  Set additional data before product saved
      *
      * @param Mage_Catalog_Model_Product $product
@@ -310,32 +337,5 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
                  ->prepareTierPrices($product, $productData->tier_price);
             $product->setData(Mage_Catalog_Model_Product_Attribute_Tierprice_Api_V2::ATTRIBUTE_CODE, $tierPrices);
         }
-    }
-
-    /**
-     * Update product special priceim
-     *
-     * @param int|string $productId
-     * @param float $specialPrice
-     * @param string $fromDate
-     * @param string $toDate
-     * @param string|int $store
-     * @param string $identifierType OPTIONAL If 'sku' - search product by SKU, if any except for NULL - search by ID,
-     *                                        otherwise - try to determine identifier type automatically
-     * @return bool
-     */
-    public function setSpecialPrice(
-        $productId,
-        $specialPrice = null,
-        $fromDate = null,
-        $toDate = null,
-        $store = null,
-        $identifierType = null
-    ) {
-        $obj = new stdClass();
-        $obj->special_price = $specialPrice;
-        $obj->special_from_date = $fromDate;
-        $obj->special_to_date = $toDate;
-        return $this->update($productId, $obj, $store, $identifierType);
     }
 }

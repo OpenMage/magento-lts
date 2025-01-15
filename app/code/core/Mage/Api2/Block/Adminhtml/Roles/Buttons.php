@@ -32,43 +32,6 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
     }
 
     /**
-     * Preparing global layout
-     *
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $buttons = [
-            'backButton'    => [
-                'label'     => Mage::helper('adminhtml')->__('Back'),
-                'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
-                'class'     => 'back',
-            ],
-            'resetButton'   => [
-                'label'     => Mage::helper('adminhtml')->__('Reset'),
-                'onclick'   => 'window.location.reload()',
-            ],
-            'saveButton'    => [
-                'label'     => Mage::helper('adminhtml')->__('Save Role'),
-                'onclick'   => 'roleForm.submit(); return false;',
-                'class'     => 'save',
-            ],
-            'deleteButton'  => [
-                'label'     => Mage::helper('adminhtml')->__('Delete Role'),
-                'onclick'   => '',  //roleId is not set at this moment, so we set script later
-                'class'     => 'delete',
-            ],
-        ];
-
-        foreach ($buttons as $name => $data) {
-            $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData($data);
-            $this->setChild($name, $button);
-        }
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Get back button HTML
      *
      * @return string
@@ -130,5 +93,42 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
         return $this->getRole() && $this->getRole()->getId()
                 ? ($this->__('Edit Role') . " '{$this->escapeHtml($this->getRole()->getRoleName())}'")
                 : $this->__('Add New Role');
+    }
+
+    /**
+     * Preparing global layout
+     *
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $buttons = [
+            'backButton'    => [
+                'label'     => Mage::helper('adminhtml')->__('Back'),
+                'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
+                'class'     => 'back',
+            ],
+            'resetButton'   => [
+                'label'     => Mage::helper('adminhtml')->__('Reset'),
+                'onclick'   => 'window.location.reload()',
+            ],
+            'saveButton'    => [
+                'label'     => Mage::helper('adminhtml')->__('Save Role'),
+                'onclick'   => 'roleForm.submit(); return false;',
+                'class'     => 'save',
+            ],
+            'deleteButton'  => [
+                'label'     => Mage::helper('adminhtml')->__('Delete Role'),
+                'onclick'   => '',  //roleId is not set at this moment, so we set script later
+                'class'     => 'delete',
+            ],
+        ];
+
+        foreach ($buttons as $name => $data) {
+            $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData($data);
+            $this->setChild($name, $button);
+        }
+
+        return parent::_prepareLayout();
     }
 }

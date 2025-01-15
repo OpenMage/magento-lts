@@ -39,17 +39,6 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         return parent::preDispatch();
     }
 
-    protected function _initGroup()
-    {
-        $this->_title($this->__('Customers'))->_title($this->__('Customer Groups'));
-
-        Mage::register('current_group', Mage::getModel('customer/group'));
-        $groupId = $this->getRequest()->getParam('id');
-        if (!is_null($groupId)) {
-            Mage::registry('current_group')->load($groupId);
-        }
-    }
-
     /**
      * Customer groups list.
      */
@@ -157,5 +146,16 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         }
 
         $this->_redirect('*/customer_group');
+    }
+
+    protected function _initGroup()
+    {
+        $this->_title($this->__('Customers'))->_title($this->__('Customer Groups'));
+
+        Mage::register('current_group', Mage::getModel('customer/group'));
+        $groupId = $this->getRequest()->getParam('id');
+        if (!is_null($groupId)) {
+            Mage::registry('current_group')->load($groupId);
+        }
     }
 }

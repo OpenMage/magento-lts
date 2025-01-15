@@ -71,8 +71,6 @@ class Mage_Reports_Model_Resource_Report_Collection
      */
     protected $_storeIds;
 
-    protected function _construct() {}
-
     /**
      * Set period
      *
@@ -290,4 +288,6 @@ class Mage_Reports_Model_Resource_Report_Collection
             ->utcDate(null, $datetime, true, Varien_Date::DATETIME_INTERNAL_FORMAT)
             ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
     }
+
+    protected function _construct() {}
 }

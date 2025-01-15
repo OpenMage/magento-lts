@@ -41,11 +41,6 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
      */
     protected $_creditmemo;
 
-    protected function _construct()
-    {
-        $this->_init('sales/order_creditmemo_comment');
-    }
-
     /**
      * Declare Creditmemo instance
      *
@@ -78,6 +73,11 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
             return $this->getCreditmemo()->getStore();
         }
         return Mage::app()->getStore();
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order_creditmemo_comment');
     }
 
     /**

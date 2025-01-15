@@ -146,23 +146,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
     }
 
     /**
-     * Prepare html output
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        $selectBlock = $this->getLayout()->createBlock('core/html_select')
-            ->setName('block')
-            ->setClass('required-entry select')
-            ->setExtraParams('onchange="WidgetInstance.loadSelectBoxByType(\'block_template\','
-                . ' this.up(\'div.group_container\'), this.value)"')
-            ->setOptions($this->getBlocks())
-            ->setValue($this->getSelected());
-        return parent::_toHtml() . $selectBlock->toHtml();
-    }
-
-    /**
      * Retrieve blocks array
      *
      * @return array
@@ -187,18 +170,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
     }
 
     /**
-     * Merging layout handles and create xml of merged layout handles
-     */
-    protected function _collectLayoutHandles()
-    {
-        foreach ($this->getLayoutHandle() as $handle) {
-            $this->_mergeLayoutHandles($handle);
-        }
-        $updatesStr = '<' . '?xml version="1.0"?' . '><layout>' . implode('', $this->_layoutHandleUpdates) . '</layout>';
-        $this->_layoutHandleUpdatesXml = simplexml_load_string($updatesStr, 'Varien_Simplexml_Element');
-    }
-
-    /**
      * Adding layout handle that specified in node 'update' to general layout handles
      *
      * @param string $handle
@@ -213,6 +184,35 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
             }
             $this->_layoutHandleUpdates[] = $updateXml->asNiceXml();
         }
+    }
+
+    /**
+     * Prepare html output
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        $selectBlock = $this->getLayout()->createBlock('core/html_select')
+            ->setName('block')
+            ->setClass('required-entry select')
+            ->setExtraParams('onchange="WidgetInstance.loadSelectBoxByType(\'block_template\','
+                . ' this.up(\'div.group_container\'), this.value)"')
+            ->setOptions($this->getBlocks())
+            ->setValue($this->getSelected());
+        return parent::_toHtml() . $selectBlock->toHtml();
+    }
+
+    /**
+     * Merging layout handles and create xml of merged layout handles
+     */
+    protected function _collectLayoutHandles()
+    {
+        foreach ($this->getLayoutHandle() as $handle) {
+            $this->_mergeLayoutHandles($handle);
+        }
+        $updatesStr = '<' . '?xml version="1.0"?' . '><layout>' . implode('', $this->_layoutHandleUpdates) . '</layout>';
+        $this->_layoutHandleUpdatesXml = simplexml_load_string($updatesStr, 'Varien_Simplexml_Element');
     }
 
     /**

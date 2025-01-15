@@ -37,44 +37,6 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     protected $_stateTable;
 
     /**
-     * Internal constructor
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/order_status', 'status');
-        $this->_isPkAutoIncrement = false;
-        $this->_labelsTable = $this->getTable('sales/order_status_label');
-        $this->_stateTable  = $this->getTable('sales/order_status_state');
-    }
-
-    /**
-     * Retrieve select object for load object data
-     *
-     * @param string $field
-     * @param mixed $value
-     * @param Varien_Object $object
-     * @return  Zend_Db_Select
-     */
-    protected function _getLoadSelect($field, $value, $object)
-    {
-        if ($field == 'default_state') {
-            $select = $this->_getReadAdapter()->select()
-                ->from($this->getMainTable(), ['label'])
-                ->join(
-                    ['state_table' => $this->_stateTable],
-                    $this->getMainTable() . '.status = state_table.status',
-                    'status',
-                )
-                ->where('state_table.state = ?', $value)
-                ->order('state_table.is_default DESC')
-                ->limit(1);
-        } else {
-            $select = parent::_getLoadSelect($field, $value, $object);
-        }
-        return $select;
-    }
-
-    /**
      * Store labels getter
      *
      * @return array
@@ -85,38 +47,6 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
             ->from($this->_labelsTable, ['store_id', 'label'])
             ->where('status = ?', $status->getStatus());
         return $this->_getReadAdapter()->fetchPairs($select);
-    }
-
-    /**
-     * Save status labels per store
-     *
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Order_Status $object
-     * @inheritDoc
-     */
-    protected function _afterSave(Mage_Core_Model_Abstract $object)
-    {
-        if ($object->hasStoreLabels()) {
-            $labels = $object->getStoreLabels();
-            $this->_getWriteAdapter()->delete(
-                $this->_labelsTable,
-                ['status = ?' => $object->getStatus()],
-            );
-            $data = [];
-            foreach ($labels as $storeId => $label) {
-                if (empty($label)) {
-                    continue;
-                }
-                $data[] = [
-                    'status'    => $object->getStatus(),
-                    'store_id'  => $storeId,
-                    'label'     => $label,
-                ];
-            }
-            if (!empty($data)) {
-                $this->_getWriteAdapter()->insertMultiple($this->_labelsTable, $data);
-            }
-        }
-        return parent::_afterSave($object);
     }
 
     /**
@@ -197,5 +127,75 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
             }
         }
         return $this;
+    }
+
+    /**
+     * Internal constructor
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/order_status', 'status');
+        $this->_isPkAutoIncrement = false;
+        $this->_labelsTable = $this->getTable('sales/order_status_label');
+        $this->_stateTable  = $this->getTable('sales/order_status_state');
+    }
+
+    /**
+     * Retrieve select object for load object data
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param Varien_Object $object
+     * @return  Zend_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        if ($field == 'default_state') {
+            $select = $this->_getReadAdapter()->select()
+                ->from($this->getMainTable(), ['label'])
+                ->join(
+                    ['state_table' => $this->_stateTable],
+                    $this->getMainTable() . '.status = state_table.status',
+                    'status',
+                )
+                ->where('state_table.state = ?', $value)
+                ->order('state_table.is_default DESC')
+                ->limit(1);
+        } else {
+            $select = parent::_getLoadSelect($field, $value, $object);
+        }
+        return $select;
+    }
+
+    /**
+     * Save status labels per store
+     *
+     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Order_Status $object
+     * @inheritDoc
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
+        if ($object->hasStoreLabels()) {
+            $labels = $object->getStoreLabels();
+            $this->_getWriteAdapter()->delete(
+                $this->_labelsTable,
+                ['status = ?' => $object->getStatus()],
+            );
+            $data = [];
+            foreach ($labels as $storeId => $label) {
+                if (empty($label)) {
+                    continue;
+                }
+                $data[] = [
+                    'status'    => $object->getStatus(),
+                    'store_id'  => $storeId,
+                    'label'     => $label,
+                ];
+            }
+            if (!empty($data)) {
+                $this->_getWriteAdapter()->insertMultiple($this->_labelsTable, $data);
+            }
+        }
+        return parent::_afterSave($object);
     }
 }

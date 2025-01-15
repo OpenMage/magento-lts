@@ -189,48 +189,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     abstract public function draw();
 
     /**
-     * Format option value process
-     *
-     * @param  array|string $value
-     * @return string
-     */
-    protected function _formatOptionValue($value)
-    {
-        $order = $this->getOrder();
-
-        $resultValue = '';
-        if (is_array($value)) {
-            if (isset($value['qty'])) {
-                $resultValue .= sprintf('%d', $value['qty']) . ' x ';
-            }
-
-            $resultValue .= $value['title'];
-
-            if (isset($value['price'])) {
-                $resultValue .= ' ' . $order->formatPrice($value['price']);
-            }
-            return  $resultValue;
-        } else {
-            return $value;
-        }
-    }
-
-    /**
-     * @deprecated To be Removed on next release
-     *
-     * @return array
-     */
-    protected function _parseDescription()
-    {
-        $description = $this->getItem()->getDescription();
-        if (preg_match_all('/<li.*?>(.*?)<\/li>/i', $description, $matches)) {
-            return $matches[1];
-        }
-
-        return [$description];
-    }
-
-    /**
      * Get array of arrays with item prices information for display in PDF
      * array(
      *  $index => array(
@@ -295,6 +253,63 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     }
 
     /**
+     * Return item Sku
+     *
+     * @param Mage_Sales_Model_Order_Invoice_Item|Mage_Sales_Model_Order_Creditmemo_Item $item
+     * @return string
+     */
+    public function getSku($item)
+    {
+        if ($item->getOrderItem()->getProductOptionByCode('simple_sku')) {
+            return $item->getOrderItem()->getProductOptionByCode('simple_sku');
+        } else {
+            return $item->getSku();
+        }
+    }
+
+    /**
+     * Format option value process
+     *
+     * @param  array|string $value
+     * @return string
+     */
+    protected function _formatOptionValue($value)
+    {
+        $order = $this->getOrder();
+
+        $resultValue = '';
+        if (is_array($value)) {
+            if (isset($value['qty'])) {
+                $resultValue .= sprintf('%d', $value['qty']) . ' x ';
+            }
+
+            $resultValue .= $value['title'];
+
+            if (isset($value['price'])) {
+                $resultValue .= ' ' . $order->formatPrice($value['price']);
+            }
+            return  $resultValue;
+        } else {
+            return $value;
+        }
+    }
+
+    /**
+     * @deprecated To be Removed on next release
+     *
+     * @return array
+     */
+    protected function _parseDescription()
+    {
+        $description = $this->getItem()->getDescription();
+        if (preg_match_all('/<li.*?>(.*?)<\/li>/i', $description, $matches)) {
+            return $matches[1];
+        }
+
+        return [$description];
+    }
+
+    /**
      * Set font as regular
      *
      * @param  int $size
@@ -331,20 +346,5 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_OBLIQUE);
         $this->getPage()->setFont($font, $size);
         return $font;
-    }
-
-    /**
-     * Return item Sku
-     *
-     * @param Mage_Sales_Model_Order_Invoice_Item|Mage_Sales_Model_Order_Creditmemo_Item $item
-     * @return string
-     */
-    public function getSku($item)
-    {
-        if ($item->getOrderItem()->getProductOptionByCode('simple_sku')) {
-            return $item->getOrderItem()->getProductOptionByCode('simple_sku');
-        } else {
-            return $item->getSku();
-        }
     }
 }

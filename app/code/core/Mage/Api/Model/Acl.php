@@ -64,19 +64,6 @@ class Mage_Api_Model_Acl extends Zend_Acl
     public const RULE_PERM_ALLOW = 2;
 
     /**
-     * Get role registry object or create one
-     *
-     * @return Mage_Api_Model_Acl_Role_Registry
-     */
-    protected function _getRoleRegistry()
-    {
-        if ($this->_roleRegistry === null) {
-            $this->_roleRegistry = Mage::getModel('api/acl_role_registry');
-        }
-        return $this->_roleRegistry;
-    }
-
-    /**
      * Add parent to role object
      *
      * @param Zend_Acl_Role_Interface|string $role
@@ -87,5 +74,18 @@ class Mage_Api_Model_Acl extends Zend_Acl
     {
         $this->_getRoleRegistry()->addParent($role, $parent);
         return $this;
+    }
+
+    /**
+     * Get role registry object or create one
+     *
+     * @return Mage_Api_Model_Acl_Role_Registry
+     */
+    protected function _getRoleRegistry()
+    {
+        if ($this->_roleRegistry === null) {
+            $this->_roleRegistry = Mage::getModel('api/acl_role_registry');
+        }
+        return $this->_roleRegistry;
     }
 }

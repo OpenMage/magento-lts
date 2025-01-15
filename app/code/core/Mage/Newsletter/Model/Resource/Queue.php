@@ -22,11 +22,6 @@
  */
 class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('newsletter/queue', 'queue_id');
-    }
-
     /**
      * Add subscribers to queue
      */
@@ -151,6 +146,10 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
         }
 
         return $result;
+    }
+    protected function _construct()
+    {
+        $this->_init('newsletter/queue', 'queue_id');
     }
 
     /**

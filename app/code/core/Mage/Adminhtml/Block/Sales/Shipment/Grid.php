@@ -36,6 +36,31 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
+     * Get url for row
+     *
+     * @param Mage_Sales_Model_Order_Shipment $row
+     * @return string|false
+     */
+    public function getRowUrl($row)
+    {
+        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/shipment')) {
+            return false;
+        }
+
+        return $this->getUrl('*/sales_shipment/view', ['shipment_id' => $row->getId()]);
+    }
+
+    /**
+     * Get url of grid
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/*', ['_current' => true]);
+    }
+
+    /**
      * Retrieve collection class
      *
      * @return string
@@ -123,21 +148,6 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
-     * Get url for row
-     *
-     * @param Mage_Sales_Model_Order_Shipment $row
-     * @return string|false
-     */
-    public function getRowUrl($row)
-    {
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/shipment')) {
-            return false;
-        }
-
-        return $this->getUrl('*/sales_shipment/view', ['shipment_id' => $row->getId()]);
-    }
-
-    /**
      * Prepare and set options for massaction
      *
      * @return $this
@@ -159,15 +169,5 @@ class Mage_Adminhtml_Block_Sales_Shipment_Grid extends Mage_Adminhtml_Block_Widg
         ]);
 
         return $this;
-    }
-
-    /**
-     * Get url of grid
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/*', ['_current' => true]);
     }
 }

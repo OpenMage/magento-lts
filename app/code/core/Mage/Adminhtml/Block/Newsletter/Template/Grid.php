@@ -32,6 +32,11 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
         $this->setUseAjax(true);
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
+    }
+
     protected function _construct()
     {
         $this->setEmptyText(Mage::helper('newsletter')->__('No Templates Found'));
@@ -123,10 +128,5 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid extends Mage_Adminhtml_Block
         );
 
         return $this;
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }

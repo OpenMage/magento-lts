@@ -51,48 +51,6 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
      */
     protected $_entityCodeForIncrementId     = 'order';
 
-    protected function _construct()
-    {
-        $this->_init('sales/order', 'entity_id');
-    }
-
-    /**
-     * Init virtual grid records for entity
-     *
-     * @return $this
-     */
-    protected function _initVirtualGridColumns()
-    {
-        parent::_initVirtualGridColumns();
-        $adapter       = $this->getReadConnection();
-        $ifnullFirst   = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
-        $ifnullMiddle  = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
-        $ifnullLast    = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
-        $concatAddress = $adapter->getConcatSql([
-            $ifnullFirst,
-            $adapter->quote(' '),
-            $ifnullMiddle,
-            $adapter->quote(' '),
-            $ifnullLast,
-        ]);
-        $concatAddress = new Zend_Db_Expr("TRIM(REPLACE($concatAddress,'  ', ' '))");
-
-        $this->addVirtualGridColumn(
-            'billing_name',
-            'sales/order_address',
-            ['billing_address_id' => 'entity_id'],
-            $concatAddress,
-        )
-            ->addVirtualGridColumn(
-                'shipping_name',
-                'sales/order_address',
-                ['shipping_address_id' => 'entity_id'],
-                $concatAddress,
-            );
-
-        return $this;
-    }
-
     /**
      * Count existent products of order items by specified product types
      *
@@ -140,5 +98,47 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
             ->from($this->getMainTable(), ['increment_id'])
             ->where('entity_id = :entity_id');
         return $adapter->fetchOne($select, $bind);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order', 'entity_id');
+    }
+
+    /**
+     * Init virtual grid records for entity
+     *
+     * @return $this
+     */
+    protected function _initVirtualGridColumns()
+    {
+        parent::_initVirtualGridColumns();
+        $adapter       = $this->getReadConnection();
+        $ifnullFirst   = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
+        $ifnullMiddle  = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
+        $ifnullLast    = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
+        $concatAddress = $adapter->getConcatSql([
+            $ifnullFirst,
+            $adapter->quote(' '),
+            $ifnullMiddle,
+            $adapter->quote(' '),
+            $ifnullLast,
+        ]);
+        $concatAddress = new Zend_Db_Expr("TRIM(REPLACE($concatAddress,'  ', ' '))");
+
+        $this->addVirtualGridColumn(
+            'billing_name',
+            'sales/order_address',
+            ['billing_address_id' => 'entity_id'],
+            $concatAddress,
+        )
+            ->addVirtualGridColumn(
+                'shipping_name',
+                'sales/order_address',
+                ['shipping_address_id' => 'entity_id'],
+                $concatAddress,
+            );
+
+        return $this;
     }
 }

@@ -213,16 +213,6 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     }
 
     /**
-     * Get checkout steps codes
-     *
-     * @return array
-     */
-    protected function _getStepCodes()
-    {
-        return ['login', 'billing', 'shipping', 'shipping_method', 'payment', 'review'];
-    }
-
-    /**
      * Retrieve is allow and show block
      *
      * @return bool
@@ -230,5 +220,15 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     public function isShow()
     {
         return true;
+    }
+
+    /**
+     * Get checkout steps codes
+     *
+     * @return array
+     */
+    protected function _getStepCodes()
+    {
+        return ['login', 'billing', 'shipping', 'shipping_method', 'payment', 'review'];
     }
 }

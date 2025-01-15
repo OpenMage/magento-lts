@@ -23,6 +23,17 @@
 class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
+     * Filter items collection by account ID
+     *
+     * @param string $accountId
+     * @return $this
+     */
+    public function addAccountFilter($accountId)
+    {
+        $this->getSelect()->where('report.account_id = ?', $accountId);
+        return $this;
+    }
+    /**
      * Resource initializing
      *
      */
@@ -45,18 +56,6 @@ class Mage_Paypal_Model_Resource_Report_Settlement_Row_Collection extends Mage_C
                 'report.report_id = main_table.report_id',
                 ['report.account_id', 'report.report_date'],
             );
-        return $this;
-    }
-
-    /**
-     * Filter items collection by account ID
-     *
-     * @param string $accountId
-     * @return $this
-     */
-    public function addAccountFilter($accountId)
-    {
-        $this->getSelect()->where('report.account_id = ?', $accountId);
         return $this;
     }
 }

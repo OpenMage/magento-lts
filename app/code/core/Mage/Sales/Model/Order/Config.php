@@ -49,24 +49,6 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param string $status
-     * @return Varien_Simplexml_Element
-     */
-    protected function _getStatus($status)
-    {
-        return $this->getNode('statuses/' . $status);
-    }
-
-    /**
-     * @param string $state
-     * @return Varien_Simplexml_Element
-     */
-    protected function _getState($state)
-    {
-        return $this->getNode('states/' . $state);
-    }
-
-    /**
      * Retrieve default status for state
      *
      * @param   string $state
@@ -223,6 +205,24 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     {
         $this->_getStates();
         return $this->_states['invisible'];
+    }
+
+    /**
+     * @param string $status
+     * @return Varien_Simplexml_Element
+     */
+    protected function _getStatus($status)
+    {
+        return $this->getNode('statuses/' . $status);
+    }
+
+    /**
+     * @param string $state
+     * @return Varien_Simplexml_Element
+     */
+    protected function _getState($state)
+    {
+        return $this->getNode('states/' . $state);
     }
 
     /**

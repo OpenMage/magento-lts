@@ -259,41 +259,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
     }
 
     /**
-     * Resize specified type of image on the product for use in the fallback and returns the image URL
-     * or returns the image URL for the specified image path if present
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $type
-     * @param bool $keepFrame
-     * @param string $image
-     * @param bool $placeholder
-     * @return string|bool
-     */
-    protected function _resizeProductImage($product, $type, $keepFrame, $image = null, $placeholder = false)
-    {
-        $hasTypeData = $product->hasData($type) && $product->getData($type) != 'no_selection';
-        if ($image == 'no_selection') {
-            $image = null;
-        }
-        if ($hasTypeData || $placeholder || $image) {
-            $helper = Mage::helper('catalog/image')
-                ->init($product, $type, $image)
-                ->keepFrame(($hasTypeData || $image) ? $keepFrame : false)  // don't keep frame if placeholder
-            ;
-
-            $size = Mage::getStoreConfig(Mage_Catalog_Helper_Image::XML_NODE_PRODUCT_BASE_IMAGE_WIDTH);
-            if ($type == 'small_image') {
-                $size = Mage::getStoreConfig(Mage_Catalog_Helper_Image::XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH);
-            }
-            if (is_numeric($size)) {
-                $helper->constrainOnly(true)->resize($size);
-            }
-            return (string) $helper;
-        }
-        return false;
-    }
-
-    /**
      * Groups media gallery images by local images and child images
      */
     public function groupMediaGalleryImages(Mage_Catalog_Model_Product $product)
@@ -391,23 +356,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
     }
 
     /**
-     * Determines which product attributes should be selected
-     * when children products are attached to parent products
-     *
-     * @return array
-     */
-    protected function _getChildrenProductsAttributes()
-    {
-        return [
-            'small_image',
-            'image',
-            'image_label',
-            'small_image_label',
-            Mage::helper('configurableswatches/productlist')->getSwatchAttribute()->getAttributeCode(),
-        ];
-    }
-
-    /**
      * Attaches children product to each product via
      * ->setChildrenProducts()
      *
@@ -447,5 +395,57 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         foreach ($mapping as $parentId => $childrenProducts) {
             $products[$parentId]->setChildrenProducts($childrenProducts);
         }
+    }
+
+    /**
+     * Resize specified type of image on the product for use in the fallback and returns the image URL
+     * or returns the image URL for the specified image path if present
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param string $type
+     * @param bool $keepFrame
+     * @param string $image
+     * @param bool $placeholder
+     * @return string|bool
+     */
+    protected function _resizeProductImage($product, $type, $keepFrame, $image = null, $placeholder = false)
+    {
+        $hasTypeData = $product->hasData($type) && $product->getData($type) != 'no_selection';
+        if ($image == 'no_selection') {
+            $image = null;
+        }
+        if ($hasTypeData || $placeholder || $image) {
+            $helper = Mage::helper('catalog/image')
+                ->init($product, $type, $image)
+                ->keepFrame(($hasTypeData || $image) ? $keepFrame : false)  // don't keep frame if placeholder
+            ;
+
+            $size = Mage::getStoreConfig(Mage_Catalog_Helper_Image::XML_NODE_PRODUCT_BASE_IMAGE_WIDTH);
+            if ($type == 'small_image') {
+                $size = Mage::getStoreConfig(Mage_Catalog_Helper_Image::XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH);
+            }
+            if (is_numeric($size)) {
+                $helper->constrainOnly(true)->resize($size);
+            }
+            return (string) $helper;
+        }
+        return false;
+    }
+
+    /**
+     * Determines which product attributes should be selected
+     * when children products are attached to parent products
+     *
+     * @return array
+     */
+    protected function _getChildrenProductsAttributes()
+    {
+        return [
+            'small_image',
+            'image',
+            'image_label',
+            'small_image_label',
+            Mage::helper('configurableswatches/productlist')->getSwatchAttribute()->getAttributeCode(),
+        ];
     }
 }

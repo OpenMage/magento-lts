@@ -44,6 +44,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     }
 
     /**
+     * @return string
+     */
+    public function getJsObjectName()
+    {
+        return $this->getId() . 'JsObject';
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _beforeToHtml()
@@ -88,13 +96,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
             "var {$this->getJsObjectName()} = new Product.Attributes('{$this->getId()}');\n"
             . "{$this->getJsObjectName()}.setConfig(" . Mage::helper('core')->jsonEncode($this->getConfig()->getData()) . ");\n",
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getJsObjectName()
-    {
-        return $this->getId() . 'JsObject';
     }
 }

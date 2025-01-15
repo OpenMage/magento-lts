@@ -104,12 +104,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     protected $_flagOptionsSaved = null;
 
-    protected function _construct()
-    {
-        $this->_cacheTag = 'wishlist_item';
-        $this->_init('wishlist/item');
-    }
-
     /**
      * Set quantity. If quantity is less than 0 - set it to 1
      *
@@ -119,82 +113,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     public function setQty($qty)
     {
         $this->setData('qty', ($qty >= 0) ? $qty : 1);
-        return $this;
-    }
-
-    /**
-     * Check if two options array are identical
-     *
-     * @param array $options1
-     * @param array $options2
-     * @return bool
-     */
-    protected function _compareOptions($options1, $options2)
-    {
-        $skipOptions = ['id', 'qty', 'return_url'];
-        foreach ($options1 as $code => $value) {
-            if (in_array($code, $skipOptions)) {
-                continue;
-            }
-            if (!isset($options2[$code]) || $options2[$code] != $value) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Register option code
-     *
-     * @param   Mage_Wishlist_Model_Item_Option $option
-     * @return  $this
-     */
-    protected function _addOptionCode($option)
-    {
-        if (!isset($this->_optionsByCode[$option->getCode()])) {
-            $this->_optionsByCode[$option->getCode()] = $option;
-        } else {
-            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
-        }
-        return $this;
-    }
-
-    /**
-     * Checks that item model has data changes.
-     * Call save item options if model isn't need to save in DB
-     *
-     * @return bool
-     */
-    protected function _hasModelChanged()
-    {
-        if (!$this->hasDataChanges()) {
-            return false;
-        }
-
-        return $this->_getResource()->hasDataChanged($this);
-    }
-
-    /**
-     * Save item options
-     *
-     * @return $this
-     */
-    protected function _saveItemOptions()
-    {
-        foreach ($this->_options as $index => $option) {
-            if ($option->isDeleted()) {
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $option->delete();
-                unset($this->_options[$index]);
-                unset($this->_optionsByCode[$option->getCode()]);
-            } else {
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $option->save();
-            }
-        }
-
-        $this->_flagOptionsSaved = true; // Report to watchers that options were saved
-
         return $this;
     }
 
@@ -217,17 +135,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     }
 
     /**
-     * Save item options after item saved
-     *
-     * @inheritDoc
-     */
-    protected function _afterSave()
-    {
-        $this->_saveItemOptions();
-        return parent::_afterSave();
-    }
-
-    /**
      * Validate wish list item data
      *
      * @throws Mage_Core_Exception
@@ -243,31 +150,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         }
 
         return true;
-    }
-
-    /**
-     * Check required data
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-
-        // validate required item data
-        $this->validate();
-
-        // set current store id if it is not defined
-        if (is_null($this->getStoreId())) {
-            $this->setStoreId(Mage::app()->getStore()->getId());
-        }
-
-        // set current date if added at data is not defined
-        if (is_null($this->getAddedAt())) {
-            $this->setAddedAt(Mage::getSingleton('core/date')->gmtDate());
-        }
-
-        return $this;
     }
 
     /**
@@ -717,6 +599,124 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         }
 
         $this->setOptions($options->getOptionsByItem($this));
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_cacheTag = 'wishlist_item';
+        $this->_init('wishlist/item');
+    }
+
+    /**
+     * Check if two options array are identical
+     *
+     * @param array $options1
+     * @param array $options2
+     * @return bool
+     */
+    protected function _compareOptions($options1, $options2)
+    {
+        $skipOptions = ['id', 'qty', 'return_url'];
+        foreach ($options1 as $code => $value) {
+            if (in_array($code, $skipOptions)) {
+                continue;
+            }
+            if (!isset($options2[$code]) || $options2[$code] != $value) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Register option code
+     *
+     * @param   Mage_Wishlist_Model_Item_Option $option
+     * @return  $this
+     */
+    protected function _addOptionCode($option)
+    {
+        if (!isset($this->_optionsByCode[$option->getCode()])) {
+            $this->_optionsByCode[$option->getCode()] = $option;
+        } else {
+            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
+        }
+        return $this;
+    }
+
+    /**
+     * Checks that item model has data changes.
+     * Call save item options if model isn't need to save in DB
+     *
+     * @return bool
+     */
+    protected function _hasModelChanged()
+    {
+        if (!$this->hasDataChanges()) {
+            return false;
+        }
+
+        return $this->_getResource()->hasDataChanged($this);
+    }
+
+    /**
+     * Save item options
+     *
+     * @return $this
+     */
+    protected function _saveItemOptions()
+    {
+        foreach ($this->_options as $index => $option) {
+            if ($option->isDeleted()) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $option->delete();
+                unset($this->_options[$index]);
+                unset($this->_optionsByCode[$option->getCode()]);
+            } else {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $option->save();
+            }
+        }
+
+        $this->_flagOptionsSaved = true; // Report to watchers that options were saved
+
+        return $this;
+    }
+
+    /**
+     * Save item options after item saved
+     *
+     * @inheritDoc
+     */
+    protected function _afterSave()
+    {
+        $this->_saveItemOptions();
+        return parent::_afterSave();
+    }
+
+    /**
+     * Check required data
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+
+        // validate required item data
+        $this->validate();
+
+        // set current store id if it is not defined
+        if (is_null($this->getStoreId())) {
+            $this->setStoreId(Mage::app()->getStore()->getId());
+        }
+
+        // set current date if added at data is not defined
+        if (is_null($this->getAddedAt())) {
+            $this->setAddedAt(Mage::getSingleton('core/date')->gmtDate());
+        }
+
         return $this;
     }
 }

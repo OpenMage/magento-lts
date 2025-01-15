@@ -34,45 +34,6 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_entityTypeFrontendClasses = [];
 
     /**
-     * Return default frontend classes value labal array
-     *
-     * @return array
-     */
-    protected function _getDefaultFrontendClasses()
-    {
-        return [
-            [
-                'value' => '',
-                'label' => Mage::helper('eav')->__('None'),
-            ],
-            [
-                'value' => 'validate-number',
-                'label' => Mage::helper('eav')->__('Decimal Number'),
-            ],
-            [
-                'value' => 'validate-digits',
-                'label' => Mage::helper('eav')->__('Integer Number'),
-            ],
-            [
-                'value' => 'validate-email',
-                'label' => Mage::helper('eav')->__('Email'),
-            ],
-            [
-                'value' => 'validate-url',
-                'label' => Mage::helper('eav')->__('URL'),
-            ],
-            [
-                'value' => 'validate-alpha',
-                'label' => Mage::helper('eav')->__('Letters'),
-            ],
-            [
-                'value' => 'validate-alphanum',
-                'label' => Mage::helper('eav')->__('Letters (a-z, A-Z) or Numbers (0-9)'),
-            ],
-        ];
-    }
-
-    /**
      * Return merged default and entity type frontend classes value label array
      *
      * @param string $entityTypeCode
@@ -137,5 +98,44 @@ class Mage_Eav_Helper_Data extends Mage_Core_Helper_Abstract
     public function getInputTypesValidatorData()
     {
         return Mage::getStoreConfig(self::XML_PATH_VALIDATOR_DATA_INPUT_TYPES);
+    }
+
+    /**
+     * Return default frontend classes value labal array
+     *
+     * @return array
+     */
+    protected function _getDefaultFrontendClasses()
+    {
+        return [
+            [
+                'value' => '',
+                'label' => Mage::helper('eav')->__('None'),
+            ],
+            [
+                'value' => 'validate-number',
+                'label' => Mage::helper('eav')->__('Decimal Number'),
+            ],
+            [
+                'value' => 'validate-digits',
+                'label' => Mage::helper('eav')->__('Integer Number'),
+            ],
+            [
+                'value' => 'validate-email',
+                'label' => Mage::helper('eav')->__('Email'),
+            ],
+            [
+                'value' => 'validate-url',
+                'label' => Mage::helper('eav')->__('URL'),
+            ],
+            [
+                'value' => 'validate-alpha',
+                'label' => Mage::helper('eav')->__('Letters'),
+            ],
+            [
+                'value' => 'validate-alphanum',
+                'label' => Mage::helper('eav')->__('Letters (a-z, A-Z) or Numbers (0-9)'),
+            ],
+        ];
     }
 }

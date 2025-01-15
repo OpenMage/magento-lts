@@ -294,16 +294,6 @@ class Mage_DB_Mysqli
     }
 
     /**
-     * Throw connect exception
-     * @throws Mage_DB_Exception
-     * @return never
-     */
-    protected function throwConnectException()
-    {
-        throw new Mage_DB_Exception($this->conn->connect_error);
-    }
-
-    /**
      * Query - perform with throwing exception on error
      * @param string $sql query
      * @throws Mage_DB_Exception
@@ -505,5 +495,15 @@ class Mage_DB_Mysqli
         $sql = 'SELECT LAST_INSERT_ID() as `id`';
         $data = $this->fetchOne($sql);
         return $data['id'];
+    }
+
+    /**
+     * Throw connect exception
+     * @throws Mage_DB_Exception
+     * @return never
+     */
+    protected function throwConnectException()
+    {
+        throw new Mage_DB_Exception($this->conn->connect_error);
     }
 }

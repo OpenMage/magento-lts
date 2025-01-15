@@ -81,28 +81,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     }
 
     /**
-     * Set processable error codes to API model
-     *
-     * @return Mage_Paypal_Model_Api_Nvp
-     */
-    protected function _setApiProcessableErrors()
-    {
-        return $this->_pro->getApi()->setProcessableErrors(
-            [
-                Mage_Paypal_Model_Api_ProcessableException::API_INTERNAL_ERROR,
-                Mage_Paypal_Model_Api_ProcessableException::API_UNABLE_PROCESS_PAYMENT_ERROR_CODE,
-                Mage_Paypal_Model_Api_ProcessableException::API_DO_EXPRESS_CHECKOUT_FAIL,
-                Mage_Paypal_Model_Api_ProcessableException::API_UNABLE_TRANSACTION_COMPLETE,
-                Mage_Paypal_Model_Api_ProcessableException::API_TRANSACTION_EXPIRED,
-                Mage_Paypal_Model_Api_ProcessableException::API_MAX_PAYMENT_ATTEMPTS_EXCEEDED,
-                Mage_Paypal_Model_Api_ProcessableException::API_COUNTRY_FILTER_DECLINE,
-                Mage_Paypal_Model_Api_ProcessableException::API_MAXIMUM_AMOUNT_FILTER_DECLINE,
-                Mage_Paypal_Model_Api_ProcessableException::API_OTHER_FILTER_DECLINE,
-            ],
-        );
-    }
-
-    /**
      * Store setter
      * Also updates store ID in config object
      *
@@ -538,61 +516,6 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
     }
 
     /**
-     * Place an order with authorization or capture action
-     *
-     * @param float $amount
-     * @return $this
-     */
-    protected function _placeOrder(Mage_Sales_Model_Order_Payment $payment, $amount)
-    {
-        $order = $payment->getOrder();
-
-        // prepare api call
-        $token = $payment->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_TOKEN);
-        $api = $this->_pro->getApi()
-            ->setToken($token)
-            ->setPayerId($payment->
-                getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_PAYER_ID))
-            ->setAmount($amount)
-            ->setPaymentAction($this->_pro->getConfig()->paymentAction)
-            ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
-            ->setInvNum($order->getIncrementId())
-            ->setCurrencyCode($order->getBaseCurrencyCode())
-            ->setPaypalCart(Mage::getModel('paypal/cart', [$order]))
-            ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled);
-
-        // call api and get details from it
-        $api->callDoExpressCheckoutPayment();
-
-        $this->_importToPayment($api, $payment);
-        return $this;
-    }
-
-    /**
-     * Import payment info to payment
-     *
-     * @param Mage_Paypal_Model_Api_Nvp $api
-     * @param Mage_Sales_Model_Order_Payment $payment
-     */
-    protected function _importToPayment($api, $payment)
-    {
-        $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(0)
-            ->setAdditionalInformation(
-                Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT,
-                $api->getRedirectRequired(),
-            );
-
-        if ($api->getBillingAgreementId()) {
-            $payment->setBillingAgreementData([
-                'billing_agreement_id'  => $api->getBillingAgreementId(),
-                'method_code'           => Mage_Paypal_Model_Config::METHOD_BILLING_AGREEMENT,
-            ]);
-        }
-
-        $this->_pro->importPaymentInfo($api, $payment);
-    }
-
-    /**
      * Check void availability
      *
      * @return  bool
@@ -648,6 +571,83 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
             }
         }
         return $this->_canCapture;
+    }
+
+    /**
+     * Set processable error codes to API model
+     *
+     * @return Mage_Paypal_Model_Api_Nvp
+     */
+    protected function _setApiProcessableErrors()
+    {
+        return $this->_pro->getApi()->setProcessableErrors(
+            [
+                Mage_Paypal_Model_Api_ProcessableException::API_INTERNAL_ERROR,
+                Mage_Paypal_Model_Api_ProcessableException::API_UNABLE_PROCESS_PAYMENT_ERROR_CODE,
+                Mage_Paypal_Model_Api_ProcessableException::API_DO_EXPRESS_CHECKOUT_FAIL,
+                Mage_Paypal_Model_Api_ProcessableException::API_UNABLE_TRANSACTION_COMPLETE,
+                Mage_Paypal_Model_Api_ProcessableException::API_TRANSACTION_EXPIRED,
+                Mage_Paypal_Model_Api_ProcessableException::API_MAX_PAYMENT_ATTEMPTS_EXCEEDED,
+                Mage_Paypal_Model_Api_ProcessableException::API_COUNTRY_FILTER_DECLINE,
+                Mage_Paypal_Model_Api_ProcessableException::API_MAXIMUM_AMOUNT_FILTER_DECLINE,
+                Mage_Paypal_Model_Api_ProcessableException::API_OTHER_FILTER_DECLINE,
+            ],
+        );
+    }
+
+    /**
+     * Place an order with authorization or capture action
+     *
+     * @param float $amount
+     * @return $this
+     */
+    protected function _placeOrder(Mage_Sales_Model_Order_Payment $payment, $amount)
+    {
+        $order = $payment->getOrder();
+
+        // prepare api call
+        $token = $payment->getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_TOKEN);
+        $api = $this->_pro->getApi()
+            ->setToken($token)
+            ->setPayerId($payment->
+                getAdditionalInformation(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_PAYER_ID))
+            ->setAmount($amount)
+            ->setPaymentAction($this->_pro->getConfig()->paymentAction)
+            ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
+            ->setInvNum($order->getIncrementId())
+            ->setCurrencyCode($order->getBaseCurrencyCode())
+            ->setPaypalCart(Mage::getModel('paypal/cart', [$order]))
+            ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled);
+
+        // call api and get details from it
+        $api->callDoExpressCheckoutPayment();
+
+        $this->_importToPayment($api, $payment);
+        return $this;
+    }
+
+    /**
+     * Import payment info to payment
+     *
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
+     */
+    protected function _importToPayment($api, $payment)
+    {
+        $payment->setTransactionId($api->getTransactionId())->setIsTransactionClosed(0)
+            ->setAdditionalInformation(
+                Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_REDIRECT,
+                $api->getRedirectRequired(),
+            );
+
+        if ($api->getBillingAgreementId()) {
+            $payment->setBillingAgreementData([
+                'billing_agreement_id'  => $api->getBillingAgreementId(),
+                'method_code'           => Mage_Paypal_Model_Config::METHOD_BILLING_AGREEMENT,
+            ]);
+        }
+
+        $this->_pro->importPaymentInfo($api, $payment);
     }
 
     /**

@@ -37,48 +37,6 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     protected $_mapRenderer = 'msrp_item';
 
     /**
-     * Add meta information from product to head block
-     *
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->getLayout()->createBlock('catalog/breadcrumbs');
-
-        /** @var Mage_Page_Block_Html_Head $headBlock */
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $product = $this->getProduct();
-            $title = $product->getMetaTitle();
-            if ($title) {
-                $headBlock->setTitle($title);
-            }
-            $keyword = $product->getMetaKeyword();
-            $currentCategory = Mage::registry('current_category');
-            if ($keyword) {
-                $headBlock->setKeywords($keyword);
-            } elseif ($currentCategory) {
-                $headBlock->setKeywords($product->getName());
-            }
-            $description = $product->getMetaDescription();
-            if ($description) {
-                $headBlock->setDescription(($description));
-            } else {
-                $headBlock->setDescription(Mage::helper('core/string')->substr($product->getDescription(), 0, 255));
-            }
-
-            /** @var Mage_Catalog_Helper_Product $helper */
-            $helper = $this->helper('catalog/product');
-            if ($helper->canUseCanonicalTag()) {
-                $params = ['_ignore_category' => true];
-                $headBlock->addLinkRel('canonical', $product->getUrlModel()->getUrl($product, $params));
-            }
-        }
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve current product model
      *
      * @return Mage_Catalog_Model_Product
@@ -250,5 +208,47 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             return $helper->getAddUrlCustom($product, $additional, false);
         }
         return $helper->getAddUrl($product, $additional);
+    }
+
+    /**
+     * Add meta information from product to head block
+     *
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->getLayout()->createBlock('catalog/breadcrumbs');
+
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $product = $this->getProduct();
+            $title = $product->getMetaTitle();
+            if ($title) {
+                $headBlock->setTitle($title);
+            }
+            $keyword = $product->getMetaKeyword();
+            $currentCategory = Mage::registry('current_category');
+            if ($keyword) {
+                $headBlock->setKeywords($keyword);
+            } elseif ($currentCategory) {
+                $headBlock->setKeywords($product->getName());
+            }
+            $description = $product->getMetaDescription();
+            if ($description) {
+                $headBlock->setDescription(($description));
+            } else {
+                $headBlock->setDescription(Mage::helper('core/string')->substr($product->getDescription(), 0, 255));
+            }
+
+            /** @var Mage_Catalog_Helper_Product $helper */
+            $helper = $this->helper('catalog/product');
+            if ($helper->canUseCanonicalTag()) {
+                $params = ['_ignore_category' => true];
+                $headBlock->addLinkRel('canonical', $product->getUrlModel()->getUrl($product, $params));
+            }
+        }
+
+        return parent::_prepareLayout();
     }
 }

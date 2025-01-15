@@ -148,6 +148,47 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     }
 
     /**
+     * Adds additional parameter to URL for loading only products grid
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/catalog_product_widget/chooser', [
+            'products_grid' => true,
+            '_current' => true,
+            'uniq_id' => $this->getId(),
+            'use_massaction' => $this->getUseMassaction(),
+            'product_type_id' => $this->getProductTypeId(),
+        ]);
+    }
+
+    /**
+     * Setter
+     *
+     * @param array $selectedProducts
+     * @return $this
+     */
+    public function setSelectedProducts($selectedProducts)
+    {
+        $this->_selectedProducts = $selectedProducts;
+        return $this;
+    }
+
+    /**
+     * Getter
+     *
+     * @return array
+     */
+    public function getSelectedProducts()
+    {
+        if ($selectedProducts = $this->getRequest()->getParam('selected_products', null)) {
+            $this->setSelectedProducts($selectedProducts);
+        }
+        return $this->_selectedProducts;
+    }
+
+    /**
      * Filter checked/unchecked rows in grid
      *
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
@@ -239,46 +280,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Adds additional parameter to URL for loading only products grid
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/catalog_product_widget/chooser', [
-            'products_grid' => true,
-            '_current' => true,
-            'uniq_id' => $this->getId(),
-            'use_massaction' => $this->getUseMassaction(),
-            'product_type_id' => $this->getProductTypeId(),
-        ]);
-    }
-
-    /**
-     * Setter
-     *
-     * @param array $selectedProducts
-     * @return $this
-     */
-    public function setSelectedProducts($selectedProducts)
-    {
-        $this->_selectedProducts = $selectedProducts;
-        return $this;
-    }
-
-    /**
-     * Getter
-     *
-     * @return array
-     */
-    public function getSelectedProducts()
-    {
-        if ($selectedProducts = $this->getRequest()->getParam('selected_products', null)) {
-            $this->setSelectedProducts($selectedProducts);
-        }
-        return $this->_selectedProducts;
     }
 }

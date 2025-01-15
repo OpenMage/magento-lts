@@ -22,6 +22,23 @@
  */
 class Mage_Sales_Model_Resource_Quote_Address_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    /**
+     * Set address filter
+     *
+     * @param int $addressId
+     * @return $this
+     */
+    public function setAddressFilter($addressId)
+    {
+        if ($addressId) {
+            $this->addFieldToFilter('quote_address_id', $addressId);
+        } else {
+            $this->_totalRecords = 0;
+            $this->_setIsLoaded(true);
+        }
+
+        return $this;
+    }
     protected function _construct()
     {
         $this->_init('sales/quote_address_item');
@@ -42,24 +59,6 @@ class Mage_Sales_Model_Resource_Quote_Address_Item_Collection extends Mage_Core_
             if ($item->getParentItemId()) {
                 $item->setParentItem($this->getItemById($item->getParentItemId()));
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set address filter
-     *
-     * @param int $addressId
-     * @return $this
-     */
-    public function setAddressFilter($addressId)
-    {
-        if ($addressId) {
-            $this->addFieldToFilter('quote_address_id', $addressId);
-        } else {
-            $this->_totalRecords = 0;
-            $this->_setIsLoaded(true);
         }
 
         return $this;

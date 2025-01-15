@@ -227,40 +227,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'export_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Export'),
-                    'onclick'   => $this->getJsObjectName() . '.doExport()',
-                    'class'   => 'task',
-                ]),
-        );
-        $this->setChild(
-            'reset_filter_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Reset Filter'),
-                    'onclick'   => $this->getJsObjectName() . '.resetFilter()',
-                ]),
-        );
-        $this->setChild(
-            'search_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('adminhtml')->__('Search'),
-                    'onclick'   => $this->getJsObjectName() . '.doFilter()',
-                    'class'   => 'task',
-                ]),
-        );
-        return parent::_prepareLayout();
-    }
-
-    /**
      * @return string
      */
     public function getExportButtonHtml()
@@ -523,266 +489,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * @param array $data
-     *
-     * @return $this
-     */
-    protected function _setFilterValues($data)
-    {
-        foreach (array_keys($data) as $columnId) {
-            $column = $this->getColumn($columnId);
-            if ($column instanceof Mage_Adminhtml_Block_Widget_Grid_Column
-                && (!empty($data[$columnId]) || strlen($data[$columnId]) > 0)
-                && $column->getFilter()
-            ) {
-                $column->getFilter()->setValue($data[$columnId]);
-                $this->_addColumnFilterToCollection($column);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Add filter
-     *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
-     */
-    protected function _addColumnFilterToCollection($column)
-    {
-        if ($this->getCollection()) {
-            $field = $column->getFilterIndex() ?: $column->getIndex();
-            if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
-                call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
-            } else {
-                $cond = $column->getFilter()->getCondition();
-                if ($field && $cond !== null) {
-                    $filtered = array_map(static function ($value) {
-                        return is_object($value) ? $value->__toString() : $value;
-                    }, is_array($cond) ? array_values($cond) : [$cond]);
-                    if (in_array('\'%NULL%\'', $filtered, true) || in_array('NULL', $filtered, true)) {
-                        $this->getCollection()->addFieldToFilter($field, ['null' => true]);
-                    } else {
-                        $this->getCollection()->addFieldToFilter($field, $cond);
-                    }
-                }
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Add link model filter from grid column to collection
-     *
-     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     *
-     * @return $this
-     */
-    protected function _addLinkModelFilterCallback($collection, $column)
-    {
-        $field = $column->getFilterIndex() ?: $column->getIndex();
-        $condition = $column->getFilter()->getCondition();
-        $collection->addLinkModelFieldToFilter($field, $condition);
-
-        return $this;
-    }
-
-    /**
-     * Sets sorting order by some column
-     *
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
-     * @return $this
-     */
-    protected function _setCollectionOrder($column)
-    {
-        $collection = $this->getCollection();
-        if ($collection) {
-            $columnIndex = $column->getFilterIndex() ?: $column->getIndex();
-            $collection->setOrder($columnIndex, strtoupper($column->getDir()));
-        }
-        return $this;
-    }
-
-    /**
-     * Prepare grid collection object
-     *
-     * @return $this
-     * @throws Exception
-     */
-    protected function _prepareCollection()
-    {
-        if ($this->getCollection()) {
-            $this->_preparePage();
-
-            $columnId = $this->getParam($this->getVarNameSort(), $this->_defaultSort);
-            $dir      = $this->getParam($this->getVarNameDir(), $this->_defaultDir);
-            $filter   = $this->getParam($this->getVarNameFilter(), null);
-
-            if (is_null($filter)) {
-                $filter = $this->_defaultFilter;
-            }
-
-            if (is_string($filter)) {
-                /** @var Mage_Adminhtml_Helper_Data $helper */
-                $helper = $this->helper('adminhtml');
-                $data = $helper->prepareFilterString($filter);
-                $this->_setFilterValues($data);
-            } elseif ($filter && is_array($filter)) {
-                $this->_setFilterValues($filter);
-            } elseif (count($this->_defaultFilter)) {
-                $this->_setFilterValues($this->_defaultFilter);
-            }
-
-            if (isset($this->_columns[$columnId]) && $this->_columns[$columnId]->getIndex()) {
-                $dir = (strtolower($dir) === 'desc') ? 'desc' : 'asc';
-                $this->_columns[$columnId]->setDir($dir);
-                $this->_setCollectionOrder($this->_columns[$columnId]);
-            }
-
-            if (!$this->_isExport) {
-                $this->_beforeLoadCollection();
-                $this->getCollection()->load();
-                $this->_afterLoadCollection();
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Decode URL encoded filter value recursive callback method
-     *
-     * @param string $value
-     */
-    protected function _decodeFilter(&$value)
-    {
-        /** @var Mage_Adminhtml_Helper_Data $helper */
-        $helper = $this->helper('adminhtml');
-        $value = $helper->decodeFilter($value);
-    }
-
-    protected function _preparePage()
-    {
-        $this->getCollection()->setPageSize((int) $this->getParam($this->getVarNameLimit(), $this->_defaultLimit));
-        $this->getCollection()->setCurPage((int) $this->getParam($this->getVarNamePage(), $this->_defaultPage));
-    }
-
-    /**
-     * Prepare columns for grid
-     *
-     * @return $this
-     */
-    protected function _prepareColumns()
-    {
-        $this->sortColumnsByOrder();
-        return $this;
-    }
-
-    /**
-     * Prepare grid massaction block
-     *
-     * @return $this
-     */
-    protected function _prepareMassactionBlock()
-    {
-        $this->setChild('massaction', $this->getLayout()->createBlock($this->getMassactionBlockName()));
-        $this->_prepareMassaction();
-        if ($this->getMassactionBlock()->isAvailable()) {
-            $this->_prepareMassactionColumn();
-        }
-        return $this;
-    }
-
-    /**
-     * Prepare grid massaction actions
-     *
-     * @return $this
-     */
-    protected function _prepareMassaction()
-    {
-        return $this;
-    }
-
-    /**
-     * Prepare grid massaction column
-     *
-     * @return $this
-     */
-    protected function _prepareMassactionColumn()
-    {
-        $columnId = 'massaction';
-        $massactionColumn = $this->getLayout()->createBlock('adminhtml/widget_grid_column')
-                ->setData([
-                    'index'        => $this->getMassactionIdField(),
-                    'filter_index' => $this->getMassactionIdFilter(),
-                    'type'         => 'massaction',
-                    'name'         => $this->getMassactionBlock()->getFormFieldName(),
-                    'align'        => 'center',
-                    'is_system'    => true,
-                ]);
-
-        if ($this->getNoFilterMassactionColumn()) {
-            $massactionColumn->setData('filter', false);
-        }
-
-        $massactionColumn->setSelected($this->getMassactionBlock()->getSelected())
-            ->setGrid($this)
-            ->setId($columnId);
-
-        $oldColumns = $this->_columns;
-        $this->_columns = [];
-        $this->_columns[$columnId] = $massactionColumn;
-        $this->_columns = array_merge($this->_columns, $oldColumns);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     * @throws Exception
-     */
-    protected function _prepareGrid()
-    {
-        $this->_prepareColumns();
-        $this->_prepareMassactionBlock();
-        $this->_prepareCollection();
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     * @throws Exception
-     */
-    protected function _beforeToHtml()
-    {
-        try {
-            $this->_prepareGrid();
-        } catch (Exception $e) {
-            $this->resetSavedParametersInSession();
-            throw $e;
-        }
-
-        return parent::_beforeToHtml();
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _afterLoadCollection()
-    {
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _beforeLoadCollection()
-    {
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getVarNameLimit()
@@ -1036,24 +742,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Returns url for RSS
-     * Can be overloaded in descendant classes to perform custom changes to url passed to addRssList()
-     *
-     * @param string $url
-     * @return string
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _getRssUrl($url)
-    {
-        $urlModel = Mage::getModel('core/url');
-        if (Mage::app()->getStore()->getStoreInUrl()) {
-            // Url in 'admin' store view won't be accessible, so form it in default store view frontend
-            $urlModel->setStore(Mage::app()->getDefaultStoreView());
-        }
-        return $urlModel->getUrl($url);
-    }
-
-    /**
      * Add new rss list to grid
      *
      * @param string $url
@@ -1080,52 +768,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getHtml()
     {
         return $this->toHtml();
-    }
-
-    /**
-     * Retrieve file content from file container array
-     *
-     * @return string
-     */
-    protected function _getFileContainerContent(array $fileData)
-    {
-        $io = new Varien_Io_File();
-        $path = $io->dirname($fileData['value']);
-        $io->open(['path' => $path]);
-        return $io->read($fileData['value']);
-    }
-
-    /**
-     * Retrieve Headers row array for Export
-     *
-     * @return array
-     */
-    protected function _getExportHeaders()
-    {
-        $row = [];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $row[] = $column->getExportHeader();
-            }
-        }
-        return $row;
-    }
-
-    /**
-     * Retrieve Totals row array for Export
-     *
-     * @return array
-     */
-    protected function _getExportTotals()
-    {
-        $totals = $this->getTotals();
-        $row    = [];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $row[] = ($column->hasTotalsLabel()) ? $column->getTotalsLabel() : $column->getRowFieldExport($totals);
-            }
-        }
-        return $row;
     }
 
     /**
@@ -1164,23 +806,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $collection->clear();
             unset($collection);
         }
-    }
-
-    /**
-     * Write item data to csv export file
-     */
-    protected function _exportCsvItem(Varien_Object $item, Varien_Io_File $adapter)
-    {
-        $row = [];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $row[] = $column->getRowFieldExport($item);
-            }
-        }
-
-        $adapter->streamWriteCsv(
-            Mage::helper('core')->getEscapedCSVData($row),
-        );
     }
 
     /**
@@ -1310,27 +935,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $xml .= $this->getTotals()->toXml($indexes);
         }
         return $xml . '</items>';
-    }
-
-    /**
-     * Write item data to Excel 2003 XML export file
-     *
-     * @param Varien_Convert_Parser_Xml_Excel $parser
-     */
-    protected function _exportExcelItem(Varien_Object $item, Varien_Io_File $adapter, $parser = null)
-    {
-        if (is_null($parser)) {
-            $parser = new Varien_Convert_Parser_Xml_Excel();
-        }
-
-        $row = [];
-        foreach ($this->_columns as $column) {
-            if (!$column->getIsSystem()) {
-                $row[] = $column->getRowFieldExport($item);
-            }
-        }
-        $data = $parser->getRowXml($row);
-        $adapter->streamWrite($data);
     }
 
     /**
@@ -1924,5 +1528,401 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getLimitOptions(): array
     {
         return [20, 30, 50, 100, 200, 500, 1000];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'export_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('adminhtml')->__('Export'),
+                    'onclick'   => $this->getJsObjectName() . '.doExport()',
+                    'class'   => 'task',
+                ]),
+        );
+        $this->setChild(
+            'reset_filter_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('adminhtml')->__('Reset Filter'),
+                    'onclick'   => $this->getJsObjectName() . '.resetFilter()',
+                ]),
+        );
+        $this->setChild(
+            'search_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('adminhtml')->__('Search'),
+                    'onclick'   => $this->getJsObjectName() . '.doFilter()',
+                    'class'   => 'task',
+                ]),
+        );
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
+    protected function _setFilterValues($data)
+    {
+        foreach (array_keys($data) as $columnId) {
+            $column = $this->getColumn($columnId);
+            if ($column instanceof Mage_Adminhtml_Block_Widget_Grid_Column
+                && (!empty($data[$columnId]) || strlen($data[$columnId]) > 0)
+                && $column->getFilter()
+            ) {
+                $column->getFilter()->setValue($data[$columnId]);
+                $this->_addColumnFilterToCollection($column);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add filter
+     *
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
+    protected function _addColumnFilterToCollection($column)
+    {
+        if ($this->getCollection()) {
+            $field = $column->getFilterIndex() ?: $column->getIndex();
+            if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
+                call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
+            } else {
+                $cond = $column->getFilter()->getCondition();
+                if ($field && $cond !== null) {
+                    $filtered = array_map(static function ($value) {
+                        return is_object($value) ? $value->__toString() : $value;
+                    }, is_array($cond) ? array_values($cond) : [$cond]);
+                    if (in_array('\'%NULL%\'', $filtered, true) || in_array('NULL', $filtered, true)) {
+                        $this->getCollection()->addFieldToFilter($field, ['null' => true]);
+                    } else {
+                        $this->getCollection()->addFieldToFilter($field, $cond);
+                    }
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Add link model filter from grid column to collection
+     *
+     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     *
+     * @return $this
+     */
+    protected function _addLinkModelFilterCallback($collection, $column)
+    {
+        $field = $column->getFilterIndex() ?: $column->getIndex();
+        $condition = $column->getFilter()->getCondition();
+        $collection->addLinkModelFieldToFilter($field, $condition);
+
+        return $this;
+    }
+
+    /**
+     * Sets sorting order by some column
+     *
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
+    protected function _setCollectionOrder($column)
+    {
+        $collection = $this->getCollection();
+        if ($collection) {
+            $columnIndex = $column->getFilterIndex() ?: $column->getIndex();
+            $collection->setOrder($columnIndex, strtoupper($column->getDir()));
+        }
+        return $this;
+    }
+
+    /**
+     * Prepare grid collection object
+     *
+     * @return $this
+     * @throws Exception
+     */
+    protected function _prepareCollection()
+    {
+        if ($this->getCollection()) {
+            $this->_preparePage();
+
+            $columnId = $this->getParam($this->getVarNameSort(), $this->_defaultSort);
+            $dir      = $this->getParam($this->getVarNameDir(), $this->_defaultDir);
+            $filter   = $this->getParam($this->getVarNameFilter(), null);
+
+            if (is_null($filter)) {
+                $filter = $this->_defaultFilter;
+            }
+
+            if (is_string($filter)) {
+                /** @var Mage_Adminhtml_Helper_Data $helper */
+                $helper = $this->helper('adminhtml');
+                $data = $helper->prepareFilterString($filter);
+                $this->_setFilterValues($data);
+            } elseif ($filter && is_array($filter)) {
+                $this->_setFilterValues($filter);
+            } elseif (count($this->_defaultFilter)) {
+                $this->_setFilterValues($this->_defaultFilter);
+            }
+
+            if (isset($this->_columns[$columnId]) && $this->_columns[$columnId]->getIndex()) {
+                $dir = (strtolower($dir) === 'desc') ? 'desc' : 'asc';
+                $this->_columns[$columnId]->setDir($dir);
+                $this->_setCollectionOrder($this->_columns[$columnId]);
+            }
+
+            if (!$this->_isExport) {
+                $this->_beforeLoadCollection();
+                $this->getCollection()->load();
+                $this->_afterLoadCollection();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Decode URL encoded filter value recursive callback method
+     *
+     * @param string $value
+     */
+    protected function _decodeFilter(&$value)
+    {
+        /** @var Mage_Adminhtml_Helper_Data $helper */
+        $helper = $this->helper('adminhtml');
+        $value = $helper->decodeFilter($value);
+    }
+
+    protected function _preparePage()
+    {
+        $this->getCollection()->setPageSize((int) $this->getParam($this->getVarNameLimit(), $this->_defaultLimit));
+        $this->getCollection()->setCurPage((int) $this->getParam($this->getVarNamePage(), $this->_defaultPage));
+    }
+
+    /**
+     * Prepare columns for grid
+     *
+     * @return $this
+     */
+    protected function _prepareColumns()
+    {
+        $this->sortColumnsByOrder();
+        return $this;
+    }
+
+    /**
+     * Prepare grid massaction block
+     *
+     * @return $this
+     */
+    protected function _prepareMassactionBlock()
+    {
+        $this->setChild('massaction', $this->getLayout()->createBlock($this->getMassactionBlockName()));
+        $this->_prepareMassaction();
+        if ($this->getMassactionBlock()->isAvailable()) {
+            $this->_prepareMassactionColumn();
+        }
+        return $this;
+    }
+
+    /**
+     * Prepare grid massaction actions
+     *
+     * @return $this
+     */
+    protected function _prepareMassaction()
+    {
+        return $this;
+    }
+
+    /**
+     * Prepare grid massaction column
+     *
+     * @return $this
+     */
+    protected function _prepareMassactionColumn()
+    {
+        $columnId = 'massaction';
+        $massactionColumn = $this->getLayout()->createBlock('adminhtml/widget_grid_column')
+                ->setData([
+                    'index'        => $this->getMassactionIdField(),
+                    'filter_index' => $this->getMassactionIdFilter(),
+                    'type'         => 'massaction',
+                    'name'         => $this->getMassactionBlock()->getFormFieldName(),
+                    'align'        => 'center',
+                    'is_system'    => true,
+                ]);
+
+        if ($this->getNoFilterMassactionColumn()) {
+            $massactionColumn->setData('filter', false);
+        }
+
+        $massactionColumn->setSelected($this->getMassactionBlock()->getSelected())
+            ->setGrid($this)
+            ->setId($columnId);
+
+        $oldColumns = $this->_columns;
+        $this->_columns = [];
+        $this->_columns[$columnId] = $massactionColumn;
+        $this->_columns = array_merge($this->_columns, $oldColumns);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     * @throws Exception
+     */
+    protected function _prepareGrid()
+    {
+        $this->_prepareColumns();
+        $this->_prepareMassactionBlock();
+        $this->_prepareCollection();
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+    protected function _beforeToHtml()
+    {
+        try {
+            $this->_prepareGrid();
+        } catch (Exception $e) {
+            $this->resetSavedParametersInSession();
+            throw $e;
+        }
+
+        return parent::_beforeToHtml();
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _afterLoadCollection()
+    {
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _beforeLoadCollection()
+    {
+        return $this;
+    }
+
+    /**
+     * Returns url for RSS
+     * Can be overloaded in descendant classes to perform custom changes to url passed to addRssList()
+     *
+     * @param string $url
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _getRssUrl($url)
+    {
+        $urlModel = Mage::getModel('core/url');
+        if (Mage::app()->getStore()->getStoreInUrl()) {
+            // Url in 'admin' store view won't be accessible, so form it in default store view frontend
+            $urlModel->setStore(Mage::app()->getDefaultStoreView());
+        }
+        return $urlModel->getUrl($url);
+    }
+
+    /**
+     * Retrieve file content from file container array
+     *
+     * @return string
+     */
+    protected function _getFileContainerContent(array $fileData)
+    {
+        $io = new Varien_Io_File();
+        $path = $io->dirname($fileData['value']);
+        $io->open(['path' => $path]);
+        return $io->read($fileData['value']);
+    }
+
+    /**
+     * Retrieve Headers row array for Export
+     *
+     * @return array
+     */
+    protected function _getExportHeaders()
+    {
+        $row = [];
+        foreach ($this->_columns as $column) {
+            if (!$column->getIsSystem()) {
+                $row[] = $column->getExportHeader();
+            }
+        }
+        return $row;
+    }
+
+    /**
+     * Retrieve Totals row array for Export
+     *
+     * @return array
+     */
+    protected function _getExportTotals()
+    {
+        $totals = $this->getTotals();
+        $row    = [];
+        foreach ($this->_columns as $column) {
+            if (!$column->getIsSystem()) {
+                $row[] = ($column->hasTotalsLabel()) ? $column->getTotalsLabel() : $column->getRowFieldExport($totals);
+            }
+        }
+        return $row;
+    }
+
+    /**
+     * Write item data to csv export file
+     */
+    protected function _exportCsvItem(Varien_Object $item, Varien_Io_File $adapter)
+    {
+        $row = [];
+        foreach ($this->_columns as $column) {
+            if (!$column->getIsSystem()) {
+                $row[] = $column->getRowFieldExport($item);
+            }
+        }
+
+        $adapter->streamWriteCsv(
+            Mage::helper('core')->getEscapedCSVData($row),
+        );
+    }
+
+    /**
+     * Write item data to Excel 2003 XML export file
+     *
+     * @param Varien_Convert_Parser_Xml_Excel $parser
+     */
+    protected function _exportExcelItem(Varien_Object $item, Varien_Io_File $adapter, $parser = null)
+    {
+        if (is_null($parser)) {
+            $parser = new Varien_Convert_Parser_Xml_Excel();
+        }
+
+        $row = [];
+        foreach ($this->_columns as $column) {
+            if (!$column->getIsSystem()) {
+                $row[] = $column->getRowFieldExport($item);
+            }
+        }
+        $data = $parser->getRowXml($row);
+        $adapter->streamWrite($data);
     }
 }

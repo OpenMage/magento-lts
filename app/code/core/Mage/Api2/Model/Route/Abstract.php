@@ -59,17 +59,6 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
     }
 
     /**
-     * Retrieve argument value
-     *
-     * @param string $name argument name
-     * @return mixed
-     */
-    protected function _getArgumentValue($name, array $arguments)
-    {
-        return $arguments[$name] ?? $this->_paramsDefaultValues[$name];
-    }
-
-    /**
      * Matches a Request with parts defined by a map. Assigns and
      * returns an array of variables on a successful match.
      *
@@ -80,5 +69,16 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
     public function match($request, $partial = false)
     {
         return parent::match(ltrim($request->getPathInfo(), $this->_urlDelimiter), $partial);
+    }
+
+    /**
+     * Retrieve argument value
+     *
+     * @param string $name argument name
+     * @return mixed
+     */
+    protected function _getArgumentValue($name, array $arguments)
+    {
+        return $arguments[$name] ?? $this->_paramsDefaultValues[$name];
     }
 }

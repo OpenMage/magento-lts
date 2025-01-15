@@ -42,29 +42,6 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'eav_form_fieldset';
 
-    protected function _construct()
-    {
-        $this->_init('eav/form_fieldset');
-    }
-
-    /**
-     * Validate data before save data
-     *
-     * @throws Mage_Core_Exception
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        if (!$this->getTypeId()) {
-            Mage::throwException(Mage::helper('eav')->__('Invalid form type.'));
-        }
-        if (!$this->getStoreId() && $this->getLabel()) {
-            $this->setStoreLabel($this->getStoreId(), $this->getLabel());
-        }
-
-        return parent::_beforeSave();
-    }
-
     /**
      * Retrieve fieldset labels for stores
      *
@@ -115,5 +92,28 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
             $this->setData('store_id', Mage::app()->getStore()->getId());
         }
         return $this->_getData('store_id');
+    }
+
+    protected function _construct()
+    {
+        $this->_init('eav/form_fieldset');
+    }
+
+    /**
+     * Validate data before save data
+     *
+     * @throws Mage_Core_Exception
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        if (!$this->getTypeId()) {
+            Mage::throwException(Mage::helper('eav')->__('Invalid form type.'));
+        }
+        if (!$this->getStoreId() && $this->getLabel()) {
+            $this->setStoreLabel($this->getStoreId(), $this->getLabel());
+        }
+
+        return parent::_beforeSave();
     }
 }

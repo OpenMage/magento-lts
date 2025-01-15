@@ -44,6 +44,15 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -114,14 +123,5 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
     }
 }

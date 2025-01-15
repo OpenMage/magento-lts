@@ -23,17 +23,6 @@
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Input
 {
     /**
-     * Returns whether this qty field must be inactive
-     *
-     * @param   Varien_Object $row
-     * @return  bool
-     */
-    protected function _isInactive($row)
-    {
-        return $row->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE;
-    }
-
-    /**
      * Render product qty field
      *
      * @return  string
@@ -61,5 +50,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Qty extends M
             $html .= 'disabled="disabled" ';
         }
         return $html . ('class="input-text ' . $this->getColumn()->getInlineCss() . ($isInactive ? ' input-inactive' : '') . '" />');
+    }
+    /**
+     * Returns whether this qty field must be inactive
+     *
+     * @param   Varien_Object $row
+     * @return  bool
+     */
+    protected function _isInactive($row)
+    {
+        return $row->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE;
     }
 }

@@ -29,26 +29,6 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
     public const ADMIN_RESOURCE = 'system/config';
 
     /**
-     * Return file storage singleton
-     *
-     * @return Mage_Core_Model_File_Storage
-     */
-    protected function _getSyncSingleton()
-    {
-        return Mage::getSingleton('core/file_storage');
-    }
-
-    /**
-     * Return synchronize process status flag
-     *
-     * @return Mage_Core_Model_File_Storage_Flag
-     */
-    protected function _getSyncFlag()
-    {
-        return $this->_getSyncSingleton()->getSyncFlag();
-    }
-
-    /**
      * Synchronize action between storages
      *
      * @SuppressWarnings("PHPMD.Superglobals")
@@ -174,5 +154,25 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
         $result = Mage::helper('core')->jsonEncode($result);
         Mage::app()->getResponse()->setBody($result);
+    }
+
+    /**
+     * Return file storage singleton
+     *
+     * @return Mage_Core_Model_File_Storage
+     */
+    protected function _getSyncSingleton()
+    {
+        return Mage::getSingleton('core/file_storage');
+    }
+
+    /**
+     * Return synchronize process status flag
+     *
+     * @return Mage_Core_Model_File_Storage_Flag
+     */
+    protected function _getSyncFlag()
+    {
+        return $this->_getSyncSingleton()->getSyncFlag();
     }
 }

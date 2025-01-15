@@ -25,6 +25,19 @@
 class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
 {
     /**
+     * Get tags array for saving cache
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        if ($this->_getSession()->isLoggedIn()) {
+            $this->addModelTags($this->_getSession()->getCustomer());
+        }
+
+        return parent::getCacheTags();
+    }
+    /**
      * Get customer session
      *
      * @return Mage_Customer_Model_Session
@@ -50,19 +63,5 @@ class Mage_Page_Block_Html_Welcome extends Mage_Core_Block_Template
         }
 
         return $this->_data['welcome'];
-    }
-
-    /**
-     * Get tags array for saving cache
-     *
-     * @return array
-     */
-    public function getCacheTags()
-    {
-        if ($this->_getSession()->isLoggedIn()) {
-            $this->addModelTags($this->_getSession()->getCustomer());
-        }
-
-        return parent::getCacheTags();
     }
 }

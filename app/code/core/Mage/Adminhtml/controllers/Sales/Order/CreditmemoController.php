@@ -23,155 +23,6 @@
 class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Controller_Sales_Creditmemo
 {
     /**
-     * Get requested items qtys and return to stock flags
-     */
-    protected function _getItemData()
-    {
-        $data = $this->getRequest()->getParam('creditmemo');
-        if (!$data) {
-            $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
-        }
-        return $data['items'] ?? [];
-    }
-
-    /**
-     * Check if creditmeno can be created for order
-     * @param Mage_Sales_Model_Order $order
-     * @return bool
-     */
-    protected function _canCreditmemo($order)
-    {
-        /**
-         * Check order existing
-         */
-        if (!$order->getId()) {
-            $this->_getSession()->addError($this->__('The order no longer exists.'));
-            return false;
-        }
-
-        /**
-         * Check creditmemo create availability
-         */
-        if (!$order->canCreditmemo()) {
-            $this->_getSession()->addError($this->__('Cannot create credit memo for the order.'));
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Initialize requested invoice instance
-     * @param Mage_Sales_Model_Order $order
-     * @return false|Mage_Sales_Model_Order_Invoice
-     */
-    protected function _initInvoice($order)
-    {
-        $invoiceId = $this->getRequest()->getParam('invoice_id');
-        if ($invoiceId) {
-            $invoice = Mage::getModel('sales/order_invoice')
-                ->load($invoiceId)
-                ->setOrder($order);
-            if ($invoice->getId()) {
-                return $invoice;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Initialize creditmemo model instance
-     *
-     * @return Mage_Sales_Model_Order_Creditmemo|false
-     * @throws Mage_Core_Exception
-     */
-    protected function _initCreditmemo($update = false)
-    {
-        $this->_title($this->__('Sales'))->_title($this->__('Credit Memos'));
-
-        $creditmemo = false;
-        $creditmemoId = $this->getRequest()->getParam('creditmemo_id');
-        $orderId = $this->getRequest()->getParam('order_id');
-        if ($creditmemoId) {
-            $creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId);
-            if (!$creditmemo->getId()) {
-                $this->_getSession()->addError($this->__('The credit memo no longer exists.'));
-                return false;
-            }
-        } elseif ($orderId) {
-            $data   = $this->getRequest()->getParam('creditmemo');
-            $order  = Mage::getModel('sales/order')->load($orderId);
-            $invoice = $this->_initInvoice($order);
-
-            if (!$this->_canCreditmemo($order)) {
-                return false;
-            }
-
-            $savedData = $this->_getItemData();
-
-            $qtys = [];
-            $backToStock = [];
-            foreach ($savedData as $orderItemId => $itemData) {
-                if (isset($itemData['qty'])) {
-                    $qtys[$orderItemId] = $itemData['qty'];
-                }
-                if (isset($itemData['back_to_stock'])) {
-                    $backToStock[$orderItemId] = true;
-                }
-            }
-            $data['qtys'] = $qtys;
-
-            $service = Mage::getModel('sales/service_order', $order);
-            if ($invoice) {
-                $creditmemo = $service->prepareInvoiceCreditmemo($invoice, $data);
-            } else {
-                $creditmemo = $service->prepareCreditmemo($data);
-            }
-
-            /**
-             * Process back to stock flags
-             */
-            foreach ($creditmemo->getAllItems() as $creditmemoItem) {
-                $orderItem = $creditmemoItem->getOrderItem();
-                $parentId = $orderItem->getParentItemId();
-                if (isset($backToStock[$orderItem->getId()])) {
-                    $creditmemoItem->setBackToStock(true);
-                } elseif ($orderItem->getParentItem() && isset($backToStock[$parentId]) && $backToStock[$parentId]) {
-                    $creditmemoItem->setBackToStock(true);
-                } elseif (empty($savedData)) {
-                    $creditmemoItem->setBackToStock(Mage::helper('cataloginventory')->isAutoReturnEnabled());
-                } else {
-                    $creditmemoItem->setBackToStock(false);
-                }
-            }
-        }
-
-        $args = ['creditmemo' => $creditmemo, 'request' => $this->getRequest()];
-        Mage::dispatchEvent('adminhtml_sales_order_creditmemo_register_before', $args);
-
-        Mage::register('current_creditmemo', $creditmemo);
-        return $creditmemo;
-    }
-
-    /**
-     * Save creditmemo and related order, invoice in one transaction
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return $this
-     * @throws Exception
-     */
-    protected function _saveCreditmemo($creditmemo)
-    {
-        $transactionSave = Mage::getModel('core/resource_transaction')
-            ->addObject($creditmemo)
-            ->addObject($creditmemo->getOrder());
-        if ($creditmemo->getInvoice()) {
-            $transactionSave->addObject($creditmemo->getInvoice());
-        }
-        $transactionSave->save();
-
-        return $this;
-    }
-
-    /**
      * creditmemo information page
      */
     public function viewAction()
@@ -404,6 +255,163 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     }
 
     /**
+     * Create pdf for current creditmemo
+     */
+    public function printAction()
+    {
+        $this->_initCreditmemo();
+        parent::printAction();
+    }
+    /**
+     * Get requested items qtys and return to stock flags
+     */
+    protected function _getItemData()
+    {
+        $data = $this->getRequest()->getParam('creditmemo');
+        if (!$data) {
+            $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
+        }
+        return $data['items'] ?? [];
+    }
+
+    /**
+     * Check if creditmeno can be created for order
+     * @param Mage_Sales_Model_Order $order
+     * @return bool
+     */
+    protected function _canCreditmemo($order)
+    {
+        /**
+         * Check order existing
+         */
+        if (!$order->getId()) {
+            $this->_getSession()->addError($this->__('The order no longer exists.'));
+            return false;
+        }
+
+        /**
+         * Check creditmemo create availability
+         */
+        if (!$order->canCreditmemo()) {
+            $this->_getSession()->addError($this->__('Cannot create credit memo for the order.'));
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Initialize requested invoice instance
+     * @param Mage_Sales_Model_Order $order
+     * @return false|Mage_Sales_Model_Order_Invoice
+     */
+    protected function _initInvoice($order)
+    {
+        $invoiceId = $this->getRequest()->getParam('invoice_id');
+        if ($invoiceId) {
+            $invoice = Mage::getModel('sales/order_invoice')
+                ->load($invoiceId)
+                ->setOrder($order);
+            if ($invoice->getId()) {
+                return $invoice;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Initialize creditmemo model instance
+     *
+     * @return Mage_Sales_Model_Order_Creditmemo|false
+     * @throws Mage_Core_Exception
+     */
+    protected function _initCreditmemo($update = false)
+    {
+        $this->_title($this->__('Sales'))->_title($this->__('Credit Memos'));
+
+        $creditmemo = false;
+        $creditmemoId = $this->getRequest()->getParam('creditmemo_id');
+        $orderId = $this->getRequest()->getParam('order_id');
+        if ($creditmemoId) {
+            $creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId);
+            if (!$creditmemo->getId()) {
+                $this->_getSession()->addError($this->__('The credit memo no longer exists.'));
+                return false;
+            }
+        } elseif ($orderId) {
+            $data   = $this->getRequest()->getParam('creditmemo');
+            $order  = Mage::getModel('sales/order')->load($orderId);
+            $invoice = $this->_initInvoice($order);
+
+            if (!$this->_canCreditmemo($order)) {
+                return false;
+            }
+
+            $savedData = $this->_getItemData();
+
+            $qtys = [];
+            $backToStock = [];
+            foreach ($savedData as $orderItemId => $itemData) {
+                if (isset($itemData['qty'])) {
+                    $qtys[$orderItemId] = $itemData['qty'];
+                }
+                if (isset($itemData['back_to_stock'])) {
+                    $backToStock[$orderItemId] = true;
+                }
+            }
+            $data['qtys'] = $qtys;
+
+            $service = Mage::getModel('sales/service_order', $order);
+            if ($invoice) {
+                $creditmemo = $service->prepareInvoiceCreditmemo($invoice, $data);
+            } else {
+                $creditmemo = $service->prepareCreditmemo($data);
+            }
+
+            /**
+             * Process back to stock flags
+             */
+            foreach ($creditmemo->getAllItems() as $creditmemoItem) {
+                $orderItem = $creditmemoItem->getOrderItem();
+                $parentId = $orderItem->getParentItemId();
+                if (isset($backToStock[$orderItem->getId()])) {
+                    $creditmemoItem->setBackToStock(true);
+                } elseif ($orderItem->getParentItem() && isset($backToStock[$parentId]) && $backToStock[$parentId]) {
+                    $creditmemoItem->setBackToStock(true);
+                } elseif (empty($savedData)) {
+                    $creditmemoItem->setBackToStock(Mage::helper('cataloginventory')->isAutoReturnEnabled());
+                } else {
+                    $creditmemoItem->setBackToStock(false);
+                }
+            }
+        }
+
+        $args = ['creditmemo' => $creditmemo, 'request' => $this->getRequest()];
+        Mage::dispatchEvent('adminhtml_sales_order_creditmemo_register_before', $args);
+
+        Mage::register('current_creditmemo', $creditmemo);
+        return $creditmemo;
+    }
+
+    /**
+     * Save creditmemo and related order, invoice in one transaction
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return $this
+     * @throws Exception
+     */
+    protected function _saveCreditmemo($creditmemo)
+    {
+        $transactionSave = Mage::getModel('core/resource_transaction')
+            ->addObject($creditmemo)
+            ->addObject($creditmemo->getOrder());
+        if ($creditmemo->getInvoice()) {
+            $transactionSave->addObject($creditmemo->getInvoice());
+        }
+        $transactionSave->save();
+
+        return $this;
+    }
+
+    /**
      * Decides if we need to create dummy invoice item or not
      * for example we don't need create dummy parent if all
      * children are not in process
@@ -438,14 +446,5 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         }
 
         return false;
-    }
-
-    /**
-     * Create pdf for current creditmemo
-     */
-    public function printAction()
-    {
-        $this->_initCreditmemo();
-        parent::printAction();
     }
 }

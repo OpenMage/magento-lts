@@ -25,13 +25,6 @@
  */
 class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTagName('link');
-        $this->setTagParams(['rel' => 'stylesheet', 'type' => 'text/css', 'media' => 'all']);
-    }
-
     /**
      * @param string $href
      * @param string|null $type
@@ -46,5 +39,11 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
         $url = Mage::getBaseUrl($type) . $href;
 
         return $this->setTagParam('href', $url);
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTagName('link');
+        $this->setTagParams(['rel' => 'stylesheet', 'type' => 'text/css', 'media' => 'all']);
     }
 }

@@ -29,11 +29,6 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      */
     public const TAX_RULES_CHUNK_SIZE = 1000;
 
-    protected function _construct()
-    {
-        $this->_init('tax/calculation_rate');
-    }
-
     /**
      * Join country table to result
      *
@@ -181,5 +176,10 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
         } while ($this->getSize() > $offset);
 
         return $rates;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('tax/calculation_rate');
     }
 }

@@ -63,38 +63,6 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      */
     protected $_productCollection;
 
-    protected function _construct()
-    {
-        $this->_getEngine();
-        $this->_init('catalogsearch/advanced');
-    }
-
-    /**
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Engine|object
-     */
-    protected function _getEngine()
-    {
-        if ($this->_engine == null) {
-            $this->_engine = Mage::helper('catalogsearch')->getEngine();
-        }
-
-        return $this->_engine;
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        $resourceName = $this->_engine->getResourceName();
-        if ($resourceName) {
-            $this->_resourceName = $resourceName;
-        }
-        return parent::_getResource();
-    }
-
     /**
      * Retrieve array of attributes used in advanced search
      *
@@ -118,20 +86,6 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             $this->setData('attributes', $attributes);
         }
         return $attributes;
-    }
-
-    /**
-     * Prepare search condition for attribute
-     *
-     * @deprecated after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()
-     *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
-     * @return mixed
-     */
-    protected function _prepareCondition($attribute, $value)
-    {
-        return $this->_getResource()->prepareCondition($attribute, $value, $this->getProductCollection());
     }
 
     /**
@@ -217,6 +171,103 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Returns prepared search criteria in text
+     *
+     * @return array
+     */
+    public function getSearchCriterias()
+    {
+        return $this->_searchCriterias;
+    }
+
+    /**
+     * Retrieve advanced search product collection
+     *
+     * @return Mage_CatalogSearch_Model_Resource_Advanced_Collection
+     */
+    public function getProductCollection()
+    {
+        if (is_null($this->_productCollection)) {
+            $collection = $this->_engine->getAdvancedResultCollection();
+            $this->prepareProductCollection($collection);
+            if (!$collection) {
+                return $collection;
+            }
+            $this->_productCollection = $collection;
+        }
+
+        return $this->_productCollection;
+    }
+
+    /**
+     * Prepare product collection
+     *
+     * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function prepareProductCollection($collection)
+    {
+        $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            ->setStore(Mage::app()->getStore())
+            ->addMinimalPrice()
+            ->addTaxPercents()
+            ->addStoreFilter()
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
+            ]);
+        Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
+
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_getEngine();
+        $this->_init('catalogsearch/advanced');
+    }
+
+    /**
+     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Engine|object
+     */
+    protected function _getEngine()
+    {
+        if ($this->_engine == null) {
+            $this->_engine = Mage::helper('catalogsearch')->getEngine();
+        }
+
+        return $this->_engine;
+    }
+
+    /**
+     * Retrieve resource instance wrapper
+     *
+     * @inheritDoc
+     */
+    protected function _getResource()
+    {
+        $resourceName = $this->_engine->getResourceName();
+        if ($resourceName) {
+            $this->_resourceName = $resourceName;
+        }
+        return parent::_getResource();
+    }
+
+    /**
+     * Prepare search condition for attribute
+     *
+     * @deprecated after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()
+     *
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param string|array $value
+     * @return mixed
+     */
+    protected function _prepareCondition($attribute, $value)
+    {
+        return $this->_getResource()->prepareCondition($attribute, $value, $this->getProductCollection());
+    }
+
+    /**
      * Add data about search criteria to object state
      *
      * @param   Mage_Eav_Model_Entity_Attribute $attribute
@@ -280,57 +331,6 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
         }
 
         $this->_searchCriterias[] = ['name' => $name, 'value' => $value];
-        return $this;
-    }
-
-    /**
-     * Returns prepared search criteria in text
-     *
-     * @return array
-     */
-    public function getSearchCriterias()
-    {
-        return $this->_searchCriterias;
-    }
-
-    /**
-     * Retrieve advanced search product collection
-     *
-     * @return Mage_CatalogSearch_Model_Resource_Advanced_Collection
-     */
-    public function getProductCollection()
-    {
-        if (is_null($this->_productCollection)) {
-            $collection = $this->_engine->getAdvancedResultCollection();
-            $this->prepareProductCollection($collection);
-            if (!$collection) {
-                return $collection;
-            }
-            $this->_productCollection = $collection;
-        }
-
-        return $this->_productCollection;
-    }
-
-    /**
-     * Prepare product collection
-     *
-     * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
-     * @return $this
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    public function prepareProductCollection($collection)
-    {
-        $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->setStore(Mage::app()->getStore())
-            ->addMinimalPrice()
-            ->addTaxPercents()
-            ->addStoreFilter()
-            ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
-            ]);
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
-
         return $this;
     }
 }

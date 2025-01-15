@@ -61,6 +61,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     }
 
     /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/loadBlock', ['block' => 'search_grid', '_current' => true, 'collapse' => null]);
+    }
+
+    /**
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      * @throws Exception
@@ -165,14 +173,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/loadBlock', ['block' => 'search_grid', '_current' => true, 'collapse' => null]);
     }
 
     /**

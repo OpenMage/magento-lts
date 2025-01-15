@@ -214,20 +214,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Initialize action
-     *
-     * @return Mage_Adminhtml_Controller_Action
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('sales/tax/rates')
-            ->_addBreadcrumb(Mage::helper('tax')->__('Sales'), Mage::helper('tax')->__('Sales'))
-            ->_addBreadcrumb(Mage::helper('tax')->__('Tax'), Mage::helper('tax')->__('Tax'));
-        return $this;
-    }
-
-    /**
      * Import and export Page
      *
      */
@@ -266,6 +252,86 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
         }
         $this->_redirect('*/*/importExport');
+    }
+
+    /**
+     * export action from import/export tax
+     *
+     */
+    public function exportPostAction()
+    {
+        /** start csv content and set template */
+        $headers = new Varien_Object([
+            'code'         => Mage::helper('tax')->__('Code'),
+            'country_name' => Mage::helper('tax')->__('Country'),
+            'region_name'  => Mage::helper('tax')->__('State'),
+            'tax_postcode' => Mage::helper('tax')->__('Zip/Post Code'),
+            'rate'         => Mage::helper('tax')->__('Rate'),
+            'zip_is_range' => Mage::helper('tax')->__('Zip/Post is Range'),
+            'zip_from'     => Mage::helper('tax')->__('Range From'),
+            'zip_to'       => Mage::helper('tax')->__('Range To'),
+        ]);
+        $template = '"{{code}}","{{country_name}}","{{region_name}}","{{tax_postcode}}","{{rate}}"'
+                . ',"{{zip_is_range}}","{{zip_from}}","{{zip_to}}"';
+        $content = $headers->toString($template);
+
+        $storeTaxTitleTemplate       = [];
+        $taxCalculationRateTitleDict = [];
+
+        foreach (Mage::getModel('core/store')->getCollection()->setLoadDefault(false) as $store) {
+            $storeTitle = 'title_' . $store->getId();
+            $content   .= ',"' . $store->getCode() . '"';
+            $template  .= ',"{{' . $storeTitle . '}}"';
+            $storeTaxTitleTemplate[$storeTitle] = null;
+        }
+        unset($store);
+
+        $content .= "\n";
+
+        foreach (Mage::getModel('tax/calculation_rate_title')->getCollection() as $title) {
+            $rateId = $title->getTaxCalculationRateId();
+
+            if (!array_key_exists($rateId, $taxCalculationRateTitleDict)) {
+                $taxCalculationRateTitleDict[$rateId] = $storeTaxTitleTemplate;
+            }
+
+            $taxCalculationRateTitleDict[$rateId]['title_' . $title->getStoreId()] = $title->getValue();
+        }
+        unset($title);
+
+        $collection = Mage::getResourceModel('tax/calculation_rate_collection')
+            ->joinCountryTable()
+            ->joinRegionTable();
+
+        while ($rate = $collection->fetchItem()) {
+            if ($rate->getTaxRegionId() == 0) {
+                $rate->setRegionName('*');
+            }
+
+            if (array_key_exists($rate->getId(), $taxCalculationRateTitleDict)) {
+                $rate->addData($taxCalculationRateTitleDict[$rate->getId()]);
+            } else {
+                $rate->addData($storeTaxTitleTemplate);
+            }
+
+            $content .= $rate->toString($template) . "\n";
+        }
+
+        $this->_prepareDownloadResponse('tax_rates.csv', $content);
+    }
+
+    /**
+     * Initialize action
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('sales/tax/rates')
+            ->_addBreadcrumb(Mage::helper('tax')->__('Sales'), Mage::helper('tax')->__('Sales'))
+            ->_addBreadcrumb(Mage::helper('tax')->__('Tax'), Mage::helper('tax')->__('Tax'));
+        return $this;
     }
 
     /**
@@ -388,72 +454,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         } else {
             Mage::throwException(Mage::helper('tax')->__('Invalid file format upload attempt'));
         }
-    }
-
-    /**
-     * export action from import/export tax
-     *
-     */
-    public function exportPostAction()
-    {
-        /** start csv content and set template */
-        $headers = new Varien_Object([
-            'code'         => Mage::helper('tax')->__('Code'),
-            'country_name' => Mage::helper('tax')->__('Country'),
-            'region_name'  => Mage::helper('tax')->__('State'),
-            'tax_postcode' => Mage::helper('tax')->__('Zip/Post Code'),
-            'rate'         => Mage::helper('tax')->__('Rate'),
-            'zip_is_range' => Mage::helper('tax')->__('Zip/Post is Range'),
-            'zip_from'     => Mage::helper('tax')->__('Range From'),
-            'zip_to'       => Mage::helper('tax')->__('Range To'),
-        ]);
-        $template = '"{{code}}","{{country_name}}","{{region_name}}","{{tax_postcode}}","{{rate}}"'
-                . ',"{{zip_is_range}}","{{zip_from}}","{{zip_to}}"';
-        $content = $headers->toString($template);
-
-        $storeTaxTitleTemplate       = [];
-        $taxCalculationRateTitleDict = [];
-
-        foreach (Mage::getModel('core/store')->getCollection()->setLoadDefault(false) as $store) {
-            $storeTitle = 'title_' . $store->getId();
-            $content   .= ',"' . $store->getCode() . '"';
-            $template  .= ',"{{' . $storeTitle . '}}"';
-            $storeTaxTitleTemplate[$storeTitle] = null;
-        }
-        unset($store);
-
-        $content .= "\n";
-
-        foreach (Mage::getModel('tax/calculation_rate_title')->getCollection() as $title) {
-            $rateId = $title->getTaxCalculationRateId();
-
-            if (!array_key_exists($rateId, $taxCalculationRateTitleDict)) {
-                $taxCalculationRateTitleDict[$rateId] = $storeTaxTitleTemplate;
-            }
-
-            $taxCalculationRateTitleDict[$rateId]['title_' . $title->getStoreId()] = $title->getValue();
-        }
-        unset($title);
-
-        $collection = Mage::getResourceModel('tax/calculation_rate_collection')
-            ->joinCountryTable()
-            ->joinRegionTable();
-
-        while ($rate = $collection->fetchItem()) {
-            if ($rate->getTaxRegionId() == 0) {
-                $rate->setRegionName('*');
-            }
-
-            if (array_key_exists($rate->getId(), $taxCalculationRateTitleDict)) {
-                $rate->addData($taxCalculationRateTitleDict[$rate->getId()]);
-            } else {
-                $rate->addData($storeTaxTitleTemplate);
-            }
-
-            $content .= $rate->toString($template) . "\n";
-        }
-
-        $this->_prepareDownloadResponse('tax_rates.csv', $content);
     }
 
     /**

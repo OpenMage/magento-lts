@@ -24,15 +24,6 @@
  */
 class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('eav/form_type', 'type_id');
-        $this->addUniqueField([
-            'field' => ['code', 'theme', 'store_id'],
-            'title' => Mage::helper('eav')->__('Form Type with the same code'),
-        ]);
-    }
-
     /**
      * Load an object
      *
@@ -66,6 +57,36 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
             ->where('type_id = :type_id');
 
         return $adapter->fetchCol($select, $bind);
+    }
+
+    /**
+     * Retrieve form type filtered by given attribute
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|int $attribute
+     * @return array
+     */
+    public function getFormTypesByAttribute($attribute)
+    {
+        if ($attribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract) {
+            $attribute = $attribute->getId();
+        }
+        if (!$attribute) {
+            return [];
+        }
+        $bind   = [':attribute_id' => $attribute];
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('eav/form_element'))
+            ->where('attribute_id = :attribute_id');
+
+        return $this->_getReadAdapter()->fetchAll($select, $bind);
+    }
+    protected function _construct()
+    {
+        $this->_init('eav/form_type', 'type_id');
+        $this->addUniqueField([
+            'field' => ['code', 'theme', 'store_id'],
+            'title' => Mage::helper('eav')->__('Form Type with the same code'),
+        ]);
     }
 
     /**
@@ -113,27 +134,5 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
         }
 
         return parent::_afterSave($object);
-    }
-
-    /**
-     * Retrieve form type filtered by given attribute
-     *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|int $attribute
-     * @return array
-     */
-    public function getFormTypesByAttribute($attribute)
-    {
-        if ($attribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract) {
-            $attribute = $attribute->getId();
-        }
-        if (!$attribute) {
-            return [];
-        }
-        $bind   = [':attribute_id' => $attribute];
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('eav/form_element'))
-            ->where('attribute_id = :attribute_id');
-
-        return $this->_getReadAdapter()->fetchAll($select, $bind);
     }
 }

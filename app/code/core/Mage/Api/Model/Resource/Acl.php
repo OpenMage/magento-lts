@@ -23,15 +23,6 @@
 class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize resource connections
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('api/role', 'role_id');
-    }
-
-    /**
      * Load ACL for the user
      *
      * @return Mage_Api_Model_Acl
@@ -121,5 +112,13 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             }
         }
         return $this;
+    }
+    /**
+     * Initialize resource connections
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('api/role', 'role_id');
     }
 }

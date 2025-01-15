@@ -33,79 +33,6 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     protected $_rates;
 
     /**
-     * Error message when duplicates
-     *
-     * @abstract
-     * @return string
-     */
-    abstract protected function _getDuplicateErrorMessage();
-
-    /**
-     * Retrieve websites currency rates and base currency codes
-     *
-     * @param int|null $websiteId
-     * @return array
-     */
-    protected function _getWebsiteCurrencyRates($websiteId = null)
-    {
-        if (is_null($this->_rates)) {
-            $this->_rates = [];
-            $baseCurrency = Mage::app()->getBaseCurrencyCode();
-
-            if (is_numeric($websiteId)) {
-                $website = Mage::app()->getWebsite($websiteId);
-                $websites = [$website];
-            } else {
-                $websites = Mage::app()->getWebsites();
-            }
-
-            foreach ($websites as $website) {
-                /** @var Mage_Core_Model_Website $website */
-                if ($website->getBaseCurrencyCode() != $baseCurrency) {
-                    $rate = Mage::getModel('directory/currency')
-                        ->load($baseCurrency)
-                        ->getRate($website->getBaseCurrencyCode());
-                    if (!$rate) {
-                        $rate = 1;
-                    }
-                    $this->_rates[$website->getId()] = [
-                        'code' => $website->getBaseCurrencyCode(),
-                        'rate' => $rate,
-                    ];
-                } else {
-                    $this->_rates[$website->getId()] = [
-                        'code' => $baseCurrency,
-                        'rate' => 1,
-                    ];
-                }
-            }
-        }
-        return $this->_rates;
-    }
-
-    /**
-     * Get additional unique fields
-     *
-     * @param array $objectArray
-     * @return array
-     */
-    protected function _getAdditionalUniqueFields($objectArray)
-    {
-        return [];
-    }
-
-    /**
-     * Whether group price value fixed or percent of original price
-     *
-     * @param Mage_Catalog_Model_Product_Type_Price $priceObject
-     * @return bool
-     */
-    protected function _isPriceFixed($priceObject)
-    {
-        return $priceObject->isGroupPriceFixed();
-    }
-
-    /**
      * Validate group price data
      *
      * @param Mage_Catalog_Model_Product $object
@@ -366,5 +293,78 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         }
 
         return $this;
+    }
+
+    /**
+     * Error message when duplicates
+     *
+     * @abstract
+     * @return string
+     */
+    abstract protected function _getDuplicateErrorMessage();
+
+    /**
+     * Retrieve websites currency rates and base currency codes
+     *
+     * @param int|null $websiteId
+     * @return array
+     */
+    protected function _getWebsiteCurrencyRates($websiteId = null)
+    {
+        if (is_null($this->_rates)) {
+            $this->_rates = [];
+            $baseCurrency = Mage::app()->getBaseCurrencyCode();
+
+            if (is_numeric($websiteId)) {
+                $website = Mage::app()->getWebsite($websiteId);
+                $websites = [$website];
+            } else {
+                $websites = Mage::app()->getWebsites();
+            }
+
+            foreach ($websites as $website) {
+                /** @var Mage_Core_Model_Website $website */
+                if ($website->getBaseCurrencyCode() != $baseCurrency) {
+                    $rate = Mage::getModel('directory/currency')
+                        ->load($baseCurrency)
+                        ->getRate($website->getBaseCurrencyCode());
+                    if (!$rate) {
+                        $rate = 1;
+                    }
+                    $this->_rates[$website->getId()] = [
+                        'code' => $website->getBaseCurrencyCode(),
+                        'rate' => $rate,
+                    ];
+                } else {
+                    $this->_rates[$website->getId()] = [
+                        'code' => $baseCurrency,
+                        'rate' => 1,
+                    ];
+                }
+            }
+        }
+        return $this->_rates;
+    }
+
+    /**
+     * Get additional unique fields
+     *
+     * @param array $objectArray
+     * @return array
+     */
+    protected function _getAdditionalUniqueFields($objectArray)
+    {
+        return [];
+    }
+
+    /**
+     * Whether group price value fixed or percent of original price
+     *
+     * @param Mage_Catalog_Model_Product_Type_Price $priceObject
+     * @return bool
+     */
+    protected function _isPriceFixed($priceObject)
+    {
+        return $priceObject->isGroupPriceFixed();
     }
 }

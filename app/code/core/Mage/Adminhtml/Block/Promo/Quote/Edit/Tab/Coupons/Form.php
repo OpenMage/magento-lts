@@ -23,6 +23,15 @@
 class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
+     * Retrieve URL to Generate Action
+     *
+     * @return string
+     */
+    public function getGenerateUrl()
+    {
+        return $this->getUrl('*/*/generate');
+    }
+    /**
      * Prepare coupon codes generation parameters form
      *
      * @return Mage_Adminhtml_Block_Widget_Form
@@ -120,15 +129,5 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Form extends Mage_Adminh
         Mage::dispatchEvent('adminhtml_promo_quote_edit_tab_coupons_form_prepare_form', ['form' => $form]);
 
         return parent::_prepareForm();
-    }
-
-    /**
-     * Retrieve URL to Generate Action
-     *
-     * @return string
-     */
-    public function getGenerateUrl()
-    {
-        return $this->getUrl('*/*/generate');
     }
 }

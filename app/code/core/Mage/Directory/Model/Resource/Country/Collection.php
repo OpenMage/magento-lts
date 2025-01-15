@@ -26,23 +26,6 @@
  */
 class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('directory/country');
-    }
-
-    /**
-     * Get Store Config
-     *
-     * @param string $path
-     * @param mixed|null $store
-     * @return string
-     */
-    protected function _getStoreConfig($path, $store = null)
-    {
-        return Mage::getStoreConfig($path, $store);
-    }
-
     /**
      * Load allowed countries for specific store
      *
@@ -162,5 +145,21 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
         }
 
         return $options;
+    }
+    protected function _construct()
+    {
+        $this->_init('directory/country');
+    }
+
+    /**
+     * Get Store Config
+     *
+     * @param string $path
+     * @param mixed|null $store
+     * @return string
+     */
+    protected function _getStoreConfig($path, $store = null)
+    {
+        return Mage::getStoreConfig($path, $store);
     }
 }

@@ -58,6 +58,82 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     protected $_decimalFilterBlockName;
 
     /**
+     * Get layer object
+     *
+     * @return Mage_Catalog_Model_Layer
+     */
+    public function getLayer()
+    {
+        return Mage::getSingleton('catalog/layer');
+    }
+
+    /**
+     * Get layered navigation state html
+     *
+     * @return string
+     */
+    public function getStateHtml()
+    {
+        return $this->getChildHtml('layer_state');
+    }
+
+    /**
+     * Get all layer filters
+     *
+     * @return array
+     */
+    public function getFilters()
+    {
+        $filters = [];
+        if ($categoryFilter = $this->_getCategoryFilter()) {
+            $filters[] = $categoryFilter;
+        }
+
+        $filterableAttributes = $this->_getFilterableAttributes();
+        foreach ($filterableAttributes as $attribute) {
+            $filters[] = $this->getChild($attribute->getAttributeCode() . '_filter');
+        }
+
+        return $filters;
+    }
+
+    /**
+     * Check availability display layer options
+     *
+     * @return bool
+     */
+    public function canShowOptions()
+    {
+        foreach ($this->getFilters() as $filter) {
+            if ($filter->getItemsCount()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check availability display layer block
+     *
+     * @return bool
+     */
+    public function canShowBlock()
+    {
+        return $this->canShowOptions() || count($this->getLayer()->getState()->getFilters());
+    }
+
+    /**
+     * Get url for 'Clear All' link
+     *
+     * @return string
+     */
+    public function getClearUrl()
+    {
+        return $this->getChild('layer_state')->getClearUrl();
+    }
+
+    /**
      * Internal constructor
      */
     protected function _construct()
@@ -133,16 +209,6 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     }
 
     /**
-     * Get layer object
-     *
-     * @return Mage_Catalog_Model_Layer
-     */
-    public function getLayer()
-    {
-        return Mage::getSingleton('catalog/layer');
-    }
-
-    /**
      * Get all fiterable attributes of current category
      *
      * @return array
@@ -159,36 +225,6 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     }
 
     /**
-     * Get layered navigation state html
-     *
-     * @return string
-     */
-    public function getStateHtml()
-    {
-        return $this->getChildHtml('layer_state');
-    }
-
-    /**
-     * Get all layer filters
-     *
-     * @return array
-     */
-    public function getFilters()
-    {
-        $filters = [];
-        if ($categoryFilter = $this->_getCategoryFilter()) {
-            $filters[] = $categoryFilter;
-        }
-
-        $filterableAttributes = $this->_getFilterableAttributes();
-        foreach ($filterableAttributes as $attribute) {
-            $filters[] = $this->getChild($attribute->getAttributeCode() . '_filter');
-        }
-
-        return $filters;
-    }
-
-    /**
      * Get category filter block
      *
      * @return Mage_Catalog_Block_Layer_Filter_Category
@@ -199,32 +235,6 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     }
 
     /**
-     * Check availability display layer options
-     *
-     * @return bool
-     */
-    public function canShowOptions()
-    {
-        foreach ($this->getFilters() as $filter) {
-            if ($filter->getItemsCount()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Check availability display layer block
-     *
-     * @return bool
-     */
-    public function canShowBlock()
-    {
-        return $this->canShowOptions() || count($this->getLayer()->getState()->getFilters());
-    }
-
-    /**
      * Retrieve Price Filter block
      *
      * @return Mage_Catalog_Block_Layer_Filter_Price
@@ -232,15 +242,5 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     protected function _getPriceFilter()
     {
         return $this->getChild('_price_filter');
-    }
-
-    /**
-     * Get url for 'Clear All' link
-     *
-     * @return string
-     */
-    public function getClearUrl()
-    {
-        return $this->getChild('layer_state')->getClearUrl();
     }
 }

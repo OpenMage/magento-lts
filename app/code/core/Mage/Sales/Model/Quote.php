@@ -179,6 +179,12 @@
  */
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 {
+    /**
+     * @deprecated after 1.4 beta1 - one page checkout responsibility
+     */
+    public const CHECKOUT_METHOD_REGISTER  = 'register';
+    public const CHECKOUT_METHOD_GUEST     = 'guest';
+    public const CHECKOUT_METHOD_LOGIN_IN  = 'login_in';
     protected $_eventPrefix = 'sales_quote';
     protected $_eventObject = 'quote';
 
@@ -234,25 +240,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected $_preventSaving = false;
 
     /**
-     * Init resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/quote');
-    }
-
-    /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return Varien_Object
-     */
-    protected function _initOldFieldsMap()
-    {
-        return $this;
-    }
-
-    /**
      * Get quote store identifier
      *
      * @return int
@@ -303,87 +290,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             return $this->getStore()->getWebsite()->getStoreIds();
         }
         return $ids;
-    }
-
-    /**
-     * @inheritDoc
-     * @throws Mage_Core_Exception
-     */
-    protected function _beforeSave()
-    {
-        /**
-         * Currency logic
-         *
-         * global - currency which is set for default in backend
-         * base - currency which is set for current website. all attributes that
-         *      have 'base_' prefix saved in this currency
-         * store - all the time it was currency of website and all attributes
-         *      with 'base_' were saved in this currency. From now on it is
-         *      deprecated and will be duplication of base currency code.
-         * quote/order - currency which was selected by customer or configured by
-         *      admin for current store. currency in which customer sees
-         *      price thought all checkout.
-         *
-         * Rates:
-         *      store_to_base & store_to_quote/store_to_order - are deprecated
-         *      base_to_global & base_to_quote/base_to_order - must be used instead
-         */
-
-        $globalCurrencyCode  = Mage::app()->getBaseCurrencyCode();
-        $baseCurrency = $this->getStore()->getBaseCurrency();
-
-        if ($this->hasForcedCurrency()) {
-            $quoteCurrency = $this->getForcedCurrency();
-        } else {
-            $quoteCurrency = $this->getStore()->getCurrentCurrency();
-        }
-
-        $this->setGlobalCurrencyCode($globalCurrencyCode);
-        $this->setBaseCurrencyCode($baseCurrency->getCode());
-        $this->setStoreCurrencyCode($baseCurrency->getCode());
-        $this->setQuoteCurrencyCode($quoteCurrency->getCode());
-
-        //deprecated, read above
-        $this->setStoreToBaseRate($baseCurrency->getRate($globalCurrencyCode));
-        $this->setStoreToQuoteRate($baseCurrency->getRate($quoteCurrency));
-
-        $this->setBaseToGlobalRate($baseCurrency->getRate($globalCurrencyCode));
-        $this->setBaseToQuoteRate($baseCurrency->getRate($quoteCurrency));
-
-        if (!$this->hasChangedFlag() || $this->getChangedFlag() == true) {
-            $this->setIsChanged(1);
-        } else {
-            $this->setIsChanged(0);
-        }
-
-        if ($this->_customer) {
-            $this->setCustomerId($this->_customer->getId());
-        }
-
-        return parent::_beforeSave();
-    }
-
-    /**
-     * Save related items
-     *
-     * @return $this
-     */
-    protected function _afterSave()
-    {
-        parent::_afterSave();
-
-        if ($this->_addresses !== null) {
-            $this->getAddressesCollection()->save();
-        }
-
-        if ($this->_items !== null) {
-            $this->getItemsCollection()->save();
-        }
-
-        if ($this->_payments !== null) {
-            $this->getPaymentsCollection()->save();
-        }
-        return $this;
     }
 
     /**
@@ -569,25 +475,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         }
         return $this->_addresses;
-    }
-
-    /**
-     * Retrieve quote address by type
-     *
-     * @param   string $type
-     * @return  Mage_Sales_Model_Quote_Address
-     */
-    protected function _getAddressByType($type)
-    {
-        foreach ($this->getAddressesCollection() as $address) {
-            if ($address->getAddressType() == $type && !$address->isDeleted()) {
-                return $address;
-            }
-        }
-
-        $address = Mage::getModel('sales/quote_address')->setAddressType($type);
-        $this->addAddress($address);
-        return $address;
     }
 
     /**
@@ -1117,46 +1004,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Adding catalog product object data to quote
-     *
-     * @param int $qty
-     * @return  Mage_Sales_Model_Quote_Item
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
-    {
-        $newItem = false;
-        $item = $this->getItemByProduct($product);
-        if (!$item) {
-            $item = Mage::getModel('sales/quote_item');
-            $item->setQuote($this);
-            if (Mage::app()->getStore()->isAdmin()) {
-                $item->setStoreId($this->getStore()->getId());
-            } else {
-                $item->setStoreId(Mage::app()->getStore()->getId());
-            }
-            $newItem = true;
-        }
-
-        /**
-         * We can't modify existing child items
-         */
-        if ($item->getId() && $product->getParentProductId()) {
-            return $item;
-        }
-
-        $item->setOptions($product->getCustomOptions())
-            ->setProduct($product);
-
-        // Add only item that is not in quote already (there can be other new or already saved item
-        if ($newItem) {
-            $this->addItem($item);
-        }
-
-        return $item;
-    }
-
-    /**
      * Updates quote item with new configuration
      *
      * $params sets how current item configuration must be taken into account and additional options.
@@ -1575,17 +1422,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      * Sets flag, whether this quote has some error associated with it.
-     *
-     * @param bool $flag
-     * @return $this
-     */
-    protected function _setHasError($flag)
-    {
-        return $this->setData('has_error', $flag);
-    }
-
-    /**
-     * Sets flag, whether this quote has some error associated with it.
      * When TRUE - also adds 'unknown' error information to list of quote errors.
      * When FALSE - clears whole list of quote errors.
      * It's recommended to use addErrorInfo() instead - to be able to remove error statuses later.
@@ -1601,19 +1437,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } else {
             $this->_clearErrorInfo();
         }
-        return $this;
-    }
-
-    /**
-     * Clears list of errors, associated with this quote.
-     * Also automatically removes error-flag from oneself.
-     *
-     * @return $this
-     */
-    protected function _clearErrorInfo()
-    {
-        $this->_errorInfoGroups = [];
-        $this->_setHasError(false);
         return $this;
     }
 
@@ -1975,51 +1798,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return $this
-     */
-    protected function _validateCouponCode()
-    {
-        $code = $this->getCouponCode();
-        if (strlen($code)) {
-            $addressHasCoupon = false;
-            $addresses = $this->getAllAddresses();
-            if (count($addresses) > 0) {
-                foreach ($addresses as $address) {
-                    if ($address->hasCouponCode()) {
-                        $addressHasCoupon = true;
-                    }
-                }
-                if (!$addressHasCoupon) {
-                    $this->setCouponCode('');
-                }
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Trigger collect totals after loading, if required
-     *
-     * @inheritDoc
-     */
-    protected function _afterLoad()
-    {
-        // collect totals and save me, if required
-        if ($this->getData('trigger_recollect') == 1) {
-            $this->setTriggerRecollect(0)->getResource()->save($this);
-            $this->collectTotals()->save();
-        }
-        return parent::_afterLoad();
-    }
-
-    /**
-     * @deprecated after 1.4 beta1 - one page checkout responsibility
-     */
-    public const CHECKOUT_METHOD_REGISTER  = 'register';
-    public const CHECKOUT_METHOD_GUEST     = 'guest';
-    public const CHECKOUT_METHOD_LOGIN_IN  = 'login_in';
-
-    /**
      * Return quote checkout method code
      *
      * @deprecated after 1.4 beta1 it is checkout module responsibility
@@ -2080,5 +1858,226 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function setCouponCode(?string $couponCode)
     {
         return $this->setData('coupon_code', $couponCode);
+    }
+
+    /**
+     * Init resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/quote');
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return Varien_Object
+     */
+    protected function _initOldFieldsMap()
+    {
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
+    protected function _beforeSave()
+    {
+        /**
+         * Currency logic
+         *
+         * global - currency which is set for default in backend
+         * base - currency which is set for current website. all attributes that
+         *      have 'base_' prefix saved in this currency
+         * store - all the time it was currency of website and all attributes
+         *      with 'base_' were saved in this currency. From now on it is
+         *      deprecated and will be duplication of base currency code.
+         * quote/order - currency which was selected by customer or configured by
+         *      admin for current store. currency in which customer sees
+         *      price thought all checkout.
+         *
+         * Rates:
+         *      store_to_base & store_to_quote/store_to_order - are deprecated
+         *      base_to_global & base_to_quote/base_to_order - must be used instead
+         */
+
+        $globalCurrencyCode  = Mage::app()->getBaseCurrencyCode();
+        $baseCurrency = $this->getStore()->getBaseCurrency();
+
+        if ($this->hasForcedCurrency()) {
+            $quoteCurrency = $this->getForcedCurrency();
+        } else {
+            $quoteCurrency = $this->getStore()->getCurrentCurrency();
+        }
+
+        $this->setGlobalCurrencyCode($globalCurrencyCode);
+        $this->setBaseCurrencyCode($baseCurrency->getCode());
+        $this->setStoreCurrencyCode($baseCurrency->getCode());
+        $this->setQuoteCurrencyCode($quoteCurrency->getCode());
+
+        //deprecated, read above
+        $this->setStoreToBaseRate($baseCurrency->getRate($globalCurrencyCode));
+        $this->setStoreToQuoteRate($baseCurrency->getRate($quoteCurrency));
+
+        $this->setBaseToGlobalRate($baseCurrency->getRate($globalCurrencyCode));
+        $this->setBaseToQuoteRate($baseCurrency->getRate($quoteCurrency));
+
+        if (!$this->hasChangedFlag() || $this->getChangedFlag() == true) {
+            $this->setIsChanged(1);
+        } else {
+            $this->setIsChanged(0);
+        }
+
+        if ($this->_customer) {
+            $this->setCustomerId($this->_customer->getId());
+        }
+
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Save related items
+     *
+     * @return $this
+     */
+    protected function _afterSave()
+    {
+        parent::_afterSave();
+
+        if ($this->_addresses !== null) {
+            $this->getAddressesCollection()->save();
+        }
+
+        if ($this->_items !== null) {
+            $this->getItemsCollection()->save();
+        }
+
+        if ($this->_payments !== null) {
+            $this->getPaymentsCollection()->save();
+        }
+        return $this;
+    }
+
+    /**
+     * Retrieve quote address by type
+     *
+     * @param   string $type
+     * @return  Mage_Sales_Model_Quote_Address
+     */
+    protected function _getAddressByType($type)
+    {
+        foreach ($this->getAddressesCollection() as $address) {
+            if ($address->getAddressType() == $type && !$address->isDeleted()) {
+                return $address;
+            }
+        }
+
+        $address = Mage::getModel('sales/quote_address')->setAddressType($type);
+        $this->addAddress($address);
+        return $address;
+    }
+
+    /**
+     * Adding catalog product object data to quote
+     *
+     * @param int $qty
+     * @return  Mage_Sales_Model_Quote_Item
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
+    {
+        $newItem = false;
+        $item = $this->getItemByProduct($product);
+        if (!$item) {
+            $item = Mage::getModel('sales/quote_item');
+            $item->setQuote($this);
+            if (Mage::app()->getStore()->isAdmin()) {
+                $item->setStoreId($this->getStore()->getId());
+            } else {
+                $item->setStoreId(Mage::app()->getStore()->getId());
+            }
+            $newItem = true;
+        }
+
+        /**
+         * We can't modify existing child items
+         */
+        if ($item->getId() && $product->getParentProductId()) {
+            return $item;
+        }
+
+        $item->setOptions($product->getCustomOptions())
+            ->setProduct($product);
+
+        // Add only item that is not in quote already (there can be other new or already saved item
+        if ($newItem) {
+            $this->addItem($item);
+        }
+
+        return $item;
+    }
+
+    /**
+     * Sets flag, whether this quote has some error associated with it.
+     *
+     * @param bool $flag
+     * @return $this
+     */
+    protected function _setHasError($flag)
+    {
+        return $this->setData('has_error', $flag);
+    }
+
+    /**
+     * Clears list of errors, associated with this quote.
+     * Also automatically removes error-flag from oneself.
+     *
+     * @return $this
+     */
+    protected function _clearErrorInfo()
+    {
+        $this->_errorInfoGroups = [];
+        $this->_setHasError(false);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _validateCouponCode()
+    {
+        $code = $this->getCouponCode();
+        if (strlen($code)) {
+            $addressHasCoupon = false;
+            $addresses = $this->getAllAddresses();
+            if (count($addresses) > 0) {
+                foreach ($addresses as $address) {
+                    if ($address->hasCouponCode()) {
+                        $addressHasCoupon = true;
+                    }
+                }
+                if (!$addressHasCoupon) {
+                    $this->setCouponCode('');
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Trigger collect totals after loading, if required
+     *
+     * @inheritDoc
+     */
+    protected function _afterLoad()
+    {
+        // collect totals and save me, if required
+        if ($this->getData('trigger_recollect') == 1) {
+            $this->setTriggerRecollect(0)->getResource()->save($this);
+            $this->collectTotals()->save();
+        }
+        return parent::_afterLoad();
     }
 }

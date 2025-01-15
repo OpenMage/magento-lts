@@ -89,15 +89,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     protected static $_defaultTemplates;
 
     /**
-     * Initialize email template model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('core/email_template');
-    }
-
-    /**
      * Retrieve mail object instance
      *
      * @return Zend_Mail
@@ -602,22 +593,6 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * Parse variables string into array of variables
-     *
-     * @param string $variablesString
-     * @return array
-     */
-    protected function _parseVariablesString($variablesString)
-    {
-        $variables = [];
-        if ($variablesString && is_string($variablesString)) {
-            $variablesString = str_replace("\n", '', $variablesString);
-            $variables = Zend_Json::decode($variablesString);
-        }
-        return $variables;
-    }
-
-    /**
      * Retrieve option array of variables
      *
      * @param bool $withGroup if true wrap variable options in group
@@ -642,6 +617,31 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             }
         }
         return $optionArray;
+    }
+
+    /**
+     * Initialize email template model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('core/email_template');
+    }
+
+    /**
+     * Parse variables string into array of variables
+     *
+     * @param string $variablesString
+     * @return array
+     */
+    protected function _parseVariablesString($variablesString)
+    {
+        $variables = [];
+        if ($variablesString && is_string($variablesString)) {
+            $variablesString = str_replace("\n", '', $variablesString);
+            $variables = Zend_Json::decode($variablesString);
+        }
+        return $variables;
     }
 
     /**

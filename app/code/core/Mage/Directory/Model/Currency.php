@@ -51,14 +51,6 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     protected $_rates;
 
     /**
-     * Class constructor
-     */
-    protected function _construct()
-    {
-        $this->_init('directory/currency');
-    }
-
-    /**
      * Get currency code
      *
      * @return string
@@ -347,5 +339,13 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->saveRates($rates);
         return $this;
+    }
+
+    /**
+     * Class constructor
+     */
+    protected function _construct()
+    {
+        $this->_init('directory/currency');
     }
 }

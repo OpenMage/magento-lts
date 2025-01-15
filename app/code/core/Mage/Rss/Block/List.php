@@ -27,25 +27,6 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     protected $_rssFeeds = [];
 
     /**
-     * Add Link elements to head
-     *
-     * @return $this
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _prepareLayout()
-    {
-        /** @var Mage_Page_Block_Html_Head $head */
-        $head   = $this->getLayout()->getBlock('head');
-        $feeds  = $this->getRssMiscFeeds();
-        if ($head && !empty($feeds)) {
-            foreach ($feeds as $feed) {
-                $head->addItem('rss', $feed['url'], 'title="' . $feed['label'] . '"');
-            }
-        }
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve rss feeds
      *
      * @return array|false
@@ -195,5 +176,24 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
                 $this->addRssFeed('rss/catalog/category', $category->getName(), ['cid' => $category->getId()]);
             }
         }
+    }
+
+    /**
+     * Add Link elements to head
+     *
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _prepareLayout()
+    {
+        /** @var Mage_Page_Block_Html_Head $head */
+        $head   = $this->getLayout()->getBlock('head');
+        $feeds  = $this->getRssMiscFeeds();
+        if ($head && !empty($feeds)) {
+            foreach ($feeds as $feed) {
+                $head->addItem('rss', $feed['url'], 'title="' . $feed['label'] . '"');
+            }
+        }
+        return parent::_prepareLayout();
     }
 }

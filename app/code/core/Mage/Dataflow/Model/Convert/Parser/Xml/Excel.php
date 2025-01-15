@@ -150,6 +150,66 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         return $this;
     }
 
+    public function unparse()
+    {
+        $batchExport = $this->getBatchExportModel()
+            ->setBatchId($this->getBatchModel()->getId());
+        $fieldList = $this->getBatchModel()->getFieldList();
+        $batchExportIds = $batchExport->getIdCollection();
+
+        if (!is_array($batchExportIds)) {
+            return $this;
+        }
+
+        $io = $this->getBatchModel()->getIoAdapter();
+        $io->open();
+
+        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
+            . '><Workbook'
+            . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+            . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
+            . ' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
+            . ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:o="urn:schemas-microsoft-com:office:office"'
+            . ' xmlns:html="http://www.w3.org/TR/REC-html40"'
+            . ' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
+            . '<OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">'
+            . '</OfficeDocumentSettings>'
+            . '<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
+            . '</ExcelWorkbook>';
+        $io->write($xml);
+
+        $wsName = htmlspecialchars($this->getVar('single_sheet'));
+        $wsName = !empty($wsName) ? $wsName : Mage::helper('dataflow')->__('Sheet 1');
+
+        $xml = '<Worksheet ss:Name="' . $wsName . '"><Table>';
+        $io->write($xml);
+
+        if ($this->getVar('fieldnames')) {
+            $xml = $this->_getXmlString($fieldList);
+            $io->write($xml);
+        }
+
+        foreach ($batchExportIds as $batchExportId) {
+            $xmlData = [];
+            $batchExport->load($batchExportId);
+            $row = $batchExport->getBatchData();
+
+            foreach ($fieldList as $field) {
+                $xmlData[] = $row[$field] ?? '';
+            }
+            $xmlData = $this->_getXmlString($xmlData);
+            $io->write($xmlData);
+        }
+
+        $xml = '</Table></Worksheet></Workbook>';
+        $io->write($xml);
+        $io->close();
+
+        return $this;
+    }
+
     /**
      * Parse MS Excel XML string
      *
@@ -243,66 +303,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             ->setBatchData($itemData)
             ->setStatus(1)
             ->save();
-
-        return $this;
-    }
-
-    public function unparse()
-    {
-        $batchExport = $this->getBatchExportModel()
-            ->setBatchId($this->getBatchModel()->getId());
-        $fieldList = $this->getBatchModel()->getFieldList();
-        $batchExportIds = $batchExport->getIdCollection();
-
-        if (!is_array($batchExportIds)) {
-            return $this;
-        }
-
-        $io = $this->getBatchModel()->getIoAdapter();
-        $io->open();
-
-        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
-            . '><Workbook'
-            . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
-            . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-            . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
-            . ' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
-            . ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
-            . ' xmlns:o="urn:schemas-microsoft-com:office:office"'
-            . ' xmlns:html="http://www.w3.org/TR/REC-html40"'
-            . ' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
-            . '<OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">'
-            . '</OfficeDocumentSettings>'
-            . '<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
-            . '</ExcelWorkbook>';
-        $io->write($xml);
-
-        $wsName = htmlspecialchars($this->getVar('single_sheet'));
-        $wsName = !empty($wsName) ? $wsName : Mage::helper('dataflow')->__('Sheet 1');
-
-        $xml = '<Worksheet ss:Name="' . $wsName . '"><Table>';
-        $io->write($xml);
-
-        if ($this->getVar('fieldnames')) {
-            $xml = $this->_getXmlString($fieldList);
-            $io->write($xml);
-        }
-
-        foreach ($batchExportIds as $batchExportId) {
-            $xmlData = [];
-            $batchExport->load($batchExportId);
-            $row = $batchExport->getBatchData();
-
-            foreach ($fieldList as $field) {
-                $xmlData[] = $row[$field] ?? '';
-            }
-            $xmlData = $this->_getXmlString($xmlData);
-            $io->write($xmlData);
-        }
-
-        $xml = '</Table></Worksheet></Workbook>';
-        $io->write($xml);
-        $io->close();
 
         return $this;
     }

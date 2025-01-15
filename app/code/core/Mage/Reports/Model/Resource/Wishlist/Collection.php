@@ -28,12 +28,6 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
      * @var string
      */
     protected $_wishlistTable;
-
-    protected function _construct()
-    {
-        $this->_init('wishlist/wishlist');
-        $this->setWishlistTable($this->getTable('wishlist/wishlist'));
-    }
     /**
      * Set wishlist table name
      *
@@ -101,5 +95,11 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
             ->where('wt.shared=1')
             ->group('wt.wishlist_id');
         return $countSelect->getAdapter()->fetchOne($countSelect);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('wishlist/wishlist');
+        $this->setWishlistTable($this->getTable('wishlist/wishlist'));
     }
 }

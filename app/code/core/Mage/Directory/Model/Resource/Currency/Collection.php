@@ -38,17 +38,6 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     protected $_currencyRateTable;
 
     /**
-     * Define resource model and tables
-     */
-    protected function _construct()
-    {
-        $this->_init('directory/currency');
-
-        $this->_currencyNameTable   = $this->getTable('directory/currency_name');
-        $this->_currencyRateTable   = $this->getTable('directory/currency_rate');
-    }
-
-    /**
      * Join currency rates by currency
      *
      * @param string $currency
@@ -107,5 +96,16 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
     public function toOptionArray()
     {
         return $this->_toOptionArray('currency_code', 'currency_name');
+    }
+
+    /**
+     * Define resource model and tables
+     */
+    protected function _construct()
+    {
+        $this->_init('directory/currency');
+
+        $this->_currencyNameTable   = $this->getTable('directory/currency_name');
+        $this->_currencyRateTable   = $this->getTable('directory/currency_rate');
     }
 }

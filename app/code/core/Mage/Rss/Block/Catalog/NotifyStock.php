@@ -29,6 +29,30 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
      */
     public const CACHE_TAG = 'block_html_rss_catalog_notifystock';
 
+    /**
+     * Adds single product to feed
+     *
+     * @param array $args
+     */
+    public function addNotifyItemXmlCallback($args)
+    {
+        $product = $args['product'];
+        $product->setData($args['row']);
+        $url = Mage::helper('adminhtml')->getUrl(
+            'adminhtml/catalog_product/edit/',
+            ['id' => $product->getId(), '_secure' => true, '_nosecret' => true],
+        );
+        $qty = 1 * $product->getQty();
+        $description = Mage::helper('rss')->__('%s has reached a quantity of %s.', $product->getName(), $qty);
+        $rssObj = $args['rssObj'];
+        $data = [
+            'title'         => $product->getName(),
+            'link'          => $url,
+            'description'   => $description,
+        ];
+        $rssObj->_addEntry($data);
+    }
+
     protected function _construct()
     {
         $this->setCacheTags([self::CACHE_TAG]);
@@ -91,29 +115,5 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         );
 
         return $rssObj->createRssXml();
-    }
-
-    /**
-     * Adds single product to feed
-     *
-     * @param array $args
-     */
-    public function addNotifyItemXmlCallback($args)
-    {
-        $product = $args['product'];
-        $product->setData($args['row']);
-        $url = Mage::helper('adminhtml')->getUrl(
-            'adminhtml/catalog_product/edit/',
-            ['id' => $product->getId(), '_secure' => true, '_nosecret' => true],
-        );
-        $qty = 1 * $product->getQty();
-        $description = Mage::helper('rss')->__('%s has reached a quantity of %s.', $product->getName(), $qty);
-        $rssObj = $args['rssObj'];
-        $data = [
-            'title'         => $product->getName(),
-            'link'          => $url,
-            'description'   => $description,
-        ];
-        $rssObj->_addEntry($data);
     }
 }

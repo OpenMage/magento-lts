@@ -61,18 +61,6 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     }
 
     /**
-     * Method called as last step of object instance creation. Can be overridden in child classes.
-     *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
-     */
-    protected function _init()
-    {
-        $this->_fileHandler = fopen($this->_source, 'r');
-        $this->rewind();
-        return $this;
-    }
-
-    /**
      * Move forward to next element
      *
      * @return void Any returned value is ignored.
@@ -128,5 +116,17 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
             }
             throw new OutOfBoundsException(Mage::helper('importexport')->__('Invalid seek position'));
         }
+    }
+
+    /**
+     * Method called as last step of object instance creation. Can be overridden in child classes.
+     *
+     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     */
+    protected function _init()
+    {
+        $this->_fileHandler = fopen($this->_source, 'r');
+        $this->rewind();
+        return $this;
     }
 }

@@ -65,11 +65,6 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'api_user';
 
-    protected function _construct()
-    {
-        $this->_init('api/user');
-    }
-
     /**
      * @return $this
      */
@@ -340,28 +335,6 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve encoded api key
-     *
-     * @param string $apiKey
-     * @return string
-     */
-    protected function _getEncodedApiKey($apiKey)
-    {
-        return Mage::helper('core')->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
-    }
-
-    /**
-     * Get helper instance
-     *
-     * @param string $helperName
-     * @return Mage_Core_Helper_Abstract
-     */
-    protected function _getHelper($helperName)
-    {
-        return Mage::helper($helperName);
-    }
-
-    /**
      * Validate user attribute values.
      *
      * @return array|true
@@ -420,6 +393,33 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         }
 
         return (array) $errors;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('api/user');
+    }
+
+    /**
+     * Retrieve encoded api key
+     *
+     * @param string $apiKey
+     * @return string
+     */
+    protected function _getEncodedApiKey($apiKey)
+    {
+        return Mage::helper('core')->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
+    }
+
+    /**
+     * Get helper instance
+     *
+     * @param string $helperName
+     * @return Mage_Core_Helper_Abstract
+     */
+    protected function _getHelper($helperName)
+    {
+        return Mage::helper($helperName);
     }
 
     /**

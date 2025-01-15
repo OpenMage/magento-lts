@@ -103,11 +103,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     public const ENTITY                         = 'cataloginventory_stock_item';
 
     /**
-     * @var array
-     */
-    private $_minSaleQtyCache = [];
-
-    /**
      * @var float|false
      */
     protected $_qtyIncrements;
@@ -149,25 +144,10 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     protected $_processIndexEvents = true;
 
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/stock_item');
-    }
-
     /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return void
+     * @var array
      */
-    protected function _initOldFieldsMap()
-    {
-        // pre 1.6 fields names, old => new
-        $this->_oldFieldsMap = [
-            'stock_status_changed_automatically' => 'stock_status_changed_auto',
-            'use_config_enable_qty_increments'   => 'use_config_enable_qty_inc',
-        ];
-    }
+    private $_minSaleQtyCache = [];
 
     /**
      * Retrieve stock identifier
@@ -719,70 +699,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Add error to Quote Item
-     *
-     * @param string $itemError
-     * @param string $quoteError
-     * @param string $errorIndex
-     * @return $this
-     */
-    protected function _addQuoteItemError(
-        Mage_Sales_Model_Quote_Item $item,
-        $itemError,
-        $quoteError,
-        $errorIndex = 'error'
-    ) {
-        $item->setHasError(true);
-        $item->setMessage($itemError);
-        $item->setQuoteMessage($quoteError);
-        $item->setQuoteMessageIndex($errorIndex);
-        return $this;
-    }
-
-    /**
-     * Before save prepare process
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        // see if quantity is defined for this item type
-        $typeId = $this->getTypeId();
-        if ($productTypeId = $this->getProductTypeId()) {
-            $typeId = $productTypeId;
-        }
-
-        $isQty = Mage::helper('cataloginventory')->isQty($typeId);
-
-        if ($isQty) {
-            if (!$this->verifyStock()) {
-                $this->setIsInStock(false)
-                    ->setStockStatusChangedAutomaticallyFlag(true);
-            }
-
-            // if qty is below notify qty, update the low stock date to today date otherwise set null
-            $this->setLowStockDate(null);
-            if ($this->verifyNotification()) {
-                $this->setLowStockDate(Mage::app()->getLocale()->date(null, null, null, false)
-                    ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
-            }
-
-            $this->setStockStatusChangedAutomatically(0);
-            if ($this->hasStockStatusChangedAutomaticallyFlag()) {
-                $this->setStockStatusChangedAutomatically((int) $this->getStockStatusChangedAutomaticallyFlag());
-            }
-        } else {
-            $this->setQty(0);
-        }
-
-        if (!$this->hasData('stock_id')) {
-            $this->setStockId($this->getStockId());
-        }
-
-        return $this;
-    }
-
-    /**
      * Chceck if item should be in stock or out of stock based on $qty param of existing item qty
      *
      * @param float|null $qty
@@ -937,6 +853,90 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         } else {
             $indexer->logEvent($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
         }
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/stock_item');
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return void
+     */
+    protected function _initOldFieldsMap()
+    {
+        // pre 1.6 fields names, old => new
+        $this->_oldFieldsMap = [
+            'stock_status_changed_automatically' => 'stock_status_changed_auto',
+            'use_config_enable_qty_increments'   => 'use_config_enable_qty_inc',
+        ];
+    }
+
+    /**
+     * Add error to Quote Item
+     *
+     * @param string $itemError
+     * @param string $quoteError
+     * @param string $errorIndex
+     * @return $this
+     */
+    protected function _addQuoteItemError(
+        Mage_Sales_Model_Quote_Item $item,
+        $itemError,
+        $quoteError,
+        $errorIndex = 'error'
+    ) {
+        $item->setHasError(true);
+        $item->setMessage($itemError);
+        $item->setQuoteMessage($quoteError);
+        $item->setQuoteMessageIndex($errorIndex);
+        return $this;
+    }
+
+    /**
+     * Before save prepare process
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        // see if quantity is defined for this item type
+        $typeId = $this->getTypeId();
+        if ($productTypeId = $this->getProductTypeId()) {
+            $typeId = $productTypeId;
+        }
+
+        $isQty = Mage::helper('cataloginventory')->isQty($typeId);
+
+        if ($isQty) {
+            if (!$this->verifyStock()) {
+                $this->setIsInStock(false)
+                    ->setStockStatusChangedAutomaticallyFlag(true);
+            }
+
+            // if qty is below notify qty, update the low stock date to today date otherwise set null
+            $this->setLowStockDate(null);
+            if ($this->verifyNotification()) {
+                $this->setLowStockDate(Mage::app()->getLocale()->date(null, null, null, false)
+                    ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+            }
+
+            $this->setStockStatusChangedAutomatically(0);
+            if ($this->hasStockStatusChangedAutomaticallyFlag()) {
+                $this->setStockStatusChangedAutomatically((int) $this->getStockStatusChangedAutomaticallyFlag());
+            }
+        } else {
+            $this->setQty(0);
+        }
+
+        if (!$this->hasData('stock_id')) {
+            $this->setStockId($this->getStockId());
+        }
+
         return $this;
     }
 }

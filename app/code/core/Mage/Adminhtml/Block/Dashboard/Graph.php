@@ -112,16 +112,6 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     }
 
     /**
-     * Get tab template
-     *
-     * @return string
-     */
-    protected function _getTabTemplate()
-    {
-        return 'dashboard/graph.phtml';
-    }
-
-    /**
      * Set data rows
      *
      * @param mixed $rows
@@ -404,29 +394,6 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     }
 
     /**
-     * Get rows data
-     *
-     * @param array $attributes
-     * @param bool $single
-     * @return array
-     */
-    protected function getRowsData($attributes, $single = false)
-    {
-        $items = $this->getCollection()->getItems();
-        $options = [];
-        foreach ($items as $item) {
-            if ($single) {
-                $options[] = max(0, $item->getData($attributes));
-            } else {
-                foreach ((array) $attributes as $attr) {
-                    $options[$attr][] = max(0, $item->getData($attr));
-                }
-            }
-        }
-        return $options;
-    }
-
-    /**
      * Set axis labels
      *
      * @param string $axis
@@ -455,6 +422,39 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     public function getHtmlId()
     {
         return $this->_htmlId;
+    }
+
+    /**
+     * Get tab template
+     *
+     * @return string
+     */
+    protected function _getTabTemplate()
+    {
+        return 'dashboard/graph.phtml';
+    }
+
+    /**
+     * Get rows data
+     *
+     * @param array $attributes
+     * @param bool $single
+     * @return array
+     */
+    protected function getRowsData($attributes, $single = false)
+    {
+        $items = $this->getCollection()->getItems();
+        $options = [];
+        foreach ($items as $item) {
+            if ($single) {
+                $options[] = max(0, $item->getData($attributes));
+            } else {
+                foreach ((array) $attributes as $attr) {
+                    $options[$attr][] = max(0, $item->getData($attr));
+                }
+            }
+        }
+        return $options;
     }
 
     /**

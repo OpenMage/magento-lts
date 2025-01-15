@@ -47,9 +47,6 @@ class Error_Processor
     /** @var string */
     public $reportUrl;
 
-    /** @var string report file name */
-    protected $_reportFile;
-
     /** @var bool */
     public $showErrorMsg;
 
@@ -62,6 +59,9 @@ class Error_Processor
 
     /** @var bool */
     public $showSendForm;
+
+    /** @var string report file name */
+    protected $_reportFile;
 
     /**
      * Server script name
@@ -201,6 +201,114 @@ class Error_Processor
 
         $basePath = str_replace('\\', '/', dirname($path));
         return $this->getHostUrl() . ($basePath === '/' ? '' : $basePath) . '/';
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function saveReport(array $reportData)
+    {
+        $this->reportData = $reportData;
+        $this->reportId   = abs((int) (microtime(true) * random_int(100, 1000)));
+        $this->_reportFile = $this->_reportDir . '/' . $this->reportId;
+        $this->_setReportData($reportData);
+
+        if (!file_exists($this->_reportDir)) {
+            @mkdir($this->_reportDir, 0750, true);
+        }
+
+        $reportData = array_map('strip_tags', $reportData);
+        @file_put_contents($this->_reportFile, serialize($reportData));
+        @chmod($this->_reportFile, 0640);
+
+        if (isset($reportData['skin']) && self::DEFAULT_SKIN !== $reportData['skin']) {
+            $this->_setSkin($reportData['skin']);
+        }
+        $this->_setReportUrl();
+
+        if (headers_sent()) {
+            echo '<script type="text/javascript">';
+            echo "window.location.href = encodeURI('{$this->reportUrl}');";
+            echo '</script>';
+            exit();
+        }
+    }
+
+    /**
+     * @return void|no-return
+     */
+    public function loadReport(int $reportId)
+    {
+        $reportData = false;
+        $this->reportId = $reportId;
+        $this->_reportFile = $this->_reportDir . '/' . $reportId;
+
+        if (!file_exists($this->_reportFile) || !is_readable($this->_reportFile)) {
+            header('Location: ' . $this->getBaseUrl());
+            exit();
+        }
+
+        $reportContent = file_get_contents($this->_reportFile);
+        if (!preg_match('/[oc]:[+\-]?\d+:"/i', $reportContent)) {
+            $reportData = unserialize($reportContent, ['allowed_classes' => false]);
+        }
+        if (is_array($reportData)) {
+            $this->_setReportData($reportData);
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function sendReport()
+    {
+        $this->pageTitle = 'Error Submission Form';
+
+        $this->postData['firstName'] = (isset($_POST['firstname'])) ? trim(htmlspecialchars($_POST['firstname'])) : '';
+        $this->postData['lastName']  = (isset($_POST['lastname'])) ? trim(htmlspecialchars($_POST['lastname'])) : '';
+        $this->postData['email']     = (isset($_POST['email'])) ? trim(htmlspecialchars($_POST['email'])) : '';
+        $this->postData['telephone'] = (isset($_POST['telephone'])) ? trim(htmlspecialchars($_POST['telephone'])) : '';
+        $this->postData['comment']   = (isset($_POST['comment'])) ? trim(htmlspecialchars($_POST['comment'])) : '';
+        $url = htmlspecialchars($this->reportData['url'], ENT_COMPAT | ENT_HTML401);
+
+        if (isset($_POST['submit'])) {
+            if ($this->_validate()) {
+                $msg  = "URL: {$url}\n"
+                    . "IP Address: {$this->_getClientIp()}\n"
+                    . "First Name: {$this->postData['firstName']}\n"
+                    . "Last Name: {$this->postData['lastName']}\n"
+                    . "E-mail Address: {$this->postData['email']}\n";
+                if ($this->postData['telephone']) {
+                    $msg .= "Telephone: {$this->postData['telephone']}\n";
+                }
+                if ($this->postData['comment']) {
+                    $msg .= "Comment: {$this->postData['comment']}\n";
+                }
+
+                $subject = sprintf('%s [%s]', $this->_config->subject, $this->reportId);
+                @mail($this->_config->email_address, $subject, $msg);
+
+                $this->showSendForm = false;
+                $this->showSentMsg  = true;
+            } else {
+                $this->showErrorMsg = true;
+            }
+        } else {
+            $time = gmdate('Y-m-d H:i:s \G\M\T');
+
+            $msg = "URL: {$url}\n"
+                . "IP Address: {$this->_getClientIp()}\n"
+                . "Time: {$time}\n"
+                . "Error:\n{$this->reportData[0]}\n\n"
+                . "Trace:\n{$this->reportData[1]}";
+
+            $subject = sprintf('%s [%s]', $this->_config->subject, $this->reportId);
+            @mail($this->_config->email_address, $subject, $msg);
+
+            if ($this->_config->trash === 'delete') {
+                @unlink($this->_reportFile);
+            }
+        }
     }
 
     /**
@@ -372,114 +480,6 @@ class Error_Processor
 
         if (isset($this->reportData['script_name'])) {
             $this->_scriptName = $this->reportData['script_name'];
-        }
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function saveReport(array $reportData)
-    {
-        $this->reportData = $reportData;
-        $this->reportId   = abs((int) (microtime(true) * random_int(100, 1000)));
-        $this->_reportFile = $this->_reportDir . '/' . $this->reportId;
-        $this->_setReportData($reportData);
-
-        if (!file_exists($this->_reportDir)) {
-            @mkdir($this->_reportDir, 0750, true);
-        }
-
-        $reportData = array_map('strip_tags', $reportData);
-        @file_put_contents($this->_reportFile, serialize($reportData));
-        @chmod($this->_reportFile, 0640);
-
-        if (isset($reportData['skin']) && self::DEFAULT_SKIN !== $reportData['skin']) {
-            $this->_setSkin($reportData['skin']);
-        }
-        $this->_setReportUrl();
-
-        if (headers_sent()) {
-            echo '<script type="text/javascript">';
-            echo "window.location.href = encodeURI('{$this->reportUrl}');";
-            echo '</script>';
-            exit();
-        }
-    }
-
-    /**
-     * @return void|no-return
-     */
-    public function loadReport(int $reportId)
-    {
-        $reportData = false;
-        $this->reportId = $reportId;
-        $this->_reportFile = $this->_reportDir . '/' . $reportId;
-
-        if (!file_exists($this->_reportFile) || !is_readable($this->_reportFile)) {
-            header('Location: ' . $this->getBaseUrl());
-            exit();
-        }
-
-        $reportContent = file_get_contents($this->_reportFile);
-        if (!preg_match('/[oc]:[+\-]?\d+:"/i', $reportContent)) {
-            $reportData = unserialize($reportContent, ['allowed_classes' => false]);
-        }
-        if (is_array($reportData)) {
-            $this->_setReportData($reportData);
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function sendReport()
-    {
-        $this->pageTitle = 'Error Submission Form';
-
-        $this->postData['firstName'] = (isset($_POST['firstname'])) ? trim(htmlspecialchars($_POST['firstname'])) : '';
-        $this->postData['lastName']  = (isset($_POST['lastname'])) ? trim(htmlspecialchars($_POST['lastname'])) : '';
-        $this->postData['email']     = (isset($_POST['email'])) ? trim(htmlspecialchars($_POST['email'])) : '';
-        $this->postData['telephone'] = (isset($_POST['telephone'])) ? trim(htmlspecialchars($_POST['telephone'])) : '';
-        $this->postData['comment']   = (isset($_POST['comment'])) ? trim(htmlspecialchars($_POST['comment'])) : '';
-        $url = htmlspecialchars($this->reportData['url'], ENT_COMPAT | ENT_HTML401);
-
-        if (isset($_POST['submit'])) {
-            if ($this->_validate()) {
-                $msg  = "URL: {$url}\n"
-                    . "IP Address: {$this->_getClientIp()}\n"
-                    . "First Name: {$this->postData['firstName']}\n"
-                    . "Last Name: {$this->postData['lastName']}\n"
-                    . "E-mail Address: {$this->postData['email']}\n";
-                if ($this->postData['telephone']) {
-                    $msg .= "Telephone: {$this->postData['telephone']}\n";
-                }
-                if ($this->postData['comment']) {
-                    $msg .= "Comment: {$this->postData['comment']}\n";
-                }
-
-                $subject = sprintf('%s [%s]', $this->_config->subject, $this->reportId);
-                @mail($this->_config->email_address, $subject, $msg);
-
-                $this->showSendForm = false;
-                $this->showSentMsg  = true;
-            } else {
-                $this->showErrorMsg = true;
-            }
-        } else {
-            $time = gmdate('Y-m-d H:i:s \G\M\T');
-
-            $msg = "URL: {$url}\n"
-                . "IP Address: {$this->_getClientIp()}\n"
-                . "Time: {$time}\n"
-                . "Error:\n{$this->reportData[0]}\n\n"
-                . "Trace:\n{$this->reportData[1]}";
-
-            $subject = sprintf('%s [%s]', $this->_config->subject, $this->reportId);
-            @mail($this->_config->email_address, $subject, $msg);
-
-            if ($this->_config->trash === 'delete') {
-                @unlink($this->_reportFile);
-            }
         }
     }
 

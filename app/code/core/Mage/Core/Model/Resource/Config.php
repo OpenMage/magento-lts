@@ -22,11 +22,6 @@
  */
 class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('core/config_data', 'config_id');
-    }
-
     /**
      * Load configuration values into xml config object
      *
@@ -223,5 +218,9 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             ->where('scope_id = ?', $scopeId);
 
         return $readAdapter->fetchOne($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('core/config_data', 'config_id');
     }
 }

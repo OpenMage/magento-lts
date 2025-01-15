@@ -23,16 +23,6 @@
 class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('cms/block');
-        $this->_map['fields']['store'] = 'store_table.store_id';
-    }
-
-    /**
      * Returns pairs block_id - title
      *
      * @return array
@@ -81,6 +71,15 @@ class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_
         $countSelect->reset(Zend_Db_Select::GROUP);
 
         return $countSelect;
+    }
+    /**
+     * Define resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('cms/block');
+        $this->_map['fields']['store'] = 'store_table.store_id';
     }
 
     /**

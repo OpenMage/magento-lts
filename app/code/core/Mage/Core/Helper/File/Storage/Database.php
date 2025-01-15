@@ -276,18 +276,6 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Convert full file path to local (as used by model)
-     * If not - returns just a filename
-     *
-     * @param string $filename
-     * @return string
-     */
-    protected function _removeAbsPathFromFileName($filename)
-    {
-        return $this->getMediaRelativePath($filename);
-    }
-
-    /**
      * Return Media base dir
      *
      * @return string
@@ -298,5 +286,17 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
             $this->_mediaBaseDirectory = rtrim(Mage::getBaseDir('media'), '\\/');
         }
         return $this->_mediaBaseDirectory;
+    }
+
+    /**
+     * Convert full file path to local (as used by model)
+     * If not - returns just a filename
+     *
+     * @param string $filename
+     * @return string
+     */
+    protected function _removeAbsPathFromFileName($filename)
+    {
+        return $this->getMediaRelativePath($filename);
     }
 }

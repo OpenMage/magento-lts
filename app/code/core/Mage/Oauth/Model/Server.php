@@ -191,6 +191,145 @@ class Mage_Oauth_Model_Server
     }
 
     /**
+     * Process request for permanent access token
+     */
+    public function accessToken()
+    {
+        try {
+            $this->_processRequest(self::REQUEST_TOKEN);
+
+            $response = $this->_token->toString();
+        } catch (Exception $e) {
+            $response = $this->reportProblem($e);
+        }
+        $this->_getResponse()->setBody($response);
+    }
+
+    /**
+     * Validate request, authorize token and return it
+     *
+     * @param int $userId Authorization user identifier
+     * @param string $userType Authorization user type
+     * @return Mage_Oauth_Model_Token
+     */
+    public function authorizeToken($userId, $userType)
+    {
+        $token = $this->checkAuthorizeRequest();
+
+        $token->authorize($userId, $userType);
+
+        return $token;
+    }
+
+    /**
+     * Validate request with access token for specified URL
+     *
+     * @return Mage_Oauth_Model_Token
+     */
+    public function checkAccessRequest()
+    {
+        $this->_processRequest(self::REQUEST_RESOURCE);
+
+        return $this->_token;
+    }
+
+    /**
+     * Check authorize request for validity and return token
+     *
+     * @return Mage_Oauth_Model_Token
+     */
+    public function checkAuthorizeRequest()
+    {
+        if (!$this->_request->isGet()) {
+            Mage::throwException('Request is not GET');
+        }
+        $this->_requestType = self::REQUEST_AUTHORIZE;
+
+        $this->_fetchProtocolParamsFromQuery();
+        $this->_initToken();
+
+        return $this->_token;
+    }
+
+    /**
+     * Retrieve array of supported signature methods
+     *
+     * @return array
+     */
+    public static function getSupportedSignatureMethods()
+    {
+        return [self::SIGNATURE_RSA, self::SIGNATURE_HMAC, self::SIGNATURE_PLAIN];
+    }
+
+    /**
+     * Process request for temporary (initiative) token
+     */
+    public function initiateToken()
+    {
+        try {
+            $this->_processRequest(self::REQUEST_INITIATE);
+
+            $response = $this->_token->toString() . '&oauth_callback_confirmed=true';
+        } catch (Exception $e) {
+            $response = $this->reportProblem($e);
+        }
+        $this->_getResponse()->setBody($response);
+    }
+
+    /**
+     * Create response string for problem during request and set HTTP error code
+     *
+     * @param Zend_Controller_Response_Http|null $response OPTIONAL If NULL - will use internal getter
+     * @return string
+     * @throws Zend_Controller_Response_Exception
+     */
+    public function reportProblem(Exception $e, ?Zend_Controller_Response_Http $response = null)
+    {
+        $eMsg = $e->getMessage();
+
+        if ($e instanceof Mage_Oauth_Exception) {
+            $eCode = $e->getCode();
+
+            if (isset($this->_errors[$eCode])) {
+                $errorMsg = $this->_errors[$eCode];
+                $responseCode = $this->_errorsToHttpCode[$eCode];
+            } else {
+                $errorMsg = 'unknown_problem&code=' . $eCode;
+                $responseCode = self::HTTP_INTERNAL_ERROR;
+            }
+            if (self::ERR_PARAMETER_ABSENT == $eCode) {
+                $errorMsg .= '&oauth_parameters_absent=' . $eMsg;
+            } elseif ($eMsg) {
+                $errorMsg .= '&message=' . $eMsg;
+            }
+        } else {
+            $errorMsg = 'internal_error&message=' . ($eMsg ? $eMsg : 'empty_message');
+            $responseCode = self::HTTP_INTERNAL_ERROR;
+        }
+        if (!$response) {
+            $response = $this->_getResponse();
+        }
+        $response->setHttpResponseCode($responseCode);
+
+        return 'oauth_problem=' . $errorMsg;
+    }
+
+    /**
+     * Set response object
+     *
+     * @return $this
+     */
+    public function setResponse(Zend_Controller_Response_Http $response)
+    {
+        $this->_response = $response;
+
+        $this->_response->setHeader(Zend_Http_Client::CONTENT_TYPE, Zend_Http_Client::ENC_URLENCODED, true);
+        $this->_response->setHttpResponseCode(self::HTTP_OK);
+
+        return $this;
+    }
+
+    /**
      * Retrieve protocol and request parameters from request object
      *
      * @link http://tools.ietf.org/html/rfc5849#section-3.5
@@ -563,144 +702,5 @@ class Mage_Oauth_Model_Server
         if (strlen($this->_protocolParams['oauth_verifier']) != Mage_Oauth_Model_Token::LENGTH_VERIFIER) {
             $this->_throwException('', self::ERR_VERIFIER_INVALID);
         }
-    }
-
-    /**
-     * Process request for permanent access token
-     */
-    public function accessToken()
-    {
-        try {
-            $this->_processRequest(self::REQUEST_TOKEN);
-
-            $response = $this->_token->toString();
-        } catch (Exception $e) {
-            $response = $this->reportProblem($e);
-        }
-        $this->_getResponse()->setBody($response);
-    }
-
-    /**
-     * Validate request, authorize token and return it
-     *
-     * @param int $userId Authorization user identifier
-     * @param string $userType Authorization user type
-     * @return Mage_Oauth_Model_Token
-     */
-    public function authorizeToken($userId, $userType)
-    {
-        $token = $this->checkAuthorizeRequest();
-
-        $token->authorize($userId, $userType);
-
-        return $token;
-    }
-
-    /**
-     * Validate request with access token for specified URL
-     *
-     * @return Mage_Oauth_Model_Token
-     */
-    public function checkAccessRequest()
-    {
-        $this->_processRequest(self::REQUEST_RESOURCE);
-
-        return $this->_token;
-    }
-
-    /**
-     * Check authorize request for validity and return token
-     *
-     * @return Mage_Oauth_Model_Token
-     */
-    public function checkAuthorizeRequest()
-    {
-        if (!$this->_request->isGet()) {
-            Mage::throwException('Request is not GET');
-        }
-        $this->_requestType = self::REQUEST_AUTHORIZE;
-
-        $this->_fetchProtocolParamsFromQuery();
-        $this->_initToken();
-
-        return $this->_token;
-    }
-
-    /**
-     * Retrieve array of supported signature methods
-     *
-     * @return array
-     */
-    public static function getSupportedSignatureMethods()
-    {
-        return [self::SIGNATURE_RSA, self::SIGNATURE_HMAC, self::SIGNATURE_PLAIN];
-    }
-
-    /**
-     * Process request for temporary (initiative) token
-     */
-    public function initiateToken()
-    {
-        try {
-            $this->_processRequest(self::REQUEST_INITIATE);
-
-            $response = $this->_token->toString() . '&oauth_callback_confirmed=true';
-        } catch (Exception $e) {
-            $response = $this->reportProblem($e);
-        }
-        $this->_getResponse()->setBody($response);
-    }
-
-    /**
-     * Create response string for problem during request and set HTTP error code
-     *
-     * @param Zend_Controller_Response_Http|null $response OPTIONAL If NULL - will use internal getter
-     * @return string
-     * @throws Zend_Controller_Response_Exception
-     */
-    public function reportProblem(Exception $e, ?Zend_Controller_Response_Http $response = null)
-    {
-        $eMsg = $e->getMessage();
-
-        if ($e instanceof Mage_Oauth_Exception) {
-            $eCode = $e->getCode();
-
-            if (isset($this->_errors[$eCode])) {
-                $errorMsg = $this->_errors[$eCode];
-                $responseCode = $this->_errorsToHttpCode[$eCode];
-            } else {
-                $errorMsg = 'unknown_problem&code=' . $eCode;
-                $responseCode = self::HTTP_INTERNAL_ERROR;
-            }
-            if (self::ERR_PARAMETER_ABSENT == $eCode) {
-                $errorMsg .= '&oauth_parameters_absent=' . $eMsg;
-            } elseif ($eMsg) {
-                $errorMsg .= '&message=' . $eMsg;
-            }
-        } else {
-            $errorMsg = 'internal_error&message=' . ($eMsg ? $eMsg : 'empty_message');
-            $responseCode = self::HTTP_INTERNAL_ERROR;
-        }
-        if (!$response) {
-            $response = $this->_getResponse();
-        }
-        $response->setHttpResponseCode($responseCode);
-
-        return 'oauth_problem=' . $errorMsg;
-    }
-
-    /**
-     * Set response object
-     *
-     * @return $this
-     */
-    public function setResponse(Zend_Controller_Response_Http $response)
-    {
-        $this->_response = $response;
-
-        $this->_response->setHeader(Zend_Http_Client::CONTENT_TYPE, Zend_Http_Client::ENC_URLENCODED, true);
-        $this->_response->setHttpResponseCode(self::HTTP_OK);
-
-        return $this;
     }
 }

@@ -23,15 +23,6 @@
 class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_Model_Resource_Report_Abstract
 {
     /**
-     * Resource Report Rule constructor
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('salesrule/coupon_aggregated', 'id');
-    }
-
-    /**
      * Aggregate Coupons data by order created at
      *
      * @param mixed $from
@@ -41,6 +32,14 @@ class Mage_SalesRule_Model_Resource_Report_Rule_Createdat extends Mage_Reports_M
     public function aggregate($from = null, $to = null)
     {
         return $this->_aggregateByOrder('created_at', $from, $to);
+    }
+    /**
+     * Resource Report Rule constructor
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('salesrule/coupon_aggregated', 'id');
     }
 
     /**

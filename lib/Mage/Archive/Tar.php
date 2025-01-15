@@ -73,6 +73,83 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     protected $_destinationFilePath;
 
     /**
+     * Pack file to TAR (Tape Archiver).
+     *
+     * @param string $source
+     * @param string $destination
+     * @param boolean $skipRoot
+     * @return string
+     */
+    public function pack($source, $destination, $skipRoot = false)
+    {
+        $this->_setSkipRoot($skipRoot);
+        $source = realpath($source);
+        $tarData = $this->_setCurrentPath($source)
+            ->_setDestinationFilePath($destination)
+            ->_setCurrentFile($source);
+
+        $this->_initWriter();
+        $this->_createTar($skipRoot, true);
+        $this->_destroyWriter();
+
+        return $destination;
+    }
+
+    /**
+     * Unpack file from TAR (Tape Archiver).
+     *
+     * @param string $source
+     * @param string $destination
+     * @return string
+     */
+    public function unpack($source, $destination)
+    {
+        $this->_setCurrentFile($source)
+            ->_setCurrentPath($source);
+
+        $this->_initReader();
+        $this->_unpackCurrentTar($destination);
+        $this->_destroyReader();
+
+        return $destination;
+    }
+
+    /**
+     * Extract one file from TAR (Tape Archiver).
+     *
+     * @param string $file
+     * @param string $source
+     * @param string $destination
+     * @return string
+     */
+    public function extract($file, $source, $destination)
+    {
+        $this->_setCurrentFile($source);
+        $this->_initReader();
+
+        $archiveReader = $this->_getReader();
+        $extractedFile = '';
+
+        while (!$archiveReader->eof()) {
+            $header = $this->_extractFileHeader();
+            if ($header['name'] == $file) {
+                $extractedFile = $destination . basename($header['name']);
+                $this->_extractAndWriteFile($header, $extractedFile);
+                break;
+            }
+
+            if ($header['type'] != 5) {
+                $skipBytes = (int) (($header['size'] + self::TAR_BLOCK_SIZE - 1) / self::TAR_BLOCK_SIZE)
+                    * self::TAR_BLOCK_SIZE;
+                $archiveReader->read($skipBytes);
+            }
+        }
+
+        $this->_destroyReader();
+        return $extractedFile;
+    }
+
+    /**
      * Initialize tarball writer
      *
      * @return Mage_Archive_Tar
@@ -588,82 +665,5 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
             $bytesExtracted += strlen($block);
         }
-    }
-
-    /**
-     * Pack file to TAR (Tape Archiver).
-     *
-     * @param string $source
-     * @param string $destination
-     * @param boolean $skipRoot
-     * @return string
-     */
-    public function pack($source, $destination, $skipRoot = false)
-    {
-        $this->_setSkipRoot($skipRoot);
-        $source = realpath($source);
-        $tarData = $this->_setCurrentPath($source)
-            ->_setDestinationFilePath($destination)
-            ->_setCurrentFile($source);
-
-        $this->_initWriter();
-        $this->_createTar($skipRoot, true);
-        $this->_destroyWriter();
-
-        return $destination;
-    }
-
-    /**
-     * Unpack file from TAR (Tape Archiver).
-     *
-     * @param string $source
-     * @param string $destination
-     * @return string
-     */
-    public function unpack($source, $destination)
-    {
-        $this->_setCurrentFile($source)
-            ->_setCurrentPath($source);
-
-        $this->_initReader();
-        $this->_unpackCurrentTar($destination);
-        $this->_destroyReader();
-
-        return $destination;
-    }
-
-    /**
-     * Extract one file from TAR (Tape Archiver).
-     *
-     * @param string $file
-     * @param string $source
-     * @param string $destination
-     * @return string
-     */
-    public function extract($file, $source, $destination)
-    {
-        $this->_setCurrentFile($source);
-        $this->_initReader();
-
-        $archiveReader = $this->_getReader();
-        $extractedFile = '';
-
-        while (!$archiveReader->eof()) {
-            $header = $this->_extractFileHeader();
-            if ($header['name'] == $file) {
-                $extractedFile = $destination . basename($header['name']);
-                $this->_extractAndWriteFile($header, $extractedFile);
-                break;
-            }
-
-            if ($header['type'] != 5) {
-                $skipBytes = (int) (($header['size'] + self::TAR_BLOCK_SIZE - 1) / self::TAR_BLOCK_SIZE)
-                    * self::TAR_BLOCK_SIZE;
-                $archiveReader->read($skipBytes);
-            }
-        }
-
-        $this->_destroyReader();
-        return $extractedFile;
     }
 }

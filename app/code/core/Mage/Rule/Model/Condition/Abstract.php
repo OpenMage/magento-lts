@@ -812,6 +812,24 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     }
 
     /**
+     * @return bool
+     */
+    public function validate(Varien_Object $object)
+    {
+        return $this->validateAttribute($object->getData($this->getAttribute()));
+    }
+
+    /**
+     * Retrieve operator for php validation
+     *
+     * @return string
+     */
+    public function getOperatorForValidate()
+    {
+        return $this->getOperator();
+    }
+
+    /**
      * Case and type insensitive comparison of values
      *
      * @param string|int|float $validatedValue
@@ -831,23 +849,5 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             }
             return (bool) preg_match('~' . $validatePattern . '~iu', $value);
         }
-    }
-
-    /**
-     * @return bool
-     */
-    public function validate(Varien_Object $object)
-    {
-        return $this->validateAttribute($object->getData($this->getAttribute()));
-    }
-
-    /**
-     * Retrieve operator for php validation
-     *
-     * @return string
-     */
-    public function getOperatorForValidate()
-    {
-        return $this->getOperator();
     }
 }

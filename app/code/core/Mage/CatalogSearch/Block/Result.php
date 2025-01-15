@@ -33,51 +33,6 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     protected $_productCollection;
 
     /**
-     * Retrieve query model object
-     *
-     * @return Mage_CatalogSearch_Model_Query
-     */
-    protected function _getQuery()
-    {
-        /** @var Mage_CatalogSearch_Helper_Data $helper */
-        $helper = $this->helper('catalogsearch');
-        return $helper->getQuery();
-    }
-
-    /**
-     * Prepare layout
-     *
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        /** @var Mage_CatalogSearch_Helper_Data $helper */
-        $helper = $this->helper('catalogsearch');
-
-        // add Home breadcrumb
-        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
-        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
-        if ($breadcrumbs) {
-            $title = $this->__("Search results for: '%s'", $helper->getQueryText());
-
-            $breadcrumbs->addCrumb('home', [
-                'label' => $this->__('Home'),
-                'title' => $this->__('Go to Home Page'),
-                'link'  => Mage::getBaseUrl(),
-            ])->addCrumb('search', [
-                'label' => $title,
-                'title' => $title,
-            ]);
-        }
-
-        // modify page title
-        $title = $this->__("Search results for: '%s'", $helper->getEscapedQueryText());
-        $this->getLayout()->getBlock('head')->setTitle($title);
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve additional blocks html
      *
      * @return string
@@ -156,20 +111,6 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrieve loaded category collection
-     *
-     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection|Mage_Eav_Model_Entity_Collection_Abstract
-     */
-    protected function _getProductCollection()
-    {
-        if (is_null($this->_productCollection)) {
-            $this->_productCollection = $this->getListBlock()->getLoadedProductCollection();
-        }
-
-        return $this->_productCollection;
-    }
-
-    /**
      * Retrieve search result count
      *
      * @return string
@@ -208,5 +149,64 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     public function getNoteMessages()
     {
         return Mage::helper('catalogsearch')->getNoteMessages();
+    }
+
+    /**
+     * Retrieve query model object
+     *
+     * @return Mage_CatalogSearch_Model_Query
+     */
+    protected function _getQuery()
+    {
+        /** @var Mage_CatalogSearch_Helper_Data $helper */
+        $helper = $this->helper('catalogsearch');
+        return $helper->getQuery();
+    }
+
+    /**
+     * Prepare layout
+     *
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        /** @var Mage_CatalogSearch_Helper_Data $helper */
+        $helper = $this->helper('catalogsearch');
+
+        // add Home breadcrumb
+        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
+        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
+        if ($breadcrumbs) {
+            $title = $this->__("Search results for: '%s'", $helper->getQueryText());
+
+            $breadcrumbs->addCrumb('home', [
+                'label' => $this->__('Home'),
+                'title' => $this->__('Go to Home Page'),
+                'link'  => Mage::getBaseUrl(),
+            ])->addCrumb('search', [
+                'label' => $title,
+                'title' => $title,
+            ]);
+        }
+
+        // modify page title
+        $title = $this->__("Search results for: '%s'", $helper->getEscapedQueryText());
+        $this->getLayout()->getBlock('head')->setTitle($title);
+
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * Retrieve loaded category collection
+     *
+     * @return Mage_CatalogSearch_Model_Resource_Fulltext_Collection|Mage_Eav_Model_Entity_Collection_Abstract
+     */
+    protected function _getProductCollection()
+    {
+        if (is_null($this->_productCollection)) {
+            $this->_productCollection = $this->getListBlock()->getLoadedProductCollection();
+        }
+
+        return $this->_productCollection;
     }
 }

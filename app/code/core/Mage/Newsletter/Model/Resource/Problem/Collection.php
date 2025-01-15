@@ -42,15 +42,6 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     protected $_problemGrouped             = false;
 
     /**
-     * Define resource model and model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('newsletter/problem');
-    }
-
-    /**
      * Adds subscribers info
      *
      * @return $this
@@ -89,6 +80,31 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     }
 
     /**
+     * Loads collection and adds customers info
+     *
+     * @param bool $printQuery
+     * @param bool $logQuery
+     * @return $this
+     */
+    public function load($printQuery = false, $logQuery = false)
+    {
+        parent::load($printQuery, $logQuery);
+        if ($this->_subscribersInfoJoinedFlag && !$this->isLoaded()) {
+            $this->_addCustomersData();
+        }
+        return $this;
+    }
+
+    /**
+     * Define resource model and model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('newsletter/problem');
+    }
+
+    /**
      * Loads customers info to collection
      *
      */
@@ -120,21 +136,5 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
                     ->setCustomerLastName($customer->getLastName());
             }
         }
-    }
-
-    /**
-     * Loads collection and adds customers info
-     *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @return $this
-     */
-    public function load($printQuery = false, $logQuery = false)
-    {
-        parent::load($printQuery, $logQuery);
-        if ($this->_subscribersInfoJoinedFlag && !$this->isLoaded()) {
-            $this->_addCustomersData();
-        }
-        return $this;
     }
 }

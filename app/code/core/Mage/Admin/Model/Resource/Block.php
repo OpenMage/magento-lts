@@ -34,11 +34,6 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected $disallowedBlockNames = ['install/end'];
 
-    protected function _construct()
-    {
-        $this->_init('admin/permission_block', 'block_id');
-    }
-
     /**
      * Get allowed types
      *
@@ -52,6 +47,21 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
             $data = Mage::app()->getCacheInstance()->load(self::CACHE_ID);
         }
         return Mage::helper('core')->jsonDecode($data);
+    }
+
+    /**
+     *  Get disallowed names for block
+     *
+     * @return array
+     */
+    public function getDisallowedBlockNames()
+    {
+        return $this->disallowedBlockNames;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('admin/permission_block', 'block_id');
     }
 
     /**
@@ -91,15 +101,5 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     {
         $this->_generateCache();
         return parent::_afterDelete($object);
-    }
-
-    /**
-     *  Get disallowed names for block
-     *
-     * @return array
-     */
-    public function getDisallowedBlockNames()
-    {
-        return $this->disallowedBlockNames;
     }
 }

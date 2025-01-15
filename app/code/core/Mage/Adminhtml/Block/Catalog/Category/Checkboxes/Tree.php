@@ -24,15 +24,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
 {
     protected $_selectedIds = [];
 
-    /**
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        $this->setTemplate('catalog/category/checkboxes/tree.phtml');
-        return $this;
-    }
-
     public function getCategoryIds()
     {
         return $this->_selectedIds;
@@ -46,6 +37,20 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
             $ids = [(int) $ids];
         }
         $this->_selectedIds = $ids;
+        return $this;
+    }
+
+    public function getRoot($parentNodeCategory = null, $recursionLevel = 3)
+    {
+        return $this->getRootByIds($this->getCategoryIds());
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        $this->setTemplate('catalog/category/checkboxes/tree.phtml');
         return $this;
     }
 
@@ -83,10 +88,5 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         }
 
         return $item;
-    }
-
-    public function getRoot($parentNodeCategory = null, $recursionLevel = 3)
-    {
-        return $this->getRootByIds($this->getCategoryIds());
     }
 }

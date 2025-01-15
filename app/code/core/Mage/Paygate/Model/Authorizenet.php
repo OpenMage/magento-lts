@@ -488,6 +488,110 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
+     * Return cards storage model
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @return Mage_Paygate_Model_Authorizenet_Cards
+     */
+    public function getCardsStorage($payment = null)
+    {
+        if (is_null($payment)) {
+            $payment = $this->getInfoInstance();
+        }
+        if (is_null($this->_cardsStorage)) {
+            $this->_initCardsStorage($payment);
+        }
+        return $this->_cardsStorage;
+    }
+
+    /**
+     * If partial authorization is started method will return true
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @return bool
+     */
+    public function isPartialAuthorization($payment = null)
+    {
+        if (is_null($payment)) {
+            $payment = $this->getInfoInstance();
+        }
+        return $payment->getAdditionalInformation($this->_splitTenderIdKey);
+    }
+
+    /**
+     * Mock capture transaction id in invoice
+     *
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return Mage_Payment_Model_Method_Abstract
+     */
+    public function processInvoice($invoice, $payment)
+    {
+        $invoice->setTransactionId(1);
+        return $this;
+    }
+
+    /**
+     * Set transaction ID into creditmemo for informational purposes
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return Mage_Payment_Model_Method_Abstract
+     */
+    public function processCreditmemo($creditmemo, $payment)
+    {
+        $creditmemo->setTransactionId(1);
+        return $this;
+    }
+
+    /**
+     * Fetch transaction details info
+     *
+     * Update transaction info if there is one placing transaction only
+     *
+     * @param string $transactionId
+     * @return array
+     */
+    public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
+    {
+        $data = parent::fetchTransactionInfo($payment, $transactionId);
+        $cardsStorage = $this->getCardsStorage($payment);
+
+        if ($cardsStorage->getCardsCount() != 1) {
+            return $data;
+        }
+        $cards = $cardsStorage->getCards();
+        $card = array_shift($cards);
+
+        /*
+         * We need try to get transaction from Mage::registry,
+         * because in cases when fetch calling from Mage_Adminhtml_Sales_TransactionsController::fetchAction()
+         * this line "$transaction = $payment->getTransaction($transactionId)" loads a fetching transaction into a new object,
+         * so some changes (for ex. $transaction->setAdditionalInformation($this->_isTransactionFraud, false) ) will not saved,
+         * because controller have another object for this transaction and Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS isn't includes _isTransactionFraud flag.
+         */
+        $transaction = Mage::registry('current_transaction');
+        if (is_null($transaction)) {
+            //this is for payment info update:
+            $transactionId = $card->getLastTransId();
+            $transaction = $payment->getTransaction($transactionId);
+        }
+        //because in child transaction, the txn_id spoils by added additional word (@see $this->_preauthorizeCaptureCardTransaction()):
+        if (empty($transactionId) || $transaction->getParentId()) {
+            $transactionId = $transaction->getAdditionalInformation($this->_realTransactionIdKey);
+        }
+        $response = $this->_getTransactionDetails($transactionId);
+        $data = array_merge($data, $response->getData());
+
+        if ($response->getResponseCode() == self::RESPONSE_CODE_APPROVED) {
+            $transaction->setAdditionalInformation($this->_isTransactionFraud, false);
+            $payment->setIsTransactionApproved(true);
+        } elseif ($response->getResponseReasonCode() == self::RESPONSE_REASON_CODE_PENDING_REVIEW_DECLINED) {
+            $payment->setIsTransactionDenied(true);
+        }
+        return $data;
+    }
+
+    /**
      * Send request with new payment to gateway
      *
      * @param Mage_Sales_Model_Order_Payment $payment
@@ -994,110 +1098,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Return cards storage model
-     *
-     * @param Mage_Payment_Model_Info $payment
-     * @return Mage_Paygate_Model_Authorizenet_Cards
-     */
-    public function getCardsStorage($payment = null)
-    {
-        if (is_null($payment)) {
-            $payment = $this->getInfoInstance();
-        }
-        if (is_null($this->_cardsStorage)) {
-            $this->_initCardsStorage($payment);
-        }
-        return $this->_cardsStorage;
-    }
-
-    /**
-     * If partial authorization is started method will return true
-     *
-     * @param Mage_Payment_Model_Info $payment
-     * @return bool
-     */
-    public function isPartialAuthorization($payment = null)
-    {
-        if (is_null($payment)) {
-            $payment = $this->getInfoInstance();
-        }
-        return $payment->getAdditionalInformation($this->_splitTenderIdKey);
-    }
-
-    /**
-     * Mock capture transaction id in invoice
-     *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
-     */
-    public function processInvoice($invoice, $payment)
-    {
-        $invoice->setTransactionId(1);
-        return $this;
-    }
-
-    /**
-     * Set transaction ID into creditmemo for informational purposes
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
-     */
-    public function processCreditmemo($creditmemo, $payment)
-    {
-        $creditmemo->setTransactionId(1);
-        return $this;
-    }
-
-    /**
-     * Fetch transaction details info
-     *
-     * Update transaction info if there is one placing transaction only
-     *
-     * @param string $transactionId
-     * @return array
-     */
-    public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
-    {
-        $data = parent::fetchTransactionInfo($payment, $transactionId);
-        $cardsStorage = $this->getCardsStorage($payment);
-
-        if ($cardsStorage->getCardsCount() != 1) {
-            return $data;
-        }
-        $cards = $cardsStorage->getCards();
-        $card = array_shift($cards);
-
-        /*
-         * We need try to get transaction from Mage::registry,
-         * because in cases when fetch calling from Mage_Adminhtml_Sales_TransactionsController::fetchAction()
-         * this line "$transaction = $payment->getTransaction($transactionId)" loads a fetching transaction into a new object,
-         * so some changes (for ex. $transaction->setAdditionalInformation($this->_isTransactionFraud, false) ) will not saved,
-         * because controller have another object for this transaction and Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS isn't includes _isTransactionFraud flag.
-         */
-        $transaction = Mage::registry('current_transaction');
-        if (is_null($transaction)) {
-            //this is for payment info update:
-            $transactionId = $card->getLastTransId();
-            $transaction = $payment->getTransaction($transactionId);
-        }
-        //because in child transaction, the txn_id spoils by added additional word (@see $this->_preauthorizeCaptureCardTransaction()):
-        if (empty($transactionId) || $transaction->getParentId()) {
-            $transactionId = $transaction->getAdditionalInformation($this->_realTransactionIdKey);
-        }
-        $response = $this->_getTransactionDetails($transactionId);
-        $data = array_merge($data, $response->getData());
-
-        if ($response->getResponseCode() == self::RESPONSE_CODE_APPROVED) {
-            $transaction->setAdditionalInformation($this->_isTransactionFraud, false);
-            $payment->setIsTransactionApproved(true);
-        } elseif ($response->getResponseReasonCode() == self::RESPONSE_REASON_CODE_PENDING_REVIEW_DECLINED) {
-            $payment->setIsTransactionDenied(true);
-        }
-        return $data;
-    }
-
-    /**
      * Set split_tender_id to quote payment if needed
      *
      * @param Mage_Paygate_Model_Authorizenet_Result $response
@@ -1423,28 +1423,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     }
 
     /**
-     * Reset assigned data in payment info model
-     *
-     * @param Mage_Payment_Model_Info $payment
-     * @return $this
-     */
-    private function _clearAssignedData($payment)
-    {
-        $payment->setCcType(null)
-            ->setCcOwner(null)
-            ->setCcLast4(null)
-            ->setCcNumber(null)
-            ->setCcCid(null)
-            ->setCcExpMonth(null)
-            ->setCcExpYear(null)
-            ->setCcSsIssue(null)
-            ->setCcSsStartMonth(null)
-            ->setCcSsStartYear(null)
-        ;
-        return $this;
-    }
-
-    /**
      * Add payment transaction
      *
      * @param string $transactionId
@@ -1630,5 +1608,27 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         isset($responseTransactionXmlDocument->submitTimeLocal)           && $response->setSubmitTimeLocal((string) $responseTransactionXmlDocument->submitTimeLocal);
 
         return $response;
+    }
+
+    /**
+     * Reset assigned data in payment info model
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @return $this
+     */
+    private function _clearAssignedData($payment)
+    {
+        $payment->setCcType(null)
+            ->setCcOwner(null)
+            ->setCcLast4(null)
+            ->setCcNumber(null)
+            ->setCcCid(null)
+            ->setCcExpMonth(null)
+            ->setCcExpYear(null)
+            ->setCcSsIssue(null)
+            ->setCcSsStartMonth(null)
+            ->setCcSsStartYear(null)
+        ;
+        return $this;
     }
 }

@@ -36,14 +36,15 @@
  */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
 {
+    public const ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
+
+    public const CACHE_TAG         = 'EAV_ATTRIBUTE';
     /**
      * Prefix of model events names
      *
      * @var string
      */
     protected $_eventPrefix                         = 'eav_entity_attribute';
-
-    public const ATTRIBUTE_CODE_MAX_LENGTH                 = 30;
 
     /**
      * Parameter name in event
@@ -53,56 +54,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      * @var string
      */
     protected $_eventObject = 'attribute';
-
-    public const CACHE_TAG         = 'EAV_ATTRIBUTE';
     protected $_cacheTag    = 'EAV_ATTRIBUTE';
-
-    /**
-     * Retrieve default attribute backend model by attribute code
-     *
-     * @return string
-     */
-    protected function _getDefaultBackendModel()
-    {
-        switch ($this->getAttributeCode()) {
-            case 'created_at':
-                return 'eav/entity_attribute_backend_time_created';
-
-            case 'updated_at':
-                return 'eav/entity_attribute_backend_time_updated';
-
-            case 'store_id':
-                return 'eav/entity_attribute_backend_store';
-
-            case 'increment_id':
-                return 'eav/entity_attribute_backend_increment';
-        }
-
-        return parent::_getDefaultBackendModel();
-    }
-
-    /**
-     * Retrieve default attribute frontend model
-     *
-     * @return string
-     */
-    protected function _getDefaultFrontendModel()
-    {
-        return parent::_getDefaultFrontendModel();
-    }
-
-    /**
-     * Retrieve default attribute source model
-     *
-     * @return string
-     */
-    protected function _getDefaultSourceModel()
-    {
-        if ($this->getAttributeCode() == 'store_id') {
-            return 'eav/entity_attribute_source_store';
-        }
-        return parent::_getDefaultSourceModel();
-    }
 
     /**
      * Delete entity
@@ -131,87 +83,6 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             $this->setEntityAttributeId($filteredAttributes->getFirstItem()->getEntityAttributeId());
         }
         return $this;
-    }
-
-    /**
-     * Prepare data for save
-     *
-     * @inheritDoc
-     * @throws Mage_Eav_Exception
-     */
-    protected function _beforeSave()
-    {
-        /**
-         * Check for maximum attribute_code length
-         */
-        if (isset($this->_data['attribute_code']) &&
-            !Zend_Validate::is(
-                $this->_data['attribute_code'],
-                'StringLength',
-                ['max' => self::ATTRIBUTE_CODE_MAX_LENGTH],
-            )
-        ) {
-            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
-        }
-
-        $defaultValue   = $this->getDefaultValue();
-        $hasDefaultValue = ((string) $defaultValue != '');
-
-        if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
-            $locale = Mage::app()->getLocale()->getLocaleCode();
-            if (!Zend_Locale_Format::isNumber($defaultValue, ['locale' => $locale])) {
-                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
-            }
-
-            try {
-                $filter = new Zend_Filter_LocalizedToNormalized(
-                    ['locale' => Mage::app()->getLocale()->getLocaleCode()],
-                );
-                $this->setDefaultValue($filter->filter($defaultValue));
-            } catch (Exception $e) {
-                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
-            }
-        }
-
-        if ($this->getBackendType() == 'datetime') {
-            if (!$this->getBackendModel()) {
-                $this->setBackendModel('eav/entity_attribute_backend_datetime');
-            }
-
-            if (!$this->getFrontendModel()) {
-                $this->setFrontendModel('eav/entity_attribute_frontend_datetime');
-            }
-
-            // save default date value as timestamp
-            if ($hasDefaultValue) {
-                $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                try {
-                    $defaultValue = Mage::app()->getLocale()->date($defaultValue, $format, null, false)->toValue();
-                    $this->setDefaultValue($defaultValue);
-                } catch (Exception $e) {
-                    throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default date'));
-                }
-            }
-        }
-
-        if ($this->getBackendType() == 'gallery') {
-            if (!$this->getBackendModel()) {
-                $this->setBackendModel('eav/entity_attribute_backend_media');
-            }
-        }
-
-        return parent::_beforeSave();
-    }
-
-    /**
-     * Save additional data
-     *
-     * @inheritDoc
-     */
-    protected function _afterSave()
-    {
-        $this->_getResource()->saveInSetIncluding($this);
-        return parent::_afterSave();
     }
 
     /**
@@ -340,5 +211,133 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             }
         }
         return $this->getFrontendLabel();
+    }
+
+    /**
+     * Retrieve default attribute backend model by attribute code
+     *
+     * @return string
+     */
+    protected function _getDefaultBackendModel()
+    {
+        switch ($this->getAttributeCode()) {
+            case 'created_at':
+                return 'eav/entity_attribute_backend_time_created';
+
+            case 'updated_at':
+                return 'eav/entity_attribute_backend_time_updated';
+
+            case 'store_id':
+                return 'eav/entity_attribute_backend_store';
+
+            case 'increment_id':
+                return 'eav/entity_attribute_backend_increment';
+        }
+
+        return parent::_getDefaultBackendModel();
+    }
+
+    /**
+     * Retrieve default attribute frontend model
+     *
+     * @return string
+     */
+    protected function _getDefaultFrontendModel()
+    {
+        return parent::_getDefaultFrontendModel();
+    }
+
+    /**
+     * Retrieve default attribute source model
+     *
+     * @return string
+     */
+    protected function _getDefaultSourceModel()
+    {
+        if ($this->getAttributeCode() == 'store_id') {
+            return 'eav/entity_attribute_source_store';
+        }
+        return parent::_getDefaultSourceModel();
+    }
+
+    /**
+     * Prepare data for save
+     *
+     * @inheritDoc
+     * @throws Mage_Eav_Exception
+     */
+    protected function _beforeSave()
+    {
+        /**
+         * Check for maximum attribute_code length
+         */
+        if (isset($this->_data['attribute_code']) &&
+            !Zend_Validate::is(
+                $this->_data['attribute_code'],
+                'StringLength',
+                ['max' => self::ATTRIBUTE_CODE_MAX_LENGTH],
+            )
+        ) {
+            throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
+        }
+
+        $defaultValue   = $this->getDefaultValue();
+        $hasDefaultValue = ((string) $defaultValue != '');
+
+        if ($this->getBackendType() == 'decimal' && $hasDefaultValue) {
+            $locale = Mage::app()->getLocale()->getLocaleCode();
+            if (!Zend_Locale_Format::isNumber($defaultValue, ['locale' => $locale])) {
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
+            }
+
+            try {
+                $filter = new Zend_Filter_LocalizedToNormalized(
+                    ['locale' => Mage::app()->getLocale()->getLocaleCode()],
+                );
+                $this->setDefaultValue($filter->filter($defaultValue));
+            } catch (Exception $e) {
+                throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default decimal value'));
+            }
+        }
+
+        if ($this->getBackendType() == 'datetime') {
+            if (!$this->getBackendModel()) {
+                $this->setBackendModel('eav/entity_attribute_backend_datetime');
+            }
+
+            if (!$this->getFrontendModel()) {
+                $this->setFrontendModel('eav/entity_attribute_frontend_datetime');
+            }
+
+            // save default date value as timestamp
+            if ($hasDefaultValue) {
+                $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+                try {
+                    $defaultValue = Mage::app()->getLocale()->date($defaultValue, $format, null, false)->toValue();
+                    $this->setDefaultValue($defaultValue);
+                } catch (Exception $e) {
+                    throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid default date'));
+                }
+            }
+        }
+
+        if ($this->getBackendType() == 'gallery') {
+            if (!$this->getBackendModel()) {
+                $this->setBackendModel('eav/entity_attribute_backend_media');
+            }
+        }
+
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Save additional data
+     *
+     * @inheritDoc
+     */
+    protected function _afterSave()
+    {
+        $this->_getResource()->saveInSetIncluding($this);
+        return parent::_afterSave();
     }
 }

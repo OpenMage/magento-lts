@@ -38,22 +38,6 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     protected $_billingAgreements = null;
 
     /**
-     * Set Billing Agreement instance
-     *
-     * @return Mage_Core_Block_Abstract
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-        $pager = $this->getLayout()->createBlock('page/html_pager')
-            ->setCollection($this->getBillingAgreements())->setIsOutputRequired(false);
-        $this->setChild('pager', $pager)
-            ->setBackUrl($this->getUrl('customer/account/'));
-        $this->getBillingAgreements()->load();
-        return $this;
-    }
-
-    /**
      * Retrieve billing agreements collection
      *
      * @return Mage_Sales_Model_Resource_Billing_Agreement_Collection
@@ -99,23 +83,6 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     }
 
     /**
-     * Load available billing agreement methods
-     *
-     * @return array
-     */
-    protected function _loadPaymentMethods()
-    {
-        if (!$this->_paymentMethods) {
-            /** @var Mage_Payment_Helper_Data $helper */
-            $helper = $this->helper('payment');
-            foreach ($helper->getBillingAgreementMethods() as $paymentMethod) {
-                $this->_paymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
-            }
-        }
-        return $this->_paymentMethods;
-    }
-
-    /**
      * Retrieve wizard payment options array
      *
      * @return array
@@ -131,6 +98,39 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
             }
         }
         return $paymentMethodOptions;
+    }
+
+    /**
+     * Set Billing Agreement instance
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+        $pager = $this->getLayout()->createBlock('page/html_pager')
+            ->setCollection($this->getBillingAgreements())->setIsOutputRequired(false);
+        $this->setChild('pager', $pager)
+            ->setBackUrl($this->getUrl('customer/account/'));
+        $this->getBillingAgreements()->load();
+        return $this;
+    }
+
+    /**
+     * Load available billing agreement methods
+     *
+     * @return array
+     */
+    protected function _loadPaymentMethods()
+    {
+        if (!$this->_paymentMethods) {
+            /** @var Mage_Payment_Helper_Data $helper */
+            $helper = $this->helper('payment');
+            foreach ($helper->getBillingAgreementMethods() as $paymentMethod) {
+                $this->_paymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
+            }
+        }
+        return $this->_paymentMethods;
     }
 
     /**

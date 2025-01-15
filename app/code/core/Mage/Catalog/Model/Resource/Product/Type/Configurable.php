@@ -23,15 +23,6 @@
 class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Init resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product_super_link', 'link_id');
-    }
-
-    /**
      * Save configurable product relations
      *
      * @param Mage_Catalog_Model_Product $mainProduct the parent id
@@ -213,5 +204,13 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
             $attributesOptionsData[$superAttribute->getAttributeId()] = $this->_getReadAdapter()->fetchAll($select);
         }
         return $attributesOptionsData;
+    }
+    /**
+     * Init resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product_super_link', 'link_id');
     }
 }

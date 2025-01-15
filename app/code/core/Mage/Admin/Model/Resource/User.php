@@ -22,29 +22,6 @@
  */
 class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('admin/user', 'user_id');
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _initUniqueFields()
-    {
-        $this->_uniqueFields = [
-            [
-                'field' => 'email',
-                'title' => Mage::helper('adminhtml')->__('Email'),
-            ],
-            [
-                'field' => 'username',
-                'title' => Mage::helper('adminhtml')->__('User Name'),
-            ],
-        ];
-        return $this;
-    }
-
     /**
      * Authenticate user by $username and $password
      *
@@ -122,43 +99,6 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         } else {
             return null;
         }
-    }
-
-    /**
-     * Set created/modified values before user save
-     *
-     * @param Mage_Admin_Model_User $user
-     * @inheritDoc
-     */
-    protected function _beforeSave(Mage_Core_Model_Abstract $user)
-    {
-        if ($user->isObjectNew()) {
-            $user->setCreated($this->formatDate(true));
-        }
-        $user->setModified($this->formatDate(true));
-
-        return parent::_beforeSave($user);
-    }
-
-    /**
-     * Unserialize user extra data after user save
-     *
-     * @return $this
-     */
-    protected function _afterSave(Mage_Core_Model_Abstract $user)
-    {
-        $this->_unserializeExtraData($user);
-        return $this;
-    }
-
-    /**
-     * Unserialize user extra data after user load
-     *
-     * @inheritDoc
-     */
-    protected function _afterLoad(Mage_Core_Model_Abstract $user)
-    {
-        return parent::_afterLoad($this->_unserializeExtraData($user));
     }
 
     /**
@@ -447,6 +387,65 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         }
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('admin/user', 'user_id');
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = [
+            [
+                'field' => 'email',
+                'title' => Mage::helper('adminhtml')->__('Email'),
+            ],
+            [
+                'field' => 'username',
+                'title' => Mage::helper('adminhtml')->__('User Name'),
+            ],
+        ];
+        return $this;
+    }
+
+    /**
+     * Set created/modified values before user save
+     *
+     * @param Mage_Admin_Model_User $user
+     * @inheritDoc
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $user)
+    {
+        if ($user->isObjectNew()) {
+            $user->setCreated($this->formatDate(true));
+        }
+        $user->setModified($this->formatDate(true));
+
+        return parent::_beforeSave($user);
+    }
+
+    /**
+     * Unserialize user extra data after user save
+     *
+     * @return $this
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $user)
+    {
+        $this->_unserializeExtraData($user);
+        return $this;
+    }
+
+    /**
+     * Unserialize user extra data after user load
+     *
+     * @inheritDoc
+     */
+    protected function _afterLoad(Mage_Core_Model_Abstract $user)
+    {
+        return parent::_afterLoad($this->_unserializeExtraData($user));
     }
 
     /**

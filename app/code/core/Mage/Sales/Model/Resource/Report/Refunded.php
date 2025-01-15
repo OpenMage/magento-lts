@@ -23,14 +23,6 @@
 class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resource_Report_Abstract
 {
     /**
-     * Model initialization
-     */
-    protected function _construct()
-    {
-        $this->_setResource('sales');
-    }
-
-    /**
      * Aggregate Refunded data
      *
      * @param mixed $from
@@ -49,6 +41,13 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
 
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_REFUNDED_FLAG_CODE);
         return $this;
+    }
+    /**
+     * Model initialization
+     */
+    protected function _construct()
+    {
+        $this->_setResource('sales');
     }
 
     /**

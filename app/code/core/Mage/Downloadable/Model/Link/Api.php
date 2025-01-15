@@ -23,59 +23,6 @@
 class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
 {
     /**
-     * Return validator instance
-     *
-     * @return Mage_Downloadable_Model_Link_Api_Validator
-     */
-    protected function _getValidator()
-    {
-        return Mage::getSingleton('downloadable/link_api_validator');
-    }
-
-    /**
-     * Decode file from base64 and upload it to donwloadable 'tmp' folder
-     *
-     * @param array $fileInfo
-     * @param string $type
-     * @return string
-     */
-    protected function _uploadFile($fileInfo, $type)
-    {
-        $tmpPath = '';
-        if ($type == 'sample') {
-            $tmpPath = Mage_Downloadable_Model_Sample::getBaseTmpPath();
-        } elseif ($type == 'link') {
-            $tmpPath = Mage_Downloadable_Model_Link::getBaseTmpPath();
-        } elseif ($type == 'link_samples') {
-            $tmpPath = Mage_Downloadable_Model_Link::getBaseSampleTmpPath();
-        }
-
-        $result = [];
-        try {
-            /** @var Mage_Downloadable_Model_Link_Api_Uploader $uploader */
-            $uploader = Mage::getModel('downloadable/link_api_uploader', $fileInfo);
-            $uploader->setAllowRenameFiles(true);
-            $uploader->setFilesDispersion(true);
-            $result = $uploader->save($tmpPath);
-
-            if (isset($result['file'])) {
-                $fullPath = rtrim($tmpPath, DS) . DS . ltrim($result['file'], DS);
-                Mage::helper('core/file_storage_database')->saveFile($fullPath);
-            }
-        } catch (Exception $e) {
-            if ($e->getMessage() != '') {
-                $this->_fault('upload_failed', $e->getMessage());
-            } else {
-                $this->_fault($e->getCode());
-            }
-        }
-
-        $result['status'] = 'new';
-        $result['name'] = substr($result['file'], strrpos($result['file'], '/') + 1);
-        return Mage::helper('core')->jsonEncode([$result]);
-    }
-
-    /**
      * Add downloadable content to product
      *
      * @param int|string $productId
@@ -248,6 +195,58 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         return true;
+    }
+    /**
+     * Return validator instance
+     *
+     * @return Mage_Downloadable_Model_Link_Api_Validator
+     */
+    protected function _getValidator()
+    {
+        return Mage::getSingleton('downloadable/link_api_validator');
+    }
+
+    /**
+     * Decode file from base64 and upload it to donwloadable 'tmp' folder
+     *
+     * @param array $fileInfo
+     * @param string $type
+     * @return string
+     */
+    protected function _uploadFile($fileInfo, $type)
+    {
+        $tmpPath = '';
+        if ($type == 'sample') {
+            $tmpPath = Mage_Downloadable_Model_Sample::getBaseTmpPath();
+        } elseif ($type == 'link') {
+            $tmpPath = Mage_Downloadable_Model_Link::getBaseTmpPath();
+        } elseif ($type == 'link_samples') {
+            $tmpPath = Mage_Downloadable_Model_Link::getBaseSampleTmpPath();
+        }
+
+        $result = [];
+        try {
+            /** @var Mage_Downloadable_Model_Link_Api_Uploader $uploader */
+            $uploader = Mage::getModel('downloadable/link_api_uploader', $fileInfo);
+            $uploader->setAllowRenameFiles(true);
+            $uploader->setFilesDispersion(true);
+            $result = $uploader->save($tmpPath);
+
+            if (isset($result['file'])) {
+                $fullPath = rtrim($tmpPath, DS) . DS . ltrim($result['file'], DS);
+                Mage::helper('core/file_storage_database')->saveFile($fullPath);
+            }
+        } catch (Exception $e) {
+            if ($e->getMessage() != '') {
+                $this->_fault('upload_failed', $e->getMessage());
+            } else {
+                $this->_fault($e->getCode());
+            }
+        }
+
+        $result['status'] = 'new';
+        $result['name'] = substr($result['file'], strrpos($result['file'], '/') + 1);
+        return Mage::helper('core')->jsonEncode([$result]);
     }
 
     /**

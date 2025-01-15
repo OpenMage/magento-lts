@@ -22,6 +22,19 @@
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
 {
+    /**
+     * Retrieve temporary decimal index table name
+     *
+     * @param string $table
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/product_eav_decimal_indexer_idx');
+        }
+        return $this->getTable('catalog/product_eav_decimal_indexer_tmp');
+    }
     protected function _construct()
     {
         $this->_init('catalog/product_index_eav_decimal', 'entity_id');
@@ -114,19 +127,5 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
             ->where('ea.backend_type=?', 'decimal');
 
         return $adapter->fetchCol($select);
-    }
-
-    /**
-     * Retrieve temporary decimal index table name
-     *
-     * @param string $table
-     * @return string
-     */
-    public function getIdxTable($table = null)
-    {
-        if ($this->useIdxTable()) {
-            return $this->getTable('catalog/product_eav_decimal_indexer_idx');
-        }
-        return $this->getTable('catalog/product_eav_decimal_indexer_tmp');
     }
 }

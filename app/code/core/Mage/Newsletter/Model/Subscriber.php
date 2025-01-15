@@ -89,11 +89,6 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
      */
     protected $_isStatusChanged = false;
 
-    protected function _construct()
-    {
-        $this->_init('newsletter/subscriber');
-    }
-
     /**
      * Alias for getSubscriberId()
      *
@@ -612,5 +607,10 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             $name = Mage::helper('customer')->getFullCustomerName($this);
         }
         return $name;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('newsletter/subscriber');
     }
 }

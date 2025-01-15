@@ -36,6 +36,24 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     protected static $_conditionModels = [];
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setType('rule/condition_combine')
+            ->setAggregator('all')
+            ->setValue(true)
+            ->setConditions([])
+            ->setActions([]);
+
+        $this->loadAggregatorOptions();
+        if ($options = $this->getAggregatorOptions()) {
+            foreach (array_keys($options) as $aggregator) {
+                $this->setAggregator($aggregator);
+                break;
+            }
+        }
+    }
+
     /**
      * Prepare sql where by condition
      *
@@ -54,53 +72,6 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         }
         $delimiter = $this->getAggregator() == 'all' ? ' AND ' : ' OR ';
         return ' (' . implode($delimiter, $wheres) . ') ';
-    }
-
-    /**
-     * Retrieve new object for each requested model.
-     * If model is requested first time, store it at static array.
-     *
-     * It's made by performance reasons to avoid initialization of same models each time when rules are being processed.
-     *
-     * @param  string $modelClass
-     * @return Mage_Rule_Model_Condition_Abstract|bool
-     */
-    protected function _getNewConditionModelInstance($modelClass)
-    {
-        if (empty($modelClass)) {
-            return false;
-        }
-
-        if (!array_key_exists($modelClass, self::$_conditionModels)) {
-            $model = Mage::getModel($modelClass);
-            self::$_conditionModels[$modelClass] = $model;
-        } else {
-            $model = self::$_conditionModels[$modelClass];
-        }
-
-        if (!$model) {
-            return false;
-        }
-
-        return clone $model;
-    }
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setType('rule/condition_combine')
-            ->setAggregator('all')
-            ->setValue(true)
-            ->setConditions([])
-            ->setActions([]);
-
-        $this->loadAggregatorOptions();
-        if ($options = $this->getAggregatorOptions()) {
-            foreach (array_keys($options) as $aggregator) {
-                $this->setAggregator($aggregator);
-                break;
-            }
-        }
     }
     /* start aggregator methods */
     /**
@@ -412,6 +383,35 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     {
         $key = $this->getPrefix() ? $this->getPrefix() : 'conditions';
         return $this->setData($key, $conditions);
+    }
+
+    /**
+     * Retrieve new object for each requested model.
+     * If model is requested first time, store it at static array.
+     *
+     * It's made by performance reasons to avoid initialization of same models each time when rules are being processed.
+     *
+     * @param  string $modelClass
+     * @return Mage_Rule_Model_Condition_Abstract|bool
+     */
+    protected function _getNewConditionModelInstance($modelClass)
+    {
+        if (empty($modelClass)) {
+            return false;
+        }
+
+        if (!array_key_exists($modelClass, self::$_conditionModels)) {
+            $model = Mage::getModel($modelClass);
+            self::$_conditionModels[$modelClass] = $model;
+        } else {
+            $model = self::$_conditionModels[$modelClass];
+        }
+
+        if (!$model) {
+            return false;
+        }
+
+        return clone $model;
     }
 
     /**

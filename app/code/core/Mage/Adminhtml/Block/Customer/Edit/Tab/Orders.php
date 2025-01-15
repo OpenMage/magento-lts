@@ -35,6 +35,23 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
     }
 
     /**
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/orders', ['_current' => true]);
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -117,22 +134,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
         }
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/orders', ['_current' => true]);
     }
 }

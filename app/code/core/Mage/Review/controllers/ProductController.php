@@ -54,91 +54,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         return $this;
     }
-    /**
-     * Initialize and check product
-     *
-     * @return Mage_Catalog_Model_Product|false
-     */
-    protected function _initProduct()
-    {
-        Mage::dispatchEvent('review_controller_product_init_before', ['controller_action' => $this]);
-        $categoryId = (int) $this->getRequest()->getParam('category', false);
-        $productId  = (int) $this->getRequest()->getParam('id');
-
-        $product = $this->_loadProduct($productId);
-        if (!$product) {
-            return false;
-        }
-
-        if ($categoryId) {
-            $category = Mage::getModel('catalog/category')->load($categoryId);
-            Mage::register('current_category', $category);
-        }
-
-        try {
-            Mage::dispatchEvent('review_controller_product_init', ['product' => $product]);
-            Mage::dispatchEvent('review_controller_product_init_after', [
-                'product'           => $product,
-                'controller_action' => $this,
-            ]);
-        } catch (Mage_Core_Exception $e) {
-            Mage::logException($e);
-            return false;
-        }
-
-        return $product;
-    }
-
-    /**
-     * Load product model with data by passed id.
-     * Return false if product was not loaded or has incorrect status.
-     *
-     * @param int $productId
-     * @return bool|Mage_Catalog_Model_Product
-     */
-    protected function _loadProduct($productId)
-    {
-        if (!$productId) {
-            return false;
-        }
-
-        $product = Mage::getModel('catalog/product')
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->load($productId);
-        /** @var Mage_Catalog_Model_Product $product */
-        if (!$product->getId() || !$product->isVisibleInCatalog() || !$product->isVisibleInSiteVisibility()) {
-            return false;
-        }
-
-        Mage::register('current_product', $product);
-        Mage::register('product', $product);
-
-        return $product;
-    }
-
-    /**
-     * Load review model with data by passed id.
-     * Return false if review was not loaded or review is not approved.
-     *
-     * @param int $reviewId
-     * @return bool|Mage_Review_Model_Review
-     */
-    protected function _loadReview($reviewId)
-    {
-        if (!$reviewId) {
-            return false;
-        }
-
-        $review = Mage::getModel('review/review')->load($reviewId);
-        /** @var Mage_Review_Model_Review $review */
-        if (!$review->getId() || !$review->isApproved() || !$review->isAvailableOnStore(Mage::app()->getStore())) {
-            return false;
-        }
-
-        Mage::register('current_review', $review);
-
-        return $review;
-    }
 
     /**
      * Submit new review action
@@ -268,6 +183,91 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $this->_initLayoutMessages('review/session');
         $this->_initLayoutMessages('catalog/session');
         $this->renderLayout();
+    }
+    /**
+     * Initialize and check product
+     *
+     * @return Mage_Catalog_Model_Product|false
+     */
+    protected function _initProduct()
+    {
+        Mage::dispatchEvent('review_controller_product_init_before', ['controller_action' => $this]);
+        $categoryId = (int) $this->getRequest()->getParam('category', false);
+        $productId  = (int) $this->getRequest()->getParam('id');
+
+        $product = $this->_loadProduct($productId);
+        if (!$product) {
+            return false;
+        }
+
+        if ($categoryId) {
+            $category = Mage::getModel('catalog/category')->load($categoryId);
+            Mage::register('current_category', $category);
+        }
+
+        try {
+            Mage::dispatchEvent('review_controller_product_init', ['product' => $product]);
+            Mage::dispatchEvent('review_controller_product_init_after', [
+                'product'           => $product,
+                'controller_action' => $this,
+            ]);
+        } catch (Mage_Core_Exception $e) {
+            Mage::logException($e);
+            return false;
+        }
+
+        return $product;
+    }
+
+    /**
+     * Load product model with data by passed id.
+     * Return false if product was not loaded or has incorrect status.
+     *
+     * @param int $productId
+     * @return bool|Mage_Catalog_Model_Product
+     */
+    protected function _loadProduct($productId)
+    {
+        if (!$productId) {
+            return false;
+        }
+
+        $product = Mage::getModel('catalog/product')
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->load($productId);
+        /** @var Mage_Catalog_Model_Product $product */
+        if (!$product->getId() || !$product->isVisibleInCatalog() || !$product->isVisibleInSiteVisibility()) {
+            return false;
+        }
+
+        Mage::register('current_product', $product);
+        Mage::register('product', $product);
+
+        return $product;
+    }
+
+    /**
+     * Load review model with data by passed id.
+     * Return false if review was not loaded or review is not approved.
+     *
+     * @param int $reviewId
+     * @return bool|Mage_Review_Model_Review
+     */
+    protected function _loadReview($reviewId)
+    {
+        if (!$reviewId) {
+            return false;
+        }
+
+        $review = Mage::getModel('review/review')->load($reviewId);
+        /** @var Mage_Review_Model_Review $review */
+        if (!$review->getId() || !$review->isApproved() || !$review->isAvailableOnStore(Mage::app()->getStore())) {
+            return false;
+        }
+
+        Mage::register('current_review', $review);
+
+        return $review;
     }
 
     /**

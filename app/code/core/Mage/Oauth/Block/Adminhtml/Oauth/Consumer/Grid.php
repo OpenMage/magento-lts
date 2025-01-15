@@ -47,6 +47,30 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
+     * Get grid URL
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
+     * Get row URL
+     *
+     * @param Mage_Oauth_Model_Consumer $row
+     * @return string|null
+     */
+    public function getRowUrl($row)
+    {
+        if ($this->_editAllow) {
+            return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
+        }
+        return null;
+    }
+
+    /**
      * Prepare collection
      *
      * @inheritDoc
@@ -80,29 +104,5 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Get grid URL
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
-    }
-
-    /**
-     * Get row URL
-     *
-     * @param Mage_Oauth_Model_Consumer $row
-     * @return string|null
-     */
-    public function getRowUrl($row)
-    {
-        if ($this->_editAllow) {
-            return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
-        }
-        return null;
     }
 }

@@ -33,6 +33,46 @@ class Mage_Page_Model_Config
     protected $_pageLayouts = null;
 
     /**
+     * Retrieve available page layouts
+     *
+     * @return array
+     */
+    public function getPageLayouts()
+    {
+        $this->_initPageLayouts();
+        return $this->_pageLayouts;
+    }
+
+    /**
+     * Retrieve page layout by code
+     *
+     * @param string $layoutCode
+     * @return Varien_Object|false
+     */
+    public function getPageLayout($layoutCode)
+    {
+        $this->_initPageLayouts();
+
+        return $this->_pageLayouts[$layoutCode] ?? false;
+    }
+
+    /**
+     * Retrieve page layout handles
+     *
+     * @return array
+     */
+    public function getPageLayoutHandles()
+    {
+        $handles = [];
+
+        foreach ($this->getPageLayouts() as $layout) {
+            $handles[$layout->getCode()] = $layout->getLayoutHandle();
+        }
+
+        return $handles;
+    }
+
+    /**
      * Initialize page layouts list
      *
      * @return $this
@@ -71,45 +111,5 @@ class Mage_Page_Model_Config
             ]);
         }
         return $this;
-    }
-
-    /**
-     * Retrieve available page layouts
-     *
-     * @return array
-     */
-    public function getPageLayouts()
-    {
-        $this->_initPageLayouts();
-        return $this->_pageLayouts;
-    }
-
-    /**
-     * Retrieve page layout by code
-     *
-     * @param string $layoutCode
-     * @return Varien_Object|false
-     */
-    public function getPageLayout($layoutCode)
-    {
-        $this->_initPageLayouts();
-
-        return $this->_pageLayouts[$layoutCode] ?? false;
-    }
-
-    /**
-     * Retrieve page layout handles
-     *
-     * @return array
-     */
-    public function getPageLayoutHandles()
-    {
-        $handles = [];
-
-        foreach ($this->getPageLayouts() as $layout) {
-            $handles[$layout->getCode()] = $layout->getLayoutHandle();
-        }
-
-        return $handles;
     }
 }

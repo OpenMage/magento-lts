@@ -23,44 +23,6 @@
 class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
-     * Resource model initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/resource_eav_attribute', 'eav/entity_attribute');
-    }
-
-    /**
-     * initialize select object
-     *
-     * @return $this
-     */
-    protected function _initSelect()
-    {
-        $entityTypeId = (int) Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
-        $columns = $this->getConnection()->describeTable($this->getResource()->getMainTable());
-        unset($columns['attribute_id']);
-        $retColumns = [];
-        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
-        $helper = Mage::getResourceHelper('core');
-        foreach ($columns as $labelColumn => $columnData) {
-            $retColumns[$labelColumn] = $labelColumn;
-            if ($columnData['DATA_TYPE'] == Varien_Db_Ddl_Table::TYPE_TEXT) {
-                $retColumns[$labelColumn] = $helper->castField('main_table.' . $labelColumn);
-            }
-        }
-        $this->getSelect()
-            ->from(['main_table' => $this->getResource()->getMainTable()], $retColumns)
-            ->join(
-                ['additional_table' => $this->getTable('catalog/eav_attribute')],
-                'additional_table.attribute_id = main_table.attribute_id',
-            )
-            ->where('main_table.entity_type_id = ?', $entityTypeId);
-        return $this;
-    }
-
-    /**
      * Specify attribute entity type filter.
      * Entity type is defined.
      *
@@ -70,23 +32,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     public function setEntityTypeFilter($typeId)
     {
         return $this;
-    }
-
-    /**
-     * Return array of fields to load attribute values
-     *
-     * @return array
-     */
-    protected function _getLoadDataFields()
-    {
-        return array_merge(
-            parent::_getLoadDataFields(),
-            [
-                'additional_table.is_global',
-                'additional_table.is_html_allowed_on_front',
-                'additional_table.is_wysiwyg_enabled',
-            ],
-        );
     }
 
     /**
@@ -190,5 +135,59 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
         );
 
         return $this;
+    }
+    /**
+     * Resource model initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/resource_eav_attribute', 'eav/entity_attribute');
+    }
+
+    /**
+     * initialize select object
+     *
+     * @return $this
+     */
+    protected function _initSelect()
+    {
+        $entityTypeId = (int) Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
+        $columns = $this->getConnection()->describeTable($this->getResource()->getMainTable());
+        unset($columns['attribute_id']);
+        $retColumns = [];
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('core');
+        foreach ($columns as $labelColumn => $columnData) {
+            $retColumns[$labelColumn] = $labelColumn;
+            if ($columnData['DATA_TYPE'] == Varien_Db_Ddl_Table::TYPE_TEXT) {
+                $retColumns[$labelColumn] = $helper->castField('main_table.' . $labelColumn);
+            }
+        }
+        $this->getSelect()
+            ->from(['main_table' => $this->getResource()->getMainTable()], $retColumns)
+            ->join(
+                ['additional_table' => $this->getTable('catalog/eav_attribute')],
+                'additional_table.attribute_id = main_table.attribute_id',
+            )
+            ->where('main_table.entity_type_id = ?', $entityTypeId);
+        return $this;
+    }
+
+    /**
+     * Return array of fields to load attribute values
+     *
+     * @return array
+     */
+    protected function _getLoadDataFields()
+    {
+        return array_merge(
+            parent::_getLoadDataFields(),
+            [
+                'additional_table.is_global',
+                'additional_table.is_html_allowed_on_front',
+                'additional_table.is_wysiwyg_enabled',
+            ],
+        );
     }
 }

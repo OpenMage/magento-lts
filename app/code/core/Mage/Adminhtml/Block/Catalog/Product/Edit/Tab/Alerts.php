@@ -32,6 +32,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
     }
 
     /**
+     * @return string
+     */
+    public function getAccordionHtml()
+    {
+        return $this->getChildHtml('accordion');
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareLayout()
@@ -61,13 +69,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
         $this->setChild('accordion', $accordion);
 
         return parent::_prepareLayout();
-    }
-
-    /**
-     * @return string
-     */
-    public function getAccordionHtml()
-    {
-        return $this->getChildHtml('accordion');
     }
 }

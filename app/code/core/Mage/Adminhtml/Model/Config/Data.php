@@ -249,6 +249,116 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     }
 
     /**
+     * Get config data value
+     *
+     * @param string $path
+     * @param null|bool $inherit
+     * @param null|array $configData
+     * @param-out bool $inherit
+     * @return Varien_Simplexml_Element
+     */
+    public function getConfigDataValue($path, &$inherit = null, $configData = null)
+    {
+        $this->load();
+        if (is_null($configData)) {
+            $configData = $this->_configData;
+        }
+        if (array_key_exists($path, $configData)) {
+            $data = $configData[$path];
+            $inherit = false;
+        } else {
+            $data = $this->getConfigRoot()->descend($path);
+            $inherit = true;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get config root node for current scope
+     *
+     * @return Mage_Core_Model_Config_Element
+     */
+    public function getConfigRoot()
+    {
+        if (is_null($this->_configRoot)) {
+            $this->load();
+            $this->_configRoot = Mage::getConfig()->getNode(null, $this->getScope(), $this->getScopeCode());
+        }
+        return $this->_configRoot;
+    }
+
+    /**
+     * Secure set groups
+     *
+     * @param array $groups
+     * @return Mage_Adminhtml_Model_Config_Data
+     * @throws Mage_Core_Exception
+     */
+    public function setGroupsSecure($groups)
+    {
+        $this->_validate();
+        $this->_getScope();
+
+        $groupsSecure = [];
+        $section = $this->getSection();
+        $sections = Mage::getModel('adminhtml/config')->getSections();
+
+        foreach ($groups as $group => $groupData) {
+            $groupConfig = $sections->descend($section . '/groups/' . $group);
+            foreach ($groupData['fields'] as $field => $fieldData) {
+                $fieldName = $field;
+                if ($groupConfig && $groupConfig->clone_fields) {
+                    if ($groupConfig->clone_model) {
+                        $cloneModel = Mage::getModel((string) $groupConfig->clone_model);
+                    } else {
+                        Mage::throwException(
+                            $this->__('Config form fieldset clone model required to be able to clone fields'),
+                        );
+                    }
+                    foreach ($cloneModel->getPrefixes() as $prefix) {
+                        if (strpos($field, $prefix['field']) === 0) {
+                            $field = substr($field, strlen($prefix['field']));
+                        }
+                    }
+                }
+                $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
+                if (!$fieldConfig) {
+                    $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
+                    if ($node) {
+                        $fieldConfig = $node[0];
+                    }
+                }
+                if (($groupConfig ? !$groupConfig->dynamic_group : true) && !$this->_isValidField($fieldConfig)) {
+                    $message = Mage::helper('adminhtml')->__('Wrong field specified.') . ' ' . Mage::helper('adminhtml')->__('(%s/%s/%s)', $section, $group, $field);
+                    Mage::throwException($message);
+                }
+                $groupsSecure[$group]['fields'][$fieldName] = $fieldData;
+            }
+        }
+
+        $this->setGroups($groupsSecure);
+
+        return $this;
+    }
+
+    /**
+     * Select group setter is secure or not based on the configuration
+     *
+     * @param array $groups
+     * @return Mage_Adminhtml_Model_Config_Data
+     * @throws Mage_Core_Exception
+     */
+    public function setGroupsSelector($groups)
+    {
+        if (Mage::getStoreConfigFlag('admin/security/secure_system_configuration_save_disabled')) {
+            return $this->setGroups($groups);
+        }
+
+        return $this->setGroupsSecure($groups);
+    }
+
+    /**
      * Check if specified section allowed in ACL
      *
      * Taken from Mage_Adminhtml_System_ConfigController::_isSectionAllowed
@@ -353,100 +463,6 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
     }
 
     /**
-     * Get config data value
-     *
-     * @param string $path
-     * @param null|bool $inherit
-     * @param null|array $configData
-     * @param-out bool $inherit
-     * @return Varien_Simplexml_Element
-     */
-    public function getConfigDataValue($path, &$inherit = null, $configData = null)
-    {
-        $this->load();
-        if (is_null($configData)) {
-            $configData = $this->_configData;
-        }
-        if (array_key_exists($path, $configData)) {
-            $data = $configData[$path];
-            $inherit = false;
-        } else {
-            $data = $this->getConfigRoot()->descend($path);
-            $inherit = true;
-        }
-
-        return $data;
-    }
-
-    /**
-     * Get config root node for current scope
-     *
-     * @return Mage_Core_Model_Config_Element
-     */
-    public function getConfigRoot()
-    {
-        if (is_null($this->_configRoot)) {
-            $this->load();
-            $this->_configRoot = Mage::getConfig()->getNode(null, $this->getScope(), $this->getScopeCode());
-        }
-        return $this->_configRoot;
-    }
-
-    /**
-     * Secure set groups
-     *
-     * @param array $groups
-     * @return Mage_Adminhtml_Model_Config_Data
-     * @throws Mage_Core_Exception
-     */
-    public function setGroupsSecure($groups)
-    {
-        $this->_validate();
-        $this->_getScope();
-
-        $groupsSecure = [];
-        $section = $this->getSection();
-        $sections = Mage::getModel('adminhtml/config')->getSections();
-
-        foreach ($groups as $group => $groupData) {
-            $groupConfig = $sections->descend($section . '/groups/' . $group);
-            foreach ($groupData['fields'] as $field => $fieldData) {
-                $fieldName = $field;
-                if ($groupConfig && $groupConfig->clone_fields) {
-                    if ($groupConfig->clone_model) {
-                        $cloneModel = Mage::getModel((string) $groupConfig->clone_model);
-                    } else {
-                        Mage::throwException(
-                            $this->__('Config form fieldset clone model required to be able to clone fields'),
-                        );
-                    }
-                    foreach ($cloneModel->getPrefixes() as $prefix) {
-                        if (strpos($field, $prefix['field']) === 0) {
-                            $field = substr($field, strlen($prefix['field']));
-                        }
-                    }
-                }
-                $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
-                if (!$fieldConfig) {
-                    $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
-                    if ($node) {
-                        $fieldConfig = $node[0];
-                    }
-                }
-                if (($groupConfig ? !$groupConfig->dynamic_group : true) && !$this->_isValidField($fieldConfig)) {
-                    $message = Mage::helper('adminhtml')->__('Wrong field specified.') . ' ' . Mage::helper('adminhtml')->__('(%s/%s/%s)', $section, $group, $field);
-                    Mage::throwException($message);
-                }
-                $groupsSecure[$group]['fields'][$fieldName] = $fieldData;
-            }
-        }
-
-        $this->setGroups($groupsSecure);
-
-        return $this;
-    }
-
-    /**
      * Check field visibility by scope
      *
      * @param Mage_Core_Model_Config_Element $field
@@ -468,21 +484,5 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         }
 
         return true;
-    }
-
-    /**
-     * Select group setter is secure or not based on the configuration
-     *
-     * @param array $groups
-     * @return Mage_Adminhtml_Model_Config_Data
-     * @throws Mage_Core_Exception
-     */
-    public function setGroupsSelector($groups)
-    {
-        if (Mage::getStoreConfigFlag('admin/security/secure_system_configuration_save_disabled')) {
-            return $this->setGroups($groups);
-        }
-
-        return $this->setGroupsSecure($groups);
     }
 }

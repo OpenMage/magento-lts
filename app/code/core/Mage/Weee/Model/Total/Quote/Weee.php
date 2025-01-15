@@ -105,6 +105,59 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     }
 
     /**
+     * Fetch FPT data to address object for display in totals block
+     *
+     * @return  $this
+     */
+    public function fetch(Mage_Sales_Model_Quote_Address $address)
+    {
+        return $this;
+    }
+
+    /**
+     * Process model configuration array.
+     * This method can be used for changing totals collect sort order
+     *
+     * @param   array $config
+     * @param   Mage_Core_Model_Store $store
+     * @return  array
+     */
+    public function processConfigArray($config, $store)
+    {
+        return $config;
+    }
+
+    /**
+     * Set the helper object.
+     *
+     * @param Mage_Weee_Helper_Data $helper
+     */
+    public function setHelper($helper)
+    {
+        $this->_helper = $helper;
+    }
+
+    /**
+     * Set the store Object
+     *
+     * @param  Mage_Core_Model_Store $store
+     */
+    public function setStore($store)
+    {
+        $this->_store = $store;
+    }
+
+    /**
+     * No aggregated label for fixed product tax
+     *
+     * TODO: fix
+     */
+    public function getLabel()
+    {
+        return '';
+    }
+
+    /**
      * Calculate item fixed tax and prepare information for discount and recular taxation
      *
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
@@ -363,29 +416,6 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     }
 
     /**
-     * Fetch FPT data to address object for display in totals block
-     *
-     * @return  $this
-     */
-    public function fetch(Mage_Sales_Model_Quote_Address $address)
-    {
-        return $this;
-    }
-
-    /**
-     * Process model configuration array.
-     * This method can be used for changing totals collect sort order
-     *
-     * @param   array $config
-     * @param   Mage_Core_Model_Store $store
-     * @return  array
-     */
-    public function processConfigArray($config, $store)
-    {
-        return $config;
-    }
-
-    /**
      * Process item fixed taxes
      *
      * @deprecated since 1.3.2.3
@@ -607,35 +637,5 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
     protected function _getCalculator()
     {
         return Mage::getSingleton('tax/calculation');
-    }
-
-    /**
-     * Set the helper object.
-     *
-     * @param Mage_Weee_Helper_Data $helper
-     */
-    public function setHelper($helper)
-    {
-        $this->_helper = $helper;
-    }
-
-    /**
-     * Set the store Object
-     *
-     * @param  Mage_Core_Model_Store $store
-     */
-    public function setStore($store)
-    {
-        $this->_store = $store;
-    }
-
-    /**
-     * No aggregated label for fixed product tax
-     *
-     * TODO: fix
-     */
-    public function getLabel()
-    {
-        return '';
     }
 }

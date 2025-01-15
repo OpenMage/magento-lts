@@ -23,16 +23,6 @@
 class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapter_Soap
 {
     /**
-     * Get wsdl config
-     *
-     * @return Mage_Api_Model_Wsdl_Config
-     */
-    protected function _getWsdlConfig()
-    {
-        return Mage::getModel('api/wsdl_config');
-    }
-
-    /**
      * Run webservice
      *
      * @return Mage_Api_Model_Server_Adapter_Soap
@@ -82,5 +72,14 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
         }
 
         return $this;
+    }
+    /**
+     * Get wsdl config
+     *
+     * @return Mage_Api_Model_Wsdl_Config
+     */
+    protected function _getWsdlConfig()
+    {
+        return Mage::getModel('api/wsdl_config');
     }
 }

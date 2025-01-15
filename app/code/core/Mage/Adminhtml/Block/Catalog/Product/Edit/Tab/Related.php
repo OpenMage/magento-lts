@@ -43,6 +43,40 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     }
 
     /**
+     * Checks when this block is readonly
+     *
+     * @return bool
+     */
+    public function isReadonly()
+    {
+        return $this->_getProduct()->getRelatedReadonly();
+    }
+
+    /**
+     * Rerieve grid URL
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getData('grid_url') ?: $this->getUrl('*/*/relatedGrid', ['_current' => true]);
+    }
+
+    /**
+     * Retrieve related products
+     *
+     * @return array
+     */
+    public function getSelectedRelatedProducts()
+    {
+        $products = [];
+        foreach (Mage::registry('current_product')->getRelatedProducts() as $product) {
+            $products[$product->getId()] = ['position' => $product->getPosition()];
+        }
+        return $products;
+    }
+
+    /**
      * Retrieve currently edited product model
      *
      * @return Mage_Catalog_Model_Product
@@ -99,16 +133,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
-    }
-
-    /**
-     * Checks when this block is readonly
-     *
-     * @return bool
-     */
-    public function isReadonly()
-    {
-        return $this->_getProduct()->getRelatedReadonly();
     }
 
     /**
@@ -203,16 +227,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
     }
 
     /**
-     * Rerieve grid URL
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getData('grid_url') ?: $this->getUrl('*/*/relatedGrid', ['_current' => true]);
-    }
-
-    /**
      * Retrieve selected related products
      *
      * @return array
@@ -222,20 +236,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Related extends Mage_Adminht
         $products = $this->getProductsRelated();
         if (!is_array($products)) {
             $products = array_keys($this->getSelectedRelatedProducts());
-        }
-        return $products;
-    }
-
-    /**
-     * Retrieve related products
-     *
-     * @return array
-     */
-    public function getSelectedRelatedProducts()
-    {
-        $products = [];
-        foreach (Mage::registry('current_product')->getRelatedProducts() as $product) {
-            $products[$product->getId()] = ['position' => $product->getPosition()];
         }
         return $products;
     }

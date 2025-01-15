@@ -23,25 +23,6 @@
 class Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group extends Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element
 {
     /**
-     * Override parent constructor just for setting custom template
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('customer/edit/tab/account/form/renderer/group.phtml');
-    }
-
-    /**
-     * Retrieve disable auto group change element HTML ID
-     *
-     * @return string
-     */
-    protected function _getDisableAutoGroupChangeElementHtmlId()
-    {
-        return $this->getDisableAutoGroupChangeAttribute()->getAttributeCode();
-    }
-
-    /**
      * Retrieve disable auto group change checkbox label text
      *
      * @return string
@@ -89,5 +70,23 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Attribute_Group extends Mage_A
     public function getDisableAutoGroupChangeCheckboxElementId()
     {
         return $this->_getDisableAutoGroupChangeElementHtmlId();
+    }
+    /**
+     * Override parent constructor just for setting custom template
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('customer/edit/tab/account/form/renderer/group.phtml');
+    }
+
+    /**
+     * Retrieve disable auto group change element HTML ID
+     *
+     * @return string
+     */
+    protected function _getDisableAutoGroupChangeElementHtmlId()
+    {
+        return $this->getDisableAutoGroupChangeAttribute()->getAttributeCode();
     }
 }

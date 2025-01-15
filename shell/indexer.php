@@ -25,49 +25,6 @@ require_once 'abstract.php';
 class Mage_Shell_Indexer extends Mage_Shell_Abstract
 {
     /**
-     * Get Indexer instance
-     *
-     * @return Mage_Core_Model_Abstract|Mage_Index_Model_Indexer
-     */
-    protected function _getIndexer()
-    {
-        return $this->_factory->getSingleton($this->_factory->getIndexClassAlias());
-    }
-
-    /**
-     * Parse string with indexers and return array of indexer instances
-     *
-     * @param string $string
-     * @return array
-     */
-    protected function _parseIndexerString($string)
-    {
-        $processes = [];
-        if ($string == 'all') {
-            $collection = $this->_getIndexer()->getProcessesCollection();
-            foreach ($collection as $process) {
-                if ($process->getIndexer()->isVisible() === false) {
-                    continue;
-                }
-                $processes[] = $process;
-            }
-        } elseif (!empty($string)) {
-            $codes = explode(',', $string);
-            $codes = array_map('trim', $codes);
-            $processes = $this->_getIndexer()->getProcessesCollectionByCodes($codes);
-            foreach ($processes as $key => $process) {
-                if ($process->getIndexer()->getVisibility() === false) {
-                    unset($processes[$key]);
-                }
-            }
-            if ($this->_getIndexer()->hasErrors()) {
-                echo implode(PHP_EOL, $this->_getIndexer()->getErrors()), PHP_EOL;
-            }
-        }
-        return $processes;
-    }
-
-    /**
      * Run script
      *
      */
@@ -201,6 +158,48 @@ Usage:  php -f indexer.php -- [options]
   <indexer>     Comma separated indexer codes or value "all" for all indexers
 
 USAGE;
+    }
+    /**
+     * Get Indexer instance
+     *
+     * @return Mage_Core_Model_Abstract|Mage_Index_Model_Indexer
+     */
+    protected function _getIndexer()
+    {
+        return $this->_factory->getSingleton($this->_factory->getIndexClassAlias());
+    }
+
+    /**
+     * Parse string with indexers and return array of indexer instances
+     *
+     * @param string $string
+     * @return array
+     */
+    protected function _parseIndexerString($string)
+    {
+        $processes = [];
+        if ($string == 'all') {
+            $collection = $this->_getIndexer()->getProcessesCollection();
+            foreach ($collection as $process) {
+                if ($process->getIndexer()->isVisible() === false) {
+                    continue;
+                }
+                $processes[] = $process;
+            }
+        } elseif (!empty($string)) {
+            $codes = explode(',', $string);
+            $codes = array_map('trim', $codes);
+            $processes = $this->_getIndexer()->getProcessesCollectionByCodes($codes);
+            foreach ($processes as $key => $process) {
+                if ($process->getIndexer()->getVisibility() === false) {
+                    unset($processes[$key]);
+                }
+            }
+            if ($this->_getIndexer()->hasErrors()) {
+                echo implode(PHP_EOL, $this->_getIndexer()->getErrors()), PHP_EOL;
+            }
+        }
+        return $processes;
     }
 }
 

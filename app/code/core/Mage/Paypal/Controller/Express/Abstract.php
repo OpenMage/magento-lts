@@ -53,17 +53,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected $_configType;
 
     /**
-     * Instantiate config
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        /** @var Mage_Paypal_Model_Config $classInstance */
-        $classInstance = Mage::getModel($this->_configType, [$this->_configMethod]);
-        $this->_config = $classInstance;
-    }
-
-    /**
      * Start Express Checkout by requesting initial token and dispatching customer to PayPal
      */
     public function startAction()
@@ -385,6 +374,32 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     }
 
     /**
+     * Redirect to login page
+     *
+     */
+    public function redirectLogin()
+    {
+        $this->setFlag('', 'no-dispatch', true);
+        $this->getResponse()->setRedirect(
+            Mage::helper('core/url')->addRequestParam(
+                Mage::helper('customer')->getLoginUrl(),
+                ['context' => 'checkout'],
+            ),
+        );
+    }
+
+    /**
+     * Instantiate config
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        /** @var Mage_Paypal_Model_Config $classInstance */
+        $classInstance = Mage::getModel($this->_configType, [$this->_configMethod]);
+        $this->_config = $classInstance;
+    }
+
+    /**
      * Process PayPal API's processable errors
      *
      * @param Mage_Paypal_Model_Api_ProcessableException $exception
@@ -495,16 +510,6 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     }
 
     /**
-     * PayPal session instance getter
-     *
-     * @return Mage_Paypal_Model_Session
-     */
-    private function _getSession()
-    {
-        return Mage::getSingleton('paypal/session');
-    }
-
-    /**
      * Return checkout session object
      *
      * @return Mage_Checkout_Model_Session
@@ -512,6 +517,16 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     protected function _getCheckoutSession()
     {
         return Mage::getSingleton('checkout/session');
+    }
+
+    /**
+     * PayPal session instance getter
+     *
+     * @return Mage_Paypal_Model_Session
+     */
+    private function _getSession()
+    {
+        return Mage::getSingleton('paypal/session');
     }
 
     /**
@@ -525,20 +540,5 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_quote = $this->_getCheckoutSession()->getQuote();
         }
         return $this->_quote;
-    }
-
-    /**
-     * Redirect to login page
-     *
-     */
-    public function redirectLogin()
-    {
-        $this->setFlag('', 'no-dispatch', true);
-        $this->getResponse()->setRedirect(
-            Mage::helper('core/url')->addRequestParam(
-                Mage::helper('customer')->getLoginUrl(),
-                ['context' => 'checkout'],
-            ),
-        );
     }
 }

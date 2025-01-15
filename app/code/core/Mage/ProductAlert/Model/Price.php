@@ -43,11 +43,6 @@
  */
 class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('productalert/price');
-    }
-
     /**
      * @return Mage_ProductAlert_Model_Resource_Price_Customer_Collection
      */
@@ -76,5 +71,9 @@ class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
     {
         $this->getResource()->deleteCustomer($this, $customerId, $websiteId);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('productalert/price');
     }
 }

@@ -39,11 +39,6 @@
  */
 class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalogrule/rule_product_price');
-    }
-
     /**
      * Apply price rule price to price index table
      *
@@ -75,5 +70,9 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
         );
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('catalogrule/rule_product_price');
     }
 }

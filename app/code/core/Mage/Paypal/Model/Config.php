@@ -645,6 +645,33 @@ class Mage_Paypal_Model_Config
     }
 
     /**
+     * Config field magic getter
+     * The specified key can be either in camelCase or under_score format
+     * Tries to map specified value according to set payment method code, into the configuration value
+     * Sets the values into public class parameters, to avoid redundant calls of this method
+     *
+     * @param string $key
+     * @return string|null
+     */
+    public function __get($key)
+    {
+        if (array_key_exists($key, $this->_config)) {
+            return $this->_config[$key];
+        }
+
+        $underscored = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $key));
+        if (array_key_exists($underscored, $this->_config)) {
+            return $this->_config[$underscored];
+        }
+
+        $value = Mage::getStoreConfig($this->_getSpecificConfigPath($underscored), $this->_storeId);
+        $value = $this->_prepareValue($underscored, $value);
+        $this->_config[$key] = $value;
+        $this->_config[$underscored] = $value;
+        return $value;
+    }
+
+    /**
      * Method code setter
      *
      * @param string|Mage_Payment_Model_Method_Abstract $method
@@ -768,53 +795,6 @@ class Mage_Paypal_Model_Config
                 break;
         }
         return $result;
-    }
-
-    /**
-     * Config field magic getter
-     * The specified key can be either in camelCase or under_score format
-     * Tries to map specified value according to set payment method code, into the configuration value
-     * Sets the values into public class parameters, to avoid redundant calls of this method
-     *
-     * @param string $key
-     * @return string|null
-     */
-    public function __get($key)
-    {
-        if (array_key_exists($key, $this->_config)) {
-            return $this->_config[$key];
-        }
-
-        $underscored = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $key));
-        if (array_key_exists($underscored, $this->_config)) {
-            return $this->_config[$underscored];
-        }
-
-        $value = Mage::getStoreConfig($this->_getSpecificConfigPath($underscored), $this->_storeId);
-        $value = $this->_prepareValue($underscored, $value);
-        $this->_config[$key] = $value;
-        $this->_config[$underscored] = $value;
-        return $value;
-    }
-
-    /**
-     * Perform additional config value preparation and return new value if needed
-     *
-     * @param string $key Underscored key
-     * @param string $value Old value
-     * @return string Modified value or old value
-     */
-    protected function _prepareValue($key, $value)
-    {
-        // Always set payment action as "Sale" for Unilateral payments in EC
-        if ($key == 'payment_action'
-            && $value != self::PAYMENT_ACTION_SALE
-            && $this->_methodCode == self::METHOD_WPP_EXPRESS
-            && $this->shouldUseUnilateralPayments()
-        ) {
-            return self::PAYMENT_ACTION_SALE;
-        }
-        return $value;
     }
 
     /**
@@ -1551,6 +1531,98 @@ class Mage_Paypal_Model_Config
     }
 
     /**
+     * Payment API authentication methods source getter
+     *
+     * @return array
+     */
+    public function getApiAuthenticationMethods()
+    {
+        return [
+            '0' => Mage::helper('paypal')->__('API Signature'),
+            '1' => Mage::helper('paypal')->__('API Certificate'),
+        ];
+    }
+
+    /**
+     * Api certificate getter
+     *
+     * @return string
+     */
+    public function getApiCertificate()
+    {
+        $websiteId = Mage::app()->getStore($this->_storeId)->getWebsiteId();
+        return Mage::getModel('paypal/cert')->loadByWebsite($websiteId, false)->getCertPath();
+    }
+
+    /**
+     * Get PublisherId from stored config
+     *
+     * @return mixed
+     */
+    public function getBmlPublisherId()
+    {
+        return Mage::getStoreConfig('payment/paypal_express_bml/publisher_id', $this->_storeId);
+    }
+
+    /**
+     * Get Display option from stored config
+     * @param string $section
+     *
+     * @return mixed
+     */
+    public function getBmlDisplay($section)
+    {
+        $display = Mage::getStoreConfig('payment/paypal_express_bml/' . $section . '_display', $this->_storeId);
+        $ecActive = Mage::getStoreConfig('payment/paypal_express/active', $this->_storeId);
+        $ecUkActive = Mage::getStoreConfig('payment/paypaluk_express/active', $this->_storeId);
+        $bmlActive = Mage::getStoreConfig('payment/paypal_express_bml/active', $this->_storeId);
+        $bmlUkActive = Mage::getStoreConfig('payment/paypaluk_express_bml/active', $this->_storeId);
+        return (($bmlActive && $ecActive) || ($bmlUkActive && $ecUkActive)) ? $display : 0;
+    }
+
+    /**
+     * Get Position option from stored config
+     * @param string $section
+     *
+     * @return mixed
+     */
+    public function getBmlPosition($section)
+    {
+        return Mage::getStoreConfig('payment/paypal_express_bml/' . $section . '_position', $this->_storeId);
+    }
+
+    /**
+     * Get Size option from stored config
+     * @param string $section
+     *
+     * @return mixed
+     */
+    public function getBmlSize($section)
+    {
+        return Mage::getStoreConfig('payment/paypal_express_bml/' . $section . '_size', $this->_storeId);
+    }
+
+    /**
+     * Perform additional config value preparation and return new value if needed
+     *
+     * @param string $key Underscored key
+     * @param string $value Old value
+     * @return string Modified value or old value
+     */
+    protected function _prepareValue($key, $value)
+    {
+        // Always set payment action as "Sale" for Unilateral payments in EC
+        if ($key == 'payment_action'
+            && $value != self::PAYMENT_ACTION_SALE
+            && $this->_methodCode == self::METHOD_WPP_EXPRESS
+            && $this->shouldUseUnilateralPayments()
+        ) {
+            return self::PAYMENT_ACTION_SALE;
+        }
+        return $value;
+    }
+
+    /**
      * Dynamic PayPal image URL getter
      * Also can render dynamic Acceptance Mark
      *
@@ -1870,77 +1942,5 @@ class Mage_Paypal_Model_Config
             default:
                 return null;
         }
-    }
-
-    /**
-     * Payment API authentication methods source getter
-     *
-     * @return array
-     */
-    public function getApiAuthenticationMethods()
-    {
-        return [
-            '0' => Mage::helper('paypal')->__('API Signature'),
-            '1' => Mage::helper('paypal')->__('API Certificate'),
-        ];
-    }
-
-    /**
-     * Api certificate getter
-     *
-     * @return string
-     */
-    public function getApiCertificate()
-    {
-        $websiteId = Mage::app()->getStore($this->_storeId)->getWebsiteId();
-        return Mage::getModel('paypal/cert')->loadByWebsite($websiteId, false)->getCertPath();
-    }
-
-    /**
-     * Get PublisherId from stored config
-     *
-     * @return mixed
-     */
-    public function getBmlPublisherId()
-    {
-        return Mage::getStoreConfig('payment/paypal_express_bml/publisher_id', $this->_storeId);
-    }
-
-    /**
-     * Get Display option from stored config
-     * @param string $section
-     *
-     * @return mixed
-     */
-    public function getBmlDisplay($section)
-    {
-        $display = Mage::getStoreConfig('payment/paypal_express_bml/' . $section . '_display', $this->_storeId);
-        $ecActive = Mage::getStoreConfig('payment/paypal_express/active', $this->_storeId);
-        $ecUkActive = Mage::getStoreConfig('payment/paypaluk_express/active', $this->_storeId);
-        $bmlActive = Mage::getStoreConfig('payment/paypal_express_bml/active', $this->_storeId);
-        $bmlUkActive = Mage::getStoreConfig('payment/paypaluk_express_bml/active', $this->_storeId);
-        return (($bmlActive && $ecActive) || ($bmlUkActive && $ecUkActive)) ? $display : 0;
-    }
-
-    /**
-     * Get Position option from stored config
-     * @param string $section
-     *
-     * @return mixed
-     */
-    public function getBmlPosition($section)
-    {
-        return Mage::getStoreConfig('payment/paypal_express_bml/' . $section . '_position', $this->_storeId);
-    }
-
-    /**
-     * Get Size option from stored config
-     * @param string $section
-     *
-     * @return mixed
-     */
-    public function getBmlSize($section)
-    {
-        return Mage::getStoreConfig('payment/paypal_express_bml/' . $section . '_size', $this->_storeId);
     }
 }

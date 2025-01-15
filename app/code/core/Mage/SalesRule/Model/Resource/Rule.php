@@ -41,29 +41,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     ];
 
     /**
-     * Initialize main table and table id field
-     */
-    protected function _construct()
-    {
-        $this->_init('salesrule/rule', 'rule_id');
-    }
-
-    /**
-     * Add customer group ids and website ids to rule data after load
-     *
-     *
-     * @return $this
-     */
-    protected function _afterLoad(Mage_Core_Model_Abstract $object)
-    {
-        $object->setData('customer_group_ids', (array) $this->getCustomerGroupIds($object->getId()));
-        $object->setData('website_ids', (array) $this->getWebsiteIds($object->getId()));
-
-        parent::_afterLoad($object);
-        return $this;
-    }
-
-    /**
      * Prepare sales rule's discount quantity
      *
      *
@@ -77,52 +54,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
 
         parent::_beforeSave($object);
         return $this;
-    }
-
-    /**
-     * Bind sales rule to customer group(s) and website(s).
-     * Save rule's associated store labels.
-     * Save product attributes used in rule.
-     *
-     * @param Mage_SalesRule_Model_Rule $object
-     * @inheritDoc
-     */
-    protected function _afterSave(Mage_Core_Model_Abstract $object)
-    {
-        if ($object->hasStoreLabels()) {
-            $this->saveStoreLabels($object->getId(), $object->getStoreLabels());
-        }
-
-        if ($object->hasWebsiteIds()) {
-            $websiteIds = $object->getWebsiteIds();
-            if (!is_array($websiteIds)) {
-                $websiteIds = explode(',', (string) $websiteIds);
-            }
-            $this->bindRuleToEntity($object->getId(), $websiteIds, 'website');
-        }
-
-        if ($object->hasCustomerGroupIds()) {
-            $customerGroupIds = $object->getCustomerGroupIds();
-            if (!is_array($customerGroupIds)) {
-                $customerGroupIds = explode(',', (string) $customerGroupIds);
-            }
-            $this->bindRuleToEntity($object->getId(), $customerGroupIds, 'customer_group');
-        }
-
-        // Save product attributes used in rule
-        $ruleProductAttributes = array_merge(
-            $this->getProductAttributes(serialize($object->getConditions()->asArray())),
-            $this->getProductAttributes(serialize($object->getActions()->asArray())),
-        );
-        if (count($ruleProductAttributes)) {
-            $this->setActualProductAttributes($object, $ruleProductAttributes);
-        }
-
-        // Update auto geterated specific coupons if exists
-        if ($object->getUseAutoGeneration() && $object->hasDataChanges()) {
-            Mage::getResourceModel('salesrule/coupon')->updateSpecificCoupons($object);
-        }
-        return parent::_afterSave($object);
     }
 
     /**
@@ -299,5 +230,74 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
         }
 
         return $result;
+    }
+
+    /**
+     * Initialize main table and table id field
+     */
+    protected function _construct()
+    {
+        $this->_init('salesrule/rule', 'rule_id');
+    }
+
+    /**
+     * Add customer group ids and website ids to rule data after load
+     *
+     *
+     * @return $this
+     */
+    protected function _afterLoad(Mage_Core_Model_Abstract $object)
+    {
+        $object->setData('customer_group_ids', (array) $this->getCustomerGroupIds($object->getId()));
+        $object->setData('website_ids', (array) $this->getWebsiteIds($object->getId()));
+
+        parent::_afterLoad($object);
+        return $this;
+    }
+
+    /**
+     * Bind sales rule to customer group(s) and website(s).
+     * Save rule's associated store labels.
+     * Save product attributes used in rule.
+     *
+     * @param Mage_SalesRule_Model_Rule $object
+     * @inheritDoc
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
+        if ($object->hasStoreLabels()) {
+            $this->saveStoreLabels($object->getId(), $object->getStoreLabels());
+        }
+
+        if ($object->hasWebsiteIds()) {
+            $websiteIds = $object->getWebsiteIds();
+            if (!is_array($websiteIds)) {
+                $websiteIds = explode(',', (string) $websiteIds);
+            }
+            $this->bindRuleToEntity($object->getId(), $websiteIds, 'website');
+        }
+
+        if ($object->hasCustomerGroupIds()) {
+            $customerGroupIds = $object->getCustomerGroupIds();
+            if (!is_array($customerGroupIds)) {
+                $customerGroupIds = explode(',', (string) $customerGroupIds);
+            }
+            $this->bindRuleToEntity($object->getId(), $customerGroupIds, 'customer_group');
+        }
+
+        // Save product attributes used in rule
+        $ruleProductAttributes = array_merge(
+            $this->getProductAttributes(serialize($object->getConditions()->asArray())),
+            $this->getProductAttributes(serialize($object->getActions()->asArray())),
+        );
+        if (count($ruleProductAttributes)) {
+            $this->setActualProductAttributes($object, $ruleProductAttributes);
+        }
+
+        // Update auto geterated specific coupons if exists
+        if ($object->getUseAutoGeneration() && $object->hasDataChanges()) {
+            Mage::getResourceModel('salesrule/coupon')->updateSpecificCoupons($object);
+        }
+        return parent::_afterSave($object);
     }
 }

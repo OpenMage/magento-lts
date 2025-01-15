@@ -50,36 +50,6 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
     protected $_quoteItem = null;
 
     /**
-     * Loads customer, quote and quote item by request params
-     *
-     * @return $this
-     */
-    protected function _initData()
-    {
-        $customerId = (int) $this->getRequest()->getParam('customer_id');
-        if (!$customerId) {
-            Mage::throwException($this->__('No customer id defined.'));
-        }
-
-        $this->_customer = Mage::getModel('customer/customer')
-            ->load($customerId);
-
-        $quoteItemId = (int) $this->getRequest()->getParam('id');
-        $websiteId = (int) $this->getRequest()->getParam('website_id');
-
-        $this->_quote = Mage::getModel('sales/quote')
-            ->setWebsite(Mage::app()->getWebsite($websiteId))
-            ->loadByCustomer($this->_customer);
-
-        $this->_quoteItem = $this->_quote->getItemById($quoteItemId);
-        if (!$this->_quoteItem) {
-            Mage::throwException($this->__('Wrong quote item.'));
-        }
-
-        return $this;
-    }
-
-    /**
      * Ajax handler to response configuration fieldset of composite product in customer's cart
      *
      * @return $this
@@ -141,6 +111,36 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
         $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));
         Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
         $this->_redirect('*/catalog_product/showUpdateResult');
+
+        return $this;
+    }
+
+    /**
+     * Loads customer, quote and quote item by request params
+     *
+     * @return $this
+     */
+    protected function _initData()
+    {
+        $customerId = (int) $this->getRequest()->getParam('customer_id');
+        if (!$customerId) {
+            Mage::throwException($this->__('No customer id defined.'));
+        }
+
+        $this->_customer = Mage::getModel('customer/customer')
+            ->load($customerId);
+
+        $quoteItemId = (int) $this->getRequest()->getParam('id');
+        $websiteId = (int) $this->getRequest()->getParam('website_id');
+
+        $this->_quote = Mage::getModel('sales/quote')
+            ->setWebsite(Mage::app()->getWebsite($websiteId))
+            ->loadByCustomer($this->_customer);
+
+        $this->_quoteItem = $this->_quote->getItemById($quoteItemId);
+        if (!$this->_quoteItem) {
+            Mage::throwException($this->__('Wrong quote item.'));
+        }
 
         return $this;
     }

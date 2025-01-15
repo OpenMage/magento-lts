@@ -30,15 +30,6 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
     protected $_itemsCollection = null;
 
     /**
-     * Initialize block
-     *
-     */
-    protected function _construct()
-    {
-        $this->setId('compare');
-    }
-
-    /**
      * Retrieve Compare Products Collection
      *
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
@@ -108,5 +99,14 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
             );
         }
         return parent::getCacheTags();
+    }
+
+    /**
+     * Initialize block
+     *
+     */
+    protected function _construct()
+    {
+        $this->setId('compare');
     }
 }

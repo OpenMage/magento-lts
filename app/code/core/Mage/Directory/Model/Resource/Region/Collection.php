@@ -37,41 +37,6 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     protected $_countryTable;
 
     /**
-     * Define main, country, locale region name tables
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('directory/region');
-
-        $this->_countryTable    = $this->getTable('directory/country');
-        $this->_regionNameTable = $this->getTable('directory/country_region_name');
-
-        $this->addOrder('name', Varien_Data_Collection::SORT_ORDER_ASC);
-        $this->addOrder('default_name', Varien_Data_Collection::SORT_ORDER_ASC);
-    }
-
-    /**
-     * Initialize select object
-     *
-     * @return $this
-     */
-    protected function _initSelect()
-    {
-        parent::_initSelect();
-        $locale = Mage::app()->getLocale()->getLocaleCode();
-
-        $this->addBindParam(':region_locale', $locale);
-        $this->getSelect()->joinLeft(
-            ['rname' => $this->_regionNameTable],
-            'main_table.region_id = rname.region_id AND rname.locale = :region_locale',
-            ['name'],
-        );
-
-        return $this;
-    }
-
-    /**
      * Filter by country_id
      *
      * @param string|array $countryId
@@ -174,5 +139,40 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
             ]);
         }
         return $options;
+    }
+
+    /**
+     * Define main, country, locale region name tables
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('directory/region');
+
+        $this->_countryTable    = $this->getTable('directory/country');
+        $this->_regionNameTable = $this->getTable('directory/country_region_name');
+
+        $this->addOrder('name', Varien_Data_Collection::SORT_ORDER_ASC);
+        $this->addOrder('default_name', Varien_Data_Collection::SORT_ORDER_ASC);
+    }
+
+    /**
+     * Initialize select object
+     *
+     * @return $this
+     */
+    protected function _initSelect()
+    {
+        parent::_initSelect();
+        $locale = Mage::app()->getLocale()->getLocaleCode();
+
+        $this->addBindParam(':region_locale', $locale);
+        $this->getSelect()->joinLeft(
+            ['rname' => $this->_regionNameTable],
+            'main_table.region_id = rname.region_id AND rname.locale = :region_locale',
+            ['name'],
+        );
+
+        return $this;
     }
 }

@@ -23,6 +23,26 @@
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
+     * Returns product associated with this block
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        return $this->getItem()->getProduct();
+    }
+
+    /**
+     * Renders item product name and its configuration
+     *
+     * @return string
+     */
+    public function render(Varien_Object $item)
+    {
+        $this->setItem($item);
+        return $this->toHtml();
+    }
+    /**
      * Constructor to set default template
      *
      * @return $this
@@ -68,16 +88,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
     }
 
     /**
-     * Returns product associated with this block
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function getProduct()
-    {
-        return $this->getItem()->getProduct();
-    }
-
-    /**
      * Returns list of options and their values for product configuration
      *
      * @return array
@@ -102,16 +112,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
             'max_length' => 55,
         ];
         return Mage::helper('catalog/product_configuration')->getFormattedOptionValue($option, $params);
-    }
-
-    /**
-     * Renders item product name and its configuration
-     *
-     * @return string
-     */
-    public function render(Varien_Object $item)
-    {
-        $this->setItem($item);
-        return $this->toHtml();
     }
 }

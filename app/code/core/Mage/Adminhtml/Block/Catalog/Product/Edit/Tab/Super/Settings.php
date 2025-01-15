@@ -23,6 +23,28 @@
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
+     * Retrieve Continue URL
+     *
+     * @return string
+     */
+    public function getContinueUrl()
+    {
+        return $this->getUrl('*/*/new', [
+            '_current'   => true,
+            'attributes' => '{{attributes}}',
+        ]);
+    }
+
+    /**
+     * Retrieve Back URL
+     *
+     * @return string
+     */
+    public function getBackUrl()
+    {
+        return $this->getUrl('*/*/new', ['set' => null, 'type' => null]);
+    }
+    /**
      * Prepare block children and data
      */
     protected function _prepareLayout()
@@ -121,28 +143,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         $this->setForm($form);
 
         return parent::_prepareForm();
-    }
-
-    /**
-     * Retrieve Continue URL
-     *
-     * @return string
-     */
-    public function getContinueUrl()
-    {
-        return $this->getUrl('*/*/new', [
-            '_current'   => true,
-            'attributes' => '{{attributes}}',
-        ]);
-    }
-
-    /**
-     * Retrieve Back URL
-     *
-     * @return string
-     */
-    public function getBackUrl()
-    {
-        return $this->getUrl('*/*/new', ['set' => null, 'type' => null]);
     }
 }

@@ -46,26 +46,6 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     public const EVENT_WISHLIST_SHARE  = 6;
 
     /**
-     * Initialize resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('reports/event');
-    }
-
-    /**
-     * Before Event save process
-     *
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        $this->setLoggedAt(Mage::getModel('core/date')->gmtDate());
-        return parent::_beforeSave();
-    }
-
-    /**
      * Update customer type after customer login
      *
      * @param int $visitorId
@@ -96,5 +76,25 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     {
         $this->getResource()->clean($this);
         return $this;
+    }
+
+    /**
+     * Initialize resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('reports/event');
+    }
+
+    /**
+     * Before Event save process
+     *
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        $this->setLoggedAt(Mage::getModel('core/date')->gmtDate());
+        return parent::_beforeSave();
     }
 }

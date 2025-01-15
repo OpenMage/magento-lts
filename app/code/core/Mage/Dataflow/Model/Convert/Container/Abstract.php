@@ -34,17 +34,6 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
 
     protected $_position;
 
-    /**
-     * Detect serialization of data
-     *
-     * @param mixed $data
-     * @return bool
-     */
-    protected function isSerialized($data)
-    {
-        return Mage::helper('core/string')->isSerializedArrayOrObject($data);
-    }
-
     public function getVar($key, $default = null)
     {
         if (!isset($this->_vars[$key]) || (!is_array($this->_vars[$key]) && strlen($this->_vars[$key]) == 0)) {
@@ -230,5 +219,16 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
             return $this->_batchParams[$key] ?? null;
         }
         return $this->_batchParams;
+    }
+
+    /**
+     * Detect serialization of data
+     *
+     * @param mixed $data
+     * @return bool
+     */
+    protected function isSerialized($data)
+    {
+        return Mage::helper('core/string')->isSerializedArrayOrObject($data);
     }
 }

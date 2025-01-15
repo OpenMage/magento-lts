@@ -23,23 +23,6 @@
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Mage_Catalog_Block_Product_View_Type_Grouped
 {
     /**
-     * Redefine default price block
-     * Set current customer to tax calculation
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-
-        $this->_block = 'adminhtml/catalog_product_price';
-        $this->_useLinkForAsLowAs = false;
-
-        $taxCalculation = Mage::getSingleton('tax/calculation');
-        if (!$taxCalculation->getCustomer() && Mage::registry('current_customer')) {
-            $taxCalculation->setCustomer(Mage::registry('current_customer'));
-        }
-    }
-
-    /**
      * Retrieve product
      *
      * @return Mage_Catalog_Model_Product
@@ -139,5 +122,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
         $helper = $this->helper('core');
         $store = $this->getProduct()->getStore();
         return $helper::currencyByStore($price, $store, false);
+    }
+    /**
+     * Redefine default price block
+     * Set current customer to tax calculation
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+
+        $this->_block = 'adminhtml/catalog_product_price';
+        $this->_useLinkForAsLowAs = false;
+
+        $taxCalculation = Mage::getSingleton('tax/calculation');
+        if (!$taxCalculation->getCustomer() && Mage::registry('current_customer')) {
+            $taxCalculation->setCustomer(Mage::registry('current_customer'));
+        }
     }
 }

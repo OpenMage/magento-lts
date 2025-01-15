@@ -118,28 +118,6 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     }
 
     /**
-     * Initialize gift message for entity
-     *
-     * @return Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items
-     */
-    protected function _initMessage()
-    {
-        /** @var Mage_GiftMessage_Helper_Message $helper */
-        $helper = $this->helper('giftmessage/message');
-        $this->_giftMessage[$this->getItem()->getGiftMessageId()] = $helper->getGiftMessage($this->getItem()->getGiftMessageId());
-
-        // init default values for giftmessage form
-        if (!$this->getMessage()->getSender()) {
-            $this->getMessage()->setSender($this->getDefaultSender());
-        }
-        if (!$this->getMessage()->getRecipient()) {
-            $this->getMessage()->setRecipient($this->getDefaultRecipient());
-        }
-
-        return $this;
-    }
-
-    /**
      * Retrieve gift message for entity
      *
      * @return Mage_GiftMessage_Model_Message
@@ -215,5 +193,27 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
     public function getMessageText()
     {
         return $this->escapeHtml($this->getMessage()->getMessage());
+    }
+
+    /**
+     * Initialize gift message for entity
+     *
+     * @return Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items
+     */
+    protected function _initMessage()
+    {
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage[$this->getItem()->getGiftMessageId()] = $helper->getGiftMessage($this->getItem()->getGiftMessageId());
+
+        // init default values for giftmessage form
+        if (!$this->getMessage()->getSender()) {
+            $this->getMessage()->setSender($this->getDefaultSender());
+        }
+        if (!$this->getMessage()->getRecipient()) {
+            $this->getMessage()->setRecipient($this->getDefaultRecipient());
+        }
+
+        return $this;
     }
 }

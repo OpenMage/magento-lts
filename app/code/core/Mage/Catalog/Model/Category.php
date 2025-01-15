@@ -135,21 +135,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     protected $_useFlatResource = false;
 
     /**
-     * Category design attributes
-     *
-     * @var array
-     */
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private $_designAttributes  = [
-        'custom_design',
-        'custom_design_from',
-        'custom_design_to',
-        'page_layout',
-        'custom_layout_update',
-        'custom_apply_to_products',
-    ];
-
-    /**
      * Category tree model
      *
      * @var Mage_Catalog_Model_Resource_Category_Tree|null
@@ -167,22 +152,19 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     protected ?string $locale = null;
 
     /**
-     * Initialize resource mode
+     * Category design attributes
+     *
+     * @var array
      */
-    protected function _construct()
-    {
-        // If Flat Data enabled then use it but only on frontend
-        /** @var Mage_Catalog_Helper_Category_Flat $flatHelper */
-        $flatHelper = Mage::helper('catalog/category_flat');
-        if ($flatHelper->isAccessible() && !Mage::app()->getStore()->isAdmin() && $flatHelper->isBuilt(true)
-            && !$this->getDisableFlat()
-        ) {
-            $this->_init('catalog/category_flat');
-            $this->_useFlatResource = true;
-        } else {
-            $this->_init('catalog/category');
-        }
-    }
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private $_designAttributes  = [
+        'custom_design',
+        'custom_design_from',
+        'custom_design_to',
+        'page_layout',
+        'custom_layout_update',
+        'custom_apply_to_products',
+    ];
 
     /**
      * Retrieve URL instance
@@ -637,24 +619,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrieve attribute by code
-     *
-     * @param string $attributeCode
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
-     */
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private function _getAttribute($attributeCode)
-    {
-        if (!$this->_useFlatResource) {
-            $attribute = $this->getResource()->getAttribute($attributeCode);
-        } else {
-            $attribute = Mage::getSingleton('catalog/config')
-                ->getAttribute(self::ENTITY, $attributeCode);
-        }
-        return $attribute;
-    }
-
-    /**
      * Get all children categories IDs
      *
      * @param bool $asArray return result as array instead of comma-separated list of IDs
@@ -781,20 +745,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getName()
     {
         return $this->_getData('name');
-    }
-
-    /**
-     * Before delete process
-     *
-     * @inheritDoc
-     */
-    protected function _beforeDelete()
-    {
-        $this->_protectFromNonAdmin();
-        if ($this->getResource()->isForbiddenToDelete($this->getId())) {
-            Mage::throwException("Can't delete root category.");
-        }
-        return parent::_beforeDelete();
     }
 
     /**
@@ -999,5 +949,55 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         $indexer->processEntityAction($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
 
         return $this;
+    }
+
+    /**
+     * Initialize resource mode
+     */
+    protected function _construct()
+    {
+        // If Flat Data enabled then use it but only on frontend
+        /** @var Mage_Catalog_Helper_Category_Flat $flatHelper */
+        $flatHelper = Mage::helper('catalog/category_flat');
+        if ($flatHelper->isAccessible() && !Mage::app()->getStore()->isAdmin() && $flatHelper->isBuilt(true)
+            && !$this->getDisableFlat()
+        ) {
+            $this->_init('catalog/category_flat');
+            $this->_useFlatResource = true;
+        } else {
+            $this->_init('catalog/category');
+        }
+    }
+
+    /**
+     * Before delete process
+     *
+     * @inheritDoc
+     */
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        if ($this->getResource()->isForbiddenToDelete($this->getId())) {
+            Mage::throwException("Can't delete root category.");
+        }
+        return parent::_beforeDelete();
+    }
+
+    /**
+     * Retrieve attribute by code
+     *
+     * @param string $attributeCode
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private function _getAttribute($attributeCode)
+    {
+        if (!$this->_useFlatResource) {
+            $attribute = $this->getResource()->getAttribute($attributeCode);
+        } else {
+            $attribute = Mage::getSingleton('catalog/config')
+                ->getAttribute(self::ENTITY, $attributeCode);
+        }
+        return $attribute;
     }
 }

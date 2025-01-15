@@ -249,15 +249,6 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @return string
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _getQuoteIdKey()
-    {
-        return 'quote_id_' . Mage::app()->getStore()->getWebsiteId();
-    }
-
-    /**
      * @param int|null $quoteId
      */
     public function setQuoteId($quoteId)
@@ -523,6 +514,15 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->_order->loadByIncrementId($orderId);
         }
         return $this->_order;
+    }
+
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _getQuoteIdKey()
+    {
+        return 'quote_id_' . Mage::app()->getStore()->getWebsiteId();
     }
 
     /**

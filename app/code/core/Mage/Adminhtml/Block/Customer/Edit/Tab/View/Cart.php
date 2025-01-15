@@ -38,6 +38,27 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
     }
 
     /**
+     * Retrieve row url
+     *
+     * @param Mage_Sales_Model_Quote_Item $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
+    }
+
+    /**
+     * Check weather header should be shown
+     *
+     * @return bool
+     */
+    public function getHeadersVisibility()
+    {
+        return ($this->getCollection()->getSize() > 0);
+    }
+
+    /**
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
@@ -93,26 +114,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Retrieve row url
-     *
-     * @param Mage_Sales_Model_Quote_Item $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
-    }
-
-    /**
-     * Check weather header should be shown
-     *
-     * @return bool
-     */
-    public function getHeadersVisibility()
-    {
-        return ($this->getCollection()->getSize() > 0);
     }
 }

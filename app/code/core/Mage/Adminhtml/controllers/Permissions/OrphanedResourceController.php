@@ -23,19 +23,6 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
     public const ADMIN_RESOURCE = 'system/acl/orphaned_resources';
 
     /**
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('system/acl/orphaned_resources')
-            ->_addBreadcrumb($this->__('System'), $this->__('System'))
-            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
-            ->_addBreadcrumb($this->__('Orphaned Resources'), $this->__('Orphaned Role Resources'));
-        return $this;
-    }
-
-    /**
      * Index action
      */
     public function indexAction()
@@ -80,5 +67,18 @@ class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminht
     {
         $this->_setForcedFormKeyActions('massDelete');
         return parent::preDispatch();
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('system/acl/orphaned_resources')
+            ->_addBreadcrumb($this->__('System'), $this->__('System'))
+            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
+            ->_addBreadcrumb($this->__('Orphaned Resources'), $this->__('Orphaned Role Resources'));
+        return $this;
     }
 }

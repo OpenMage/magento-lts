@@ -86,6 +86,11 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
         ';
     }
 
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/cms_block_widget/chooser', ['_current' => true]);
+    }
+
     /**
      * Prepare Cms static blocks collection
      *
@@ -136,10 +141,5 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/cms_block_widget/chooser', ['_current' => true]);
     }
 }

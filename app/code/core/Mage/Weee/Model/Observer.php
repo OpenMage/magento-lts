@@ -161,16 +161,6 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get empty select object
-     *
-     * @return Varien_Db_Select
-     */
-    protected function _getSelect()
-    {
-        return Mage::getSingleton('weee/tax')->getResource()->getReadConnection()->select();
-    }
-
-    /**
      * Add new attribute type to manage attributes interface
      *
      * @return  Mage_Weee_Model_Observer
@@ -384,5 +374,15 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         return $this;
+    }
+
+    /**
+     * Get empty select object
+     *
+     * @return Varien_Db_Select
+     */
+    protected function _getSelect()
+    {
+        return Mage::getSingleton('weee/tax')->getResource()->getReadConnection()->select();
     }
 }

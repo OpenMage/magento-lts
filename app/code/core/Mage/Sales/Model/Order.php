@@ -499,28 +499,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected $_historyEntityName = self::HISTORY_ENTITY_NAME;
 
-    protected function _construct()
-    {
-        $this->_init('sales/order');
-    }
-
-    /**
-    * Init mapping array of short fields to
-    * its full names
-    *
-    * @return Varien_Object
-    */
-    protected function _initOldFieldsMap()
-    {
-        // pre 1.6 fields names, old => new
-        $this->_oldFieldsMap = [
-            'payment_authorization_expiration' => 'payment_auth_expiration',
-            'forced_do_shipment_with_invoice' => 'forced_shipment_with_invoice',
-            'base_shipping_hidden_tax_amount' => 'base_shipping_hidden_tax_amnt',
-        ];
-        return $this;
-    }
-
     /**
      * Clear order object data
      *
@@ -673,19 +651,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function canVoidPayment()
     {
         return $this->_canVoidOrder() ? $this->getPayment()->canVoid($this->getPayment()) : false;
-    }
-
-    /**
-     * Check whether order could be canceled by states and flags
-     *
-     * @return bool
-     */
-    protected function _canVoidOrder()
-    {
-        if ($this->canUnhold() || $this->isPaymentReview()) {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -874,61 +839,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Retrieve order reorder availability
-     *
-     * @param bool $ignoreSalable
-     * @return bool
-     */
-    protected function _canReorder($ignoreSalable = false)
-    {
-        if ($this->canUnhold() || $this->isPaymentReview()) {
-            return false;
-        }
-
-        if ($this->getActionFlag(self::ACTION_FLAG_REORDER) === false) {
-            return false;
-        }
-
-        $products = [];
-        foreach ($this->getItemsCollection() as $item) {
-            $products[] = $item->getProductId();
-        }
-
-        if (!empty($products)) {
-            /*
-             * @TODO ACPAOC: Use product collection here, but ensure that product
-             * is loaded with order store id, otherwise there'll be problems with isSalable()
-             * for configurables, bundles and other composites
-             *
-             */
-            /*
-            $productsCollection = Mage::getModel('catalog/product')->getCollection()
-                ->setStoreId($this->getStoreId())
-                ->addIdFilter($products)
-                ->addAttributeToSelect('status')
-                ->load();
-
-            foreach ($productsCollection as $product) {
-                if (!$product->isSalable()) {
-                    return false;
-                }
-            }
-            */
-
-            foreach ($products as $productId) {
-                $product = Mage::getModel('catalog/product')
-                    ->setStoreId($this->getStoreId())
-                    ->load($productId);
-                if (!$product->getId() || (!$ignoreSalable && !$product->isSalable())) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    /**
      * Check whether the payment is in payment review state
      * In this state order cannot be normally processed. Possible actions can be:
      * - accept or deny payment
@@ -969,17 +879,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getConfig()
     {
         return Mage::getSingleton('sales/order_config');
-    }
-
-    /**
-     * Place order payments
-     *
-     * @return $this
-     */
-    protected function _placePayment()
-    {
-        $this->getPayment()->place();
-        return $this;
     }
 
     /**
@@ -1071,47 +970,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function setState($state, $status = false, $comment = '', $isCustomerNotified = null)
     {
         return $this->_setState($state, $status, $comment, $isCustomerNotified, true);
-    }
-
-    /**
-     * Order state protected setter.
-     * By default allows to set any state. Can also update status to default or specified value
-     * Сomplete and closed states are encapsulated intentionally, see the _checkState()
-     *
-     * @param string $state
-     * @param string|bool $status
-     * @param string $comment
-     * @param bool $isCustomerNotified
-     * @param bool $shouldProtectState
-     * @return $this
-     */
-    protected function _setState(
-        $state,
-        $status = false,
-        $comment = '',
-        $isCustomerNotified = null,
-        $shouldProtectState = false
-    ) {
-        // attempt to set the specified state
-        if ($shouldProtectState) {
-            if ($this->isStateProtected($state)) {
-                Mage::throwException(
-                    Mage::helper('sales')->__('The Order State "%s" must not be set manually.', $state),
-                );
-            }
-        }
-        $this->setData('state', $state);
-
-        // add status history
-        if ($status) {
-            if ($status === true) {
-                $status = $this->getConfig()->getStateDefaultStatus($state);
-            }
-            $this->setStatus($status);
-            $history = $this->addStatusHistoryComment($comment, false); // no sense to set $status again
-            $history->setIsCustomerNotified($isCustomerNotified); // for backwards compatibility
-        }
-        return $this;
     }
 
     /**
@@ -1586,19 +1444,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this;
     }
 
-    /**
-     * @param string $configPath
-     * @return array|false
-     */
-    protected function _getEmails($configPath)
-    {
-        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
-        if (!empty($data)) {
-            return explode(',', $data);
-        }
-        return false;
-    }
-
     /*********************** ADDRESSES ***************************/
 
     /**
@@ -1694,47 +1539,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getParentItemsRandomCollection($limit = 1)
     {
         return $this->_getItemsRandomCollection($limit, true);
-    }
-
-    /**
-     * Get random items collection with or without related children
-     *
-     * @param int $limit
-     * @param bool $nonChildrenOnly
-     * @return Mage_Sales_Model_Resource_Order_Item_Collection
-     */
-    protected function _getItemsRandomCollection($limit, $nonChildrenOnly = false)
-    {
-        $collection = Mage::getModel('sales/order_item')->getCollection()
-            ->setOrderFilter($this)
-            ->setRandomOrder();
-
-        if ($nonChildrenOnly) {
-            $collection->filterByParent();
-        }
-        $products = [];
-        /** @var Mage_Sales_Model_Order_Item $item */
-        foreach ($collection as $item) {
-            $products[] = $item->getProductId();
-        }
-
-        $productsCollection = Mage::getModel('catalog/product')
-            ->getCollection()
-            ->addIdFilter($products)
-            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
-            /* Price data is added to consider item stock status using price index */
-            ->addPriceData()
-            ->setPageSize($limit)
-            ->load();
-
-        foreach ($collection as $item) {
-            $product = $productsCollection->getItemById($item->getProductId());
-            if ($product) {
-                $item->setProduct($product);
-            }
-        }
-
-        return $collection;
     }
 
     /**
@@ -2315,6 +2119,288 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * @return string
+     */
+    public function getStoreGroupName()
+    {
+        $storeId = $this->getStoreId();
+        if (is_null($storeId)) {
+            return $this->getStoreName(1); // 0 - website name, 1 - store group name, 2 - store name
+        }
+        return $this->getStore()->getGroup()->getName();
+    }
+
+    /**
+     * Resets all data in object
+     * so after another load it will be complete new object
+     *
+     * @return $this
+     */
+    public function reset()
+    {
+        $this->unsetData();
+        $this->_actionFlag = [];
+        $this->_addresses = null;
+        $this->_items = null;
+        $this->_payments = null;
+        $this->_statusHistory = null;
+        $this->_invoices = null;
+        $this->_tracks = null;
+        $this->_shipments = null;
+        $this->_creditmemos = null;
+        $this->_relatedObjects = [];
+        $this->_orderCurrency = null;
+        $this->_baseCurrency = null;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsNotVirtual()
+    {
+        return !$this->getIsVirtual();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFullTaxInfo()
+    {
+        $rates = Mage::getModel('tax/sales_order_tax')->getCollection()->loadByOrder($this)->toArray();
+        return Mage::getSingleton('tax/calculation')->reproduceProcess($rates['items']);
+    }
+
+    /**
+     * Create new invoice with maximum qty for invoice for each item
+     *
+     * @param array $qtys
+     * @return Mage_Sales_Model_Order_Invoice
+     */
+    public function prepareInvoice($qtys = [])
+    {
+        return Mage::getModel('sales/service_order', $this)->prepareInvoice($qtys);
+    }
+
+    /**
+     * Create new shipment with maximum qty for shipping for each item
+     *
+     * @param array $qtys
+     * @return Mage_Sales_Model_Order_Shipment
+     */
+    public function prepareShipment($qtys = [])
+    {
+        return Mage::getModel('sales/service_order', $this)->prepareShipment($qtys);
+    }
+
+    /**
+     * Check whether order is canceled
+     *
+     * @return bool
+     */
+    public function isCanceled()
+    {
+        return ($this->getState() === self::STATE_CANCELED);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order');
+    }
+
+    /**
+    * Init mapping array of short fields to
+    * its full names
+    *
+    * @return Varien_Object
+    */
+    protected function _initOldFieldsMap()
+    {
+        // pre 1.6 fields names, old => new
+        $this->_oldFieldsMap = [
+            'payment_authorization_expiration' => 'payment_auth_expiration',
+            'forced_do_shipment_with_invoice' => 'forced_shipment_with_invoice',
+            'base_shipping_hidden_tax_amount' => 'base_shipping_hidden_tax_amnt',
+        ];
+        return $this;
+    }
+
+    /**
+     * Check whether order could be canceled by states and flags
+     *
+     * @return bool
+     */
+    protected function _canVoidOrder()
+    {
+        if ($this->canUnhold() || $this->isPaymentReview()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Retrieve order reorder availability
+     *
+     * @param bool $ignoreSalable
+     * @return bool
+     */
+    protected function _canReorder($ignoreSalable = false)
+    {
+        if ($this->canUnhold() || $this->isPaymentReview()) {
+            return false;
+        }
+
+        if ($this->getActionFlag(self::ACTION_FLAG_REORDER) === false) {
+            return false;
+        }
+
+        $products = [];
+        foreach ($this->getItemsCollection() as $item) {
+            $products[] = $item->getProductId();
+        }
+
+        if (!empty($products)) {
+            /*
+             * @TODO ACPAOC: Use product collection here, but ensure that product
+             * is loaded with order store id, otherwise there'll be problems with isSalable()
+             * for configurables, bundles and other composites
+             *
+             */
+            /*
+            $productsCollection = Mage::getModel('catalog/product')->getCollection()
+                ->setStoreId($this->getStoreId())
+                ->addIdFilter($products)
+                ->addAttributeToSelect('status')
+                ->load();
+
+            foreach ($productsCollection as $product) {
+                if (!$product->isSalable()) {
+                    return false;
+                }
+            }
+            */
+
+            foreach ($products as $productId) {
+                $product = Mage::getModel('catalog/product')
+                    ->setStoreId($this->getStoreId())
+                    ->load($productId);
+                if (!$product->getId() || (!$ignoreSalable && !$product->isSalable())) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Place order payments
+     *
+     * @return $this
+     */
+    protected function _placePayment()
+    {
+        $this->getPayment()->place();
+        return $this;
+    }
+
+    /**
+     * Order state protected setter.
+     * By default allows to set any state. Can also update status to default or specified value
+     * Сomplete and closed states are encapsulated intentionally, see the _checkState()
+     *
+     * @param string $state
+     * @param string|bool $status
+     * @param string $comment
+     * @param bool $isCustomerNotified
+     * @param bool $shouldProtectState
+     * @return $this
+     */
+    protected function _setState(
+        $state,
+        $status = false,
+        $comment = '',
+        $isCustomerNotified = null,
+        $shouldProtectState = false
+    ) {
+        // attempt to set the specified state
+        if ($shouldProtectState) {
+            if ($this->isStateProtected($state)) {
+                Mage::throwException(
+                    Mage::helper('sales')->__('The Order State "%s" must not be set manually.', $state),
+                );
+            }
+        }
+        $this->setData('state', $state);
+
+        // add status history
+        if ($status) {
+            if ($status === true) {
+                $status = $this->getConfig()->getStateDefaultStatus($state);
+            }
+            $this->setStatus($status);
+            $history = $this->addStatusHistoryComment($comment, false); // no sense to set $status again
+            $history->setIsCustomerNotified($isCustomerNotified); // for backwards compatibility
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $configPath
+     * @return array|false
+     */
+    protected function _getEmails($configPath)
+    {
+        $data = Mage::getStoreConfig($configPath, $this->getStoreId());
+        if (!empty($data)) {
+            return explode(',', $data);
+        }
+        return false;
+    }
+
+    /**
+     * Get random items collection with or without related children
+     *
+     * @param int $limit
+     * @param bool $nonChildrenOnly
+     * @return Mage_Sales_Model_Resource_Order_Item_Collection
+     */
+    protected function _getItemsRandomCollection($limit, $nonChildrenOnly = false)
+    {
+        $collection = Mage::getModel('sales/order_item')->getCollection()
+            ->setOrderFilter($this)
+            ->setRandomOrder();
+
+        if ($nonChildrenOnly) {
+            $collection->filterByParent();
+        }
+        $products = [];
+        /** @var Mage_Sales_Model_Order_Item $item */
+        foreach ($collection as $item) {
+            $products[] = $item->getProductId();
+        }
+
+        $productsCollection = Mage::getModel('catalog/product')
+            ->getCollection()
+            ->addIdFilter($products)
+            ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds())
+            /* Price data is added to consider item stock status using price index */
+            ->addPriceData()
+            ->setPageSize($limit)
+            ->load();
+
+        foreach ($collection as $item) {
+            $product = $productsCollection->getItemById($item->getProductId());
+            if ($product) {
+                $item->setProduct($product);
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
      * Processing object before save data
      *
      * @return Mage_Core_Model_Abstract
@@ -2453,92 +2539,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $object->save();
         }
         return parent::_afterSave();
-    }
-
-    /**
-     * @return string
-     */
-    public function getStoreGroupName()
-    {
-        $storeId = $this->getStoreId();
-        if (is_null($storeId)) {
-            return $this->getStoreName(1); // 0 - website name, 1 - store group name, 2 - store name
-        }
-        return $this->getStore()->getGroup()->getName();
-    }
-
-    /**
-     * Resets all data in object
-     * so after another load it will be complete new object
-     *
-     * @return $this
-     */
-    public function reset()
-    {
-        $this->unsetData();
-        $this->_actionFlag = [];
-        $this->_addresses = null;
-        $this->_items = null;
-        $this->_payments = null;
-        $this->_statusHistory = null;
-        $this->_invoices = null;
-        $this->_tracks = null;
-        $this->_shipments = null;
-        $this->_creditmemos = null;
-        $this->_relatedObjects = [];
-        $this->_orderCurrency = null;
-        $this->_baseCurrency = null;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsNotVirtual()
-    {
-        return !$this->getIsVirtual();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFullTaxInfo()
-    {
-        $rates = Mage::getModel('tax/sales_order_tax')->getCollection()->loadByOrder($this)->toArray();
-        return Mage::getSingleton('tax/calculation')->reproduceProcess($rates['items']);
-    }
-
-    /**
-     * Create new invoice with maximum qty for invoice for each item
-     *
-     * @param array $qtys
-     * @return Mage_Sales_Model_Order_Invoice
-     */
-    public function prepareInvoice($qtys = [])
-    {
-        return Mage::getModel('sales/service_order', $this)->prepareInvoice($qtys);
-    }
-
-    /**
-     * Create new shipment with maximum qty for shipping for each item
-     *
-     * @param array $qtys
-     * @return Mage_Sales_Model_Order_Shipment
-     */
-    public function prepareShipment($qtys = [])
-    {
-        return Mage::getModel('sales/service_order', $this)->prepareShipment($qtys);
-    }
-
-    /**
-     * Check whether order is canceled
-     *
-     * @return bool
-     */
-    public function isCanceled()
-    {
-        return ($this->getState() === self::STATE_CANCELED);
     }
 
     /**

@@ -23,17 +23,6 @@
 class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_Model_Resource_Product_Collection
 {
     /**
-     * Initialize resources
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_useAnalyticFunction = true;
-        // skip adding stock information to collection for performance reasons
-        $this->setFlag('no_stock_data', true);
-    }
-    /**
      * Set Date range to collection
      *
      * @param int $from
@@ -60,6 +49,17 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
             $this->getSelect()->where('order_items.store_id IN (?)', (array) $storeIds);
         }
         return $this;
+    }
+    /**
+     * Initialize resources
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_useAnalyticFunction = true;
+        // skip adding stock information to collection for performance reasons
+        $this->setFlag('no_stock_data', true);
     }
 
     /**

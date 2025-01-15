@@ -30,17 +30,6 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
     protected $_template = 'configurableswatches/catalog/product/list/price/js.phtml';
 
     /**
-     * Get target product IDs from product collection
-     * which was set on block
-     *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
-     */
-    protected function getProducts()
-    {
-        return $this->getProductCollection();
-    }
-
-    /**
      * Get configuration for configurable swatches price change
      *
      * @return string
@@ -77,6 +66,17 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
         /** @var Mage_Core_Helper_Data $helper */
         $helper = $this->helper('core');
         return $helper->jsonEncode($config);
+    }
+
+    /**
+     * Get target product IDs from product collection
+     * which was set on block
+     *
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     */
+    protected function getProducts()
+    {
+        return $this->getProductCollection();
     }
 
     /**

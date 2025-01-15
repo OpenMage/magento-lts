@@ -54,14 +54,6 @@ class Mage_Review_Block_Customer_Recent extends Mage_Core_Block_Template
     /**
      * @return Mage_Review_Model_Resource_Review_Product_Collection
      */
-    protected function _getCollection()
-    {
-        return $this->_collection;
-    }
-
-    /**
-     * @return Mage_Review_Model_Resource_Review_Product_Collection
-     */
     public function getCollection()
     {
         return $this->_getCollection();
@@ -107,5 +99,13 @@ class Mage_Review_Block_Customer_Recent extends Mage_Core_Block_Template
     public function getReviewUrl($id)
     {
         return Mage::getUrl('review/customer/view', ['id' => $id]);
+    }
+
+    /**
+     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     */
+    protected function _getCollection()
+    {
+        return $this->_collection;
     }
 }

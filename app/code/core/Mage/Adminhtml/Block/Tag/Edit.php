@@ -44,22 +44,6 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
     }
 
     /**
-     * Add child HTML to layout
-     *
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-
-        $this->setChild('store_switcher', $this->getLayout()->createBlock('adminhtml/tag_store_switcher'))
-             ->setChild('tag_assign_accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_assigned'))
-             ->setChild('accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_accordion'));
-
-        return $this;
-    }
-
-    /**
      * Retrieve Header text
      *
      * @return string
@@ -170,5 +154,21 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
     public function getBackUrl()
     {
         return $this->getUrl('*/*/' . $this->getRequest()->getParam('ret', 'index'));
+    }
+
+    /**
+     * Add child HTML to layout
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+
+        $this->setChild('store_switcher', $this->getLayout()->createBlock('adminhtml/tag_store_switcher'))
+             ->setChild('tag_assign_accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_assigned'))
+             ->setChild('accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_accordion'));
+
+        return $this;
     }
 }

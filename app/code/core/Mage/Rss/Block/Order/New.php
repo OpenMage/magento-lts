@@ -29,6 +29,28 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
      */
     public const CACHE_TAG = 'block_html_rss_order_new';
 
+    /**
+     * @param array $args
+     */
+    public function addNewOrderXmlCallback($args)
+    {
+        $rssObj = $args['rssObj'];
+        $order = $args['order'];
+        $detailBlock = $args['detailBlock'];
+        $order->reset()->load($args['row']['entity_id']);
+        if ($order && $order->getId()) {
+            $title = Mage::helper('rss')->__('Order #%s created at %s', $order->getIncrementId(), $this->formatDate($order->getCreatedAt()));
+            $url = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/view', ['_secure' => true, 'order_id' => $order->getId(), '_nosecret' => true]);
+            $detailBlock->setOrder($order);
+            $data = [
+                'title'         => $title,
+                'link'          => $url,
+                'description'   => $detailBlock->toHtml(),
+            ];
+            $rssObj->_addEntry($data);
+        }
+    }
+
     protected function _construct()
     {
         $this->setCacheTags([self::CACHE_TAG]);
@@ -80,27 +102,5 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
             ->walk($collection->getSelect(), [[$this, 'addNewOrderXmlCallback']], ['rssObj' => $rssObj, 'order' => $order , 'detailBlock' => $detailBlock]);
 
         return $rssObj->createRssXml();
-    }
-
-    /**
-     * @param array $args
-     */
-    public function addNewOrderXmlCallback($args)
-    {
-        $rssObj = $args['rssObj'];
-        $order = $args['order'];
-        $detailBlock = $args['detailBlock'];
-        $order->reset()->load($args['row']['entity_id']);
-        if ($order && $order->getId()) {
-            $title = Mage::helper('rss')->__('Order #%s created at %s', $order->getIncrementId(), $this->formatDate($order->getCreatedAt()));
-            $url = Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/view', ['_secure' => true, 'order_id' => $order->getId(), '_nosecret' => true]);
-            $detailBlock->setOrder($order);
-            $data = [
-                'title'         => $title,
-                'link'          => $url,
-                'description'   => $detailBlock->toHtml(),
-            ];
-            $rssObj->_addEntry($data);
-        }
     }
 }

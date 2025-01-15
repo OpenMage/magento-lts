@@ -22,6 +22,49 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes extends Mage_Adminhtml_Block_Catalog_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * Retrieve attributes for product massupdate
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        /** @var Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute $helper */
+        $helper = $this->helper('adminhtml/catalog_product_edit_action_attribute');
+        return $helper->getAttributes()->getItems();
+    }
+
+    /**
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return Mage::helper('catalog')->__('Attributes');
+    }
+
+    /**
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return Mage::helper('catalog')->__('Attributes');
+    }
+
+    /**
+     * @return true
+     */
+    public function canShowTab()
+    {
+        return true;
+    }
+
+    /**
+     * @return false
+     */
+    public function isHidden()
+    {
+        return false;
+    }
     protected function _construct()
     {
         parent::_construct();
@@ -50,18 +93,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
         $form->setFieldNameSuffix('attributes');
         $this->setForm($form);
         return $this;
-    }
-
-    /**
-     * Retrieve attributes for product massupdate
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        /** @var Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute $helper */
-        $helper = $this->helper('adminhtml/catalog_product_edit_action_attribute');
-        return $helper->getAttributes()->getItems();
     }
 
     /**
@@ -95,37 +126,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
              . '\')" /><label for="' . $element->getId() . '-checkbox">' . Mage::helper('catalog')->__('Change')
              . '</label></span>
                 <script type="text/javascript">initDisableFields(\'' . $element->getId() . '\')</script>';
-    }
-
-    /**
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return Mage::helper('catalog')->__('Attributes');
-    }
-
-    /**
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return Mage::helper('catalog')->__('Attributes');
-    }
-
-    /**
-     * @return true
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * @return false
-     */
-    public function isHidden()
-    {
-        return false;
     }
 }

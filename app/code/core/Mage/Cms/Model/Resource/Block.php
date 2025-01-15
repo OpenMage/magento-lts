@@ -22,6 +22,71 @@
  */
 class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * @inheritDoc
+     */
+    public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
+    {
+        if (!is_numeric($value) && is_null($field)) {
+            $field = 'identifier';
+        }
+
+        return parent::load($object, $value, $field);
+    }
+
+    /**
+     * Check for unique of identifier of block to selected store(s).
+     *
+     * @return bool
+     */
+    public function getIsUniqueBlockToStores(Mage_Core_Model_Abstract $object)
+    {
+        if (Mage::app()->isSingleStoreMode()) {
+            $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
+        } else {
+            $stores = (array) $object->getData('stores');
+        }
+
+        $select = $this->_getReadAdapter()->select()
+            ->from(['cb' => $this->getMainTable()])
+            ->join(
+                ['cbs' => $this->getTable('cms/block_store')],
+                'cb.block_id = cbs.block_id',
+                [],
+            )->where('cb.identifier = ?', $object->getData('identifier'))
+            ->where('cbs.store_id IN (?)', $stores);
+
+        if ($object->getId()) {
+            $select->where('cb.block_id <> ?', $object->getId());
+        }
+
+        if ($this->_getReadAdapter()->fetchRow($select)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get store ids to which specified item is assigned
+     *
+     * @param int $id
+     * @return array
+     */
+    public function lookupStoreIds($id)
+    {
+        $adapter = $this->_getReadAdapter();
+
+        $select  = $adapter->select()
+            ->from($this->getTable('cms/block_store'), 'store_id')
+            ->where('block_id = :block_id');
+
+        $binds = [
+            ':block_id' => (int) $id,
+        ];
+
+        return $adapter->fetchCol($select, $binds);
+    }
     protected function _construct()
     {
         $this->_init('cms/block', 'block_id');
@@ -100,18 +165,6 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * @inheritDoc
      */
-    public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
-    {
-        if (!is_numeric($value) && is_null($field)) {
-            $field = 'identifier';
-        }
-
-        return parent::load($object, $value, $field);
-    }
-
-    /**
-     * @inheritDoc
-     */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         if ($object->getId()) {
@@ -152,59 +205,5 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         return $select;
-    }
-
-    /**
-     * Check for unique of identifier of block to selected store(s).
-     *
-     * @return bool
-     */
-    public function getIsUniqueBlockToStores(Mage_Core_Model_Abstract $object)
-    {
-        if (Mage::app()->isSingleStoreMode()) {
-            $stores = [Mage_Core_Model_App::ADMIN_STORE_ID];
-        } else {
-            $stores = (array) $object->getData('stores');
-        }
-
-        $select = $this->_getReadAdapter()->select()
-            ->from(['cb' => $this->getMainTable()])
-            ->join(
-                ['cbs' => $this->getTable('cms/block_store')],
-                'cb.block_id = cbs.block_id',
-                [],
-            )->where('cb.identifier = ?', $object->getData('identifier'))
-            ->where('cbs.store_id IN (?)', $stores);
-
-        if ($object->getId()) {
-            $select->where('cb.block_id <> ?', $object->getId());
-        }
-
-        if ($this->_getReadAdapter()->fetchRow($select)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Get store ids to which specified item is assigned
-     *
-     * @param int $id
-     * @return array
-     */
-    public function lookupStoreIds($id)
-    {
-        $adapter = $this->_getReadAdapter();
-
-        $select  = $adapter->select()
-            ->from($this->getTable('cms/block_store'), 'store_id')
-            ->where('block_id = :block_id');
-
-        $binds = [
-            ':block_id' => (int) $id,
-        ];
-
-        return $adapter->fetchCol($select, $binds);
     }
 }

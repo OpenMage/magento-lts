@@ -90,53 +90,13 @@ class Magento_Db_Sql_Trigger
     }
 
     /**
-     * Validate where all trigger parts set?
+     * Implement magic method
      *
-     * @return Magento_Db_Sql_Trigger
-     * @throws Exception
+     * @return string
      */
-    protected function _validateIsComplete()
+    public function __toString()
     {
-        foreach (array_keys(self::$_partsInit) as $part) {
-            if (empty($this->_parts[$part])) {
-                throw new Exception('Part [' . $part . '] should be set');
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Set trigger part
-     *
-     * @param $part
-     * @param $value
-     * @return Magento_Db_Sql_Trigger
-     * @throws InvalidArgumentException
-     */
-    protected function _setPart($part, $value)
-    {
-        if ($value != null) {
-            $this->_parts[$part] = $value;
-        } else {
-            throw new InvalidArgumentException('Part [' . $part . '] can not be empty');
-        }
-        return $this;
-    }
-
-    /**
-     * Set trigger part
-     *
-     * @param $part
-     * @return string|array
-     * @throws Exception
-     */
-    protected function _getPart($part)
-    {
-        if (isset($this->_parts[$part])) {
-            return $this->_parts[$part];
-        }
-
-        throw new Exception('Part [' . $part . '] does\'t exists');
+        return $this->assemble();
     }
 
     /**
@@ -171,18 +131,6 @@ class Magento_Db_Sql_Trigger
         }
 
         throw new Exception('Part [' . $part . '] does\'t exists');
-    }
-
-    /**
-     * Generate trigger name
-     *
-     * @return string
-     */
-    protected function _generateTriggerName()
-    {
-        return strtolower('trg_' . $this->_parts[self::TARGET]
-            . '_' . $this->_parts[self::TIME]
-            . '_' . $this->_parts[self::EVENT]);
     }
 
     /**
@@ -299,16 +247,6 @@ class Magento_Db_Sql_Trigger
     }
 
     /**
-     * Implement magic method
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->assemble();
-    }
-
-    /**
      * Retrieve list of allowed events
      *
      * @return array
@@ -337,5 +275,67 @@ class Magento_Db_Sql_Trigger
     {
         $this->_parts = self::$_partsInit;
         return $this;
+    }
+
+    /**
+     * Validate where all trigger parts set?
+     *
+     * @return Magento_Db_Sql_Trigger
+     * @throws Exception
+     */
+    protected function _validateIsComplete()
+    {
+        foreach (array_keys(self::$_partsInit) as $part) {
+            if (empty($this->_parts[$part])) {
+                throw new Exception('Part [' . $part . '] should be set');
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Set trigger part
+     *
+     * @param $part
+     * @param $value
+     * @return Magento_Db_Sql_Trigger
+     * @throws InvalidArgumentException
+     */
+    protected function _setPart($part, $value)
+    {
+        if ($value != null) {
+            $this->_parts[$part] = $value;
+        } else {
+            throw new InvalidArgumentException('Part [' . $part . '] can not be empty');
+        }
+        return $this;
+    }
+
+    /**
+     * Set trigger part
+     *
+     * @param $part
+     * @return string|array
+     * @throws Exception
+     */
+    protected function _getPart($part)
+    {
+        if (isset($this->_parts[$part])) {
+            return $this->_parts[$part];
+        }
+
+        throw new Exception('Part [' . $part . '] does\'t exists');
+    }
+
+    /**
+     * Generate trigger name
+     *
+     * @return string
+     */
+    protected function _generateTriggerName()
+    {
+        return strtolower('trg_' . $this->_parts[self::TARGET]
+            . '_' . $this->_parts[self::TIME]
+            . '_' . $this->_parts[self::EVENT]);
     }
 }

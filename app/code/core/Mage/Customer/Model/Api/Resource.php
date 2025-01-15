@@ -37,25 +37,6 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected $_ignoredAttributeTypes = [];
 
     /**
-     * Check is attribute allowed
-     *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @return bool
-     */
-    protected function _isAllowedAttribute($attribute, ?array $filter = null)
-    {
-        if (!is_null($filter)
-            && !(in_array($attribute->getAttributeCode(), $filter)
-                  || in_array($attribute->getAttributeId(), $filter))
-        ) {
-            return false;
-        }
-
-        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes)
-               && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes);
-    }
-
-    /**
      * Return list of allowed attributes
      *
      * @param Mage_Eav_Model_Entity_Abstract $entity
@@ -74,5 +55,24 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Check is attribute allowed
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @return bool
+     */
+    protected function _isAllowedAttribute($attribute, ?array $filter = null)
+    {
+        if (!is_null($filter)
+            && !(in_array($attribute->getAttributeCode(), $filter)
+                  || in_array($attribute->getAttributeId(), $filter))
+        ) {
+            return false;
+        }
+
+        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes)
+               && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes);
     }
 }

@@ -46,13 +46,6 @@
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 {
     /**
-     * Event prefix for observer
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'review';
-
-    /**
      * @deprecated after 1.3.2.4
      *
      */
@@ -69,11 +62,12 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     public const STATUS_APPROVED       = 1;
     public const STATUS_PENDING        = 2;
     public const STATUS_NOT_APPROVED   = 3;
-
-    protected function _construct()
-    {
-        $this->_init('review/review');
-    }
+    /**
+     * Event prefix for observer
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'review';
 
     /**
      * @return Mage_Review_Model_Resource_Review_Product_Collection
@@ -163,17 +157,6 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Perform actions after object delete
-     *
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _afterDeleteCommit()
-    {
-        $this->getResource()->afterDeleteCommit($this);
-        return parent::_afterDeleteCommit();
-    }
-
-    /**
      * Append review summary to product collection
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
@@ -203,16 +186,6 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         }
 
         return $this;
-    }
-
-    /**
-     * @return Mage_Core_Model_Abstract
-     * @throws Mage_Core_Exception
-     */
-    protected function _beforeDelete()
-    {
-        $this->_protectFromNonAdmin();
-        return parent::_beforeDelete();
     }
 
     /**
@@ -250,5 +223,31 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     public function getEntityIdByCode($entityCode)
     {
         return $this->getResource()->getEntityIdByCode($entityCode);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('review/review');
+    }
+
+    /**
+     * Perform actions after object delete
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterDeleteCommit()
+    {
+        $this->getResource()->afterDeleteCommit($this);
+        return parent::_afterDeleteCommit();
+    }
+
+    /**
+     * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
+     */
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
     }
 }

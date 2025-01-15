@@ -97,49 +97,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     }
 
     /**
-     * Round the total amounts in address
-     *
-     * @return $this
-     */
-    protected function _roundTotals(Mage_Sales_Model_Quote_Address $address)
-    {
-        // initialize the delta to a small number to avoid non-deterministic behavior with rounding of 0.5
-        $totalDelta = 0.000001;
-        $baseTotalDelta = 0.000001;
-        /*
-         * The order of rounding is import here.
-         * Tax is rounded first, to be consistent with unit based calculation.
-         * Hidden tax and shipping_hidden_tax are rounded next, which are really part of tax.
-         * Shipping is rounded before subtotal to minimize the chance that subtotal is
-         * rounded differently because of the delta.
-         * Here is an example: 19.2% tax rate, subtotal = 49.95, shipping = 9.99, discount = 20%
-         * subtotalExclTax = 41.90436, tax = 7.7238, hidden_tax = 1.609128, shippingPriceExclTax = 8.38087
-         * shipping_hidden_tax = 0.321826, discount = -11.988
-         * The grand total is 47.952 ~= 47.95
-         * The rounded values are:
-         * tax = 7.72, hidden_tax = 1.61, shipping_hidden_tax = 0.32,
-         * shipping = 8.39 (instead of 8.38 from simple rounding), subtotal = 41.9, discount = -11.99
-         * The grand total calculated from the rounded value is 47.95
-         * If we simply round each value and add them up, the result is 47.94, which is one penny off
-         */
-        $totalCodes = ['tax', 'hidden_tax', 'shipping_hidden_tax', 'shipping', 'subtotal', 'weee', 'discount'];
-        foreach ($totalCodes as $totalCode) {
-            $exactAmount = $address->getTotalAmount($totalCode);
-            $baseExactAmount = $address->getBaseTotalAmount($totalCode);
-            if (!$exactAmount && !$baseExactAmount) {
-                continue;
-            }
-            $roundedAmount = $this->_calculator->round($exactAmount + $totalDelta);
-            $baseRoundedAmount = $this->_calculator->round($baseExactAmount + $baseTotalDelta);
-            $address->setTotalAmount($totalCode, $roundedAmount);
-            $address->setBaseTotalAmount($totalCode, $baseRoundedAmount);
-            $totalDelta = $exactAmount + $totalDelta - $roundedAmount;
-            $baseTotalDelta = $baseExactAmount + $baseTotalDelta - $baseRoundedAmount;
-        }
-        return $this;
-    }
-
-    /**
      * Collect tax totals for quote address
      *
      * @return  $this
@@ -207,6 +164,145 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
 
         //round total amounts in address
         $this->_roundTotals($address);
+        return $this;
+    }
+
+    /**
+     * Add tax totals information to address object
+     *
+     * @return  $this
+     */
+    public function fetch(Mage_Sales_Model_Quote_Address $address)
+    {
+        $applied = $address->getAppliedTaxes();
+        $store = $address->getQuote()->getStore();
+        $amount = $address->getTaxAmount();
+
+        $items = $this->_getAddressItems($address);
+        $discountTaxCompensation = 0;
+        foreach ($items as $item) {
+            $discountTaxCompensation += $item->getDiscountTaxCompensation();
+        }
+        $taxAmount = $amount + $discountTaxCompensation;
+        /*
+         * when weee discount is not included in extraTaxAmount, we need to add it to the total tax
+         */
+        if ($this->_weeeHelper->isEnabled()) {
+            if (!$this->_weeeHelper->includeInSubtotal()) {
+                $taxAmount += $address->getWeeeDiscount();
+            }
+        }
+
+        $area = null;
+        if ($this->_config->displayCartTaxWithGrandTotal($store) && $address->getGrandTotal()) {
+            $area = 'taxes';
+        }
+
+        if (($amount != 0) || ($this->_config->displayCartZeroTax($store))) {
+            $address->addTotal([
+                'code' => $this->getCode(),
+                'title' => Mage::helper('tax')->__('Tax'),
+                'full_info' => $applied ? $applied : [],
+                'value' => $amount,
+                'area' => $area,
+            ]);
+        }
+
+        $store = $address->getQuote()->getStore();
+        /**
+         * Modify subtotal
+         */
+        if ($this->_config->displayCartSubtotalBoth($store) || $this->_config->displayCartSubtotalInclTax($store)) {
+            if ($address->getSubtotalInclTax() > 0) {
+                $subtotalInclTax = $address->getSubtotalInclTax();
+            } else {
+                $subtotalInclTax = $address->getSubtotal() + $taxAmount - $address->getShippingTaxAmount();
+            }
+
+            $address->addTotal([
+                'code' => 'subtotal',
+                'title' => Mage::helper('sales')->__('Subtotal'),
+                'value' => $subtotalInclTax,
+                'value_incl_tax' => $subtotalInclTax,
+                'value_excl_tax' => $address->getSubtotal(),
+            ]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Process model configuration array.
+     * This method can be used for changing totals collect sort order
+     *
+     * @param   array $config
+     * @param   Mage_Core_Model_Store $store
+     * @return  array
+     */
+    public function processConfigArray($config, $store)
+    {
+        $calculationSequence = $this->_helper->getCalculationSequence($store);
+        switch ($calculationSequence) {
+            case Mage_Tax_Model_Calculation::CALC_TAX_BEFORE_DISCOUNT_ON_INCL:
+                $config['before'][] = 'discount';
+                break;
+            default:
+                $config['after'][] = 'discount';
+                break;
+        }
+        return $config;
+    }
+
+    /**
+     * Get Tax label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return Mage::helper('tax')->__('Tax');
+    }
+
+    /**
+     * Round the total amounts in address
+     *
+     * @return $this
+     */
+    protected function _roundTotals(Mage_Sales_Model_Quote_Address $address)
+    {
+        // initialize the delta to a small number to avoid non-deterministic behavior with rounding of 0.5
+        $totalDelta = 0.000001;
+        $baseTotalDelta = 0.000001;
+        /*
+         * The order of rounding is import here.
+         * Tax is rounded first, to be consistent with unit based calculation.
+         * Hidden tax and shipping_hidden_tax are rounded next, which are really part of tax.
+         * Shipping is rounded before subtotal to minimize the chance that subtotal is
+         * rounded differently because of the delta.
+         * Here is an example: 19.2% tax rate, subtotal = 49.95, shipping = 9.99, discount = 20%
+         * subtotalExclTax = 41.90436, tax = 7.7238, hidden_tax = 1.609128, shippingPriceExclTax = 8.38087
+         * shipping_hidden_tax = 0.321826, discount = -11.988
+         * The grand total is 47.952 ~= 47.95
+         * The rounded values are:
+         * tax = 7.72, hidden_tax = 1.61, shipping_hidden_tax = 0.32,
+         * shipping = 8.39 (instead of 8.38 from simple rounding), subtotal = 41.9, discount = -11.99
+         * The grand total calculated from the rounded value is 47.95
+         * If we simply round each value and add them up, the result is 47.94, which is one penny off
+         */
+        $totalCodes = ['tax', 'hidden_tax', 'shipping_hidden_tax', 'shipping', 'subtotal', 'weee', 'discount'];
+        foreach ($totalCodes as $totalCode) {
+            $exactAmount = $address->getTotalAmount($totalCode);
+            $baseExactAmount = $address->getBaseTotalAmount($totalCode);
+            if (!$exactAmount && !$baseExactAmount) {
+                continue;
+            }
+            $roundedAmount = $this->_calculator->round($exactAmount + $totalDelta);
+            $baseRoundedAmount = $this->_calculator->round($baseExactAmount + $baseTotalDelta);
+            $address->setTotalAmount($totalCode, $roundedAmount);
+            $address->setBaseTotalAmount($totalCode, $baseRoundedAmount);
+            $totalDelta = $exactAmount + $totalDelta - $roundedAmount;
+            $baseTotalDelta = $baseExactAmount + $baseTotalDelta - $baseRoundedAmount;
+        }
         return $this;
     }
 
@@ -1434,37 +1530,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     }
 
     /**
-     * Calculate the Weee tax based on the discount and rate
-     *
-     * @param float $rate
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param float $discountAmount
-     * @param float $weeeAmountIncludingTax
-     * @param float $weeeAmountExclTax
-     * @return mixed
-     */
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private function _getWeeeTax($rate, $item, $discountAmount, $weeeAmountIncludingTax, $weeeAmountExclTax)
-    {
-        $isWeeeTaxAlreadyIncluded = $this->_weeeHelper->isTaxIncluded($this->_store);
-
-        $sameRateAsStore = $this->_helper->isCrossBorderTradeEnabled($this->_store) ||
-                ($rate == $this->_calculator->getStoreRateForItem($item));
-        if ($sameRateAsStore && $isWeeeTaxAlreadyIncluded) {
-            if (!$discountAmount || $discountAmount <= 0) {
-                //We want to skip the re calculation and return the difference
-                return max($weeeAmountIncludingTax - $weeeAmountExclTax, 0);
-            } else {
-                return $this->_calculator->calcTaxAmount($weeeAmountIncludingTax - $discountAmount, $rate, true, true);
-            }
-        }
-        $discountAmount = !$discountAmount ? 0 : $discountAmount;
-
-        ///Regular case where weee does not have the tax and we want to calculate the tax
-        return $this->_calculator->calcTaxAmount($weeeAmountExclTax - $discountAmount, $rate, false, true);
-    }
-
-    /**
      * Round price based on previous rounding operation delta
      *
      * @param float $price
@@ -1560,98 +1625,33 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     }
 
     /**
-     * Add tax totals information to address object
+     * Calculate the Weee tax based on the discount and rate
      *
-     * @return  $this
+     * @param float $rate
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param float $discountAmount
+     * @param float $weeeAmountIncludingTax
+     * @param float $weeeAmountExclTax
+     * @return mixed
      */
-    public function fetch(Mage_Sales_Model_Quote_Address $address)
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private function _getWeeeTax($rate, $item, $discountAmount, $weeeAmountIncludingTax, $weeeAmountExclTax)
     {
-        $applied = $address->getAppliedTaxes();
-        $store = $address->getQuote()->getStore();
-        $amount = $address->getTaxAmount();
+        $isWeeeTaxAlreadyIncluded = $this->_weeeHelper->isTaxIncluded($this->_store);
 
-        $items = $this->_getAddressItems($address);
-        $discountTaxCompensation = 0;
-        foreach ($items as $item) {
-            $discountTaxCompensation += $item->getDiscountTaxCompensation();
-        }
-        $taxAmount = $amount + $discountTaxCompensation;
-        /*
-         * when weee discount is not included in extraTaxAmount, we need to add it to the total tax
-         */
-        if ($this->_weeeHelper->isEnabled()) {
-            if (!$this->_weeeHelper->includeInSubtotal()) {
-                $taxAmount += $address->getWeeeDiscount();
-            }
-        }
-
-        $area = null;
-        if ($this->_config->displayCartTaxWithGrandTotal($store) && $address->getGrandTotal()) {
-            $area = 'taxes';
-        }
-
-        if (($amount != 0) || ($this->_config->displayCartZeroTax($store))) {
-            $address->addTotal([
-                'code' => $this->getCode(),
-                'title' => Mage::helper('tax')->__('Tax'),
-                'full_info' => $applied ? $applied : [],
-                'value' => $amount,
-                'area' => $area,
-            ]);
-        }
-
-        $store = $address->getQuote()->getStore();
-        /**
-         * Modify subtotal
-         */
-        if ($this->_config->displayCartSubtotalBoth($store) || $this->_config->displayCartSubtotalInclTax($store)) {
-            if ($address->getSubtotalInclTax() > 0) {
-                $subtotalInclTax = $address->getSubtotalInclTax();
+        $sameRateAsStore = $this->_helper->isCrossBorderTradeEnabled($this->_store) ||
+                ($rate == $this->_calculator->getStoreRateForItem($item));
+        if ($sameRateAsStore && $isWeeeTaxAlreadyIncluded) {
+            if (!$discountAmount || $discountAmount <= 0) {
+                //We want to skip the re calculation and return the difference
+                return max($weeeAmountIncludingTax - $weeeAmountExclTax, 0);
             } else {
-                $subtotalInclTax = $address->getSubtotal() + $taxAmount - $address->getShippingTaxAmount();
+                return $this->_calculator->calcTaxAmount($weeeAmountIncludingTax - $discountAmount, $rate, true, true);
             }
-
-            $address->addTotal([
-                'code' => 'subtotal',
-                'title' => Mage::helper('sales')->__('Subtotal'),
-                'value' => $subtotalInclTax,
-                'value_incl_tax' => $subtotalInclTax,
-                'value_excl_tax' => $address->getSubtotal(),
-            ]);
         }
+        $discountAmount = !$discountAmount ? 0 : $discountAmount;
 
-        return $this;
-    }
-
-    /**
-     * Process model configuration array.
-     * This method can be used for changing totals collect sort order
-     *
-     * @param   array $config
-     * @param   Mage_Core_Model_Store $store
-     * @return  array
-     */
-    public function processConfigArray($config, $store)
-    {
-        $calculationSequence = $this->_helper->getCalculationSequence($store);
-        switch ($calculationSequence) {
-            case Mage_Tax_Model_Calculation::CALC_TAX_BEFORE_DISCOUNT_ON_INCL:
-                $config['before'][] = 'discount';
-                break;
-            default:
-                $config['after'][] = 'discount';
-                break;
-        }
-        return $config;
-    }
-
-    /**
-     * Get Tax label
-     *
-     * @return string
-     */
-    public function getLabel()
-    {
-        return Mage::helper('tax')->__('Tax');
+        ///Regular case where weee does not have the tax and we want to calculate the tax
+        return $this->_calculator->calcTaxAmount($weeeAmountExclTax - $discountAmount, $rate, false, true);
     }
 }

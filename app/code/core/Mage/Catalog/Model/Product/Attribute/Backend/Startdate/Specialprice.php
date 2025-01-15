@@ -24,6 +24,24 @@
 class Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice extends Mage_Catalog_Model_Product_Attribute_Backend_Startdate
 {
     /**
+     * Before save hook.
+     * Prepare attribute value for save
+     *
+     * @param Varien_Object $object
+     * @return Mage_Catalog_Model_Product_Attribute_Backend_Startdate
+     */
+    public function beforeSave($object)
+    {
+        $startDate = $this->_getValueForSave($object);
+        if ($startDate === false) {
+            return $this;
+        }
+
+        $object->setData($this->getAttribute()->getName(), $startDate);
+        parent::beforeSave($object);
+        return $this;
+    }
+    /**
      * Get attribute value for save.
      *
      * @param Varien_Object $object
@@ -41,24 +59,5 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate_Specialprice extend
         }
 
         return $startDate;
-    }
-
-    /**
-     * Before save hook.
-     * Prepare attribute value for save
-     *
-     * @param Varien_Object $object
-     * @return Mage_Catalog_Model_Product_Attribute_Backend_Startdate
-     */
-    public function beforeSave($object)
-    {
-        $startDate = $this->_getValueForSave($object);
-        if ($startDate === false) {
-            return $this;
-        }
-
-        $object->setData($this->getAttribute()->getName(), $startDate);
-        parent::beforeSave($object);
-        return $this;
     }
 }

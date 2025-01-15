@@ -47,6 +47,11 @@
  */
 class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
 {
+    public const STATUS_NEVER = 0;
+    public const STATUS_SENDING = 1;
+    public const STATUS_CANCEL = 2;
+    public const STATUS_SENT = 3;
+    public const STATUS_PAUSE = 4;
     /**
      * Newsletter Template object
      *
@@ -81,17 +86,6 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * @var array
      */
     protected $_stores = [];
-
-    public const STATUS_NEVER = 0;
-    public const STATUS_SENDING = 1;
-    public const STATUS_CANCEL = 2;
-    public const STATUS_SENT = 3;
-    public const STATUS_PAUSE = 4;
-
-    protected function _construct()
-    {
-        $this->_init('newsletter/queue');
-    }
 
     /**
      * Return: is this queue newly created or not.
@@ -218,20 +212,6 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     }
 
     /**
-     * Finish queue: set status SENT and update finish date
-     *
-     * @return $this
-     */
-    protected function _finishQueue()
-    {
-        $this->setQueueFinishAt(Mage::getSingleton('core/date')->gmtDate());
-        $this->setQueueStatus(self::STATUS_SENT);
-        $this->save();
-
-        return $this;
-    }
-
-    /**
      * Getter data for saving
      *
      * @return array
@@ -351,5 +331,24 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     public function getType()
     {
         return $this->getNewsletterType();
+    }
+
+    protected function _construct()
+    {
+        $this->_init('newsletter/queue');
+    }
+
+    /**
+     * Finish queue: set status SENT and update finish date
+     *
+     * @return $this
+     */
+    protected function _finishQueue()
+    {
+        $this->setQueueFinishAt(Mage::getSingleton('core/date')->gmtDate());
+        $this->setQueueStatus(self::STATUS_SENT);
+        $this->save();
+
+        return $this;
     }
 }

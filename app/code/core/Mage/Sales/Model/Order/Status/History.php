@@ -49,11 +49,6 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     protected $_eventPrefix = 'sales_order_status_history';
     protected $_eventObject = 'status_history';
 
-    protected function _construct()
-    {
-        $this->_init('sales/order_status_history');
-    }
-
     /**
      * Set order object
      *
@@ -135,6 +130,11 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
             return $this->getOrder()->getStore();
         }
         return Mage::app()->getStore();
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order_status_history');
     }
 
     /**

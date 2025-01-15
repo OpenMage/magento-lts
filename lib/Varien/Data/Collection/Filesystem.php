@@ -88,6 +88,14 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     protected $_disallowedFilesMask = '';
 
     /**
+     * Collecting items helper variables
+     *
+     * @var array
+     */
+    protected $_collectedDirs  = [];
+    protected $_collectedFiles = [];
+
+    /**
      * Filter rendering helper variables
      *
      * @see Varien_Data_Collection::$_filter
@@ -96,14 +104,6 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     private $_filterIncrement = 0;
     private $_filterBrackets = [];
     private $_filterEvalRendered = '';
-
-    /**
-     * Collecting items helper variables
-     *
-     * @var array
-     */
-    protected $_collectedDirs  = [];
-    protected $_collectedFiles = [];
 
     /**
      * Allowed dirs mask setter
@@ -210,49 +210,6 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     }
 
     /**
-     * Get files from specified directory recursively (if needed)
-     *
-     * @param string|array $dir
-     */
-    protected function _collectRecursive($dir)
-    {
-        $collectedResult = [];
-        if (!is_array($dir)) {
-            $dir = [$dir];
-        }
-        foreach ($dir as $folder) {
-            if ($nodes = glob($folder . DIRECTORY_SEPARATOR . '*')) {
-                foreach ($nodes as $node) {
-                    $collectedResult[] = $node;
-                }
-            }
-        }
-        if (empty($collectedResult)) {
-            return;
-        }
-
-        foreach ($collectedResult as $item) {
-            if (is_dir($item) && (!$this->_allowedDirsMask || preg_match($this->_allowedDirsMask, basename($item)))) {
-                if ($this->_collectDirs) {
-                    if ($this->_dirsFirst) {
-                        $this->_collectedDirs[] = $item;
-                    } else {
-                        $this->_collectedFiles[] = $item;
-                    }
-                }
-                if ($this->_collectRecursively) {
-                    $this->_collectRecursive($item);
-                }
-            } elseif ($this->_collectFiles && is_file($item)
-                && (!$this->_allowedFilesMask || preg_match($this->_allowedFilesMask, basename($item)))
-                && (!$this->_disallowedFilesMask || !preg_match($this->_disallowedFilesMask, basename($item)))
-            ) {
-                $this->_collectedFiles[] = $item;
-            }
-        }
-    }
-
-    /**
      * Launch data collecting
      *
      * @param bool $printQuery
@@ -303,52 +260,6 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     }
 
     /**
-     * With specified collected items:
-     *  - generate data
-     *  - apply filters
-     *  - sort
-     *
-     * @param string $attributeName '_collectedFiles' | '_collectedDirs'
-     */
-    private function _generateAndFilterAndSort($attributeName)
-    {
-        // generate custom data (as rows with columns) basing on the filenames
-        foreach ($this->$attributeName as $key => $filename) {
-            $this->{$attributeName}[$key] = $this->_generateRow($filename);
-        }
-
-        // apply filters on generated data
-        if (!empty($this->_filters)) {
-            foreach ($this->$attributeName as $key => $row) {
-                if (!$this->_filterRow($row)) {
-                    unset($this->{$attributeName}[$key]);
-                }
-            }
-        }
-
-        // sort (keys are lost!)
-        if (!empty($this->_orders)) {
-            usort($this->$attributeName, [$this, '_usort']);
-        }
-    }
-
-    /**
-     * Callback for sorting items
-     * Currently supports only sorting by one column
-     *
-     * @param array $a
-     * @param array $b
-     * @return int|void
-     */
-    protected function _usort($a, $b)
-    {
-        foreach ($this->_orders as $key => $direction) {
-            $result = $a[$key] > $b[$key] ? 1 : ($a[$key] < $b[$key] ? -1 : 0);
-            return (self::SORT_ORDER_ASC === strtoupper($direction) ? $result : -$result);
-        }
-    }
-
-    /**
      * Set select order
      * Currently supports only sorting by one column
      *
@@ -360,20 +271,6 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     {
         $this->_orders = [$field => $direction];
         return $this;
-    }
-
-    /**
-     * Generate item row basing on the filename
-     *
-     * @param string $filename
-     * @return array
-     */
-    protected function _generateRow($filename)
-    {
-        return [
-            'filename' => $filename,
-            'basename' => basename($filename),
-        ];
     }
 
     /**
@@ -401,56 +298,6 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         ];
         $this->_filterIncrement++;
         return $this;
-    }
-
-    /**
-     * The filters renderer and caller
-     * Aplies to each row, renders once.
-     *
-     * @param array $row
-     * @return bool
-     */
-    protected function _filterRow($row)
-    {
-        // render filters once
-        if (!$this->_isFiltersRendered) {
-            $eval = '';
-            for ($i = 0; $i < $this->_filterIncrement; $i++) {
-                if (isset($this->_filterBrackets[$i])) {
-                    $eval .= $this->_renderConditionBeforeFilterElement($i, $this->_filterBrackets[$i]['is_and'])
-                        . $this->_filterBrackets[$i]['value'];
-                } else {
-                    $f = '$this->_filters[' . $i . ']';
-                    $eval .= $this->_renderConditionBeforeFilterElement($i, $this->_filters[$i]['is_and'])
-                        . ($this->_filters[$i]['is_inverted'] ? '!' : '')
-                        . '$this->_invokeFilter(' . "{$f}['callback'], array({$f}['field'], {$f}['value'], " . '$row))';
-                }
-            }
-            $this->_filterEvalRendered = $eval;
-            $this->_isFiltersRendered = true;
-        }
-        $result = false;
-        if ($this->_filterEvalRendered) {
-            eval('$result = ' . $this->_filterEvalRendered . ';');
-        }
-        return $result;
-    }
-
-    /**
-     * Invokes specified callback
-     * Skips, if there is no filtered key in the row
-     *
-     * @param callback $callback
-     * @param array $callbackParams
-     * @return bool
-     */
-    protected function _invokeFilter($callback, $callbackParams)
-    {
-        list($field, $value, $row) = $callbackParams;
-        if (!array_key_exists($field, $row)) {
-            return false;
-        }
-        return call_user_func_array($callback, $callbackParams);
     }
 
     /**
@@ -533,46 +380,6 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             $this->_addFilterBracket(')');
         }
         return $this;
-    }
-
-    /**
-     * Prepare a bracket into filters
-     *
-     * @param string $bracket
-     * @param bool $isAnd
-     * @return $this
-     */
-    protected function _addFilterBracket($bracket = '(', $isAnd = true)
-    {
-        $this->_filterBrackets[$this->_filterIncrement] = [
-            'value' => $bracket === ')' ? ')' : '(',
-            'is_and' => $isAnd,
-        ];
-        $this->_filterIncrement++;
-        return $this;
-    }
-
-    /**
-     * Render condition sign before element, if required
-     *
-     * @param int $increment
-     * @param bool $isAnd
-     * @return string
-     */
-    protected function _renderConditionBeforeFilterElement($increment, $isAnd)
-    {
-        if (isset($this->_filterBrackets[$increment]) && ')' === $this->_filterBrackets[$increment]['value']) {
-            return '';
-        }
-        $prevIncrement = $increment - 1;
-        $prevBracket = false;
-        if (isset($this->_filterBrackets[$prevIncrement])) {
-            $prevBracket = $this->_filterBrackets[$prevIncrement]['value'];
-        }
-        if ($prevIncrement < 0 || $prevBracket === '(') {
-            return '';
-        }
-        return ($isAnd ? ' && ' : ' || ');
     }
 
     /**
@@ -687,5 +494,198 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     public function filterCallbackIsLessThan($field, $filterValue, $row)
     {
         return $row[$field] < $filterValue;
+    }
+
+    /**
+     * Get files from specified directory recursively (if needed)
+     *
+     * @param string|array $dir
+     */
+    protected function _collectRecursive($dir)
+    {
+        $collectedResult = [];
+        if (!is_array($dir)) {
+            $dir = [$dir];
+        }
+        foreach ($dir as $folder) {
+            if ($nodes = glob($folder . DIRECTORY_SEPARATOR . '*')) {
+                foreach ($nodes as $node) {
+                    $collectedResult[] = $node;
+                }
+            }
+        }
+        if (empty($collectedResult)) {
+            return;
+        }
+
+        foreach ($collectedResult as $item) {
+            if (is_dir($item) && (!$this->_allowedDirsMask || preg_match($this->_allowedDirsMask, basename($item)))) {
+                if ($this->_collectDirs) {
+                    if ($this->_dirsFirst) {
+                        $this->_collectedDirs[] = $item;
+                    } else {
+                        $this->_collectedFiles[] = $item;
+                    }
+                }
+                if ($this->_collectRecursively) {
+                    $this->_collectRecursive($item);
+                }
+            } elseif ($this->_collectFiles && is_file($item)
+                && (!$this->_allowedFilesMask || preg_match($this->_allowedFilesMask, basename($item)))
+                && (!$this->_disallowedFilesMask || !preg_match($this->_disallowedFilesMask, basename($item)))
+            ) {
+                $this->_collectedFiles[] = $item;
+            }
+        }
+    }
+
+    /**
+     * Callback for sorting items
+     * Currently supports only sorting by one column
+     *
+     * @param array $a
+     * @param array $b
+     * @return int|void
+     */
+    protected function _usort($a, $b)
+    {
+        foreach ($this->_orders as $key => $direction) {
+            $result = $a[$key] > $b[$key] ? 1 : ($a[$key] < $b[$key] ? -1 : 0);
+            return (self::SORT_ORDER_ASC === strtoupper($direction) ? $result : -$result);
+        }
+    }
+
+    /**
+     * Generate item row basing on the filename
+     *
+     * @param string $filename
+     * @return array
+     */
+    protected function _generateRow($filename)
+    {
+        return [
+            'filename' => $filename,
+            'basename' => basename($filename),
+        ];
+    }
+
+    /**
+     * The filters renderer and caller
+     * Aplies to each row, renders once.
+     *
+     * @param array $row
+     * @return bool
+     */
+    protected function _filterRow($row)
+    {
+        // render filters once
+        if (!$this->_isFiltersRendered) {
+            $eval = '';
+            for ($i = 0; $i < $this->_filterIncrement; $i++) {
+                if (isset($this->_filterBrackets[$i])) {
+                    $eval .= $this->_renderConditionBeforeFilterElement($i, $this->_filterBrackets[$i]['is_and'])
+                        . $this->_filterBrackets[$i]['value'];
+                } else {
+                    $f = '$this->_filters[' . $i . ']';
+                    $eval .= $this->_renderConditionBeforeFilterElement($i, $this->_filters[$i]['is_and'])
+                        . ($this->_filters[$i]['is_inverted'] ? '!' : '')
+                        . '$this->_invokeFilter(' . "{$f}['callback'], array({$f}['field'], {$f}['value'], " . '$row))';
+                }
+            }
+            $this->_filterEvalRendered = $eval;
+            $this->_isFiltersRendered = true;
+        }
+        $result = false;
+        if ($this->_filterEvalRendered) {
+            eval('$result = ' . $this->_filterEvalRendered . ';');
+        }
+        return $result;
+    }
+
+    /**
+     * Invokes specified callback
+     * Skips, if there is no filtered key in the row
+     *
+     * @param callback $callback
+     * @param array $callbackParams
+     * @return bool
+     */
+    protected function _invokeFilter($callback, $callbackParams)
+    {
+        list($field, $value, $row) = $callbackParams;
+        if (!array_key_exists($field, $row)) {
+            return false;
+        }
+        return call_user_func_array($callback, $callbackParams);
+    }
+
+    /**
+     * Prepare a bracket into filters
+     *
+     * @param string $bracket
+     * @param bool $isAnd
+     * @return $this
+     */
+    protected function _addFilterBracket($bracket = '(', $isAnd = true)
+    {
+        $this->_filterBrackets[$this->_filterIncrement] = [
+            'value' => $bracket === ')' ? ')' : '(',
+            'is_and' => $isAnd,
+        ];
+        $this->_filterIncrement++;
+        return $this;
+    }
+
+    /**
+     * Render condition sign before element, if required
+     *
+     * @param int $increment
+     * @param bool $isAnd
+     * @return string
+     */
+    protected function _renderConditionBeforeFilterElement($increment, $isAnd)
+    {
+        if (isset($this->_filterBrackets[$increment]) && ')' === $this->_filterBrackets[$increment]['value']) {
+            return '';
+        }
+        $prevIncrement = $increment - 1;
+        $prevBracket = false;
+        if (isset($this->_filterBrackets[$prevIncrement])) {
+            $prevBracket = $this->_filterBrackets[$prevIncrement]['value'];
+        }
+        if ($prevIncrement < 0 || $prevBracket === '(') {
+            return '';
+        }
+        return ($isAnd ? ' && ' : ' || ');
+    }
+
+    /**
+     * With specified collected items:
+     *  - generate data
+     *  - apply filters
+     *  - sort
+     *
+     * @param string $attributeName '_collectedFiles' | '_collectedDirs'
+     */
+    private function _generateAndFilterAndSort($attributeName)
+    {
+        // generate custom data (as rows with columns) basing on the filenames
+        foreach ($this->$attributeName as $key => $filename) {
+            $this->{$attributeName}[$key] = $this->_generateRow($filename);
+        }
+
+        // apply filters on generated data
+        if (!empty($this->_filters)) {
+            foreach ($this->$attributeName as $key => $row) {
+                if (!$this->_filterRow($row)) {
+                    unset($this->{$attributeName}[$key]);
+                }
+            }
+        }
+
+        // sort (keys are lost!)
+        if (!empty($this->_orders)) {
+            usort($this->$attributeName, [$this, '_usort']);
+        }
     }
 }

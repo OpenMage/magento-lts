@@ -22,37 +22,6 @@
  */
 class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product', 'entity_id');
-    }
-
-    /**
-     * Prepare response object and dispatch prepare price event
-     * Return response object
-     *
-     * @param Varien_Db_Select $select
-     * @return Varien_Object
-     */
-    protected function _dispatchPreparePriceEvent($select)
-    {
-        // prepare response object for event
-        $response = new Varien_Object();
-        $response->setAdditionalCalculations([]);
-
-        // prepare event arguments
-        $eventArgs = [
-            'select'          => $select,
-            'table'           => 'price_index',
-            'store_id'        => Mage::app()->getStore()->getId(),
-            'response_object' => $response,
-        ];
-
-        Mage::dispatchEvent('catalog_prepare_price_select', $eventArgs);
-
-        return $response;
-    }
-
     /**
      * Prepare search condition for attribute
      *
@@ -181,5 +150,35 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         $select->where("{$tableAlias}.value IN(?)", $value);
 
         return true;
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product', 'entity_id');
+    }
+
+    /**
+     * Prepare response object and dispatch prepare price event
+     * Return response object
+     *
+     * @param Varien_Db_Select $select
+     * @return Varien_Object
+     */
+    protected function _dispatchPreparePriceEvent($select)
+    {
+        // prepare response object for event
+        $response = new Varien_Object();
+        $response->setAdditionalCalculations([]);
+
+        // prepare event arguments
+        $eventArgs = [
+            'select'          => $select,
+            'table'           => 'price_index',
+            'store_id'        => Mage::app()->getStore()->getId(),
+            'response_object' => $response,
+        ];
+
+        Mage::dispatchEvent('catalog_prepare_price_select', $eventArgs);
+
+        return $response;
     }
 }

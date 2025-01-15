@@ -22,11 +22,6 @@
  */
 class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('core/design_change', 'design_change_id');
-    }
-
     /**
      * @param Mage_Core_Model_Design $object
      * @inheritDoc
@@ -59,6 +54,37 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         return parent::_beforeSave($object);
+    }
+
+    /**
+     * Load changes for specific store and date
+     *
+     * @param int $storeId
+     * @param string $date
+     * @return array
+     */
+    public function loadChange($storeId, $date = null)
+    {
+        if (is_null($date)) {
+            $date = Varien_Date::now();
+        }
+
+        $select = $this->_getReadAdapter()->select()
+            ->from(['main_table' => $this->getTable('design_change')])
+            ->where('store_id = :store_id')
+            ->where('date_from <= :required_date or date_from IS NULL')
+            ->where('date_to >= :required_date or date_to IS NULL');
+
+        $bind = [
+            'store_id'      => (int) $storeId,
+            'required_date' => $date,
+        ];
+
+        return $this->_getReadAdapter()->fetchRow($select, $bind);
+    }
+    protected function _construct()
+    {
+        $this->_init('core/design_change', 'design_change_id');
     }
 
     /**
@@ -130,32 +156,5 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         return $adapter->fetchOne($select, $bind);
-    }
-
-    /**
-     * Load changes for specific store and date
-     *
-     * @param int $storeId
-     * @param string $date
-     * @return array
-     */
-    public function loadChange($storeId, $date = null)
-    {
-        if (is_null($date)) {
-            $date = Varien_Date::now();
-        }
-
-        $select = $this->_getReadAdapter()->select()
-            ->from(['main_table' => $this->getTable('design_change')])
-            ->where('store_id = :store_id')
-            ->where('date_from <= :required_date or date_from IS NULL')
-            ->where('date_to >= :required_date or date_to IS NULL');
-
-        $bind = [
-            'store_id'      => (int) $storeId,
-            'required_date' => $date,
-        ];
-
-        return $this->_getReadAdapter()->fetchRow($select, $bind);
     }
 }

@@ -22,6 +22,13 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
+    /**
+     * Giftmessage object
+     *
+     * @deprecated after 1.4.2.0
+     * @var Mage_GiftMessage_Model_Message
+     */
+    protected $_giftMessage = [];
     public function getItem()
     {
         return $this->_getData('item');
@@ -58,14 +65,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     {
         return $this->getRequest()->getParam('reload') != 1;
     }
-
-    /**
-     * Giftmessage object
-     *
-     * @deprecated after 1.4.2.0
-     * @var Mage_GiftMessage_Model_Message
-     */
-    protected $_giftMessage = [];
 
     /**
      * Retrieve default value for giftmessage sender
@@ -129,31 +128,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     public function getFieldName($name)
     {
         return 'giftmessage[' . $this->getItem()->getId() . '][' . $name . ']';
-    }
-
-    /**
-     * Initialize gift message for entity
-     *
-     * @deprecated after 1.4.2.0
-     * @return $this
-     */
-    protected function _initMessage()
-    {
-        /** @var Mage_GiftMessage_Helper_Message $helper */
-        $helper = $this->helper('giftmessage/message');
-
-        $this->_giftMessage[$this->getItem()->getGiftMessageId()] =
-            $helper->getGiftMessage($this->getItem()->getGiftMessageId());
-
-        // init default values for giftmessage form
-        if (!$this->getMessage()->getSender()) {
-            $this->getMessage()->setSender($this->getDefaultSender());
-        }
-        if (!$this->getMessage()->getRecipient()) {
-            $this->getMessage()->setRecipient($this->getDefaultRecipient());
-        }
-
-        return $this;
     }
 
     /**
@@ -246,5 +220,30 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
             $helper->getBasePriceInclTax($item),
             $helper->getPriceInclTax($item),
         );
+    }
+
+    /**
+     * Initialize gift message for entity
+     *
+     * @deprecated after 1.4.2.0
+     * @return $this
+     */
+    protected function _initMessage()
+    {
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+
+        $this->_giftMessage[$this->getItem()->getGiftMessageId()] =
+            $helper->getGiftMessage($this->getItem()->getGiftMessageId());
+
+        // init default values for giftmessage form
+        if (!$this->getMessage()->getSender()) {
+            $this->getMessage()->setSender($this->getDefaultSender());
+        }
+        if (!$this->getMessage()->getRecipient()) {
+            $this->getMessage()->setRecipient($this->getDefaultRecipient());
+        }
+
+        return $this;
     }
 }

@@ -47,11 +47,6 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      */
     protected $_allowTableChanges = true;
 
-    protected function _construct()
-    {
-        $this->_init('catalogsearch/fulltext');
-    }
-
     /**
      * Regenerate all Stores index
      *
@@ -170,5 +165,10 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     {
         $this->getResource()->updateCategoryIndex($productIds, $categoryIds);
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalogsearch/fulltext');
     }
 }

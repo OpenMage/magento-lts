@@ -59,16 +59,6 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     }
 
     /**
-     * Get DB adapter for index data processing
-     *
-     * @return Varien_Db_Adapter_Interface
-     */
-    protected function _getIndexAdapter()
-    {
-        return $this->_getWriteAdapter();
-    }
-
-    /**
      * Get index table name with additional suffix
      *
      * @param string $table
@@ -262,5 +252,15 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             $this->_getWriteAdapter()->enableTableKeys($this->getMainTable());
         }
         return $this;
+    }
+
+    /**
+     * Get DB adapter for index data processing
+     *
+     * @return Varien_Db_Adapter_Interface
+     */
+    protected function _getIndexAdapter()
+    {
+        return $this->_getWriteAdapter();
     }
 }

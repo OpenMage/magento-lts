@@ -51,6 +51,45 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     }
 
     /**
+     * Get SQL for get record count
+     *
+     * @return Varien_Db_Select
+     */
+    public function getSelectCountSql()
+    {
+        $this->_renderFilters();
+        $select = clone $this->getSelect();
+        $select->reset(Zend_Db_Select::ORDER);
+        return $this->getConnection()->select()->from($select, 'COUNT(*)');
+    }
+
+    /**
+     * Set ids for store restrictions
+     *
+     * @param  array $storeIds
+     * @return $this
+     */
+    public function addStoreRestrictions($storeIds)
+    {
+        if (!is_array($storeIds)) {
+            $storeIds = [$storeIds];
+        }
+        $currentStoreIds = $this->_storesIds;
+        if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
+            && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]
+        ) {
+            if (!is_array($currentStoreIds)) {
+                $currentStoreIds = [$currentStoreIds];
+            }
+            $this->_storesIds = array_intersect($currentStoreIds, $storeIds);
+        } else {
+            $this->_storesIds = $storeIds;
+        }
+
+        return $this;
+    }
+
+    /**
      * Retrieve columns for select
      *
      * @return array
@@ -154,45 +193,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             $select->group(['period', 'product_id']);
         }
         $select->where('rating_pos <= ?', $this->_ratingLimit);
-
-        return $this;
-    }
-
-    /**
-     * Get SQL for get record count
-     *
-     * @return Varien_Db_Select
-     */
-    public function getSelectCountSql()
-    {
-        $this->_renderFilters();
-        $select = clone $this->getSelect();
-        $select->reset(Zend_Db_Select::ORDER);
-        return $this->getConnection()->select()->from($select, 'COUNT(*)');
-    }
-
-    /**
-     * Set ids for store restrictions
-     *
-     * @param  array $storeIds
-     * @return $this
-     */
-    public function addStoreRestrictions($storeIds)
-    {
-        if (!is_array($storeIds)) {
-            $storeIds = [$storeIds];
-        }
-        $currentStoreIds = $this->_storesIds;
-        if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
-            && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]
-        ) {
-            if (!is_array($currentStoreIds)) {
-                $currentStoreIds = [$currentStoreIds];
-            }
-            $this->_storesIds = array_intersect($currentStoreIds, $storeIds);
-        } else {
-            $this->_storesIds = $storeIds;
-        }
 
         return $this;
     }

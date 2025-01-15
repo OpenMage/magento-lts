@@ -49,6 +49,27 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected $_resourceAttributeAclName = 'catalog/category/attributes/field_';
 
     /**
+     * Set current store for catalog.
+     *
+     * @param string|int $store
+     * @return int
+     */
+    public function currentStore($store = null)
+    {
+        if (!is_null($store)) {
+            try {
+                $storeId = Mage::app()->getStore($store)->getId();
+            } catch (Mage_Core_Model_Store_Exception $e) {
+                $this->_fault('store_not_exists');
+            }
+
+            $this->_getSession()->setData($this->_storeIdSessionField, $storeId);
+        }
+
+        return $this->_getStoreId();
+    }
+
+    /**
      * Check is attribute allowed
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
@@ -112,26 +133,5 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
             $this->_fault('product_not_exists');
         }
         return $product;
-    }
-
-    /**
-     * Set current store for catalog.
-     *
-     * @param string|int $store
-     * @return int
-     */
-    public function currentStore($store = null)
-    {
-        if (!is_null($store)) {
-            try {
-                $storeId = Mage::app()->getStore($store)->getId();
-            } catch (Mage_Core_Model_Store_Exception $e) {
-                $this->_fault('store_not_exists');
-            }
-
-            $this->_getSession()->setData($this->_storeIdSessionField, $storeId);
-        }
-
-        return $this->_getStoreId();
     }
 }

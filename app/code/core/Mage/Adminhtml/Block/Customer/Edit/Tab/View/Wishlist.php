@@ -33,6 +33,27 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
     }
 
     /**
+     * Get headers visibility
+     *
+     * @return bool
+     */
+    public function getHeadersVisibility()
+    {
+        return ($this->getCollection()->getSize() > 0);
+    }
+
+    /**
+     * Get row url
+     *
+     * @param Mage_Wishlist_Model_Item $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
+    }
+
+    /**
      * Prepare collection
      *
      * @return $this
@@ -91,26 +112,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Get headers visibility
-     *
-     * @return bool
-     */
-    public function getHeadersVisibility()
-    {
-        return ($this->getCollection()->getSize() > 0);
-    }
-
-    /**
-     * Get row url
-     *
-     * @param Mage_Wishlist_Model_Item $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
     }
 }

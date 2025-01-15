@@ -49,14 +49,6 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     protected $_loadExpired = false;
 
     /**
-     * Define resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('persistent/session');
-    }
-
-    /**
      * Set if load expired persistent session
      *
      * @param bool $loadExpired
@@ -90,53 +82,6 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
             Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT,
             time() - Mage::helper('persistent')->getLifeTime($store),
         );
-    }
-
-    /**
-     * Serialize info for Resource Model to save
-     * For new model check and set available cookie key
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-
-        // Setting info
-        $info = [];
-        foreach ($this->getData() as $index => $value) {
-            if (!in_array($index, $this->_unserializableFields)) {
-                $info[$index] = $value;
-            }
-        }
-        $this->setInfo(Mage::helper('core')->jsonEncode($info));
-
-        if ($this->isObjectNew()) {
-            $this->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
-            // Setting cookie key
-            do {
-                $this->setKey(Mage::helper('core')->getRandomString(self::KEY_LENGTH));
-            } while (!$this->getResource()->isKeyAllowed($this->getKey()));
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set model data from info field
-     *
-     * @return $this
-     */
-    protected function _afterLoad()
-    {
-        parent::_afterLoad();
-        $info = Mage::helper('core')->jsonDecode($this->getInfo());
-        if (is_array($info)) {
-            foreach ($info as $key => $value) {
-                $this->setData($key, $value);
-            }
-        }
-        return $this;
     }
 
     /**
@@ -224,17 +169,6 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Delete 'persistent' cookie
-     *
-     * @inheritDoc
-     */
-    protected function _afterDeleteCommit()
-    {
-        Mage::getSingleton('core/cookie')->delete(Mage_Persistent_Model_Session::COOKIE_NAME);
-        return parent::_afterDeleteCommit();
-    }
-
-    /**
      * Set `updated_at` to be always changed
      *
      * @inheritDoc
@@ -243,5 +177,71 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     {
         $this->setUpdatedAt(gmdate(Varien_Date::DATETIME_PHP_FORMAT));
         return parent::save();
+    }
+
+    /**
+     * Define resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('persistent/session');
+    }
+
+    /**
+     * Serialize info for Resource Model to save
+     * For new model check and set available cookie key
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+
+        // Setting info
+        $info = [];
+        foreach ($this->getData() as $index => $value) {
+            if (!in_array($index, $this->_unserializableFields)) {
+                $info[$index] = $value;
+            }
+        }
+        $this->setInfo(Mage::helper('core')->jsonEncode($info));
+
+        if ($this->isObjectNew()) {
+            $this->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+            // Setting cookie key
+            do {
+                $this->setKey(Mage::helper('core')->getRandomString(self::KEY_LENGTH));
+            } while (!$this->getResource()->isKeyAllowed($this->getKey()));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set model data from info field
+     *
+     * @return $this
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+        $info = Mage::helper('core')->jsonDecode($this->getInfo());
+        if (is_array($info)) {
+            foreach ($info as $key => $value) {
+                $this->setData($key, $value);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Delete 'persistent' cookie
+     *
+     * @inheritDoc
+     */
+    protected function _afterDeleteCommit()
+    {
+        Mage::getSingleton('core/cookie')->delete(Mage_Persistent_Model_Session::COOKIE_NAME);
+        return parent::_afterDeleteCommit();
     }
 }

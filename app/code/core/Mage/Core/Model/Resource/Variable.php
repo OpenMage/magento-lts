@@ -22,11 +22,6 @@
  */
 class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('core/variable', 'variable_id');
-    }
-
     /**
      * Load variable by code
      *
@@ -58,6 +53,10 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
             $this->_addValueToSelect($select, $storeId);
         }
         return $this->_getReadAdapter()->fetchRow($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('core/variable', 'variable_id');
     }
 
     /**

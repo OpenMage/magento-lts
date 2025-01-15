@@ -29,14 +29,6 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
      * @var string
      */
     protected $_createdBefore          = '';
-    /**
-     * Initialize collection items factory class
-     */
-    protected function _construct()
-    {
-        $this->_init('paypal/payment_transaction');
-        parent::_construct();
-    }
 
     /**
      * CreatedAt filter setter
@@ -48,6 +40,14 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
     {
         $this->_createdBefore = $date;
         return $this;
+    }
+    /**
+     * Initialize collection items factory class
+     */
+    protected function _construct()
+    {
+        $this->_init('paypal/payment_transaction');
+        parent::_construct();
     }
 
     /**

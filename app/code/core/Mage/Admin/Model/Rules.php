@@ -51,11 +51,6 @@ class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract
      */
     public const RULE_PERMISSION_DENIED = 'deny';
 
-    protected function _construct()
-    {
-        $this->_init('admin/rules');
-    }
-
     /**
      * Update rules
      * @return $this
@@ -100,5 +95,10 @@ class Mage_Admin_Model_Rules extends Mage_Core_Model_Abstract
     public function isDenied()
     {
         return $this->getPermission() == self::RULE_PERMISSION_DENIED;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('admin/rules');
     }
 }

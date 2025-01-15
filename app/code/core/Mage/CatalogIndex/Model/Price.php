@@ -42,14 +42,6 @@
  */
 class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalogindex/price');
-        $this->_getResource()->setStoreId(Mage::app()->getStore()->getId());
-        $this->_getResource()->setRate(Mage::app()->getStore()->getCurrentCurrencyRate());
-        $this->_getResource()->setCustomerGroupId(Mage::getSingleton('customer/session')->getCustomerGroupId());
-    }
-
     /**
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param Zend_Db_Select $entityIdsFilter
@@ -106,5 +98,12 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
                 $item->setData('minimal_tax_class_id', $row['tax_class_id']);
             }
         }
+    }
+    protected function _construct()
+    {
+        $this->_init('catalogindex/price');
+        $this->_getResource()->setStoreId(Mage::app()->getStore()->getId());
+        $this->_getResource()->setRate(Mage::app()->getStore()->getCurrentCurrencyRate());
+        $this->_getResource()->setCustomerGroupId(Mage::getSingleton('customer/session')->getCustomerGroupId());
     }
 }

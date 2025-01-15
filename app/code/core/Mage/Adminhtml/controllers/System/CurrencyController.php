@@ -29,21 +29,6 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
     public const ADMIN_RESOURCE = 'system/currency/rates';
 
     /**
-     * Init currency by currency code from request
-     *
-     * @return Mage_Adminhtml_Controller_Action
-     */
-    protected function _initCurrency()
-    {
-        $code = $this->getRequest()->getParam('currency');
-        $currency = Mage::getModel('directory/currency')
-            ->load($code);
-
-        Mage::register('currency', $currency);
-        return $this;
-    }
-
-    /**
      * Currency management main page
      */
     public function indexAction()
@@ -112,5 +97,20 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
         }
 
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * Init currency by currency code from request
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
+    protected function _initCurrency()
+    {
+        $code = $this->getRequest()->getParam('currency');
+        $currency = Mage::getModel('directory/currency')
+            ->load($code);
+
+        Mage::register('currency', $currency);
+        return $this;
     }
 }

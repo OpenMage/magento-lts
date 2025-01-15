@@ -30,6 +30,40 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
     public const CACHE_TAG = 'block_html_rss_catalog_review';
 
     /**
+     * Format single RSS element
+     *
+     * @param array $args
+     */
+    public function addReviewItemXmlCallback($args)
+    {
+        $rssObj = $args['rssObj'];
+        $row = $args['row'];
+
+        $store = Mage::app()->getStore($row['store_id']);
+        $urlModel = Mage::getModel('core/url')->setStore($store);
+        $productUrl = $urlModel->getUrl('catalog/product/view', ['id' => $row['entity_id']]);
+        $reviewUrl = Mage::helper('adminhtml')->getUrl(
+            'adminhtml/catalog_product_review/edit/',
+            ['id' => $row['review_id'], '_secure' => true, '_nosecret' => true],
+        );
+        $storeName = $store->getName();
+
+        $description = '<p>'
+                     . $this->__('Product: <a href="%s">%s</a> <br/>', $productUrl, $row['name'])
+                     . $this->__('Summary of review: %s <br/>', $row['title'])
+                     . $this->__('Review: %s <br/>', $row['detail'])
+                     . $this->__('Store: %s <br/>', $storeName)
+                     . $this->__('click <a href="%s">here</a> to view the review', $reviewUrl)
+                     . '</p>';
+        $data = [
+            'title'         => $this->__('Product: "%s" review By: %s', $row['name'], $row['nickname']),
+            'link'          => 'test',
+            'description'   => $description,
+        ];
+        $rssObj->_addEntry($data);
+    }
+
+    /**
      * Initialize cache
      */
     protected function _construct()
@@ -77,39 +111,5 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
             ['rssObj' => $rssObj, 'reviewModel' => $reviewModel],
         );
         return $rssObj->createRssXml();
-    }
-
-    /**
-     * Format single RSS element
-     *
-     * @param array $args
-     */
-    public function addReviewItemXmlCallback($args)
-    {
-        $rssObj = $args['rssObj'];
-        $row = $args['row'];
-
-        $store = Mage::app()->getStore($row['store_id']);
-        $urlModel = Mage::getModel('core/url')->setStore($store);
-        $productUrl = $urlModel->getUrl('catalog/product/view', ['id' => $row['entity_id']]);
-        $reviewUrl = Mage::helper('adminhtml')->getUrl(
-            'adminhtml/catalog_product_review/edit/',
-            ['id' => $row['review_id'], '_secure' => true, '_nosecret' => true],
-        );
-        $storeName = $store->getName();
-
-        $description = '<p>'
-                     . $this->__('Product: <a href="%s">%s</a> <br/>', $productUrl, $row['name'])
-                     . $this->__('Summary of review: %s <br/>', $row['title'])
-                     . $this->__('Review: %s <br/>', $row['detail'])
-                     . $this->__('Store: %s <br/>', $storeName)
-                     . $this->__('click <a href="%s">here</a> to view the review', $reviewUrl)
-                     . '</p>';
-        $data = [
-            'title'         => $this->__('Product: "%s" review By: %s', $row['name'], $row['nickname']),
-            'link'          => 'test',
-            'description'   => $description,
-        ];
-        $rssObj->_addEntry($data);
     }
 }

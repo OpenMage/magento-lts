@@ -59,38 +59,6 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     }
 
     /**
-     * @return mixed
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _getCollection()
-    {
-        if (!$this->_collection && $this->getProductId()) {
-            $model = Mage::getModel('tag/tag');
-            $this->_collection = $model->getResourceCollection()
-                ->addPopularity()
-                ->addStatusFilter($model->getApprovedStatus())
-                ->addProductFilter($this->getProductId())
-                ->setFlag('relation', true)
-                ->addStoreFilter(Mage::app()->getStore()->getId())
-                ->setActiveFilter()
-                ->load();
-        }
-        return $this->_collection;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _beforeToHtml()
-    {
-        if (!$this->getProductId()) {
-            return $this;
-        }
-
-        return parent::_beforeToHtml();
-    }
-
-    /**
      * @return string
      */
     public function getFormAction()
@@ -136,5 +104,37 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
             $this->_uniqueHtmlId = Mage::helper('core/data')->uniqHash($prefix);
         }
         return $this->_uniqueHtmlId;
+    }
+
+    /**
+     * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _getCollection()
+    {
+        if (!$this->_collection && $this->getProductId()) {
+            $model = Mage::getModel('tag/tag');
+            $this->_collection = $model->getResourceCollection()
+                ->addPopularity()
+                ->addStatusFilter($model->getApprovedStatus())
+                ->addProductFilter($this->getProductId())
+                ->setFlag('relation', true)
+                ->addStoreFilter(Mage::app()->getStore()->getId())
+                ->setActiveFilter()
+                ->load();
+        }
+        return $this->_collection;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeToHtml()
+    {
+        if (!$this->getProductId()) {
+            return $this;
+        }
+
+        return parent::_beforeToHtml();
     }
 }

@@ -90,6 +90,19 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
     }
 
     /**
+     * Check has compare items by visitor/customer
+     *
+     * @param int $customerId
+     * @param int $visitorId
+     * @return bool
+     */
+    public function hasItems($customerId, $visitorId)
+    {
+        return Mage::getResourceSingleton('catalog/product_compare_item')
+            ->getCount($customerId, $visitorId);
+    }
+
+    /**
      * Add visitor and customer data to compare item
      *
      * @param Mage_Catalog_Model_Product_Compare_Item $item
@@ -103,18 +116,5 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
         }
 
         return $this;
-    }
-
-    /**
-     * Check has compare items by visitor/customer
-     *
-     * @param int $customerId
-     * @param int $visitorId
-     * @return bool
-     */
-    public function hasItems($customerId, $visitorId)
-    {
-        return Mage::getResourceSingleton('catalog/product_compare_item')
-            ->getCount($customerId, $visitorId);
     }
 }

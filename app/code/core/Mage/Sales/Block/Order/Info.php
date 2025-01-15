@@ -24,33 +24,6 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
 {
     protected $_links = [];
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('sales/order/info.phtml');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        /** @var Mage_Page_Block_Html_Head $headBlock */
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
-        }
-
-        /** @var Mage_Payment_Helper_Data $helper */
-        $helper = $this->helper('payment');
-        $this->setChild(
-            'payment_info',
-            $helper->getInfoBlock($this->getOrder()->getPayment()),
-        );
-
-        return parent::_prepareLayout();
-    }
-
     /**
      * @return string
      */
@@ -108,20 +81,6 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         return $this->_links;
     }
 
-    private function checkLinks()
-    {
-        $order = $this->getOrder();
-        if (!$order->hasInvoices()) {
-            unset($this->_links['invoice']);
-        }
-        if (!$order->hasShipments()) {
-            unset($this->_links['shipment']);
-        }
-        if (!$order->hasCreditmemos()) {
-            unset($this->_links['creditmemo']);
-        }
-    }
-
     /**
      * Get url for reorder action
      *
@@ -150,5 +109,46 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
             return $this->getUrl('sales/guest/print', ['order_id' => $order->getId()]);
         }
         return $this->getUrl('sales/order/print', ['order_id' => $order->getId()]);
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('sales/order/info.phtml');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
+        }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
+        $this->setChild(
+            'payment_info',
+            $helper->getInfoBlock($this->getOrder()->getPayment()),
+        );
+
+        return parent::_prepareLayout();
+    }
+
+    private function checkLinks()
+    {
+        $order = $this->getOrder();
+        if (!$order->hasInvoices()) {
+            unset($this->_links['invoice']);
+        }
+        if (!$order->hasShipments()) {
+            unset($this->_links['shipment']);
+        }
+        if (!$order->hasCreditmemos()) {
+            unset($this->_links['creditmemo']);
+        }
     }
 }

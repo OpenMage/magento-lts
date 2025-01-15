@@ -29,11 +29,6 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
      */
     protected $_isStoreJoined = false;
 
-    protected function _construct()
-    {
-        $this->_init('rating/rating');
-    }
-
     /**
      * Add entity filter
      *
@@ -256,5 +251,10 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
             }
         }
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('rating/rating');
     }
 }

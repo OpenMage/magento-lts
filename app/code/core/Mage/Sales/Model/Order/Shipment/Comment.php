@@ -44,11 +44,6 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
      */
     protected $_shipment;
 
-    protected function _construct()
-    {
-        $this->_init('sales/order_shipment_comment');
-    }
-
     /**
      * Declare Shipment instance
      *
@@ -81,6 +76,11 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
             return $this->getShipment()->getStore();
         }
         return Mage::app()->getStore();
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order_shipment_comment');
     }
 
     /**

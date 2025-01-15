@@ -30,6 +30,24 @@ class Mage_Xml_Parser
         return $this->_dom;
     }
 
+    public function xmlToArray()
+    {
+        $this->_content = $this->_xmlToArray();
+        return $this->_content;
+    }
+
+    public function load($file)
+    {
+        $this->getDom()->load($file);
+        return $this;
+    }
+
+    public function loadXML($string)
+    {
+        $this->getDom()->loadXML($string);
+        return $this;
+    }
+
     protected function _getCurrentDom()
     {
         return $this->_currentDom;
@@ -39,12 +57,6 @@ class Mage_Xml_Parser
     {
         $this->_currentDom = $node;
         return $this;
-    }
-
-    public function xmlToArray()
-    {
-        $this->_content = $this->_xmlToArray();
-        return $this->_content;
     }
 
     protected function _xmlToArray($currentNode = false)
@@ -86,17 +98,5 @@ class Mage_Xml_Parser
             }
         }
         return $content;
-    }
-
-    public function load($file)
-    {
-        $this->getDom()->load($file);
-        return $this;
-    }
-
-    public function loadXML($string)
-    {
-        $this->getDom()->loadXML($string);
-        return $this;
     }
 }

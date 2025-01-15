@@ -76,42 +76,6 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     }
 
     /**
-     * Retrieve array of collection names by code specified in request
-     *
-     * @return array
-     * @deprecated after 1.4.0.1
-     */
-    protected function _getCollectionNames()
-    {
-        $codes = $this->getRequest()->getParam('code');
-        if (!$codes) {
-            throw new Exception(Mage::helper('adminhtml')->__('No report code specified.'));
-        }
-
-        if (!is_array($codes) && !str_contains($codes, ',')) {
-            $codes = [$codes];
-        } elseif (!is_array($codes)) {
-            $codes = explode(',', $codes);
-        }
-
-        $aliases = [
-            'sales'       => 'sales/report_order',
-            'tax'         => 'tax/report_tax',
-            'shipping'    => 'sales/report_shipping',
-            'invoiced'    => 'sales/report_invoiced',
-            'refunded'    => 'sales/report_refunded',
-            'coupons'     => 'salesrule/report_rule',
-            'bestsellers' => 'sales/report_bestsellers',
-            'viewed'      => 'reports/report_product_viewed',
-        ];
-        $out = [];
-        foreach ($codes as $code) {
-            $out[] = $aliases[$code];
-        }
-        return $out;
-    }
-
-    /**
      * Refresh statistics for last 25 hours
      *
      * @return $this
@@ -178,6 +142,42 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             ->_setActiveMenu('report/statistics/refreshstatistics')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Refresh Statistics'), Mage::helper('adminhtml')->__('Refresh Statistics'))
             ->renderLayout();
+    }
+
+    /**
+     * Retrieve array of collection names by code specified in request
+     *
+     * @return array
+     * @deprecated after 1.4.0.1
+     */
+    protected function _getCollectionNames()
+    {
+        $codes = $this->getRequest()->getParam('code');
+        if (!$codes) {
+            throw new Exception(Mage::helper('adminhtml')->__('No report code specified.'));
+        }
+
+        if (!is_array($codes) && !str_contains($codes, ',')) {
+            $codes = [$codes];
+        } elseif (!is_array($codes)) {
+            $codes = explode(',', $codes);
+        }
+
+        $aliases = [
+            'sales'       => 'sales/report_order',
+            'tax'         => 'tax/report_tax',
+            'shipping'    => 'sales/report_shipping',
+            'invoiced'    => 'sales/report_invoiced',
+            'refunded'    => 'sales/report_refunded',
+            'coupons'     => 'salesrule/report_rule',
+            'bestsellers' => 'sales/report_bestsellers',
+            'viewed'      => 'reports/report_product_viewed',
+        ];
+        $out = [];
+        foreach ($codes as $code) {
+            $out[] = $aliases[$code];
+        }
+        return $out;
     }
 
     /**

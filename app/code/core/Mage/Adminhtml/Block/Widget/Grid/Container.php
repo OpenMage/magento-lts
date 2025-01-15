@@ -56,21 +56,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     }
 
     /**
-     * @inheritdoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'grid',
-            $this->getLayout()->createBlock(
-                $this->_blockGroup . '/' . $this->_controller . '_grid',
-                $this->_controller . '.grid',
-            )->setSaveParametersInSession(true),
-        );
-        return parent::_prepareLayout();
-    }
-
-    /**
      * @return string
      */
     public function getCreateUrl()
@@ -84,6 +69,37 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
     public function getGridHtml()
     {
         return $this->getChildHtml('grid');
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeaderCssClass()
+    {
+        return 'icon-head ' . parent::getHeaderCssClass();
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeaderWidth()
+    {
+        return 'width:50%;';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'grid',
+            $this->getLayout()->createBlock(
+                $this->_blockGroup . '/' . $this->_controller . '_grid',
+                $this->_controller . '.grid',
+            )->setSaveParametersInSession(true),
+        );
+        return parent::_prepareLayout();
     }
 
     /**
@@ -109,21 +125,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
             'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getBackUrl()),
             'class'     => 'back',
         ]);
-    }
-
-    /**
-     * @return string
-     */
-    public function getHeaderCssClass()
-    {
-        return 'icon-head ' . parent::getHeaderCssClass();
-    }
-
-    /**
-     * @return string
-     */
-    public function getHeaderWidth()
-    {
-        return 'width:50%;';
     }
 }

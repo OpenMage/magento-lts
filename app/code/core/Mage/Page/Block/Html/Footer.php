@@ -27,15 +27,6 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
      */
     protected $_copyright;
 
-    protected function _construct()
-    {
-        $this->addData(['cache_lifetime' => false]);
-        $this->addCacheTag([
-            Mage_Core_Model_Store::CACHE_TAG,
-            Mage_Cms_Model_Block::CACHE_TAG,
-        ]);
-    }
-
     /**
      * Get cache key informative items
      *
@@ -86,5 +77,14 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
     public function getChildHtml($name = '', $useCache = true, $sorted = true)
     {
         return parent::getChildHtml($name, $useCache, $sorted);
+    }
+
+    protected function _construct()
+    {
+        $this->addData(['cache_lifetime' => false]);
+        $this->addCacheTag([
+            Mage_Core_Model_Store::CACHE_TAG,
+            Mage_Cms_Model_Block::CACHE_TAG,
+        ]);
     }
 }

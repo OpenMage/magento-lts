@@ -38,12 +38,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     protected $_storeIdFieldName;
 
     /**
-     * should be defined because abstract
-     *
-     */
-    protected function _construct() {}
-
-    /**
      * @param array $data
      * @param int $storeId
      * @param int $productId
@@ -61,29 +55,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     public function saveIndices(array $data, $storeId, $productId)
     {
         $this->_executeReplace($data, $storeId, $productId);
-    }
-
-    /**
-     * @param array $data
-     * @param int $storeId
-     * @param int $productId
-     * @return $this
-     */
-    protected function _executeReplace($data, $storeId, $productId)
-    {
-        $this->beginTransaction();
-        try {
-            foreach ($data as $row) {
-                $row[$this->_entityIdFieldName] = $productId;
-                $this->_getWriteAdapter()->insert($this->getMainTable(), $row);
-            }
-            $this->commit();
-        } catch (Exception $e) {
-            $this->rollBack();
-            throw $e;
-        }
-
-        return $this;
     }
 
     /**
@@ -144,5 +115,34 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
             $select->where($conditions);
         }
         return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    /**
+     * should be defined because abstract
+     *
+     */
+    protected function _construct() {}
+
+    /**
+     * @param array $data
+     * @param int $storeId
+     * @param int $productId
+     * @return $this
+     */
+    protected function _executeReplace($data, $storeId, $productId)
+    {
+        $this->beginTransaction();
+        try {
+            foreach ($data as $row) {
+                $row[$this->_entityIdFieldName] = $productId;
+                $this->_getWriteAdapter()->insert($this->getMainTable(), $row);
+            }
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
+
+        return $this;
     }
 }

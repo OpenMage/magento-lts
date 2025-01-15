@@ -28,6 +28,11 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
         $this->setId('grid');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/customerDetail', ['id' => $row->getId()]);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/tag_customer_collection');
@@ -90,10 +95,5 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
         $this->addExportType('*/*/exportCustomerExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/customerDetail', ['id' => $row->getId()]);
     }
 }

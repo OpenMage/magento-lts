@@ -21,45 +21,6 @@
 class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Initialize email queue resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('core/email_queue', 'message_id');
-    }
-
-    /**
-     * Load recipients, unserialize message parameters
-     *
-     * @param Mage_Core_Model_Email_Queue $object
-     * @inheritDoc
-     */
-    protected function _afterLoad(Mage_Core_Model_Abstract $object)
-    {
-        $object->setRecipients($this->getRecipients($object->getId()));
-        $object->setMessageParameters(unserialize($object->getMessageParameters(), ['allowed_classes' => false]));
-        return $this;
-    }
-
-    /**
-     * Prepare object data for saving
-     *
-     * @param Mage_Core_Model_Email_Queue $object
-     * @inheritDoc
-     */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
-    {
-        if ($object->isObjectNew()) {
-            $object->setCreatedAt($this->formatDate(true));
-        }
-        $object->setMessageBodyHash(md5($object->getMessageBody()));
-        $object->setMessageParameters(serialize($object->getMessageParameters()));
-
-        return parent::_beforeSave($object);
-    }
-
-    /**
      * Check if email was added to queue for requested recipients
      *
      *
@@ -184,5 +145,43 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
     {
         $this->_getWriteAdapter()->delete($this->getMainTable(), 'processed_at IS NOT NULL');
         return $this;
+    }
+    /**
+     * Initialize email queue resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('core/email_queue', 'message_id');
+    }
+
+    /**
+     * Load recipients, unserialize message parameters
+     *
+     * @param Mage_Core_Model_Email_Queue $object
+     * @inheritDoc
+     */
+    protected function _afterLoad(Mage_Core_Model_Abstract $object)
+    {
+        $object->setRecipients($this->getRecipients($object->getId()));
+        $object->setMessageParameters(unserialize($object->getMessageParameters(), ['allowed_classes' => false]));
+        return $this;
+    }
+
+    /**
+     * Prepare object data for saving
+     *
+     * @param Mage_Core_Model_Email_Queue $object
+     * @inheritDoc
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    {
+        if ($object->isObjectNew()) {
+            $object->setCreatedAt($this->formatDate(true));
+        }
+        $object->setMessageBodyHash(md5($object->getMessageBody()));
+        $object->setMessageParameters(serialize($object->getMessageParameters()));
+
+        return parent::_beforeSave($object);
     }
 }

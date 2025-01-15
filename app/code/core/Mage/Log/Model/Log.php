@@ -38,15 +38,6 @@ class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
     public const XML_LOG_CLEAN_DAYS    = 'system/log/clean_after_day';
 
     /**
-     * Init Resource Model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('log/log');
-    }
-
-    /**
      * @return int
      */
     public function getLogCleanTime()
@@ -63,5 +54,14 @@ class Mage_Log_Model_Log extends Mage_Core_Model_Abstract
     {
         $this->getResource()->clean($this);
         return $this;
+    }
+
+    /**
+     * Init Resource Model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('log/log');
     }
 }

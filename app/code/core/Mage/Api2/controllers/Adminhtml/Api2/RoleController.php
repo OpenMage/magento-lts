@@ -286,16 +286,6 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/rest_roles');
-    }
-
-    /**
      * Get API2 roles ajax grid action
      */
     public function rolesGridAction()
@@ -307,6 +297,16 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         Mage::register('permissions_user', $model);
         $this->getResponse()
             ->setBody($this->getLayout()->createBlock('api2/adminhtml_permissions_user_edit_tab_roles')->toHtml());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _isAllowed()
+    {
+        /** @var Mage_Admin_Model_Session $session */
+        $session = Mage::getSingleton('admin/session');
+        return $session->isAllowed('system/api/rest_roles');
     }
 
     /**

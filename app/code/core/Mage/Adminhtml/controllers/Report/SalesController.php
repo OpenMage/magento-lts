@@ -99,17 +99,6 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     }
 
     /**
-     * Retrieve array of collection names by code specified in request
-     *
-     * @deprecated after 1.4.0.1
-     * @return array
-     */
-    protected function _getCollectionNames()
-    {
-        return [];
-    }
-
-    /**
      * Refresh statistics for last 25 hours
      *
      * @deprecated after 1.4.0.1
@@ -374,6 +363,17 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     public function refreshStatisticsAction()
     {
         return $this->_forward('index', 'report_statistics');
+    }
+
+    /**
+     * Retrieve array of collection names by code specified in request
+     *
+     * @deprecated after 1.4.0.1
+     * @return array
+     */
+    protected function _getCollectionNames()
+    {
+        return [];
     }
 
     /**

@@ -29,11 +29,6 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
      */
     protected $_haveParents = false;
 
-    protected function _construct()
-    {
-        $this->_init('catalogindex/data_grouped');
-    }
-
     /**
      * Fetch final price for product
      *
@@ -55,6 +50,11 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     public function getTypeCode()
     {
         return Mage_Catalog_Model_Product_Type::TYPE_GROUPED;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalogindex/data_grouped');
     }
 
     /**

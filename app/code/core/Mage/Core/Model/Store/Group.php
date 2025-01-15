@@ -102,35 +102,6 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     private $_isReadOnly = false;
 
     /**
-     * init model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('core/store_group');
-    }
-
-    /**
-     * Load store collection and set internal data
-     */
-    protected function _loadStores()
-    {
-        $this->_stores = [];
-        $this->_storesCount = 0;
-        /** @var Mage_Core_Model_Store $store */
-        foreach ($this->getStoreCollection() as $store) {
-            $storeId = $store->getId();
-            $this->_stores[$storeId] = $store;
-            $this->_storeIds[$storeId] = $storeId;
-            $this->_storeCodes[$storeId] = $store->getCode();
-            if ($this->getDefaultStoreId() == $storeId) {
-                $this->_defaultStore = $store;
-            }
-            $this->_storesCount++;
-        }
-    }
-
-    /**
      * Set website stores
      *
      * @param array $stores
@@ -331,15 +302,6 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _beforeDelete()
-    {
-        $this->_protectFromNonAdmin();
-        return parent::_beforeDelete();
-    }
-
-    /**
      * Get/Set isReadOnly flag
      *
      * @param bool $value
@@ -351,5 +313,43 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
             $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;
+    }
+
+    /**
+     * init model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('core/store_group');
+    }
+
+    /**
+     * Load store collection and set internal data
+     */
+    protected function _loadStores()
+    {
+        $this->_stores = [];
+        $this->_storesCount = 0;
+        /** @var Mage_Core_Model_Store $store */
+        foreach ($this->getStoreCollection() as $store) {
+            $storeId = $store->getId();
+            $this->_stores[$storeId] = $store;
+            $this->_storeIds[$storeId] = $storeId;
+            $this->_storeCodes[$storeId] = $store->getCode();
+            if ($this->getDefaultStoreId() == $storeId) {
+                $this->_defaultStore = $store;
+            }
+            $this->_storesCount++;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
     }
 }

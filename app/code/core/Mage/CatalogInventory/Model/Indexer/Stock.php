@@ -76,11 +76,6 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
         Mage_CatalogInventory_Helper_Data::XML_PATH_SHOW_OUT_OF_STOCK,
     ];
 
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/indexer_stock');
-    }
-
     /**
      * Retrieve Indexer name
      *
@@ -145,6 +140,11 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
         $event->addNewData(self::EVENT_MATCH_RESULT_KEY, $result);
 
         return $result;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/indexer_stock');
     }
 
     /**

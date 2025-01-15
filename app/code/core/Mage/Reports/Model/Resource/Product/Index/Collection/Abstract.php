@@ -38,35 +38,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     protected $_sortIds = [];
 
     /**
-     * Retrieve Product Index table name
-     *
-     */
-    abstract protected function _getTableName();
-
-    /**
-     * Join index table
-     *
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
-     */
-    protected function _joinIdxTable()
-    {
-        if (!$this->getFlag('is_idx_table_joined')) {
-            $this->joinTable(
-                ['idx_table' => $this->_getTableName()],
-                'product_id=entity_id',
-                [
-                    'product_id'    => 'product_id',
-                    'item_store_id' => 'store_id',
-                    'added_at'      => 'added_at',
-                ],
-                $this->_getWhereCondition(),
-            );
-            $this->setFlag('is_idx_table_joined', true);
-        }
-        return $this;
-    }
-
-    /**
      * Add Viewed Products Index to Collection
      *
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
@@ -94,26 +65,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
             $this->getSelect()->where('e.entity_id IN(?)', $ids);
         }
         return $this;
-    }
-
-    /**
-     * Retrieve Where Condition to Index table
-     *
-     * @return array
-     */
-    protected function _getWhereCondition()
-    {
-        $condition = [];
-
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $condition['customer_id'] = Mage::getSingleton('customer/session')->getCustomerId();
-        } elseif ($this->_customerId) {
-            $condition['customer_id'] = $this->_customerId;
-        } else {
-            $condition['visitor_id'] = Mage::getSingleton('log/visitor')->getId();
-        }
-
-        return $condition;
     }
 
     /**
@@ -154,6 +105,71 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     }
 
     /**
+     * Add exclude Product Ids
+     *
+     * @param int|array $productIds
+     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     */
+    public function excludeProductIds($productIds)
+    {
+        if (empty($productIds)) {
+            return $this;
+        }
+        $this->_joinIdxTable();
+        $this->getSelect()->where('idx_table.product_id NOT IN(?)', $productIds);
+        return $this;
+    }
+
+    /**
+     * Retrieve Product Index table name
+     *
+     */
+    abstract protected function _getTableName();
+
+    /**
+     * Join index table
+     *
+     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
+     */
+    protected function _joinIdxTable()
+    {
+        if (!$this->getFlag('is_idx_table_joined')) {
+            $this->joinTable(
+                ['idx_table' => $this->_getTableName()],
+                'product_id=entity_id',
+                [
+                    'product_id'    => 'product_id',
+                    'item_store_id' => 'store_id',
+                    'added_at'      => 'added_at',
+                ],
+                $this->_getWhereCondition(),
+            );
+            $this->setFlag('is_idx_table_joined', true);
+        }
+        return $this;
+    }
+
+    /**
+     * Retrieve Where Condition to Index table
+     *
+     * @return array
+     */
+    protected function _getWhereCondition()
+    {
+        $condition = [];
+
+        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+            $condition['customer_id'] = Mage::getSingleton('customer/session')->getCustomerId();
+        } elseif ($this->_customerId) {
+            $condition['customer_id'] = $this->_customerId;
+        } else {
+            $condition['visitor_id'] = Mage::getSingleton('log/visitor')->getId();
+        }
+
+        return $condition;
+    }
+
+    /**
      * Sort loaded collection by predefined items ids
      *
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
@@ -182,21 +198,5 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         $result = parent::_afterLoad();
         $this->_sort();
         return $result;
-    }
-
-    /**
-     * Add exclude Product Ids
-     *
-     * @param int|array $productIds
-     * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
-     */
-    public function excludeProductIds($productIds)
-    {
-        if (empty($productIds)) {
-            return $this;
-        }
-        $this->_joinIdxTable();
-        $this->getSelect()->where('idx_table.product_id NOT IN(?)', $productIds);
-        return $this;
     }
 }

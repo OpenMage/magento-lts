@@ -20,12 +20,6 @@
  */
 class Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('catalogrule/rule_product_price');
-    }
-
     /**
      * @return array
      */
@@ -39,5 +33,10 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price_Collection extends Mage
         $idsSelect->columns('main_table.product_id');
         $idsSelect->distinct(true);
         return $this->getConnection()->fetchCol($idsSelect);
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('catalogrule/rule_product_price');
     }
 }

@@ -90,18 +90,6 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     }
 
     /**
-     * Init collection and determine table names
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/category');
-
-        $this->_productWebsiteTable = $this->getTable('catalog/product_website');
-        $this->_productTable        = $this->getTable('catalog/category_product');
-    }
-
-    /**
      * Add Id filter
      *
      * @param int|string|array $categoryIds
@@ -139,35 +127,6 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     {
         $this->_loadWithProductCount = $flag;
         return $this;
-    }
-
-    /**
-     * Before collection load
-     *
-     * @inheritDoc
-     */
-    protected function _beforeLoad()
-    {
-        Mage::dispatchEvent(
-            $this->_eventPrefix . '_load_before',
-            [$this->_eventObject => $this],
-        );
-        return parent::_beforeLoad();
-    }
-
-    /**
-     * After collection load
-     *
-     * @inheritDoc
-     */
-    protected function _afterLoad()
-    {
-        Mage::dispatchEvent(
-            $this->_eventPrefix . '_load_after',
-            [$this->_eventObject => $this],
-        );
-
-        return parent::_afterLoad();
     }
 
     /**
@@ -220,15 +179,6 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         }
 
         return $this;
-    }
-
-    /**
-     * Load categories product count
-     *
-     */
-    protected function _loadProductCount()
-    {
-        $this->loadProductCount($this->_items, true, true);
     }
 
     /**
@@ -343,16 +293,6 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
             ->joinTableToEavCollection($this, $this->_getCurrentStoreId());
 
         return $this;
-    }
-
-    /**
-     * Retrieves store_id from current store
-     *
-     * @return int
-     */
-    protected function _getCurrentStoreId()
-    {
-        return (int) Mage::app()->getStore()->getId();
     }
 
     /**
@@ -502,5 +442,65 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
     public function getNewEmptyItem()
     {
         return new $this->_itemObjectClass(['disable_flat' => $this->getDisableFlat()]);
+    }
+
+    /**
+     * Init collection and determine table names
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/category');
+
+        $this->_productWebsiteTable = $this->getTable('catalog/product_website');
+        $this->_productTable        = $this->getTable('catalog/category_product');
+    }
+
+    /**
+     * Before collection load
+     *
+     * @inheritDoc
+     */
+    protected function _beforeLoad()
+    {
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_load_before',
+            [$this->_eventObject => $this],
+        );
+        return parent::_beforeLoad();
+    }
+
+    /**
+     * After collection load
+     *
+     * @inheritDoc
+     */
+    protected function _afterLoad()
+    {
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_load_after',
+            [$this->_eventObject => $this],
+        );
+
+        return parent::_afterLoad();
+    }
+
+    /**
+     * Load categories product count
+     *
+     */
+    protected function _loadProductCount()
+    {
+        $this->loadProductCount($this->_items, true, true);
+    }
+
+    /**
+     * Retrieves store_id from current store
+     *
+     * @return int
+     */
+    protected function _getCurrentStoreId()
+    {
+        return (int) Mage::app()->getStore()->getId();
     }
 }

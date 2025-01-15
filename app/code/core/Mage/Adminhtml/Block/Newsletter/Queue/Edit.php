@@ -23,18 +23,6 @@
 class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Check for template Id in request
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $templateId = $this->getRequest()->getParam('template_id');
-        if ($templateId) {
-            $this->setTemplateId($templateId);
-        }
-    }
-
-    /**
      * Retrieve current Newsletter Queue Object
      *
      * @return Mage_Newsletter_Model_Queue
@@ -42,21 +30,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     public function getQueue()
     {
         return Mage::registry('current_queue');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _beforeToHtml()
-    {
-        $this->setTemplate('newsletter/queue/edit.phtml');
-
-        $this->setChild(
-            'form',
-            $this->getLayout()->createBlock('adminhtml/newsletter_queue_edit_form', 'form'),
-        );
-
-        return parent::_beforeToHtml();
     }
 
     /**
@@ -71,72 +44,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
             $params = ['id' => $this->getRequest()->getParam('id')];
         }
         return $this->getUrl('*/*/save', $params);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        // Load Wysiwyg on demand and Prepare layout
-        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
-            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
-        }
-
-        $this->setChild(
-            'preview_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Preview Template'),
-                    'onclick'   => 'queueControl.preview();',
-                    'class'     => 'task',
-                ]),
-        );
-
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Save Newsletter'),
-                    'onclick'   => 'queueControl.save()',
-                    'class'     => 'save',
-                ]),
-        );
-
-        $this->setChild(
-            'save_and_resume',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Save and Resume'),
-                    'onclick'   => 'queueControl.resume()',
-                    'class'     => 'save',
-                ]),
-        );
-
-        $this->setChild(
-            'reset_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Reset'),
-                    'onclick'   => 'window.location = window.location',
-                ]),
-        );
-
-        $this->setChild(
-            'back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    [
-                        'label'   => Mage::helper('newsletter')->__('Back'),
-                        'onclick' => "window.location.href = '" . $this->getUrl((
-                            $this->getTemplateId() ? '*/newsletter_template/' : '*/*'
-                        )) . "'",
-                        'class'   => 'back',
-                    ],
-                ),
-        );
-
-        return parent::_prepareLayout();
     }
 
     /**
@@ -213,26 +120,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * Getter for single store mode check
-     *
-     * @return bool
-     */
-    protected function isSingleStoreMode()
-    {
-        return Mage::app()->isSingleStoreMode();
-    }
-
-    /**
-     * Getter for id of current store (the only one in single-store mode and current in multi-stores mode)
-     *
-     * @return int
-     */
-    protected function getStoreId()
-    {
-        return Mage::app()->getStore(true)->getId();
-    }
-
-    /**
      * Getter for check is this newsletter the plain text.
      *
      * @return bool
@@ -260,5 +147,117 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     public function getHeaderText()
     {
         return ($this->getIsPreview() ? Mage::helper('newsletter')->__('View Newsletter') : Mage::helper('newsletter')->__('Edit Newsletter'));
+    }
+    /**
+     * Check for template Id in request
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $templateId = $this->getRequest()->getParam('template_id');
+        if ($templateId) {
+            $this->setTemplateId($templateId);
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeToHtml()
+    {
+        $this->setTemplate('newsletter/queue/edit.phtml');
+
+        $this->setChild(
+            'form',
+            $this->getLayout()->createBlock('adminhtml/newsletter_queue_edit_form', 'form'),
+        );
+
+        return parent::_beforeToHtml();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        // Load Wysiwyg on demand and Prepare layout
+        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
+            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+        }
+
+        $this->setChild(
+            'preview_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('newsletter')->__('Preview Template'),
+                    'onclick'   => 'queueControl.preview();',
+                    'class'     => 'task',
+                ]),
+        );
+
+        $this->setChild(
+            'save_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('newsletter')->__('Save Newsletter'),
+                    'onclick'   => 'queueControl.save()',
+                    'class'     => 'save',
+                ]),
+        );
+
+        $this->setChild(
+            'save_and_resume',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('newsletter')->__('Save and Resume'),
+                    'onclick'   => 'queueControl.resume()',
+                    'class'     => 'save',
+                ]),
+        );
+
+        $this->setChild(
+            'reset_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('newsletter')->__('Reset'),
+                    'onclick'   => 'window.location = window.location',
+                ]),
+        );
+
+        $this->setChild(
+            'back_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData(
+                    [
+                        'label'   => Mage::helper('newsletter')->__('Back'),
+                        'onclick' => "window.location.href = '" . $this->getUrl((
+                            $this->getTemplateId() ? '*/newsletter_template/' : '*/*'
+                        )) . "'",
+                        'class'   => 'back',
+                    ],
+                ),
+        );
+
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * Getter for single store mode check
+     *
+     * @return bool
+     */
+    protected function isSingleStoreMode()
+    {
+        return Mage::app()->isSingleStoreMode();
+    }
+
+    /**
+     * Getter for id of current store (the only one in single-store mode and current in multi-stores mode)
+     *
+     * @return int
+     */
+    protected function getStoreId()
+    {
+        return Mage::app()->getStore(true)->getId();
     }
 }

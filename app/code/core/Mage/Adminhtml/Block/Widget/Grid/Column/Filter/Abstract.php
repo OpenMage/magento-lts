@@ -52,28 +52,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     }
 
     /**
-     * Retrieve html name of filter
-     *
-     * @return string
-     */
-    protected function _getHtmlName()
-    {
-        return $this->getColumn()->getId();
-    }
-
-    /**
-     * Retrieve html id of filter
-     *
-     * @return string
-     */
-    protected function _getHtmlId()
-    {
-        return $this->getColumn()->getGrid()->getId() . '_'
-            . $this->getColumn()->getGrid()->getVarNameFilter() . '_'
-            . $this->getColumn()->getId();
-    }
-
-    /**
      * Retrieve escaped value
      *
      * @param mixed $index
@@ -97,16 +75,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     }
 
     /**
-     * @deprecated after 1.5.0.0
-     * @param array|string $value
-     * @return array|string
-     */
-    protected function _escapeValue($value)
-    {
-        return str_replace('_', '\_', str_replace('\\', '\\\\', $value));
-    }
-
-    /**
      * Retrieve filter html
      *
      * @return string
@@ -114,5 +82,37 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     public function getHtml()
     {
         return '';
+    }
+
+    /**
+     * Retrieve html name of filter
+     *
+     * @return string
+     */
+    protected function _getHtmlName()
+    {
+        return $this->getColumn()->getId();
+    }
+
+    /**
+     * Retrieve html id of filter
+     *
+     * @return string
+     */
+    protected function _getHtmlId()
+    {
+        return $this->getColumn()->getGrid()->getId() . '_'
+            . $this->getColumn()->getGrid()->getVarNameFilter() . '_'
+            . $this->getColumn()->getId();
+    }
+
+    /**
+     * @deprecated after 1.5.0.0
+     * @param array|string $value
+     * @return array|string
+     */
+    protected function _escapeValue($value)
+    {
+        return str_replace('_', '\_', str_replace('\\', '\\\\', $value));
     }
 }

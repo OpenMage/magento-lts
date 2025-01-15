@@ -42,30 +42,6 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     }
 
     /**
-     * Retrieve resource instance
-     *
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Attribute
-     */
-    protected function _getResource()
-    {
-        if (is_null($this->_resource)) {
-            $this->_resource = Mage::getResourceModel('catalog/layer_filter_attribute');
-        }
-        return $this->_resource;
-    }
-
-    /**
-     * Get option text from frontend model by option id
-     *
-     * @param   int $optionId
-     * @return  string|bool
-     */
-    protected function _getOptionText($optionId)
-    {
-        return $this->getAttributeModel()->getFrontend()->getOption($optionId);
-    }
-
-    /**
      * Apply attribute option filter to product collection
      *
      * @param   Varien_Object $filterBlock
@@ -88,6 +64,30 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
             $this->_items = [];
         }
         return $this;
+    }
+
+    /**
+     * Retrieve resource instance
+     *
+     * @return Mage_Catalog_Model_Resource_Layer_Filter_Attribute
+     */
+    protected function _getResource()
+    {
+        if (is_null($this->_resource)) {
+            $this->_resource = Mage::getResourceModel('catalog/layer_filter_attribute');
+        }
+        return $this->_resource;
+    }
+
+    /**
+     * Get option text from frontend model by option id
+     *
+     * @param   int $optionId
+     * @return  string|bool
+     */
+    protected function _getOptionText($optionId)
+    {
+        return $this->getAttributeModel()->getFrontend()->getOption($optionId);
     }
 
     /**

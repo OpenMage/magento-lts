@@ -27,147 +27,6 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      */
     public const MIN_POSSIBLE_PRICE = .01;
 
-    protected function _construct()
-    {
-        $this->_init('catalog/product_index_price', 'entity_id');
-    }
-
-    /**
-     * Retrieve joined price index table alias
-     *
-     * @return string
-     */
-    protected function _getIndexTableAlias()
-    {
-        return 'price_index';
-    }
-
-    /**
-     * Replace table alias in condition string
-     *
-     * @param string|null $conditionString
-     * @return string|null
-     */
-    protected function _replaceTableAlias($conditionString)
-    {
-        if (is_null($conditionString)) {
-            return null;
-        }
-        $adapter = $this->_getReadAdapter();
-        $oldAlias = [
-            Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS . '.',
-            $adapter->quoteIdentifier(Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS) . '.',
-        ];
-        $newAlias = [
-            Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.',
-            $adapter->quoteIdentifier(Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS) . '.',
-        ];
-        return str_replace($oldAlias, $newAlias, $conditionString);
-    }
-
-    /**
-     * Retrieve clean select with joined price index table
-     *
-     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
-     * @return Varien_Db_Select
-     */
-    protected function _getSelect($filter)
-    {
-        $collection = $filter->getLayer()->getProductCollection();
-        $collection->addPriceData($filter->getCustomerGroupId(), $filter->getWebsiteId());
-
-        if (!is_null($collection->getCatalogPreparedSelect())) {
-            $select = clone $collection->getCatalogPreparedSelect();
-        } else {
-            $select = clone $collection->getSelect();
-        }
-
-        // reset columns, order and limitation conditions
-        $select->reset(Zend_Db_Select::COLUMNS);
-        $select->reset(Zend_Db_Select::ORDER);
-        $select->reset(Zend_Db_Select::LIMIT_COUNT);
-        $select->reset(Zend_Db_Select::LIMIT_OFFSET);
-
-        // remove join with main table
-        $fromPart = $select->getPart(Zend_Db_Select::FROM);
-        if (!isset($fromPart[Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS])
-            || !isset($fromPart[Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS])
-        ) {
-            return $select;
-        }
-
-        // processing FROM part
-        $priceIndexJoinPart = $fromPart[Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS];
-        $priceIndexJoinConditions = explode('AND', $priceIndexJoinPart['joinCondition']);
-        $priceIndexJoinPart['joinType'] = Zend_Db_Select::FROM;
-        $priceIndexJoinPart['joinCondition'] = null;
-        $fromPart[Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS] = $priceIndexJoinPart;
-        unset($fromPart[Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS]);
-        $select->setPart(Zend_Db_Select::FROM, $fromPart);
-        foreach ($fromPart as $key => $fromJoinItem) {
-            $fromPart[$key]['joinCondition'] = $this->_replaceTableAlias($fromJoinItem['joinCondition']);
-        }
-        $select->setPart(Zend_Db_Select::FROM, $fromPart);
-
-        // processing WHERE part
-        $wherePart = $select->getPart(Zend_Db_Select::WHERE);
-        $excludedWherePart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.status';
-        foreach ($wherePart as $key => $wherePartItem) {
-            if (str_contains($wherePartItem, $excludedWherePart)) {
-                $wherePart[$key] = new Zend_Db_Expr('1=1');
-                continue;
-            }
-            $wherePart[$key] = $this->_replaceTableAlias($wherePartItem);
-        }
-        $select->setPart(Zend_Db_Select::WHERE, $wherePart);
-        $excludeJoinPart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.entity_id';
-        foreach ($priceIndexJoinConditions as $condition) {
-            if (str_contains($condition, $excludeJoinPart)) {
-                continue;
-            }
-            $select->where($this->_replaceTableAlias($condition));
-        }
-        $select->where($this->_getPriceExpression($filter, $select) . ' IS NOT NULL');
-
-        return $select;
-    }
-
-    /**
-     * Prepare response object and dispatch prepare price event
-     * Return response object
-     *
-     * @deprecated since 1.7.0.0
-     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
-     * @param Varien_Db_Select $select
-     * @return Varien_Object
-     */
-    protected function _dispatchPreparePriceEvent($filter, $select)
-    {
-        // prepare response object for event
-        $response = new Varien_Object();
-        $response->setAdditionalCalculations([]);
-
-        // prepare event arguments
-        $eventArgs = [
-            'select'          => $select,
-            'table'           => $this->_getIndexTableAlias(),
-            'store_id'        => $filter->getStoreId(),
-            'response_object' => $response,
-        ];
-
-        /**
-         * @deprecated since 1.3.2.2
-         */
-        Mage::dispatchEvent('catalogindex_prepare_price_select', $eventArgs);
-
-        /**
-         * @since 1.4
-         */
-        Mage::dispatchEvent('catalog_prepare_price_select', $eventArgs);
-
-        return $response;
-    }
-
     /**
      * Retrieve maximal price for attribute
      *
@@ -178,60 +37,6 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
     public function getMaxPrice($filter)
     {
         return $filter->getLayer()->getProductCollection()->getMaxPrice();
-    }
-
-    /**
-     * Price expression generated by products collection
-     *
-     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
-     * @param Varien_Db_Select $select
-     * @param bool $replaceAlias
-     * @return string
-     */
-    protected function _getPriceExpression($filter, $select, $replaceAlias = true)
-    {
-        $priceExpression = $filter->getLayer()->getProductCollection()->getPriceExpression($select);
-        $additionalPriceExpression = $filter->getLayer()->getProductCollection()->getAdditionalPriceExpression($select);
-        $result = empty($additionalPriceExpression)
-            ? $priceExpression
-            : "({$priceExpression} {$additionalPriceExpression})";
-        if ($replaceAlias) {
-            $result = $this->_replaceTableAlias($result);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Get comparing value sql part
-     *
-     * @param float $price
-     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
-     * @param bool $decrease
-     * @return string
-     */
-    protected function _getComparingValue($price, $filter, $decrease = true)
-    {
-        $currencyRate = $filter->getLayer()->getProductCollection()->getCurrencyRate();
-        if ($decrease) {
-            $result = ($price - (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
-        } else {
-            $result = ($price + (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
-        }
-        return sprintf('%F', $result);
-    }
-
-    /**
-     * Get full price expression generated by products collection
-     *
-     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
-     * @param Varien_Db_Select $select
-     * @return Zend_Db_Expr
-     */
-    protected function _getFullPriceExpression($filter, $select)
-    {
-        return new Zend_Db_Expr('ROUND((' . $this->_getPriceExpression($filter, $select) . ') * '
-            . $filter->getLayer()->getProductCollection()->getCurrencyRate() . ', 2)');
     }
 
     /**
@@ -414,5 +219,200 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         }
 
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/product_index_price', 'entity_id');
+    }
+
+    /**
+     * Retrieve joined price index table alias
+     *
+     * @return string
+     */
+    protected function _getIndexTableAlias()
+    {
+        return 'price_index';
+    }
+
+    /**
+     * Replace table alias in condition string
+     *
+     * @param string|null $conditionString
+     * @return string|null
+     */
+    protected function _replaceTableAlias($conditionString)
+    {
+        if (is_null($conditionString)) {
+            return null;
+        }
+        $adapter = $this->_getReadAdapter();
+        $oldAlias = [
+            Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS . '.',
+            $adapter->quoteIdentifier(Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS) . '.',
+        ];
+        $newAlias = [
+            Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.',
+            $adapter->quoteIdentifier(Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS) . '.',
+        ];
+        return str_replace($oldAlias, $newAlias, $conditionString);
+    }
+
+    /**
+     * Retrieve clean select with joined price index table
+     *
+     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
+     * @return Varien_Db_Select
+     */
+    protected function _getSelect($filter)
+    {
+        $collection = $filter->getLayer()->getProductCollection();
+        $collection->addPriceData($filter->getCustomerGroupId(), $filter->getWebsiteId());
+
+        if (!is_null($collection->getCatalogPreparedSelect())) {
+            $select = clone $collection->getCatalogPreparedSelect();
+        } else {
+            $select = clone $collection->getSelect();
+        }
+
+        // reset columns, order and limitation conditions
+        $select->reset(Zend_Db_Select::COLUMNS);
+        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Zend_Db_Select::LIMIT_COUNT);
+        $select->reset(Zend_Db_Select::LIMIT_OFFSET);
+
+        // remove join with main table
+        $fromPart = $select->getPart(Zend_Db_Select::FROM);
+        if (!isset($fromPart[Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS])
+            || !isset($fromPart[Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS])
+        ) {
+            return $select;
+        }
+
+        // processing FROM part
+        $priceIndexJoinPart = $fromPart[Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS];
+        $priceIndexJoinConditions = explode('AND', $priceIndexJoinPart['joinCondition']);
+        $priceIndexJoinPart['joinType'] = Zend_Db_Select::FROM;
+        $priceIndexJoinPart['joinCondition'] = null;
+        $fromPart[Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS] = $priceIndexJoinPart;
+        unset($fromPart[Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS]);
+        $select->setPart(Zend_Db_Select::FROM, $fromPart);
+        foreach ($fromPart as $key => $fromJoinItem) {
+            $fromPart[$key]['joinCondition'] = $this->_replaceTableAlias($fromJoinItem['joinCondition']);
+        }
+        $select->setPart(Zend_Db_Select::FROM, $fromPart);
+
+        // processing WHERE part
+        $wherePart = $select->getPart(Zend_Db_Select::WHERE);
+        $excludedWherePart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.status';
+        foreach ($wherePart as $key => $wherePartItem) {
+            if (str_contains($wherePartItem, $excludedWherePart)) {
+                $wherePart[$key] = new Zend_Db_Expr('1=1');
+                continue;
+            }
+            $wherePart[$key] = $this->_replaceTableAlias($wherePartItem);
+        }
+        $select->setPart(Zend_Db_Select::WHERE, $wherePart);
+        $excludeJoinPart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.entity_id';
+        foreach ($priceIndexJoinConditions as $condition) {
+            if (str_contains($condition, $excludeJoinPart)) {
+                continue;
+            }
+            $select->where($this->_replaceTableAlias($condition));
+        }
+        $select->where($this->_getPriceExpression($filter, $select) . ' IS NOT NULL');
+
+        return $select;
+    }
+
+    /**
+     * Prepare response object and dispatch prepare price event
+     * Return response object
+     *
+     * @deprecated since 1.7.0.0
+     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
+     * @param Varien_Db_Select $select
+     * @return Varien_Object
+     */
+    protected function _dispatchPreparePriceEvent($filter, $select)
+    {
+        // prepare response object for event
+        $response = new Varien_Object();
+        $response->setAdditionalCalculations([]);
+
+        // prepare event arguments
+        $eventArgs = [
+            'select'          => $select,
+            'table'           => $this->_getIndexTableAlias(),
+            'store_id'        => $filter->getStoreId(),
+            'response_object' => $response,
+        ];
+
+        /**
+         * @deprecated since 1.3.2.2
+         */
+        Mage::dispatchEvent('catalogindex_prepare_price_select', $eventArgs);
+
+        /**
+         * @since 1.4
+         */
+        Mage::dispatchEvent('catalog_prepare_price_select', $eventArgs);
+
+        return $response;
+    }
+
+    /**
+     * Price expression generated by products collection
+     *
+     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
+     * @param Varien_Db_Select $select
+     * @param bool $replaceAlias
+     * @return string
+     */
+    protected function _getPriceExpression($filter, $select, $replaceAlias = true)
+    {
+        $priceExpression = $filter->getLayer()->getProductCollection()->getPriceExpression($select);
+        $additionalPriceExpression = $filter->getLayer()->getProductCollection()->getAdditionalPriceExpression($select);
+        $result = empty($additionalPriceExpression)
+            ? $priceExpression
+            : "({$priceExpression} {$additionalPriceExpression})";
+        if ($replaceAlias) {
+            $result = $this->_replaceTableAlias($result);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get comparing value sql part
+     *
+     * @param float $price
+     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
+     * @param bool $decrease
+     * @return string
+     */
+    protected function _getComparingValue($price, $filter, $decrease = true)
+    {
+        $currencyRate = $filter->getLayer()->getProductCollection()->getCurrencyRate();
+        if ($decrease) {
+            $result = ($price - (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
+        } else {
+            $result = ($price + (self::MIN_POSSIBLE_PRICE / 2)) / $currencyRate;
+        }
+        return sprintf('%F', $result);
+    }
+
+    /**
+     * Get full price expression generated by products collection
+     *
+     * @param Mage_Catalog_Model_Layer_Filter_Price $filter
+     * @param Varien_Db_Select $select
+     * @return Zend_Db_Expr
+     */
+    protected function _getFullPriceExpression($filter, $select)
+    {
+        return new Zend_Db_Expr('ROUND((' . $this->_getPriceExpression($filter, $select) . ') * '
+            . $filter->getLayer()->getProductCollection()->getCurrencyRate() . ', 2)');
     }
 }

@@ -22,11 +22,6 @@
  */
 class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('core/translate', 'key_id');
-    }
-
     /**
      * @param Mage_Core_Model_Translate_String $object
      * @inheritDoc
@@ -47,21 +42,6 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     }
 
     /**
-     * Retrieve select for load
-     *
-     * @param String $field
-     * @param String $value
-     * @param Mage_Core_Model_Abstract $object
-     * @return Varien_Db_Select
-     */
-    protected function _getLoadSelect($field, $value, $object)
-    {
-        $select = parent::_getLoadSelect($field, $value, $object);
-        $select->where('store_id = ?', Mage_Core_Model_App::ADMIN_STORE_ID);
-        return $select;
-    }
-
-    /**
      * After translation loading
      *
      * @param Mage_Core_Model_Translate_String $object
@@ -76,71 +56,6 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
         $translations = $adapter->fetchPairs($select, ['translate_string' => $object->getString()]);
         $object->setStoreTranslations($translations);
         return parent::_afterLoad($object);
-    }
-
-    /**
-     * @param Mage_Core_Model_Translate_String $object
-     * @inheritDoc
-     */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
-    {
-        $adapter = $this->_getWriteAdapter();
-        $select = $adapter->select()
-            ->from($this->getMainTable(), 'key_id')
-            ->where('string = :string')
-            ->where('store_id = :store_id');
-
-        $bind = [
-            'string'   => $object->getString(),
-            'store_id' => Mage_Core_Model_App::ADMIN_STORE_ID,
-        ];
-
-        $object->setId($adapter->fetchOne($select, $bind));
-        return parent::_beforeSave($object);
-    }
-
-    /**
-     * @param Mage_Core_Model_Translate_String $object
-     * @inheritDoc
-     */
-    protected function _afterSave(Mage_Core_Model_Abstract $object)
-    {
-        $adapter = $this->_getWriteAdapter();
-        $select = $adapter->select()
-            ->from($this->getMainTable(), ['store_id', 'key_id'])
-            ->where('string = :string');
-        $stores = $adapter->fetchPairs($select, ['string' => $object->getString()]);
-
-        $translations = $object->getStoreTranslations();
-
-        if (is_array($translations)) {
-            foreach ($translations as $storeId => $translate) {
-                if (is_null($translate) || $translate == '') {
-                    $where = [
-                        'store_id = ?'    => $storeId,
-                        'string = ?'      => $object->getString(),
-                    ];
-                    $adapter->delete($this->getMainTable(), $where);
-                } else {
-                    $data = [
-                        'store_id'  => $storeId,
-                        'string'    => $object->getString(),
-                        'translate' => $translate,
-                    ];
-
-                    if (isset($stores[$storeId])) {
-                        $adapter->update(
-                            $this->getMainTable(),
-                            $data,
-                            ['key_id = ?' => $stores[$storeId]],
-                        );
-                    } else {
-                        $adapter->insert($this->getMainTable(), $data);
-                    }
-                }
-            }
-        }
-        return parent::_afterSave($object);
     }
 
     /**
@@ -229,5 +144,89 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
         }
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('core/translate', 'key_id');
+    }
+
+    /**
+     * Retrieve select for load
+     *
+     * @param String $field
+     * @param String $value
+     * @param Mage_Core_Model_Abstract $object
+     * @return Varien_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $select = parent::_getLoadSelect($field, $value, $object);
+        $select->where('store_id = ?', Mage_Core_Model_App::ADMIN_STORE_ID);
+        return $select;
+    }
+
+    /**
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $select = $adapter->select()
+            ->from($this->getMainTable(), 'key_id')
+            ->where('string = :string')
+            ->where('store_id = :store_id');
+
+        $bind = [
+            'string'   => $object->getString(),
+            'store_id' => Mage_Core_Model_App::ADMIN_STORE_ID,
+        ];
+
+        $object->setId($adapter->fetchOne($select, $bind));
+        return parent::_beforeSave($object);
+    }
+
+    /**
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $select = $adapter->select()
+            ->from($this->getMainTable(), ['store_id', 'key_id'])
+            ->where('string = :string');
+        $stores = $adapter->fetchPairs($select, ['string' => $object->getString()]);
+
+        $translations = $object->getStoreTranslations();
+
+        if (is_array($translations)) {
+            foreach ($translations as $storeId => $translate) {
+                if (is_null($translate) || $translate == '') {
+                    $where = [
+                        'store_id = ?'    => $storeId,
+                        'string = ?'      => $object->getString(),
+                    ];
+                    $adapter->delete($this->getMainTable(), $where);
+                } else {
+                    $data = [
+                        'store_id'  => $storeId,
+                        'string'    => $object->getString(),
+                        'translate' => $translate,
+                    ];
+
+                    if (isset($stores[$storeId])) {
+                        $adapter->update(
+                            $this->getMainTable(),
+                            $data,
+                            ['key_id = ?' => $stores[$storeId]],
+                        );
+                    } else {
+                        $adapter->insert($this->getMainTable(), $data);
+                    }
+                }
+            }
+        }
+        return parent::_afterSave($object);
     }
 }

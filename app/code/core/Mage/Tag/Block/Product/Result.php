@@ -37,17 +37,6 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
         return Mage::registry('current_tag');
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $title = $this->getHeaderText();
-        $this->getLayout()->getBlock('head')->setTitle($title);
-        $this->getLayout()->getBlock('root')->setHeaderTitle($title);
-        return parent::_prepareLayout();
-    }
-
     public function setListOrders()
     {
         $this->getChild('search_result_list')
@@ -79,32 +68,6 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     public function getProductListHtml()
     {
         return $this->getChildHtml('search_result_list');
-    }
-
-    /**
-     * @return Mage_Tag_Model_Resource_Product_Collection
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _getProductCollection()
-    {
-        if (is_null($this->_productCollection)) {
-            $tagModel = Mage::getModel('tag/tag');
-            $this->_productCollection = $tagModel->getEntityCollection()
-                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-                ->addTagFilter($this->getTag()->getId())
-                ->addStoreFilter(Mage::app()->getStore()->getId())
-                ->addAttributeToFilter('status', [
-                    'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
-                ])
-                ->addMinimalPrice()
-                ->addUrlRewrite()
-                ->setActiveFilter();
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection(
-                $this->_productCollection,
-            );
-        }
-
-        return $this->_productCollection;
     }
 
     /**
@@ -145,5 +108,42 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     public function getNoResultText()
     {
         return Mage::helper('tag')->__('No matches found.');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $title = $this->getHeaderText();
+        $this->getLayout()->getBlock('head')->setTitle($title);
+        $this->getLayout()->getBlock('root')->setHeaderTitle($title);
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @return Mage_Tag_Model_Resource_Product_Collection
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _getProductCollection()
+    {
+        if (is_null($this->_productCollection)) {
+            $tagModel = Mage::getModel('tag/tag');
+            $this->_productCollection = $tagModel->getEntityCollection()
+                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                ->addTagFilter($this->getTag()->getId())
+                ->addStoreFilter(Mage::app()->getStore()->getId())
+                ->addAttributeToFilter('status', [
+                    'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
+                ])
+                ->addMinimalPrice()
+                ->addUrlRewrite()
+                ->setActiveFilter();
+            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection(
+                $this->_productCollection,
+            );
+        }
+
+        return $this->_productCollection;
     }
 }

@@ -43,12 +43,6 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
         ]);
     }
 
-    protected function _prepareLayout()
-    {
-        $this->setChild('plane', $this->getLayout()->createBlock('adminhtml/' . $this->_controller . '_view_plane'));
-        return parent::_prepareLayout();
-    }
-
     public function getEditUrl()
     {
         return $this->getUrl('*/*/edit', [$this->_objectId => $this->getRequest()->getParam($this->_objectId)]);
@@ -57,5 +51,11 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
     public function getViewHtml()
     {
         return $this->getChildHtml('plane');
+    }
+
+    protected function _prepareLayout()
+    {
+        $this->setChild('plane', $this->getLayout()->createBlock('adminhtml/' . $this->_controller . '_view_plane'));
+        return parent::_prepareLayout();
     }
 }

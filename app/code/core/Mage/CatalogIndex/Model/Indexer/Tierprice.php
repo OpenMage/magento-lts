@@ -55,15 +55,6 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
 
     protected $_processChildren = false;
 
-    protected function _construct()
-    {
-        $this->_init('catalogindex/indexer_price');
-        $this->_currencyModel = Mage::getModel('directory/currency');
-        $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
-
-        parent::_construct();
-    }
-
     /**
      * @return array
      */
@@ -101,6 +92,15 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
         }
 
         return $result;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalogindex/indexer_price');
+        $this->_currencyModel = Mage::getModel('directory/currency');
+        $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
+
+        parent::_construct();
     }
 
     /**

@@ -43,6 +43,40 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
     }
 
     /**
+     * Checks when this block is readonly
+     *
+     * @return bool
+     */
+    public function isReadonly()
+    {
+        return $this->_getProduct()->getUpsellReadonly();
+    }
+
+    /**
+     * Rerieve grid URL
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->_getData('grid_url') ?: $this->getUrl('*/*/upsellGrid', ['_current' => true]);
+    }
+
+    /**
+     * Retrieve upsell products
+     *
+     * @return array
+     */
+    public function getSelectedUpsellProducts()
+    {
+        $products = [];
+        foreach (Mage::registry('current_product')->getUpSellProducts() as $product) {
+            $products[$product->getId()] = ['position' => $product->getPosition()];
+        }
+        return $products;
+    }
+
+    /**
      * Retrieve currently edited product model
      *
      * @return Mage_Catalog_Model_Product
@@ -75,16 +109,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
-    }
-
-    /**
-     * Checks when this block is readonly
-     *
-     * @return bool
-     */
-    public function isReadonly()
-    {
-        return $this->_getProduct()->getUpsellReadonly();
     }
 
     /**
@@ -202,16 +226,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
     }
 
     /**
-     * Rerieve grid URL
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->_getData('grid_url') ?: $this->getUrl('*/*/upsellGrid', ['_current' => true]);
-    }
-
-    /**
      * Retrieve selected upsell products
      *
      * @return array
@@ -221,20 +235,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
         $products = $this->getProductsUpsell();
         if (!is_array($products)) {
             $products = array_keys($this->getSelectedUpsellProducts());
-        }
-        return $products;
-    }
-
-    /**
-     * Retrieve upsell products
-     *
-     * @return array
-     */
-    public function getSelectedUpsellProducts()
-    {
-        $products = [];
-        foreach (Mage::registry('current_product')->getUpSellProducts() as $product) {
-            $products[$product->getId()] = ['position' => $product->getPosition()];
         }
         return $products;
     }

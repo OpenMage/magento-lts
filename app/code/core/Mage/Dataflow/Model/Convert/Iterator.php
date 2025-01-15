@@ -41,6 +41,16 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
             ->walk($import->select($sessionId), $callbacks);
     }
 
+    public function updateProgress($args)
+    {
+        $memory = !empty($args['memory']) ? $args['memory'] : '';
+        echo '<script type="text/javascript">updateProgress("'
+            . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . time() . '", "' . $memory . '");</script>';
+        echo '<li>' . $memory . '</li>';
+
+        return [];
+    }
+
     protected function _getProgressBarHtml($sessionId, $totalRows)
     {
         return '
@@ -92,16 +102,6 @@ function updateProgress(sessionId, idx, time, memory) {
     document.getElementById("progress_bar_' . $sessionId . '").style.width = (idx/total_rows*100)+"%";
 }
 </script>';
-    }
-
-    public function updateProgress($args)
-    {
-        $memory = !empty($args['memory']) ? $args['memory'] : '';
-        echo '<script type="text/javascript">updateProgress("'
-            . $args['row']['session_id'] . '", "' . $args['idx'] . '", "' . time() . '", "' . $memory . '");</script>';
-        echo '<li>' . $memory . '</li>';
-
-        return [];
     }
 
     protected function _parseCallback($callback, $defaultMethod = null)

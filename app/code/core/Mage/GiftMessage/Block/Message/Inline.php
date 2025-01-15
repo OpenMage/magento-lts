@@ -28,12 +28,6 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     protected $_type   = null;
     protected $_giftMessage = null;
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('giftmessage/inline.phtml');
-    }
-
     /**
      * Set entity
      *
@@ -86,19 +80,6 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     public function hasGiftMessage()
     {
         return $this->getEntity()->getGiftMessageId() > 0;
-    }
-
-    /**
-     * Init message
-     *
-     * @return $this
-     */
-    protected function _initMessage()
-    {
-        /** @var Mage_GiftMessage_Helper_Message $helper */
-        $helper = $this->helper('giftmessage/message');
-        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
-        return $this;
     }
 
     /**
@@ -271,5 +252,24 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     {
         $type = substr($this->getType(), 0, 5) === 'multi' ? 'address_item' : 'item';
         return Mage::helper('giftmessage/message')->isMessagesAvailable($type, $item);
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('giftmessage/inline.phtml');
+    }
+
+    /**
+     * Init message
+     *
+     * @return $this
+     */
+    protected function _initMessage()
+    {
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
+        return $this;
     }
 }

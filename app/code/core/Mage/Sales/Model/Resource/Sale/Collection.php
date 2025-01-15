@@ -103,48 +103,6 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     }
 
     /**
-     * Before load action
-     *
-     * @return Varien_Data_Collection_Db
-     */
-    protected function _beforeLoad()
-    {
-        $this->getSelect()
-            ->from(
-                ['sales' => Mage::getResourceSingleton('sales/order')->getMainTable()],
-                [
-                    'store_id',
-                    'lifetime'      => new Zend_Db_Expr('SUM(sales.base_grand_total)'),
-                    'base_lifetime' => new Zend_Db_Expr('SUM(sales.base_grand_total * sales.base_to_global_rate)'),
-                    'avgsale'       => new Zend_Db_Expr('AVG(sales.base_grand_total)'),
-                    'base_avgsale'  => new Zend_Db_Expr('AVG(sales.base_grand_total * sales.base_to_global_rate)'),
-                    'num_orders'    => new Zend_Db_Expr('COUNT(sales.base_grand_total)'),
-                ],
-            )
-            ->group('sales.store_id');
-
-        if ($this->_customer instanceof Mage_Customer_Model_Customer) {
-            $this->addFieldToFilter('sales.customer_id', $this->_customer->getId());
-        }
-
-        if (!is_null($this->_orderStateValue)) {
-            $condition = '';
-            switch ($this->_orderStateCondition) {
-                case 'IN':
-                    $condition = 'in';
-                    break;
-                case 'NOT IN':
-                    $condition = 'nin';
-                    break;
-            }
-            $this->addFieldToFilter('state', [$condition => $this->_orderStateValue]);
-        }
-
-        Mage::dispatchEvent('sales_sale_collection_query_before', ['collection' => $this]);
-        return $this;
-    }
-
-    /**
      * Load data
      *
      * @param bool $printQuery
@@ -204,5 +162,47 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     public function getTotals()
     {
         return new Varien_Object($this->_totals);
+    }
+
+    /**
+     * Before load action
+     *
+     * @return Varien_Data_Collection_Db
+     */
+    protected function _beforeLoad()
+    {
+        $this->getSelect()
+            ->from(
+                ['sales' => Mage::getResourceSingleton('sales/order')->getMainTable()],
+                [
+                    'store_id',
+                    'lifetime'      => new Zend_Db_Expr('SUM(sales.base_grand_total)'),
+                    'base_lifetime' => new Zend_Db_Expr('SUM(sales.base_grand_total * sales.base_to_global_rate)'),
+                    'avgsale'       => new Zend_Db_Expr('AVG(sales.base_grand_total)'),
+                    'base_avgsale'  => new Zend_Db_Expr('AVG(sales.base_grand_total * sales.base_to_global_rate)'),
+                    'num_orders'    => new Zend_Db_Expr('COUNT(sales.base_grand_total)'),
+                ],
+            )
+            ->group('sales.store_id');
+
+        if ($this->_customer instanceof Mage_Customer_Model_Customer) {
+            $this->addFieldToFilter('sales.customer_id', $this->_customer->getId());
+        }
+
+        if (!is_null($this->_orderStateValue)) {
+            $condition = '';
+            switch ($this->_orderStateCondition) {
+                case 'IN':
+                    $condition = 'in';
+                    break;
+                case 'NOT IN':
+                    $condition = 'nin';
+                    break;
+            }
+            $this->addFieldToFilter('state', [$condition => $this->_orderStateValue]);
+        }
+
+        Mage::dispatchEvent('sales_sale_collection_query_before', ['collection' => $this]);
+        return $this;
     }
 }

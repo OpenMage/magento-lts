@@ -30,16 +30,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     protected $_entity;
 
     /**
-     * Retrieve order model instance
-     *
-     * @return Mage_Sales_Model_Order
-     */
-    public function getOrder()
-    {
-        return Mage::registry('current_order');
-    }
-
-    /**
      * Giftmessage object
      *
      * @var Mage_GiftMessage_Model_Message|null
@@ -47,36 +37,13 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     protected $_giftMessage;
 
     /**
-     * @inheritDoc
+     * Retrieve order model instance
+     *
+     * @return Mage_Sales_Model_Order
      */
-    protected function _beforeToHtml()
+    public function getOrder()
     {
-        if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
-            if ($this->getParentBlock() && ($order = $this->getOrder())) {
-                $this->setEntity($order);
-            }
-            return parent::_beforeToHtml();
-        } else {
-            return parent::_beforeToHtml();
-        }
-    }
-
-    /**
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
-            $this->setChild(
-                'save_button',
-                $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
-                        'class'   => 'save',
-                    ]),
-            );
-        }
-        return $this;
+        return Mage::registry('current_order');
     }
 
     /**
@@ -207,29 +174,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Initialize gift message for entity
-     *
-     * @return $this
-     * @throws Exception
-     */
-    protected function _initMessage()
-    {
-        /** @var Mage_GiftMessage_Helper_Message $helper */
-        $helper = $this->helper('giftmessage/message');
-        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
-
-        // init default values for giftmessage form
-        if (!$this->getMessage()->getSender()) {
-            $this->getMessage()->setSender($this->getDefaultSender());
-        }
-        if (!$this->getMessage()->getRecipient()) {
-            $this->getMessage()->setRecipient($this->getDefaultRecipient());
-        }
-
-        return $this;
-    }
-
-    /**
      * Retrieve gift message for entity
      *
      * @return Mage_GiftMessage_Model_Message
@@ -286,5 +230,61 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable($helper::TYPE_ORDER, $this->getEntity(), $this->getEntity()->getStoreId());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _beforeToHtml()
+    {
+        if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            if ($this->getParentBlock() && ($order = $this->getOrder())) {
+                $this->setEntity($order);
+            }
+            return parent::_beforeToHtml();
+        } else {
+            return parent::_beforeToHtml();
+        }
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        if ($this->isModuleOutputEnabled('Mage_GiftMessage')) {
+            $this->setChild(
+                'save_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData([
+                        'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
+                        'class'   => 'save',
+                    ]),
+            );
+        }
+        return $this;
+    }
+
+    /**
+     * Initialize gift message for entity
+     *
+     * @return $this
+     * @throws Exception
+     */
+    protected function _initMessage()
+    {
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
+
+        // init default values for giftmessage form
+        if (!$this->getMessage()->getSender()) {
+            $this->getMessage()->setSender($this->getDefaultSender());
+        }
+        if (!$this->getMessage()->getRecipient()) {
+            $this->getMessage()->setRecipient($this->getDefaultRecipient());
+        }
+
+        return $this;
     }
 }

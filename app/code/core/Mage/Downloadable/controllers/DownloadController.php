@@ -23,64 +23,6 @@
 class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * Return core session object
-     *
-     * @return Mage_Core_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('core/session');
-    }
-
-    /**
-     * Return customer session object
-     *
-     * @return Mage_Customer_Model_Session
-     */
-    protected function _getCustomerSession()
-    {
-        return Mage::getSingleton('customer/session');
-    }
-
-    /**
-     * @param string $resource
-     * @param string $resourceType
-     * @throws Zend_Controller_Response_Exception
-     */
-    protected function _processDownload($resource, $resourceType)
-    {
-        $helper = Mage::helper('downloadable/download');
-        $helper->setResource($resource, $resourceType);
-
-        $fileName       = $helper->getFilename();
-        $contentType    = $helper->getContentType();
-
-        $this->getResponse()
-            ->setHttpResponseCode(200)
-            ->setHeader('Pragma', 'public', true)
-            ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
-            ->setHeader('Content-type', $contentType, true);
-
-        if ($fileSize = $helper->getFilesize()) {
-            $this->getResponse()
-                ->setHeader('Content-Length', $fileSize);
-        }
-
-        if ($contentDisposition = $helper->getContentDisposition()) {
-            $this->getResponse()
-                ->setHeader('Content-Disposition', $contentDisposition . '; filename=' . $fileName);
-        }
-
-        $this->getResponse()
-            ->clearBody();
-        $this->getResponse()
-            ->sendHeaders();
-
-        session_write_close();
-        $helper->output();
-    }
-
-    /**
      * Download sample action
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
@@ -234,5 +176,62 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             );
         }
         return $this->_redirect('*/customer/products');
+    }
+    /**
+     * Return core session object
+     *
+     * @return Mage_Core_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('core/session');
+    }
+
+    /**
+     * Return customer session object
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _getCustomerSession()
+    {
+        return Mage::getSingleton('customer/session');
+    }
+
+    /**
+     * @param string $resource
+     * @param string $resourceType
+     * @throws Zend_Controller_Response_Exception
+     */
+    protected function _processDownload($resource, $resourceType)
+    {
+        $helper = Mage::helper('downloadable/download');
+        $helper->setResource($resource, $resourceType);
+
+        $fileName       = $helper->getFilename();
+        $contentType    = $helper->getContentType();
+
+        $this->getResponse()
+            ->setHttpResponseCode(200)
+            ->setHeader('Pragma', 'public', true)
+            ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
+            ->setHeader('Content-type', $contentType, true);
+
+        if ($fileSize = $helper->getFilesize()) {
+            $this->getResponse()
+                ->setHeader('Content-Length', $fileSize);
+        }
+
+        if ($contentDisposition = $helper->getContentDisposition()) {
+            $this->getResponse()
+                ->setHeader('Content-Disposition', $contentDisposition . '; filename=' . $fileName);
+        }
+
+        $this->getResponse()
+            ->clearBody();
+        $this->getResponse()
+            ->sendHeaders();
+
+        session_write_close();
+        $helper->output();
     }
 }

@@ -35,6 +35,52 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
+     * Add link to RSS feed when enabled for filtered store-view
+     *
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function addRssFeedLink()
+    {
+        if ($this->isModuleOutputEnabled('Mage_Rss', 'sales')) {
+            $storeId = null;
+
+            $filterString = $this->getParam($this->getVarNameFilter(), '');
+            if ($filterString) {
+                $filter = Mage::helper('adminhtml')->prepareFilterString($filterString);
+                $storeId = $filter['store_id'] ?? null;
+            }
+
+            if (Mage::helper('rss')->isRssAdminOrderNewEnabled($storeId)) {
+                $slug = $storeId ? '/store/' . $storeId : '';
+                $this->addRssList('rss/order/new' . $slug, Mage::helper('sales')->__('New Order RSS'));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Mage_Sales_Model_Order $row
+     * @return false|string
+     */
+    public function getRowUrl($row)
+    {
+        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+            return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
+        }
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
      * Retrieve collection class
      *
      * @return string
@@ -145,32 +191,6 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * Add link to RSS feed when enabled for filtered store-view
-     *
-     * @return $this
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    public function addRssFeedLink()
-    {
-        if ($this->isModuleOutputEnabled('Mage_Rss', 'sales')) {
-            $storeId = null;
-
-            $filterString = $this->getParam($this->getVarNameFilter(), '');
-            if ($filterString) {
-                $filter = Mage::helper('adminhtml')->prepareFilterString($filterString);
-                $storeId = $filter['store_id'] ?? null;
-            }
-
-            if (Mage::helper('rss')->isRssAdminOrderNewEnabled($storeId)) {
-                $slug = $storeId ? '/store/' . $storeId : '';
-                $this->addRssList('rss/order/new' . $slug, Mage::helper('sales')->__('New Order RSS'));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return $this
      */
     protected function _prepareMassaction()
@@ -226,25 +246,5 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         ]);
 
         return $this;
-    }
-
-    /**
-     * @param Mage_Sales_Model_Order $row
-     * @return false|string
-     */
-    public function getRowUrl($row)
-    {
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-            return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
-        }
-        return false;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 }

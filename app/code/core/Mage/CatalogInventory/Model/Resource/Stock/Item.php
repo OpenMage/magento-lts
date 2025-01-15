@@ -22,11 +22,6 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/stock_item', 'item_id');
-    }
-
     /**
      * Loading stock item data by product
      *
@@ -43,24 +38,6 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
         }
         $this->_afterLoad($item);
         return $this;
-    }
-
-    /**
-     * Retrieve select object and join it to product entity table to get type ids
-     *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_CatalogInventory_Model_Stock_Item $object
-     * @return Varien_Db_Select
-     */
-    protected function _getLoadSelect($field, $value, $object)
-    {
-        return parent::_getLoadSelect($field, $value, $object)
-            ->join(
-                ['p' => $this->getTable('catalog/product')],
-                'product_id=p.entity_id',
-                ['type_id'],
-            );
     }
 
     /**
@@ -87,6 +64,28 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
             'left',
         );
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/stock_item', 'item_id');
+    }
+
+    /**
+     * Retrieve select object and join it to product entity table to get type ids
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param Mage_CatalogInventory_Model_Stock_Item $object
+     * @return Varien_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        return parent::_getLoadSelect($field, $value, $object)
+            ->join(
+                ['p' => $this->getTable('catalog/product')],
+                'product_id=p.entity_id',
+                ['type_id'],
+            );
     }
 
     /**

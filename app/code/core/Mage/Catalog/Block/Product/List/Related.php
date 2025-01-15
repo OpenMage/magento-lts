@@ -32,6 +32,24 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
     protected $_itemCollection;
 
     /**
+     * @return mixed
+     */
+    public function getItems()
+    {
+        return $this->_itemCollection;
+    }
+
+    /**
+     * Get tags array for saving cache
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getItemsTags($this->getItems()));
+    }
+
+    /**
      * @return $this
      */
     protected function _prepareData()
@@ -70,23 +88,5 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
     {
         $this->_prepareData();
         return parent::_beforeToHtml();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getItems()
-    {
-        return $this->_itemCollection;
-    }
-
-    /**
-     * Get tags array for saving cache
-     *
-     * @return array
-     */
-    public function getCacheTags()
-    {
-        return array_merge(parent::getCacheTags(), $this->getItemsTags($this->getItems()));
     }
 }

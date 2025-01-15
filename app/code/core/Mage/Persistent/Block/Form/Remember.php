@@ -23,18 +23,6 @@
 class Mage_Persistent_Block_Form_Remember extends Mage_Core_Block_Template
 {
     /**
-     * Prevent rendering if Persistent disabled
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        /** @var Mage_Persistent_Helper_Data $helper */
-        $helper = Mage::helper('persistent');
-        return ($helper->isEnabled() && $helper->isRememberMeEnabled()) ? parent::_toHtml() : '';
-    }
-
-    /**
      * Is "Remember Me" checked
      *
      * @return bool
@@ -44,5 +32,16 @@ class Mage_Persistent_Block_Form_Remember extends Mage_Core_Block_Template
         /** @var Mage_Persistent_Helper_Data $helper */
         $helper = Mage::helper('persistent');
         return $helper->isEnabled() && $helper->isRememberMeEnabled() && $helper->isRememberMeCheckedDefault();
+    }
+    /**
+     * Prevent rendering if Persistent disabled
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        /** @var Mage_Persistent_Helper_Data $helper */
+        $helper = Mage::helper('persistent');
+        return ($helper->isEnabled() && $helper->isRememberMeEnabled()) ? parent::_toHtml() : '';
     }
 }

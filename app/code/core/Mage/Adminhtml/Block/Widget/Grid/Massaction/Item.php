@@ -68,17 +68,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     }
 
     /**
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default
-     */
-    protected function _createFromConfig(array $config)
-    {
-        /** @var Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default $block */
-        $block = $this->getLayout()->createBlock('adminhtml/widget_grid_massaction_item_additional_default');
-        $block->createFromConfiguration(isset($config['type']) ? $config['config'] : $config);
-        return $block;
-    }
-
-    /**
      * Retrieve additional action block for this item
      *
      * @return Mage_Core_Block_Abstract
@@ -96,5 +85,16 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     public function getAdditionalActionBlockHtml()
     {
         return $this->getChildHtml('additional_action');
+    }
+
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default
+     */
+    protected function _createFromConfig(array $config)
+    {
+        /** @var Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default $block */
+        $block = $this->getLayout()->createBlock('adminhtml/widget_grid_massaction_item_additional_default');
+        $block->createFromConfiguration(isset($config['type']) ? $config['config'] : $config);
+        return $block;
     }
 }

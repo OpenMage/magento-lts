@@ -25,19 +25,6 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
     protected $_reviewsCollection;
 
     /**
-     * Render block HTML
-     *
-     * @inheritDoc
-     * @throws Mage_Core_Exception
-     */
-    protected function _toHtml()
-    {
-        $this->getProduct()->setShortDescription(null);
-
-        return parent::_toHtml();
-    }
-
-    /**
      * Replace review summary html with more detailed review summary
      * Reviews collection count will be jerked here
      *
@@ -85,5 +72,18 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
     public function hasOptions()
     {
         return false;
+    }
+
+    /**
+     * Render block HTML
+     *
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
+    protected function _toHtml()
+    {
+        $this->getProduct()->setShortDescription(null);
+
+        return parent::_toHtml();
     }
 }

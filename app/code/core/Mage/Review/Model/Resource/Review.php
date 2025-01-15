@@ -73,6 +73,189 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     private $_deleteCache   = [];
 
     /**
+     * Perform actions after object delete
+     *
+     * @return $this
+     */
+    public function afterDeleteCommit(Mage_Core_Model_Abstract $object)
+    {
+        $readAdapter = $this->_getReadAdapter();
+        $select = $readAdapter->select()
+            ->from(
+                $this->_reviewTable,
+                [
+                    'review_count' => new Zend_Db_Expr('COUNT(*)'),
+                ],
+            )
+            ->where('entity_id = ?', $object->getEntityId())
+            ->where('entity_pk_value = ?', $object->getEntityPkValue());
+        $totalReviews = $readAdapter->fetchOne($select);
+        if ($totalReviews == 0) {
+            $this->_getWriteAdapter()->delete($this->_aggregateTable, [
+                'entity_type = ?'   => $object->getEntityId(),
+                'entity_pk_value = ?' => $object->getEntityPkValue(),
+            ]);
+            return $this;
+        }
+
+        $this->aggregate($object);
+
+        // re-aggregate ratings, that depended on this review
+        $this->_aggregateRatings(
+            $this->_deleteCache['ratingIds'],
+            $this->_deleteCache['entityPkValue'],
+        );
+        $this->_deleteCache = [];
+
+        return $this;
+    }
+
+    /**
+     * Retrieves total reviews
+     *
+     * @param int $entityPkValue
+     * @param bool $approvedOnly
+     * @param int $storeId
+     * @return int
+     */
+    public function getTotalReviews($entityPkValue, $approvedOnly = false, $storeId = 0)
+    {
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
+            ->from(
+                $this->_reviewTable,
+                [
+                    'review_count' => new Zend_Db_Expr('COUNT(*)'),
+                ],
+            )
+            ->where("{$this->_reviewTable}.entity_pk_value = :pk_value");
+        $bind = [':pk_value' => $entityPkValue];
+        if ($storeId > 0) {
+            $select->join(
+                ['store' => $this->_reviewStoreTable],
+                $this->_reviewTable . '.review_id=store.review_id AND store.store_id = :store_id',
+                [],
+            );
+            $bind[':store_id'] = (int) $storeId;
+        }
+        if ($approvedOnly) {
+            $select->where("{$this->_reviewTable}.status_id = :status_id");
+            $bind[':status_id'] = Mage_Review_Model_Review::STATUS_APPROVED;
+        }
+        return $adapter->fetchOne($select, $bind);
+    }
+
+    /**
+     * Aggregate
+     *
+     * @param Mage_Core_Model_Abstract|Mage_Review_Model_Review $object
+     */
+    public function aggregate($object)
+    {
+        $readAdapter  = $this->_getReadAdapter();
+        $writeAdapter = $this->_getWriteAdapter();
+        $ratingModel  = Mage::getModel('rating/rating');
+
+        if (!$object->getEntityPkValue() && $object->getId()) {
+            $object->load($object->getReviewId());
+        }
+
+        $ratingSummaries = $ratingModel->getEntitySummary($object->getEntityPkValue(), false);
+
+        foreach ($ratingSummaries as $ratingSummaryObject) {
+            if ($ratingSummaryObject->getCount()) {
+                $ratingSummary = round($ratingSummaryObject->getSum() / $ratingSummaryObject->getCount());
+            } else {
+                $ratingSummary = $ratingSummaryObject->getSum();
+            }
+
+            $reviewsCount = $this->getTotalReviews(
+                $object->getEntityPkValue(),
+                true,
+                $ratingSummaryObject->getStoreId(),
+            );
+            $select = $readAdapter->select()
+                ->from($this->_aggregateTable)
+                ->where('entity_pk_value = :pk_value')
+                ->where('entity_type = :entity_type')
+                ->where('store_id = :store_id');
+            $bind = [
+                ':pk_value'    => $object->getEntityPkValue(),
+                ':entity_type' => $object->getEntityId(),
+                ':store_id'    => $ratingSummaryObject->getStoreId(),
+            ];
+            $oldData = $readAdapter->fetchRow($select, $bind);
+
+            $data = new Varien_Object();
+
+            $data->setReviewsCount($reviewsCount)
+                ->setEntityPkValue($object->getEntityPkValue())
+                ->setEntityType($object->getEntityId())
+                ->setRatingSummary(($ratingSummary > 0) ? $ratingSummary : 0)
+                ->setStoreId($ratingSummaryObject->getStoreId());
+
+            $writeAdapter->beginTransaction();
+            try {
+                if (isset($oldData['primary_id']) && $oldData['primary_id'] > 0) {
+                    $condition = ["{$this->_aggregateTable}.primary_id = ?" => $oldData['primary_id']];
+                    $writeAdapter->update($this->_aggregateTable, $data->getData(), $condition);
+                } else {
+                    $writeAdapter->insert($this->_aggregateTable, $data->getData());
+                }
+                $writeAdapter->commit();
+            } catch (Exception $e) {
+                $writeAdapter->rollBack();
+            }
+        }
+    }
+
+    /**
+     * Reaggregate this review's ratings.
+     *
+     * @param int $reviewId
+     * @param int $entityPkValue
+     */
+    public function reAggregateReview($reviewId, $entityPkValue)
+    {
+        $this->_aggregateRatings($this->_loadVotedRatingIds($reviewId), $entityPkValue);
+    }
+
+    /**
+     * Get review entity type id by code
+     *
+     * @param string $entityCode
+     * @return int|bool
+     */
+    public function getEntityIdByCode($entityCode)
+    {
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
+            ->from($this->_reviewEntityTable, ['entity_id'])
+            ->where('entity_code = :entity_code');
+        return $adapter->fetchOne($select, [':entity_code' => $entityCode]);
+    }
+
+    /**
+     * Delete reviews by product id.
+     * Better to call this method in transaction, because operation performed on two separated tables
+     *
+     * @param int $productId
+     * @return $this
+     */
+    public function deleteReviewsByProductId($productId)
+    {
+        $this->_getWriteAdapter()->delete($this->_reviewTable, [
+            'entity_pk_value=?' => $productId,
+            'entity_id=?' => $this->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE),
+        ]);
+        $this->_getWriteAdapter()->delete($this->getTable('review/review_aggregate'), [
+            'entity_pk_value=?' => $productId,
+            'entity_type=?' => $this->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE),
+        ]);
+        return $this;
+    }
+
+    /**
      * Define main table. Define other tables name
      */
     protected function _construct()
@@ -225,143 +408,6 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     }
 
     /**
-     * Perform actions after object delete
-     *
-     * @return $this
-     */
-    public function afterDeleteCommit(Mage_Core_Model_Abstract $object)
-    {
-        $readAdapter = $this->_getReadAdapter();
-        $select = $readAdapter->select()
-            ->from(
-                $this->_reviewTable,
-                [
-                    'review_count' => new Zend_Db_Expr('COUNT(*)'),
-                ],
-            )
-            ->where('entity_id = ?', $object->getEntityId())
-            ->where('entity_pk_value = ?', $object->getEntityPkValue());
-        $totalReviews = $readAdapter->fetchOne($select);
-        if ($totalReviews == 0) {
-            $this->_getWriteAdapter()->delete($this->_aggregateTable, [
-                'entity_type = ?'   => $object->getEntityId(),
-                'entity_pk_value = ?' => $object->getEntityPkValue(),
-            ]);
-            return $this;
-        }
-
-        $this->aggregate($object);
-
-        // re-aggregate ratings, that depended on this review
-        $this->_aggregateRatings(
-            $this->_deleteCache['ratingIds'],
-            $this->_deleteCache['entityPkValue'],
-        );
-        $this->_deleteCache = [];
-
-        return $this;
-    }
-
-    /**
-     * Retrieves total reviews
-     *
-     * @param int $entityPkValue
-     * @param bool $approvedOnly
-     * @param int $storeId
-     * @return int
-     */
-    public function getTotalReviews($entityPkValue, $approvedOnly = false, $storeId = 0)
-    {
-        $adapter = $this->_getReadAdapter();
-        $select = $adapter->select()
-            ->from(
-                $this->_reviewTable,
-                [
-                    'review_count' => new Zend_Db_Expr('COUNT(*)'),
-                ],
-            )
-            ->where("{$this->_reviewTable}.entity_pk_value = :pk_value");
-        $bind = [':pk_value' => $entityPkValue];
-        if ($storeId > 0) {
-            $select->join(
-                ['store' => $this->_reviewStoreTable],
-                $this->_reviewTable . '.review_id=store.review_id AND store.store_id = :store_id',
-                [],
-            );
-            $bind[':store_id'] = (int) $storeId;
-        }
-        if ($approvedOnly) {
-            $select->where("{$this->_reviewTable}.status_id = :status_id");
-            $bind[':status_id'] = Mage_Review_Model_Review::STATUS_APPROVED;
-        }
-        return $adapter->fetchOne($select, $bind);
-    }
-
-    /**
-     * Aggregate
-     *
-     * @param Mage_Core_Model_Abstract|Mage_Review_Model_Review $object
-     */
-    public function aggregate($object)
-    {
-        $readAdapter  = $this->_getReadAdapter();
-        $writeAdapter = $this->_getWriteAdapter();
-        $ratingModel  = Mage::getModel('rating/rating');
-
-        if (!$object->getEntityPkValue() && $object->getId()) {
-            $object->load($object->getReviewId());
-        }
-
-        $ratingSummaries = $ratingModel->getEntitySummary($object->getEntityPkValue(), false);
-
-        foreach ($ratingSummaries as $ratingSummaryObject) {
-            if ($ratingSummaryObject->getCount()) {
-                $ratingSummary = round($ratingSummaryObject->getSum() / $ratingSummaryObject->getCount());
-            } else {
-                $ratingSummary = $ratingSummaryObject->getSum();
-            }
-
-            $reviewsCount = $this->getTotalReviews(
-                $object->getEntityPkValue(),
-                true,
-                $ratingSummaryObject->getStoreId(),
-            );
-            $select = $readAdapter->select()
-                ->from($this->_aggregateTable)
-                ->where('entity_pk_value = :pk_value')
-                ->where('entity_type = :entity_type')
-                ->where('store_id = :store_id');
-            $bind = [
-                ':pk_value'    => $object->getEntityPkValue(),
-                ':entity_type' => $object->getEntityId(),
-                ':store_id'    => $ratingSummaryObject->getStoreId(),
-            ];
-            $oldData = $readAdapter->fetchRow($select, $bind);
-
-            $data = new Varien_Object();
-
-            $data->setReviewsCount($reviewsCount)
-                ->setEntityPkValue($object->getEntityPkValue())
-                ->setEntityType($object->getEntityId())
-                ->setRatingSummary(($ratingSummary > 0) ? $ratingSummary : 0)
-                ->setStoreId($ratingSummaryObject->getStoreId());
-
-            $writeAdapter->beginTransaction();
-            try {
-                if (isset($oldData['primary_id']) && $oldData['primary_id'] > 0) {
-                    $condition = ["{$this->_aggregateTable}.primary_id = ?" => $oldData['primary_id']];
-                    $writeAdapter->update($this->_aggregateTable, $data->getData(), $condition);
-                } else {
-                    $writeAdapter->insert($this->_aggregateTable, $data->getData());
-                }
-                $writeAdapter->commit();
-            } catch (Exception $e) {
-                $writeAdapter->rollBack();
-            }
-        }
-    }
-
-    /**
      * Get rating IDs from review votes
      *
      * @param int $reviewId
@@ -403,52 +449,6 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
                 );
             }
         }
-        return $this;
-    }
-
-    /**
-     * Reaggregate this review's ratings.
-     *
-     * @param int $reviewId
-     * @param int $entityPkValue
-     */
-    public function reAggregateReview($reviewId, $entityPkValue)
-    {
-        $this->_aggregateRatings($this->_loadVotedRatingIds($reviewId), $entityPkValue);
-    }
-
-    /**
-     * Get review entity type id by code
-     *
-     * @param string $entityCode
-     * @return int|bool
-     */
-    public function getEntityIdByCode($entityCode)
-    {
-        $adapter = $this->_getReadAdapter();
-        $select = $adapter->select()
-            ->from($this->_reviewEntityTable, ['entity_id'])
-            ->where('entity_code = :entity_code');
-        return $adapter->fetchOne($select, [':entity_code' => $entityCode]);
-    }
-
-    /**
-     * Delete reviews by product id.
-     * Better to call this method in transaction, because operation performed on two separated tables
-     *
-     * @param int $productId
-     * @return $this
-     */
-    public function deleteReviewsByProductId($productId)
-    {
-        $this->_getWriteAdapter()->delete($this->_reviewTable, [
-            'entity_pk_value=?' => $productId,
-            'entity_id=?' => $this->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE),
-        ]);
-        $this->_getWriteAdapter()->delete($this->getTable('review/review_aggregate'), [
-            'entity_pk_value=?' => $productId,
-            'entity_type=?' => $this->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE),
-        ]);
         return $this;
     }
 }

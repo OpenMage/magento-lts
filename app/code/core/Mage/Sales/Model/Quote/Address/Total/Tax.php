@@ -191,6 +191,26 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
     }
 
     /**
+     * @return $this
+     */
+    public function fetch(Mage_Sales_Model_Quote_Address $address)
+    {
+        $applied = $address->getAppliedTaxes();
+        $store = $address->getQuote()->getStore();
+        $amount = $address->getTaxAmount();
+
+        if (($amount != 0) || (Mage::helper('tax')->displayZeroTax($store))) {
+            $address->addTotal([
+                'code' => $this->getCode(),
+                'title' => Mage::helper('sales')->__('Tax'),
+                'full_info' => $applied ? $applied : [],
+                'value' => $amount,
+            ]);
+        }
+        return $this;
+    }
+
+    /**
      * @param array $applied
      * @param float $amount
      * @param float $baseAmount
@@ -232,25 +252,5 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
             }
         }
         $address->setAppliedTaxes($previouslyAppliedTaxes);
-    }
-
-    /**
-     * @return $this
-     */
-    public function fetch(Mage_Sales_Model_Quote_Address $address)
-    {
-        $applied = $address->getAppliedTaxes();
-        $store = $address->getQuote()->getStore();
-        $amount = $address->getTaxAmount();
-
-        if (($amount != 0) || (Mage::helper('tax')->displayZeroTax($store))) {
-            $address->addTotal([
-                'code' => $this->getCode(),
-                'title' => Mage::helper('sales')->__('Tax'),
-                'full_info' => $applied ? $applied : [],
-                'value' => $amount,
-            ]);
-        }
-        return $this;
     }
 }

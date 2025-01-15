@@ -154,23 +154,6 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Check availability of gift messages from store config if flag eq 2.
-     *
-     * @param bool $productGiftMessageAllow
-     * @param bool|int|Mage_Core_Model_Store|null|string $store
-     * @return bool
-     */
-    protected function _getDependenceFromStoreConfig($productGiftMessageAllow, $store = null)
-    {
-        $result = Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
-        if ($productGiftMessageAllow === '' || is_null($productGiftMessageAllow)) {
-            return $result;
-        } else {
-            return $productGiftMessageAllow;
-        }
-    }
-
-    /**
      * Alias for isMessagesAvailable(...)
      *
      * @param self::TYPE_* $type
@@ -300,5 +283,22 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
         }
 
         return $message;
+    }
+
+    /**
+     * Check availability of gift messages from store config if flag eq 2.
+     *
+     * @param bool $productGiftMessageAllow
+     * @param bool|int|Mage_Core_Model_Store|null|string $store
+     * @return bool
+     */
+    protected function _getDependenceFromStoreConfig($productGiftMessageAllow, $store = null)
+    {
+        $result = Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
+        if ($productGiftMessageAllow === '' || is_null($productGiftMessageAllow)) {
+            return $result;
+        } else {
+            return $productGiftMessageAllow;
+        }
     }
 }

@@ -26,6 +26,26 @@
 class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
 {
     /**
+     * Retrieve values of properties that unambiguously identify unique content
+     *
+     * @return array
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function getCacheKeyInfo()
+    {
+        $blockId = $this->getBlockId();
+        if ($blockId) {
+            $result = [
+                'CMS_BLOCK',
+                $blockId,
+                Mage::app()->getStore()->getCode(),
+            ];
+        } else {
+            $result = parent::getCacheKeyInfo();
+        }
+        return $result;
+    }
+    /**
      * Initialize cache
      */
     protected function _construct()
@@ -61,26 +81,5 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
             }
         }
         return $html;
-    }
-
-    /**
-     * Retrieve values of properties that unambiguously identify unique content
-     *
-     * @return array
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    public function getCacheKeyInfo()
-    {
-        $blockId = $this->getBlockId();
-        if ($blockId) {
-            $result = [
-                'CMS_BLOCK',
-                $blockId,
-                Mage::app()->getStore()->getCode(),
-            ];
-        } else {
-            $result = parent::getCacheKeyInfo();
-        }
-        return $result;
     }
 }

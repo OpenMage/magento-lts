@@ -48,6 +48,47 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         $this->_order = Mage::getModel('sales/order');
     }
 
+    public function render()
+    {
+        $customer = $this->_getCustomer();
+        $this->_quote->setStore($this->_getStore())
+            ->setCustomer($customer);
+        $this->_quote->getBillingAddress()->importCustomerAddress($customer->getDefaultBillingAddress());
+        $this->_quote->getShippingAddress()->importCustomerAddress($customer->getDefaultShippingAddress());
+
+        $productCount = rand(3, 10);
+        for ($i = 0; $i < $productCount; $i++) {
+            $product = $this->_getRandomProduct();
+            if ($product) {
+                $product->setQuoteQty(1);
+                $this->_quote->addCatalogProduct($product);
+            }
+        }
+        $this->_quote->getPayment()->setMethod('checkmo');
+
+        $this->_quote->getShippingAddress()->setShippingMethod('freeshipping_freeshipping');//->collectTotals()->save();
+        $this->_quote->getShippingAddress()->setCollectShippingRates(true);
+        $this->_quote->collectTotals()
+            ->save();
+        $this->_quote->save();
+        return $this;
+    }
+
+    public function save()
+    {
+        $this->_order->setStoreId($this->_getStore()->getId());
+        $this->_order->createFromQuoteAddress($this->_quote->getShippingAddress());
+        $this->_order->validate();
+        $this->_order->setInitialStatus();
+        $this->_order->save();
+        $this->_order->setCreatedAt($this->_getRandomDate());
+        $this->_order->save();
+
+        $this->_quote->setIsActive(false);
+        $this->_quote->save();
+        return $this;
+    }
+
     protected function _getStores()
     {
         if (!self::$_storeCollection) {
@@ -117,50 +158,9 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         return $this->_store;
     }
 
-    public function render()
-    {
-        $customer = $this->_getCustomer();
-        $this->_quote->setStore($this->_getStore())
-            ->setCustomer($customer);
-        $this->_quote->getBillingAddress()->importCustomerAddress($customer->getDefaultBillingAddress());
-        $this->_quote->getShippingAddress()->importCustomerAddress($customer->getDefaultShippingAddress());
-
-        $productCount = rand(3, 10);
-        for ($i = 0; $i < $productCount; $i++) {
-            $product = $this->_getRandomProduct();
-            if ($product) {
-                $product->setQuoteQty(1);
-                $this->_quote->addCatalogProduct($product);
-            }
-        }
-        $this->_quote->getPayment()->setMethod('checkmo');
-
-        $this->_quote->getShippingAddress()->setShippingMethod('freeshipping_freeshipping');//->collectTotals()->save();
-        $this->_quote->getShippingAddress()->setCollectShippingRates(true);
-        $this->_quote->collectTotals()
-            ->save();
-        $this->_quote->save();
-        return $this;
-    }
-
     protected function _getRandomDate()
     {
         $timestamp = mktime(rand(0, 23), rand(0, 59), 0, rand(1, 11), rand(1, 28), rand(2006, 2007));
         return date(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
-    }
-
-    public function save()
-    {
-        $this->_order->setStoreId($this->_getStore()->getId());
-        $this->_order->createFromQuoteAddress($this->_quote->getShippingAddress());
-        $this->_order->validate();
-        $this->_order->setInitialStatus();
-        $this->_order->save();
-        $this->_order->setCreatedAt($this->_getRandomDate());
-        $this->_order->save();
-
-        $this->_quote->setIsActive(false);
-        $this->_quote->save();
-        return $this;
     }
 }

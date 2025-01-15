@@ -33,16 +33,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     protected $_attributes   = [];
 
     /**
-     * Redeclare attribute model
-     *
-     * @return string
-     */
-    protected function _getDefaultAttributeModel()
-    {
-        return 'catalog/resource_eav_attribute';
-    }
-
-    /**
      * Returns default Store ID
      *
      * @return int
@@ -50,6 +40,190 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     public function getDefaultStoreId()
     {
         return Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
+    }
+
+    /**
+     * Retrieve attribute's raw value from DB.
+     *
+     * @param int $entityId
+     * @param int|string|array $attribute attribute's ids or codes
+     * @param int|Mage_Core_Model_Store $store
+     * @return bool|string|null|array
+     */
+    public function getAttributeRawValue($entityId, $attribute, $store)
+    {
+        if (!$entityId || empty($attribute)) {
+            return false;
+        }
+
+        $returnArray = false;
+
+        if (!is_array($attribute)) {
+            $attribute = [$attribute];
+        } elseif (count($attribute) > 1) {
+            $returnArray = true;
+        }
+
+        $attributesData     = [];
+        $staticAttributes   = [];
+        $typedAttributes    = [];
+        $staticTable        = null;
+        $adapter            = $this->_getReadAdapter();
+        $getPerStore        = false;
+
+        foreach ($attribute as $_attribute) {
+            /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
+            $_attribute = $this->getAttribute($_attribute);
+            if (!$_attribute) {
+                continue;
+            }
+            $attributeCode = $_attribute->getAttributeCode();
+            $attrTable     = $_attribute->getBackend()->getTable();
+            $isStatic      = $_attribute->getBackend()->isStatic();
+
+            if (!$getPerStore && $_attribute->getIsGlobal() != Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL) {
+                $getPerStore = true;
+            }
+
+            if ($isStatic) {
+                $staticAttributes[] = $attributeCode;
+                $staticTable = $attrTable;
+            } else {
+                /**
+                 * That structure needed to avoid farther sql joins for getting attribute's code by id
+                 */
+                $typedAttributes[$attrTable][$_attribute->getId()] = $attributeCode;
+            }
+        }
+
+        /**
+         * Collecting static attributes
+         */
+        if ($staticAttributes) {
+            $select = $adapter->select()->from($staticTable, $staticAttributes)
+                ->where($this->getEntityIdField() . ' = :entity_id');
+            $attributesData = $adapter->fetchRow($select, ['entity_id' => $entityId]) ?: [];
+        }
+
+        /**
+         * Collecting typed attributes, performing separate SQL query for each attribute type table
+         */
+        if ($typedAttributes) {
+            if ($store instanceof Mage_Core_Model_Store) {
+                $store = $store->getId();
+            }
+
+            $store = (int) $store;
+
+            foreach ($typedAttributes as $table => $_attributes) {
+                $select = $adapter->select()
+                    ->from(['default_value' => $table], ['attribute_id'])
+                    ->where('default_value.attribute_id IN (?)', array_keys($_attributes))
+                    ->where('default_value.entity_type_id = :entity_type_id')
+                    ->where('default_value.entity_id = :entity_id')
+                    ->where('default_value.store_id = ?', 0);
+                $bind = [
+                    'entity_type_id' => $this->getTypeId(),
+                    'entity_id'      => $entityId,
+                ];
+
+                if ($getPerStore && $store != $this->getDefaultStoreId()) {
+                    $valueExpr = $adapter->getCheckSql(
+                        'store_value.value IS NULL',
+                        'default_value.value',
+                        'store_value.value',
+                    );
+                    $joinCondition = [
+                        'store_value.attribute_id = default_value.attribute_id',
+                        'store_value.entity_type_id = :entity_type_id',
+                        'store_value.entity_id = :entity_id',
+                        'store_value.store_id = :store_id',
+                    ];
+
+                    $select->joinLeft(
+                        ['store_value' => $table],
+                        implode(' AND ', $joinCondition),
+                        ['attr_value' => $valueExpr],
+                    );
+
+                    $bind['store_id'] = $store;
+                } else {
+                    $select->columns(['attr_value' => 'value'], 'default_value');
+                }
+
+                $result = $adapter->fetchPairs($select, $bind);
+                foreach ($result as $attrId => $value) {
+                    $attrCode = $typedAttributes[$table][$attrId];
+                    $attributesData[$attrCode] = $value;
+                }
+            }
+        }
+
+        if (count($attributesData) === 1 && !$returnArray) {
+            return reset($attributesData);
+        }
+
+        return $attributesData ? $attributesData : false;
+    }
+
+    /**
+     * Retrieve attribute's raw value from DB using its source model if available.
+     *
+     * @param int $entityId
+     * @param int|string|array $attribute attribute's ids or codes
+     * @param int|Mage_Core_Model_Store $store
+     * @return bool|string|array
+     */
+    public function getAttributeRawText($entityId, $attribute, $store)
+    {
+        if (!$entityId || empty($attribute)) {
+            return false;
+        }
+
+        if ($store instanceof Mage_Core_Model_Store) {
+            $store = $store->getId();
+        }
+
+        $store = (int) $store;
+        $attribute = is_array($attribute) ? $attribute : [$attribute];
+        $value = $this->getAttributeRawValue($entityId, $attribute, $store);
+
+        if (!$value) {
+            return false;
+        }
+
+        // Ensure we have an associative array of attribute => values
+        $values = is_array($value) ? $value : array_combine($attribute, [$value]);
+
+        foreach ($values as $_attribute => &$optionText) {
+            $_attribute = (clone $this->getAttribute($_attribute))->setStoreId($store);
+            if ($_attribute->getSourceModel() || $_attribute->getFrontendInput() === 'select' || $_attribute->getFrontendInput() === 'multiselect') {
+                $optionText = $_attribute->getSource()->getOptionText($optionText);
+            }
+        }
+
+        return count($values) === 1 ? reset($values) : $values;
+    }
+
+    /**
+     * Reset firstly loaded attributes
+     *
+     * @inheritDoc
+     */
+    public function load($object, $entityId, $attributes = [])
+    {
+        $this->_attributes = [];
+        return parent::load($object, $entityId, $attributes);
+    }
+
+    /**
+     * Redeclare attribute model
+     *
+     * @return string
+     */
+    protected function _getDefaultAttributeModel()
+    {
+        return 'catalog/resource_eav_attribute';
     }
 
     /**
@@ -559,179 +733,5 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         }
 
         return parent::_prepareValueForSave($value, $attribute);
-    }
-
-    /**
-     * Retrieve attribute's raw value from DB.
-     *
-     * @param int $entityId
-     * @param int|string|array $attribute attribute's ids or codes
-     * @param int|Mage_Core_Model_Store $store
-     * @return bool|string|null|array
-     */
-    public function getAttributeRawValue($entityId, $attribute, $store)
-    {
-        if (!$entityId || empty($attribute)) {
-            return false;
-        }
-
-        $returnArray = false;
-
-        if (!is_array($attribute)) {
-            $attribute = [$attribute];
-        } elseif (count($attribute) > 1) {
-            $returnArray = true;
-        }
-
-        $attributesData     = [];
-        $staticAttributes   = [];
-        $typedAttributes    = [];
-        $staticTable        = null;
-        $adapter            = $this->_getReadAdapter();
-        $getPerStore        = false;
-
-        foreach ($attribute as $_attribute) {
-            /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
-            $_attribute = $this->getAttribute($_attribute);
-            if (!$_attribute) {
-                continue;
-            }
-            $attributeCode = $_attribute->getAttributeCode();
-            $attrTable     = $_attribute->getBackend()->getTable();
-            $isStatic      = $_attribute->getBackend()->isStatic();
-
-            if (!$getPerStore && $_attribute->getIsGlobal() != Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL) {
-                $getPerStore = true;
-            }
-
-            if ($isStatic) {
-                $staticAttributes[] = $attributeCode;
-                $staticTable = $attrTable;
-            } else {
-                /**
-                 * That structure needed to avoid farther sql joins for getting attribute's code by id
-                 */
-                $typedAttributes[$attrTable][$_attribute->getId()] = $attributeCode;
-            }
-        }
-
-        /**
-         * Collecting static attributes
-         */
-        if ($staticAttributes) {
-            $select = $adapter->select()->from($staticTable, $staticAttributes)
-                ->where($this->getEntityIdField() . ' = :entity_id');
-            $attributesData = $adapter->fetchRow($select, ['entity_id' => $entityId]) ?: [];
-        }
-
-        /**
-         * Collecting typed attributes, performing separate SQL query for each attribute type table
-         */
-        if ($typedAttributes) {
-            if ($store instanceof Mage_Core_Model_Store) {
-                $store = $store->getId();
-            }
-
-            $store = (int) $store;
-
-            foreach ($typedAttributes as $table => $_attributes) {
-                $select = $adapter->select()
-                    ->from(['default_value' => $table], ['attribute_id'])
-                    ->where('default_value.attribute_id IN (?)', array_keys($_attributes))
-                    ->where('default_value.entity_type_id = :entity_type_id')
-                    ->where('default_value.entity_id = :entity_id')
-                    ->where('default_value.store_id = ?', 0);
-                $bind = [
-                    'entity_type_id' => $this->getTypeId(),
-                    'entity_id'      => $entityId,
-                ];
-
-                if ($getPerStore && $store != $this->getDefaultStoreId()) {
-                    $valueExpr = $adapter->getCheckSql(
-                        'store_value.value IS NULL',
-                        'default_value.value',
-                        'store_value.value',
-                    );
-                    $joinCondition = [
-                        'store_value.attribute_id = default_value.attribute_id',
-                        'store_value.entity_type_id = :entity_type_id',
-                        'store_value.entity_id = :entity_id',
-                        'store_value.store_id = :store_id',
-                    ];
-
-                    $select->joinLeft(
-                        ['store_value' => $table],
-                        implode(' AND ', $joinCondition),
-                        ['attr_value' => $valueExpr],
-                    );
-
-                    $bind['store_id'] = $store;
-                } else {
-                    $select->columns(['attr_value' => 'value'], 'default_value');
-                }
-
-                $result = $adapter->fetchPairs($select, $bind);
-                foreach ($result as $attrId => $value) {
-                    $attrCode = $typedAttributes[$table][$attrId];
-                    $attributesData[$attrCode] = $value;
-                }
-            }
-        }
-
-        if (count($attributesData) === 1 && !$returnArray) {
-            return reset($attributesData);
-        }
-
-        return $attributesData ? $attributesData : false;
-    }
-
-    /**
-     * Retrieve attribute's raw value from DB using its source model if available.
-     *
-     * @param int $entityId
-     * @param int|string|array $attribute attribute's ids or codes
-     * @param int|Mage_Core_Model_Store $store
-     * @return bool|string|array
-     */
-    public function getAttributeRawText($entityId, $attribute, $store)
-    {
-        if (!$entityId || empty($attribute)) {
-            return false;
-        }
-
-        if ($store instanceof Mage_Core_Model_Store) {
-            $store = $store->getId();
-        }
-
-        $store = (int) $store;
-        $attribute = is_array($attribute) ? $attribute : [$attribute];
-        $value = $this->getAttributeRawValue($entityId, $attribute, $store);
-
-        if (!$value) {
-            return false;
-        }
-
-        // Ensure we have an associative array of attribute => values
-        $values = is_array($value) ? $value : array_combine($attribute, [$value]);
-
-        foreach ($values as $_attribute => &$optionText) {
-            $_attribute = (clone $this->getAttribute($_attribute))->setStoreId($store);
-            if ($_attribute->getSourceModel() || $_attribute->getFrontendInput() === 'select' || $_attribute->getFrontendInput() === 'multiselect') {
-                $optionText = $_attribute->getSource()->getOptionText($optionText);
-            }
-        }
-
-        return count($values) === 1 ? reset($values) : $values;
-    }
-
-    /**
-     * Reset firstly loaded attributes
-     *
-     * @inheritDoc
-     */
-    public function load($object, $entityId, $attributes = [])
-    {
-        $this->_attributes = [];
-        return parent::load($object, $entityId, $attributes);
     }
 }

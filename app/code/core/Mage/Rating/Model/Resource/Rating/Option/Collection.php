@@ -38,17 +38,6 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
     protected $_ratingVoteTable;
 
     /**
-     * Define model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('rating/rating_option');
-        $this->_ratingOptionTable   = $this->getTable('rating/rating_option');
-        $this->_ratingVoteTable     = $this->getTable('rating/rating_option_vote');
-    }
-
-    /**
      * Add rating filter
      *
      * @param   int|array $rating
@@ -74,5 +63,16 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
     {
         $this->setOrder('main_table.position', $dir);
         return $this;
+    }
+
+    /**
+     * Define model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('rating/rating_option');
+        $this->_ratingOptionTable   = $this->getTable('rating/rating_option');
+        $this->_ratingVoteTable     = $this->getTable('rating/rating_option_vote');
     }
 }

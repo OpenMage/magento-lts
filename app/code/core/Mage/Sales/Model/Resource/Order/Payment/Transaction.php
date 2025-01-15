@@ -32,38 +32,6 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
     ];
 
     /**
-     * Initialize main table and the primary key field name
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/payment_transaction', 'transaction_id');
-    }
-
-    /**
-     * Unserialize Varien_Object field in an object
-     *
-     * @param string $field
-     * @param mixed $defaultValue
-     */
-    protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
-    {
-        $value = $object->getData($field);
-        if (empty($value)) {
-            $object->setData($field, $defaultValue);
-        } elseif (!is_array($value) && !is_object($value)) {
-            $unserializedValue = false;
-            try {
-                $unserializedValue = Mage::helper('core/unserializeArray')
-                ->unserialize($value);
-            } catch (Exception $e) {
-                Mage::logException($e);
-            }
-            $object->setData($field, $unserializedValue);
-        }
-    }
-
-    /**
      * Update transactions in database using provided transaction as parent for them
      * have to repeat the business logic to avoid accidental injection of wrong transactions
      */
@@ -136,6 +104,38 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
             ->joinInner(['cs' => $this->getTable('core/store')], 'cs.store_id = so.store_id')
             ->where('so.entity_id = :entity_id');
         return $adapter->fetchOne($select, $bind);
+    }
+
+    /**
+     * Initialize main table and the primary key field name
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/payment_transaction', 'transaction_id');
+    }
+
+    /**
+     * Unserialize Varien_Object field in an object
+     *
+     * @param string $field
+     * @param mixed $defaultValue
+     */
+    protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
+    {
+        $value = $object->getData($field);
+        if (empty($value)) {
+            $object->setData($field, $defaultValue);
+        } elseif (!is_array($value) && !is_object($value)) {
+            $unserializedValue = false;
+            try {
+                $unserializedValue = Mage::helper('core/unserializeArray')
+                ->unserialize($value);
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
+            $object->setData($field, $unserializedValue);
+        }
     }
 
     /**

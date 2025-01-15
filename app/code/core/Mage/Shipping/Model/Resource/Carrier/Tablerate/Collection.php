@@ -45,18 +45,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     protected $_regionTable;
 
     /**
-     * Define resource model and item
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('shipping/carrier_tablerate');
-        $this->_shipTable       = $this->getMainTable();
-        $this->_countryTable    = $this->getTable('directory/country');
-        $this->_regionTable     = $this->getTable('directory/country_region');
-    }
-
-    /**
      * Initialize select, add country iso3 code and region name
      *
      * @return $this
@@ -116,5 +104,17 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection extends Mage_Cor
     public function setCountryFilter($countryId)
     {
         return $this->addFieldToFilter('dest_country_id', $countryId);
+    }
+
+    /**
+     * Define resource model and item
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('shipping/carrier_tablerate');
+        $this->_shipTable       = $this->getMainTable();
+        $this->_countryTable    = $this->getTable('directory/country');
+        $this->_regionTable     = $this->getTable('directory/country_region');
     }
 }

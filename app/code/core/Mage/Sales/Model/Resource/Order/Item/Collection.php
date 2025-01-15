@@ -41,30 +41,6 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      */
     protected $_orderField     = 'order_id';
 
-    protected function _construct()
-    {
-        $this->_init('sales/order_item');
-    }
-
-    /**
-     * Assign parent items on after collection load
-     *
-     * @return $this
-     */
-    protected function _afterLoad()
-    {
-        parent::_afterLoad();
-        /**
-         * Assign parent items
-         */
-        foreach ($this as $item) {
-            if ($item->getParentItemId()) {
-                $item->setParentItem($this->getItemById($item->getParentItemId()));
-            }
-        }
-        return $this;
-    }
-
     /**
      * Set random items order
      *
@@ -150,6 +126,30 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
         )
             ->where('order.customer_id IN(?)', $customerId);
 
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order_item');
+    }
+
+    /**
+     * Assign parent items on after collection load
+     *
+     * @return $this
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+        /**
+         * Assign parent items
+         */
+        foreach ($this as $item) {
+            if ($item->getParentItemId()) {
+                $item->setParentItem($this->getItemById($item->getParentItemId()));
+            }
+        }
         return $this;
     }
 }

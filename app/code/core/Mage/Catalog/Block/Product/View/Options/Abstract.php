@@ -94,6 +94,38 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     }
 
     /**
+     * Get price with including/excluding tax
+     *
+     * @param float $price
+     * @param bool $includingTax
+     * @return float
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function getPrice($price, $includingTax = null)
+    {
+        if (!is_null($includingTax)) {
+            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price, true);
+        } else {
+            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price);
+        }
+        return $price;
+    }
+
+    /**
+     * Returns price converted to current currency rate
+     *
+     * @param float $price
+     * @return float
+     */
+    public function getCurrencyPrice($price)
+    {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        $store = $this->getProduct()->getStore();
+        return $helper::currencyByStore($price, $store, false);
+    }
+
+    /**
      * Return formatted price
      *
      * @param array $value
@@ -138,37 +170,5 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
         }
 
         return $priceStr;
-    }
-
-    /**
-     * Get price with including/excluding tax
-     *
-     * @param float $price
-     * @param bool $includingTax
-     * @return float
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    public function getPrice($price, $includingTax = null)
-    {
-        if (!is_null($includingTax)) {
-            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price, true);
-        } else {
-            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price);
-        }
-        return $price;
-    }
-
-    /**
-     * Returns price converted to current currency rate
-     *
-     * @param float $price
-     * @return float
-     */
-    public function getCurrencyPrice($price)
-    {
-        /** @var Mage_Core_Helper_Data $helper */
-        $helper = $this->helper('core');
-        $store = $this->getProduct()->getStore();
-        return $helper::currencyByStore($price, $store, false);
     }
 }

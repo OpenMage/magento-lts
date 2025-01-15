@@ -23,6 +23,45 @@
 class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment
 {
     /**
+     * Check whether current payment method is enabled on any scope
+     *
+     * @param string $activityPath
+     * @return bool
+     */
+    public function isPaymentEnabledAnyScope($activityPath)
+    {
+        if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'default')) {
+            return true;
+        }
+        foreach ($this->_getWebsites() as $website) {
+            if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'website', (int) $website->getId())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Do not render solution if disabled
+     *
+     * @return string
+     */
+    public function render(Varien_Data_Form_Element_Abstract $element)
+    {
+        $isPaymentEnabled = $this->_isPaymentEnabled($element, [$this, 'isPaymentEnabledAnyScope']);
+        if ($this->_wasActive($element) && $isPaymentEnabled) {
+            return parent::render($element);
+        }
+
+        if ($isPaymentEnabled) {
+            $this->_setWasActive($element);
+            return parent::render($element);
+        }
+
+        return '';
+    }
+    /**
      * Get was enabled config path
      *
      * @return string
@@ -84,45 +123,5 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
         }
 
         return $this->getWebsites();
-    }
-
-    /**
-     * Check whether current payment method is enabled on any scope
-     *
-     * @param string $activityPath
-     * @return bool
-     */
-    public function isPaymentEnabledAnyScope($activityPath)
-    {
-        if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'default')) {
-            return true;
-        }
-        foreach ($this->_getWebsites() as $website) {
-            if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'website', (int) $website->getId())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Do not render solution if disabled
-     *
-     * @return string
-     */
-    public function render(Varien_Data_Form_Element_Abstract $element)
-    {
-        $isPaymentEnabled = $this->_isPaymentEnabled($element, [$this, 'isPaymentEnabledAnyScope']);
-        if ($this->_wasActive($element) && $isPaymentEnabled) {
-            return parent::render($element);
-        }
-
-        if ($isPaymentEnabled) {
-            $this->_setWasActive($element);
-            return parent::render($element);
-        }
-
-        return '';
     }
 }

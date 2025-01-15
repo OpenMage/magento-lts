@@ -23,15 +23,6 @@
 class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('core/config_data');
-    }
-
-    /**
      * Add scope filter to collection
      *
      * @param string $scope
@@ -69,5 +60,13 @@ class Mage_Core_Model_Resource_Config_Data_Collection extends Mage_Core_Model_Re
     {
         $this->addFieldToFilter('value', ['like' => $value]);
         return $this;
+    }
+    /**
+     * Define resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('core/config_data');
     }
 }

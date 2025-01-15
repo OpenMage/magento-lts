@@ -37,6 +37,27 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
+     * Retrieves row click URL
+     *
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['tag_id' => $row->getId(), 'ret' => 'pending']);
+    }
+
+    /**
+     * Retrieves Grid Url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/tag/ajaxPendingGrid', ['_current' => true]);
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -96,17 +117,6 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
     }
 
     /**
-     * Retrieves row click URL
-     *
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['tag_id' => $row->getId(), 'ret' => 'pending']);
-    }
-
-    /**
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      * @return $this
      */
@@ -155,15 +165,5 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         ]);
 
         return $this;
-    }
-
-    /**
-     * Retrieves Grid Url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/tag/ajaxPendingGrid', ['_current' => true]);
     }
 }

@@ -22,11 +22,6 @@
  */
 class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product_relation', 'parent_id');
-    }
-
     /**
      * Save (rebuild) product relations
      *
@@ -64,5 +59,9 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
         }
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product_relation', 'parent_id');
     }
 }

@@ -136,70 +136,11 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     protected $_paramsMemorizeAllowed = true;
 
     /**
-     * Retrieve Catalog Config object
-     *
-     * @return Mage_Catalog_Model_Config
-     */
-    protected function _getConfig()
-    {
-        return Mage::getSingleton('catalog/config');
-    }
-
-    /**
-     * Init Toolbar
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_orderField  = Mage::getStoreConfig(
-            Mage_Catalog_Model_Config::XML_PATH_LIST_DEFAULT_SORT_BY,
-        );
-
-        $this->_availableOrder = $this->_getConfig()->getAttributeUsedForSortByArray();
-
-        switch (Mage::getStoreConfig('catalog/frontend/list_mode')) {
-            case 'grid':
-                $this->_availableMode = ['grid' => $this->__('Grid')];
-                break;
-
-            case 'list':
-                $this->_availableMode = ['list' => $this->__('List')];
-                break;
-
-            case 'grid-list':
-                $this->_availableMode = ['grid' => $this->__('Grid'), 'list' =>  $this->__('List')];
-                break;
-
-            case 'list-grid':
-                $this->_availableMode = ['list' => $this->__('List'), 'grid' => $this->__('Grid')];
-                break;
-        }
-        $this->setTemplate('catalog/product/list/toolbar.phtml');
-    }
-
-    /**
      * Disable list state params memorizing
      */
     public function disableParamsMemorizing()
     {
         $this->_paramsMemorizeAllowed = false;
-        return $this;
-    }
-
-    /**
-     * Memorize parameter value for session
-     *
-     * @param string $param parameter name
-     * @param mixed $value parameter value
-     * @return $this
-     */
-    protected function _memorizeParam($param, $value)
-    {
-        $session = Mage::getSingleton('catalog/session');
-        if ($this->_paramsMemorizeAllowed && !$session->getParamsMemorizeDisabled()) {
-            $session->setData($param, $value);
-        }
         return $this;
     }
 
@@ -686,28 +627,6 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrieve available limits for specified view mode
-     *
-     * @param string $mode
-     * @return array
-     */
-    protected function _getAvailableLimit($mode)
-    {
-        if (isset($this->_availableLimit[$mode])) {
-            return $this->_availableLimit[$mode];
-        }
-        $perPageConfigKey = 'catalog/frontend/' . $mode . '_per_page_values';
-        $perPageValues = (string) Mage::getStoreConfig($perPageConfigKey);
-        $perPageValues = explode(',', $perPageValues);
-        $perPageValues = array_combine($perPageValues, $perPageValues);
-        if (Mage::getStoreConfigFlag('catalog/frontend/list_allow_all')) {
-            return ($perPageValues + ['all' => $this->__('All')]);
-        } else {
-            return $perPageValues;
-        }
-    }
-
-    /**
      * Get specified products limit display per page
      *
      * @return string
@@ -836,5 +755,86 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         }
 
         return '';
+    }
+
+    /**
+     * Retrieve Catalog Config object
+     *
+     * @return Mage_Catalog_Model_Config
+     */
+    protected function _getConfig()
+    {
+        return Mage::getSingleton('catalog/config');
+    }
+
+    /**
+     * Init Toolbar
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_orderField  = Mage::getStoreConfig(
+            Mage_Catalog_Model_Config::XML_PATH_LIST_DEFAULT_SORT_BY,
+        );
+
+        $this->_availableOrder = $this->_getConfig()->getAttributeUsedForSortByArray();
+
+        switch (Mage::getStoreConfig('catalog/frontend/list_mode')) {
+            case 'grid':
+                $this->_availableMode = ['grid' => $this->__('Grid')];
+                break;
+
+            case 'list':
+                $this->_availableMode = ['list' => $this->__('List')];
+                break;
+
+            case 'grid-list':
+                $this->_availableMode = ['grid' => $this->__('Grid'), 'list' =>  $this->__('List')];
+                break;
+
+            case 'list-grid':
+                $this->_availableMode = ['list' => $this->__('List'), 'grid' => $this->__('Grid')];
+                break;
+        }
+        $this->setTemplate('catalog/product/list/toolbar.phtml');
+    }
+
+    /**
+     * Memorize parameter value for session
+     *
+     * @param string $param parameter name
+     * @param mixed $value parameter value
+     * @return $this
+     */
+    protected function _memorizeParam($param, $value)
+    {
+        $session = Mage::getSingleton('catalog/session');
+        if ($this->_paramsMemorizeAllowed && !$session->getParamsMemorizeDisabled()) {
+            $session->setData($param, $value);
+        }
+        return $this;
+    }
+
+    /**
+     * Retrieve available limits for specified view mode
+     *
+     * @param string $mode
+     * @return array
+     */
+    protected function _getAvailableLimit($mode)
+    {
+        if (isset($this->_availableLimit[$mode])) {
+            return $this->_availableLimit[$mode];
+        }
+        $perPageConfigKey = 'catalog/frontend/' . $mode . '_per_page_values';
+        $perPageValues = (string) Mage::getStoreConfig($perPageConfigKey);
+        $perPageValues = explode(',', $perPageValues);
+        $perPageValues = array_combine($perPageValues, $perPageValues);
+        if (Mage::getStoreConfigFlag('catalog/frontend/list_allow_all')) {
+            return ($perPageValues + ['all' => $this->__('All')]);
+        } else {
+            return $perPageValues;
+        }
     }
 }

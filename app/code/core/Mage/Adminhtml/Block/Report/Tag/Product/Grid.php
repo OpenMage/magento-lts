@@ -28,6 +28,11 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
         $this->setId('gridProducts');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/productDetail', ['id' => $row->getId()]);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('reports/tag_product_collection');
@@ -93,10 +98,5 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Grid extends Mage_Adminhtml_Block_
         $this->addExportType('*/*/exportProductExcel', Mage::helper('reports')->__('Excel XML'));
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/productDetail', ['id' => $row->getId()]);
     }
 }

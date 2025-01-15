@@ -22,6 +22,13 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
+    public function canDisplay($child)
+    {
+        if (method_exists($child, 'canDisplay')) {
+            return $child->canDisplay();
+        }
+        return true;
+    }
     protected function _prepareLayout()
     {
         if ($this->getCustomerId()) {
@@ -39,13 +46,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar extends Mage_Adminhtml_Blo
         }
 
         return parent::_prepareLayout();
-    }
-
-    public function canDisplay($child)
-    {
-        if (method_exists($child, 'canDisplay')) {
-            return $child->canDisplay();
-        }
-        return true;
     }
 }

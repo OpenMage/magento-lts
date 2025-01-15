@@ -26,12 +26,6 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
     public const LOCALE_CACHE_KEY      = 'footer_locale';
     public const LOCALE_CACHE_TAG      = 'adminhtml';
 
-    protected function _construct()
-    {
-        $this->setTemplate('page/footer.phtml');
-        $this->setShowProfiler(true);
-    }
-
     /**
      * @return string
      */
@@ -138,5 +132,11 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
     public function getOpenMageProjectUrl(): string
     {
         return (string) $this->_getData('openmage_project_url');
+    }
+
+    protected function _construct()
+    {
+        $this->setTemplate('page/footer.phtml');
+        $this->setShowProfiler(true);
     }
 }

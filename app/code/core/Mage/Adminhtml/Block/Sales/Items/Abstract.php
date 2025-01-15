@@ -50,17 +50,6 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     protected $_canEditQty = null;
 
     /**
-     * Init block
-     *
-     */
-    protected function _construct()
-    {
-        $this->addColumnRender('qty', 'adminhtml/sales_items_column_qty', 'sales/items/column/qty.phtml');
-        $this->addColumnRender('name', 'adminhtml/sales_items_column_name', 'sales/items/column/name.phtml');
-        parent::_construct();
-    }
-
-    /**
      * Add item renderer
      *
      * @param string $type
@@ -587,5 +576,16 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
             return false;
         }
         return true;
+    }
+
+    /**
+     * Init block
+     *
+     */
+    protected function _construct()
+    {
+        $this->addColumnRender('qty', 'adminhtml/sales_items_column_qty', 'sales/items/column/qty.phtml');
+        $this->addColumnRender('name', 'adminhtml/sales_items_column_name', 'sales/items/column/name.phtml');
+        parent::_construct();
     }
 }

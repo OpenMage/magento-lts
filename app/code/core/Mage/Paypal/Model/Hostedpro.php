@@ -146,6 +146,39 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     }
 
     /**
+     * Get return URL
+     *
+     * @param int $storeId
+     * @return string
+     */
+    public function getReturnUrl($storeId = null)
+    {
+        return $this->_getUrl('paypal/hostedpro/return', $storeId);
+    }
+
+    /**
+     * Get notify (IPN) URL
+     *
+     * @param int $storeId
+     * @return string
+     */
+    public function getNotifyUrl($storeId = null)
+    {
+        return $this->_getUrl('paypal/ipn', $storeId);
+    }
+
+    /**
+     * Get cancel URL
+     *
+     * @param int $storeId
+     * @return string
+     */
+    public function getCancelUrl($storeId = null)
+    {
+        return $this->_getUrl('paypal/hostedpro/cancel', $storeId);
+    }
+
+    /**
      * Sends API request to PayPal to get form URL, then sets this URL to $payment object.
      */
     protected function _setPaymentFormUrl(Mage_Payment_Model_Info $payment)
@@ -198,39 +231,6 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
             'BUTTONTYPE' => self::BM_BUTTON_TYPE,
         ]);
         return $request;
-    }
-
-    /**
-     * Get return URL
-     *
-     * @param int $storeId
-     * @return string
-     */
-    public function getReturnUrl($storeId = null)
-    {
-        return $this->_getUrl('paypal/hostedpro/return', $storeId);
-    }
-
-    /**
-     * Get notify (IPN) URL
-     *
-     * @param int $storeId
-     * @return string
-     */
-    public function getNotifyUrl($storeId = null)
-    {
-        return $this->_getUrl('paypal/ipn', $storeId);
-    }
-
-    /**
-     * Get cancel URL
-     *
-     * @param int $storeId
-     * @return string
-     */
-    public function getCancelUrl($storeId = null)
-    {
-        return $this->_getUrl('paypal/hostedpro/cancel', $storeId);
     }
 
     /**

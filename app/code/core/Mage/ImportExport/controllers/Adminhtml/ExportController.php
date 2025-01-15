@@ -29,29 +29,6 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
     public const ADMIN_RESOURCE = 'system/convert/export';
 
     /**
-     * Custom constructor.
-     */
-    protected function _construct()
-    {
-        // Define module dependent translate
-        $this->setUsedModuleName('Mage_ImportExport');
-    }
-
-    /**
-     * Initialize layout.
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->_title($this->__('Import/Export'))
-            ->loadLayout()
-            ->_setActiveMenu('system/convert/export');
-
-        return $this;
-    }
-
-    /**
      * Load data with filter applying and create file for download.
      *
      * @return Mage_Adminhtml_Controller_Action
@@ -124,5 +101,28 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
         $this->_redirect('*/*/index');
+    }
+
+    /**
+     * Custom constructor.
+     */
+    protected function _construct()
+    {
+        // Define module dependent translate
+        $this->setUsedModuleName('Mage_ImportExport');
+    }
+
+    /**
+     * Initialize layout.
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->_title($this->__('Import/Export'))
+            ->loadLayout()
+            ->_setActiveMenu('system/convert/export');
+
+        return $this;
     }
 }

@@ -23,16 +23,6 @@
 abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
 {
     /**
-     * Get file helper
-     *
-     * @return Mage_Uploader_Helper_File
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('uploader/file');
-    }
-
-    /**
      * Set/Get attribute wrapper
      * Also set data in cameCase for config values
      *
@@ -59,5 +49,14 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
                 return isset($this->_data[$key]);
         }
         throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')');
+    }
+    /**
+     * Get file helper
+     *
+     * @return Mage_Uploader_Helper_File
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('uploader/file');
     }
 }

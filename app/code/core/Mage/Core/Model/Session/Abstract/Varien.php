@@ -510,66 +510,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     }
 
     /**
-     * Validate data
-     *
-     * @return bool
-     * @SuppressWarnings("PHPMD.Superglobals")
-     */
-    protected function _validate()
-    {
-        $sessionData = $_SESSION[self::VALIDATOR_KEY];
-        $validatorData = $this->getValidatorData();
-        self::$isValidated = true; // Only validate once since the validator data is the same for every namespace
-
-        if ($this->useValidateRemoteAddr()
-                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]
-        ) {
-            return false;
-        }
-        if ($this->useValidateHttpVia()
-                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]
-        ) {
-            return false;
-        }
-
-        if ($this->useValidateHttpXForwardedFor()
-                && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]
-        ) {
-            return false;
-        }
-        if ($this->useValidateHttpUserAgent()
-            && $sessionData[self::VALIDATOR_HTTP_USER_AGENT_KEY] != $validatorData[self::VALIDATOR_HTTP_USER_AGENT_KEY]
-        ) {
-            $userAgentValidated = $this->getValidateHttpUserAgentSkip();
-            foreach ($userAgentValidated as $agent) {
-                if (preg_match('/' . $agent . '/iu', $validatorData[self::VALIDATOR_HTTP_USER_AGENT_KEY])) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        if ($this->useValidateSessionExpire()
-            && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
-            && isset($sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            && ((int) $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int) $sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            < time()
-        ) {
-            return false;
-        }
-        if ($this->useValidateSessionPasswordTimestamp()
-            && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
-            && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
-            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
-            > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
-        ) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Retrieve unique user data for validator
      *
      * @return array
@@ -627,5 +567,65 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     {
         session_regenerate_id(true);
         return $this;
+    }
+
+    /**
+     * Validate data
+     *
+     * @return bool
+     * @SuppressWarnings("PHPMD.Superglobals")
+     */
+    protected function _validate()
+    {
+        $sessionData = $_SESSION[self::VALIDATOR_KEY];
+        $validatorData = $this->getValidatorData();
+        self::$isValidated = true; // Only validate once since the validator data is the same for every namespace
+
+        if ($this->useValidateRemoteAddr()
+                && $sessionData[self::VALIDATOR_REMOTE_ADDR_KEY] != $validatorData[self::VALIDATOR_REMOTE_ADDR_KEY]
+        ) {
+            return false;
+        }
+        if ($this->useValidateHttpVia()
+                && $sessionData[self::VALIDATOR_HTTP_VIA_KEY] != $validatorData[self::VALIDATOR_HTTP_VIA_KEY]
+        ) {
+            return false;
+        }
+
+        if ($this->useValidateHttpXForwardedFor()
+                && $sessionData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY] != $validatorData[self::VALIDATOR_HTTP_X_FORVARDED_FOR_KEY]
+        ) {
+            return false;
+        }
+        if ($this->useValidateHttpUserAgent()
+            && $sessionData[self::VALIDATOR_HTTP_USER_AGENT_KEY] != $validatorData[self::VALIDATOR_HTTP_USER_AGENT_KEY]
+        ) {
+            $userAgentValidated = $this->getValidateHttpUserAgentSkip();
+            foreach ($userAgentValidated as $agent) {
+                if (preg_match('/' . $agent . '/iu', $validatorData[self::VALIDATOR_HTTP_USER_AGENT_KEY])) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        if ($this->useValidateSessionExpire()
+            && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
+            && isset($sessionData[self::VALIDATOR_SESSION_LIFETIME])
+            && ((int) $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int) $sessionData[self::VALIDATOR_SESSION_LIFETIME])
+            < time()
+        ) {
+            return false;
+        }
+        if ($this->useValidateSessionPasswordTimestamp()
+            && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
+            && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
+            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
+            > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
+        ) {
+            return false;
+        }
+
+        return true;
     }
 }

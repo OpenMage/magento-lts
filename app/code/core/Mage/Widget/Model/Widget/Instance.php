@@ -65,109 +65,6 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     protected $_eventPrefix = 'widget_widget_instance';
 
     /**
-     * Internal Constructor
-     */
-    protected function _construct()
-    {
-        $this->_cacheTag = 'widget_instance';
-        parent::_construct();
-        $this->_init('widget/widget_instance');
-        $this->_layoutHandles = [
-            'anchor_categories' => self::ANCHOR_CATEGORY_LAYOUT_HANDLE,
-            'notanchor_categories' => self::NOTANCHOR_CATEGORY_LAYOUT_HANDLE,
-            'all_products' => self::PRODUCT_LAYOUT_HANDLE,
-            'all_pages' => self::DEFAULT_LAYOUT_HANDLE,
-        ];
-        $this->_specificEntitiesLayoutHandles = [
-            'anchor_categories' => self::SINGLE_CATEGORY_LAYOUT_HANDLE,
-            'notanchor_categories' => self::SINGLE_CATEGORY_LAYOUT_HANDLE,
-            'all_products' => self::SINGLE_PRODUCT_LAYOUT_HANLDE,
-        ];
-        foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
-            $layoutHandle = str_replace('{{TYPE}}', $typeId, self::PRODUCT_TYPE_LAYOUT_HANDLE);
-            $this->_layoutHandles[$typeId . '_products'] = $layoutHandle;
-            $this->_specificEntitiesLayoutHandles[$typeId . '_products'] = self::SINGLE_PRODUCT_LAYOUT_HANLDE;
-        }
-    }
-
-    /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return Varien_Object
-     */
-    protected function _initOldFieldsMap()
-    {
-        $this->_oldFieldsMap = [
-            'type' => 'instance_type',
-        ];
-        return $this;
-    }
-
-    /**
-     * Processing object before save data
-     *
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        $pageGroupIds = [];
-        $tmpPageGroups = [];
-        $pageGroups = $this->getData('page_groups');
-        if ($pageGroups) {
-            foreach ($pageGroups as $pageGroup) {
-                if (isset($pageGroup[$pageGroup['page_group']])) {
-                    $pageGroupData = $pageGroup[$pageGroup['page_group']];
-                    if ($pageGroupData['page_id']) {
-                        $pageGroupIds[] = $pageGroupData['page_id'];
-                    }
-                    if ($pageGroup['page_group'] == 'pages') {
-                        $layoutHandle = $pageGroupData['layout_handle'];
-                    } else {
-                        $layoutHandle = $this->_layoutHandles[$pageGroup['page_group']];
-                    }
-                    if (!isset($pageGroupData['template'])) {
-                        $pageGroupData['template'] = '';
-                    }
-                    $tmpPageGroup = [
-                        'page_id' => $pageGroupData['page_id'],
-                        'group' => $pageGroup['page_group'],
-                        'layout_handle' => $layoutHandle,
-                        'for' => $pageGroupData['for'],
-                        'block_reference' => $pageGroupData['block'],
-                        'entities' => '',
-                        'layout_handle_updates' => [$layoutHandle],
-                        'template' => $pageGroupData['template'] ? $pageGroupData['template'] : '',
-                    ];
-                    if ($pageGroupData['for'] == self::SPECIFIC_ENTITIES) {
-                        $layoutHandleUpdates = [];
-                        foreach (explode(',', $pageGroupData['entities']) as $entity) {
-                            $layoutHandleUpdates[] = str_replace(
-                                '{{ID}}',
-                                $entity,
-                                $this->_specificEntitiesLayoutHandles[$pageGroup['page_group']],
-                            );
-                        }
-                        $tmpPageGroup['entities'] = $pageGroupData['entities'];
-                        $tmpPageGroup['layout_handle_updates'] = $layoutHandleUpdates;
-                    }
-                    $tmpPageGroups[] = $tmpPageGroup;
-                }
-            }
-        }
-        if (is_array($this->getData('store_ids'))) {
-            $this->setData('store_ids', implode(',', $this->getData('store_ids')));
-        }
-        if (is_array($this->getData('widget_parameters'))) {
-            $this->setData('widget_parameters', serialize($this->getData('widget_parameters')));
-        }
-        $this->setData('page_groups', $tmpPageGroups);
-        $this->setData('page_group_ids', $pageGroupIds);
-
-        return parent::_beforeSave();
-    }
-
-    /**
      * Validate widget instance data
      *
      * @return string|bool
@@ -217,19 +114,6 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Replace '-' to '/', if was passed from request(GET request)
-     *
-     * @return $this
-     */
-    protected function _prepareType()
-    {
-        if (str_contains((string) $this->_getData('type'), '-')) {
-            $this->setData('type', str_replace('-', '/', $this->_getData('type')));
-        }
-        return $this;
-    }
-
-    /**
      * Setter
      * Prepare widget package theme
      *
@@ -251,18 +135,6 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     public function getPackageTheme()
     {
         return $this->_getData('package_theme');
-    }
-
-    /**
-     * Replace '_' to '/', if was set from request(GET request)
-     *
-     * @deprecated after 1.6.1.0-alpha1
-     *
-     * @return $this
-     */
-    protected function _preparePackageTheme()
-    {
-        return $this;
     }
 
     /**
@@ -303,21 +175,6 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
             $this->_parsePackageTheme();
         }
         return $this->_getData('theme');
-    }
-
-    /**
-     * Parse packageTheme and set parsed package and theme
-     *
-     * @return $this
-     */
-    protected function _parsePackageTheme()
-    {
-        if ($this->getPackageTheme() && strpos($this->getPackageTheme(), '/')) {
-            list($package, $theme) = explode('/', $this->getPackageTheme());
-            $this->setData('package', $package);
-            $this->setData('theme', $theme);
-        }
-        return $this;
     }
 
     /**
@@ -525,6 +382,149 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         }
 
         return $xml . '</block></reference>';
+    }
+
+    /**
+     * Internal Constructor
+     */
+    protected function _construct()
+    {
+        $this->_cacheTag = 'widget_instance';
+        parent::_construct();
+        $this->_init('widget/widget_instance');
+        $this->_layoutHandles = [
+            'anchor_categories' => self::ANCHOR_CATEGORY_LAYOUT_HANDLE,
+            'notanchor_categories' => self::NOTANCHOR_CATEGORY_LAYOUT_HANDLE,
+            'all_products' => self::PRODUCT_LAYOUT_HANDLE,
+            'all_pages' => self::DEFAULT_LAYOUT_HANDLE,
+        ];
+        $this->_specificEntitiesLayoutHandles = [
+            'anchor_categories' => self::SINGLE_CATEGORY_LAYOUT_HANDLE,
+            'notanchor_categories' => self::SINGLE_CATEGORY_LAYOUT_HANDLE,
+            'all_products' => self::SINGLE_PRODUCT_LAYOUT_HANLDE,
+        ];
+        foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
+            $layoutHandle = str_replace('{{TYPE}}', $typeId, self::PRODUCT_TYPE_LAYOUT_HANDLE);
+            $this->_layoutHandles[$typeId . '_products'] = $layoutHandle;
+            $this->_specificEntitiesLayoutHandles[$typeId . '_products'] = self::SINGLE_PRODUCT_LAYOUT_HANLDE;
+        }
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return Varien_Object
+     */
+    protected function _initOldFieldsMap()
+    {
+        $this->_oldFieldsMap = [
+            'type' => 'instance_type',
+        ];
+        return $this;
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        $pageGroupIds = [];
+        $tmpPageGroups = [];
+        $pageGroups = $this->getData('page_groups');
+        if ($pageGroups) {
+            foreach ($pageGroups as $pageGroup) {
+                if (isset($pageGroup[$pageGroup['page_group']])) {
+                    $pageGroupData = $pageGroup[$pageGroup['page_group']];
+                    if ($pageGroupData['page_id']) {
+                        $pageGroupIds[] = $pageGroupData['page_id'];
+                    }
+                    if ($pageGroup['page_group'] == 'pages') {
+                        $layoutHandle = $pageGroupData['layout_handle'];
+                    } else {
+                        $layoutHandle = $this->_layoutHandles[$pageGroup['page_group']];
+                    }
+                    if (!isset($pageGroupData['template'])) {
+                        $pageGroupData['template'] = '';
+                    }
+                    $tmpPageGroup = [
+                        'page_id' => $pageGroupData['page_id'],
+                        'group' => $pageGroup['page_group'],
+                        'layout_handle' => $layoutHandle,
+                        'for' => $pageGroupData['for'],
+                        'block_reference' => $pageGroupData['block'],
+                        'entities' => '',
+                        'layout_handle_updates' => [$layoutHandle],
+                        'template' => $pageGroupData['template'] ? $pageGroupData['template'] : '',
+                    ];
+                    if ($pageGroupData['for'] == self::SPECIFIC_ENTITIES) {
+                        $layoutHandleUpdates = [];
+                        foreach (explode(',', $pageGroupData['entities']) as $entity) {
+                            $layoutHandleUpdates[] = str_replace(
+                                '{{ID}}',
+                                $entity,
+                                $this->_specificEntitiesLayoutHandles[$pageGroup['page_group']],
+                            );
+                        }
+                        $tmpPageGroup['entities'] = $pageGroupData['entities'];
+                        $tmpPageGroup['layout_handle_updates'] = $layoutHandleUpdates;
+                    }
+                    $tmpPageGroups[] = $tmpPageGroup;
+                }
+            }
+        }
+        if (is_array($this->getData('store_ids'))) {
+            $this->setData('store_ids', implode(',', $this->getData('store_ids')));
+        }
+        if (is_array($this->getData('widget_parameters'))) {
+            $this->setData('widget_parameters', serialize($this->getData('widget_parameters')));
+        }
+        $this->setData('page_groups', $tmpPageGroups);
+        $this->setData('page_group_ids', $pageGroupIds);
+
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Replace '-' to '/', if was passed from request(GET request)
+     *
+     * @return $this
+     */
+    protected function _prepareType()
+    {
+        if (str_contains((string) $this->_getData('type'), '-')) {
+            $this->setData('type', str_replace('-', '/', $this->_getData('type')));
+        }
+        return $this;
+    }
+
+    /**
+     * Replace '_' to '/', if was set from request(GET request)
+     *
+     * @deprecated after 1.6.1.0-alpha1
+     *
+     * @return $this
+     */
+    protected function _preparePackageTheme()
+    {
+        return $this;
+    }
+
+    /**
+     * Parse packageTheme and set parsed package and theme
+     *
+     * @return $this
+     */
+    protected function _parsePackageTheme()
+    {
+        if ($this->getPackageTheme() && strpos($this->getPackageTheme(), '/')) {
+            list($package, $theme) = explode('/', $this->getPackageTheme());
+            $this->setData('package', $package);
+            $this->setData('theme', $theme);
+        }
+        return $this;
     }
 
     /**

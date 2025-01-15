@@ -40,11 +40,6 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
      */
     protected $_haveParents = false;
 
-    protected function _construct()
-    {
-        $this->_init('catalogindex/data_configurable');
-    }
-
     /**
       * Retrieve product type code
       *
@@ -53,6 +48,11 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     public function getTypeCode()
     {
         return Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalogindex/data_configurable');
     }
 
     /**

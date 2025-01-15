@@ -34,14 +34,14 @@ class Mage_Adminhtml_Block_Customer_Online extends Mage_Adminhtml_Block_Template
         return parent::_beforeToHtml();
     }
 
+    public function getFilterFormHtml()
+    {
+        return $this->getChild('filterForm')->toHtml();
+    }
+
     protected function _prepareLayout()
     {
         $this->setChild('filterForm', $this->getLayout()->createBlock('adminhtml/customer_online_filter'));
         return parent::_prepareLayout();
-    }
-
-    public function getFilterFormHtml()
-    {
-        return $this->getChild('filterForm')->toHtml();
     }
 }

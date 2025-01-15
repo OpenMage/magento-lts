@@ -94,16 +94,6 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
     }
 
     /**
-     * Return currently unavailable product configuration message
-     *
-     * @return string
-     */
-    protected function _getWrongConfigurationMessage()
-    {
-        return Mage::helper('catalog')->__('Some of the selected item options are not currently available.');
-    }
-
-    /**
      * Return formatted option value ready to edit, ready to parse
      *
      * @param string $optionValue Prepared for cart option value
@@ -288,6 +278,16 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         }
 
         return $result;
+    }
+
+    /**
+     * Return currently unavailable product configuration message
+     *
+     * @return string
+     */
+    protected function _getWrongConfigurationMessage()
+    {
+        return Mage::helper('catalog')->__('Some of the selected item options are not currently available.');
     }
 
     /**

@@ -27,14 +27,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     public const AGGREGATION_YEARLY  = 'yearly';
 
     /**
-     * Model initialization
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/bestsellers_aggregated_' . self::AGGREGATION_DAILY, 'id');
-    }
-
-    /**
      * Aggregate Orders data by order created at
      *
      * @param mixed $from
@@ -226,6 +218,14 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
 
         //$this->_getWriteAdapter()->commit();
         return $this;
+    }
+
+    /**
+     * Model initialization
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/bestsellers_aggregated_' . self::AGGREGATION_DAILY, 'id');
     }
 
     /**

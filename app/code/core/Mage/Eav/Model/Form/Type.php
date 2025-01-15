@@ -44,14 +44,6 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
     protected $_eventPrefix = 'eav_form_type';
 
     /**
-     * Initialize resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('eav/form_type');
-    }
-
-    /**
      * Retrieve assigned Eav Entity types
      *
      * @return array
@@ -133,5 +125,13 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
         }
 
         return $this;
+    }
+
+    /**
+     * Initialize resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('eav/form_type');
     }
 }

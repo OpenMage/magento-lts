@@ -23,15 +23,6 @@
 class Mage_Downloadable_Model_Resource_Link_Purchased_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Init resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('downloadable/link_purchased');
-    }
-
-    /**
      * Add purchased items to collection
      *
      * @return $this
@@ -44,5 +35,13 @@ class Mage_Downloadable_Model_Resource_Link_Purchased_Collection extends Mage_Co
                 'pi.purchased_id=main_table.purchased_id',
             );
         return $this;
+    }
+    /**
+     * Init resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('downloadable/link_purchased');
     }
 }

@@ -296,114 +296,11 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     protected $_nominalOnly = null;
 
     /**
-     * Initialize resource
+     * Rewrite clone method
      */
-    protected function _construct()
+    public function __clone()
     {
-        $this->_init('sales/quote_address');
-    }
-
-    /**
-     * Init mapping array of short fields to its full names
-     *
-     * @return $this
-     */
-    protected function _initOldFieldsMap()
-    {
-        return $this;
-    }
-
-    /**
-     * Initialize Quote identifier before save
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        $this->_populateBeforeSaveData();
-        return $this;
-    }
-
-    /**
-     * Set the required fields
-     */
-    protected function _populateBeforeSaveData()
-    {
-        if ($this->getQuote()) {
-            $this->_dataSaveAllowed = (bool) $this->getQuote()->getId();
-
-            if ($this->getQuote()->getId()) {
-                $this->setQuoteId($this->getQuote()->getId());
-            }
-            $this->setCustomerId($this->getQuote()->getCustomerId());
-
-            /**
-             * Init customer address id if customer address is assigned
-             */
-            if ($this->getCustomerAddress()) {
-                $this->setCustomerAddressId($this->getCustomerAddress()->getId());
-            }
-
-            /**
-             * Set same_as_billing to "1" when default shipping address is set as default
-             * and it is not equal billing address
-             */
-            if (!$this->getId()) {
-                $this->setSameAsBilling((int) $this->_isSameAsBilling());
-            }
-        }
-    }
-
-    /**
-     * Returns true if the billing address is same as the shipping
-     *
-     * @return bool
-     */
-    protected function _isSameAsBilling()
-    {
-        return ($this->getAddressType() === self::TYPE_SHIPPING
-            && ($this->_isNotRegisteredCustomer() || $this->_isDefaultShippingNullOrSameAsBillingAddress()));
-    }
-
-    /**
-     * Checks if the user is a registered customer
-     *
-     * @return bool
-     */
-    protected function _isNotRegisteredCustomer()
-    {
-        return !$this->getQuote()->getCustomerId() || $this->getCustomerAddressId() === null;
-    }
-
-    /**
-     * Returns true if the def billing address is same as customer address
-     *
-     * @return bool
-     */
-    protected function _isDefaultShippingNullOrSameAsBillingAddress()
-    {
-        $customer = $this->getQuote()->getCustomer();
-        return !$customer->getDefaultShippingAddress()
-            || $customer->getDefaultBillingAddress() && $customer->getDefaultShippingAddress()
-                && $customer->getDefaultBillingAddress()->getId() == $customer->getDefaultShippingAddress()->getId();
-    }
-
-    /**
-     * Save child collections
-     *
-     * @return $this
-     */
-    protected function _afterSave()
-    {
-        parent::_afterSave();
-        if ($this->_items !== null) {
-            $this->getItemsCollection()->save();
-        }
-        if ($this->_rates !== null) {
-            $this->getShippingRatesCollection()->save();
-        }
-        return $this;
+        $this->setId(null);
     }
 
     /**
@@ -621,24 +518,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     }
 
     /**
-     * Segregate by nominal criteria
-     *
-     * true: get nominals only
-     * false: get non-nominals only
-     * null: get all
-     *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return Mage_Sales_Model_Quote_Item_Abstract|false
-     */
-    protected function _filterNominal($item)
-    {
-        return ($this->_nominalOnly === null)
-            || (($this->_nominalOnly === false) && !$item->isNominal())
-            || (($this->_nominalOnly === true) && $item->isNominal())
-            ? $item : false;
-    }
-
-    /**
      * Retrieve all visible items
      *
      * @return Mage_Sales_Model_Quote_Address_Item[]
@@ -851,24 +730,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         }
         uasort($rates, [$this, '_sortRates']);
         return $rates;
-    }
-
-    /**
-     * Sort rates recursive callback
-     *
-     * @param array $a
-     * @param array $b
-     * @return int
-     */
-    protected function _sortRates($a, $b)
-    {
-        if ((int) $a[0]->carrier_sort_order < (int) $b[0]->carrier_sort_order) {
-            return -1;
-        } elseif ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 
     /**
@@ -1123,14 +984,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     }
 
     /**
-     * Rewrite clone method
-     */
-    public function __clone()
-    {
-        $this->setId(null);
-    }
-
-    /**
      * Validate minimum amount
      *
      * @return bool
@@ -1336,5 +1189,152 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function getCouponCode(): string
     {
         return (string) $this->_getData('coupon_code');
+    }
+
+    /**
+     * Initialize resource
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/quote_address');
+    }
+
+    /**
+     * Init mapping array of short fields to its full names
+     *
+     * @return $this
+     */
+    protected function _initOldFieldsMap()
+    {
+        return $this;
+    }
+
+    /**
+     * Initialize Quote identifier before save
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        $this->_populateBeforeSaveData();
+        return $this;
+    }
+
+    /**
+     * Set the required fields
+     */
+    protected function _populateBeforeSaveData()
+    {
+        if ($this->getQuote()) {
+            $this->_dataSaveAllowed = (bool) $this->getQuote()->getId();
+
+            if ($this->getQuote()->getId()) {
+                $this->setQuoteId($this->getQuote()->getId());
+            }
+            $this->setCustomerId($this->getQuote()->getCustomerId());
+
+            /**
+             * Init customer address id if customer address is assigned
+             */
+            if ($this->getCustomerAddress()) {
+                $this->setCustomerAddressId($this->getCustomerAddress()->getId());
+            }
+
+            /**
+             * Set same_as_billing to "1" when default shipping address is set as default
+             * and it is not equal billing address
+             */
+            if (!$this->getId()) {
+                $this->setSameAsBilling((int) $this->_isSameAsBilling());
+            }
+        }
+    }
+
+    /**
+     * Returns true if the billing address is same as the shipping
+     *
+     * @return bool
+     */
+    protected function _isSameAsBilling()
+    {
+        return ($this->getAddressType() === self::TYPE_SHIPPING
+            && ($this->_isNotRegisteredCustomer() || $this->_isDefaultShippingNullOrSameAsBillingAddress()));
+    }
+
+    /**
+     * Checks if the user is a registered customer
+     *
+     * @return bool
+     */
+    protected function _isNotRegisteredCustomer()
+    {
+        return !$this->getQuote()->getCustomerId() || $this->getCustomerAddressId() === null;
+    }
+
+    /**
+     * Returns true if the def billing address is same as customer address
+     *
+     * @return bool
+     */
+    protected function _isDefaultShippingNullOrSameAsBillingAddress()
+    {
+        $customer = $this->getQuote()->getCustomer();
+        return !$customer->getDefaultShippingAddress()
+            || $customer->getDefaultBillingAddress() && $customer->getDefaultShippingAddress()
+                && $customer->getDefaultBillingAddress()->getId() == $customer->getDefaultShippingAddress()->getId();
+    }
+
+    /**
+     * Save child collections
+     *
+     * @return $this
+     */
+    protected function _afterSave()
+    {
+        parent::_afterSave();
+        if ($this->_items !== null) {
+            $this->getItemsCollection()->save();
+        }
+        if ($this->_rates !== null) {
+            $this->getShippingRatesCollection()->save();
+        }
+        return $this;
+    }
+
+    /**
+     * Segregate by nominal criteria
+     *
+     * true: get nominals only
+     * false: get non-nominals only
+     * null: get all
+     *
+     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @return Mage_Sales_Model_Quote_Item_Abstract|false
+     */
+    protected function _filterNominal($item)
+    {
+        return ($this->_nominalOnly === null)
+            || (($this->_nominalOnly === false) && !$item->isNominal())
+            || (($this->_nominalOnly === true) && $item->isNominal())
+            ? $item : false;
+    }
+
+    /**
+     * Sort rates recursive callback
+     *
+     * @param array $a
+     * @param array $b
+     * @return int
+     */
+    protected function _sortRates($a, $b)
+    {
+        if ((int) $a[0]->carrier_sort_order < (int) $b[0]->carrier_sort_order) {
+            return -1;
+        } elseif ((int) $a[0]->carrier_sort_order > (int) $b[0]->carrier_sort_order) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

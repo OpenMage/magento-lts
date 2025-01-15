@@ -22,35 +22,12 @@
  */
 class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_objectId = 'variable_id';
-        $this->_controller = 'system_variable';
-    }
-
     /**
      * @return Mage_Core_Model_Variable
      */
     public function getVariable()
     {
         return Mage::registry('current_variable');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _preparelayout()
-    {
-        $this->_addButton('save_and_edit', [
-            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            'class'     => 'save',
-            'onclick'   => 'editForm.submit(\'' . $this->getSaveAndContinueUrl() . '\');',
-        ], 100);
-        if (!$this->getVariable()->getId()) {
-            $this->removeButton('delete');
-        }
-        return parent::_prepareLayout();
     }
 
     /**
@@ -110,5 +87,27 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
     public function getSaveAndContinueUrl()
     {
         return $this->getUrl('*/*/save', ['_current' => true, 'back' => 'edit']);
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_objectId = 'variable_id';
+        $this->_controller = 'system_variable';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _preparelayout()
+    {
+        $this->_addButton('save_and_edit', [
+            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
+            'class'     => 'save',
+            'onclick'   => 'editForm.submit(\'' . $this->getSaveAndContinueUrl() . '\');',
+        ], 100);
+        if (!$this->getVariable()->getId()) {
+            $this->removeButton('delete');
+        }
+        return parent::_prepareLayout();
     }
 }

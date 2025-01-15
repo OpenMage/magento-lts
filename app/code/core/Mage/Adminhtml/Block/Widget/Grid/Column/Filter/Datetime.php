@@ -52,43 +52,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
     }
 
     /**
-     * Convert given date to default (UTC) timezone
-     *
-     * @param string $date
-     * @param string $locale
-     * @return Zend_Date|null
-     */
-    protected function _convertDate($date, $locale)
-    {
-        if ($this->getColumn()->getFilterTime()) {
-            try {
-                $dateObj = $this->getLocale()->date(null, null, $locale, false);
-
-                //set default timezone for store (admin)
-                $dateObj->setTimezone(
-                    Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE),
-                );
-
-                //set date with applying timezone of store
-                $dateObj->set(
-                    $date,
-                    $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-                    $locale,
-                );
-
-                //convert store date to default date in UTC timezone without DST
-                $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
-
-                return $dateObj;
-            } catch (Exception $e) {
-                return null;
-            }
-        }
-
-        return parent::_convertDate($date, $locale);
-    }
-
-    /**
      * Render filter html
      *
      * @return string
@@ -164,5 +127,42 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
         }
 
         return $this->escapeHtml(parent::getEscapedValue($index));
+    }
+
+    /**
+     * Convert given date to default (UTC) timezone
+     *
+     * @param string $date
+     * @param string $locale
+     * @return Zend_Date|null
+     */
+    protected function _convertDate($date, $locale)
+    {
+        if ($this->getColumn()->getFilterTime()) {
+            try {
+                $dateObj = $this->getLocale()->date(null, null, $locale, false);
+
+                //set default timezone for store (admin)
+                $dateObj->setTimezone(
+                    Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE),
+                );
+
+                //set date with applying timezone of store
+                $dateObj->set(
+                    $date,
+                    $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+                    $locale,
+                );
+
+                //convert store date to default date in UTC timezone without DST
+                $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
+
+                return $dateObj;
+            } catch (Exception $e) {
+                return null;
+            }
+        }
+
+        return parent::_convertDate($date, $locale);
     }
 }

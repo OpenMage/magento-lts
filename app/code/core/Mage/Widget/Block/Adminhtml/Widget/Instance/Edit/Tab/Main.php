@@ -22,12 +22,6 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setActive(true);
-    }
-
     /**
      * Prepare label for tab
      *
@@ -76,6 +70,32 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
     public function getWidgetInstance()
     {
         return Mage::registry('current_widget_instance');
+    }
+
+    /**
+     * Retrieve array (widget_type => widget_name) of available widgets
+     *
+     * @return array
+     */
+    public function getTypesOptionsArray()
+    {
+        return $this->getWidgetInstance()->getWidgetsOptionArray();
+    }
+
+    /**
+     * Retrieve design package/theme options array
+     *
+     * @return array
+     */
+    public function getPackegeThemeOptionsArray()
+    {
+        return Mage::getModel('core/design_source_design')
+            ->setIsFullLabel(true)->getAllOptions(true);
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setActive(true);
     }
 
     /**
@@ -165,27 +185,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
         $this->setForm($form);
 
         return parent::_prepareForm();
-    }
-
-    /**
-     * Retrieve array (widget_type => widget_name) of available widgets
-     *
-     * @return array
-     */
-    public function getTypesOptionsArray()
-    {
-        return $this->getWidgetInstance()->getWidgetsOptionArray();
-    }
-
-    /**
-     * Retrieve design package/theme options array
-     *
-     * @return array
-     */
-    public function getPackegeThemeOptionsArray()
-    {
-        return Mage::getModel('core/design_source_design')
-            ->setIsFullLabel(true)->getAllOptions(true);
     }
 
     /**

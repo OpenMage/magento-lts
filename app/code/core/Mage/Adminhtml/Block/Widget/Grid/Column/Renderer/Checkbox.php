@@ -71,20 +71,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
     }
 
     /**
-     * @param string $value   Value of the element
-     * @param bool   $checked Whether it is checked
-     * @return string
-     */
-    protected function _getCheckboxHtml($value, $checked)
-    {
-        $html = '<input type="checkbox" ';
-        $html .= 'name="' . $this->getColumn()->getFieldName() . '" ';
-        $html .= 'value="' . $this->escapeHtml($value) . '" ';
-        $html .= 'class="' . ($this->getColumn()->getInlineCss() ? $this->getColumn()->getInlineCss() : 'checkbox') . '"';
-        return $html . ($checked . $this->getDisabled() . '/>');
-    }
-
-    /**
      * Renders header of the column
      *
      * @return string
@@ -109,5 +95,19 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
         $html .= 'onclick="' . $this->getColumn()->getGrid()->getJsObjectName() . '.checkCheckboxes(this)" ';
         $html .= 'class="checkbox"' . $checked . $disabled . ' ';
         return $html . ('title="' . Mage::helper('adminhtml')->__('Select All') . '"/>');
+    }
+
+    /**
+     * @param string $value   Value of the element
+     * @param bool   $checked Whether it is checked
+     * @return string
+     */
+    protected function _getCheckboxHtml($value, $checked)
+    {
+        $html = '<input type="checkbox" ';
+        $html .= 'name="' . $this->getColumn()->getFieldName() . '" ';
+        $html .= 'value="' . $this->escapeHtml($value) . '" ';
+        $html .= 'class="' . ($this->getColumn()->getInlineCss() ? $this->getColumn()->getInlineCss() : 'checkbox') . '"';
+        return $html . ($checked . $this->getDisabled() . '/>');
     }
 }

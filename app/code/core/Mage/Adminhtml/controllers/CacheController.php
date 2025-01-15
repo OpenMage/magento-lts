@@ -27,16 +27,6 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     public const ADMIN_RESOURCE = 'system/cache';
 
     /**
-     * Retrieve session model
-     *
-     * @return Mage_Adminhtml_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
-    /**
      * Display cache management grid
      */
     public function indexAction()
@@ -210,5 +200,15 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
             );
         }
         $this->_redirect('*/*');
+    }
+
+    /**
+     * Retrieve session model
+     *
+     * @return Mage_Adminhtml_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('adminhtml/session');
     }
 }

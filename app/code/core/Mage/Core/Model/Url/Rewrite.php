@@ -59,27 +59,6 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
      */
     protected $_cacheTag = false;
 
-    protected function _construct()
-    {
-        $this->_init('core/url_rewrite');
-    }
-
-    /**
-     * Clean cache for front-end menu
-     *
-     * @return  Mage_Core_Model_Url_Rewrite
-     */
-    protected function _afterSave()
-    {
-        if ($this->hasCategoryId()) {
-            $this->_cacheTag = [Mage_Catalog_Model_Category::CACHE_TAG, Mage_Core_Model_Store_Group::CACHE_TAG];
-        }
-
-        parent::_afterSave();
-
-        return $this;
-    }
-
     /**
      * Load rewrite information for request
      * If $path is array - we must load possible records and choose one matching earlier record in array
@@ -308,6 +287,35 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     }
 
     /**
+     * @return int|null
+     */
+    public function getStoreId()
+    {
+        return $this->_getData('store_id');
+    }
+
+    protected function _construct()
+    {
+        $this->_init('core/url_rewrite');
+    }
+
+    /**
+     * Clean cache for front-end menu
+     *
+     * @return  Mage_Core_Model_Url_Rewrite
+     */
+    protected function _afterSave()
+    {
+        if ($this->hasCategoryId()) {
+            $this->_cacheTag = [Mage_Catalog_Model_Category::CACHE_TAG, Mage_Core_Model_Store_Group::CACHE_TAG];
+        }
+
+        parent::_afterSave();
+
+        return $this;
+    }
+
+    /**
      * Prepare and return QUERY_STRING
      *
      * @return bool|string
@@ -333,14 +341,6 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
             }
         }
         return false;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getStoreId()
-    {
-        return $this->_getData('store_id');
     }
 
     /**

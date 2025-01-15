@@ -21,15 +21,6 @@
 class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_Template
 {
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->setTemplate('system/config/switcher.phtml');
-        return parent::_prepareLayout();
-    }
-
-    /**
      * @return array
      */
     public function getStoreSelectOptions()
@@ -99,5 +90,13 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
         }
 
         return $options;
+    }
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->setTemplate('system/config/switcher.phtml');
+        return parent::_prepareLayout();
     }
 }

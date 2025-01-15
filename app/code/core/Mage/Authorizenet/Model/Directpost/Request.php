@@ -32,30 +32,6 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     protected $_signatureKey = '';
 
     /**
-     * Return merchant transaction key.
-     * Needed to generate MD5 sign.
-     *
-     * @return string
-     */
-    protected function _getTransactionKey()
-    {
-        return $this->_transKey;
-    }
-
-    /**
-     * Set merchant transaction key.
-     * Needed to generate MD5 sign.
-     *
-     * @param string $transKey
-     * @return $this
-     */
-    protected function _setTransactionKey($transKey)
-    {
-        $this->_transKey = $transKey;
-        return $this;
-    }
-
-    /**
      * Generates the MD5 fingerprint for request.
      *
      * @param string $merchantApiLoginId
@@ -186,6 +162,30 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
         }
         $this->setXFpTimestamp($fpTimestamp);
         $this->setXFpHash($hash);
+        return $this;
+    }
+
+    /**
+     * Return merchant transaction key.
+     * Needed to generate MD5 sign.
+     *
+     * @return string
+     */
+    protected function _getTransactionKey()
+    {
+        return $this->_transKey;
+    }
+
+    /**
+     * Set merchant transaction key.
+     * Needed to generate MD5 sign.
+     *
+     * @param string $transKey
+     * @return $this
+     */
+    protected function _setTransactionKey($transKey)
+    {
+        $this->_transKey = $transKey;
         return $this;
     }
 

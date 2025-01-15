@@ -22,11 +22,6 @@
  */
 class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('dataflow/import', 'import_id');
-    }
-
     /**
      * Returns all import data select by session id
      *
@@ -111,5 +106,9 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
             ->where('status = :status')
             ->where('import_id = :import_id');
         return $read->fetchRow($select, $bind);
+    }
+    protected function _construct()
+    {
+        $this->_init('dataflow/import', 'import_id');
     }
 }

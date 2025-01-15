@@ -41,16 +41,6 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
     }
 
     /**
-     * @param string $name
-     * @return string
-     */
-    protected function _prepareLockName($name)
-    {
-        $config = $this->_connection->getConfig();
-        return $config['dbname'] . '.' . $name;
-    }
-
-    /**
      * Set named lock
      *
      * @param string $lockName
@@ -84,5 +74,15 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
     {
         $lockName = $this->_prepareLockName($lockName);
         return $this->_helper->isLocked($lockName);
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    protected function _prepareLockName($name)
+    {
+        $config = $this->_connection->getConfig();
+        return $config['dbname'] . '.' . $name;
     }
 }

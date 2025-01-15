@@ -43,56 +43,6 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      */
     protected $_customerGroups;
 
-    protected function _construct()
-    {
-        $this->_init('bundle/price_index', 'entity_id');
-    }
-
-    /**
-     * Retrieve attribute object
-     *
-     * @param string $attributeCode
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
-     */
-    protected function _getAttribute($attributeCode)
-    {
-        if (!isset($this->_attributes[$attributeCode])) {
-            $this->_attributes[$attributeCode] = Mage::getSingleton('catalog/config')
-                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
-        }
-        return $this->_attributes[$attributeCode];
-    }
-
-    /**
-     * Retrieve websites collection array
-     *
-     * @return array
-     */
-    protected function _getWebsites()
-    {
-        if (is_null($this->_websites)) {
-            $this->_websites = Mage::app()->getWebsites(false);
-        }
-        return $this->_websites;
-    }
-
-    /**
-     * Retrieve customer groups collection array
-     *
-     * @return array
-     * @throws Mage_Core_Exception
-     */
-    protected function _getCustomerGroups()
-    {
-        if (is_null($this->_customerGroups)) {
-            $this->_customerGroups = [];
-            foreach (Mage::getModel('customer/group')->getCollection() as $group) {
-                $this->_customerGroups[$group->getId()] = $group;
-            }
-        }
-        return $this->_customerGroups;
-    }
-
     /**
      * Retrieve product ids array by product condition
      *
@@ -163,99 +113,6 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 $this->_reindexProduct($productId, $priceType);
                 $lastEntityId = $productId;
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Reindex product price
-     *
-     * @param int $productId
-     * @param int $priceType
-     * @return $this
-     * @throws Mage_Core_Exception
-     */
-    protected function _reindexProduct($productId, $priceType)
-    {
-        $options = $this->getSelections($productId);
-        $selectionProducts = [];
-        foreach ($options as $option) {
-            foreach ($option['selections'] as $selection) {
-                $selectionProducts[$selection['product_id']] = $selection['product_id'];
-            }
-        }
-
-        $priceIndex = [];
-        if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
-            // load selection product prices from index for dynamic bundle
-            $priceIndex = $this->getProductsPriceFromIndex($selectionProducts);
-        }
-
-        /** @var Mage_Core_Model_Website $website */
-        foreach ($this->_getWebsites() as $website) {
-            if (!$website->getDefaultStore()) {
-                continue;
-            }
-            $salableStatus = $this->getProductsSalableStatus($selectionProducts, $website);
-            $priceData = $this->getProductsPriceData($productId, $website);
-            $priceData = $priceData[$productId];
-
-            /** @var Mage_Customer_Model_Group $group */
-            foreach ($this->_getCustomerGroups() as $group) {
-                if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-                    $basePrice     = $this->_getBasePrice($productId, $priceData, $website, $group);
-                    $customOptions = $this->getCustomOptions($productId, $website);
-                } elseif ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
-                    $basePrice = 0;
-                }
-
-                list($minPrice, $maxPrice) = $this->_calculateBundleSelections(
-                    $options,
-                    $salableStatus,
-                    $productId,
-                    $priceType,
-                    $basePrice,
-                    $priceData,
-                    $priceIndex,
-                    $website,
-                    $group,
-                );
-
-                if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-                    list($minPrice, $maxPrice) =
-                        $this->_calculateCustomOptions($customOptions, $basePrice, $minPrice, $maxPrice);
-                }
-
-                $this->_savePriceIndex($productId, $website->getId(), $group->getId(), $minPrice, $maxPrice);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Save price index
-     *
-     * @param int $productId
-     * @param int $websiteId
-     * @param int $groupId
-     * @param float $minPrice
-     * @param float $maxPrice
-     * @return $this
-     * @throws Zend_Db_Exception
-     */
-    protected function _savePriceIndex($productId, $websiteId, $groupId, $minPrice, $maxPrice)
-    {
-        $adapter = $this->_getWriteAdapter();
-        $adapter->beginTransaction();
-        try {
-            $bind = [$productId, $websiteId, $groupId, $minPrice, $maxPrice];
-            $adapter->insertOnDuplicate($this->getMainTable(), $bind, ['min_price', 'max_price']);
-            $adapter->commit();
-        } catch (Exception $e) {
-            $adapter->rollBack();
-            throw $e;
         }
 
         return $this;
@@ -448,81 +305,6 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         }
 
         return $productsData;
-    }
-
-    /**
-     * Add attribute data to select
-     *
-     * @param string $attributeCode
-     * @return $this
-     * @throws Mage_Core_Exception
-     */
-    protected function _addAttributeDataToSelect(
-        Varien_Db_Select $select,
-        $attributeCode,
-        Mage_Core_Model_Website $website
-    ) {
-        $attribute  = $this->_getAttribute($attributeCode);
-        $store      = $website->getDefaultStore();
-        if ($attribute->isScopeGlobal()) {
-            $table = 't_' . $attribute->getAttributeCode();
-            $select->joinLeft(
-                [$table => $attribute->getBackend()->getTable()],
-                "e.entity_id={$table}.entity_id"
-                . " AND {$table}.attribute_id={$attribute->getAttributeId()}"
-                . " AND {$table}.store_id=0",
-                [$attribute->getAttributeCode() => $table . '.value'],
-            );
-        } else {
-            $tableName   = $attribute->getBackend()->getTable();
-            $tableGlobal = 't1_' . $attribute->getAttributeCode();
-            $tableStore  = 't2_' . $attribute->getAttributeCode();
-
-            $attributeCond = $this->getReadConnection()->getCheckSql(
-                $tableStore . '.value_id > 0',
-                $tableStore . '.value',
-                $tableGlobal . '.value',
-            );
-            $select->joinLeft(
-                [$tableGlobal => $tableName],
-                "e.entity_id = {$tableGlobal}.entity_id"
-                . " AND {$tableGlobal}.attribute_id = {$attribute->getAttributeId()}"
-                . " AND {$tableGlobal}.store_id = 0",
-                [$attribute->getAttributeCode() => $attributeCond],
-            )
-            ->joinLeft(
-                [$tableStore => $tableName],
-                "{$tableGlobal}.entity_id = {$tableStore}.entity_id"
-                . " AND {$tableGlobal}.attribute_id = {$tableStore}.attribute_id"
-                . " AND {$tableStore}.store_id = " . $store->getId(),
-                [],
-            );
-        }
-        return $this;
-    }
-
-    /**
-     * Retrieve fixed bundle base price (with special price and rules)
-     *
-     * @param int $productId
-     * @param Mage_Core_Model_Website $website
-     * @param Mage_Customer_Model_Group $customerGroup
-     * @return float
-     */
-    protected function _getBasePrice($productId, array $priceData, $website, $customerGroup)
-    {
-        $store          = $website->getDefaultStore();
-        $storeTimeStamp = Mage::app()->getLocale()->storeTimeStamp($store);
-        $finalPrice     = $this->_calculateSpecialPrice($priceData['price'], $priceData, $website);
-
-        $rulePrice = Mage::getResourceModel('catalogrule/rule')
-            ->getRulePrice($storeTimeStamp, $website->getId(), $customerGroup->getId(), $productId);
-
-        if ($rulePrice !== null && $rulePrice !== false) {
-            $finalPrice = min($finalPrice, $rulePrice);
-        }
-
-        return $finalPrice;
     }
 
     /**
@@ -859,5 +641,223 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         }
 
         return $prices;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('bundle/price_index', 'entity_id');
+    }
+
+    /**
+     * Retrieve attribute object
+     *
+     * @param string $attributeCode
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     */
+    protected function _getAttribute($attributeCode)
+    {
+        if (!isset($this->_attributes[$attributeCode])) {
+            $this->_attributes[$attributeCode] = Mage::getSingleton('catalog/config')
+                ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
+        }
+        return $this->_attributes[$attributeCode];
+    }
+
+    /**
+     * Retrieve websites collection array
+     *
+     * @return array
+     */
+    protected function _getWebsites()
+    {
+        if (is_null($this->_websites)) {
+            $this->_websites = Mage::app()->getWebsites(false);
+        }
+        return $this->_websites;
+    }
+
+    /**
+     * Retrieve customer groups collection array
+     *
+     * @return array
+     * @throws Mage_Core_Exception
+     */
+    protected function _getCustomerGroups()
+    {
+        if (is_null($this->_customerGroups)) {
+            $this->_customerGroups = [];
+            foreach (Mage::getModel('customer/group')->getCollection() as $group) {
+                $this->_customerGroups[$group->getId()] = $group;
+            }
+        }
+        return $this->_customerGroups;
+    }
+
+    /**
+     * Reindex product price
+     *
+     * @param int $productId
+     * @param int $priceType
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    protected function _reindexProduct($productId, $priceType)
+    {
+        $options = $this->getSelections($productId);
+        $selectionProducts = [];
+        foreach ($options as $option) {
+            foreach ($option['selections'] as $selection) {
+                $selectionProducts[$selection['product_id']] = $selection['product_id'];
+            }
+        }
+
+        $priceIndex = [];
+        if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
+            // load selection product prices from index for dynamic bundle
+            $priceIndex = $this->getProductsPriceFromIndex($selectionProducts);
+        }
+
+        /** @var Mage_Core_Model_Website $website */
+        foreach ($this->_getWebsites() as $website) {
+            if (!$website->getDefaultStore()) {
+                continue;
+            }
+            $salableStatus = $this->getProductsSalableStatus($selectionProducts, $website);
+            $priceData = $this->getProductsPriceData($productId, $website);
+            $priceData = $priceData[$productId];
+
+            /** @var Mage_Customer_Model_Group $group */
+            foreach ($this->_getCustomerGroups() as $group) {
+                if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
+                    $basePrice     = $this->_getBasePrice($productId, $priceData, $website, $group);
+                    $customOptions = $this->getCustomOptions($productId, $website);
+                } elseif ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
+                    $basePrice = 0;
+                }
+
+                list($minPrice, $maxPrice) = $this->_calculateBundleSelections(
+                    $options,
+                    $salableStatus,
+                    $productId,
+                    $priceType,
+                    $basePrice,
+                    $priceData,
+                    $priceIndex,
+                    $website,
+                    $group,
+                );
+
+                if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
+                    list($minPrice, $maxPrice) =
+                        $this->_calculateCustomOptions($customOptions, $basePrice, $minPrice, $maxPrice);
+                }
+
+                $this->_savePriceIndex($productId, $website->getId(), $group->getId(), $minPrice, $maxPrice);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Save price index
+     *
+     * @param int $productId
+     * @param int $websiteId
+     * @param int $groupId
+     * @param float $minPrice
+     * @param float $maxPrice
+     * @return $this
+     * @throws Zend_Db_Exception
+     */
+    protected function _savePriceIndex($productId, $websiteId, $groupId, $minPrice, $maxPrice)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $adapter->beginTransaction();
+        try {
+            $bind = [$productId, $websiteId, $groupId, $minPrice, $maxPrice];
+            $adapter->insertOnDuplicate($this->getMainTable(), $bind, ['min_price', 'max_price']);
+            $adapter->commit();
+        } catch (Exception $e) {
+            $adapter->rollBack();
+            throw $e;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add attribute data to select
+     *
+     * @param string $attributeCode
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    protected function _addAttributeDataToSelect(
+        Varien_Db_Select $select,
+        $attributeCode,
+        Mage_Core_Model_Website $website
+    ) {
+        $attribute  = $this->_getAttribute($attributeCode);
+        $store      = $website->getDefaultStore();
+        if ($attribute->isScopeGlobal()) {
+            $table = 't_' . $attribute->getAttributeCode();
+            $select->joinLeft(
+                [$table => $attribute->getBackend()->getTable()],
+                "e.entity_id={$table}.entity_id"
+                . " AND {$table}.attribute_id={$attribute->getAttributeId()}"
+                . " AND {$table}.store_id=0",
+                [$attribute->getAttributeCode() => $table . '.value'],
+            );
+        } else {
+            $tableName   = $attribute->getBackend()->getTable();
+            $tableGlobal = 't1_' . $attribute->getAttributeCode();
+            $tableStore  = 't2_' . $attribute->getAttributeCode();
+
+            $attributeCond = $this->getReadConnection()->getCheckSql(
+                $tableStore . '.value_id > 0',
+                $tableStore . '.value',
+                $tableGlobal . '.value',
+            );
+            $select->joinLeft(
+                [$tableGlobal => $tableName],
+                "e.entity_id = {$tableGlobal}.entity_id"
+                . " AND {$tableGlobal}.attribute_id = {$attribute->getAttributeId()}"
+                . " AND {$tableGlobal}.store_id = 0",
+                [$attribute->getAttributeCode() => $attributeCond],
+            )
+            ->joinLeft(
+                [$tableStore => $tableName],
+                "{$tableGlobal}.entity_id = {$tableStore}.entity_id"
+                . " AND {$tableGlobal}.attribute_id = {$tableStore}.attribute_id"
+                . " AND {$tableStore}.store_id = " . $store->getId(),
+                [],
+            );
+        }
+        return $this;
+    }
+
+    /**
+     * Retrieve fixed bundle base price (with special price and rules)
+     *
+     * @param int $productId
+     * @param Mage_Core_Model_Website $website
+     * @param Mage_Customer_Model_Group $customerGroup
+     * @return float
+     */
+    protected function _getBasePrice($productId, array $priceData, $website, $customerGroup)
+    {
+        $store          = $website->getDefaultStore();
+        $storeTimeStamp = Mage::app()->getLocale()->storeTimeStamp($store);
+        $finalPrice     = $this->_calculateSpecialPrice($priceData['price'], $priceData, $website);
+
+        $rulePrice = Mage::getResourceModel('catalogrule/rule')
+            ->getRulePrice($storeTimeStamp, $website->getId(), $customerGroup->getId(), $productId);
+
+        if ($rulePrice !== null && $rulePrice !== false) {
+            $finalPrice = min($finalPrice, $rulePrice);
+        }
+
+        return $finalPrice;
     }
 }

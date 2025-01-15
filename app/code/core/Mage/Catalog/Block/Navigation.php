@@ -51,18 +51,6 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     protected $_currentChildCategories;
 
     /**
-     * Set cache data
-     */
-    protected function _construct()
-    {
-        $this->addData(['cache_lifetime' => false]);
-        $this->addCacheTag([
-            Mage_Catalog_Model_Category::CACHE_TAG,
-            Mage_Core_Model_Store_Group::CACHE_TAG,
-        ]);
-    }
-
-    /**
      * Get Key pieces for caching block content
      *
      * @return array
@@ -152,19 +140,6 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrieve category instance
-     *
-     * @return Mage_Catalog_Model_Category
-     */
-    protected function _getCategoryInstance()
-    {
-        if (is_null($this->_categoryInstance)) {
-            $this->_categoryInstance = Mage::getModel('catalog/category');
-        }
-        return $this->_categoryInstance;
-    }
-
-    /**
      * Get url for category data
      *
      * @param Mage_Catalog_Model_Category $category
@@ -181,6 +156,149 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         return $url;
+    }
+
+    /**
+     * Render category to html
+     *
+     * @deprecated deprecated after 1.4
+     * @param Mage_Catalog_Model_Category $category
+     * @param int $level Nesting level number
+     * @param bool $last Whether ot not this item is last, affects list item class
+     * @return string
+     */
+    public function drawItem($category, $level = 0, $last = false)
+    {
+        return $this->_renderCategoryMenuItemHtml($category, $level, $last);
+    }
+
+    /**
+     * @return Mage_Catalog_Model_Category|false
+     */
+    public function getCurrentCategory()
+    {
+        if (Mage::getSingleton('catalog/layer')) {
+            return Mage::getSingleton('catalog/layer')->getCurrentCategory();
+        }
+        return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCurrentCategoryPath()
+    {
+        if ($this->getCurrentCategory()) {
+            return explode(',', $this->getCurrentCategory()->getPathInStore());
+        }
+        return [];
+    }
+
+    /**
+     * @param Mage_Catalog_Model_Category $category
+     * @return string
+     */
+    public function drawOpenCategoryItem($category)
+    {
+        $html = '';
+        if (!$category->getIsActive()) {
+            return $html;
+        }
+
+        $html .= '<li';
+
+        if ($this->isCategoryActive($category)) {
+            $html .= ' class="active"';
+        }
+
+        $html .= '>' . "\n";
+        $html .= '<a href="' . $this->getCategoryUrl($category) . '">'
+            . '<span>' . $this->escapeHtml($category->getName()) . '</span></a>' . "\n";
+
+        if (in_array($category->getId(), $this->getCurrentCategoryPath())) {
+            $children = $category->getChildren();
+            $hasChildren = $children && $children->count();
+
+            if ($hasChildren) {
+                $htmlChildren = '';
+                foreach ($children as $child) {
+                    $htmlChildren .= $this->drawOpenCategoryItem($child);
+                }
+
+                if (!empty($htmlChildren)) {
+                    $html .= '<ul>' . "\n" . $htmlChildren . '</ul>';
+                }
+            }
+        }
+
+        return $html . ('</li>' . "\n");
+    }
+
+    /**
+     * Render categories menu in HTML
+     *
+     * @param int $level Level number for list item class to start from
+     * @param string $outermostItemClass Extra class of outermost list items
+     * @param string $childrenWrapClass If specified wraps children list in div with this class
+     * @return string
+     */
+    public function renderCategoriesMenuHtml($level = 0, $outermostItemClass = '', $childrenWrapClass = '')
+    {
+        $activeCategories = [];
+        foreach ($this->getStoreCategories() as $child) {
+            if ($child->getIsActive()) {
+                $activeCategories[] = $child;
+            }
+        }
+        $activeCategoriesCount = count($activeCategories);
+        $hasActiveCategoriesCount = ($activeCategoriesCount > 0);
+
+        if (!$hasActiveCategoriesCount) {
+            return '';
+        }
+
+        $html = '';
+        $j = 0;
+        foreach ($activeCategories as $category) {
+            $html .= $this->_renderCategoryMenuItemHtml(
+                $category,
+                $level,
+                ($j == $activeCategoriesCount - 1),
+                ($j == 0),
+                true,
+                $outermostItemClass,
+                $childrenWrapClass,
+                true,
+            );
+            $j++;
+        }
+
+        return $html;
+    }
+
+    /**
+     * Set cache data
+     */
+    protected function _construct()
+    {
+        $this->addData(['cache_lifetime' => false]);
+        $this->addCacheTag([
+            Mage_Catalog_Model_Category::CACHE_TAG,
+            Mage_Core_Model_Store_Group::CACHE_TAG,
+        ]);
+    }
+
+    /**
+     * Retrieve category instance
+     *
+     * @return Mage_Catalog_Model_Category
+     */
+    protected function _getCategoryInstance()
+    {
+        if (is_null($this->_categoryInstance)) {
+            $this->_categoryInstance = Mage::getModel('catalog/category');
+        }
+        return $this->_categoryInstance;
     }
 
     /**
@@ -334,123 +452,5 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
 
         $html[] = '</li>';
         return implode("\n", $html);
-    }
-
-    /**
-     * Render category to html
-     *
-     * @deprecated deprecated after 1.4
-     * @param Mage_Catalog_Model_Category $category
-     * @param int $level Nesting level number
-     * @param bool $last Whether ot not this item is last, affects list item class
-     * @return string
-     */
-    public function drawItem($category, $level = 0, $last = false)
-    {
-        return $this->_renderCategoryMenuItemHtml($category, $level, $last);
-    }
-
-    /**
-     * @return Mage_Catalog_Model_Category|false
-     */
-    public function getCurrentCategory()
-    {
-        if (Mage::getSingleton('catalog/layer')) {
-            return Mage::getSingleton('catalog/layer')->getCurrentCategory();
-        }
-        return false;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCurrentCategoryPath()
-    {
-        if ($this->getCurrentCategory()) {
-            return explode(',', $this->getCurrentCategory()->getPathInStore());
-        }
-        return [];
-    }
-
-    /**
-     * @param Mage_Catalog_Model_Category $category
-     * @return string
-     */
-    public function drawOpenCategoryItem($category)
-    {
-        $html = '';
-        if (!$category->getIsActive()) {
-            return $html;
-        }
-
-        $html .= '<li';
-
-        if ($this->isCategoryActive($category)) {
-            $html .= ' class="active"';
-        }
-
-        $html .= '>' . "\n";
-        $html .= '<a href="' . $this->getCategoryUrl($category) . '">'
-            . '<span>' . $this->escapeHtml($category->getName()) . '</span></a>' . "\n";
-
-        if (in_array($category->getId(), $this->getCurrentCategoryPath())) {
-            $children = $category->getChildren();
-            $hasChildren = $children && $children->count();
-
-            if ($hasChildren) {
-                $htmlChildren = '';
-                foreach ($children as $child) {
-                    $htmlChildren .= $this->drawOpenCategoryItem($child);
-                }
-
-                if (!empty($htmlChildren)) {
-                    $html .= '<ul>' . "\n" . $htmlChildren . '</ul>';
-                }
-            }
-        }
-
-        return $html . ('</li>' . "\n");
-    }
-
-    /**
-     * Render categories menu in HTML
-     *
-     * @param int $level Level number for list item class to start from
-     * @param string $outermostItemClass Extra class of outermost list items
-     * @param string $childrenWrapClass If specified wraps children list in div with this class
-     * @return string
-     */
-    public function renderCategoriesMenuHtml($level = 0, $outermostItemClass = '', $childrenWrapClass = '')
-    {
-        $activeCategories = [];
-        foreach ($this->getStoreCategories() as $child) {
-            if ($child->getIsActive()) {
-                $activeCategories[] = $child;
-            }
-        }
-        $activeCategoriesCount = count($activeCategories);
-        $hasActiveCategoriesCount = ($activeCategoriesCount > 0);
-
-        if (!$hasActiveCategoriesCount) {
-            return '';
-        }
-
-        $html = '';
-        $j = 0;
-        foreach ($activeCategories as $category) {
-            $html .= $this->_renderCategoryMenuItemHtml(
-                $category,
-                $level,
-                ($j == $activeCategoriesCount - 1),
-                ($j == 0),
-                true,
-                $outermostItemClass,
-                $childrenWrapClass,
-                true,
-            );
-            $j++;
-        }
-
-        return $html;
     }
 }

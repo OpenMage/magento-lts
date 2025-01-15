@@ -23,6 +23,16 @@
 class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
+     * Unset some non-related element parameters
+     *
+     * @return string
+     */
+    public function render(Varien_Data_Form_Element_Abstract $element)
+    {
+        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
+        return parent::render($element);
+    }
+    /**
      * Set template to itself
      *
      * @return $this
@@ -34,17 +44,6 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
             $this->setTemplate('customer/system/config/validatevat.phtml');
         }
         return $this;
-    }
-
-    /**
-     * Unset some non-related element parameters
-     *
-     * @return string
-     */
-    public function render(Varien_Data_Form_Element_Abstract $element)
-    {
-        $element->unsScope()->unsCanUseWebsiteValue()->unsCanUseDefaultValue();
-        return parent::render($element);
     }
 
     /**

@@ -205,6 +205,97 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * @param string $renderer
+     * @return $this
+     */
+    public function setRenderer($renderer)
+    {
+        $this->_renderer = $renderer;
+        return $this;
+    }
+
+    /**
+     * Retrieve column renderer
+     *
+     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+     */
+    public function getRenderer()
+    {
+        if (!$this->_renderer) {
+            $rendererClass = $this->getData('renderer');
+            if (!$rendererClass) {
+                $rendererClass = $this->_getRendererByType();
+            }
+            $this->_renderer = $this->getLayout()->createBlock($rendererClass)
+                ->setColumn($this);
+        }
+        return $this->_renderer;
+    }
+
+    /**
+     * @param string $filterClass
+     * @return void
+     */
+    public function setFilter($filterClass)
+    {
+        $this->_filter = $this->getLayout()->createBlock($filterClass)
+                ->setColumn($this);
+    }
+
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract|false
+     */
+    public function getFilter()
+    {
+        if (!$this->_filter) {
+            $filterClass = $this->getData('filter');
+            if ($filterClass === false) {
+                return false;
+            }
+            if (!$filterClass) {
+                $filterClass = $this->_getFilterByType();
+                if ($filterClass === false) {
+                    return false;
+                }
+            }
+            $this->_filter = $this->getLayout()->createBlock($filterClass)
+                ->setColumn($this);
+        }
+
+        return $this->_filter;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilterHtml()
+    {
+        if ($this->getFilter()) {
+            return $this->getFilter()->getHtml();
+        }
+
+        return '&nbsp;';
+    }
+
+    /**
+     * Retrieve Header Name for Export
+     *
+     * @return string
+     */
+    public function getExportHeader()
+    {
+        if ($this->getHeaderExport()) {
+            return $this->getHeaderExport();
+        }
+        return $this->getHeader();
+    }
+
+    public function getType(): string
+    {
+        return (string) $this->_getData('type');
+    }
+
+    /**
      * Decorate rendered cell value
      *
      * @param string $value
@@ -230,16 +321,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             return $this->_applyDecorators($value, $decorators);
         }
         return $value;
-    }
-
-    /**
-     * @param string $renderer
-     * @return $this
-     */
-    public function setRenderer($renderer)
-    {
-        $this->_renderer = $renderer;
-        return $this;
     }
 
     /**
@@ -317,34 +398,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Retrieve column renderer
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
-     */
-    public function getRenderer()
-    {
-        if (!$this->_renderer) {
-            $rendererClass = $this->getData('renderer');
-            if (!$rendererClass) {
-                $rendererClass = $this->_getRendererByType();
-            }
-            $this->_renderer = $this->getLayout()->createBlock($rendererClass)
-                ->setColumn($this);
-        }
-        return $this->_renderer;
-    }
-
-    /**
-     * @param string $filterClass
-     * @return void
-     */
-    public function setFilter($filterClass)
-    {
-        $this->_filter = $this->getLayout()->createBlock($filterClass)
-                ->setColumn($this);
-    }
-
-    /**
      * @return string
      */
     protected function _getFilterByType()
@@ -396,58 +449,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
                 break;
         }
         return $filterClass;
-    }
-
-    /**
-     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract|false
-     */
-    public function getFilter()
-    {
-        if (!$this->_filter) {
-            $filterClass = $this->getData('filter');
-            if ($filterClass === false) {
-                return false;
-            }
-            if (!$filterClass) {
-                $filterClass = $this->_getFilterByType();
-                if ($filterClass === false) {
-                    return false;
-                }
-            }
-            $this->_filter = $this->getLayout()->createBlock($filterClass)
-                ->setColumn($this);
-        }
-
-        return $this->_filter;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFilterHtml()
-    {
-        if ($this->getFilter()) {
-            return $this->getFilter()->getHtml();
-        }
-
-        return '&nbsp;';
-    }
-
-    /**
-     * Retrieve Header Name for Export
-     *
-     * @return string
-     */
-    public function getExportHeader()
-    {
-        if ($this->getHeaderExport()) {
-            return $this->getHeaderExport();
-        }
-        return $this->getHeader();
-    }
-
-    public function getType(): string
-    {
-        return (string) $this->_getData('type');
     }
 }

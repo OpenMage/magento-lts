@@ -36,11 +36,6 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
      */
     protected $_storeId          = null;
 
-    protected function _construct()
-    {
-        $this->_init('eav/attribute', 'attribute_id');
-    }
-
     /**
      * Set store id
      *
@@ -129,5 +124,10 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
             ->where('additional_table.used_for_sort_by = ?', 1);
 
         return $adapter->fetchAll($select);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('eav/attribute', 'attribute_id');
     }
 }

@@ -64,14 +64,6 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     protected $_taxHelper;
 
     /**
-     * Initialize resource
-     */
-    protected function _construct()
-    {
-        $this->_init('weee/tax', 'weee/tax');
-    }
-
-    /**
      * Initialize tax helper
      */
     public function __construct(array $args = [])
@@ -266,29 +258,6 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get discount percentage for a product
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @return int
-     */
-    protected function _getDiscountPercentForProduct($product)
-    {
-        $website = Mage::app()->getStore()->getWebsiteId();
-        $group = Mage::getSingleton('customer/session')->getCustomerGroupId();
-        $key = implode('-', [$website, $group, $product->getId()]);
-        if (!isset($this->_productDiscounts[$key])) {
-            $this->_productDiscounts[$key] = (int) $this->getResource()
-                ->getProductDiscountPercent($product->getId(), $website, $group);
-        }
-        $value = $this->_productDiscounts[$key];
-        if ($value) {
-            return 100 - min(100, max(0, $value));
-        } else {
-            return 0;
-        }
-    }
-
-    /**
      * Update discounts for FPT amounts of all products
      *
      * @return $this
@@ -309,5 +278,36 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     {
         $this->getResource()->updateProductsDiscountPercent($products);
         return $this;
+    }
+
+    /**
+     * Initialize resource
+     */
+    protected function _construct()
+    {
+        $this->_init('weee/tax', 'weee/tax');
+    }
+
+    /**
+     * Get discount percentage for a product
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return int
+     */
+    protected function _getDiscountPercentForProduct($product)
+    {
+        $website = Mage::app()->getStore()->getWebsiteId();
+        $group = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $key = implode('-', [$website, $group, $product->getId()]);
+        if (!isset($this->_productDiscounts[$key])) {
+            $this->_productDiscounts[$key] = (int) $this->getResource()
+                ->getProductDiscountPercent($product->getId(), $website, $group);
+        }
+        $value = $this->_productDiscounts[$key];
+        if ($value) {
+            return 100 - min(100, max(0, $value));
+        } else {
+            return 0;
+        }
     }
 }

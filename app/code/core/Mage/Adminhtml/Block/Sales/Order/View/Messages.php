@@ -22,11 +22,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Messages extends Mage_Adminhtml_Block_Messages
 {
-    protected function _getOrder()
-    {
-        return Mage::registry('sales_order');
-    }
-
     public function _prepareLayout()
     {
         /**
@@ -43,5 +38,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Messages extends Mage_Adminhtml_Bloc
         }
 
         return parent::_prepareLayout();
+    }
+    protected function _getOrder()
+    {
+        return Mage::registry('sales_order');
     }
 }

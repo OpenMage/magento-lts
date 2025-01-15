@@ -23,22 +23,6 @@
 class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Initialize Toolbar block
-     *
-     */
-    protected function _construct() {}
-
-    /**
-     * Retrieve helper
-     *
-     * @return Mage_AdminNotification_Helper_Data
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('adminnotification');
-    }
-
-    /**
      * Check is show toolbar
      *
      * @return bool
@@ -149,5 +133,20 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
             return $block->canShow();
         }
         return false;
+    }
+    /**
+     * Initialize Toolbar block
+     *
+     */
+    protected function _construct() {}
+
+    /**
+     * Retrieve helper
+     *
+     * @return Mage_AdminNotification_Helper_Data
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('adminnotification');
     }
 }

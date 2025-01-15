@@ -155,25 +155,6 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
     }
 
     /**
-     * Runs all checks.
-     *
-     * @param array $resource
-     * @param array $fields
-     */
-    protected function _dispatch(&$resource, $fields)
-    {
-        foreach ($fields as $name => $validator) {
-            if (is_string($validator) && strlen($validator) > 0 && array_key_exists($name, $resource)) {
-                $call = 'validate' . $validator;
-                $this->$call($resource[$name]);
-            }
-            if (is_array($validator)) {
-                $this->_dispatch($resource[$name], $validator);
-            }
-        }
-    }
-
-    /**
      * Validate variable, in case of fault loads default entity.
      *
      * @param string $var
@@ -271,5 +252,24 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
     public function validateUploadType(&$var)
     {
         $var = in_array($var, $this->_uploadTypes) ? $var : 'file';
+    }
+
+    /**
+     * Runs all checks.
+     *
+     * @param array $resource
+     * @param array $fields
+     */
+    protected function _dispatch(&$resource, $fields)
+    {
+        foreach ($fields as $name => $validator) {
+            if (is_string($validator) && strlen($validator) > 0 && array_key_exists($name, $resource)) {
+                $call = 'validate' . $validator;
+                $this->$call($resource[$name]);
+            }
+            if (is_array($validator)) {
+                $this->_dispatch($resource[$name], $validator);
+            }
+        }
     }
 }

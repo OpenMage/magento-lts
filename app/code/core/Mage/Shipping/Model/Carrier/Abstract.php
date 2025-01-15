@@ -29,6 +29,15 @@
  */
 abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 {
+    public const USA_COUNTRY_ID = 'US';
+    public const CANADA_COUNTRY_ID = 'CA';
+    public const MEXICO_COUNTRY_ID = 'MX';
+
+    public const HANDLING_TYPE_PERCENT = 'P';
+    public const HANDLING_TYPE_FIXED = 'F';
+
+    public const HANDLING_ACTION_PERPACKAGE = 'P';
+    public const HANDLING_ACTION_PERORDER = 'O';
     /**
      * Carrier's code
      *
@@ -70,16 +79,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * @var array
      */
     protected $_customizableContainerTypes = [];
-
-    public const USA_COUNTRY_ID = 'US';
-    public const CANADA_COUNTRY_ID = 'CA';
-    public const MEXICO_COUNTRY_ID = 'MX';
-
-    public const HANDLING_TYPE_PERCENT = 'P';
-    public const HANDLING_TYPE_FIXED = 'F';
-
-    public const HANDLING_ACTION_PERPACKAGE = 'P';
-    public const HANDLING_ACTION_PERORDER = 'O';
 
     /**
      * Fields that should be replaced in debug with '***'
@@ -171,58 +170,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     public function getContainerTypes(?Varien_Object $params = null)
     {
         return [];
-    }
-
-    /**
-     * Get allowed containers of carrier
-     *
-     * @return array|bool
-     */
-    protected function _getAllowedContainers(?Varien_Object $params = null)
-    {
-        $containersAll = $this->getContainerTypesAll();
-        if (empty($containersAll)) {
-            return [];
-        }
-        if (empty($params)) {
-            return $containersAll;
-        }
-        $containersFilter   = $this->getContainerTypesFilter();
-        $containersFiltered = [];
-        $method             = $params->getMethod();
-        $countryShipper     = $params->getCountryShipper();
-        $countryRecipient   = $params->getCountryRecipient();
-
-        if (empty($containersFilter)) {
-            return $containersAll;
-        }
-        if (!$params || !$method || !$countryShipper || !$countryRecipient) {
-            return $containersAll;
-        }
-
-        if ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID) {
-            $direction = 'within_us';
-        } elseif ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient != self::USA_COUNTRY_ID) {
-            $direction = 'from_us';
-        } else {
-            return $containersAll;
-        }
-
-        foreach ($containersFilter as $dataItem) {
-            $containers = $dataItem['containers'];
-            $filters = $dataItem['filters'];
-            if (!empty($filters[$direction]['method'])
-                && in_array($method, $filters[$direction]['method'])
-            ) {
-                foreach ($containers as $container) {
-                    if (!empty($containersAll[$container])) {
-                        $containersFiltered[$container] = $containersAll[$container];
-                    }
-                }
-            }
-        }
-
-        return !empty($containersFiltered) ? $containersFiltered : $containersAll;
     }
 
     /**
@@ -343,68 +290,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     }
 
     /**
-     * @param Mage_Shipping_Model_Rate_Request $request
-     */
-    protected function _updateFreeMethodQuote($request)
-    {
-        if ($request->getFreeMethodWeight() == $request->getPackageWeight() || !$request->hasFreeMethodWeight()) {
-            return;
-        }
-
-        $freeMethod = $this->getConfigData($this->_freeMethod);
-        if (!$freeMethod) {
-            return;
-        }
-        $freeRateId = false;
-
-        if (is_object($this->_result)) {
-            foreach ($this->_result->getAllRates() as $i => $item) {
-                if ($item->getMethod() == $freeMethod) {
-                    $freeRateId = $i;
-                    break;
-                }
-            }
-        }
-
-        if ($freeRateId === false) {
-            return;
-        }
-        $price = null;
-        if ($request->getFreeMethodWeight() > 0) {
-            $this->_setFreeMethodRequest($freeMethod);
-
-            $result = $this->_getQuotes();
-            if ($result && ($rates = $result->getAllRates()) && count($rates) > 0) {
-                if ((count($rates) == 1) && ($rates[0] instanceof Mage_Shipping_Model_Rate_Result_Method)) {
-                    $price = $rates[0]->getPrice();
-                }
-                if (count($rates) > 1) {
-                    foreach ($rates as $rate) {
-                        if ($rate instanceof Mage_Shipping_Model_Rate_Result_Method
-                            && $rate->getMethod() == $freeMethod
-                        ) {
-                            $price = $rate->getPrice();
-                        }
-                    }
-                }
-            }
-        } else {
-            /**
-             * if we can apply free shipping for all order we should force price
-             * to $0.00 for shipping with out sending second request to carrier
-             */
-            $price = 0;
-        }
-
-        /**
-         * if we did not get our free shipping method in response we must use its old price
-         */
-        if (!is_null($price)) {
-            $this->_result->getRateById($freeRateId)->setPrice($price);
-        }
-    }
-
-    /**
      * Calculate price considering free shipping and handling fee
      *
      * @param float $cost
@@ -441,40 +326,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         return $handlingAction == self::HANDLING_ACTION_PERPACKAGE
             ? $this->_getPerpackagePrice($cost, $handlingType, $handlingFee)
             : $this->_getPerorderPrice($cost, $handlingType, $handlingFee);
-    }
-
-    /**
-     * Get final price for shipping method with handling fee per package
-     *
-     * @param float $cost
-     * @param string $handlingType
-     * @param float $handlingFee
-     * @return float
-     */
-    protected function _getPerpackagePrice($cost, $handlingType, $handlingFee)
-    {
-        if ($handlingType == self::HANDLING_TYPE_PERCENT) {
-            return ($cost + ($cost * $handlingFee / 100)) * $this->_numBoxes;
-        }
-
-        return ($cost + $handlingFee) * $this->_numBoxes;
-    }
-
-    /**
-     * Get final price for shipping method with handling fee per order
-     *
-     * @param float $cost
-     * @param string $handlingType
-     * @param float $handlingFee
-     * @return float
-     */
-    protected function _getPerorderPrice($cost, $handlingType, $handlingFee)
-    {
-        if ($handlingType == self::HANDLING_TYPE_PERCENT) {
-            return ($cost * $this->_numBoxes) + ($cost * $this->_numBoxes * $handlingFee / 100);
-        }
-
-        return ($cost * $this->_numBoxes) + $handlingFee;
     }
 
     /**
@@ -541,20 +392,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     }
 
     /**
-     * Log debug data to file
-     *
-     * @param mixed $debugData
-     */
-    protected function _debug($debugData)
-    {
-        if ($this->getDebugFlag()) {
-            Mage::getModel('core/log_adapter', 'shipping_' . $this->getCarrierCode() . '.log')
-               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
-               ->log($debugData);
-        }
-    }
-
-    /**
      * Define if debugging is enabled
      *
      * @return bool
@@ -592,5 +429,167 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     public function getContentTypes(Varien_Object $params)
     {
         return [];
+    }
+
+    /**
+     * Get allowed containers of carrier
+     *
+     * @return array|bool
+     */
+    protected function _getAllowedContainers(?Varien_Object $params = null)
+    {
+        $containersAll = $this->getContainerTypesAll();
+        if (empty($containersAll)) {
+            return [];
+        }
+        if (empty($params)) {
+            return $containersAll;
+        }
+        $containersFilter   = $this->getContainerTypesFilter();
+        $containersFiltered = [];
+        $method             = $params->getMethod();
+        $countryShipper     = $params->getCountryShipper();
+        $countryRecipient   = $params->getCountryRecipient();
+
+        if (empty($containersFilter)) {
+            return $containersAll;
+        }
+        if (!$params || !$method || !$countryShipper || !$countryRecipient) {
+            return $containersAll;
+        }
+
+        if ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::USA_COUNTRY_ID) {
+            $direction = 'within_us';
+        } elseif ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient != self::USA_COUNTRY_ID) {
+            $direction = 'from_us';
+        } else {
+            return $containersAll;
+        }
+
+        foreach ($containersFilter as $dataItem) {
+            $containers = $dataItem['containers'];
+            $filters = $dataItem['filters'];
+            if (!empty($filters[$direction]['method'])
+                && in_array($method, $filters[$direction]['method'])
+            ) {
+                foreach ($containers as $container) {
+                    if (!empty($containersAll[$container])) {
+                        $containersFiltered[$container] = $containersAll[$container];
+                    }
+                }
+            }
+        }
+
+        return !empty($containersFiltered) ? $containersFiltered : $containersAll;
+    }
+
+    /**
+     * @param Mage_Shipping_Model_Rate_Request $request
+     */
+    protected function _updateFreeMethodQuote($request)
+    {
+        if ($request->getFreeMethodWeight() == $request->getPackageWeight() || !$request->hasFreeMethodWeight()) {
+            return;
+        }
+
+        $freeMethod = $this->getConfigData($this->_freeMethod);
+        if (!$freeMethod) {
+            return;
+        }
+        $freeRateId = false;
+
+        if (is_object($this->_result)) {
+            foreach ($this->_result->getAllRates() as $i => $item) {
+                if ($item->getMethod() == $freeMethod) {
+                    $freeRateId = $i;
+                    break;
+                }
+            }
+        }
+
+        if ($freeRateId === false) {
+            return;
+        }
+        $price = null;
+        if ($request->getFreeMethodWeight() > 0) {
+            $this->_setFreeMethodRequest($freeMethod);
+
+            $result = $this->_getQuotes();
+            if ($result && ($rates = $result->getAllRates()) && count($rates) > 0) {
+                if ((count($rates) == 1) && ($rates[0] instanceof Mage_Shipping_Model_Rate_Result_Method)) {
+                    $price = $rates[0]->getPrice();
+                }
+                if (count($rates) > 1) {
+                    foreach ($rates as $rate) {
+                        if ($rate instanceof Mage_Shipping_Model_Rate_Result_Method
+                            && $rate->getMethod() == $freeMethod
+                        ) {
+                            $price = $rate->getPrice();
+                        }
+                    }
+                }
+            }
+        } else {
+            /**
+             * if we can apply free shipping for all order we should force price
+             * to $0.00 for shipping with out sending second request to carrier
+             */
+            $price = 0;
+        }
+
+        /**
+         * if we did not get our free shipping method in response we must use its old price
+         */
+        if (!is_null($price)) {
+            $this->_result->getRateById($freeRateId)->setPrice($price);
+        }
+    }
+
+    /**
+     * Get final price for shipping method with handling fee per package
+     *
+     * @param float $cost
+     * @param string $handlingType
+     * @param float $handlingFee
+     * @return float
+     */
+    protected function _getPerpackagePrice($cost, $handlingType, $handlingFee)
+    {
+        if ($handlingType == self::HANDLING_TYPE_PERCENT) {
+            return ($cost + ($cost * $handlingFee / 100)) * $this->_numBoxes;
+        }
+
+        return ($cost + $handlingFee) * $this->_numBoxes;
+    }
+
+    /**
+     * Get final price for shipping method with handling fee per order
+     *
+     * @param float $cost
+     * @param string $handlingType
+     * @param float $handlingFee
+     * @return float
+     */
+    protected function _getPerorderPrice($cost, $handlingType, $handlingFee)
+    {
+        if ($handlingType == self::HANDLING_TYPE_PERCENT) {
+            return ($cost * $this->_numBoxes) + ($cost * $this->_numBoxes * $handlingFee / 100);
+        }
+
+        return ($cost * $this->_numBoxes) + $handlingFee;
+    }
+
+    /**
+     * Log debug data to file
+     *
+     * @param mixed $debugData
+     */
+    protected function _debug($debugData)
+    {
+        if ($this->getDebugFlag()) {
+            Mage::getModel('core/log_adapter', 'shipping_' . $this->getCarrierCode() . '.log')
+               ->setFilterDataKeys($this->_debugReplacePrivateDataKeys)
+               ->log($debugData);
+        }
     }
 }

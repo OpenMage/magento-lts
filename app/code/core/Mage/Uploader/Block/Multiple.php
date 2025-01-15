@@ -23,6 +23,16 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
     public const DEFAULT_UPLOAD_BUTTON_ID_SUFFIX = 'upload';
 
     /**
+     * Get upload button html
+     *
+     * @return string
+     */
+    public function getUploadButtonHtml()
+    {
+        return $this->getChildHtml('upload_button');
+    }
+
+    /**
      * @return $this
      */
     protected function _prepareLayout()
@@ -44,15 +54,5 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
         ]);
 
         return $this;
-    }
-
-    /**
-     * Get upload button html
-     *
-     * @return string
-     */
-    public function getUploadButtonHtml()
-    {
-        return $this->getChildHtml('upload_button');
     }
 }

@@ -159,38 +159,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
     }
 
     /**
-     * Adds url_path property for non-root category - to ensure that url path is not empty.
-     *
-     * Sometimes attribute 'url_path' can be empty, because url_path hasn't been generated yet,
-     * in this case category is loaded with empty url_path and we should generate it manually.
-     *
-     * @param Varien_Object|Mage_Catalog_Model_Category $category
-     */
-    protected function _addCategoryUrlPath($category)
-    {
-        if (!($category instanceof Varien_Object) || $category->getUrlPath()) {
-            return;
-        }
-
-        // This routine is not intended to be used with root categories,
-        // but handle 'em gracefully - ensure them to have empty path.
-        if ($category->getLevel() <= 1) {
-            $category->setUrlPath('');
-            return;
-        }
-
-        if (self::$_categoryForUrlPath === null) {
-            self::$_categoryForUrlPath = Mage::getModel('catalog/category');
-        }
-
-        // Generate url_path
-        $urlPath = self::$_categoryForUrlPath
-            ->setData($category->getData())
-            ->getUrlPath();
-        $category->setUrlPath($urlPath);
-    }
-
-    /**
      * Retrieve stores array or store model
      *
      * @param int|null $storeId
@@ -302,167 +270,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
         $this->refreshProductRewrites($storeId);
         $this->getResource()->clearCategoryProduct($storeId);
 
-        return $this;
-    }
-
-    /**
-     * Refresh category rewrite
-     *
-     * @param string $parentPath
-     * @param bool $refreshProducts
-     * @return $this
-     */
-    protected function _refreshCategoryRewrites(Varien_Object $category, $parentPath = null, $refreshProducts = true)
-    {
-        if ($category->getId() != $this->getStores($category->getStoreId())->getRootCategoryId()) {
-            $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
-            $urlKey = $category->getUrlKey() == '' ? $category->getName() : $category->getUrlKey();
-            $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($urlKey);
-
-            $idPath      = $this->generatePath('id', null, $category);
-            $targetPath  = $this->generatePath('target', null, $category);
-            $requestPath = $this->getCategoryRequestPath($category, $parentPath);
-
-            $rewriteData = [
-                'store_id'      => $category->getStoreId(),
-                'category_id'   => $category->getId(),
-                'product_id'    => null,
-                'id_path'       => $idPath,
-                'request_path'  => $requestPath,
-                'target_path'   => $targetPath,
-                'is_system'     => 1,
-            ];
-
-            $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
-
-            if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
-                $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
-            }
-
-            if ($category->getUrlKey() != $urlKey) {
-                $category->setUrlKey($urlKey);
-                $this->getResource()->saveCategoryAttribute($category, 'url_key');
-            }
-            if ($category->getUrlPath() != $requestPath) {
-                $category->setUrlPath($requestPath);
-                $this->getResource()->saveCategoryAttribute($category, 'url_path');
-            }
-        } else {
-            if ($category->getUrlPath() != '') {
-                $category->setUrlPath('');
-                $this->getResource()->saveCategoryAttribute($category, 'url_path');
-            }
-        }
-
-        if ($refreshProducts) {
-            $this->_refreshCategoryProductRewrites($category);
-        }
-
-        foreach ($category->getChilds() as $child) {
-            $this->_refreshCategoryRewrites($child, $category->getUrlPath() . '/', $refreshProducts);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Refresh product rewrite
-     *
-     * @return $this
-     * @throws Mage_Core_Exception
-     */
-    protected function _refreshProductRewrite(Varien_Object $product, Varien_Object $category)
-    {
-        if ($category->getId() == $category->getPath()) {
-            return $this;
-        }
-
-        $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
-        $urlKey = $product->getUrlKey() == '' ? $product->getName() : $product->getUrlKey();
-        $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($urlKey);
-
-        $idPath      = $this->generatePath('id', $product, $category);
-        $targetPath  = $this->generatePath('target', $product, $category);
-        $requestPath = $this->getProductRequestPath($product, $category);
-
-        $categoryId = null;
-        $updateKeys = true;
-        if ($category->getLevel() > 1) {
-            $categoryId = $category->getId();
-            $updateKeys = false;
-        }
-
-        $rewriteData = [
-            'store_id'      => $category->getStoreId(),
-            'category_id'   => $categoryId,
-            'product_id'    => $product->getId(),
-            'id_path'       => $idPath,
-            'request_path'  => $requestPath,
-            'target_path'   => $targetPath,
-            'is_system'     => 1,
-        ];
-
-        $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
-
-        if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
-            $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
-        }
-
-        if ($updateKeys && $product->getUrlKey() != $urlKey) {
-            $product->setUrlKey($urlKey);
-            $this->getResource()->saveProductAttribute($product, 'url_key');
-        }
-        if ($updateKeys && $product->getUrlPath() != $requestPath) {
-            $product->setUrlPath($requestPath);
-            $this->getResource()->saveProductAttribute($product, 'url_path');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Refresh products for category
-     *
-     * @return $this
-     */
-    protected function _refreshCategoryProductRewrites(Varien_Object $category)
-    {
-        $originalRewrites = $this->_rewrites;
-        $process = true;
-        $lastEntityId = 0;
-        $firstIteration = true;
-        while ($process == true) {
-            $products = $this->getResource()->getProductsByCategory($category, $lastEntityId);
-            if (!$products) {
-                if ($firstIteration) {
-                    $this->getResource()->deleteCategoryProductStoreRewrites(
-                        $category->getId(),
-                        [],
-                        $category->getStoreId(),
-                    );
-                }
-                $process = false;
-                break;
-            }
-
-            // Prepare rewrites for generation
-            $rootCategory = $this->getStoreRootCategory($category->getStoreId());
-            $categoryIds = [$category->getId(), $rootCategory->getId()];
-            $this->_rewrites = $this->getResource()->prepareRewrites(
-                $category->getStoreId(),
-                $categoryIds,
-                array_keys($products),
-            );
-
-            foreach ($products as $product) {
-                // Product always must have rewrite in root category
-                $this->_refreshProductRewrite($product, $rootCategory);
-                $this->_refreshProductRewrite($product, $category);
-            }
-            $firstIteration = false;
-            unset($products);
-        }
-        $this->_rewrites = $originalRewrites;
         return $this;
     }
 
@@ -792,25 +599,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
     }
 
     /**
-     * Check if current generated request path is one of the old paths
-     *
-     * @param string $requestPath
-     * @param string $idPath
-     * @param int $storeId
-     * @return bool
-     */
-    protected function _deleteOldTargetPath($requestPath, $idPath, $storeId)
-    {
-        $finalOldTargetPath = $this->getResource()->findFinalTargetPath($requestPath, $storeId);
-        if ($finalOldTargetPath && $finalOldTargetPath == $idPath) {
-            $this->getResource()->deleteRewriteRecord($requestPath, $storeId, true);
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Get unique product request path
      *
      * @param Varien_Object|Mage_Catalog_Model_Product $product
@@ -1013,28 +801,6 @@ class Mage_Catalog_Model_Url extends Varien_Object
     }
 
     /**
-     * Create Custom URL Rewrite for old product/category URL after url_key changed
-     * It will perform permanent redirect from old URL to new URL
-     *
-     * @param array $rewriteData New rewrite data
-     * @param Varien_Object $rewrite Rewrite model
-     * @return $this
-     */
-    protected function _saveRewriteHistory($rewriteData, $rewrite)
-    {
-        if ($rewrite instanceof Varien_Object && $rewrite->getId()) {
-            $rewriteData['target_path'] = $rewriteData['request_path'];
-            $rewriteData['request_path'] = $rewrite->getRequestPath();
-            $rewriteData['id_path'] = $this->generateUniqueIdPath();
-            $rewriteData['is_system'] = 0;
-            $rewriteData['options'] = 'RP'; // Redirect = Permanent
-            $this->getResource()->saveRewriteHistory($rewriteData);
-        }
-
-        return $this;
-    }
-
-    /**
      * Format Key for URL
      *
      * @param string $str
@@ -1091,6 +857,240 @@ class Mage_Catalog_Model_Url extends Varien_Object
     public function setLocale(?string $locale)
     {
         $this->locale = $locale;
+        return $this;
+    }
+
+    /**
+     * Adds url_path property for non-root category - to ensure that url path is not empty.
+     *
+     * Sometimes attribute 'url_path' can be empty, because url_path hasn't been generated yet,
+     * in this case category is loaded with empty url_path and we should generate it manually.
+     *
+     * @param Varien_Object|Mage_Catalog_Model_Category $category
+     */
+    protected function _addCategoryUrlPath($category)
+    {
+        if (!($category instanceof Varien_Object) || $category->getUrlPath()) {
+            return;
+        }
+
+        // This routine is not intended to be used with root categories,
+        // but handle 'em gracefully - ensure them to have empty path.
+        if ($category->getLevel() <= 1) {
+            $category->setUrlPath('');
+            return;
+        }
+
+        if (self::$_categoryForUrlPath === null) {
+            self::$_categoryForUrlPath = Mage::getModel('catalog/category');
+        }
+
+        // Generate url_path
+        $urlPath = self::$_categoryForUrlPath
+            ->setData($category->getData())
+            ->getUrlPath();
+        $category->setUrlPath($urlPath);
+    }
+
+    /**
+     * Refresh category rewrite
+     *
+     * @param string $parentPath
+     * @param bool $refreshProducts
+     * @return $this
+     */
+    protected function _refreshCategoryRewrites(Varien_Object $category, $parentPath = null, $refreshProducts = true)
+    {
+        if ($category->getId() != $this->getStores($category->getStoreId())->getRootCategoryId()) {
+            $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
+            $urlKey = $category->getUrlKey() == '' ? $category->getName() : $category->getUrlKey();
+            $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($urlKey);
+
+            $idPath      = $this->generatePath('id', null, $category);
+            $targetPath  = $this->generatePath('target', null, $category);
+            $requestPath = $this->getCategoryRequestPath($category, $parentPath);
+
+            $rewriteData = [
+                'store_id'      => $category->getStoreId(),
+                'category_id'   => $category->getId(),
+                'product_id'    => null,
+                'id_path'       => $idPath,
+                'request_path'  => $requestPath,
+                'target_path'   => $targetPath,
+                'is_system'     => 1,
+            ];
+
+            $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
+
+            if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
+                $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
+            }
+
+            if ($category->getUrlKey() != $urlKey) {
+                $category->setUrlKey($urlKey);
+                $this->getResource()->saveCategoryAttribute($category, 'url_key');
+            }
+            if ($category->getUrlPath() != $requestPath) {
+                $category->setUrlPath($requestPath);
+                $this->getResource()->saveCategoryAttribute($category, 'url_path');
+            }
+        } else {
+            if ($category->getUrlPath() != '') {
+                $category->setUrlPath('');
+                $this->getResource()->saveCategoryAttribute($category, 'url_path');
+            }
+        }
+
+        if ($refreshProducts) {
+            $this->_refreshCategoryProductRewrites($category);
+        }
+
+        foreach ($category->getChilds() as $child) {
+            $this->_refreshCategoryRewrites($child, $category->getUrlPath() . '/', $refreshProducts);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Refresh product rewrite
+     *
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    protected function _refreshProductRewrite(Varien_Object $product, Varien_Object $category)
+    {
+        if ($category->getId() == $category->getPath()) {
+            return $this;
+        }
+
+        $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
+        $urlKey = $product->getUrlKey() == '' ? $product->getName() : $product->getUrlKey();
+        $urlKey = $this->getProductModel()->setLocale($locale)->formatUrlKey($urlKey);
+
+        $idPath      = $this->generatePath('id', $product, $category);
+        $targetPath  = $this->generatePath('target', $product, $category);
+        $requestPath = $this->getProductRequestPath($product, $category);
+
+        $categoryId = null;
+        $updateKeys = true;
+        if ($category->getLevel() > 1) {
+            $categoryId = $category->getId();
+            $updateKeys = false;
+        }
+
+        $rewriteData = [
+            'store_id'      => $category->getStoreId(),
+            'category_id'   => $categoryId,
+            'product_id'    => $product->getId(),
+            'id_path'       => $idPath,
+            'request_path'  => $requestPath,
+            'target_path'   => $targetPath,
+            'is_system'     => 1,
+        ];
+
+        $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
+
+        if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
+            $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
+        }
+
+        if ($updateKeys && $product->getUrlKey() != $urlKey) {
+            $product->setUrlKey($urlKey);
+            $this->getResource()->saveProductAttribute($product, 'url_key');
+        }
+        if ($updateKeys && $product->getUrlPath() != $requestPath) {
+            $product->setUrlPath($requestPath);
+            $this->getResource()->saveProductAttribute($product, 'url_path');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Refresh products for category
+     *
+     * @return $this
+     */
+    protected function _refreshCategoryProductRewrites(Varien_Object $category)
+    {
+        $originalRewrites = $this->_rewrites;
+        $process = true;
+        $lastEntityId = 0;
+        $firstIteration = true;
+        while ($process == true) {
+            $products = $this->getResource()->getProductsByCategory($category, $lastEntityId);
+            if (!$products) {
+                if ($firstIteration) {
+                    $this->getResource()->deleteCategoryProductStoreRewrites(
+                        $category->getId(),
+                        [],
+                        $category->getStoreId(),
+                    );
+                }
+                $process = false;
+                break;
+            }
+
+            // Prepare rewrites for generation
+            $rootCategory = $this->getStoreRootCategory($category->getStoreId());
+            $categoryIds = [$category->getId(), $rootCategory->getId()];
+            $this->_rewrites = $this->getResource()->prepareRewrites(
+                $category->getStoreId(),
+                $categoryIds,
+                array_keys($products),
+            );
+
+            foreach ($products as $product) {
+                // Product always must have rewrite in root category
+                $this->_refreshProductRewrite($product, $rootCategory);
+                $this->_refreshProductRewrite($product, $category);
+            }
+            $firstIteration = false;
+            unset($products);
+        }
+        $this->_rewrites = $originalRewrites;
+        return $this;
+    }
+
+    /**
+     * Check if current generated request path is one of the old paths
+     *
+     * @param string $requestPath
+     * @param string $idPath
+     * @param int $storeId
+     * @return bool
+     */
+    protected function _deleteOldTargetPath($requestPath, $idPath, $storeId)
+    {
+        $finalOldTargetPath = $this->getResource()->findFinalTargetPath($requestPath, $storeId);
+        if ($finalOldTargetPath && $finalOldTargetPath == $idPath) {
+            $this->getResource()->deleteRewriteRecord($requestPath, $storeId, true);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Create Custom URL Rewrite for old product/category URL after url_key changed
+     * It will perform permanent redirect from old URL to new URL
+     *
+     * @param array $rewriteData New rewrite data
+     * @param Varien_Object $rewrite Rewrite model
+     * @return $this
+     */
+    protected function _saveRewriteHistory($rewriteData, $rewrite)
+    {
+        if ($rewrite instanceof Varien_Object && $rewrite->getId()) {
+            $rewriteData['target_path'] = $rewriteData['request_path'];
+            $rewriteData['request_path'] = $rewrite->getRequestPath();
+            $rewriteData['id_path'] = $this->generateUniqueIdPath();
+            $rewriteData['is_system'] = 0;
+            $rewriteData['options'] = 'RP'; // Redirect = Permanent
+            $this->getResource()->saveRewriteHistory($rewriteData);
+        }
+
         return $this;
     }
 }

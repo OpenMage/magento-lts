@@ -33,53 +33,6 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
     }
 
     /**
-     * Prepare collection
-     *
-     * @return $this
-     */
-    protected function _prepareCollection()
-    {
-        /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
-        $collection = Mage::getModel('api2/acl_global_role')->getCollection();
-        $this->setCollection($collection);
-        parent::_prepareCollection();
-        return $this;
-    }
-
-    /**
-     * Prepare columns
-     *
-     * @return $this
-     */
-    protected function _prepareColumns()
-    {
-        $this->addColumn('entity_id', [
-            'header' => Mage::helper('oauth')->__('ID'),
-            'index'  => 'entity_id',
-        ]);
-
-        $this->addColumn('role_name', [
-            'header' => Mage::helper('oauth')->__('Role Name'),
-            'index'  => 'role_name',
-            'escape' => true,
-        ]);
-
-        $this->addColumn('tole_user_type', [
-            'header'         => Mage::helper('oauth')->__('User Type'),
-            'sortable'       => false,
-            'frame_callback' => [$this, 'decorateUserType'],
-        ]);
-
-        $this->addColumn('created_at', [
-            'header' => Mage::helper('oauth')->__('Created At'),
-            'index'  => 'created_at',
-        ]);
-
-        parent::_prepareColumns();
-        return $this;
-    }
-
-    /**
      * Get grid URL
      *
      * @return string
@@ -129,5 +82,52 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
                 break;
         }
         return $userType;
+    }
+
+    /**
+     * Prepare collection
+     *
+     * @return $this
+     */
+    protected function _prepareCollection()
+    {
+        /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
+        $collection = Mage::getModel('api2/acl_global_role')->getCollection();
+        $this->setCollection($collection);
+        parent::_prepareCollection();
+        return $this;
+    }
+
+    /**
+     * Prepare columns
+     *
+     * @return $this
+     */
+    protected function _prepareColumns()
+    {
+        $this->addColumn('entity_id', [
+            'header' => Mage::helper('oauth')->__('ID'),
+            'index'  => 'entity_id',
+        ]);
+
+        $this->addColumn('role_name', [
+            'header' => Mage::helper('oauth')->__('Role Name'),
+            'index'  => 'role_name',
+            'escape' => true,
+        ]);
+
+        $this->addColumn('tole_user_type', [
+            'header'         => Mage::helper('oauth')->__('User Type'),
+            'sortable'       => false,
+            'frame_callback' => [$this, 'decorateUserType'],
+        ]);
+
+        $this->addColumn('created_at', [
+            'header' => Mage::helper('oauth')->__('Created At'),
+            'index'  => 'created_at',
+        ]);
+
+        parent::_prepareColumns();
+        return $this;
     }
 }

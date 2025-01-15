@@ -32,22 +32,6 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     protected $_order = null;
 
     /**
-     * Initialize self totals and children blocks totals before html building
-     *
-     * @inheritDoc
-     */
-    protected function _beforeToHtml()
-    {
-        $this->_initTotals();
-        foreach ($this->getChild() as $child) {
-            if (method_exists($child, 'initTotals')) {
-                $child->initTotals();
-            }
-        }
-        return parent::_beforeToHtml();
-    }
-
-    /**
      * Get order object
      *
      * @return Mage_Sales_Model_Order
@@ -84,73 +68,6 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     public function getSource()
     {
         return $this->getOrder();
-    }
-
-    /**
-     * Initialize order totals array
-     *
-     * @return $this
-     */
-    protected function _initTotals()
-    {
-        $source = $this->getSource();
-
-        $this->_totals = [];
-        $this->_totals['subtotal'] = new Varien_Object([
-            'code'  => 'subtotal',
-            'value' => $source->getSubtotal(),
-            'label' => $this->__('Subtotal'),
-        ]);
-
-        /**
-         * Add shipping
-         */
-        if (!$source->getIsVirtual() && ((float) $source->getShippingAmount() || $source->getShippingDescription())) {
-            $this->_totals['shipping'] = new Varien_Object([
-                'code'  => 'shipping',
-                'field' => 'shipping_amount',
-                'value' => $this->getSource()->getShippingAmount(),
-                'label' => $this->__('Shipping & Handling'),
-            ]);
-        }
-
-        /**
-         * Add discount
-         */
-        if ((float) $this->getSource()->getDiscountAmount() != 0) {
-            if ($this->getSource()->getDiscountDescription()) {
-                $discountLabel = $this->__('Discount (%s)', $source->getDiscountDescription());
-            } else {
-                $discountLabel = $this->__('Discount');
-            }
-            $this->_totals['discount'] = new Varien_Object([
-                'code'  => 'discount',
-                'field' => 'discount_amount',
-                'value' => $source->getDiscountAmount(),
-                'label' => $discountLabel,
-            ]);
-        }
-
-        $this->_totals['grand_total'] = new Varien_Object([
-            'code'  => 'grand_total',
-            'field'  => 'grand_total',
-            'strong' => true,
-            'value' => $source->getGrandTotal(),
-            'label' => $this->__('Grand Total'),
-        ]);
-
-        /**
-         * Base grandtotal
-         */
-        if ($this->getOrder()->isCurrencyDifferent()) {
-            $this->_totals['base_grandtotal'] = new Varien_Object([
-                'code'  => 'base_grandtotal',
-                'value' => $this->getOrder()->formatBasePrice($source->getBaseGrandTotal()),
-                'label' => $this->__('Grand Total to be Charged'),
-                'is_formated' => true,
-            ]);
-        }
-        return $this;
     }
 
     /**
@@ -301,5 +218,88 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
             return $this->getOrder()->formatPrice($total->getValue());
         }
         return $total->getValue();
+    }
+
+    /**
+     * Initialize self totals and children blocks totals before html building
+     *
+     * @inheritDoc
+     */
+    protected function _beforeToHtml()
+    {
+        $this->_initTotals();
+        foreach ($this->getChild() as $child) {
+            if (method_exists($child, 'initTotals')) {
+                $child->initTotals();
+            }
+        }
+        return parent::_beforeToHtml();
+    }
+
+    /**
+     * Initialize order totals array
+     *
+     * @return $this
+     */
+    protected function _initTotals()
+    {
+        $source = $this->getSource();
+
+        $this->_totals = [];
+        $this->_totals['subtotal'] = new Varien_Object([
+            'code'  => 'subtotal',
+            'value' => $source->getSubtotal(),
+            'label' => $this->__('Subtotal'),
+        ]);
+
+        /**
+         * Add shipping
+         */
+        if (!$source->getIsVirtual() && ((float) $source->getShippingAmount() || $source->getShippingDescription())) {
+            $this->_totals['shipping'] = new Varien_Object([
+                'code'  => 'shipping',
+                'field' => 'shipping_amount',
+                'value' => $this->getSource()->getShippingAmount(),
+                'label' => $this->__('Shipping & Handling'),
+            ]);
+        }
+
+        /**
+         * Add discount
+         */
+        if ((float) $this->getSource()->getDiscountAmount() != 0) {
+            if ($this->getSource()->getDiscountDescription()) {
+                $discountLabel = $this->__('Discount (%s)', $source->getDiscountDescription());
+            } else {
+                $discountLabel = $this->__('Discount');
+            }
+            $this->_totals['discount'] = new Varien_Object([
+                'code'  => 'discount',
+                'field' => 'discount_amount',
+                'value' => $source->getDiscountAmount(),
+                'label' => $discountLabel,
+            ]);
+        }
+
+        $this->_totals['grand_total'] = new Varien_Object([
+            'code'  => 'grand_total',
+            'field'  => 'grand_total',
+            'strong' => true,
+            'value' => $source->getGrandTotal(),
+            'label' => $this->__('Grand Total'),
+        ]);
+
+        /**
+         * Base grandtotal
+         */
+        if ($this->getOrder()->isCurrencyDifferent()) {
+            $this->_totals['base_grandtotal'] = new Varien_Object([
+                'code'  => 'base_grandtotal',
+                'value' => $this->getOrder()->formatBasePrice($source->getBaseGrandTotal()),
+                'label' => $this->__('Grand Total to be Charged'),
+                'is_formated' => true,
+            ]);
+        }
+        return $this;
     }
 }

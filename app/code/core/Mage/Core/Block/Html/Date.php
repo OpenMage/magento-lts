@@ -41,6 +41,26 @@
 class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
 {
     /**
+     * @param null $index deprecated
+     * @return string
+     */
+    public function getEscapedValue($index = null)
+    {
+        if ($this->getFormat() && $this->getValue()) {
+            return strftime($this->getFormat(), strtotime($this->getValue()));
+        }
+
+        return htmlspecialchars($this->getValue());
+    }
+
+    /**
+     * @return string
+     */
+    public function getHtml()
+    {
+        return $this->toHtml();
+    }
+    /**
      * @return string
      */
     protected function _toHtml()
@@ -76,26 +96,5 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
             Calendar.setup(calendarSetupObject);
         //]]>
         </script>';
-    }
-
-    /**
-     * @param null $index deprecated
-     * @return string
-     */
-    public function getEscapedValue($index = null)
-    {
-        if ($this->getFormat() && $this->getValue()) {
-            return strftime($this->getFormat(), strtotime($this->getValue()));
-        }
-
-        return htmlspecialchars($this->getValue());
-    }
-
-    /**
-     * @return string
-     */
-    public function getHtml()
-    {
-        return $this->toHtml();
     }
 }

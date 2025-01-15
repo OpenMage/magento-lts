@@ -113,17 +113,6 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     }
 
     /**
-     * Get shipping tax amount
-     *
-     * @return float
-     */
-    protected function _getShippingTaxAmount()
-    {
-        $quote = $this->getCustomQuote() ?: $this->getQuote();
-        return $quote->getShippingAddress()->getShippingTaxAmount();
-    }
-
-    /**
      * Get incl/excl tax label
      *
      * @param bool $flag
@@ -211,20 +200,6 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     }
 
     /**
-     * Serialize renders
-     *
-     * @return string
-     */
-    protected function _serializeRenders()
-    {
-        $result = [];
-        foreach ($this->_itemRenders as $type => $renderer) {
-            $result[] = implode('|', [$type, $renderer['block'], $renderer['template']]);
-        }
-        return implode('|', $result);
-    }
-
-    /**
      * Deserialize renders from string
      *
      * @param string $renders
@@ -270,6 +245,31 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             (!$quoteTags) ? [] : $quoteTags,
             $this->getItemsTags($items),
         );
+    }
+
+    /**
+     * Get shipping tax amount
+     *
+     * @return float
+     */
+    protected function _getShippingTaxAmount()
+    {
+        $quote = $this->getCustomQuote() ?: $this->getQuote();
+        return $quote->getShippingAddress()->getShippingTaxAmount();
+    }
+
+    /**
+     * Serialize renders
+     *
+     * @return string
+     */
+    protected function _serializeRenders()
+    {
+        $result = [];
+        foreach ($this->_itemRenders as $type => $renderer) {
+            $result[] = implode('|', [$type, $renderer['block'], $renderer['template']]);
+        }
+        return implode('|', $result);
     }
 
     /**

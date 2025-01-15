@@ -162,23 +162,6 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retrieve HTTP "clean" value
-     *
-     * @param string $var
-     * @param bool $clean clean non UTF-8 characters
-     * @return string
-     */
-    protected function _getHttpCleanValue($var, $clean = true)
-    {
-        $value = $this->_getRequest()->getServer($var, '');
-        if ($clean) {
-            $value = Mage::helper('core/string')->cleanString($value);
-        }
-
-        return $value;
-    }
-
-    /**
      * Retrieve HTTP HOST
      *
      * @param bool $clean clean non UTF-8 characters
@@ -258,5 +241,22 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
     public function validateIpAddr($address)
     {
         return preg_match('#^(1?\d{1,2}|2([0-4]\d|5[0-5]))(\.(1?\d{1,2}|2([0-4]\d|5[0-5]))){3}$#', $address);
+    }
+
+    /**
+     * Retrieve HTTP "clean" value
+     *
+     * @param string $var
+     * @param bool $clean clean non UTF-8 characters
+     * @return string
+     */
+    protected function _getHttpCleanValue($var, $clean = true)
+    {
+        $value = $this->_getRequest()->getServer($var, '');
+        if ($clean) {
+            $value = Mage::helper('core/string')->cleanString($value);
+        }
+
+        return $value;
     }
 }

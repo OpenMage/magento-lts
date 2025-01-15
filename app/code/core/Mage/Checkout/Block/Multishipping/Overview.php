@@ -23,19 +23,6 @@
 class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_Abstract
 {
     /**
-     * Initialize default item renderer for row-level items output
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->addItemRender(
-            $this->_getRowItemType('default'),
-            'checkout/cart_item_renderer',
-            'checkout/multishipping/overview/item.phtml',
-        );
-    }
-
-    /**
      * Get multishipping checkout model
      *
      * @return Mage_Checkout_Model_Type_Multishipping
@@ -43,19 +30,6 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     public function getCheckout()
     {
         return Mage::getSingleton('checkout/type_multishipping');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
-            $headBlock->setTitle(
-                $this->__('Review Order - %s', $headBlock->getDefaultTitle()),
-            );
-        }
-        return parent::_prepareLayout();
     }
 
     /**
@@ -349,6 +323,31 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         $type = $this->_getRowItemType($type);
         $type = isset($this->_itemRenders[$type]) ? $type : $this->_getRowItemType('default');
         return parent::getItemRenderer($type);
+    }
+    /**
+     * Initialize default item renderer for row-level items output
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->addItemRender(
+            $this->_getRowItemType('default'),
+            'checkout/cart_item_renderer',
+            'checkout/multishipping/overview/item.phtml',
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        if ($headBlock = $this->getLayout()->getBlock('head')) {
+            $headBlock->setTitle(
+                $this->__('Review Order - %s', $headBlock->getDefaultTitle()),
+            );
+        }
+        return parent::_prepareLayout();
     }
 
     /**

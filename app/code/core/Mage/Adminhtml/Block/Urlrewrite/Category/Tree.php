@@ -96,6 +96,16 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     }
 
     /**
+     * Get URL for categories tree ajax loader
+     *
+     * @return string
+     */
+    public function getLoadTreeUrl()
+    {
+        return Mage::helper('adminhtml')->getUrl('*/*/categoriesJson');
+    }
+
+    /**
      * Convert categories tree to array recursively
      *
      * @param  Varien_Data_Tree_Node $node
@@ -127,15 +137,5 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
         $result['expanded'] = (!empty($result['children']));
 
         return $result;
-    }
-
-    /**
-     * Get URL for categories tree ajax loader
-     *
-     * @return string
-     */
-    public function getLoadTreeUrl()
-    {
-        return Mage::helper('adminhtml')->getUrl('*/*/categoriesJson');
     }
 }

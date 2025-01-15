@@ -191,112 +191,6 @@ class Mage_CatalogInventory_Model_Observer
     }
 
     /**
-     * Prepare stock item data for save
-     *
-     * @param Mage_CatalogInventory_Model_Stock_Item $item
-     * @param Mage_Catalog_Model_Product $product
-     * @return $this
-     */
-    protected function _prepareItemForSave($item, $product)
-    {
-        $item->addData($product->getStockData())
-            ->setProduct($product)
-            ->setProductId($product->getId())
-            ->setStockId($item->getStockId());
-        if (!is_null($product->getData('stock_data/min_qty'))
-            && is_null($product->getData('stock_data/use_config_min_qty'))
-        ) {
-            $item->setData('use_config_min_qty', false);
-        }
-        if (!is_null($product->getData('stock_data/min_sale_qty'))
-            && is_null($product->getData('stock_data/use_config_min_sale_qty'))
-        ) {
-            $item->setData('use_config_min_sale_qty', false);
-        }
-        if (!is_null($product->getData('stock_data/max_sale_qty'))
-            && is_null($product->getData('stock_data/use_config_max_sale_qty'))
-        ) {
-            $item->setData('use_config_max_sale_qty', false);
-        }
-        if (!is_null($product->getData('stock_data/backorders'))
-            && is_null($product->getData('stock_data/use_config_backorders'))
-        ) {
-            $item->setData('use_config_backorders', false);
-        }
-        if (!is_null($product->getData('stock_data/notify_stock_qty'))
-            && is_null($product->getData('stock_data/use_config_notify_stock_qty'))
-        ) {
-            $item->setData('use_config_notify_stock_qty', false);
-        }
-        $originalQty = $product->getData('stock_data/original_inventory_qty');
-        if (is_numeric($originalQty)) {
-            $item->setQtyCorrection($item->getQty() - $originalQty);
-        }
-        if (!is_null($product->getData('stock_data/enable_qty_increments'))
-            && is_null($product->getData('stock_data/use_config_enable_qty_inc'))
-        ) {
-            $item->setData('use_config_enable_qty_inc', false);
-        }
-        if (!is_null($product->getData('stock_data/qty_increments'))
-            && is_null($product->getData('stock_data/use_config_qty_increments'))
-        ) {
-            $item->setData('use_config_qty_increments', false);
-        }
-        return $this;
-    }
-
-    /**
-     * Removes error statuses from quote and item, set by this observer
-     *
-     * @param Mage_Sales_Model_Quote_Item $item
-     * @param int $code
-     * @return $this
-     */
-    protected function _removeErrorsFromQuoteAndItem($item, $code)
-    {
-        if ($item->getHasError()) {
-            $params = [
-                'origin' => 'cataloginventory',
-                'code' => $code,
-            ];
-            $item->removeErrorInfosByParams($params);
-        }
-
-        $quote = $item->getQuote();
-        $quoteItems = $quote->getItemsCollection();
-        $canRemoveErrorFromQuote = true;
-
-        /** @var Mage_Sales_Model_Quote_Item $quoteItem */
-        foreach ($quoteItems as $quoteItemId => $quoteItem) {
-            if ($quoteItemId == $item->getItemId()) {
-                continue;
-            }
-
-            $errorInfos = $quoteItem->getErrorInfos();
-            foreach ($errorInfos as $errorInfo) {
-                if ($errorInfo['code'] == $code) {
-                    $canRemoveErrorFromQuote = false;
-                    break;
-                }
-            }
-
-            if (!$canRemoveErrorFromQuote) {
-                break;
-            }
-        }
-
-        if ($quote->getHasError() && $canRemoveErrorFromQuote) {
-            $params = [
-                'origin' => 'cataloginventory',
-                'code' => $code,
-            ];
-            $quote->removeErrorInfosByParams(null, $params);
-        }
-
-        return $this;
-    }
-
-    /**
      * Check product inventory data when quote item quantity declaring
      *
      * @param  Varien_Event_Observer $observer
@@ -560,49 +454,6 @@ class Mage_CatalogInventory_Model_Observer
     }
 
     /**
-     * Get product qty includes information from all quote items
-     * Need be used only in sungleton mode
-     *
-     * @param int $productId
-     * @param float $itemQty
-     * @return float|mixed
-     * @deprecated after 1.4.2.0-rc1
-     */
-    protected function _getProductQtyForCheck($productId, $itemQty)
-    {
-        $qty = $itemQty;
-        if (isset($this->_checkedProductsQty[$productId])) {
-            $qty += $this->_checkedProductsQty[$productId];
-        }
-        $this->_checkedProductsQty[$productId] = $qty;
-        return $qty;
-    }
-
-    /**
-     * Get product qty includes information from all quote items
-     * Need be used only in sungleton mode
-     *
-     * @param int   $productId
-     * @param int   $quoteItemId
-     * @param float $itemQty
-     * @return int
-     */
-    protected function _getQuoteItemQtyForCheck($productId, $quoteItemId, $itemQty)
-    {
-        $qty = $itemQty;
-        if (isset($this->_checkedQuoteItems[$productId]['qty']) &&
-            !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])
-        ) {
-            $qty += $this->_checkedQuoteItems[$productId]['qty'];
-        }
-
-        $this->_checkedQuoteItems[$productId]['qty'] = $qty;
-        $this->_checkedQuoteItems[$productId]['items'][] = $quoteItemId;
-
-        return $qty;
-    }
-
-    /**
      * Subtract qtys of quote item products after multishipping checkout
      *
      * @return $this
@@ -660,71 +511,6 @@ class Mage_CatalogInventory_Model_Observer
 
         // Clear flag, so if order placement retried again with success - it will be processed
         $quote->setInventoryProcessed(false);
-    }
-
-    /**
-     * Adds stock item qty to $items (creates new entry or increments existing one)
-     * $items is array with following structure:
-     * array(
-     *  $productId  => array(
-     *      'qty'   => $qty,
-     *      'item'  => $stockItems|null
-     *  )
-     * )
-     *
-     * @param Mage_Sales_Model_Quote_Item $quoteItem
-     * @param array $items
-     */
-    protected function _addItemToQtyArray($quoteItem, &$items)
-    {
-        $productId = $quoteItem->getProductId();
-        if (!$productId) {
-            return;
-        }
-        if (isset($items[$productId])) {
-            $items[$productId]['qty'] += $quoteItem->getTotalQty();
-        } else {
-            $stockItem = null;
-            if ($quoteItem->getProduct()) {
-                $stockItem = $quoteItem->getProduct()->getStockItem();
-            }
-            $items[$productId] = [
-                'item' => $stockItem,
-                'qty'  => $quoteItem->getTotalQty(),
-            ];
-        }
-    }
-
-    /**
-     * Prepare array with information about used product qty and product stock item
-     * result is:
-     * array(
-     *  $productId  => array(
-     *      'qty'   => $qty,
-     *      'item'  => $stockItems|null
-     *  )
-     * )
-     * @param array $relatedItems
-     * @return array
-     */
-    protected function _getProductsQty($relatedItems)
-    {
-        $items = [];
-        foreach ($relatedItems as $item) {
-            $productId  = $item->getProductId();
-            if (!$productId) {
-                continue;
-            }
-            $children = $item->getChildrenItems();
-            if ($children) {
-                foreach ($children as $childItem) {
-                    $this->_addItemToQtyArray($childItem, $items);
-                }
-            } else {
-                $this->_addItemToQtyArray($item, $items);
-            }
-        }
-        return $items;
     }
 
     /**
@@ -1055,5 +841,219 @@ class Mage_CatalogInventory_Model_Observer
         $info = $observer->getEvent()->getStatus();
         $info->setDisplayStatus(Mage::helper('cataloginventory')->isDisplayProductStockStatus());
         return $this;
+    }
+
+    /**
+     * Prepare stock item data for save
+     *
+     * @param Mage_CatalogInventory_Model_Stock_Item $item
+     * @param Mage_Catalog_Model_Product $product
+     * @return $this
+     */
+    protected function _prepareItemForSave($item, $product)
+    {
+        $item->addData($product->getStockData())
+            ->setProduct($product)
+            ->setProductId($product->getId())
+            ->setStockId($item->getStockId());
+        if (!is_null($product->getData('stock_data/min_qty'))
+            && is_null($product->getData('stock_data/use_config_min_qty'))
+        ) {
+            $item->setData('use_config_min_qty', false);
+        }
+        if (!is_null($product->getData('stock_data/min_sale_qty'))
+            && is_null($product->getData('stock_data/use_config_min_sale_qty'))
+        ) {
+            $item->setData('use_config_min_sale_qty', false);
+        }
+        if (!is_null($product->getData('stock_data/max_sale_qty'))
+            && is_null($product->getData('stock_data/use_config_max_sale_qty'))
+        ) {
+            $item->setData('use_config_max_sale_qty', false);
+        }
+        if (!is_null($product->getData('stock_data/backorders'))
+            && is_null($product->getData('stock_data/use_config_backorders'))
+        ) {
+            $item->setData('use_config_backorders', false);
+        }
+        if (!is_null($product->getData('stock_data/notify_stock_qty'))
+            && is_null($product->getData('stock_data/use_config_notify_stock_qty'))
+        ) {
+            $item->setData('use_config_notify_stock_qty', false);
+        }
+        $originalQty = $product->getData('stock_data/original_inventory_qty');
+        if (is_numeric($originalQty)) {
+            $item->setQtyCorrection($item->getQty() - $originalQty);
+        }
+        if (!is_null($product->getData('stock_data/enable_qty_increments'))
+            && is_null($product->getData('stock_data/use_config_enable_qty_inc'))
+        ) {
+            $item->setData('use_config_enable_qty_inc', false);
+        }
+        if (!is_null($product->getData('stock_data/qty_increments'))
+            && is_null($product->getData('stock_data/use_config_qty_increments'))
+        ) {
+            $item->setData('use_config_qty_increments', false);
+        }
+        return $this;
+    }
+
+    /**
+     * Removes error statuses from quote and item, set by this observer
+     *
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @param int $code
+     * @return $this
+     */
+    protected function _removeErrorsFromQuoteAndItem($item, $code)
+    {
+        if ($item->getHasError()) {
+            $params = [
+                'origin' => 'cataloginventory',
+                'code' => $code,
+            ];
+            $item->removeErrorInfosByParams($params);
+        }
+
+        $quote = $item->getQuote();
+        $quoteItems = $quote->getItemsCollection();
+        $canRemoveErrorFromQuote = true;
+
+        /** @var Mage_Sales_Model_Quote_Item $quoteItem */
+        foreach ($quoteItems as $quoteItemId => $quoteItem) {
+            if ($quoteItemId == $item->getItemId()) {
+                continue;
+            }
+
+            $errorInfos = $quoteItem->getErrorInfos();
+            foreach ($errorInfos as $errorInfo) {
+                if ($errorInfo['code'] == $code) {
+                    $canRemoveErrorFromQuote = false;
+                    break;
+                }
+            }
+
+            if (!$canRemoveErrorFromQuote) {
+                break;
+            }
+        }
+
+        if ($quote->getHasError() && $canRemoveErrorFromQuote) {
+            $params = [
+                'origin' => 'cataloginventory',
+                'code' => $code,
+            ];
+            $quote->removeErrorInfosByParams(null, $params);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get product qty includes information from all quote items
+     * Need be used only in sungleton mode
+     *
+     * @param int $productId
+     * @param float $itemQty
+     * @return float|mixed
+     * @deprecated after 1.4.2.0-rc1
+     */
+    protected function _getProductQtyForCheck($productId, $itemQty)
+    {
+        $qty = $itemQty;
+        if (isset($this->_checkedProductsQty[$productId])) {
+            $qty += $this->_checkedProductsQty[$productId];
+        }
+        $this->_checkedProductsQty[$productId] = $qty;
+        return $qty;
+    }
+
+    /**
+     * Get product qty includes information from all quote items
+     * Need be used only in sungleton mode
+     *
+     * @param int   $productId
+     * @param int   $quoteItemId
+     * @param float $itemQty
+     * @return int
+     */
+    protected function _getQuoteItemQtyForCheck($productId, $quoteItemId, $itemQty)
+    {
+        $qty = $itemQty;
+        if (isset($this->_checkedQuoteItems[$productId]['qty']) &&
+            !in_array($quoteItemId, $this->_checkedQuoteItems[$productId]['items'])
+        ) {
+            $qty += $this->_checkedQuoteItems[$productId]['qty'];
+        }
+
+        $this->_checkedQuoteItems[$productId]['qty'] = $qty;
+        $this->_checkedQuoteItems[$productId]['items'][] = $quoteItemId;
+
+        return $qty;
+    }
+
+    /**
+     * Adds stock item qty to $items (creates new entry or increments existing one)
+     * $items is array with following structure:
+     * array(
+     *  $productId  => array(
+     *      'qty'   => $qty,
+     *      'item'  => $stockItems|null
+     *  )
+     * )
+     *
+     * @param Mage_Sales_Model_Quote_Item $quoteItem
+     * @param array $items
+     */
+    protected function _addItemToQtyArray($quoteItem, &$items)
+    {
+        $productId = $quoteItem->getProductId();
+        if (!$productId) {
+            return;
+        }
+        if (isset($items[$productId])) {
+            $items[$productId]['qty'] += $quoteItem->getTotalQty();
+        } else {
+            $stockItem = null;
+            if ($quoteItem->getProduct()) {
+                $stockItem = $quoteItem->getProduct()->getStockItem();
+            }
+            $items[$productId] = [
+                'item' => $stockItem,
+                'qty'  => $quoteItem->getTotalQty(),
+            ];
+        }
+    }
+
+    /**
+     * Prepare array with information about used product qty and product stock item
+     * result is:
+     * array(
+     *  $productId  => array(
+     *      'qty'   => $qty,
+     *      'item'  => $stockItems|null
+     *  )
+     * )
+     * @param array $relatedItems
+     * @return array
+     */
+    protected function _getProductsQty($relatedItems)
+    {
+        $items = [];
+        foreach ($relatedItems as $item) {
+            $productId  = $item->getProductId();
+            if (!$productId) {
+                continue;
+            }
+            $children = $item->getChildrenItems();
+            if ($children) {
+                foreach ($children as $childItem) {
+                    $this->_addItemToQtyArray($childItem, $items);
+                }
+            } else {
+                $this->_addItemToQtyArray($item, $items);
+            }
+        }
+        return $items;
     }
 }

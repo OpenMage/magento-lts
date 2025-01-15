@@ -30,6 +30,55 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
     }
 
     /**
+     * Retrieve order model instance
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function getOrder()
+    {
+        return Mage::registry('current_order');
+    }
+
+    public function getRowUrl($row)
+    {
+        return $this->getUrl(
+            '*/sales_order_shipment/view',
+            [
+                'shipment_id' => $row->getId(),
+                'order_id'  => $row->getOrderId(),
+            ],
+        );
+    }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/shipments', ['_current' => true]);
+    }
+
+    public function getTabLabel()
+    {
+        return Mage::helper('sales')->__('Shipments');
+    }
+
+    public function getTabTitle()
+    {
+        return Mage::helper('sales')->__('Shipments');
+    }
+
+    public function canShowTab()
+    {
+        if ($this->getOrder()->getIsVirtual()) {
+            return false;
+        }
+        return Mage::getSingleton('admin/session')->isAllowed('sales/shipment');
+    }
+
+    public function isHidden()
+    {
+        return false;
+    }
+
+    /**
      * Retrieve collection class
      *
      * @return string
@@ -78,54 +127,5 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Retrieve order model instance
-     *
-     * @return Mage_Sales_Model_Order
-     */
-    public function getOrder()
-    {
-        return Mage::registry('current_order');
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl(
-            '*/sales_order_shipment/view',
-            [
-                'shipment_id' => $row->getId(),
-                'order_id'  => $row->getOrderId(),
-            ],
-        );
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/shipments', ['_current' => true]);
-    }
-
-    public function getTabLabel()
-    {
-        return Mage::helper('sales')->__('Shipments');
-    }
-
-    public function getTabTitle()
-    {
-        return Mage::helper('sales')->__('Shipments');
-    }
-
-    public function canShowTab()
-    {
-        if ($this->getOrder()->getIsVirtual()) {
-            return false;
-        }
-        return Mage::getSingleton('admin/session')->isAllowed('sales/shipment');
-    }
-
-    public function isHidden()
-    {
-        return false;
     }
 }

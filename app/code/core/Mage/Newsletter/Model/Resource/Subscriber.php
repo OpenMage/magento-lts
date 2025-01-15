@@ -51,18 +51,6 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     protected $_messagesScope          = 'newsletter/session';
 
     /**
-     * Get tablename from config
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('newsletter/subscriber', 'subscriber_id');
-        $this->_subscriberLinkTable = $this->getTable('newsletter/queue_link');
-        $this->_read = $this->_getReadAdapter();
-        $this->_write = $this->_getWriteAdapter();
-    }
-
-    /**
      * Set error messages scope
      *
      * @param string $scope
@@ -128,16 +116,6 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
     }
 
     /**
-     * Generates random code for subscription confirmation
-     *
-     * @return string
-     */
-    protected function _generateRandomCode()
-    {
-        return Mage::helper('core')->uniqHash();
-    }
-
-    /**
      * Updates data when subscriber received
      *
      * @return $this
@@ -157,5 +135,27 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
             Mage::throwException(Mage::helper('newsletter')->__('Cannot mark as received subscriber.'));
         }
         return $this;
+    }
+
+    /**
+     * Get tablename from config
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('newsletter/subscriber', 'subscriber_id');
+        $this->_subscriberLinkTable = $this->getTable('newsletter/queue_link');
+        $this->_read = $this->_getReadAdapter();
+        $this->_write = $this->_getWriteAdapter();
+    }
+
+    /**
+     * Generates random code for subscription confirmation
+     *
+     * @return string
+     */
+    protected function _generateRandomCode()
+    {
+        return Mage::helper('core')->uniqHash();
     }
 }

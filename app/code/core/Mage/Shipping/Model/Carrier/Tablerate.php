@@ -192,17 +192,6 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     }
 
     /**
-     * Get Model
-     *
-     * @param string $modelName
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _getModel($modelName)
-    {
-        return Mage::getModel($modelName);
-    }
-
-    /**
      * Get Rate
      *
      * @return Mage_Core_Model_Abstract
@@ -260,5 +249,16 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
     public function getAllowedMethods()
     {
         return ['bestway' => $this->getConfigData('name')];
+    }
+
+    /**
+     * Get Model
+     *
+     * @param string $modelName
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _getModel($modelName)
+    {
+        return Mage::getModel($modelName);
     }
 }

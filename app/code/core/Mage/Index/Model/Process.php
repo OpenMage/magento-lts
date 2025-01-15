@@ -84,40 +84,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     protected $_allowTableChanges = true;
 
     /**
-     * Initialize resource
-     */
-    protected function _construct()
-    {
-        $this->_init('index/process');
-    }
-
-    /**
-     * Set indexer class name as data namespace for event object
-     *
-     * @return  $this
-     */
-    protected function _setEventNamespace(Mage_Index_Model_Event $event)
-    {
-        $namespace = get_class($this->getIndexer());
-        $event->setDataNamespace($namespace);
-        $event->setProcess($this);
-        return $this;
-    }
-
-    /**
-     * Remove indexer namespace from event
-     *
-     * @param Mage_Index_Model_Event $event
-     * @return $this
-     */
-    protected function _resetEventNamespace($event)
-    {
-        $event->setDataNamespace(null);
-        $event->setProcess(null);
-        return $this;
-    }
-
-    /**
      * Register data required by process in event object
      *
      * @return $this
@@ -354,35 +320,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Process all events of the collection
-     *
-     * @param bool $skipUnmatched
-     * @return $this
-     */
-    protected function _processEventsCollection(
-        Mage_Index_Model_Resource_Event_Collection $eventsCollection,
-        $skipUnmatched = true
-    ) {
-        // We can't reload the collection because of transaction
-        while ($event = $eventsCollection->fetchItem()) {
-            /** @var Mage_Index_Model_Event $event */
-            try {
-                $this->processEvent($event);
-                if (!$skipUnmatched) {
-                    $eventProcessIds = $event->getProcessIds();
-                    if (!isset($eventProcessIds[$this->getId()])) {
-                        $event->addProcessId($this->getId());
-                    }
-                }
-            } catch (Exception $e) {
-                $event->addProcessId($this->getId(), self::EVENT_STATUS_ERROR);
-            }
-            $event->save();
-        }
-        return $this;
-    }
-
-    /**
      * Update status process/event association
      *
      * @param   string $status
@@ -402,19 +339,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     public function getProcessLockName()
     {
         return 'index_process_' . $this->getId();
-    }
-
-    /**
-     * Returns Lock object.
-     *
-     * @return Mage_Index_Model_Lock|null
-     */
-    protected function _getLockInstance()
-    {
-        if (is_null($this->_lockInstance)) {
-            $this->_lockInstance = Mage_Index_Model_Lock::getInstance();
-        }
-        return $this->_lockInstance;
     }
 
     /**
@@ -620,5 +544,81 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         $eventsCollection = Mage::getResourceModel('index/event_collection');
         $eventsCollection->addProcessFilter($this, self::EVENT_STATUS_NEW);
         return $eventsCollection;
+    }
+
+    /**
+     * Initialize resource
+     */
+    protected function _construct()
+    {
+        $this->_init('index/process');
+    }
+
+    /**
+     * Set indexer class name as data namespace for event object
+     *
+     * @return  $this
+     */
+    protected function _setEventNamespace(Mage_Index_Model_Event $event)
+    {
+        $namespace = get_class($this->getIndexer());
+        $event->setDataNamespace($namespace);
+        $event->setProcess($this);
+        return $this;
+    }
+
+    /**
+     * Remove indexer namespace from event
+     *
+     * @param Mage_Index_Model_Event $event
+     * @return $this
+     */
+    protected function _resetEventNamespace($event)
+    {
+        $event->setDataNamespace(null);
+        $event->setProcess(null);
+        return $this;
+    }
+
+    /**
+     * Process all events of the collection
+     *
+     * @param bool $skipUnmatched
+     * @return $this
+     */
+    protected function _processEventsCollection(
+        Mage_Index_Model_Resource_Event_Collection $eventsCollection,
+        $skipUnmatched = true
+    ) {
+        // We can't reload the collection because of transaction
+        while ($event = $eventsCollection->fetchItem()) {
+            /** @var Mage_Index_Model_Event $event */
+            try {
+                $this->processEvent($event);
+                if (!$skipUnmatched) {
+                    $eventProcessIds = $event->getProcessIds();
+                    if (!isset($eventProcessIds[$this->getId()])) {
+                        $event->addProcessId($this->getId());
+                    }
+                }
+            } catch (Exception $e) {
+                $event->addProcessId($this->getId(), self::EVENT_STATUS_ERROR);
+            }
+            $event->save();
+        }
+        return $this;
+    }
+
+    /**
+     * Returns Lock object.
+     *
+     * @return Mage_Index_Model_Lock|null
+     */
+    protected function _getLockInstance()
+    {
+        if (is_null($this->_lockInstance)) {
+            $this->_lockInstance = Mage_Index_Model_Lock::getInstance();
+        }
+        return $this->_lockInstance;
     }
 }

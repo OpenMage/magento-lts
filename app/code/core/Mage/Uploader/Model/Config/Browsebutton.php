@@ -32,14 +32,6 @@
 class Mage_Uploader_Model_Config_Browsebutton extends Mage_Uploader_Model_Config_Abstract
 {
     /**
-     * Set params for browse button
-     */
-    protected function _construct()
-    {
-        $this->setIsDirectory(false);
-    }
-
-    /**
      * Get MIME types from files extensions
      *
      * @param string|array $exts
@@ -53,5 +45,12 @@ class Mage_Uploader_Model_Config_Browsebutton extends Mage_Uploader_Model_Config
         unset($mimes['application/octet-stream']);
 
         return implode(',', $mimes);
+    }
+    /**
+     * Set params for browse button
+     */
+    protected function _construct()
+    {
+        $this->setIsDirectory(false);
     }
 }

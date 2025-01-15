@@ -43,6 +43,51 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     }
 
     /**
+     * Check block is readonly
+     *
+     * @return bool
+     */
+    public function isReadonly()
+    {
+        if ($this->hasData('is_readonly')) {
+            return $this->getData('is_readonly');
+        }
+        return $this->_getProduct()->getCompositeReadonly();
+    }
+
+    /**
+     * @return array
+     */
+    public function getEditParamsForAssociated()
+    {
+        return [
+            'base'      =>  '*/*/edit',
+            'params'    =>  [
+                'required' => $this->_getRequiredAttributesIds(),
+                'popup'    => 1,
+                'product'  => $this->_getProduct()->getId(),
+            ],
+        ];
+    }
+
+    public function getOptions($attribute)
+    {
+        $result = [];
+        foreach ($attribute->getProductAttribute()->getSource()->getAllOptions() as $option) {
+            if ($option['value'] != '') {
+                $result[$option['value']] = $option['label'];
+            }
+        }
+
+        return $result;
+    }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/superConfig', ['_current' => true]);
+    }
+
+    /**
      * Retrieve currently edited product object
      *
      * @return Mage_Catalog_Model_Product
@@ -161,19 +206,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     }
 
     /**
-     * Check block is readonly
-     *
-     * @return bool
-     */
-    public function isReadonly()
-    {
-        if ($this->hasData('is_readonly')) {
-            return $this->getData('is_readonly');
-        }
-        return $this->_getProduct()->getCompositeReadonly();
-    }
-
-    /**
      * @inheritDoc
      * @throws Mage_Core_Exception
      */
@@ -271,21 +303,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     }
 
     /**
-     * @return array
-     */
-    public function getEditParamsForAssociated()
-    {
-        return [
-            'base'      =>  '*/*/edit',
-            'params'    =>  [
-                'required' => $this->_getRequiredAttributesIds(),
-                'popup'    => 1,
-                'product'  => $this->_getProduct()->getId(),
-            ],
-        ];
-    }
-
-    /**
      * Retrieve Required attributes Ids (comma separated)
      *
      * @return string
@@ -300,23 +317,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         }
 
         return implode(',', $attributesIds);
-    }
-
-    public function getOptions($attribute)
-    {
-        $result = [];
-        foreach ($attribute->getProductAttribute()->getSource()->getAllOptions() as $option) {
-            if ($option['value'] != '') {
-                $result[$option['value']] = $option['label'];
-            }
-        }
-
-        return $result;
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/superConfig', ['_current' => true]);
     }
 
     /**

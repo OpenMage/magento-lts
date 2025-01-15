@@ -543,6 +543,32 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         }
     }
 
+    /**
+     * Return recurring profile child orders Ids
+     *
+     * @return array
+     */
+    public function getChildOrderIds()
+    {
+        $ids = $this->_getResource()->getChildOrderIds($this);
+        if (empty($ids)) {
+            $ids[] = '-1';
+        }
+        return $ids;
+    }
+
+    /**
+     * Add order relation to recurring profile
+     *
+     * @param int $orderId
+     * @return $this
+     */
+    public function addOrderRelation($orderId)
+    {
+        $this->getResource()->addOrderRelation($this->getId(), $orderId);
+        return $this;
+    }
+
     protected function _construct()
     {
         $this->_init('sales/recurring_profile');
@@ -600,32 +626,6 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             );
         }
         return $result;
-    }
-
-    /**
-     * Return recurring profile child orders Ids
-     *
-     * @return array
-     */
-    public function getChildOrderIds()
-    {
-        $ids = $this->_getResource()->getChildOrderIds($this);
-        if (empty($ids)) {
-            $ids[] = '-1';
-        }
-        return $ids;
-    }
-
-    /**
-     * Add order relation to recurring profile
-     *
-     * @param int $orderId
-     * @return $this
-     */
-    public function addOrderRelation($orderId)
-    {
-        $this->getResource()->addOrderRelation($this->getId(), $orderId);
-        return $this;
     }
 
     /**

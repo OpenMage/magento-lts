@@ -274,29 +274,6 @@ abstract class Mage_Api2_Model_Resource
     }
 
     /**
-     * Trigger error for not-implemented operations
-     *
-     * @param string $methodName
-     */
-    protected function _errorIfMethodNotExist($methodName)
-    {
-        if (!$this->_checkMethodExist($methodName)) {
-            $this->_critical(self::RESOURCE_METHOD_NOT_IMPLEMENTED);
-        }
-    }
-
-    /**
-     * Check method exist
-     *
-     * @param string $methodName
-     * @return bool
-     */
-    protected function _checkMethodExist($methodName)
-    {
-        return method_exists($this, $methodName);
-    }
-
-    /**
      * Get request
      *
      * @throws Exception
@@ -593,6 +570,182 @@ abstract class Mage_Api2_Model_Resource
     }
 
     /**
+     * Set 'returnData' flag
+     *
+     * @param bool $flag
+     * @return $this
+     */
+    public function setReturnData($flag)
+    {
+        $this->_returnData = $flag;
+        return $this;
+    }
+
+    /**
+     * Get available attributes of API resource
+     *
+     * @param string $userType
+     * @param string $operation
+     * @return array
+     */
+    public function getAvailableAttributes($userType, $operation)
+    {
+        $available     = $this->getAvailableAttributesFromConfig();
+        $excludedAttrs = $this->getExcludedAttributes($userType, $operation);
+        $includedAttrs = $this->getIncludedAttributes($userType, $operation);
+        $entityOnlyAttrs = $this->getEntityOnlyAttributes($userType, $operation);
+        $resourceAttrs = $this->_getResourceAttributes();
+
+        // if resource returns not-associative array - attributes' codes only
+        if (key($resourceAttrs) === 0) {
+            $resourceAttrs = array_combine($resourceAttrs, $resourceAttrs);
+        }
+        foreach ($resourceAttrs as $attrCode => $attrLabel) {
+            if (!isset($available[$attrCode])) {
+                $available[$attrCode] = empty($attrLabel) ? $attrCode : $attrLabel;
+            }
+        }
+        foreach (array_keys($available) as $code) {
+            if (in_array($code, $excludedAttrs) || ($includedAttrs && !in_array($code, $includedAttrs))) {
+                unset($available[$code]);
+            }
+            if (in_array($code, $entityOnlyAttrs)) {
+                $available[$code] .= ' *';
+            }
+        }
+        return $available;
+    }
+
+    /**
+     * Get excluded attributes for user type
+     *
+     * @param string $userType
+     * @param string $operation
+     * @return array
+     */
+    public function getExcludedAttributes($userType, $operation)
+    {
+        return $this->getConfig()->getResourceExcludedAttributes($this->getResourceType(), $userType, $operation);
+    }
+
+    /**
+     * Get forced attributes
+     *
+     * @return array
+     */
+    public function getForcedAttributes()
+    {
+        return $this->getConfig()->getResourceForcedAttributes($this->getResourceType(), $this->getUserType());
+    }
+
+    /**
+     * Retrieve list of included attributes
+     *
+     * @param string $userType API user type
+     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @return array
+     */
+    public function getIncludedAttributes($userType, $operationType)
+    {
+        return $this->getConfig()->getResourceIncludedAttributes($this->getResourceType(), $userType, $operationType);
+    }
+
+    /**
+     * Retrieve list of entity only attributes
+     *
+     * @param string $userType API user type
+     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @return array
+     */
+    public function getEntityOnlyAttributes($userType, $operationType)
+    {
+        return $this->getConfig()->getResourceEntityOnlyAttributes($this->getResourceType(), $userType, $operationType);
+    }
+
+    /**
+     * Get available attributes of API resource from configuration file
+     *
+     * @return array
+     */
+    public function getAvailableAttributesFromConfig()
+    {
+        return $this->getConfig()->getResourceAttributes($this->getResourceType());
+    }
+
+    /**
+     * Get available attributes of API resource from data base
+     *
+     * @return array
+     */
+    public function getDbAttributes()
+    {
+        $available = [];
+        $workModel = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
+
+        if ($workModel) {
+            /** @var Mage_Core_Model_Resource_Db_Abstract $resource */
+            $resource = Mage::getResourceModel($workModel);
+
+            if (method_exists($resource, 'getMainTable')) {
+                $available = array_keys($resource->getReadConnection()->describeTable($resource->getMainTable()));
+            }
+        }
+        return $available;
+    }
+
+    /**
+     * Get EAV attributes of working model
+     *
+     * @param bool $onlyVisible OPTIONAL Show only the attributes which are visible on frontend
+     * @param bool $excludeSystem OPTIONAL Exclude attributes marked as system
+     * @return array
+     */
+    public function getEavAttributes($onlyVisible = false, $excludeSystem = false)
+    {
+        $attributes = [];
+        $model = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
+
+        /** @var Mage_Eav_Model_Entity_Type $entityType */
+        $entityType = Mage::getSingleton('eav/config')->getEntityType($model, 'entity_model');
+
+        /** @var Mage_Eav_Model_Entity_Attribute $attribute */
+        foreach ($entityType->getAttributeCollection() as $attribute) {
+            if ($onlyVisible && !$attribute->getIsVisible()) {
+                continue;
+            }
+            if ($excludeSystem && $attribute->getIsSystem()) {
+                continue;
+            }
+            $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Trigger error for not-implemented operations
+     *
+     * @param string $methodName
+     */
+    protected function _errorIfMethodNotExist($methodName)
+    {
+        if (!$this->_checkMethodExist($methodName)) {
+            $this->_critical(self::RESOURCE_METHOD_NOT_IMPLEMENTED);
+        }
+    }
+
+    /**
+     * Check method exist
+     *
+     * @param string $methodName
+     * @return bool
+     */
+    protected function _checkMethodExist($methodName)
+    {
+        return method_exists($this, $methodName);
+    }
+
+    /**
      * Render data using registered Renderer
      *
      * @param mixed $data
@@ -837,18 +990,6 @@ abstract class Mage_Api2_Model_Resource
     }
 
     /**
-     * Set 'returnData' flag
-     *
-     * @param bool $flag
-     * @return $this
-     */
-    public function setReturnData($flag)
-    {
-        $this->_returnData = $flag;
-        return $this;
-    }
-
-    /**
      * Get resource location
      *
      * @param Mage_Core_Model_Abstract $resource
@@ -879,147 +1020,6 @@ abstract class Mage_Api2_Model_Resource
     protected function _getResourceAttributes()
     {
         return [];
-    }
-
-    /**
-     * Get available attributes of API resource
-     *
-     * @param string $userType
-     * @param string $operation
-     * @return array
-     */
-    public function getAvailableAttributes($userType, $operation)
-    {
-        $available     = $this->getAvailableAttributesFromConfig();
-        $excludedAttrs = $this->getExcludedAttributes($userType, $operation);
-        $includedAttrs = $this->getIncludedAttributes($userType, $operation);
-        $entityOnlyAttrs = $this->getEntityOnlyAttributes($userType, $operation);
-        $resourceAttrs = $this->_getResourceAttributes();
-
-        // if resource returns not-associative array - attributes' codes only
-        if (key($resourceAttrs) === 0) {
-            $resourceAttrs = array_combine($resourceAttrs, $resourceAttrs);
-        }
-        foreach ($resourceAttrs as $attrCode => $attrLabel) {
-            if (!isset($available[$attrCode])) {
-                $available[$attrCode] = empty($attrLabel) ? $attrCode : $attrLabel;
-            }
-        }
-        foreach (array_keys($available) as $code) {
-            if (in_array($code, $excludedAttrs) || ($includedAttrs && !in_array($code, $includedAttrs))) {
-                unset($available[$code]);
-            }
-            if (in_array($code, $entityOnlyAttrs)) {
-                $available[$code] .= ' *';
-            }
-        }
-        return $available;
-    }
-
-    /**
-     * Get excluded attributes for user type
-     *
-     * @param string $userType
-     * @param string $operation
-     * @return array
-     */
-    public function getExcludedAttributes($userType, $operation)
-    {
-        return $this->getConfig()->getResourceExcludedAttributes($this->getResourceType(), $userType, $operation);
-    }
-
-    /**
-     * Get forced attributes
-     *
-     * @return array
-     */
-    public function getForcedAttributes()
-    {
-        return $this->getConfig()->getResourceForcedAttributes($this->getResourceType(), $this->getUserType());
-    }
-
-    /**
-     * Retrieve list of included attributes
-     *
-     * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
-     * @return array
-     */
-    public function getIncludedAttributes($userType, $operationType)
-    {
-        return $this->getConfig()->getResourceIncludedAttributes($this->getResourceType(), $userType, $operationType);
-    }
-
-    /**
-     * Retrieve list of entity only attributes
-     *
-     * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
-     * @return array
-     */
-    public function getEntityOnlyAttributes($userType, $operationType)
-    {
-        return $this->getConfig()->getResourceEntityOnlyAttributes($this->getResourceType(), $userType, $operationType);
-    }
-
-    /**
-     * Get available attributes of API resource from configuration file
-     *
-     * @return array
-     */
-    public function getAvailableAttributesFromConfig()
-    {
-        return $this->getConfig()->getResourceAttributes($this->getResourceType());
-    }
-
-    /**
-     * Get available attributes of API resource from data base
-     *
-     * @return array
-     */
-    public function getDbAttributes()
-    {
-        $available = [];
-        $workModel = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
-
-        if ($workModel) {
-            /** @var Mage_Core_Model_Resource_Db_Abstract $resource */
-            $resource = Mage::getResourceModel($workModel);
-
-            if (method_exists($resource, 'getMainTable')) {
-                $available = array_keys($resource->getReadConnection()->describeTable($resource->getMainTable()));
-            }
-        }
-        return $available;
-    }
-
-    /**
-     * Get EAV attributes of working model
-     *
-     * @param bool $onlyVisible OPTIONAL Show only the attributes which are visible on frontend
-     * @param bool $excludeSystem OPTIONAL Exclude attributes marked as system
-     * @return array
-     */
-    public function getEavAttributes($onlyVisible = false, $excludeSystem = false)
-    {
-        $attributes = [];
-        $model = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
-
-        /** @var Mage_Eav_Model_Entity_Type $entityType */
-        $entityType = Mage::getSingleton('eav/config')->getEntityType($model, 'entity_model');
-
-        /** @var Mage_Eav_Model_Entity_Attribute $attribute */
-        foreach ($entityType->getAttributeCollection() as $attribute) {
-            if ($onlyVisible && !$attribute->getIsVisible()) {
-                continue;
-            }
-            if ($excludeSystem && $attribute->getIsSystem()) {
-                continue;
-            }
-            $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
-        }
-
-        return $attributes;
     }
 
     /**

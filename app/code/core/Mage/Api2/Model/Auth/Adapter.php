@@ -30,31 +30,6 @@ class Mage_Api2_Model_Auth_Adapter
     protected $_adapters = [];
 
     /**
-     * Load adapters configuration and create adapters models
-     *
-     * @return $this
-     * @throws Exception
-     */
-    protected function _initAdapters()
-    {
-        /** @var Mage_Api2_Helper_Data $helper */
-        $helper = Mage::helper('api2');
-
-        foreach ($helper->getAuthAdapters(true) as $adapterKey => $adapterParams) {
-            $adapterModel = Mage::getModel($adapterParams['model']);
-
-            if (!$adapterModel instanceof Mage_Api2_Model_Auth_Adapter_Abstract) {
-                throw new Exception('Authentication adapter must to extend Mage_Api2_Model_Auth_Adapter_Abstract');
-            }
-            $this->_adapters[$adapterKey] = $adapterModel;
-        }
-        if (!$this->_adapters) {
-            throw new Exception('No active authentication adapters found');
-        }
-        return $this;
-    }
-
-    /**
      * Process request and figure out an API user type and its identifier
      *
      * Returns stdClass object with two properties: type and id
@@ -77,5 +52,30 @@ class Mage_Api2_Model_Auth_Adapter
             }
         }
         return (object) ['type' => Mage_Api2_Model_Auth::DEFAULT_USER_TYPE, 'id' => null];
+    }
+
+    /**
+     * Load adapters configuration and create adapters models
+     *
+     * @return $this
+     * @throws Exception
+     */
+    protected function _initAdapters()
+    {
+        /** @var Mage_Api2_Helper_Data $helper */
+        $helper = Mage::helper('api2');
+
+        foreach ($helper->getAuthAdapters(true) as $adapterKey => $adapterParams) {
+            $adapterModel = Mage::getModel($adapterParams['model']);
+
+            if (!$adapterModel instanceof Mage_Api2_Model_Auth_Adapter_Abstract) {
+                throw new Exception('Authentication adapter must to extend Mage_Api2_Model_Auth_Adapter_Abstract');
+            }
+            $this->_adapters[$adapterKey] = $adapterModel;
+        }
+        if (!$this->_adapters) {
+            throw new Exception('No active authentication adapters found');
+        }
+        return $this;
     }
 }

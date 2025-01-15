@@ -37,33 +37,6 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     protected $_soap = null;
 
     /**
-     * Internal constructor
-     */
-    protected function _construct()
-    {
-        $this->wsdlConfig = $this->_getWsdlConfig();
-    }
-
-    /**
-     * Get wsdl config
-     *
-     * @return Varien_Object
-     */
-    protected function _getWsdlConfig()
-    {
-        $wsdlConfig = new Varien_Object();
-        $queryParams = $this->getController()->getRequest()->getQuery();
-        if (isset($queryParams['wsdl'])) {
-            unset($queryParams['wsdl']);
-        }
-
-        $wsdlConfig->setUrl(Mage::helper('api')->getServiceUrl('*/*/*', ['_query' => $queryParams], true));
-        $wsdlConfig->setName('Magento');
-        $wsdlConfig->setHandler($this->getHandler());
-        return $wsdlConfig;
-    }
-
-    /**
      * Set handler class name for webservice
      *
      * @param string $handler
@@ -191,6 +164,33 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                 </SOAP-ENV:Body>
                 </SOAP-ENV:Envelope>');
         }
+    }
+
+    /**
+     * Internal constructor
+     */
+    protected function _construct()
+    {
+        $this->wsdlConfig = $this->_getWsdlConfig();
+    }
+
+    /**
+     * Get wsdl config
+     *
+     * @return Varien_Object
+     */
+    protected function _getWsdlConfig()
+    {
+        $wsdlConfig = new Varien_Object();
+        $queryParams = $this->getController()->getRequest()->getQuery();
+        if (isset($queryParams['wsdl'])) {
+            unset($queryParams['wsdl']);
+        }
+
+        $wsdlConfig->setUrl(Mage::helper('api')->getServiceUrl('*/*/*', ['_query' => $queryParams], true));
+        $wsdlConfig->setName('Magento');
+        $wsdlConfig->setHandler($this->getHandler());
+        return $wsdlConfig;
     }
 
     /**

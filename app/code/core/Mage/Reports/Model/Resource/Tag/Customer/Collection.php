@@ -22,11 +22,6 @@
  */
 class Mage_Reports_Model_Resource_Tag_Customer_Collection extends Mage_Tag_Model_Resource_Customer_Collection
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_useAnalyticFunction = true;
-    }
     /**
      * Add target count
      *
@@ -55,5 +50,10 @@ class Mage_Reports_Model_Resource_Tag_Customer_Collection extends Mage_Tag_Model
         $countSelect->columns('COUNT(DISTINCT tr.customer_id)');
 
         return $countSelect;
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_useAnalyticFunction = true;
     }
 }

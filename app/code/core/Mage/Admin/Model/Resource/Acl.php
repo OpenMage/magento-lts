@@ -25,15 +25,6 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     public const ACL_ALL_RULES = 'all';
 
     /**
-     * Initialize resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('admin/role', 'role_id');
-    }
-
-    /**
      * Load ACL for the user
      *
      * @return Mage_Admin_Model_Acl
@@ -151,5 +142,14 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         }
 
         return $this;
+    }
+
+    /**
+     * Initialize resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('admin/role', 'role_id');
     }
 }

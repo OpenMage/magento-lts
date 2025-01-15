@@ -35,6 +35,17 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     }
 
     /**
+     * Retrieve Row Click callback URL
+     *
+     * @param Mage_CatalogSearch_Model_Query $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
+    }
+
+    /**
      * Prepare collection for Grid
      *
      * @inheritDoc
@@ -148,16 +159,5 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
         ]);
 
         return parent::_prepareMassaction();
-    }
-
-    /**
-     * Retrieve Row Click callback URL
-     *
-     * @param Mage_CatalogSearch_Model_Query $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }

@@ -35,6 +35,31 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
     protected $_errors = [];
 
     /**
+     * Clean logs
+     *
+     * @return $this
+     */
+    public function logClean()
+    {
+        if (!Mage::getStoreConfigFlag(self::XML_PATH_LOG_CLEAN_ENABLED)) {
+            return $this;
+        }
+
+        $this->_errors = [];
+
+        try {
+            Mage::getModel('log/log')->clean();
+        } catch (Exception $e) {
+            $this->_errors[] = $e->getMessage();
+            $this->_errors[] = $e->getTrace();
+        }
+
+        $this->_sendLogCleanEmail();
+
+        return $this;
+    }
+
+    /**
      * Send Log Clean Warnings
      *
      * @return $this
@@ -64,31 +89,6 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
             );
 
         $translate->setTranslateInline(true);
-
-        return $this;
-    }
-
-    /**
-     * Clean logs
-     *
-     * @return $this
-     */
-    public function logClean()
-    {
-        if (!Mage::getStoreConfigFlag(self::XML_PATH_LOG_CLEAN_ENABLED)) {
-            return $this;
-        }
-
-        $this->_errors = [];
-
-        try {
-            Mage::getModel('log/log')->clean();
-        } catch (Exception $e) {
-            $this->_errors[] = $e->getMessage();
-            $this->_errors[] = $e->getTrace();
-        }
-
-        $this->_sendLogCleanEmail();
 
         return $this;
     }

@@ -46,17 +46,6 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         return parent::preDispatch();
     }
 
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('promo/catalog')
-            ->_addBreadcrumb(
-                Mage::helper('catalogrule')->__('Promotions'),
-                Mage::helper('catalogrule')->__('Promotions'),
-            );
-        return $this;
-    }
-
     public function indexAction()
     {
         $this->_title($this->__('Promotions'))->_title($this->__('Catalog Price Rules'));
@@ -347,5 +336,16 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
     {
         $defaultMessage = Mage::helper('catalogrule')->__('There are rules that have been changed but were not applied. Please, click Apply Rules in order to see immediate effect in the catalog.');
         return $this->_dirtyRulesNoticeMessage ? $this->_dirtyRulesNoticeMessage : $defaultMessage;
+    }
+
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('promo/catalog')
+            ->_addBreadcrumb(
+                Mage::helper('catalogrule')->__('Promotions'),
+                Mage::helper('catalogrule')->__('Promotions'),
+            );
+        return $this;
     }
 }

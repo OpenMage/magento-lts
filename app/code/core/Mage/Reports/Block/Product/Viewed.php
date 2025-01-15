@@ -59,6 +59,19 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
     }
 
     /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(
+            parent::getCacheTags(),
+            $this->getItemsTags($this->getItemsCollection()),
+        );
+    }
+
+    /**
      * Prepare to html
      * check has viewed products
      *
@@ -71,18 +84,5 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
         }
         $this->setRecentlyViewedProducts($this->getItemsCollection());
         return parent::_toHtml();
-    }
-
-    /**
-     * Retrieve block cache tags
-     *
-     * @return array
-     */
-    public function getCacheTags()
-    {
-        return array_merge(
-            parent::getCacheTags(),
-            $this->getItemsTags($this->getItemsCollection()),
-        );
     }
 }

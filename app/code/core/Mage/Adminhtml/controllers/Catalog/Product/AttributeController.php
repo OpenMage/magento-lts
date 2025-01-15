@@ -22,8 +22,6 @@
  */
 class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_Controller_Action
 {
-    protected $_entityTypeId;
-
     /**
      * ACL resource
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
@@ -34,43 +32,13 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
          * List of tags from setting
          */
     public const XML_PATH_ALLOWED_TAGS = 'system/catalog/frontend/allowed_html_tags_list';
-
-    /**
-     * Get list of allowed text formatted as array
-     *
-     * @return array
-     */
-    protected function _getAllowedTags()
-    {
-        return explode(',', Mage::getStoreConfig(self::XML_PATH_ALLOWED_TAGS));
-    }
+    protected $_entityTypeId;
 
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
         parent::preDispatch();
         $this->_entityTypeId = Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
-        return $this;
-    }
-
-    protected function _initAction()
-    {
-        $this->_title($this->__('Catalog'))
-             ->_title($this->__('Attributes'))
-             ->_title($this->__('Manage Attributes'));
-
-        if ($this->getRequest()->getParam('popup')) {
-            $this->loadLayout('popup');
-        } else {
-            $this->loadLayout()
-                ->_setActiveMenu('catalog/attributes/attributes')
-                ->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'))
-                ->_addBreadcrumb(
-                    Mage::helper('catalog')->__('Manage Product Attributes'),
-                    Mage::helper('catalog')->__('Manage Product Attributes'),
-                )
-            ;
-        }
         return $this;
     }
 
@@ -155,39 +123,6 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         }
 
         $this->getResponse()->setBody($response->toJson());
-    }
-
-    /**
-     * Filter post data
-     *
-     * @param array $data
-     * @return array
-     */
-    protected function _filterPostData($data)
-    {
-        if ($data) {
-            /** @var Mage_Catalog_Helper_Data $helperCatalog */
-            $helperCatalog = Mage::helper('catalog');
-            //labels
-            $data['frontend_label'] = (array) $data['frontend_label'];
-            foreach ($data['frontend_label'] as & $value) {
-                if ($value) {
-                    $value = $helperCatalog->stripTags($value);
-                }
-            }
-
-            if (!empty($data['option']) && !empty($data['option']['value']) && is_array($data['option']['value'])) {
-                $allowableTags = isset($data['is_html_allowed_on_front']) && $data['is_html_allowed_on_front']
-                    ? sprintf('<%s>', implode('><', $this->_getAllowedTags())) : null;
-                foreach ($data['option']['value'] as $key => $values) {
-                    foreach ($values as $storeId => $storeLabel) {
-                        $data['option']['value'][$key][$storeId]
-                            = $helperCatalog->stripTags($storeLabel, $allowableTags);
-                    }
-                }
-            }
-        }
-        return $data;
     }
 
     public function saveAction()
@@ -371,5 +306,69 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             Mage::helper('catalog')->__('Unable to find an attribute to delete.'),
         );
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * Get list of allowed text formatted as array
+     *
+     * @return array
+     */
+    protected function _getAllowedTags()
+    {
+        return explode(',', Mage::getStoreConfig(self::XML_PATH_ALLOWED_TAGS));
+    }
+
+    protected function _initAction()
+    {
+        $this->_title($this->__('Catalog'))
+             ->_title($this->__('Attributes'))
+             ->_title($this->__('Manage Attributes'));
+
+        if ($this->getRequest()->getParam('popup')) {
+            $this->loadLayout('popup');
+        } else {
+            $this->loadLayout()
+                ->_setActiveMenu('catalog/attributes/attributes')
+                ->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'))
+                ->_addBreadcrumb(
+                    Mage::helper('catalog')->__('Manage Product Attributes'),
+                    Mage::helper('catalog')->__('Manage Product Attributes'),
+                )
+            ;
+        }
+        return $this;
+    }
+
+    /**
+     * Filter post data
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function _filterPostData($data)
+    {
+        if ($data) {
+            /** @var Mage_Catalog_Helper_Data $helperCatalog */
+            $helperCatalog = Mage::helper('catalog');
+            //labels
+            $data['frontend_label'] = (array) $data['frontend_label'];
+            foreach ($data['frontend_label'] as & $value) {
+                if ($value) {
+                    $value = $helperCatalog->stripTags($value);
+                }
+            }
+
+            if (!empty($data['option']) && !empty($data['option']['value']) && is_array($data['option']['value'])) {
+                $allowableTags = isset($data['is_html_allowed_on_front']) && $data['is_html_allowed_on_front']
+                    ? sprintf('<%s>', implode('><', $this->_getAllowedTags())) : null;
+                foreach ($data['option']['value'] as $key => $values) {
+                    foreach ($values as $storeId => $storeLabel) {
+                        $data['option']['value'][$key][$storeId]
+                            = $helperCatalog->stripTags($storeLabel, $allowableTags);
+                    }
+                }
+            }
+        }
+        return $data;
     }
 }

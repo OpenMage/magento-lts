@@ -24,11 +24,6 @@
  */
 class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('customer/customer');
-    }
-
     /**
      * Group result by customer email
      *
@@ -108,6 +103,10 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
         $select->resetJoinLeft();
 
         return $select;
+    }
+    protected function _construct()
+    {
+        $this->_init('customer/customer');
     }
 
     /**

@@ -74,32 +74,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     }
 
     /**
-     * Initialize website values.
-     *
-     * @return $this
-     */
-    protected function _initWebsites()
-    {
-        foreach (Mage::app()->getWebsites(true) as $website) {
-            $this->_websiteIdToCode[$website->getId()] = $website->getCode();
-        }
-        return $this;
-    }
-
-    /**
-     * Apply filter to collection and add not skipped attributes to select.
-     *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
-     */
-    protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
-    {
-        // forced addition default billing and shipping addresses attributes
-        return parent::_prepareEntityCollection($collection)->addAttributeToSelect(
-            Mage_ImportExport_Model_Import_Entity_Customer_Address::getDefaultAddressAttrMapping(),
-        );
-    }
-
-    /**
      * Export process and return contents of temporary file
      *
      * @deprecated after ver 1.9.2.4 use $this->exportFile() instead
@@ -135,6 +109,72 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             'rows'  => $writer->getRowsCount(),
             'value' => $writer->getDestination(),
         ];
+    }
+
+    /**
+     * Clean up already loaded attribute collection.
+     *
+     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     */
+    public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
+    {
+        foreach (parent::filterAttributeCollection($collection) as $attribute) {
+            if (!empty($this->_attributeOverrides[$attribute->getAttributeCode()])) {
+                $data = $this->_attributeOverrides[$attribute->getAttributeCode()];
+
+                if (isset($data['options_method']) && method_exists($this, $data['options_method'])) {
+                    $data['filter_options'] = $this->{$data['options_method']}();
+                }
+                $attribute->addData($data);
+            }
+        }
+        return $collection;
+    }
+
+    /**
+     * Entity attributes collection getter.
+     *
+     * @return Mage_Customer_Model_Resource_Attribute_Collection|Object
+     */
+    public function getAttributeCollection()
+    {
+        return Mage::getResourceModel('customer/attribute_collection');
+    }
+
+    /**
+     * EAV entity type code getter.
+     *
+     * @return string
+     */
+    public function getEntityTypeCode()
+    {
+        return 'customer';
+    }
+
+    /**
+     * Initialize website values.
+     *
+     * @return $this
+     */
+    protected function _initWebsites()
+    {
+        foreach (Mage::app()->getWebsites(true) as $website) {
+            $this->_websiteIdToCode[$website->getId()] = $website->getCode();
+        }
+        return $this;
+    }
+
+    /**
+     * Apply filter to collection and add not skipped attributes to select.
+     *
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     */
+    protected function _prepareEntityCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
+    {
+        // forced addition default billing and shipping addresses attributes
+        return parent::_prepareEntityCollection($collection)->addAttributeToSelect(
+            Mage_ImportExport_Model_Import_Entity_Customer_Address::getDefaultAddressAttrMapping(),
+        );
     }
 
     /**
@@ -302,46 +342,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             return [$addressId, $addressRow];
         }
         return [null, null];
-    }
-
-    /**
-     * Clean up already loaded attribute collection.
-     *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
-     */
-    public function filterAttributeCollection(Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection)
-    {
-        foreach (parent::filterAttributeCollection($collection) as $attribute) {
-            if (!empty($this->_attributeOverrides[$attribute->getAttributeCode()])) {
-                $data = $this->_attributeOverrides[$attribute->getAttributeCode()];
-
-                if (isset($data['options_method']) && method_exists($this, $data['options_method'])) {
-                    $data['filter_options'] = $this->{$data['options_method']}();
-                }
-                $attribute->addData($data);
-            }
-        }
-        return $collection;
-    }
-
-    /**
-     * Entity attributes collection getter.
-     *
-     * @return Mage_Customer_Model_Resource_Attribute_Collection|Object
-     */
-    public function getAttributeCollection()
-    {
-        return Mage::getResourceModel('customer/attribute_collection');
-    }
-
-    /**
-     * EAV entity type code getter.
-     *
-     * @return string
-     */
-    public function getEntityTypeCode()
-    {
-        return 'customer';
     }
 
     /**

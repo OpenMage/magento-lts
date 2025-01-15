@@ -41,6 +41,24 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
     }
 
     /**
+     * Return grid URL
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid');
+    }
+
+    /**
+     * Return item view URL
+     * @return string
+     */
+    public function getRowUrl($item)
+    {
+        return $this->getUrl('*/*/details', ['id' => $item->getId()]);
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -109,23 +127,5 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
             'currency'  => 'gross_transaction_currency',
         ]);
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Return grid URL
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid');
-    }
-
-    /**
-     * Return item view URL
-     * @return string
-     */
-    public function getRowUrl($item)
-    {
-        return $this->getUrl('*/*/details', ['id' => $item->getId()]);
     }
 }

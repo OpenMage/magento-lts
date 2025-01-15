@@ -200,24 +200,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     protected $_eventObject = 'creditmemo';
 
     /**
-     * Initialize creditmemo resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/order_creditmemo');
-    }
-
-    /**
-     * Init mapping array of short fields to its full names
-     *
-     * @return $this
-     */
-    protected function _initOldFieldsMap()
-    {
-        return $this;
-    }
-
-    /**
      * Retrieve Creditmemo configuration model
      *
      * @return Mage_Sales_Model_Order_Creditmemo_Config
@@ -907,6 +889,50 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * Get creditmemos collection filtered by $filter
+     *
+     * @param array|null $filter
+     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
+     */
+    public function getFilteredCollectionItems($filter = null)
+    {
+        return $this->getResourceCollection()->getFiltered($filter);
+    }
+
+    /**
+     * Checking if the credit memo is last
+     *
+     * @return bool
+     */
+    public function isLast()
+    {
+        foreach ($this->getAllItems() as $item) {
+            if (!$item->isLast()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Initialize creditmemo resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/order_creditmemo');
+    }
+
+    /**
+     * Init mapping array of short fields to its full names
+     *
+     * @return $this
+     */
+    protected function _initOldFieldsMap()
+    {
+        return $this;
+    }
+
+    /**
      * @param string $configPath
      * @return array|bool
      */
@@ -966,31 +992,5 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         }
 
         return $this;
-    }
-
-    /**
-     * Get creditmemos collection filtered by $filter
-     *
-     * @param array|null $filter
-     * @return Mage_Sales_Model_Resource_Order_Creditmemo_Collection
-     */
-    public function getFilteredCollectionItems($filter = null)
-    {
-        return $this->getResourceCollection()->getFiltered($filter);
-    }
-
-    /**
-     * Checking if the credit memo is last
-     *
-     * @return bool
-     */
-    public function isLast()
-    {
-        foreach ($this->getAllItems() as $item) {
-            if (!$item->isLast()) {
-                return false;
-            }
-        }
-        return true;
     }
 }

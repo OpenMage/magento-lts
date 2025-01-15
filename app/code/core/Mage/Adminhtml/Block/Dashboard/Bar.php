@@ -30,17 +30,6 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
      */
     protected $_currency;
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('dashboard/bar.phtml');
-    }
-
-    protected function getTotals()
-    {
-        return $this->_totals;
-    }
-
     public function addTotal($label, $value, $isQuantity = false)
     {
         if (!$isQuantity) {
@@ -97,5 +86,16 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
         }
 
         return $this->_currentCurrencyCode;
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('dashboard/bar.phtml');
+    }
+
+    protected function getTotals()
+    {
+        return $this->_totals;
     }
 }

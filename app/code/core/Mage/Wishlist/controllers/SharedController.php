@@ -29,28 +29,6 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
     protected $_isCheckFormKey = false;
 
     /**
-     * Retrieve wishlist instance by requested code
-     *
-     * @return Mage_Wishlist_Model_Wishlist|false
-     */
-    protected function _getWishlist()
-    {
-        $code     = (string) $this->getRequest()->getParam('code');
-        if (empty($code)) {
-            return false;
-        }
-
-        $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($code);
-        if (!$wishlist->getId()) {
-            return false;
-        }
-
-        Mage::getSingleton('checkout/session')->setSharedWishlist($code);
-
-        return $wishlist;
-    }
-
-    /**
      * Shared wishlist view page
      *
      */
@@ -123,5 +101,27 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         }
 
         return $this->_redirectUrl($redirectUrl);
+    }
+
+    /**
+     * Retrieve wishlist instance by requested code
+     *
+     * @return Mage_Wishlist_Model_Wishlist|false
+     */
+    protected function _getWishlist()
+    {
+        $code     = (string) $this->getRequest()->getParam('code');
+        if (empty($code)) {
+            return false;
+        }
+
+        $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($code);
+        if (!$wishlist->getId()) {
+            return false;
+        }
+
+        Mage::getSingleton('checkout/session')->setSharedWishlist($code);
+
+        return $wishlist;
     }
 }

@@ -43,11 +43,6 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
      */
     protected $_linkTypeId;
 
-    protected function _construct()
-    {
-        $this->_init('catalog/product_link');
-    }
-
     /**
      * Declare link model and initialize type attributes join
      *
@@ -145,5 +140,10 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
         }
 
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/product_link');
     }
 }

@@ -41,126 +41,6 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     protected $_showSingle = null;
 
     /**
-     * Check if option has a single selection
-     *
-     * @return bool
-     */
-    protected function _showSingle()
-    {
-        if (is_null($this->_showSingle)) {
-            $option     = $this->getOption();
-            $selections = $option->getSelections();
-
-            $this->_showSingle = (count($selections) === 1 && $option->getRequired());
-        }
-
-        return $this->_showSingle;
-    }
-
-    /**
-     * Retrieve default values for template
-     *
-     * @return array
-     */
-    protected function _getDefaultValues()
-    {
-        $option             = $this->getOption();
-        $default            = $option->getDefaultSelection();
-        $selections         = $option->getSelections();
-        $selectedOptions    = $this->_getSelectedOptions();
-        $inPreConfigured    = $this->getProduct()->hasPreconfiguredValues()
-            && $this->getProduct()->getPreconfiguredValues()
-                    ->getData('bundle_option_qty/' . $option->getId());
-
-        if (empty($selectedOptions) && $default) {
-            $_defaultQty = $default->getSelectionQty() * 1;
-            $_canChangeQty = $default->getSelectionCanChangeQty();
-        } elseif (!$inPreConfigured && $selectedOptions && is_numeric($selectedOptions)) {
-            $selectedSelection = $option->getSelectionById($selectedOptions);
-            if ($selectedSelection) {
-                $_defaultQty = $selectedSelection->getSelectionQty() * 1;
-                $_canChangeQty = $selectedSelection->getSelectionCanChangeQty();
-            } else {
-                $_defaultQty = $selections[0]->getSelectionQty() * 1;
-                $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
-            }
-        } elseif (!$this->_showSingle() || $inPreConfigured) {
-            $_defaultQty = $this->_getSelectedQty();
-            $_canChangeQty = (bool) $_defaultQty;
-        } else {
-            $_defaultQty = $selections[0]->getSelectionQty() * 1;
-            $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
-        }
-
-        return [$_defaultQty, $_canChangeQty];
-    }
-
-    /**
-     * Collect selected options
-     *
-     * @return int|array|string
-     */
-    protected function _getSelectedOptions()
-    {
-        if (is_null($this->_selectedOptions)) {
-            $this->_selectedOptions = [];
-            $option = $this->getOption();
-
-            if ($this->getProduct()->hasPreconfiguredValues()) {
-                $configValue = $this->getProduct()->getPreconfiguredValues()
-                    ->getData('bundle_option/' . $option->getId());
-                if ($configValue) {
-                    $this->_selectedOptions = $configValue;
-                } elseif (!$option->getRequired()) {
-                    $this->_selectedOptions = 'None';
-                }
-            }
-        }
-
-        return $this->_selectedOptions;
-    }
-
-    /**
-     * Define if selection is selected
-     *
-     * @param  Mage_Catalog_Model_Product $selection
-     * @return bool
-     */
-    protected function _isSelected($selection)
-    {
-        $selectedOptions = $this->_getSelectedOptions();
-        if (is_numeric($selectedOptions)) {
-            return ($selection->getSelectionId() == $this->_getSelectedOptions());
-        } elseif (is_array($selectedOptions) && !empty($selectedOptions)) {
-            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
-        } elseif ($selectedOptions === 'None') {
-            return false;
-        } else {
-            return ($selection->getIsDefault() && $selection->isSaleable());
-        }
-    }
-
-    /**
-     * Retrieve selected option qty
-     *
-     * @return int
-     */
-    protected function _getSelectedQty()
-    {
-        if ($this->getProduct()->hasPreconfiguredValues()) {
-            $selectedQty = (float) $this->getProduct()->getPreconfiguredValues()
-                ->getData('bundle_option_qty/' . $this->getOption()->getId());
-            if ($selectedQty < 0) {
-                $selectedQty = 0;
-            }
-        } else {
-            $selectedQty = 0;
-        }
-
-        return $selectedQty;
-    }
-
-    /**
      * Get product model
      *
      * @return Mage_Catalog_Model_Product
@@ -280,5 +160,125 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         }
 
         return $formated;
+    }
+
+    /**
+     * Check if option has a single selection
+     *
+     * @return bool
+     */
+    protected function _showSingle()
+    {
+        if (is_null($this->_showSingle)) {
+            $option     = $this->getOption();
+            $selections = $option->getSelections();
+
+            $this->_showSingle = (count($selections) === 1 && $option->getRequired());
+        }
+
+        return $this->_showSingle;
+    }
+
+    /**
+     * Retrieve default values for template
+     *
+     * @return array
+     */
+    protected function _getDefaultValues()
+    {
+        $option             = $this->getOption();
+        $default            = $option->getDefaultSelection();
+        $selections         = $option->getSelections();
+        $selectedOptions    = $this->_getSelectedOptions();
+        $inPreConfigured    = $this->getProduct()->hasPreconfiguredValues()
+            && $this->getProduct()->getPreconfiguredValues()
+                    ->getData('bundle_option_qty/' . $option->getId());
+
+        if (empty($selectedOptions) && $default) {
+            $_defaultQty = $default->getSelectionQty() * 1;
+            $_canChangeQty = $default->getSelectionCanChangeQty();
+        } elseif (!$inPreConfigured && $selectedOptions && is_numeric($selectedOptions)) {
+            $selectedSelection = $option->getSelectionById($selectedOptions);
+            if ($selectedSelection) {
+                $_defaultQty = $selectedSelection->getSelectionQty() * 1;
+                $_canChangeQty = $selectedSelection->getSelectionCanChangeQty();
+            } else {
+                $_defaultQty = $selections[0]->getSelectionQty() * 1;
+                $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
+            }
+        } elseif (!$this->_showSingle() || $inPreConfigured) {
+            $_defaultQty = $this->_getSelectedQty();
+            $_canChangeQty = (bool) $_defaultQty;
+        } else {
+            $_defaultQty = $selections[0]->getSelectionQty() * 1;
+            $_canChangeQty = $selections[0]->getSelectionCanChangeQty();
+        }
+
+        return [$_defaultQty, $_canChangeQty];
+    }
+
+    /**
+     * Collect selected options
+     *
+     * @return int|array|string
+     */
+    protected function _getSelectedOptions()
+    {
+        if (is_null($this->_selectedOptions)) {
+            $this->_selectedOptions = [];
+            $option = $this->getOption();
+
+            if ($this->getProduct()->hasPreconfiguredValues()) {
+                $configValue = $this->getProduct()->getPreconfiguredValues()
+                    ->getData('bundle_option/' . $option->getId());
+                if ($configValue) {
+                    $this->_selectedOptions = $configValue;
+                } elseif (!$option->getRequired()) {
+                    $this->_selectedOptions = 'None';
+                }
+            }
+        }
+
+        return $this->_selectedOptions;
+    }
+
+    /**
+     * Define if selection is selected
+     *
+     * @param  Mage_Catalog_Model_Product $selection
+     * @return bool
+     */
+    protected function _isSelected($selection)
+    {
+        $selectedOptions = $this->_getSelectedOptions();
+        if (is_numeric($selectedOptions)) {
+            return ($selection->getSelectionId() == $this->_getSelectedOptions());
+        } elseif (is_array($selectedOptions) && !empty($selectedOptions)) {
+            return in_array($selection->getSelectionId(), $this->_getSelectedOptions());
+        } elseif ($selectedOptions === 'None') {
+            return false;
+        } else {
+            return ($selection->getIsDefault() && $selection->isSaleable());
+        }
+    }
+
+    /**
+     * Retrieve selected option qty
+     *
+     * @return int
+     */
+    protected function _getSelectedQty()
+    {
+        if ($this->getProduct()->hasPreconfiguredValues()) {
+            $selectedQty = (float) $this->getProduct()->getPreconfiguredValues()
+                ->getData('bundle_option_qty/' . $this->getOption()->getId());
+            if ($selectedQty < 0) {
+                $selectedQty = 0;
+            }
+        } else {
+            $selectedQty = 0;
+        }
+
+        return $selectedQty;
     }
 }

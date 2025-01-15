@@ -42,18 +42,6 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return Varien_Filter_Template
-     */
-    protected function _getTemplateProcessor()
-    {
-        if ($this->_templateProcessor === null) {
-            $this->_templateProcessor = Mage::helper('catalog')->getPageTemplateProcessor();
-        }
-
-        return $this->_templateProcessor;
-    }
-
-    /**
      * Adding method handler
      *
      * @param   string $method
@@ -166,5 +154,17 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
             'category'  => $category,
             'attribute' => $attributeName,
         ]);
+    }
+
+    /**
+     * @return Varien_Filter_Template
+     */
+    protected function _getTemplateProcessor()
+    {
+        if ($this->_templateProcessor === null) {
+            $this->_templateProcessor = Mage::helper('catalog')->getPageTemplateProcessor();
+        }
+
+        return $this->_templateProcessor;
     }
 }

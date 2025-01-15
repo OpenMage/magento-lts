@@ -49,31 +49,6 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     protected $_headerText = 'Container Widget Header';
 
     /**
-     * Add a button
-     *
-     * @param string $id
-     * @param array $data
-     * @param int $level
-     * @param int $sortOrder
-     * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
-     * @return $this
-     */
-    protected function _addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
-    {
-        if (!isset($this->_buttons[$level])) {
-            $this->_buttons[$level] = [];
-        }
-        $this->_buttons[$level][$id] = $data;
-        $this->_buttons[$level][$id]['area'] = $area;
-        if ($sortOrder) {
-            $this->_buttons[$level][$id]['sort_order'] = $sortOrder;
-        } else {
-            $this->_buttons[$level][$id]['sort_order'] = count($this->_buttons[$level]) * 10;
-        }
-        return $this;
-    }
-
-    /**
      * Public wrapper for protected _addButton method
      *
      * @param string $id
@@ -89,22 +64,6 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     }
 
     /**
-     * Remove existing button
-     *
-     * @param string $id
-     * @return $this
-     */
-    protected function _removeButton($id)
-    {
-        foreach ($this->_buttons as $level => $buttons) {
-            if (isset($buttons[$id])) {
-                unset($this->_buttons[$level][$id]);
-            }
-        }
-        return $this;
-    }
-
-    /**
      * Public wrapper for the _removeButton() method
      *
      * @param string $id
@@ -113,37 +72,6 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     public function removeButton($id)
     {
         return $this->_removeButton($id);
-    }
-
-    /**
-     * Update specified button property
-     *
-     * @param string $id
-     * @param string $key
-     * @param mixed $data
-     * @return $this
-     */
-    protected function _updateButton($id, $key, $data)
-    {
-        foreach ($this->_buttons as $level => $buttons) {
-            if (isset($buttons[$id])) {
-                if (!empty($key)) {
-                    if ($child = $this->getChild($id . '_button')) {
-                        $child->setData($key, $data);
-                    }
-                    if ($key == 'level') {
-                        $this->_buttons[$data][$id] = $this->_buttons[$level][$id];
-                        unset($this->_buttons[$level][$id]);
-                    } else {
-                        $this->_buttons[$level][$id][$key] = $data;
-                    }
-                } else {
-                    $this->_buttons[$level][$id] = $data;
-                }
-                break;
-            }
-        }
-        return $this;
     }
 
     /**
@@ -157,44 +85,6 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     public function updateButton($id, $key, $data)
     {
         return $this->_updateButton($id, $key, $data);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        foreach ($this->_buttons as $level => $buttons) {
-            foreach ($buttons as $id => $data) {
-                $childId = $this->_prepareButtonBlockId($id);
-                $this->_addButtonChildBlock($childId);
-            }
-        }
-        return parent::_prepareLayout();
-    }
-
-    /**
-     * Prepare block id for button's id
-     *
-     * @param string $id
-     * @return string
-     */
-    protected function _prepareButtonBlockId($id)
-    {
-        return $id . '_button';
-    }
-
-    /**
-     * Adding child block with specified child's id.
-     *
-     * @param string $childId
-     * @return Mage_Adminhtml_Block_Widget_Button
-     */
-    protected function _addButtonChildBlock($childId)
-    {
-        $block = $this->getLayout()->createBlock('adminhtml/widget_button');
-        $this->setChild($childId, $block);
-        return $block;
     }
 
     /**
@@ -281,6 +171,116 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             }
         }
         return false;
+    }
+
+    /**
+     * Add a button
+     *
+     * @param string $id
+     * @param array $data
+     * @param int $level
+     * @param int $sortOrder
+     * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
+     * @return $this
+     */
+    protected function _addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
+    {
+        if (!isset($this->_buttons[$level])) {
+            $this->_buttons[$level] = [];
+        }
+        $this->_buttons[$level][$id] = $data;
+        $this->_buttons[$level][$id]['area'] = $area;
+        if ($sortOrder) {
+            $this->_buttons[$level][$id]['sort_order'] = $sortOrder;
+        } else {
+            $this->_buttons[$level][$id]['sort_order'] = count($this->_buttons[$level]) * 10;
+        }
+        return $this;
+    }
+
+    /**
+     * Remove existing button
+     *
+     * @param string $id
+     * @return $this
+     */
+    protected function _removeButton($id)
+    {
+        foreach ($this->_buttons as $level => $buttons) {
+            if (isset($buttons[$id])) {
+                unset($this->_buttons[$level][$id]);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Update specified button property
+     *
+     * @param string $id
+     * @param string $key
+     * @param mixed $data
+     * @return $this
+     */
+    protected function _updateButton($id, $key, $data)
+    {
+        foreach ($this->_buttons as $level => $buttons) {
+            if (isset($buttons[$id])) {
+                if (!empty($key)) {
+                    if ($child = $this->getChild($id . '_button')) {
+                        $child->setData($key, $data);
+                    }
+                    if ($key == 'level') {
+                        $this->_buttons[$data][$id] = $this->_buttons[$level][$id];
+                        unset($this->_buttons[$level][$id]);
+                    } else {
+                        $this->_buttons[$level][$id][$key] = $data;
+                    }
+                } else {
+                    $this->_buttons[$level][$id] = $data;
+                }
+                break;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        foreach ($this->_buttons as $level => $buttons) {
+            foreach ($buttons as $id => $data) {
+                $childId = $this->_prepareButtonBlockId($id);
+                $this->_addButtonChildBlock($childId);
+            }
+        }
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * Prepare block id for button's id
+     *
+     * @param string $id
+     * @return string
+     */
+    protected function _prepareButtonBlockId($id)
+    {
+        return $id . '_button';
+    }
+
+    /**
+     * Adding child block with specified child's id.
+     *
+     * @param string $childId
+     * @return Mage_Adminhtml_Block_Widget_Button
+     */
+    protected function _addButtonChildBlock($childId)
+    {
+        $block = $this->getLayout()->createBlock('adminhtml/widget_button');
+        $this->setChild($childId, $block);
+        return $block;
     }
 
     /**

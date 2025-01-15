@@ -56,57 +56,6 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     protected $_initialEnvironmentInfo = null;
 
     /**
-     * Applying of design config
-     *
-     * @return $this
-     */
-    protected function _applyDesignConfig()
-    {
-        $designConfig = $this->getDesignConfig();
-        $store = $designConfig->getStore();
-        $storeId = is_object($store) ? $store->getId() : $store;
-        $area = $designConfig->getArea();
-        if (!is_null($storeId) && ($storeId != Mage::app()->getStore()->getId())) {
-            $appEmulation = Mage::getSingleton('core/app_emulation');
-            $this->_initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId, $area);
-        }
-        return $this;
-    }
-
-    /**
-     * Revert design settings to previous
-     *
-     * @return $this
-     */
-    protected function _cancelDesignConfig()
-    {
-        if (!empty($this->_initialEnvironmentInfo)) {
-            $appEmulation = Mage::getSingleton('core/app_emulation');
-            $appEmulation->stopEnvironmentEmulation($this->_initialEnvironmentInfo);
-            $this->_initialEnvironmentInfo = null;
-        }
-        return $this;
-    }
-
-    /**
-     * Get design configuration data
-     *
-     * @return Varien_Object
-     */
-    protected function getDesignConfig()
-    {
-        if (is_null($this->_designConfig)) {
-            $store = Mage::getDesign()->getStore();
-            $storeId = is_object($store) ? $store->getId() : $store;
-            $this->_designConfig = new Varien_Object([
-                'area' => Mage::getDesign()->getArea(),
-                'store' => $storeId,
-            ]);
-        }
-        return $this->_designConfig;
-    }
-
-    /**
      * Initialize design information for template processing
      *
      * @return  $this
@@ -166,4 +115,55 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * @return int|string
      */
     abstract public function getType();
+
+    /**
+     * Applying of design config
+     *
+     * @return $this
+     */
+    protected function _applyDesignConfig()
+    {
+        $designConfig = $this->getDesignConfig();
+        $store = $designConfig->getStore();
+        $storeId = is_object($store) ? $store->getId() : $store;
+        $area = $designConfig->getArea();
+        if (!is_null($storeId) && ($storeId != Mage::app()->getStore()->getId())) {
+            $appEmulation = Mage::getSingleton('core/app_emulation');
+            $this->_initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId, $area);
+        }
+        return $this;
+    }
+
+    /**
+     * Revert design settings to previous
+     *
+     * @return $this
+     */
+    protected function _cancelDesignConfig()
+    {
+        if (!empty($this->_initialEnvironmentInfo)) {
+            $appEmulation = Mage::getSingleton('core/app_emulation');
+            $appEmulation->stopEnvironmentEmulation($this->_initialEnvironmentInfo);
+            $this->_initialEnvironmentInfo = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get design configuration data
+     *
+     * @return Varien_Object
+     */
+    protected function getDesignConfig()
+    {
+        if (is_null($this->_designConfig)) {
+            $store = Mage::getDesign()->getStore();
+            $storeId = is_object($store) ? $store->getId() : $store;
+            $this->_designConfig = new Varien_Object([
+                'area' => Mage::getDesign()->getArea(),
+                'store' => $storeId,
+            ]);
+        }
+        return $this->_designConfig;
+    }
 }

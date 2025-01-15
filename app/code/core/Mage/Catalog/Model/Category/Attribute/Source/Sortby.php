@@ -23,16 +23,6 @@
 class Mage_Catalog_Model_Category_Attribute_Source_Sortby extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
     /**
-     * Retrieve Catalog Config Singleton
-     *
-     * @return Mage_Catalog_Model_Config
-     */
-    protected function _getCatalogConfig()
-    {
-        return Mage::getSingleton('catalog/config');
-    }
-
-    /**
      * Retrieve All options
      *
      * @return array
@@ -52,5 +42,14 @@ class Mage_Catalog_Model_Category_Attribute_Source_Sortby extends Mage_Eav_Model
             }
         }
         return $this->_options;
+    }
+    /**
+     * Retrieve Catalog Config Singleton
+     *
+     * @return Mage_Catalog_Model_Config
+     */
+    protected function _getCatalogConfig()
+    {
+        return Mage::getSingleton('catalog/config');
     }
 }

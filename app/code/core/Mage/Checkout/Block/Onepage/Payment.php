@@ -22,15 +22,6 @@
  */
 class Mage_Checkout_Block_Onepage_Payment extends Mage_Checkout_Block_Onepage_Abstract
 {
-    protected function _construct()
-    {
-        $this->getCheckout()->setStepData('payment', [
-            'label'     => $this->__('Payment Information'),
-            'is_show'   => $this->isShow(),
-        ]);
-        parent::_construct();
-    }
-
     /**
      * Getter
      *
@@ -39,5 +30,13 @@ class Mage_Checkout_Block_Onepage_Payment extends Mage_Checkout_Block_Onepage_Ab
     public function getQuoteBaseGrandTotal()
     {
         return (float) $this->getQuote()->getBaseGrandTotal();
+    }
+    protected function _construct()
+    {
+        $this->getCheckout()->setStepData('payment', [
+            'label'     => $this->__('Payment Information'),
+            'is_show'   => $this->isShow(),
+        ]);
+        parent::_construct();
     }
 }

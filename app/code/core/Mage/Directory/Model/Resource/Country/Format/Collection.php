@@ -22,11 +22,6 @@
  */
 class Mage_Directory_Model_Resource_Country_Format_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('directory/country_format');
-    }
-
     /**
      * Set country filter
      *
@@ -42,5 +37,9 @@ class Mage_Directory_Model_Resource_Country_Format_Collection extends Mage_Core_
         }
 
         return $this->addFieldToFilter('country_id', $countryId);
+    }
+    protected function _construct()
+    {
+        $this->_init('directory/country_format');
     }
 }

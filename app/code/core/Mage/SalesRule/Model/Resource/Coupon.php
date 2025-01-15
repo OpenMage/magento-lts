@@ -22,15 +22,6 @@
  */
 class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('salesrule/coupon', 'coupon_id');
-        $this->addUniqueField([
-            'field' => 'code',
-            'title' => Mage::helper('salesrule')->__('Coupon with the same code'),
-        ]);
-    }
-
     /**
      * Perform actions before object save
      *
@@ -138,5 +129,13 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
         }
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('salesrule/coupon', 'coupon_id');
+        $this->addUniqueField([
+            'field' => 'code',
+            'title' => Mage::helper('salesrule')->__('Coupon with the same code'),
+        ]);
     }
 }

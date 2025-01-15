@@ -54,24 +54,6 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     protected $_env;
 
     /**
-     * Add website ids to rules data
-     *
-     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
-     */
-    protected function _afterLoad()
-    {
-        parent::_afterLoad();
-        if ($this->getFlag('add_websites_to_result') && $this->_items) {
-            /** @var Mage_Rule_Model_Abstract $item */
-            foreach ($this->_items as $item) {
-                $item->afterLoad();
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Init flag for adding rule website ids to collection result
      *
      * @param bool|null $flag
@@ -147,26 +129,6 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     }
 
     /**
-     * Retrieve correspondent entity information (associations table name, columns names)
-     * of rule's associated entity by specified entity type
-     *
-     * @param string $entityType
-     *
-     * @return array
-     */
-    protected function _getAssociatedEntityInfo($entityType)
-    {
-        if (isset($this->_associatedEntitiesMap[$entityType])) {
-            return $this->_associatedEntitiesMap[$entityType];
-        }
-
-        throw Mage::exception(
-            'Mage_Core',
-            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType),
-        );
-    }
-
-    /**
      * Set environment for all rules in collection
      *
      * @return $this
@@ -213,5 +175,43 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
     public function process()
     {
         return $this;
+    }
+
+    /**
+     * Add website ids to rules data
+     *
+     * @return Mage_Rule_Model_Resource_Rule_Collection_Abstract
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+        if ($this->getFlag('add_websites_to_result') && $this->_items) {
+            /** @var Mage_Rule_Model_Abstract $item */
+            foreach ($this->_items as $item) {
+                $item->afterLoad();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Retrieve correspondent entity information (associations table name, columns names)
+     * of rule's associated entity by specified entity type
+     *
+     * @param string $entityType
+     *
+     * @return array
+     */
+    protected function _getAssociatedEntityInfo($entityType)
+    {
+        if (isset($this->_associatedEntitiesMap[$entityType])) {
+            return $this->_associatedEntitiesMap[$entityType];
+        }
+
+        throw Mage::exception(
+            'Mage_Core',
+            Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType),
+        );
     }
 }

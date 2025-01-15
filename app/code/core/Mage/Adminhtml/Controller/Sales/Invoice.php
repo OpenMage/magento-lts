@@ -29,28 +29,6 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
     public const ADMIN_RESOURCE = 'sales/invoice';
 
     /**
-     * Additional initialization
-     */
-    protected function _construct()
-    {
-        $this->setUsedModuleName('Mage_Sales');
-    }
-
-    /**
-     * Init layout, menu and breadcrumb
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('sales/invoice')
-            ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
-            ->_addBreadcrumb($this->__('Invoices'), $this->__('Invoices'));
-        return $this;
-    }
-
-    /**
      * Order grid
      */
     public function gridAction()
@@ -135,5 +113,27 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
                 '.pdf', $pdf->render(), 'application/pdf');
         }
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * Additional initialization
+     */
+    protected function _construct()
+    {
+        $this->setUsedModuleName('Mage_Sales');
+    }
+
+    /**
+     * Init layout, menu and breadcrumb
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('sales/invoice')
+            ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
+            ->_addBreadcrumb($this->__('Invoices'), $this->__('Invoices'));
+        return $this;
     }
 }

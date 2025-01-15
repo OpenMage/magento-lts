@@ -89,16 +89,6 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
     }
 
     /**
-     * Get helper for calculation purposes
-     *
-     * @return Mage_Catalog_Helper_Product_Type_Composite
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('catalog/product_type_composite');
-    }
-
-    /**
      * Check if option for swatches price change is enabled
      *
      * @return bool
@@ -106,5 +96,15 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
     public function isEnabled()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_SWATCH_PRICE);
+    }
+
+    /**
+     * Get helper for calculation purposes
+     *
+     * @return Mage_Catalog_Helper_Product_Type_Composite
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('catalog/product_type_composite');
     }
 }

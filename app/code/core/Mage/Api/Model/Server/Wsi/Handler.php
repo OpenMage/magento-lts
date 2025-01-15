@@ -96,35 +96,6 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     }
 
     /**
-     * Return called class and method names
-     *
-     * @param String $apiPath
-     * @return array|void
-     */
-    protected function _getResourceName($apiPath)
-    {
-        list($resourceName, $methodName) = explode('.', $apiPath);
-
-        if (empty($resourceName) || empty($methodName)) {
-            $this->_fault('resource_path_invalid');
-            return;
-        }
-
-        $resourcesAlias = $this->_getConfig()->getResourcesAlias();
-        $resources      = $this->_getConfig()->getResources();
-        if (isset($resourcesAlias->$resourceName)) {
-            $resourceName = (string) $resourcesAlias->$resourceName;
-        }
-
-        $methodInfo = $resources->$resourceName->methods->$methodName;
-        $modelName = $this->_prepareResourceModelName((string) $resources->$resourceName->model);
-        $modelClass = Mage::getConfig()->getModelClassName($modelName);
-        $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
-
-        return [$modelClass, $method];
-    }
-
-    /**
      * Return an array of parameters for the callable method.
      *
      * @param String $modelName
@@ -177,5 +148,34 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
         $stdObject = new stdClass();
         $stdObject->result = parent::endSession($sessionId->sessionId);
         return $stdObject;
+    }
+
+    /**
+     * Return called class and method names
+     *
+     * @param String $apiPath
+     * @return array|void
+     */
+    protected function _getResourceName($apiPath)
+    {
+        list($resourceName, $methodName) = explode('.', $apiPath);
+
+        if (empty($resourceName) || empty($methodName)) {
+            $this->_fault('resource_path_invalid');
+            return;
+        }
+
+        $resourcesAlias = $this->_getConfig()->getResourcesAlias();
+        $resources      = $this->_getConfig()->getResources();
+        if (isset($resourcesAlias->$resourceName)) {
+            $resourceName = (string) $resourcesAlias->$resourceName;
+        }
+
+        $methodInfo = $resources->$resourceName->methods->$methodName;
+        $modelName = $this->_prepareResourceModelName((string) $resources->$resourceName->model);
+        $modelClass = Mage::getConfig()->getModelClassName($modelName);
+        $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
+
+        return [$modelClass, $method];
     }
 }

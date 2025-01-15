@@ -37,32 +37,6 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
     protected $_fileNameMaxLength = 200;
 
     /**
-     * Save file to storage
-     *
-     * @param  array $result
-     * @return $this
-     */
-    protected function _afterSave($result)
-    {
-        if (empty($result['path']) || empty($result['file'])) {
-            return $this;
-        }
-
-        /** @var Mage_Core_Helper_File_Storage $helper */
-        $helper = Mage::helper('core/file_storage');
-
-        if ($helper->isInternalStorage() || $this->skipDbProcessing()) {
-            return $this;
-        }
-
-        /** @var Mage_Core_Helper_File_Storage_Database $dbHelper */
-        $dbHelper = Mage::helper('core/file_storage_database');
-        $this->_result['file'] = $dbHelper->saveUploadedFile($result);
-
-        return $this;
-    }
-
-    /**
      * Getter/Setter for _skipDbProcessing flag
      *
      * @param null|bool $flag
@@ -114,5 +88,31 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
             );
         }
         return parent::save($destinationFolder, $newFileName);
+    }
+
+    /**
+     * Save file to storage
+     *
+     * @param  array $result
+     * @return $this
+     */
+    protected function _afterSave($result)
+    {
+        if (empty($result['path']) || empty($result['file'])) {
+            return $this;
+        }
+
+        /** @var Mage_Core_Helper_File_Storage $helper */
+        $helper = Mage::helper('core/file_storage');
+
+        if ($helper->isInternalStorage() || $this->skipDbProcessing()) {
+            return $this;
+        }
+
+        /** @var Mage_Core_Helper_File_Storage_Database $dbHelper */
+        $dbHelper = Mage::helper('core/file_storage_database');
+        $this->_result['file'] = $dbHelper->saveUploadedFile($result);
+
+        return $this;
     }
 }

@@ -69,20 +69,6 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     }
 
     /**
-     * Preparing layout
-     *
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle(Mage::helper('catalog')->__('Products Comparison List') . ' - ' . $headBlock->getDefaultTitle());
-        }
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve Product Compare items collection
      *
      * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
@@ -199,5 +185,19 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
         }
 
         return $helper->getAddUrlWithParams($product, $params);
+    }
+
+    /**
+     * Preparing layout
+     *
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->setTitle(Mage::helper('catalog')->__('Products Comparison List') . ' - ' . $headBlock->getDefaultTitle());
+        }
+        return parent::_prepareLayout();
     }
 }

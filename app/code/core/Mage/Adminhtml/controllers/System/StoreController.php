@@ -39,22 +39,6 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         return parent::preDispatch();
     }
 
-    /**
-     * Init actions
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        // load layout, set active menu and breadcrumbs
-        $this->loadLayout()
-            ->_setActiveMenu('system/store')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'))
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Manage Stores'), Mage::helper('adminhtml')->__('Manage Stores'))
-        ;
-        return $this;
-    }
-
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -443,6 +427,22 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete store view. Please, try again later.'));
         }
         $this->_redirect('*/*/editStore', ['store_id' => $itemId]);
+    }
+
+    /**
+     * Init actions
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        // load layout, set active menu and breadcrumbs
+        $this->loadLayout()
+            ->_setActiveMenu('system/store')
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'))
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Manage Stores'), Mage::helper('adminhtml')->__('Manage Stores'))
+        ;
+        return $this;
     }
 
     /**

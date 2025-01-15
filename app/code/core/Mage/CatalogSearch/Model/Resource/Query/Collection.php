@@ -30,15 +30,6 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
     protected $_storeId;
 
     /**
-     * Init model for collection
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalogsearch/query');
-    }
-
-    /**
      * Set Store ID for filter
      *
      * @param mixed $store
@@ -149,5 +140,14 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
         }
         $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
         return $this;
+    }
+
+    /**
+     * Init model for collection
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalogsearch/query');
     }
 }

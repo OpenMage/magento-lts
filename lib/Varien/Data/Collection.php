@@ -173,18 +173,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     }
 
     /**
-     * Set collection loading status flag
-     *
-     * @param bool $flag
-     * @return $this
-     */
-    protected function _setIsLoaded($flag = true)
-    {
-        $this->_isCollectionLoaded = $flag;
-        return $this;
-    }
-
-    /**
      * Get current collection page
      *
      * @param  int $displacement
@@ -363,28 +351,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     }
 
     /**
-     * Add item that has no id to collection
-     *
-     * @param Varien_Object $item
-     * @return $this
-     */
-    protected function _addItem($item)
-    {
-        $this->_items[] = $item;
-        return $this;
-    }
-
-    /**
-     * Retrieve item id
-     *
-     * @return mixed
-     */
-    protected function _getItemId(Varien_Object $item)
-    {
-        return $item->getId();
-    }
-
-    /**
      * Retrieve ids of all tems
      *
      * @return array
@@ -548,36 +514,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     }
 
     /**
-     * Render sql select conditions
-     *
-     * @return  Varien_Data_Collection
-     */
-    protected function _renderFilters()
-    {
-        return $this;
-    }
-
-    /**
-     * Render sql select orders
-     *
-     * @return  Varien_Data_Collection
-     */
-    protected function _renderOrders()
-    {
-        return $this;
-    }
-
-    /**
-     * Render sql select limit
-     *
-     * @return  Varien_Data_Collection
-     */
-    protected function _renderLimit()
-    {
-        return $this;
-    }
-
-    /**
      * Set select distinct
      *
      * @param bool $flag
@@ -650,38 +586,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     }
 
     /**
-     * Convert items array to array for select options
-     *
-     * return items array
-     * array(
-     *      $index => array(
-     *          'value' => mixed
-     *          'label' => mixed
-     *      )
-     * )
-     *
-     * @param string $valueField
-     * @param string $labelField
-     * @param array $additional
-     * @return array
-     */
-    protected function _toOptionArray($valueField = 'id', $labelField = 'name', $additional = [])
-    {
-        $data = [];
-        $res = [];
-        $additional['value'] = $valueField;
-        $additional['label'] = $labelField;
-
-        foreach ($this as $item) {
-            foreach ($additional as $code => $field) {
-                $data[$code] = $item->getData($field);
-            }
-            $res[] = $data;
-        }
-        return $res;
-    }
-
-    /**
      * @return array
      */
     public function toOptionArray()
@@ -695,25 +599,6 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function toOptionHash()
     {
         return $this->_toOptionHash();
-    }
-
-    /**
-     * Convert items array to hash for select options
-     *
-     * return items hash
-     * array($value => $label)
-     *
-     * @param   string $valueField
-     * @param   string $labelField
-     * @return  array
-     */
-    protected function _toOptionHash($valueField = 'id', $labelField = 'name')
-    {
-        $res = [];
-        foreach ($this as $item) {
-            $res[$item->getData($valueField)] = $item->getData($labelField);
-        }
-        return $res;
     }
 
     /**
@@ -830,5 +715,120 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function hasFlag($flag)
     {
         return array_key_exists($flag, $this->_flags);
+    }
+
+    /**
+     * Set collection loading status flag
+     *
+     * @param bool $flag
+     * @return $this
+     */
+    protected function _setIsLoaded($flag = true)
+    {
+        $this->_isCollectionLoaded = $flag;
+        return $this;
+    }
+
+    /**
+     * Add item that has no id to collection
+     *
+     * @param Varien_Object $item
+     * @return $this
+     */
+    protected function _addItem($item)
+    {
+        $this->_items[] = $item;
+        return $this;
+    }
+
+    /**
+     * Retrieve item id
+     *
+     * @return mixed
+     */
+    protected function _getItemId(Varien_Object $item)
+    {
+        return $item->getId();
+    }
+
+    /**
+     * Render sql select conditions
+     *
+     * @return  Varien_Data_Collection
+     */
+    protected function _renderFilters()
+    {
+        return $this;
+    }
+
+    /**
+     * Render sql select orders
+     *
+     * @return  Varien_Data_Collection
+     */
+    protected function _renderOrders()
+    {
+        return $this;
+    }
+
+    /**
+     * Render sql select limit
+     *
+     * @return  Varien_Data_Collection
+     */
+    protected function _renderLimit()
+    {
+        return $this;
+    }
+
+    /**
+     * Convert items array to array for select options
+     *
+     * return items array
+     * array(
+     *      $index => array(
+     *          'value' => mixed
+     *          'label' => mixed
+     *      )
+     * )
+     *
+     * @param string $valueField
+     * @param string $labelField
+     * @param array $additional
+     * @return array
+     */
+    protected function _toOptionArray($valueField = 'id', $labelField = 'name', $additional = [])
+    {
+        $data = [];
+        $res = [];
+        $additional['value'] = $valueField;
+        $additional['label'] = $labelField;
+
+        foreach ($this as $item) {
+            foreach ($additional as $code => $field) {
+                $data[$code] = $item->getData($field);
+            }
+            $res[] = $data;
+        }
+        return $res;
+    }
+
+    /**
+     * Convert items array to hash for select options
+     *
+     * return items hash
+     * array($value => $label)
+     *
+     * @param   string $valueField
+     * @param   string $labelField
+     * @return  array
+     */
+    protected function _toOptionHash($valueField = 'id', $labelField = 'name')
+    {
+        $res = [];
+        foreach ($this as $item) {
+            $res[$item->getData($valueField)] = $item->getData($labelField);
+        }
+        return $res;
     }
 }

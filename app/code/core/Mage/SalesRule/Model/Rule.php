@@ -161,16 +161,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     protected $_validatedAddresses = [];
 
     /**
-     * Set resource model and Id field name
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('salesrule/rule');
-        $this->setIdFieldName('rule_id');
-    }
-
-    /**
      * Returns code mass generator instance for auto generated specific coupons
      *
      * @return Mage_Core_Model_Abstract|Mage_SalesRule_Model_Coupon_Massgenerator
@@ -178,46 +168,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public static function getCouponMassGenerator()
     {
         return Mage::getSingleton('salesrule/coupon_massgenerator');
-    }
-
-    /**
-     * Set coupon code and uses per coupon
-     *
-     * @inheritDoc
-     */
-    protected function _afterLoad()
-    {
-        $this->setCouponCode($this->getPrimaryCoupon()->getCode());
-        if ($this->getUsesPerCoupon() !== null && !$this->getUseAutoGeneration()) {
-            $this->setUsesPerCoupon($this->getPrimaryCoupon()->getUsageLimit());
-        }
-        return parent::_afterLoad();
-    }
-
-    /**
-     * Save/delete coupon
-     *
-     * @return $this
-     */
-    protected function _afterSave()
-    {
-        $couponCode = trim((string) $this->getCouponCode());
-        if (strlen($couponCode)
-            && $this->getCouponType() == self::COUPON_TYPE_SPECIFIC
-            && !$this->getUseAutoGeneration()
-        ) {
-            $this->getPrimaryCoupon()
-                ->setCode($couponCode)
-                ->setUsageLimit($this->getUsesPerCoupon() ? $this->getUsesPerCoupon() : null)
-                ->setUsagePerCustomer($this->getUsesPerCustomer() ? $this->getUsesPerCustomer() : null)
-                ->setExpirationDate($this->getToDate())
-                ->save();
-        } else {
-            $this->getPrimaryCoupon()->delete();
-        }
-
-        parent::_afterSave();
-        return $this;
     }
 
     /**
@@ -478,34 +428,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     }
 
     /**
-     * Return id for address
-     *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  string
-     */
-    private function _getAddressId($address)
-    {
-        if ($address instanceof Mage_Sales_Model_Quote_Address) {
-            return $address->getId();
-        }
-        return $address;
-    }
-
-    /**
-     * Collect all product attributes used in serialized rule's action or condition
-     *
-     * @deprecated after 1.6.2.0 use Mage_SalesRule_Model_Resource_Rule::getProductAttributes() instead
-     *
-     * @param string $serializedString
-     *
-     * @return array
-     */
-    protected function _getUsedAttributes($serializedString)
-    {
-        return $this->_getResource()->getProductAttributes($serializedString);
-    }
-
-    /**
      * @deprecated after 1.6.2.0
      *
      * @param string $format
@@ -536,5 +458,83 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);
+    }
+
+    /**
+     * Set resource model and Id field name
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('salesrule/rule');
+        $this->setIdFieldName('rule_id');
+    }
+
+    /**
+     * Set coupon code and uses per coupon
+     *
+     * @inheritDoc
+     */
+    protected function _afterLoad()
+    {
+        $this->setCouponCode($this->getPrimaryCoupon()->getCode());
+        if ($this->getUsesPerCoupon() !== null && !$this->getUseAutoGeneration()) {
+            $this->setUsesPerCoupon($this->getPrimaryCoupon()->getUsageLimit());
+        }
+        return parent::_afterLoad();
+    }
+
+    /**
+     * Save/delete coupon
+     *
+     * @return $this
+     */
+    protected function _afterSave()
+    {
+        $couponCode = trim((string) $this->getCouponCode());
+        if (strlen($couponCode)
+            && $this->getCouponType() == self::COUPON_TYPE_SPECIFIC
+            && !$this->getUseAutoGeneration()
+        ) {
+            $this->getPrimaryCoupon()
+                ->setCode($couponCode)
+                ->setUsageLimit($this->getUsesPerCoupon() ? $this->getUsesPerCoupon() : null)
+                ->setUsagePerCustomer($this->getUsesPerCustomer() ? $this->getUsesPerCustomer() : null)
+                ->setExpirationDate($this->getToDate())
+                ->save();
+        } else {
+            $this->getPrimaryCoupon()->delete();
+        }
+
+        parent::_afterSave();
+        return $this;
+    }
+
+    /**
+     * Collect all product attributes used in serialized rule's action or condition
+     *
+     * @deprecated after 1.6.2.0 use Mage_SalesRule_Model_Resource_Rule::getProductAttributes() instead
+     *
+     * @param string $serializedString
+     *
+     * @return array
+     */
+    protected function _getUsedAttributes($serializedString)
+    {
+        return $this->_getResource()->getProductAttributes($serializedString);
+    }
+
+    /**
+     * Return id for address
+     *
+     * @param   Mage_Sales_Model_Quote_Address $address
+     * @return  string
+     */
+    private function _getAddressId($address)
+    {
+        if ($address instanceof Mage_Sales_Model_Quote_Address) {
+            return $address->getId();
+        }
+        return $address;
     }
 }

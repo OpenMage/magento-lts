@@ -52,23 +52,6 @@ class Mage_Api2_Model_Acl_Filter
     }
 
     /**
-     * Return only the data which keys are allowed
-     *
-     * @param array $allowedAttributes List of attributes available to use
-     * @param array $data Associative array attribute to value
-     * @return array
-     */
-    protected function _filter(array $allowedAttributes, array $data)
-    {
-        foreach (array_keys($data) as $attribute) {
-            if (!in_array($attribute, $allowedAttributes)) {
-                unset($data[$attribute]);
-            }
-        }
-        return $data;
-    }
-
-    /**
      * Strip attributes in of collection items
      *
      * @param array $items
@@ -178,5 +161,22 @@ class Mage_Api2_Model_Acl_Filter
     public function out(array $retrievedData)
     {
         return $this->_filter($this->getAttributesToInclude(), $retrievedData);
+    }
+
+    /**
+     * Return only the data which keys are allowed
+     *
+     * @param array $allowedAttributes List of attributes available to use
+     * @param array $data Associative array attribute to value
+     * @return array
+     */
+    protected function _filter(array $allowedAttributes, array $data)
+    {
+        foreach (array_keys($data) as $attribute) {
+            if (!in_array($attribute, $allowedAttributes)) {
+                unset($data[$attribute]);
+            }
+        }
+        return $data;
     }
 }

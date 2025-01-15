@@ -22,11 +22,6 @@
  */
 class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/stock_item');
-    }
-
     /**
      * Add stock filter to collection
      *
@@ -128,6 +123,10 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
         }
 
         return $this->addFieldToFilter('main_table.qty', [$methods[$comparsionMethod] => $qty]);
+    }
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/stock_item');
     }
 
     /**

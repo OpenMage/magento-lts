@@ -23,22 +23,6 @@
 class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Unset unused data from request
-     * Skip getting "key" and "secret" because its generated from server side only
-     *
-     * @return array
-     */
-    protected function _filter(array $data)
-    {
-        foreach (['id', 'back', 'form_key', 'key', 'secret'] as $field) {
-            if (isset($data[$field])) {
-                unset($data[$field]);
-            }
-        }
-        return $data;
-    }
-
-    /**
      * Init titles
      *
      * @return $this
@@ -228,47 +212,6 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        $action = $this->getRequest()->getActionName();
-        if ($action == 'index') {
-            $action = null;
-        } else {
-            if ($action == 'new' || $action == 'save') {
-                $action = 'edit';
-            }
-            $action = '/' . $action;
-        }
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/oauth_consumer' . $action);
-    }
-
-    /**
-     * Get form data
-     *
-     * @return array
-     */
-    protected function _getFormData()
-    {
-        return $this->_getSession()->getData('consumer_data', true);
-    }
-
-    /**
-     * Set form data
-     *
-     * @param array $data
-     * @return $this
-     */
-    protected function _setFormData($data)
-    {
-        $this->_getSession()->setData('consumer_data', $data);
-        return $this;
-    }
-
-    /**
      * Delete consumer action
      */
     public function deleteAction()
@@ -309,5 +252,61 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             }
         }
         $this->_redirect('*/*/index');
+    }
+    /**
+     * Unset unused data from request
+     * Skip getting "key" and "secret" because its generated from server side only
+     *
+     * @return array
+     */
+    protected function _filter(array $data)
+    {
+        foreach (['id', 'back', 'form_key', 'key', 'secret'] as $field) {
+            if (isset($data[$field])) {
+                unset($data[$field]);
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _isAllowed()
+    {
+        $action = $this->getRequest()->getActionName();
+        if ($action == 'index') {
+            $action = null;
+        } else {
+            if ($action == 'new' || $action == 'save') {
+                $action = 'edit';
+            }
+            $action = '/' . $action;
+        }
+        /** @var Mage_Admin_Model_Session $session */
+        $session = Mage::getSingleton('admin/session');
+        return $session->isAllowed('system/api/oauth_consumer' . $action);
+    }
+
+    /**
+     * Get form data
+     *
+     * @return array
+     */
+    protected function _getFormData()
+    {
+        return $this->_getSession()->getData('consumer_data', true);
+    }
+
+    /**
+     * Set form data
+     *
+     * @param array $data
+     * @return $this
+     */
+    protected function _setFormData($data)
+    {
+        $this->_getSession()->setData('consumer_data', $data);
+        return $this;
     }
 }

@@ -89,16 +89,6 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     private $_redirectCount = 0;
 
     /**
-     * Set request timeout, msec
-     *
-     * @param int $value
-     */
-    public function setTimeout($value)
-    {
-        $this->_timeout = (int) $value;
-    }
-
-    /**
      * Constructor
      * @param string $host
      * @param int $port
@@ -108,6 +98,16 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if ($host) {
             $this->connect($host, (int) $port);
         }
+    }
+
+    /**
+     * Set request timeout, msec
+     *
+     * @param int $value
+     */
+    public function setTimeout($value)
+    {
+        $this->_timeout = (int) $value;
     }
 
     /**
@@ -226,40 +226,6 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     }
 
     /**
-     * Set host, port from full url
-     * and return relative url
-     *
-     * @param string $uri ex. http://google.com/index.php?a=b
-     * @return string ex. /index.php?a=b
-     */
-    protected function parseUrl($uri)
-    {
-        $parts = parse_url($uri);
-        if (!empty($parts['user']) && !empty($parts['pass'])) {
-            $this->setCredentials($parts['user'], $parts['pass']);
-        }
-        if (!empty($parts['port'])) {
-            $this->_port = (int) $parts['port'];
-        }
-
-        if (!empty($parts['host'])) {
-            $this->_host = $parts['host'];
-        } else {
-            throw new InvalidArgumentException("Uri doesn't contain host part");
-        }
-
-        if (!empty($parts['path'])) {
-            $requestUri = $parts['path'];
-        } else {
-            throw new InvalidArgumentException("Uri doesn't contain path part");
-        }
-        if (!empty($parts['query'])) {
-            $requestUri .= '?' . $parts['query'];
-        }
-        return $requestUri;
-    }
-
-    /**
      * Make POST request
      */
     public function post($uri, $params)
@@ -349,6 +315,76 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     }
 
     /**
+     * Get response status code
+     * @see Mage_HTTP_Client::getStatus()
+     */
+    public function getStatus()
+    {
+        return $this->_responseStatus;
+    }
+
+    /**
+     * Throw error exception
+     * @param $string
+     * @throws Exception
+     * @return never
+     */
+    public function doError($string)
+    {
+        throw new Exception($string);
+    }
+
+    /**
+     * TODO
+     */
+    public function setOptions($arr)
+    {
+        // Stub
+    }
+
+    /**
+     * TODO
+     */
+    public function setOption($name, $value)
+    {
+        // Stub
+    }
+
+    /**
+     * Set host, port from full url
+     * and return relative url
+     *
+     * @param string $uri ex. http://google.com/index.php?a=b
+     * @return string ex. /index.php?a=b
+     */
+    protected function parseUrl($uri)
+    {
+        $parts = parse_url($uri);
+        if (!empty($parts['user']) && !empty($parts['pass'])) {
+            $this->setCredentials($parts['user'], $parts['pass']);
+        }
+        if (!empty($parts['port'])) {
+            $this->_port = (int) $parts['port'];
+        }
+
+        if (!empty($parts['host'])) {
+            $this->_host = $parts['host'];
+        } else {
+            throw new InvalidArgumentException("Uri doesn't contain host part");
+        }
+
+        if (!empty($parts['path'])) {
+            $requestUri = $parts['path'];
+        } else {
+            throw new InvalidArgumentException("Uri doesn't contain path part");
+        }
+        if (!empty($parts['query'])) {
+            $requestUri .= '?' . $parts['query'];
+        }
+        return $requestUri;
+    }
+
+    /**
      * Process response headers
      */
     protected function processResponseHeaders()
@@ -422,15 +458,6 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     }
 
     /**
-     * Get response status code
-     * @see Mage_HTTP_Client::getStatus()
-     */
-    public function getStatus()
-    {
-        return $this->_responseStatus;
-    }
-
-    /**
      * Make request
      * @param string $method
      * @param string $uri
@@ -469,17 +496,6 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     }
 
     /**
-     * Throw error exception
-     * @param $string
-     * @throws Exception
-     * @return never
-     */
-    public function doError($string)
-    {
-        throw new Exception($string);
-    }
-
-    /**
      * Convert headers hash to string
      * @param $delimiter
      * @param $append
@@ -496,21 +512,5 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             $str [] = "$k: $v\r\n";
         }
         return implode($str);
-    }
-
-    /**
-     * TODO
-     */
-    public function setOptions($arr)
-    {
-        // Stub
-    }
-
-    /**
-     * TODO
-     */
-    public function setOption($name, $value)
-    {
-        // Stub
     }
 }

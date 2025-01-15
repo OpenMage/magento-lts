@@ -137,16 +137,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     }
 
     /**
-     * Init resource model and id field
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('catalogrule/rule');
-        $this->setIdFieldName('rule_id');
-    }
-
-    /**
      * Getter for rule conditions collection
      *
      * @return Mage_CatalogRule_Model_Rule_Condition_Combine
@@ -252,22 +242,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
             $results[$websiteId] = (int) $this->getConditions()->validate($product);
         }
         $this->_productIds[$product->getId()] = $results;
-    }
-
-    /**
-     * Prepare website to default assigned store map
-     *
-     * @return array
-     */
-    protected function _getWebsitesMap()
-    {
-        $map = [];
-        foreach ($this->_app->getWebsites(true) as $website) {
-            if ($website->getDefaultStore()) {
-                $map[$website->getId()] = $website->getDefaultStore()->getId();
-            }
-        }
-        return $map;
     }
 
     /**
@@ -423,21 +397,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     }
 
     /**
-     * Invalidate related cache types
-     *
-     * @return $this
-     */
-    protected function _invalidateCache()
-    {
-        $types = $this->_config->getNode(self::XML_NODE_RELATED_CACHE);
-        if ($types) {
-            $types = $types->asArray();
-            $this->_app->getCacheInstance()->invalidateType(array_keys($types));
-        }
-        return $this;
-    }
-
-    /**
      * @deprecated after 1.11.2.0
      *
      * @param string $format
@@ -479,6 +438,47 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         if (!$product->hasData('matched_rules')) {
             $product->setMatchedRules($this->getResource()->getProductRuleIds($product->getId()));
+        }
+        return $this;
+    }
+
+    /**
+     * Init resource model and id field
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('catalogrule/rule');
+        $this->setIdFieldName('rule_id');
+    }
+
+    /**
+     * Prepare website to default assigned store map
+     *
+     * @return array
+     */
+    protected function _getWebsitesMap()
+    {
+        $map = [];
+        foreach ($this->_app->getWebsites(true) as $website) {
+            if ($website->getDefaultStore()) {
+                $map[$website->getId()] = $website->getDefaultStore()->getId();
+            }
+        }
+        return $map;
+    }
+
+    /**
+     * Invalidate related cache types
+     *
+     * @return $this
+     */
+    protected function _invalidateCache()
+    {
+        $types = $this->_config->getNode(self::XML_NODE_RELATED_CACHE);
+        if ($types) {
+            $types = $types->asArray();
+            $this->_app->getCacheInstance()->invalidateType(array_keys($types));
         }
         return $this;
     }

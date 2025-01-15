@@ -73,6 +73,16 @@ class Varien_Db_Statement_Parameter
     }
 
     /**
+     * Returns representation of a object to be used in string contexts
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->_value;
+    }
+
+    /**
      * Sets parameter value.
      *
      * @param mixed $value
@@ -210,16 +220,6 @@ class Varien_Db_Statement_Parameter
     public function getAdditional()
     {
         return $this->_additional;
-    }
-
-    /**
-     * Returns representation of a object to be used in string contexts
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->_value;
     }
 
     /**

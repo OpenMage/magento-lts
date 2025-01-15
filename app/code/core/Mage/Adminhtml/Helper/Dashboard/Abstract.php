@@ -44,8 +44,6 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
         return $this->_collection;
     }
 
-    abstract protected function _initCollection();
-
     /**
      * Returns collection items
      *
@@ -99,4 +97,6 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
     {
         return $this->_params;
     }
+
+    abstract protected function _initCollection();
 }

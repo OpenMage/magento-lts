@@ -41,11 +41,6 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     protected $_attribute;
 
-    protected function _construct()
-    {
-        $this->_init('catalog/product_status');
-    }
-
     /**
      * Retrieve Product Attribute by code
      *
@@ -353,5 +348,10 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
 
         $collection->getSelect()->order($valueExpr . ' ' . $dir);
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/product_status');
     }
 }

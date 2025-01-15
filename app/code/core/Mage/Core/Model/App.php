@@ -377,151 +377,6 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Initialize PHP environment
-     *
-     * @return $this
-     */
-    protected function _initEnvironment()
-    {
-        $this->setErrorHandler(self::DEFAULT_ERROR_HANDLER);
-        date_default_timezone_set(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
-        return $this;
-    }
-
-    /**
-     * Initialize base system configuration (local.xml and config.xml files).
-     * Base configuration provide ability initialize DB connection and cache backend
-     *
-     * @return $this
-     */
-    protected function _initBaseConfig()
-    {
-        Varien_Profiler::start('mage::app::init::system_config');
-        $this->_config->loadBase();
-        Varien_Profiler::stop('mage::app::init::system_config');
-        return $this;
-    }
-
-    /**
-     * Initialize application cache instance
-     *
-     * @return $this
-     */
-    protected function _initCache(array $cacheInitOptions = [])
-    {
-        $this->_isCacheLocked = true;
-        $options = $this->_config->getNode('global/cache');
-        if ($options) {
-            $options = $options->asArray();
-        } else {
-            $options = [];
-        }
-        $options = array_merge($options, $cacheInitOptions);
-        $this->_cache = Mage::getModel('core/cache', $options);
-        $this->_isCacheLocked = false;
-        return $this;
-    }
-
-    /**
-     * Initialize active modules configuration and data
-     *
-     * @return $this
-     */
-    protected function _initModules()
-    {
-        if (!$this->_config->loadModulesCache()) {
-            try {
-                $this->_config->getCacheSaveLock();
-                if (!$this->_config->loadModulesCache()) {
-                    $this->_config->loadModules();
-                    if ($this->_config->isLocalConfigLoaded() && !$this->_shouldSkipProcessModulesUpdates()) {
-                        Varien_Profiler::start('mage::app::init::apply_db_schema_updates');
-                        Mage_Core_Model_Resource_Setup::applyAllUpdates();
-                        Varien_Profiler::stop('mage::app::init::apply_db_schema_updates');
-                    }
-                    $this->_config->loadDb();
-                    $this->_config->loadEnv();
-                    $this->_config->saveCache();
-                }
-            } finally {
-                $this->_config->releaseCacheSaveLock();
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Check whether modules updates processing should be skipped
-     *
-     * @return bool
-     */
-    protected function _shouldSkipProcessModulesUpdates()
-    {
-        if (!Mage::isInstalled()) {
-            return false;
-        }
-
-        $ignoreDevelopmentMode = (bool) (string) $this->_config->getNode(self::XML_PATH_IGNORE_DEV_MODE);
-        if (Mage::getIsDeveloperMode() && !$ignoreDevelopmentMode) {
-            return false;
-        }
-
-        return (bool) (string) $this->_config->getNode(self::XML_PATH_SKIP_PROCESS_MODULES_UPDATES);
-    }
-
-    /**
-     * Init request object
-     *
-     * @return $this
-     */
-    protected function _initRequest()
-    {
-        $this->getRequest()->setPathInfo();
-        return $this;
-    }
-
-    /**
-     * Initialize currently ran store
-     *
-     * @param string $scopeCode code of default scope (website/store_group/store code)
-     * @param string $scopeType type of default scope (website/group/store)
-     * @return $this
-     */
-    protected function _initCurrentStore($scopeCode, $scopeType)
-    {
-        Varien_Profiler::start('mage::app::init::stores');
-        $this->_initStores();
-        Varien_Profiler::stop('mage::app::init::stores');
-
-        if (empty($scopeCode) && !is_null($this->_website)) {
-            $scopeCode = $this->_website->getCode();
-            $scopeType = 'website';
-        }
-        switch ($scopeType) {
-            case 'store':
-                $this->_currentStore = $scopeCode;
-                break;
-            case 'group':
-                $this->_currentStore = $this->_getStoreByGroup($scopeCode);
-                break;
-            case 'website':
-                $this->_currentStore = $this->_getStoreByWebsite($scopeCode);
-                break;
-            default:
-                $this->throwStoreException();
-        }
-
-        if (!empty($this->_currentStore)) {
-            $this->_checkCookieStore($scopeType);
-            $this->_checkGetStore($scopeType);
-        }
-        $this->_useSessionInUrl = $this->getStore()->getConfig(
-            Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID,
-        );
-        return $this;
-    }
-
-    /**
      * Retrieve cookie object
      *
      * @return Mage_Core_Model_Cookie
@@ -531,182 +386,9 @@ class Mage_Core_Model_App
         return Mage::getSingleton('core/cookie');
     }
 
-    /**
-     * Check get store
-     *
-     * @param string $type
-     * @return $this
-     * @SuppressWarnings("PHPMD.Superglobals")
-     */
-    protected function _checkGetStore($type)
-    {
-        if (empty($_GET)) {
-            return $this;
-        }
-
-        /**
-         * @todo check XML_PATH_STORE_IN_URL
-         */
-        if (!isset($_GET['___store'])) {
-            return $this;
-        }
-
-        $store = $_GET['___store'];
-        if (!isset($this->_stores[$store])) {
-            return $this;
-        }
-
-        $storeObj = $this->_stores[$store];
-        if (!$storeObj->getId() || !$storeObj->getIsActive()) {
-            return $this;
-        }
-
-        /**
-         * prevent running a store from another website or store group,
-         * if website or store group was specified explicitly in Mage::run()
-         */
-        $curStoreObj = $this->_stores[$this->_currentStore];
-        if ($type == 'website' && $storeObj->getWebsiteId() == $curStoreObj->getWebsiteId()) {
-            $this->_currentStore = $store;
-        } elseif ($type == 'group' && $storeObj->getGroupId() == $curStoreObj->getGroupId()) {
-            $this->_currentStore = $store;
-        } elseif ($type == 'store') {
-            $this->_currentStore = $store;
-        }
-
-        if ($this->_currentStore == $store) {
-            $store = $this->getStore($store);
-            if ($store->getWebsite()->getDefaultStore()->getId() == $store->getId()) {
-                $this->getCookie()->delete(Mage_Core_Model_Store::COOKIE_NAME);
-            } else {
-                $this->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $this->_currentStore, true);
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Check cookie store
-     *
-     * @param string $type
-     * @return $this
-     */
-    protected function _checkCookieStore($type)
-    {
-        if (!$this->getCookie()->get()) {
-            return $this;
-        }
-
-        $store = $this->getCookie()->get(Mage_Core_Model_Store::COOKIE_NAME);
-        if ($store && isset($this->_stores[$store])
-            && $this->_stores[$store]->getId()
-            && $this->_stores[$store]->getIsActive()
-        ) {
-            if ($type == 'website'
-                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()
-            ) {
-                $this->_currentStore = $store;
-            }
-            if ($type == 'group'
-                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()
-            ) {
-                $this->_currentStore = $store;
-            }
-            if ($type == 'store') {
-                $this->_currentStore = $store;
-            }
-        }
-        return $this;
-    }
-
     public function reinitStores()
     {
         $this->_initStores();
-    }
-
-    /**
-     * Init store, group and website collections
-     *
-     */
-    protected function _initStores()
-    {
-        $this->_stores   = [];
-        $this->_groups   = [];
-        $this->_website  = null;
-        $this->_websites = [];
-
-        /** @var Mage_Core_Model_Resource_Website_Collection $websiteCollection */
-        $websiteCollection = Mage::getModel('core/website')->getCollection()
-                ->initCache($this->getCache(), 'app', [Mage_Core_Model_Website::CACHE_TAG])
-                ->setLoadDefault(true);
-
-        /** @var Mage_Core_Model_Resource_Store_Group_Collection $groupCollection */
-        $groupCollection = Mage::getModel('core/store_group')->getCollection()
-                ->initCache($this->getCache(), 'app', [Mage_Core_Model_Store_Group::CACHE_TAG])
-                ->setLoadDefault(true);
-
-        /** @var Mage_Core_Model_Resource_Store_Collection $storeCollection */
-        $storeCollection = Mage::getModel('core/store')->getCollection()
-            ->initCache($this->getCache(), 'app', [Mage_Core_Model_Store::CACHE_TAG])
-            ->setLoadDefault(true);
-
-        $this->_isSingleStore = false;
-        if ($this->_isSingleStoreAllowed) {
-            $this->_isSingleStore = $storeCollection->count() < 3;
-        }
-
-        $websiteStores = [];
-        $websiteGroups = [];
-        $groupStores   = [];
-
-        $storeCollection->initConfigCache();
-
-        foreach ($storeCollection as $store) {
-            /** @var Mage_Core_Model_Store $store */
-            $store->setWebsite($websiteCollection->getItemById($store->getWebsiteId()));
-            $store->setGroup($groupCollection->getItemById($store->getGroupId()));
-
-            $this->_stores[$store->getId()] = $store;
-            $this->_stores[$store->getCode()] = $store;
-
-            $websiteStores[$store->getWebsiteId()][$store->getId()] = $store;
-            $groupStores[$store->getGroupId()][$store->getId()] = $store;
-
-            if (is_null($this->_store) && $store->getId()) {
-                $this->_store = $store;
-            }
-        }
-
-        foreach ($groupCollection as $group) {
-            /** @var Mage_Core_Model_Store_Group $group */
-            if (!isset($groupStores[$group->getId()])) {
-                $groupStores[$group->getId()] = [];
-            }
-            $group->setStores($groupStores[$group->getId()]);
-            $group->setWebsite($websiteCollection->getItemById($group->getWebsiteId()));
-
-            $websiteGroups[$group->getWebsiteId()][$group->getId()] = $group;
-
-            $this->_groups[$group->getId()] = $group;
-        }
-
-        foreach ($websiteCollection as $website) {
-            /** @var Mage_Core_Model_Website $website */
-            if (!isset($websiteGroups[$website->getId()])) {
-                $websiteGroups[$website->getId()] = [];
-            }
-            if (!isset($websiteStores[$website->getId()])) {
-                $websiteStores[$website->getId()] = [];
-            }
-            if ($website->getIsDefault()) {
-                $this->_website = $website;
-            }
-            $website->setGroups($websiteGroups[$website->getId()]);
-            $website->setStores($websiteStores[$website->getId()]);
-
-            $this->_websites[$website->getId()] = $website;
-            $this->_websites[$website->getCode()] = $website;
-        }
     }
 
     /**
@@ -727,40 +409,6 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Retrieve store code or null by store group
-     *
-     * @param int $group
-     * @return string|null
-     */
-    protected function _getStoreByGroup($group)
-    {
-        if (!isset($this->_groups[$group])) {
-            return null;
-        }
-        if (!$this->_groups[$group]->getDefaultStoreId()) {
-            return null;
-        }
-        return $this->_stores[$this->_groups[$group]->getDefaultStoreId()]->getCode();
-    }
-
-    /**
-     * Retrieve store code or null by website
-     *
-     * @param int|string $website
-     * @return string|null
-     */
-    protected function _getStoreByWebsite($website)
-    {
-        if (!isset($this->_websites[$website])) {
-            return null;
-        }
-        if (!$this->_websites[$website]->getDefaultGroupId()) {
-            return null;
-        }
-        return $this->_getStoreByGroup($this->_websites[$website]->getDefaultGroupId());
-    }
-
-    /**
      * Set current default store
      *
      * @param null|string|bool|int|Mage_Core_Model_Store $store
@@ -769,21 +417,6 @@ class Mage_Core_Model_App
     public function setCurrentStore($store)
     {
         $this->_currentStore = $store;
-        return $this;
-    }
-
-    /**
-     * Initialize application front controller
-     *
-     * @return $this
-     */
-    protected function _initFrontController()
-    {
-        $this->_frontController = new Mage_Core_Controller_Varien_Front();
-        Mage::register('controller', $this->_frontController);
-        Varien_Profiler::start('mage::app::init_front_controller');
-        $this->_frontController->init();
-        Varien_Profiler::stop('mage::app::init_front_controller');
         return $this;
     }
 
@@ -929,19 +562,6 @@ class Mage_Core_Model_App
         }
 
         return $stores;
-    }
-
-    /**
-     * @return Mage_Core_Model_Store
-     */
-    protected function _getDefaultStore()
-    {
-        if (empty($this->_store)) {
-            $this->_store = Mage::getModel('core/store')
-                ->setId(self::DISTRO_STORE_ID)
-                ->setCode(self::DISTRO_STORE_CODE);
-        }
-        return $this->_store;
     }
 
     /**
@@ -1432,32 +1052,6 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Performs non-existent observer method calls protection
-     *
-     * @param object $object
-     * @param string $method
-     * @param Varien_Event_Observer $observer
-     * @param string $observerName
-     * @return $this
-     * @throws Mage_Core_Exception
-     */
-    protected function _callObserverMethod($object, $method, $observer, $observerName = 'undefined')
-    {
-        if (is_object($object) && method_exists($object, $method)) {
-            $object->$method($observer);
-        } elseif (Mage::getIsDeveloperMode()) {
-            if (is_object($object)) {
-                $message = 'Method "' . $method . '" is not defined in "' . get_class($object) . '"';
-            } else {
-                $message = 'Class from observer "' . $observerName . '" is not initialized';
-            }
-
-            Mage::throwException($message);
-        }
-        return $this;
-    }
-
-    /**
      * @param bool $value
      */
     public function setUpdateMode($value)
@@ -1595,21 +1189,6 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Generate cache tags from cache id
-     *
-     * @param array $tags
-     * @return array
-     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
-     */
-    protected function _getCacheTags($tags = [])
-    {
-        foreach ($tags as $index => $value) {
-            $tags[$index] = $this->_getCacheId($value);
-        }
-        return $tags;
-    }
-
-    /**
      * Get file name with cache configuration settings
      *
      * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
@@ -1618,21 +1197,6 @@ class Mage_Core_Model_App
     public function getUseCacheFilename()
     {
         return $this->_config->getOptions()->getEtcDir() . DS . 'use_cache.ser';
-    }
-
-    /**
-     * Generate cache id with application specific data
-     *
-     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
-     * @param   string $id
-     * @return  string
-     */
-    protected function _getCacheId($id = null)
-    {
-        if ($id) {
-            $id = $this->prepareCacheId($id);
-        }
-        return $id;
     }
 
     /**
@@ -1679,5 +1243,441 @@ class Mage_Core_Model_App
             unset($this->_websites[$website->getWebsiteId()]);
             unset($this->_websites[$website->getCode()]);
         }
+    }
+
+    /**
+     * Initialize PHP environment
+     *
+     * @return $this
+     */
+    protected function _initEnvironment()
+    {
+        $this->setErrorHandler(self::DEFAULT_ERROR_HANDLER);
+        date_default_timezone_set(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
+        return $this;
+    }
+
+    /**
+     * Initialize base system configuration (local.xml and config.xml files).
+     * Base configuration provide ability initialize DB connection and cache backend
+     *
+     * @return $this
+     */
+    protected function _initBaseConfig()
+    {
+        Varien_Profiler::start('mage::app::init::system_config');
+        $this->_config->loadBase();
+        Varien_Profiler::stop('mage::app::init::system_config');
+        return $this;
+    }
+
+    /**
+     * Initialize application cache instance
+     *
+     * @return $this
+     */
+    protected function _initCache(array $cacheInitOptions = [])
+    {
+        $this->_isCacheLocked = true;
+        $options = $this->_config->getNode('global/cache');
+        if ($options) {
+            $options = $options->asArray();
+        } else {
+            $options = [];
+        }
+        $options = array_merge($options, $cacheInitOptions);
+        $this->_cache = Mage::getModel('core/cache', $options);
+        $this->_isCacheLocked = false;
+        return $this;
+    }
+
+    /**
+     * Initialize active modules configuration and data
+     *
+     * @return $this
+     */
+    protected function _initModules()
+    {
+        if (!$this->_config->loadModulesCache()) {
+            try {
+                $this->_config->getCacheSaveLock();
+                if (!$this->_config->loadModulesCache()) {
+                    $this->_config->loadModules();
+                    if ($this->_config->isLocalConfigLoaded() && !$this->_shouldSkipProcessModulesUpdates()) {
+                        Varien_Profiler::start('mage::app::init::apply_db_schema_updates');
+                        Mage_Core_Model_Resource_Setup::applyAllUpdates();
+                        Varien_Profiler::stop('mage::app::init::apply_db_schema_updates');
+                    }
+                    $this->_config->loadDb();
+                    $this->_config->loadEnv();
+                    $this->_config->saveCache();
+                }
+            } finally {
+                $this->_config->releaseCacheSaveLock();
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Check whether modules updates processing should be skipped
+     *
+     * @return bool
+     */
+    protected function _shouldSkipProcessModulesUpdates()
+    {
+        if (!Mage::isInstalled()) {
+            return false;
+        }
+
+        $ignoreDevelopmentMode = (bool) (string) $this->_config->getNode(self::XML_PATH_IGNORE_DEV_MODE);
+        if (Mage::getIsDeveloperMode() && !$ignoreDevelopmentMode) {
+            return false;
+        }
+
+        return (bool) (string) $this->_config->getNode(self::XML_PATH_SKIP_PROCESS_MODULES_UPDATES);
+    }
+
+    /**
+     * Init request object
+     *
+     * @return $this
+     */
+    protected function _initRequest()
+    {
+        $this->getRequest()->setPathInfo();
+        return $this;
+    }
+
+    /**
+     * Initialize currently ran store
+     *
+     * @param string $scopeCode code of default scope (website/store_group/store code)
+     * @param string $scopeType type of default scope (website/group/store)
+     * @return $this
+     */
+    protected function _initCurrentStore($scopeCode, $scopeType)
+    {
+        Varien_Profiler::start('mage::app::init::stores');
+        $this->_initStores();
+        Varien_Profiler::stop('mage::app::init::stores');
+
+        if (empty($scopeCode) && !is_null($this->_website)) {
+            $scopeCode = $this->_website->getCode();
+            $scopeType = 'website';
+        }
+        switch ($scopeType) {
+            case 'store':
+                $this->_currentStore = $scopeCode;
+                break;
+            case 'group':
+                $this->_currentStore = $this->_getStoreByGroup($scopeCode);
+                break;
+            case 'website':
+                $this->_currentStore = $this->_getStoreByWebsite($scopeCode);
+                break;
+            default:
+                $this->throwStoreException();
+        }
+
+        if (!empty($this->_currentStore)) {
+            $this->_checkCookieStore($scopeType);
+            $this->_checkGetStore($scopeType);
+        }
+        $this->_useSessionInUrl = $this->getStore()->getConfig(
+            Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID,
+        );
+        return $this;
+    }
+
+    /**
+     * Check get store
+     *
+     * @param string $type
+     * @return $this
+     * @SuppressWarnings("PHPMD.Superglobals")
+     */
+    protected function _checkGetStore($type)
+    {
+        if (empty($_GET)) {
+            return $this;
+        }
+
+        /**
+         * @todo check XML_PATH_STORE_IN_URL
+         */
+        if (!isset($_GET['___store'])) {
+            return $this;
+        }
+
+        $store = $_GET['___store'];
+        if (!isset($this->_stores[$store])) {
+            return $this;
+        }
+
+        $storeObj = $this->_stores[$store];
+        if (!$storeObj->getId() || !$storeObj->getIsActive()) {
+            return $this;
+        }
+
+        /**
+         * prevent running a store from another website or store group,
+         * if website or store group was specified explicitly in Mage::run()
+         */
+        $curStoreObj = $this->_stores[$this->_currentStore];
+        if ($type == 'website' && $storeObj->getWebsiteId() == $curStoreObj->getWebsiteId()) {
+            $this->_currentStore = $store;
+        } elseif ($type == 'group' && $storeObj->getGroupId() == $curStoreObj->getGroupId()) {
+            $this->_currentStore = $store;
+        } elseif ($type == 'store') {
+            $this->_currentStore = $store;
+        }
+
+        if ($this->_currentStore == $store) {
+            $store = $this->getStore($store);
+            if ($store->getWebsite()->getDefaultStore()->getId() == $store->getId()) {
+                $this->getCookie()->delete(Mage_Core_Model_Store::COOKIE_NAME);
+            } else {
+                $this->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $this->_currentStore, true);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Check cookie store
+     *
+     * @param string $type
+     * @return $this
+     */
+    protected function _checkCookieStore($type)
+    {
+        if (!$this->getCookie()->get()) {
+            return $this;
+        }
+
+        $store = $this->getCookie()->get(Mage_Core_Model_Store::COOKIE_NAME);
+        if ($store && isset($this->_stores[$store])
+            && $this->_stores[$store]->getId()
+            && $this->_stores[$store]->getIsActive()
+        ) {
+            if ($type == 'website'
+                && $this->_stores[$store]->getWebsiteId() == $this->_stores[$this->_currentStore]->getWebsiteId()
+            ) {
+                $this->_currentStore = $store;
+            }
+            if ($type == 'group'
+                && $this->_stores[$store]->getGroupId() == $this->_stores[$this->_currentStore]->getGroupId()
+            ) {
+                $this->_currentStore = $store;
+            }
+            if ($type == 'store') {
+                $this->_currentStore = $store;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Init store, group and website collections
+     *
+     */
+    protected function _initStores()
+    {
+        $this->_stores   = [];
+        $this->_groups   = [];
+        $this->_website  = null;
+        $this->_websites = [];
+
+        /** @var Mage_Core_Model_Resource_Website_Collection $websiteCollection */
+        $websiteCollection = Mage::getModel('core/website')->getCollection()
+                ->initCache($this->getCache(), 'app', [Mage_Core_Model_Website::CACHE_TAG])
+                ->setLoadDefault(true);
+
+        /** @var Mage_Core_Model_Resource_Store_Group_Collection $groupCollection */
+        $groupCollection = Mage::getModel('core/store_group')->getCollection()
+                ->initCache($this->getCache(), 'app', [Mage_Core_Model_Store_Group::CACHE_TAG])
+                ->setLoadDefault(true);
+
+        /** @var Mage_Core_Model_Resource_Store_Collection $storeCollection */
+        $storeCollection = Mage::getModel('core/store')->getCollection()
+            ->initCache($this->getCache(), 'app', [Mage_Core_Model_Store::CACHE_TAG])
+            ->setLoadDefault(true);
+
+        $this->_isSingleStore = false;
+        if ($this->_isSingleStoreAllowed) {
+            $this->_isSingleStore = $storeCollection->count() < 3;
+        }
+
+        $websiteStores = [];
+        $websiteGroups = [];
+        $groupStores   = [];
+
+        $storeCollection->initConfigCache();
+
+        foreach ($storeCollection as $store) {
+            /** @var Mage_Core_Model_Store $store */
+            $store->setWebsite($websiteCollection->getItemById($store->getWebsiteId()));
+            $store->setGroup($groupCollection->getItemById($store->getGroupId()));
+
+            $this->_stores[$store->getId()] = $store;
+            $this->_stores[$store->getCode()] = $store;
+
+            $websiteStores[$store->getWebsiteId()][$store->getId()] = $store;
+            $groupStores[$store->getGroupId()][$store->getId()] = $store;
+
+            if (is_null($this->_store) && $store->getId()) {
+                $this->_store = $store;
+            }
+        }
+
+        foreach ($groupCollection as $group) {
+            /** @var Mage_Core_Model_Store_Group $group */
+            if (!isset($groupStores[$group->getId()])) {
+                $groupStores[$group->getId()] = [];
+            }
+            $group->setStores($groupStores[$group->getId()]);
+            $group->setWebsite($websiteCollection->getItemById($group->getWebsiteId()));
+
+            $websiteGroups[$group->getWebsiteId()][$group->getId()] = $group;
+
+            $this->_groups[$group->getId()] = $group;
+        }
+
+        foreach ($websiteCollection as $website) {
+            /** @var Mage_Core_Model_Website $website */
+            if (!isset($websiteGroups[$website->getId()])) {
+                $websiteGroups[$website->getId()] = [];
+            }
+            if (!isset($websiteStores[$website->getId()])) {
+                $websiteStores[$website->getId()] = [];
+            }
+            if ($website->getIsDefault()) {
+                $this->_website = $website;
+            }
+            $website->setGroups($websiteGroups[$website->getId()]);
+            $website->setStores($websiteStores[$website->getId()]);
+
+            $this->_websites[$website->getId()] = $website;
+            $this->_websites[$website->getCode()] = $website;
+        }
+    }
+
+    /**
+     * Retrieve store code or null by store group
+     *
+     * @param int $group
+     * @return string|null
+     */
+    protected function _getStoreByGroup($group)
+    {
+        if (!isset($this->_groups[$group])) {
+            return null;
+        }
+        if (!$this->_groups[$group]->getDefaultStoreId()) {
+            return null;
+        }
+        return $this->_stores[$this->_groups[$group]->getDefaultStoreId()]->getCode();
+    }
+
+    /**
+     * Retrieve store code or null by website
+     *
+     * @param int|string $website
+     * @return string|null
+     */
+    protected function _getStoreByWebsite($website)
+    {
+        if (!isset($this->_websites[$website])) {
+            return null;
+        }
+        if (!$this->_websites[$website]->getDefaultGroupId()) {
+            return null;
+        }
+        return $this->_getStoreByGroup($this->_websites[$website]->getDefaultGroupId());
+    }
+
+    /**
+     * Initialize application front controller
+     *
+     * @return $this
+     */
+    protected function _initFrontController()
+    {
+        $this->_frontController = new Mage_Core_Controller_Varien_Front();
+        Mage::register('controller', $this->_frontController);
+        Varien_Profiler::start('mage::app::init_front_controller');
+        $this->_frontController->init();
+        Varien_Profiler::stop('mage::app::init_front_controller');
+        return $this;
+    }
+
+    /**
+     * @return Mage_Core_Model_Store
+     */
+    protected function _getDefaultStore()
+    {
+        if (empty($this->_store)) {
+            $this->_store = Mage::getModel('core/store')
+                ->setId(self::DISTRO_STORE_ID)
+                ->setCode(self::DISTRO_STORE_CODE);
+        }
+        return $this->_store;
+    }
+
+    /**
+     * Performs non-existent observer method calls protection
+     *
+     * @param object $object
+     * @param string $method
+     * @param Varien_Event_Observer $observer
+     * @param string $observerName
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    protected function _callObserverMethod($object, $method, $observer, $observerName = 'undefined')
+    {
+        if (is_object($object) && method_exists($object, $method)) {
+            $object->$method($observer);
+        } elseif (Mage::getIsDeveloperMode()) {
+            if (is_object($object)) {
+                $message = 'Method "' . $method . '" is not defined in "' . get_class($object) . '"';
+            } else {
+                $message = 'Class from observer "' . $observerName . '" is not initialized';
+            }
+
+            Mage::throwException($message);
+        }
+        return $this;
+    }
+
+    /**
+     * Generate cache tags from cache id
+     *
+     * @param array $tags
+     * @return array
+     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
+     */
+    protected function _getCacheTags($tags = [])
+    {
+        foreach ($tags as $index => $value) {
+            $tags[$index] = $this->_getCacheId($value);
+        }
+        return $tags;
+    }
+
+    /**
+     * Generate cache id with application specific data
+     *
+     * @deprecated after 1.4.0.0-alpha3, functionality implemented in Mage_Core_Model_Cache
+     * @param   string $id
+     * @return  string
+     */
+    protected function _getCacheId($id = null)
+    {
+        if ($id) {
+            $id = $this->prepareCacheId($id);
+        }
+        return $id;
     }
 }

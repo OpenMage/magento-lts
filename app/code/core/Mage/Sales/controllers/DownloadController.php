@@ -23,87 +23,6 @@
 class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * Custom options downloader
-     *
-     * @param mixed $info
-     */
-    protected function _downloadFileAction($info)
-    {
-        $secretKey = $this->getRequest()->getParam('key');
-        try {
-            if ($secretKey != $info['secret_key']) {
-                throw new Exception();
-            }
-
-            $this->_validateFilePath($info);
-
-            $filePath = Mage::getBaseDir() . $info['order_path'];
-            if ((!is_file($filePath) || !is_readable($filePath)) && !$this->_processDatabaseFile($filePath)) {
-                //try get file from quote
-                $filePath = Mage::getBaseDir() . $info['quote_path'];
-                if ((!is_file($filePath) || !is_readable($filePath)) && !$this->_processDatabaseFile($filePath)) {
-                    throw new Exception();
-                }
-            }
-            $this->_prepareDownloadResponse($info['title'], [
-                'value' => $filePath,
-                'type'  => 'filename',
-            ]);
-        } catch (Exception $e) {
-            $this->_forward('noRoute');
-        }
-    }
-
-    /**
-     * @param array $info
-     * @throws Exception
-     */
-    protected function _validateFilePath($info)
-    {
-        $optionFile = Mage::getModel('catalog/product_option_type_file');
-        $optionStoragePath = $optionFile->getOrderTargetDir(true);
-        if (strpos($info['order_path'], $optionStoragePath) !== 0) {
-            throw new Exception('Unexpected file path');
-        }
-    }
-
-    /**
-     * Check file in database storage if needed and place it on file system
-     *
-     * @param string $filePath
-     * @return bool
-     *
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
-    protected function _processDatabaseFile($filePath)
-    {
-        if (!Mage::helper('core/file_storage_database')->checkDbUsage()) {
-            return false;
-        }
-
-        $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($filePath);
-        $file = Mage::getModel('core/file_storage_database')->loadByFilename($relativePath);
-
-        if (!$file->getId()) {
-            return false;
-        }
-
-        $directory = dirname($filePath);
-        @mkdir($directory, 0777, true);
-
-        $io = new Varien_Io_File();
-        $io->cd($directory);
-
-        $io->streamOpen($filePath);
-        $io->streamLock(true);
-        $io->streamWrite($file->getContent());
-        $io->streamUnlock();
-        $io->streamClose();
-
-        return true;
-    }
-
-    /**
      * Profile custom options download action
      */
     public function downloadProfileCustomOptionAction()
@@ -188,5 +107,85 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
             $this->_forward('noRoute');
         }
         exit(0);
+    }
+    /**
+     * Custom options downloader
+     *
+     * @param mixed $info
+     */
+    protected function _downloadFileAction($info)
+    {
+        $secretKey = $this->getRequest()->getParam('key');
+        try {
+            if ($secretKey != $info['secret_key']) {
+                throw new Exception();
+            }
+
+            $this->_validateFilePath($info);
+
+            $filePath = Mage::getBaseDir() . $info['order_path'];
+            if ((!is_file($filePath) || !is_readable($filePath)) && !$this->_processDatabaseFile($filePath)) {
+                //try get file from quote
+                $filePath = Mage::getBaseDir() . $info['quote_path'];
+                if ((!is_file($filePath) || !is_readable($filePath)) && !$this->_processDatabaseFile($filePath)) {
+                    throw new Exception();
+                }
+            }
+            $this->_prepareDownloadResponse($info['title'], [
+                'value' => $filePath,
+                'type'  => 'filename',
+            ]);
+        } catch (Exception $e) {
+            $this->_forward('noRoute');
+        }
+    }
+
+    /**
+     * @param array $info
+     * @throws Exception
+     */
+    protected function _validateFilePath($info)
+    {
+        $optionFile = Mage::getModel('catalog/product_option_type_file');
+        $optionStoragePath = $optionFile->getOrderTargetDir(true);
+        if (strpos($info['order_path'], $optionStoragePath) !== 0) {
+            throw new Exception('Unexpected file path');
+        }
+    }
+
+    /**
+     * Check file in database storage if needed and place it on file system
+     *
+     * @param string $filePath
+     * @return bool
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    protected function _processDatabaseFile($filePath)
+    {
+        if (!Mage::helper('core/file_storage_database')->checkDbUsage()) {
+            return false;
+        }
+
+        $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($filePath);
+        $file = Mage::getModel('core/file_storage_database')->loadByFilename($relativePath);
+
+        if (!$file->getId()) {
+            return false;
+        }
+
+        $directory = dirname($filePath);
+        @mkdir($directory, 0777, true);
+
+        $io = new Varien_Io_File();
+        $io->cd($directory);
+
+        $io->streamOpen($filePath);
+        $io->streamLock(true);
+        $io->streamWrite($file->getContent());
+        $io->streamUnlock();
+        $io->streamClose();
+
+        return true;
     }
 }

@@ -25,6 +25,18 @@
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes
 {
     /**
+     * Get current product from registry
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        if (!$this->getData('product')) {
+            $this->setData('product', Mage::registry('product'));
+        }
+        return $this->getData('product');
+    }
+    /**
      * Prepare attributes form of bundle product
      *
      * @return $this
@@ -151,18 +163,5 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
         }
 
         return $this;
-    }
-
-    /**
-     * Get current product from registry
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function getProduct()
-    {
-        if (!$this->getData('product')) {
-            $this->setData('product', Mage::registry('product'));
-        }
-        return $this->getData('product');
     }
 }

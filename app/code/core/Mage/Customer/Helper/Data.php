@@ -404,27 +404,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Unserialize and clear name prefix or suffix options
-     *
-     * @param string $options
-     * @return array|bool
-     */
-    protected function _prepareNamePrefixSuffixOptions($options)
-    {
-        $options = trim($options);
-        if (empty($options)) {
-            return false;
-        }
-        $result = [];
-        $options = explode(';', $options);
-        foreach ($options as $value) {
-            $value = $this->escapeHtml(trim($value));
-            $result[$value] = $value;
-        }
-        return $result;
-    }
-
-    /**
      * Generate unique token for reset password confirmation link
      *
      * @return string
@@ -723,6 +702,27 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function getPasswordTimestamp($customerId)
     {
         return Mage::getResourceModel('customer/customer')->getPasswordTimestamp($customerId);
+    }
+
+    /**
+     * Unserialize and clear name prefix or suffix options
+     *
+     * @param string $options
+     * @return array|bool
+     */
+    protected function _prepareNamePrefixSuffixOptions($options)
+    {
+        $options = trim($options);
+        if (empty($options)) {
+            return false;
+        }
+        $result = [];
+        $options = explode(';', $options);
+        foreach ($options as $value) {
+            $value = $this->escapeHtml(trim($value));
+            $result[$value] = $value;
+        }
+        return $result;
     }
 
     /**

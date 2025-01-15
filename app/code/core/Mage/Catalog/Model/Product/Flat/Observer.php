@@ -23,26 +23,6 @@
 class Mage_Catalog_Model_Product_Flat_Observer
 {
     /**
-     * Retrieve Catalog Product Flat Helper
-     *
-     * @return Mage_Catalog_Helper_Product_Flat
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('catalog/product_flat');
-    }
-
-    /**
-     * Retrieve Catalog Product Flat Indexer model
-     *
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
-     */
-    protected function _getIndexer()
-    {
-        return Mage::getSingleton('catalog/product_flat_indexer');
-    }
-
-    /**
      * Catalog Entity attribute after save process
      *
      * @return $this
@@ -274,5 +254,24 @@ class Mage_Catalog_Model_Product_Flat_Observer
     public function catalogCategoryChangeProducts(Varien_Event_Observer $observer)
     {
         return $this;
+    }
+    /**
+     * Retrieve Catalog Product Flat Helper
+     *
+     * @return Mage_Catalog_Helper_Product_Flat
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('catalog/product_flat');
+    }
+
+    /**
+     * Retrieve Catalog Product Flat Indexer model
+     *
+     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     */
+    protected function _getIndexer()
+    {
+        return Mage::getSingleton('catalog/product_flat_indexer');
     }
 }

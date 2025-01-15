@@ -31,12 +31,6 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     protected $_paymentSpecificInformation = null;
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('payment/info/default.phtml');
-    }
-
     /**
      * Retrieve info model
      *
@@ -141,6 +135,12 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
             return true;
         }
         return !Mage::app()->getStore($method->getStore())->isAdmin();
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('payment/info/default.phtml');
     }
 
     /**

@@ -29,30 +29,6 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
     public const ADMIN_RESOURCE = 'system/order_statuses';
 
     /**
-     * Additional initialization
-     */
-    protected function _construct()
-    {
-        $this->setUsedModuleName('Mage_Sales');
-    }
-
-    /**
-     * Initialize status model based on status code in request
-     *
-     * @return Mage_Sales_Model_Order_Status | false
-     */
-    protected function _initStatus()
-    {
-        $statusCode = $this->getRequest()->getParam('status');
-        if ($statusCode) {
-            $status = Mage::getModel('sales/order_status')->load($statusCode);
-        } else {
-            $status = false;
-        }
-        return $status;
-    }
-
-    /**
      * Statuses grid page
      */
     public function indexAction()
@@ -228,5 +204,29 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
             $this->_getSession()->addError(Mage::helper('sales')->__('Order status does not exist.'));
         }
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * Additional initialization
+     */
+    protected function _construct()
+    {
+        $this->setUsedModuleName('Mage_Sales');
+    }
+
+    /**
+     * Initialize status model based on status code in request
+     *
+     * @return Mage_Sales_Model_Order_Status | false
+     */
+    protected function _initStatus()
+    {
+        $statusCode = $this->getRequest()->getParam('status');
+        if ($statusCode) {
+            $status = Mage::getModel('sales/order_status')->load($statusCode);
+        } else {
+            $status = false;
+        }
+        return $status;
     }
 }

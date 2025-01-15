@@ -51,6 +51,16 @@ class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implem
     }
 
     /**
+     * Return quick search form action url
+     *
+     * @return string
+     */
+    public function getActionUrl()
+    {
+        return $this->getUrl('sales/guest/view', ['_secure' => $this->_isSecure()]);
+    }
+
+    /**
      * Get Form Options for Guest
      *
      * @return array
@@ -72,15 +82,5 @@ class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implem
         }
 
         return $options;
-    }
-
-    /**
-     * Return quick search form action url
-     *
-     * @return string
-     */
-    public function getActionUrl()
-    {
-        return $this->getUrl('sales/guest/view', ['_secure' => $this->_isSecure()]);
     }
 }

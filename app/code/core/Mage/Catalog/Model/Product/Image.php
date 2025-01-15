@@ -230,94 +230,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @deprecated
-     * @param string|null $file
-     * @return bool
-     */
-    protected function _checkMemory($file = null)
-    {
-        return $this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file)) || $this->_getMemoryLimit() == -1;
-    }
-
-    /**
-     * @return int
-     * @deprecated
-     */
-    protected function _getMemoryLimit()
-    {
-        $memoryLimit = trim(strtoupper(ini_get('memory_limit')));
-
-        if (!isset($memoryLimit[0])) {
-            $memoryLimit = '128M';
-        }
-
-        return ini_parse_quantity($memoryLimit);
-    }
-
-    /**
-     * @deprecated
-     * @return int
-     */
-    protected function _getMemoryUsage()
-    {
-        if (function_exists('memory_get_usage')) {
-            return memory_get_usage();
-        }
-        return 0;
-    }
-
-    /**
-     * @deprecated
-     * @param string $file
-     * @return float|int
-     */
-    protected function _getNeedMemoryForFile($file = null)
-    {
-        $file = is_null($file) ? $this->getBaseFile() : $file;
-        if (!$file) {
-            return 0;
-        }
-
-        if (!file_exists($file) || !is_file($file)) {
-            return 0;
-        }
-
-        $imageInfo = getimagesize($file);
-
-        if ($imageInfo === false) {
-            return 0;
-        }
-        if (!isset($imageInfo['channels'])) {
-            // if there is no info about this parameter lets set it for maximum
-            $imageInfo['channels'] = 4;
-        }
-        if (!isset($imageInfo['bits'])) {
-            // if there is no info about this parameter lets set it for maximum
-            $imageInfo['bits'] = 8;
-        }
-        return round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + pow(2, 16)) * 1.65);
-    }
-
-    /**
-     * Convert array of 3 items (decimal r, g, b) to string of their hex values
-     *
-     * @param array $rgbArray
-     * @return string
-     */
-    protected function _rgbToString($rgbArray)
-    {
-        $result = [];
-        foreach ($rgbArray as $value) {
-            if ($value === null) {
-                $result[] = 'null';
-            } else {
-                $result[] = sprintf('%02s', dechex($value));
-            }
-        }
-        return implode($result);
-    }
-
-    /**
      * Set filenames for base file and new file
      *
      * @param string $file
@@ -624,40 +536,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get relative watermark file path
-     * or false if file not found
-     *
-     * @return string | bool
-     */
-    protected function _getWatermarkFilePath()
-    {
-        $filePath = false;
-
-        if (!$file = $this->getWatermarkFile()) {
-            return $filePath;
-        }
-
-        $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
-
-        if ($this->_fileExists($baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file)) {
-            $filePath = $baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file;
-        } elseif ($this->_fileExists($baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file)) {
-            $filePath = $baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file;
-        } elseif ($this->_fileExists($baseDir . '/watermark/default/' . $file)) {
-            $filePath = $baseDir . '/watermark/default/' . $file;
-        } elseif ($this->_fileExists($baseDir . '/watermark/' . $file)) {
-            $filePath = $baseDir . '/watermark/' . $file;
-        } else {
-            $baseDir = Mage::getDesign()->getSkinBaseDir();
-            if ($this->_fileExists($baseDir . $file)) {
-                $filePath = $baseDir . $file;
-            }
-        }
-
-        return $filePath;
-    }
-
-    /**
      * Set watermark position
      *
      * @param string $position
@@ -767,6 +645,128 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         $io->rmdir($directory, true);
 
         Mage::helper('core/file_storage_database')->deleteFolder($directory);
+    }
+
+    /**
+     * @deprecated
+     * @param string|null $file
+     * @return bool
+     */
+    protected function _checkMemory($file = null)
+    {
+        return $this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file)) || $this->_getMemoryLimit() == -1;
+    }
+
+    /**
+     * @return int
+     * @deprecated
+     */
+    protected function _getMemoryLimit()
+    {
+        $memoryLimit = trim(strtoupper(ini_get('memory_limit')));
+
+        if (!isset($memoryLimit[0])) {
+            $memoryLimit = '128M';
+        }
+
+        return ini_parse_quantity($memoryLimit);
+    }
+
+    /**
+     * @deprecated
+     * @return int
+     */
+    protected function _getMemoryUsage()
+    {
+        if (function_exists('memory_get_usage')) {
+            return memory_get_usage();
+        }
+        return 0;
+    }
+
+    /**
+     * @deprecated
+     * @param string $file
+     * @return float|int
+     */
+    protected function _getNeedMemoryForFile($file = null)
+    {
+        $file = is_null($file) ? $this->getBaseFile() : $file;
+        if (!$file) {
+            return 0;
+        }
+
+        if (!file_exists($file) || !is_file($file)) {
+            return 0;
+        }
+
+        $imageInfo = getimagesize($file);
+
+        if ($imageInfo === false) {
+            return 0;
+        }
+        if (!isset($imageInfo['channels'])) {
+            // if there is no info about this parameter lets set it for maximum
+            $imageInfo['channels'] = 4;
+        }
+        if (!isset($imageInfo['bits'])) {
+            // if there is no info about this parameter lets set it for maximum
+            $imageInfo['bits'] = 8;
+        }
+        return round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + pow(2, 16)) * 1.65);
+    }
+
+    /**
+     * Convert array of 3 items (decimal r, g, b) to string of their hex values
+     *
+     * @param array $rgbArray
+     * @return string
+     */
+    protected function _rgbToString($rgbArray)
+    {
+        $result = [];
+        foreach ($rgbArray as $value) {
+            if ($value === null) {
+                $result[] = 'null';
+            } else {
+                $result[] = sprintf('%02s', dechex($value));
+            }
+        }
+        return implode($result);
+    }
+
+    /**
+     * Get relative watermark file path
+     * or false if file not found
+     *
+     * @return string | bool
+     */
+    protected function _getWatermarkFilePath()
+    {
+        $filePath = false;
+
+        if (!$file = $this->getWatermarkFile()) {
+            return $filePath;
+        }
+
+        $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
+
+        if ($this->_fileExists($baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file)) {
+            $filePath = $baseDir . '/watermark/stores/' . Mage::app()->getStore()->getId() . $file;
+        } elseif ($this->_fileExists($baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file)) {
+            $filePath = $baseDir . '/watermark/websites/' . Mage::app()->getWebsite()->getId() . $file;
+        } elseif ($this->_fileExists($baseDir . '/watermark/default/' . $file)) {
+            $filePath = $baseDir . '/watermark/default/' . $file;
+        } elseif ($this->_fileExists($baseDir . '/watermark/' . $file)) {
+            $filePath = $baseDir . '/watermark/' . $file;
+        } else {
+            $baseDir = Mage::getDesign()->getSkinBaseDir();
+            if ($this->_fileExists($baseDir . $file)) {
+                $filePath = $baseDir . $file;
+            }
+        }
+
+        return $filePath;
     }
 
     /**

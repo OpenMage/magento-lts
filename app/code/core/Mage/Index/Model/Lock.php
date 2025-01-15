@@ -116,6 +116,38 @@ class Mage_Index_Model_Lock
     }
 
     /**
+     * Release named lock by name
+     *
+     * @param string $lockName
+     * @param bool $file
+     * @return bool
+     */
+    public function releaseLock($lockName, $file = false)
+    {
+        if ($file) {
+            return $this->_releaseLockFile($lockName);
+        } else {
+            return $this->_releaseLockDb($lockName);
+        }
+    }
+
+    /**
+     * Check whether the named lock exists
+     *
+     * @param string $lockName
+     * @param bool $file
+     * @return bool
+     */
+    public function isLockExists($lockName, $file = false)
+    {
+        if ($file) {
+            return $this->_isLockExistsFile($lockName);
+        } else {
+            return $this->_isLockExistsDb($lockName);
+        }
+    }
+
+    /**
      * Set named file lock
      *
      * @param string $lockName
@@ -163,22 +195,6 @@ class Mage_Index_Model_Lock
     }
 
     /**
-     * Release named lock by name
-     *
-     * @param string $lockName
-     * @param bool $file
-     * @return bool
-     */
-    public function releaseLock($lockName, $file = false)
-    {
-        if ($file) {
-            return $this->_releaseLockFile($lockName);
-        } else {
-            return $this->_releaseLockDb($lockName);
-        }
-    }
-
-    /**
      * Release named file lock by name
      *
      * @param string $lockName
@@ -206,22 +222,6 @@ class Mage_Index_Model_Lock
             return true;
         }
         return false;
-    }
-
-    /**
-     * Check whether the named lock exists
-     *
-     * @param string $lockName
-     * @param bool $file
-     * @return bool
-     */
-    public function isLockExists($lockName, $file = false)
-    {
-        if ($file) {
-            return $this->_isLockExistsFile($lockName);
-        } else {
-            return $this->_isLockExistsDb($lockName);
-        }
     }
 
     /**

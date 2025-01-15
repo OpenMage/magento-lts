@@ -384,37 +384,6 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param string $id
-     * @return bool
-     */
-    protected function _loadCache($id)
-    {
-        return $this->getCache()->load($id);
-    }
-
-    /**
-     * @param string $data
-     * @param string $id
-     * @param array $tags
-     * @param int|boolean $lifetime
-     * @return bool
-     */
-    protected function _saveCache($data, $id, $tags = [], $lifetime = false)
-    {
-        return $this->getCache()->save($data, $id, $tags, $lifetime);
-    }
-
-    /**
-     * @todo check this, as there are no caches that implement remove() method
-     * @param string $id
-     * @return mixed
-     */
-    protected function _removeCache($id)
-    {
-        return $this->getCache()->remove($id);
-    }
-
-    /**
      * Imports XML file
      *
      * @param string $filePath
@@ -532,5 +501,36 @@ class Varien_Simplexml_Config
     {
         $this->getNode()->extend($config->getNode(), $overwrite);
         return $this;
+    }
+
+    /**
+     * @param string $id
+     * @return bool
+     */
+    protected function _loadCache($id)
+    {
+        return $this->getCache()->load($id);
+    }
+
+    /**
+     * @param string $data
+     * @param string $id
+     * @param array $tags
+     * @param int|boolean $lifetime
+     * @return bool
+     */
+    protected function _saveCache($data, $id, $tags = [], $lifetime = false)
+    {
+        return $this->getCache()->save($data, $id, $tags, $lifetime);
+    }
+
+    /**
+     * @todo check this, as there are no caches that implement remove() method
+     * @param string $id
+     * @return mixed
+     */
+    protected function _removeCache($id)
+    {
+        return $this->getCache()->remove($id);
     }
 }

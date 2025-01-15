@@ -33,36 +33,6 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
     }
 
     /**
-     * Add sidebar conditions to collection
-     *
-     * @param Mage_Wishlist_Model_Resource_Item_Collection $collection
-     * @return $this
-     */
-    protected function _prepareCollection($collection)
-    {
-        $collection->setCurPage(1)
-            ->setPageSize(3)
-            ->setInStockFilter(true)
-            ->setOrder('added_at');
-
-        return $this;
-    }
-
-    /**
-     * Prepare before to html
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        if ($this->getItemCount()) {
-            return parent::_toHtml();
-        }
-
-        return '';
-    }
-
-    /**
      * Can Display wishlist
      *
      * @deprecated after 1.6.2.0
@@ -144,5 +114,35 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
             $this->addModelTags($this->_getHelper()->getWishlist());
         }
         return parent::getCacheTags();
+    }
+
+    /**
+     * Add sidebar conditions to collection
+     *
+     * @param Mage_Wishlist_Model_Resource_Item_Collection $collection
+     * @return $this
+     */
+    protected function _prepareCollection($collection)
+    {
+        $collection->setCurPage(1)
+            ->setPageSize(3)
+            ->setInStockFilter(true)
+            ->setOrder('added_at');
+
+        return $this;
+    }
+
+    /**
+     * Prepare before to html
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if ($this->getItemCount()) {
+            return parent::_toHtml();
+        }
+
+        return '';
     }
 }

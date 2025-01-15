@@ -34,6 +34,42 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
     }
 
     /**
+     * @return string
+     */
+    public function getBackButtonHtml()
+    {
+        return $this->getChildHtml('backButton');
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetButtonHtml()
+    {
+        return $this->getChildHtml('resetButton');
+    }
+
+    /**
+     * @return string
+     */
+    public function getSaveButtonHtml()
+    {
+        return $this->getChildHtml('saveButton');
+    }
+
+    /**
+     * @return string|void
+     * @throws Exception
+     */
+    public function getDeleteButtonHtml()
+    {
+        if ((int) $this->getRequest()->getParam('rate') == 0) {
+            return;
+        }
+        return $this->getChildHtml('deleteButton');
+    }
+
+    /**
      * @inheritDoc
      * @throws Exception
      */
@@ -80,41 +116,5 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ]),
         );
         return parent::_prepareLayout();
-    }
-
-    /**
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('backButton');
-    }
-
-    /**
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('resetButton');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        return $this->getChildHtml('saveButton');
-    }
-
-    /**
-     * @return string|void
-     * @throws Exception
-     */
-    public function getDeleteButtonHtml()
-    {
-        if ((int) $this->getRequest()->getParam('rate') == 0) {
-            return;
-        }
-        return $this->getChildHtml('deleteButton');
     }
 }

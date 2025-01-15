@@ -44,6 +44,21 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      */
     protected $_tabs;
 
+    public function __construct()
+    {
+        $this->_cacheChecksum = null;
+        $this->setCache(Mage::app()->getCache());
+        $this->setCacheTags([Mage_Core_Model_Config::CACHE_TAG]);
+        $usesCache = Mage::app()->useCache('config');
+        if (!$usesCache || !$this->loadCache()) {
+            $this->_config = Mage::getConfig()->loadModulesConfiguration('system.xml')
+                ->applyExtends();
+            if ($usesCache) {
+                $this->saveCache();
+            }
+        }
+    }
+
     /**
      * @param string $sectionCode
      * @param string $websiteCode
@@ -71,21 +86,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         }
 
         return $this->_tabs;
-    }
-
-    public function __construct()
-    {
-        $this->_cacheChecksum = null;
-        $this->setCache(Mage::app()->getCache());
-        $this->setCacheTags([Mage_Core_Model_Config::CACHE_TAG]);
-        $usesCache = Mage::app()->useCache('config');
-        if (!$usesCache || !$this->loadCache()) {
-            $this->_config = Mage::getConfig()->loadModulesConfiguration('system.xml')
-                ->applyExtends();
-            if ($usesCache) {
-                $this->saveCache();
-            }
-        }
     }
 
     /**
@@ -120,17 +120,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         }
         libxml_clear_errors();
         return false;
-    }
-
-    /**
-     * Init modules configuration
-     */
-    protected function _initSectionsAndTabs()
-    {
-        $config = $this->_config;
-        Mage::dispatchEvent('adminhtml_init_system_config', ['config' => $config]);
-        $this->_sections = $config->getNode('sections');
-        $this->_tabs = $config->getNode('tabs');
     }
 
     /**
@@ -282,5 +271,16 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
             }
         }
         return $paths;
+    }
+
+    /**
+     * Init modules configuration
+     */
+    protected function _initSectionsAndTabs()
+    {
+        $config = $this->_config;
+        Mage::dispatchEvent('adminhtml_init_system_config', ['config' => $config]);
+        $this->_sections = $config->getNode('sections');
+        $this->_tabs = $config->getNode('tabs');
     }
 }

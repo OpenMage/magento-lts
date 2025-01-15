@@ -22,12 +22,6 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setActive(true);
-    }
-
     /**
      * Prepare label for tab
      *
@@ -76,6 +70,52 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     public function getWidgetInstance()
     {
         return Mage::registry('current_widget_instance');
+    }
+
+    /**
+     * Return url for continue button
+     *
+     * @return string
+     */
+    public function getContinueUrl()
+    {
+        return $this->getUrl('*/*/*', [
+            '_current'  => true,
+            'type'      => '{{type}}',
+            'package'   => '{{package}}',
+            'theme'     => '{{theme}}',
+        ]);
+    }
+
+    /**
+     * Retrieve array (widget_type => widget_name) of available widgets
+     *
+     * @return array
+     */
+    public function getTypesOptionsArray()
+    {
+        $widgets = $this->getWidgetInstance()->getWidgetsOptionArray();
+        array_unshift($widgets, [
+            'value' => '',
+            'label' => Mage::helper('widget')->__('-- Please Select --'),
+        ]);
+        return $widgets;
+    }
+
+    /**
+     * Retrieve package/theme options array
+     *
+     * @return array
+     */
+    public function getPackegeThemeOptionsArray()
+    {
+        return Mage::getModel('core/design_source_design')
+            ->setIsFullLabel(true)->getAllOptions(true);
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setActive(true);
     }
 
     /**
@@ -131,36 +171,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     }
 
     /**
-     * Return url for continue button
-     *
-     * @return string
-     */
-    public function getContinueUrl()
-    {
-        return $this->getUrl('*/*/*', [
-            '_current'  => true,
-            'type'      => '{{type}}',
-            'package'   => '{{package}}',
-            'theme'     => '{{theme}}',
-        ]);
-    }
-
-    /**
-     * Retrieve array (widget_type => widget_name) of available widgets
-     *
-     * @return array
-     */
-    public function getTypesOptionsArray()
-    {
-        $widgets = $this->getWidgetInstance()->getWidgetsOptionArray();
-        array_unshift($widgets, [
-            'value' => '',
-            'label' => Mage::helper('widget')->__('-- Please Select --'),
-        ]);
-        return $widgets;
-    }
-
-    /**
      * User-defined widgets sorting by Name
      *
      * @param array $a
@@ -170,16 +180,5 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     protected function _sortWidgets($a, $b)
     {
         return strcmp($a['label'], $b['label']);
-    }
-
-    /**
-     * Retrieve package/theme options array
-     *
-     * @return array
-     */
-    public function getPackegeThemeOptionsArray()
-    {
-        return Mage::getModel('core/design_source_design')
-            ->setIsFullLabel(true)->getAllOptions(true);
     }
 }

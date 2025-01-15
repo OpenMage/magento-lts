@@ -30,15 +30,6 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     protected $_fields   = [];
 
     /**
-     * Initialize collection model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('log/visitor_online');
-    }
-
-    /**
      * Add Customer data to collection
      *
      * @return $this
@@ -126,5 +117,14 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
         }
 
         return parent::addFieldToFilter($field, $condition);
+    }
+
+    /**
+     * Initialize collection model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('log/visitor_online');
     }
 }

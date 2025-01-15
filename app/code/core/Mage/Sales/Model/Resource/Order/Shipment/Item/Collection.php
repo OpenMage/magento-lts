@@ -35,11 +35,6 @@ class Mage_Sales_Model_Resource_Order_Shipment_Item_Collection extends Mage_Sale
      */
     protected $_eventObject    = 'order_shipment_item_collection';
 
-    protected function _construct()
-    {
-        $this->_init('sales/order_shipment_item');
-    }
-
     /**
      * Set shipment filter
      *
@@ -50,5 +45,10 @@ class Mage_Sales_Model_Resource_Order_Shipment_Item_Collection extends Mage_Sale
     {
         $this->addFieldToFilter('parent_id', $shipmentId);
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order_shipment_item');
     }
 }

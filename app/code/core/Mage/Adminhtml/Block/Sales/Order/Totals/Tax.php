@@ -41,16 +41,6 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
     }
 
     /**
-     * Return Mage_Tax_Helper_Data instance
-     *
-     * @return Mage_Tax_Helper_Data
-     */
-    protected function _getTaxHelper()
-    {
-        return Mage::helper('tax');
-    }
-
-    /**
      * Display tax amount
      *
      * @param float $amount
@@ -76,5 +66,15 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
     public function getStore()
     {
         return Mage::app()->getStore();
+    }
+
+    /**
+     * Return Mage_Tax_Helper_Data instance
+     *
+     * @return Mage_Tax_Helper_Data
+     */
+    protected function _getTaxHelper()
+    {
+        return Mage::helper('tax');
     }
 }

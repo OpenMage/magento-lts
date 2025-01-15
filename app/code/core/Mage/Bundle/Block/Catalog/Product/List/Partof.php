@@ -28,46 +28,6 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
     protected $_product = null;
 
     /**
-     * @return $this
-     */
-    protected function _prepareData()
-    {
-        $collection = Mage::getModel('catalog/product')->getResourceCollection()
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addAttributeToSort('position', 'asc')
-            ->addStoreFilter()
-            ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
-            ])
-            ->addMinimalPrice()
-            ->joinTable('bundle/option', 'parent_id=entity_id', ['option_id' => 'option_id'])
-            ->joinTable('bundle/selection', 'option_id=option_id', ['product_id' => 'product_id'], '{{table}}.product_id=' . $this->getProduct()->getId());
-
-        $ids = Mage::getSingleton('checkout/cart')->getProductIds();
-
-        if (count($ids)) {
-            $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
-        }
-
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
-        $collection->getSelect()->group('entity_id');
-
-        $collection->load();
-        $this->_itemCollection = $collection;
-
-        return $this;
-    }
-
-    /**
-     * @return Mage_Catalog_Block_Product_Abstract
-     */
-    protected function _beforeToHtml()
-    {
-        $this->_prepareData();
-        return parent::_beforeToHtml();
-    }
-
-    /**
      * @return mixed
      */
     public function getItemCollection()
@@ -141,5 +101,45 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
             $this->_product = Mage::registry('product');
         }
         return $this->_product;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function _prepareData()
+    {
+        $collection = Mage::getModel('catalog/product')->getResourceCollection()
+            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            ->addAttributeToSort('position', 'asc')
+            ->addStoreFilter()
+            ->addAttributeToFilter('status', [
+                'in' => Mage::getSingleton('catalog/product_status')->getSaleableStatusIds(),
+            ])
+            ->addMinimalPrice()
+            ->joinTable('bundle/option', 'parent_id=entity_id', ['option_id' => 'option_id'])
+            ->joinTable('bundle/selection', 'option_id=option_id', ['product_id' => 'product_id'], '{{table}}.product_id=' . $this->getProduct()->getId());
+
+        $ids = Mage::getSingleton('checkout/cart')->getProductIds();
+
+        if (count($ids)) {
+            $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
+        }
+
+        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
+        $collection->getSelect()->group('entity_id');
+
+        $collection->load();
+        $this->_itemCollection = $collection;
+
+        return $this;
+    }
+
+    /**
+     * @return Mage_Catalog_Block_Product_Abstract
+     */
+    protected function _beforeToHtml()
+    {
+        $this->_prepareData();
+        return parent::_beforeToHtml();
     }
 }

@@ -20,10 +20,9 @@
  */
 class Mage_CatalogIndex_Model_Catalog_Index_Flag extends Mage_Core_Model_Flag
 {
-    protected $_flagCode = 'catalogindex';
-
     public const STATE_QUEUED = 1;
     public const STATE_RUNNING = 2;
+    protected $_flagCode = 'catalogindex';
 
     /**
      * @return Mage_Core_Model_Flag

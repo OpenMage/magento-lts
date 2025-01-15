@@ -64,6 +64,21 @@ class Mage_ProductAlert_Model_Observer
     protected $_errors = [];
 
     /**
+     * Run process send product alerts
+     *
+     * @return $this
+     */
+    public function process()
+    {
+        $email = Mage::getModel('productalert/email');
+        $this->_processPrice($email);
+        $this->_processStock($email);
+        $this->_sendErrorEmail();
+
+        return $this;
+    }
+
+    /**
      * Retrieve website collection array
      *
      * @return Mage_Core_Model_Website[]
@@ -281,21 +296,6 @@ class Mage_ProductAlert_Model_Observer
             $translate->setTranslateInline(true);
             $this->_errors[] = [];
         }
-        return $this;
-    }
-
-    /**
-     * Run process send product alerts
-     *
-     * @return $this
-     */
-    public function process()
-    {
-        $email = Mage::getModel('productalert/email');
-        $this->_processPrice($email);
-        $this->_processStock($email);
-        $this->_sendErrorEmail();
-
         return $this;
     }
 }

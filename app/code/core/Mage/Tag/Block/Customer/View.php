@@ -40,16 +40,6 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     protected $_tagInfo;
 
     /**
-     * Initialize block
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTagId(Mage::registry('tagId'));
-    }
-
-    /**
      * Retrieve current Tag object
      *
      * @return Mage_Tag_Model_Tag
@@ -95,21 +85,6 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     }
 
     /**
-     * Preparing block layout
-     *
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $toolbar = $this->getLayout()
-            ->createBlock('page/html_pager', 'customer_tag_list.toolbar')
-            ->setCollection($this->_getCollection());
-
-        $this->setChild('toolbar', $toolbar);
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve Toolbar block HTML
      *
      * @return string
@@ -127,6 +102,31 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
     public function getMode()
     {
         return $this->getChild('toolbar')->getCurrentMode();
+    }
+
+    /**
+     * Initialize block
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTagId(Mage::registry('tagId'));
+    }
+
+    /**
+     * Preparing block layout
+     *
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $toolbar = $this->getLayout()
+            ->createBlock('page/html_pager', 'customer_tag_list.toolbar')
+            ->setCollection($this->_getCollection());
+
+        $this->setChild('toolbar', $toolbar);
+        return parent::_prepareLayout();
     }
 
     /**

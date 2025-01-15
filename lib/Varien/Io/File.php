@@ -23,20 +23,6 @@
 class Varien_Io_File extends Varien_Io_Abstract
 {
     /**
-     * Save initial working directory
-     *
-     * @var string
-     */
-    protected $_iwd;
-
-    /**
-     * Use virtual current working directory for application integrity
-     *
-     * @var string
-     */
-    protected $_cwd;
-
-    /**
      * Used to grep ls() output
      *
      * @const
@@ -49,6 +35,24 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @const
      */
     public const GREP_DIRS = 'dirs_only';
+
+    /**
+     * @var string[]
+     */
+    public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    /**
+     * Save initial working directory
+     *
+     * @var string
+     */
+    protected $_iwd;
+
+    /**
+     * Use virtual current working directory for application integrity
+     *
+     * @var string
+     */
+    protected $_cwd;
 
     /**
      * If this variable is set to TRUE, our library will be able to automatically create
@@ -91,11 +95,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @var Exception
      */
     protected $_streamException;
-
-    /**
-     * @var string[]
-     */
-    public const ALLOWED_IMAGES_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'bmp'];
 
     public function __construct()
     {
@@ -515,82 +514,6 @@ class Varien_Io_File extends Varien_Io_Abstract
     }
 
     /**
-     * Check source is valid
-     *
-     * @param string|resource $src
-     * @return bool
-     *
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
-    protected function _isValidSource($src)
-    {
-        // In case of a string
-        if (is_string($src)) {
-            // If its a file we check for null byte
-            // If it's not a valid path, file_exists() will return a falsey value, and the @ will keep it from complaining about the bad string.
-            return !(@file_exists($src) && str_contains($src, chr(0)));
-        } elseif (is_resource($src)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Check filename is writeable
-     * If filename not exist check dirname writeable
-     *
-     * @param string $filename
-     * @throws Varien_Io_Exception
-     * @return bool
-     *
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
-    protected function _isFilenameWriteable($filename)
-    {
-        $error = false;
-        if ($this->_cwd) {
-            @chdir($this->_cwd);
-        }
-        if (file_exists($filename)) {
-            if (!is_writeable($filename)) {
-                $error = "File '{$this->getFilteredPath($filename)}' isn't writeable";
-            }
-        } else {
-            $folder = dirname($filename);
-            if (!is_writable($folder)) {
-                $error = "Folder '{$this->getFilteredPath($folder)}' isn't writeable";
-            }
-        }
-        if ($this->_iwd) {
-            @chdir($this->_iwd);
-        }
-
-        if ($error) {
-            throw new Varien_Io_Exception($error);
-        }
-        return true;
-    }
-
-    /**
-     * Check source is file
-     *
-     * @param string $src
-     * @return bool
-     *
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
-    protected function _checkSrcIsFile($src)
-    {
-        $result = false;
-        if (is_string($src) && @is_readable($src) && is_file($src)) {
-            $result = true;
-        }
-
-        return $result;
-    }
-
-    /**
      * File put content wrapper
      *
      * @param string $filename
@@ -856,6 +779,97 @@ class Varien_Io_File extends Varien_Io_Abstract
         return $list;
     }
 
+    public function dirsep()
+    {
+        return DIRECTORY_SEPARATOR;
+    }
+
+    public function dirname($file)
+    {
+        return $this->getCleanPath(dirname($file));
+    }
+
+    public function getStreamHandler()
+    {
+        return $this->_streamHandler;
+    }
+
+    /**
+     * Check source is valid
+     *
+     * @param string|resource $src
+     * @return bool
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    protected function _isValidSource($src)
+    {
+        // In case of a string
+        if (is_string($src)) {
+            // If its a file we check for null byte
+            // If it's not a valid path, file_exists() will return a falsey value, and the @ will keep it from complaining about the bad string.
+            return !(@file_exists($src) && str_contains($src, chr(0)));
+        } elseif (is_resource($src)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check filename is writeable
+     * If filename not exist check dirname writeable
+     *
+     * @param string $filename
+     * @throws Varien_Io_Exception
+     * @return bool
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    protected function _isFilenameWriteable($filename)
+    {
+        $error = false;
+        if ($this->_cwd) {
+            @chdir($this->_cwd);
+        }
+        if (file_exists($filename)) {
+            if (!is_writeable($filename)) {
+                $error = "File '{$this->getFilteredPath($filename)}' isn't writeable";
+            }
+        } else {
+            $folder = dirname($filename);
+            if (!is_writable($folder)) {
+                $error = "Folder '{$this->getFilteredPath($folder)}' isn't writeable";
+            }
+        }
+        if ($this->_iwd) {
+            @chdir($this->_iwd);
+        }
+
+        if ($error) {
+            throw new Varien_Io_Exception($error);
+        }
+        return true;
+    }
+
+    /**
+     * Check source is file
+     *
+     * @param string $src
+     * @return bool
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    protected function _checkSrcIsFile($src)
+    {
+        $result = false;
+        if (is_string($src) && @is_readable($src) && is_file($src)) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
     /**
      * Convert integer permissions format into human readable
      *
@@ -929,20 +943,5 @@ class Varien_Io_File extends Varien_Io_Abstract
         $groupinfo = posix_getgrnam(filegroup($filename));
 
         return $owner['name'] . ' / ' . $groupinfo;
-    }
-
-    public function dirsep()
-    {
-        return DIRECTORY_SEPARATOR;
-    }
-
-    public function dirname($file)
-    {
-        return $this->getCleanPath(dirname($file));
-    }
-
-    public function getStreamHandler()
-    {
-        return $this->_streamHandler;
     }
 }

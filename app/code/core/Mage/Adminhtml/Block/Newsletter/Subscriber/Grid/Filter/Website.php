@@ -28,16 +28,6 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
     protected $_websiteCollection = null;
 
     /**
-     * @return array[]
-     */
-    protected function _getOptions()
-    {
-        $result = $this->getCollection()->toOptionArray();
-        array_unshift($result, ['label' => null, 'value' => null]);
-        return $result;
-    }
-
-    /**
      * @return Mage_Core_Model_Resource_Website_Collection
      * @throws Mage_Core_Exception
      */
@@ -67,5 +57,15 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Website extends Mag
         $website = Mage::app()->getWebsite($id);
 
         return ['in' => $website->getStoresIds(true)];
+    }
+
+    /**
+     * @return array[]
+     */
+    protected function _getOptions()
+    {
+        $result = $this->getCollection()->toOptionArray();
+        array_unshift($result, ['label' => null, 'value' => null]);
+        return $result;
     }
 }

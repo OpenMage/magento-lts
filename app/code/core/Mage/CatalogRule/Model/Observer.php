@@ -299,64 +299,6 @@ class Mage_CatalogRule_Model_Observer
     }
 
     /**
-     * Check rules that contains affected attribute
-     * If rules were found they will be set to inactive and notice will be add to admin session
-     *
-     * @param string $attributeCode
-     *
-     * @return $this
-     */
-    protected function _checkCatalogRulesAvailability($attributeCode)
-    {
-        /** @var Mage_CatalogRule_Model_Resource_Rule_Collection $collection */
-        $collection = Mage::getResourceModel('catalogrule/rule_collection')
-            ->addAttributeInConditionFilter($attributeCode);
-
-        $disabledRulesCount = 0;
-        foreach ($collection as $rule) {
-            /** @var Mage_CatalogRule_Model_Rule $rule */
-            $rule->setIsActive(0);
-            /** @var $rule->getConditions() Mage_CatalogRule_Model_Rule_Condition_Combine */
-            $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
-            $rule->save();
-
-            $disabledRulesCount++;
-        }
-
-        if ($disabledRulesCount) {
-            Mage::getModel('catalogrule/rule')->applyAll();
-            Mage::getSingleton('adminhtml/session')->addWarning(
-                Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode),
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove catalog attribute condition by attribute code from rule conditions
-     *
-     * @param Mage_CatalogRule_Model_Rule_Condition_Combine $combine
-     *
-     * @param string $attributeCode
-     */
-    protected function _removeAttributeFromConditions($combine, $attributeCode)
-    {
-        $conditions = $combine->getConditions();
-        foreach ($conditions as $conditionId => $condition) {
-            if ($condition instanceof Mage_CatalogRule_Model_Rule_Condition_Combine) {
-                $this->_removeAttributeFromConditions($condition, $attributeCode);
-            }
-            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract) {
-                if ($condition->getAttribute() == $attributeCode) {
-                    unset($conditions[$conditionId]);
-                }
-            }
-        }
-        $combine->setConditions($conditions);
-    }
-
-    /**
      * After save attribute if it is not used for promo rules already check rules for containing this attribute
      *
      *
@@ -469,6 +411,64 @@ class Mage_CatalogRule_Model_Observer
         if ($indexProcess) {
             $indexProcess->reindexAll();
         }
+    }
+
+    /**
+     * Check rules that contains affected attribute
+     * If rules were found they will be set to inactive and notice will be add to admin session
+     *
+     * @param string $attributeCode
+     *
+     * @return $this
+     */
+    protected function _checkCatalogRulesAvailability($attributeCode)
+    {
+        /** @var Mage_CatalogRule_Model_Resource_Rule_Collection $collection */
+        $collection = Mage::getResourceModel('catalogrule/rule_collection')
+            ->addAttributeInConditionFilter($attributeCode);
+
+        $disabledRulesCount = 0;
+        foreach ($collection as $rule) {
+            /** @var Mage_CatalogRule_Model_Rule $rule */
+            $rule->setIsActive(0);
+            /** @var $rule->getConditions() Mage_CatalogRule_Model_Rule_Condition_Combine */
+            $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
+            $rule->save();
+
+            $disabledRulesCount++;
+        }
+
+        if ($disabledRulesCount) {
+            Mage::getModel('catalogrule/rule')->applyAll();
+            Mage::getSingleton('adminhtml/session')->addWarning(
+                Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode),
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove catalog attribute condition by attribute code from rule conditions
+     *
+     * @param Mage_CatalogRule_Model_Rule_Condition_Combine $combine
+     *
+     * @param string $attributeCode
+     */
+    protected function _removeAttributeFromConditions($combine, $attributeCode)
+    {
+        $conditions = $combine->getConditions();
+        foreach ($conditions as $conditionId => $condition) {
+            if ($condition instanceof Mage_CatalogRule_Model_Rule_Condition_Combine) {
+                $this->_removeAttributeFromConditions($condition, $attributeCode);
+            }
+            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract) {
+                if ($condition->getAttribute() == $attributeCode) {
+                    unset($conditions[$conditionId]);
+                }
+            }
+        }
+        $combine->setConditions($conditions);
     }
 
     /**

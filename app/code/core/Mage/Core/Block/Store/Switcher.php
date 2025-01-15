@@ -40,41 +40,6 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
     }
 
     /**
-     * @return $this
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _loadData()
-    {
-        if ($this->_loaded) {
-            return $this;
-        }
-
-        $websiteId = Mage::app()->getStore()->getWebsiteId();
-        $storeCollection = Mage::getModel('core/store')
-            ->getCollection()
-            ->addWebsiteFilter($websiteId);
-        $groupCollection = Mage::getModel('core/store_group')
-            ->getCollection()
-            ->addWebsiteFilter($websiteId);
-        /** @var Mage_Core_Model_Store_Group $group */
-        foreach ($groupCollection as $group) {
-            $this->_groups[$group->getId()] = $group;
-        }
-        /** @var Mage_Core_Model_Store $store */
-        foreach ($storeCollection as $store) {
-            if (!$store->getIsActive()) {
-                continue;
-            }
-            $store->setLocaleCode(Mage::getStoreConfig('general/locale/code', $store->getId()));
-            $this->_stores[$store->getGroupId()][$store->getId()] = $store;
-        }
-
-        $this->_loaded = true;
-
-        return $this;
-    }
-
-    /**
      * @return int
      */
     public function getStoreCount()
@@ -133,5 +98,40 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
     public function getCurrentStoreCode()
     {
         return Mage::app()->getStore()->getCode();
+    }
+
+    /**
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _loadData()
+    {
+        if ($this->_loaded) {
+            return $this;
+        }
+
+        $websiteId = Mage::app()->getStore()->getWebsiteId();
+        $storeCollection = Mage::getModel('core/store')
+            ->getCollection()
+            ->addWebsiteFilter($websiteId);
+        $groupCollection = Mage::getModel('core/store_group')
+            ->getCollection()
+            ->addWebsiteFilter($websiteId);
+        /** @var Mage_Core_Model_Store_Group $group */
+        foreach ($groupCollection as $group) {
+            $this->_groups[$group->getId()] = $group;
+        }
+        /** @var Mage_Core_Model_Store $store */
+        foreach ($storeCollection as $store) {
+            if (!$store->getIsActive()) {
+                continue;
+            }
+            $store->setLocaleCode(Mage::getStoreConfig('general/locale/code', $store->getId()));
+            $this->_stores[$store->getGroupId()][$store->getId()] = $store;
+        }
+
+        $this->_loaded = true;
+
+        return $this;
     }
 }

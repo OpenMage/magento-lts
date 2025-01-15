@@ -31,12 +31,6 @@
  */
 class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('salesrule/rule_customer');
-    }
-
     /**
      * @param int $customerId
      * @param int $ruleId
@@ -46,5 +40,10 @@ class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->loadByCustomerRule($this, $customerId, $ruleId);
         return $this;
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('salesrule/rule_customer');
     }
 }

@@ -22,27 +22,6 @@
  */
 class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Reports_Model_Resource_Order_Collection
 {
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_useAnalyticFunction = true;
-    }
-    /**
-     * Join fields
-     *
-     * @param string $from
-     * @param string $to
-     * @return $this
-     */
-    protected function _joinFields($from = '', $to = '')
-    {
-        $this->joinCustomerName()
-            ->groupByCustomer()
-            ->addOrdersCount()
-            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true]);
-        return $this;
-    }
-
     /**
      * Set date range
      *
@@ -74,6 +53,26 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
                 ->orderByTotalAmount();
         }
 
+        return $this;
+    }
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_useAnalyticFunction = true;
+    }
+    /**
+     * Join fields
+     *
+     * @param string $from
+     * @param string $to
+     * @return $this
+     */
+    protected function _joinFields($from = '', $to = '')
+    {
+        $this->joinCustomerName()
+            ->groupByCustomer()
+            ->addOrdersCount()
+            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true]);
         return $this;
     }
 }

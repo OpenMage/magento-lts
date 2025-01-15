@@ -29,34 +29,6 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
     public const ADMIN_RESOURCE = 'catalog/urlrewrite';
 
     /**
-     * Instantiate urlrewrite, product and category
-     *
-     * @return $this
-     */
-    protected function _initRegistry()
-    {
-        $this->_title($this->__('Rewrite Rules'));
-
-        // initialize urlrewrite, product and category models
-        Mage::register(
-            'current_urlrewrite',
-            Mage::getSingleton('core/factory')->getUrlRewriteInstance()
-            ->load($this->getRequest()->getParam('id', 0)),
-        );
-        $productId  = $this->getRequest()->getParam('product', 0);
-        $categoryId = $this->getRequest()->getParam('category', 0);
-        if (Mage::registry('current_urlrewrite')->getId()) {
-            $productId  = Mage::registry('current_urlrewrite')->getProductId();
-            $categoryId = Mage::registry('current_urlrewrite')->getCategoryId();
-        }
-
-        Mage::register('current_product', Mage::getModel('catalog/product')->load($productId));
-        Mage::register('current_category', Mage::getModel('catalog/category')->load($categoryId));
-
-        return $this;
-    }
-
-    /**
      * Show urlrewrites index page
      *
      */
@@ -216,5 +188,33 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
             }
         }
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * Instantiate urlrewrite, product and category
+     *
+     * @return $this
+     */
+    protected function _initRegistry()
+    {
+        $this->_title($this->__('Rewrite Rules'));
+
+        // initialize urlrewrite, product and category models
+        Mage::register(
+            'current_urlrewrite',
+            Mage::getSingleton('core/factory')->getUrlRewriteInstance()
+            ->load($this->getRequest()->getParam('id', 0)),
+        );
+        $productId  = $this->getRequest()->getParam('product', 0);
+        $categoryId = $this->getRequest()->getParam('category', 0);
+        if (Mage::registry('current_urlrewrite')->getId()) {
+            $productId  = Mage::registry('current_urlrewrite')->getProductId();
+            $categoryId = Mage::registry('current_urlrewrite')->getCategoryId();
+        }
+
+        Mage::register('current_product', Mage::getModel('catalog/product')->load($productId));
+        Mage::register('current_category', Mage::getModel('catalog/category')->load($categoryId));
+
+        return $this;
     }
 }

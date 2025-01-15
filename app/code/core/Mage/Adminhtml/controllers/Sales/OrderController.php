@@ -30,50 +30,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     protected $_publicActions = ['view', 'index'];
 
     /**
-     * Additional initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->setUsedModuleName('Mage_Sales');
-    }
-
-    /**
-     * Init layout, menu and breadcrumb
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('sales/order')
-            ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
-            ->_addBreadcrumb($this->__('Orders'), $this->__('Orders'));
-        return $this;
-    }
-
-    /**
-     * Initialize order model instance
-     *
-     * @return Mage_Sales_Model_Order | false
-     */
-    protected function _initOrder()
-    {
-        $id = $this->getRequest()->getParam('order_id');
-        $order = Mage::getModel('sales/order')->load($id);
-
-        if (!$order->getId()) {
-            $this->_getSession()->addError($this->__('This order no longer exists.'));
-            $this->_redirect('*/*/');
-            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-            return false;
-        }
-        Mage::register('sales_order', $order);
-        Mage::register('current_order', $order);
-        return $order;
-    }
-
-    /**
      * Orders grid
      */
     public function indexAction()
@@ -650,44 +606,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _isAllowed()
-    {
-        $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'hold':
-                $aclResource = 'sales/order/actions/hold';
-                break;
-            case 'unhold':
-                $aclResource = 'sales/order/actions/unhold';
-                break;
-            case 'email':
-                $aclResource = 'sales/order/actions/email';
-                break;
-            case 'cancel':
-                $aclResource = 'sales/order/actions/cancel';
-                break;
-            case 'view':
-                $aclResource = 'sales/order/actions/view';
-                break;
-            case 'addcomment':
-                $aclResource = 'sales/order/actions/comment';
-                break;
-            case 'creditmemos':
-                $aclResource = 'sales/order/actions/creditmemo';
-                break;
-            case 'reviewpayment':
-                $aclResource = 'sales/order/actions/review_payment';
-                break;
-            default:
-                $aclResource = 'sales/order';
-                break;
-        }
-        return Mage::getSingleton('admin/session')->isAllowed($aclResource);
-    }
-
-    /**
      * Export order grid to CSV format
      */
     public function exportCsvAction()
@@ -782,5 +700,87 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         $this->_setForcedFormKeyActions('cancel', 'massCancel');
         return parent::preDispatch();
+    }
+
+    /**
+     * Additional initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->setUsedModuleName('Mage_Sales');
+    }
+
+    /**
+     * Init layout, menu and breadcrumb
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('sales/order')
+            ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
+            ->_addBreadcrumb($this->__('Orders'), $this->__('Orders'));
+        return $this;
+    }
+
+    /**
+     * Initialize order model instance
+     *
+     * @return Mage_Sales_Model_Order | false
+     */
+    protected function _initOrder()
+    {
+        $id = $this->getRequest()->getParam('order_id');
+        $order = Mage::getModel('sales/order')->load($id);
+
+        if (!$order->getId()) {
+            $this->_getSession()->addError($this->__('This order no longer exists.'));
+            $this->_redirect('*/*/');
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            return false;
+        }
+        Mage::register('sales_order', $order);
+        Mage::register('current_order', $order);
+        return $order;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _isAllowed()
+    {
+        $action = strtolower($this->getRequest()->getActionName());
+        switch ($action) {
+            case 'hold':
+                $aclResource = 'sales/order/actions/hold';
+                break;
+            case 'unhold':
+                $aclResource = 'sales/order/actions/unhold';
+                break;
+            case 'email':
+                $aclResource = 'sales/order/actions/email';
+                break;
+            case 'cancel':
+                $aclResource = 'sales/order/actions/cancel';
+                break;
+            case 'view':
+                $aclResource = 'sales/order/actions/view';
+                break;
+            case 'addcomment':
+                $aclResource = 'sales/order/actions/comment';
+                break;
+            case 'creditmemos':
+                $aclResource = 'sales/order/actions/creditmemo';
+                break;
+            case 'reviewpayment':
+                $aclResource = 'sales/order/actions/review_payment';
+                break;
+            default:
+                $aclResource = 'sales/order';
+                break;
+        }
+        return Mage::getSingleton('admin/session')->isAllowed($aclResource);
     }
 }

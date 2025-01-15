@@ -36,6 +36,15 @@ class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
     protected $_config;
 
     /**
+     * Payment method code getter
+     * @return string
+     */
+    public function getMethodCode()
+    {
+        return $this->_methodCode;
+    }
+
+    /**
      * Set template and redirect message
      *
      * @return void
@@ -58,14 +67,5 @@ class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
             ->setMethodLabelAfterHtml($mark->toHtml())
         ;
         parent::_construct();
-    }
-
-    /**
-     * Payment method code getter
-     * @return string
-     */
-    public function getMethodCode()
-    {
-        return $this->_methodCode;
     }
 }

@@ -23,15 +23,6 @@
 class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Initialize resource
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('index/event');
-    }
-
-    /**
      * Add filter by entity
      *
      * @param string | array $entity
@@ -92,6 +83,28 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     }
 
     /**
+     * Reset collection state
+     *
+     * @return $this
+     */
+    public function reset()
+    {
+        $this->_totalRecords = null;
+        $this->_data = null;
+        $this->_isCollectionLoaded = false;
+        $this->_items = [];
+        return $this;
+    }
+    /**
+     * Initialize resource
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('index/event');
+    }
+
+    /**
      * Join index_process_event table to event table
      *
      * @return $this
@@ -106,20 +119,6 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
             );
             $this->setFlag('process_event_table_joined', true);
         }
-        return $this;
-    }
-
-    /**
-     * Reset collection state
-     *
-     * @return $this
-     */
-    public function reset()
-    {
-        $this->_totalRecords = null;
-        $this->_data = null;
-        $this->_isCollectionLoaded = false;
-        $this->_items = [];
         return $this;
     }
 }

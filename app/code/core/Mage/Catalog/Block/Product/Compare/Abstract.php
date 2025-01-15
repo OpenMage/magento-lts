@@ -23,16 +23,6 @@
 abstract class Mage_Catalog_Block_Product_Compare_Abstract extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * Retrieve Product Compare Helper
-     *
-     * @return Mage_Catalog_Helper_Product_Compare
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('catalog/product_compare');
-    }
-
-    /**
      * Retrieve Remove Item from Compare List URL
      *
      * @param Mage_Catalog_Model_Product $item
@@ -41,5 +31,14 @@ abstract class Mage_Catalog_Block_Product_Compare_Abstract extends Mage_Catalog_
     public function getRemoveUrl($item)
     {
         return $this->_getHelper()->getRemoveUrl($item);
+    }
+    /**
+     * Retrieve Product Compare Helper
+     *
+     * @return Mage_Catalog_Helper_Product_Compare
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('catalog/product_compare');
     }
 }

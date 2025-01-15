@@ -29,11 +29,6 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
      */
     protected $_quote;
 
-    protected function _construct()
-    {
-        $this->_init('sales/quote_item');
-    }
-
     /**
      * @return int
      */
@@ -51,6 +46,11 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
         $this->_quote = $quote;
         $this->addAttributeToFilter('parent_id', $quote->getId());
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/quote_item');
     }
 
     /**

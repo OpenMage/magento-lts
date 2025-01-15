@@ -23,15 +23,6 @@
 class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
 {
     /**
-     * Set payment method code
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_paymentMethodCode = Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK;
-    }
-
-    /**
      * Get frame action URL
      *
      * @return string
@@ -87,5 +78,13 @@ class Mage_Paypal_Block_Payflow_Link_Iframe extends Mage_Paypal_Block_Iframe
             ->getMethodInstance($this->_paymentMethodCode)
             ->getConfigData('sandbox_flag');
         return (bool) $mode;
+    }
+    /**
+     * Set payment method code
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_paymentMethodCode = Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK;
     }
 }

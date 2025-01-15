@@ -101,6 +101,61 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     protected $_galleryBackendModel;
 
     /**
+     * Affected entity ids
+     *
+     * @var array
+     */
+    protected $_affectedEntityIds = [];
+
+    protected $_productId = '';
+
+    /**
+     * Initialize convert adapter model for products collection
+     *
+     */
+    public function __construct()
+    {
+        $fieldset = Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin');
+        foreach ($fieldset as $code => $node) {
+            /** @var Mage_Core_Model_Config_Element $node */
+            if ($node->is('inventory')) {
+                foreach ($node->product_type->children() as $productType) {
+                    $productType = $productType->getName();
+                    $this->_inventoryFieldsProductTypes[$productType][] = $code;
+                    if ($node->is('use_config')) {
+                        $this->_inventoryFieldsProductTypes[$productType][] = 'use_config_' . $code;
+                    }
+                }
+
+                $this->_inventoryFields[] = $code;
+                if ($node->is('use_config')) {
+                    $this->_inventoryFields[] = 'use_config_' . $code;
+                }
+            }
+            if ($node->is('required')) {
+                $this->_requiredFields[] = $code;
+            }
+            if ($node->is('ignore')) {
+                $this->_ignoreFields[] = $code;
+            }
+            if ($node->is('to_number')) {
+                $this->_toNumber[] = $code;
+            }
+        }
+
+        $this->setVar('entity_type', 'catalog/product');
+        if (!Mage::registry('Object_Cache_Product')) {
+            $this->setProduct(Mage::getModel('catalog/product'));
+        }
+
+        if (!Mage::registry('Object_Cache_StockItem')) {
+            $this->setStockItem(Mage::getModel('cataloginventory/stock_item'));
+        }
+
+        $this->_galleryBackendModel = $this->getAttribute('media_gallery')->getBackend();
+    }
+
+    /**
      * Retrieve event prefix for adapter
      *
      * @return string
@@ -108,32 +163,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     public function getEventPrefix()
     {
         return $this->_eventPrefix;
-    }
-
-    /**
-     * Affected entity ids
-     *
-     * @var array
-     */
-    protected $_affectedEntityIds = [];
-
-    /**
-     * Store affected entity ids
-     *
-     * @param  int|array $ids
-     * @return $this
-     */
-    protected function _addAffectedEntityIds($ids)
-    {
-        if (is_array($ids)) {
-            foreach ($ids as $id) {
-                $this->_addAffectedEntityIds($id);
-            }
-        } else {
-            $this->_affectedEntityIds[] = $ids;
-        }
-
-        return $this;
     }
 
     /**
@@ -306,19 +335,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     }
 
     /**
-     *  Init stores
-     */
-    protected function _initStores()
-    {
-        if (is_null($this->_stores)) {
-            $this->_stores = Mage::app()->getStores(true, true);
-            foreach ($this->_stores as $code => $store) {
-                $this->_storesIdCode[$store->getId()] = $code;
-            }
-        }
-    }
-
-    /**
      * Retrieve store object by code
      *
      * @param string $store
@@ -375,67 +391,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
             $this->saveRow($importData);
         }
-    }
-
-    protected $_productId = '';
-
-    /**
-     * Initialize convert adapter model for products collection
-     *
-     */
-    public function __construct()
-    {
-        $fieldset = Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin');
-        foreach ($fieldset as $code => $node) {
-            /** @var Mage_Core_Model_Config_Element $node */
-            if ($node->is('inventory')) {
-                foreach ($node->product_type->children() as $productType) {
-                    $productType = $productType->getName();
-                    $this->_inventoryFieldsProductTypes[$productType][] = $code;
-                    if ($node->is('use_config')) {
-                        $this->_inventoryFieldsProductTypes[$productType][] = 'use_config_' . $code;
-                    }
-                }
-
-                $this->_inventoryFields[] = $code;
-                if ($node->is('use_config')) {
-                    $this->_inventoryFields[] = 'use_config_' . $code;
-                }
-            }
-            if ($node->is('required')) {
-                $this->_requiredFields[] = $code;
-            }
-            if ($node->is('ignore')) {
-                $this->_ignoreFields[] = $code;
-            }
-            if ($node->is('to_number')) {
-                $this->_toNumber[] = $code;
-            }
-        }
-
-        $this->setVar('entity_type', 'catalog/product');
-        if (!Mage::registry('Object_Cache_Product')) {
-            $this->setProduct(Mage::getModel('catalog/product'));
-        }
-
-        if (!Mage::registry('Object_Cache_StockItem')) {
-            $this->setStockItem(Mage::getModel('cataloginventory/stock_item'));
-        }
-
-        $this->_galleryBackendModel = $this->getAttribute('media_gallery')->getBackend();
-    }
-
-    /**
-     * Retrieve not loaded collection
-     *
-     * @param string $entityType
-     * @return Mage_Catalog_Model_Resource_Product_Collection
-     */
-    protected function _getCollectionForLoad($entityType)
-    {
-        return parent::_getCollectionForLoad($entityType)
-            ->setStoreId($this->getStoreId())
-            ->addStoreFilter($this->getStoreId());
     }
 
     /**
@@ -902,5 +857,50 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             self::ENTITY,
             Mage_Index_Model_Event::TYPE_SAVE,
         );
+    }
+
+    /**
+     * Store affected entity ids
+     *
+     * @param  int|array $ids
+     * @return $this
+     */
+    protected function _addAffectedEntityIds($ids)
+    {
+        if (is_array($ids)) {
+            foreach ($ids as $id) {
+                $this->_addAffectedEntityIds($id);
+            }
+        } else {
+            $this->_affectedEntityIds[] = $ids;
+        }
+
+        return $this;
+    }
+
+    /**
+     *  Init stores
+     */
+    protected function _initStores()
+    {
+        if (is_null($this->_stores)) {
+            $this->_stores = Mage::app()->getStores(true, true);
+            foreach ($this->_stores as $code => $store) {
+                $this->_storesIdCode[$store->getId()] = $code;
+            }
+        }
+    }
+
+    /**
+     * Retrieve not loaded collection
+     *
+     * @param string $entityType
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
+    protected function _getCollectionForLoad($entityType)
+    {
+        return parent::_getCollectionForLoad($entityType)
+            ->setStoreId($this->getStoreId())
+            ->addStoreFilter($this->getStoreId());
     }
 }

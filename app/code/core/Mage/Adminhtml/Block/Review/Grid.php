@@ -31,6 +31,33 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setDefaultSort('created_at');
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/catalog_product_review/edit', [
+            'id' => $row->getReviewId(),
+            'productId' => $this->getProductId(),
+            'customerId' => $this->getCustomerId(),
+            'ret'       => (Mage::registry('usePendingFilter')) ? 'pending' : null,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        if ($this->getProductId() || $this->getCustomerId()) {
+            return $this->getUrl(
+                '*/catalog_product_review/' . (Mage::registry('usePendingFilter') ? 'pending' : ''),
+                [
+                    'productId' => $this->getProductId(),
+                    'customerId' => $this->getCustomerId(),
+                ],
+            );
+        }
+        return $this->getCurrentUrl();
+    }
+
     /**
      * @inheritDoc
      * @throws Exception
@@ -241,32 +268,5 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ],
         ]);
         return parent::_prepareMassaction();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/catalog_product_review/edit', [
-            'id' => $row->getReviewId(),
-            'productId' => $this->getProductId(),
-            'customerId' => $this->getCustomerId(),
-            'ret'       => (Mage::registry('usePendingFilter')) ? 'pending' : null,
-        ]);
-    }
-
-    /**
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        if ($this->getProductId() || $this->getCustomerId()) {
-            return $this->getUrl(
-                '*/catalog_product_review/' . (Mage::registry('usePendingFilter') ? 'pending' : ''),
-                [
-                    'productId' => $this->getProductId(),
-                    'customerId' => $this->getCustomerId(),
-                ],
-            );
-        }
-        return $this->getCurrentUrl();
     }
 }

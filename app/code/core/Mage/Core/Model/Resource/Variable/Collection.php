@@ -30,16 +30,6 @@ class Mage_Core_Model_Resource_Variable_Collection extends Mage_Core_Model_Resou
     protected $_storeId    = 0;
 
     /**
-     *  Define resource model
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init('core/variable');
-    }
-
-    /**
      * Setter
      *
      * @param int $storeId
@@ -86,5 +76,15 @@ class Mage_Core_Model_Resource_Variable_Collection extends Mage_Core_Model_Resou
     public function toOptionArray()
     {
         return $this->_toOptionArray('code', 'name');
+    }
+
+    /**
+     *  Define resource model
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->_init('core/variable');
     }
 }

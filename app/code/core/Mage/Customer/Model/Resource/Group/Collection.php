@@ -22,11 +22,6 @@
  */
 class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('customer/group');
-    }
-
     /**
      * Set tax group filter
      *
@@ -99,5 +94,9 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     public function toOptionHash()
     {
         return parent::_toOptionHash('customer_group_id', 'customer_group_code');
+    }
+    protected function _construct()
+    {
+        $this->_init('customer/group');
     }
 }

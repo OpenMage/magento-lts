@@ -59,6 +59,271 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     }
 
     /**
+     * Validate user input for option
+     *
+     * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
+     * @return $this
+     * @throws Mage_Core_Exception|Zend_Validate_Exception
+     */
+    public function validateUserValue($values)
+    {
+        Mage::getSingleton('checkout/session')->setUseNotice(false);
+
+        $this->setIsValid(true);
+        $option = $this->getOption();
+
+        /*
+         * Check whether we receive uploaded file or restore file by: reorder/edit configuration or
+         * previous configuration with no newly uploaded file
+         */
+
+        $fileInfo = $this->_getCurrentConfigFileInfo();
+
+        if ($fileInfo !== null) {
+            if (is_array($fileInfo) && $this->_validateFile($fileInfo)) {
+                $value = $fileInfo;
+            } else {
+                $value = null;
+            }
+            $this->setUserValue($value);
+            return $this;
+        }
+
+        // Process new uploaded file
+        try {
+            $this->_validateUploadedFile();
+        } catch (Exception $e) {
+            if ($this->getSkipCheckRequiredOption()) {
+                $this->setUserValue(null);
+                return $this;
+            } else {
+                Mage::throwException($e->getMessage());
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Prepare option value for cart
+     *
+     * @return mixed Prepared option value
+     * @throws Mage_Core_Exception
+     */
+    public function prepareForCart()
+    {
+        $option = $this->getOption();
+        $optionId = $option->getId();
+        $buyRequest = $this->getRequest();
+
+        // Prepare value and fill buyRequest with option
+        $requestOptions = $buyRequest->getOptions();
+        if ($this->getIsValid() && $this->getUserValue() !== null) {
+            $value = $this->getUserValue();
+
+            // Save option in request, because we have no $_FILES['options']
+            $requestOptions[$this->getOption()->getId()] = $value;
+            $result = serialize($value);
+            try {
+                Mage::helper('core/unserializeArray')->unserialize($result);
+            } catch (Exception $e) {
+                Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
+            }
+        } else {
+            /*
+             * Clear option info from request, so it won't be stored in our db upon
+             * unsuccessful validation. Otherwise some bad file data can happen in buyRequest
+             * and be used later in reorders and reconfigurations.
+             */
+            if (is_array($requestOptions)) {
+                unset($requestOptions[$this->getOption()->getId()]);
+            }
+            $result = null;
+        }
+        $buyRequest->setOptions($requestOptions);
+
+        // Clear action key from buy request - we won't need it anymore
+        $optionActionKey = 'options_' . $optionId . '_file_action';
+        $buyRequest->unsetData($optionActionKey);
+
+        return $result;
+    }
+
+    /**
+     * Return formatted option value for quote option
+     *
+     * @param string $optionValue Prepared for cart option value
+     * @return string
+     */
+    public function getFormattedOptionValue($optionValue)
+    {
+        if ($this->_formattedOptionValue === null) {
+            try {
+                $value = Mage::helper('core/unserializeArray')->unserialize($optionValue);
+
+                $customOptionUrlParams = $this->getCustomOptionUrlParams() ?: [
+                    'id'  => $this->getConfigurationItemOption()->getId(),
+                    'key' => $value['secret_key'],
+                ];
+
+                $value['url'] = ['route' => $this->_customOptionDownloadUrl, 'params' => $customOptionUrlParams];
+
+                $this->_formattedOptionValue = $this->_getOptionHtml($value);
+                $this->getConfigurationItemOption()->setValue(serialize($value));
+                return $this->_formattedOptionValue;
+            } catch (Exception $e) {
+                return $optionValue;
+            }
+        }
+        return $this->_formattedOptionValue;
+    }
+
+    /**
+     * Return printable option value
+     *
+     * @param string $optionValue Prepared for cart option value
+     * @return string
+     */
+    public function getPrintableOptionValue($optionValue)
+    {
+        $value = $this->getFormattedOptionValue($optionValue);
+        return $value === null ? '' : strip_tags($value);
+    }
+
+    /**
+     * Return formatted option value ready to edit, ready to parse
+     *
+     * @param string $optionValue Prepared for cart option value
+     * @return string
+     */
+    public function getEditableOptionValue($optionValue)
+    {
+        try {
+            $value = Mage::helper('core/unserializeArray')->unserialize($optionValue);
+            return sprintf(
+                '%s [%d]',
+                Mage::helper('core')->escapeHtml($value['title']),
+                $this->getConfigurationItemOption()->getId(),
+            );
+        } catch (Exception $e) {
+            return $optionValue;
+        }
+    }
+
+    /**
+     * Parse user input value and return cart prepared value
+     *
+     * @param string $optionValue
+     * @param array $productOptionValues Values for product option
+     * @return string|null
+     */
+    public function parseOptionValue($optionValue, $productOptionValues)
+    {
+        // search quote item option Id in option value
+        if (preg_match('/\[([0-9]+)\]/', $optionValue, $matches)) {
+            $confItemOptionId = $matches[1];
+            $option = Mage::getModel('sales/quote_item_option')->load($confItemOptionId);
+            try {
+                return $option->getValue();
+            } catch (Exception $e) {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Prepare option value for info buy request
+     *
+     * @param string $optionValue
+     * @return mixed
+     */
+    public function prepareOptionValueForRequest($optionValue)
+    {
+        try {
+            return Mage::helper('core/unserializeArray')->unserialize($optionValue);
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Quote item to order item copy process
+     *
+     * @return $this
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    public function copyQuoteToOrder()
+    {
+        $quoteOption = $this->getQuoteItemOption();
+        try {
+            $value = Mage::helper('core/unserializeArray')->unserialize($quoteOption->getValue());
+            if (!isset($value['quote_path'])) {
+                throw new Exception();
+            }
+            $quoteFileFullPath = Mage::getBaseDir() . $value['quote_path'];
+            if (!is_file($quoteFileFullPath) || !is_readable($quoteFileFullPath)) {
+                throw new Exception();
+            }
+            $orderFileFullPath = Mage::getBaseDir() . $value['order_path'];
+            $dir = pathinfo($orderFileFullPath, PATHINFO_DIRNAME);
+            $this->_createWriteableDir($dir);
+            Mage::helper('core/file_storage_database')->copyFile($quoteFileFullPath, $orderFileFullPath);
+            @copy($quoteFileFullPath, $orderFileFullPath);
+        } catch (Exception $e) {
+            return $this;
+        }
+        return $this;
+    }
+
+    /**
+     * Main Destination directory
+     *
+     * @param bool $relative If true - returns relative path to the webroot
+     * @return string
+     */
+    public function getTargetDir($relative = false)
+    {
+        $fullPath = Mage::getBaseDir('media') . DS . 'custom_options';
+        return $relative ? str_replace(Mage::getBaseDir(), '', $fullPath) : $fullPath;
+    }
+
+    /**
+     * Quote items destination directory
+     *
+     * @param bool $relative If true - returns relative path to the webroot
+     * @return string
+     */
+    public function getQuoteTargetDir($relative = false)
+    {
+        return $this->getTargetDir($relative) . DS . 'quote';
+    }
+
+    /**
+     * Order items destination directory
+     *
+     * @param bool $relative If true - returns relative path to the webroot
+     * @return string
+     */
+    public function getOrderTargetDir($relative = false)
+    {
+        return $this->getTargetDir($relative) . DS . 'order';
+    }
+
+    /**
+     * Set url to custom option download controller
+     *
+     * @param string $url
+     * @return $this
+     */
+    public function setCustomOptionDownloadUrl($url)
+    {
+        $this->_customOptionDownloadUrl = $url;
+        return $this;
+    }
+
+    /**
      * Returns additional params for processing options
      *
      * @return Varien_Object
@@ -102,51 +367,6 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             return $fileInfo;
         }
         return null;
-    }
-
-    /**
-     * Validate user input for option
-     *
-     * @param array $values All product option values, i.e. array (option_id => mixed, option_id => mixed...)
-     * @return $this
-     * @throws Mage_Core_Exception|Zend_Validate_Exception
-     */
-    public function validateUserValue($values)
-    {
-        Mage::getSingleton('checkout/session')->setUseNotice(false);
-
-        $this->setIsValid(true);
-        $option = $this->getOption();
-
-        /*
-         * Check whether we receive uploaded file or restore file by: reorder/edit configuration or
-         * previous configuration with no newly uploaded file
-         */
-
-        $fileInfo = $this->_getCurrentConfigFileInfo();
-
-        if ($fileInfo !== null) {
-            if (is_array($fileInfo) && $this->_validateFile($fileInfo)) {
-                $value = $fileInfo;
-            } else {
-                $value = null;
-            }
-            $this->setUserValue($value);
-            return $this;
-        }
-
-        // Process new uploaded file
-        try {
-            $this->_validateUploadedFile();
-        } catch (Exception $e) {
-            if ($this->getSkipCheckRequiredOption()) {
-                $this->setUserValue(null);
-                return $this;
-            } else {
-                Mage::throwException($e->getMessage());
-            }
-        }
-        return $this;
     }
 
     /**
@@ -414,80 +634,6 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     }
 
     /**
-     * Prepare option value for cart
-     *
-     * @return mixed Prepared option value
-     * @throws Mage_Core_Exception
-     */
-    public function prepareForCart()
-    {
-        $option = $this->getOption();
-        $optionId = $option->getId();
-        $buyRequest = $this->getRequest();
-
-        // Prepare value and fill buyRequest with option
-        $requestOptions = $buyRequest->getOptions();
-        if ($this->getIsValid() && $this->getUserValue() !== null) {
-            $value = $this->getUserValue();
-
-            // Save option in request, because we have no $_FILES['options']
-            $requestOptions[$this->getOption()->getId()] = $value;
-            $result = serialize($value);
-            try {
-                Mage::helper('core/unserializeArray')->unserialize($result);
-            } catch (Exception $e) {
-                Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
-            }
-        } else {
-            /*
-             * Clear option info from request, so it won't be stored in our db upon
-             * unsuccessful validation. Otherwise some bad file data can happen in buyRequest
-             * and be used later in reorders and reconfigurations.
-             */
-            if (is_array($requestOptions)) {
-                unset($requestOptions[$this->getOption()->getId()]);
-            }
-            $result = null;
-        }
-        $buyRequest->setOptions($requestOptions);
-
-        // Clear action key from buy request - we won't need it anymore
-        $optionActionKey = 'options_' . $optionId . '_file_action';
-        $buyRequest->unsetData($optionActionKey);
-
-        return $result;
-    }
-
-    /**
-     * Return formatted option value for quote option
-     *
-     * @param string $optionValue Prepared for cart option value
-     * @return string
-     */
-    public function getFormattedOptionValue($optionValue)
-    {
-        if ($this->_formattedOptionValue === null) {
-            try {
-                $value = Mage::helper('core/unserializeArray')->unserialize($optionValue);
-
-                $customOptionUrlParams = $this->getCustomOptionUrlParams() ?: [
-                    'id'  => $this->getConfigurationItemOption()->getId(),
-                    'key' => $value['secret_key'],
-                ];
-
-                $value['url'] = ['route' => $this->_customOptionDownloadUrl, 'params' => $customOptionUrlParams];
-
-                $this->_formattedOptionValue = $this->_getOptionHtml($value);
-                $this->getConfigurationItemOption()->setValue(serialize($value));
-                return $this->_formattedOptionValue;
-            } catch (Exception $e) {
-                return $optionValue;
-            }
-        }
-        return $this->_formattedOptionValue;
-    }
-
-    /**
      * Format File option html
      *
      * @param string|array $optionValue Serialized string of option data or its data array
@@ -537,152 +683,6 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         } else {
             return [];
         }
-    }
-
-    /**
-     * Return printable option value
-     *
-     * @param string $optionValue Prepared for cart option value
-     * @return string
-     */
-    public function getPrintableOptionValue($optionValue)
-    {
-        $value = $this->getFormattedOptionValue($optionValue);
-        return $value === null ? '' : strip_tags($value);
-    }
-
-    /**
-     * Return formatted option value ready to edit, ready to parse
-     *
-     * @param string $optionValue Prepared for cart option value
-     * @return string
-     */
-    public function getEditableOptionValue($optionValue)
-    {
-        try {
-            $value = Mage::helper('core/unserializeArray')->unserialize($optionValue);
-            return sprintf(
-                '%s [%d]',
-                Mage::helper('core')->escapeHtml($value['title']),
-                $this->getConfigurationItemOption()->getId(),
-            );
-        } catch (Exception $e) {
-            return $optionValue;
-        }
-    }
-
-    /**
-     * Parse user input value and return cart prepared value
-     *
-     * @param string $optionValue
-     * @param array $productOptionValues Values for product option
-     * @return string|null
-     */
-    public function parseOptionValue($optionValue, $productOptionValues)
-    {
-        // search quote item option Id in option value
-        if (preg_match('/\[([0-9]+)\]/', $optionValue, $matches)) {
-            $confItemOptionId = $matches[1];
-            $option = Mage::getModel('sales/quote_item_option')->load($confItemOptionId);
-            try {
-                return $option->getValue();
-            } catch (Exception $e) {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Prepare option value for info buy request
-     *
-     * @param string $optionValue
-     * @return mixed
-     */
-    public function prepareOptionValueForRequest($optionValue)
-    {
-        try {
-            return Mage::helper('core/unserializeArray')->unserialize($optionValue);
-        } catch (Exception $e) {
-            return null;
-        }
-    }
-
-    /**
-     * Quote item to order item copy process
-     *
-     * @return $this
-     *
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
-    public function copyQuoteToOrder()
-    {
-        $quoteOption = $this->getQuoteItemOption();
-        try {
-            $value = Mage::helper('core/unserializeArray')->unserialize($quoteOption->getValue());
-            if (!isset($value['quote_path'])) {
-                throw new Exception();
-            }
-            $quoteFileFullPath = Mage::getBaseDir() . $value['quote_path'];
-            if (!is_file($quoteFileFullPath) || !is_readable($quoteFileFullPath)) {
-                throw new Exception();
-            }
-            $orderFileFullPath = Mage::getBaseDir() . $value['order_path'];
-            $dir = pathinfo($orderFileFullPath, PATHINFO_DIRNAME);
-            $this->_createWriteableDir($dir);
-            Mage::helper('core/file_storage_database')->copyFile($quoteFileFullPath, $orderFileFullPath);
-            @copy($quoteFileFullPath, $orderFileFullPath);
-        } catch (Exception $e) {
-            return $this;
-        }
-        return $this;
-    }
-
-    /**
-     * Main Destination directory
-     *
-     * @param bool $relative If true - returns relative path to the webroot
-     * @return string
-     */
-    public function getTargetDir($relative = false)
-    {
-        $fullPath = Mage::getBaseDir('media') . DS . 'custom_options';
-        return $relative ? str_replace(Mage::getBaseDir(), '', $fullPath) : $fullPath;
-    }
-
-    /**
-     * Quote items destination directory
-     *
-     * @param bool $relative If true - returns relative path to the webroot
-     * @return string
-     */
-    public function getQuoteTargetDir($relative = false)
-    {
-        return $this->getTargetDir($relative) . DS . 'quote';
-    }
-
-    /**
-     * Order items destination directory
-     *
-     * @param bool $relative If true - returns relative path to the webroot
-     * @return string
-     */
-    public function getOrderTargetDir($relative = false)
-    {
-        return $this->getTargetDir($relative) . DS . 'order';
-    }
-
-    /**
-     * Set url to custom option download controller
-     *
-     * @param string $url
-     * @return $this
-     */
-    public function setCustomOptionDownloadUrl($url)
-    {
-        $this->_customOptionDownloadUrl = $url;
-        return $this;
     }
 
     /**

@@ -30,15 +30,6 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     protected $_storeId;
 
     /**
-     * Initialize collection model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('eav/form_fieldset');
-    }
-
-    /**
      * Add Form Type filter to collection
      *
      * @param Mage_Eav_Model_Form_Type|int $type
@@ -87,6 +78,15 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
     {
         $this->_storeId = $storeId;
         return $this;
+    }
+
+    /**
+     * Initialize collection model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('eav/form_fieldset');
     }
 
     /**

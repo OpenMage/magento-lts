@@ -35,12 +35,6 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     protected $_feedUrl;
 
     /**
-     * Init model
-     *
-     */
-    protected function _construct() {}
-
-    /**
      * Retrieve feed url
      *
      * @return string
@@ -173,4 +167,10 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 
         return $xml;
     }
+
+    /**
+     * Init model
+     *
+     */
+    protected function _construct() {}
 }

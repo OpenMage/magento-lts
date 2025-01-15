@@ -23,14 +23,6 @@
 class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Init resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('downloadable/sample');
-    }
-
-    /**
      * Method for product filter
      *
      * @param Mage_Catalog_Model_Product|array|integer|null $product
@@ -74,5 +66,12 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
             ->order('title ASC');
 
         return $this;
+    }
+    /**
+     * Init resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('downloadable/sample');
     }
 }

@@ -32,15 +32,6 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
      */
     protected $_eventObject    = 'order_collection';
 
-    protected function _construct()
-    {
-        $this->_init('sales/order');
-        $this
-            ->addFilterToMap('entity_id', 'main_table.entity_id')
-            ->addFilterToMap('customer_id', 'main_table.customer_id')
-            ->addFilterToMap('quote_address_id', 'main_table.quote_address_id');
-    }
-
     /**
      * Add items count expr to collection select, backward capability with eav structure
      *
@@ -68,78 +59,6 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         $countSelect->resetJoinLeft();
         $countSelect->reset(Zend_Db_Select::GROUP);
         return $countSelect;
-    }
-
-    /**
-     * Reset left join
-     *
-     * @param int $limit
-     * @param int $offset
-     * @return Varien_Db_Select
-     */
-    protected function _getAllIdsSelect($limit = null, $offset = null)
-    {
-        $idsSelect = parent::_getAllIdsSelect($limit, $offset);
-        $idsSelect->resetJoinLeft();
-        return $idsSelect;
-    }
-
-    /**
-     * Join table sales_flat_order_address to select for billing and shipping order addresses.
-     * Create corillation map
-     *
-     * @return $this
-     */
-    protected function _addAddressFields()
-    {
-        $billingAliasName = 'billing_o_a';
-        $shippingAliasName = 'shipping_o_a';
-        $joinTable = $this->getTable('sales/order_address');
-
-        $this
-            ->addFilterToMap('billing_firstname', $billingAliasName . '.firstname')
-            ->addFilterToMap('billing_middlename', $billingAliasName . '.middlename')
-            ->addFilterToMap('billing_lastname', $billingAliasName . '.lastname')
-            ->addFilterToMap('billing_telephone', $billingAliasName . '.telephone')
-            ->addFilterToMap('billing_postcode', $billingAliasName . '.postcode')
-
-            ->addFilterToMap('shipping_firstname', $shippingAliasName . '.firstname')
-            ->addFilterToMap('shipping_middlename', $shippingAliasName . '.middlename')
-            ->addFilterToMap('shipping_lastname', $shippingAliasName . '.lastname')
-            ->addFilterToMap('shipping_telephone', $shippingAliasName . '.telephone')
-            ->addFilterToMap('shipping_postcode', $shippingAliasName . '.postcode');
-
-        $this
-            ->getSelect()
-            ->joinLeft(
-                [$billingAliasName => $joinTable],
-                "(main_table.entity_id = {$billingAliasName}.parent_id"
-                    . " AND {$billingAliasName}.address_type = 'billing')",
-                [
-                    $billingAliasName . '.firstname',
-                    $billingAliasName . '.middlename',
-                    $billingAliasName . '.lastname',
-                    $billingAliasName . '.telephone',
-                    $billingAliasName . '.postcode',
-                ],
-            )
-            ->joinLeft(
-                [$shippingAliasName => $joinTable],
-                "(main_table.entity_id = {$shippingAliasName}.parent_id"
-                    . " AND {$shippingAliasName}.address_type = 'shipping')",
-                [
-                    $shippingAliasName . '.firstname',
-                    $shippingAliasName . '.middlename',
-                    $shippingAliasName . '.lastname',
-                    $shippingAliasName . '.telephone',
-                    $shippingAliasName . '.postcode',
-                ],
-            );
-
-        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
-        $helper = Mage::getResourceHelper('core');
-        $helper->prepareColumnsList($this->getSelect());
-        return $this;
     }
 
     /**
@@ -226,6 +145,87 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
                 [],
             )
             ->where('srpo.profile_id IN(?)', $ids);
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/order');
+        $this
+            ->addFilterToMap('entity_id', 'main_table.entity_id')
+            ->addFilterToMap('customer_id', 'main_table.customer_id')
+            ->addFilterToMap('quote_address_id', 'main_table.quote_address_id');
+    }
+
+    /**
+     * Reset left join
+     *
+     * @param int $limit
+     * @param int $offset
+     * @return Varien_Db_Select
+     */
+    protected function _getAllIdsSelect($limit = null, $offset = null)
+    {
+        $idsSelect = parent::_getAllIdsSelect($limit, $offset);
+        $idsSelect->resetJoinLeft();
+        return $idsSelect;
+    }
+
+    /**
+     * Join table sales_flat_order_address to select for billing and shipping order addresses.
+     * Create corillation map
+     *
+     * @return $this
+     */
+    protected function _addAddressFields()
+    {
+        $billingAliasName = 'billing_o_a';
+        $shippingAliasName = 'shipping_o_a';
+        $joinTable = $this->getTable('sales/order_address');
+
+        $this
+            ->addFilterToMap('billing_firstname', $billingAliasName . '.firstname')
+            ->addFilterToMap('billing_middlename', $billingAliasName . '.middlename')
+            ->addFilterToMap('billing_lastname', $billingAliasName . '.lastname')
+            ->addFilterToMap('billing_telephone', $billingAliasName . '.telephone')
+            ->addFilterToMap('billing_postcode', $billingAliasName . '.postcode')
+
+            ->addFilterToMap('shipping_firstname', $shippingAliasName . '.firstname')
+            ->addFilterToMap('shipping_middlename', $shippingAliasName . '.middlename')
+            ->addFilterToMap('shipping_lastname', $shippingAliasName . '.lastname')
+            ->addFilterToMap('shipping_telephone', $shippingAliasName . '.telephone')
+            ->addFilterToMap('shipping_postcode', $shippingAliasName . '.postcode');
+
+        $this
+            ->getSelect()
+            ->joinLeft(
+                [$billingAliasName => $joinTable],
+                "(main_table.entity_id = {$billingAliasName}.parent_id"
+                    . " AND {$billingAliasName}.address_type = 'billing')",
+                [
+                    $billingAliasName . '.firstname',
+                    $billingAliasName . '.middlename',
+                    $billingAliasName . '.lastname',
+                    $billingAliasName . '.telephone',
+                    $billingAliasName . '.postcode',
+                ],
+            )
+            ->joinLeft(
+                [$shippingAliasName => $joinTable],
+                "(main_table.entity_id = {$shippingAliasName}.parent_id"
+                    . " AND {$shippingAliasName}.address_type = 'shipping')",
+                [
+                    $shippingAliasName . '.firstname',
+                    $shippingAliasName . '.middlename',
+                    $shippingAliasName . '.lastname',
+                    $shippingAliasName . '.telephone',
+                    $shippingAliasName . '.postcode',
+                ],
+            );
+
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('core');
+        $helper->prepareColumnsList($this->getSelect());
         return $this;
     }
 }

@@ -23,19 +23,6 @@
 class Mage_Admin_Helper_Rules_Fallback extends Mage_Core_Helper_Abstract
 {
     /**
-     * Fallback to resource parent node
-     * @param string $resourceId
-     *
-     * @return string
-     */
-    protected function _getParentResourceId($resourceId)
-    {
-        $resourcePathInfo = explode('/', $resourceId);
-        array_pop($resourcePathInfo);
-        return implode('/', $resourcePathInfo);
-    }
-
-    /**
      * Fallback resource permissions similarly to zend_acl
      * @param array $resources
      * @param string $resourceId
@@ -57,5 +44,17 @@ class Mage_Admin_Helper_Rules_Fallback extends Mage_Core_Helper_Abstract
         }
 
         return $resources[$resourceId];
+    }
+    /**
+     * Fallback to resource parent node
+     * @param string $resourceId
+     *
+     * @return string
+     */
+    protected function _getParentResourceId($resourceId)
+    {
+        $resourcePathInfo = explode('/', $resourceId);
+        array_pop($resourcePathInfo);
+        return implode('/', $resourcePathInfo);
     }
 }

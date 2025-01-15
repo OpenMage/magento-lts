@@ -48,17 +48,6 @@ class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter
     }
 
     /**
-     * Return result of getData method for matched variables
-     *
-     * @param array $matches
-     * @return mixed
-     */
-    protected function _filterDataItem($matches)
-    {
-        return $this->getData($matches[1]);
-    }
-
-    /**
      * Insert data to template
      *
      * @param string $value
@@ -71,5 +60,16 @@ class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter
             [$this, '_filterDataItem'],
             $value,
         );
+    }
+
+    /**
+     * Return result of getData method for matched variables
+     *
+     * @param array $matches
+     * @return mixed
+     */
+    protected function _filterDataItem($matches)
+    {
+        return $this->getData($matches[1]);
     }
 }

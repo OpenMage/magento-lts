@@ -35,18 +35,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     protected $_url;
 
     /**
-     * Initialize template and cache settings
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('page/menu.phtml');
-        $this->_url = Mage::getModel('adminhtml/url');
-        $this->setCacheTags([self::CACHE_TAGS]);
-    }
-
-    /**
      * Retrieve cache lifetime
      *
      * @return int
@@ -87,6 +75,52 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
 
         return $this->_buildMenuArray($parent);
+    }
+
+    /**
+     * Get menu level HTML code
+     *
+     * @param array $menu
+     * @param int $level
+     * @return string
+     */
+    public function getMenuLevel($menu, $level = 0)
+    {
+        $html = '<ul ' . (!$level ? 'id="nav"' : '') . '>' . PHP_EOL;
+        foreach ($menu as $item) {
+            if ((empty($item['url']) || ($item['url'] == '#')) && empty($item['children'])) {
+                continue; // for example hide System/Tools when empty
+            }
+            $html .= '<li ' . (!empty($item['children']) ? 'onmouseover="Element.addClassName(this,\'over\')" '
+                . 'onmouseout="Element.removeClassName(this,\'over\')"' : '') . ' class="'
+                . (!$level && !empty($item['active']) ? ' active' : '') . ' '
+                . (!empty($item['children']) ? ' parent' : '')
+                . (!empty($level) && !empty($item['last']) ? ' last' : '')
+                . ' level' . $level . '"> <a href="' . $item['url'] . '" '
+                . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
+                . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
+                . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'
+                . (!empty($item['active']) ? 'active' : '') . '"><span>'
+                . $this->escapeHtml($item['label']) . '</span></a>' . PHP_EOL;
+            if (!empty($item['children'])) {
+                $html .= $this->getMenuLevel($item['children'], $level + 1);
+            }
+            $html .= '</li>' . PHP_EOL;
+        }
+
+        return $html . ('</ul>' . PHP_EOL);
+    }
+
+    /**
+     * Initialize template and cache settings
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('page/menu.phtml');
+        $this->_url = Mage::getModel('adminhtml/url');
+        $this->setCacheTags([self::CACHE_TAGS]);
     }
 
     /**
@@ -247,40 +281,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     {
         return Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/'
             . $this->_url->getSecretKey($match[1], $match[2]);
-    }
-
-    /**
-     * Get menu level HTML code
-     *
-     * @param array $menu
-     * @param int $level
-     * @return string
-     */
-    public function getMenuLevel($menu, $level = 0)
-    {
-        $html = '<ul ' . (!$level ? 'id="nav"' : '') . '>' . PHP_EOL;
-        foreach ($menu as $item) {
-            if ((empty($item['url']) || ($item['url'] == '#')) && empty($item['children'])) {
-                continue; // for example hide System/Tools when empty
-            }
-            $html .= '<li ' . (!empty($item['children']) ? 'onmouseover="Element.addClassName(this,\'over\')" '
-                . 'onmouseout="Element.removeClassName(this,\'over\')"' : '') . ' class="'
-                . (!$level && !empty($item['active']) ? ' active' : '') . ' '
-                . (!empty($item['children']) ? ' parent' : '')
-                . (!empty($level) && !empty($item['last']) ? ' last' : '')
-                . ' level' . $level . '"> <a href="' . $item['url'] . '" '
-                . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
-                . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
-                . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'
-                . (!empty($item['active']) ? 'active' : '') . '"><span>'
-                . $this->escapeHtml($item['label']) . '</span></a>' . PHP_EOL;
-            if (!empty($item['children'])) {
-                $html .= $this->getMenuLevel($item['children'], $level + 1);
-            }
-            $html .= '</li>' . PHP_EOL;
-        }
-
-        return $html . ('</ul>' . PHP_EOL);
     }
 
     /**

@@ -93,24 +93,6 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     }
 
     /**
-     * Quote a raw string.
-     *
-     * @param string|float $value   Raw string
-     * @return string|float         Quoted string
-     */
-    protected function _quote($value)
-    {
-        if (is_float($value)) {
-            return $this->_convertFloat($value);
-        }
-        // Fix for null-byte injection
-        if (is_string($value)) {
-            $value = addcslashes($value, "\000\032");
-        }
-        return parent::_quote($value);
-    }
-
-    /**
      * Safely quotes a value for an SQL statement.
      *
      * If an array is passed as the value, the array values are quote
@@ -135,6 +117,24 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
         }
 
         return parent::quote($value, $type);
+    }
+
+    /**
+     * Quote a raw string.
+     *
+     * @param string|float $value   Raw string
+     * @return string|float         Quoted string
+     */
+    protected function _quote($value)
+    {
+        if (is_float($value)) {
+            return $this->_convertFloat($value);
+        }
+        // Fix for null-byte injection
+        if (is_string($value)) {
+            $value = addcslashes($value, "\000\032");
+        }
+        return parent::_quote($value);
     }
 
     /**

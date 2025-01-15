@@ -35,16 +35,16 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     public const DIMENSION_MIN_IN = 1;
 
     /**
+     * Code of the carrier
+     */
+    public const CODE = 'dhlint';
+
+    /**
      * Container types that could be customized
      *
      * @var array
      */
     protected $_customizableContainerTypes = [self::DHL_CONTENT_TYPE_NON_DOC];
-
-    /**
-     * Code of the carrier
-     */
-    public const CODE = 'dhlint';
 
     /**
      * Rate request data
@@ -141,37 +141,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     protected $_isDomestic = false;
 
     /**
-     * Dhl International Class constructor
-     *
-     * Sets necessary data
-     */
-    protected function _construct()
-    {
-        if ($this->getConfigData('content_type') == self::DHL_CONTENT_TYPE_DOC) {
-            $this->_freeMethod = 'free_method_doc';
-        }
-    }
-
-    /**
-     * Returns value of given variable
-     *
-     * @param mixed $origValue
-     * @param string $pathToValue
-     * @return mixed
-     */
-    protected function _getDefaultValue($origValue, $pathToValue)
-    {
-        if (!$origValue) {
-            $origValue = Mage::getStoreConfig(
-                $pathToValue,
-                $this->getStore(),
-            );
-        }
-
-        return $origValue;
-    }
-
-    /**
      * Collect and get rates
      *
      * @return bool|Mage_Shipping_Model_Rate_Result|null
@@ -221,21 +190,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     }
 
     /**
-     * Set Free Method Request
-     *
-     * @param string $freeMethod
-     */
-    protected function _setFreeMethodRequest($freeMethod)
-    {
-        $rawRequest = $this->_rawRequest;
-
-        $rawRequest->setFreeMethodRequest(true);
-        $freeWeight = $this->getTotalNumOfBoxes($rawRequest->getFreeMethodWeight());
-        $rawRequest->setWeight($freeWeight);
-        $rawRequest->setService($freeMethod);
-    }
-
-    /**
      * Returns request result
      *
      * @return Mage_Shipping_Model_Rate_Result|null
@@ -243,20 +197,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     public function getResult()
     {
         return $this->_result;
-    }
-
-    protected function _addParams($requestObject)
-    {
-        $request = $this->_request;
-        foreach ($this->_requestVariables as $code => $objectCode) {
-            if ($request->getDhlId()) {
-                $value = $request->getData($objectCode['code']);
-            } else {
-                $value = $this->getConfigData($code);
-            }
-            $requestObject->setData($objectCode['setCode'], $value);
-        }
-        return $requestObject;
     }
 
     /**
@@ -524,6 +464,146 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         $contentType = $this->getConfigData('content_type');
         $dhlProducts = $this->getDhlProducts($contentType);
         return $dhlProducts[$code] ?? false;
+    }
+
+    /**
+     * Processing additional validation to check is carrier applicable.
+     *
+     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
+     */
+    public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
+    {
+        //Skip by item validation if there is no items in request
+        if (!count($this->getAllItems($request))) {
+            $this->_errors[] = Mage::helper('usa')->__('There is no items in this order');
+        }
+
+        $countryParams = $this->getCountryParams(
+            Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID, $request->getStoreId()),
+        );
+        if (!$countryParams->getData()) {
+            $this->_errors[] = Mage::helper('usa')->__('Please, specify origin country');
+        }
+
+        if (!empty($this->_errors)) {
+            return $this->_showError();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Return container types of carrier
+     *
+     * @return array
+     */
+    public function getContainerTypes(?Varien_Object $params = null)
+    {
+        return [
+            self::DHL_CONTENT_TYPE_DOC      => Mage::helper('usa')->__('Documents'),
+            self::DHL_CONTENT_TYPE_NON_DOC  => Mage::helper('usa')->__('Non Documents'),
+        ];
+    }
+
+    /**
+     * Get tracking
+     *
+     * @param mixed $trackings
+     * @return Mage_Shipping_Model_Rate_Result|null
+     */
+    public function getTracking($trackings)
+    {
+        if (!is_array($trackings)) {
+            $trackings = [$trackings];
+        }
+        $this->_getXMLTracking($trackings);
+
+        return $this->_result;
+    }
+
+    /**
+     * Do request to shipment
+     *
+     * @return Varien_Object
+     */
+    public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
+    {
+        $packages = $request->getPackages();
+        if (!is_array($packages) || !$packages) {
+            Mage::throwException(Mage::helper('usa')->__('No packages for request'));
+        }
+        $result = $this->_doShipmentRequest($request);
+
+        $response = new Varien_Object([
+            'info' => [[
+                'tracking_number' => $result->getTrackingNumber(),
+                'label_content'   => $result->getShippingLabelContent(),
+            ]],
+        ]);
+
+        $request->setMasterTrackingId($result->getTrackingNumber());
+
+        return $response;
+    }
+
+    /**
+     * Dhl International Class constructor
+     *
+     * Sets necessary data
+     */
+    protected function _construct()
+    {
+        if ($this->getConfigData('content_type') == self::DHL_CONTENT_TYPE_DOC) {
+            $this->_freeMethod = 'free_method_doc';
+        }
+    }
+
+    /**
+     * Returns value of given variable
+     *
+     * @param mixed $origValue
+     * @param string $pathToValue
+     * @return mixed
+     */
+    protected function _getDefaultValue($origValue, $pathToValue)
+    {
+        if (!$origValue) {
+            $origValue = Mage::getStoreConfig(
+                $pathToValue,
+                $this->getStore(),
+            );
+        }
+
+        return $origValue;
+    }
+
+    /**
+     * Set Free Method Request
+     *
+     * @param string $freeMethod
+     */
+    protected function _setFreeMethodRequest($freeMethod)
+    {
+        $rawRequest = $this->_rawRequest;
+
+        $rawRequest->setFreeMethodRequest(true);
+        $freeWeight = $this->getTotalNumOfBoxes($rawRequest->getFreeMethodWeight());
+        $rawRequest->setWeight($freeWeight);
+        $rawRequest->setService($freeMethod);
+    }
+
+    protected function _addParams($requestObject)
+    {
+        $request = $this->_request;
+        foreach ($this->_requestVariables as $code => $objectCode) {
+            if ($request->getDhlId()) {
+                $value = $request->getData($objectCode['code']);
+            } else {
+                $value = $this->getConfigData($code);
+            }
+            $requestObject->setData($objectCode['setCode'], $value);
+        }
+        return $requestObject;
     }
 
     /**
@@ -1116,32 +1196,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     }
 
     /**
-     * Processing additional validation to check is carrier applicable.
-     *
-     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|bool
-     */
-    public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
-    {
-        //Skip by item validation if there is no items in request
-        if (!count($this->getAllItems($request))) {
-            $this->_errors[] = Mage::helper('usa')->__('There is no items in this order');
-        }
-
-        $countryParams = $this->getCountryParams(
-            Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID, $request->getStoreId()),
-        );
-        if (!$countryParams->getData()) {
-            $this->_errors[] = Mage::helper('usa')->__('Please, specify origin country');
-        }
-
-        if (!empty($this->_errors)) {
-            return $this->_showError();
-        }
-
-        return $this;
-    }
-
-    /**
      * Show default error
      *
      * @return bool|Mage_Shipping_Model_Rate_Result_Error
@@ -1161,19 +1215,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         } else {
             return false;
         }
-    }
-
-    /**
-     * Return container types of carrier
-     *
-     * @return array
-     */
-    public function getContainerTypes(?Varien_Object $params = null)
-    {
-        return [
-            self::DHL_CONTENT_TYPE_DOC      => Mage::helper('usa')->__('Documents'),
-            self::DHL_CONTENT_TYPE_NON_DOC  => Mage::helper('usa')->__('Non Documents'),
-        ];
     }
 
     /**
@@ -1523,22 +1564,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
     }
 
     /**
-     * Get tracking
-     *
-     * @param mixed $trackings
-     * @return Mage_Shipping_Model_Rate_Result|null
-     */
-    public function getTracking($trackings)
-    {
-        if (!is_array($trackings)) {
-            $trackings = [$trackings];
-        }
-        $this->_getXMLTracking($trackings);
-
-        return $this->_result;
-    }
-
-    /**
      * Send request for tracking
      *
      * @param array $trackings
@@ -1715,31 +1740,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         }
 
         return $cost + $this->_numBoxes * $handlingFee;
-    }
-
-    /**
-     * Do request to shipment
-     *
-     * @return Varien_Object
-     */
-    public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
-    {
-        $packages = $request->getPackages();
-        if (!is_array($packages) || !$packages) {
-            Mage::throwException(Mage::helper('usa')->__('No packages for request'));
-        }
-        $result = $this->_doShipmentRequest($request);
-
-        $response = new Varien_Object([
-            'info' => [[
-                'tracking_number' => $result->getTrackingNumber(),
-                'label_content'   => $result->getShippingLabelContent(),
-            ]],
-        ]);
-
-        $request->setMasterTrackingId($result->getTrackingNumber());
-
-        return $response;
     }
 
     /**

@@ -169,18 +169,6 @@ class Mage_Paygate_Model_Authorizenet_Cards
         $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, null);
         return $this;
     }
-
-    /**
-     * Check for payment instance present
-     *
-     * @throws Exception
-     */
-    protected function _isPaymentValid()
-    {
-        if (!$this->_payment) {
-            throw new Exception('Payment instance is not set');
-        }
-    }
     /**
      * Return total for cards data fields
      *
@@ -196,5 +184,17 @@ class Mage_Paygate_Model_Authorizenet_Cards
             }
         }
         return $amount;
+    }
+
+    /**
+     * Check for payment instance present
+     *
+     * @throws Exception
+     */
+    protected function _isPaymentValid()
+    {
+        if (!$this->_payment) {
+            throw new Exception('Payment instance is not set');
+        }
     }
 }

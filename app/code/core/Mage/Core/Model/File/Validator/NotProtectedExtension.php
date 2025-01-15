@@ -45,6 +45,29 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
     }
 
     /**
+     * Returns true if and only if $value meets the validation requirements
+     *
+     * If $value fails validation, then this method returns false, and
+     * getMessages() will return an array of messages that explain why the
+     * validation failed.
+     *
+     * @param string $value         Extension of file
+     * @return bool
+     */
+    public function isValid($value)
+    {
+        $value = strtolower(trim($value));
+        $this->_setValue($value);
+
+        if (in_array($this->_value, $this->_protectedFileExtensions)) {
+            $this->_error(self::PROTECTED_EXTENSION, $this->_value);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Initialize message templates with translating
      *
      * @return $this
@@ -79,28 +102,5 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
             $this->_protectedFileExtensions = (array) $extensions;
         }
         return $this;
-    }
-
-    /**
-     * Returns true if and only if $value meets the validation requirements
-     *
-     * If $value fails validation, then this method returns false, and
-     * getMessages() will return an array of messages that explain why the
-     * validation failed.
-     *
-     * @param string $value         Extension of file
-     * @return bool
-     */
-    public function isValid($value)
-    {
-        $value = strtolower(trim($value));
-        $this->_setValue($value);
-
-        if (in_array($this->_value, $this->_protectedFileExtensions)) {
-            $this->_error(self::PROTECTED_EXTENSION, $this->_value);
-            return false;
-        }
-
-        return true;
     }
 }

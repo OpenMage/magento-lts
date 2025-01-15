@@ -271,6 +271,17 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     }
 
     /**
+     * Payment action getter compatible with payment model
+     *
+     * @see Mage_Sales_Model_Payment::place()
+     * @return string
+     */
+    public function getConfigPaymentAction()
+    {
+        return $this->_pro->getConfig()->getPaymentAction();
+    }
+
+    /**
      * Place an order with authorization or capture action
      *
      * @param float $amount
@@ -318,16 +329,5 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     protected function _isAvailable($quote)
     {
         return $this->_pro->getConfig()->isMethodAvailable($this->_code);
-    }
-
-    /**
-     * Payment action getter compatible with payment model
-     *
-     * @see Mage_Sales_Model_Payment::place()
-     * @return string
-     */
-    public function getConfigPaymentAction()
-    {
-        return $this->_pro->getConfig()->getPaymentAction();
     }
 }

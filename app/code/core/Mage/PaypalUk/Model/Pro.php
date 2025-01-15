@@ -25,6 +25,12 @@
 class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
 {
     /**
+     * Payflow trx_id key in transaction info
+     *
+     * @var string
+     */
+    public const TRANSPORT_PAYFLOW_TXN_ID = 'payflow_trxid';
+    /**
      * Api model type
      *
      * @var string
@@ -39,13 +45,6 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     protected $_configType = 'paypal/config';
 
     /**
-     * Payflow trx_id key in transaction info
-     *
-     * @var string
-     */
-    public const TRANSPORT_PAYFLOW_TXN_ID = 'payflow_trxid';
-
-    /**
      * Refund a capture transaction
      *
      * @param float $amount
@@ -57,6 +56,20 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             $api->setAuthorizationId($captureTxnId);
         }
         parent::refund($payment, $amount);
+    }
+
+    /**
+     * Fetch transaction details info method does not exists in PaypalUK
+     *
+     * @param string $transactionId
+     * @throws Mage_Core_Exception
+     * @return void
+     */
+    public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
+    {
+        Mage::throwException(
+            Mage::helper('paypaluk')->__('Fetch transaction details method does not exists in PaypalUK'),
+        );
     }
 
     /**
@@ -101,20 +114,6 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             Mage::helper('paypaluk')->__('Payflow PNREF: #%s.', $api->getTransactionId()),
         );
         Mage::getModel('paypal/info')->importToPayment($api, $payment);
-    }
-
-    /**
-     * Fetch transaction details info method does not exists in PaypalUK
-     *
-     * @param string $transactionId
-     * @throws Mage_Core_Exception
-     * @return void
-     */
-    public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
-    {
-        Mage::throwException(
-            Mage::helper('paypaluk')->__('Fetch transaction details method does not exists in PaypalUK'),
-        );
     }
 
     /**

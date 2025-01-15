@@ -22,11 +22,6 @@
  */
 class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('tag/summary', 'tag_id');
-    }
-
     /**
      * Process tag save
      *
@@ -243,5 +238,9 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         }
 
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('tag/summary', 'tag_id');
     }
 }

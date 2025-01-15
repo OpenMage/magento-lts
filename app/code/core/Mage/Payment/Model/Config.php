@@ -69,30 +69,6 @@ class Mage_Payment_Model_Config
     }
 
     /**
-     * @param string $code
-     * @param array $config
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
-     * @return false|Mage_Payment_Model_Method_Abstract
-     */
-    protected function _getMethod($code, $config, $store = null)
-    {
-        if (isset(self::$_methods[$code])) {
-            return self::$_methods[$code];
-        }
-        if (empty($config['model'])) {
-            return false;
-        }
-        $modelName = $config['model'];
-        $method = Mage::getModel($modelName);
-        if (!$method) {
-            return false;
-        }
-        $method->setId($code)->setStore($store);
-        self::$_methods[$code] = $method;
-        return self::$_methods[$code];
-    }
-
-    /**
      * Retrieve array of credit card types
      *
      * @return array
@@ -168,5 +144,29 @@ class Mage_Payment_Model_Config
         } else {
             return -1;
         }
+    }
+
+    /**
+     * @param string $code
+     * @param array $config
+     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
+     * @return false|Mage_Payment_Model_Method_Abstract
+     */
+    protected function _getMethod($code, $config, $store = null)
+    {
+        if (isset(self::$_methods[$code])) {
+            return self::$_methods[$code];
+        }
+        if (empty($config['model'])) {
+            return false;
+        }
+        $modelName = $config['model'];
+        $method = Mage::getModel($modelName);
+        if (!$method) {
+            return false;
+        }
+        $method->setId($code)->setStore($store);
+        self::$_methods[$code] = $method;
+        return self::$_methods[$code];
     }
 }

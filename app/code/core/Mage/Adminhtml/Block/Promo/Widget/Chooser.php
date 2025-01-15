@@ -86,6 +86,16 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
     }
 
     /**
+     * Prepare grid URL
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/promo_quote/chooser', ['_current' => true]);
+    }
+
+    /**
      * Prepare rules collection
      *
      * @return Mage_Adminhtml_Block_Widget_Grid
@@ -157,15 +167,5 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser extends Mage_Adminhtml_Block_Wid
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    /**
-     * Prepare grid URL
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/promo_quote/chooser', ['_current' => true]);
     }
 }

@@ -245,6 +245,35 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
     }
 
     /**
+     * @param Varien_Data_Tree_Node $node
+     * @return $this|Varien_Data_Tree
+     * @throws Exception
+     */
+    public function removeNode($node)
+    {
+        // For reorder old node branch
+        $dataReorderOld = [
+            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1'),
+        ];
+        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField) .
+                            ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
+
+        $this->_conn->beginTransaction();
+        try {
+            $condition = $this->_conn->quoteInto("$this->_idField=?", $node->getId());
+            $this->_conn->delete($this->_table, $condition);
+            // Update old node branch
+            $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
+            $this->_conn->commit();
+        } catch (Exception $e) {
+            $this->_conn->rollBack();
+            throw new Exception('Can\'t remove tree node');
+        }
+        parent::removeNode($node);
+        return $this;
+    }
+
+    /**
      * @param int $parentId
      * @param int $parentLevel
      * @return $this
@@ -287,35 +316,6 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->addNode($node, $parentNode);
         }
 
-        return $this;
-    }
-
-    /**
-     * @param Varien_Data_Tree_Node $node
-     * @return $this|Varien_Data_Tree
-     * @throws Exception
-     */
-    public function removeNode($node)
-    {
-        // For reorder old node branch
-        $dataReorderOld = [
-            $this->_orderField => new Zend_Db_Expr($this->_conn->quoteIdentifier($this->_orderField) . '-1'),
-        ];
-        $conditionReorderOld = $this->_conn->quoteIdentifier($this->_parentField) . '=' . $node->getData($this->_parentField) .
-                            ' AND ' . $this->_conn->quoteIdentifier($this->_orderField) . '>' . $node->getData($this->_orderField);
-
-        $this->_conn->beginTransaction();
-        try {
-            $condition = $this->_conn->quoteInto("$this->_idField=?", $node->getId());
-            $this->_conn->delete($this->_table, $condition);
-            // Update old node branch
-            $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
-            $this->_conn->commit();
-        } catch (Exception $e) {
-            $this->_conn->rollBack();
-            throw new Exception('Can\'t remove tree node');
-        }
-        parent::removeNode($node);
         return $this;
     }
 }

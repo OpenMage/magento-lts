@@ -65,16 +65,6 @@ abstract class Magento_Db_Object
     }
 
     /**
-     * Returns current schema name
-     *
-     * @return string
-     */
-    protected function _getCurrentSchema()
-    {
-        return $this->_adapter->fetchOne('SELECT SCHEMA()');
-    }
-
-    /**
      * Returns schema name
      *
      * @return string
@@ -120,5 +110,15 @@ abstract class Magento_Db_Object
     public function getObjectName()
     {
         return $this->_objectName;
+    }
+
+    /**
+     * Returns current schema name
+     *
+     * @return string
+     */
+    protected function _getCurrentSchema()
+    {
+        return $this->_adapter->fetchOne('SELECT SCHEMA()');
     }
 }

@@ -28,15 +28,6 @@ class Mage_Adminhtml_SalesController extends Mage_Adminhtml_Controller_Action
      */
     public const ADMIN_RESOURCE = 'sales';
 
-    /**
-     * Additional initialization
-     *
-     */
-    protected function _construct()
-    {
-        $this->setUsedModuleName('Mage_Sales');
-    }
-
     public function indexAction()
     {
         $this->loadLayout();
@@ -48,5 +39,14 @@ class Mage_Adminhtml_SalesController extends Mage_Adminhtml_Controller_Action
         $this->_addBreadcrumb($this->__('Sales'), $this->__('Sales'));
         $this->_addBreadcrumb($this->__('Orders'), $this->__('Orders'));
         $this->renderLayout();
+    }
+
+    /**
+     * Additional initialization
+     *
+     */
+    protected function _construct()
+    {
+        $this->setUsedModuleName('Mage_Sales');
     }
 }

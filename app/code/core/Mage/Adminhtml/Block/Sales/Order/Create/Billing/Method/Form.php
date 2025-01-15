@@ -23,17 +23,6 @@
 class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_Payment_Block_Form_Container
 {
     /**
-     * Check payment method model
-     *
-     * @param Mage_Payment_Model_Method_Abstract|null $method
-     * @return bool
-     */
-    protected function _canUseMethod($method)
-    {
-        return $method && $method->canUseInternal() && parent::_canUseMethod($method);
-    }
-
-    /**
      * Check existing of payment methods
      *
      * @return bool
@@ -91,5 +80,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
             return true;
         }
         return false;
+    }
+    /**
+     * Check payment method model
+     *
+     * @param Mage_Payment_Model_Method_Abstract|null $method
+     * @return bool
+     */
+    protected function _canUseMethod($method)
+    {
+        return $method && $method->canUseInternal() && parent::_canUseMethod($method);
     }
 }

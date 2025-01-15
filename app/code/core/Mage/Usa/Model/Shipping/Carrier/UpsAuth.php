@@ -96,16 +96,16 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
     /**
      * @inheritDoc
      */
-    protected function _doShipmentRequest(Varien_Object $request)
+    public function getAllowedMethods(): array
     {
-        return new Varien_Object();
+        return [];
     }
 
     /**
      * @inheritDoc
      */
-    public function getAllowedMethods(): array
+    protected function _doShipmentRequest(Varien_Object $request)
     {
-        return [];
+        return new Varien_Object();
     }
 }

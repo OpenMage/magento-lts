@@ -34,24 +34,6 @@
  */
 class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('bundle/price_index');
-    }
-
-    /**
-     * Reindex Product price
-     *
-     * @param int $productId
-     * @param int $priceType
-     * @return $this
-     */
-    protected function _reindexProduct($productId, $priceType)
-    {
-        $this->_getResource()->reindexProduct($productId, $priceType);
-        return $this;
-    }
-
     /**
      * Reindex Bundle product Price Index
      *
@@ -123,6 +105,23 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
                 ->setData('_price_index_min_price', $prices[$product->getId()]['min_price'])
                 ->setData('_price_index_max_price', $prices[$product->getId()]['max_price']);
         }
+        return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('bundle/price_index');
+    }
+
+    /**
+     * Reindex Product price
+     *
+     * @param int $productId
+     * @param int $priceType
+     * @return $this
+     */
+    protected function _reindexProduct($productId, $priceType)
+    {
+        $this->_getResource()->reindexProduct($productId, $priceType);
         return $this;
     }
 }

@@ -67,102 +67,6 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     }
 
     /**
-     * Send Ajax redirect response
-     *
-     * @return $this
-     */
-    protected function _ajaxRedirectResponse()
-    {
-        $this->getResponse()
-            ->setHeader('HTTP/1.1', '403 Session Expired')
-            ->setHeader('Login-Required', 'true')
-            ->sendResponse();
-        return $this;
-    }
-
-    /**
-     * Validate ajax request and redirect on failure
-     *
-     * @return bool
-     */
-    protected function _expireAjax()
-    {
-        if (!$this->getOnepage()->getQuote()->hasItems()
-            || $this->getOnepage()->getQuote()->getHasError()
-            || $this->getOnepage()->getQuote()->getIsMultiShipping()
-        ) {
-            $this->_ajaxRedirectResponse();
-            return true;
-        }
-        $action = strtolower($this->getRequest()->getActionName());
-        if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
-            && !in_array($action, ['index', 'progress'])
-        ) {
-            $this->_ajaxRedirectResponse();
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Get shipping method step html
-     *
-     * @return string
-     */
-    protected function _getShippingMethodsHtml()
-    {
-        $layout = $this->getLayout();
-        $update = $layout->getUpdate();
-        $update->load('checkout_onepage_shippingmethod');
-        $layout->generateXml();
-        $layout->generateBlocks();
-        return $layout->getOutput();
-    }
-
-    /**
-     * Get payment method step html
-     *
-     * @return string
-     */
-    protected function _getPaymentMethodsHtml()
-    {
-        $layout = $this->getLayout();
-        $update = $layout->getUpdate();
-        $update->load('checkout_onepage_paymentmethod');
-        $layout->generateXml();
-        $layout->generateBlocks();
-        return $layout->getOutput();
-    }
-
-    /**
-     * Return block content from the 'checkout_onepage_additional'
-     * This is the additional content for shipping method
-     *
-     * @return string
-     */
-    protected function _getAdditionalHtml()
-    {
-        $layout = $this->getLayout();
-        $update = $layout->getUpdate();
-        $update->load('checkout_onepage_additional');
-        $layout->generateXml();
-        $layout->generateBlocks();
-        $output = $layout->getOutput();
-        Mage::getSingleton('core/translate_inline')->processResponseBody($output);
-        return $output;
-    }
-
-    /**
-     * Get order review step html
-     *
-     * @return string
-     */
-    protected function _getReviewHtml()
-    {
-        return $this->getLayout()->getBlock('root')->toHtml();
-    }
-
-    /**
      * Get one page checkout model
      *
      * @return Mage_Checkout_Model_Type_Onepage
@@ -512,44 +416,6 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     }
 
     /**
-     * Get Order by quoteId
-     *
-     * @throws Mage_Payment_Model_Info_Exception
-     * @return Mage_Sales_Model_Order
-     */
-    protected function _getOrder()
-    {
-        if (is_null($this->_order)) {
-            $this->_order = Mage::getModel('sales/order')->load($this->getOnepage()->getQuote()->getId(), 'quote_id');
-            if (!$this->_order->getId()) {
-                throw new Mage_Payment_Model_Info_Exception(Mage::helper('core')->__('Can not create invoice. Order was not found.'));
-            }
-        }
-        return $this->_order;
-    }
-
-    /**
-     * Create invoice
-     *
-     * @return Mage_Sales_Model_Service_Order
-     * @throws Mage_Core_Exception
-     * @throws Mage_Payment_Model_Info_Exception
-     */
-    protected function _initInvoice()
-    {
-        $items = [];
-        foreach ($this->_getOrder()->getAllItems() as $item) {
-            $items[$item->getId()] = $item->getQtyOrdered();
-        }
-        /** @var Mage_Sales_Model_Service_Order $invoice */
-        $invoice = Mage::getModel('sales/service_order', $this->_getOrder())->prepareInvoice($items);
-        $invoice->setEmailSent(true)->register();
-
-        Mage::register('current_invoice', $invoice);
-        return $invoice;
-    }
-
-    /**
      * Create order action
      */
     public function saveOrderAction()
@@ -643,6 +509,140 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         }
 
         $this->_prepareDataJSON($result);
+    }
+
+    /**
+     * Send Ajax redirect response
+     *
+     * @return $this
+     */
+    protected function _ajaxRedirectResponse()
+    {
+        $this->getResponse()
+            ->setHeader('HTTP/1.1', '403 Session Expired')
+            ->setHeader('Login-Required', 'true')
+            ->sendResponse();
+        return $this;
+    }
+
+    /**
+     * Validate ajax request and redirect on failure
+     *
+     * @return bool
+     */
+    protected function _expireAjax()
+    {
+        if (!$this->getOnepage()->getQuote()->hasItems()
+            || $this->getOnepage()->getQuote()->getHasError()
+            || $this->getOnepage()->getQuote()->getIsMultiShipping()
+        ) {
+            $this->_ajaxRedirectResponse();
+            return true;
+        }
+        $action = strtolower($this->getRequest()->getActionName());
+        if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
+            && !in_array($action, ['index', 'progress'])
+        ) {
+            $this->_ajaxRedirectResponse();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get shipping method step html
+     *
+     * @return string
+     */
+    protected function _getShippingMethodsHtml()
+    {
+        $layout = $this->getLayout();
+        $update = $layout->getUpdate();
+        $update->load('checkout_onepage_shippingmethod');
+        $layout->generateXml();
+        $layout->generateBlocks();
+        return $layout->getOutput();
+    }
+
+    /**
+     * Get payment method step html
+     *
+     * @return string
+     */
+    protected function _getPaymentMethodsHtml()
+    {
+        $layout = $this->getLayout();
+        $update = $layout->getUpdate();
+        $update->load('checkout_onepage_paymentmethod');
+        $layout->generateXml();
+        $layout->generateBlocks();
+        return $layout->getOutput();
+    }
+
+    /**
+     * Return block content from the 'checkout_onepage_additional'
+     * This is the additional content for shipping method
+     *
+     * @return string
+     */
+    protected function _getAdditionalHtml()
+    {
+        $layout = $this->getLayout();
+        $update = $layout->getUpdate();
+        $update->load('checkout_onepage_additional');
+        $layout->generateXml();
+        $layout->generateBlocks();
+        $output = $layout->getOutput();
+        Mage::getSingleton('core/translate_inline')->processResponseBody($output);
+        return $output;
+    }
+
+    /**
+     * Get order review step html
+     *
+     * @return string
+     */
+    protected function _getReviewHtml()
+    {
+        return $this->getLayout()->getBlock('root')->toHtml();
+    }
+
+    /**
+     * Get Order by quoteId
+     *
+     * @throws Mage_Payment_Model_Info_Exception
+     * @return Mage_Sales_Model_Order
+     */
+    protected function _getOrder()
+    {
+        if (is_null($this->_order)) {
+            $this->_order = Mage::getModel('sales/order')->load($this->getOnepage()->getQuote()->getId(), 'quote_id');
+            if (!$this->_order->getId()) {
+                throw new Mage_Payment_Model_Info_Exception(Mage::helper('core')->__('Can not create invoice. Order was not found.'));
+            }
+        }
+        return $this->_order;
+    }
+
+    /**
+     * Create invoice
+     *
+     * @return Mage_Sales_Model_Service_Order
+     * @throws Mage_Core_Exception
+     * @throws Mage_Payment_Model_Info_Exception
+     */
+    protected function _initInvoice()
+    {
+        $items = [];
+        foreach ($this->_getOrder()->getAllItems() as $item) {
+            $items[$item->getId()] = $item->getQtyOrdered();
+        }
+        /** @var Mage_Sales_Model_Service_Order $invoice */
+        $invoice = Mage::getModel('sales/service_order', $this->_getOrder())->prepareInvoice($items);
+        $invoice->setEmailSent(true)->register();
+
+        Mage::register('current_invoice', $invoice);
+        return $invoice;
     }
 
     /**

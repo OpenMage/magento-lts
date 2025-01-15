@@ -42,16 +42,6 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Retrieve 'persistent session' helper instance
-     *
-     * @return Mage_Persistent_Helper_Session
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('persistent/session');
-    }
-
-    /**
      * Unset persistent cookie action
      */
     public function unsetCookieAction()
@@ -60,25 +50,6 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
             $this->_cleanup();
         }
         $this->_redirect('customer/account/login');
-    }
-
-    /**
-     * Revert all persistent data
-     *
-     * @return $this
-     */
-    protected function _cleanup()
-    {
-        Mage::dispatchEvent('persistent_session_expired');
-        $customerSession = Mage::getSingleton('customer/session');
-        $customerSession
-            ->setCustomerId(null)
-            ->setCustomerGroupId(null);
-        if ($this->_clearCheckoutSession) {
-            Mage::getSingleton('checkout/session')->unsetAll();
-        }
-        $this->_getHelper()->getSession()->removePersistentCookie();
-        return $this;
     }
 
     /**
@@ -112,5 +83,34 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
             Mage::helper('persistent')->__('Shopping cart has been updated with appropriate prices'),
         );
         $this->_redirect('checkout/cart');
+    }
+
+    /**
+     * Retrieve 'persistent session' helper instance
+     *
+     * @return Mage_Persistent_Helper_Session
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('persistent/session');
+    }
+
+    /**
+     * Revert all persistent data
+     *
+     * @return $this
+     */
+    protected function _cleanup()
+    {
+        Mage::dispatchEvent('persistent_session_expired');
+        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession
+            ->setCustomerId(null)
+            ->setCustomerGroupId(null);
+        if ($this->_clearCheckoutSession) {
+            Mage::getSingleton('checkout/session')->unsetAll();
+        }
+        $this->_getHelper()->getSession()->removePersistentCookie();
+        return $this;
     }
 }

@@ -37,24 +37,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      */
     protected $_attributeCache   = [];
 
-    protected function _construct()
-    {
-        $this->_init('catalog/product', 'entity_id');
-    }
-
-    /**
-     * @param int $id
-     * @return Mage_Eav_Model_Entity_Attribute
-     */
-    protected function _loadAttribute($id)
-    {
-        if (!isset($this->_attributeCache[$id])) {
-            $this->_attributeCache[$id] = Mage::getModel('eav/entity_attribute')->load($id);
-        }
-
-        return $this->_attributeCache[$id];
-    }
-
     /**
      * Delete index data by specific conditions
      *
@@ -159,16 +141,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $this->_getWriteAdapter()->query($query);
             }
         }
-    }
-
-    /**
-     * Get tables which are used for index related with price
-     *
-     * @return array
-     */
-    protected function _getPriceTables()
-    {
-        return ['catalogindex/price', 'catalogindex/minimal_price'];
     }
 
     /**
@@ -511,56 +483,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
     }
 
     /**
-     * Prepare base information for data insert
-     *
-     * @param string $table
-     * @param array $fields
-     * @return $this
-     */
-    protected function _beginInsert($table, $fields)
-    {
-        $this->_tableFields[$table] = $fields;
-        return $this;
-    }
-
-    /**
-     * Put data into table
-     *
-     * @param string $table
-     * @param bool $forced
-     * @return $this
-     */
-    protected function _commitInsert($table, $forced = true)
-    {
-        if (isset($this->_insertData[$table]) && count($this->_insertData[$table]) && ($forced || count($this->_insertData[$table]) >= 100)) {
-            $query = 'REPLACE INTO ' . $this->getTable($table) . ' (' . implode(', ', $this->_tableFields[$table]) . ') VALUES ';
-            $separator = '';
-            foreach ($this->_insertData[$table] as $row) {
-                $rowString = $this->_getWriteAdapter()->quoteInto('(?)', $row);
-                $query .= $separator . $rowString;
-                $separator = ', ';
-            }
-            $this->_getWriteAdapter()->query($query);
-            $this->_insertData[$table] = [];
-        }
-        return $this;
-    }
-
-    /**
-     * Insert data to table
-     *
-     * @param string $table
-     * @param array $data
-     * @return $this
-     */
-    protected function _insert($table, $data)
-    {
-        $this->_insertData[$table][] = $data;
-        $this->_commitInsert($table, false);
-        return $this;
-    }
-
-    /**
      * Add price columns for catalog product flat table
      *
      * @return $this
@@ -682,6 +604,84 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             }
         }
 
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/product', 'entity_id');
+    }
+
+    /**
+     * @param int $id
+     * @return Mage_Eav_Model_Entity_Attribute
+     */
+    protected function _loadAttribute($id)
+    {
+        if (!isset($this->_attributeCache[$id])) {
+            $this->_attributeCache[$id] = Mage::getModel('eav/entity_attribute')->load($id);
+        }
+
+        return $this->_attributeCache[$id];
+    }
+
+    /**
+     * Get tables which are used for index related with price
+     *
+     * @return array
+     */
+    protected function _getPriceTables()
+    {
+        return ['catalogindex/price', 'catalogindex/minimal_price'];
+    }
+
+    /**
+     * Prepare base information for data insert
+     *
+     * @param string $table
+     * @param array $fields
+     * @return $this
+     */
+    protected function _beginInsert($table, $fields)
+    {
+        $this->_tableFields[$table] = $fields;
+        return $this;
+    }
+
+    /**
+     * Put data into table
+     *
+     * @param string $table
+     * @param bool $forced
+     * @return $this
+     */
+    protected function _commitInsert($table, $forced = true)
+    {
+        if (isset($this->_insertData[$table]) && count($this->_insertData[$table]) && ($forced || count($this->_insertData[$table]) >= 100)) {
+            $query = 'REPLACE INTO ' . $this->getTable($table) . ' (' . implode(', ', $this->_tableFields[$table]) . ') VALUES ';
+            $separator = '';
+            foreach ($this->_insertData[$table] as $row) {
+                $rowString = $this->_getWriteAdapter()->quoteInto('(?)', $row);
+                $query .= $separator . $rowString;
+                $separator = ', ';
+            }
+            $this->_getWriteAdapter()->query($query);
+            $this->_insertData[$table] = [];
+        }
+        return $this;
+    }
+
+    /**
+     * Insert data to table
+     *
+     * @param string $table
+     * @param array $data
+     * @return $this
+     */
+    protected function _insert($table, $data)
+    {
+        $this->_insertData[$table][] = $data;
+        $this->_commitInsert($table, false);
         return $this;
     }
 }

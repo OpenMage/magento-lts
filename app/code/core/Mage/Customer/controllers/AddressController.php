@@ -23,16 +23,6 @@
 class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * Retrieve customer session object
-     *
-     * @return Mage_Customer_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('customer/session');
-    }
-
-    /**
      * @inheritDoc
      */
     public function preDispatch()
@@ -187,5 +177,14 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             }
         }
         $this->getResponse()->setRedirect(Mage::getUrl('*/*/index'));
+    }
+    /**
+     * Retrieve customer session object
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('customer/session');
     }
 }

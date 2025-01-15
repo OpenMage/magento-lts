@@ -43,11 +43,6 @@
  */
 class Mage_Rating_Model_Rating_Option extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('rating/rating_option');
-    }
-
     /**
      * @return $this
      * @throws Exception
@@ -66,5 +61,9 @@ class Mage_Rating_Model_Rating_Option extends Mage_Core_Model_Abstract
     {
         $this->setOptionId($id);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('rating/rating_option');
     }
 }

@@ -37,51 +37,6 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     protected $_shipmentsCollection;
 
     /**
-     * Load all tracks and save it to local cache by shipments
-     *
-     * @inheritDoc
-     */
-    protected function _beforeToHtml()
-    {
-        $tracksCollection = $this->getOrder()->getTracksCollection();
-
-        foreach ($tracksCollection->getItems() as $track) {
-            $shipmentId = $track->getParentId();
-            $this->_tracks[$shipmentId][] = $track;
-        }
-
-        $shipment = Mage::registry('current_shipment');
-        if ($shipment) {
-            $this->_shipmentsCollection = [$shipment];
-        } else {
-            $this->_shipmentsCollection = $this->getOrder()->getShipmentsCollection();
-        }
-
-        return parent::_beforeToHtml();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        /** @var Mage_Page_Block_Html_Head $headBlock */
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
-        }
-
-        /** @var Mage_Payment_Helper_Data $helper */
-        $helper = $this->helper('payment');
-        $this->setChild(
-            'payment_info',
-            $helper->getInfoBlock($this->getOrder()->getPayment()),
-        );
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * @return string
      */
     public function getBackUrl()
@@ -119,16 +74,6 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     public function getShipment()
     {
         return Mage::registry('current_shipment');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
-    {
-        $renderer->setPrintStatus(true);
-
-        return parent::_prepareItem($renderer);
     }
 
     /**
@@ -201,5 +146,60 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
             }
         }
         return $res;
+    }
+
+    /**
+     * Load all tracks and save it to local cache by shipments
+     *
+     * @inheritDoc
+     */
+    protected function _beforeToHtml()
+    {
+        $tracksCollection = $this->getOrder()->getTracksCollection();
+
+        foreach ($tracksCollection->getItems() as $track) {
+            $shipmentId = $track->getParentId();
+            $this->_tracks[$shipmentId][] = $track;
+        }
+
+        $shipment = Mage::registry('current_shipment');
+        if ($shipment) {
+            $this->_shipmentsCollection = [$shipment];
+        } else {
+            $this->_shipmentsCollection = $this->getOrder()->getShipmentsCollection();
+        }
+
+        return parent::_beforeToHtml();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
+        }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
+        $this->setChild(
+            'payment_info',
+            $helper->getInfoBlock($this->getOrder()->getPayment()),
+        );
+
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
+    {
+        $renderer->setPrintStatus(true);
+
+        return parent::_prepareItem($renderer);
     }
 }

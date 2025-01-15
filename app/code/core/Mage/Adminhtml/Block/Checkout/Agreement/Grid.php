@@ -37,6 +37,15 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
+     * @param Mage_Checkout_Model_Agreement $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _prepareCollection()
@@ -122,14 +131,5 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
         if ($value = $column->getFilter()->getValue()) {
             $collection->addStoreFilter($value);
         }
-    }
-
-    /**
-     * @param Mage_Checkout_Model_Agreement $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }

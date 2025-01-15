@@ -22,6 +22,44 @@
  */
 class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * Retrieve options searchable data
+     *
+     * @param int $productId
+     * @param int $storeId
+     * @return array
+     */
+    public function getSearchableData($productId, $storeId)
+    {
+        $adapter = $this->_getReadAdapter();
+
+        $title = $adapter->getCheckSql(
+            'option_title_store.title IS NOT NULL',
+            'option_title_store.title',
+            'option_title_default.title',
+        );
+        $bind = [
+            'store_id'   => $storeId,
+            'product_id' => $productId,
+        ];
+        $select = $adapter->select()
+            ->from(['opt' => $this->getMainTable()], [])
+            ->join(
+                ['option_title_default' => $this->getTable('bundle/option_value')],
+                'option_title_default.option_id = opt.option_id AND option_title_default.store_id = 0',
+                [],
+            )
+            ->joinLeft(
+                ['option_title_store' => $this->getTable('bundle/option_value')],
+                'option_title_store.option_id = opt.option_id AND option_title_store.store_id = :store_id',
+                ['title' => $title],
+            )
+            ->where('opt.parent_id=:product_id');
+        if (!$searchData = $adapter->fetchCol($select, $bind)) {
+            $searchData = [];
+        }
+        return $searchData;
+    }
     protected function _construct()
     {
         $this->_init('bundle/option', 'option_id');
@@ -77,44 +115,5 @@ class Mage_Bundle_Model_Resource_Option extends Mage_Core_Model_Resource_Db_Abst
         );
 
         return $this;
-    }
-
-    /**
-     * Retrieve options searchable data
-     *
-     * @param int $productId
-     * @param int $storeId
-     * @return array
-     */
-    public function getSearchableData($productId, $storeId)
-    {
-        $adapter = $this->_getReadAdapter();
-
-        $title = $adapter->getCheckSql(
-            'option_title_store.title IS NOT NULL',
-            'option_title_store.title',
-            'option_title_default.title',
-        );
-        $bind = [
-            'store_id'   => $storeId,
-            'product_id' => $productId,
-        ];
-        $select = $adapter->select()
-            ->from(['opt' => $this->getMainTable()], [])
-            ->join(
-                ['option_title_default' => $this->getTable('bundle/option_value')],
-                'option_title_default.option_id = opt.option_id AND option_title_default.store_id = 0',
-                [],
-            )
-            ->joinLeft(
-                ['option_title_store' => $this->getTable('bundle/option_value')],
-                'option_title_store.option_id = opt.option_id AND option_title_store.store_id = :store_id',
-                ['title' => $title],
-            )
-            ->where('opt.parent_id=:product_id');
-        if (!$searchData = $adapter->fetchCol($select, $bind)) {
-            $searchData = [];
-        }
-        return $searchData;
     }
 }

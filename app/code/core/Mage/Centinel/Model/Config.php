@@ -119,6 +119,16 @@ class Mage_Centinel_Model_Config
     }
 
     /**
+     * Define if debugging is enabled
+     *
+     * @return string
+     */
+    public function getDebugFlag()
+    {
+        return $this->_getServiceConfigValue('debug');
+    }
+
+    /**
      * Return value of node of centinel config section
      *
      * @param string $key
@@ -127,15 +137,5 @@ class Mage_Centinel_Model_Config
     private function _getServiceConfigValue($key)
     {
         return Mage::getStoreConfig($this->_serviceConfigPath . '/' . $key, $this->getStore());
-    }
-
-    /**
-     * Define if debugging is enabled
-     *
-     * @return string
-     */
-    public function getDebugFlag()
-    {
-        return $this->_getServiceConfigValue('debug');
     }
 }

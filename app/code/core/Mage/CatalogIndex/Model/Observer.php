@@ -25,28 +25,6 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     protected $_parentProductIds = [];
     protected $_productIdsMassupdate = [];
 
-    protected function _construct() {}
-
-    /**
-     * Get indexer object
-     *
-     * @return Mage_CatalogIndex_Model_Indexer
-     */
-    protected function _getIndexer()
-    {
-        return Mage::getSingleton('catalogindex/indexer');
-    }
-
-    /**
-     * Get aggregation object
-     *
-     * @return Mage_CatalogIndex_Model_Aggregation
-     */
-    protected function _getAggregator()
-    {
-        return Mage::getSingleton('catalogindex/aggregation');
-    }
-
     /**
      * Reindex all catalog data
      *
@@ -376,5 +354,27 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         $this->_getIndexer()->updateCatalogProductFlat($storeId, $productIds, $tableName);
 
         return $this;
+    }
+
+    protected function _construct() {}
+
+    /**
+     * Get indexer object
+     *
+     * @return Mage_CatalogIndex_Model_Indexer
+     */
+    protected function _getIndexer()
+    {
+        return Mage::getSingleton('catalogindex/indexer');
+    }
+
+    /**
+     * Get aggregation object
+     *
+     * @return Mage_CatalogIndex_Model_Aggregation
+     */
+    protected function _getAggregator()
+    {
+        return Mage::getSingleton('catalogindex/aggregation');
     }
 }

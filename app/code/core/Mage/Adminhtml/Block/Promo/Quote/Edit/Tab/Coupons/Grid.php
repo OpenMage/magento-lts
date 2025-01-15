@@ -33,6 +33,24 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
     }
 
     /**
+     * Get grid url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/couponsGrid', ['_current' => true]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRowUrl($row)
+    {
+        return '';
+    }
+
+    /**
      * Prepare collection for grid
      *
      * @inheritDoc
@@ -119,23 +137,5 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Coupons_Grid extends Mage_Adminh
         ]);
 
         return $this;
-    }
-
-    /**
-     * Get grid url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/couponsGrid', ['_current' => true]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getRowUrl($row)
-    {
-        return '';
     }
 }

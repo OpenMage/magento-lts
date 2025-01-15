@@ -305,53 +305,6 @@ class Mage_Shipping_Model_Shipping
     }
 
     /**
-     * Make pieces
-     * Compose packeges list based on given items, so that each package is as heavy as possible
-     *
-     * @param array $items
-     * @param float $maxWeight
-     * @return array
-     */
-    protected function _makePieces($items, $maxWeight)
-    {
-        $pieces = [];
-        if (!empty($items)) {
-            $sumWeight = 0;
-
-            $reverseOrderItems = $items;
-            arsort($reverseOrderItems);
-
-            foreach ($reverseOrderItems as $key => $weight) {
-                if (!isset($items[$key])) {
-                    continue;
-                }
-                unset($items[$key]);
-                $sumWeight = $weight;
-                foreach ($items as $keyItem => $weightItem) {
-                    if (($sumWeight + $weightItem) < $maxWeight) {
-                        unset($items[$keyItem]);
-                        $sumWeight += $weightItem;
-                    } elseif (($sumWeight + $weightItem) > $maxWeight) {
-                        $pieces[] = (string) (float) $sumWeight;
-                        break;
-                    } else {
-                        unset($items[$keyItem]);
-                        $pieces[] = (string) (float) ($sumWeight + $weightItem);
-                        $sumWeight = 0;
-                        break;
-                    }
-                }
-            }
-            if ($sumWeight > 0) {
-                $pieces[] = (string) (float) $sumWeight;
-            }
-            $pieces = array_count_values($pieces);
-        }
-
-        return $pieces;
-    }
-
-    /**
      * Collect rates by address
      *
      * @param null|bool|array $limitCarrier
@@ -492,5 +445,52 @@ class Mage_Shipping_Model_Shipping
         $request->setStoreId($shipmentStoreId);
 
         return $shipmentCarrier->requestToShipment($request);
+    }
+
+    /**
+     * Make pieces
+     * Compose packeges list based on given items, so that each package is as heavy as possible
+     *
+     * @param array $items
+     * @param float $maxWeight
+     * @return array
+     */
+    protected function _makePieces($items, $maxWeight)
+    {
+        $pieces = [];
+        if (!empty($items)) {
+            $sumWeight = 0;
+
+            $reverseOrderItems = $items;
+            arsort($reverseOrderItems);
+
+            foreach ($reverseOrderItems as $key => $weight) {
+                if (!isset($items[$key])) {
+                    continue;
+                }
+                unset($items[$key]);
+                $sumWeight = $weight;
+                foreach ($items as $keyItem => $weightItem) {
+                    if (($sumWeight + $weightItem) < $maxWeight) {
+                        unset($items[$keyItem]);
+                        $sumWeight += $weightItem;
+                    } elseif (($sumWeight + $weightItem) > $maxWeight) {
+                        $pieces[] = (string) (float) $sumWeight;
+                        break;
+                    } else {
+                        unset($items[$keyItem]);
+                        $pieces[] = (string) (float) ($sumWeight + $weightItem);
+                        $sumWeight = 0;
+                        break;
+                    }
+                }
+            }
+            if ($sumWeight > 0) {
+                $pieces[] = (string) (float) $sumWeight;
+            }
+            $pieces = array_count_values($pieces);
+        }
+
+        return $pieces;
     }
 }

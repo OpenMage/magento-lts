@@ -35,16 +35,6 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     protected $_searchableAttributes = null;
 
     /**
-     * Retrieve resource instance
-     *
-     * @return Mage_CatalogSearch_Model_Resource_Indexer_Fulltext
-     */
-    protected function _getResource()
-    {
-        return Mage::getResourceSingleton('catalogsearch/indexer_fulltext');
-    }
-
-    /**
      * Indexer must be match entities
      *
      * @var array
@@ -85,16 +75,6 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
     protected $_relatedConfigSettings = [
         Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_TYPE,
     ];
-
-    /**
-     * Retrieve Fulltext Search instance
-     *
-     * @return Mage_CatalogSearch_Model_Fulltext
-     */
-    protected function _getIndexer()
-    {
-        return Mage::getSingleton('catalogsearch/fulltext');
-    }
 
     /**
      * Retrieve Indexer name
@@ -178,6 +158,43 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
         $event->addNewData(self::EVENT_MATCH_RESULT_KEY, $result);
 
         return $result;
+    }
+
+    /**
+     * Rebuild all index data
+     *
+     */
+    public function reindexAll()
+    {
+        $resourceModel = $this->_getIndexer()->getResource();
+        $resourceModel->beginTransaction();
+        try {
+            $this->_getIndexer()->rebuildIndex();
+            $resourceModel->commit();
+        } catch (Exception $e) {
+            $resourceModel->rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Retrieve resource instance
+     *
+     * @return Mage_CatalogSearch_Model_Resource_Indexer_Fulltext
+     */
+    protected function _getResource()
+    {
+        return Mage::getResourceSingleton('catalogsearch/indexer_fulltext');
+    }
+
+    /**
+     * Retrieve Fulltext Search instance
+     *
+     * @return Mage_CatalogSearch_Model_Fulltext
+     */
+    protected function _getIndexer()
+    {
+        return Mage::getSingleton('catalogsearch/fulltext');
     }
 
     /**
@@ -422,23 +439,6 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
 
             $this->_getIndexer()
                 ->updateCategoryIndex($productIds, $categoryIds);
-        }
-    }
-
-    /**
-     * Rebuild all index data
-     *
-     */
-    public function reindexAll()
-    {
-        $resourceModel = $this->_getIndexer()->getResource();
-        $resourceModel->beginTransaction();
-        try {
-            $this->_getIndexer()->rebuildIndex();
-            $resourceModel->commit();
-        } catch (Exception $e) {
-            $resourceModel->rollBack();
-            throw $e;
         }
     }
 }

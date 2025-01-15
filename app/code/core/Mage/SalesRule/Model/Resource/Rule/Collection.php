@@ -41,15 +41,6 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
     ];
 
     /**
-     * Set resource model and determine field mapping
-     */
-    protected function _construct()
-    {
-        $this->_init('salesrule/rule');
-        $this->_map['fields']['rule_id'] = 'main_table.rule_id';
-    }
-
-    /**
      * Filter collection by specified website, customer group, coupon code, date.
      * Filter collection to use only active rules.
      * Involved sorting by sort_order column.
@@ -212,5 +203,14 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
         );
 
         return $this;
+    }
+
+    /**
+     * Set resource model and determine field mapping
+     */
+    protected function _construct()
+    {
+        $this->_init('salesrule/rule');
+        $this->_map['fields']['rule_id'] = 'main_table.rule_id';
     }
 }

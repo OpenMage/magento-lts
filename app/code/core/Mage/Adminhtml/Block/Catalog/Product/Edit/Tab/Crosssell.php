@@ -43,6 +43,40 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
     }
 
     /**
+     * Checks when this block is readonly
+     *
+     * @return bool
+     */
+    public function isReadonly()
+    {
+        return $this->_getProduct()->getCrosssellReadonly();
+    }
+
+    /**
+     * Rerieve grid URL
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->_getData('grid_url') ?: $this->getUrl('*/*/crosssellGrid', ['_current' => true]);
+    }
+
+    /**
+     * Retrieve crosssell products
+     *
+     * @return array
+     */
+    public function getSelectedCrossSellProducts()
+    {
+        $products = [];
+        foreach (Mage::registry('current_product')->getCrossSellProducts() as $product) {
+            $products[$product->getId()] = ['position' => $product->getPosition()];
+        }
+        return $products;
+    }
+
+    /**
      * Retrieve currently edited product model
      *
      * @return Mage_Catalog_Model_Product
@@ -99,16 +133,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
-    }
-
-    /**
-     * Checks when this block is readonly
-     *
-     * @return bool
-     */
-    public function isReadonly()
-    {
-        return $this->_getProduct()->getCrosssellReadonly();
     }
 
     /**
@@ -201,16 +225,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
     }
 
     /**
-     * Rerieve grid URL
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->_getData('grid_url') ?: $this->getUrl('*/*/crosssellGrid', ['_current' => true]);
-    }
-
-    /**
      * Retrieve selected crosssell products
      *
      * @return array
@@ -220,20 +234,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         $products = $this->getProductsCrossSell();
         if (!is_array($products)) {
             $products = array_keys($this->getSelectedCrossSellProducts());
-        }
-        return $products;
-    }
-
-    /**
-     * Retrieve crosssell products
-     *
-     * @return array
-     */
-    public function getSelectedCrossSellProducts()
-    {
-        $products = [];
-        foreach (Mage::registry('current_product')->getCrossSellProducts() as $product) {
-            $products[$product->getId()] = ['position' => $product->getPosition()];
         }
         return $products;
     }

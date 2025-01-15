@@ -67,6 +67,27 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     }
 
     /**
+     * Run reindex
+     */
+    public function execute()
+    {
+        $this->_app->dispatchEvent('catalogrule_before_apply', ['resource' => $this->_resource]);
+
+        /** @var Mage_Core_Model_Date $coreDate */
+        $coreDate  = $this->_factory->getModel('core/date');
+        $timestamp = $coreDate->gmtTimestamp();
+
+        foreach ($this->_app->getWebsites(false) as $website) {
+            if ($website->getDefaultStore()) {
+                $this->_reindex($website, $timestamp);
+            }
+        }
+
+        $this->_prepareGroupWebsite($timestamp);
+        $this->_prepareAffectedProduct();
+    }
+
+    /**
      * Set connection
      */
     protected function _setConnection(Varien_Db_Adapter_Interface $connection)
@@ -88,27 +109,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     protected function _setResource(Mage_Core_Model_Resource_Db_Abstract $resource)
     {
         $this->_resource = $resource;
-    }
-
-    /**
-     * Run reindex
-     */
-    public function execute()
-    {
-        $this->_app->dispatchEvent('catalogrule_before_apply', ['resource' => $this->_resource]);
-
-        /** @var Mage_Core_Model_Date $coreDate */
-        $coreDate  = $this->_factory->getModel('core/date');
-        $timestamp = $coreDate->gmtTimestamp();
-
-        foreach ($this->_app->getWebsites(false) as $website) {
-            if ($website->getDefaultStore()) {
-                $this->_reindex($website, $timestamp);
-            }
-        }
-
-        $this->_prepareGroupWebsite($timestamp);
-        $this->_prepareAffectedProduct();
     }
 
     /**

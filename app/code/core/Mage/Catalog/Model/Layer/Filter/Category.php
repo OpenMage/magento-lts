@@ -98,17 +98,6 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     }
 
     /**
-     * Validate category for be using as filter
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @return int
-     */
-    protected function _isValidCategory($category)
-    {
-        return $category->getId();
-    }
-
-    /**
      * Get filter name
      *
      * @return string
@@ -133,6 +122,17 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
             }
         }
         return $this->getLayer()->getCurrentCategory();
+    }
+
+    /**
+     * Validate category for be using as filter
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return int
+     */
+    protected function _isValidCategory($category)
+    {
+        return $category->getId();
     }
 
     /**

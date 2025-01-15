@@ -211,86 +211,6 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     }
 
     /**
-     * Returns cache key for some request to carrier quotes service
-     *
-     * @param string|array $requestParams
-     * @return int
-     */
-    protected function _getQuotesCacheKey($requestParams)
-    {
-        if (is_array($requestParams)) {
-            $requestParams = implode(
-                ',',
-                array_merge(
-                    [$this->getCarrierCode()],
-                    array_keys($requestParams),
-                    $requestParams,
-                ),
-            );
-        }
-        return crc32($requestParams);
-    }
-
-    /**
-     * Checks whether some request to rates have already been done, so we have cache for it
-     * Used to reduce number of same requests done to carrier service during one session
-     *
-     * Returns cached response or null
-     *
-     * @param string|array $requestParams
-     * @return null|string
-     */
-    protected function _getCachedQuotes($requestParams)
-    {
-        $key = $this->_getQuotesCacheKey($requestParams);
-        return self::$_quotesCache[$key] ?? null;
-    }
-
-    /**
-     * Sets received carrier quotes to cache
-     *
-     * @param string|array $requestParams
-     * @param string $response
-     * @return Mage_Usa_Model_Shipping_Carrier_Abstract
-     */
-    protected function _setCachedQuotes($requestParams, $response)
-    {
-        $key = $this->_getQuotesCacheKey($requestParams);
-        self::$_quotesCache[$key] = $response;
-        return $this;
-    }
-
-    /**
-     * Prepare service name. Strip tags and entities from name
-     *
-     * @param string|object $name  service name or object with implemented __toString() method
-     * @return string              prepared service name
-     */
-    protected function _prepareServiceName($name)
-    {
-        $name = html_entity_decode((string) $name);
-        $name = strip_tags(preg_replace('#&\w+;#', '', $name));
-        return trim($name);
-    }
-
-    /**
-     * Prepare shipment request.
-     * Validate and correct request information
-     *
-     *
-     */
-    protected function _prepareShipmentRequest(Varien_Object $request)
-    {
-        $phonePattern = '/[\s\_\-\(\)]+/';
-        $phoneNumber = $request->getShipperContactPhoneNumber();
-        $phoneNumber = preg_replace($phonePattern, '', $phoneNumber);
-        $request->setShipperContactPhoneNumber($phoneNumber);
-        $phoneNumber = $request->getRecipientContactPhoneNumber();
-        $phoneNumber = preg_replace($phonePattern, '', $phoneNumber);
-        $request->setRecipientContactPhoneNumber($phoneNumber);
-    }
-
-    /**
      * Do request to shipment
      *
      * @return Varien_Object
@@ -400,6 +320,97 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     }
 
     /**
+     * Check whether girth is allowed for the carrier
+     *
+     * @param null|string $countyDest
+     * @return bool
+     */
+    public function isGirthAllowed($countyDest = null)
+    {
+        return false;
+    }
+
+    /**
+     * Returns cache key for some request to carrier quotes service
+     *
+     * @param string|array $requestParams
+     * @return int
+     */
+    protected function _getQuotesCacheKey($requestParams)
+    {
+        if (is_array($requestParams)) {
+            $requestParams = implode(
+                ',',
+                array_merge(
+                    [$this->getCarrierCode()],
+                    array_keys($requestParams),
+                    $requestParams,
+                ),
+            );
+        }
+        return crc32($requestParams);
+    }
+
+    /**
+     * Checks whether some request to rates have already been done, so we have cache for it
+     * Used to reduce number of same requests done to carrier service during one session
+     *
+     * Returns cached response or null
+     *
+     * @param string|array $requestParams
+     * @return null|string
+     */
+    protected function _getCachedQuotes($requestParams)
+    {
+        $key = $this->_getQuotesCacheKey($requestParams);
+        return self::$_quotesCache[$key] ?? null;
+    }
+
+    /**
+     * Sets received carrier quotes to cache
+     *
+     * @param string|array $requestParams
+     * @param string $response
+     * @return Mage_Usa_Model_Shipping_Carrier_Abstract
+     */
+    protected function _setCachedQuotes($requestParams, $response)
+    {
+        $key = $this->_getQuotesCacheKey($requestParams);
+        self::$_quotesCache[$key] = $response;
+        return $this;
+    }
+
+    /**
+     * Prepare service name. Strip tags and entities from name
+     *
+     * @param string|object $name  service name or object with implemented __toString() method
+     * @return string              prepared service name
+     */
+    protected function _prepareServiceName($name)
+    {
+        $name = html_entity_decode((string) $name);
+        $name = strip_tags(preg_replace('#&\w+;#', '', $name));
+        return trim($name);
+    }
+
+    /**
+     * Prepare shipment request.
+     * Validate and correct request information
+     *
+     *
+     */
+    protected function _prepareShipmentRequest(Varien_Object $request)
+    {
+        $phonePattern = '/[\s\_\-\(\)]+/';
+        $phoneNumber = $request->getShipperContactPhoneNumber();
+        $phoneNumber = preg_replace($phonePattern, '', $phoneNumber);
+        $request->setShipperContactPhoneNumber($phoneNumber);
+        $phoneNumber = $request->getRecipientContactPhoneNumber();
+        $phoneNumber = preg_replace($phonePattern, '', $phoneNumber);
+        $request->setRecipientContactPhoneNumber($phoneNumber);
+    }
+
+    /**
      * Do shipment request to carrier web service, obtain Print Shipping Labels and process errors in response
      *
      * @return Varien_Object
@@ -437,16 +448,5 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     protected function _isCanada($countryId)
     {
         return $countryId == 'CA';
-    }
-
-    /**
-     * Check whether girth is allowed for the carrier
-     *
-     * @param null|string $countyDest
-     * @return bool
-     */
-    public function isGirthAllowed($countyDest = null)
-    {
-        return false;
     }
 }

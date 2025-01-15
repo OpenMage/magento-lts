@@ -102,123 +102,6 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     }
 
     /**
-     * After load processing
-     *
-     * @return $this
-     */
-    protected function _afterLoad()
-    {
-        parent::_afterLoad();
-
-        /**
-         * Assign products
-         */
-        $this->_assignOptions();
-        $this->_assignProducts();
-        $this->resetItemsDataChanged();
-
-        $this->getPageSize();
-
-        return $this;
-    }
-
-    /**
-     * Add options to items
-     *
-     * @return $this
-     */
-    protected function _assignOptions()
-    {
-        $itemIds = array_keys($this->_items);
-        /** @var Mage_Wishlist_Model_Resource_Item_Option_Collection $optionCollection */
-        $optionCollection = Mage::getModel('wishlist/item_option')->getCollection();
-        $optionCollection->addItemFilter($itemIds);
-
-        /** @var Mage_Wishlist_Model_Item $item */
-        foreach ($this as $item) {
-            $item->setOptions($optionCollection->getOptionsByItem($item));
-        }
-        $productIds = $optionCollection->getProductIds();
-        $this->_productIds = array_merge($this->_productIds, $productIds);
-
-        return $this;
-    }
-
-    /**
-     * Add products to items and item options
-     *
-     * @return $this
-     */
-    protected function _assignProducts()
-    {
-        Varien_Profiler::start('WISHLIST:' . __METHOD__);
-        $productIds = [];
-
-        $isStoreAdmin = Mage::app()->getStore()->isAdmin();
-
-        $storeIds = [];
-        foreach ($this as $item) {
-            $productIds[$item->getProductId()] = 1;
-            if ($isStoreAdmin && !in_array($item->getStoreId(), $storeIds)) {
-                $storeIds[] = $item->getStoreId();
-            }
-        }
-        if (!$isStoreAdmin) {
-            $storeIds = $this->_storeIds;
-        }
-
-        $this->_productIds = array_merge($this->_productIds, array_keys($productIds));
-        $attributes = Mage::getSingleton('wishlist/config')->getProductAttributes();
-        $productCollection = Mage::getModel('catalog/product')->getCollection();
-        foreach ($storeIds as $id) {
-            $productCollection->addWebsiteFilter(Mage::app()->getStore($id)->getWebsiteId());
-        }
-
-        if ($this->_productVisible) {
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($productCollection);
-        }
-
-        $productCollection->addPriceData($this->_customerGroupId, $this->_websiteId)
-            ->addTaxPercents()
-            ->addIdFilter($this->_productIds)
-            ->addAttributeToSelect($attributes)
-            ->addOptionsToResult()
-            ->addUrlRewrite();
-
-        if ($this->_productSalable) {
-            $productCollection = Mage::helper('adminhtml/sales')->applySalableProductTypesFilter($productCollection);
-        }
-
-        Mage::dispatchEvent('wishlist_item_collection_products_after_load', [
-            'product_collection' => $productCollection,
-        ]);
-
-        $checkInStock = $this->_productInStock && !Mage::helper('cataloginventory')->isShowOutOfStock();
-
-        foreach ($this as $item) {
-            /** @var Mage_Catalog_Model_Product $product */
-            $product = $productCollection->getItemById($item->getProductId());
-            if ($product) {
-                if ($checkInStock && !$product->isInStock()) {
-                    $this->removeItemByKey($item->getId());
-                } else {
-                    $product->setCustomOptions([]);
-                    $item->setProduct($product);
-                    $item->setProductName($product->getName());
-                    $item->setName($product->getName());
-                    $item->setPrice($product->getPrice());
-                }
-            } else {
-                $item->isDeleted(true);
-            }
-        }
-
-        Varien_Profiler::stop('WISHLIST:' . __METHOD__);
-
-        return $this;
-    }
-
-    /**
      * Add filter by wishlist object
      *
      * @return $this
@@ -416,36 +299,6 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     }
 
     /**
-     * Joins product name attribute value to use it in WHERE and ORDER clauses
-     *
-     * @return $this
-     */
-    protected function _joinProductNameTable()
-    {
-        if (!$this->_isProductNameJoined) {
-            $entityTypeId = Mage::getResourceModel('catalog/config')
-                    ->getEntityTypeId();
-            $attribute = Mage::getModel('catalog/entity_attribute')
-                ->loadByCode($entityTypeId, 'name');
-
-            $storeId = Mage::app()->getStore()->getId();
-
-            $this->getSelect()
-                ->join(
-                    ['product_name_table' => $attribute->getBackendTable()],
-                    'product_name_table.entity_id=main_table.product_id' .
-                        ' AND product_name_table.store_id=' . $storeId .
-                        ' AND product_name_table.attribute_id=' . $attribute->getId() .
-                        ' AND product_name_table.entity_type_id=' . $entityTypeId,
-                    [],
-                );
-
-            $this->_isProductNameJoined = true;
-        }
-        return $this;
-    }
-
-    /**
      * Adds filter on product name
      *
      * @param string $productName
@@ -512,6 +365,153 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     public function setCustomerGroupId($customerGroupId)
     {
         $this->_customerGroupId = $customerGroupId;
+        return $this;
+    }
+
+    /**
+     * After load processing
+     *
+     * @return $this
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+
+        /**
+         * Assign products
+         */
+        $this->_assignOptions();
+        $this->_assignProducts();
+        $this->resetItemsDataChanged();
+
+        $this->getPageSize();
+
+        return $this;
+    }
+
+    /**
+     * Add options to items
+     *
+     * @return $this
+     */
+    protected function _assignOptions()
+    {
+        $itemIds = array_keys($this->_items);
+        /** @var Mage_Wishlist_Model_Resource_Item_Option_Collection $optionCollection */
+        $optionCollection = Mage::getModel('wishlist/item_option')->getCollection();
+        $optionCollection->addItemFilter($itemIds);
+
+        /** @var Mage_Wishlist_Model_Item $item */
+        foreach ($this as $item) {
+            $item->setOptions($optionCollection->getOptionsByItem($item));
+        }
+        $productIds = $optionCollection->getProductIds();
+        $this->_productIds = array_merge($this->_productIds, $productIds);
+
+        return $this;
+    }
+
+    /**
+     * Add products to items and item options
+     *
+     * @return $this
+     */
+    protected function _assignProducts()
+    {
+        Varien_Profiler::start('WISHLIST:' . __METHOD__);
+        $productIds = [];
+
+        $isStoreAdmin = Mage::app()->getStore()->isAdmin();
+
+        $storeIds = [];
+        foreach ($this as $item) {
+            $productIds[$item->getProductId()] = 1;
+            if ($isStoreAdmin && !in_array($item->getStoreId(), $storeIds)) {
+                $storeIds[] = $item->getStoreId();
+            }
+        }
+        if (!$isStoreAdmin) {
+            $storeIds = $this->_storeIds;
+        }
+
+        $this->_productIds = array_merge($this->_productIds, array_keys($productIds));
+        $attributes = Mage::getSingleton('wishlist/config')->getProductAttributes();
+        $productCollection = Mage::getModel('catalog/product')->getCollection();
+        foreach ($storeIds as $id) {
+            $productCollection->addWebsiteFilter(Mage::app()->getStore($id)->getWebsiteId());
+        }
+
+        if ($this->_productVisible) {
+            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($productCollection);
+        }
+
+        $productCollection->addPriceData($this->_customerGroupId, $this->_websiteId)
+            ->addTaxPercents()
+            ->addIdFilter($this->_productIds)
+            ->addAttributeToSelect($attributes)
+            ->addOptionsToResult()
+            ->addUrlRewrite();
+
+        if ($this->_productSalable) {
+            $productCollection = Mage::helper('adminhtml/sales')->applySalableProductTypesFilter($productCollection);
+        }
+
+        Mage::dispatchEvent('wishlist_item_collection_products_after_load', [
+            'product_collection' => $productCollection,
+        ]);
+
+        $checkInStock = $this->_productInStock && !Mage::helper('cataloginventory')->isShowOutOfStock();
+
+        foreach ($this as $item) {
+            /** @var Mage_Catalog_Model_Product $product */
+            $product = $productCollection->getItemById($item->getProductId());
+            if ($product) {
+                if ($checkInStock && !$product->isInStock()) {
+                    $this->removeItemByKey($item->getId());
+                } else {
+                    $product->setCustomOptions([]);
+                    $item->setProduct($product);
+                    $item->setProductName($product->getName());
+                    $item->setName($product->getName());
+                    $item->setPrice($product->getPrice());
+                }
+            } else {
+                $item->isDeleted(true);
+            }
+        }
+
+        Varien_Profiler::stop('WISHLIST:' . __METHOD__);
+
+        return $this;
+    }
+
+    /**
+     * Joins product name attribute value to use it in WHERE and ORDER clauses
+     *
+     * @return $this
+     */
+    protected function _joinProductNameTable()
+    {
+        if (!$this->_isProductNameJoined) {
+            $entityTypeId = Mage::getResourceModel('catalog/config')
+                    ->getEntityTypeId();
+            $attribute = Mage::getModel('catalog/entity_attribute')
+                ->loadByCode($entityTypeId, 'name');
+
+            $storeId = Mage::app()->getStore()->getId();
+
+            $this->getSelect()
+                ->join(
+                    ['product_name_table' => $attribute->getBackendTable()],
+                    'product_name_table.entity_id=main_table.product_id' .
+                        ' AND product_name_table.store_id=' . $storeId .
+                        ' AND product_name_table.attribute_id=' . $attribute->getId() .
+                        ' AND product_name_table.entity_type_id=' . $entityTypeId,
+                    [],
+                );
+
+            $this->_isProductNameJoined = true;
+        }
         return $this;
     }
 }

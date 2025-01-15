@@ -45,14 +45,6 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
     protected $_subscriber = null;
 
     /**
-     * Initialize Newsletter Problem Model
-     */
-    protected function _construct()
-    {
-        $this->_init('newsletter/problem');
-    }
-
-    /**
      * Add Subscriber Data
      *
      * @return $this
@@ -118,5 +110,13 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
                 ->save();
         }
         return $this;
+    }
+
+    /**
+     * Initialize Newsletter Problem Model
+     */
+    protected function _construct()
+    {
+        $this->_init('newsletter/problem');
     }
 }

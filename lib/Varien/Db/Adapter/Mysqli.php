@@ -20,61 +20,6 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public const ISO_DATETIME_FORMAT   = 'yyyy-MM-dd HH-mm-ss';
 
     /**
-     * Creates a real connection to the database with multi-query capability.
-     *
-     * @return void
-     * @throws Zend_Db_Adapter_Mysqli_Exception
-     *
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
-    protected function _connect()
-    {
-        if ($this->_connection) {
-            return;
-        }
-        if (!extension_loaded('mysqli')) {
-            throw new Zend_Db_Adapter_Exception('mysqli extension is not installed');
-        }
-        // Suppress connection warnings here.
-        // Throw an exception instead.
-        @$conn = new mysqli();
-        if (mysqli_connect_errno()) {
-            throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_errno());
-        }
-
-        $conn->init();
-        $conn->options(MYSQLI_OPT_LOCAL_INFILE, true);
-        #$conn->options(MYSQLI_CLIENT_MULTI_QUERIES, true);
-
-        $port = !empty($this->_config['port']) ? $this->_config['port'] : null;
-        $socket = !empty($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null;
-        // socket specified in host config
-        if (strpos($this->_config['host'], '/') !== false) {
-            $socket = $this->_config['host'];
-            $this->_config['host'] = null;
-        } elseif (strpos($this->_config['host'], ':') !== false) {
-            list($this->_config['host'], $port) = explode(':', $this->_config['host']);
-        }
-
-        $connectionSuccessful = @$conn->real_connect(
-            $this->_config['host'],
-            $this->_config['username'],
-            $this->_config['password'],
-            $this->_config['dbname'],
-            $port,
-            $socket,
-        );
-        if (!$connectionSuccessful) {
-            throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
-        }
-
-        $this->_connection = $conn;
-
-        /** @link http://bugs.mysql.com/bug.php?id=18551 */
-        $this->_connection->query("SET SQL_MODE=''");
-    }
-
-    /**
      * Run RAW Query
      *
      * @param string $sql
@@ -280,5 +225,60 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public function select()
     {
         return new Varien_Db_Select($this);
+    }
+
+    /**
+     * Creates a real connection to the database with multi-query capability.
+     *
+     * @return void
+     * @throws Zend_Db_Adapter_Mysqli_Exception
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     */
+    protected function _connect()
+    {
+        if ($this->_connection) {
+            return;
+        }
+        if (!extension_loaded('mysqli')) {
+            throw new Zend_Db_Adapter_Exception('mysqli extension is not installed');
+        }
+        // Suppress connection warnings here.
+        // Throw an exception instead.
+        @$conn = new mysqli();
+        if (mysqli_connect_errno()) {
+            throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_errno());
+        }
+
+        $conn->init();
+        $conn->options(MYSQLI_OPT_LOCAL_INFILE, true);
+        #$conn->options(MYSQLI_CLIENT_MULTI_QUERIES, true);
+
+        $port = !empty($this->_config['port']) ? $this->_config['port'] : null;
+        $socket = !empty($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null;
+        // socket specified in host config
+        if (strpos($this->_config['host'], '/') !== false) {
+            $socket = $this->_config['host'];
+            $this->_config['host'] = null;
+        } elseif (strpos($this->_config['host'], ':') !== false) {
+            list($this->_config['host'], $port) = explode(':', $this->_config['host']);
+        }
+
+        $connectionSuccessful = @$conn->real_connect(
+            $this->_config['host'],
+            $this->_config['username'],
+            $this->_config['password'],
+            $this->_config['dbname'],
+            $port,
+            $socket,
+        );
+        if (!$connectionSuccessful) {
+            throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
+        }
+
+        $this->_connection = $conn;
+
+        /** @link http://bugs.mysql.com/bug.php?id=18551 */
+        $this->_connection->query("SET SQL_MODE=''");
     }
 }

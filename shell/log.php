@@ -32,64 +32,6 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     protected $_log;
 
     /**
-     * Retrieve Log instance
-     *
-     * @return Mage_Log_Model_Log
-     */
-    protected function _getLog()
-    {
-        if (is_null($this->_log)) {
-            $this->_log = Mage::getModel('log/log');
-        }
-        return $this->_log;
-    }
-
-    /**
-     * Convert count to human view
-     *
-     * @param int $number
-     * @return string
-     */
-    protected function _humanCount($number)
-    {
-        if ($number < 1000) {
-            return (string) $number;
-        }
-        if ($number < 1000000) {
-            return sprintf('%.2fK', $number / 1000);
-        }
-
-        if ($number < 1000000000) {
-            return sprintf('%.2fM', $number / 1000000);
-        }
-
-        return sprintf('%.2fB', $number / 1000000000);
-    }
-
-    /**
-     * Convert size to human view
-     *
-     * @param int $number
-     * @return string
-     */
-    protected function _humanSize($number)
-    {
-        if ($number < 1000) {
-            return sprintf('%d b', $number);
-        }
-
-        if ($number < 1000000) {
-            return sprintf('%.2fKb', $number / 1000);
-        }
-
-        if ($number < 1000000000) {
-            return sprintf('%.2fMb', $number / 1000000);
-        }
-
-        return sprintf('%.2fGb', $number / 1000000000);
-    }
-
-    /**
      * Run script
      *
      */
@@ -180,6 +122,64 @@ Usage:  php -f log.php -- [options]
   help              This help
 
 USAGE;
+    }
+
+    /**
+     * Retrieve Log instance
+     *
+     * @return Mage_Log_Model_Log
+     */
+    protected function _getLog()
+    {
+        if (is_null($this->_log)) {
+            $this->_log = Mage::getModel('log/log');
+        }
+        return $this->_log;
+    }
+
+    /**
+     * Convert count to human view
+     *
+     * @param int $number
+     * @return string
+     */
+    protected function _humanCount($number)
+    {
+        if ($number < 1000) {
+            return (string) $number;
+        }
+        if ($number < 1000000) {
+            return sprintf('%.2fK', $number / 1000);
+        }
+
+        if ($number < 1000000000) {
+            return sprintf('%.2fM', $number / 1000000);
+        }
+
+        return sprintf('%.2fB', $number / 1000000000);
+    }
+
+    /**
+     * Convert size to human view
+     *
+     * @param int $number
+     * @return string
+     */
+    protected function _humanSize($number)
+    {
+        if ($number < 1000) {
+            return sprintf('%d b', $number);
+        }
+
+        if ($number < 1000000) {
+            return sprintf('%.2fKb', $number / 1000);
+        }
+
+        if ($number < 1000000000) {
+            return sprintf('%.2fMb', $number / 1000000);
+        }
+
+        return sprintf('%.2fGb', $number / 1000000000);
     }
 }
 

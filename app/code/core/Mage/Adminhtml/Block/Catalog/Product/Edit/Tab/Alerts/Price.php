@@ -34,6 +34,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         $this->setEmptyText(Mage::helper('catalog')->__('There are no customers for this alert'));
     }
 
+    public function getGridUrl()
+    {
+        $productId = $this->getRequest()->getParam('id');
+        $storeId   = $this->getRequest()->getParam('store', 0);
+        if ($storeId) {
+            $storeId = Mage::app()->getStore($storeId)->getId();
+        }
+        return $this->getUrl('*/catalog_product/alertsPriceGrid', [
+            'id'    => $productId,
+            'store' => $storeId,
+        ]);
+    }
+
     protected function _prepareCollection()
     {
         $productId = $this->getRequest()->getParam('id');
@@ -96,18 +109,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    public function getGridUrl()
-    {
-        $productId = $this->getRequest()->getParam('id');
-        $storeId   = $this->getRequest()->getParam('store', 0);
-        if ($storeId) {
-            $storeId = Mage::app()->getStore($storeId)->getId();
-        }
-        return $this->getUrl('*/catalog_product/alertsPriceGrid', [
-            'id'    => $productId,
-            'store' => $storeId,
-        ]);
     }
 }

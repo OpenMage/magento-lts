@@ -53,15 +53,6 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     protected $_websites;
 
     /**
-     * Init resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/stock_status');
-    }
-
-    /**
      * Retrieve Product Type Instances
      * as key - type code, value - instance model
      *
@@ -251,123 +242,6 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Process children stock status
-     *
-     * @param int $productId
-     * @param string $productType
-     * @param int|float $qty
-     * @param int $status
-     * @param int $stockId
-     * @param int $websiteId
-     *
-     * @return $this
-     */
-    protected function _processChildren(
-        $productId,
-        $productType,
-        $qty = 0,
-        $status = self::STATUS_IN_STOCK,
-        $stockId = 1,
-        $websiteId = null
-    ) {
-        if ($status == self::STATUS_OUT_OF_STOCK) {
-            $this->saveProductStatus($productId, $status, $qty, $stockId, $websiteId);
-            return $this;
-        }
-
-        $statuses   = [];
-        $websites   = $this->getWebsites($websiteId);
-
-        foreach (array_keys($websites) as $websiteId) {
-            $statuses[$websiteId] = $status;
-        }
-
-        if (!$typeInstance = $this->getProductTypeInstance($productType)) {
-            return $this;
-        }
-
-        $requiredChildrenIds = $typeInstance->getChildrenIds($productId, true);
-        if ($requiredChildrenIds) {
-            $childrenIds = [];
-            foreach ($requiredChildrenIds as $groupedChildrenIds) {
-                $childrenIds = array_merge($childrenIds, $groupedChildrenIds);
-            }
-            $childrenWebsites = Mage::getSingleton('catalog/product_website')
-                ->getWebsites($childrenIds);
-            foreach ($websites as $websiteId => $storeId) {
-                $childrenStatus = $this->getProductStatusModel()
-                    ->getProductStatus($childrenIds, $storeId);
-                $childrenStock  = $this->getProductStatus($childrenIds, $websiteId, $stockId);
-
-                $websiteStatus = $statuses[$websiteId];
-                foreach ($requiredChildrenIds as $groupedChildrenIds) {
-                    $optionStatus = false;
-                    foreach ($groupedChildrenIds as $childId) {
-                        if (isset($childrenStatus[$childId])
-                            && isset($childrenWebsites[$childId])
-                            && in_array($websiteId, $childrenWebsites[$childId])
-                            && $childrenStatus[$childId] == $this->getProductStatusEnabled()
-                            && isset($childrenStock[$childId])
-                            && $childrenStock[$childId] == self::STATUS_IN_STOCK
-                        ) {
-                            $optionStatus = true;
-                        }
-                    }
-                    $websiteStatus = $websiteStatus && $optionStatus;
-                }
-                $statuses[$websiteId] = (int) $websiteStatus;
-            }
-        }
-
-        foreach ($statuses as $websiteId => $websiteStatus) {
-            $this->saveProductStatus($productId, $websiteStatus, $qty, $stockId, $websiteId);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Process Parents by child
-     *
-     * @param int $productId
-     * @param int $stockId
-     * @param int $websiteId
-     * @return $this
-     */
-    protected function _processParents($productId, $stockId = 1, $websiteId = null)
-    {
-        $parentIds = [];
-        foreach ($this->getProductTypeInstances() as $typeInstance) {
-            /** @var Mage_Catalog_Model_Product_Type_Abstract $typeInstance */
-            $parentIds = array_merge($parentIds, $typeInstance->getParentIdsByChild($productId));
-        }
-
-        if (!$parentIds) {
-            return $this;
-        }
-
-        $productTypes = $this->getProductsType($parentIds);
-        $item         = $this->getStockItemModel();
-
-        foreach ($parentIds as $parentId) {
-            $parentType = $productTypes[$parentId] ?? null;
-            $item->setData(['stock_id' => $stockId])
-                ->setOrigData()
-                ->loadByProduct($parentId);
-            $status  = self::STATUS_IN_STOCK;
-            $qty     = 0;
-            if ($item->getId()) {
-                $status = $item->getIsInStock();
-                $qty    = $item->getQty();
-            }
-
-            $this->_processChildren($parentId, $parentType, $qty, $status, $item->getStockId(), $websiteId);
-        }
-
-        return $this;
-    }
-
-    /**
      * Save product status per website
      * if website is null, saved for all websites
      *
@@ -515,6 +389,132 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     public function addIsInStockFilterToCollection($collection)
     {
         $this->_getResource()->addIsInStockFilterToCollection($collection);
+        return $this;
+    }
+
+    /**
+     * Init resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/stock_status');
+    }
+
+    /**
+     * Process children stock status
+     *
+     * @param int $productId
+     * @param string $productType
+     * @param int|float $qty
+     * @param int $status
+     * @param int $stockId
+     * @param int $websiteId
+     *
+     * @return $this
+     */
+    protected function _processChildren(
+        $productId,
+        $productType,
+        $qty = 0,
+        $status = self::STATUS_IN_STOCK,
+        $stockId = 1,
+        $websiteId = null
+    ) {
+        if ($status == self::STATUS_OUT_OF_STOCK) {
+            $this->saveProductStatus($productId, $status, $qty, $stockId, $websiteId);
+            return $this;
+        }
+
+        $statuses   = [];
+        $websites   = $this->getWebsites($websiteId);
+
+        foreach (array_keys($websites) as $websiteId) {
+            $statuses[$websiteId] = $status;
+        }
+
+        if (!$typeInstance = $this->getProductTypeInstance($productType)) {
+            return $this;
+        }
+
+        $requiredChildrenIds = $typeInstance->getChildrenIds($productId, true);
+        if ($requiredChildrenIds) {
+            $childrenIds = [];
+            foreach ($requiredChildrenIds as $groupedChildrenIds) {
+                $childrenIds = array_merge($childrenIds, $groupedChildrenIds);
+            }
+            $childrenWebsites = Mage::getSingleton('catalog/product_website')
+                ->getWebsites($childrenIds);
+            foreach ($websites as $websiteId => $storeId) {
+                $childrenStatus = $this->getProductStatusModel()
+                    ->getProductStatus($childrenIds, $storeId);
+                $childrenStock  = $this->getProductStatus($childrenIds, $websiteId, $stockId);
+
+                $websiteStatus = $statuses[$websiteId];
+                foreach ($requiredChildrenIds as $groupedChildrenIds) {
+                    $optionStatus = false;
+                    foreach ($groupedChildrenIds as $childId) {
+                        if (isset($childrenStatus[$childId])
+                            && isset($childrenWebsites[$childId])
+                            && in_array($websiteId, $childrenWebsites[$childId])
+                            && $childrenStatus[$childId] == $this->getProductStatusEnabled()
+                            && isset($childrenStock[$childId])
+                            && $childrenStock[$childId] == self::STATUS_IN_STOCK
+                        ) {
+                            $optionStatus = true;
+                        }
+                    }
+                    $websiteStatus = $websiteStatus && $optionStatus;
+                }
+                $statuses[$websiteId] = (int) $websiteStatus;
+            }
+        }
+
+        foreach ($statuses as $websiteId => $websiteStatus) {
+            $this->saveProductStatus($productId, $websiteStatus, $qty, $stockId, $websiteId);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Process Parents by child
+     *
+     * @param int $productId
+     * @param int $stockId
+     * @param int $websiteId
+     * @return $this
+     */
+    protected function _processParents($productId, $stockId = 1, $websiteId = null)
+    {
+        $parentIds = [];
+        foreach ($this->getProductTypeInstances() as $typeInstance) {
+            /** @var Mage_Catalog_Model_Product_Type_Abstract $typeInstance */
+            $parentIds = array_merge($parentIds, $typeInstance->getParentIdsByChild($productId));
+        }
+
+        if (!$parentIds) {
+            return $this;
+        }
+
+        $productTypes = $this->getProductsType($parentIds);
+        $item         = $this->getStockItemModel();
+
+        foreach ($parentIds as $parentId) {
+            $parentType = $productTypes[$parentId] ?? null;
+            $item->setData(['stock_id' => $stockId])
+                ->setOrigData()
+                ->loadByProduct($parentId);
+            $status  = self::STATUS_IN_STOCK;
+            $qty     = 0;
+            if ($item->getId()) {
+                $status = $item->getIsInStock();
+                $qty    = $item->getQty();
+            }
+
+            $this->_processChildren($parentId, $parentType, $qty, $status, $item->getStockId(), $websiteId);
+        }
+
         return $this;
     }
 }

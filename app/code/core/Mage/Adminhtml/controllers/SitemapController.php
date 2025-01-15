@@ -45,28 +45,6 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Init actions
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        // load layout, set active menu and breadcrumbs
-        $this->loadLayout()
-            ->_setActiveMenu('catalog/sitemap')
-            ->_addBreadcrumb(
-                Mage::helper('catalog')->__('Catalog'),
-                Mage::helper('catalog')->__('Catalog'),
-            )
-            ->_addBreadcrumb(
-                Mage::helper('sitemap')->__('Google Sitemap'),
-                Mage::helper('sitemap')->__('Google Sitemap'),
-            )
-        ;
-        return $this;
-    }
-
-    /**
      * Index action
      */
     public function indexAction()
@@ -302,5 +280,27 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
         // go to grid
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * Init actions
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        // load layout, set active menu and breadcrumbs
+        $this->loadLayout()
+            ->_setActiveMenu('catalog/sitemap')
+            ->_addBreadcrumb(
+                Mage::helper('catalog')->__('Catalog'),
+                Mage::helper('catalog')->__('Catalog'),
+            )
+            ->_addBreadcrumb(
+                Mage::helper('sitemap')->__('Google Sitemap'),
+                Mage::helper('sitemap')->__('Google Sitemap'),
+            )
+        ;
+        return $this;
     }
 }

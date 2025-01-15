@@ -29,35 +29,6 @@ class Mage_Core_Model_Message
 
     /**
      * @param string $code
-     * @param string $type
-     * @param string $class
-     * @param string $method
-     * @return Mage_Core_Model_Message_Error|Mage_Core_Model_Message_Notice|Mage_Core_Model_Message_Success|Mage_Core_Model_Message_Warning
-     */
-    protected function _factory($code, $type, $class = '', $method = '')
-    {
-        switch (strtolower($type)) {
-            case self::ERROR:
-                $message = new Mage_Core_Model_Message_Error($code);
-                break;
-            case self::WARNING:
-                $message = new Mage_Core_Model_Message_Warning($code);
-                break;
-            case self::SUCCESS:
-                $message = new Mage_Core_Model_Message_Success($code);
-                break;
-            default:
-                $message = new Mage_Core_Model_Message_Notice($code);
-                break;
-        }
-        $message->setClass($class);
-        $message->setMethod($method);
-
-        return $message;
-    }
-
-    /**
-     * @param string $code
      * @param string $class
      * @param string $method
      * @return Mage_Core_Model_Message_Error|Mage_Core_Model_Message_Notice|Mage_Core_Model_Message_Success|Mage_Core_Model_Message_Warning
@@ -98,5 +69,34 @@ class Mage_Core_Model_Message
     public function success($code, $class = '', $method = '')
     {
         return $this->_factory($code, self::SUCCESS, $class, $method);
+    }
+
+    /**
+     * @param string $code
+     * @param string $type
+     * @param string $class
+     * @param string $method
+     * @return Mage_Core_Model_Message_Error|Mage_Core_Model_Message_Notice|Mage_Core_Model_Message_Success|Mage_Core_Model_Message_Warning
+     */
+    protected function _factory($code, $type, $class = '', $method = '')
+    {
+        switch (strtolower($type)) {
+            case self::ERROR:
+                $message = new Mage_Core_Model_Message_Error($code);
+                break;
+            case self::WARNING:
+                $message = new Mage_Core_Model_Message_Warning($code);
+                break;
+            case self::SUCCESS:
+                $message = new Mage_Core_Model_Message_Success($code);
+                break;
+            default:
+                $message = new Mage_Core_Model_Message_Notice($code);
+                break;
+        }
+        $message->setClass($class);
+        $message->setMethod($method);
+
+        return $message;
     }
 }

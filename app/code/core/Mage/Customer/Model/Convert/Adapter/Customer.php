@@ -66,6 +66,56 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
 
     protected $_customerId = '';
 
+    public function __construct()
+    {
+        $this->setVar('entity_type', 'customer/customer');
+
+        if (!Mage::registry('Object_Cache_Customer')) {
+            $this->setCustomer(Mage::getModel('customer/customer'));
+        }
+        //$this->setAddress(Mage::getModel('catalog/'))
+
+        /**
+         * @var string $code
+         * @var Mage_Core_Model_Config_Element $node
+         */
+        foreach (Mage::getConfig()->getFieldset('customer_dataflow', 'admin') as $code => $node) {
+            if ($node->is('ignore')) {
+                $this->_ignoreFields[] = $code;
+            }
+            if ($node->is('billing')) {
+                $this->_billingFields[] = 'billing_' . $code;
+            }
+            if ($node->is('shipping')) {
+                $this->_shippingFields[] = 'shipping_' . $code;
+            }
+
+            if ($node->is('billing') && $node->is('shipping')) {
+                $this->_addressFields[] = $code;
+            }
+
+            if ($node->is('mapped') || $node->is('billing_mapped')) {
+                $this->_billingMappedFields['billing_' . $code] = $code;
+            }
+            if ($node->is('mapped') || $node->is('shipping_mapped')) {
+                $this->_shippingMappedFields['shipping_' . $code] = $code;
+            }
+            if ($node->is('street')) {
+                $this->_billingStreetFields[] = 'billing_' . $code;
+                $this->_shippingStreetFields[] = 'shipping_' . $code;
+            }
+            if ($node->is('required')) {
+                $this->_requiredFields[] = $code;
+            }
+            if ($node->is('billing_required')) {
+                $this->_billingRequiredFields[] = 'billing_' . $code;
+            }
+            if ($node->is('shipping_required')) {
+                $this->_shippingRequiredFields[] = 'shipping_' . $code;
+            }
+        }
+    }
+
     /**
      * Retrieve customer model cache
      *
@@ -211,56 +261,6 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     public function getCustomerGoups()
     {
         return $this->getCustomerGroups();
-    }
-
-    public function __construct()
-    {
-        $this->setVar('entity_type', 'customer/customer');
-
-        if (!Mage::registry('Object_Cache_Customer')) {
-            $this->setCustomer(Mage::getModel('customer/customer'));
-        }
-        //$this->setAddress(Mage::getModel('catalog/'))
-
-        /**
-         * @var string $code
-         * @var Mage_Core_Model_Config_Element $node
-         */
-        foreach (Mage::getConfig()->getFieldset('customer_dataflow', 'admin') as $code => $node) {
-            if ($node->is('ignore')) {
-                $this->_ignoreFields[] = $code;
-            }
-            if ($node->is('billing')) {
-                $this->_billingFields[] = 'billing_' . $code;
-            }
-            if ($node->is('shipping')) {
-                $this->_shippingFields[] = 'shipping_' . $code;
-            }
-
-            if ($node->is('billing') && $node->is('shipping')) {
-                $this->_addressFields[] = $code;
-            }
-
-            if ($node->is('mapped') || $node->is('billing_mapped')) {
-                $this->_billingMappedFields['billing_' . $code] = $code;
-            }
-            if ($node->is('mapped') || $node->is('shipping_mapped')) {
-                $this->_shippingMappedFields['shipping_' . $code] = $code;
-            }
-            if ($node->is('street')) {
-                $this->_billingStreetFields[] = 'billing_' . $code;
-                $this->_shippingStreetFields[] = 'shipping_' . $code;
-            }
-            if ($node->is('required')) {
-                $this->_requiredFields[] = $code;
-            }
-            if ($node->is('billing_required')) {
-                $this->_billingRequiredFields[] = 'billing_' . $code;
-            }
-            if ($node->is('shipping_required')) {
-                $this->_shippingRequiredFields[] = 'shipping_' . $code;
-            }
-        }
     }
 
     /**

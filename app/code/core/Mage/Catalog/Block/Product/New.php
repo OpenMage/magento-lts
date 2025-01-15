@@ -35,23 +35,6 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     protected $_productsCount;
 
     /**
-     * Initialize block's cache
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-
-        $this->addColumnCountLayoutDepend('empty', 6)
-            ->addColumnCountLayoutDepend('one_column', 5)
-            ->addColumnCountLayoutDepend('two_columns_left', 4)
-            ->addColumnCountLayoutDepend('two_columns_right', 4)
-            ->addColumnCountLayoutDepend('three_columns', 3);
-
-        $this->addData(['cache_lifetime' => 86400]);
-        $this->addCacheTag(Mage_Catalog_Model_Product::CACHE_TAG);
-    }
-
-    /**
      * Get Key pieces for caching block content
      *
      * @return array
@@ -67,6 +50,48 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
             'template' => $this->getTemplate(),
             $this->getProductsCount(),
         ];
+    }
+
+    /**
+     * Set how much product should be displayed at once.
+     *
+     * @param int $count
+     * @return $this
+     */
+    public function setProductsCount($count)
+    {
+        $this->_productsCount = $count;
+        return $this;
+    }
+
+    /**
+     * Get how much products should be displayed at once.
+     *
+     * @return int
+     */
+    public function getProductsCount()
+    {
+        if ($this->_productsCount === null) {
+            $this->_productsCount = self::DEFAULT_PRODUCTS_COUNT;
+        }
+        return $this->_productsCount;
+    }
+
+    /**
+     * Initialize block's cache
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+
+        $this->addColumnCountLayoutDepend('empty', 6)
+            ->addColumnCountLayoutDepend('one_column', 5)
+            ->addColumnCountLayoutDepend('two_columns_left', 4)
+            ->addColumnCountLayoutDepend('two_columns_right', 4)
+            ->addColumnCountLayoutDepend('three_columns', 3);
+
+        $this->addData(['cache_lifetime' => 86400]);
+        $this->addCacheTag(Mage_Catalog_Model_Product::CACHE_TAG);
     }
 
     /**
@@ -118,30 +143,5 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
     {
         $this->setProductCollection($this->_getProductCollection());
         return parent::_beforeToHtml();
-    }
-
-    /**
-     * Set how much product should be displayed at once.
-     *
-     * @param int $count
-     * @return $this
-     */
-    public function setProductsCount($count)
-    {
-        $this->_productsCount = $count;
-        return $this;
-    }
-
-    /**
-     * Get how much products should be displayed at once.
-     *
-     * @return int
-     */
-    public function getProductsCount()
-    {
-        if ($this->_productsCount === null) {
-            $this->_productsCount = self::DEFAULT_PRODUCTS_COUNT;
-        }
-        return $this->_productsCount;
     }
 }

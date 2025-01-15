@@ -26,17 +26,6 @@
 class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
 {
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->getLayout()->getBlock('head')
-            ->setTitle(Mage::helper('customer')->__('Address Book'));
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * @return string
      */
     public function getAddAddressUrl()
@@ -129,5 +118,15 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
             $this->setData('customer', $customer);
         }
         return $customer;
+    }
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->getLayout()->getBlock('head')
+            ->setTitle(Mage::helper('customer')->__('Address Book'));
+
+        return parent::_prepareLayout();
     }
 }

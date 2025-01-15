@@ -71,11 +71,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
      */
     protected $_stock;
 
-    protected function _construct()
-    {
-        $this->_init('cataloginventory/stock', 'stock_id');
-    }
-
     /**
      * Lock product items
      *
@@ -204,30 +199,6 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             '(' . implode(') OR (', $cond) . ')',
         );
         return $this;
-    }
-
-    /**
-     * Load some inventory configuration settings
-     *
-     */
-    protected function _initConfig()
-    {
-        if (!$this->_isConfig) {
-            $configMap = [
-                '_isConfigManageStock'  => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
-                '_isConfigBackorders'   => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_BACKORDERS,
-                '_configMinQty'         => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MIN_QTY,
-                '_configNotifyStockQty' => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY,
-            ];
-
-            foreach ($configMap as $field => $const) {
-                $this->$field = Mage::getStoreConfig($const);
-            }
-
-            $this->_isConfig = true;
-            $this->_stock = Mage::getModel('cataloginventory/stock');
-            $this->_configTypeIds = array_keys(Mage::helper('cataloginventory')->getIsQtyTypeIds(true));
-        }
     }
 
     /**
@@ -377,5 +348,34 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             $where,
         );
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('cataloginventory/stock', 'stock_id');
+    }
+
+    /**
+     * Load some inventory configuration settings
+     *
+     */
+    protected function _initConfig()
+    {
+        if (!$this->_isConfig) {
+            $configMap = [
+                '_isConfigManageStock'  => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
+                '_isConfigBackorders'   => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_BACKORDERS,
+                '_configMinQty'         => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MIN_QTY,
+                '_configNotifyStockQty' => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY,
+            ];
+
+            foreach ($configMap as $field => $const) {
+                $this->$field = Mage::getStoreConfig($const);
+            }
+
+            $this->_isConfig = true;
+            $this->_stock = Mage::getModel('cataloginventory/stock');
+            $this->_configTypeIds = array_keys(Mage::helper('cataloginventory')->getIsQtyTypeIds(true));
+        }
     }
 }

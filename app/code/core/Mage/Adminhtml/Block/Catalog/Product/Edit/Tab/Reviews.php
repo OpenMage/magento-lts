@@ -23,16 +23,6 @@
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Reviews extends Mage_Adminhtml_Block_Review_Grid
 {
     /**
-     * Hide grid mass action elements
-     *
-     * @return $this
-     */
-    protected function _prepareMassaction()
-    {
-        return $this;
-    }
-
-    /**
      * Determine ajax url for grid refresh
      *
      * @return string
@@ -40,5 +30,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Reviews extends Mage_Adminht
     public function getGridUrl()
     {
         return $this->getUrl('*/*/reviews', ['_current' => true]);
+    }
+    /**
+     * Hide grid mass action elements
+     *
+     * @return $this
+     */
+    protected function _prepareMassaction()
+    {
+        return $this;
     }
 }

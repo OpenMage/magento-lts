@@ -68,15 +68,6 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
     protected $_batchImport;
 
     /**
-     * Init model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('dataflow/batch');
-    }
-
-    /**
      * Retrieve prepared field list
      *
      * @return array
@@ -113,20 +104,6 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
             $this->_ioAdapter->init($this);
         }
         return $this->_ioAdapter;
-    }
-
-    protected function _beforeSave()
-    {
-        if (is_null($this->getData('created_at'))) {
-            $this->setData('created_at', Mage::getSingleton('core/date')->gmtDate());
-        }
-        return $this;
-    }
-
-    protected function _afterDelete()
-    {
-        $this->getIoAdapter()->clear();
-        return $this;
     }
 
     /**
@@ -196,5 +173,28 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
     {
         $data = $this->_data['params'];
         return unserialize($data, ['allowed_classes' => false]);
+    }
+
+    /**
+     * Init model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('dataflow/batch');
+    }
+
+    protected function _beforeSave()
+    {
+        if (is_null($this->getData('created_at'))) {
+            $this->setData('created_at', Mage::getSingleton('core/date')->gmtDate());
+        }
+        return $this;
+    }
+
+    protected function _afterDelete()
+    {
+        $this->getIoAdapter()->clear();
+        return $this;
     }
 }

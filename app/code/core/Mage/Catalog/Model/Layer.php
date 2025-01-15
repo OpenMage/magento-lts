@@ -227,6 +227,24 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     }
 
     /**
+     * Retrieve layer state object
+     *
+     * @return Mage_Catalog_Model_Layer_State
+     */
+    public function getState()
+    {
+        $state = $this->getData('state');
+        if (is_null($state)) {
+            Varien_Profiler::start(__METHOD__);
+            $state = Mage::getModel('catalog/layer_state');
+            $this->setData('state', $state);
+            Varien_Profiler::stop(__METHOD__);
+        }
+
+        return $state;
+    }
+
+    /**
      * Prepare attribute for use in layered navigation
      *
      * @param   Mage_Eav_Model_Entity_Attribute $attribute
@@ -257,24 +275,6 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     protected function _filterFilterableAttributes(Mage_Catalog_Model_Resource_Eav_Attribute $attribute): bool
     {
         return $attribute->getIsFilterable() > 0;
-    }
-
-    /**
-     * Retrieve layer state object
-     *
-     * @return Mage_Catalog_Model_Layer_State
-     */
-    public function getState()
-    {
-        $state = $this->getData('state');
-        if (is_null($state)) {
-            Varien_Profiler::start(__METHOD__);
-            $state = Mage::getModel('catalog/layer_state');
-            $this->setData('state', $state);
-            Varien_Profiler::stop(__METHOD__);
-        }
-
-        return $state;
     }
 
     /**

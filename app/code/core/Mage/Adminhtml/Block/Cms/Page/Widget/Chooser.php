@@ -85,6 +85,11 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         ';
     }
 
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/cms_page_widget/chooser', ['_current' => true]);
+    }
+
     /**
      * Prepare pages collection
      *
@@ -143,10 +148,5 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/cms_page_widget/chooser', ['_current' => true]);
     }
 }

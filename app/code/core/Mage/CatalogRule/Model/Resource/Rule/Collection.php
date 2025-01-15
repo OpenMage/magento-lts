@@ -34,14 +34,6 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
     ];
 
     /**
-     * Set resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('catalogrule/rule');
-    }
-
-    /**
      * Find product attribute in conditions or actions
      *
      * @param string $attributeCode
@@ -53,5 +45,13 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
         $this->addFieldToFilter('conditions_serialized', ['like' => $match]);
 
         return $this;
+    }
+
+    /**
+     * Set resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('catalogrule/rule');
     }
 }

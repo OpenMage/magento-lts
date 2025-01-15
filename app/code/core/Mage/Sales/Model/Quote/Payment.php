@@ -91,11 +91,6 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 
     protected $_quote;
 
-    protected function _construct()
-    {
-        $this->_init('sales/quote_payment');
-    }
-
     /**
      * Declare quote model instance
      *
@@ -163,25 +158,6 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
     }
 
     /**
-     * Prepare object for save
-     *
-     * @inheritDoc
-     */
-    protected function _beforeSave()
-    {
-        if ($this->getQuote()) {
-            $this->setQuoteId($this->getQuote()->getId());
-        }
-        try {
-            $method = $this->getMethodInstance();
-        } catch (Mage_Core_Exception $e) {
-            return parent::_beforeSave();
-        }
-        $method->prepareSave();
-        return parent::_beforeSave();
-    }
-
-    /**
      * Checkout redirect URL getter
      *
      * @return string
@@ -218,5 +194,29 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
     {
         $method = parent::getMethodInstance();
         return $method->setStore($this->getQuote()->getStore());
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/quote_payment');
+    }
+
+    /**
+     * Prepare object for save
+     *
+     * @inheritDoc
+     */
+    protected function _beforeSave()
+    {
+        if ($this->getQuote()) {
+            $this->setQuoteId($this->getQuote()->getId());
+        }
+        try {
+            $method = $this->getMethodInstance();
+        } catch (Mage_Core_Exception $e) {
+            return parent::_beforeSave();
+        }
+        $method->prepareSave();
+        return parent::_beforeSave();
     }
 }

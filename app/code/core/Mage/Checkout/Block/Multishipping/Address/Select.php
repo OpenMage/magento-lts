@@ -23,25 +23,6 @@
 class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Block_Multishipping_Abstract
 {
     /**
-     * @return Mage_Checkout_Block_Multishipping_Abstract
-     */
-    protected function _prepareLayout()
-    {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
-            $headBlock->setTitle(Mage::helper('checkout')->__('Change Billing Address') . ' - ' . $headBlock->getDefaultTitle());
-        }
-        return parent::_prepareLayout();
-    }
-
-    /**
-     * @return Mage_Checkout_Model_Type_Multishipping|Mage_Core_Model_Abstract
-     */
-    protected function _getCheckout()
-    {
-        return Mage::getSingleton('checkout/type_multishipping');
-    }
-
-    /**
      * @return Mage_Customer_Model_Address[]|mixed
      */
     public function getAddressCollection()
@@ -104,5 +85,23 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
     public function getBackUrl()
     {
         return $this->getUrl('*/multishipping/billing');
+    }
+    /**
+     * @return Mage_Checkout_Block_Multishipping_Abstract
+     */
+    protected function _prepareLayout()
+    {
+        if ($headBlock = $this->getLayout()->getBlock('head')) {
+            $headBlock->setTitle(Mage::helper('checkout')->__('Change Billing Address') . ' - ' . $headBlock->getDefaultTitle());
+        }
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @return Mage_Checkout_Model_Type_Multishipping|Mage_Core_Model_Abstract
+     */
+    protected function _getCheckout()
+    {
+        return Mage::getSingleton('checkout/type_multishipping');
     }
 }

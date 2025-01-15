@@ -147,16 +147,6 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
     }
 
     /**
-     * Retrieve Reports Session instance
-     *
-     * @return Mage_Reports_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('reports/session');
-    }
-
-    /**
      * Calculate count of product index items cache
      *
      * @return Mage_Reports_Model_Product_Index_Abstract
@@ -233,5 +223,15 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
         }
         $this->_getSession()->unsData($this->_countCacheKey);
         return $this;
+    }
+
+    /**
+     * Retrieve Reports Session instance
+     *
+     * @return Mage_Reports_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('reports/session');
     }
 }

@@ -110,6 +110,101 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     }
 
     /**
+     * Particular attribute names getter.
+     *
+     * @return array
+     */
+    public function getParticularAttributes()
+    {
+        return $this->_particularAttributes;
+    }
+
+    /**
+     * Validate row attributes. Pass VALID row data ONLY as argument.
+     *
+     * @param int $rowNum
+     * @param bool $isNewProduct OPTIONAL.
+     * @return bool
+     */
+    public function isRowValid(array $rowData, $rowNum, $isNewProduct = true)
+    {
+        $error    = false;
+        $rowScope = $this->_entityModel->getRowScope($rowData);
+
+        if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_NULL != $rowScope) {
+            foreach ($this->_getProductAttributes($rowData) as $attrCode => $attrParams) {
+                // check value for non-empty in the case of required attribute?
+                if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
+                    $error |= !$this->_entityModel->isAttributeValid($attrCode, $attrParams, $rowData, $rowNum);
+                } elseif ($this->_isAttributeRequiredCheckNeeded($attrCode)
+                    && $attrParams['is_required']
+                ) {
+                    // For the default scope - if this is a new product or
+                    // for an old product, if the imported doc has the column present for the attrCode
+                    if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
+                            ($isNewProduct || array_key_exists($attrCode, $rowData))
+                    ) {
+                        $this->_entityModel->addRowError(
+                            Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
+                            $rowNum,
+                            $attrCode,
+                        );
+                        $error = true;
+                    }
+                }
+            }
+        }
+        $error |= !$this->_isParticularAttributesValid($rowData, $rowNum);
+
+        return !$error;
+    }
+
+    /**
+     * Additional check for model availability. If method returns FALSE - model is not suitable for data processing.
+     *
+     * @return bool
+     */
+    public function isSuitable()
+    {
+        return true;
+    }
+
+    /**
+     * Prepare attributes values for save: remove non-existent, remove empty values, remove static.
+     *
+     * @param bool $withDefaultValue
+     * @return array
+     */
+    public function prepareAttributesForSave(array $rowData, $withDefaultValue = true)
+    {
+        $resultAttrs = [];
+
+        foreach ($this->_getProductAttributes($rowData) as $attrCode => $attrParams) {
+            if (!$attrParams['is_static']) {
+                if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
+                    $resultAttrs[$attrCode] =
+                        ($attrParams['type'] == 'select' || $attrParams['type'] == 'multiselect')
+                        ? $attrParams['options'][strtolower($rowData[$attrCode])]
+                        : $rowData[$attrCode];
+                } elseif ($withDefaultValue && $attrParams['default_value'] !== null) {
+                    $resultAttrs[$attrCode] = $attrParams['default_value'];
+                }
+            }
+        }
+        return $resultAttrs;
+    }
+
+    /**
+     * Save product type specific data.
+     *
+     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
+     */
+    public function saveData()
+    {
+        return $this;
+    }
+
+    /**
      * Add attribute parameters to appropriate attribute set.
      *
      * @param string $attrSetName Name of attribute set.
@@ -216,100 +311,5 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
     protected function _isPriceCorr($value)
     {
         return preg_match('/^-?\d+\.?\d*%?$/', $value);
-    }
-
-    /**
-     * Particular attribute names getter.
-     *
-     * @return array
-     */
-    public function getParticularAttributes()
-    {
-        return $this->_particularAttributes;
-    }
-
-    /**
-     * Validate row attributes. Pass VALID row data ONLY as argument.
-     *
-     * @param int $rowNum
-     * @param bool $isNewProduct OPTIONAL.
-     * @return bool
-     */
-    public function isRowValid(array $rowData, $rowNum, $isNewProduct = true)
-    {
-        $error    = false;
-        $rowScope = $this->_entityModel->getRowScope($rowData);
-
-        if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_NULL != $rowScope) {
-            foreach ($this->_getProductAttributes($rowData) as $attrCode => $attrParams) {
-                // check value for non-empty in the case of required attribute?
-                if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
-                    $error |= !$this->_entityModel->isAttributeValid($attrCode, $attrParams, $rowData, $rowNum);
-                } elseif ($this->_isAttributeRequiredCheckNeeded($attrCode)
-                    && $attrParams['is_required']
-                ) {
-                    // For the default scope - if this is a new product or
-                    // for an old product, if the imported doc has the column present for the attrCode
-                    if (Mage_ImportExport_Model_Import_Entity_Product::SCOPE_DEFAULT == $rowScope &&
-                            ($isNewProduct || array_key_exists($attrCode, $rowData))
-                    ) {
-                        $this->_entityModel->addRowError(
-                            Mage_ImportExport_Model_Import_Entity_Product::ERROR_VALUE_IS_REQUIRED,
-                            $rowNum,
-                            $attrCode,
-                        );
-                        $error = true;
-                    }
-                }
-            }
-        }
-        $error |= !$this->_isParticularAttributesValid($rowData, $rowNum);
-
-        return !$error;
-    }
-
-    /**
-     * Additional check for model availability. If method returns FALSE - model is not suitable for data processing.
-     *
-     * @return bool
-     */
-    public function isSuitable()
-    {
-        return true;
-    }
-
-    /**
-     * Prepare attributes values for save: remove non-existent, remove empty values, remove static.
-     *
-     * @param bool $withDefaultValue
-     * @return array
-     */
-    public function prepareAttributesForSave(array $rowData, $withDefaultValue = true)
-    {
-        $resultAttrs = [];
-
-        foreach ($this->_getProductAttributes($rowData) as $attrCode => $attrParams) {
-            if (!$attrParams['is_static']) {
-                if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
-                    $resultAttrs[$attrCode] =
-                        ($attrParams['type'] == 'select' || $attrParams['type'] == 'multiselect')
-                        ? $attrParams['options'][strtolower($rowData[$attrCode])]
-                        : $rowData[$attrCode];
-                } elseif ($withDefaultValue && $attrParams['default_value'] !== null) {
-                    $resultAttrs[$attrCode] = $attrParams['default_value'];
-                }
-            }
-        }
-        return $resultAttrs;
-    }
-
-    /**
-     * Save product type specific data.
-     *
-     * @return Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
-     */
-    public function saveData()
-    {
-        return $this;
     }
 }

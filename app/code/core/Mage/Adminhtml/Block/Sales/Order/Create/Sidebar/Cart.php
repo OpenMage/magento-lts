@@ -29,13 +29,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
      */
     protected $_sidebarStorageAction = 'add_cart_item';
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setId('sales_order_create_sidebar_cart');
-        $this->setDataId('cart');
-    }
-
     /**
      * @return string
      */
@@ -87,6 +80,13 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Cart extends Mage_Adminhtm
     public function getProductId($item)
     {
         return $item->getProduct()->getId();
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setId('sales_order_create_sidebar_cart');
+        $this->setDataId('cart');
     }
 
     /**

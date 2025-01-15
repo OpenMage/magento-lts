@@ -37,16 +37,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     protected $_productIds;
 
     /**
-     * Get shopping cart resource model
-     *
-     * @return Mage_Checkout_Model_Resource_Cart
-     */
-    protected function _getResource()
-    {
-        return Mage::getResourceSingleton('checkout/cart');
-    }
-
-    /**
      * Retrieve checkout session model
      *
      * @return Mage_Checkout_Model_Session
@@ -172,52 +162,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             $this->addProduct($product, $info);
         }
         return $this;
-    }
-
-    /**
-     * Get product object based on requested product information
-     *
-     * @param   mixed $productInfo
-     * @return  Mage_Catalog_Model_Product
-     */
-    protected function _getProduct($productInfo)
-    {
-        $product = null;
-        if ($productInfo instanceof Mage_Catalog_Model_Product) {
-            $product = $productInfo;
-        } elseif (is_int($productInfo) || is_string($productInfo)) {
-            $product = Mage::getModel('catalog/product')
-                ->setStoreId(Mage::app()->getStore()->getId())
-                ->load($productInfo);
-        }
-        $currentWebsiteId = Mage::app()->getStore()->getWebsiteId();
-        if (!$product
-            || !$product->getId()
-            || !is_array($product->getWebsiteIds())
-            || !in_array($currentWebsiteId, $product->getWebsiteIds())
-        ) {
-            Mage::throwException(Mage::helper('checkout')->__('The product could not be found.'));
-        }
-        return $product;
-    }
-
-    /**
-     * Get request for product add to cart procedure
-     *
-     * @param   mixed $requestInfo
-     * @return  Varien_Object
-     */
-    protected function _getProductRequest($requestInfo)
-    {
-        if ($requestInfo instanceof Varien_Object) {
-            $request = $requestInfo;
-        } elseif (is_numeric($requestInfo)) {
-            $request = new Varien_Object(['qty' => $requestInfo]);
-        } else {
-            $request = new Varien_Object($requestInfo);
-        }
-
-        return $request;
     }
 
     /**
@@ -597,5 +541,61 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         ]);
         $this->getCheckoutSession()->setLastAddedProductId($productId);
         return $result;
+    }
+
+    /**
+     * Get shopping cart resource model
+     *
+     * @return Mage_Checkout_Model_Resource_Cart
+     */
+    protected function _getResource()
+    {
+        return Mage::getResourceSingleton('checkout/cart');
+    }
+
+    /**
+     * Get product object based on requested product information
+     *
+     * @param   mixed $productInfo
+     * @return  Mage_Catalog_Model_Product
+     */
+    protected function _getProduct($productInfo)
+    {
+        $product = null;
+        if ($productInfo instanceof Mage_Catalog_Model_Product) {
+            $product = $productInfo;
+        } elseif (is_int($productInfo) || is_string($productInfo)) {
+            $product = Mage::getModel('catalog/product')
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->load($productInfo);
+        }
+        $currentWebsiteId = Mage::app()->getStore()->getWebsiteId();
+        if (!$product
+            || !$product->getId()
+            || !is_array($product->getWebsiteIds())
+            || !in_array($currentWebsiteId, $product->getWebsiteIds())
+        ) {
+            Mage::throwException(Mage::helper('checkout')->__('The product could not be found.'));
+        }
+        return $product;
+    }
+
+    /**
+     * Get request for product add to cart procedure
+     *
+     * @param   mixed $requestInfo
+     * @return  Varien_Object
+     */
+    protected function _getProductRequest($requestInfo)
+    {
+        if ($requestInfo instanceof Varien_Object) {
+            $request = $requestInfo;
+        } elseif (is_numeric($requestInfo)) {
+            $request = new Varien_Object(['qty' => $requestInfo]);
+        } else {
+            $request = new Varien_Object($requestInfo);
+        }
+
+        return $request;
     }
 }

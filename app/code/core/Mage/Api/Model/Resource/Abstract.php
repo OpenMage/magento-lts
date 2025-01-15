@@ -30,26 +30,6 @@ class Mage_Api_Model_Resource_Abstract
     protected $_resourceConfig = null;
 
     /**
-     * Retrieve webservice session
-     *
-     * @return Mage_Api_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('api/session');
-    }
-
-    /**
-     * Retrieve webservice configuration
-     *
-     * @return Mage_Api_Model_Config
-     */
-    protected function _getConfig()
-    {
-        return Mage::getSingleton('api/config');
-    }
-
-    /**
      * Set configuration for api resource
      *
      * @return $this
@@ -68,6 +48,26 @@ class Mage_Api_Model_Resource_Abstract
     public function getResourceConfig()
     {
         return $this->_resourceConfig;
+    }
+
+    /**
+     * Retrieve webservice session
+     *
+     * @return Mage_Api_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('api/session');
+    }
+
+    /**
+     * Retrieve webservice configuration
+     *
+     * @return Mage_Api_Model_Config
+     */
+    protected function _getConfig()
+    {
+        return Mage::getSingleton('api/config');
     }
 
     /**

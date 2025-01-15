@@ -30,6 +30,29 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection e
     protected $_linkTable;
 
     /**
+     * Set Product filter to result
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return $this
+     */
+    public function setProductFilter($product)
+    {
+        $this->getSelect()->where('link_table.parent_id = ?', (int) $product->getId());
+        return $this;
+    }
+
+    /**
+     * Retrieve is flat enabled flag
+     * Return alvays false if magento run admin
+     *
+     * @return bool
+     */
+    public function isEnabledFlat()
+    {
+        return false;
+    }
+
+    /**
      * Assign link table name
      */
     protected function _construct()
@@ -52,28 +75,5 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection e
         );
 
         return $this;
-    }
-
-    /**
-     * Set Product filter to result
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @return $this
-     */
-    public function setProductFilter($product)
-    {
-        $this->getSelect()->where('link_table.parent_id = ?', (int) $product->getId());
-        return $this;
-    }
-
-    /**
-     * Retrieve is flat enabled flag
-     * Return alvays false if magento run admin
-     *
-     * @return bool
-     */
-    public function isEnabledFlat()
-    {
-        return false;
     }
 }

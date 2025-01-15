@@ -126,6 +126,80 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     }
 
     /**
+     * Set store ids
+     *
+     * @param mixed $storeIds (null, int|string, array, array may contain null)
+     * @return $this
+     */
+    public function addStoreFilter($storeIds)
+    {
+        $this->_storesIds = $storeIds;
+        return $this;
+    }
+
+    /**
+     * Set apply filters flag
+     *
+     * @param bool $flag
+     * @return $this
+     */
+    public function setApplyFilters($flag)
+    {
+        $this->_applyFilters = $flag;
+        return $this;
+    }
+
+    /**
+     * Getter/Setter for isTotals
+     *
+     * @param null|bool $flag
+     * @return $this|bool
+     */
+    public function isTotals($flag = null)
+    {
+        if (is_null($flag)) {
+            return $this->_isTotals;
+        }
+        $this->_isTotals = $flag;
+        return $this;
+    }
+
+    /**
+     * Getter/Setter for isSubTotals
+     *
+     * @param null|bool $flag
+     * @return $this|bool
+     */
+    public function isSubTotals($flag = null)
+    {
+        if (is_null($flag)) {
+            return $this->_isSubTotals;
+        }
+        $this->_isSubTotals = $flag;
+        return $this;
+    }
+
+    /**
+     * Load data
+     * Redeclare parent load method just for adding method _beforeLoad
+     *
+     * @inheritDoc
+     */
+    public function load($printQuery = false, $logQuery = false)
+    {
+        if ($this->isLoaded()) {
+            return $this;
+        }
+        $this->_initSelect();
+        if ($this->_applyFilters) {
+            $this->_applyDateRangeFilter();
+            $this->_applyStoresFilter();
+            $this->_applyCustomFilter();
+        }
+        return parent::load($printQuery, $logQuery);
+    }
+
+    /**
      * Apply date range filter
      *
      * @return $this
@@ -140,18 +214,6 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
             $this->getSelect()->where('period <= ?', $this->_to);
         }
 
-        return $this;
-    }
-
-    /**
-     * Set store ids
-     *
-     * @param mixed $storeIds (null, int|string, array, array may contain null)
-     * @return $this
-     */
-    public function addStoreFilter($storeIds)
-    {
-        $this->_storesIds = $storeIds;
         return $this;
     }
 
@@ -198,48 +260,6 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     }
 
     /**
-     * Set apply filters flag
-     *
-     * @param bool $flag
-     * @return $this
-     */
-    public function setApplyFilters($flag)
-    {
-        $this->_applyFilters = $flag;
-        return $this;
-    }
-
-    /**
-     * Getter/Setter for isTotals
-     *
-     * @param null|bool $flag
-     * @return $this|bool
-     */
-    public function isTotals($flag = null)
-    {
-        if (is_null($flag)) {
-            return $this->_isTotals;
-        }
-        $this->_isTotals = $flag;
-        return $this;
-    }
-
-    /**
-     * Getter/Setter for isSubTotals
-     *
-     * @param null|bool $flag
-     * @return $this|bool
-     */
-    public function isSubTotals($flag = null)
-    {
-        if (is_null($flag)) {
-            return $this->_isSubTotals;
-        }
-        $this->_isSubTotals = $flag;
-        return $this;
-    }
-
-    /**
      * Custom filters application ability
      *
      * @return $this
@@ -247,25 +267,5 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
     protected function _applyCustomFilter()
     {
         return $this;
-    }
-
-    /**
-     * Load data
-     * Redeclare parent load method just for adding method _beforeLoad
-     *
-     * @inheritDoc
-     */
-    public function load($printQuery = false, $logQuery = false)
-    {
-        if ($this->isLoaded()) {
-            return $this;
-        }
-        $this->_initSelect();
-        if ($this->_applyFilters) {
-            $this->_applyDateRangeFilter();
-            $this->_applyStoresFilter();
-            $this->_applyCustomFilter();
-        }
-        return parent::load($printQuery, $logQuery);
     }
 }

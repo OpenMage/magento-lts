@@ -26,40 +26,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
     protected $_skipEmptyStoresLabel = false;
 
     /**
-     * Retrieve System Store model
-     *
-     * @return Mage_Adminhtml_Model_System_Store
-     */
-    protected function _getStoreModel()
-    {
-        return Mage::getSingleton('adminhtml/system_store');
-    }
-
-    /**
-     * Retrieve 'show all stores label' flag
-     *
-     * @return bool
-     */
-    protected function _getShowAllStoresLabelFlag()
-    {
-        return $this->getColumn()->getData('skipAllStoresLabel')
-            ? $this->getColumn()->getData('skipAllStoresLabel')
-            : $this->_skipAllStoresLabel;
-    }
-
-    /**
-     * Retrieve 'show empty stores label' flag
-     *
-     * @return bool
-     */
-    protected function _getShowEmptyStoresLabelFlag()
-    {
-        return $this->getColumn()->getData('skipEmptyStoresLabel')
-            ? $this->getColumn()->getData('skipEmptyStoresLabel')
-            : $this->_skipEmptyStoresLabel;
-    }
-
-    /**
      * Render row store views
      *
      * @return string
@@ -147,5 +113,39 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
         }
 
         return $out;
+    }
+
+    /**
+     * Retrieve System Store model
+     *
+     * @return Mage_Adminhtml_Model_System_Store
+     */
+    protected function _getStoreModel()
+    {
+        return Mage::getSingleton('adminhtml/system_store');
+    }
+
+    /**
+     * Retrieve 'show all stores label' flag
+     *
+     * @return bool
+     */
+    protected function _getShowAllStoresLabelFlag()
+    {
+        return $this->getColumn()->getData('skipAllStoresLabel')
+            ? $this->getColumn()->getData('skipAllStoresLabel')
+            : $this->_skipAllStoresLabel;
+    }
+
+    /**
+     * Retrieve 'show empty stores label' flag
+     *
+     * @return bool
+     */
+    protected function _getShowEmptyStoresLabelFlag()
+    {
+        return $this->getColumn()->getData('skipEmptyStoresLabel')
+            ? $this->getColumn()->getData('skipEmptyStoresLabel')
+            : $this->_skipEmptyStoresLabel;
     }
 }

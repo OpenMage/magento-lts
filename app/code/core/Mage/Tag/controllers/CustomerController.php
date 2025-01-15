@@ -22,23 +22,6 @@
  */
 class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 {
-    /**
-     * @return int|false
-     * @throws Mage_Core_Exception
-     */
-    protected function _getTagId()
-    {
-        $tagId = (int) $this->getRequest()->getParam('tagId');
-        if ($tagId) {
-            $customerId = Mage::getSingleton('customer/session')->getCustomerId();
-            $model = Mage::getModel('tag/tag_relation');
-            $model->loadByTagCustomer(null, $tagId, $customerId);
-            Mage::register('tagModel', $model);
-            return $model->getTagId();
-        }
-        return false;
-    }
-
     public function indexAction()
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
@@ -134,5 +117,21 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     public function saveAction()
     {
         $this->_forward('noRoute');
+    }
+    /**
+     * @return int|false
+     * @throws Mage_Core_Exception
+     */
+    protected function _getTagId()
+    {
+        $tagId = (int) $this->getRequest()->getParam('tagId');
+        if ($tagId) {
+            $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+            $model = Mage::getModel('tag/tag_relation');
+            $model->loadByTagCustomer(null, $tagId, $customerId);
+            Mage::register('tagModel', $model);
+            return $model->getTagId();
+        }
+        return false;
     }
 }

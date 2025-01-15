@@ -76,6 +76,14 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     }
 
     /**
+     * @return array
+     */
+    public function getHtmlAttributes()
+    {
+        return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex'];
+    }
+
+    /**
      * @param array $option
      * @param string|array $selected
      * @return string
@@ -115,13 +123,5 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
             }
             $this->setValues($values);
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function getHtmlAttributes()
-    {
-        return ['title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex'];
     }
 }

@@ -38,28 +38,6 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * Init configuration for webservices api
-     *
-     * @return $this
-     */
-    protected function _construct()
-    {
-        if (Mage::app()->useCache('config_api')) {
-            if ($this->loadCache()) {
-                return $this;
-            }
-        }
-
-        $config = Mage::getConfig()->loadModulesConfiguration('api.xml');
-        $this->setXml($config->getNode('api'));
-
-        if (Mage::app()->useCache('config_api')) {
-            $this->saveCache();
-        }
-        return $this;
-    }
-
-    /**
      * Retrieve adapter aliases from config.
      *
      * @return array
@@ -255,6 +233,28 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     public function getCache()
     {
         return Mage::app()->getCache();
+    }
+
+    /**
+     * Init configuration for webservices api
+     *
+     * @return $this
+     */
+    protected function _construct()
+    {
+        if (Mage::app()->useCache('config_api')) {
+            if ($this->loadCache()) {
+                return $this;
+            }
+        }
+
+        $config = Mage::getConfig()->loadModulesConfiguration('api.xml');
+        $this->setXml($config->getNode('api'));
+
+        if (Mage::app()->useCache('config_api')) {
+            $this->saveCache();
+        }
+        return $this;
     }
 
     /**

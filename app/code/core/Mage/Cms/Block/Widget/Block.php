@@ -26,6 +26,37 @@
 class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
     /**
+     * Storage for used widgets
+     *
+     * @var array
+     */
+    protected static $_widgetUsageMap = [];
+
+    /**
+     * Retrieve values of properties that unambiguously identify unique content
+     *
+     * @return array
+     */
+    public function getCacheKeyInfo()
+    {
+        $result = parent::getCacheKeyInfo();
+        $blockId = $this->getBlockId();
+        if ($blockId) {
+            $result[] = $blockId;
+        }
+        return $result;
+    }
+
+    /**
+     * Check is request goes from admin area
+     *
+     * @return bool
+     */
+    public function isRequestFromAdminArea()
+    {
+        return $this->getRequest()->getRouteName() === Mage_Core_Model_App_Area::AREA_ADMINHTML;
+    }
+    /**
      * Initialize cache
      */
     protected function _construct()
@@ -37,13 +68,6 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
         $this->setCacheTags([Mage_Cms_Model_Block::CACHE_TAG]);
         $this->setCacheLifetime(false);
     }
-
-    /**
-     * Storage for used widgets
-     *
-     * @var array
-     */
-    protected static $_widgetUsageMap = [];
 
     /**
      * Prepare block text and determine whether block output enabled or not
@@ -82,30 +106,5 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
 
         unset(self::$_widgetUsageMap[$blockHash]);
         return $this;
-    }
-
-    /**
-     * Retrieve values of properties that unambiguously identify unique content
-     *
-     * @return array
-     */
-    public function getCacheKeyInfo()
-    {
-        $result = parent::getCacheKeyInfo();
-        $blockId = $this->getBlockId();
-        if ($blockId) {
-            $result[] = $blockId;
-        }
-        return $result;
-    }
-
-    /**
-     * Check is request goes from admin area
-     *
-     * @return bool
-     */
-    public function isRequestFromAdminArea()
-    {
-        return $this->getRequest()->getRouteName() === Mage_Core_Model_App_Area::AREA_ADMINHTML;
     }
 }

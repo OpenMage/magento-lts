@@ -109,17 +109,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
     }
 
     /**
-     * Sort values
-     *
-     * @param array $data
-     * @return array
-     */
-    protected function _sortValues($data)
-    {
-        return $data;
-    }
-
-    /**
      * Retrieve allowed customer groups
      *
      * @param int|null $groupId  return name by customer group id
@@ -145,16 +134,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         }
 
         return $this->_customerGroups;
-    }
-
-    /**
-     * Retrieve list of initial customer groups
-     *
-     * @return array
-     */
-    protected function _getInitialCustomerGroups()
-    {
-        return [];
     }
 
     /**
@@ -325,5 +304,26 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
             return false;
         }
         return true;
+    }
+
+    /**
+     * Sort values
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function _sortValues($data)
+    {
+        return $data;
+    }
+
+    /**
+     * Retrieve list of initial customer groups
+     *
+     * @return array
+     */
+    protected function _getInitialCustomerGroups()
+    {
+        return [];
     }
 }

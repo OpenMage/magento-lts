@@ -29,6 +29,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
         $this->setUseAjax(true);
     }
 
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/index', ['_current' => true]);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('customer/customer_collection')
@@ -96,10 +101,5 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
         $this->addExportType('*/*/exportCsv', Mage::helper('customer')->__('CSV'));
         $this->addExportType('*/*/exportXml', Mage::helper('customer')->__('Excel XML'));
         return parent::_prepareColumns();
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/index', ['_current' => true]);
     }
 }

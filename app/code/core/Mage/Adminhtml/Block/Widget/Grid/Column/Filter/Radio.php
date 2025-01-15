@@ -22,6 +22,17 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Radio extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
+    public function getCondition()
+    {
+        if ($this->getValue()) {
+            return $this->getColumn()->getValue();
+        } else {
+            return [
+                ['neq' => $this->getColumn()->getValue()],
+                ['is' => new Zend_Db_Expr('NULL')],
+            ];
+        }
+    }
     protected function _getOptions()
     {
         return [
@@ -38,17 +49,5 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Radio extends Mage_Adminhtm
                 'value' => 0,
             ],
         ];
-    }
-
-    public function getCondition()
-    {
-        if ($this->getValue()) {
-            return $this->getColumn()->getValue();
-        } else {
-            return [
-                ['neq' => $this->getColumn()->getValue()],
-                ['is' => new Zend_Db_Expr('NULL')],
-            ];
-        }
     }
 }

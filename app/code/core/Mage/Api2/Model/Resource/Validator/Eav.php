@@ -110,46 +110,6 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
     }
 
     /**
-     * Validate attribute value for attributes with source models
-     *
-     * @param mixed $attrValue
-     * @return array|bool
-     */
-    protected function _validateAttributeWithSource(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $attrValue)
-    {
-        $errors = [];
-
-        // validate attributes with source models
-        if ($attrValue !== null && $attribute->getSourceModel()) {
-            if ($attribute->getFrontendInput() !== 'multiselect' && is_array($attrValue)) {
-                return ['Invalid value type for ' . $attribute->getAttributeCode()];
-            }
-            $possibleValues = $attribute->getSource()->getAllOptions(false);
-
-            foreach ((array) $attrValue as $value) {
-                if (is_scalar($value)) {
-                    $value = (string) $value;
-                    $isValid = false;
-                    foreach ($possibleValues as $optionData) {
-                        // comparison without types check is performed only when both values are numeric
-                        $useStrictMode = !(is_numeric($value) && is_numeric($optionData['value']));
-                        $isValid = $useStrictMode ? $value === $optionData['value'] : $value == $optionData['value'];
-                        if ($isValid) {
-                            break;
-                        }
-                    }
-                    if (!$isValid) {
-                        $errors[] = 'Invalid value "' . $value . '" for ' . $attribute->getAttributeCode();
-                    }
-                } else {
-                    $errors[] = 'Invalid value type for ' . $attribute->getAttributeCode();
-                }
-            }
-        }
-        return $errors ? $errors : true;
-    }
-
-    /**
      * Filter request data.
      *
      * @return array Filtered data
@@ -238,5 +198,45 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             }
         }
         return $errors;
+    }
+
+    /**
+     * Validate attribute value for attributes with source models
+     *
+     * @param mixed $attrValue
+     * @return array|bool
+     */
+    protected function _validateAttributeWithSource(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $attrValue)
+    {
+        $errors = [];
+
+        // validate attributes with source models
+        if ($attrValue !== null && $attribute->getSourceModel()) {
+            if ($attribute->getFrontendInput() !== 'multiselect' && is_array($attrValue)) {
+                return ['Invalid value type for ' . $attribute->getAttributeCode()];
+            }
+            $possibleValues = $attribute->getSource()->getAllOptions(false);
+
+            foreach ((array) $attrValue as $value) {
+                if (is_scalar($value)) {
+                    $value = (string) $value;
+                    $isValid = false;
+                    foreach ($possibleValues as $optionData) {
+                        // comparison without types check is performed only when both values are numeric
+                        $useStrictMode = !(is_numeric($value) && is_numeric($optionData['value']));
+                        $isValid = $useStrictMode ? $value === $optionData['value'] : $value == $optionData['value'];
+                        if ($isValid) {
+                            break;
+                        }
+                    }
+                    if (!$isValid) {
+                        $errors[] = 'Invalid value "' . $value . '" for ' . $attribute->getAttributeCode();
+                    }
+                } else {
+                    $errors[] = 'Invalid value type for ' . $attribute->getAttributeCode();
+                }
+            }
+        }
+        return $errors ? $errors : true;
     }
 }

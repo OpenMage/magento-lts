@@ -37,24 +37,6 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Set secure url checkout is secure for current store.
-     *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
-     */
-    protected function _getUrl($route, $params = [])
-    {
-        $params['_type'] = Mage_Core_Model_Store::URL_TYPE_LINK;
-        if (isset($params['is_secure'])) {
-            $params['_secure'] = (bool) $params['is_secure'];
-        } elseif (Mage::app()->getStore()->isCurrentlySecure()) {
-            $params['_secure'] = true;
-        }
-        return parent::_getUrl($route, $params);
-    }
-
-    /**
      * Retrieve save order url params
      *
      * @param string $controller
@@ -142,5 +124,23 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
                 $orderToUpdate->save();
             }
         }
+    }
+
+    /**
+     * Set secure url checkout is secure for current store.
+     *
+     * @param   string $route
+     * @param   array $params
+     * @return  string
+     */
+    protected function _getUrl($route, $params = [])
+    {
+        $params['_type'] = Mage_Core_Model_Store::URL_TYPE_LINK;
+        if (isset($params['is_secure'])) {
+            $params['_secure'] = (bool) $params['is_secure'];
+        } elseif (Mage::app()->getStore()->isCurrentlySecure()) {
+            $params['_secure'] = true;
+        }
+        return parent::_getUrl($route, $params);
     }
 }

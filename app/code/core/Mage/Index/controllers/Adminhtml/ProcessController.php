@@ -27,24 +27,6 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
     public const ADMIN_RESOURCE = 'system/index';
 
     /**
-     * Initialize process object by request
-     *
-     * @return Mage_Index_Model_Process|false
-     */
-    protected function _initProcess()
-    {
-        $processId = $this->getRequest()->getParam('process');
-        if ($processId) {
-            /** @var Mage_Index_Model_Process $process */
-            $process = Mage::getModel('index/process')->load($processId);
-            if ($process->getId() && $process->getIndexer()->isVisible()) {
-                return $process;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Display processes grid action
      */
     public function listAction()
@@ -226,5 +208,23 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
         }
 
         $this->_redirect('*/*/list');
+    }
+
+    /**
+     * Initialize process object by request
+     *
+     * @return Mage_Index_Model_Process|false
+     */
+    protected function _initProcess()
+    {
+        $processId = $this->getRequest()->getParam('process');
+        if ($processId) {
+            /** @var Mage_Index_Model_Process $process */
+            $process = Mage::getModel('index/process')->load($processId);
+            if ($process->getId() && $process->getIndexer()->isVisible()) {
+                return $process;
+            }
+        }
+        return false;
     }
 }

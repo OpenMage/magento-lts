@@ -28,43 +28,6 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         $this->setId('design_edit');
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('core')->__('Back'),
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
-                    'class'     => 'back',
-                ]),
-        );
-
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('core')->__('Save'),
-                    'onclick'   => 'designForm.submit()',
-                    'class'     => 'save',
-                ]),
-        );
-
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label'     => Mage::helper('core')->__('Delete'),
-                    'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()),
-                    'class'     => 'delete',
-                ]),
-        );
-        return parent::_prepareLayout();
-    }
-
     public function getDesignChangeId()
     {
         return Mage::registry('design')->getId();
@@ -106,5 +69,42 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
             return Mage::helper('core')->__('Edit Design Change');
         }
         return Mage::helper('core')->__('New Design Change');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'back_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('core')->__('Back'),
+                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
+                    'class'     => 'back',
+                ]),
+        );
+
+        $this->setChild(
+            'save_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('core')->__('Save'),
+                    'onclick'   => 'designForm.submit()',
+                    'class'     => 'save',
+                ]),
+        );
+
+        $this->setChild(
+            'delete_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label'     => Mage::helper('core')->__('Delete'),
+                    'onclick'   => Mage::helper('core/js')->getConfirmSetLocationJs($this->getDeleteUrl()),
+                    'class'     => 'delete',
+                ]),
+        );
+        return parent::_prepareLayout();
     }
 }

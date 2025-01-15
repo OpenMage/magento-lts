@@ -94,40 +94,6 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
-     * @deprecated after 1.4.0.0-alpha3
-     * Initialize order model instance
-     *
-     * @return Mage_Sales_Model_Order|false
-     */
-    protected function _initOrder()
-    {
-        $order = Mage::getModel('sales/order')->load($this->getOrderId());
-
-        if (!$order->getId() || $this->getProtectCode() != $order->getProtectCode()) {
-            return false;
-        }
-
-        return $order;
-    }
-
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     * Initialize ship model instance
-     *
-     * @return Mage_Sales_Model_Order_Shipment|false
-     */
-    protected function _initShipment()
-    {
-        $ship = Mage::getModel('sales/order_shipment')->load($this->getShipId());
-
-        if (!$ship->getEntityId() || $this->getProtectCode() != $ship->getProtectCode()) {
-            return false;
-        }
-
-        return $ship;
-    }
-
-    /**
      * Retrieve array of tracking info
      *
      * @return array
@@ -273,5 +239,39 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     public function getContactUs()
     {
         return $this->getUrl('contacts');
+    }
+
+    /**
+     * @deprecated after 1.4.0.0-alpha3
+     * Initialize order model instance
+     *
+     * @return Mage_Sales_Model_Order|false
+     */
+    protected function _initOrder()
+    {
+        $order = Mage::getModel('sales/order')->load($this->getOrderId());
+
+        if (!$order->getId() || $this->getProtectCode() != $order->getProtectCode()) {
+            return false;
+        }
+
+        return $order;
+    }
+
+    /**
+     * @deprecated after 1.4.0.0-alpha3
+     * Initialize ship model instance
+     *
+     * @return Mage_Sales_Model_Order_Shipment|false
+     */
+    protected function _initShipment()
+    {
+        $ship = Mage::getModel('sales/order_shipment')->load($this->getShipId());
+
+        if (!$ship->getEntityId() || $this->getProtectCode() != $ship->getProtectCode()) {
+            return false;
+        }
+
+        return $ship;
     }
 }

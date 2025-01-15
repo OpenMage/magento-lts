@@ -26,11 +26,6 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
     public const AGGREGATION_MONTHLY = 'reports/viewed_aggregated_monthly';
     public const AGGREGATION_YEARLY  = 'reports/viewed_aggregated_yearly';
 
-    protected function _construct()
-    {
-        $this->_init(self::AGGREGATION_DAILY, 'id');
-    }
-
     /**
      * Aggregate products view data
      *
@@ -211,5 +206,10 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
         $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_PRODUCT_VIEWED_FLAG_CODE);
 
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init(self::AGGREGATION_DAILY, 'id');
     }
 }

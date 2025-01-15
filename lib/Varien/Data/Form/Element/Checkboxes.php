@@ -47,45 +47,6 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     }
 
     /**
-     * Prepare value list
-     *
-     * @return array
-     */
-    protected function _prepareValues()
-    {
-        $options = [];
-        $values  = [];
-
-        if ($this->getValues()) {
-            if (!is_array($this->getValues())) {
-                $options = [$this->getValues()];
-            } else {
-                $options = $this->getValues();
-            }
-        } elseif ($this->getOptions() && is_array($this->getOptions())) {
-            $options = $this->getOptions();
-        }
-        foreach ($options as $k => $v) {
-            if (is_string($v)) {
-                $values[] = [
-                    'label' => $v,
-                    'value' => $k,
-                ];
-            } elseif (isset($v['value'])) {
-                if (!isset($v['label'])) {
-                    $v['label'] = $v['value'];
-                }
-                $values[] = [
-                    'label' => $v['label'],
-                    'value' => $v['value'],
-                ];
-            }
-        }
-
-        return $values;
-    }
-
-    /**
      * Retrieve HTML
      *
      * @return string
@@ -174,6 +135,45 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
             return str_replace('$value', $value, $onchange);
         }
         return;
+    }
+
+    /**
+     * Prepare value list
+     *
+     * @return array
+     */
+    protected function _prepareValues()
+    {
+        $options = [];
+        $values  = [];
+
+        if ($this->getValues()) {
+            if (!is_array($this->getValues())) {
+                $options = [$this->getValues()];
+            } else {
+                $options = $this->getValues();
+            }
+        } elseif ($this->getOptions() && is_array($this->getOptions())) {
+            $options = $this->getOptions();
+        }
+        foreach ($options as $k => $v) {
+            if (is_string($v)) {
+                $values[] = [
+                    'label' => $v,
+                    'value' => $k,
+                ];
+            } elseif (isset($v['value'])) {
+                if (!isset($v['label'])) {
+                    $v['label'] = $v['value'];
+                }
+                $values[] = [
+                    'label' => $v['label'],
+                    'value' => $v['value'],
+                ];
+            }
+        }
+
+        return $values;
     }
 
     //    public function getName($value)

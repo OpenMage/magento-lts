@@ -22,6 +22,21 @@
  */
 class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * Get store ids to which specified item is assigned
+     *
+     * @param int $id
+     * @return array
+     */
+    public function lookupStoreIds($id)
+    {
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
+            ->from($this->getMainTable(), 'store_ids')
+            ->where("{$this->getIdFieldName()} = ?", (int) $id);
+        $storeIds = $adapter->fetchOne($select);
+        return $storeIds ? explode(',', $storeIds) : [];
+    }
     protected function _construct()
     {
         $this->_init('widget/widget_instance', 'instance_id');
@@ -246,21 +261,5 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
             );
         }
         return $this;
-    }
-
-    /**
-     * Get store ids to which specified item is assigned
-     *
-     * @param int $id
-     * @return array
-     */
-    public function lookupStoreIds($id)
-    {
-        $adapter = $this->_getReadAdapter();
-        $select = $adapter->select()
-            ->from($this->getMainTable(), 'store_ids')
-            ->where("{$this->getIdFieldName()} = ?", (int) $id);
-        $storeIds = $adapter->fetchOne($select);
-        return $storeIds ? explode(',', $storeIds) : [];
     }
 }

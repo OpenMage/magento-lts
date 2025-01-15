@@ -62,22 +62,6 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     protected $_retreivers = [];
 
     /**
-     * Retriever factory init, load retriever settings
-     *
-     */
-    protected function _construct()
-    {
-        $config = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
-        foreach ($config as $type => $data) {
-            if (isset($data['index_data_retreiver'])) {
-                $this->_retreivers[$type] = $data['index_data_retreiver'];
-            }
-        }
-
-        $this->_init('catalogindex/retreiver');
-    }
-
-    /**
      * Returns data retriever model by specified product type
      *
      * @param string $type
@@ -120,5 +104,21 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
             $result[$one['type']][] = $one['id'];
         }
         return $result;
+    }
+
+    /**
+     * Retriever factory init, load retriever settings
+     *
+     */
+    protected function _construct()
+    {
+        $config = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
+        foreach ($config as $type => $data) {
+            if (isset($data['index_data_retreiver'])) {
+                $this->_retreivers[$type] = $data['index_data_retreiver'];
+            }
+        }
+
+        $this->_init('catalogindex/retreiver');
     }
 }

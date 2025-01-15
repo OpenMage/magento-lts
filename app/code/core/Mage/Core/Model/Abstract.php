@@ -100,16 +100,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected $_isObjectNew     = null;
 
     /**
-     * Standard model initialization
-     *
-     * @param string $resourceModel
-     */
-    protected function _init($resourceModel)
-    {
-        $this->_setResourceModel($resourceModel);
-    }
-
-    /**
      * Get object loaded data (original data)
      *
      * @param string $key
@@ -152,42 +142,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $origData = $this->getOrigData($field);
 
         return $newData != $origData;
-    }
-
-    /**
-     * Set resource names
-     *
-     * If collection name is omitted, resource name will be used with _collection appended
-     *
-     * @param string $resourceName
-     * @param string|null $resourceCollectionName
-     */
-    protected function _setResourceModel($resourceName, $resourceCollectionName = null)
-    {
-        $this->_resourceName = $resourceName;
-        if (is_null($resourceCollectionName)) {
-            $resourceCollectionName = $resourceName . '_collection';
-        }
-        $this->_resourceCollectionName = $resourceCollectionName;
-    }
-
-    /**
-     * Get resource instance
-     *
-     * @return Mage_Core_Model_Resource_Db_Abstract|object
-     */
-    protected function _getResource()
-    {
-        if (empty($this->_resourceName)) {
-            Mage::throwException(Mage::helper('core')->__('Resource is not set.'));
-        }
-
-        $resource = Mage::getResourceSingleton($this->_resourceName);
-        if (!$resource) {
-            Mage::throwException(Mage::helper('core')->__('Resource "%s" is not found.', $this->_resourceName));
-        }
-
-        return $resource;
     }
 
     /**
@@ -291,47 +245,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * Get array of objects transferred to default events processing
-     *
-     * @return array
-     */
-    protected function _getEventData()
-    {
-        return [
-            'data_object'       => $this,
-            $this->_eventObject => $this,
-        ];
-    }
-
-    /**
-     * Processing object before load data
-     *
-     * @param int $id
-     * @param string|null $field
-     * @return $this
-     */
-    protected function _beforeLoad($id, $field = null)
-    {
-        $params = ['object' => $this, 'field' => $field, 'value' => $id];
-        Mage::dispatchEvent('model_load_before', $params);
-        $params = array_merge($params, $this->_getEventData());
-        Mage::dispatchEvent($this->_eventPrefix . '_load_before', $params);
-        return $this;
-    }
-
-    /**
-     * Processing object after load data
-     *
-     * @return $this
-     */
-    protected function _afterLoad()
-    {
-        Mage::dispatchEvent('model_load_after', ['object' => $this]);
-        Mage::dispatchEvent($this->_eventPrefix . '_load_after', $this->_getEventData());
-        return $this;
-    }
-
-    /**
      * Object after load processing. Implemented as public interface for supporting objects after load in collections
      *
      * @return $this
@@ -341,18 +254,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $this->getResource()->afterLoad($this);
         $this->_afterLoad();
         return $this;
-    }
-
-    /**
-     * Check whether model has changed data.
-     * Can be overloaded in child classes to perform advanced check whether model needs to be saved
-     * e.g. using resourceModel->hasDataChanged() or any other technique
-     *
-     * @return bool
-     */
-    protected function _hasModelChanged()
-    {
-        return $this->hasDataChanges();
     }
 
     /**
@@ -423,21 +324,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * Processing object before save data
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        if (!$this->getId()) {
-            $this->isObjectNew(true);
-        }
-        Mage::dispatchEvent('model_save_before', ['object' => $this]);
-        Mage::dispatchEvent($this->_eventPrefix . '_save_before', $this->_getEventData());
-        return $this;
-    }
-
-    /**
      * Get list of cache tags applied to model object.
      * Return false if cache tags are not supported by model
      *
@@ -500,18 +386,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * Processing object after save data
-     *
-     * @return $this
-     */
-    protected function _afterSave()
-    {
-        Mage::dispatchEvent('model_save_after', ['object' => $this]);
-        Mage::dispatchEvent($this->_eventPrefix . '_save_after', $this->_getEventData());
-        return $this;
-    }
-
-    /**
      * Delete object from database
      *
      * @return $this
@@ -531,6 +405,168 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             throw $e;
         }
         $this->_afterDeleteCommit();
+        return $this;
+    }
+
+    /**
+     * Retrieve model resource
+     *
+     * @return Mage_Core_Model_Resource_Db_Abstract
+     */
+    public function getResource()
+    {
+        return $this->_getResource();
+    }
+
+    /**
+     * @return int
+     */
+    public function getEntityId()
+    {
+        return $this->_getData('entity_id');
+    }
+
+    /**
+     * Clearing object for correct deleting by garbage collector
+     *
+     * @return $this
+     */
+    final public function clearInstance()
+    {
+        $this->_clearReferences();
+        Mage::dispatchEvent($this->_eventPrefix . '_clear', $this->_getEventData());
+        $this->_clearData();
+        return $this;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
+
+    /**
+     * Standard model initialization
+     *
+     * @param string $resourceModel
+     */
+    protected function _init($resourceModel)
+    {
+        $this->_setResourceModel($resourceModel);
+    }
+
+    /**
+     * Set resource names
+     *
+     * If collection name is omitted, resource name will be used with _collection appended
+     *
+     * @param string $resourceName
+     * @param string|null $resourceCollectionName
+     */
+    protected function _setResourceModel($resourceName, $resourceCollectionName = null)
+    {
+        $this->_resourceName = $resourceName;
+        if (is_null($resourceCollectionName)) {
+            $resourceCollectionName = $resourceName . '_collection';
+        }
+        $this->_resourceCollectionName = $resourceCollectionName;
+    }
+
+    /**
+     * Get resource instance
+     *
+     * @return Mage_Core_Model_Resource_Db_Abstract|object
+     */
+    protected function _getResource()
+    {
+        if (empty($this->_resourceName)) {
+            Mage::throwException(Mage::helper('core')->__('Resource is not set.'));
+        }
+
+        $resource = Mage::getResourceSingleton($this->_resourceName);
+        if (!$resource) {
+            Mage::throwException(Mage::helper('core')->__('Resource "%s" is not found.', $this->_resourceName));
+        }
+
+        return $resource;
+    }
+
+    /**
+     * Get array of objects transferred to default events processing
+     *
+     * @return array
+     */
+    protected function _getEventData()
+    {
+        return [
+            'data_object'       => $this,
+            $this->_eventObject => $this,
+        ];
+    }
+
+    /**
+     * Processing object before load data
+     *
+     * @param int $id
+     * @param string|null $field
+     * @return $this
+     */
+    protected function _beforeLoad($id, $field = null)
+    {
+        $params = ['object' => $this, 'field' => $field, 'value' => $id];
+        Mage::dispatchEvent('model_load_before', $params);
+        $params = array_merge($params, $this->_getEventData());
+        Mage::dispatchEvent($this->_eventPrefix . '_load_before', $params);
+        return $this;
+    }
+
+    /**
+     * Processing object after load data
+     *
+     * @return $this
+     */
+    protected function _afterLoad()
+    {
+        Mage::dispatchEvent('model_load_after', ['object' => $this]);
+        Mage::dispatchEvent($this->_eventPrefix . '_load_after', $this->_getEventData());
+        return $this;
+    }
+
+    /**
+     * Check whether model has changed data.
+     * Can be overloaded in child classes to perform advanced check whether model needs to be saved
+     * e.g. using resourceModel->hasDataChanged() or any other technique
+     *
+     * @return bool
+     */
+    protected function _hasModelChanged()
+    {
+        return $this->hasDataChanges();
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        if (!$this->getId()) {
+            $this->isObjectNew(true);
+        }
+        Mage::dispatchEvent('model_save_before', ['object' => $this]);
+        Mage::dispatchEvent($this->_eventPrefix . '_save_before', $this->_getEventData());
+        return $this;
+    }
+
+    /**
+     * Processing object after save data
+     *
+     * @return $this
+     */
+    protected function _afterSave()
+    {
+        Mage::dispatchEvent('model_save_after', ['object' => $this]);
+        Mage::dispatchEvent($this->_eventPrefix . '_save_after', $this->_getEventData());
         return $this;
     }
 
@@ -587,37 +623,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * Retrieve model resource
-     *
-     * @return Mage_Core_Model_Resource_Db_Abstract
-     */
-    public function getResource()
-    {
-        return $this->_getResource();
-    }
-
-    /**
-     * @return int
-     */
-    public function getEntityId()
-    {
-        return $this->_getData('entity_id');
-    }
-
-    /**
-     * Clearing object for correct deleting by garbage collector
-     *
-     * @return $this
-     */
-    final public function clearInstance()
-    {
-        $this->_clearReferences();
-        Mage::dispatchEvent($this->_eventPrefix . '_clear', $this->_getEventData());
-        $this->_clearData();
-        return $this;
-    }
-
-    /**
      * Clearing cyclic references
      *
      * @return $this
@@ -635,10 +640,5 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _clearData()
     {
         return $this;
-    }
-
-    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
-    {
-        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

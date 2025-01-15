@@ -28,32 +28,6 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
      */
     public const ADMIN_RESOURCE = 'admin/system/convert/profiles';
 
-    protected function _initProfile($idFieldName = 'id')
-    {
-        $this->_title($this->__('System'))
-             ->_title($this->__('Import and Export'))
-             ->_title($this->__('Profiles'));
-
-        $profileId = (int) $this->getRequest()->getParam($idFieldName);
-        $profile = Mage::getModel('dataflow/profile');
-
-        if ($profileId) {
-            $profile->load($profileId);
-            if (!$profile->getId()) {
-                Mage::getSingleton('adminhtml/session')->addError(
-                    $this->__('The profile you are trying to save no longer exists'),
-                );
-                $this->_redirect('*/*');
-                return false;
-            }
-        }
-
-        $profile->setAdminUserId(Mage::getSingleton('admin/session')->getUser()->getId());
-        Mage::register('current_convert_profile', $profile);
-
-        return $this;
-    }
-
     /**
      * Profiles list action
      */
@@ -311,5 +285,31 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit_tab_history')->toHtml(),
         );
+    }
+
+    protected function _initProfile($idFieldName = 'id')
+    {
+        $this->_title($this->__('System'))
+             ->_title($this->__('Import and Export'))
+             ->_title($this->__('Profiles'));
+
+        $profileId = (int) $this->getRequest()->getParam($idFieldName);
+        $profile = Mage::getModel('dataflow/profile');
+
+        if ($profileId) {
+            $profile->load($profileId);
+            if (!$profile->getId()) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    $this->__('The profile you are trying to save no longer exists'),
+                );
+                $this->_redirect('*/*');
+                return false;
+            }
+        }
+
+        $profile->setAdminUserId(Mage::getSingleton('admin/session')->getUser()->getId());
+        Mage::register('current_convert_profile', $profile);
+
+        return $this;
     }
 }

@@ -87,16 +87,6 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
     }
 
     /**
-     * Retrieve Catalog Product Flat Indexer model
-     *
-     * @return Mage_Catalog_Model_Product_Flat_Indexer
-     */
-    protected function _getIndexer()
-    {
-        return Mage::getSingleton('catalog/product_flat_indexer');
-    }
-
-    /**
      * Check if event can be matched by process
      * Overwrote for check is flat catalog product is enabled and specific save
      * attribute, store, store_group
@@ -172,6 +162,25 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
         $event->addNewData(self::EVENT_MATCH_RESULT_KEY, $result);
 
         return $result;
+    }
+
+    /**
+     * Rebuild all index data
+     *
+     */
+    public function reindexAll()
+    {
+        $this->_getIndexer()->reindexAll();
+    }
+
+    /**
+     * Retrieve Catalog Product Flat Indexer model
+     *
+     * @return Mage_Catalog_Model_Product_Flat_Indexer
+     */
+    protected function _getIndexer()
+    {
+        return Mage::getSingleton('catalog/product_flat_indexer');
     }
 
     /**
@@ -327,15 +336,6 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
         } elseif (!empty($data['catalog_product_flat_delete_store_id'])) {
             $this->_getIndexer()->deleteStore($data['catalog_product_flat_delete_store_id']);
         }
-    }
-
-    /**
-     * Rebuild all index data
-     *
-     */
-    public function reindexAll()
-    {
-        $this->_getIndexer()->reindexAll();
     }
 
     /**

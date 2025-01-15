@@ -22,11 +22,6 @@
  */
 class Mage_CatalogIndex_Model_Resource_Retreiver extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product', 'entity_id');
-    }
-
     /**
      * Return id-type pairs
      *
@@ -39,5 +34,9 @@ class Mage_CatalogIndex_Model_Resource_Retreiver extends Mage_Core_Model_Resourc
             ->from(['main_table' => $this->getTable('catalog/product')], ['id' => 'main_table.entity_id', 'type' => 'main_table.type_id'])
             ->where('main_table.entity_id in (?)', $ids);
         return $this->_getReadAdapter()->fetchAll($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product', 'entity_id');
     }
 }

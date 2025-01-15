@@ -84,86 +84,6 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     }
 
     /**
-     * Prepare custom option data for saving by model. Used for custom option add and update
-     *
-     * @param array $data
-     * @param string $groupType
-     */
-    protected function _prepareAdditionalFields(&$data, $groupType)
-    {
-        if (is_array($data['additional_fields'])) {
-            if ($groupType != Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
-                // reset can be used as there should be the only
-                // element in 'additional_fields' for options of all types except those from Select group
-                $field = reset($data['additional_fields']);
-                if (!(is_array($field) && count($field))) {
-                    $this->_fault('invalid_data');
-                } else {
-                    foreach ($field as $key => $value) {
-                        $data[$key] = $value;
-                    }
-                }
-            } else {
-                // convert Select rows array to appropriate format for saving in the model
-                foreach ($data['additional_fields'] as $row) {
-                    if (!(is_array($row) && count($row))) {
-                        $this->_fault('invalid_data');
-                    } else {
-                        foreach ($row as $key => $value) {
-                            $row[$key] = Mage::helper('catalog')->stripTags($value);
-                        }
-                        if (!empty($row['value_id'])) {
-                            // map 'value_id' to 'option_type_id'
-                            $row['option_type_id'] = $row['value_id'];
-                            unset($row['value_id']);
-                            $data['values'][$row['option_type_id']] = $row;
-                        } else {
-                            $data['values'][] = $row;
-                        }
-                    }
-                }
-            }
-        }
-        unset($data['additional_fields']);
-    }
-
-    /**
-     * Save product custom option data. Used for custom option add and update.
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $data
-     */
-    protected function _saveProductCustomOption($product, $data)
-    {
-        foreach ($data as $key => $value) {
-            if (is_string($value)) {
-                $data[$key] = Mage::helper('catalog')->stripTags($value);
-            }
-        }
-
-        try {
-            if (!$product->getOptionsReadonly()) {
-                $product
-                    ->getOptionInstance()
-                    ->setOptions([$data]);
-
-                $product->setHasOptions(true);
-
-                // an empty request can be set as event parameter
-                // because it is not used for options changing in observers
-                Mage::dispatchEvent(
-                    'catalog_product_prepare_save',
-                    ['product' => $product, 'request' => new Mage_Core_Controller_Request_Http()],
-                );
-
-                $product->save();
-            }
-        } catch (Exception $e) {
-            $this->_fault('save_option_error', $e->getMessage());
-        }
-    }
-
-    /**
      * Read list of possible custom option types from module config
      *
      * @return array
@@ -292,6 +212,86 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             $this->_fault('delete_option_error');
         }
         return true;
+    }
+
+    /**
+     * Prepare custom option data for saving by model. Used for custom option add and update
+     *
+     * @param array $data
+     * @param string $groupType
+     */
+    protected function _prepareAdditionalFields(&$data, $groupType)
+    {
+        if (is_array($data['additional_fields'])) {
+            if ($groupType != Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
+                // reset can be used as there should be the only
+                // element in 'additional_fields' for options of all types except those from Select group
+                $field = reset($data['additional_fields']);
+                if (!(is_array($field) && count($field))) {
+                    $this->_fault('invalid_data');
+                } else {
+                    foreach ($field as $key => $value) {
+                        $data[$key] = $value;
+                    }
+                }
+            } else {
+                // convert Select rows array to appropriate format for saving in the model
+                foreach ($data['additional_fields'] as $row) {
+                    if (!(is_array($row) && count($row))) {
+                        $this->_fault('invalid_data');
+                    } else {
+                        foreach ($row as $key => $value) {
+                            $row[$key] = Mage::helper('catalog')->stripTags($value);
+                        }
+                        if (!empty($row['value_id'])) {
+                            // map 'value_id' to 'option_type_id'
+                            $row['option_type_id'] = $row['value_id'];
+                            unset($row['value_id']);
+                            $data['values'][$row['option_type_id']] = $row;
+                        } else {
+                            $data['values'][] = $row;
+                        }
+                    }
+                }
+            }
+        }
+        unset($data['additional_fields']);
+    }
+
+    /**
+     * Save product custom option data. Used for custom option add and update.
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $data
+     */
+    protected function _saveProductCustomOption($product, $data)
+    {
+        foreach ($data as $key => $value) {
+            if (is_string($value)) {
+                $data[$key] = Mage::helper('catalog')->stripTags($value);
+            }
+        }
+
+        try {
+            if (!$product->getOptionsReadonly()) {
+                $product
+                    ->getOptionInstance()
+                    ->setOptions([$data]);
+
+                $product->setHasOptions(true);
+
+                // an empty request can be set as event parameter
+                // because it is not used for options changing in observers
+                Mage::dispatchEvent(
+                    'catalog_product_prepare_save',
+                    ['product' => $product, 'request' => new Mage_Core_Controller_Request_Http()],
+                );
+
+                $product->save();
+            }
+        } catch (Exception $e) {
+            $this->_fault('save_option_error', $e->getMessage());
+        }
     }
 
     /**

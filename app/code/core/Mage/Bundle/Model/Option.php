@@ -50,12 +50,6 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
      */
     protected $_defaultSelection = null;
 
-    protected function _construct()
-    {
-        $this->_init('bundle/option');
-        parent::_construct();
-    }
-
     /**
      * Add selection to option
      *
@@ -171,5 +165,11 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
         }
 
         return $i == -1 ? false : $selections[$i];
+    }
+
+    protected function _construct()
+    {
+        $this->_init('bundle/option');
+        parent::_construct();
     }
 }

@@ -22,27 +22,6 @@
 class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Check is allowed access
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')
-            ->isAllowed('newsletter/template');
-    }
-
-    /**
-     * Set title of page
-     *
-     * @return $this
-     */
-    protected function _setTitle()
-    {
-        return $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Templates'));
-    }
-
-    /**
      * View Templates list
      *
      */
@@ -245,5 +224,25 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
     {
         $this->_setForcedFormKeyActions('delete');
         return parent::preDispatch();
+    }
+    /**
+     * Check is allowed access
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')
+            ->isAllowed('newsletter/template');
+    }
+
+    /**
+     * Set title of page
+     *
+     * @return $this
+     */
+    protected function _setTitle()
+    {
+        return $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Templates'));
     }
 }

@@ -24,6 +24,19 @@ class Mage_Admin_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abs
 {
     public const CACHE_ID = 'permission_variable';
 
+    /**
+     * Get allowed types
+     */
+    public function getAllowedPaths()
+    {
+        $data = Mage::app()->getCacheInstance()->load(self::CACHE_ID);
+        if ($data === false) {
+            $this->_generateCache();
+            $data = Mage::app()->getCacheInstance()->load(self::CACHE_ID);
+        }
+        return Mage::helper('core')->jsonDecode($data);
+    }
+
     protected function _construct()
     {
         $this->_init('admin/permission_variable', 'variable_id');
@@ -41,19 +54,6 @@ class Mage_Admin_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abs
             self::CACHE_ID,
             [Mage_Core_Model_Resource_Db_Collection_Abstract::CACHE_TAG],
         );
-    }
-
-    /**
-     * Get allowed types
-     */
-    public function getAllowedPaths()
-    {
-        $data = Mage::app()->getCacheInstance()->load(self::CACHE_ID);
-        if ($data === false) {
-            $this->_generateCache();
-            $data = Mage::app()->getCacheInstance()->load(self::CACHE_ID);
-        }
-        return Mage::helper('core')->jsonDecode($data);
     }
 
     /**

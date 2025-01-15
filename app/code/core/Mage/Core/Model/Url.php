@@ -150,14 +150,6 @@ class Mage_Core_Model_Url extends Varien_Object
     protected $_useSession;
 
     /**
-     * Initialize object
-     */
-    protected function _construct()
-    {
-        $this->setStore(null);
-    }
-
-    /**
      * Initialize object data from retrieved url
      *
      * @param   string $url
@@ -1020,55 +1012,6 @@ class Mage_Core_Model_Url extends Varien_Object
     }
 
     /**
-     * Return singleton model instance
-     *
-     * @param string $name
-     * @param array $arguments
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _getSingletonModel($name, $arguments = [])
-    {
-        return Mage::getSingleton($name, $arguments);
-    }
-
-    /**
-     * Check and add session id to URL
-     *
-     * @param string $url
-     *
-     * @return $this
-     */
-    protected function _prepareSessionUrl($url)
-    {
-        return $this->_prepareSessionUrlWithParams($url, []);
-    }
-
-    /**
-     * Check and add session id to URL, session is obtained with parameters
-     *
-     * @param string $url
-     *
-     * @return $this
-     */
-    protected function _prepareSessionUrlWithParams($url, array $params)
-    {
-        if (!$this->getUseSession()) {
-            return $this;
-        }
-
-        /** @var Mage_Core_Model_Session $session */
-        $session = Mage::getSingleton('core/session', $params);
-
-        $sessionId = $session->getSessionIdForHost($url);
-        if (Mage::app()->getUseSessionVar() && !$sessionId) {
-            $this->setQueryParam('___SID', $this->getSecure() ? 'S' : 'U'); // Secure/Unsecure
-        } elseif ($sessionId) {
-            $this->setQueryParam($session->getSessionIdQueryParam(), $sessionId);
-        }
-        return $this;
-    }
-
-    /**
      * Rebuild URL to handle the case when session ID was changed
      *
      * @param string $url
@@ -1244,5 +1187,62 @@ class Mage_Core_Model_Url extends Varien_Object
         }
 
         return $url;
+    }
+
+    /**
+     * Initialize object
+     */
+    protected function _construct()
+    {
+        $this->setStore(null);
+    }
+
+    /**
+     * Return singleton model instance
+     *
+     * @param string $name
+     * @param array $arguments
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _getSingletonModel($name, $arguments = [])
+    {
+        return Mage::getSingleton($name, $arguments);
+    }
+
+    /**
+     * Check and add session id to URL
+     *
+     * @param string $url
+     *
+     * @return $this
+     */
+    protected function _prepareSessionUrl($url)
+    {
+        return $this->_prepareSessionUrlWithParams($url, []);
+    }
+
+    /**
+     * Check and add session id to URL, session is obtained with parameters
+     *
+     * @param string $url
+     *
+     * @return $this
+     */
+    protected function _prepareSessionUrlWithParams($url, array $params)
+    {
+        if (!$this->getUseSession()) {
+            return $this;
+        }
+
+        /** @var Mage_Core_Model_Session $session */
+        $session = Mage::getSingleton('core/session', $params);
+
+        $sessionId = $session->getSessionIdForHost($url);
+        if (Mage::app()->getUseSessionVar() && !$sessionId) {
+            $this->setQueryParam('___SID', $this->getSecure() ? 'S' : 'U'); // Secure/Unsecure
+        } elseif ($sessionId) {
+            $this->setQueryParam($session->getSessionIdQueryParam(), $sessionId);
+        }
+        return $this;
     }
 }

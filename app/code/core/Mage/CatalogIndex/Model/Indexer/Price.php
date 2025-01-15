@@ -45,12 +45,6 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
     protected $_customerGroups = [];
     protected $_processChildrenForConfigurable = false;
 
-    protected function _construct()
-    {
-        $this->_init('catalogindex/indexer_price');
-        $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
-    }
-
     /**
      * @return array
      */
@@ -77,6 +71,12 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         }
 
         return $data;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalogindex/indexer_price');
+        $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
     }
 
     /**

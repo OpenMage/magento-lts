@@ -37,15 +37,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     protected $_indexers;
 
     /**
-     * Define main index table
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/product_index_price', 'entity_id');
-    }
-
-    /**
      * Retrieve parent ids and types by child id
      * Return array with key product_id and value as product type id
      *
@@ -94,38 +85,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         }
 
         $this->_copyIndexDataToMainTable($parentIds);
-
-        return $this;
-    }
-
-    /**
-     * Copy data from temporary index table to main table by defined ids
-     *
-     * @param array $processIds
-     * @return $this
-     * @throws Exception
-     */
-    protected function _copyIndexDataToMainTable($processIds)
-    {
-        $write = $this->_getWriteAdapter();
-        $this->beginTransaction();
-        try {
-            // remove old index
-            $where = $write->quoteInto('entity_id IN(?)', $processIds);
-            $write->delete($this->getMainTable(), $where);
-
-            // remove additional data from index
-            $where = $write->quoteInto('entity_id NOT IN(?)', $processIds);
-            $write->delete($this->getIdxTable(), $where);
-
-            // insert new index
-            $this->insertFromTable($this->getIdxTable(), $this->getMainTable());
-
-            $this->commit();
-        } catch (Exception $e) {
-            $this->rollBack();
-            throw $e;
-        }
 
         return $this;
     }
@@ -307,22 +266,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     }
 
     /**
-     * Retrieve Price indexer by Product Type
-     *
-     * @param string $productTypeId
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
-     * @throws Mage_Core_Exception
-     */
-    protected function _getIndexer($productTypeId)
-    {
-        $types = $this->getTypeIndexers();
-        if (!isset($types[$productTypeId])) {
-            Mage::throwException(Mage::helper('catalog')->__('Unsupported product type "%s".', $productTypeId));
-        }
-        return $types[$productTypeId];
-    }
-
-    /**
      * Retrieve price indexers per product type
      *
      * @return array
@@ -374,6 +317,77 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             throw $e;
         }
         return $this;
+    }
+
+    /**
+     * Retrieve temporary index table name
+     *
+     * @param string $table
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/product_price_indexer_idx');
+        }
+        return $this->getTable('catalog/product_price_indexer_tmp');
+    }
+
+    /**
+     * Define main index table
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product_index_price', 'entity_id');
+    }
+
+    /**
+     * Copy data from temporary index table to main table by defined ids
+     *
+     * @param array $processIds
+     * @return $this
+     * @throws Exception
+     */
+    protected function _copyIndexDataToMainTable($processIds)
+    {
+        $write = $this->_getWriteAdapter();
+        $this->beginTransaction();
+        try {
+            // remove old index
+            $where = $write->quoteInto('entity_id IN(?)', $processIds);
+            $write->delete($this->getMainTable(), $where);
+
+            // remove additional data from index
+            $where = $write->quoteInto('entity_id NOT IN(?)', $processIds);
+            $write->delete($this->getIdxTable(), $where);
+
+            // insert new index
+            $this->insertFromTable($this->getIdxTable(), $this->getMainTable());
+
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Retrieve Price indexer by Product Type
+     *
+     * @param string $productTypeId
+     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface
+     * @throws Mage_Core_Exception
+     */
+    protected function _getIndexer($productTypeId)
+    {
+        $types = $this->getTypeIndexers();
+        if (!isset($types[$productTypeId])) {
+            Mage::throwException(Mage::helper('catalog')->__('Unsupported product type "%s".', $productTypeId));
+        }
+        return $types[$productTypeId];
     }
 
     /**
@@ -594,19 +608,5 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         }
 
         return $this;
-    }
-
-    /**
-     * Retrieve temporary index table name
-     *
-     * @param string $table
-     * @return string
-     */
-    public function getIdxTable($table = null)
-    {
-        if ($this->useIdxTable()) {
-            return $this->getTable('catalog/product_price_indexer_idx');
-        }
-        return $this->getTable('catalog/product_price_indexer_tmp');
     }
 }

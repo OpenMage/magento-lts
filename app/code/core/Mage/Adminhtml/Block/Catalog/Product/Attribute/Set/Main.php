@@ -23,100 +23,6 @@
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Initialize template
-     */
-    protected function _construct()
-    {
-        $this->setTemplate('catalog/product/attribute/set/main.phtml');
-    }
-
-    /**
-     * Prepare Global Layout
-     *
-     * @return $this
-     */
-    protected function _prepareLayout()
-    {
-        $setId = $this->_getSetId();
-
-        $this->setChild(
-            'group_tree',
-            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_tree_group'),
-        );
-
-        $this->setChild(
-            'edit_set_form',
-            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset'),
-        );
-
-        $this->setChild(
-            'delete_group_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('catalog')->__('Delete Selected Group'),
-                'onclick'   => 'editSet.submit();',
-                'class'     => 'delete',
-            ]),
-        );
-
-        $this->setChild(
-            'add_group_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('catalog')->__('Add New'),
-                'onclick'   => 'editSet.addGroup();',
-                'class'     => 'add',
-            ]),
-        );
-
-        $this->setChild(
-            'back_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('catalog')->__('Back'),
-                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
-                'class'     => 'back',
-            ]),
-        );
-
-        $this->setChild(
-            'reset_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('catalog')->__('Reset'),
-                'onclick'   => 'window.location.reload()',
-            ]),
-        );
-
-        $this->setChild(
-            'save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('catalog')->__('Save Attribute Set'),
-                'onclick'   => 'editSet.save();',
-                'class'     => 'save',
-            ]),
-        );
-
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('catalog')->__('Delete Attribute Set'),
-                'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs(
-                    $this->getUrlSecure('*/*/delete', ['id' => $setId]),
-                    Mage::helper('catalog')->__('All products of this set will be deleted! Are you sure you want to delete this attribute set?'),
-                ),
-                'class'     => 'delete',
-            ]),
-        );
-
-        $this->setChild(
-            'rename_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
-                'label'     => Mage::helper('catalog')->__('New Set Name'),
-                'onclick'   => 'editSet.rename()',
-            ]),
-        );
-
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Retrieve Attribute Set Group Tree HTML
      *
      * @return string
@@ -134,16 +40,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
     public function getSetFormHtml()
     {
         return $this->getChildHtml('edit_set_form');
-    }
-
-    /**
-     * Retrieve Block Header Text
-     *
-     * @return string
-     */
-    protected function _getHeader()
-    {
-        return Mage::helper('catalog')->__("Edit Attribute Set '%s'", $this->_getAttributeSet()->getAttributeSetName());
     }
 
     /**
@@ -356,6 +252,127 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
     }
 
     /**
+     * Check Current Attribute Set is a default
+     *
+     * @return bool
+     */
+    public function getIsCurrentSetDefault()
+    {
+        $isDefault = $this->getData('is_current_set_default');
+        if (is_null($isDefault)) {
+            $defaultSetId = Mage::getSingleton('eav/config')
+                ->getEntityType(Mage::registry('entityType'))
+                ->getDefaultAttributeSetId();
+            $isDefault = $this->_getSetId() == $defaultSetId;
+            $this->setData('is_current_set_default', $isDefault);
+        }
+        return $isDefault;
+    }
+    /**
+     * Initialize template
+     */
+    protected function _construct()
+    {
+        $this->setTemplate('catalog/product/attribute/set/main.phtml');
+    }
+
+    /**
+     * Prepare Global Layout
+     *
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        $setId = $this->_getSetId();
+
+        $this->setChild(
+            'group_tree',
+            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_tree_group'),
+        );
+
+        $this->setChild(
+            'edit_set_form',
+            $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main_formset'),
+        );
+
+        $this->setChild(
+            'delete_group_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'label'     => Mage::helper('catalog')->__('Delete Selected Group'),
+                'onclick'   => 'editSet.submit();',
+                'class'     => 'delete',
+            ]),
+        );
+
+        $this->setChild(
+            'add_group_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'label'     => Mage::helper('catalog')->__('Add New'),
+                'onclick'   => 'editSet.addGroup();',
+                'class'     => 'add',
+            ]),
+        );
+
+        $this->setChild(
+            'back_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'label'     => Mage::helper('catalog')->__('Back'),
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/')),
+                'class'     => 'back',
+            ]),
+        );
+
+        $this->setChild(
+            'reset_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'label'     => Mage::helper('catalog')->__('Reset'),
+                'onclick'   => 'window.location.reload()',
+            ]),
+        );
+
+        $this->setChild(
+            'save_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'label'     => Mage::helper('catalog')->__('Save Attribute Set'),
+                'onclick'   => 'editSet.save();',
+                'class'     => 'save',
+            ]),
+        );
+
+        $this->setChild(
+            'delete_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'label'     => Mage::helper('catalog')->__('Delete Attribute Set'),
+                'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs(
+                    $this->getUrlSecure('*/*/delete', ['id' => $setId]),
+                    Mage::helper('catalog')->__('All products of this set will be deleted! Are you sure you want to delete this attribute set?'),
+                ),
+                'class'     => 'delete',
+            ]),
+        );
+
+        $this->setChild(
+            'rename_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
+                'label'     => Mage::helper('catalog')->__('New Set Name'),
+                'onclick'   => 'editSet.rename()',
+            ]),
+        );
+
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * Retrieve Block Header Text
+     *
+     * @return string
+     */
+    protected function _getHeader()
+    {
+        return Mage::helper('catalog')->__("Edit Attribute Set '%s'", $this->_getAttributeSet()->getAttributeSetName());
+    }
+
+    /**
      * Retrieve current Attribute Set object
      *
      * @return Mage_Eav_Model_Entity_Attribute_Set
@@ -373,24 +390,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
     protected function _getSetId()
     {
         return $this->_getAttributeSet()->getId();
-    }
-
-    /**
-     * Check Current Attribute Set is a default
-     *
-     * @return bool
-     */
-    public function getIsCurrentSetDefault()
-    {
-        $isDefault = $this->getData('is_current_set_default');
-        if (is_null($isDefault)) {
-            $defaultSetId = Mage::getSingleton('eav/config')
-                ->getEntityType(Mage::registry('entityType'))
-                ->getDefaultAttributeSetId();
-            $isDefault = $this->_getSetId() == $defaultSetId;
-            $this->setData('is_current_set_default', $isDefault);
-        }
-        return $isDefault;
     }
 
     /**

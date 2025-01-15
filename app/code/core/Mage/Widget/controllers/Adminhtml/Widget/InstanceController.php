@@ -29,69 +29,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     public const ADMIN_RESOURCE = 'cms/widget_instance';
 
     /**
-     * Session getter
-     *
-     * @return Mage_Adminhtml_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('adminhtml/session');
-    }
-
-    /**
-     * Load layout, set active menu and breadcrumbs
-     *
-     * @return $this
-     */
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('cms/widget_instance')
-            ->_addBreadcrumb(
-                Mage::helper('widget')->__('CMS'),
-                Mage::helper('widget')->__('CMS'),
-            )
-            ->_addBreadcrumb(
-                Mage::helper('widget')->__('Manage Widget Instances'),
-                Mage::helper('widget')->__('Manage Widget Instances'),
-            );
-        return $this;
-    }
-
-    /**
-     * Init widget instance object and set it to registry
-     *
-     * @return Mage_Widget_Model_Widget_Instance|bool
-     * @throws Mage_Core_Exception
-     */
-    protected function _initWidgetInstance()
-    {
-        $this->_title($this->__('CMS'))->_title($this->__('Widgets'));
-
-        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
-        $widgetInstance = Mage::getModel('widget/widget_instance');
-
-        $instanceId = $this->getRequest()->getParam('instance_id', null);
-        $type       = $this->getRequest()->getParam('type', null);
-        $package    = $this->getRequest()->getParam('package', null);
-        $theme      = $this->getRequest()->getParam('theme', null);
-
-        if ($instanceId) {
-            $widgetInstance->load($instanceId);
-            if (!$widgetInstance->getId()) {
-                $this->_getSession()->addError(Mage::helper('widget')->__('Wrong widget instance specified.'));
-                return false;
-            }
-        } else {
-            $packageTheme = $package . '/' . $theme == '/' ? null : $package . '/' . $theme;
-            $widgetInstance->setType($type)
-                ->setPackageTheme($packageTheme);
-        }
-        Mage::register('current_widget_instance', $widgetInstance);
-        return $widgetInstance;
-    }
-
-    /**
      * Widget Instances Grid
      */
     public function indexAction()
@@ -125,17 +62,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
         $this->_initAction();
         $this->renderLayout();
-    }
-
-    /**
-     * Set body to response
-     *
-     * @param string $body
-     */
-    private function setBody($body)
-    {
-        Mage::getSingleton('core/translate_inline')->processResponseBody($body);
-        $this->getResponse()->setBody($body);
     }
 
     /**
@@ -298,6 +224,69 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     }
 
     /**
+     * Session getter
+     *
+     * @return Mage_Adminhtml_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('adminhtml/session');
+    }
+
+    /**
+     * Load layout, set active menu and breadcrumbs
+     *
+     * @return $this
+     */
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('cms/widget_instance')
+            ->_addBreadcrumb(
+                Mage::helper('widget')->__('CMS'),
+                Mage::helper('widget')->__('CMS'),
+            )
+            ->_addBreadcrumb(
+                Mage::helper('widget')->__('Manage Widget Instances'),
+                Mage::helper('widget')->__('Manage Widget Instances'),
+            );
+        return $this;
+    }
+
+    /**
+     * Init widget instance object and set it to registry
+     *
+     * @return Mage_Widget_Model_Widget_Instance|bool
+     * @throws Mage_Core_Exception
+     */
+    protected function _initWidgetInstance()
+    {
+        $this->_title($this->__('CMS'))->_title($this->__('Widgets'));
+
+        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
+        $widgetInstance = Mage::getModel('widget/widget_instance');
+
+        $instanceId = $this->getRequest()->getParam('instance_id', null);
+        $type       = $this->getRequest()->getParam('type', null);
+        $package    = $this->getRequest()->getParam('package', null);
+        $theme      = $this->getRequest()->getParam('theme', null);
+
+        if ($instanceId) {
+            $widgetInstance->load($instanceId);
+            if (!$widgetInstance->getId()) {
+                $this->_getSession()->addError(Mage::helper('widget')->__('Wrong widget instance specified.'));
+                return false;
+            }
+        } else {
+            $packageTheme = $package . '/' . $theme == '/' ? null : $package . '/' . $theme;
+            $widgetInstance->setType($type)
+                ->setPackageTheme($packageTheme);
+        }
+        Mage::register('current_widget_instance', $widgetInstance);
+        return $widgetInstance;
+    }
+
+    /**
      * Prepare widget parameters
      *
      * @return array
@@ -351,5 +340,16 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             }
         }
         return $errorNo;
+    }
+
+    /**
+     * Set body to response
+     *
+     * @param string $body
+     */
+    private function setBody($body)
+    {
+        Mage::getSingleton('core/translate_inline')->processResponseBody($body);
+        $this->getResponse()->setBody($body);
     }
 }

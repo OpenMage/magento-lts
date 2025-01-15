@@ -83,16 +83,6 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
     public function destruct() {}
 
     /**
-     * Method called as last step of object instance creation. Can be overridden in child classes.
-     *
-     * @return Mage_ImportExport_Model_Export_Adapter_Abstract
-     */
-    protected function _init()
-    {
-        return $this;
-    }
-
-    /**
      * Get contents of export file.
      *
      * @return string
@@ -167,4 +157,14 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
      * @return Mage_ImportExport_Model_Export_Adapter_Abstract
      */
     abstract public function writeRow(array $rowData);
+
+    /**
+     * Method called as last step of object instance creation. Can be overridden in child classes.
+     *
+     * @return Mage_ImportExport_Model_Export_Adapter_Abstract
+     */
+    protected function _init()
+    {
+        return $this;
+    }
 }

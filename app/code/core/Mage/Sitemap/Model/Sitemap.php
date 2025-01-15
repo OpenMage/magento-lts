@@ -46,68 +46,6 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
     protected $_filePath;
 
     /**
-     * Init model
-     */
-    protected function _construct()
-    {
-        $this->_init('sitemap/sitemap');
-    }
-
-    /**
-     * @inheritDoc
-     * @throws Mage_Core_Exception
-     */
-    protected function _beforeSave()
-    {
-        $io = new Varien_Io_File();
-        $realPath = $io->getCleanPath(Mage::getBaseDir() . '/' . $this->getSitemapPath());
-
-        /**
-         * Check path is allow
-         */
-        if (!$io->allowedPath($realPath, Mage::getBaseDir())) {
-            Mage::throwException(Mage::helper('sitemap')->__('Please define correct path'));
-        }
-        /**
-         * Check exists and writeable path
-         */
-        if (!$io->fileExists($realPath, false)) {
-            Mage::throwException(Mage::helper('sitemap')->__('Please create the specified folder "%s" before saving the sitemap.', Mage::helper('core')->escapeHtml($this->getSitemapPath())));
-        }
-
-        if (!$io->isWriteable($realPath)) {
-            Mage::throwException(Mage::helper('sitemap')->__('Please make sure that "%s" is writable by web-server.', $this->getSitemapPath()));
-        }
-        /**
-         * Check allow filename
-         */
-        if (!preg_match('#^[a-zA-Z0-9_\.]+$#', $this->getSitemapFilename())) {
-            Mage::throwException(Mage::helper('sitemap')->__('Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.'));
-        }
-        if (!preg_match('#\.xml$#', $this->getSitemapFilename())) {
-            $this->setSitemapFilename($this->getSitemapFilename() . '.xml');
-        }
-
-        $this->setSitemapPath(rtrim(str_replace(str_replace('\\', '/', Mage::getBaseDir()), '', $realPath), '/') . '/');
-
-        return parent::_beforeSave();
-    }
-
-    /**
-     * Return real file path
-     *
-     * @return string
-     */
-    protected function getPath()
-    {
-        if (is_null($this->_filePath)) {
-            $this->_filePath = str_replace('//', '/', Mage::getBaseDir() .
-                $this->getSitemapPath());
-        }
-        return $this->_filePath;
-    }
-
-    /**
      * Return full file name with path
      *
      * @return string
@@ -221,6 +159,68 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         $this->save();
 
         return $this;
+    }
+
+    /**
+     * Init model
+     */
+    protected function _construct()
+    {
+        $this->_init('sitemap/sitemap');
+    }
+
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
+    protected function _beforeSave()
+    {
+        $io = new Varien_Io_File();
+        $realPath = $io->getCleanPath(Mage::getBaseDir() . '/' . $this->getSitemapPath());
+
+        /**
+         * Check path is allow
+         */
+        if (!$io->allowedPath($realPath, Mage::getBaseDir())) {
+            Mage::throwException(Mage::helper('sitemap')->__('Please define correct path'));
+        }
+        /**
+         * Check exists and writeable path
+         */
+        if (!$io->fileExists($realPath, false)) {
+            Mage::throwException(Mage::helper('sitemap')->__('Please create the specified folder "%s" before saving the sitemap.', Mage::helper('core')->escapeHtml($this->getSitemapPath())));
+        }
+
+        if (!$io->isWriteable($realPath)) {
+            Mage::throwException(Mage::helper('sitemap')->__('Please make sure that "%s" is writable by web-server.', $this->getSitemapPath()));
+        }
+        /**
+         * Check allow filename
+         */
+        if (!preg_match('#^[a-zA-Z0-9_\.]+$#', $this->getSitemapFilename())) {
+            Mage::throwException(Mage::helper('sitemap')->__('Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.'));
+        }
+        if (!preg_match('#\.xml$#', $this->getSitemapFilename())) {
+            $this->setSitemapFilename($this->getSitemapFilename() . '.xml');
+        }
+
+        $this->setSitemapPath(rtrim(str_replace(str_replace('\\', '/', Mage::getBaseDir()), '', $realPath), '/') . '/');
+
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Return real file path
+     *
+     * @return string
+     */
+    protected function getPath()
+    {
+        if (is_null($this->_filePath)) {
+            $this->_filePath = str_replace('//', '/', Mage::getBaseDir() .
+                $this->getSitemapPath());
+        }
+        return $this->_filePath;
     }
 
     /**

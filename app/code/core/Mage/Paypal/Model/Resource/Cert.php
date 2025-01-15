@@ -22,22 +22,6 @@
  */
 class Mage_Paypal_Model_Resource_Cert extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('paypal/cert', 'cert_id');
-    }
-
-    /**
-     * Set date of last update
-     *
-     * @return Mage_Core_Model_Resource_Db_Abstract
-     */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
-    {
-        $object->setUpdatedAt($this->formatDate(Mage::getSingleton('core/date')->gmtDate()));
-        return parent::_beforeSave($object);
-    }
-
     /**
      * Load model by website id
      *
@@ -63,5 +47,20 @@ class Mage_Paypal_Model_Resource_Cert extends Mage_Core_Model_Resource_Db_Abstra
             $object->setData($data);
         }
         return $object;
+    }
+    protected function _construct()
+    {
+        $this->_init('paypal/cert', 'cert_id');
+    }
+
+    /**
+     * Set date of last update
+     *
+     * @return Mage_Core_Model_Resource_Db_Abstract
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    {
+        $object->setUpdatedAt($this->formatDate(Mage::getSingleton('core/date')->gmtDate()));
+        return parent::_beforeSave($object);
     }
 }

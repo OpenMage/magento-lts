@@ -508,189 +508,6 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     }
 
     /**
-     * Prepare product and its configuration to be added to some products list.
-     * Perform standard preparation process and then prepare of bundle selections options.
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param string $processMode
-     * @return array|string
-     */
-    protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
-    {
-        $result = parent::_prepareProduct($buyRequest, $product, $processMode);
-
-        if (is_string($result)) {
-            return $result;
-        }
-
-        $selections = [];
-        $product = $this->getProduct($product);
-        $isStrictProcessMode = $this->_isStrictProcessMode($processMode);
-
-        $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
-        $_appendAllSelections = (bool) $product->getSkipCheckRequiredOption() || $skipSaleableCheck;
-
-        $options = $buyRequest->getBundleOption();
-        if (is_array($options)) {
-            $options = array_filter($options, '\intval');
-            $qtys = $buyRequest->getBundleOptionQty();
-            foreach ($options as $_optionId => $_selections) {
-                if (empty($_selections)) {
-                    unset($options[$_optionId]);
-                }
-            }
-            $optionIds = array_keys($options);
-
-            if (empty($optionIds) && $isStrictProcessMode) {
-                return Mage::helper('bundle')->__('Please select options for product.');
-            }
-
-            $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
-            $optionsCollection = $this->getOptionsCollection($product);
-            if (!$this->getProduct($product)->getSkipCheckRequiredOption() && $isStrictProcessMode) {
-                foreach ($optionsCollection->getItems() as $option) {
-                    if ($option->getRequired() && !isset($options[$option->getId()])) {
-                        return Mage::helper('bundle')->__('Required options are not selected.');
-                    }
-                }
-            }
-            $selectionIds = [];
-
-            foreach ($options as $optionId => $selectionId) {
-                if (!is_array($selectionId)) {
-                    if ($selectionId != '') {
-                        $selectionIds[] = (int) $selectionId;
-                    }
-                } else {
-                    foreach ($selectionId as $id) {
-                        if ($id != '') {
-                            $selectionIds[] = (int) $id;
-                        }
-                    }
-                }
-            }
-            // If product has not been configured yet then $selections array should be empty
-            if (!empty($selectionIds)) {
-                $selections = $this->getSelectionsByIds($selectionIds, $product);
-
-                // Check if added selections are still on sale
-                foreach ($selections->getItems() as $selection) {
-                    if (!$selection->isSalable() && !$skipSaleableCheck) {
-                        $selectedOption = $optionsCollection->getItemById($selection->getOptionId());
-                        if (is_array($options[$selectedOption->getId()]) && count($options[$selectedOption->getId()]) > 1) {
-                            $moreSelections = true;
-                        } else {
-                            $moreSelections = false;
-                        }
-                        if ($selectedOption->getRequired()
-                            && (!$selectedOption->isMultiSelection() || ($selectedOption->isMultiSelection() && !$moreSelections))
-                        ) {
-                            return Mage::helper('bundle')->__('Selected required options are not available.');
-                        }
-                    }
-                }
-
-                $optionsCollection->appendSelections($selections, false, $_appendAllSelections);
-
-                $selections = $selections->getItems();
-            } else {
-                $selections = [];
-            }
-        } else {
-            $product->setOptionsValidationFail(true);
-            $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
-
-            /** @var Mage_Bundle_Model_Product_Type $productType */
-            $productType = $product->getTypeInstance(true);
-
-            $optionCollection = $productType->getOptionsCollection($product);
-
-            $optionIds = $productType->getOptionsIds($product);
-
-            $selectionCollection = $productType->getSelectionsCollection(
-                $optionIds,
-                $product,
-            );
-
-            $options = $optionCollection->appendSelections($selectionCollection, false, $_appendAllSelections);
-
-            foreach ($options as $option) {
-                if ($option->getRequired() && count($option->getSelections()) == 1) {
-                    $selections = array_merge($selections, $option->getSelections());
-                } else {
-                    $selections = [];
-                    break;
-                }
-            }
-        }
-        if (count($selections) > 0 || !$isStrictProcessMode) {
-            $uniqueKey = [$product->getId()];
-            $selectionIds = [];
-
-            // Shuffle selection array by option position
-            usort($selections, [$this, 'shakeSelections']);
-
-            foreach ($selections as $selection) {
-                if ($selection->getSelectionCanChangeQty() && isset($qtys[$selection->getOptionId()])) {
-                    $qty = (float) $qtys[$selection->getOptionId()] > 0 ? $qtys[$selection->getOptionId()] : 1;
-                } else {
-                    $qty = (float) $selection->getSelectionQty() ? $selection->getSelectionQty() : 1;
-                }
-                $qty = (float) $qty;
-
-                $product->addCustomOption('selection_qty_' . $selection->getSelectionId(), $qty, $selection);
-                $selection->addCustomOption('selection_id', $selection->getSelectionId());
-                $product->addCustomOption('product_qty_' . $selection->getId(), $qty, $selection);
-
-                /*
-                 * Create extra attributes that will be converted to product options in order item
-                 * for selection (not for all bundle)
-                 */
-                $price = $product->getPriceModel()->getSelectionFinalTotalPrice($product, $selection, 0, $qty);
-                $attributes = [
-                    'price'         => Mage::app()->getStore()->convertPrice($price),
-                    'qty'           => $qty,
-                    'option_label'  => $selection->getOption()->getTitle(),
-                    'option_id'     => $selection->getOption()->getId(),
-                ];
-
-                $_result = $selection->getTypeInstance(true)->prepareForCart($buyRequest, $selection);
-                if (is_string($_result) && !is_array($_result)) {
-                    return $_result;
-                }
-
-                if (!isset($_result[0])) {
-                    return Mage::helper('checkout')->__('Cannot add item to the shopping cart.');
-                }
-
-                $result[] = $_result[0]->setParentProductId($product->getId())
-                    ->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)))
-                    ->addCustomOption('bundle_selection_attributes', serialize($attributes));
-
-                if ($isStrictProcessMode) {
-                    $_result[0]->setCartQty($qty);
-                }
-
-                $selectionIds[] = $_result[0]->getSelectionId();
-                $uniqueKey[] = $_result[0]->getSelectionId();
-                $uniqueKey[] = $qty;
-            }
-
-            // "unique" key for bundle selection and add it to selections and bundle for selections
-            $uniqueKey = implode('_', $uniqueKey);
-            foreach ($result as $item) {
-                $item->addCustomOption('bundle_identity', $uniqueKey);
-            }
-            $product->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)));
-            $product->addCustomOption('bundle_selection_ids', serialize($selectionIds));
-
-            return $result;
-        }
-
-        return $this->getSpecifyOptionMessage();
-    }
-
-    /**
      * Retrieve message for specify option(s)
      *
      * @return string
@@ -1069,5 +886,188 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         */
 
         return null;
+    }
+
+    /**
+     * Prepare product and its configuration to be added to some products list.
+     * Perform standard preparation process and then prepare of bundle selections options.
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param string $processMode
+     * @return array|string
+     */
+    protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
+    {
+        $result = parent::_prepareProduct($buyRequest, $product, $processMode);
+
+        if (is_string($result)) {
+            return $result;
+        }
+
+        $selections = [];
+        $product = $this->getProduct($product);
+        $isStrictProcessMode = $this->_isStrictProcessMode($processMode);
+
+        $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
+        $_appendAllSelections = (bool) $product->getSkipCheckRequiredOption() || $skipSaleableCheck;
+
+        $options = $buyRequest->getBundleOption();
+        if (is_array($options)) {
+            $options = array_filter($options, '\intval');
+            $qtys = $buyRequest->getBundleOptionQty();
+            foreach ($options as $_optionId => $_selections) {
+                if (empty($_selections)) {
+                    unset($options[$_optionId]);
+                }
+            }
+            $optionIds = array_keys($options);
+
+            if (empty($optionIds) && $isStrictProcessMode) {
+                return Mage::helper('bundle')->__('Please select options for product.');
+            }
+
+            $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
+            $optionsCollection = $this->getOptionsCollection($product);
+            if (!$this->getProduct($product)->getSkipCheckRequiredOption() && $isStrictProcessMode) {
+                foreach ($optionsCollection->getItems() as $option) {
+                    if ($option->getRequired() && !isset($options[$option->getId()])) {
+                        return Mage::helper('bundle')->__('Required options are not selected.');
+                    }
+                }
+            }
+            $selectionIds = [];
+
+            foreach ($options as $optionId => $selectionId) {
+                if (!is_array($selectionId)) {
+                    if ($selectionId != '') {
+                        $selectionIds[] = (int) $selectionId;
+                    }
+                } else {
+                    foreach ($selectionId as $id) {
+                        if ($id != '') {
+                            $selectionIds[] = (int) $id;
+                        }
+                    }
+                }
+            }
+            // If product has not been configured yet then $selections array should be empty
+            if (!empty($selectionIds)) {
+                $selections = $this->getSelectionsByIds($selectionIds, $product);
+
+                // Check if added selections are still on sale
+                foreach ($selections->getItems() as $selection) {
+                    if (!$selection->isSalable() && !$skipSaleableCheck) {
+                        $selectedOption = $optionsCollection->getItemById($selection->getOptionId());
+                        if (is_array($options[$selectedOption->getId()]) && count($options[$selectedOption->getId()]) > 1) {
+                            $moreSelections = true;
+                        } else {
+                            $moreSelections = false;
+                        }
+                        if ($selectedOption->getRequired()
+                            && (!$selectedOption->isMultiSelection() || ($selectedOption->isMultiSelection() && !$moreSelections))
+                        ) {
+                            return Mage::helper('bundle')->__('Selected required options are not available.');
+                        }
+                    }
+                }
+
+                $optionsCollection->appendSelections($selections, false, $_appendAllSelections);
+
+                $selections = $selections->getItems();
+            } else {
+                $selections = [];
+            }
+        } else {
+            $product->setOptionsValidationFail(true);
+            $product->getTypeInstance(true)->setStoreFilter($product->getStoreId(), $product);
+
+            /** @var Mage_Bundle_Model_Product_Type $productType */
+            $productType = $product->getTypeInstance(true);
+
+            $optionCollection = $productType->getOptionsCollection($product);
+
+            $optionIds = $productType->getOptionsIds($product);
+
+            $selectionCollection = $productType->getSelectionsCollection(
+                $optionIds,
+                $product,
+            );
+
+            $options = $optionCollection->appendSelections($selectionCollection, false, $_appendAllSelections);
+
+            foreach ($options as $option) {
+                if ($option->getRequired() && count($option->getSelections()) == 1) {
+                    $selections = array_merge($selections, $option->getSelections());
+                } else {
+                    $selections = [];
+                    break;
+                }
+            }
+        }
+        if (count($selections) > 0 || !$isStrictProcessMode) {
+            $uniqueKey = [$product->getId()];
+            $selectionIds = [];
+
+            // Shuffle selection array by option position
+            usort($selections, [$this, 'shakeSelections']);
+
+            foreach ($selections as $selection) {
+                if ($selection->getSelectionCanChangeQty() && isset($qtys[$selection->getOptionId()])) {
+                    $qty = (float) $qtys[$selection->getOptionId()] > 0 ? $qtys[$selection->getOptionId()] : 1;
+                } else {
+                    $qty = (float) $selection->getSelectionQty() ? $selection->getSelectionQty() : 1;
+                }
+                $qty = (float) $qty;
+
+                $product->addCustomOption('selection_qty_' . $selection->getSelectionId(), $qty, $selection);
+                $selection->addCustomOption('selection_id', $selection->getSelectionId());
+                $product->addCustomOption('product_qty_' . $selection->getId(), $qty, $selection);
+
+                /*
+                 * Create extra attributes that will be converted to product options in order item
+                 * for selection (not for all bundle)
+                 */
+                $price = $product->getPriceModel()->getSelectionFinalTotalPrice($product, $selection, 0, $qty);
+                $attributes = [
+                    'price'         => Mage::app()->getStore()->convertPrice($price),
+                    'qty'           => $qty,
+                    'option_label'  => $selection->getOption()->getTitle(),
+                    'option_id'     => $selection->getOption()->getId(),
+                ];
+
+                $_result = $selection->getTypeInstance(true)->prepareForCart($buyRequest, $selection);
+                if (is_string($_result) && !is_array($_result)) {
+                    return $_result;
+                }
+
+                if (!isset($_result[0])) {
+                    return Mage::helper('checkout')->__('Cannot add item to the shopping cart.');
+                }
+
+                $result[] = $_result[0]->setParentProductId($product->getId())
+                    ->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)))
+                    ->addCustomOption('bundle_selection_attributes', serialize($attributes));
+
+                if ($isStrictProcessMode) {
+                    $_result[0]->setCartQty($qty);
+                }
+
+                $selectionIds[] = $_result[0]->getSelectionId();
+                $uniqueKey[] = $_result[0]->getSelectionId();
+                $uniqueKey[] = $qty;
+            }
+
+            // "unique" key for bundle selection and add it to selections and bundle for selections
+            $uniqueKey = implode('_', $uniqueKey);
+            foreach ($result as $item) {
+                $item->addCustomOption('bundle_identity', $uniqueKey);
+            }
+            $product->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)));
+            $product->addCustomOption('bundle_selection_ids', serialize($selectionIds));
+
+            return $result;
+        }
+
+        return $this->getSpecifyOptionMessage();
     }
 }

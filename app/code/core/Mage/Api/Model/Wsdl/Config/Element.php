@@ -171,29 +171,6 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * Return children of all namespaces
-     *
-     * @param Varien_Simplexml_Element $source
-     * @return array
-     */
-    protected static function _getChildren($source)
-    {
-        $children = [];
-        $namespaces = $source->getNamespaces(true);
-
-        $isWsi = Mage::helper('api/data')->isComplianceWSI();
-
-        foreach ($namespaces as $key => $value) {
-            if ($key == '' || (!$isWsi && $key == 'wsdl')) {
-                continue;
-            }
-            $children[$value] = $source->children($value);
-        }
-        $children[''] = $source->children('');
-        return $children;
-    }
-
-    /**
      * Return if has children
      *
      * @return bool
@@ -261,5 +238,28 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     {
         $attrs = $this->attributes($namespace);
         return isset($attrs[$name]) ? (string) $attrs[$name] : null;
+    }
+
+    /**
+     * Return children of all namespaces
+     *
+     * @param Varien_Simplexml_Element $source
+     * @return array
+     */
+    protected static function _getChildren($source)
+    {
+        $children = [];
+        $namespaces = $source->getNamespaces(true);
+
+        $isWsi = Mage::helper('api/data')->isComplianceWSI();
+
+        foreach ($namespaces as $key => $value) {
+            if ($key == '' || (!$isWsi && $key == 'wsdl')) {
+                continue;
+            }
+            $children[$value] = $source->children($value);
+        }
+        $children[''] = $source->children('');
+        return $children;
     }
 }

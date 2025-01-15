@@ -28,12 +28,6 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
      */
     public const ADMIN_RESOURCE = 'catalog/update_attributes';
 
-    protected function _construct()
-    {
-        // Define module dependent translate
-        $this->setUsedModuleName('Mage_Catalog');
-    }
-
     public function editAction()
     {
         if (!$this->_validateProducts()) {
@@ -189,39 +183,6 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
     }
 
     /**
-     * Validate selection of products for massupdate
-     *
-     * @return bool
-     */
-    protected function _validateProducts()
-    {
-        $error = false;
-        $productIds = $this->_getHelper()->getProductIds();
-        if (!is_array($productIds)) {
-            $error = $this->__('Please select products for attributes update');
-        } elseif (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
-            $error = $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.');
-        }
-
-        if ($error) {
-            $this->_getSession()->addError($error);
-            $this->_redirect('*/catalog_product/', ['_current' => true]);
-        }
-
-        return !$error;
-    }
-
-    /**
-     * Retrieve data manipulation helper
-     *
-     * @return Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute
-     */
-    protected function _getHelper()
-    {
-        return Mage::helper('adminhtml/catalog_product_edit_action_attribute');
-    }
-
-    /**
      * Attributes validation action
      *
      */
@@ -263,5 +224,44 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         }
 
         $this->getResponse()->setBody($response->toJson());
+    }
+
+    protected function _construct()
+    {
+        // Define module dependent translate
+        $this->setUsedModuleName('Mage_Catalog');
+    }
+
+    /**
+     * Validate selection of products for massupdate
+     *
+     * @return bool
+     */
+    protected function _validateProducts()
+    {
+        $error = false;
+        $productIds = $this->_getHelper()->getProductIds();
+        if (!is_array($productIds)) {
+            $error = $this->__('Please select products for attributes update');
+        } elseif (!Mage::getModel('catalog/product')->isProductsHasSku($productIds)) {
+            $error = $this->__('Some of the processed products have no SKU value defined. Please fill it prior to performing operations on these products.');
+        }
+
+        if ($error) {
+            $this->_getSession()->addError($error);
+            $this->_redirect('*/catalog_product/', ['_current' => true]);
+        }
+
+        return !$error;
+    }
+
+    /**
+     * Retrieve data manipulation helper
+     *
+     * @return Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('adminhtml/catalog_product_edit_action_attribute');
     }
 }

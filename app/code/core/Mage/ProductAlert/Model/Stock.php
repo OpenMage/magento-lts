@@ -41,11 +41,6 @@
  */
 class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('productalert/stock');
-    }
-
     /**
      * @return Mage_ProductAlert_Model_Resource_Stock_Customer_Collection
      */
@@ -74,5 +69,9 @@ class Mage_ProductAlert_Model_Stock extends Mage_Core_Model_Abstract
     {
         $this->getResource()->deleteCustomer($this, $customerId, $websiteId);
         return $this;
+    }
+    protected function _construct()
+    {
+        $this->_init('productalert/stock');
     }
 }

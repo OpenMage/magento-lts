@@ -52,15 +52,6 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         return $this;
     }
 
-    protected function _construct()
-    {
-        parent::_construct();
-        /**
-         * Allow to use analytic function
-         */
-        $this->_useAnalyticFunction = true;
-    }
-
     /**
      * Prepare for abandoned report
      *
@@ -295,5 +286,14 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         }
 
         return $countSelect;
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        /**
+         * Allow to use analytic function
+         */
+        $this->_useAnalyticFunction = true;
     }
 }

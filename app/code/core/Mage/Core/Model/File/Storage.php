@@ -46,22 +46,6 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     protected $_eventPrefix = 'core_file_storage';
 
     /**
-     * Show if there were errors while synchronize process
-     *
-     * @return bool
-     */
-    protected function _synchronizeHasErrors(
-        Mage_Core_Model_Abstract $sourceModel,
-        Mage_Core_Model_Abstract $destinationModel
-    ) {
-        if (!$sourceModel || !$destinationModel) {
-            return true;
-        }
-
-        return $sourceModel->hasErrors() || $destinationModel->hasErrors();
-    }
-
-    /**
      * Return synchronize process status flag
      *
      * @return Mage_Core_Model_File_Storage_Flag
@@ -221,5 +205,21 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
         $config['update_time'] = Mage::getStoreConfig(self::XML_PATH_MEDIA_UPDATE_TIME);
 
         return $config;
+    }
+
+    /**
+     * Show if there were errors while synchronize process
+     *
+     * @return bool
+     */
+    protected function _synchronizeHasErrors(
+        Mage_Core_Model_Abstract $sourceModel,
+        Mage_Core_Model_Abstract $destinationModel
+    ) {
+        if (!$sourceModel || !$destinationModel) {
+            return true;
+        }
+
+        return $sourceModel->hasErrors() || $destinationModel->hasErrors();
     }
 }

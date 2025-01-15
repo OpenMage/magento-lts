@@ -55,11 +55,6 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      */
     public const ENTITY = 'tag_relation';
 
-    protected function _construct()
-    {
-        $this->_init('tag/tag_relation');
-    }
-
     /**
      * Init indexing process after tag data commit
      *
@@ -150,5 +145,10 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
         $this->setStoreId($model->getStore());
         $this->_getResource()->addRelations($this);
         return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('tag/tag_relation');
     }
 }

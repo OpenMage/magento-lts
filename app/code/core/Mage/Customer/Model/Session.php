@@ -75,16 +75,6 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     protected $_persistentCustomerGroupId = null;
 
-    /**
-     * Retrieve customer sharing configuration model
-     *
-     * @return Mage_Customer_Model_Config_Share
-     */
-    public function getCustomerConfigShare()
-    {
-        return Mage::getSingleton('customer/config_share');
-    }
-
     public function __construct()
     {
         $namespace = 'customer';
@@ -94,6 +84,16 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 
         $this->init($namespace);
         Mage::dispatchEvent('customer_session_init', ['customer_session' => $this]);
+    }
+
+    /**
+     * Retrieve customer sharing configuration model
+     *
+     * @return Mage_Customer_Model_Config_Share
+     */
+    public function getCustomerConfigShare()
+    {
+        return Mage::getSingleton('customer/config_share');
     }
 
     /**
@@ -310,36 +310,6 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * Set auth url
-     *
-     * @param string $key
-     * @param string $url
-     * @return $this
-     */
-    protected function _setAuthUrl($key, $url)
-    {
-        $url = Mage::helper('core/url')
-            ->removeRequestParam($url, Mage::getSingleton('core/session')->getSessionIdQueryParam());
-        // Add correct session ID to URL if needed
-        $url = Mage::getModel('core/url')->getRebuiltUrl($url);
-        return $this->setData($key, $url);
-    }
-
-    /**
-     * Logout without dispatching event
-     *
-     * @return $this
-     */
-    protected function _logout()
-    {
-        $this->setId(null);
-        $this->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
-        $this->getCookie()->delete($this->getSessionName());
-        Mage::getSingleton('core/session')->renewFormKey();
-        return $this;
-    }
-
-    /**
      * Set Before auth url
      *
      * @param string $url
@@ -371,6 +341,36 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         parent::renewSession();
         Mage::getSingleton('core/session')->unsSessionHosts();
 
+        return $this;
+    }
+
+    /**
+     * Set auth url
+     *
+     * @param string $key
+     * @param string $url
+     * @return $this
+     */
+    protected function _setAuthUrl($key, $url)
+    {
+        $url = Mage::helper('core/url')
+            ->removeRequestParam($url, Mage::getSingleton('core/session')->getSessionIdQueryParam());
+        // Add correct session ID to URL if needed
+        $url = Mage::getModel('core/url')->getRebuiltUrl($url);
+        return $this->setData($key, $url);
+    }
+
+    /**
+     * Logout without dispatching event
+     *
+     * @return $this
+     */
+    protected function _logout()
+    {
+        $this->setId(null);
+        $this->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+        $this->getCookie()->delete($this->getSessionName());
+        Mage::getSingleton('core/session')->renewFormKey();
         return $this;
     }
 }

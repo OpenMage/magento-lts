@@ -52,20 +52,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
         return Mage::registry('current_shipment');
     }
 
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'items',
-            $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_items'),
-        );
-        $this->setChild(
-            'tracking',
-            $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_tracking'),
-        );
-
-        return $this;
-    }
-
     public function getPaymentHtml()
     {
         return $this->getChildHtml('order_payment');
@@ -79,5 +65,19 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
     public function getSaveUrl()
     {
         return $this->getUrl('*/*/save', ['order_id' => $this->getShipment()->getOrderId()]);
+    }
+
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'items',
+            $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_items'),
+        );
+        $this->setChild(
+            'tracking',
+            $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_tracking'),
+        );
+
+        return $this;
     }
 }

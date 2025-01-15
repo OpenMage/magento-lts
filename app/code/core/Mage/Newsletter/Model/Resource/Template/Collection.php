@@ -23,15 +23,6 @@
 class Mage_Newsletter_Model_Resource_Template_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Define resource model and model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('newsletter/template');
-    }
-
-    /**
      * Load only actual template
      *
      * @return $this
@@ -51,5 +42,13 @@ class Mage_Newsletter_Model_Resource_Template_Collection extends Mage_Core_Model
     public function toOptionArray()
     {
         return $this->_toOptionArray('template_id', 'template_code');
+    }
+    /**
+     * Define resource model and model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('newsletter/template');
     }
 }

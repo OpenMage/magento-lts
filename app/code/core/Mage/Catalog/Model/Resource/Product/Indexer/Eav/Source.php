@@ -22,6 +22,19 @@
  */
 class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
 {
+    /**
+     * Retrieve temporary source index table name
+     *
+     * @param string $table
+     * @return string
+     */
+    public function getIdxTable($table = null)
+    {
+        if ($this->useIdxTable()) {
+            return $this->getTable('catalog/product_eav_indexer_idx');
+        }
+        return $this->getTable('catalog/product_eav_indexer_tmp');
+    }
     protected function _construct()
     {
         $this->_init('catalog/product_index_eav', 'entity_id');
@@ -267,19 +280,5 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
         $adapter = $this->_getWriteAdapter();
         $adapter->insertArray($this->getIdxTable(), ['entity_id', 'attribute_id', 'store_id', 'value'], $data);
         return $this;
-    }
-
-    /**
-     * Retrieve temporary source index table name
-     *
-     * @param string $table
-     * @return string
-     */
-    public function getIdxTable($table = null)
-    {
-        if ($this->useIdxTable()) {
-            return $this->getTable('catalog/product_eav_indexer_idx');
-        }
-        return $this->getTable('catalog/product_eav_indexer_tmp');
     }
 }

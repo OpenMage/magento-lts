@@ -22,11 +22,6 @@
  */
 class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('eav/entity_store', 'entity_store_id');
-    }
-
     /**
      * Load an object by entity type and store
      *
@@ -57,5 +52,9 @@ class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_A
         $this->_afterLoad($object);
 
         return true;
+    }
+    protected function _construct()
+    {
+        $this->_init('eav/entity_store', 'entity_store_id');
     }
 }

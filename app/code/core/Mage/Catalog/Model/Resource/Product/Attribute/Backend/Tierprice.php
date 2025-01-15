@@ -22,36 +22,6 @@
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product_attribute_tier_price', 'value_id');
-    }
-
-    /**
-     * Add qty column
-     *
-     * @param array $columns
-     * @return array
-     */
-    protected function _loadPriceDataColumns($columns)
-    {
-        $columns = parent::_loadPriceDataColumns($columns);
-        $columns['price_qty'] = 'qty';
-        return $columns;
-    }
-
-    /**
-     * Order by qty
-     *
-     * @param Varien_Db_Select $select
-     * @return Varien_Db_Select
-     */
-    protected function _loadPriceDataSelect($select)
-    {
-        $select->order('qty');
-        return $select;
-    }
-
     /**
      * Load product tier prices
      *
@@ -112,5 +82,34 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
         $priceObject->setEntityId($product->getId());
 
         return $this->savePriceData($priceObject);
+    }
+    protected function _construct()
+    {
+        $this->_init('catalog/product_attribute_tier_price', 'value_id');
+    }
+
+    /**
+     * Add qty column
+     *
+     * @param array $columns
+     * @return array
+     */
+    protected function _loadPriceDataColumns($columns)
+    {
+        $columns = parent::_loadPriceDataColumns($columns);
+        $columns['price_qty'] = 'qty';
+        return $columns;
+    }
+
+    /**
+     * Order by qty
+     *
+     * @param Varien_Db_Select $select
+     * @return Varien_Db_Select
+     */
+    protected function _loadPriceDataSelect($select)
+    {
+        $select->order('qty');
+        return $select;
     }
 }

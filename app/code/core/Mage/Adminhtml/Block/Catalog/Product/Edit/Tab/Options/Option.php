@@ -106,31 +106,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         return $this->getProduct()->getOptionsReadonly();
     }
 
-    protected function _prepareLayout()
-    {
-        $this->setChild(
-            'delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData([
-                    'label' => Mage::helper('catalog')->__('Delete Option'),
-                    'class' => 'delete delete-product-option ',
-                ]),
-        );
-
-        $path = 'global/catalog/product/options/custom/groups';
-
-        foreach (Mage::getConfig()->getNode($path)->children() as $group) {
-            $this->setChild(
-                $group->getName() . '_option_type',
-                $this->getLayout()->createBlock(
-                    (string) Mage::getConfig()->getNode($path . '/' . $group->getName() . '/render'),
-                ),
-            );
-        }
-
-        return parent::_prepareLayout();
-    }
-
     public function getAddButtonId()
     {
         return $this->getLayout()
@@ -336,5 +311,30 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         } elseif ($type == 'fixed') {
             return number_format($value, 2, null, '');
         }
+    }
+
+    protected function _prepareLayout()
+    {
+        $this->setChild(
+            'delete_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData([
+                    'label' => Mage::helper('catalog')->__('Delete Option'),
+                    'class' => 'delete delete-product-option ',
+                ]),
+        );
+
+        $path = 'global/catalog/product/options/custom/groups';
+
+        foreach (Mage::getConfig()->getNode($path)->children() as $group) {
+            $this->setChild(
+                $group->getName() . '_option_type',
+                $this->getLayout()->createBlock(
+                    (string) Mage::getConfig()->getNode($path . '/' . $group->getName() . '/render'),
+                ),
+            );
+        }
+
+        return parent::_prepareLayout();
     }
 }

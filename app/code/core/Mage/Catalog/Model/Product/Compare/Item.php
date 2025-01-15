@@ -58,26 +58,6 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      */
     protected $_eventObject = 'item';
 
-    protected function _construct()
-    {
-        $this->_init('catalog/product_compare_item');
-    }
-
-    /**
-     * Set current store before save
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        if (!$this->hasStoreId()) {
-            $this->setStoreId(Mage::app()->getStore()->getId());
-        }
-
-        return $this;
-    }
-
     /**
      * Save object data
      *
@@ -221,5 +201,25 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
             $this->setData('visitor_id', $visitorId);
         }
         return $this->getData('visitor_id');
+    }
+
+    protected function _construct()
+    {
+        $this->_init('catalog/product_compare_item');
+    }
+
+    /**
+     * Set current store before save
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        if (!$this->hasStoreId()) {
+            $this->setStoreId(Mage::app()->getStore()->getId());
+        }
+
+        return $this;
     }
 }

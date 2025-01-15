@@ -30,16 +30,6 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
     protected $_symbolsData = [];
 
     /**
-     * Prepares layout
-     *
-     * @return Mage_Core_Block_Abstract
-     */
-    protected function _prepareLayout()
-    {
-        return parent::_prepareLayout();
-    }
-
-    /**
      * Returns page header
      *
      * @return string
@@ -119,5 +109,15 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
     public function getInheritText()
     {
         return Mage::helper('currencysymbol')->__('Use Standard');
+    }
+
+    /**
+     * Prepares layout
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    protected function _prepareLayout()
+    {
+        return parent::_prepareLayout();
     }
 }

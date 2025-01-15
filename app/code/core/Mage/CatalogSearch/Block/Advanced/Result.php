@@ -24,28 +24,6 @@
  */
 class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
 {
-    /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
-        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
-        if ($breadcrumbs) {
-            $breadcrumbs->addCrumb('home', [
-                'label' => Mage::helper('catalogsearch')->__('Home'),
-                'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
-                'link' => Mage::getBaseUrl(),
-            ])->addCrumb('search', [
-                'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
-                'link' => $this->getUrl('*/*/'),
-            ])->addCrumb('search_result', [
-                'label' => Mage::helper('catalogsearch')->__('Results'),
-            ]);
-        }
-        return parent::_prepareLayout();
-    }
-
     public function setListOrders()
     {
         $category = Mage::getSingleton('catalog/layer')
@@ -74,14 +52,6 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
     {
         $this->getChild('search_result_list')
            ->setCollection($this->_getProductCollection());
-    }
-
-    /**
-     * @return Mage_CatalogSearch_Model_Resource_Advanced_Collection
-     */
-    protected function _getProductCollection()
-    {
-        return $this->getSearchModel()->getProductCollection();
     }
 
     /**
@@ -134,5 +104,34 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
         $right = array_slice($searchCriterias, $middle);
 
         return ['left' => $left, 'right' => $right];
+    }
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
+        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
+        if ($breadcrumbs) {
+            $breadcrumbs->addCrumb('home', [
+                'label' => Mage::helper('catalogsearch')->__('Home'),
+                'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
+                'link' => Mage::getBaseUrl(),
+            ])->addCrumb('search', [
+                'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
+                'link' => $this->getUrl('*/*/'),
+            ])->addCrumb('search_result', [
+                'label' => Mage::helper('catalogsearch')->__('Results'),
+            ]);
+        }
+        return parent::_prepareLayout();
+    }
+
+    /**
+     * @return Mage_CatalogSearch_Model_Resource_Advanced_Collection
+     */
+    protected function _getProductCollection()
+    {
+        return $this->getSearchModel()->getProductCollection();
     }
 }

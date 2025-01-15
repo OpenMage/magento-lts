@@ -108,16 +108,6 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Delete directory action target URL
-     *
-     * @return string
-     */
-    protected function getDeletefolderUrl()
-    {
-        return $this->getUrl('*/*/deleteFolder');
-    }
-
-    /**
      * @return string
      */
     public function getDeleteFilesUrl()
@@ -143,5 +133,15 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content extends Mage_Adminhtml_Blo
     public function getTargetElementId()
     {
         return $this->getRequest()->getParam('target_element_id');
+    }
+
+    /**
+     * Delete directory action target URL
+     *
+     * @return string
+     */
+    protected function getDeletefolderUrl()
+    {
+        return $this->getUrl('*/*/deleteFolder');
     }
 }

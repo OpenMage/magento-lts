@@ -40,26 +40,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * @param string $idFieldName
-     * @return $this
-     * @throws Mage_Core_Exception
-     */
-    protected function _initCustomer($idFieldName = 'id')
-    {
-        $this->_title($this->__('Customers'))->_title($this->__('Manage Customers'));
-
-        $customerId = (int) $this->getRequest()->getParam($idFieldName);
-        $customer = Mage::getModel('customer/customer');
-
-        if ($customerId) {
-            $customer->load($customerId);
-        }
-
-        Mage::register('current_customer', $customer);
-        return $this;
-    }
-
-    /**
      * Customers list action
      */
     public function indexAction()
@@ -429,21 +409,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             ->getExcelFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
-    }
-
-    /**
-     * Prepare file download response
-     *
-     * @todo remove in 1.3
-     * @deprecated please use $this->_prepareDownloadResponse()
-     * @see Mage_Adminhtml_Controller_Action::_prepareDownloadResponse()
-     * @param string $fileName
-     * @param string $content
-     * @param string $contentType
-     */
-    protected function _sendUploadResponse($fileName, $content, $contentType = 'application/octet-stream')
-    {
-        $this->_prepareDownloadResponse($fileName, $content, $contentType);
     }
 
     /**
@@ -860,6 +825,41 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         }
 
         exit();
+    }
+
+    /**
+     * @param string $idFieldName
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
+    protected function _initCustomer($idFieldName = 'id')
+    {
+        $this->_title($this->__('Customers'))->_title($this->__('Manage Customers'));
+
+        $customerId = (int) $this->getRequest()->getParam($idFieldName);
+        $customer = Mage::getModel('customer/customer');
+
+        if ($customerId) {
+            $customer->load($customerId);
+        }
+
+        Mage::register('current_customer', $customer);
+        return $this;
+    }
+
+    /**
+     * Prepare file download response
+     *
+     * @todo remove in 1.3
+     * @deprecated please use $this->_prepareDownloadResponse()
+     * @see Mage_Adminhtml_Controller_Action::_prepareDownloadResponse()
+     * @param string $fileName
+     * @param string $content
+     * @param string $contentType
+     */
+    protected function _sendUploadResponse($fileName, $content, $contentType = 'application/octet-stream')
+    {
+        $this->_prepareDownloadResponse($fileName, $content, $contentType);
     }
 
     /**

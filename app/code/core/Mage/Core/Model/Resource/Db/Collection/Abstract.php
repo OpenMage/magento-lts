@@ -124,13 +124,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     }
 
     /**
-     * Initialization here
-     *
-     * @return void
-     */
-    protected function _construct() {}
-
-    /**
      * Retrieve main table
      *
      * @return string
@@ -169,17 +162,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     }
 
     /**
-     * Init collection select
-     *
-     * @return $this
-     */
-    protected function _initSelect()
-    {
-        $this->getSelect()->from(['main_table' => $this->getMainTable()]);
-        return $this;
-    }
-
-    /**
      * Get Zend_Db_Select instance and applies fields to select if needed
      *
      * @return Varien_Db_Select
@@ -191,92 +173,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             $this->_initSelectFields();
         }
         return parent::getSelect();
-    }
-
-    /**
-     * Init fields for select
-     *
-     * @return $this
-     */
-    protected function _initSelectFields()
-    {
-        $columns = $this->_select->getPart(Zend_Db_Select::COLUMNS);
-        $columnsToSelect = [];
-        foreach ($columns as $columnEntry) {
-            list($correlationName, $column, $alias) = $columnEntry;
-            if ($correlationName !== 'main_table') { // Add joined fields to select
-                if ($column instanceof Zend_Db_Expr) {
-                    $column = $column->__toString();
-                }
-                $key = $alias ?? $column;
-                $columnsToSelect[$key] = $columnEntry;
-            }
-        }
-
-        $columns = $columnsToSelect;
-
-        $columnsToSelect = array_keys($columnsToSelect);
-
-        if ($this->_fieldsToSelect !== null) {
-            $insertIndex = 0;
-            foreach ($this->_fieldsToSelect as $alias => $field) {
-                if (!is_string($alias)) {
-                    $alias = null;
-                }
-
-                if ($field instanceof Zend_Db_Expr) {
-                    $column = $field->__toString();
-                } else {
-                    $column = $field;
-                }
-
-                if (($alias !== null && in_array($alias, $columnsToSelect)) ||
-                    // If field already joined from another table
-                    ($alias === null && isset($alias, $columnsToSelect))
-                ) {
-                    continue;
-                }
-
-                $columnEntry = ['main_table', $field, $alias];
-                array_splice($columns, $insertIndex, 0, [$columnEntry]); // Insert column
-                $insertIndex++;
-            }
-        } else {
-            array_unshift($columns, ['main_table', '*', null]);
-        }
-
-        $this->_select->setPart(Zend_Db_Select::COLUMNS, $columns);
-
-        return $this;
-    }
-
-    /**
-     * Retrieve initial fields to select like id field
-     *
-     * @return array
-     */
-    protected function _getInitialFieldsToSelect()
-    {
-        if ($this->_initialFieldsToSelect === null) {
-            $this->_initialFieldsToSelect = [];
-            $this->_initInitialFieldsToSelect();
-        }
-
-        return $this->_initialFieldsToSelect;
-    }
-
-    /**
-     * Initialize initial fields to select like id field
-     *
-     * @return $this
-     */
-    protected function _initInitialFieldsToSelect()
-    {
-        $idFieldName = $this->getResource()->getIdFieldName();
-        if ($idFieldName) {
-            $this->_initialFieldsToSelect[] = $idFieldName;
-        }
-        return $this;
     }
 
     /**
@@ -387,23 +283,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     }
 
     /**
-     * Standard resource collection initialization
-     *
-     * @param string $model
-     * @param Mage_Core_Model_Resource_Db_Abstract $resourceModel
-     * @return $this
-     */
-    protected function _init($model, $resourceModel = null)
-    {
-        $this->setModel($model);
-        if (is_null($resourceModel)) {
-            $resourceModel = $model;
-        }
-        $this->setResourceModel($resourceModel);
-        return $this;
-    }
-
-    /**
      * Set model name for collection items
      *
      * @param string $model
@@ -509,29 +388,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         }
         return $this->_data;
     }
-
-    /**
-     * Prepare select for load
-     *
-     * @return string
-     * @throws Zend_Db_Select_Exception
-     */
-    protected function _prepareSelect(Varien_Db_Select $select)
-    {
-        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
-        $helper = Mage::getResourceHelper('core');
-
-        $unionParts = $select->getPart(Zend_Db_Select::UNION);
-        if (!empty($unionParts)) {
-            $select = $helper->limitUnion($select);
-        }
-
-        if ($this->_useAnalyticFunction) {
-            return $helper->getQueryUsingAnalyticFunction($select);
-        }
-
-        return (string) $select;
-    }
     /**
      * Join table to collection select
      *
@@ -564,23 +420,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     }
 
     /**
-     * Redeclare before load method for adding event
-     *
-     * @return $this
-     */
-    protected function _beforeLoad()
-    {
-        parent::_beforeLoad();
-        Mage::dispatchEvent('core_collection_abstract_load_before', ['collection' => $this]);
-        if ($this->_eventPrefix && $this->_eventObject) {
-            Mage::dispatchEvent($this->_eventPrefix . '_load_before', [
-                $this->_eventObject => $this,
-            ]);
-        }
-        return $this;
-    }
-
-    /**
      * Set reset items data changed flag
      *
      * @param bool $flag
@@ -608,6 +447,192 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
     }
 
     /**
+     * Save all the entities in the collection
+     *
+     * @return $this
+     */
+    public function save()
+    {
+        foreach ($this->getItems() as $item) {
+            $item->save();
+        }
+        return $this;
+    }
+
+    /**
+     * Format Date to internal database date format
+     *
+     * @param int|string|Zend_Date $date
+     * @param bool $includeTime
+     * @return string
+     */
+    public function formatDate($date, $includeTime = true)
+    {
+        return Varien_Date::formatDate($date, $includeTime);
+    }
+
+    /**
+     * Initialization here
+     *
+     * @return void
+     */
+    protected function _construct() {}
+
+    /**
+     * Init collection select
+     *
+     * @return $this
+     */
+    protected function _initSelect()
+    {
+        $this->getSelect()->from(['main_table' => $this->getMainTable()]);
+        return $this;
+    }
+
+    /**
+     * Init fields for select
+     *
+     * @return $this
+     */
+    protected function _initSelectFields()
+    {
+        $columns = $this->_select->getPart(Zend_Db_Select::COLUMNS);
+        $columnsToSelect = [];
+        foreach ($columns as $columnEntry) {
+            list($correlationName, $column, $alias) = $columnEntry;
+            if ($correlationName !== 'main_table') { // Add joined fields to select
+                if ($column instanceof Zend_Db_Expr) {
+                    $column = $column->__toString();
+                }
+                $key = $alias ?? $column;
+                $columnsToSelect[$key] = $columnEntry;
+            }
+        }
+
+        $columns = $columnsToSelect;
+
+        $columnsToSelect = array_keys($columnsToSelect);
+
+        if ($this->_fieldsToSelect !== null) {
+            $insertIndex = 0;
+            foreach ($this->_fieldsToSelect as $alias => $field) {
+                if (!is_string($alias)) {
+                    $alias = null;
+                }
+
+                if ($field instanceof Zend_Db_Expr) {
+                    $column = $field->__toString();
+                } else {
+                    $column = $field;
+                }
+
+                if (($alias !== null && in_array($alias, $columnsToSelect)) ||
+                    // If field already joined from another table
+                    ($alias === null && isset($alias, $columnsToSelect))
+                ) {
+                    continue;
+                }
+
+                $columnEntry = ['main_table', $field, $alias];
+                array_splice($columns, $insertIndex, 0, [$columnEntry]); // Insert column
+                $insertIndex++;
+            }
+        } else {
+            array_unshift($columns, ['main_table', '*', null]);
+        }
+
+        $this->_select->setPart(Zend_Db_Select::COLUMNS, $columns);
+
+        return $this;
+    }
+
+    /**
+     * Retrieve initial fields to select like id field
+     *
+     * @return array
+     */
+    protected function _getInitialFieldsToSelect()
+    {
+        if ($this->_initialFieldsToSelect === null) {
+            $this->_initialFieldsToSelect = [];
+            $this->_initInitialFieldsToSelect();
+        }
+
+        return $this->_initialFieldsToSelect;
+    }
+
+    /**
+     * Initialize initial fields to select like id field
+     *
+     * @return $this
+     */
+    protected function _initInitialFieldsToSelect()
+    {
+        $idFieldName = $this->getResource()->getIdFieldName();
+        if ($idFieldName) {
+            $this->_initialFieldsToSelect[] = $idFieldName;
+        }
+        return $this;
+    }
+
+    /**
+     * Standard resource collection initialization
+     *
+     * @param string $model
+     * @param Mage_Core_Model_Resource_Db_Abstract $resourceModel
+     * @return $this
+     */
+    protected function _init($model, $resourceModel = null)
+    {
+        $this->setModel($model);
+        if (is_null($resourceModel)) {
+            $resourceModel = $model;
+        }
+        $this->setResourceModel($resourceModel);
+        return $this;
+    }
+
+    /**
+     * Prepare select for load
+     *
+     * @return string
+     * @throws Zend_Db_Select_Exception
+     */
+    protected function _prepareSelect(Varien_Db_Select $select)
+    {
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('core');
+
+        $unionParts = $select->getPart(Zend_Db_Select::UNION);
+        if (!empty($unionParts)) {
+            $select = $helper->limitUnion($select);
+        }
+
+        if ($this->_useAnalyticFunction) {
+            return $helper->getQueryUsingAnalyticFunction($select);
+        }
+
+        return (string) $select;
+    }
+
+    /**
+     * Redeclare before load method for adding event
+     *
+     * @return $this
+     */
+    protected function _beforeLoad()
+    {
+        parent::_beforeLoad();
+        Mage::dispatchEvent('core_collection_abstract_load_before', ['collection' => $this]);
+        if ($this->_eventPrefix && $this->_eventObject) {
+            Mage::dispatchEvent($this->_eventPrefix . '_load_before', [
+                $this->_eventObject => $this,
+            ]);
+        }
+        return $this;
+    }
+
+    /**
      * Redeclare after load method for specifying collection items original data
      *
      * @return $this
@@ -627,19 +652,6 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             Mage::dispatchEvent($this->_eventPrefix . '_load_after', [
                 $this->_eventObject => $this,
             ]);
-        }
-        return $this;
-    }
-
-    /**
-     * Save all the entities in the collection
-     *
-     * @return $this
-     */
-    public function save()
-    {
-        foreach ($this->getItems() as $item) {
-            $item->save();
         }
         return $this;
     }
@@ -688,17 +700,5 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         $tags = parent::_getCacheTags();
         $tags[] = self::CACHE_TAG;
         return $tags;
-    }
-
-    /**
-     * Format Date to internal database date format
-     *
-     * @param int|string|Zend_Date $date
-     * @param bool $includeTime
-     * @return string
-     */
-    public function formatDate($date, $includeTime = true)
-    {
-        return Varien_Date::formatDate($date, $includeTime);
     }
 }

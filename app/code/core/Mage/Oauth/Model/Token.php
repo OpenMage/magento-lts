@@ -70,32 +70,6 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     public const USER_TYPE_CUSTOMER = 'customer';
 
     /**
-     * Initialize resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('oauth/token');
-    }
-
-    /**
-     * "After save" actions
-     *
-     * @return $this
-     */
-    protected function _afterSave()
-    {
-        parent::_afterSave();
-
-        //Cleanup old entries
-        /** @var Mage_Oauth_Helper_Data $helper */
-        $helper = Mage::helper('oauth');
-        if ($helper->isCleanupProbability()) {
-            $this->_getResource()->deleteOldEntries($helper->getCleanupExpirationPeriod());
-        }
-        return $this;
-    }
-
-    /**
      * Authorize token
      *
      * @param int $userId Authorization user identifier
@@ -203,22 +177,6 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Before save actions
-     *
-     * @return Mage_Oauth_Model_Token
-     */
-    protected function _beforeSave()
-    {
-        $this->validate();
-
-        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
-            $this->setCreatedAt(Varien_Date::now());
-        }
-        parent::_beforeSave();
-        return $this;
-    }
-
-    /**
      * Validate data
      *
      * @return bool
@@ -280,5 +238,47 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         }
 
         return $this->getData('consumer');
+    }
+
+    /**
+     * Initialize resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('oauth/token');
+    }
+
+    /**
+     * "After save" actions
+     *
+     * @return $this
+     */
+    protected function _afterSave()
+    {
+        parent::_afterSave();
+
+        //Cleanup old entries
+        /** @var Mage_Oauth_Helper_Data $helper */
+        $helper = Mage::helper('oauth');
+        if ($helper->isCleanupProbability()) {
+            $this->_getResource()->deleteOldEntries($helper->getCleanupExpirationPeriod());
+        }
+        return $this;
+    }
+
+    /**
+     * Before save actions
+     *
+     * @return Mage_Oauth_Model_Token
+     */
+    protected function _beforeSave()
+    {
+        $this->validate();
+
+        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
+            $this->setCreatedAt(Varien_Date::now());
+        }
+        parent::_beforeSave();
+        return $this;
     }
 }

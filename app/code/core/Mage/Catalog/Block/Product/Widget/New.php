@@ -58,50 +58,6 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
     protected $_defaultColumnCount = 5;
 
     /**
-     * Initialize block's cache and template settings
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->addPriceBlockType('bundle', 'bundle/catalog_product_price', 'bundle/catalog/product/price.phtml');
-    }
-
-    /**
-     * Product collection initialize process
-     *
-     * @return Mage_Catalog_Model_Resource_Product_Collection|Object|Varien_Data_Collection
-     */
-    protected function _getProductCollection()
-    {
-        switch ($this->getDisplayType()) {
-            case self::DISPLAY_TYPE_NEW_PRODUCTS:
-                $collection = parent::_getProductCollection();
-                break;
-            default:
-                $collection = $this->_getRecentlyAddedProductsCollection();
-                break;
-        }
-        return $collection;
-    }
-
-    /**
-     * Prepare collection for recent product list
-     *
-     * @return Mage_Catalog_Model_Resource_Product_Collection|Object|Varien_Data_Collection
-     */
-    protected function _getRecentlyAddedProductsCollection()
-    {
-        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
-        $collection = Mage::getResourceModel('catalog/product_collection');
-        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
-        return $this->_addProductAttributesAndPrices($collection)
-            ->addStoreFilter()
-            ->addAttributeToSort('created_at', 'desc')
-            ->setPageSize($this->getProductsCount())
-            ->setCurPage(1);
-    }
-
-    /**
      * Get key pieces for caching block content
      *
      * @return array
@@ -192,5 +148,49 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
             }
         }
         return '';
+    }
+
+    /**
+     * Initialize block's cache and template settings
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->addPriceBlockType('bundle', 'bundle/catalog_product_price', 'bundle/catalog/product/price.phtml');
+    }
+
+    /**
+     * Product collection initialize process
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Collection|Object|Varien_Data_Collection
+     */
+    protected function _getProductCollection()
+    {
+        switch ($this->getDisplayType()) {
+            case self::DISPLAY_TYPE_NEW_PRODUCTS:
+                $collection = parent::_getProductCollection();
+                break;
+            default:
+                $collection = $this->_getRecentlyAddedProductsCollection();
+                break;
+        }
+        return $collection;
+    }
+
+    /**
+     * Prepare collection for recent product list
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Collection|Object|Varien_Data_Collection
+     */
+    protected function _getRecentlyAddedProductsCollection()
+    {
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
+        $collection = Mage::getResourceModel('catalog/product_collection');
+        $collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+        return $this->_addProductAttributesAndPrices($collection)
+            ->addStoreFilter()
+            ->addAttributeToSort('created_at', 'desc')
+            ->setPageSize($this->getProductsCount())
+            ->setCurPage(1);
     }
 }

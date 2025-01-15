@@ -30,6 +30,31 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
     protected $_form;
 
     /**
+     * Return Form object
+     *
+     * @return Varien_Data_Form
+     */
+    public function getForm()
+    {
+        if (is_null($this->_form)) {
+            $this->_form = new Varien_Data_Form();
+            $this->_prepareForm();
+        }
+
+        return $this->_form;
+    }
+
+    /**
+     * Return Form Elements values
+     *
+     * @return array
+     */
+    public function getFormValues()
+    {
+        return [];
+    }
+
+    /**
      * Prepare global layout
      * Add renderers to Varien_Data_Form
      *
@@ -55,21 +80,6 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
         }
 
         return $this;
-    }
-
-    /**
-     * Return Form object
-     *
-     * @return Varien_Data_Form
-     */
-    public function getForm()
-    {
-        if (is_null($this->_form)) {
-            $this->_form = new Varien_Data_Form();
-            $this->_prepareForm();
-        }
-
-        return $this->_form;
     }
 
     /**
@@ -164,15 +174,5 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
         }
 
         return $this;
-    }
-
-    /**
-     * Return Form Elements values
-     *
-     * @return array
-     */
-    public function getFormValues()
-    {
-        return [];
     }
 }

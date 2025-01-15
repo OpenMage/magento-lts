@@ -30,12 +30,6 @@ class Mage_Core_Model_Design_Package
      */
     public const FALLBACK_THEME  = 'default';
 
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private static $_regexMatchCache      = [];
-
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private static $_customThemeTypeCache = [];
-
     /**
      * Current Store for generation ofr base_dir and base_url
      *
@@ -94,6 +88,12 @@ class Mage_Core_Model_Design_Package
      * @var bool
      */
     protected $_shouldFallback = true;
+
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private static $_regexMatchCache      = [];
+
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private static $_customThemeTypeCache = [];
 
     public function __construct()
     {
@@ -387,56 +387,6 @@ class Mage_Core_Model_Design_Package
     }
 
     /**
-     * Get filename by specified theme parameters
-     *
-     * @param string $file
-     * @return string
-     */
-    protected function _renderFilename($file, array $params)
-    {
-        switch ($params['_type']) {
-            case 'skin':
-                $dir = $this->getSkinBaseDir($params);
-                break;
-
-            case 'locale':
-                $dir = $this->getLocaleBaseDir($params);
-                break;
-
-            default:
-                $dir = $this->getBaseDir($params);
-                break;
-        }
-        return $dir . DS . $file;
-    }
-
-    /**
-     * Check for files existence by specified scheme
-     *
-     * If fallback enabled, the first found file will be returned. Otherwise the base package / default theme file,
-     *   regardless of found or not.
-     * If disabled, the lookup won't be performed to spare filesystem calls.
-     *
-     * @param string $file
-     * @return string
-     */
-    protected function _fallback($file, array &$params, array $fallbackScheme = [[]])
-    {
-        if ($this->_shouldFallback) {
-            foreach ($fallbackScheme as $try) {
-                $params = array_merge($params, $try);
-                $filename = $this->validateFile($file, $params);
-                if ($filename) {
-                    return $filename;
-                }
-            }
-            $params['_package'] = self::BASE_PACKAGE;
-            $params['_theme']   = self::DEFAULT_THEME;
-        }
-        return $this->_renderFilename($file, $params);
-    }
-
-    /**
      * Use this one to get existing file name with fallback to default
      *
      * $params['_type'] is required
@@ -571,76 +521,6 @@ class Mage_Core_Model_Design_Package
     }
 
     /**
-     * Directories lister utility method
-     *
-     * @param string $path
-     * @param string|bool $fullPath
-     * @return array
-     */
-    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
-    private function _listDirectories($path, $fullPath = false)
-    {
-        $result = [];
-        $dir = opendir($path);
-        if ($dir) {
-            while ($entry = readdir($dir)) {
-                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
-                    continue;
-                }
-                if ($fullPath) {
-                    $entry = $path . DS . $entry;
-                }
-                $result[] = $entry;
-            }
-            unset($entry);
-            closedir($dir);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Get regex rules from config and check user-agent against them
-     *
-     * Rules must be stored in config as a serialized array(['regexp']=>'...', ['value'] => '...')
-     * Will return false or found string.
-     *
-     * @param string $regexpsConfigPath
-     * @return false|string
-     *
-     * @SuppressWarnings("PHPMD.CamelCaseVariableName"))
-     * @SuppressWarnings("PHPMD.Superglobals")
-     */
-    protected function _checkUserAgentAgainstRegexps($regexpsConfigPath)
-    {
-        if (empty($_SERVER['HTTP_USER_AGENT'])) {
-            return false;
-        }
-
-        if (!empty(self::$_customThemeTypeCache[$regexpsConfigPath])) {
-            return self::$_customThemeTypeCache[$regexpsConfigPath];
-        }
-
-        $configValueSerialized = Mage::getStoreConfig($regexpsConfigPath, $this->getStore());
-
-        if (!$configValueSerialized) {
-            return false;
-        }
-
-        try {
-            $regexps = Mage::helper('core/unserializeArray')->unserialize($configValueSerialized);
-        } catch (Exception $e) {
-            Mage::logException($e);
-        }
-
-        if (empty($regexps)) {
-            return false;
-        }
-
-        return self::getPackageByUserAgent($regexps, $regexpsConfigPath);
-    }
-
-    /**
      * Return package name based on design exception rules
      *
      * @param array $rules - design exception rules
@@ -747,6 +627,138 @@ class Mage_Core_Model_Design_Package
     }
 
     /**
+     * Remove all merged js/css files
+     *
+     * @return  bool
+     */
+    public function cleanMergedJsCss()
+    {
+        $result = (bool) $this->_initMergerDir('js', true);
+        $result = $this->_initMergerDir('css', true) && $result;
+        return $this->_initMergerDir('css_secure', true) && $result;
+    }
+
+    /**
+     * Before merge css callback function
+     *
+     * @param string $file
+     * @param string $contents
+     * @return string
+     */
+    public function beforeMergeCss($file, $contents)
+    {
+        $this->_setCallbackFileDir($file);
+
+        $cssImport = '/@import\\s+([\'"])(.*?)[\'"]/';
+        $contents = preg_replace_callback($cssImport, [$this, '_cssMergerImportCallback'], $contents);
+
+        $cssUrl = '/url\\(\\s*(?![\\\'\\"]?data:)([^\\)\\s]+)\\s*\\)?/';
+
+        return preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
+    }
+
+    /**
+     * Default theme getter
+     * @return string
+     * @deprecated since 1.8.2.0
+     */
+    public function getFallbackTheme()
+    {
+        return Mage::getStoreConfig('design/theme/default', $this->getStore());
+    }
+
+    /**
+     * Get filename by specified theme parameters
+     *
+     * @param string $file
+     * @return string
+     */
+    protected function _renderFilename($file, array $params)
+    {
+        switch ($params['_type']) {
+            case 'skin':
+                $dir = $this->getSkinBaseDir($params);
+                break;
+
+            case 'locale':
+                $dir = $this->getLocaleBaseDir($params);
+                break;
+
+            default:
+                $dir = $this->getBaseDir($params);
+                break;
+        }
+        return $dir . DS . $file;
+    }
+
+    /**
+     * Check for files existence by specified scheme
+     *
+     * If fallback enabled, the first found file will be returned. Otherwise the base package / default theme file,
+     *   regardless of found or not.
+     * If disabled, the lookup won't be performed to spare filesystem calls.
+     *
+     * @param string $file
+     * @return string
+     */
+    protected function _fallback($file, array &$params, array $fallbackScheme = [[]])
+    {
+        if ($this->_shouldFallback) {
+            foreach ($fallbackScheme as $try) {
+                $params = array_merge($params, $try);
+                $filename = $this->validateFile($file, $params);
+                if ($filename) {
+                    return $filename;
+                }
+            }
+            $params['_package'] = self::BASE_PACKAGE;
+            $params['_theme']   = self::DEFAULT_THEME;
+        }
+        return $this->_renderFilename($file, $params);
+    }
+
+    /**
+     * Get regex rules from config and check user-agent against them
+     *
+     * Rules must be stored in config as a serialized array(['regexp']=>'...', ['value'] => '...')
+     * Will return false or found string.
+     *
+     * @param string $regexpsConfigPath
+     * @return false|string
+     *
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName"))
+     * @SuppressWarnings("PHPMD.Superglobals")
+     */
+    protected function _checkUserAgentAgainstRegexps($regexpsConfigPath)
+    {
+        if (empty($_SERVER['HTTP_USER_AGENT'])) {
+            return false;
+        }
+
+        if (!empty(self::$_customThemeTypeCache[$regexpsConfigPath])) {
+            return self::$_customThemeTypeCache[$regexpsConfigPath];
+        }
+
+        $configValueSerialized = Mage::getStoreConfig($regexpsConfigPath, $this->getStore());
+
+        if (!$configValueSerialized) {
+            return false;
+        }
+
+        try {
+            $regexps = Mage::helper('core/unserializeArray')->unserialize($configValueSerialized);
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+
+        if (empty($regexps)) {
+            return false;
+        }
+
+        return self::getPackageByUserAgent($regexps, $regexpsConfigPath);
+    }
+
+    /**
      * Merges files into one and saves it into DB (if DB file storage is on)
      *
      * @see Mage_Core_Helper_Data::mergeFiles()
@@ -795,18 +807,6 @@ class Mage_Core_Model_Design_Package
     }
 
     /**
-     * Remove all merged js/css files
-     *
-     * @return  bool
-     */
-    public function cleanMergedJsCss()
-    {
-        $result = (bool) $this->_initMergerDir('js', true);
-        $result = $this->_initMergerDir('css', true) && $result;
-        return $this->_initMergerDir('css_secure', true) && $result;
-    }
-
-    /**
      * Make sure merger dir exists and writeable
      * Also can clean it up
      *
@@ -830,25 +830,6 @@ class Mage_Core_Model_Design_Package
             Mage::logException($e);
         }
         return false;
-    }
-
-    /**
-     * Before merge css callback function
-     *
-     * @param string $file
-     * @param string $contents
-     * @return string
-     */
-    public function beforeMergeCss($file, $contents)
-    {
-        $this->_setCallbackFileDir($file);
-
-        $cssImport = '/@import\\s+([\'"])(.*?)[\'"]/';
-        $contents = preg_replace_callback($cssImport, [$this, '_cssMergerImportCallback'], $contents);
-
-        $cssUrl = '/url\\(\\s*(?![\\\'\\"]?data:)([^\\)\\s]+)\\s*\\)?/';
-
-        return preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
     }
 
     /**
@@ -943,12 +924,31 @@ class Mage_Core_Model_Design_Package
     }
 
     /**
-     * Default theme getter
-     * @return string
-     * @deprecated since 1.8.2.0
+     * Directories lister utility method
+     *
+     * @param string $path
+     * @param string|bool $fullPath
+     * @return array
      */
-    public function getFallbackTheme()
+    // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
+    private function _listDirectories($path, $fullPath = false)
     {
-        return Mage::getStoreConfig('design/theme/default', $this->getStore());
+        $result = [];
+        $dir = opendir($path);
+        if ($dir) {
+            while ($entry = readdir($dir)) {
+                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
+                    continue;
+                }
+                if ($fullPath) {
+                    $entry = $path . DS . $entry;
+                }
+                $result[] = $entry;
+            }
+            unset($entry);
+            closedir($dir);
+        }
+
+        return $result;
     }
 }

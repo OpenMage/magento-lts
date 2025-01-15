@@ -71,11 +71,6 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      */
     protected $_castedAmounts = [];
 
-    protected function _construct()
-    {
-        $this->_init('paypal/report_settlement_row');
-    }
-
     /**
      * Return description of Reference ID Type
      * If no code specified, return full list of codes with their description
@@ -177,6 +172,11 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
         }
         $this->_data[$key] = $amount;
         $this->_castedAmounts[$key] = true;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('paypal/report_settlement_row');
     }
 
     /**

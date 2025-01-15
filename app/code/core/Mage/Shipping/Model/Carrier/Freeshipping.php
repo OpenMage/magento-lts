@@ -73,6 +73,16 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
     }
 
     /**
+     * Get allowed shipping methods
+     *
+     * @return array
+     */
+    public function getAllowedMethods()
+    {
+        return ['freeshipping' => $this->getConfigData('name')];
+    }
+
+    /**
      * Allows free shipping when all product items have free shipping (promotions etc.)
      *
      * @param Mage_Shipping_Model_Rate_Request $request
@@ -94,15 +104,5 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
         if ($freeShipping) {
             $request->setFreeShipping(true);
         }
-    }
-
-    /**
-     * Get allowed shipping methods
-     *
-     * @return array
-     */
-    public function getAllowedMethods()
-    {
-        return ['freeshipping' => $this->getConfigData('name')];
     }
 }

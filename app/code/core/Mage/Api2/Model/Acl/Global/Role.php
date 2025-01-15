@@ -53,59 +53,6 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected $_permissionModel;
 
-    protected function _construct()
-    {
-        $this->_init('api2/acl_global_role');
-    }
-
-    /**
-     * Before save actions
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
-            $this->setCreatedAt(Varien_Date::now());
-        } else {
-            $this->setUpdatedAt(Varien_Date::now());
-        }
-
-        //check and protect guest role
-
-        if (self::isSystemRole($this) && $this->getRoleName() != $this->getOrigData('role_name')) {
-            /** @var Mage_Core_Helper_Data $helper */
-            $helper = Mage::helper('core');
-
-            Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName())),
-            );
-        }
-
-        parent::_beforeSave();
-        return $this;
-    }
-
-    /**
-     * Perform checks before role delete
-     *
-     * @return $this
-     */
-    protected function _beforeDelete()
-    {
-        if (self::isSystemRole($this)) {
-            /** @var Mage_Core_Helper_Data $helper */
-            $helper = Mage::helper('core');
-
-            Mage::throwException(
-                Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName())),
-            );
-        }
-
-        parent::_beforeDelete();
-        return $this;
-    }
-
     /**
      * Get pairs resources-permissions for current role
      *
@@ -161,5 +108,58 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
                 $roleNodeName = self::ROLE_CONFIG_NODE_NAME_ADMIN;
         }
         return $roleNodeName;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('api2/acl_global_role');
+    }
+
+    /**
+     * Before save actions
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
+            $this->setCreatedAt(Varien_Date::now());
+        } else {
+            $this->setUpdatedAt(Varien_Date::now());
+        }
+
+        //check and protect guest role
+
+        if (self::isSystemRole($this) && $this->getRoleName() != $this->getOrigData('role_name')) {
+            /** @var Mage_Core_Helper_Data $helper */
+            $helper = Mage::helper('core');
+
+            Mage::throwException(
+                Mage::helper('api2')->__('%s role is a special one and can\'t be changed.', $helper->escapeHtml($this->getRoleName())),
+            );
+        }
+
+        parent::_beforeSave();
+        return $this;
+    }
+
+    /**
+     * Perform checks before role delete
+     *
+     * @return $this
+     */
+    protected function _beforeDelete()
+    {
+        if (self::isSystemRole($this)) {
+            /** @var Mage_Core_Helper_Data $helper */
+            $helper = Mage::helper('core');
+
+            Mage::throwException(
+                Mage::helper('api2')->__('%s role is a special one and can\'t be deleted.', $helper->escapeHtml($this->getRoleName())),
+            );
+        }
+
+        parent::_beforeDelete();
+        return $this;
     }
 }

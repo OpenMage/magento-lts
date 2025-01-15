@@ -23,26 +23,6 @@
 abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
-     * Check if $attribute is Mage_Eav_Model_Entity_Attribute and convert to string field name
-     *
-     * @param string|Mage_Eav_Model_Entity_Attribute $attribute
-     * @return string
-     */
-    protected function _attributeToField($attribute)
-    {
-        $field = false;
-        if (is_string($attribute)) {
-            $field = $attribute;
-        } elseif ($attribute instanceof Mage_Eav_Model_Entity_Attribute) {
-            $field = $attribute->getAttributeCode();
-        }
-        if (!$field) {
-            Mage::throwException(Mage::helper('sales')->__('Cannot determine the field name.'));
-        }
-        return $field;
-    }
-
-    /**
      * Add attribute to select result set.
      * Backward compatibility with EAV collection
      *
@@ -99,26 +79,6 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
     }
 
     /**
-     * Create all ids retrieving select with limitation
-     * Backward compatibility with EAV collection
-     *
-     * @param int $limit
-     * @param int $offset
-     * @return Varien_Db_Select
-     */
-    protected function _getAllIdsSelect($limit = null, $offset = null)
-    {
-        $idsSelect = clone $this->getSelect();
-        $idsSelect->reset(Zend_Db_Select::ORDER);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->columns($this->getResource()->getIdFieldName(), 'main_table');
-        $idsSelect->limit($limit, $offset);
-        return $idsSelect;
-    }
-
-    /**
      * Retrieve all ids for collection
      * Backward compatibility with EAV collection
      *
@@ -150,5 +110,44 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
     public function joinAttribute($alias, $attribute, $bind, $filter = null, $joinType = 'inner', $storeId = null)
     {
         return $this;
+    }
+    /**
+     * Check if $attribute is Mage_Eav_Model_Entity_Attribute and convert to string field name
+     *
+     * @param string|Mage_Eav_Model_Entity_Attribute $attribute
+     * @return string
+     */
+    protected function _attributeToField($attribute)
+    {
+        $field = false;
+        if (is_string($attribute)) {
+            $field = $attribute;
+        } elseif ($attribute instanceof Mage_Eav_Model_Entity_Attribute) {
+            $field = $attribute->getAttributeCode();
+        }
+        if (!$field) {
+            Mage::throwException(Mage::helper('sales')->__('Cannot determine the field name.'));
+        }
+        return $field;
+    }
+
+    /**
+     * Create all ids retrieving select with limitation
+     * Backward compatibility with EAV collection
+     *
+     * @param int $limit
+     * @param int $offset
+     * @return Varien_Db_Select
+     */
+    protected function _getAllIdsSelect($limit = null, $offset = null)
+    {
+        $idsSelect = clone $this->getSelect();
+        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->columns($this->getResource()->getIdFieldName(), 'main_table');
+        $idsSelect->limit($limit, $offset);
+        return $idsSelect;
     }
 }

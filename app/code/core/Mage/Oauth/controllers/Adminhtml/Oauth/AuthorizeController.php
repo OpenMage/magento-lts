@@ -23,18 +23,17 @@
 class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Session name
-     *
-     * @var string
-     */
-    protected $_sessionName = 'admin/session';
-
-    /**
      * Array of actions which can be processed without secret key validation
      *
      * @var array
      */
     public $_publicActions = ['index', 'simple', 'confirm', 'confirmSimple','reject', 'rejectSimple'];
+    /**
+     * Session name
+     *
+     * @var string
+     */
+    protected $_sessionName = 'admin/session';
 
     /**
      * Disable showing of login form
@@ -88,6 +87,38 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         $this->_initForm(true);
         $this->_initLayoutMessages($this->_sessionName);
         $this->renderLayout();
+    }
+
+    /**
+     * Confirm token authorization action
+     */
+    public function confirmAction()
+    {
+        $this->_initConfirmPage();
+    }
+
+    /**
+     * Confirm token authorization simple page
+     */
+    public function confirmSimpleAction()
+    {
+        $this->_initConfirmPage();
+    }
+
+    /**
+     * Reject token authorization action
+     */
+    public function rejectAction()
+    {
+        $this->_initRejectPage();
+    }
+
+    /**
+     * Reject token authorization simple page
+     */
+    public function rejectSimpleAction()
+    {
+        $this->_initRejectPage();
     }
 
     /**
@@ -256,38 +287,6 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
             }
         }
         return $error;
-    }
-
-    /**
-     * Confirm token authorization action
-     */
-    public function confirmAction()
-    {
-        $this->_initConfirmPage();
-    }
-
-    /**
-     * Confirm token authorization simple page
-     */
-    public function confirmSimpleAction()
-    {
-        $this->_initConfirmPage();
-    }
-
-    /**
-     * Reject token authorization action
-     */
-    public function rejectAction()
-    {
-        $this->_initRejectPage();
-    }
-
-    /**
-     * Reject token authorization simple page
-     */
-    public function rejectSimpleAction()
-    {
-        $this->_initRejectPage();
     }
 
     /**

@@ -43,6 +43,16 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action extends Mage_Adminhtml_
         return $this->_actionsToHtml();
     }
 
+    /**
+     * Add one action array to all options data storage
+     *
+     * @param array $actionArray
+     */
+    public function addToActions($actionArray)
+    {
+        $this->_actions[] = $actionArray;
+    }
+
     protected function _getEscapedValue($value)
     {
         return addcslashes(htmlspecialchars($value), '\\\'');
@@ -67,15 +77,5 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action extends Mage_Adminhtml_
             $html[] = '<a ' . $attributesObject->serialize() . '>' . $action['#'] . '</a>';
         }
         return  implode('<span class="separator">|</span>', $html);
-    }
-
-    /**
-     * Add one action array to all options data storage
-     *
-     * @param array $actionArray
-     */
-    public function addToActions($actionArray)
-    {
-        $this->_actions[] = $actionArray;
     }
 }

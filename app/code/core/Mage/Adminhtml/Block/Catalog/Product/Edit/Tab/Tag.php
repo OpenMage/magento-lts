@@ -31,6 +31,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
         $this->setUseAjax(true);
     }
 
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/tag/edit', [
+            'tag_id'        => $row->getId(),
+            'product_id'    => $this->getProductId(),
+        ]);
+    }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/catalog_product/tagGrid', [
+            '_current'      => true,
+            'id'            => $this->getProductId(),
+            'product_id'    => $this->getProductId(),
+        ]);
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('tag/tag')
@@ -74,22 +91,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
         ]);
 
         return parent::_prepareColumns();
-    }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/tag/edit', [
-            'tag_id'        => $row->getId(),
-            'product_id'    => $this->getProductId(),
-        ]);
-    }
-
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/catalog_product/tagGrid', [
-            '_current'      => true,
-            'id'            => $this->getProductId(),
-            'product_id'    => $this->getProductId(),
-        ]);
     }
 }

@@ -132,33 +132,6 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Initialize block
-     *
-     * @return $this
-     * @throws Exception
-     */
-    protected function _init()
-    {
-        if ($this->_initialized) {
-            return $this;
-        }
-
-        /** @var Mage_Api2_Model_Config $config */
-        $config = Mage::getModel('api2/config');
-        $this->_resourcesConfig = $config->getResourceGroups();
-
-        if ($this->_type == self::TYPE_ATTRIBUTE && !$this->_existOperations) {
-            throw new Exception('Operations is not set');
-        }
-
-        if ($this->_type == self::TYPE_PRIVILEGE && !$this->_existPrivileges) {
-            throw new Exception('Privileges is not set.');
-        }
-
-        return $this;
-    }
-
-    /**
      * Convert to array serialized post data from tree grid
      *
      * @return array
@@ -250,6 +223,99 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
         $this->_init();
         $root = $this->_getTreeNode($this->_resourcesConfig, 1);
         return $root[self::NAME_CHILDREN] ?? [];
+    }
+
+    /**
+     * Set role
+     *
+     * @param Mage_Api2_Model_Acl_Global_Role $role
+     * @return $this
+     */
+    public function setRole($role)
+    {
+        $this->_role = $role;
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return Mage_Api2_Model_Acl_Global_Role
+     */
+    public function getRole()
+    {
+        return $this->_role;
+    }
+
+    /**
+     * Set resources permissions
+     *
+     * @param array $resourcesPermissions
+     * @return $this
+     */
+    public function setResourcesPermissions($resourcesPermissions)
+    {
+        $this->_resourcesPermissions = $resourcesPermissions;
+        return $this;
+    }
+
+    /**
+     * Get resources permissions
+     *
+     * @return array
+     */
+    public function getResourcesPermissions()
+    {
+        return $this->_resourcesPermissions;
+    }
+
+    /**
+     * Set has entity only attributes flag
+     *
+     * @param bool $hasEntityOnlyAttributes
+     * @return $this
+     */
+    public function setHasEntityOnlyAttributes($hasEntityOnlyAttributes)
+    {
+        $this->_hasEntityOnlyAttributes = $hasEntityOnlyAttributes;
+        return $this;
+    }
+
+    /**
+     * Get has entity only attributes flag
+     *
+     * @return bool
+     */
+    public function getHasEntityOnlyAttributes()
+    {
+        return $this->_hasEntityOnlyAttributes;
+    }
+
+    /**
+     * Initialize block
+     *
+     * @return $this
+     * @throws Exception
+     */
+    protected function _init()
+    {
+        if ($this->_initialized) {
+            return $this;
+        }
+
+        /** @var Mage_Api2_Model_Config $config */
+        $config = Mage::getModel('api2/config');
+        $this->_resourcesConfig = $config->getResourceGroups();
+
+        if ($this->_type == self::TYPE_ATTRIBUTE && !$this->_existOperations) {
+            throw new Exception('Operations is not set');
+        }
+
+        if ($this->_type == self::TYPE_PRIVILEGE && !$this->_existPrivileges) {
+            throw new Exception('Privileges is not set.');
+        }
+
+        return $this;
     }
 
     /**
@@ -462,71 +528,5 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     protected function _sortTree($a, $b)
     {
         return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
-    }
-
-    /**
-     * Set role
-     *
-     * @param Mage_Api2_Model_Acl_Global_Role $role
-     * @return $this
-     */
-    public function setRole($role)
-    {
-        $this->_role = $role;
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return Mage_Api2_Model_Acl_Global_Role
-     */
-    public function getRole()
-    {
-        return $this->_role;
-    }
-
-    /**
-     * Set resources permissions
-     *
-     * @param array $resourcesPermissions
-     * @return $this
-     */
-    public function setResourcesPermissions($resourcesPermissions)
-    {
-        $this->_resourcesPermissions = $resourcesPermissions;
-        return $this;
-    }
-
-    /**
-     * Get resources permissions
-     *
-     * @return array
-     */
-    public function getResourcesPermissions()
-    {
-        return $this->_resourcesPermissions;
-    }
-
-    /**
-     * Set has entity only attributes flag
-     *
-     * @param bool $hasEntityOnlyAttributes
-     * @return $this
-     */
-    public function setHasEntityOnlyAttributes($hasEntityOnlyAttributes)
-    {
-        $this->_hasEntityOnlyAttributes = $hasEntityOnlyAttributes;
-        return $this;
-    }
-
-    /**
-     * Get has entity only attributes flag
-     *
-     * @return bool
-     */
-    public function getHasEntityOnlyAttributes()
-    {
-        return $this->_hasEntityOnlyAttributes;
     }
 }

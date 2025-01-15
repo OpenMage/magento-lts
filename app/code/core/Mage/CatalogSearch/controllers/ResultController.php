@@ -23,15 +23,6 @@
 class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * Retrieve catalog session
-     *
-     * @return Mage_Catalog_Model_Session
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('catalog/session');
-    }
-    /**
      * Display search result
      */
     public function indexAction()
@@ -75,5 +66,14 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
         } else {
             $this->_redirectReferer();
         }
+    }
+    /**
+     * Retrieve catalog session
+     *
+     * @return Mage_Catalog_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('catalog/session');
     }
 }

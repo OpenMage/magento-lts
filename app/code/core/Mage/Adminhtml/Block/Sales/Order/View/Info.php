@@ -22,23 +22,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sales_Order_Abstract
 {
-    /**
-     * Retrieve required options from parent
-     */
-    protected function _beforeToHtml()
-    {
-        if (!$this->getParentBlock()) {
-            Mage::throwException(Mage::helper('adminhtml')->__('Invalid parent block for this block.'));
-        }
-        $this->setOrder($this->getParentBlock()->getOrder());
-
-        foreach ($this->getParentBlock()->getOrderInfoData() as $k => $v) {
-            $this->setDataUsingMethod($k, $v);
-        }
-
-        return parent::_beforeToHtml();
-    }
-
     public function getOrderStoreName()
     {
         if ($this->getOrder()) {
@@ -80,21 +63,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     public function getViewUrl($orderId)
     {
         return $this->getUrl('*/sales_order/view', ['order_id' => $orderId]);
-    }
-
-    /**
-     * Find sort order for account data
-     * Sort Order used as array key
-     *
-     * @param int $sortOrder
-     * @return int
-     */
-    protected function _prepareAccountDataSortOrder(array $data, $sortOrder)
-    {
-        if (isset($data[$sortOrder])) {
-            return $this->_prepareAccountDataSortOrder($data, $sortOrder + 1);
-        }
-        return $sortOrder;
     }
 
     /**
@@ -160,5 +128,36 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     public function shouldDisplayCustomerIp()
     {
         return !Mage::getStoreConfigFlag('sales/general/hide_customer_ip', $this->getOrder()->getStoreId());
+    }
+    /**
+     * Retrieve required options from parent
+     */
+    protected function _beforeToHtml()
+    {
+        if (!$this->getParentBlock()) {
+            Mage::throwException(Mage::helper('adminhtml')->__('Invalid parent block for this block.'));
+        }
+        $this->setOrder($this->getParentBlock()->getOrder());
+
+        foreach ($this->getParentBlock()->getOrderInfoData() as $k => $v) {
+            $this->setDataUsingMethod($k, $v);
+        }
+
+        return parent::_beforeToHtml();
+    }
+
+    /**
+     * Find sort order for account data
+     * Sort Order used as array key
+     *
+     * @param int $sortOrder
+     * @return int
+     */
+    protected function _prepareAccountDataSortOrder(array $data, $sortOrder)
+    {
+        if (isset($data[$sortOrder])) {
+            return $this->_prepareAccountDataSortOrder($data, $sortOrder + 1);
+        }
+        return $sortOrder;
     }
 }

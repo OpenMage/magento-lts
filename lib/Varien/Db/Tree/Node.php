@@ -18,15 +18,14 @@ require_once 'Varien/Db/Tree/Node/Exception.php';
 
 class Varien_Db_Tree_Node
 {
+    public $hasChild = false;
+    public $numChild = 0;
     private $left;
     private $right;
     private $id;
     private $pid;
     private $level;
     private $data;
-
-    public $hasChild = false;
-    public $numChild = 0;
 
     /**
      * Varien_Db_Tree_Node constructor.

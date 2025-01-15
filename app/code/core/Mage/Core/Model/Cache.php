@@ -141,6 +141,290 @@ class Mage_Core_Model_Cache
     }
 
     /**
+     * Get cache frontend API object
+     *
+     * @return Varien_Cache_Core|Zend_Cache_Core
+     */
+    public function getFrontend()
+    {
+        return $this->_frontend;
+    }
+
+    /**
+     * Load data from cache by id
+     *
+     * @param   string $id
+     * @return  string|false
+     */
+    public function load($id)
+    {
+        return $this->getFrontend()->load($this->_id($id));
+    }
+
+    /**
+     * Save data
+     *
+     * @param string $data
+     * @param string $id
+     * @param array $tags
+     * @param null|false|int $lifeTime
+     * @return bool
+     */
+    public function save($data, $id, $tags = [], $lifeTime = null)
+    {
+        if ($this->_disallowSave) {
+            return true;
+        }
+
+        return $this->getFrontend()->save((string) $data, $this->_id($id), $this->_tags($tags), $lifeTime);
+    }
+
+    /**
+     * Test data
+     *
+     * @param string $id
+     * @return false|int
+     */
+    public function test($id)
+    {
+        return $this->getFrontend()->test($this->_id($id));
+    }
+
+    /**
+     * Remove cached data by identifier
+     *
+     * @param   string $id
+     * @return  bool
+     */
+    public function remove($id)
+    {
+        return $this->getFrontend()->remove($this->_id($id));
+    }
+
+    /**
+     * Clean cached data by specific tag
+     *
+     * @param   array|string $tags
+     * @return  bool
+     */
+    public function clean($tags = [])
+    {
+        $mode = Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG;
+        if (!empty($tags)) {
+            if (!is_array($tags)) {
+                $tags = [$tags];
+            }
+            return $this->getFrontend()->clean($mode, $this->_tags($tags));
+        }
+
+        return $this->flush();
+    }
+
+    /**
+     * Flush cached data
+     *
+     * @return  bool
+     */
+    public function flush()
+    {
+        return $this->getFrontend()->clean();
+    }
+
+    /**
+     * Get adapter for database cache backend model
+     *
+     * @return Zend_Db_Adapter_Abstract
+     */
+    public function getDbAdapter()
+    {
+        return Mage::getSingleton('core/resource')->getConnection($this->_dbConnection);
+    }
+
+    /**
+     * Save cache usage options
+     *
+     * @param array $options
+     * @return $this
+     */
+    public function saveOptions($options)
+    {
+        $this->remove(self::OPTIONS_CACHE_ID);
+        $this->_getResource()->saveAllOptions($options);
+        return $this;
+    }
+
+    /**
+     * Check if cache can be used for specific data type
+     *
+     * @param string $typeCode
+     * @return bool|array
+     */
+    public function canUse($typeCode)
+    {
+        if (is_null($this->_allowedCacheOptions)) {
+            $this->_initOptions();
+        }
+
+        if (empty($typeCode)) {
+            return $this->_allowedCacheOptions;
+        }
+
+        if (isset($this->_allowedCacheOptions[$typeCode])) {
+            return (bool) $this->_allowedCacheOptions[$typeCode];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Disable cache usage for specific data type
+     *
+     * @param string $typeCode
+     * @return $this
+     */
+    public function banUse($typeCode)
+    {
+        $this->_allowedCacheOptions[$typeCode] = false;
+        return $this;
+    }
+
+    /**
+     * Enable cache usage for specific data type
+     *
+     * @param string $typeCode
+     * @return $this
+     */
+    public function unbanUse($typeCode)
+    {
+        $this->_allowedCacheOptions[$typeCode] = true;
+        return $this;
+    }
+
+    /**
+     * Get cache tags by cache type from configuration
+     *
+     * @param string $type
+     * @return array
+     */
+    public function getTagsByType($type)
+    {
+        $path = self::XML_PATH_TYPES . '/' . $type . '/tags';
+        $tagsConfig = Mage::getConfig()->getNode($path);
+        if ($tagsConfig) {
+            $tags = (string) $tagsConfig;
+            $tags = explode(',', $tags);
+        } else {
+            $tags = false;
+        }
+        return $tags;
+    }
+
+    /**
+     * Get information about all declared cache types
+     *
+     * @return array
+     */
+    public function getTypes()
+    {
+        $types = [];
+        $config = Mage::getConfig()->getNode(self::XML_PATH_TYPES);
+        if ($config) {
+            foreach ($config->children() as $type => $node) {
+                $types[$type] = new Varien_Object([
+                    'id'            => $type,
+                    'cache_type'    => Mage::helper('core')->__((string) $node->label),
+                    'description'   => Mage::helper('core')->__((string) $node->description),
+                    'tags'          => strtoupper((string) $node->tags),
+                    'status'        => (int) $this->canUse($type),
+                ]);
+            }
+        }
+        return $types;
+    }
+
+    /**
+     * Get array of all invalidated cache types
+     *
+     * @return array
+     */
+    public function getInvalidatedTypes()
+    {
+        $invalidatedTypes = [];
+        $types = $this->_getInvalidatedTypes();
+        if ($types) {
+            $allTypes = $this->getTypes();
+            foreach (array_keys($types) as $type) {
+                if (isset($allTypes[$type]) && $this->canUse($type)) {
+                    $invalidatedTypes[$type] = $allTypes[$type];
+                }
+            }
+        }
+        return $invalidatedTypes;
+    }
+
+    /**
+     * Mark specific cache type(s) as invalidated
+     *
+     * @param string|array $typeCode
+     * @return $this
+     */
+    public function invalidateType($typeCode)
+    {
+        $types = $this->_getInvalidatedTypes();
+        if (!is_array($typeCode)) {
+            $typeCode = [$typeCode];
+        }
+        foreach ($typeCode as $code) {
+            $types[$code] = 1;
+        }
+        $this->_saveInvalidatedTypes($types);
+        return $this;
+    }
+
+    /**
+     * Clean cached data for specific cache type
+     *
+     * @param string $typeCode
+     * @return $this
+     */
+    public function cleanType($typeCode)
+    {
+        $tags = $this->getTagsByType($typeCode);
+        $this->clean($tags);
+
+        $types = $this->_getInvalidatedTypes();
+        unset($types[$typeCode]);
+        $this->_saveInvalidatedTypes($types);
+        return $this;
+    }
+
+    /**
+     * Try to get response body from cache storage with predefined processors
+     *
+     * @return bool
+     */
+    public function processRequest()
+    {
+        if (empty($this->_requestProcessors)) {
+            return false;
+        }
+
+        $content = false;
+        foreach ($this->_requestProcessors as $processor) {
+            $processor = $this->_getProcessor($processor);
+            if ($processor) {
+                $content = $processor->extractContent($content);
+            }
+        }
+
+        if ($content) {
+            Mage::app()->getResponse()->appendBody($content);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Get cache backend options. Result array contain backend type ('type' key) and backend options ('options')
      *
      * @return  array
@@ -342,106 +626,6 @@ class Mage_Core_Model_Cache
     }
 
     /**
-     * Get cache frontend API object
-     *
-     * @return Varien_Cache_Core|Zend_Cache_Core
-     */
-    public function getFrontend()
-    {
-        return $this->_frontend;
-    }
-
-    /**
-     * Load data from cache by id
-     *
-     * @param   string $id
-     * @return  string|false
-     */
-    public function load($id)
-    {
-        return $this->getFrontend()->load($this->_id($id));
-    }
-
-    /**
-     * Save data
-     *
-     * @param string $data
-     * @param string $id
-     * @param array $tags
-     * @param null|false|int $lifeTime
-     * @return bool
-     */
-    public function save($data, $id, $tags = [], $lifeTime = null)
-    {
-        if ($this->_disallowSave) {
-            return true;
-        }
-
-        return $this->getFrontend()->save((string) $data, $this->_id($id), $this->_tags($tags), $lifeTime);
-    }
-
-    /**
-     * Test data
-     *
-     * @param string $id
-     * @return false|int
-     */
-    public function test($id)
-    {
-        return $this->getFrontend()->test($this->_id($id));
-    }
-
-    /**
-     * Remove cached data by identifier
-     *
-     * @param   string $id
-     * @return  bool
-     */
-    public function remove($id)
-    {
-        return $this->getFrontend()->remove($this->_id($id));
-    }
-
-    /**
-     * Clean cached data by specific tag
-     *
-     * @param   array|string $tags
-     * @return  bool
-     */
-    public function clean($tags = [])
-    {
-        $mode = Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG;
-        if (!empty($tags)) {
-            if (!is_array($tags)) {
-                $tags = [$tags];
-            }
-            return $this->getFrontend()->clean($mode, $this->_tags($tags));
-        }
-
-        return $this->flush();
-    }
-
-    /**
-     * Flush cached data
-     *
-     * @return  bool
-     */
-    public function flush()
-    {
-        return $this->getFrontend()->clean();
-    }
-
-    /**
-     * Get adapter for database cache backend model
-     *
-     * @return Zend_Db_Adapter_Abstract
-     */
-    public function getDbAdapter()
-    {
-        return Mage::getSingleton('core/resource')->getConnection($this->_dbConnection);
-    }
-
-    /**
      * Get cache resource model
      *
      * @return Mage_Core_Model_Resource_Cache
@@ -481,108 +665,6 @@ class Mage_Core_Model_Cache
     }
 
     /**
-     * Save cache usage options
-     *
-     * @param array $options
-     * @return $this
-     */
-    public function saveOptions($options)
-    {
-        $this->remove(self::OPTIONS_CACHE_ID);
-        $this->_getResource()->saveAllOptions($options);
-        return $this;
-    }
-
-    /**
-     * Check if cache can be used for specific data type
-     *
-     * @param string $typeCode
-     * @return bool|array
-     */
-    public function canUse($typeCode)
-    {
-        if (is_null($this->_allowedCacheOptions)) {
-            $this->_initOptions();
-        }
-
-        if (empty($typeCode)) {
-            return $this->_allowedCacheOptions;
-        }
-
-        if (isset($this->_allowedCacheOptions[$typeCode])) {
-            return (bool) $this->_allowedCacheOptions[$typeCode];
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Disable cache usage for specific data type
-     *
-     * @param string $typeCode
-     * @return $this
-     */
-    public function banUse($typeCode)
-    {
-        $this->_allowedCacheOptions[$typeCode] = false;
-        return $this;
-    }
-
-    /**
-     * Enable cache usage for specific data type
-     *
-     * @param string $typeCode
-     * @return $this
-     */
-    public function unbanUse($typeCode)
-    {
-        $this->_allowedCacheOptions[$typeCode] = true;
-        return $this;
-    }
-
-    /**
-     * Get cache tags by cache type from configuration
-     *
-     * @param string $type
-     * @return array
-     */
-    public function getTagsByType($type)
-    {
-        $path = self::XML_PATH_TYPES . '/' . $type . '/tags';
-        $tagsConfig = Mage::getConfig()->getNode($path);
-        if ($tagsConfig) {
-            $tags = (string) $tagsConfig;
-            $tags = explode(',', $tags);
-        } else {
-            $tags = false;
-        }
-        return $tags;
-    }
-
-    /**
-     * Get information about all declared cache types
-     *
-     * @return array
-     */
-    public function getTypes()
-    {
-        $types = [];
-        $config = Mage::getConfig()->getNode(self::XML_PATH_TYPES);
-        if ($config) {
-            foreach ($config->children() as $type => $node) {
-                $types[$type] = new Varien_Object([
-                    'id'            => $type,
-                    'cache_type'    => Mage::helper('core')->__((string) $node->label),
-                    'description'   => Mage::helper('core')->__((string) $node->description),
-                    'tags'          => strtoupper((string) $node->tags),
-                    'status'        => (int) $this->canUse($type),
-                ]);
-            }
-        }
-        return $types;
-    }
-
-    /**
      * Get invalidate types codes
      *
      * @return array
@@ -608,88 +690,6 @@ class Mage_Core_Model_Cache
     {
         $this->save(serialize($types), self::INVALIDATED_TYPES);
         return $this;
-    }
-
-    /**
-     * Get array of all invalidated cache types
-     *
-     * @return array
-     */
-    public function getInvalidatedTypes()
-    {
-        $invalidatedTypes = [];
-        $types = $this->_getInvalidatedTypes();
-        if ($types) {
-            $allTypes = $this->getTypes();
-            foreach (array_keys($types) as $type) {
-                if (isset($allTypes[$type]) && $this->canUse($type)) {
-                    $invalidatedTypes[$type] = $allTypes[$type];
-                }
-            }
-        }
-        return $invalidatedTypes;
-    }
-
-    /**
-     * Mark specific cache type(s) as invalidated
-     *
-     * @param string|array $typeCode
-     * @return $this
-     */
-    public function invalidateType($typeCode)
-    {
-        $types = $this->_getInvalidatedTypes();
-        if (!is_array($typeCode)) {
-            $typeCode = [$typeCode];
-        }
-        foreach ($typeCode as $code) {
-            $types[$code] = 1;
-        }
-        $this->_saveInvalidatedTypes($types);
-        return $this;
-    }
-
-    /**
-     * Clean cached data for specific cache type
-     *
-     * @param string $typeCode
-     * @return $this
-     */
-    public function cleanType($typeCode)
-    {
-        $tags = $this->getTagsByType($typeCode);
-        $this->clean($tags);
-
-        $types = $this->_getInvalidatedTypes();
-        unset($types[$typeCode]);
-        $this->_saveInvalidatedTypes($types);
-        return $this;
-    }
-
-    /**
-     * Try to get response body from cache storage with predefined processors
-     *
-     * @return bool
-     */
-    public function processRequest()
-    {
-        if (empty($this->_requestProcessors)) {
-            return false;
-        }
-
-        $content = false;
-        foreach ($this->_requestProcessors as $processor) {
-            $processor = $this->_getProcessor($processor);
-            if ($processor) {
-                $content = $processor->extractContent($content);
-            }
-        }
-
-        if ($content) {
-            Mage::app()->getResponse()->appendBody($content);
-            return true;
-        }
-        return false;
     }
 
     /**

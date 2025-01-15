@@ -79,15 +79,6 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     protected $_orderField             = 'order_id';
 
     /**
-     * Initialize collection items factory class
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/order_payment_transaction');
-        parent::_construct();
-    }
-
-    /**
      * Join order information
      *
      * @return $this
@@ -177,6 +168,15 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
         $storeIds = (is_array($storeIds)) ? $storeIds : [$storeIds];
         $this->_storeIds = array_merge($this->_storeIds, $storeIds);
         return $this;
+    }
+
+    /**
+     * Initialize collection items factory class
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/order_payment_transaction');
+        parent::_construct();
     }
 
     /**

@@ -36,6 +36,45 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     public const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
     /**
+     * @return bool
+     */
+    public function prepareCustomerForQuote(Mage_Sales_Model_Quote $quote)
+    {
+        $isNewCustomer = false;
+        switch ($quote->getCheckoutMethod()) {
+            case self::MODE_GUEST:
+                $this->_prepareGuestQuote($quote);
+                break;
+            case self::MODE_REGISTER:
+                $this->_prepareNewCustomerQuote($quote);
+                $isNewCustomer = true;
+                break;
+            default:
+                $this->_prepareCustomerQuote($quote);
+                break;
+        }
+
+        return $isNewCustomer;
+    }
+
+    /**
+     * Involve new customer to system
+     *
+     * @return $this
+     */
+    public function involveNewCustomer(Mage_Sales_Model_Quote $quote)
+    {
+        $customer = $quote->getCustomer();
+        if ($customer->isConfirmationRequired()) {
+            $customer->sendNewAccountEmail('confirmation');
+        } else {
+            $customer->sendNewAccountEmail();
+        }
+
+        return $this;
+    }
+
+    /**
      * @param int $customerId
      * @return Mage_Customer_Model_Customer
      * @throws Mage_Api_Exception
@@ -70,28 +109,6 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
             $address->setRegion($address->getRegionId());
         }
         return $address;
-    }
-
-    /**
-     * @return bool
-     */
-    public function prepareCustomerForQuote(Mage_Sales_Model_Quote $quote)
-    {
-        $isNewCustomer = false;
-        switch ($quote->getCheckoutMethod()) {
-            case self::MODE_GUEST:
-                $this->_prepareGuestQuote($quote);
-                break;
-            case self::MODE_REGISTER:
-                $this->_prepareNewCustomerQuote($quote);
-                $isNewCustomer = true;
-                break;
-            default:
-                $this->_prepareCustomerQuote($quote);
-                break;
-        }
-
-        return $isNewCustomer;
     }
 
     /**
@@ -176,23 +193,6 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
             $customerBilling->setIsDefaultShipping(true);
         }
         $quote->setCustomer($customer);
-
-        return $this;
-    }
-
-    /**
-     * Involve new customer to system
-     *
-     * @return $this
-     */
-    public function involveNewCustomer(Mage_Sales_Model_Quote $quote)
-    {
-        $customer = $quote->getCustomer();
-        if ($customer->isConfirmationRequired()) {
-            $customer->sendNewAccountEmail('confirmation');
-        } else {
-            $customer->sendNewAccountEmail();
-        }
 
         return $this;
     }

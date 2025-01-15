@@ -63,43 +63,6 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     protected $_relatedOrders = [];
 
     /**
-     * Init model
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/billing_agreement');
-    }
-
-    /**
-     * Set created_at parameter
-     *
-     * @inheritdoc
-     */
-    protected function _beforeSave()
-    {
-        $date = Mage::getModel('core/date')->gmtDate();
-        if ($this->isObjectNew() && !$this->getCreatedAt()) {
-            $this->setCreatedAt($date);
-        } else {
-            $this->setUpdatedAt($date);
-        }
-        return parent::_beforeSave();
-    }
-
-    /**
-     * Save agreement order relations
-     *
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _afterSave()
-    {
-        if (!empty($this->_relatedOrders)) {
-            $this->_saveOrderRelations();
-        }
-        return parent::_afterSave();
-    }
-
-    /**
      * Retrieve billing agreement status label
      *
      * @return string
@@ -287,6 +250,43 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
     {
         $this->_relatedOrders[] = $orderId;
         return $this;
+    }
+
+    /**
+     * Init model
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/billing_agreement');
+    }
+
+    /**
+     * Set created_at parameter
+     *
+     * @inheritdoc
+     */
+    protected function _beforeSave()
+    {
+        $date = Mage::getModel('core/date')->gmtDate();
+        if ($this->isObjectNew() && !$this->getCreatedAt()) {
+            $this->setCreatedAt($date);
+        } else {
+            $this->setUpdatedAt($date);
+        }
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Save agreement order relations
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterSave()
+    {
+        if (!empty($this->_relatedOrders)) {
+            $this->_saveOrderRelations();
+        }
+        return parent::_afterSave();
     }
 
     /**

@@ -58,15 +58,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     protected $_rootChildrenIds             = [];
 
     /**
-     * Load core Url rewrite model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('core/url_rewrite', 'url_rewrite_id');
-    }
-
-    /**
      * Retrieve stores array or store model
      *
      * @param int $storeId
@@ -404,87 +395,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * Retrieve category attributes
-     *
-     * @param string $attributeCode
-     * @param int|array $categoryIds
-     * @param int $storeId
-     * @return array
-     */
-    protected function _getCategoryAttribute($attributeCode, $categoryIds, $storeId)
-    {
-        $adapter = $this->_getWriteAdapter();
-        if (!isset($this->_categoryAttributes[$attributeCode])) {
-            $attribute = $this->getCategoryModel()->getResource()->getAttribute($attributeCode);
-
-            $this->_categoryAttributes[$attributeCode] = [
-                'entity_type_id' => $attribute->getEntityTypeId(),
-                'attribute_id'   => $attribute->getId(),
-                'table'          => $attribute->getBackend()->getTable(),
-                'is_global'      => $attribute->getIsGlobal(),
-                'is_static'      => $attribute->isStatic(),
-            ];
-            unset($attribute);
-        }
-
-        if (!is_array($categoryIds)) {
-            $categoryIds = [$categoryIds];
-        }
-
-        $attributeTable = $this->_categoryAttributes[$attributeCode]['table'];
-        $select         = $adapter->select();
-        $bind           = [];
-        if ($this->_categoryAttributes[$attributeCode]['is_static']) {
-            $select
-                ->from(
-                    $this->getTable('catalog/category'),
-                    ['value' => $attributeCode, 'entity_id' => 'entity_id'],
-                )
-                ->where('entity_id IN(?)', $categoryIds);
-        } elseif ($this->_categoryAttributes[$attributeCode]['is_global'] || $storeId == 0) {
-            $select
-                ->from($attributeTable, ['entity_id', 'value'])
-                ->where('attribute_id = :attribute_id')
-                ->where('store_id = ?', 0)
-                ->where('entity_id IN(?)', $categoryIds);
-            $bind['attribute_id'] = $this->_categoryAttributes[$attributeCode]['attribute_id'];
-        } else {
-            $valueExpr = $adapter->getCheckSql('t2.value_id > 0', 't2.value', 't1.value');
-            $select
-                ->from(
-                    ['t1' => $attributeTable],
-                    ['entity_id', 'value' => $valueExpr],
-                )
-                ->joinLeft(
-                    ['t2' => $attributeTable],
-                    't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = :store_id',
-                    [],
-                )
-                ->where('t1.store_id = ?', 0)
-                ->where('t1.attribute_id = :attribute_id')
-                ->where('t1.entity_id IN(?)', $categoryIds);
-
-            $bind['attribute_id'] = $this->_categoryAttributes[$attributeCode]['attribute_id'];
-            $bind['store_id']     = $storeId;
-        }
-
-        $rowSet = $adapter->fetchAll($select, $bind);
-
-        $attributes = [];
-        foreach ($rowSet as $row) {
-            $attributes[$row['entity_id']] = $row['value'];
-        }
-        unset($rowSet);
-        foreach ($categoryIds as $categoryId) {
-            if (!isset($attributes[$categoryId])) {
-                $attributes[$categoryId] = null;
-            }
-        }
-
-        return $attributes;
-    }
-
-    /**
      * Save product attribute
      *
      * @param string $attributeCode
@@ -623,153 +533,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         return $attributes;
-    }
-
-    /**
-     * Prepare category parentId
-     *
-     * @return $this
-     */
-    protected function _prepareCategoryParentId(Varien_Object $category)
-    {
-        if ($category->getPath() != $category->getId()) {
-            $split = explode('/', $category->getPath());
-            $category->setParentId($split[(count($split) - 2)]);
-        } else {
-            $category->setParentId(0);
-        }
-        return $this;
-    }
-
-    /**
-     * Prepare stores root categories
-     *
-     * @param Mage_Core_Model_Store[] $stores
-     * @return Mage_Core_Model_Store[]
-     */
-    protected function _prepareStoreRootCategories($stores)
-    {
-        $rootCategoryIds = [];
-        foreach ($stores as $store) {
-            $rootCategoryId = $store->getRootCategoryId();
-            $rootCategoryIds[$rootCategoryId] = $rootCategoryId;
-        }
-        if ($rootCategoryIds) {
-            $categories = $this->_getCategories($rootCategoryIds);
-        }
-        foreach ($stores as $store) {
-            $rootCategoryId = $store->getRootCategoryId();
-            if (isset($categories[$rootCategoryId])) {
-                $store->setRootCategoryPath($categories[$rootCategoryId]->getPath());
-                $store->setRootCategory($categories[$rootCategoryId]);
-            } else {
-                unset($stores[$store->getId()]);
-            }
-        }
-        return $stores;
-    }
-
-    /**
-     * Retrieve categories objects
-     * Either $categoryIds or $path (with ending slash) must be specified
-     *
-     * @param int|array|null $categoryIds
-     * @param int $storeId
-     * @param string $path
-     * @return array
-     */
-    protected function _getCategories($categoryIds, $storeId = null, $path = null)
-    {
-        $isActiveAttribute = Mage::getSingleton('eav/config')
-            ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
-        $categories        = [];
-        $adapter           = $this->_getReadAdapter();
-
-        if (!is_array($categoryIds)) {
-            $categoryIds = [$categoryIds];
-        }
-        $isActiveExpr = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
-        $select = $adapter->select()
-            ->from(['main_table' => $this->getTable('catalog/category')], [
-                'main_table.entity_id',
-                'main_table.parent_id',
-                'main_table.level',
-                'is_active' => $isActiveExpr,
-                'main_table.path']);
-
-        // Prepare variables for checking whether categories belong to store
-        if ($path === null) {
-            $select->where('main_table.entity_id IN(?)', $categoryIds);
-        } else {
-            // Ensure that path ends with '/', otherwise we can get wrong results - e.g. $path = '1/2' will get '1/20'
-            if (substr($path, -1) !== '/') {
-                $path .= '/';
-            }
-
-            $select
-                ->where('main_table.path LIKE ?', $path . '%')
-                ->order('main_table.path');
-        }
-        $table = $this->getTable(['catalog/category', 'int']);
-        $select->joinLeft(
-            ['d' => $table],
-            'd.attribute_id = :attribute_id AND d.store_id = 0 AND d.entity_id = main_table.entity_id',
-            [],
-        )
-        ->joinLeft(
-            ['c' => $table],
-            'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = main_table.entity_id',
-            [],
-        );
-
-        if ($storeId !== null) {
-            $rootCategoryPath = $this->getStores($storeId)->getRootCategoryPath();
-            $rootCategoryPathLength = strlen($rootCategoryPath);
-        }
-        $bind = [
-            'attribute_id' => (int) $isActiveAttribute->getId(),
-            'store_id'     => (int) $storeId,
-        ];
-
-        $rowSet = $adapter->fetchAll($select, $bind);
-        foreach ($rowSet as $row) {
-            if ($storeId !== null) {
-                // Check the category to be either store's root or its descendant
-                // First - check that category's start is the same as root category
-                if (substr($row['path'], 0, $rootCategoryPathLength) != $rootCategoryPath) {
-                    continue;
-                }
-                // Second - check non-root category - that it's really a descendant, not a simple string match
-                if ((strlen($row['path']) > $rootCategoryPathLength)
-                    && ($row['path'][$rootCategoryPathLength] !== '/')
-                ) {
-                    continue;
-                }
-            }
-
-            $category = new Varien_Object($row);
-            $category->setIdFieldName('entity_id');
-            $category->setStoreId($storeId);
-            $this->_prepareCategoryParentId($category);
-
-            $categories[$category->getId()] = $category;
-        }
-        unset($rowSet);
-
-        if ($storeId !== null && $categories) {
-            foreach (['name', 'url_key', 'url_path'] as $attributeCode) {
-                $attributes = $this->_getCategoryAttribute(
-                    $attributeCode,
-                    array_keys($categories),
-                    $category->getStoreId(),
-                );
-                foreach ($attributes as $categoryId => $attributeValue) {
-                    $categories[$categoryId]->setData($attributeCode, $attributeValue);
-                }
-            }
-        }
-
-        return $categories;
     }
 
     /**
@@ -914,82 +677,6 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $bind = ['category_id' => $categoryId];
 
         return $adapter->fetchCol($select, $bind);
-    }
-
-    /**
-     * Retrieve Product data objects
-     *
-     * @param int|array|null $productIds
-     * @param int $storeId
-     * @param int $entityId
-     * @param int $lastEntityId
-     * @return array
-     */
-    protected function _getProducts($productIds, $storeId, $entityId, &$lastEntityId)
-    {
-        $products   = [];
-        $websiteId  = Mage::app()->getStore($storeId)->getWebsiteId();
-        $adapter    = $this->_getReadAdapter();
-        if ($productIds !== null) {
-            if (!is_array($productIds)) {
-                $productIds = [$productIds];
-            }
-        }
-        $bind = [
-            'website_id' => (int) $websiteId,
-            'entity_id'  => (int) $entityId,
-        ];
-        $select = $adapter->select()
-            ->useStraightJoin(true)
-            ->from(['e' => $this->getTable('catalog/product')], ['entity_id'])
-            ->join(
-                ['w' => $this->getTable('catalog/product_website')],
-                'e.entity_id = w.product_id AND w.website_id = :website_id',
-                [],
-            )
-            ->where('e.entity_id > :entity_id')
-            ->order('e.entity_id')
-            ->limit($this->_productLimit);
-        if ($productIds !== null) {
-            $select->where('e.entity_id IN(?)', $productIds);
-        }
-
-        $rowSet = $adapter->fetchAll($select, $bind);
-        foreach ($rowSet as $row) {
-            $product = new Varien_Object($row);
-            $product->setIdFieldName('entity_id');
-            $product->setCategoryIds([]);
-            $product->setStoreId($storeId);
-            $products[$product->getId()] = $product;
-            $lastEntityId = $product->getId();
-        }
-
-        unset($rowSet);
-
-        if ($products) {
-            $select = $adapter->select()
-                ->from(
-                    $this->getTable('catalog/category_product'),
-                    ['product_id', 'category_id'],
-                )
-                ->where('product_id IN(?)', array_keys($products));
-            $categories = $adapter->fetchAll($select);
-            foreach ($categories as $category) {
-                $productId = $category['product_id'];
-                $categoryIds = $products[$productId]->getCategoryIds();
-                $categoryIds[] = $category['category_id'];
-                $products[$productId]->setCategoryIds($categoryIds);
-            }
-
-            foreach (['name', 'url_key', 'url_path'] as $attributeCode) {
-                $attributes = $this->_getProductAttribute($attributeCode, array_keys($products), $storeId);
-                foreach ($attributes as $productId => $attributeValue) {
-                    $products[$productId]->setData($attributeCode, $attributeValue);
-                }
-            }
-        }
-
-        return $products;
     }
 
     /**
@@ -1352,5 +1039,318 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $conditions['options = ?'] = 'RP';
         }
         $this->_getWriteAdapter()->delete($this->getMainTable(), $conditions);
+    }
+
+    /**
+     * Load core Url rewrite model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('core/url_rewrite', 'url_rewrite_id');
+    }
+
+    /**
+     * Retrieve category attributes
+     *
+     * @param string $attributeCode
+     * @param int|array $categoryIds
+     * @param int $storeId
+     * @return array
+     */
+    protected function _getCategoryAttribute($attributeCode, $categoryIds, $storeId)
+    {
+        $adapter = $this->_getWriteAdapter();
+        if (!isset($this->_categoryAttributes[$attributeCode])) {
+            $attribute = $this->getCategoryModel()->getResource()->getAttribute($attributeCode);
+
+            $this->_categoryAttributes[$attributeCode] = [
+                'entity_type_id' => $attribute->getEntityTypeId(),
+                'attribute_id'   => $attribute->getId(),
+                'table'          => $attribute->getBackend()->getTable(),
+                'is_global'      => $attribute->getIsGlobal(),
+                'is_static'      => $attribute->isStatic(),
+            ];
+            unset($attribute);
+        }
+
+        if (!is_array($categoryIds)) {
+            $categoryIds = [$categoryIds];
+        }
+
+        $attributeTable = $this->_categoryAttributes[$attributeCode]['table'];
+        $select         = $adapter->select();
+        $bind           = [];
+        if ($this->_categoryAttributes[$attributeCode]['is_static']) {
+            $select
+                ->from(
+                    $this->getTable('catalog/category'),
+                    ['value' => $attributeCode, 'entity_id' => 'entity_id'],
+                )
+                ->where('entity_id IN(?)', $categoryIds);
+        } elseif ($this->_categoryAttributes[$attributeCode]['is_global'] || $storeId == 0) {
+            $select
+                ->from($attributeTable, ['entity_id', 'value'])
+                ->where('attribute_id = :attribute_id')
+                ->where('store_id = ?', 0)
+                ->where('entity_id IN(?)', $categoryIds);
+            $bind['attribute_id'] = $this->_categoryAttributes[$attributeCode]['attribute_id'];
+        } else {
+            $valueExpr = $adapter->getCheckSql('t2.value_id > 0', 't2.value', 't1.value');
+            $select
+                ->from(
+                    ['t1' => $attributeTable],
+                    ['entity_id', 'value' => $valueExpr],
+                )
+                ->joinLeft(
+                    ['t2' => $attributeTable],
+                    't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = :store_id',
+                    [],
+                )
+                ->where('t1.store_id = ?', 0)
+                ->where('t1.attribute_id = :attribute_id')
+                ->where('t1.entity_id IN(?)', $categoryIds);
+
+            $bind['attribute_id'] = $this->_categoryAttributes[$attributeCode]['attribute_id'];
+            $bind['store_id']     = $storeId;
+        }
+
+        $rowSet = $adapter->fetchAll($select, $bind);
+
+        $attributes = [];
+        foreach ($rowSet as $row) {
+            $attributes[$row['entity_id']] = $row['value'];
+        }
+        unset($rowSet);
+        foreach ($categoryIds as $categoryId) {
+            if (!isset($attributes[$categoryId])) {
+                $attributes[$categoryId] = null;
+            }
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Prepare category parentId
+     *
+     * @return $this
+     */
+    protected function _prepareCategoryParentId(Varien_Object $category)
+    {
+        if ($category->getPath() != $category->getId()) {
+            $split = explode('/', $category->getPath());
+            $category->setParentId($split[(count($split) - 2)]);
+        } else {
+            $category->setParentId(0);
+        }
+        return $this;
+    }
+
+    /**
+     * Prepare stores root categories
+     *
+     * @param Mage_Core_Model_Store[] $stores
+     * @return Mage_Core_Model_Store[]
+     */
+    protected function _prepareStoreRootCategories($stores)
+    {
+        $rootCategoryIds = [];
+        foreach ($stores as $store) {
+            $rootCategoryId = $store->getRootCategoryId();
+            $rootCategoryIds[$rootCategoryId] = $rootCategoryId;
+        }
+        if ($rootCategoryIds) {
+            $categories = $this->_getCategories($rootCategoryIds);
+        }
+        foreach ($stores as $store) {
+            $rootCategoryId = $store->getRootCategoryId();
+            if (isset($categories[$rootCategoryId])) {
+                $store->setRootCategoryPath($categories[$rootCategoryId]->getPath());
+                $store->setRootCategory($categories[$rootCategoryId]);
+            } else {
+                unset($stores[$store->getId()]);
+            }
+        }
+        return $stores;
+    }
+
+    /**
+     * Retrieve categories objects
+     * Either $categoryIds or $path (with ending slash) must be specified
+     *
+     * @param int|array|null $categoryIds
+     * @param int $storeId
+     * @param string $path
+     * @return array
+     */
+    protected function _getCategories($categoryIds, $storeId = null, $path = null)
+    {
+        $isActiveAttribute = Mage::getSingleton('eav/config')
+            ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_active');
+        $categories        = [];
+        $adapter           = $this->_getReadAdapter();
+
+        if (!is_array($categoryIds)) {
+            $categoryIds = [$categoryIds];
+        }
+        $isActiveExpr = $adapter->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
+        $select = $adapter->select()
+            ->from(['main_table' => $this->getTable('catalog/category')], [
+                'main_table.entity_id',
+                'main_table.parent_id',
+                'main_table.level',
+                'is_active' => $isActiveExpr,
+                'main_table.path']);
+
+        // Prepare variables for checking whether categories belong to store
+        if ($path === null) {
+            $select->where('main_table.entity_id IN(?)', $categoryIds);
+        } else {
+            // Ensure that path ends with '/', otherwise we can get wrong results - e.g. $path = '1/2' will get '1/20'
+            if (substr($path, -1) !== '/') {
+                $path .= '/';
+            }
+
+            $select
+                ->where('main_table.path LIKE ?', $path . '%')
+                ->order('main_table.path');
+        }
+        $table = $this->getTable(['catalog/category', 'int']);
+        $select->joinLeft(
+            ['d' => $table],
+            'd.attribute_id = :attribute_id AND d.store_id = 0 AND d.entity_id = main_table.entity_id',
+            [],
+        )
+        ->joinLeft(
+            ['c' => $table],
+            'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = main_table.entity_id',
+            [],
+        );
+
+        if ($storeId !== null) {
+            $rootCategoryPath = $this->getStores($storeId)->getRootCategoryPath();
+            $rootCategoryPathLength = strlen($rootCategoryPath);
+        }
+        $bind = [
+            'attribute_id' => (int) $isActiveAttribute->getId(),
+            'store_id'     => (int) $storeId,
+        ];
+
+        $rowSet = $adapter->fetchAll($select, $bind);
+        foreach ($rowSet as $row) {
+            if ($storeId !== null) {
+                // Check the category to be either store's root or its descendant
+                // First - check that category's start is the same as root category
+                if (substr($row['path'], 0, $rootCategoryPathLength) != $rootCategoryPath) {
+                    continue;
+                }
+                // Second - check non-root category - that it's really a descendant, not a simple string match
+                if ((strlen($row['path']) > $rootCategoryPathLength)
+                    && ($row['path'][$rootCategoryPathLength] !== '/')
+                ) {
+                    continue;
+                }
+            }
+
+            $category = new Varien_Object($row);
+            $category->setIdFieldName('entity_id');
+            $category->setStoreId($storeId);
+            $this->_prepareCategoryParentId($category);
+
+            $categories[$category->getId()] = $category;
+        }
+        unset($rowSet);
+
+        if ($storeId !== null && $categories) {
+            foreach (['name', 'url_key', 'url_path'] as $attributeCode) {
+                $attributes = $this->_getCategoryAttribute(
+                    $attributeCode,
+                    array_keys($categories),
+                    $category->getStoreId(),
+                );
+                foreach ($attributes as $categoryId => $attributeValue) {
+                    $categories[$categoryId]->setData($attributeCode, $attributeValue);
+                }
+            }
+        }
+
+        return $categories;
+    }
+
+    /**
+     * Retrieve Product data objects
+     *
+     * @param int|array|null $productIds
+     * @param int $storeId
+     * @param int $entityId
+     * @param int $lastEntityId
+     * @return array
+     */
+    protected function _getProducts($productIds, $storeId, $entityId, &$lastEntityId)
+    {
+        $products   = [];
+        $websiteId  = Mage::app()->getStore($storeId)->getWebsiteId();
+        $adapter    = $this->_getReadAdapter();
+        if ($productIds !== null) {
+            if (!is_array($productIds)) {
+                $productIds = [$productIds];
+            }
+        }
+        $bind = [
+            'website_id' => (int) $websiteId,
+            'entity_id'  => (int) $entityId,
+        ];
+        $select = $adapter->select()
+            ->useStraightJoin(true)
+            ->from(['e' => $this->getTable('catalog/product')], ['entity_id'])
+            ->join(
+                ['w' => $this->getTable('catalog/product_website')],
+                'e.entity_id = w.product_id AND w.website_id = :website_id',
+                [],
+            )
+            ->where('e.entity_id > :entity_id')
+            ->order('e.entity_id')
+            ->limit($this->_productLimit);
+        if ($productIds !== null) {
+            $select->where('e.entity_id IN(?)', $productIds);
+        }
+
+        $rowSet = $adapter->fetchAll($select, $bind);
+        foreach ($rowSet as $row) {
+            $product = new Varien_Object($row);
+            $product->setIdFieldName('entity_id');
+            $product->setCategoryIds([]);
+            $product->setStoreId($storeId);
+            $products[$product->getId()] = $product;
+            $lastEntityId = $product->getId();
+        }
+
+        unset($rowSet);
+
+        if ($products) {
+            $select = $adapter->select()
+                ->from(
+                    $this->getTable('catalog/category_product'),
+                    ['product_id', 'category_id'],
+                )
+                ->where('product_id IN(?)', array_keys($products));
+            $categories = $adapter->fetchAll($select);
+            foreach ($categories as $category) {
+                $productId = $category['product_id'];
+                $categoryIds = $products[$productId]->getCategoryIds();
+                $categoryIds[] = $category['category_id'];
+                $products[$productId]->setCategoryIds($categoryIds);
+            }
+
+            foreach (['name', 'url_key', 'url_path'] as $attributeCode) {
+                $attributes = $this->_getProductAttribute($attributeCode, array_keys($products), $storeId);
+                foreach ($attributes as $productId => $attributeValue) {
+                    $products[$productId]->setData($attributeCode, $attributeValue);
+                }
+            }
+        }
+
+        return $products;
     }
 }

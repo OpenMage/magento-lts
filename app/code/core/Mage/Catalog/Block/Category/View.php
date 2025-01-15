@@ -23,47 +23,6 @@
 class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 {
     /**
-     * @return $this|Mage_Core_Block_Template
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-
-        $this->getLayout()->createBlock('catalog/breadcrumbs');
-
-        /** @var Mage_Page_Block_Html_Head $headBlock */
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $category = $this->getCurrentCategory();
-            if ($title = $category->getMetaTitle()) {
-                $headBlock->setTitle($title);
-            }
-            if ($description = $category->getMetaDescription()) {
-                $headBlock->setDescription($description);
-            }
-            if ($keywords = $category->getMetaKeywords()) {
-                $headBlock->setKeywords($keywords);
-            }
-
-            /** @var Mage_Catalog_Helper_Category $helper */
-            $helper = $this->helper('catalog/category');
-            if ($helper->canUseCanonicalTag()) {
-                $headBlock->addLinkRel('canonical', $category->getUrl());
-            }
-            /*
-            want to show rss feed in the url
-            */
-            if ($this->isRssCatalogEnable() && $this->isTopCategory()) {
-                $title = $this->helper('rss')->__('%s RSS Feed', $this->getCurrentCategory()->getName());
-                $headBlock->addItem('rss', $this->getRssLink(), 'title="' . $title . '"');
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function isRssCatalogEnable()
@@ -177,5 +136,45 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     public function getCacheTags()
     {
         return array_merge(parent::getCacheTags(), $this->getCurrentCategory()->getCacheIdTags());
+    }
+    /**
+     * @return $this|Mage_Core_Block_Template
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+
+        $this->getLayout()->createBlock('catalog/breadcrumbs');
+
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $category = $this->getCurrentCategory();
+            if ($title = $category->getMetaTitle()) {
+                $headBlock->setTitle($title);
+            }
+            if ($description = $category->getMetaDescription()) {
+                $headBlock->setDescription($description);
+            }
+            if ($keywords = $category->getMetaKeywords()) {
+                $headBlock->setKeywords($keywords);
+            }
+
+            /** @var Mage_Catalog_Helper_Category $helper */
+            $helper = $this->helper('catalog/category');
+            if ($helper->canUseCanonicalTag()) {
+                $headBlock->addLinkRel('canonical', $category->getUrl());
+            }
+            /*
+            want to show rss feed in the url
+            */
+            if ($this->isRssCatalogEnable() && $this->isTopCategory()) {
+                $title = $this->helper('rss')->__('%s RSS Feed', $this->getCurrentCategory()->getName());
+                $headBlock->addItem('rss', $this->getRssLink(), 'title="' . $title . '"');
+            }
+        }
+
+        return $this;
     }
 }

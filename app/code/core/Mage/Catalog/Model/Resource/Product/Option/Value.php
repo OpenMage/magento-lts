@@ -22,6 +22,125 @@
  */
 class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * Delete values by option id
+     *
+     * @param int|string $optionId
+     * @return $this
+     */
+    public function deleteValue($optionId)
+    {
+        $statement = $this->_getReadAdapter()->select()
+            ->from($this->getTable('catalog/product_option_type_value'))
+            ->where('option_id = ?', $optionId);
+
+        $rowSet = $this->_getReadAdapter()->fetchAll($statement);
+
+        foreach ($rowSet as $optionType) {
+            $this->deleteValues($optionType['option_type_id']);
+        }
+
+        $this->_getWriteAdapter()->delete(
+            $this->getMainTable(),
+            [
+                'option_id = ?' => $optionId,
+            ],
+        );
+
+        return $this;
+    }
+
+    /**
+     * Delete values by option type
+     *
+     * @param int $optionTypeId
+     */
+    public function deleteValues($optionTypeId)
+    {
+        $condition = [
+            'option_type_id = ?' => $optionTypeId,
+        ];
+
+        $this->_getWriteAdapter()->delete(
+            $this->getTable('catalog/product_option_type_price'),
+            $condition,
+        );
+
+        $this->_getWriteAdapter()->delete(
+            $this->getTable('catalog/product_option_type_title'),
+            $condition,
+        );
+    }
+
+    /**
+     * Duplicate product options value
+     *
+     * @param int $oldOptionId
+     * @param int $newOptionId
+     * @return Mage_Catalog_Model_Product_Option_Value
+     */
+    public function duplicate(Mage_Catalog_Model_Product_Option_Value $object, $oldOptionId, $newOptionId)
+    {
+        $writeAdapter = $this->_getWriteAdapter();
+        $readAdapter  = $this->_getReadAdapter();
+        $select       = $readAdapter->select()
+            ->from($this->getMainTable())
+            ->where('option_id = ?', $oldOptionId);
+        $valueData = $readAdapter->fetchAll($select);
+
+        $valueCond = [];
+
+        foreach ($valueData as $data) {
+            $optionTypeId = $data[$this->getIdFieldName()];
+            unset($data[$this->getIdFieldName()]);
+            $data['option_id'] = $newOptionId;
+
+            $writeAdapter->insert($this->getMainTable(), $data);
+            $valueCond[$optionTypeId] = $writeAdapter->lastInsertId($this->getMainTable());
+        }
+
+        unset($valueData);
+
+        foreach ($valueCond as $oldTypeId => $newTypeId) {
+            // price
+            $priceTable = $this->getTable('catalog/product_option_type_price');
+            $columns = [
+                new Zend_Db_Expr($newTypeId),
+                'store_id', 'price', 'price_type',
+            ];
+
+            $select = $readAdapter->select()
+                ->from($priceTable, [])
+                ->where('option_type_id = ?', $oldTypeId)
+                ->columns($columns);
+            $insertSelect = $writeAdapter->insertFromSelect(
+                $select,
+                $priceTable,
+                ['option_type_id', 'store_id', 'price', 'price_type'],
+            );
+            $writeAdapter->query($insertSelect);
+
+            // title
+            $titleTable = $this->getTable('catalog/product_option_type_title');
+            $columns = [
+                new Zend_Db_Expr($newTypeId),
+                'store_id', 'title',
+            ];
+
+            $select = $this->_getReadAdapter()->select()
+                ->from($titleTable, [])
+                ->where('option_type_id = ?', $oldTypeId)
+                ->columns($columns);
+            $insertSelect = $writeAdapter->insertFromSelect(
+                $select,
+                $titleTable,
+                ['option_type_id', 'store_id', 'title'],
+            );
+            $writeAdapter->query($insertSelect);
+        }
+
+        return $object;
+    }
     protected function _construct()
     {
         $this->_init('catalog/product_option_type_value', 'option_type_id');
@@ -210,125 +329,5 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
             ];
             $this->_getWriteAdapter()->delete($titleTable, $where);
         }
-    }
-
-    /**
-     * Delete values by option id
-     *
-     * @param int|string $optionId
-     * @return $this
-     */
-    public function deleteValue($optionId)
-    {
-        $statement = $this->_getReadAdapter()->select()
-            ->from($this->getTable('catalog/product_option_type_value'))
-            ->where('option_id = ?', $optionId);
-
-        $rowSet = $this->_getReadAdapter()->fetchAll($statement);
-
-        foreach ($rowSet as $optionType) {
-            $this->deleteValues($optionType['option_type_id']);
-        }
-
-        $this->_getWriteAdapter()->delete(
-            $this->getMainTable(),
-            [
-                'option_id = ?' => $optionId,
-            ],
-        );
-
-        return $this;
-    }
-
-    /**
-     * Delete values by option type
-     *
-     * @param int $optionTypeId
-     */
-    public function deleteValues($optionTypeId)
-    {
-        $condition = [
-            'option_type_id = ?' => $optionTypeId,
-        ];
-
-        $this->_getWriteAdapter()->delete(
-            $this->getTable('catalog/product_option_type_price'),
-            $condition,
-        );
-
-        $this->_getWriteAdapter()->delete(
-            $this->getTable('catalog/product_option_type_title'),
-            $condition,
-        );
-    }
-
-    /**
-     * Duplicate product options value
-     *
-     * @param int $oldOptionId
-     * @param int $newOptionId
-     * @return Mage_Catalog_Model_Product_Option_Value
-     */
-    public function duplicate(Mage_Catalog_Model_Product_Option_Value $object, $oldOptionId, $newOptionId)
-    {
-        $writeAdapter = $this->_getWriteAdapter();
-        $readAdapter  = $this->_getReadAdapter();
-        $select       = $readAdapter->select()
-            ->from($this->getMainTable())
-            ->where('option_id = ?', $oldOptionId);
-        $valueData = $readAdapter->fetchAll($select);
-
-        $valueCond = [];
-
-        foreach ($valueData as $data) {
-            $optionTypeId = $data[$this->getIdFieldName()];
-            unset($data[$this->getIdFieldName()]);
-            $data['option_id'] = $newOptionId;
-
-            $writeAdapter->insert($this->getMainTable(), $data);
-            $valueCond[$optionTypeId] = $writeAdapter->lastInsertId($this->getMainTable());
-        }
-
-        unset($valueData);
-
-        foreach ($valueCond as $oldTypeId => $newTypeId) {
-            // price
-            $priceTable = $this->getTable('catalog/product_option_type_price');
-            $columns = [
-                new Zend_Db_Expr($newTypeId),
-                'store_id', 'price', 'price_type',
-            ];
-
-            $select = $readAdapter->select()
-                ->from($priceTable, [])
-                ->where('option_type_id = ?', $oldTypeId)
-                ->columns($columns);
-            $insertSelect = $writeAdapter->insertFromSelect(
-                $select,
-                $priceTable,
-                ['option_type_id', 'store_id', 'price', 'price_type'],
-            );
-            $writeAdapter->query($insertSelect);
-
-            // title
-            $titleTable = $this->getTable('catalog/product_option_type_title');
-            $columns = [
-                new Zend_Db_Expr($newTypeId),
-                'store_id', 'title',
-            ];
-
-            $select = $this->_getReadAdapter()->select()
-                ->from($titleTable, [])
-                ->where('option_type_id = ?', $oldTypeId)
-                ->columns($columns);
-            $insertSelect = $writeAdapter->insertFromSelect(
-                $select,
-                $titleTable,
-                ['option_type_id', 'store_id', 'title'],
-            );
-            $writeAdapter->query($insertSelect);
-        }
-
-        return $object;
     }
 }

@@ -74,22 +74,6 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     }
 
     /**
-     * Prepare collection for grid
-     *
-     * @return Mage_Adminhtml_Block_Widget_Grid
-     */
-    protected function _prepareCollection()
-    {
-        $collection = Mage::getResourceModel('sales/recurring_profile_collection')
-            ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId());
-        if (!$this->getParam($this->getVarNameSort())) {
-            $collection->setOrder('profile_id', 'desc');
-        }
-        $this->setCollection($collection);
-        return Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
-    }
-
-    /**
      * Defines after which tab, this tab should be rendered
      *
      * @return string
@@ -107,5 +91,21 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
     public function getGridUrl()
     {
         return $this->getUrl('*/sales_recurring_profile/customerGrid', ['_current' => true]);
+    }
+
+    /**
+     * Prepare collection for grid
+     *
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
+    protected function _prepareCollection()
+    {
+        $collection = Mage::getResourceModel('sales/recurring_profile_collection')
+            ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId());
+        if (!$this->getParam($this->getVarNameSort())) {
+            $collection->setOrder('profile_id', 'desc');
+        }
+        $this->setCollection($collection);
+        return Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
     }
 }

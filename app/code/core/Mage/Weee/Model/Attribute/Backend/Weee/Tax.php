@@ -24,16 +24,6 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     }
 
     /**
-     * Retrieve resource model
-     *
-     * @return Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax
-     */
-    protected function _getResource()
-    {
-        return Mage::getResourceSingleton(self::getBackendModelName());
-    }
-
-    /**
      * Validate data
      *
      * @param   Mage_Catalog_Model_Product $object
@@ -150,5 +140,15 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
     public function getTable()
     {
         return $this->_getResource()->getTable('weee/tax');
+    }
+
+    /**
+     * Retrieve resource model
+     *
+     * @return Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax
+     */
+    protected function _getResource()
+    {
+        return Mage::getResourceSingleton(self::getBackendModelName());
     }
 }

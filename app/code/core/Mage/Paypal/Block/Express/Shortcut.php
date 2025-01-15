@@ -68,6 +68,28 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     protected $_checkoutType = 'paypal/express_checkout';
 
     /**
+     * Check is "OR" label position before shortcut
+     *
+     * @return bool
+     */
+    public function isOrPositionBefore()
+    {
+        return ($this->getIsInCatalogProduct() && !$this->getShowOrPosition())
+            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_BEFORE);
+    }
+
+    /**
+     * Check is "OR" label position after shortcut
+     *
+     * @return bool
+     */
+    public function isOrPositionAfter()
+    {
+        return (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition())
+            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_AFTER);
+    }
+
+    /**
      * @return Mage_Core_Block_Abstract
      */
     protected function _beforeToHtml()
@@ -178,27 +200,5 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
             return '';
         }
         return parent::_toHtml();
-    }
-
-    /**
-     * Check is "OR" label position before shortcut
-     *
-     * @return bool
-     */
-    public function isOrPositionBefore()
-    {
-        return ($this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_BEFORE);
-    }
-
-    /**
-     * Check is "OR" label position after shortcut
-     *
-     * @return bool
-     */
-    public function isOrPositionAfter()
-    {
-        return (!$this->getIsInCatalogProduct() && !$this->getShowOrPosition())
-            || ($this->getShowOrPosition() && $this->getShowOrPosition() === self::POSITION_AFTER);
     }
 }

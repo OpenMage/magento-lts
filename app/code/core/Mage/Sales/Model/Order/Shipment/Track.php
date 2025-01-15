@@ -62,19 +62,6 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return void
-     */
-    protected function _initOldFieldsMap()
-    {
-        $this->_oldFieldsMap = [
-            'number' => 'track_number',
-        ];
-    }
-
-    /**
      * Back compatibility with old versions.
      *
      * @return string
@@ -172,6 +159,19 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     public function getStoreId()
     {
         return $this->getStore()->getId();
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return void
+     */
+    protected function _initOldFieldsMap()
+    {
+        $this->_oldFieldsMap = [
+            'number' => 'track_number',
+        ];
     }
 
     /**

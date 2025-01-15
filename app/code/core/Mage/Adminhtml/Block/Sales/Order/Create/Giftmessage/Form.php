@@ -58,14 +58,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * @return Mage_Adminhtml_Model_Session_Quote
-     */
-    protected function _getSession()
-    {
-        return Mage::getSingleton('adminhtml/session_quote');
-    }
-
-    /**
      * Retrieve default value for giftmessage sender
      *
      * @return string
@@ -167,6 +159,28 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
+     * Retrieve gift message for entity
+     *
+     * @return Mage_GiftMessage_Model_Message
+     */
+    public function getMessage()
+    {
+        if (is_null($this->_giftMessage)) {
+            $this->_initMessage();
+        }
+
+        return $this->_giftMessage;
+    }
+
+    /**
+     * @return Mage_Adminhtml_Model_Session_Quote
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('adminhtml/session_quote');
+    }
+
+    /**
      * Prepare form fieldset
      * All fields are hidden
      *
@@ -252,20 +266,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
         $helper = $this->helper('giftmessage/message');
         $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
         return $this;
-    }
-
-    /**
-     * Retrieve gift message for entity
-     *
-     * @return Mage_GiftMessage_Model_Message
-     */
-    public function getMessage()
-    {
-        if (is_null($this->_giftMessage)) {
-            $this->_initMessage();
-        }
-
-        return $this->_giftMessage;
     }
 
     /**

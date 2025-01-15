@@ -56,15 +56,6 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     protected $_orderWebsiteId = null;
 
     /**
-     * Initialize resource model
-     */
-    protected function _construct()
-    {
-        $this->_init('paypal/payment_transaction');
-        parent::_construct();
-    }
-
-    /**
      * Transaction ID setter
      * @param string $txnId
      * @return $this
@@ -73,20 +64,6 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     {
         $this->_verifyTxnId($txnId);
         return $this->setData('txn_id', $txnId);
-    }
-
-    /**
-     * Check object before loading by by specified transaction ID
-     * @param string $txnId
-     * @return $this
-     */
-    protected function _beforeLoadByTxnId($txnId)
-    {
-        Mage::dispatchEvent(
-            $this->_eventPrefix . '_load_by_txn_id_before',
-            $this->_getEventData() + ['txn_id' => $txnId],
-        );
-        return $this;
     }
 
     /**
@@ -102,17 +79,6 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
             $txnId,
         );
         $this->_afterLoadByTxnId();
-        return $this;
-    }
-
-    /**
-     * Check object after loading by by specified transaction ID
-     *
-     * @return $this
-     */
-    protected function _afterLoadByTxnId()
-    {
-        Mage::dispatchEvent($this->_eventPrefix . '_load_by_txn_id_after', $this->_getEventData());
         return $this;
     }
 
@@ -186,6 +152,40 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
             return $this->_isFailsafe;
         }
         $this->_isFailsafe = (bool) $setFailsafe;
+        return $this;
+    }
+
+    /**
+     * Initialize resource model
+     */
+    protected function _construct()
+    {
+        $this->_init('paypal/payment_transaction');
+        parent::_construct();
+    }
+
+    /**
+     * Check object before loading by by specified transaction ID
+     * @param string $txnId
+     * @return $this
+     */
+    protected function _beforeLoadByTxnId($txnId)
+    {
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_load_by_txn_id_before',
+            $this->_getEventData() + ['txn_id' => $txnId],
+        );
+        return $this;
+    }
+
+    /**
+     * Check object after loading by by specified transaction ID
+     *
+     * @return $this
+     */
+    protected function _afterLoadByTxnId()
+    {
+        Mage::dispatchEvent($this->_eventPrefix . '_load_by_txn_id_after', $this->_getEventData());
         return $this;
     }
 

@@ -26,29 +26,19 @@ class Mage_Xml_Generator
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getDom()->saveXML();
+    }
+
+    /**
      * @return DOMDocument|null
      */
     public function getDom()
     {
         return $this->_dom;
-    }
-
-    /**
-     * @return DOMDocument
-     */
-    protected function _getCurrentDom()
-    {
-        return $this->_currentDom;
-    }
-
-    /**
-     * @param DOMElement $node
-     * @return $this
-     */
-    protected function _setCurrentDom($node)
-    {
-        $this->_currentDom = $node;
-        return $this;
     }
 
     /**
@@ -100,20 +90,30 @@ class Mage_Xml_Generator
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getDom()->saveXML();
-    }
-
-    /**
      * @param string $file
      * @return $this
      */
     public function save($file)
     {
         $this->getDom()->save($file);
+        return $this;
+    }
+
+    /**
+     * @return DOMDocument
+     */
+    protected function _getCurrentDom()
+    {
+        return $this->_currentDom;
+    }
+
+    /**
+     * @param DOMElement $node
+     * @return $this
+     */
+    protected function _setCurrentDom($node)
+    {
+        $this->_currentDom = $node;
         return $this;
     }
 }

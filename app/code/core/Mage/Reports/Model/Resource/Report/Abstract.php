@@ -30,6 +30,57 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     protected $_flag     = null;
 
     /**
+    * Retrieve query for attribute with timezone conversion
+    *
+    * @param string|array $table
+    * @param string $column
+    * @param mixed $from
+    * @param mixed $to
+    * @param int|string|Mage_Core_Model_Store|null $store
+    * @return string
+    */
+    public function getStoreTZOffsetQuery($table, $column, $from = null, $to = null, $store = null)
+    {
+        $column = $this->_getWriteAdapter()->quoteIdentifier($column);
+
+        if (is_null($from)) {
+            $selectOldest = $this->_getWriteAdapter()->select()
+                ->from(
+                    $table,
+                    ["MIN($column)"],
+                );
+            $from = $this->_getWriteAdapter()->fetchOne($selectOldest);
+        }
+
+        $periods = $this->_getTZOffsetTransitions(
+            Mage::app()->getLocale()->storeDate($store)->toString(Zend_Date::TIMEZONE_NAME),
+            $from,
+            $to,
+        );
+        if (empty($periods)) {
+            return $column;
+        }
+
+        $query = '';
+        $periodsCount = count($periods);
+
+        $i = 0;
+        foreach ($periods as $offset => $timestamps) {
+            $subParts = [];
+            foreach ($timestamps as $ts) {
+                $subParts[] = "($column between {$ts['from']} and {$ts['to']})";
+            }
+
+            $then = $this->_getWriteAdapter()
+                ->getDateAddSql($column, $offset, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
+
+            $query .= (++$i == $periodsCount) ? $then : 'CASE WHEN ' . implode(' OR ', $subParts) . " THEN $then ELSE ";
+        }
+
+        return $query . str_repeat('END ', count($periods) - 1);
+    }
+
+    /**
      * Retrieve flag object
      *
      * @return Mage_Reports_Model_Flag
@@ -341,57 +392,6 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         }
 
         return $this;
-    }
-
-    /**
-    * Retrieve query for attribute with timezone conversion
-    *
-    * @param string|array $table
-    * @param string $column
-    * @param mixed $from
-    * @param mixed $to
-    * @param int|string|Mage_Core_Model_Store|null $store
-    * @return string
-    */
-    public function getStoreTZOffsetQuery($table, $column, $from = null, $to = null, $store = null)
-    {
-        $column = $this->_getWriteAdapter()->quoteIdentifier($column);
-
-        if (is_null($from)) {
-            $selectOldest = $this->_getWriteAdapter()->select()
-                ->from(
-                    $table,
-                    ["MIN($column)"],
-                );
-            $from = $this->_getWriteAdapter()->fetchOne($selectOldest);
-        }
-
-        $periods = $this->_getTZOffsetTransitions(
-            Mage::app()->getLocale()->storeDate($store)->toString(Zend_Date::TIMEZONE_NAME),
-            $from,
-            $to,
-        );
-        if (empty($periods)) {
-            return $column;
-        }
-
-        $query = '';
-        $periodsCount = count($periods);
-
-        $i = 0;
-        foreach ($periods as $offset => $timestamps) {
-            $subParts = [];
-            foreach ($timestamps as $ts) {
-                $subParts[] = "($column between {$ts['from']} and {$ts['to']})";
-            }
-
-            $then = $this->_getWriteAdapter()
-                ->getDateAddSql($column, $offset, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
-
-            $query .= (++$i == $periodsCount) ? $then : 'CASE WHEN ' . implode(' OR ', $subParts) . " THEN $then ELSE ";
-        }
-
-        return $query . str_repeat('END ', count($periods) - 1);
     }
 
     /**

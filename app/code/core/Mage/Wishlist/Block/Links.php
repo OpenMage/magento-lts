@@ -29,6 +29,48 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     protected $_position = 30;
 
     /**
+     * Define label, title and url for wishlist link
+     *
+     * @deprecated after 1.6.2.0
+     */
+    public function initLinkProperties()
+    {
+        $text = $this->_createLabel($this->_getItemCount());
+        $this->_label = $text;
+        $this->_title = $text;
+        $this->_url = $this->getUrl('wishlist');
+    }
+
+    /**
+     * @return Mage_Wishlist_Block_Links
+     * @see Mage_Wishlist_Block_Links::__construct
+     *
+     * @deprecated after 1.4.2.0
+     */
+    public function addWishlistLink()
+    {
+        return $this;
+    }
+
+    /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     * @throws Mage_Core_Model_Store_Exception
+     */
+    public function getCacheTags()
+    {
+        /** @var Mage_Wishlist_Helper_Data $helper */
+        $helper = $this->helper('wishlist');
+        $wishlist = $helper->getWishlist();
+        $this->addModelTags($wishlist);
+        foreach ($wishlist->getItemCollection() as $item) {
+            $this->addModelTags($item);
+        }
+        return parent::getCacheTags();
+    }
+
+    /**
      * @return string
      */
     protected function _toHtml()
@@ -43,19 +85,6 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
             return parent::_toHtml();
         }
         return '';
-    }
-
-    /**
-     * Define label, title and url for wishlist link
-     *
-     * @deprecated after 1.6.2.0
-     */
-    public function initLinkProperties()
-    {
-        $text = $this->_createLabel($this->_getItemCount());
-        $this->_label = $text;
-        $this->_title = $text;
-        $this->_url = $this->getUrl('wishlist');
     }
 
     /**
@@ -87,34 +116,5 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
         }
 
         return $this->__('My Wishlist');
-    }
-
-    /**
-     * @return Mage_Wishlist_Block_Links
-     * @see Mage_Wishlist_Block_Links::__construct
-     *
-     * @deprecated after 1.4.2.0
-     */
-    public function addWishlistLink()
-    {
-        return $this;
-    }
-
-    /**
-     * Retrieve block cache tags
-     *
-     * @return array
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    public function getCacheTags()
-    {
-        /** @var Mage_Wishlist_Helper_Data $helper */
-        $helper = $this->helper('wishlist');
-        $wishlist = $helper->getWishlist();
-        $this->addModelTags($wishlist);
-        foreach ($wishlist->getItemCollection() as $item) {
-            $this->addModelTags($item);
-        }
-        return parent::getCacheTags();
     }
 }

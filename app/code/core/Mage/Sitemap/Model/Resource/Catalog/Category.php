@@ -23,14 +23,6 @@
 class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Resource_Catalog_Abstract
 {
     /**
-     * Init resource model (catalog/category)
-     */
-    protected function _construct()
-    {
-        $this->_init('catalog/category', 'entity_id');
-    }
-
-    /**
      * Get category collection array
      *
      * @param int $storeId
@@ -64,6 +56,13 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
         $this->_addFilter($storeId, 'is_active', 1);
 
         return $this->_loadEntities();
+    }
+    /**
+     * Init resource model (catalog/category)
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/category', 'entity_id');
     }
 
     /**

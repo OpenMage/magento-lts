@@ -30,19 +30,6 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
     protected $_model;
 
     /**
-     * Get consumer model
-     *
-     * @return Mage_Oauth_Model_Consumer
-     */
-    public function getModel()
-    {
-        if ($this->_model === null) {
-            $this->_model = Mage::registry('current_consumer');
-        }
-        return $this->_model;
-    }
-
-    /**
      * Construct edit page
      */
     public function __construct()
@@ -73,6 +60,19 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         if (!$this->getModel() || !$this->getModel()->getId() || !$session->isAllowed('system/oauth/consumer/delete')) {
             $this->_removeButton('delete');
         }
+    }
+
+    /**
+     * Get consumer model
+     *
+     * @return Mage_Oauth_Model_Consumer
+     */
+    public function getModel()
+    {
+        if ($this->_model === null) {
+            $this->_model = Mage::registry('current_consumer');
+        }
+        return $this->_model;
     }
 
     /**

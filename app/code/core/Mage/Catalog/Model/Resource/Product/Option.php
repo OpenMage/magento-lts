@@ -22,6 +22,212 @@
  */
 class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resource_Db_Abstract
 {
+    /**
+     * Delete prices
+     *
+     * @param int|string $optionId
+     * @return $this
+     */
+    public function deletePrices($optionId)
+    {
+        $this->_getWriteAdapter()->delete(
+            $this->getTable('catalog/product_option_price'),
+            [
+                'option_id = ?' => $optionId,
+            ],
+        );
+
+        return $this;
+    }
+
+    /**
+     * Delete titles
+     *
+     * @param int|string $optionId
+     * @return $this
+     */
+    public function deleteTitles($optionId)
+    {
+        $this->_getWriteAdapter()->delete(
+            $this->getTable('catalog/product_option_title'),
+            [
+                'option_id = ?' => $optionId,
+            ],
+        );
+
+        return $this;
+    }
+
+    /**
+     * Duplicate custom options for product
+     *
+     * @param int $oldProductId
+     * @param int $newProductId
+     * @return Mage_Catalog_Model_Product_Option
+     */
+    public function duplicate(Mage_Catalog_Model_Product_Option $object, $oldProductId, $newProductId)
+    {
+        $write  = $this->_getWriteAdapter();
+        $read   = $this->_getReadAdapter();
+
+        $optionsCond = [];
+        $optionsData = [];
+
+        // read and prepare original product options
+        $select = $read->select()
+            ->from($this->getTable('catalog/product_option'))
+            ->where('product_id = ?', $oldProductId);
+
+        $query = $read->query($select);
+
+        while ($row = $query->fetch()) {
+            $optionsData[$row['option_id']] = $row;
+            $optionsData[$row['option_id']]['product_id'] = $newProductId;
+            unset($optionsData[$row['option_id']]['option_id']);
+        }
+
+        // insert options to duplicated product
+        foreach ($optionsData as $oId => $data) {
+            $write->insert($this->getMainTable(), $data);
+            $optionsCond[$oId] = $write->lastInsertId($this->getMainTable());
+        }
+
+        // copy options prefs
+        foreach ($optionsCond as $oldOptionId => $newOptionId) {
+            // title
+            $table = $this->getTable('catalog/product_option_title');
+
+            $select = $this->_getReadAdapter()->select()
+                ->from($table, [new Zend_Db_Expr($newOptionId), 'store_id', 'title'])
+                ->where('option_id = ?', $oldOptionId);
+
+            $insertSelect = $write->insertFromSelect(
+                $select,
+                $table,
+                ['option_id', 'store_id', 'title'],
+                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE,
+            );
+            $write->query($insertSelect);
+
+            // price
+            $table = $this->getTable('catalog/product_option_price');
+
+            $select = $read->select()
+                ->from($table, [new Zend_Db_Expr($newOptionId), 'store_id', 'price', 'price_type'])
+                ->where('option_id = ?', $oldOptionId);
+
+            $insertSelect = $write->insertFromSelect(
+                $select,
+                $table,
+                [
+                    'option_id',
+                    'store_id',
+                    'price',
+                    'price_type',
+                ],
+                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE,
+            );
+            $write->query($insertSelect);
+
+            $object->getValueInstance()->duplicate($oldOptionId, $newOptionId);
+        }
+
+        return $object;
+    }
+
+    /**
+     * Retrieve option searchable data
+     *
+     * @param int $productId
+     * @param int $storeId
+     * @return array
+     */
+    public function getSearchableData($productId, $storeId)
+    {
+        $searchData = [];
+
+        $adapter = $this->_getReadAdapter();
+
+        $titleCheckSql = $adapter->getCheckSql(
+            'option_title_store.title IS NULL',
+            'option_title_default.title',
+            'option_title_store.title',
+        );
+
+        // retrieve options title
+
+        $defaultOptionJoin = implode(
+            ' AND ',
+            ['option_title_default.option_id=product_option.option_id',
+                $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)],
+        );
+
+        $storeOptionJoin = implode(
+            ' AND ',
+            [
+                'option_title_store.option_id=product_option.option_id',
+                $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId)],
+        );
+
+        $select = $adapter->select()
+            ->from(['product_option' => $this->getMainTable()], null)
+            ->join(
+                ['option_title_default' => $this->getTable('catalog/product_option_title')],
+                $defaultOptionJoin,
+                [],
+            )
+            ->joinLeft(
+                ['option_title_store' => $this->getTable('catalog/product_option_title')],
+                $storeOptionJoin,
+                ['title' => $titleCheckSql],
+            )
+            ->where('product_option.product_id = ?', $productId);
+
+        if ($titles = $adapter->fetchCol($select)) {
+            $searchData = array_merge($searchData, $titles);
+        }
+
+        //select option type titles
+
+        $defaultOptionJoin = implode(
+            ' AND ',
+            [
+                'option_title_default.option_type_id=option_type.option_type_id',
+                $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)],
+        );
+
+        $storeOptionJoin = implode(
+            ' AND ',
+            [
+                'option_title_store.option_type_id = option_type.option_type_id',
+                $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId)],
+        );
+
+        $select = $adapter->select()
+            ->from(['product_option' => $this->getMainTable()], null)
+            ->join(
+                ['option_type' => $this->getTable('catalog/product_option_type_value')],
+                'option_type.option_id=product_option.option_id',
+                [],
+            )
+            ->join(
+                ['option_title_default' => $this->getTable('catalog/product_option_type_title')],
+                $defaultOptionJoin,
+                [],
+            )
+            ->joinLeft(
+                ['option_title_store' => $this->getTable('catalog/product_option_type_title')],
+                $storeOptionJoin,
+                ['title' => $titleCheckSql],
+            )
+            ->where('product_option.product_id = ?', $productId);
+
+        if ($titles = $adapter->fetchCol($select)) {
+            $searchData = array_merge($searchData, $titles);
+        }
+
+        return $searchData;
+    }
     protected function _construct()
     {
         $this->_init('catalog/product_option', 'option_id');
@@ -282,212 +488,5 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                 ],
             );
         }
-    }
-
-    /**
-     * Delete prices
-     *
-     * @param int|string $optionId
-     * @return $this
-     */
-    public function deletePrices($optionId)
-    {
-        $this->_getWriteAdapter()->delete(
-            $this->getTable('catalog/product_option_price'),
-            [
-                'option_id = ?' => $optionId,
-            ],
-        );
-
-        return $this;
-    }
-
-    /**
-     * Delete titles
-     *
-     * @param int|string $optionId
-     * @return $this
-     */
-    public function deleteTitles($optionId)
-    {
-        $this->_getWriteAdapter()->delete(
-            $this->getTable('catalog/product_option_title'),
-            [
-                'option_id = ?' => $optionId,
-            ],
-        );
-
-        return $this;
-    }
-
-    /**
-     * Duplicate custom options for product
-     *
-     * @param int $oldProductId
-     * @param int $newProductId
-     * @return Mage_Catalog_Model_Product_Option
-     */
-    public function duplicate(Mage_Catalog_Model_Product_Option $object, $oldProductId, $newProductId)
-    {
-        $write  = $this->_getWriteAdapter();
-        $read   = $this->_getReadAdapter();
-
-        $optionsCond = [];
-        $optionsData = [];
-
-        // read and prepare original product options
-        $select = $read->select()
-            ->from($this->getTable('catalog/product_option'))
-            ->where('product_id = ?', $oldProductId);
-
-        $query = $read->query($select);
-
-        while ($row = $query->fetch()) {
-            $optionsData[$row['option_id']] = $row;
-            $optionsData[$row['option_id']]['product_id'] = $newProductId;
-            unset($optionsData[$row['option_id']]['option_id']);
-        }
-
-        // insert options to duplicated product
-        foreach ($optionsData as $oId => $data) {
-            $write->insert($this->getMainTable(), $data);
-            $optionsCond[$oId] = $write->lastInsertId($this->getMainTable());
-        }
-
-        // copy options prefs
-        foreach ($optionsCond as $oldOptionId => $newOptionId) {
-            // title
-            $table = $this->getTable('catalog/product_option_title');
-
-            $select = $this->_getReadAdapter()->select()
-                ->from($table, [new Zend_Db_Expr($newOptionId), 'store_id', 'title'])
-                ->where('option_id = ?', $oldOptionId);
-
-            $insertSelect = $write->insertFromSelect(
-                $select,
-                $table,
-                ['option_id', 'store_id', 'title'],
-                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE,
-            );
-            $write->query($insertSelect);
-
-            // price
-            $table = $this->getTable('catalog/product_option_price');
-
-            $select = $read->select()
-                ->from($table, [new Zend_Db_Expr($newOptionId), 'store_id', 'price', 'price_type'])
-                ->where('option_id = ?', $oldOptionId);
-
-            $insertSelect = $write->insertFromSelect(
-                $select,
-                $table,
-                [
-                    'option_id',
-                    'store_id',
-                    'price',
-                    'price_type',
-                ],
-                Varien_Db_Adapter_Interface::INSERT_ON_DUPLICATE,
-            );
-            $write->query($insertSelect);
-
-            $object->getValueInstance()->duplicate($oldOptionId, $newOptionId);
-        }
-
-        return $object;
-    }
-
-    /**
-     * Retrieve option searchable data
-     *
-     * @param int $productId
-     * @param int $storeId
-     * @return array
-     */
-    public function getSearchableData($productId, $storeId)
-    {
-        $searchData = [];
-
-        $adapter = $this->_getReadAdapter();
-
-        $titleCheckSql = $adapter->getCheckSql(
-            'option_title_store.title IS NULL',
-            'option_title_default.title',
-            'option_title_store.title',
-        );
-
-        // retrieve options title
-
-        $defaultOptionJoin = implode(
-            ' AND ',
-            ['option_title_default.option_id=product_option.option_id',
-                $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)],
-        );
-
-        $storeOptionJoin = implode(
-            ' AND ',
-            [
-                'option_title_store.option_id=product_option.option_id',
-                $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId)],
-        );
-
-        $select = $adapter->select()
-            ->from(['product_option' => $this->getMainTable()], null)
-            ->join(
-                ['option_title_default' => $this->getTable('catalog/product_option_title')],
-                $defaultOptionJoin,
-                [],
-            )
-            ->joinLeft(
-                ['option_title_store' => $this->getTable('catalog/product_option_title')],
-                $storeOptionJoin,
-                ['title' => $titleCheckSql],
-            )
-            ->where('product_option.product_id = ?', $productId);
-
-        if ($titles = $adapter->fetchCol($select)) {
-            $searchData = array_merge($searchData, $titles);
-        }
-
-        //select option type titles
-
-        $defaultOptionJoin = implode(
-            ' AND ',
-            [
-                'option_title_default.option_type_id=option_type.option_type_id',
-                $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)],
-        );
-
-        $storeOptionJoin = implode(
-            ' AND ',
-            [
-                'option_title_store.option_type_id = option_type.option_type_id',
-                $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId)],
-        );
-
-        $select = $adapter->select()
-            ->from(['product_option' => $this->getMainTable()], null)
-            ->join(
-                ['option_type' => $this->getTable('catalog/product_option_type_value')],
-                'option_type.option_id=product_option.option_id',
-                [],
-            )
-            ->join(
-                ['option_title_default' => $this->getTable('catalog/product_option_type_title')],
-                $defaultOptionJoin,
-                [],
-            )
-            ->joinLeft(
-                ['option_title_store' => $this->getTable('catalog/product_option_type_title')],
-                $storeOptionJoin,
-                ['title' => $titleCheckSql],
-            )
-            ->where('product_option.product_id = ?', $productId);
-
-        if ($titles = $adapter->fetchCol($select)) {
-            $searchData = array_merge($searchData, $titles);
-        }
-
-        return $searchData;
     }
 }

@@ -37,17 +37,6 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         return parent::preDispatch();
     }
 
-    protected function _initAction()
-    {
-        $this->loadLayout()
-            ->_setActiveMenu('system/api/users')
-            ->_addBreadcrumb($this->__('Web Services'), $this->__('Web Services'))
-            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
-            ->_addBreadcrumb($this->__('Users'), $this->__('Users'))
-        ;
-        return $this;
-    }
-
     public function indexAction()
     {
         $this->_title($this->__('System'))
@@ -234,5 +223,16 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
             ->setBody($this->getLayout()
             ->createBlock('adminhtml/api_user_grid')
             ->toHtml());
+    }
+
+    protected function _initAction()
+    {
+        $this->loadLayout()
+            ->_setActiveMenu('system/api/users')
+            ->_addBreadcrumb($this->__('Web Services'), $this->__('Web Services'))
+            ->_addBreadcrumb($this->__('Permissions'), $this->__('Permissions'))
+            ->_addBreadcrumb($this->__('Users'), $this->__('Users'))
+        ;
+        return $this;
     }
 }

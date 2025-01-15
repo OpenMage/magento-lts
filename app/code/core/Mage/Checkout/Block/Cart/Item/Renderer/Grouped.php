@@ -62,6 +62,16 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
     }
 
     /**
+     * Retrieve block cache tags
+     *
+     * @return array
+     */
+    public function getCacheTags()
+    {
+        return array_merge(parent::getCacheTags(), $this->getGroupedProduct()->getCacheIdTags());
+    }
+
+    /**
      * Prepare item html
      *
      * This method uses renderer for real product type
@@ -77,15 +87,5 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
         $rendererHtml = $renderer->toHtml();
         $renderer->overrideProductThumbnail(null);
         return $rendererHtml;
-    }
-
-    /**
-     * Retrieve block cache tags
-     *
-     * @return array
-     */
-    public function getCacheTags()
-    {
-        return array_merge(parent::getCacheTags(), $this->getGroupedProduct()->getCacheIdTags());
     }
 }

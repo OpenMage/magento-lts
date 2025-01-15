@@ -22,25 +22,6 @@
  */
 class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('tax/tax_calculation_rule', 'tax_calculation_rule_id');
-    }
-
-    /**
-     * Initialize unique fields
-     *
-     * @return $this
-     */
-    protected function _initUniqueFields()
-    {
-        $this->_uniqueFields = [[
-            'field' => ['code'],
-            'title' => Mage::helper('tax')->__('Code'),
-        ]];
-        return $this;
-    }
-
     /**
      * Fetches rules by rate, customer tax class and product tax class
      * Returns array of rule codes
@@ -66,5 +47,23 @@ class Mage_Tax_Model_Resource_Calculation_Rule extends Mage_Core_Model_Resource_
             ->distinct(true);
 
         return $adapter->fetchCol($select);
+    }
+    protected function _construct()
+    {
+        $this->_init('tax/tax_calculation_rule', 'tax_calculation_rule_id');
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return $this
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = [[
+            'field' => ['code'],
+            'title' => Mage::helper('tax')->__('Code'),
+        ]];
+        return $this;
     }
 }

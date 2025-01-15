@@ -43,20 +43,6 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-
-        $pager = $this->getLayout()->createBlock('page/html_pager', 'sales.order.history.pager')
-            ->setCollection($this->getOrders());
-        $this->setChild('pager', $pager);
-        $this->getOrders()->load();
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getPagerHtml()
@@ -97,5 +83,19 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
     public function getBackUrl()
     {
         return $this->getUrl('customer/account/');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+
+        $pager = $this->getLayout()->createBlock('page/html_pager', 'sales.order.history.pager')
+            ->setCollection($this->getOrders());
+        $this->setChild('pager', $pager);
+        $this->getOrders()->load();
+        return $this;
     }
 }

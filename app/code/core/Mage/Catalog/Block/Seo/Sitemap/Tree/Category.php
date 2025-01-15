@@ -31,25 +31,6 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     protected $_to = 0;
     protected $_currentPage = 0;
     protected $_categoriesToPages = [];
-    /**
-     * Initialize categories collection
-     *
-     * @return Mage_Catalog_Block_Seo_Sitemap_Category
-     */
-    protected function _prepareLayout()
-    {
-        $helper = Mage::helper('catalog/category');
-        /** @var Mage_Catalog_Helper_Category $helper */
-        $parent = Mage::getModel('catalog/category')
-            ->setStoreId(Mage::app()->getStore()->getId())
-            ->load(Mage::app()->getStore()->getRootCategoryId());
-        $this->_storeRootCategoryPath = $parent->getPath();
-        $this->_storeRootCategoryLevel = $parent->getLevel();
-        $this->prepareCategoriesToPages();
-        $collection = $this->getTreeCollection();
-        $this->setCollection($collection);
-        return $this;
-    }
 
     /**
      * Init pager
@@ -128,6 +109,37 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     }
 
     /**
+     * Return level of indent
+     *
+     * @param Mage_Catalog_Model_Category $item
+     * @param int $delta
+     * @return int
+     */
+    public function getLevel($item, $delta = 1)
+    {
+        return (int) ($item->getLevel() - $this->_storeRootCategoryLevel - 1) * $delta;
+    }
+    /**
+     * Initialize categories collection
+     *
+     * @return Mage_Catalog_Block_Seo_Sitemap_Category
+     */
+    protected function _prepareLayout()
+    {
+        $helper = Mage::helper('catalog/category');
+        /** @var Mage_Catalog_Helper_Category $helper */
+        $parent = Mage::getModel('catalog/category')
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->load(Mage::app()->getStore()->getRootCategoryId());
+        $this->_storeRootCategoryPath = $parent->getPath();
+        $this->_storeRootCategoryLevel = $parent->getLevel();
+        $this->prepareCategoriesToPages();
+        $collection = $this->getTreeCollection();
+        $this->setCollection($collection);
+        return $this;
+    }
+
+    /**
      * Prepare collection filtered by paths
      *
      * @return $this
@@ -150,17 +162,5 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
         $this->_to = $_to;
         $this->_from = $_to - $collection->count();
         return $this;
-    }
-
-    /**
-     * Return level of indent
-     *
-     * @param Mage_Catalog_Model_Category $item
-     * @param int $delta
-     * @return int
-     */
-    public function getLevel($item, $delta = 1)
-    {
-        return (int) ($item->getLevel() - $this->_storeRootCategoryLevel - 1) * $delta;
     }
 }

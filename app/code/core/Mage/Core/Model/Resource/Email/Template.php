@@ -22,11 +22,6 @@
  */
 class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('core/email_template', 'template_id');
-    }
-
     /**
      * Load by template code from DB.
      *
@@ -76,23 +71,6 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
     }
 
     /**
-     * Set template type, added at and modified at time
-     *
-     * @param Mage_Core_Model_Email_Template $object
-     * @inheritDoc
-     */
-    protected function _beforeSave(Mage_Core_Model_Abstract $object)
-    {
-        if ($object->isObjectNew()) {
-            $object->setCreatedAt($this->formatDate(true));
-        }
-        $object->setModifiedAt($this->formatDate(true));
-        $object->setTemplateType((int) $object->getTemplateType());
-
-        return parent::_beforeSave($object);
-    }
-
-    /**
      * Retrieve config scope and scope id of specified email template by email paths
      *
      * @param array $paths
@@ -117,5 +95,26 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
             ->where(implode(' OR ', $orWhere));
 
         return $this->_getReadAdapter()->fetchAll($select, $bind);
+    }
+    protected function _construct()
+    {
+        $this->_init('core/email_template', 'template_id');
+    }
+
+    /**
+     * Set template type, added at and modified at time
+     *
+     * @param Mage_Core_Model_Email_Template $object
+     * @inheritDoc
+     */
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
+    {
+        if ($object->isObjectNew()) {
+            $object->setCreatedAt($this->formatDate(true));
+        }
+        $object->setModifiedAt($this->formatDate(true));
+        $object->setTemplateType((int) $object->getTemplateType());
+
+        return parent::_beforeSave($object);
     }
 }

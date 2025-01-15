@@ -30,23 +30,6 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
     protected $_customer = null;
 
     /**
-     * Prepare global layout
-     *
-     * @return $this
-     *
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle($this->getHeader());
-        }
-        return $this;
-    }
-
-    /**
      * Retrieve Shared Wishlist Customer instance
      *
      * @return Mage_Customer_Model_Customer
@@ -69,5 +52,22 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
     public function getHeader()
     {
         return Mage::helper('wishlist')->__("%s's Wishlist", $this->escapeHtml($this->getWishlistCustomer()->getFirstname()));
+    }
+
+    /**
+     * Prepare global layout
+     *
+     * @return $this
+     *
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $headBlock->setTitle($this->getHeader());
+        }
+        return $this;
     }
 }

@@ -28,6 +28,36 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
     protected $_suggestData;
 
     /**
+     * @return array
+     */
+    public function getSuggestData()
+    {
+        if (!$this->_suggestData) {
+            /** @var Mage_CatalogSearch_Helper_Data $helper */
+            $helper = $this->helper('catalogsearch');
+            $collection = $helper->getSuggestCollection();
+            $query = $helper->getQueryText();
+            $counter = 0;
+            $data = [];
+            foreach ($collection as $item) {
+                $_data = [
+                    'title' => $item->getQueryText(),
+                    'row_class' => (++$counter) % 2 ? 'odd' : 'even',
+                    'num_of_results' => $item->getNumResults(),
+                ];
+
+                if ($item->getQueryText() == $query) {
+                    array_unshift($data, $_data);
+                } else {
+                    $data[] = $_data;
+                }
+            }
+            $this->_suggestData = $data;
+        }
+        return $this->_suggestData;
+    }
+
+    /**
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -67,35 +97,5 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
         }
 
         return $html . '</ul>';
-    }
-
-    /**
-     * @return array
-     */
-    public function getSuggestData()
-    {
-        if (!$this->_suggestData) {
-            /** @var Mage_CatalogSearch_Helper_Data $helper */
-            $helper = $this->helper('catalogsearch');
-            $collection = $helper->getSuggestCollection();
-            $query = $helper->getQueryText();
-            $counter = 0;
-            $data = [];
-            foreach ($collection as $item) {
-                $_data = [
-                    'title' => $item->getQueryText(),
-                    'row_class' => (++$counter) % 2 ? 'odd' : 'even',
-                    'num_of_results' => $item->getNumResults(),
-                ];
-
-                if ($item->getQueryText() == $query) {
-                    array_unshift($data, $_data);
-                } else {
-                    $data[] = $_data;
-                }
-            }
-            $this->_suggestData = $data;
-        }
-        return $this->_suggestData;
     }
 }

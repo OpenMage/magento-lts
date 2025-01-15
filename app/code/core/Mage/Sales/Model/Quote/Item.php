@@ -219,36 +219,19 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      */
     protected $_errorInfos = null;
 
-    protected function _construct()
-    {
-        $this->_init('sales/quote_item');
-        $this->_errorInfos = Mage::getModel('sales/status_list');
-    }
-
     /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return $this
+     * Clone quote item
      */
-    protected function _initOldFieldsMap()
+    public function __clone()
     {
-        return $this;
-    }
-
-    /**
-     * Quote Item Before Save prepare data process
-     *
-     * @return $this
-     */
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
-        $this->setIsVirtual($this->getProduct()->getIsVirtual());
-        if ($this->getQuote()) {
-            $this->setQuoteId($this->getQuote()->getId());
+        parent::__clone();
+        $options = $this->getOptions();
+        $this->_quote = null;
+        $this->_options = [];
+        $this->_optionsByCode = [];
+        foreach ($options as $option) {
+            $this->addOption(clone $option);
         }
-        return $this;
     }
 
     /**
@@ -276,28 +259,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $this->_quote = Mage::getModel('sales/quote')->load($this->getQuoteId());
         }
         return $this->_quote;
-    }
-
-    /**
-     * Prepare quantity
-     *
-     * @param float|int $qty
-     * @return int|float
-     */
-    protected function _prepareQty($qty)
-    {
-        $qty = Mage::app()->getLocale()->getNumber($qty);
-        return ($qty > 0) ? $qty : 1;
-    }
-
-    /**
-     * Get Magento App instance
-     *
-     * @return Mage_Core_Model_App
-     */
-    protected function _getApp()
-    {
-        return Mage::app();
     }
 
     /**
@@ -694,22 +655,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     }
 
     /**
-     * Register option code
-     *
-     * @param   Mage_Sales_Model_Quote_Item_Option $option
-     * @return  $this
-     */
-    protected function _addOptionCode($option)
-    {
-        if (!isset($this->_optionsByCode[$option->getCode()])) {
-            $this->_optionsByCode[$option->getCode()] = $option;
-        } else {
-            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
-        }
-        return $this;
-    }
-
-    /**
      * Get item option by code
      *
      * @param   string $code
@@ -721,45 +666,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             return $this->_optionsByCode[$code];
         }
         return null;
-    }
-
-    /**
-     * Checks that item model has data changes.
-     * Call save item options if model isn't need to save in DB
-     *
-     * @return bool
-     */
-    protected function _hasModelChanged()
-    {
-        if (!$this->hasDataChanges()) {
-            return false;
-        }
-
-        return $this->_getResource()->hasDataChanged($this);
-    }
-
-    /**
-     * Save item options
-     *
-     * @return $this
-     */
-    protected function _saveItemOptions()
-    {
-        foreach ($this->_options as $index => $option) {
-            if ($option->isDeleted()) {
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $option->delete();
-                unset($this->_options[$index]);
-                unset($this->_optionsByCode[$option->getCode()]);
-            } else {
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $option->save();
-            }
-        }
-
-        $this->_flagOptionsSaved = true; // Report to watchers that options were saved
-
-        return $this;
     }
 
     /**
@@ -778,32 +684,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         }
 
         return $this;
-    }
-
-    /**
-     * Save item options after item saved
-     *
-     * @inheritDoc
-     */
-    protected function _afterSave()
-    {
-        $this->_saveItemOptions();
-        return parent::_afterSave();
-    }
-
-    /**
-     * Clone quote item
-     */
-    public function __clone()
-    {
-        parent::__clone();
-        $options = $this->getOptions();
-        $this->_quote = null;
-        $this->_options = [];
-        $this->_optionsByCode = [];
-        foreach ($options as $option) {
-            $this->addOption(clone $option);
-        }
     }
 
     /**
@@ -826,17 +706,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
     /**
      * Sets flag, whether this quote item has some error associated with it.
-     *
-     * @param bool $flag
-     * @return $this
-     */
-    protected function _setHasError($flag)
-    {
-        return $this->setData('has_error', $flag);
-    }
-
-    /**
-     * Sets flag, whether this quote item has some error associated with it.
      * When TRUE - also adds 'unknown' error information to list of quote item errors.
      * When FALSE - clears whole list of quote item errors.
      * It's recommended to use addErrorInfo() instead - to be able to remove error statuses later.
@@ -852,19 +721,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         } else {
             $this->_clearErrorInfo();
         }
-        return $this;
-    }
-
-    /**
-     * Clears list of errors, associated with this quote item.
-     * Also automatically removes error-flag from oneself.
-     *
-     * @return $this
-     */
-    protected function _clearErrorInfo()
-    {
-        $this->_errorInfos->clear();
-        $this->_setHasError(false);
         return $this;
     }
 
@@ -920,6 +776,150 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $this->_setHasError(false);
         }
 
+        return $this;
+    }
+
+    protected function _construct()
+    {
+        $this->_init('sales/quote_item');
+        $this->_errorInfos = Mage::getModel('sales/status_list');
+    }
+
+    /**
+     * Init mapping array of short fields to
+     * its full names
+     *
+     * @return $this
+     */
+    protected function _initOldFieldsMap()
+    {
+        return $this;
+    }
+
+    /**
+     * Quote Item Before Save prepare data process
+     *
+     * @return $this
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        $this->setIsVirtual($this->getProduct()->getIsVirtual());
+        if ($this->getQuote()) {
+            $this->setQuoteId($this->getQuote()->getId());
+        }
+        return $this;
+    }
+
+    /**
+     * Prepare quantity
+     *
+     * @param float|int $qty
+     * @return int|float
+     */
+    protected function _prepareQty($qty)
+    {
+        $qty = Mage::app()->getLocale()->getNumber($qty);
+        return ($qty > 0) ? $qty : 1;
+    }
+
+    /**
+     * Get Magento App instance
+     *
+     * @return Mage_Core_Model_App
+     */
+    protected function _getApp()
+    {
+        return Mage::app();
+    }
+
+    /**
+     * Register option code
+     *
+     * @param   Mage_Sales_Model_Quote_Item_Option $option
+     * @return  $this
+     */
+    protected function _addOptionCode($option)
+    {
+        if (!isset($this->_optionsByCode[$option->getCode()])) {
+            $this->_optionsByCode[$option->getCode()] = $option;
+        } else {
+            Mage::throwException(Mage::helper('sales')->__('An item option with code %s already exists.', $option->getCode()));
+        }
+        return $this;
+    }
+
+    /**
+     * Checks that item model has data changes.
+     * Call save item options if model isn't need to save in DB
+     *
+     * @return bool
+     */
+    protected function _hasModelChanged()
+    {
+        if (!$this->hasDataChanges()) {
+            return false;
+        }
+
+        return $this->_getResource()->hasDataChanged($this);
+    }
+
+    /**
+     * Save item options
+     *
+     * @return $this
+     */
+    protected function _saveItemOptions()
+    {
+        foreach ($this->_options as $index => $option) {
+            if ($option->isDeleted()) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $option->delete();
+                unset($this->_options[$index]);
+                unset($this->_optionsByCode[$option->getCode()]);
+            } else {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                $option->save();
+            }
+        }
+
+        $this->_flagOptionsSaved = true; // Report to watchers that options were saved
+
+        return $this;
+    }
+
+    /**
+     * Save item options after item saved
+     *
+     * @inheritDoc
+     */
+    protected function _afterSave()
+    {
+        $this->_saveItemOptions();
+        return parent::_afterSave();
+    }
+
+    /**
+     * Sets flag, whether this quote item has some error associated with it.
+     *
+     * @param bool $flag
+     * @return $this
+     */
+    protected function _setHasError($flag)
+    {
+        return $this->setData('has_error', $flag);
+    }
+
+    /**
+     * Clears list of errors, associated with this quote item.
+     * Also automatically removes error-flag from oneself.
+     *
+     * @return $this
+     */
+    protected function _clearErrorInfo()
+    {
+        $this->_errorInfos->clear();
+        $this->_setHasError(false);
         return $this;
     }
 }

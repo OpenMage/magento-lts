@@ -30,17 +30,6 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     protected $_previewFlag;
 
     /**
-     * Define resource model
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('cms/page');
-        $this->_map['fields']['page_id'] = 'main_table.page_id';
-        $this->_map['fields']['store']   = 'store_table.store_id';
-    }
-
-    /**
      * @deprecated after 1.4.0.1, use toOptionIdArray()
      *
      * @return array
@@ -91,6 +80,59 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     }
 
     /**
+     * Add filter by store
+     *
+     * @param int|Mage_Core_Model_Store $store
+     * @param bool $withAdmin
+     * @return $this
+     */
+    public function addStoreFilter($store, $withAdmin = true)
+    {
+        if (!$this->getFlag('store_filter_added')) {
+            if ($store instanceof Mage_Core_Model_Store) {
+                $store = [$store->getId()];
+            }
+
+            if (!is_array($store)) {
+                $store = [$store];
+            }
+
+            if ($withAdmin) {
+                $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
+            }
+
+            $this->addFilter('store', ['in' => $store], 'public');
+        }
+        return $this;
+    }
+
+    /**
+     * Get SQL for get record count.
+     * Extra GROUP BY strip added.
+     *
+     * @return Varien_Db_Select
+     */
+    public function getSelectCountSql()
+    {
+        $countSelect = parent::getSelectCountSql();
+
+        $countSelect->reset(Zend_Db_Select::GROUP);
+
+        return $countSelect;
+    }
+
+    /**
+     * Define resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('cms/page');
+        $this->_map['fields']['page_id'] = 'main_table.page_id';
+        $this->_map['fields']['store']   = 'store_table.store_id';
+    }
+
+    /**
      * @inheritDoc
      */
     protected function _afterLoad()
@@ -127,33 +169,6 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     }
 
     /**
-     * Add filter by store
-     *
-     * @param int|Mage_Core_Model_Store $store
-     * @param bool $withAdmin
-     * @return $this
-     */
-    public function addStoreFilter($store, $withAdmin = true)
-    {
-        if (!$this->getFlag('store_filter_added')) {
-            if ($store instanceof Mage_Core_Model_Store) {
-                $store = [$store->getId()];
-            }
-
-            if (!is_array($store)) {
-                $store = [$store];
-            }
-
-            if ($withAdmin) {
-                $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
-            }
-
-            $this->addFilter('store', ['in' => $store], 'public');
-        }
-        return $this;
-    }
-
-    /**
      * Join store relation table if there is store filter
      */
     protected function _renderFiltersBefore()
@@ -172,20 +187,5 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
             $this->_useAnalyticFunction = true;
         }
         parent::_renderFiltersBefore();
-    }
-
-    /**
-     * Get SQL for get record count.
-     * Extra GROUP BY strip added.
-     *
-     * @return Varien_Db_Select
-     */
-    public function getSelectCountSql()
-    {
-        $countSelect = parent::getSelectCountSql();
-
-        $countSelect->reset(Zend_Db_Select::GROUP);
-
-        return $countSelect;
     }
 }

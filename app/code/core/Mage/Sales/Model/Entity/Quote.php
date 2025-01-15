@@ -32,22 +32,6 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
     }
 
     /**
-     * Retrieve select object for loading base entity row
-     *
-     * @param   Varien_Object|Mage_Sales_Model_Quote $object
-     * @param   int $rowId
-     * @return  Zend_Db_Select
-     */
-    protected function _getLoadRowSelect($object, $rowId)
-    {
-        $select = parent::_getLoadRowSelect($object, $rowId);
-        if ($object->getSharedStoreIds()) {
-            $select->where('store_id IN (?)', $object->getSharedStoreIds());
-        }
-        return $select;
-    }
-
-    /**
      * Loading quote by customer identifier
      *
      * @param Mage_Sales_Model_Quote $quote
@@ -111,5 +95,21 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
     public function getReservedOrderId($quote)
     {
         return Mage::getSingleton('eav/config')->getEntityType(Mage_Sales_Model_Order::ENTITY)->fetchNewIncrementId($quote->getStoreId());
+    }
+
+    /**
+     * Retrieve select object for loading base entity row
+     *
+     * @param   Varien_Object|Mage_Sales_Model_Quote $object
+     * @param   int $rowId
+     * @return  Zend_Db_Select
+     */
+    protected function _getLoadRowSelect($object, $rowId)
+    {
+        $select = parent::_getLoadRowSelect($object, $rowId);
+        if ($object->getSharedStoreIds()) {
+            $select->where('store_id IN (?)', $object->getSharedStoreIds());
+        }
+        return $select;
     }
 }

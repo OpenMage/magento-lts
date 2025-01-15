@@ -29,12 +29,6 @@ class Mage_Payment_Block_Info_Banktransfer extends Mage_Payment_Block_Info
      */
     protected $_instructions;
 
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('payment/info/banktransfer.phtml');
-    }
-
     /**
      * Get instructions text from order payment
      * (or from config, if instructions are missed in payment)
@@ -50,5 +44,11 @@ class Mage_Payment_Block_Info_Banktransfer extends Mage_Payment_Block_Info
             }
         }
         return $this->_instructions;
+    }
+
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('payment/info/banktransfer.phtml');
     }
 }

@@ -22,11 +22,6 @@
  */
 class Mage_Widget_Model_Resource_Widget extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('widget/widget', 'widget_id');
-    }
-
     /**
      * Retrieves pre-configured parameters for widget
      *
@@ -48,5 +43,9 @@ class Mage_Widget_Model_Resource_Widget extends Mage_Core_Model_Resource_Db_Abst
             return $widget;
         }
         return false;
+    }
+    protected function _construct()
+    {
+        $this->_init('widget/widget', 'widget_id');
     }
 }

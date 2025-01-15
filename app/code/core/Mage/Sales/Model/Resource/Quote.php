@@ -23,39 +23,6 @@
 class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
 {
     /**
-     * Initialize table nad PK name
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('sales/quote', 'entity_id');
-    }
-
-    /**
-     * Retrieve select object for load object data
-     *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Mage_Sales_Model_Quote $object
-     * @return Varien_Db_Select
-     */
-    protected function _getLoadSelect($field, $value, $object)
-    {
-        $select   = parent::_getLoadSelect($field, $value, $object);
-        $storeIds = $object->getSharedStoreIds();
-        if ($storeIds) {
-            $select->where('store_id IN (?)', $storeIds);
-        } else {
-            /**
-             * For empty result
-             */
-            $select->where('store_id < ?', 0);
-        }
-
-        return $select;
-    }
-
-    /**
      * Load quote data by customer identifier
      *
      * @param Mage_Sales_Model_Quote $quote
@@ -278,5 +245,37 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
         $this->_getWriteAdapter()->query($updateQuery);
 
         return $this;
+    }
+    /**
+     * Initialize table nad PK name
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('sales/quote', 'entity_id');
+    }
+
+    /**
+     * Retrieve select object for load object data
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param Mage_Core_Model_Abstract|Mage_Sales_Model_Quote $object
+     * @return Varien_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $select   = parent::_getLoadSelect($field, $value, $object);
+        $storeIds = $object->getSharedStoreIds();
+        if ($storeIds) {
+            $select->where('store_id IN (?)', $storeIds);
+        } else {
+            /**
+             * For empty result
+             */
+            $select->where('store_id < ?', 0);
+        }
+
+        return $select;
     }
 }

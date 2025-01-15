@@ -84,17 +84,6 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     }
 
     /**
-     * Returns key with respect of current form ID
-     *
-     * @param string $key
-     * @return string
-     */
-    protected function _getFormIdKey($key)
-    {
-        return $this->_formId . '_' . $key;
-    }
-
-    /**
      * Get Block Name
      *
      * @return string
@@ -123,75 +112,6 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
         return ($this->_isShowAlways() || $this->_isOverLimitAttempts($login)
             || $this->getSession()->getData($this->_getFormIdKey('show_captcha'))
         );
-    }
-
-    /**
-     * Check is overlimit attempts
-     *
-     * @param string $login
-     * @return bool
-     */
-    protected function _isOverLimitAttempts($login)
-    {
-        return ($this->_isOverLimitIpAttempt() || $this->_isOverLimitLoginAttempts($login));
-    }
-
-    /**
-     * Returns number of allowed attempts for same login
-     *
-     * @return int
-     */
-    protected function _getAllowedAttemptsForSameLogin()
-    {
-        return (int) $this->_getHelper()->getConfigNode('failed_attempts_login');
-    }
-
-    /**
-     * Returns number of allowed attempts from same IP
-     *
-     * @return int
-     */
-    protected function _getAllowedAttemptsFromSameIp()
-    {
-        return (int) $this->_getHelper()->getConfigNode('failed_attempts_ip');
-    }
-
-    /**
-     * Check is overlimit saved attempts from one ip
-     *
-     * @return bool
-     */
-    protected function _isOverLimitIpAttempt()
-    {
-        $countAttemptsByIp = Mage::getResourceModel('captcha/log')->countAttemptsByRemoteAddress();
-        return $countAttemptsByIp >= $this->_getAllowedAttemptsFromSameIp();
-    }
-
-    /**
-     * Is Over Limit Login Attempts
-     *
-     * @param string $login
-     * @return bool
-     */
-    protected function _isOverLimitLoginAttempts($login)
-    {
-        if ($login != false) {
-            $countAttemptsByLogin = Mage::getResourceModel('captcha/log')->countAttemptsByUserLogin($login);
-            return ($countAttemptsByLogin >= $this->_getAllowedAttemptsForSameLogin());
-        }
-        return false;
-    }
-
-    /**
-     * Check is user auth
-     *
-     * @return bool
-     */
-    protected function _isUserAuth()
-    {
-        return Mage::app()->getStore()->isAdmin()
-            ? Mage::getSingleton('admin/session')->isLoggedIn()
-            : Mage::getSingleton('customer/session')->isLoggedIn();
     }
 
     /**
@@ -308,6 +228,100 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
             }
         }
         return $this;
+    }
+
+    /**
+     * Get captcha word
+     *
+     * @return string|null
+     */
+    public function getWord()
+    {
+        $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
+        if (!is_array($sessionData)) {
+            return null;
+        }
+        return time() < $sessionData['expires'] ? $sessionData['data'] : null;
+    }
+
+    /**
+     * Returns key with respect of current form ID
+     *
+     * @param string $key
+     * @return string
+     */
+    protected function _getFormIdKey($key)
+    {
+        return $this->_formId . '_' . $key;
+    }
+
+    /**
+     * Check is overlimit attempts
+     *
+     * @param string $login
+     * @return bool
+     */
+    protected function _isOverLimitAttempts($login)
+    {
+        return ($this->_isOverLimitIpAttempt() || $this->_isOverLimitLoginAttempts($login));
+    }
+
+    /**
+     * Returns number of allowed attempts for same login
+     *
+     * @return int
+     */
+    protected function _getAllowedAttemptsForSameLogin()
+    {
+        return (int) $this->_getHelper()->getConfigNode('failed_attempts_login');
+    }
+
+    /**
+     * Returns number of allowed attempts from same IP
+     *
+     * @return int
+     */
+    protected function _getAllowedAttemptsFromSameIp()
+    {
+        return (int) $this->_getHelper()->getConfigNode('failed_attempts_ip');
+    }
+
+    /**
+     * Check is overlimit saved attempts from one ip
+     *
+     * @return bool
+     */
+    protected function _isOverLimitIpAttempt()
+    {
+        $countAttemptsByIp = Mage::getResourceModel('captcha/log')->countAttemptsByRemoteAddress();
+        return $countAttemptsByIp >= $this->_getAllowedAttemptsFromSameIp();
+    }
+
+    /**
+     * Is Over Limit Login Attempts
+     *
+     * @param string $login
+     * @return bool
+     */
+    protected function _isOverLimitLoginAttempts($login)
+    {
+        if ($login != false) {
+            $countAttemptsByLogin = Mage::getResourceModel('captcha/log')->countAttemptsByUserLogin($login);
+            return ($countAttemptsByLogin >= $this->_getAllowedAttemptsForSameLogin());
+        }
+        return false;
+    }
+
+    /**
+     * Check is user auth
+     *
+     * @return bool
+     */
+    protected function _isUserAuth()
+    {
+        return Mage::app()->getStore()->isAdmin()
+            ? Mage::getSingleton('admin/session')->isLoggedIn()
+            : Mage::getSingleton('customer/session')->isLoggedIn();
     }
 
     /**
@@ -444,20 +458,6 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         $formsString = (string) $this->_getHelper()->getConfigNode('forms');
         return explode(',', $formsString);
-    }
-
-    /**
-     * Get captcha word
-     *
-     * @return string|null
-     */
-    public function getWord()
-    {
-        $sessionData = $this->getSession()->getData($this->_getFormIdKey(self::SESSION_WORD));
-        if (!is_array($sessionData)) {
-            return null;
-        }
-        return time() < $sessionData['expires'] ? $sessionData['data'] : null;
     }
 
     /**

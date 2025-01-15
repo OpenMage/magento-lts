@@ -82,228 +82,6 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     }
 
     /**
-     * Get sales amount expression
-     *
-     * @return string
-     */
-    protected function _getSalesAmountExpression()
-    {
-        if (is_null($this->_salesAmountExpression)) {
-            $adapter = $this->getConnection();
-            $expressionTransferObject = new Varien_Object([
-                'expression' => '%s - %s - %s - (%s - %s - %s)',
-                'arguments' => [
-                    $adapter->getIfNullSql('main_table.base_total_invoiced', 0),
-                    $adapter->getIfNullSql('main_table.base_tax_invoiced', 0),
-                    $adapter->getIfNullSql('main_table.base_shipping_invoiced', 0),
-                    $adapter->getIfNullSql('main_table.base_total_refunded', 0),
-                    $adapter->getIfNullSql('main_table.base_tax_refunded', 0),
-                    $adapter->getIfNullSql('main_table.base_shipping_refunded', 0),
-                ],
-            ]);
-
-            Mage::dispatchEvent('sales_prepare_amount_expression', [
-                'collection' => $this,
-                'expression_object' => $expressionTransferObject,
-            ]);
-            $this->_salesAmountExpression = vsprintf(
-                $expressionTransferObject->getExpression(),
-                $expressionTransferObject->getArguments(),
-            );
-        }
-
-        return $this->_salesAmountExpression;
-    }
-
-    /**
-     * Prepare report summary from live data
-     *
-     * @param string $range
-     * @param mixed $customStart
-     * @param mixed $customEnd
-     * @param int $isFilter
-     * @return $this
-     */
-    protected function _prepareSummaryLive($range, $customStart, $customEnd, $isFilter = 0)
-    {
-        $this->setMainTable('sales/order');
-        $adapter = $this->getConnection();
-
-        /**
-         * Reset all columns, because result will group only by 'created_at' field
-         */
-        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
-
-        $expression = $this->_getSalesAmountExpression();
-        if ($isFilter == 0) {
-            $this->getSelect()->columns([
-                'revenue' => new Zend_Db_Expr(
-                    sprintf(
-                        'SUM((%s) * %s)',
-                        $expression,
-                        $adapter->getIfNullSql('main_table.base_to_global_rate', 0),
-                    ),
-                ),
-            ]);
-        } else {
-            $this->getSelect()->columns([
-                'revenue' => new Zend_Db_Expr(sprintf('SUM(%s)', $expression)),
-            ]);
-        }
-
-        $dateRange = $this->getDateRange($range, $customStart, $customEnd);
-
-        $tzRangeOffsetExpression = $this->_getTZRangeOffsetExpression(
-            $range,
-            'created_at',
-            $dateRange['from'],
-            $dateRange['to'],
-        );
-
-        $this->getSelect()
-            ->columns([
-                'quantity' => new Zend_Db_Expr('COUNT(main_table.entity_id)'),
-                'range' => $tzRangeOffsetExpression,
-            ])
-            ->where('main_table.state NOT IN (?)', [
-                Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                Mage_Sales_Model_Order::STATE_NEW])
-            ->order('range ' . Zend_Db_Select::SQL_ASC)
-            ->group($tzRangeOffsetExpression);
-
-        $this->addFieldToFilter('created_at', $dateRange);
-
-        return $this;
-    }
-
-    /**
-     * Prepare report summary from aggregated data
-     *
-     * @param string $range
-     * @param mixed $customStart
-     * @param mixed $customEnd
-     * @return $this
-     */
-    protected function _prepareSummaryAggregated($range, $customStart, $customEnd)
-    {
-        $this->setMainTable('sales/order_aggregated_created');
-        /**
-         * Reset all columns, because result will group only by 'created_at' field
-         */
-        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
-        $rangePeriod = $this->_getRangeExpressionForAttribute($range, 'main_table.period');
-
-        $tableName = $this->getConnection()->quoteIdentifier('main_table.period');
-        $rangePeriod2 = str_replace($tableName, "MIN($tableName)", $rangePeriod);
-
-        $this->getSelect()->columns([
-            'revenue'  => new Zend_Db_Expr('SUM(main_table.total_revenue_amount)'),
-            'quantity' => new Zend_Db_Expr('SUM(main_table.orders_count)'),
-            'range' => $rangePeriod2,
-        ])
-        ->order('range')
-        ->group($rangePeriod);
-
-        $this->getSelect()->where(
-            $this->_getConditionSql('main_table.period', $this->getDateRange($range, $customStart, $customEnd)),
-        );
-
-        $statuses = Mage::getSingleton('sales/config')
-            ->getOrderStatusesForState(Mage_Sales_Model_Order::STATE_CANCELED);
-
-        if (empty($statuses)) {
-            $statuses = [0];
-        }
-        $this->addFieldToFilter('main_table.order_status', ['nin' => $statuses]);
-
-        return $this;
-    }
-
-    /**
-     * Get range expression
-     *
-     * @param string $range
-     * @return Zend_Db_Expr
-     */
-    protected function _getRangeExpression($range)
-    {
-        switch ($range) {
-            case '24h':
-                $expression = $this->getConnection()->getConcatSql([
-                    $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d %H:'),
-                    $this->getConnection()->quote('00'),
-                ]);
-                break;
-            case '7d':
-            case '1m':
-                $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d');
-                break;
-            case '1y':
-            case '2y':
-            case 'custom':
-            default:
-                $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m');
-                break;
-        }
-
-        return $expression;
-    }
-
-    /**
-     * Retrieve range expression adapted for attribute
-     *
-     * @param string $range
-     * @param string $attribute
-     * @return string
-     */
-    protected function _getRangeExpressionForAttribute($range, $attribute)
-    {
-        $expression = $this->_getRangeExpression($range);
-        return str_replace('{{attribute}}', $this->getConnection()->quoteIdentifier($attribute), $expression);
-    }
-
-    /**
-     * Retrieve query for attribute with timezone conversion
-     *
-     * @param string $range
-     * @param string $attribute
-     * @param mixed $from
-     * @param mixed $to
-     * @return string
-     */
-    protected function _getTZRangeOffsetExpression($range, $attribute, $from = null, $to = null)
-    {
-        return str_replace(
-            '{{attribute}}',
-            Mage::getResourceModel('sales/report_order')
-                    ->getStoreTZOffsetQuery($this->getMainTable(), $attribute, $from, $to),
-            $this->_getRangeExpression($range),
-        );
-    }
-
-    /**
-     * Retrieve range expression with timezone conversion adapted for attribute
-     *
-     * @param string $range
-     * @param string $attribute
-     * @param string $tzFrom
-     * @param string $tzTo
-     * @return string
-     */
-    protected function _getTZRangeExpressionForAttribute($range, $attribute, $tzFrom = '+00:00', $tzTo = null)
-    {
-        if ($tzTo == null) {
-            $tzTo = Mage::app()->getLocale()->storeDate()->toString(Zend_Date::GMT_DIFF_SEP);
-        }
-        $adapter = $this->getConnection();
-        $expression = $this->_getRangeExpression($range);
-        $attribute  = $adapter->quoteIdentifier($attribute);
-        $periodExpr = $adapter->getDateAddSql($attribute, $tzTo, Varien_Db_Adapter_Interface::INTERVAL_HOUR);
-
-        return str_replace('{{attribute}}', $periodExpr, $expression);
-    }
-
-    /**
      * Calculate From and To dates (or times) by given period
      *
      * @param string $range
@@ -396,87 +174,6 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         } else {
             $this->_calculateTotalsAggregated($isFilter);
         }
-
-        return $this;
-    }
-
-    /**
-     * Calculate totals live report
-     *
-     * @param int $isFilter
-     * @return $this
-     */
-    protected function _calculateTotalsLive($isFilter = 0)
-    {
-        $this->setMainTable('sales/order');
-        $this->removeAllFieldsFromSelect();
-
-        $adapter = $this->getConnection();
-
-        $baseTaxInvoiced      = $adapter->getIfNullSql('main_table.base_tax_invoiced', 0);
-        $baseTaxRefunded      = $adapter->getIfNullSql('main_table.base_tax_refunded', 0);
-        $baseShippingInvoiced = $adapter->getIfNullSql('main_table.base_shipping_invoiced', 0);
-        $baseShippingRefunded = $adapter->getIfNullSql('main_table.base_shipping_refunded', 0);
-
-        $revenueExp = $this->_getSalesAmountExpression();
-        $taxExp = sprintf('%s - %s', $baseTaxInvoiced, $baseTaxRefunded);
-        $shippingExp = sprintf('%s - %s', $baseShippingInvoiced, $baseShippingRefunded);
-
-        if ($isFilter == 0) {
-            $rateExp = $adapter->getIfNullSql('main_table.base_to_global_rate', 0);
-            $this->getSelect()->columns(
-                [
-                    'revenue'  => new Zend_Db_Expr(sprintf('SUM((%s) * %s)', $revenueExp, $rateExp)),
-                    'tax'      => new Zend_Db_Expr(sprintf('SUM((%s) * %s)', $taxExp, $rateExp)),
-                    'shipping' => new Zend_Db_Expr(sprintf('SUM((%s) * %s)', $shippingExp, $rateExp)),
-                ],
-            );
-        } else {
-            $this->getSelect()->columns(
-                [
-                    'revenue'  => new Zend_Db_Expr(sprintf('SUM(%s)', $revenueExp)),
-                    'tax'      => new Zend_Db_Expr(sprintf('SUM(%s)', $taxExp)),
-                    'shipping' => new Zend_Db_Expr(sprintf('SUM(%s)', $shippingExp)),
-                ],
-            );
-        }
-
-        $this->getSelect()->columns([
-            'quantity' => 'COUNT(main_table.entity_id)',
-        ])
-        ->where('main_table.state NOT IN (?)', [
-            Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-            Mage_Sales_Model_Order::STATE_NEW]);
-
-        return $this;
-    }
-
-    /**
-     * Calculate totals aggregated report
-     *
-     * @param int $isFilter
-     * @return $this
-     */
-    protected function _calculateTotalsAggregated($isFilter = 0)
-    {
-        $this->setMainTable('sales/order_aggregated_created');
-        $this->removeAllFieldsFromSelect();
-
-        $this->getSelect()->columns([
-            'revenue'  => 'SUM(main_table.total_revenue_amount)',
-            'tax'      => 'SUM(main_table.total_tax_amount_actual)',
-            'shipping' => 'SUM(main_table.total_shipping_amount_actual)',
-            'quantity' => 'SUM(orders_count)',
-        ]);
-
-        $statuses = Mage::getSingleton('sales/config')
-            ->getOrderStatusesForState(Mage_Sales_Model_Order::STATE_CANCELED);
-
-        if (empty($statuses)) {
-            $statuses = [0];
-        }
-
-        $this->getSelect()->where('main_table.order_status NOT IN(?)', $statuses);
 
         return $this;
     }
@@ -779,17 +476,6 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     }
 
     /**
-     * Initialize initial fields to select
-     *
-     * @return $this
-     */
-    protected function _initInitialFieldsToSelect()
-    {
-        // No fields should be initialized
-        return $this;
-    }
-
-    /**
      * Add period filter by created_at attribute
      *
      * @param string $period
@@ -812,6 +498,320 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
             'to'    => $to->toString(Varien_Date::DATETIME_INTERNAL_FORMAT),
         ]);
 
+        return $this;
+    }
+
+    /**
+     * Get sales amount expression
+     *
+     * @return string
+     */
+    protected function _getSalesAmountExpression()
+    {
+        if (is_null($this->_salesAmountExpression)) {
+            $adapter = $this->getConnection();
+            $expressionTransferObject = new Varien_Object([
+                'expression' => '%s - %s - %s - (%s - %s - %s)',
+                'arguments' => [
+                    $adapter->getIfNullSql('main_table.base_total_invoiced', 0),
+                    $adapter->getIfNullSql('main_table.base_tax_invoiced', 0),
+                    $adapter->getIfNullSql('main_table.base_shipping_invoiced', 0),
+                    $adapter->getIfNullSql('main_table.base_total_refunded', 0),
+                    $adapter->getIfNullSql('main_table.base_tax_refunded', 0),
+                    $adapter->getIfNullSql('main_table.base_shipping_refunded', 0),
+                ],
+            ]);
+
+            Mage::dispatchEvent('sales_prepare_amount_expression', [
+                'collection' => $this,
+                'expression_object' => $expressionTransferObject,
+            ]);
+            $this->_salesAmountExpression = vsprintf(
+                $expressionTransferObject->getExpression(),
+                $expressionTransferObject->getArguments(),
+            );
+        }
+
+        return $this->_salesAmountExpression;
+    }
+
+    /**
+     * Prepare report summary from live data
+     *
+     * @param string $range
+     * @param mixed $customStart
+     * @param mixed $customEnd
+     * @param int $isFilter
+     * @return $this
+     */
+    protected function _prepareSummaryLive($range, $customStart, $customEnd, $isFilter = 0)
+    {
+        $this->setMainTable('sales/order');
+        $adapter = $this->getConnection();
+
+        /**
+         * Reset all columns, because result will group only by 'created_at' field
+         */
+        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
+
+        $expression = $this->_getSalesAmountExpression();
+        if ($isFilter == 0) {
+            $this->getSelect()->columns([
+                'revenue' => new Zend_Db_Expr(
+                    sprintf(
+                        'SUM((%s) * %s)',
+                        $expression,
+                        $adapter->getIfNullSql('main_table.base_to_global_rate', 0),
+                    ),
+                ),
+            ]);
+        } else {
+            $this->getSelect()->columns([
+                'revenue' => new Zend_Db_Expr(sprintf('SUM(%s)', $expression)),
+            ]);
+        }
+
+        $dateRange = $this->getDateRange($range, $customStart, $customEnd);
+
+        $tzRangeOffsetExpression = $this->_getTZRangeOffsetExpression(
+            $range,
+            'created_at',
+            $dateRange['from'],
+            $dateRange['to'],
+        );
+
+        $this->getSelect()
+            ->columns([
+                'quantity' => new Zend_Db_Expr('COUNT(main_table.entity_id)'),
+                'range' => $tzRangeOffsetExpression,
+            ])
+            ->where('main_table.state NOT IN (?)', [
+                Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
+                Mage_Sales_Model_Order::STATE_NEW])
+            ->order('range ' . Zend_Db_Select::SQL_ASC)
+            ->group($tzRangeOffsetExpression);
+
+        $this->addFieldToFilter('created_at', $dateRange);
+
+        return $this;
+    }
+
+    /**
+     * Prepare report summary from aggregated data
+     *
+     * @param string $range
+     * @param mixed $customStart
+     * @param mixed $customEnd
+     * @return $this
+     */
+    protected function _prepareSummaryAggregated($range, $customStart, $customEnd)
+    {
+        $this->setMainTable('sales/order_aggregated_created');
+        /**
+         * Reset all columns, because result will group only by 'created_at' field
+         */
+        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
+        $rangePeriod = $this->_getRangeExpressionForAttribute($range, 'main_table.period');
+
+        $tableName = $this->getConnection()->quoteIdentifier('main_table.period');
+        $rangePeriod2 = str_replace($tableName, "MIN($tableName)", $rangePeriod);
+
+        $this->getSelect()->columns([
+            'revenue'  => new Zend_Db_Expr('SUM(main_table.total_revenue_amount)'),
+            'quantity' => new Zend_Db_Expr('SUM(main_table.orders_count)'),
+            'range' => $rangePeriod2,
+        ])
+        ->order('range')
+        ->group($rangePeriod);
+
+        $this->getSelect()->where(
+            $this->_getConditionSql('main_table.period', $this->getDateRange($range, $customStart, $customEnd)),
+        );
+
+        $statuses = Mage::getSingleton('sales/config')
+            ->getOrderStatusesForState(Mage_Sales_Model_Order::STATE_CANCELED);
+
+        if (empty($statuses)) {
+            $statuses = [0];
+        }
+        $this->addFieldToFilter('main_table.order_status', ['nin' => $statuses]);
+
+        return $this;
+    }
+
+    /**
+     * Get range expression
+     *
+     * @param string $range
+     * @return Zend_Db_Expr
+     */
+    protected function _getRangeExpression($range)
+    {
+        switch ($range) {
+            case '24h':
+                $expression = $this->getConnection()->getConcatSql([
+                    $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d %H:'),
+                    $this->getConnection()->quote('00'),
+                ]);
+                break;
+            case '7d':
+            case '1m':
+                $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d');
+                break;
+            case '1y':
+            case '2y':
+            case 'custom':
+            default:
+                $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m');
+                break;
+        }
+
+        return $expression;
+    }
+
+    /**
+     * Retrieve range expression adapted for attribute
+     *
+     * @param string $range
+     * @param string $attribute
+     * @return string
+     */
+    protected function _getRangeExpressionForAttribute($range, $attribute)
+    {
+        $expression = $this->_getRangeExpression($range);
+        return str_replace('{{attribute}}', $this->getConnection()->quoteIdentifier($attribute), $expression);
+    }
+
+    /**
+     * Retrieve query for attribute with timezone conversion
+     *
+     * @param string $range
+     * @param string $attribute
+     * @param mixed $from
+     * @param mixed $to
+     * @return string
+     */
+    protected function _getTZRangeOffsetExpression($range, $attribute, $from = null, $to = null)
+    {
+        return str_replace(
+            '{{attribute}}',
+            Mage::getResourceModel('sales/report_order')
+                    ->getStoreTZOffsetQuery($this->getMainTable(), $attribute, $from, $to),
+            $this->_getRangeExpression($range),
+        );
+    }
+
+    /**
+     * Retrieve range expression with timezone conversion adapted for attribute
+     *
+     * @param string $range
+     * @param string $attribute
+     * @param string $tzFrom
+     * @param string $tzTo
+     * @return string
+     */
+    protected function _getTZRangeExpressionForAttribute($range, $attribute, $tzFrom = '+00:00', $tzTo = null)
+    {
+        if ($tzTo == null) {
+            $tzTo = Mage::app()->getLocale()->storeDate()->toString(Zend_Date::GMT_DIFF_SEP);
+        }
+        $adapter = $this->getConnection();
+        $expression = $this->_getRangeExpression($range);
+        $attribute  = $adapter->quoteIdentifier($attribute);
+        $periodExpr = $adapter->getDateAddSql($attribute, $tzTo, Varien_Db_Adapter_Interface::INTERVAL_HOUR);
+
+        return str_replace('{{attribute}}', $periodExpr, $expression);
+    }
+
+    /**
+     * Calculate totals live report
+     *
+     * @param int $isFilter
+     * @return $this
+     */
+    protected function _calculateTotalsLive($isFilter = 0)
+    {
+        $this->setMainTable('sales/order');
+        $this->removeAllFieldsFromSelect();
+
+        $adapter = $this->getConnection();
+
+        $baseTaxInvoiced      = $adapter->getIfNullSql('main_table.base_tax_invoiced', 0);
+        $baseTaxRefunded      = $adapter->getIfNullSql('main_table.base_tax_refunded', 0);
+        $baseShippingInvoiced = $adapter->getIfNullSql('main_table.base_shipping_invoiced', 0);
+        $baseShippingRefunded = $adapter->getIfNullSql('main_table.base_shipping_refunded', 0);
+
+        $revenueExp = $this->_getSalesAmountExpression();
+        $taxExp = sprintf('%s - %s', $baseTaxInvoiced, $baseTaxRefunded);
+        $shippingExp = sprintf('%s - %s', $baseShippingInvoiced, $baseShippingRefunded);
+
+        if ($isFilter == 0) {
+            $rateExp = $adapter->getIfNullSql('main_table.base_to_global_rate', 0);
+            $this->getSelect()->columns(
+                [
+                    'revenue'  => new Zend_Db_Expr(sprintf('SUM((%s) * %s)', $revenueExp, $rateExp)),
+                    'tax'      => new Zend_Db_Expr(sprintf('SUM((%s) * %s)', $taxExp, $rateExp)),
+                    'shipping' => new Zend_Db_Expr(sprintf('SUM((%s) * %s)', $shippingExp, $rateExp)),
+                ],
+            );
+        } else {
+            $this->getSelect()->columns(
+                [
+                    'revenue'  => new Zend_Db_Expr(sprintf('SUM(%s)', $revenueExp)),
+                    'tax'      => new Zend_Db_Expr(sprintf('SUM(%s)', $taxExp)),
+                    'shipping' => new Zend_Db_Expr(sprintf('SUM(%s)', $shippingExp)),
+                ],
+            );
+        }
+
+        $this->getSelect()->columns([
+            'quantity' => 'COUNT(main_table.entity_id)',
+        ])
+        ->where('main_table.state NOT IN (?)', [
+            Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
+            Mage_Sales_Model_Order::STATE_NEW]);
+
+        return $this;
+    }
+
+    /**
+     * Calculate totals aggregated report
+     *
+     * @param int $isFilter
+     * @return $this
+     */
+    protected function _calculateTotalsAggregated($isFilter = 0)
+    {
+        $this->setMainTable('sales/order_aggregated_created');
+        $this->removeAllFieldsFromSelect();
+
+        $this->getSelect()->columns([
+            'revenue'  => 'SUM(main_table.total_revenue_amount)',
+            'tax'      => 'SUM(main_table.total_tax_amount_actual)',
+            'shipping' => 'SUM(main_table.total_shipping_amount_actual)',
+            'quantity' => 'SUM(orders_count)',
+        ]);
+
+        $statuses = Mage::getSingleton('sales/config')
+            ->getOrderStatusesForState(Mage_Sales_Model_Order::STATE_CANCELED);
+
+        if (empty($statuses)) {
+            $statuses = [0];
+        }
+
+        $this->getSelect()->where('main_table.order_status NOT IN(?)', $statuses);
+
+        return $this;
+    }
+
+    /**
+     * Initialize initial fields to select
+     *
+     * @return $this
+     */
+    protected function _initInitialFieldsToSelect()
+    {
+        // No fields should be initialized
         return $this;
     }
 }

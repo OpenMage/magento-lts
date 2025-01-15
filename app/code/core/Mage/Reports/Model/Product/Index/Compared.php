@@ -39,11 +39,6 @@ class Mage_Reports_Model_Product_Index_Compared extends Mage_Reports_Model_Produ
      */
     protected $_countCacheKey   = 'product_index_compared_count';
 
-    protected function _construct()
-    {
-        $this->_init('reports/product_index_compared');
-    }
-
     /**
      * Retrieve Exclude Product Ids List for Collection
      *
@@ -67,5 +62,10 @@ class Mage_Reports_Model_Product_Index_Compared extends Mage_Reports_Model_Produ
         }
 
         return array_unique($productIds);
+    }
+
+    protected function _construct()
+    {
+        $this->_init('reports/product_index_compared');
     }
 }

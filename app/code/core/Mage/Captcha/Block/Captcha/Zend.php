@@ -56,6 +56,16 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
     }
 
     /**
+     * Returns captcha model
+     *
+     * @return Mage_Captcha_Model_Zend
+     */
+    public function getCaptchaModel()
+    {
+        return Mage::helper('captcha')->getCaptcha($this->getFormId());
+    }
+
+    /**
      * Renders captcha HTML (if required)
      *
      * @return string
@@ -67,15 +77,5 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
             return parent::_toHtml();
         }
         return '';
-    }
-
-    /**
-     * Returns captcha model
-     *
-     * @return Mage_Captcha_Model_Zend
-     */
-    public function getCaptchaModel()
-    {
-        return Mage::helper('captcha')->getCaptcha($this->getFormId());
     }
 }

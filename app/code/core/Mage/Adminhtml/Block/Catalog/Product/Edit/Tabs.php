@@ -32,6 +32,38 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
         $this->setTitle(Mage::helper('catalog')->__('Product Information'));
     }
 
+    /**
+     * Retrieve product object from object if not from registry
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        if (!($this->getData('product') instanceof Mage_Catalog_Model_Product)) {
+            $this->setData('product', Mage::registry('product'));
+        }
+        return $this->getData('product');
+    }
+
+    /**
+     * Getting attribute block name for tabs
+     *
+     * @return string|null
+     */
+    public function getAttributeTabBlock()
+    {
+        if (is_null(Mage::helper('adminhtml/catalog')->getAttributeTabBlock())) {
+            return $this->_attributeTabBlock;
+        }
+        return Mage::helper('adminhtml/catalog')->getAttributeTabBlock();
+    }
+
+    public function setAttributeTabBlock($attributeTabBlock)
+    {
+        $this->_attributeTabBlock = $attributeTabBlock;
+        return $this;
+    }
+
     protected function _prepareLayout()
     {
         $product = $this->getProduct();
@@ -178,38 +210,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
             ]);
         }
         return parent::_prepareLayout();
-    }
-
-    /**
-     * Retrieve product object from object if not from registry
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function getProduct()
-    {
-        if (!($this->getData('product') instanceof Mage_Catalog_Model_Product)) {
-            $this->setData('product', Mage::registry('product'));
-        }
-        return $this->getData('product');
-    }
-
-    /**
-     * Getting attribute block name for tabs
-     *
-     * @return string|null
-     */
-    public function getAttributeTabBlock()
-    {
-        if (is_null(Mage::helper('adminhtml/catalog')->getAttributeTabBlock())) {
-            return $this->_attributeTabBlock;
-        }
-        return Mage::helper('adminhtml/catalog')->getAttributeTabBlock();
-    }
-
-    public function setAttributeTabBlock($attributeTabBlock)
-    {
-        $this->_attributeTabBlock = $attributeTabBlock;
-        return $this;
     }
 
     /**

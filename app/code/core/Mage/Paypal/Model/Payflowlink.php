@@ -33,6 +33,18 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     public const MOBILE_LAYOUT_TEMPLATE = 'mobile';
 
     /**
+     * Gateway request URL
+     * @var string
+     */
+    public const TRANSACTION_PAYFLOW_URL = 'https://payflowlink.paypal.com/';
+
+    /**
+     * Error message
+     * @var string
+     */
+    public const RESPONSE_ERROR_MSG = 'Payment error. %s was not found.';
+
+    /**
      * Controller for callback urls
      *
      * @var string
@@ -88,18 +100,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @var Mage_Paypal_Model_Payflow_Request
      */
     protected $_response;
-
-    /**
-     * Gateway request URL
-     * @var string
-     */
-    public const TRANSACTION_PAYFLOW_URL = 'https://payflowlink.paypal.com/';
-
-    /**
-     * Error message
-     * @var string
-     */
-    public const RESPONSE_ERROR_MSG = 'Payment error. %s was not found.';
 
     /**
      * Key for storing secure hash in additional information of payment model
@@ -248,6 +248,24 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         if ($order) {
             $this->_processOrder($order);
         }
+    }
+
+    /**
+     * Check whether order review has enough data to initialize
+     *
+     * @deprecated since 1.6.2.0
+     * @param string $token
+     */
+    public function prepareOrderReview($token = null) {}
+
+    /**
+     * Get callback controller
+     *
+     * @return string
+     */
+    public function getCallbackController()
+    {
+        return $this->_callbackController;
     }
 
     /**
@@ -571,14 +589,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     }
 
     /**
-     * Check whether order review has enough data to initialize
-     *
-     * @deprecated since 1.6.2.0
-     * @param string $token
-     */
-    public function prepareOrderReview($token = null) {}
-
-    /**
      * Additional authorization logic for Account Verification
      *
      * @deprecated since 1.6.2.0
@@ -621,16 +631,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     protected function _getDocumentFromResponse()
     {
         return null;
-    }
-
-    /**
-     * Get callback controller
-     *
-     * @return string
-     */
-    public function getCallbackController()
-    {
-        return $this->_callbackController;
     }
 
     /**

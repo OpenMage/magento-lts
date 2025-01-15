@@ -195,18 +195,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Retrieve inactive categories ids
      *
-     * @return $this
-     */
-    protected function _initInactiveCategoryIds()
-    {
-        $this->_inactiveCategoryIds = [];
-        Mage::dispatchEvent('catalog_category_tree_init_inactive_category_ids', ['tree' => $this]);
-        return $this;
-    }
-
-    /**
-     * Retrieve inactive categories ids
-     *
      * @return array
      */
     public function getInactiveCategoryIds()
@@ -216,112 +204,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
 
         return $this->_inactiveCategoryIds;
-    }
-
-    /**
-     * Return disable category ids
-     *
-     * @param Mage_Catalog_Model_Resource_Category_Collection $collection
-     * @return array
-     */
-    protected function _getDisabledIds($collection)
-    {
-        $storeId = Mage::app()->getStore()->getId();
-
-        $this->_inactiveItems = $this->getInactiveCategoryIds();
-
-        $this->_inactiveItems = array_merge(
-            $this->_getInactiveItemIds($collection, $storeId),
-            $this->_inactiveItems,
-        );
-
-        $allIds = $collection->getAllIds();
-        $disabledIds = [];
-
-        foreach ($allIds as $id) {
-            $parents = $this->getNodeById($id)->getPath();
-            foreach ($parents as $parent) {
-                if (!$this->_getItemIsActive($parent->getId(), $storeId)) {
-                    $disabledIds[] = $id;
-                    continue;
-                }
-            }
-        }
-        return $disabledIds;
-    }
-
-    /**
-     * Returns attribute id for attribute "is_active"
-     *
-     * @return string
-     */
-    protected function _getIsActiveAttributeId()
-    {
-        $resource = Mage::getSingleton('core/resource');
-        if (is_null($this->_isActiveAttributeId)) {
-            $bind = [
-                'entity_type_code' => Mage_Catalog_Model_Category::ENTITY,
-                'attribute_code'   => 'is_active',
-            ];
-            $select = $this->_conn->select()
-                ->from(['a' => $resource->getTableName('eav/attribute')], ['attribute_id'])
-                ->join(['t' => $resource->getTableName('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
-                ->where('entity_type_code = :entity_type_code')
-                ->where('attribute_code = :attribute_code');
-
-            $this->_isActiveAttributeId = $this->_conn->fetchOne($select, $bind);
-        }
-        return $this->_isActiveAttributeId;
-    }
-
-    /**
-     * Retrieve inactive category item ids
-     *
-     * @param Mage_Catalog_Model_Resource_Category_Collection $collection
-     * @param int $storeId
-     * @return array
-     */
-    protected function _getInactiveItemIds($collection, $storeId)
-    {
-        $filter = $collection->getAllIds();
-        $attributeId = $this->_getIsActiveAttributeId();
-
-        $conditionSql = $this->_conn->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
-        $table = Mage::getSingleton('core/resource')->getTableName(['catalog/category', 'int']);
-        $bind = [
-            'attribute_id' => $attributeId,
-            'store_id'     => $storeId,
-            'zero_store_id' => 0,
-            'cond'         => 0,
-
-        ];
-        $select = $this->_conn->select()
-            ->from(['d' => $table], ['d.entity_id'])
-            ->where('d.attribute_id = :attribute_id')
-            ->where('d.store_id = :zero_store_id')
-            ->where('d.entity_id IN (?)', $filter)
-            ->joinLeft(
-                ['c' => $table],
-                'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = d.entity_id',
-                [],
-            )
-            ->where($conditionSql . ' = :cond');
-
-        return $this->_conn->fetchCol($select, $bind);
-    }
-
-    /**
-     * Check is category items active
-     *
-     * @param int $id
-     * @return bool
-     */
-    protected function _getItemIsActive($id)
-    {
-        if (!in_array($id, $this->_inactiveItems)) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -352,54 +234,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
-     * @param bool $sorted
-     * @return Mage_Catalog_Model_Resource_Category_Collection
-     */
-    protected function _getDefaultCollection($sorted = false)
-    {
-        $this->_joinUrlRewriteIntoCollection = true;
-        /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
-        $collection = Mage::getModel('catalog/category')->getCollection();
-
-        $attributes = Mage::getConfig()->getNode('frontend/category/collection/attributes');
-        if ($attributes) {
-            $attributes = $attributes->asArray();
-            $attributes = array_keys($attributes);
-        }
-        $collection->addAttributeToSelect($attributes);
-
-        if ($sorted) {
-            if (is_string($sorted)) {
-                // $sorted is supposed to be attribute name
-                $collection->addAttributeToSort($sorted);
-            } else {
-                $collection->addAttributeToSort('name');
-            }
-        }
-
-        return $collection;
-    }
-
-    /**
-     * Move tree before
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @param Varien_Data_Tree_Node $newParent
-     * @param Varien_Data_Tree_Node $prevNode
-     * @return $this
-     */
-    protected function _beforeMove($category, $newParent, $prevNode)
-    {
-        Mage::dispatchEvent('catalog_category_tree_move_before', [
-            'category'      => $category,
-            'prev_parent'   => $prevNode,
-            'parent'        => $newParent,
-        ]);
-
-        return $this;
-    }
-
-    /**
      * Executing parents move method and cleaning cache after it
      *
      * @param Mage_Catalog_Model_Category $category
@@ -413,27 +247,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         parent::move($category, $newParent, $prevNode);
 
         $this->_afterMove($category, $newParent, $prevNode);
-    }
-
-    /**
-     * Move tree after
-     *
-     * @param Mage_Catalog_Model_Category $category
-     * @param Varien_Data_Tree_Node $newParent
-     * @param Varien_Data_Tree_Node $prevNode
-     * @return $this
-     */
-    protected function _afterMove($category, $newParent, $prevNode)
-    {
-        Mage::app()->cleanCache([Mage_Catalog_Model_Category::CACHE_TAG]);
-
-        Mage::dispatchEvent('catalog_category_tree_move_after', [
-            'category'  => $category,
-            'prev_node' => $prevNode,
-            'parent'    => $newParent,
-        ]);
-
-        return $this;
     }
 
     /**
@@ -544,6 +357,213 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
+     * Get real existing category ids by specified ids
+     *
+     * @param array $ids
+     * @return array
+     */
+    public function getExistingCategoryIdsBySpecifiedIds($ids)
+    {
+        if (empty($ids)) {
+            return [];
+        }
+        if (!is_array($ids)) {
+            $ids = [$ids];
+        }
+        $select = $this->_conn->select()
+            ->from($this->_table, ['entity_id'])
+            ->where('entity_id IN (?)', $ids);
+        return $this->_conn->fetchCol($select);
+    }
+
+    /**
+     * Retrieve inactive categories ids
+     *
+     * @return $this
+     */
+    protected function _initInactiveCategoryIds()
+    {
+        $this->_inactiveCategoryIds = [];
+        Mage::dispatchEvent('catalog_category_tree_init_inactive_category_ids', ['tree' => $this]);
+        return $this;
+    }
+
+    /**
+     * Return disable category ids
+     *
+     * @param Mage_Catalog_Model_Resource_Category_Collection $collection
+     * @return array
+     */
+    protected function _getDisabledIds($collection)
+    {
+        $storeId = Mage::app()->getStore()->getId();
+
+        $this->_inactiveItems = $this->getInactiveCategoryIds();
+
+        $this->_inactiveItems = array_merge(
+            $this->_getInactiveItemIds($collection, $storeId),
+            $this->_inactiveItems,
+        );
+
+        $allIds = $collection->getAllIds();
+        $disabledIds = [];
+
+        foreach ($allIds as $id) {
+            $parents = $this->getNodeById($id)->getPath();
+            foreach ($parents as $parent) {
+                if (!$this->_getItemIsActive($parent->getId(), $storeId)) {
+                    $disabledIds[] = $id;
+                    continue;
+                }
+            }
+        }
+        return $disabledIds;
+    }
+
+    /**
+     * Returns attribute id for attribute "is_active"
+     *
+     * @return string
+     */
+    protected function _getIsActiveAttributeId()
+    {
+        $resource = Mage::getSingleton('core/resource');
+        if (is_null($this->_isActiveAttributeId)) {
+            $bind = [
+                'entity_type_code' => Mage_Catalog_Model_Category::ENTITY,
+                'attribute_code'   => 'is_active',
+            ];
+            $select = $this->_conn->select()
+                ->from(['a' => $resource->getTableName('eav/attribute')], ['attribute_id'])
+                ->join(['t' => $resource->getTableName('eav/entity_type')], 'a.entity_type_id = t.entity_type_id')
+                ->where('entity_type_code = :entity_type_code')
+                ->where('attribute_code = :attribute_code');
+
+            $this->_isActiveAttributeId = $this->_conn->fetchOne($select, $bind);
+        }
+        return $this->_isActiveAttributeId;
+    }
+
+    /**
+     * Retrieve inactive category item ids
+     *
+     * @param Mage_Catalog_Model_Resource_Category_Collection $collection
+     * @param int $storeId
+     * @return array
+     */
+    protected function _getInactiveItemIds($collection, $storeId)
+    {
+        $filter = $collection->getAllIds();
+        $attributeId = $this->_getIsActiveAttributeId();
+
+        $conditionSql = $this->_conn->getCheckSql('c.value_id > 0', 'c.value', 'd.value');
+        $table = Mage::getSingleton('core/resource')->getTableName(['catalog/category', 'int']);
+        $bind = [
+            'attribute_id' => $attributeId,
+            'store_id'     => $storeId,
+            'zero_store_id' => 0,
+            'cond'         => 0,
+
+        ];
+        $select = $this->_conn->select()
+            ->from(['d' => $table], ['d.entity_id'])
+            ->where('d.attribute_id = :attribute_id')
+            ->where('d.store_id = :zero_store_id')
+            ->where('d.entity_id IN (?)', $filter)
+            ->joinLeft(
+                ['c' => $table],
+                'c.attribute_id = :attribute_id AND c.store_id = :store_id AND c.entity_id = d.entity_id',
+                [],
+            )
+            ->where($conditionSql . ' = :cond');
+
+        return $this->_conn->fetchCol($select, $bind);
+    }
+
+    /**
+     * Check is category items active
+     *
+     * @param int $id
+     * @return bool
+     */
+    protected function _getItemIsActive($id)
+    {
+        if (!in_array($id, $this->_inactiveItems)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param bool $sorted
+     * @return Mage_Catalog_Model_Resource_Category_Collection
+     */
+    protected function _getDefaultCollection($sorted = false)
+    {
+        $this->_joinUrlRewriteIntoCollection = true;
+        /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
+        $collection = Mage::getModel('catalog/category')->getCollection();
+
+        $attributes = Mage::getConfig()->getNode('frontend/category/collection/attributes');
+        if ($attributes) {
+            $attributes = $attributes->asArray();
+            $attributes = array_keys($attributes);
+        }
+        $collection->addAttributeToSelect($attributes);
+
+        if ($sorted) {
+            if (is_string($sorted)) {
+                // $sorted is supposed to be attribute name
+                $collection->addAttributeToSort($sorted);
+            } else {
+                $collection->addAttributeToSort('name');
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Move tree before
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @param Varien_Data_Tree_Node $newParent
+     * @param Varien_Data_Tree_Node $prevNode
+     * @return $this
+     */
+    protected function _beforeMove($category, $newParent, $prevNode)
+    {
+        Mage::dispatchEvent('catalog_category_tree_move_before', [
+            'category'      => $category,
+            'prev_parent'   => $prevNode,
+            'parent'        => $newParent,
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * Move tree after
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @param Varien_Data_Tree_Node $newParent
+     * @param Varien_Data_Tree_Node $prevNode
+     * @return $this
+     */
+    protected function _afterMove($category, $newParent, $prevNode)
+    {
+        Mage::app()->cleanCache([Mage_Catalog_Model_Category::CACHE_TAG]);
+
+        Mage::dispatchEvent('catalog_category_tree_move_after', [
+            'category'  => $category,
+            'prev_node' => $prevNode,
+            'parent'    => $newParent,
+        ]);
+
+        return $this;
+    }
+
+    /**
      * Replace products count with self products count, if category is non-anchor
      *
      * @param array $data
@@ -635,25 +655,5 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $select->columns(['self_product_count' => $subSelect]);
 
         return $select;
-    }
-
-    /**
-     * Get real existing category ids by specified ids
-     *
-     * @param array $ids
-     * @return array
-     */
-    public function getExistingCategoryIdsBySpecifiedIds($ids)
-    {
-        if (empty($ids)) {
-            return [];
-        }
-        if (!is_array($ids)) {
-            $ids = [$ids];
-        }
-        $select = $this->_conn->select()
-            ->from($this->_table, ['entity_id'])
-            ->where('entity_id IN (?)', $ids);
-        return $this->_conn->fetchCol($select);
     }
 }
