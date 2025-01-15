@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,28 +102,23 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             'header'    => Mage::helper('customer')->__('Amount'),
             'index'     => 'grand_total',
             'type'      => 'currency',
-            'align'     => 'right',
             'currency'  => 'order_currency_code',
         ]);
 
         $this->addColumn(
             'action',
             [
-                'header'    => Mage::helper('sales')->__('Action'),
-                'width'     => '50px',
                 'type'      => 'action',
                 'getter'     => 'getId',
                 'actions'   => [
                     [
                         'caption' => Mage::helper('sales')->__('View'),
                         'url'     => ['base' => '*/sales_invoice/view'],
-                        'field'   => 'invoice_id'
-                    ]
+                        'field'   => 'invoice_id',
+                    ],
                 ],
-                'filter'    => false,
-                'sortable'  => false,
-                'is_system' => true
-            ]
+                'is_system' => true,
+            ],
         );
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
@@ -141,8 +137,8 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         $this->getMassactionBlock()->setUseSelectAll(false);
 
         $this->getMassactionBlock()->addItem(MassAction::PDF_INVOICE_ORDER, [
-             'label' => Mage::helper('sales')->__('PDF Invoices'),
-             'url'  => $this->getUrl('*/sales_invoice/pdfinvoices'),
+            'label' => Mage::helper('sales')->__('PDF Invoices'),
+            'url'  => $this->getUrl('*/sales_invoice/pdfinvoices'),
         ]);
 
         return $this;
@@ -162,7 +158,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
             '*/sales_invoice/view',
             [
                 'invoice_id' => $row->getId(),
-            ]
+            ],
         );
     }
 

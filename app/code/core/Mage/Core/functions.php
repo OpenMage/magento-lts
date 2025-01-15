@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +34,7 @@ function destruct($object)
  *
  * @return string
  * @deprecated 1.3
+ * @SuppressWarnings("PHPMD.ShortMethodName")
  */
 function __()
 {
@@ -103,7 +105,7 @@ function mageFindClassFile($class)
  * @param string $errstr
  * @param string $errfile
  * @param int $errline
- * @return bool|void
+ * @return bool|null
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 {
@@ -120,7 +122,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
     // PEAR specific message handling
     if (stripos($errfile . $errstr, 'pear') !== false) {
         // ignore strict and deprecated notices
-        if (($errno == E_STRICT) || ($errno == E_DEPRECATED)) {
+        if ((PHP_VERSION_ID < 80400 && $errno == E_STRICT) || ($errno == E_DEPRECATED)) {
             return true;
         }
         // ignore attempts to read system files when open_basedir is set
@@ -133,46 +135,46 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 
     switch ($errno) {
         case E_ERROR:
-            $errorMessage .= "Error";
+            $errorMessage .= 'Error';
             break;
         case E_WARNING:
-            $errorMessage .= "Warning";
+            $errorMessage .= 'Warning';
             break;
         case E_PARSE:
-            $errorMessage .= "Parse Error";
+            $errorMessage .= 'Parse Error';
             break;
         case E_NOTICE:
-            $errorMessage .= "Notice";
+            $errorMessage .= 'Notice';
             break;
         case E_CORE_ERROR:
-            $errorMessage .= "Core Error";
+            $errorMessage .= 'Core Error';
             break;
         case E_CORE_WARNING:
-            $errorMessage .= "Core Warning";
+            $errorMessage .= 'Core Warning';
             break;
         case E_COMPILE_ERROR:
-            $errorMessage .= "Compile Error";
+            $errorMessage .= 'Compile Error';
             break;
         case E_COMPILE_WARNING:
-            $errorMessage .= "Compile Warning";
+            $errorMessage .= 'Compile Warning';
             break;
         case E_USER_ERROR:
-            $errorMessage .= "User Error";
+            $errorMessage .= 'User Error';
             break;
         case E_USER_WARNING:
-            $errorMessage .= "User Warning";
+            $errorMessage .= 'User Warning';
             break;
         case E_USER_NOTICE:
-            $errorMessage .= "User Notice";
+            $errorMessage .= 'User Notice';
             break;
-        case E_STRICT:
-            $errorMessage .= "Strict Notice";
+        case 2048: // E_STRICT prior to PHP8.4
+            $errorMessage .= 'Strict Notice';
             break;
         case E_RECOVERABLE_ERROR:
-            $errorMessage .= "Recoverable Error";
+            $errorMessage .= 'Recoverable Error';
             break;
         case E_DEPRECATED:
-            $errorMessage .= "Deprecated functionality";
+            $errorMessage .= 'Deprecated functionality';
             break;
         default:
             $errorMessage .= "Unknown error ($errno)";
@@ -184,6 +186,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         throw new Exception($errorMessage);
     } else {
         Mage::log($errorMessage, Zend_Log::ERR);
+        return null;
     }
 }
 
@@ -191,16 +194,16 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $return
  * @param bool $html
  * @param bool $showFirst
- * @return string|void
+ * @return string|null
  *
- * @SuppressWarnings(PHPMD.ErrorControlOperator)
+ * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
     $d = debug_backtrace();
     $out = '';
     if ($html) {
-        $out .= "<pre>";
+        $out .= '<pre>';
     }
     foreach ($d as $i => $r) {
         if (!$showFirst && $i == 0) {
@@ -210,12 +213,13 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
         @$out .= "[$i] {$r['file']}:{$r['line']}\n";
     }
     if ($html) {
-        $out .= "</pre>";
+        $out .= '</pre>';
     }
     if ($return) {
         return $out;
     } else {
         echo $out;
+        return null;
     }
 }
 
@@ -232,7 +236,7 @@ function mageSendErrorFooter()
 /**
  * @param string $path
  *
- * @SuppressWarnings(PHPMD.ErrorControlOperator)
+ * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
 function mageDelTree($path)
 {
@@ -256,7 +260,7 @@ function mageDelTree($path)
  * @param string $escape
  * @return array
  */
-function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\')
+function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\')
 {
     $elements = explode($delimiter, $string);
     for ($i = 0; $i < count($elements); $i++) {
@@ -269,7 +273,7 @@ function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\
                         $elements,
                         $i,
                         $j - $i + 1,
-                        implode($delimiter, array_slice($elements, $i, $j - $i + 1))
+                        implode($delimiter, array_slice($elements, $i, $j - $i + 1)),
                     );
                     break;
                 }
@@ -277,7 +281,7 @@ function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\
         }
         if ($nquotes > 0) {
             // Remove first and last quotes, then merge pairs of quotes
-            $qstr =& $elements[$i];
+            $qstr = & $elements[$i];
             $qstr = substr_replace($qstr, '', strpos($qstr, $enclosure), 1);
             $qstr = substr_replace($qstr, '', strrpos($qstr, $enclosure), 1);
             $qstr = str_replace($enclosure . $enclosure, $enclosure, $qstr);
@@ -290,9 +294,9 @@ function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\
  * @param string $dir
  * @return bool
  *
- * @SuppressWarnings(PHPMD.ErrorControlOperator)
+ * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
-function is_dir_writeable($dir)
+function isDirWriteable($dir)
 {
     if (is_dir($dir) && is_writable($dir)) {
         if (stripos(PHP_OS, 'win') === 0) {
@@ -311,4 +315,21 @@ function is_dir_writeable($dir)
         return true;
     }
     return false;
+}
+
+
+/**
+ * @param string $dir
+ * @return bool
+ * @deprecated avoid php_codesniffer error
+ *
+ *     An error occurred during processing; checking has been aborted. The error message was: Undefined index: ^is_dir/i_writeab in
+ *     /var/www/html/vendor/squizlabs/php_codesniffer/src/Standards/Generic/Sniffs/PHP/ForbiddenFunctionsSniff.php on line 228
+ *     The error originated in the Generic.PHP.ForbiddenFunctions sniff on line 228. (Internal.Exception)
+ *
+ * @see isDirWriteable()
+ */
+function is_dir_writeable($dir)
+{
+    return isDirWriteable($dir);
 }

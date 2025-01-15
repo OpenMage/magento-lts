@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +59,6 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
     /**
      * Draw header block
      *
-     * @param  Zend_Pdf_Page $page
      * @return $this
      */
     protected function _drawHeaderBlock(Zend_Pdf_Page $page)
@@ -77,7 +77,6 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
     /**
      * Draw packages block
      *
-     * @param  Zend_Pdf_Page $page
      * @return $this
      */
     protected function _drawPackageBlock(Zend_Pdf_Page $page)
@@ -220,14 +219,14 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                     Mage::helper('sales')->__('Customs Value'),
                     $itemCollsX[++$i] + $txtIndent,
                     $this->y,
-                    'UTF-8'
+                    'UTF-8',
                 );
             }
             $page->drawText(
                 Mage::helper('sales')->__('Qty Ordered'),
                 $itemCollsX[++$i] + $txtIndent,
                 $this->y,
-                'UTF-8'
+                'UTF-8',
             );
             $page->drawText(Mage::helper('sales')->__('Qty'), $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8');
 
@@ -253,14 +252,14 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                         $packaging->displayPrice($item->getCustomsValue()),
                         $itemCollsX[++$i] + $txtIndent,
                         $this->y,
-                        'UTF-8'
+                        'UTF-8',
                     );
                 }
                 $page->drawText(
                     $packaging->getQtyOrderedItem($item->getOrderItemId()),
                     $itemCollsX[++$i] + $txtIndent,
                     $this->y,
-                    'UTF-8'
+                    'UTF-8',
                 );
                 $page->drawText($item->getQty() * 1, $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8');
             }

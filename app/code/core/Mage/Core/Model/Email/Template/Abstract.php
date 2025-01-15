@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +40,6 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Get template code for template directive
      *
      * @param   string $configPath
-     * @param   array $variables
      * @return  string
      */
     public function getTemplateByConfigPath($configPath, array $variables)
@@ -80,7 +80,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             $templateText = Mage::app()->getTranslator()->getTemplateFile(
                 $data['file'],
                 'email',
-                $localeCode
+                $localeCode,
             );
 
             $this->setTemplateText($templateText);
@@ -155,12 +155,12 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         }
 
         $defaultValuesMap = [
-            "logo_width" => self::XML_PATH_DESIGN_EMAIL_LOGO_WIDTH,
-            "logo_height" => self::XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT,
-            "phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
-            "store_phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
-            "store_hours" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_HOURS,
-            "store_email" => Mage_Customer_Helper_Data::XML_PATH_SUPPORT_EMAIL,
+            'logo_width' => self::XML_PATH_DESIGN_EMAIL_LOGO_WIDTH,
+            'logo_height' => self::XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT,
+            'phone' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
+            'store_phone' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
+            'store_hours' => Mage_Core_Model_Store::XML_PATH_STORE_STORE_HOURS,
+            'store_email' => Mage_Customer_Helper_Data::XML_PATH_SUPPORT_EMAIL,
         ];
 
         foreach ($defaultValuesMap as $variableName => $configValue) {
@@ -226,7 +226,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 '_area' => $area,
                 '_package' => $package,
                 '_theme' => $theme,
-            ]
+            ],
         );
         $validator = new Zend_Validate_File_Extension('css');
 
@@ -252,7 +252,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             if (!$filesToLoad) {
                 return '';
             }
-            $files = array_map('trim', explode(",", $filesToLoad));
+            $files = array_map('trim', explode(',', $filesToLoad));
 
             $css = '';
             foreach ($files as $fileName) {

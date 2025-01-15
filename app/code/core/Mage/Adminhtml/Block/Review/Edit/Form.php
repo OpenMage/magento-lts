@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,14 +31,14 @@ class Mage_Adminhtml_Block_Review_Edit_Form extends Mage_Adminhtml_Block_Widget_
         $form = new Varien_Data_Form([
             'id'        => 'edit_form',
             'action'    => $this->getUrl('*/*/save', ['id' => $this->getRequest()->getParam('id'), 'ret' => Mage::registry('ret')]),
-            'method'    => 'post'
+            'method'    => 'post',
         ]);
 
         $fieldset = $form->addFieldset('review_details', ['legend' => Mage::helper('review')->__('Review Details'), 'class' => 'fieldset-wide']);
 
         $fieldset->addField('product_name', 'note', [
             'label'     => Mage::helper('review')->__('Product'),
-            'text'      => '<a href="' . $this->getUrl('*/catalog_product/edit', ['id' => $product->getId()]) . '" onclick="this.target=\'blank\'">' . $this->escapeHtml($product->getName()) . '</a>'
+            'text'      => '<a href="' . $this->getUrl('*/catalog_product/edit', ['id' => $product->getId()]) . '" onclick="this.target=\'blank\'">' . $this->escapeHtml($product->getName()) . '</a>',
         ]);
 
         $customerText = '';
@@ -86,13 +87,13 @@ class Mage_Adminhtml_Block_Review_Edit_Form extends Mage_Adminhtml_Block_Widget_
                 'name'      => 'stores[]',
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
             ]);
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
+            $renderer = $this->getStoreSwitcherRenderer();
             $field->setRenderer($renderer);
             $review->setSelectStores($review->getStores());
         } else {
             $fieldset->addField('select_stores', 'hidden', [
                 'name'      => 'stores[]',
-                'value'     => Mage::app()->getStore(true)->getId()
+                'value'     => Mage::app()->getStore(true)->getId(),
             ]);
             $review->setSelectStores(Mage::app()->getStore(true)->getId());
         }
@@ -100,7 +101,7 @@ class Mage_Adminhtml_Block_Review_Edit_Form extends Mage_Adminhtml_Block_Widget_
         $fieldset->addField('nickname', 'text', [
             'label'     => Mage::helper('review')->__('Nickname'),
             'required'  => true,
-            'name'      => 'nickname'
+            'name'      => 'nickname',
         ]);
 
         $fieldset->addField('title', 'text', [

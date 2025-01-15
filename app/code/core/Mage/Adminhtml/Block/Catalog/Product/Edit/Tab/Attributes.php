@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +28,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
-        if (Mage::helper('catalog')->isModuleEnabled('Mage_Cms')
+        if ($this->isModuleEnabled('Mage_Cms', 'catalog')
             && Mage::getSingleton('cms/wysiwyg_config')->isEnabled()
         ) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
@@ -49,39 +50,28 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
 
             $fieldset = $form->addFieldset('group_fields' . $group->getId(), [
                 'legend' => Mage::helper('catalog')->__($group->getAttributeGroupName()),
-                'class' => 'fieldset-wide'
+                'class' => 'fieldset-wide',
             ]);
 
             $attributes = $this->getGroupAttributes();
 
             $this->_setFieldset($attributes, $fieldset, ['gallery']);
 
-            $urlKey = $form->getElement('url_key');
-            if ($urlKey) {
-                $urlKey->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey')
-                );
-            }
+            $rendererBlocks = [
+                'url_key'           => 'adminhtml/catalog_form_renderer_attribute_urlkey',
+                'tier_price'        => 'adminhtml/catalog_product_edit_tab_price_tier',
+                'group_price'       => 'adminhtml/catalog_product_edit_tab_price_group',
+                'recurring_profile' => 'adminhtml/catalog_product_edit_tab_price_recurring',
+            ];
 
-            $tierPrice = $form->getElement('tier_price');
-            if ($tierPrice) {
-                $tierPrice->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_tier')
-                );
-            }
-
-            $groupPrice = $form->getElement('group_price');
-            if ($groupPrice) {
-                $groupPrice->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_group')
-                );
-            }
-
-            $recurringProfile = $form->getElement('recurring_profile');
-            if ($recurringProfile) {
-                $recurringProfile->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_recurring')
-                );
+            foreach ($rendererBlocks as $elementId => $rendererBlock) {
+                $element = $form->getElement($elementId);
+                if ($element) {
+                    $renderer = $this->getLayout()->createBlock($rendererBlock);
+                    if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                        $element->setRenderer($renderer);
+                    }
+                }
             }
 
             // Add new attribute button if it is not an image tab
@@ -148,7 +138,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
             'gallery'  => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_gallery'),
             'image'    => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean'  => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean'),
-            'textarea' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_helper_form_wysiwyg')
+            'textarea' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_helper_form_wysiwyg'),
         ];
 
         $response = new Varien_Object();

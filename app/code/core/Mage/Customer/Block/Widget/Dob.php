@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +43,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function isEnabled()
     {
-        return (bool)$this->_getAttribute('dob')->getIsVisible();
+        return (bool) $this->_getAttribute('dob')->getIsVisible();
     }
 
     /**
@@ -50,7 +51,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function isRequired()
     {
-        return (bool)$this->_getAttribute('dob')->getIsRequired();
+        return (bool) $this->_getAttribute('dob')->getIsRequired();
     }
 
     /**
@@ -140,7 +141,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
             '%d' => '%2$s',
             '%e' => '%2$s',
             '%Y' => '%3$s',
-            '%y' => '%3$s'
+            '%y' => '%3$s',
         ];
 
         $dateFormat = preg_replace('/[^\%\w]/', '\\1', $this->getDateFormat());
@@ -149,7 +150,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
             strtr($dateFormat, $strtr),
             $this->_dateInputs['m'],
             $this->_dateInputs['d'],
-            $this->_dateInputs['y']
+            $this->_dateInputs['y'],
         );
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,8 +72,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     {
         $js  = '<script type="text/javascript">';
         $js .= 'document.location.href="' . $this->getTargetURL() . '";';
-        $js .= '</script>';
-        return $js;
+        return $js . '</script>';
     }
 
     /**
@@ -92,8 +92,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
             $form->addField($field, 'hidden', ['name' => $field, 'value' => $value]);
         }
         $html = $form->toHtml();
-        $html .= '<script type="text/javascript">document.getElementById("' . $this->getFormId() . '").submit();</script>';
-        return $html;
+        return $html . ('<script type="text/javascript">document.getElementById("' . $this->getFormId() . '").submit();</script>');
     }
 
     /**

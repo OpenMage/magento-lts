@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -363,9 +364,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         if (($entity === null) || ($entity->getType() !== $this->getEntity()->getType())) {
             $alias .= $this->getEntity()->getType() . '/';
         }
-        $alias .= $this->getAttributeCode();
 
-        return  $alias;
+        return  $alias . $this->getAttributeCode();
     }
 
     /**
@@ -481,8 +481,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     Mage::helper('eav')->__(
                         'Source model "%s" not found for attribute "%s"',
                         $this->getSourceModel(),
-                        $this->getAttributeCode()
-                    )
+                        $this->getAttributeCode(),
+                    ),
                 );
             }
             $this->_source = $source->setAttribute($this);
@@ -628,7 +628,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if ($this->isStatic()) {
                 $this->_dataTable = $this->getEntityType()->getValueTablePrefix();
             } else {
-                $backendTable = trim((string)$this->_getData('backend_table'));
+                $backendTable = trim((string) $this->_getData('backend_table'));
                 if (empty($backendTable)) {
                     $entityTable  = [$this->getEntity()->getEntityTablePrefix(), $this->getBackendType()];
                     $backendTable = $this->getResource()->getTable($entityTable);
@@ -684,7 +684,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => $prop['UNSIGNED'] ? true : false,
                     'nullable'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
             case 'datetime':
@@ -693,7 +693,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
             case 'decimal':
@@ -703,7 +703,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
             case 'int':
@@ -712,7 +712,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
             case 'text':
@@ -722,7 +722,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null,
-                    'length'    => Varien_Db_Ddl_Table::MAX_TEXT_SIZE
+                    'length'    => Varien_Db_Ddl_Table::MAX_TEXT_SIZE,
                 ];
                 break;
             case 'varchar':
@@ -732,7 +732,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
         }
@@ -760,14 +760,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 if (isset($prop['PRECISION'], $prop['SCALE'])) {
                     $type .= "({$prop['PRECISION']},{$prop['SCALE']})";
                 } else {
-                    $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : "";
+                    $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : '';
                 }
                 $columns[$this->getAttributeCode()] = [
                     'type'      => $type,
                     'unsigned'  => $prop['UNSIGNED'] ? true : false,
                     'is_null'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
             case 'datetime':
@@ -776,7 +776,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
             case 'decimal':
@@ -785,7 +785,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
             case 'int':
@@ -794,7 +794,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
             case 'text':
@@ -803,7 +803,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
             case 'varchar':
@@ -812,7 +812,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
-                    'extra'     => null
+                    'extra'     => null,
                 ];
                 break;
         }
@@ -875,7 +875,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                         $indexName = 'IDX_' . strtoupper($this->getAttributeCode());
                         $indexes[$indexName] = [
                             'type'      => 'index',
-                            'fields'    => [$this->getAttributeCode()]
+                            'fields'    => [$this->getAttributeCode()],
                         ];
                     }
 
@@ -887,7 +887,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     $indexName = 'IDX_' . strtoupper($this->getAttributeCode());
                     $indexes[$indexName] = [
                         'type'      => 'index',
-                        'fields'    => [$this->getAttributeCode()]
+                        'fields'    => [$this->getAttributeCode()],
                     ];
                     break;
             }
@@ -902,7 +902,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return $this|Varien_Db_Select
+     * @return $this|Varien_Db_Select|null
      */
     public function getFlatUpdateSelect($store = null)
     {

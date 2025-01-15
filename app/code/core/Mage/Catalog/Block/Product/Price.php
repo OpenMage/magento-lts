@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -133,13 +134,13 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
                     }
 
                     $tierPrice = Mage::app()->getStore()->convertPrice(
-                        Mage::helper('tax')->getPrice($product, $price['website_price'])
+                        Mage::helper('tax')->getPrice($product, $price['website_price']),
                     );
                     $price['formated_price'] = Mage::app()->getStore()->formatPrice($tierPrice);
                     $price['formated_price_incl_tax'] = Mage::app()->getStore()->formatPrice(
                         Mage::app()->getStore()->convertPrice(
-                            Mage::helper('tax')->getPrice($product, $price['website_price'], true)
-                        )
+                            Mage::helper('tax')->getPrice($product, $price['website_price'], true),
+                        ),
                     );
 
                     if (Mage::helper('catalog')->canApplyMsrp($product)) {

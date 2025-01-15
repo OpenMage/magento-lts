@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -114,7 +115,6 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Build resources array process
      *
-     * @param  null|Varien_Simplexml_Element $resource
      * @param  null|string $parentName
      * @param  null|int $level
      * @param  null|mixed $represent2Darray
@@ -142,16 +142,16 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
 
                 //assigning module for its' children nodes
                 if ($resource->getAttribute('module')) {
-                    $module = (string)$resource->getAttribute('module');
+                    $module = (string) $resource->getAttribute('module');
                 }
 
                 if ($rawNodes) {
-                    $resource->addAttribute("aclpath", $resourceName);
-                    $resource->addAttribute("module_c", $module);
+                    $resource->addAttribute('aclpath', $resourceName);
+                    $resource->addAttribute('module_c', $module);
                 }
 
                 if (is_null($represent2Darray)) {
-                    $result[$resourceName]['name']  = Mage::helper($module)->__((string)$resource->title);
+                    $result[$resourceName]['name']  = Mage::helper($module)->__((string) $resource->title);
                     $result[$resourceName]['level'] = $level;
                 } else {
                     $result[] = $resourceName;

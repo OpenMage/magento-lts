@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Captcha
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -73,7 +74,6 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On Register User Page
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function checkUserCreate(Varien_Event_Observer $observer)
@@ -95,7 +95,6 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On Checkout as Guest Page
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function checkGuestCheckout(Varien_Event_Observer $observer)
@@ -275,7 +274,7 @@ class Mage_Captcha_Model_Observer
     protected function _getCaptchaString($request, $formId)
     {
         $captchaParams = $request->getPost(Mage_Captcha_Helper_Data::INPUT_NAME_FIELD_VALUE);
-        return $captchaParams[$formId];
+        return $captchaParams[$formId] ?? '';
     }
 
     /**
@@ -295,7 +294,7 @@ class Mage_Captcha_Model_Observer
                 Mage::getSingleton('wishlist/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 Mage::getSingleton('wishlist/session')->setSharingForm($request->getPost());
-                $wishlistId = (int)$request->getParam('wishlist_id');
+                $wishlistId = (int) $request->getParam('wishlist_id');
                 $controller->getResponse()
                     ->setRedirect(Mage::getUrl('wishlist/index/share/wishlist_id/' . $wishlistId));
             }
@@ -320,10 +319,10 @@ class Mage_Captcha_Model_Observer
                 Mage::getSingleton('catalog/session')->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 Mage::getSingleton('catalog/session')->setFormData($request->getPost());
-                $id = (int)$request->getParam('id');
+                $id = (int) $request->getParam('id');
                 $catId = $request->getParam('cat_id');
                 if ($catId !== null) {
-                    $id .= '/cat_id/' . (int)$catId;
+                    $id .= '/cat_id/' . (int) $catId;
                 }
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $id));
             }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Directory
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,7 +68,7 @@ class Mage_Directory_Model_Currency_Filter implements Zend_Filter_Interface
         $value = Mage::app()->getLocale()->getNumber($value);
         $value = Mage::app()->getStore()->roundPrice($this->_rate * $value);
         //$value = round($value, 2);
-        $value = sprintf("%F", $value);
+        $value = sprintf('%F', $value);
         return $this->_currency->toCurrency($value);
     }
 }

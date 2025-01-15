@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,7 +84,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
     protected function _beforeToHtml()
     {
         if (!$this->getProductId()) {
-            return false;
+            return $this;
         }
 
         return parent::_beforeToHtml();
@@ -97,7 +98,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         return Mage::getUrl('tag/index/save', [
             'product' => $this->getProductId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl(),
-            '_secure' => $this->_isSecure()
+            '_secure' => $this->_isSecure(),
         ]);
     }
 
@@ -117,7 +118,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 $pattern,
                 $tag->getTaggedProductsUrl(),
                 $this->escapeHtml($tag->getName()),
-                $tag->getProducts()
+                $tag->getProducts(),
             );
         }
         return implode($glue, $out);

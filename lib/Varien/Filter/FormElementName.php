@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Filter
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +32,7 @@ class Varien_Filter_FormElementName extends Zend_Filter_Alnum
             $pattern = '/[^a-zA-Z0-9\[\];_\-' . $whiteSpace . ']/';
         } elseif (self::$_meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
-            $pattern = '/[^a-zA-Z0-9\[\];_\-'  . $whiteSpace . ']/u';
+            $pattern = '/[^a-zA-Z0-9\[\];_\-' . $whiteSpace . ']/u';
         } else {
             //The Alphabet means each language's alphabet.
             $pattern = '/[^\p{L}\p{N}\[\];_\-' . $whiteSpace . ']/u';

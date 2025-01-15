@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,8 +50,6 @@ class Varien_Db_Select extends Zend_Db_Select
     /**
      * Class constructor
      * Add straight join support
-     *
-     * @param Zend_Db_Adapter_Abstract $adapter
      */
     public function __construct(Zend_Db_Adapter_Abstract $adapter)
     {
@@ -102,7 +101,7 @@ class Varien_Db_Select extends Zend_Db_Select
          * Additional internal type used for really null value
          * cast to string, to prevent false matching 0 == "TYPE_CONDITION"
          */
-        if ((string)$type === self::TYPE_CONDITION) {
+        if ((string) $type === self::TYPE_CONDITION) {
             $type = null;
         }
         if (is_array($value)) {
@@ -215,7 +214,7 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     protected function _findTableInCond($table, $cond)
     {
-        $cond  = (string)$cond;
+        $cond  = (string) $cond;
         $quote = $this->_adapter->getQuoteIdentifierSymbol();
 
         if (strpos($cond, $quote . $table . $quote . '.') !== false) {
@@ -345,7 +344,7 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
-     * Modify (hack) part of the structured information for the currect query
+     * Modify (hack) part of the structured information for the current query
      *
      * @param string $part
      * @param mixed $value

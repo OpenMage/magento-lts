@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,14 +26,13 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage e
     /**
      * Renders grid column
      *
-     * @param   Varien_Object $row
      * @return  string
      */
     public function render(Varien_Object $row)
     {
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
-        if (!$helper->getIsMessagesAvailable('order_item', $row, $this->getColumn()->getGrid()->getStore())) {
+        if (!$helper->getIsMessagesAvailable($helper::TYPE_ORDER_ITEM, $row, $this->getColumn()->getGrid()->getStore())) {
             return '&nbsp;';
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,13 +30,13 @@ $paymentMethods = [
     'paypal_express',
     'paypal_direct',
     'paypaluk_direct',
-    'paypaluk_express'
+    'paypaluk_express',
 ];
 $entityTypeCode = 'order_payment';
 $attributesIds = [
     'method' => false,
     'additional_data' => false,
-    'additional_information' => false
+    'additional_information' => false,
 ];
 
 /* get order_payment entity type code*/
@@ -46,7 +47,7 @@ $entityTypeId = $connection->fetchOne("
 ");
 
 /* get order_payment attribute codes*/
-foreach ($attributesIds as $attributeCode => $attributeId) {
+foreach (array_keys($attributesIds) as $attributeCode) {
     $attributesIds[$attributeCode] = $connection->fetchOne("
         SELECT attribute_id
         FROM {$this->getTable('eav_attribute')}
@@ -102,7 +103,7 @@ try {
                     $entityTypeId,
                     $attributesIds['additional_information'],
                     $item['entity_id'],
-                    $additionalInformation
+                    $additionalInformation,
                 ];
             }
         }
@@ -114,7 +115,7 @@ try {
         $connection->insertArray(
             $this->getTable('sales_order_entity_text'),
             ['entity_type_id', 'attribute_id', 'entity_id', 'value'],
-            $insertQueryItems
+            $insertQueryItems,
         );
     }
 } catch (Exception $e) {

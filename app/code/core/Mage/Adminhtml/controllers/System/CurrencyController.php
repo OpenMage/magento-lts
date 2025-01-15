@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +51,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
         $this->_title($this->__('System'))->_title($this->__('Manage Currency Rates'));
 
         $this->loadLayout();
-        $this->_setActiveMenu('system/currency');
+        $this->_setActiveMenu('system/currency/rates');
         $this->_addContent($this->getLayout()->createBlock('adminhtml/system_currency'));
         $this->renderLayout();
     }
@@ -65,7 +66,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             }
             try {
                 $importModel = Mage::getModel(
-                    Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray()
+                    Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray(),
                 );
             } catch (Exception $e) {
                 Mage::throwException(Mage::helper('adminhtml')->__('Unable to initialize import model'));

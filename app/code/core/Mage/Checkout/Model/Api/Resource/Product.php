@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +42,7 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
         return Mage::helper('catalog/product')->getProduct(
             $productId,
             $this->_getStoreId($store),
-            $identifierType
+            $identifierType,
         );
     }
 
@@ -71,9 +72,6 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
     /**
      * Get QuoteItem by Product and request info
      *
-     * @param Mage_Sales_Model_Quote $quote
-     * @param Mage_Catalog_Model_Product $product
-     * @param Varien_Object $requestInfo
      * @return Mage_Sales_Model_Quote_Item
      * @throw Mage_Core_Exception
      */
@@ -86,7 +84,7 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
                         ->prepareForCartAdvanced(
                             $requestInfo,
                             $product,
-                            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+                            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL,
                         );
 
         /**
@@ -114,7 +112,7 @@ class Mage_Checkout_Model_Api_Resource_Product extends Mage_Checkout_Model_Api_R
         }
 
         if (is_null($item)) {
-            $item = Mage::getModel("sales/quote_item");
+            $item = Mage::getModel('sales/quote_item');
         }
 
         return $item;

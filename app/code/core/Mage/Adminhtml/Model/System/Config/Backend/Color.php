@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -34,16 +35,16 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
             $validate = array_map('trim', explode(' ', $config->validate));
         }
 
-        if (!(string)$this->getValue() && !in_array('required-entry', $validate)) {
+        if (!(string) $this->getValue() && !in_array('required-entry', $validate)) {
             return $this;
         }
 
-        $with_hash = true;
+        $withHash = true;
         if (isset($config->with_hash)) {
-            $with_hash = $config->is('with_hash', true);
+            $withHash = $config->is('with_hash', true);
         }
 
-        if ($with_hash) {
+        if ($withHash) {
             $regex = Varien_Data_Form_Element_Color::VALIDATION_REGEX_WITH_HASH;
             $errorMessage = 'Color must be in hexadecimal format with the hash character';
         } else {
@@ -51,7 +52,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
             $errorMessage = 'Color must be in hexadecimal format without the hash character';
         }
 
-        if (!(bool)preg_match($regex, (string)$this->getValue())) {
+        if (!(bool) preg_match($regex, (string) $this->getValue())) {
             Mage::throwException(Mage::helper('adminhtml')->__($errorMessage));
         }
 

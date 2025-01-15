@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +40,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
         $filter = $this->getData('filter');
         if (!is_object($filter)) {
             Mage::throwException(
-                Mage::helper('catalog')->__('Filter must be an object. Please set correct filter.')
+                Mage::helper('catalog')->__('Filter must be an object. Please set correct filter.'),
             );
         }
         return $filter;
@@ -54,7 +55,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
     {
         $query = [
             $this->getFilter()->getRequestVar() => $this->getValue(),
-            Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
+            Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null, // exclude current page from urls
         ];
         return Mage::getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true, '_query' => $query]);
     }

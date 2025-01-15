@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,22 +40,22 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     public function setSelectPeriod($periodType, $customStart = null, $customEnd = null)
     {
         switch ($periodType) {
-            case "24h":
+            case '24h':
                 $customStart = Varien_Date::toTimestamp(true) - 86400;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;
 
-            case "7d":
+            case '7d':
                 $customStart = Varien_Date::toTimestamp(true) - 604800;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;
 
-            case "30d":
+            case '30d':
                 $customStart = Varien_Date::toTimestamp(true) - 2592000;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;
 
-            case "1y":
+            case '1y':
                 $customStart = Varien_Date::toTimestamp(true) - 31536000;
                 $customEnd   = Varien_Date::toTimestamp(true);
                 break;

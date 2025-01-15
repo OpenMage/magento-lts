@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -115,7 +116,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * and subtotal including/excluding tax.
      * Determine discount price if needed
      *
-     * @param Mage_Sales_Model_Quote_Address $address
      *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
@@ -606,7 +606,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                     $calc->calcTaxAmount($baseTaxable, $taxRate, false, false),
                     $taxId,
                     false,
-                    'base'
+                    'base',
                 );
             }
 
@@ -703,7 +703,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     protected function _deltaRound($price, $rate, $direction, $type = 'regular')
     {
         if ($price) {
-            $rate = (string)$rate;
+            $rate = (string) $rate;
             $type = $type . $direction;
             // initialize the delta to a small number to avoid non-deterministic behavior with rounding of 0.5
             $delta = $this->_roundingDeltas[$type][$rate] ?? 0.000001;
@@ -717,7 +717,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Recalculate row information for item based on children calculation
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
@@ -782,14 +781,13 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
             $address,
             $address->getQuote()->getBillingAddress(),
             $address->getQuote()->getCustomerTaxClassId(),
-            $address->getQuote()->getStore()
+            $address->getQuote()->getStore(),
         );
     }
 
     /**
      * Add row total item amount to subtotal
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
      * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
@@ -803,11 +801,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         } else {
             $address->setTotalAmount(
                 'subtotal',
-                $address->getTotalAmount('subtotal') + $item->getRowTotal()
+                $address->getTotalAmount('subtotal') + $item->getRowTotal(),
             );
             $address->setBaseTotalAmount(
                 'subtotal',
-                $address->getBaseTotalAmount('subtotal') + $item->getBaseRowTotal()
+                $address->getBaseTotalAmount('subtotal') + $item->getBaseRowTotal(),
             );
         }
         $address->setSubtotalInclTax($address->getSubtotalInclTax() + $item->getRowTotalInclTax());
@@ -821,7 +819,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @deprecated after 1.4.1
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -848,7 +845,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @deprecated after 1.4.1
      *
      * @param   Mage_Sales_Model_Quote_Address $address
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
      *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */

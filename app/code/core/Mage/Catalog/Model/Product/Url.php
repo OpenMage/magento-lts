@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -19,30 +20,9 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Product_Url extends Varien_Object
+class Mage_Catalog_Model_Product_Url extends Mage_Catalog_Model_Url
 {
     public const CACHE_TAG = 'url_rewrite';
-
-    /**
-     * URL instance
-     *
-     * @var Mage_Core_Model_Url
-     */
-    protected $_url;
-
-    /**
-     * URL Rewrite Instance
-     *
-     * @var Mage_Core_Model_Url_Rewrite
-     */
-    protected $_urlRewrite;
-
-    /**
-     * Factory instance
-     *
-     * @var Mage_Catalog_Model_Factory
-     */
-    protected $_factory;
 
     /**
      * @var Mage_Core_Model_Store
@@ -51,39 +31,11 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
 
     /**
      * Initialize Url model
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
         $this->_store = !empty($args['store']) ? $args['store'] : Mage::app()->getStore();
-    }
-
-    /**
-     * Retrieve URL Instance
-     *
-     * @return Mage_Core_Model_Url
-     */
-    public function getUrlInstance()
-    {
-        if ($this->_url === null) {
-            $this->_url = Mage::getModel('core/url');
-        }
-        return $this->_url;
-    }
-
-    /**
-     * Retrieve URL Rewrite Instance
-     *
-     * @return Mage_Core_Model_Url_Rewrite
-     */
-    public function getUrlRewrite()
-    {
-        if ($this->_urlRewrite === null) {
-            $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
-        }
-        return $this->_urlRewrite;
     }
 
     /**
@@ -103,7 +55,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     /**
      * Retrieve URL in current store
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param array $params the URL route params
      * @return string
      */
@@ -135,21 +86,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     }
 
     /**
-     * Format Key for URL
-     *
-     * @param string $str
-     * @return string
-     */
-    public function formatUrlKey($str)
-    {
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-
-        return $urlKey;
-    }
-
-    /**
      * Retrieve Product Url path (with category if exists)
      *
      * @param Mage_Catalog_Model_Product $product
@@ -175,7 +111,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
     /**
      * Retrieve Product URL using UrlDataObject
      *
-     * @param Mage_Catalog_Model_Product $product
      * @param array $params
      * @return string
      */
@@ -284,7 +219,6 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
         if ($rewrite->getId()) {
             return $rewrite->getRequestPath();
         }
-
         return false;
     }
 }

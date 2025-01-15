@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,11 +54,11 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         $store = $this->_getStore();
         $entityOnlyAttributes = $this->getEntityOnlyAttributes(
             $this->getUserType(),
-            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ,
         );
         $availableAttributes = array_keys($this->getAvailableAttributes(
             $this->getUserType(),
-            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ
+            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ,
         ));
         // available attributes not contain image attribute, but it needed for get image_url
         $availableAttributes[] = 'image';
@@ -81,8 +82,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Apply filter by category id
-     *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      */
     protected function _applyCategoryFilter(Mage_Catalog_Model_Resource_Product_Collection $collection)
     {
@@ -98,8 +97,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Add special fields to product get response
-     *
-     * @param Mage_Catalog_Model_Product $product
      */
     protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product)
     {
@@ -138,7 +135,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $productData['total_reviews_count'] = $reviewModel->getTotalReviews(
                 $product->getId(),
                 true,
-                $this->_getStore()->getId()
+                $this->_getStore()->getId(),
             );
 
             $productData['tier_price'] = $this->_getTierPrices();
@@ -153,8 +150,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Product create only available for admin
-     *
-     * @param array $data
      */
     protected function _create(array $data)
     {
@@ -163,8 +158,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Product update only available for admin
-     *
-     * @param array $data
      */
     protected function _update(array $data)
     {
@@ -217,8 +210,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Set product
-     *
-     * @param Mage_Catalog_Model_Product $product
      */
     protected function _setProduct(Mage_Catalog_Model_Product $product)
     {
@@ -239,7 +230,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Get product price with all tax settings processing
      *
-     * @param float $price inputed product price
+     * @param float $price inputted product price
      * @param bool $includingTax return price include tax flag
      * @param null|Mage_Customer_Model_Address $shippingAddress
      * @param null|Mage_Customer_Model_Address $billingAddress
@@ -375,7 +366,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $tierPrices[] = [
                 'qty' => $tierPrice['price_qty'],
                 'price_with_tax' => $this->_applyTaxToPrice($tierPrice['price']),
-                'price_without_tax' => $this->_applyTaxToPrice($tierPrice['price'], false)
+                'price_without_tax' => $this->_applyTaxToPrice($tierPrice['price'], false),
             ];
         }
         return $tierPrices;
@@ -384,7 +375,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Default implementation. May be different for customer/guest/admin role.
      *
-     * @return null
+     * @return int|null
      */
     protected function _getCustomerGroupId()
     {

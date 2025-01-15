@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,6 +19,9 @@
  *
  * @category   Mage
  * @package    Mage_Core
+ *
+ * @method Mage_Core_Model_Store getItemById(int $value)
+ * @method Mage_Core_Model_Store[] getItems()
  */
 class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -47,7 +51,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      */
     public function setLoadDefault($loadDefault)
     {
-        $this->setFlag('load_default_store', (bool)$loadDefault);
+        $this->setFlag('load_default_store', (bool) $loadDefault);
         return $this;
     }
 
@@ -160,7 +164,6 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add root category id filter to store collection
      *
-     * @param array $categories
      * @return $this
      */
     public function loadByCategoryIds(array $categories)
@@ -182,7 +185,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
             $this->getSelect()->join(
                 ['group_table' => $this->getTable('core/store_group')],
                 'main_table.group_id = group_table.group_id',
-                ['root_category_id']
+                ['root_category_id'],
             );
             $this->setFlag('core_store_group_table_joined', true);
         }

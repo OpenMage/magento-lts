@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -83,7 +84,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_by_txn_id_before',
-            $this->_getEventData() + ['txn_id' => $txnId]
+            $this->_getEventData() + ['txn_id' => $txnId],
         );
         return $this;
     }
@@ -98,7 +99,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         $this->_beforeLoadByTxnId($txnId);
         $this->getResource()->loadObjectByTxnId(
             $this,
-            $txnId
+            $txnId,
         );
         $this->_afterLoadByTxnId();
         return $this;
@@ -184,7 +185,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if ($setFailsafe === null) {
             return $this->_isFailsafe;
         }
-        $this->_isFailsafe = (bool)$setFailsafe;
+        $this->_isFailsafe = (bool) $setFailsafe;
         return $this;
     }
 

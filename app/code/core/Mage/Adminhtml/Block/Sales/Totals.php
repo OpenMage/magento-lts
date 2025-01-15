@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +34,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             return $helper->displayPrices(
                 $this->getOrder(),
                 $total->getBaseValue(),
-                $total->getValue()
+                $total->getValue(),
             );
         }
         return $total->getValue();
@@ -51,7 +52,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             'code'      => 'subtotal',
             'value'     => $this->getSource()->getSubtotal(),
             'base_value' => $this->getSource()->getBaseSubtotal(),
-            'label'     => $this->helper('sales')->__('Subtotal')
+            'label'     => $this->helper('sales')->__('Subtotal'),
         ]);
 
         /**
@@ -64,18 +65,18 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
                 'code'      => 'shipping',
                 'value'     => $this->getSource()->getShippingAmount(),
                 'base_value' => $this->getSource()->getBaseShippingAmount(),
-                'label' => $this->helper('sales')->__('Shipping & Handling')
+                'label' => $this->helper('sales')->__('Shipping & Handling'),
             ]);
         }
 
         /**
          * Add discount
          */
-        if ((float)$this->getSource()->getDiscountAmount() != 0) {
+        if ((float) $this->getSource()->getDiscountAmount() != 0) {
             if ($this->getSource()->getDiscountDescription()) {
                 $discountLabel = $this->helper('sales')->__(
                     'Discount (%s)',
-                    $this->getSource()->getDiscountDescription()
+                    $this->getSource()->getDiscountDescription(),
                 );
             } else {
                 $discountLabel = $this->helper('sales')->__('Discount');
@@ -84,7 +85,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
                 'code'      => 'discount',
                 'value'     => $this->getSource()->getDiscountAmount(),
                 'base_value' => $this->getSource()->getBaseDiscountAmount(),
-                'label'     => $discountLabel
+                'label'     => $discountLabel,
             ]);
         }
 
@@ -94,7 +95,7 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
             'value'     => $this->getSource()->getGrandTotal(),
             'base_value' => $this->getSource()->getBaseGrandTotal(),
             'label'     => $this->helper('sales')->__('Grand Total'),
-            'area'      => 'footer'
+            'area'      => 'footer',
         ]);
 
         return $this;

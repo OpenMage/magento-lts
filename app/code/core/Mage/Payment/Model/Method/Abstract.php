@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -96,9 +97,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     protected $_debugReplacePrivateDataKeys = [];
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Check order availability
@@ -173,7 +172,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Check void availability
      *
-     * @param   Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)
@@ -245,7 +243,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Fetch transaction info
      *
-     * @param Mage_Payment_Model_Info $payment
      * @param string $transactionId
      * @return array
      */
@@ -372,12 +369,13 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Retrieve payment information model object
      *
-     * @return Mage_Payment_Model_Info
+     * @return Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment
      */
     public function getInfoInstance()
     {
+        /** @var Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment $instance */
         $instance = $this->getData('info_instance');
-        if (!($instance instanceof Mage_Payment_Model_Info)) {
+        if (!$instance instanceof Mage_Payment_Model_Info) {
             Mage::throwException(Mage::helper('payment')->__('Cannot retrieve the payment information object instance.'));
         }
         return $instance;
@@ -406,9 +404,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Order payment abstract method
      *
-     * @param Varien_Object $payment
      * @param float $amount
-     *
      * @return $this
      */
     public function order(Varien_Object $payment, $amount)
@@ -422,9 +418,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Authorize payment abstract method
      *
-     * @param Varien_Object $payment
      * @param float $amount
-     *
      * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
@@ -438,9 +432,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Capture payment abstract method
      *
-     * @param Varien_Object $payment
      * @param float $amount
-     *
      * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
@@ -482,9 +474,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Refund specified amount for payment
      *
-     * @param Varien_Object $payment
      * @param float $amount
-     *
      * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
@@ -511,7 +501,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Cancel payment abstract method
      *
-     * @param Varien_Object $payment
      *
      * @return $this
      */
@@ -537,7 +526,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Void payment abstract method
      *
-     * @param Varien_Object $payment
      *
      * @return $this
      */
@@ -552,7 +540,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Whether this method can accept or deny payment
      *
-     * @param Mage_Payment_Model_Info $payment
      *
      * @return bool
      */
@@ -564,7 +551,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Attempt to accept a payment that us under review
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -579,7 +565,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Attempt to deny a payment that us under review
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -656,7 +641,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function isAvailable($quote = null)
     {
         $checkResult = new stdClass();
-        $isActive = (bool)(int)$this->getConfigData('active', $quote ? $quote->getStoreId() : null);
+        $isActive = (bool) (int) $this->getConfigData('active', $quote ? $quote->getStoreId() : null);
         $checkResult->isAvailable = $isActive;
         $checkResult->isDeniedInConfig = !$isActive; // for future use in observers
         Mage::dispatchEvent('payment_method_is_active', [

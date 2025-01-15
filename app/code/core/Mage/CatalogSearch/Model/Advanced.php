@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -169,7 +170,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                             $this->getProductCollection(),
                             $attribute,
                             $value,
-                            $rate
+                            $rate,
                         )
                     ) {
                         $hasConditions = true;
@@ -182,7 +183,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         ->addIndexableAttributeModifiedFilter(
                             $this->getProductCollection(),
                             $attribute,
-                            $value
+                            $value,
                         )
                     ) {
                         $hasConditions = true;
@@ -241,7 +242,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         $value = sprintf(
                             '%s - %s',
                             ($currencyModel ? $from : $value['from']),
-                            ($currencyModel ? $to : $value['to'])
+                            ($currencyModel ? $to : $value['to']),
                         );
                     } elseif (strlen($value['from']) > 0) {
                         // and more
@@ -283,7 +284,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Returns prepared search criterias in text
+     * Returns prepared search criteria in text
      *
      * @return array
      */
@@ -326,7 +327,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             ->addTaxPercents()
             ->addStoreFilter()
             ->addAttributeToFilter('status', [
-                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds()
+                'in' => Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
             ]);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($collection);
 

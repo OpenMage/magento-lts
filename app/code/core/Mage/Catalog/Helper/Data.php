@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +45,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Breadcrumb Path cache
      *
-     * @var string
+     * @var array<string, array<string, string|null>>
      */
     protected $_categoryPath;
 
@@ -56,7 +57,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_mapApplyToProductType = null;
 
     /**
-     * Currenty selected store ID if applicable
+     * Currently selected store ID if applicable
      *
      * @var int
      */
@@ -78,7 +79,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      * Return current category path or get it from current category
      * and creating array of categories|product paths for breadcrumbs
      *
-     * @return string
+     * @return array
      */
     public function getBreadcrumbPath()
     {
@@ -95,7 +96,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
                     if (isset($categories[$categoryId]) && $categories[$categoryId]->getName()) {
                         $path['category' . $categoryId] = [
                             'label' => $categories[$categoryId]->getName(),
-                            'link' => $this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : ''
+                            'link' => $this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : '',
                         ];
                     }
                 }
@@ -236,7 +237,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Indicate whether to save URL Rewrite History or not (create redirects to old URLs)
      *
-     * @param int $storeId Store View
+     * @param null|string|bool|int|Mage_Core_Model_Store $storeId Store View
      * @return bool
      */
     public function shouldSaveUrlRewritesHistory($storeId = null)
@@ -271,7 +272,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPageTemplateProcessor()
     {
-        $model = (string)Mage::getConfig()->getNode(self::XML_PATH_CONTENT_TEMPLATE_FILTER);
+        $model = (string) Mage::getConfig()->getNode(self::XML_PATH_CONTENT_TEMPLATE_FILTER);
         return Mage::getModel($model);
     }
 
@@ -327,12 +328,12 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->escapeHtml(
             Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE, $this->_storeId),
-            ['b','br','strong','i','u', 'p', 'span']
+            ['b','br','strong','i','u', 'p', 'span'],
         );
     }
 
     /**
-     * Return MAP explanation message for "Whats This" window
+     * Return MAP explanation message for "What's This" window
      *
      * @return string
      */
@@ -340,7 +341,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->escapeHtml(
             Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS, $this->_storeId),
-            ['b','br','strong','i','u', 'p', 'span']
+            ['b','br','strong','i','u', 'p', 'span'],
         );
     }
 
@@ -424,7 +425,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMsrpPriceMessage($product)
     {
-        $message = "";
+        $message = '';
         if ($this->canApplyMsrp($product, Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_IN_CART)) {
             $message = $this->__('To see product price, add this item to your cart. You can always remove it later.');
         } elseif ($this->canApplyMsrp($product, Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM)) {
@@ -443,7 +444,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->canApplyMsrp(
             $product,
-            Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_ON_GESTURE
+            Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_ON_GESTURE,
         );
     }
 

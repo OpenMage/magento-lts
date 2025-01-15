@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -97,7 +98,6 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Set website model
      *
-     * @param Mage_Core_Model_Website $website
      * @return $this
      */
     public function setWebsite(Mage_Core_Model_Website $website)
@@ -133,7 +133,6 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Set customer model
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
@@ -159,7 +158,6 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Add product (price change) to collection
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function addPriceProduct(Mage_Catalog_Model_Product $product)
@@ -171,7 +169,6 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Add product (back in stock) to collection
      *
-     * @param Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function addStockProduct(Mage_Catalog_Model_Product $product)
@@ -270,7 +267,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
         Mage::getModel('core/email_template')
             ->setDesignConfig([
                 'area'  => 'frontend',
-                'store' => $storeId
+                'store' => $storeId,
             ])->sendTransactional(
                 $templateId,
                 Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId),
@@ -278,8 +275,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
                 $this->_customer->getName(),
                 [
                     'customerName'  => $this->_customer->getName(),
-                    'alertGrid'     => $block
-                ]
+                    'alertGrid'     => $block,
+                ],
             );
 
         return true;

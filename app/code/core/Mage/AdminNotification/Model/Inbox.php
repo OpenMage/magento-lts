@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_AdminNotification
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -96,7 +97,6 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
     /**
      * Parse and save new data
      *
-     * @param array $data
      * @return $this
      */
     public function parse(array $data)
@@ -129,7 +129,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
             'title'       => $title,
             'description' => $description,
             'url'         => $url,
-            'internal'    => $isInternal
+            'internal'    => $isInternal,
         ]]);
         return $this;
     }

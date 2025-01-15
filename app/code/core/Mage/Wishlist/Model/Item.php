@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -182,10 +183,12 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     {
         foreach ($this->_options as $index => $option) {
             if ($option->isDeleted()) {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $option->delete();
                 unset($this->_options[$index]);
                 unset($this->_optionsByCode[$option->getCode()]);
             } else {
+                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $option->save();
             }
         }
@@ -315,7 +318,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             if (!$this->getProductId()) {
                 throw new Mage_Core_Exception(
                     Mage::helper('wishlist')->__('Cannot specify product.'),
-                    self::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT
+                    self::EXCEPTION_CODE_NOT_SPECIFIED_PRODUCT,
                 );
             }
 
@@ -341,7 +344,6 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Return false for disabled or unvisible products
      *
      * @throws Mage_Core_Exception
-     * @param Mage_Checkout_Model_Cart $cart
      * @param bool $delete  delete the item after successful add to cart
      * @return bool
      */
@@ -445,7 +447,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         } else {
             $this->addOption([
                 'code'  => 'info_buyRequest',
-                'value' => $sBuyRequest
+                'value' => $sBuyRequest,
             ]);
         }
 
@@ -461,9 +463,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     public function setBuyRequest($buyRequest)
     {
         $buyRequest->setId($this->getId());
-
-        $_buyRequest = serialize($buyRequest->getData());
-        $this->setData('buy_request', $_buyRequest);
+        $request = serialize($buyRequest->getData());
+        $this->setData('buy_request', $request);
         return $this;
     }
 
@@ -592,7 +593,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Add option to item
      *
-     * @param   Mage_Wishlist_Model_Item_Option $option
+     * @param   array|Mage_Wishlist_Model_Item_Option $option
      * @return  $this
      */
     public function addOption($option)

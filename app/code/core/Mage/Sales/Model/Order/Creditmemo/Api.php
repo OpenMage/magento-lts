@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +30,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         $this->_attributesMap = [
             'creditmemo' => ['creditmemo_id' => 'entity_id'],
             'creditmemo_item' => ['item_id' => 'entity_id'],
-            'creditmemo_comment' => ['comment_id' => 'entity_id']
+            'creditmemo_comment' => ['comment_id' => 'entity_id'],
         ];
     }
 
@@ -147,13 +148,13 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             }
             $refundToStoreCreditAmount = max(
                 0,
-                min($creditmemo->getBaseCustomerBalanceReturnMax(), $refundToStoreCreditAmount)
+                min($creditmemo->getBaseCustomerBalanceReturnMax(), $refundToStoreCreditAmount),
             );
             if ($refundToStoreCreditAmount) {
                 $refundToStoreCreditAmount = $creditmemo->getStore()->roundPrice($refundToStoreCreditAmount);
                 $creditmemo->setBaseCustomerBalanceTotalRefunded($refundToStoreCreditAmount);
                 $refundToStoreCreditAmount = $creditmemo->getStore()->roundPrice(
-                    $refundToStoreCreditAmount * $order->getStoreToOrderRate()
+                    $refundToStoreCreditAmount * $order->getStoreToOrderRate(),
                 );
                 // this field can be used by customer balance observer
                 $creditmemo->setBsCustomerBalTotalRefunded($refundToStoreCreditAmount);

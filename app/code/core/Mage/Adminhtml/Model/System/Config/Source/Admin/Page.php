@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,10 +89,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
             $menuArr = [];
             $menuArr['label'] = $this->_getHelperValue($child);
 
-            $menuArr['sort_order'] = $child->sort_order ? (int)$child->sort_order : $sortOrder;
+            $menuArr['sort_order'] = $child->sort_order ? (int) $child->sort_order : $sortOrder;
 
             if ($child->action) {
-                $menuArr['url'] = (string)$child->action;
+                $menuArr['url'] = (string) $child->action;
             } else {
                 $menuArr['url'] = '';
             }
@@ -109,10 +110,8 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
         uasort($parentArr, [$this, '_sortMenu']);
 
-        foreach ($parentArr as $key => $value) {
-            $last = $key;
-        }
-        if (isset($last)) {
+        $last = array_key_last($parentArr);
+        if (!is_null($last)) {
             $parentArr[$last]['last'] = true;
         }
 
@@ -144,11 +143,11 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
         $titleNodeName      = 'title';
         $childAttributes    = $child->attributes();
         if (isset($childAttributes['module'])) {
-            $helperName     = (string)$childAttributes['module'];
+            $helperName     = (string) $childAttributes['module'];
         }
 
         $titleNodeName = 'title';
 
-        return Mage::helper($helperName)->__((string)$child->$titleNodeName);
+        return Mage::helper($helperName)->__((string) $child->$titleNodeName);
     }
 }

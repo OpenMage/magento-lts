@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -256,7 +257,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         asort($this->_tabPositions);
 
         $ordered = [];
-        foreach ($this->_tabPositions as $tabId => $position) {
+        foreach (array_keys($this->_tabPositions) as $tabId) {
             if (isset($this->_tabs[$tabId])) {
                 $tab = $this->_tabs[$tabId];
                 $ordered[$tabId] = $tab;
@@ -395,7 +396,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Mark tabs as dependant of each other
+     * Mark tabs as dependent of each other
      * Arbitrary number of tabs can be specified, but at least two
      *
      * @param string $tabOneId
@@ -421,7 +422,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
                         }
                         $this->_tabs[$tabToId]->setData('shadow_tabs', array_merge(
                             $this->_tabs[$tabToId]->getData('shadow_tabs'),
-                            [$blockId . '_' . $tabId]
+                            [$blockId . '_' . $tabId],
                         ));
                     }
                 }

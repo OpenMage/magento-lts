@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Uploader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -132,13 +133,13 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
                     // Workaround for IE9
                     'before_html'   => sprintf(
                         '<div style="display:inline-block;" id="%s">',
-                        $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX)
+                        $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX),
                     ),
                     'after_html'    => '</div>',
                     'id'            => $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX . '_button'),
                     'label'         => Mage::helper('uploader')->__('Browse Files...'),
                     'type'          => 'button',
-                ])
+                ]),
         );
 
         $this->setChild(
@@ -148,14 +149,14 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
                     'id'      => '{{id}}',
                     'class'   => 'delete',
                     'type'    => 'button',
-                    'label'   => Mage::helper('uploader')->__('Remove')
-                ])
+                    'label'   => Mage::helper('uploader')->__('Remove'),
+                ]),
         );
 
         $this->_addElementIdsMapping([
             'container'         => $this->getHtmlId(),
             'templateFile'      => $this->getElementId('template'),
-            'browse'            => $this->_prepareElementsIds([self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX])
+            'browse'            => $this->_prepareElementsIds([self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX]),
         ]);
 
         return parent::_prepareLayout();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +45,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
             'select'          => $select,
             'table'           => 'price_index',
             'store_id'        => Mage::app()->getStore()->getId(),
-            'response_object' => $response
+            'response_object' => $response,
         ];
 
         Mage::dispatchEvent('catalog_prepare_price_select', $eventArgs);
@@ -103,14 +104,14 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
             $conditions[] = $adapter->quoteInto(
                 'price_index.min_price %s * %s >= ?',
                 $value['from'],
-                Zend_Db::FLOAT_TYPE
+                Zend_Db::FLOAT_TYPE,
             );
         }
         if (strlen($value['to']) > 0) {
             $conditions[] = $adapter->quoteInto(
                 'price_index.min_price %s * %s <= ?',
                 $value['to'],
-                Zend_Db::FLOAT_TYPE
+                Zend_Db::FLOAT_TYPE,
             );
         }
 
@@ -164,7 +165,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
             "e.entity_id={$tableAlias}.entity_id "
                 . " AND {$tableAlias}.attribute_id={$attribute->getAttributeId()}"
                 . " AND {$tableAlias}.store_id={$storeId}",
-            []
+            [],
         );
 
         if (is_array($value) && (isset($value['from']) || isset($value['to']))) {

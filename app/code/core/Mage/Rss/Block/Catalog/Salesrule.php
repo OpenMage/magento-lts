@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +57,7 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
             'description' => $title,
             'link'        => $newUrl,
             'charset'     => 'UTF-8',
-            'language'    => $lang
+            'language'    => $lang,
         ];
         $rssObject->_addHeader($data);
 
@@ -74,10 +75,10 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
             '</td>' .
             '</tr></table>';
             $data = [
-                 'title'       => $sr->getName(),
-                 'description' => $description,
-                 'link'        => $url
-             ];
+                'title'       => $sr->getName(),
+                'description' => $description,
+                'link'        => $url,
+            ];
             $rssObject->_addEntry($data);
         }
 

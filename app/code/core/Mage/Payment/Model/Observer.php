@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,7 +82,7 @@ class Mage_Payment_Model_Observer
         // add the start datetime as product custom option
         $product->addCustomOption(
             Mage_Payment_Model_Recurring_Profile::PRODUCT_OPTIONS_KEY,
-            serialize(['start_datetime' => $profile->getStartDatetime()])
+            serialize(['start_datetime' => $profile->getStartDatetime()]),
         );
 
         // duplicate as 'additional_options' to render with the product statically
@@ -101,8 +102,6 @@ class Mage_Payment_Model_Observer
 
     /**
      * Sets current instructions for bank transfer account
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function beforeOrderPaymentSave(Varien_Event_Observer $observer)
     {
@@ -111,7 +110,7 @@ class Mage_Payment_Model_Observer
         if ($payment->getMethod() === Mage_Payment_Model_Method_Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE) {
             $payment->setAdditionalInformation(
                 'instructions',
-                $payment->getMethodInstance()->setStore($payment->getOrder()->getStoreId())->getInstructions()
+                $payment->getMethodInstance()->setStore($payment->getOrder()->getStoreId())->getInstructions(),
             );
         }
     }
@@ -164,7 +163,7 @@ class Mage_Payment_Model_Observer
                     'Status "%s" cannot be unassigned. It is in used in %d payment method configuration(s): %s',
                     $statusModel->getLabel(),
                     $used,
-                    $methods
+                    $methods,
                 ));
             }
         }

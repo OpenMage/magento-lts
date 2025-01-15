@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Simplexml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +65,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
         if (empty($data) || !is_array($data)) {
             return false;
         }
-        // check that no source files were changed or check file exsists
+        // check that no source files were changed or check file exists
         foreach ($data as $sourceFile => $stat) {
             if (empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']) {
                 return false;
@@ -79,7 +80,6 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
         foreach ($this->getComponents() as $comp) {
             $sum .= $comp['mtime'] . ':';
         }
-        $hash = md5($sum);
-        return $hash;
+        return md5($sum);
     }
 }

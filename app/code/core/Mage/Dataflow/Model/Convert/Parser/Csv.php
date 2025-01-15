@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -162,7 +163,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         $io->open();
 
         if (!$batchExportIds) {
-            $io->write("");
+            $io->write('');
             $io->close();
             return $this;
         }
@@ -234,7 +235,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         $str = '';
         foreach ($fields as $value) {
-            $escapedValue = Mage::helper("core")->getEscapedCSVData([$value]);
+            $escapedValue = Mage::helper('core')->getEscapedCSVData([$value]);
             $value = $escapedValue[0];
 
             if (str_contains($value, $delimiter) ||

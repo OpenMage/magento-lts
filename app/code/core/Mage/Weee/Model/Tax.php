@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,8 +73,6 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
     /**
      * Initialize tax helper
-     *
-     * @param array $args
      */
     public function __construct(array $args = [])
     {
@@ -107,7 +106,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
             $billing,
             $website,
             $calculateTax,
-            $ignoreDiscount
+            $ignoreDiscount,
         );
         foreach ($attributes as $attribute) {
             $amount += $attribute->getAmount();
@@ -150,7 +149,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Sales_Model_Quote_Address $shipping
      * @param Mage_Sales_Model_Quote_Address $billing
-     * @param int $website
+     * @param int|Mage_Core_Model_Website|null|string|true $website
      * @param bool $calculateTax
      * @param bool $ignoreDiscount
      * @return array
@@ -190,7 +189,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
         if (!$currentPercent) {
             $currentPercent = Mage::getSingleton('tax/calculation')->getRate(
-                $rateRequest->setProductClassId($product->getTaxClassId())
+                $rateRequest->setProductClassId($product->getTaxClassId()),
             );
         }
 
@@ -206,11 +205,11 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                 $attributeSelect = $this->getResource()->getReadConnection()->select();
                 $attributeSelect
                     ->from($this->getResource()->getTable('weee/tax'), 'value')
-                    ->where('attribute_id = ?', (int)$attribute->getId())
+                    ->where('attribute_id = ?', (int) $attribute->getId())
                     ->where('website_id IN(?)', [$websiteId, 0])
                     ->where('country = ?', $rateRequest->getCountryId())
                     ->where('state IN(?)', [$rateRequest->getRegionId(), '*'])
-                    ->where('entity_id = ?', (int)$product->getId())
+                    ->where('entity_id = ?', (int) $product->getId())
                     ->limit(1);
 
                 $order = ['state ' . Varien_Db_Select::SQL_DESC, 'website_id ' . Varien_Db_Select::SQL_DESC];
@@ -240,6 +239,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                             $amount =  $amount - $taxAmount;
                         } else {
                             $appliedRates = Mage::getModel('tax/calculation')->getAppliedRates($rateRequest);
+                            // phpcs:ignore Ecg.Performance.Loop.ArraySize
                             if (count($appliedRates) > 1) {
                                 $taxAmount = 0;
                                 foreach ($appliedRates as $appliedRate) {

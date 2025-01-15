@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +76,6 @@ class Mage_Sales_Model_Observer
     /**
      * Set expire quotes additional fields to filter
      *
-     * @param array $fields
      * @return $this
      */
     public function setExpireQuotesAdditionalFilterFields(array $fields)
@@ -85,10 +85,9 @@ class Mage_Sales_Model_Observer
     }
 
     /**
-     * When deleting product, substract it from all quotes quantities
+     * When deleting product, subtract it from all quotes quantities
      *
      * @throws Exception
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function substractQtyFromQuotes(Varien_Event_Observer $observer)
@@ -102,7 +101,6 @@ class Mage_Sales_Model_Observer
     /**
      * When applying a catalog price rule, make related quotes recollect on demand
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function markQuotesRecollectOnCatalogRules(Varien_Event_Observer $observer)
@@ -111,7 +109,7 @@ class Mage_Sales_Model_Observer
         $product = $observer->getEvent()->getProduct();
 
         if (is_numeric($product)) {
-            $product = Mage::getModel("catalog/product")->load($product);
+            $product = Mage::getModel('catalog/product')->load($product);
         }
         if ($product instanceof Mage_Catalog_Model_Product) {
             $childrenProductList = Mage::getSingleton('catalog/product_type')->factory($product)
@@ -132,7 +130,6 @@ class Mage_Sales_Model_Observer
     /**
      * Catalog Product After Save (change status process)
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductSaveAfter(Varien_Event_Observer $observer)
@@ -151,7 +148,6 @@ class Mage_Sales_Model_Observer
     /**
      * Catalog Mass Status update process
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function catalogProductStatusUpdate(Varien_Event_Observer $observer)
@@ -261,7 +257,7 @@ class Mage_Sales_Model_Observer
         $profileElement = $observer->getEvent()->getProductElement();
         $block = Mage::app()->getLayout()->createBlock(
             'sales/adminhtml_recurring_profile_edit_form',
-            'adminhtml_recurring_profile_edit_form'
+            'adminhtml_recurring_profile_edit_form',
         )->setParentElement($profileElement)
             ->setProductEntity($observer->getEvent()->getProduct());
         $observer->getEvent()->getResult()->output = $block->toHtml();
@@ -270,7 +266,7 @@ class Mage_Sales_Model_Observer
         /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
         $block = Mage::app()->getLayout()->createBlock(
             'adminhtml/widget_form_element_dependence',
-            'adminhtml_recurring_profile_edit_form_dependence'
+            'adminhtml_recurring_profile_edit_form_dependence',
         );
         $dependencies = $block
             ->addFieldMap('is_recurring', 'product[is_recurring]')
@@ -290,7 +286,7 @@ class Mage_Sales_Model_Observer
         if (!($methodInstance instanceof Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract)) {
             return;
         }
-        if (!Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/use')) {
+        if (!Mage::getSingleton('admin/session')->isAllowed('sales/billing_agreement/actions/use')) {
             $observer->getEvent()->getResult()->isAvailable = false;
         }
     }
@@ -298,7 +294,6 @@ class Mage_Sales_Model_Observer
     /**
      * Set new customer group to all his quotes
      *
-     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function customerSaveAfter(Varien_Event_Observer $observer)
@@ -335,8 +330,6 @@ class Mage_Sales_Model_Observer
 
     /**
      * Set Quote information about MSRP price enabled
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function setQuoteCanApplyMsrp(Varien_Event_Observer $observer)
     {
@@ -358,8 +351,6 @@ class Mage_Sales_Model_Observer
 
     /**
      * Add VAT validation request date and identifier to order comments
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function addVatRequestParamsOrderComment(Varien_Event_Observer $observer)
     {
@@ -407,7 +398,6 @@ class Mage_Sales_Model_Observer
     /**
      * Retrieve customer address (default billing or default shipping) ID on which tax calculation must be based
      *
-     * @param Mage_Customer_Model_Customer $customer
      * @param Mage_Core_Model_Store|string|int|null $store
      * @return int|string
      */
@@ -427,8 +417,6 @@ class Mage_Sales_Model_Observer
 
     /**
      * Handle customer VAT number if needed on collect_totals_before event of quote address
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function changeQuoteCustomerGroupId(Varien_Event_Observer $observer)
     {
@@ -486,11 +474,11 @@ class Mage_Sales_Model_Observer
                 $customerCountryCode,
                 $customerVatNumber,
                 ($merchantVatNumber !== '') ? $merchantCountryCode : '',
-                $merchantVatNumber
+                $merchantVatNumber,
             );
 
             // Store validation results in corresponding quote address
-            $quoteAddress->setVatIsValid((int)$gatewayResponse->getIsValid())
+            $quoteAddress->setVatIsValid((int) $gatewayResponse->getIsValid())
                 ->setVatRequestId($gatewayResponse->getRequestIdentifier())
                 ->setVatRequestDate($gatewayResponse->getRequestDate())
                 ->setVatRequestSuccess($gatewayResponse->getRequestSuccess())
@@ -500,10 +488,10 @@ class Mage_Sales_Model_Observer
         } else {
             // Restore validation results from corresponding quote address
             $gatewayResponse = new Varien_Object([
-                'is_valid' => (int)$quoteAddress->getVatIsValid(),
-                'request_identifier' => (string)$quoteAddress->getVatRequestId(),
-                'request_date' => (string)$quoteAddress->getVatRequestDate(),
-                'request_success' => (bool)$quoteAddress->getVatRequestSuccess()
+                'is_valid' => (int) $quoteAddress->getVatIsValid(),
+                'request_identifier' => (string) $quoteAddress->getVatRequestId(),
+                'request_date' => (string) $quoteAddress->getVatRequestDate(),
+                'request_success' => (bool) $quoteAddress->getVatRequestSuccess(),
             ]);
         }
 
@@ -512,7 +500,7 @@ class Mage_Sales_Model_Observer
             $groupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
                 $customerCountryCode,
                 $gatewayResponse,
-                $customerInstance->getStore()
+                $customerInstance->getStore(),
             );
         } else {
             $groupId = $quoteInstance->getCustomerGroupId();

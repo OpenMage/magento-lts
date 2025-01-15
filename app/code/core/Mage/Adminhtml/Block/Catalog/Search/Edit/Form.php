@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +46,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
         $form = new Varien_Data_Form([
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
-            'method' => 'post'
+            'method' => 'post',
         ]);
 
         $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('catalog')->__('General Information')]);
@@ -53,11 +54,11 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
         $yesno = [
             [
                 'value' => 0,
-                'label' => Mage::helper('catalog')->__('No')
+                'label' => Mage::helper('catalog')->__('No'),
             ],
             [
                 'value' => 1,
-                'label' => Mage::helper('catalog')->__('Yes')
+                'label' => Mage::helper('catalog')->__('Yes'),
             ]];
 
         if ($model->getId()) {
@@ -81,11 +82,14 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(true, false),
                 'required'  => true,
             ]);
+
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
-            $field->setRenderer($renderer);
+            if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                $fieldset->setRenderer($renderer);
+            }
         } else {
             $fieldset->addField('store_id', 'hidden', [
-                'name'      => 'store_id'
+                'name'      => 'store_id',
             ]);
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }

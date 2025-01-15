@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +57,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Entity invalidated indexes.
      *
-     * @var Mage_ImportExport_Model_Import_Entity_Abstract
+     * @var array<string, array<int, string>>
      */
     protected static $_entityInvalidatedIndexes = [
         'catalog_product' => [
@@ -64,7 +65,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
             'catalog_category_product',
             'catalogsearch_fulltext',
             'catalog_product_flat',
-        ]
+        ],
     ];
 
     /**
@@ -80,16 +81,18 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 
             if (isset($validTypes[$this->getEntity()])) {
                 try {
-                    $this->_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                    /** @var Mage_ImportExport_Model_Import_Entity_Abstract $_entityAdapter */
+                    $_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                    $this->_entityAdapter = $_entityAdapter;
                 } catch (Exception $e) {
                     Mage::logException($e);
                     Mage::throwException(
-                        Mage::helper('importexport')->__('Invalid entity model')
+                        Mage::helper('importexport')->__('Invalid entity model'),
                     );
                 }
                 if (!($this->_entityAdapter instanceof Mage_ImportExport_Model_Import_Entity_Abstract)) {
                     Mage::throwException(
-                        Mage::helper('importexport')->__('Entity adapter object must be an instance of Mage_ImportExport_Model_Import_Entity_Abstract')
+                        Mage::helper('importexport')->__('Entity adapter object must be an instance of Mage_ImportExport_Model_Import_Entity_Abstract'),
                     );
                 }
             } else {
@@ -98,7 +101,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
             // check for entity codes integrity
             if ($this->getEntity() != $this->_entityAdapter->getEntityTypeCode()) {
                 Mage::throwException(
-                    Mage::helper('importexport')->__('Input entity code is not equal to entity adapter code')
+                    Mage::helper('importexport')->__('Input entity code is not equal to entity adapter code'),
                 );
             }
             $this->_entityAdapter->setParameters($this->getData());
@@ -167,7 +170,6 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     /**
      * Get attribute type for upcoming validation.
      *
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return string
      */
     public static function getAttributeType(Mage_Eav_Model_Entity_Attribute $attribute)
@@ -307,13 +309,13 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
     {
         $this->setData([
             'entity'   => self::getDataSourceModel()->getEntityTypeCode(),
-            'behavior' => self::getDataSourceModel()->getBehavior()
+            'behavior' => self::getDataSourceModel()->getBehavior(),
         ]);
         $this->addLogComment(Mage::helper('importexport')->__('Begin import of "%s" with "%s" behavior', $this->getEntity(), $this->getBehavior()));
         $result = $this->_getEntityAdapter()->importData();
         $this->addLogComment([
             Mage::helper('importexport')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $this->getProcessedRowsCount(), $this->getProcessedEntitiesCount(), $this->getInvalidRowsCount(), $this->getErrorsCount()),
-            Mage::helper('importexport')->__('Import has been done successfuly.')
+            Mage::helper('importexport')->__('Import has been done successfuly.'),
         ]);
         return $result;
     }
@@ -333,14 +335,14 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
      */
     public function expandSource()
     {
-        $writer  = Mage::getModel('importexport/export_adapter_csv', self::getWorkingDir() . "big0.csv");
+        $writer  = Mage::getModel('importexport/export_adapter_csv', self::getWorkingDir() . 'big0.csv');
         $regExps = ['last' => '/(.*?)(\d+)$/', 'middle' => '/(.*?)(\d+)(.*)$/'];
         $colReg  = [
             'sku' => 'last', 'name' => 'last', 'description' => 'last', 'short_description' => 'last',
             'url_key' => 'middle', 'meta_title' => 'last', 'meta_keyword' => 'last', 'meta_description' => 'last',
             '_links_related_sku' => 'last', '_links_crosssell_sku' => 'last', '_links_upsell_sku' => 'last',
             '_custom_option_sku' => 'middle', '_custom_option_row_sku' => 'middle', '_super_products_sku' => 'last',
-            '_associated_sku' => 'last'
+            '_associated_sku' => 'last',
         ];
         $size = self::DEFAULT_SIZE;
 
@@ -353,7 +355,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         for ($i = 1; $i < $count; $i++) {
             $writer = Mage::getModel(
                 'importexport/export_adapter_csv',
-                self::getWorkingDir() . sprintf($filenameFormat, $i)
+                self::getWorkingDir() . sprintf($filenameFormat, $i),
             );
 
             $adapter = $this->_getSourceAdapter(self::getWorkingDir() . sprintf($filenameFormat, $i - 1));
@@ -366,7 +368,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                     if (!empty($row[$colName])) {
                         preg_match($regExps[$regExpType], $row[$colName], $m);
 
-                        $row[$colName] = $m[1] . ($m[2] + $size) . ($regExpType == 'middle' ? $m[3] : '');
+                        $row[$colName] = $m[1] . ((int) $m[2] + $size) . ($regExpType == 'middle' ? $m[3] : '');
                     }
                 }
                 $writer->writeRow($row);
@@ -380,6 +382,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
      *
      * @throws Mage_Core_Exception
      * @return string Source file path
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function uploadSource()
     {

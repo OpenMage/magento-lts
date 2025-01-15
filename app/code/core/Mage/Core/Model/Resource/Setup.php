@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -124,7 +125,7 @@ class Mage_Core_Model_Resource_Setup
             $this->_connectionConfig = $config->getResourceConnectionConfig(self::DEFAULT_SETUP_CONNECTION);
         }
 
-        $modName = (string)$this->_resourceConfig->setup->module;
+        $modName = (string) $this->_resourceConfig->setup->module;
         $this->_moduleConfig = $config->getModuleConfig($modName);
         $connection = Mage::getSingleton('core/resource')->getConnection($this->_resourceName);
         /**
@@ -267,7 +268,7 @@ class Mage_Core_Model_Resource_Setup
     public function applyDataUpdates()
     {
         $dataVer = $this->_getResource()->getDataVersion($this->_resourceName);
-        $configVer = (string)$this->_moduleConfig->version;
+        $configVer = (string) $this->_moduleConfig->version;
         if ($dataVer !== false) {
             $status = version_compare($configVer, $dataVer);
             if ($status == self::VERSION_COMPARE_GREATER) {
@@ -287,13 +288,13 @@ class Mage_Core_Model_Resource_Setup
     public function applyUpdates()
     {
         $dbVer = $this->_getResource()->getDbVersion($this->_resourceName);
-        $configVer = (string)$this->_moduleConfig->version;
+        $configVer = (string) $this->_moduleConfig->version;
 
         /**
          * Hook queries in adapter, so that in MySQL compatibility mode extensions and custom modules will avoid
          * errors due to changes in database structure
          */
-        if (((string)$this->_moduleConfig->codePool != 'core') && Mage::helper('core')->useDbCompatibleMode()) {
+        if (((string) $this->_moduleConfig->codePool != 'core') && Mage::helper('core')->useDbCompatibleMode()) {
             $this->_hookQueries();
         }
 
@@ -462,8 +463,8 @@ class Mage_Core_Model_Resource_Setup
      */
     protected function _getAvailableDbFiles($actionType, $fromVersion, $toVersion)
     {
-        $resModel   = (string)$this->_connectionConfig->model;
-        $modName    = (string)$this->_moduleConfig[0]->getName();
+        $resModel   = (string) $this->_connectionConfig->model;
+        $modName    = (string) $this->_moduleConfig[0]->getName();
 
         $filesDir   = Mage::getModuleDir('sql', $modName) . DS . $this->_resourceName;
         if (!is_dir($filesDir) || !is_readable($filesDir)) {
@@ -506,7 +507,7 @@ class Mage_Core_Model_Resource_Setup
      */
     protected function _getAvailableDataFiles($actionType, $fromVersion, $toVersion)
     {
-        $modName    = (string)$this->_moduleConfig[0]->getName();
+        $modName    = (string) $this->_moduleConfig[0]->getName();
         $files      = [];
 
         $filesDir   = Mage::getModuleDir('data', $modName) . DS . $this->_resourceName;
@@ -654,7 +655,7 @@ class Mage_Core_Model_Resource_Setup
                     if (version_compare($version, $toVersion) !== self::VERSION_COMPARE_GREATER) {
                         $arrRes[0] = [
                             'toVersion' => $version,
-                            'fileName'  => $file
+                            'fileName'  => $file,
                         ];
                     }
                 }
@@ -677,7 +678,7 @@ class Mage_Core_Model_Resource_Setup
                     ) {
                         $arrRes[] = [
                             'toVersion' => $infoTo,
-                            'fileName'  => $file
+                            'fileName'  => $file,
                         ];
                     }
                 }
@@ -820,7 +821,7 @@ class Mage_Core_Model_Resource_Setup
             'UPDATE %s SET %s WHERE %s',
             $this->getConnection()->quoteIdentifier($table),
             $conditionExpr,
-            $valueExpr
+            $valueExpr,
         );
 
         $this->getConnection()->query($query);
@@ -844,13 +845,11 @@ class Mage_Core_Model_Resource_Setup
     }
 
     /******************* CONFIG *****************/
-
     /**
      * Undefined
      *
      * @param string $path
      * @param string $label
-     * @param array $data
      * @param string $default
      * @return $this
      * @deprecated since 1.4.0.1
@@ -880,7 +879,7 @@ class Mage_Core_Model_Resource_Setup
             'scope'     => $scope,
             'scope_id'  => $scopeId,
             'path'      => $path,
-            'value'     => $value
+            'value'     => $value,
         ];
         $this->getConnection()->insertOnDuplicate($table, $data, ['value']);
         return $this;
@@ -977,7 +976,7 @@ class Mage_Core_Model_Resource_Setup
 
     /**
      * Run each time after applying of all updates,
-     * if setup model setted  $_callAfterApplyAllUpdates flag to true
+     * if setup model set $_callAfterApplyAllUpdates flag to true
      *
      * @return $this
      */

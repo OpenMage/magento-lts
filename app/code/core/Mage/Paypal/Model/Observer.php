@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +57,6 @@ class Mage_Paypal_Model_Observer
     /**
      * Save order into registry to use it in the overloaded controller.
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
@@ -71,7 +71,6 @@ class Mage_Paypal_Model_Observer
     /**
      * Set data for response of frontend saveOrder action
      *
-     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function setResponseAfterSaveOrder(Varien_Event_Observer $observer)
@@ -86,7 +85,7 @@ class Mage_Paypal_Model_Observer
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
-                    Zend_Json::TYPE_ARRAY
+                    Zend_Json::TYPE_ARRAY,
                 );
 
                 if (empty($result['error'])) {
@@ -94,7 +93,7 @@ class Mage_Paypal_Model_Observer
                     $html = $controller->getLayout()->getBlock('paypal.iframe')->toHtml();
                     $result['update_section'] = [
                         'name' => 'paypaliframe',
-                        'html' => $html
+                        'html' => $html,
                     ];
                     $result['redirect'] = false;
                     $result['success'] = false;
@@ -109,8 +108,6 @@ class Mage_Paypal_Model_Observer
 
     /**
      * Load country dependent PayPal solutions system configuration
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function loadCountryDependentSolutionsConfig(Varien_Event_Observer $observer)
     {
@@ -126,8 +123,8 @@ class Mage_Paypal_Model_Observer
 
         $payments = $paymentGroups->xpath('paypal_payments/*');
         foreach ($payments as $payment) {
-            if ((int)$payment->include) {
-                $fields = $paymentGroups->xpath((string)$payment->group . '/fields');
+            if ((int) $payment->include) {
+                $fields = $paymentGroups->xpath((string) $payment->group . '/fields');
                 if (isset($fields[0])) {
                     $fields[0]->appendChild($payment, true);
                 }
@@ -137,8 +134,6 @@ class Mage_Paypal_Model_Observer
 
     /**
      * Update transaction with HTML representation of txn_id
-     *
-     * @param Varien_Event_Observer $observer
      */
     public function observeHtmlTransactionId(Varien_Event_Observer $observer)
     {
@@ -146,7 +141,7 @@ class Mage_Paypal_Model_Observer
         $transaction = $observer->getEvent()->getTransaction();
         $transaction->setHtmlTxnId(Mage::helper('paypal')->getHtmlTransactionId(
             $observer->getEvent()->getPayment()->getMethodInstance()->getCode(),
-            $transaction->getTxnId()
+            $transaction->getTxnId(),
         ));
     }
 }
