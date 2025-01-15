@@ -13,6 +13,10 @@ categories:
   - title: '📖 Documentation'
     labels:
       - 'Documentation'
+  - title: '🔨 Maintenance'
+    labels:
+      - 'chore'
+      - 'Cleanup'
   - title: '↗️ Dependencies'
     labels:
       - 'dependencies'
@@ -25,10 +29,15 @@ version-resolver:
   minor:
     labels:
       - 'minor'
+      - 'enhancement'
+      - 'new feature'
   patch:
     labels:
       - 'patch'
-  default: patch
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+  default: minor
 template: |
   ## Changes
 
