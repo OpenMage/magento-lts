@@ -192,43 +192,45 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         $indexid = 0;
         foreach (array_keys($this->_axisLabels) as $idx) {
-            switch ($idx) {
-                case self::AXIS_X:
-                    foreach ($this->_axisLabels[$idx] as $_index => $_label) {
-                        if ($_label != '') {
-                            switch ($this->getDataHelper()->getParam('period')) {
-                                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_24_HOURS:
-                                    $this->_axisLabels[$idx][$_index] = $this->formatTime(
-                                        new Zend_Date($_label, 'yyyy-MM-dd HH:00'),
-                                        'short',
-                                    );
-                                    break;
-                                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_7_DAYS:
-                                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_MONTH:
-                                    $this->_axisLabels[$idx][$_index] = $this->formatDate(
-                                        new Zend_Date($_label, 'yyyy-MM-dd'),
-                                    );
-                                    break;
-                                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_YEAR:
-                                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_2_YEARS:
-                                    $formats = Mage::app()->getLocale()->getTranslationList('datetime');
-                                    $format = $formats['yyMM'] ?? 'MM/yyyy';
-                                    $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
-                                    $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
-                                    break;
-                            }
-                        } else {
-                            $this->_axisLabels[$idx][$_index] = '';
+            if (!in_array($idx, [self::AXIS_X, self::AXIS_Y])) {
+                continue;
+            }
+
+            if ($idx === self::AXIS_X) {
+                foreach ($this->_axisLabels[$idx] as $_index => $_label) {
+                    if ($_label != '') {
+                        switch ($this->getDataHelper()->getParam('period')) {
+                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_24_HOURS:
+                                $this->_axisLabels[$idx][$_index] = $this->formatTime(
+                                    new Zend_Date($_label, 'yyyy-MM-dd HH:00'),
+                                    'short',
+                                );
+                                break;
+                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_7_DAYS:
+                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_MONTH:
+                                $this->_axisLabels[$idx][$_index] = $this->formatDate(
+                                    new Zend_Date($_label, 'yyyy-MM-dd'),
+                                );
+                                break;
+                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_YEAR:
+                            case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_2_YEARS:
+                                $formats = Mage::app()->getLocale()->getTranslationList('datetime');
+                                $format = $formats['yyMM'] ?? 'MM/yyyy';
+                                $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
+                                $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
+                                break;
                         }
+                    } else {
+                        $this->_axisLabels[$idx][$_index] = '';
                     }
+                }
 
-                    $tmpstring = implode('|', $this->_axisLabels[$idx]);
+                $tmpstring      = implode('|', $this->_axisLabels[$idx]);
+                $valueBuffer[]  = $indexid . ':|' . $tmpstring;
+            }
 
-                    $valueBuffer[] = $indexid . ':|' . $tmpstring;
-                    break;
-                case self::AXIS_Y:
-                    $valueBuffer[] = $indexid . ':|' . implode('|', $this->getChartYLabels());
-                    break;
+            if ($idx === self::AXIS_Y) {
+                $valueBuffer[] = $indexid . ':|' . implode('|', $this->getChartYLabels());
             }
 
             $indexid++;
