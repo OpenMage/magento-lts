@@ -225,7 +225,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Load layout by handles(s)
      *
-     * @param   string|null|bool $handles
+     * @param   array|string|null|bool $handles
      * @param   bool $generateBlocks
      * @param   bool $generateXml
      * @return  $this

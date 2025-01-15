@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29b776f2f13a992ca2e7e33e174213cf",
+    "content-hash": "9cac8eaa2dc4f7df18cdddd69cdc6ba3",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -603,16 +603,16 @@
         },
         {
             "name": "openmage/composer-plugin",
-            "version": "v1.1.1",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/composer-plugin.git",
-                "reference": "edb40181d4351b46faa642479cab6a193a0f9977"
+                "reference": "a20c2f24c6bacb693a02768f10d447c9bb40e299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/edb40181d4351b46faa642479cab6a193a0f9977",
-                "reference": "edb40181d4351b46faa642479cab6a193a0f9977",
+                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/a20c2f24c6bacb693a02768f10d447c9bb40e299",
+                "reference": "a20c2f24c6bacb693a02768f10d447c9bb40e299",
                 "shasum": ""
             },
             "require": {
@@ -626,7 +626,7 @@
             },
             "type": "composer-plugin",
             "extra": {
-                "class": "OpenMage\\Composer\\Plugin"
+                "class": "OpenMage\\ComposerPlugin\\Plugin"
             },
             "autoload": {
                 "psr-4": {
@@ -651,9 +651,19 @@
             ],
             "support": {
                 "issues": "https://github.com/OpenMage/composer-plugin/issues",
-                "source": "https://github.com/OpenMage/composer-plugin/tree/v1.1.1"
+                "source": "https://github.com/OpenMage/composer-plugin/tree/v3.0.0"
             },
-            "time": "2024-12-20T03:09:59+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sreichel",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/openmage",
+                    "type": "opencollective"
+                }
+            ],
+            "time": "2025-01-13T01:08:07+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",

@@ -165,7 +165,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                             ->__('Password must be at least of %d characters.', $minPasswordLength),
                     ],
                 );
-                $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
+
+                $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass');
+                if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                    $fieldset->setRenderer($renderer);
+                }
 
                 // Prepare customer confirmation control (only for existing customers)
                 $confirmationKey = $customer->getConfirmation();
@@ -202,7 +206,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                             'required' => true,
                         ],
                     );
-                    $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_adminpass'));
+
+                    $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_adminpass');
+                    if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                        $fieldset->setRenderer($renderer);
+                    }
                 }
             }
         } else {
@@ -222,7 +230,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                         ->__('Password must be at least of %d characters.', $minPasswordLength),
                 ],
             );
-            $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
+
+            $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass');
+            if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                $fieldset->setRenderer($renderer);
+            }
 
             // Prepare send welcome email checkbox
             $fieldset->addField('sendemail', 'checkbox', [
