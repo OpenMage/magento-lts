@@ -58,9 +58,6 @@ parameters:
         - app/code/core/Mage/Paypal/Model/Report/Settlement.php
         - lib/Varien/Io/Sftp.php
 
-        # Dataflow/Model/Convert/Iterator.php
-        - app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
-
         # Too much noise from "Variable $this might not be defined"
         - app/code/core/*/*/data/*
         - app/code/core/*/*/sql/*
