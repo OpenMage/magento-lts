@@ -174,7 +174,6 @@ function sendNotFoundPage()
  * Check resource by whitelist
  *
  * @param string $resource
- * @param array $allowedResources
  */
 function checkResource($resource, array $allowedResources)
 {
