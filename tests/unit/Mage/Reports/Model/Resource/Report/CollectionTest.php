@@ -22,6 +22,7 @@ use Mage_Reports_Model_Report;
 use Mage_Reports_Model_Resource_Report_Collection as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\ReportsTrait;
 use PHPUnit\Framework\TestCase;
+use Zend_Date;
 use Zend_Date_Exception;
 
 class CollectionTest extends TestCase
@@ -53,9 +54,9 @@ class CollectionTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Model
      */
-    public function testIsModuleEnabled(): void
+    public function testSetIntervals(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setInterval(1, 1));
+        $this->assertInstanceOf(Subject::class, $this->subject->setInterval(new Zend_Date(), new Zend_Date()));
     }
 
     /**
@@ -86,23 +87,15 @@ class CollectionTest extends TestCase
     }
 
     /**
+     * @covers Mage_Reports_Model_Resource_Report_Collection::getStoreIds()
      * @covers Mage_Reports_Model_Resource_Report_Collection::setStoreIds()
      * @group Mage_Reports
      * @group Mage_Reports_Model
      */
-    public function testSetStoreIds(): void
+    public function testStoreIds(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setStoreIds([]));
-    }
-
-    /**
-     * @covers Mage_Reports_Model_Resource_Report_Collection::getStoreIds()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
-     */
-    public function testGetStoreIds(): void
-    {
-        $this->assertNull($this->subject->getStoreIds());
+        $this->subject->setStoreIds([]);
+        $this->assertSame([], $this->subject->getStoreIds());
     }
 
     /**

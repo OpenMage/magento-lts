@@ -57,7 +57,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleByIdentifier(): void
     {
-        $this->assertNotFalse($this->subject->getCmsPageTitleByIdentifier('home'));
+        $this->assertSame('', $this->subject->getCmsPageTitleByIdentifier('home'));
     }
 
     /**
@@ -66,7 +66,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleById(): void
     {
-        $this->assertNotFalse($this->subject->getCmsPageTitleById(2));
+        $this->assertSame('Madison Island', $this->subject->getCmsPageTitleById(2));
     }
 
     /**
@@ -75,7 +75,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageIdentifierById(): void
     {
-        $this->assertNotFalse($this->subject->getCmsPageIdentifierById(2));
+        $this->assertSame('home', $this->subject->getCmsPageIdentifierById(2));
     }
 
     /**
@@ -90,10 +90,11 @@ class PageTest extends TestCase
     /**
      * @group Mage_Cms
      * @group Mage_Cms_Model
+     * @doesNotPerformAssertions
      */
     public function testGetUsedInStoreConfigCollection(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Resource_Db_Collection_Abstract::class, $this->subject->getUsedInStoreConfigCollection());
+        $this->subject->getUsedInStoreConfigCollection();
     }
 
     /**

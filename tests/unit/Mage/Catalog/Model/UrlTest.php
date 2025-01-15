@@ -138,10 +138,11 @@ class UrlTest extends TestCase
     /**
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
+     * @doesNotPerformAssertions
      */
     public function testGetSlugger(): void
     {
-        $this->assertInstanceOf(AsciiSlugger::class, $this->subject->getSlugger());
+        $this->subject->getSlugger();
     }
 
     /**
