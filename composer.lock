@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f752d462472280f84b4205b685d1a3d",
+    "content-hash": "2d1749d4ce17be3ef71c37303bee881d",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -641,16 +641,16 @@
         },
         {
             "name": "openmage/composer-plugin",
-            "version": "v2.1.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/composer-plugin.git",
-                "reference": "879702c94d078dc2b394aae0dd3164840ba9f49f"
+                "reference": "a20c2f24c6bacb693a02768f10d447c9bb40e299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/879702c94d078dc2b394aae0dd3164840ba9f49f",
-                "reference": "879702c94d078dc2b394aae0dd3164840ba9f49f",
+                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/a20c2f24c6bacb693a02768f10d447c9bb40e299",
+                "reference": "a20c2f24c6bacb693a02768f10d447c9bb40e299",
                 "shasum": ""
             },
             "require": {
@@ -689,7 +689,7 @@
             ],
             "support": {
                 "issues": "https://github.com/OpenMage/composer-plugin/issues",
-                "source": "https://github.com/OpenMage/composer-plugin/tree/v2.1.0"
+                "source": "https://github.com/OpenMage/composer-plugin/tree/v3.0.0"
             },
             "funding": [
                 {
@@ -701,7 +701,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2025-01-09T12:07:51+00:00"
+            "time": "2025-01-13T01:08:07+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -3741,16 +3741,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.66.1",
+            "version": "v3.67.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "cde186799d8e92960c5a00c96e6214bf7f5547a9"
+                "reference": "db533e9aeb19c33033b6a1b734c8de4f4ebaa7dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/cde186799d8e92960c5a00c96e6214bf7f5547a9",
-                "reference": "cde186799d8e92960c5a00c96e6214bf7f5547a9",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/db533e9aeb19c33033b6a1b734c8de4f4ebaa7dc",
+                "reference": "db533e9aeb19c33033b6a1b734c8de4f4ebaa7dc",
                 "shasum": ""
             },
             "require": {
@@ -3832,7 +3832,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.66.1"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.67.1"
             },
             "funding": [
                 {
@@ -3840,7 +3840,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-05T14:43:25+00:00"
+            "time": "2025-01-12T12:20:47+00:00"
         },
         {
             "name": "macopedia/phpstan-magento1",
@@ -5639,21 +5639,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "f3354fbbdbeb090a53f5260fa5841d373540a831"
+                "reference": "fa0cb009dc3df084bf549032ae4080a0481a2036"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/f3354fbbdbeb090a53f5260fa5841d373540a831",
-                "reference": "f3354fbbdbeb090a53f5260fa5841d373540a831",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/fa0cb009dc3df084bf549032ae4080a0481a2036",
+                "reference": "fa0cb009dc3df084bf549032ae4080a0481a2036",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.1.0"
+                "phpstan/phpstan": "^2.1.1"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -5686,7 +5686,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.0.5"
+                "source": "https://github.com/rectorphp/rector/tree/2.0.6"
             },
             "funding": [
                 {
@@ -5694,7 +5694,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-31T13:11:55+00:00"
+            "time": "2025-01-06T10:38:36+00:00"
         },
         {
             "name": "sebastian/cli-parser",
