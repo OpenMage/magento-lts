@@ -24,6 +24,8 @@ use PHPUnit\Framework\TestCase;
 
 class PageTest extends TestCase
 {
+    public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
+
     public Subject $subject;
 
     public function setUp(): void
@@ -57,7 +59,10 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleByIdentifier(): void
     {
-        $this->assertSame('', $this->subject->getCmsPageTitleByIdentifier('home'));
+        if (defined('DATA_MAY_CHANGED')) {
+            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+        }
+        $this->assertSame('Home Page', $this->subject->getCmsPageTitleByIdentifier('home'));
     }
 
     /**
@@ -66,7 +71,10 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleById(): void
     {
-        $this->assertSame('Madison Island', $this->subject->getCmsPageTitleById(2));
+        if (defined('DATA_MAY_CHANGED')) {
+            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+        }
+        $this->assertSame('Home Page', $this->subject->getCmsPageTitleById(2));
     }
 
     /**
