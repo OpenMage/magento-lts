@@ -44,13 +44,15 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $from
      * @param string $to
-     * @param string $period
+     * @param self::REPORT_PERIOD_TYPE_* $period
      * @return array
      * @throws Zend_Date_Exception
      */
     public function getIntervals($from, $to, $period = self::REPORT_PERIOD_TYPE_DAY)
     {
         $intervals = [];
+        $dateStart = null;
+
         if (!$from && !$to) {
             return $intervals;
         }
@@ -69,24 +71,29 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
             $dateStart = new Zend_Date(date('Y', $start->getTimestamp()), Varien_Date::DATE_INTERNAL_FORMAT);
         }
 
+        if (!$period || !$dateStart) {
+            return $intervals;
+        }
+
         $dateEnd = new Zend_Date($to, Varien_Date::DATE_INTERNAL_FORMAT);
 
         while ($dateStart->compare($dateEnd) <= 0) {
+            $time = '';
             switch ($period) {
                 case self::REPORT_PERIOD_TYPE_DAY:
-                    $t = $dateStart->toString('yyyy-MM-dd');
+                    $time = $dateStart->toString('yyyy-MM-dd');
                     $dateStart->addDay(1);
                     break;
                 case self::REPORT_PERIOD_TYPE_MONTH:
-                    $t = $dateStart->toString('yyyy-MM');
+                    $time = $dateStart->toString('yyyy-MM');
                     $dateStart->addMonth(1);
                     break;
                 case self::REPORT_PERIOD_TYPE_YEAR:
-                    $t = $dateStart->toString('yyyy');
+                    $time = $dateStart->toString('yyyy');
                     $dateStart->addYear(1);
                     break;
             }
-            $intervals[] = $t;
+            $intervals[] = $time;
         }
         return  $intervals;
     }
