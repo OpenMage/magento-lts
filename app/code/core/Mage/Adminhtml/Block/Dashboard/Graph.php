@@ -442,7 +442,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $availablePeriods = array_keys($helper->getDatePeriods());
         $period = $this->getRequest()->getParam('period');
 
-        $this->setChartId($this->getHtmlId() . rand(0, 100));
+        $this->setChartId($this->getHtmlId() . random_int(0, 100));
         $this->getDataHelper()->setParam(
             'period',
             ($period && in_array($period, $availablePeriods)) ? $period : '24h',
