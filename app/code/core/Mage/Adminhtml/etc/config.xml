@@ -267,6 +267,9 @@
                         <sortable>false</sortable>
                         <width>40</width>
                     </action>
+                    <concat>
+                        <separator> </separator>
+                    </concat>
                     <currency>
                         <align>right</align>
                         <index>price</index>
