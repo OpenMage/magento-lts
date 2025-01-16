@@ -517,6 +517,12 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
 
 		-
+			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, list\<array\<string\>\|string\|null\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php
+
+		-
 			message: '#^Parameter \#1 \$value of method Zend_Currency\:\:toCurrency\(\) expects float\|int\|null, string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1939,30 +1945,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
 
 		-
-			message: '#^Negated boolean expression is always true\.$#'
-			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
-
-		-
-			message: '#^Parameter \#4 \$mon of function mktime expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
-
-		-
-			message: '#^Parameter \#5 \$day of function mktime expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
-
-		-
-			message: '#^Parameter \#6 \$year of function mktime expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
-
-		-
 			message: '#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Option_Interface\:\:getId\(\)\.$#'
 			identifier: method.notFound
 			count: 2
@@ -2671,30 +2653,6 @@ parameters:
 			path: app/code/core/Mage/Centinel/Helper/Data.php
 
 		-
-			message: '#^Method Mage_Centinel_Model_Api\:\:callLookup\(\) should return \$this\(Mage_Centinel_Model_Api\) but returns Varien_Object\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Centinel/Model/Api.php
-
-		-
-			message: '#^Property Mage_Centinel_Model_Api\:\:\$_clientInstance \(Mage_Centinel_Model_Api_Client\) in empty\(\) is not falsy\.$#'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Centinel/Model/Api.php
-
-		-
-			message: '#^Access to an undefined property XMLParser\:\:\$deserializedResponse\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/code/core/Mage/Centinel/Model/Api/Client.php
-
-		-
-			message: '#^Parameter \#3 \$value of function curl_setopt expects bool, int given\.$#'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Centinel/Model/Api/Client.php
-
-		-
 			message: '#^Cannot call method setItem\(\) on array\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -3275,18 +3233,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Locale.php
-
-		-
-			message: '#^Method Mage_Core_Model_Mysql4_Design_Theme_Collection\:\:setData\(\) invoked with 2 parameters, 1 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
-
-		-
-			message: '#^Parameter \#1 \$value of method Mage_Core_Model_Mysql4_Design_Theme_Collection\:\:setData\(\) expects array, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
 
 		-
 			message: '#^Call to an undefined method Mage_Core_Model_Resource_Type_Abstract\:\:getConnection\(\)\.$#'
@@ -5033,12 +4979,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			message: '#^Variable \$line in empty\(\) always exists and is not falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Report/Settlement.php
 
 		-
 			message: '#^Method Varien_Data_Collection\:\:toOptionArray\(\) invoked with 1 parameter, 0 required\.$#'
@@ -8371,210 +8311,6 @@ parameters:
 			path: lib/Varien/Db/Statement/Pdo/Mysql.php
 
 		-
-			message: '#^Binary operation "\.\=" between array and non\-falsy\-string results in an error\.$#'
-			identifier: assignOp.invalid
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_Directory_Collection\:\:lastDir\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:__construct\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:addFilter\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:addFilter\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getDirName\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getDirName\(\) should return none but returns string\.$#'
-			identifier: return.type
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getDirsName\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getDirsName\(\) should return none but returns string\.$#'
-			identifier: return.type
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFileName\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFileName\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFilePath\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFilePath\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFilesName\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFilesName\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFilesObj\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFilesObj\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFilesPaths\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:getFilesPaths\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:renderFilter\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:renderFilter\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:setFilesFilter\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:setFilesFilter\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:toArray\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:toArray\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:toXml\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:toXml\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:useFilter\(\) has invalid return type none\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Method Varien_File_Object\:\:useFilter\(\) should return none but return statement is missing\.$#'
-			identifier: return.missing
-			count: 2
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^PHPDoc tag @param references unknown parameter\: \$dirs$#'
-			identifier: parameter.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^PHPDoc tag @param references unknown parameter\: \$paths$#'
-			identifier: parameter.notFound
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Parameter &\$files by\-ref type of method Varien_File_Object\:\:getFilesName\(\) expects array, array\|null given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Return type \(none\) of method Varien_File_Object\:\:getFileName\(\) should be compatible with return type \(string\) of method SplFileInfo\:\:getFilename\(\)$#'
-			identifier: method.childReturnType
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
-			message: '#^Static call to instance method Varien_Directory_Collection\:\:lastDir\(\)\.$#'
-			identifier: method.staticCall
-			count: 1
-			path: lib/Varien/File/Object.php
-
-		-
 			message: '#^Right side of && is always false\.$#'
 			identifier: booleanAnd.rightAlwaysFalse
 			count: 1
@@ -8605,24 +8341,6 @@ parameters:
 			path: lib/Varien/Http/Adapter/Curl.php
 
 		-
-			message: '#^Instantiated class Varien_Image_Adapter_Gd not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/Image/Adapter.php
-
-		-
-			message: '#^Instantiated class Varien_Image_Adapter_Imagemagic not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/Image/Adapter.php
-
-		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
-			count: 4
-			path: lib/Varien/Image/Adapter.php
-
-		-
 			message: '#^Property Varien_Image_Adapter_Abstract\:\:\$_imageHandler has unknown class GdImage as its type\.$#'
 			identifier: class.notFound
 			count: 1
@@ -8645,18 +8363,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Io/Ftp.php
-
-		-
-			message: '#^Method Varien_Io_Sftp\:\:open\(\) should return bool but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: lib/Varien/Io/Sftp.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$args with type int is incompatible with native type array\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: lib/Varien/Io/Sftp.php
 
 		-
 			message: '#^Call to an undefined method SimpleXMLElement\:\:setNode\(\)\.$#'

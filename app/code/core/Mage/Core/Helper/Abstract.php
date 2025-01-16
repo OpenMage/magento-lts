@@ -199,7 +199,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param string|string[]|list<array<string>|string|null> $data
+     * @param string|string[] $data
      * @param array|null $allowedTags
      * @return null|string|string[]
      */
