@@ -2,4 +2,5 @@ paths-ignore:
   - 'js/extjs/ext-tree.js'
   - 'js/lib/jquery/jquery-1.12.4.js'
   - 'js/prototype/prototype.js'
+  - 'js/prototype/validation.js'
   - '**/*.test.js'
