@@ -108,16 +108,18 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      */
     public function getNewChildElement()
     {
-        $renderer = Mage::getBlockSingleton('rule/newchild');
-        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-            $this->getForm()::setFieldsetRenderer($renderer);
-        }
-
-        return $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
             'name' => 'rule[actions][' . $this->getId() . '][new_child]',
             'values' => $this->getNewChildSelectOptions(),
             'value_name' => $this->getNewChildName(),
         ]);
+
+        $renderer = Mage::getBlockSingleton('rule/newchild');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
