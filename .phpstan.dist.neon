@@ -32,11 +32,6 @@ parameters:
         - lib/Varien/Directory/Factory.php
         - lib/Varien/File/Object.php
 
-        # deprecated _getHelper()
-        - app/code/core/Mage/Adminhtml/Controller/Rss/Abstract.php
-        - app/code/core/Mage/Adminhtml/controllers/Rss/OrderController.php
-        - app/code/core/Mage/Adminhtml/controllers/Rss/CatalogController.php
-
         # Cannot declare class Varien_Date, because the name is already in use
         - app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
 
@@ -51,10 +46,6 @@ parameters:
         # Too much noise from "Variable $this might not be defined"
         - app/code/core/*/*/data/*
         - app/code/core/*/*/sql/*
-
-        # requires Mycrypt
-        - lib/Magento/Crypt.php
-        - lib/Varien/Crypt/Mcrypt.php
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
