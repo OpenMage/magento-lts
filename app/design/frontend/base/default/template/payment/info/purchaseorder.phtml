@@ -12,6 +12,11 @@
  * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @see Mage_Payment_Block_Info_Purchaseorder
+ * @var Mage_Payment_Block_Info_Purchaseorder $this
+ */
 ?>
 <p><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></p>
 <p><strong><?php echo $this->__('Purchase Order Number:') ?></strong> <span class="nobr"><?php echo $this->escapeHtml($this->getInfo()->getPoNumber()) ?></span></p>

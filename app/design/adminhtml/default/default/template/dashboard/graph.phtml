@@ -13,17 +13,18 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-/** @see Mage_Adminhtml_Block_Dashboard_Tab_Amounts */
-/** @see Mage_Adminhtml_Block_Dashboard_Tab_Orders */
-/** @var Mage_Adminhtml_Block_Dashboard_Graph $this */
+/**
+ * @see Mage_Adminhtml_Block_Dashboard_Tab_Amounts
+ * @see Mage_Adminhtml_Block_Dashboard_Tab_Orders
+ * @var Mage_Adminhtml_Block_Dashboard_Graph $this
+ */
 ?>
-
 <div style="margin:20px;">
     <p class="switcher a-right" style="padding:5px 10px;"><?php echo $this->__('Select Range') ?>:
     <select name="period" id="order_<?php echo $this->getHtmlId() ?>_period" onchange="changeDiagramsPeriod(this);">
-        <?php foreach ($this->helper('adminhtml/dashboard_data')->getDatePeriods() as $_value=>$_label): ?>
-            <?php if(in_array($_value, ['custom'])) continue; ?>
-            <option value="<?php echo $_value ?>" <?php if($this->getRequest()->getParam('period')==$_value): ?> selected="selected"<?php endif ?>><?php echo $_label ?></option>
+        <?php foreach ($this->helper('adminhtml/dashboard_data')->getDatePeriods() as $_value => $_label): ?>
+            <?php if (in_array($_value, ['custom'])) continue; ?>
+            <option value="<?php echo $_value ?>" <?php if ($this->getRequest()->getParam('period') == $_value): ?> selected="selected"<?php endif ?>><?php echo $_label ?></option>
         <?php endforeach ?>
     </select></p><br/>
     <?php
