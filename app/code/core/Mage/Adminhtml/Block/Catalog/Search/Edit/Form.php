@@ -82,8 +82,11 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(true, false),
                 'required'  => true,
             ]);
+
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
-            $field->setRenderer($renderer);
+            if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                $field->setRenderer($renderer);
+            }
         } else {
             $fieldset->addField('store_id', 'hidden', [
                 'name'      => 'store_id',
