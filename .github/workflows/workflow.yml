@@ -138,5 +138,5 @@ jobs:
       needs.check.outputs.phpunit > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpunit.yml
-    secrets: # Or as an environment variable
+    secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
