@@ -4993,6 +4993,12 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Pro.php
 
 		-
+			message: '#^Variable \$line in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Report/Settlement.php
+
+		-
 			message: '#^Method Varien_Data_Collection\:\:toOptionArray\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
 			count: 1

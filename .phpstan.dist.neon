@@ -35,15 +35,12 @@ parameters:
         # Cannot declare class Varien_Date, because the name is already in use
         - app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
 
-        # Class phpseclib\Net\SSH2 not found.
-        - app/code/core/Mage/Paypal/Model/Report/Settlement.php
-        - lib/Varien/Io/Sftp.php
-
         # Too much noise from "Variable $this might not be defined"
         - app/code/core/*/*/data/*
         - app/code/core/*/*/sql/*
 
-        # Instantiated class not found
+        # Instantiated class Varien_Image_Adapter_Gd not found.
+        # Instantiated class Varien_Image_Adapter_Imagemagic not found.
         - lib/Varien/Image/Adapter.php
 
         # Class Mage_Centinel_Model_Api_Client extends unknown class CentinelClient.
