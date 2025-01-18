@@ -168,7 +168,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
                 $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass');
                 if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-                    $fieldset->setRenderer($renderer);
+                    $field->setRenderer($renderer);
                 }
 
                 // Prepare customer confirmation control (only for existing customers)
@@ -209,7 +209,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
                     $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_adminpass');
                     if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-                        $fieldset->setRenderer($renderer);
+                        $field->setRenderer($renderer);
                     }
                 }
             }
@@ -233,7 +233,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
             $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass');
             if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-                $fieldset->setRenderer($renderer);
+                $field->setRenderer($renderer);
             }
 
             // Prepare send welcome email checkbox
