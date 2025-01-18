@@ -3247,6 +3247,18 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Locale.php
 
 		-
+			message: '#^Method Mage_Core_Model_Mysql4_Design_Theme_Collection\:\:setData\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+
+		-
+			message: '#^Parameter \#1 \$value of method Mage_Core_Model_Mysql4_Design_Theme_Collection\:\:setData\(\) expects array, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+
+		-
 			message: '#^Call to an undefined method Mage_Core_Model_Resource_Type_Abstract\:\:getConnection\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -8327,6 +8339,30 @@ parameters:
 			identifier: method.nonObject
 			count: 1
 			path: lib/Varien/Db/Statement/Pdo/Mysql.php
+
+		-
+			message: '#^Binary operation "\.\=" between array and non\-falsy\-string results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: '#^Method Varien_Directory_Collection\:\:lastDir\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: '#^Parameter &\$files by\-ref type of method Varien_File_Object\:\:getFilesName\(\) expects array, array\|null given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: '#^Static call to instance method Varien_Directory_Collection\:\:lastDir\(\)\.$#'
+			identifier: method.staticCall
+			count: 1
+			path: lib/Varien/File/Object.php
 
 		-
 			message: '#^Right side of && is always false\.$#'

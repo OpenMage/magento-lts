@@ -25,17 +25,14 @@ parameters:
         - tests/unit/
     excludePaths:
         # custom commands
-        - lib/_n98-magerun/
+        - lib/_n98-magerun/ (?)
 
         # libraries
         - lib/3Dsecure/
         - lib/Unserialize/
 
-        #incompatible interfaces
-        - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+        # others
         - lib/Varien/Directory/Collection.php
-        - lib/Varien/Directory/Factory.php
-        - lib/Varien/File/Object.php
 
         # Too much noise from "Variable $this might not be defined"
         - app/code/core/*/*/data/*
