@@ -2653,6 +2653,18 @@ parameters:
 			path: app/code/core/Mage/Centinel/Helper/Data.php
 
 		-
+			message: '#^Method Mage_Centinel_Model_Api\:\:callLookup\(\) should return \$this\(Mage_Centinel_Model_Api\) but returns Varien_Object\.$#'
+			identifier: return.type
+			count: 1
+			path: app/code/core/Mage/Centinel/Model/Api.php
+
+		-
+			message: '#^Property Mage_Centinel_Model_Api\:\:\$_clientInstance \(Mage_Centinel_Model_Api_Client\) in empty\(\) is not falsy\.$#'
+			identifier: empty.property
+			count: 1
+			path: app/code/core/Mage/Centinel/Model/Api.php
+
+		-
 			message: '#^Cannot call method setItem\(\) on array\.$#'
 			identifier: method.nonObject
 			count: 1

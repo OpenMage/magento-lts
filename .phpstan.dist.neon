@@ -35,10 +35,6 @@ parameters:
         # Cannot declare class Varien_Date, because the name is already in use
         - app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
 
-        # Cannot declare class XMLParser, because the name is already in use
-        - app/code/core/Mage/Centinel/Model/Api.php
-        - app/code/core/Mage/Centinel/Model/Api/Client.php
-
         # Class phpseclib\Net\SSH2 not found.
         - app/code/core/Mage/Paypal/Model/Report/Settlement.php
         - lib/Varien/Io/Sftp.php
@@ -49,6 +45,9 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
+
+        # Class Mage_Centinel_Model_Api_Client extends unknown class CentinelClient.
+        - app/code/core/Mage/Centinel/Model/Api/Client.php
     ignoreErrors:
         -
             # @todo remove unused classes/template
