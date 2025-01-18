@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e22ba74a5398072d07d502edec55e2c",
+    "content-hash": "11b5f031bd53c82c96440a84c8a02677",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -600,6 +600,51 @@
                 "source": "https://github.com/mklkj/tinymce-i18n/tree/24.12.30"
             },
             "time": "2024-12-30T10:42:10+00:00"
+        },
+        {
+            "name": "nnnick/chartjs",
+            "version": "v4.4.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chartjs/Chart.js.git",
+                "reference": "57b5c5b78fb2d8504f556bef6e4177735d9929ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/57b5c5b78fb2d8504f556bef6e4177735d9929ea",
+                "reference": "57b5c5b78fb2d8504f556bef6e4177735d9929ea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "release/2.0": "v2.0-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "NICK DOWNIE",
+                    "email": "hello@nickdownie.com"
+                }
+            ],
+            "description": "Simple HTML5 charts using the canvas element.",
+            "homepage": "https://www.chartjs.org/",
+            "keywords": [
+                "JS",
+                "chart"
+            ],
+            "support": {
+                "issues": "https://github.com/chartjs/Chart.js/issues",
+                "source": "https://github.com/chartjs/Chart.js/tree/v4.4.7"
+            },
+            "time": "2024-12-01T16:35:13+00:00"
         },
         {
             "name": "openmage/composer-plugin",
@@ -7495,7 +7540,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
