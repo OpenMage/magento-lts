@@ -32,9 +32,6 @@ parameters:
         - lib/Varien/Directory/Factory.php
         - lib/Varien/File/Object.php
 
-        # Cannot declare class Varien_Date, because the name is already in use
-        - app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
-
         # Too much noise from "Variable $this might not be defined"
         - app/code/core/*/*/data/*
         - app/code/core/*/*/sql/*
