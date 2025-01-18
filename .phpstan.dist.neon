@@ -17,15 +17,20 @@ parameters:
         - index.php
         - install.php
         - app/Mage.php
-        - app/code/core/Mage
+        - app/code/core/
         - app/design/
-        - errors
-        - lib/Mage
-        - lib/Magento
-        - lib/Varien
-        - shell
-        - tests/unit
+        - errors/
+        - lib/
+        - shell/
+        - tests/unit/
     excludePaths:
+        # custom commands
+        - lib/_n98-magerun/
+
+        # libraries
+        - lib/3Dsecure/
+        - lib/Unserialize/
+
         #incompatible interfaces
         - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
         - lib/Varien/Directory/Collection.php
@@ -36,12 +41,12 @@ parameters:
         - app/code/core/*/*/data/*
         - app/code/core/*/*/sql/*
 
+        # Class Mage_Centinel_Model_Api_Client extends unknown class CentinelClient.
+        - app/code/core/Mage/Centinel/Model/Api/Client.php
+
         # Instantiated class Varien_Image_Adapter_Gd not found.
         # Instantiated class Varien_Image_Adapter_Imagemagic not found.
         - lib/Varien/Image/Adapter.php
-
-        # Class Mage_Centinel_Model_Api_Client extends unknown class CentinelClient.
-        - app/code/core/Mage/Centinel/Model/Api/Client.php
     ignoreErrors:
         -
             # @todo remove unused classes/template
