@@ -848,7 +848,8 @@ class Mage_CatalogInventory_Model_Observer
      * Update items stock status and low stock date.
      *
      * @param Varien_Event_Observer $observer
-     * @return  $this
+     * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function updateItemsStockUponConfigChange($observer)
     {
@@ -1035,6 +1036,7 @@ class Mage_CatalogInventory_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      * @throws Exception
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function reindexProductsMassAction($observer)
     {

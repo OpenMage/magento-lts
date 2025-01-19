@@ -49,6 +49,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param string $websiteCode
      * @param string $storeCode
      * @return Varien_Simplexml_Element
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getSections($sectionCode = null, $websiteCode = null, $storeCode = null)
     {
@@ -156,6 +157,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * @param string $storeCode
      * @param bool $isField
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function hasChildren($node, $websiteCode = null, $storeCode = null, $isField = false)
     {

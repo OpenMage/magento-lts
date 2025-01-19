@@ -26,6 +26,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend extends Mage_Eav
      * Collect totals
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function collectTotals(Mage_Sales_Model_Quote_Address $address)
     {

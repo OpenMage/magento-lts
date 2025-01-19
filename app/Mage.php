@@ -318,7 +318,7 @@ final class Mage
     public static function setRoot($appRoot = '')
     {
         if (self::$_appRoot) {
-            return ;
+            return;
         }
 
         if ($appRoot === '') {

@@ -85,6 +85,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
         return $html . '<tbody>';
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     protected function _getFooterHtml($element)
     {
         return '</tbody></table></fieldset>';

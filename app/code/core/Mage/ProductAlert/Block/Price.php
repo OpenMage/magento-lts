@@ -45,6 +45,7 @@ class Mage_ProductAlert_Block_Price extends Mage_Core_Block_Template
      * @param string $route
      * @param array $params
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getUrl($route = '', $params = [])
     {

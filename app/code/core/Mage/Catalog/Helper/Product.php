@@ -188,6 +188,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * @param Mage_Catalog_Model_Product|int $product
      * @param string $where
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function canShow($product, $where = 'catalog')
     {

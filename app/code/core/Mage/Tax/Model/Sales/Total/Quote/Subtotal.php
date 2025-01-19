@@ -116,7 +116,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * and subtotal including/excluding tax.
      * Determine discount price if needed
      *
-     *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
@@ -657,7 +656,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @param float $storePriceInclTax
      * @param float $storeRate
      * @param float $customerRate
-     *
      * @return float
      */
     protected function _calculatePriceInclTax($storePriceInclTax, $storeRate, $customerRate)
@@ -674,7 +672,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Used only in case of prices including tax
      *
      * @param Varien_Object $request
-     *
      * @return bool
      */
     protected function _sameRateAsStore($request)
@@ -697,7 +694,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @param string $rate
      * @param bool $direction
      * @param string $type
-     *
      * @return float
      */
     protected function _deltaRound($price, $rate, $direction, $type = 'regular')
@@ -716,7 +712,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
 
     /**
      * Recalculate row information for item based on children calculation
-     *
      *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
@@ -757,7 +752,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Get request for fetching store tax rate
      *
      * @param   Mage_Sales_Model_Quote_Address $address
-     *
      * @return  Varien_Object
      */
     protected function _getStoreTaxRequest($address)
@@ -772,7 +766,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Get request for fetching address tax rate
      *
      * @param   Mage_Sales_Model_Quote_Address $address
-     *
      * @return  Varien_Object
      */
     protected function _getAddressTaxRequest($address)
@@ -820,6 +813,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @deprecated after 1.4.1
      *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -832,6 +826,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @param   Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _processShippingAmount($address)
     {
@@ -845,7 +840,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @deprecated after 1.4.1
      *
      * @param   Mage_Sales_Model_Quote_Address $address
-     *
      * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     protected function _recollectItem($address, Mage_Sales_Model_Quote_Item_Abstract $item)
@@ -925,7 +919,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @deprecated after 1.4.1
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     *
      * @return bool
      */
     protected function _needSubtractTax($address)
@@ -943,7 +936,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * @deprecated after 1.4.0.1
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     *
      * @return bool
      */
     protected function _needSubtractShippingTax($address)

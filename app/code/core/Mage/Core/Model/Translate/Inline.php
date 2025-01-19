@@ -288,6 +288,7 @@ class Mage_Core_Model_Translate_Inline
      * @param array $matches
      * @param array $options
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getAttributeLocation($matches, $options)
     {
@@ -300,6 +301,7 @@ class Mage_Core_Model_Translate_Inline
      * @param array $matches
      * @param array $options
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getTagLocation($matches, $options)
     {
@@ -447,6 +449,7 @@ class Mage_Core_Model_Translate_Inline
      * @param array $tagsList
      * @param string|array $formatCallback
      * @param bool $isNeedTranslateAttributes
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _translateTags(&$content, $tagsList, $formatCallback, $isNeedTranslateAttributes)
     {

@@ -79,8 +79,8 @@ class Mage_CatalogRule_Model_Observer
      * Handle catalog_product_import_after event
      *
      * @param   Varien_Event_Observer $observer
-     *
      * @return  $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function applyAllRules($observer)
     {
@@ -96,7 +96,6 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Preload all price rules for all items in quote
-     *
      *
      * @return  $this
      */
@@ -221,7 +220,6 @@ class Mage_CatalogRule_Model_Observer
     /**
      * Calculate price using catalog price rules of configurable product
      *
-     *
      * @return $this
      */
     public function catalogProductTypeConfigurablePrice(Varien_Event_Observer $observer)
@@ -248,8 +246,8 @@ class Mage_CatalogRule_Model_Observer
      * we should generate data for interval -1 day ... +1 day
      *
      * @param   Varien_Event_Observer $observer
-     *
      * @return  $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function dailyCatalogUpdate($observer)
     {
@@ -359,7 +357,6 @@ class Mage_CatalogRule_Model_Observer
     /**
      * After save attribute if it is not used for promo rules already check rules for containing this attribute
      *
-     *
      * @return $this
      */
     public function catalogAttributeSaveAfter(Varien_Event_Observer $observer)
@@ -462,6 +459,8 @@ class Mage_CatalogRule_Model_Observer
 
     /**
      * Runs Catalog Product Price Reindex
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function runCatalogProductPriceReindex(Varien_Event_Observer $observer)
     {

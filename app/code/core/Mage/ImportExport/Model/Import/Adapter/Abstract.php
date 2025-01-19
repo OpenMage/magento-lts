@@ -145,6 +145,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      * Seeks to a position.
      *
      * @param int $position The position to seek to.
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\ReturnTypeWillChange]
     public function seek($position)

@@ -52,7 +52,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
-            return ;
+            return;
         }
 
         $product = Mage::getModel('catalog/product')->load($productId);
@@ -64,7 +64,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
             } else {
                 $this->_redirect('/');
             }
-            return ;
+            return;
         }
 
         try {
@@ -89,14 +89,14 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
-            return ;
+            return;
         }
 
         if (!$product = Mage::getModel('catalog/product')->load($productId)) {
             /** @var Mage_Catalog_Model_Product $product */
             $session->addError($this->__('Not enough parameters.'));
             $this->_redirectUrl($backUrl);
-            return ;
+            return;
         }
 
         try {

@@ -55,6 +55,7 @@ class Mage_Core_Model_File_Storage_Flag extends Mage_Core_Model_Flag
      * Pass error to flag
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function passError(Exception $e)
     {

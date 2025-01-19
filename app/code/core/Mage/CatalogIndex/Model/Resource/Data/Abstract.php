@@ -167,6 +167,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
      * @param string $whereField
      * @param int $id
      * @param array $additionalWheres
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = []) {}
 

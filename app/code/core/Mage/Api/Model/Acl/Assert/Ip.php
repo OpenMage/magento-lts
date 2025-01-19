@@ -27,6 +27,7 @@ class Mage_Api_Model_Acl_Assert_Ip implements Zend_Acl_Assert_Interface
      *
      * @param string|null $privilege
      * @return bool|null
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function assert(
         Mage_Api_Model_Acl $acl,
@@ -39,6 +40,7 @@ class Mage_Api_Model_Acl_Assert_Ip implements Zend_Acl_Assert_Interface
 
     /**
      * @param bool $ip
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _isCleanIP($ip)
     {

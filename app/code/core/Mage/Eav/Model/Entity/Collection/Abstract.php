@@ -106,6 +106,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * Collection constructor
      *
      * @param Mage_Core_Model_Resource_Abstract $resource
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function __construct($resource = null)
     {
@@ -1080,6 +1081,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Mage_Eav_Exception
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function _loadAttributes($printQuery = false, $logQuery = false)
     {

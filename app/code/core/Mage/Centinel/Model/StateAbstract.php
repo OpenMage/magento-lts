@@ -63,6 +63,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
      * @param string $key
      * @param string|int $index
      * @return mixed
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getData($key = '', $index = null)
     {

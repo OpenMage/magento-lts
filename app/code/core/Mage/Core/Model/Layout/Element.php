@@ -77,6 +77,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     /**
      * @param array $args
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function prepareBlock($args)
     {
@@ -100,6 +101,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     /**
      * @param array $args
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function prepareReference($args)
     {
@@ -109,6 +111,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     /**
      * @param array $args
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function prepareAction($args)
     {
@@ -121,6 +124,7 @@ class Mage_Core_Model_Layout_Element extends Varien_Simplexml_Element
     /**
      * @param array $args
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function prepareActionArgument($args)
     {

@@ -375,6 +375,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      * @param mixed $value
      * @param bool $isExport
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function decorateFilter($value, Mage_Eav_Model_Entity_Attribute $row, Varien_Object $column, $isExport)
     {
@@ -429,6 +430,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
      *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getRowUrl($row)
     {

@@ -139,6 +139,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param string $table
      * @param string $type
      * @return Varien_Db_Select
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _addLoadAttributesSelectFields($select, $table, $type)
     {
@@ -315,6 +316,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * @param mixed $valueId
      * @param mixed $value
      * @return Mage_Catalog_Model_Resource_Abstract
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
@@ -513,6 +515,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      *
      * @param mixed $value
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _isAttributeValueEmpty(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $value)
     {

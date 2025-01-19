@@ -166,8 +166,8 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
      *
      * @param Mage_Directory_Model_Currency $model
      * @param string $path
-     *
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getConfigCurrencies($model, $path)
     {

@@ -86,6 +86,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * @param Mage_Catalog_Model_Product $childProduct
      * @param float $childProductQty
      * @return float
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getChildFinalPrice($product, $productQty, $childProduct, $childProductQty)
     {
@@ -333,6 +334,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * @param int $qty
      * @param float $finalPrice
      * @return float
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _applyOptionsPrice($product, $qty, $finalPrice)
     {

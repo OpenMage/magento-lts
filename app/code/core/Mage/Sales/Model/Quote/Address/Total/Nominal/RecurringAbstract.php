@@ -92,6 +92,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract ex
      *
      * @param Mage_Sales_Model_Quote_Address $address
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _afterCollectSuccess($address, $item) {}
 }

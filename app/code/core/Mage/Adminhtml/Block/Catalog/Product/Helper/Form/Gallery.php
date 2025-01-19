@@ -138,7 +138,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Retrieve attribute field name
      *
-     *
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return string
      */

@@ -109,6 +109,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
      * Add additional data to form element
      *
      * @return Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {

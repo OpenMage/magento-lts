@@ -51,6 +51,7 @@ class Mage_Sitemap_Model_Observer
      * Generate sitemaps
      *
      * @param Mage_Cron_Model_Schedule $schedule
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function scheduledGenerateSitemaps($schedule)
     {

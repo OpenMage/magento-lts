@@ -135,6 +135,7 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Convert a catalog layer block with the right templates
      * Observes: controller_action_layout_generate_blocks_after
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function convertLayerBlock(Varien_Event_Observer $observer)
     {

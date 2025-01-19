@@ -643,6 +643,7 @@ class Mage_Eav_Model_Config
      * @deprecated No longer required to preload only collection attributes explicitly
      * Prepare attributes for usage in EAV collection
      *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function loadCollectionAttributes($entityType, $attributes)
     {
@@ -653,6 +654,7 @@ class Mage_Eav_Model_Config
      * @param string|Mage_Eav_Model_Entity_Type $entityType
      * @return $this
      * @deprecated No longer required. All attribute data is cached on-access.
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function importAttributesData($entityType, array $attributes)
     {

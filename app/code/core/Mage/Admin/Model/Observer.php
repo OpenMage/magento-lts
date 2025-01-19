@@ -28,6 +28,7 @@ class Mage_Admin_Model_Observer
      * Handler for controller_action_predispatch event
      *
      * @param Varien_Event_Observer $observer
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function actionPreDispatchAdmin($observer)
     {
@@ -105,6 +106,7 @@ class Mage_Admin_Model_Observer
      *
      * @deprecated after 1.4.0.1, logic moved to admin session
      * @param Varien_Event_Observer $event
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function actionPostDispatchAdmin($event) {}
 

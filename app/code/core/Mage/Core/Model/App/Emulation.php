@@ -198,7 +198,6 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Restore design of the initial store
      *
-     *
      * @return $this
      */
     protected function _restoreInitialDesign(array $initialDesign)

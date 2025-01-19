@@ -259,6 +259,7 @@ function mageDelTree($path)
  * @param string $enclosure
  * @param string $escape
  * @return array
+ * @SuppressWarnings("PHPMD.UnusedFormalParameter")
  */
 function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\')
 {

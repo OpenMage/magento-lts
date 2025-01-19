@@ -32,7 +32,6 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     /**
      * Array of buttons
      *
-     *
      * @var array
      */
     protected $_buttons = [

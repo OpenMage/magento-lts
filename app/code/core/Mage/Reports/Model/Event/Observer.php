@@ -72,6 +72,7 @@ class Mage_Reports_Model_Event_Observer
      * Customer login action
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function customerLogin(Varien_Event_Observer $observer)
     {
@@ -98,6 +99,7 @@ class Mage_Reports_Model_Event_Observer
      * Customer logout processing
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function customerLogout(Varien_Event_Observer $observer)
     {
@@ -157,6 +159,7 @@ class Mage_Reports_Model_Event_Observer
      * Reset count of compared products cache
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function catalogProductCompareRemoveProduct(Varien_Event_Observer $observer)
     {
@@ -173,6 +176,7 @@ class Mage_Reports_Model_Event_Observer
      * Reset count of compared products cache
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function catalogProductCompareClear(Varien_Event_Observer $observer)
     {
@@ -265,6 +269,7 @@ class Mage_Reports_Model_Event_Observer
      * @see Global Log Clean Settings
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function eventClean(Varien_Event_Observer $observer)
     {

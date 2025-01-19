@@ -144,6 +144,7 @@ class Mage_Captcha_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function checkUserLoginBackend($observer)
     {

@@ -277,7 +277,6 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * Prepare shipment request.
      * Validate and correct request information
      *
-     *
      */
     protected function _prepareShipmentRequest(Varien_Object $request)
     {

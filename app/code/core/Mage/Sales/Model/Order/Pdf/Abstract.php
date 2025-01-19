@@ -533,6 +533,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      *
      * @param  Mage_Sales_Model_Abstract $source
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getTotalsList($source)
     {

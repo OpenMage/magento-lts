@@ -160,6 +160,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     /**
      * @param null $item deprecated
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getOrderOptions($item = null)
     {

@@ -193,6 +193,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
      * @param array $optionIds
      * @param int $storeId
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getValuesByOption($optionIds, $storeId = null)
     {

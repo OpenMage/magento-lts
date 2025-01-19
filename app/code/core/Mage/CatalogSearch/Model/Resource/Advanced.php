@@ -60,6 +60,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * @param string|array $value
      * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
      * @return array|false|string|string[]
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function prepareCondition($attribute, $value, $collection)
     {
@@ -94,6 +95,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * @param string|array $value
      * @param int $rate
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function addRatedPriceFilter($collection, $attribute, $value, $rate = 1)
     {

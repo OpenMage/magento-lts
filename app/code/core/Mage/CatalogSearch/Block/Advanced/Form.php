@@ -135,6 +135,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getCurrency($attribute)
     {

@@ -39,6 +39,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
      * @param string $groupAliasName OPTIONAL
      * @param string $orderBy OPTIONAL
      * @return Zend_Db_Expr
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function prepareColumn($column, $groupAliasName = null, $orderBy = null)
     {

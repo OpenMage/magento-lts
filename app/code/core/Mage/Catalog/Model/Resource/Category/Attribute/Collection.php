@@ -44,6 +44,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Collection extends Mage_Eav
      *
      * @param int $typeId
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function setEntityTypeFilter($typeId)
     {

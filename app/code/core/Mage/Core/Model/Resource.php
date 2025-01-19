@@ -378,6 +378,7 @@ class Mage_Core_Model_Resource
     /**
      * @param mixed $value
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function setAutoUpdate($value)
     {

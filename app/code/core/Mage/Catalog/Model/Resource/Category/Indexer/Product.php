@@ -1168,6 +1168,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
      *
      * @param string $table
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getIdxTable($table = null)
     {

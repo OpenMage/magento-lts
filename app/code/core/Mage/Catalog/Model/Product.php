@@ -664,6 +664,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param int  $groupId   Retrieve attributes of the specified group
      * @param bool $skipSuper Not used
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getAttributes($groupId = null, $skipSuper = false)
     {

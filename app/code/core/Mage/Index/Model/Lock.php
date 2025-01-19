@@ -152,6 +152,7 @@ class Mage_Index_Model_Lock
      * @param string $lockName
      * @param bool $block
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _setLockDb($lockName, $block = false)
     {

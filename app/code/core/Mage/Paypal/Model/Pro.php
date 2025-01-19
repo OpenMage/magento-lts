@@ -344,6 +344,7 @@ class Mage_Paypal_Model_Pro
      * Submit RP to the gateway
      *
      * @throws Mage_Core_Exception
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function submitRecurringProfile(
         Mage_Payment_Model_Recurring_Profile $profile,
@@ -383,6 +384,8 @@ class Mage_Paypal_Model_Pro
 
     /**
      * Update RP data
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function updateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile) {}
 

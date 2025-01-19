@@ -257,9 +257,9 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      *  $totalCode => $totalSortOrder
      * )
      *
-     *
      * @param   array $order
      * @return  Mage_Sales_Block_Order_Totals
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function applySortOrder($order)
     {

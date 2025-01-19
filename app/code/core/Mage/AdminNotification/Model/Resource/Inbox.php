@@ -60,6 +60,7 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
      * Get notifications grouped by severity
      *
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getNoticeStatus(Mage_AdminNotification_Model_Inbox $object)
     {
@@ -76,6 +77,8 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
 
     /**
      * Save notifications (if not exists)
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function parse(Mage_AdminNotification_Model_Inbox $object, array $data)
     {

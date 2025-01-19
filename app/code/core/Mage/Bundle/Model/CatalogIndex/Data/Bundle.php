@@ -68,6 +68,7 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
      * @param string $whereField
      * @param int $id
      * @param array $additionalWheres
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {

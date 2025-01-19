@@ -205,7 +205,8 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Rebuild index after catalog import
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {

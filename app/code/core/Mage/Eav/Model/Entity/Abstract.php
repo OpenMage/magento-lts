@@ -572,7 +572,8 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * @param   Varien_Object $object
      * @param   Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @return bool
+     * @return  bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _isApplicableAttribute($object, $attribute)
     {
@@ -654,6 +655,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param string $method
      * @param array $args array of arguments
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
@@ -1002,6 +1004,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   Varien_Object $object
      * @param   mixed $rowId
      * @return  Zend_Db_Select
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getLoadRowSelect($object, $rowId)
     {
@@ -1214,6 +1217,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      *
      * @param mixed $v  New value of the attribute. Can be used in subclasses.
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _canUpdateAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $v, array &$origData)
     {
@@ -1386,6 +1390,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   mixed $valueId
      * @param   mixed $value
      * @return  $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
@@ -1480,6 +1485,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   string $table
      * @param   array $info
      * @return  $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _deleteAttributes($object, $table, $info)
     {

@@ -66,6 +66,7 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
      * @param int $customerId
      * @param int $websiteId
      * @return Mage_ProductAlert_Model_Resource_Abstract
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function deleteCustomer(Mage_Core_Model_Abstract $object, $customerId, $websiteId = null)
     {

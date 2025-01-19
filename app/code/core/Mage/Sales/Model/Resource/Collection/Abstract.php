@@ -146,6 +146,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
      * @param string $joinType
      * @param int $storeId
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function joinAttribute($alias, $attribute, $bind, $filter = null, $joinType = 'inner', $storeId = null)
     {

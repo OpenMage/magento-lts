@@ -20,6 +20,7 @@ class Mage_Api_Model_Cron
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function cleanOldSessions($schedule)
     {

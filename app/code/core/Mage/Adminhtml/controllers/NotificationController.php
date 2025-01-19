@@ -43,7 +43,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
             if (!$model->getId()) {
                 $session->addError(Mage::helper('adminnotification')->__('Unable to proceed. Please, try again.'));
                 $this->_redirect('*/*/');
-                return ;
+                return;
             }
 
             try {
@@ -99,7 +99,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
 
             if (!$model->getId()) {
                 $this->_redirect('*/*/');
-                return ;
+                return;
             }
 
             try {

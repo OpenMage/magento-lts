@@ -107,6 +107,8 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
 
     /**
      * Prepare existing row data object
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _prepareArrayRow(Varien_Object $row)
     {

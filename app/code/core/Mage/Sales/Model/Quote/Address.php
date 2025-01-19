@@ -1191,6 +1191,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @param float $value
      * @param bool $alreadyExclTax
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function setShippingAmount($value, $alreadyExclTax = false)
     {
@@ -1203,6 +1204,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @param float $value
      * @param bool $alreadyExclTax
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function setBaseShippingAmount($value, $alreadyExclTax = false)
     {

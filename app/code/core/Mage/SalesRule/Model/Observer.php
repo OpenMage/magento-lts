@@ -179,6 +179,7 @@ class Mage_SalesRule_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function aggregateSalesReportCouponsData($schedule)
     {

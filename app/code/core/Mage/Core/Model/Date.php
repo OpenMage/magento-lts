@@ -210,6 +210,7 @@ class Mage_Core_Model_Date
      * @param int $second
      * @return bool
      * @deprecated since 1.1.7
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function checkDateTime($year, $month, $day, $hour = 0, $minute = 0, $second = 0)
     {

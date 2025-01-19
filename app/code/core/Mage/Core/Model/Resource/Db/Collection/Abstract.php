@@ -423,6 +423,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      *
      * @param array $args
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getModelName($args = [])
     {

@@ -106,6 +106,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @param   string $id
      * @param   string $field
      * @return  $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function load($id, $field = null)
     {
