@@ -102,12 +102,13 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Save customer addresses and set default addresses in attributes backend
      *
+     * @param Mage_Customer_Model_Customer $object
      * @return Mage_Eav_Model_Entity_Abstract
      */
-    protected function _afterSave(Varien_Object $customer)
+    protected function _afterSave(Varien_Object $object)
     {
-        $this->_saveAddresses($customer);
-        return parent::_afterSave($customer);
+        $this->_saveAddresses($object);
+        return parent::_afterSave($object);
     }
 
     /**
@@ -189,6 +190,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @param string $email
      * @param bool $testOnly
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
     {

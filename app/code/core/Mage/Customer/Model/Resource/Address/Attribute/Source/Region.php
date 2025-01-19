@@ -28,6 +28,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Source_Region extends Mage_
      * @param bool $withEmpty       Argument has no effect, included for PHP 7.2 method signature compatibility
      * @param bool $defaultValues   Argument has no effect, included for PHP 7.2 method signature compatibility
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getAllOptions($withEmpty = true, $defaultValues = false)
     {

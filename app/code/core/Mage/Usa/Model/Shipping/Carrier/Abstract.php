@@ -393,6 +393,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      * @todo implement rollback logic
      * @param array $data
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function rollBack($data)
     {
@@ -444,6 +445,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      *
      * @param null|string $countyDest
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function isGirthAllowed($countyDest = null)
     {

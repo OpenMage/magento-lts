@@ -95,6 +95,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      *
      * @param Mage_Wishlist_Model_Resource_Item_Collection $collection
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _prepareCollection($collection)
     {

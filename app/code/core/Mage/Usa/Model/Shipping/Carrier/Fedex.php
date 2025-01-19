@@ -1600,6 +1600,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
      * Return delivery confirmation types of carrier
      *
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
