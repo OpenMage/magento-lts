@@ -87,6 +87,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
      * @param string $accountId
      * @return string
      * @deprecated
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getPageTrackingCodeUniversal($accountId)
     {
@@ -102,6 +103,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
      * @param string $accountId
      * @return string
      * @deprecated
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getPageTrackingCodeAnalytics($accountId)
     {

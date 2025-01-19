@@ -28,6 +28,7 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
      * @param bool $withEmpty       Argument has no effect, included for PHP 7.2 method signature compatibility
      * @param bool $defaultValues   Argument has no effect, included for PHP 7.2 method signature compatibility
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getAllOptions($withEmpty = true, $defaultValues = false)
     {
