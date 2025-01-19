@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Composer\InstalledVersions;
+
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
 define('BP', dirname(__DIR__));
@@ -178,62 +180,63 @@ final class Mage
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
      */
-    public static function getOpenMageVersion(): string
+    public static function getOpenMageVersion(bool $withHas = false): string
     {
-        $info = self::getOpenMageVersionInfo();
-        $versionString = "{$info['major']}.{$info['minor']}.{$info['patch']}";
-
-        if ($info['stability'] && $info['number']) {
-            return "{$versionString}-{$info['stability']}.{$info['number']}";
-        }
-        if ($info['stability']) {
-            return "{$versionString}-{$info['stability']}";
-        }
-        if ($info['number']) {
-            return "{$versionString}-{$info['number']}";
+        $versionfromGit = self::getVersionFromGit($withHas);
+        if ($versionfromGit) {
+            return $versionfromGit;
         }
 
-        return $versionString;
+        $versionfromComposer = self::getVersionFromComposer();
+        if ($versionfromComposer) {
+            return $versionfromComposer;
+        }
+
+        return '';
     }
 
     /**
      * Gets the detailed OpenMage version information
      * @link https://openmage.github.io/supported-versions.html
      * @link https://semver.org/
+     * @deprecated
      */
     public static function getOpenMageVersionInfo(): array
     {
-        /**
-         * This code construct is to make merging for forward porting of changes easier.
-         * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
-         * also as releases are usually done together, this could in theory be done at once.
-         * The major Version then needs to be only changed once per branch.
-         */
-        if (self::getOpenMageMajorVersion() === 20) {
-            return [
-                'major'     => '20',
-                'minor'     => '12',
-                'patch'     => '0',
-                'stability' => '', // beta,alpha,rc
-                'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
-            ];
-        }
-
-        return [
-            'major'     => '19',
-            'minor'     => '5',
-            'patch'     => '3',
-            'stability' => '', // beta,alpha,rc
-            'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
-        ];
+        return explode('.', ltrim(self::getOpenMageVersion(), 'v'));
     }
 
     /**
      * @return int<19,20>
+     * @deprecated
      */
     public static function getOpenMageMajorVersion(): int
     {
         return 20;
+    }
+
+    public static function getVersionFromComposer(): ?string
+    {
+        if (!InstalledVersions::isInstalled('openmage/magento-lts')) {
+            return null;
+        }
+
+        return InstalledVersions::getVersion('openmage/magento-lts');
+    }
+
+    public static function getVersionFromGit(bool $withHas = true): ?string
+    {
+        if (!function_exists('exec')) {
+            return null;
+        }
+
+        $commitTag  = trim(exec('git describe --tags --abbrev=0'));
+        if (!$withHas) {
+            return $commitTag;
+        }
+
+        $commitHash = trim(exec('git log --pretty="%h" -n1 HEAD'));
+        return sprintf('%s (%s)', $commitTag, $commitHash);
     }
 
     /**
