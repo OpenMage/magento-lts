@@ -51,7 +51,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
             $value = $this->getEntity()->getDataUsingMethod($attribute->getAttributeCode());
         }
 
-        if ($attribute->getIsRequired() && strlen((string) $value) === 0) {
+        if ($attribute->getIsRequired() && (string) $value === '') {
             $errors[] = Mage::helper('eav')->__('"%s" is a required value.', $label);
         }
 
