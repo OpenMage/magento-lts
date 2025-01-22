@@ -22,7 +22,9 @@
     <a href="<?php echo $this->getOpenMageProjectUrl() ?>" target="_blank"><?php echo $this->__('OpenMage Project') ?></a> |
     <a href="<?php echo $this->getReportIssuesUrl() ?>" target="_blank"><?php echo $this->__('Report Issues') ?></a>
 </p>
-<?php echo $this->__('OpenMage %s', Mage::getOpenMageVersion()) ?>
+<?php if (Mage::getIsDeveloperMode()): ?>
+    <?php echo $this->__('OpenMage %s', Mage::getOpenMageVersion(true)) ?>
+<?php endif ?>
 <script type="text/javascript">
     function setInterfaceLanguage(evt) {
         var elem = Event.element(evt);
