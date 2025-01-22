@@ -31,7 +31,7 @@ class Mage_Downloadable_CustomerController extends Mage_Core_Controller_Front_Ac
 
         $loginUrl = Mage::helper('customer')->getLoginUrl();
 
-        if (!Mage::getSingleton('customer/session')->authenticate($this, $loginUrl)) {
+        if (!$this->getCustomerSession()->authenticate($this, $loginUrl)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
         return $this;
@@ -43,7 +43,7 @@ class Mage_Downloadable_CustomerController extends Mage_Core_Controller_Front_Ac
     public function productsAction()
     {
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
         if ($block = $this->getLayout()->getBlock('downloadable_customer_products_list')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }

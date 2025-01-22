@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  */
-class Mage_CatalogRule_Model_Observer
+class Mage_CatalogRule_Model_Observer extends Mage_Core_Model_Observer
 {
     /**
      * Preload price rules for all items in quote
@@ -159,7 +159,7 @@ class Mage_CatalogRule_Model_Observer
         } elseif ($product->hasCustomerGroupId()) {
             $gId = $product->getCustomerGroupId();
         } else {
-            $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $gId = $this->getCustomerSession()->getCustomerGroupId();
         }
 
         $key = $this->_getRulePricesKey([$date, $wId, $gId, $pId]);
@@ -325,7 +325,7 @@ class Mage_CatalogRule_Model_Observer
 
         if ($disabledRulesCount) {
             Mage::getModel('catalogrule/rule')->applyAll();
-            Mage::getSingleton('adminhtml/session')->addWarning(
+            $this->getAdminhtmlSession()->addWarning(
                 Mage::helper('catalogrule')->__('%d Catalog Price Rules based on "%s" attribute have been disabled.', $disabledRulesCount, $attributeCode),
             );
         }
@@ -402,10 +402,9 @@ class Mage_CatalogRule_Model_Observer
         if ($observer->getEvent()->hasCustomerGroupId()) {
             $groupId = $observer->getEvent()->getCustomerGroupId();
         } else {
-            /** @var Mage_Customer_Model_Session $session */
-            $session = Mage::getSingleton('customer/session');
+            $session = $this->getCustomerSession();
             if ($session->isLoggedIn()) {
-                $groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+                $groupId = $this->getCustomerSession()->getCustomerGroupId();
             } else {
                 $groupId = Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
             }

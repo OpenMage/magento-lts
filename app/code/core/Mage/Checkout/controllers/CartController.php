@@ -43,10 +43,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      * Get checkout session model instance
      *
      * @return Mage_Checkout_Model_Session
+     * @deprecated
+     * @see getCheckoutSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('checkout/session');
+        return $this->getCheckoutSession();
     }
 
     /**
@@ -137,10 +139,10 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         if ($cart->getQuote()->getItemsCount()) {
             $cart->init();
             if ($cart->getQuote()->getShippingAddress()
-                && $this->_getSession()->getEstimatedShippingAddressData()
-                && $couponCode = $this->_getSession()->getCartCouponCode()
+                && $this->getCheckoutSession()->getEstimatedShippingAddressData()
+                && $couponCode = $this->getCheckoutSession()->getCartCouponCode()
             ) {
-                $estimatedSessionAddressData = $this->_getSession()->getEstimatedShippingAddressData();
+                $estimatedSessionAddressData = $this->getCheckoutSession()->getEstimatedShippingAddressData();
                 $cart->getQuote()->getShippingAddress()
                     ->setCountryId($estimatedSessionAddressData['country_id'])
                     ->setCity($estimatedSessionAddressData['city'])
@@ -178,13 +180,13 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
          * if customer enteres shopping cart we should mark quote
          * as modified bc he can has checkout page in another window.
          */
-        $this->_getSession()->setCartWasUpdated(true);
+        $this->getCheckoutSession()->setCartWasUpdated(true);
 
         Varien_Profiler::start(__METHOD__ . 'cart_display');
         $this
             ->loadLayout()
-            ->_initLayoutMessages('checkout/session')
-            ->_initLayoutMessages('catalog/session')
+            ->_initLayoutMessages($this->getCheckoutSessionStorage())
+            ->_initLayoutMessages($this->getCatalogSessionStorage())
             ->getLayout()->getBlock('head')->setTitle($this->__('Shopping Cart'));
         $this->renderLayout();
         Varien_Profiler::stop(__METHOD__ . 'cart_display');
@@ -239,24 +241,24 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 ['product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse()],
             );
 
-            if (!$this->_getSession()->getNoCartRedirect(true)) {
+            if (!$this->getCheckoutSession()->getNoCartRedirect(true)) {
                 if (!$cart->getQuote()->getHasError()) {
                     $message = $this->__('%s was added to your shopping cart.', Mage::helper('core')->escapeHtml($product->getName()));
-                    $this->_getSession()->addSuccess($message);
+                    $this->getCheckoutSession()->addSuccess($message);
                 }
                 $this->_goBack();
             }
         } catch (Mage_Core_Exception $e) {
-            if ($this->_getSession()->getUseNotice(true)) {
-                $this->_getSession()->addNotice(Mage::helper('core')->escapeHtml($e->getMessage()));
+            if ($this->getCheckoutSession()->getUseNotice(true)) {
+                $this->getCheckoutSession()->addNotice(Mage::helper('core')->escapeHtml($e->getMessage()));
             } else {
                 $messages = array_unique(explode("\n", $e->getMessage()));
                 foreach ($messages as $message) {
-                    $this->_getSession()->addError(Mage::helper('core')->escapeHtml($message, ['em']));
+                    $this->getCheckoutSession()->addError(Mage::helper('core')->escapeHtml($message, ['em']));
                 }
             }
 
-            $url = $this->_getSession()->getRedirectUrl(true);
+            $url = $this->getCheckoutSession()->getRedirectUrl(true);
             if ($url) {
                 $this->_setProductBuyRequest();
                 $this->getResponse()->setRedirect($url);
@@ -265,7 +267,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         } catch (Exception $e) {
             $this->_setProductBuyRequest();
-            $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
+            $this->getCheckoutSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
             $this->_goBack();
         }
     }
@@ -276,7 +278,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     public function addgroupAction()
     {
         $orderItemIds = $this->getRequest()->getParam('order_items', []);
-        $customerId   = $this->_getCustomerSession()->getCustomerId();
+        $customerId   = $this->getCustomerSession()->getCustomerId();
 
         if (!is_array($orderItemIds) || !$this->_validateFormKey() || !$customerId) {
             $this->_goBack();
@@ -294,18 +296,18 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             try {
                 $cart->addOrderItem($item, 1);
             } catch (Mage_Core_Exception $e) {
-                if ($this->_getSession()->getUseNotice(true)) {
-                    $this->_getSession()->addNotice($e->getMessage());
+                if ($this->getCheckoutSession()->getUseNotice(true)) {
+                    $this->getCheckoutSession()->addNotice($e->getMessage());
                 } else {
-                    $this->_getSession()->addError($e->getMessage());
+                    $this->getCheckoutSession()->addError($e->getMessage());
                 }
             } catch (Exception $e) {
-                $this->_getSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
+                $this->getCheckoutSession()->addException($e, $this->__('Cannot add the item to shopping cart.'));
                 $this->_goBack();
             }
         }
         $cart->save();
-        $this->_getSession()->setCartWasUpdated(true);
+        $this->getCheckoutSession()->setCartWasUpdated(true);
         $this->_goBack();
     }
 
@@ -323,7 +325,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         }
 
         if (!$quoteItem) {
-            $this->_getSession()->addError($this->__('Quote item is not found.'));
+            $this->getCheckoutSession()->addError($this->__('Quote item is not found.'));
             $this->_redirect('checkout/cart');
             return;
         }
@@ -388,30 +390,30 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $cart->save();
 
-            $this->_getSession()->setCartWasUpdated(true);
+            $this->getCheckoutSession()->setCartWasUpdated(true);
 
             Mage::dispatchEvent(
                 'checkout_cart_update_item_complete',
                 ['item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse()],
             );
-            if (!$this->_getSession()->getNoCartRedirect(true)) {
+            if (!$this->getCheckoutSession()->getNoCartRedirect(true)) {
                 if (!$cart->getQuote()->getHasError()) {
                     $message = $this->__('%s was updated in your shopping cart.', Mage::helper('core')->escapeHtml($item->getProduct()->getName()));
-                    $this->_getSession()->addSuccess($message);
+                    $this->getCheckoutSession()->addSuccess($message);
                 }
                 $this->_goBack();
             }
         } catch (Mage_Core_Exception $e) {
-            if ($this->_getSession()->getUseNotice(true)) {
-                $this->_getSession()->addNotice($e->getMessage());
+            if ($this->getCheckoutSession()->getUseNotice(true)) {
+                $this->getCheckoutSession()->addNotice($e->getMessage());
             } else {
                 $messages = array_unique(explode("\n", $e->getMessage()));
                 foreach ($messages as $message) {
-                    $this->_getSession()->addError($message);
+                    $this->getCheckoutSession()->addError($message);
                 }
             }
 
-            $url = $this->_getSession()->getRedirectUrl(true);
+            $url = $this->getCheckoutSession()->getRedirectUrl(true);
             if ($url) {
                 $this->getResponse()->setRedirect($url);
             } else {
@@ -419,7 +421,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         } catch (Exception $e) {
             $this->_setProductBuyRequest();
-            $this->_getSession()->addException($e, $this->__('Cannot update the item.'));
+            $this->getCheckoutSession()->addException($e, $this->__('Cannot update the item.'));
             $this->_goBack();
         }
         $this->_redirect('*/*');
@@ -476,11 +478,11 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $cart->updateItems($cartData)
                     ->save();
             }
-            $this->_getSession()->setCartWasUpdated(true);
+            $this->getCheckoutSession()->setCartWasUpdated(true);
         } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError(Mage::helper('core')->escapeHtml($e->getMessage()));
+            $this->getCheckoutSession()->addError(Mage::helper('core')->escapeHtml($e->getMessage()));
         } catch (Exception $e) {
-            $this->_getSession()->addException($e, $this->__('Cannot update shopping cart.'));
+            $this->getCheckoutSession()->addException($e, $this->__('Cannot update shopping cart.'));
         }
     }
 
@@ -491,11 +493,11 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     {
         try {
             $this->_getCart()->truncate()->save();
-            $this->_getSession()->setCartWasUpdated(true);
+            $this->getCheckoutSession()->setCartWasUpdated(true);
         } catch (Mage_Core_Exception $exception) {
-            $this->_getSession()->addError($exception->getMessage());
+            $this->getCheckoutSession()->addError($exception->getMessage());
         } catch (Exception $exception) {
-            $this->_getSession()->addException($exception, $this->__('Cannot update shopping cart.'));
+            $this->getCheckoutSession()->addException($exception, $this->__('Cannot update shopping cart.'));
         }
     }
 
@@ -511,12 +513,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     $this->_getCart()->removeItem($id)
                         ->save();
                 } catch (Exception $e) {
-                    $this->_getSession()->addError($this->__('Cannot remove the item.'));
+                    $this->getCheckoutSession()->addError($this->__('Cannot remove the item.'));
                     Mage::logException($e);
                 }
             }
         } else {
-            $this->_getSession()->addError($this->__('Cannot remove the item.'));
+            $this->getCheckoutSession()->addError($this->__('Cannot remove the item.'));
         }
 
         $this->_redirectReferer(Mage::getUrl('*/*'));
@@ -549,7 +551,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             ->setRegion($region)
             ->setCollectShippingRates(true);
         $this->_getQuote()->save();
-        $this->_getSession()->setEstimatedShippingAddressData([
+        $this->getCheckoutSession()->setEstimatedShippingAddressData([
             'country_id' => $country,
             'postcode'   => $postcode,
             'city'       => $city,
@@ -606,23 +608,23 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             if ($codeLength) {
                 if ($isCodeLengthValid && $couponCode == $this->_getQuote()->getCouponCode()) {
-                    $this->_getSession()->addSuccess(
+                    $this->getCheckoutSession()->addSuccess(
                         $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode)),
                     );
-                    $this->_getSession()->setCartCouponCode($couponCode);
+                    $this->getCheckoutSession()->setCartCouponCode($couponCode);
                 } else {
-                    $this->_getSession()->addError(
+                    $this->getCheckoutSession()->addError(
                         $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode)),
                     );
                 }
             } else {
-                $this->_getSession()->setCartCouponCode('');
-                $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
+                $this->getCheckoutSession()->setCartCouponCode('');
+                $this->getCheckoutSession()->addSuccess($this->__('Coupon code was canceled.'));
             }
         } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+            $this->getCheckoutSession()->addError($e->getMessage());
         } catch (Exception $e) {
-            $this->_getSession()->addError($this->__('Cannot apply the coupon code.'));
+            $this->getCheckoutSession()->addError($this->__('Cannot apply the coupon code.'));
             Mage::logException($e);
         }
 
@@ -718,10 +720,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      * Get customer session model
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getCustomerSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**
@@ -732,6 +736,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     {
         $buyRequest = $this->getRequest()->getPost();
         $buyRequestObject = new Varien_Object($buyRequest);
-        $this->_getSession()->setProductBuyRequest($buyRequestObject);
+        $this->getCheckoutSession()->setProductBuyRequest($buyRequestObject);
     }
 }

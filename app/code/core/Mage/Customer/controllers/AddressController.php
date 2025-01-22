@@ -26,10 +26,12 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
      * Retrieve customer session object
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**
@@ -38,7 +40,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     public function preDispatch()
     {
         parent::preDispatch();
-        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+        if (!$this->getCustomerSession()->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
         return $this;
@@ -49,10 +51,10 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
      */
     public function indexAction()
     {
-        if (count($this->_getSession()->getCustomer()->getAddresses())) {
+        if (count($this->getCustomerSession()->getCustomer()->getAddresses())) {
             $this->loadLayout();
-            $this->_initLayoutMessages('customer/session');
-            $this->_initLayoutMessages('catalog/session');
+            $this->_initLayoutMessages($this->getCustomerSessionStorage());
+            $this->_initLayoutMessages($this->getCatalogSessionStorage());
 
             $block = $this->getLayout()->getBlock('address_book');
             if ($block) {
@@ -80,7 +82,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
     public function formAction()
     {
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
         $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
         if ($navigationBlock) {
             $navigationBlock->setActive('customer/address');

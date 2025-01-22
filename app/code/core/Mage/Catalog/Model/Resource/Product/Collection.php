@@ -1224,7 +1224,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     protected function _joinPriceRules()
     {
         if ($this->isEnabledFlat()) {
-            $customerGroup = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $customerGroup = $this->getCustomerSession()->getCustomerGroupId();
             $priceColumn   = 'e.display_price_group_' . $customerGroup;
             $this->getSelect()->columns(['_rule_price' => $priceColumn]);
 
@@ -1234,7 +1234,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             return $this;
         }
         $wId = Mage::app()->getWebsite()->getId();
-        $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $gId = $this->getCustomerSession()->getCustomerGroupId();
 
         $storeDate = Mage::app()->getLocale()->storeTimeStamp($this->getStoreId());
         $conditions  = 'price_rule.product_id = e.entity_id AND ';
@@ -1333,7 +1333,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $this->_productLimitationFilters['use_price_index'] = true;
 
         if (!isset($this->_productLimitationFilters['customer_group_id']) && is_null($customerGroupId)) {
-            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $customerGroupId = $this->getCustomerSession()->getCustomerGroupId();
         }
         if (!isset($this->_productLimitationFilters['website_id']) && is_null($websiteId)) {
             $websiteId       = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
@@ -1786,7 +1786,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         $this->_productLimitationFilters['use_price_index'] = true;
         if (!isset($this->_productLimitationFilters['customer_group_id'])) {
-            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+            $customerGroupId = $this->getCustomerSession()->getCustomerGroupId();
             $this->_productLimitationFilters['customer_group_id'] = $customerGroupId;
         }
         if (!isset($this->_productLimitationFilters['website_id'])) {

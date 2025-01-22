@@ -43,10 +43,10 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         $action = strtolower($this->getRequest()->getActionName());
         if (!$allowGuest && $action == 'post' && $this->getRequest()->isPost()) {
-            if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
+            if (!$this->getCustomerSession()->isLoggedIn()) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
-                Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
+                $this->getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
+                $this->getReviewSession()->setFormData($this->getRequest()->getPost())
                     ->setRedirectUrl($this->_getRefererUrl());
                 $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
             }
@@ -152,7 +152,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        if ($data = Mage::getSingleton('review/session')->getFormData(true)) {
+        if ($data = $this->getReviewSession()->getFormData(true)) {
             $rating = [];
             if (isset($data['ratings']) && is_array($data['ratings'])) {
                 $rating = $data['ratings'];
@@ -163,10 +163,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         if (($product = $this->_initProduct()) && !empty($data)) {
-            $session = Mage::getSingleton('core/session');
-            /** @var Mage_Core_Model_Session $session */
-            $review = Mage::getModel('review/review')->setData($this->_cropReviewData($data));
+            $session = $this->getCoreSession();
             /** @var Mage_Review_Model_Review $review */
+            $review = Mage::getModel('review/review')->setData($this->_cropReviewData($data));
 
             $validate = $review->validate();
             if ($validate === true) {
@@ -174,7 +173,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                     $review->setEntityId($review->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE))
                         ->setEntityPkValue($product->getId())
                         ->setStatusId(Mage_Review_Model_Review::STATUS_PENDING)
-                        ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
+                        ->setCustomerId($this->getCustomerSession()->getCustomerId())
                         ->setStoreId(Mage::app()->getStore()->getId())
                         ->setStores([Mage::app()->getStore()->getId()])
                         ->save();
@@ -183,7 +182,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                         Mage::getModel('rating/rating')
                         ->setRatingId($ratingId)
                         ->setReviewId($review->getId())
-                        ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
+                        ->setCustomerId($this->getCustomerSession()->getCustomerId())
                         ->addOptionVote($optionId, $product->getId());
                     }
 
@@ -205,7 +204,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             }
         }
 
-        if ($redirectUrl = Mage::getSingleton('review/session')->getRedirectUrl(true)) {
+        if ($redirectUrl = $this->getReviewSession()->getRedirectUrl(true)) {
             $this->_redirectUrl($redirectUrl);
             return;
         }
@@ -265,8 +264,8 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         $this->loadLayout();
-        $this->_initLayoutMessages('review/session');
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getReviewSessionStorage());
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
         $this->renderLayout();
     }
 

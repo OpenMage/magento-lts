@@ -27,7 +27,7 @@ class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
      */
     public function getSuccessMessage()
     {
-        return Mage::getSingleton('newsletter/session')->getSuccess();
+        return $this->getNewsletterSession()->getSuccess();
     }
 
     /**
@@ -35,7 +35,7 @@ class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
      */
     public function getErrorMessage()
     {
-        return Mage::getSingleton('newsletter/session')->getError();
+        return $this->getNewsletterSession()->getError();
     }
 
     /**

@@ -68,7 +68,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     {
         parent::postDispatch();
         if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
-            Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', ['_current' => true]));
+            $this->getCoreSession()->setLastUrl(Mage::getUrl('*/*/*', ['_current' => true]));
         }
         return $this;
     }
@@ -105,7 +105,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
         $contentType = 'application/octet-stream',
         $contentLength = null
     ) {
-        $session = Mage::getSingleton('admin/session');
+        $session = $this->getAdminSession();
         if ($session->isFirstPageAfterLogin()) {
             $this->_redirect($session->getUser()->getStartupPageUrl());
             return $this;

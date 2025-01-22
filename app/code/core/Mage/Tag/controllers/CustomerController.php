@@ -30,7 +30,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
     {
         $tagId = (int) $this->getRequest()->getParam('tagId');
         if ($tagId) {
-            $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+            $customerId = $this->getCustomerSession()->getCustomerId();
             $model = Mage::getModel('tag/tag_relation');
             $model->loadByTagCustomer(null, $tagId, $customerId);
             Mage::register('tagModel', $model);
@@ -41,14 +41,14 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function indexAction()
     {
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-            Mage::getSingleton('customer/session')->authenticate($this);
+        if (!$this->getCustomerSession()->isLoggedIn()) {
+            $this->getCustomerSession()->authenticate($this);
             return;
         }
 
         $this->loadLayout();
-        $this->_initLayoutMessages('tag/session');
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getTagSessionStorage());
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
 
         $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
         if ($navigationBlock) {
@@ -66,8 +66,8 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-            Mage::getSingleton('customer/session')->authenticate($this);
+        if (!$this->getCustomerSession()->isLoggedIn()) {
+            $this->getCustomerSession()->authenticate($this);
             return;
         }
 
@@ -75,14 +75,14 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
         if ($tagId) {
             Mage::register('tagId', $tagId);
             $this->loadLayout();
-            $this->_initLayoutMessages('tag/session');
+            $this->_initLayoutMessages($this->getTagSessionStorage());
 
             $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
             if ($navigationBlock) {
                 $navigationBlock->setActive('tag/customer');
             }
 
-            $this->_initLayoutMessages('checkout/session');
+            $this->_initLayoutMessages($this->getCheckoutSessionStorage());
             $this->getLayout()->getBlock('head')->setTitle(Mage::helper('tag')->__('My Tags'));
             $this->renderLayout();
         } else {
@@ -102,8 +102,8 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function removeAction()
     {
-        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-            Mage::getSingleton('customer/session')->authenticate($this);
+        if (!$this->getCustomerSession()->isLoggedIn()) {
+            $this->getCustomerSession()->authenticate($this);
             return;
         }
 
@@ -113,13 +113,13 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                 $model = Mage::registry('tagModel');
                 $model->deactivate();
                 $tag = Mage::getModel('tag/tag')->load($tagId)->aggregate();
-                Mage::getSingleton('tag/session')->addSuccess(Mage::helper('tag')->__('The tag has been deleted.'));
+                $this->getTagSession()->addSuccess(Mage::helper('tag')->__('The tag has been deleted.'));
                 $this->getResponse()->setRedirect(Mage::getUrl('*/*/', [
                     self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/')),
                 ]));
                 return;
             } catch (Exception $e) {
-                Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
+                $this->getTagSession()->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
             }
         } else {
             $this->_forward('noRoute');

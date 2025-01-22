@@ -20,6 +20,8 @@
  */
 class Mage_Shipping_Model_Shipping
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Store address
      */
@@ -424,7 +426,7 @@ class Mage_Shipping_Model_Shipping
      */
     public function requestToShipment(Mage_Sales_Model_Order_Shipment $orderShipment)
     {
-        $admin = Mage::getSingleton('admin/session')->getUser();
+        $admin = $this->getAdminSession()->getUser();
         $order = $orderShipment->getOrder();
         $address = $order->getShippingAddress();
         $shippingMethod = $order->getShippingMethod(true);

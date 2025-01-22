@@ -27,7 +27,7 @@ class Mage_Checkout_Block_Onepage_Review_Info extends Mage_Sales_Block_Items_Abs
      */
     public function getItems()
     {
-        return Mage::getSingleton('checkout/session')->getQuote()->getAllVisibleItems();
+        return $this->getCheckoutSession()->getQuote()->getAllVisibleItems();
     }
 
     /**
@@ -35,6 +35,6 @@ class Mage_Checkout_Block_Onepage_Review_Info extends Mage_Sales_Block_Items_Abs
      */
     public function getTotals()
     {
-        return Mage::getSingleton('checkout/session')->getQuote()->getTotals();
+        return $this->getCheckoutSession()->getQuote()->getTotals();
     }
 }
