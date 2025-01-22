@@ -24,6 +24,7 @@
         "ext-simplexml": "*",
         "ext-soap": "*",
         "ext-zlib": "*",
+        "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "cweagans/composer-patches": "^1.7",
@@ -47,7 +48,6 @@
     },
     "require-dev": {
         "ext-xmlreader": "*",
-        "composer/composer": "^2.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
         "macopedia/phpstan-magento1": "^1.1",
