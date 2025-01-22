@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e22ba74a5398072d07d502edec55e2c",
+    "content-hash": "2d1749d4ce17be3ef71c37303bee881d",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -345,6 +345,44 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/v4.18.0"
             },
             "time": "2024-11-01T03:51:45+00:00"
+        },
+        {
+            "name": "flowjs/flowjs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flowjs/flow.js.git",
+                "reference": "3d4ba3a1b9906b31551f33ae649e6fd6b95cf711"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flowjs/flow.js/zipball/3d4ba3a1b9906b31551f33ae649e6fd6b95cf711",
+                "reference": "3d4ba3a1b9906b31551f33ae649e6fd6b95cf711",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A JavaScript library providing multiple file uploads via the HTML5 File API.",
+            "homepage": "https://github.com/flowjs/flow.js",
+            "keywords": [
+                "JS",
+                "upload"
+            ],
+            "support": {
+                "issues": "https://github.com/flowjs/flow.js/issues",
+                "source": "https://github.com/flowjs/flow.js/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/aidas",
+                    "type": "custom"
+                }
+            ],
+            "time": "2025-01-09T16:06:32+00:00"
         },
         {
             "name": "flyingmana/composer-config-reader",
@@ -7495,7 +7533,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "flowjs/flowjs": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
