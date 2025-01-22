@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
-use Mage_Core_Helper_Cookie;
+use Mage_Core_Helper_Cookie as Subject;
 use PHPUnit\Framework\TestCase;
 
 class CookieTest extends TestCase
 {
-    public Mage_Core_Helper_Cookie $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

@@ -17,14 +17,16 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Eav;
 
-use Generator;
 use Mage;
-use Mage_Catalog_Model_Resource_Eav_Attribute;
+use Mage_Catalog_Model_Resource_Eav_Attribute as Subject;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
 use PHPUnit\Framework\TestCase;
 
 class AttributeTest extends TestCase
 {
-    public Mage_Catalog_Model_Resource_Eav_Attribute $subject;
+    use CoreTrait;
+
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -44,21 +46,5 @@ class AttributeTest extends TestCase
             $this->subject->setStoreId($withStoreId);
         }
         $this->assertSame($expectedResult, $this->subject->getStoreId());
-    }
-
-    public function provideGetStoreId(): Generator
-    {
-        yield 'string' => [
-            1,
-            '1',
-        ];
-        yield 'int' => [
-            1,
-            1,
-        ];
-        yield 'no store id' => [
-            null,
-            null,
-        ];
     }
 }

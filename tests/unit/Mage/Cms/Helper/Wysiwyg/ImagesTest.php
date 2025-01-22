@@ -17,17 +17,17 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper\Wysiwyg;
 
-use Generator;
 use Mage;
-use Mage_Cms_Helper_Wysiwyg_Images;
+use Mage_Cms_Helper_Wysiwyg_Images as Subject;
 use Mage_Cms_Model_Wysiwyg_Images_Storage;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
 use PHPUnit\Framework\TestCase;
 
 class ImagesTest extends TestCase
 {
-    public const TEST_STRING = '0123456789';
+    use CmsTrait;
 
-    public Mage_Cms_Helper_Wysiwyg_Images $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -68,7 +68,7 @@ class ImagesTest extends TestCase
      */
     public function testIdEncode(): void
     {
-        $this->assertIsString($this->subject->idEncode(self::TEST_STRING));
+        $this->assertIsString($this->subject->idEncode($this->getTestString()));
     }
 
     /**
@@ -77,30 +77,16 @@ class ImagesTest extends TestCase
      */
     public function testIdDecode(): void
     {
-        $this->assertIsString($this->subject->idDecode(self::TEST_STRING));
+        $this->assertIsString($this->subject->idDecode($this->getTestString()));
     }
 
     /**
-     * @dataProvider provideGetShortFilenameData
+     * @dataProvider provideGetShortFilename
      * @group Mage_Cms
      * @group Mage_Cms_Helper
      */
     public function testGetShortFilename(string $expectedResult, string $filename, int $maxLength): void
     {
         $this->assertSame($expectedResult, $this->subject->getShortFilename($filename, $maxLength));
-    }
-
-    public function provideGetShortFilenameData(): Generator
-    {
-        yield 'full length' => [
-            '0123456789',
-            self::TEST_STRING,
-            20,
-        ];
-        yield 'truncated' => [
-            '01234...',
-            self::TEST_STRING,
-            5,
-        ];
     }
 }

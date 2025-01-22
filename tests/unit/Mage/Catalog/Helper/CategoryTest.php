@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
 use Mage;
-use Mage_Catalog_Helper_Category;
+use Mage_Catalog_Helper_Category as Subject;
 use PHPUnit\Framework\TestCase;
 
 class CategoryTest extends TestCase
 {
-    public Mage_Catalog_Helper_Category $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

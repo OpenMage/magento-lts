@@ -18,12 +18,14 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Sitemap\Model;
 
 use Mage;
-use Mage_Sitemap_Model_Sitemap;
+use Mage_Sitemap_Model_Sitemap as Subject;
 use PHPUnit\Framework\TestCase;
 
 class SitemapTest extends TestCase
 {
-    public Mage_Sitemap_Model_Sitemap $subject;
+    public const SITEMAP_FILE = '???phpunit.sitemap.xml';
+
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -37,7 +39,7 @@ class SitemapTest extends TestCase
      */
     public function testGetPreparedFilename(): void
     {
-        $mock = $this->getMockBuilder(Mage_Sitemap_Model_Sitemap::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getSitemapFilename'])
             ->getMock();
 
@@ -47,15 +49,24 @@ class SitemapTest extends TestCase
 
     /**
      * @group Mage_Sitemap
+     * @group Mage_Sitemap
      * @group Mage_Sitemap_Model
+     * @group Mage_Sitemap_Model
+     * @todo  test content of xml
+     * @todo  test validation
      */
     public function testGenerateXml(): void
     {
-        $mock = $this->getMockBuilder(Mage_Sitemap_Model_Sitemap::class)
+        $mock = $this->getMockBuilder(Subject::class)
+            ->setMethods(['isDeleted']) # do not save to DB
             ->setMethods(['getSitemapFilename'])
             ->getMock();
 
-        $mock->method('getSitemapFilename')->willReturn('text.xml');
-        $this->assertInstanceOf(Mage_Sitemap_Model_Sitemap::class, $mock->generateXml());
+        $mock->method('isDeleted')->willReturn(true);
+        $mock->method('getSitemapFilename')->willReturn(self::SITEMAP_FILE);
+        $result = $mock->generateXml();
+        $this->assertInstanceOf(Subject::class, $result);
+        $this->assertFileExists(self::SITEMAP_FILE);
+        unlink(self::SITEMAP_FILE);
     }
 }

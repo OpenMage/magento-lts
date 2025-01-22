@@ -18,13 +18,13 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Dashboard;
 
 use Mage;
-use Mage_Adminhtml_Helper_Dashboard_Data;
+use Mage_Adminhtml_Helper_Dashboard_Data as Subject;
 use Mage_Core_Model_Resource_Store_Collection;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Mage_Adminhtml_Helper_Dashboard_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

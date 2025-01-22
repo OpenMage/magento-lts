@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Cms\Model\Wysiwyg;
 
 use Mage;
-use Mage_Cms_Model_Wysiwyg_Config;
+use Mage_Cms_Model_Wysiwyg_Config as Subject;
 use PHPUnit\Framework\TestCase;
 use Varien_Object;
 
@@ -26,7 +26,7 @@ class ConfigTest extends TestCase
 {
     public const TEST_STRING = '0123456789';
 
-    public Mage_Cms_Model_Wysiwyg_Config $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

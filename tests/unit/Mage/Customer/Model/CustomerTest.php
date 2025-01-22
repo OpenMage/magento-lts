@@ -18,13 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model;
 
 use Mage;
-use Mage_Customer_Model_Customer;
+use Mage_Customer_Model_Customer as Subject;
 use PHPUnit\Framework\TestCase;
-use Throwable;
 
 class CustomerTest extends TestCase
 {
-    public Mage_Customer_Model_Customer $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

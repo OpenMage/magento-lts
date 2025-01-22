@@ -18,13 +18,15 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Cms\Model;
 
 use Mage;
-use Mage_Cms_Model_Page;
+use Mage_Cms_Model_Page as Subject;
 use Mage_Core_Model_Resource_Db_Collection_Abstract;
 use PHPUnit\Framework\TestCase;
 
 class PageTest extends TestCase
 {
-    public Mage_Cms_Model_Page $subject;
+    public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
+
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -38,8 +40,8 @@ class PageTest extends TestCase
      */
     public function testLoad(): void
     {
-        $this->assertInstanceOf(Mage_Cms_Model_Page::class, $this->subject->load(null));
-        $this->assertInstanceOf(Mage_Cms_Model_Page::class, $this->subject->load(2));
+        $this->assertInstanceOf(Subject::class, $this->subject->load(null));
+        $this->assertInstanceOf(Subject::class, $this->subject->load(2));
     }
 
     /**
@@ -57,7 +59,10 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleByIdentifier(): void
     {
-        $this->assertNotFalse($this->subject->getCmsPageTitleByIdentifier('home'));
+        if (defined('DATA_MAY_CHANGED')) {
+            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+        }
+        $this->assertSame('Home page', $this->subject->getCmsPageTitleByIdentifier('home'));
     }
 
     /**
@@ -66,7 +71,10 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageTitleById(): void
     {
-        $this->assertNotFalse($this->subject->getCmsPageTitleById(2));
+        if (defined('DATA_MAY_CHANGED')) {
+            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+        }
+        $this->assertSame('Home page', $this->subject->getCmsPageTitleById(2));
     }
 
     /**
@@ -75,7 +83,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageIdentifierById(): void
     {
-        $this->assertNotFalse($this->subject->getCmsPageIdentifierById(2));
+        $this->assertSame('home', $this->subject->getCmsPageIdentifierById(2));
     }
 
     /**
@@ -90,10 +98,11 @@ class PageTest extends TestCase
     /**
      * @group Mage_Cms
      * @group Mage_Cms_Model
+     * @doesNotPerformAssertions
      */
     public function testGetUsedInStoreConfigCollection(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Resource_Db_Collection_Abstract::class, $this->subject->getUsedInStoreConfigCollection());
+        $this->subject->getUsedInStoreConfigCollection();
     }
 
     /**

@@ -5071,18 +5071,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
 
 		-
-			message: '#^Variable \$dateStart might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: app/code/core/Mage/Reports/Helper/Data.php
-
-		-
-			message: '#^Variable \$t might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Reports/Helper/Data.php
-
-		-
 			message: '#^Property Mage_Reports_Model_Grouped_Collection\:\:\$_resourceCollection \(Mage_Core_Model_Resource_Db_Collection_Abstract\) does not accept Varien_Data_Collection_Db\.$#'
 			identifier: assign.propertyType
 			count: 1

@@ -19,12 +19,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
 use Generator;
 use Mage;
-use Mage_Catalog_Helper_Product;
+use Mage_Catalog_Helper_Product as Subject;
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
 {
-    public Mage_Catalog_Helper_Product $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
