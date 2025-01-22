@@ -137,6 +137,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      * @param int|array $entityIds
      * @param bool $usePrimaryTable use primary or temporary index table
      * @return Varien_Db_Select
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
@@ -263,6 +264,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
      *
      * @param string $table
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getIdxTable($table = null)
     {

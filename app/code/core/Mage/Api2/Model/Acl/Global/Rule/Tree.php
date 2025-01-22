@@ -430,6 +430,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
      * @param string $name Node name
      * @param string $privilege Privilege name
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _addAttribute(&$item, Varien_Simplexml_Element $node, $name, $privilege)
     {

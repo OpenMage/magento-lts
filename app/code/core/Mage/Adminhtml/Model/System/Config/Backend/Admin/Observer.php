@@ -25,6 +25,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Observer
      *
      * @param Varien_Event_Observer $observer
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function afterCustomUrlChanged($observer)
     {

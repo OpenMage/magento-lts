@@ -190,6 +190,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      *
      * @param string $attrCode
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _isAttributeRequiredCheckNeeded($attrCode)
     {
@@ -201,6 +202,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
      *
      * @param int $rowNum
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _isParticularAttributesValid(array $rowData, $rowNum)
     {

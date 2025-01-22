@@ -1167,6 +1167,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      * Return container types of carrier
      *
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getContainerTypes(?Varien_Object $params = null)
     {

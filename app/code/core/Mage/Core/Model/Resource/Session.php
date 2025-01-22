@@ -162,6 +162,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param string $savePath ignored
      * @param string $sessName ignored
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\ReturnTypeWillChange]
     public function open($savePath, $sessName)
@@ -260,6 +261,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
      * @param int $sessMaxLifeTime ignored
      * @return bool
      * @SuppressWarnings("PHPMD.ShortMethodName")
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     #[\ReturnTypeWillChange]
     public function gc($sessMaxLifeTime)

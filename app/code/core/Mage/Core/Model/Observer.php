@@ -26,6 +26,7 @@ class Mage_Core_Model_Observer
      * Check if synchronize process is finished and generate notification message
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function addSynchronizeNotification(Varien_Event_Observer $observer)
     {
@@ -84,6 +85,8 @@ class Mage_Core_Model_Observer
 
     /**
      * Cron job method to clean old cache resources
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function cleanCache(Mage_Cron_Model_Schedule $schedule)
     {
@@ -114,6 +117,7 @@ class Mage_Core_Model_Observer
      *
      * @throws Exception
      * @return Mage_Core_Model_Observer
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function secureVarProcessing(Varien_Event_Observer $observer)
     {

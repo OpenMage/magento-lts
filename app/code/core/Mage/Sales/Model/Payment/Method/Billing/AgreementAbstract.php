@@ -94,7 +94,6 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
 
     /**
      *
-     *
      * @param Mage_Sales_Model_Quote $quote
      */
     abstract protected function _isAvailable($quote);

@@ -58,6 +58,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * @param  float $amount
      * @return void
      * @throws Mage_Core_Exception
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -127,7 +128,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check void availability
      *
-     * @return  bool
+     * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function canVoid(Varien_Object $payment)
     {
@@ -518,7 +520,6 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Operate with order using information from Authorize.net.
      * Authorize order or authorize and capture it.
-     *
      *
      * @throws Exception
      */

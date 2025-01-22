@@ -246,6 +246,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * @param   array $config
      * @param   Mage_Core_Model_Store $store
      * @return  array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function processConfigArray($config, $store)
     {

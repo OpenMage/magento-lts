@@ -626,6 +626,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * @param Mage_Catalog_Model_Product $object
      * @return array
      * @deprecated after 1.4.2.0
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getParentProductIds($object)
     {

@@ -150,6 +150,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Product create only available for admin
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _create(array $data)
     {
@@ -158,6 +160,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
     /**
      * Product update only available for admin
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _update(array $data)
     {
@@ -388,6 +392,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
      * @param float $price
      * @param bool $withTax
      * @return float
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _applyTaxToPrice($price, $withTax = true)
     {

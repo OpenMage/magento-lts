@@ -90,6 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
      * Decorate status column values
      *
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function decorateState($value, $row, $column, $isExport)
     {
@@ -101,6 +102,9 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         return $cell;
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function decorateAction($value, $row, $column, $isExport)
     {
         $cell = '';

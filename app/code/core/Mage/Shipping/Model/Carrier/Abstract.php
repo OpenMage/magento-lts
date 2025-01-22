@@ -145,6 +145,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Implementation must be in overridden method
      *
      * @return Varien_Object
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
@@ -157,6 +158,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @param mixed $request
      * @return Varien_Object
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function returnOfShipment($request)
     {
@@ -167,6 +169,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Return container types of carrier
      *
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getContainerTypes(?Varien_Object $params = null)
     {
@@ -239,6 +242,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Return delivery confirmation types of carrier
      *
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getDeliveryConfirmationTypes(?Varien_Object $params = null)
     {
@@ -285,6 +289,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Processing additional validation to check is carrier applicable.
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -534,6 +539,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @param string|null $countryId
      * @return false
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function isZipCodeRequired($countryId = null)
     {
@@ -588,6 +594,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      * Return content types of package
      *
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getContentTypes(Varien_Object $params)
     {

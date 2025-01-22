@@ -68,6 +68,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      * @param int $storeId
      * @param int $productId
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _executeReplace($data, $storeId, $productId)
     {

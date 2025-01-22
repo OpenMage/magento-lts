@@ -303,6 +303,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param string $optionValue
      * @param array $productOptionValues Values for product option
      * @return string|null
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
@@ -326,6 +327,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param string $optionValue Prepared for cart option value
      * @param float $basePrice For percent price type
      * @return float
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getOptionPrice($optionValue, $basePrice)
     {
@@ -344,6 +346,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      * @param string $optionValue Prepared for cart option value
      * @param string $skuDelimiter Delimiter for Sku parts
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getOptionSku($optionValue, $skuDelimiter)
     {

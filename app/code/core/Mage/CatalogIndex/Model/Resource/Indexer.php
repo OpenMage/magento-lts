@@ -65,6 +65,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param bool $tierPrice clear tier price index data flag
      * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|int|array|null $products applicable products
      * @param mixed $store applicable stores
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function clear(
         $eav = true,

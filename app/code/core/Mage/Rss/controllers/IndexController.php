@@ -85,7 +85,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
 
         if ($wishlist->getVisibility()) {
             $this->_showWishlistRss();
-            return ;
+            return;
         }
 
         if (Mage::getSingleton('customer/session')->authenticate($this)

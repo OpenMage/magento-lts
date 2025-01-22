@@ -116,6 +116,9 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected $_removeDefaultTitle = false;
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = [])
     {
         $this->_request = $request;

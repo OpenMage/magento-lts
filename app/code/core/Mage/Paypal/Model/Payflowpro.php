@@ -492,6 +492,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @return Varien_Object
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _buildBasicRequest(Varien_Object $payment)
     {
@@ -552,6 +553,7 @@ class Mage_Paypal_Model_Payflowpro extends Mage_Payment_Model_Method_Cc
      *
      * @param Varien_Object $request
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _setReferenceTransaction(Varien_Object $payment, $request)
     {

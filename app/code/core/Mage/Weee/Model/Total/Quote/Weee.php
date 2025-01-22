@@ -334,6 +334,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * Recalculate parent item amounts based on children results
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -366,6 +367,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * Fetch FPT data to address object for display in totals block
      *
      * @return  $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
@@ -379,6 +381,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * @param   array $config
      * @param   Mage_Core_Model_Store $store
      * @return  array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function processConfigArray($config, $store)
     {

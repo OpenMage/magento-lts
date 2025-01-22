@@ -232,6 +232,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
      * Catalog Product Import After process
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {
@@ -270,6 +271,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
      *
      * @deprecated 1.3.2.2
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function catalogCategoryChangeProducts(Varien_Event_Observer $observer)
     {

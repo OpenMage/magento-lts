@@ -123,6 +123,7 @@ class Mage_Catalog_Model_Observer
      * Process catalog data after products import
      *
      * @return  Mage_Catalog_Model_Observer
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {
@@ -135,6 +136,7 @@ class Mage_Catalog_Model_Observer
      * Catalog Product Compare Items Clean
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function catalogProductCompareClean(Varien_Event_Observer $observer)
     {
@@ -170,6 +172,8 @@ class Mage_Catalog_Model_Observer
 
     /**
      * Cron job method for product prices to reindex
+     *
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function reindexProductPrices(Mage_Cron_Model_Schedule $schedule)
     {

@@ -94,6 +94,9 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
         return $this;
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function isSelected($option, $rating)
     {
         if ($this->getIsIndependentMode()) {

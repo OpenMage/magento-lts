@@ -54,7 +54,7 @@
     );
 
     if (!this.support) {
-      return ;
+      return;
     }
 
     /**
@@ -236,7 +236,7 @@
         var entry = item.webkitGetAsEntry();
         if (!entry) {
           decrement();
-          return ;
+          return;
         }
         if (entry.isFile) {
           // due to a bug in Chrome's File System API impl - #149735
@@ -821,7 +821,7 @@
     measureSpeed: function () {
       var timeSpan = Date.now() - this._lastProgressCallback;
       if (!timeSpan) {
-        return ;
+        return;
       }
       var smoothingFactor = this.flowObj.opts.speedSmoothingFactor;
       var uploaded = this.sizeUploaded();
@@ -1601,7 +1601,7 @@
    */
   function each(obj, callback, context) {
     if (!obj) {
-      return ;
+      return;
     }
     var key;
     // Is Array?
@@ -1609,13 +1609,13 @@
     if (typeof(obj.length) !== 'undefined') {
       for (key = 0; key < obj.length; key++) {
         if (callback.call(context, obj[key], key) === false) {
-          return ;
+          return;
         }
       }
     } else {
       for (key in obj) {
         if (obj.hasOwnProperty(key) && callback.call(context, obj[key], key) === false) {
-          return ;
+          return;
         }
       }
     }

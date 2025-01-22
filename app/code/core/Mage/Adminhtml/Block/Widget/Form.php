@@ -243,6 +243,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     /**
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getAdditionalElementHtml($element)
     {

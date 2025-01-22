@@ -63,6 +63,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function loadLabel($attribute)
     {
@@ -75,6 +76,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function loadPrices($attribute)
     {

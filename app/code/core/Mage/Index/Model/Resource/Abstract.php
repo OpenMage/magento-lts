@@ -114,6 +114,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
      * @deprecated since 1.5.0.0
      * @param bool $asOriginal
      * @return Mage_Index_Model_Resource_Abstract
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function cloneIndexTable($asOriginal = false)
     {

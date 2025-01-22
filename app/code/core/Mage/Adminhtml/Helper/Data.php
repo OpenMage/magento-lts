@@ -56,6 +56,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
      * @param null|string $suffix
      * @return $this
      * @deprecated
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function setPageHelpUrl($url = null, $suffix = null)
     {

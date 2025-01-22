@@ -175,6 +175,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      * Customer logout bind process
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function bindCustomerLogout(?Varien_Event_Observer $observer = null)
     {

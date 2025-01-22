@@ -102,6 +102,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Decorate status column values
      *
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function decorateStatus($value, $row, $column, $isExport)
     {
@@ -122,6 +123,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Get row edit url
      *
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getRowUrl($row)
     {

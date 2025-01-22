@@ -9,13 +9,12 @@
     </description>
 
     <!-- UNUSEDCODE
-    [ ] UnusedFormalParameter - TMP disabled
+    [x] UnusedFormalParameter
     [ ] UnusedLocalVariable - TMP disabled
     [x] UnusedPrivateField
     [x] UnusedPrivateMethod
     -->
     <rule ref="rulesets/unusedcode.xml">
-        <exclude name="UnusedFormalParameter" />
         <exclude name="UnusedLocalVariable" />
     </rule>
 

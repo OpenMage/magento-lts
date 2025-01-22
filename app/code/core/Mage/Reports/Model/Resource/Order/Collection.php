@@ -43,6 +43,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      *
      * @param mixed $range
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function checkIsLive($range)
     {
@@ -289,6 +290,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      * @param string $tzFrom
      * @param string $tzTo
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getTZRangeExpressionForAttribute($range, $attribute, $tzFrom = '+00:00', $tzTo = null)
     {
@@ -456,6 +458,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      *
      * @param int $isFilter
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _calculateTotalsAggregated($isFilter = 0)
     {

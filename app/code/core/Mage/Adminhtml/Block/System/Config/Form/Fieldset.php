@@ -168,6 +168,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
      * @param Varien_Data_Form_Element_Abstract $element
      * @param bool $tooltipsExist Init tooltips observer or not
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _getExtraJs($element, $tooltipsExist = false)
     {

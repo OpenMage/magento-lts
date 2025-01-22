@@ -45,6 +45,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
      * @param bool $displayIfNoReviews
      * @return string
      * @throws Mage_Core_Model_Store_Exception|Mage_Core_Exception
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false, $displayIfNoReviews = false)
     {

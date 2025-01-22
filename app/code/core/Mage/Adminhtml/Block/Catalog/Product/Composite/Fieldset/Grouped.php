@@ -104,6 +104,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      *
      * @param Mage_Catalog_Model_Product $product
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getCanShowProductPrice($product)
     {

@@ -38,6 +38,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * @param int $customerId
      * @param array $types
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function updateCustomerType(Mage_Reports_Model_Event $model, $visitorId, $customerId, $types = [])
     {
@@ -150,6 +151,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
      * Clean report event table
      *
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function clean(Mage_Reports_Model_Event $object)
     {

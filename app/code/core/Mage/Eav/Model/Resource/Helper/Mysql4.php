@@ -49,6 +49,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
      * @param string $tableAlias
      * @param string $eavType
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function attributeSelectFields($tableAlias, $eavType)
     {
@@ -85,6 +86,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
      * @param string $value
      * @param string $eavType
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function prepareEavAttributeValue($value, $eavType)
     {

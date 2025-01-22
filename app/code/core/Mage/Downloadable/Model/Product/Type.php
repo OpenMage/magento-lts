@@ -449,6 +449,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * @param  Mage_Catalog_Model_Product $product
      * @param  Varien_Object $buyRequest
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function processBuyRequest($product, $buyRequest)
     {

@@ -76,6 +76,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
      * @param   bool $existence
      * @param   string $mode
      * @return  bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _checkPath($path, $recursive, $existence, $mode)
     {

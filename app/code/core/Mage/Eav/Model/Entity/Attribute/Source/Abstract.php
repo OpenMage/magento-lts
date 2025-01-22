@@ -108,6 +108,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param string $dir direction
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function addValueSortToCollection($collection, $dir = Varien_Data_Collection::SORT_ORDER_DESC)
     {
@@ -139,6 +140,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      *
      * @param int $store
      * @return Varien_Db_Select|null
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getFlatUpdateSelect($store)
     {

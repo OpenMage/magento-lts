@@ -76,6 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
     /**
      * @param null $index deprecated
      * @return string|null
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getEscapedValue($index = null)
     {

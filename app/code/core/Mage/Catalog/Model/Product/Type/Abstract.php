@@ -173,6 +173,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param int $parentId
      * @param bool $required
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getChildrenIds($parentId, $required = true)
     {
@@ -184,6 +185,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param int|array $childId
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getParentIdsByChild($childId)
     {
@@ -270,6 +272,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @return false
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function isVirtual($product = null)
     {
@@ -629,6 +632,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function save($product = null)
     {
@@ -672,6 +676,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function isComposite($product = null)
     {
@@ -683,6 +688,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param Mage_Catalog_Model_Product $product
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function canConfigure($product = null)
     {
@@ -789,6 +795,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param mixed $value
      * @param Mage_Catalog_Model_Product $product
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {
@@ -841,6 +848,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      * @param Mage_Catalog_Model_Product|null $product
      * @return bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getForceChildItemQtyChanges($product = null)
     {
@@ -853,6 +861,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param mixed $qty
      * @param Mage_Catalog_Model_Product|null $product
      * @return float
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function prepareQuoteItemQty($qty, $product = null)
     {
@@ -934,6 +943,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param  Mage_Catalog_Model_Product $product
      * @param  Varien_Object $buyRequest
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function processBuyRequest($product, $buyRequest)
     {
@@ -978,6 +988,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param int $visibility
      * @return false
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function isMapEnabledInOptions($product, $visibility = null)
     {

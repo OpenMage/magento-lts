@@ -523,6 +523,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
 
     /**
      * Get FMF results from response, if any
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _importFraudFiltersResult(array $from, array $collectedWarnings)
     {
@@ -538,6 +539,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      *
      * @param string $methodName Current method name
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _prepareEachCallRequest($methodName)
     {

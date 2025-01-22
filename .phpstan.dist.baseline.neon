@@ -3685,12 +3685,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Customer/Api/V2.php
 
 		-
-			message: '#^Parameter \#1 \$customer of method Mage_Customer_Model_Resource_Customer\:\:_saveAddresses\(\) expects Mage_Customer_Model_Customer, Varien_Object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Customer/Model/Resource/Customer.php
-
-		-
 			message: '#^Parameter \#2 \$entityId of method Mage_Eav_Model_Entity_Abstract\:\:load\(\) expects int, string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -6082,12 +6076,6 @@ parameters:
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
 			count: 2
-			path: app/code/core/Mage/Tax/Helper/Data.php
-
-		-
-			message: '#^Method Mage_Tax_Helper_Data\:\:needPriceConversion\(\) should return int\|false but returns bool\.$#'
-			identifier: return.type
-			count: 1
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-

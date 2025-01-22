@@ -111,6 +111,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
      *
      * @param Mage_Api2_Model_Acl_Global_Role $row
      * @return string|null
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getRowUrl($row)
     {

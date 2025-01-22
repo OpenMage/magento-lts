@@ -51,7 +51,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Add customer group ids and website ids to rule data after load
      *
-     *
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
@@ -65,7 +64,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
 
     /**
      * Prepare sales rule's discount quantity
-     *
      *
      * @return $this
      */
@@ -226,7 +224,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param int $websiteId
      * @param int $customerGroupId
-     * @return mixed
+     * @return array|null
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getActiveAttributes($websiteId, $customerGroupId)
     {

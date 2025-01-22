@@ -209,6 +209,7 @@ class Mage_Tax_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function aggregateSalesReportTaxData($schedule)
     {

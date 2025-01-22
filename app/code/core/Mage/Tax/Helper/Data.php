@@ -201,6 +201,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $flag
      * @param mixed $store
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getIncExcText($flag, $store = null)
     {
@@ -231,7 +232,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * If its necessary will be returned conversion type (minus or plus)
      *
      * @param   null|string|bool|int|Mage_Core_Model_Store $store
-     * @return  false|int
+     * @return  bool|int
      */
     public function needPriceConversion($store = null)
     {
@@ -386,6 +387,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param   null|string|bool|int|Mage_Core_Model_Store $store
      * @return  bool
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function displayTaxColumn($store = null)
     {

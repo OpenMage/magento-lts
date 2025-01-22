@@ -233,11 +233,17 @@ class Mage_Catalog_Model_Mysql4_Convert
         return [];
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function getProductAttributeOption($attribute, $value)
     {
         #$attribute = Mage::get
     }
 
+    /**
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
+     */
     public function importProducts(array $data)
     {
         /*

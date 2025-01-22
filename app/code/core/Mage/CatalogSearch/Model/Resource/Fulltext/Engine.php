@@ -39,6 +39,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      * @param array $index
      * @param string $entity 'product'|'cms'
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function saveEntityIndex($entityId, $storeId, $index, $entity = 'product')
     {
@@ -57,6 +58,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      * @param array $entityIndexes
      * @param string $entity 'product'|'cms'
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function saveEntityIndexes($storeId, $entityIndexes, $entity = 'product')
     {
@@ -106,6 +108,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      * @param int $entityId
      * @param string $entity 'product'|'cms'
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function cleanIndex($storeId = null, $entityId = null, $entity = 'product')
     {

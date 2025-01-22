@@ -36,6 +36,7 @@ class Mage_Oauth_Model_Observer
      * Redirect customer to callback page after login
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function afterCustomerLogin(Varien_Event_Observer $observer)
     {
@@ -54,6 +55,7 @@ class Mage_Oauth_Model_Observer
      * Redirect admin to authorize controller after login success
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function afterAdminLogin(Varien_Event_Observer $observer)
     {

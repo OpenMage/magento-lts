@@ -27,6 +27,7 @@ class Mage_ImportExport_Model_Product_Attribute_Backend_Urlkey extends Mage_Cata
      *
      * @param Mage_Catalog_Model_Product $object
      * @return $this
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _validateUrlKey($object)
     {

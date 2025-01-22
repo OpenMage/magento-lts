@@ -358,7 +358,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      * @param string[]                 $args
      * @throws Mage_Core_Exception
      * @deprecated
-     * @see Mage_Core_Helper_Security::validateAgainstBlockMethodBlacklist()
+     * @see Mage_Core_Helper_Security::validateAgainstBlockMethodBlacklist(
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
     {

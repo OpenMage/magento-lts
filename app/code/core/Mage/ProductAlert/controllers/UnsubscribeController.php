@@ -51,7 +51,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             /** @var Mage_Catalog_Model_Product $product */
             Mage::getSingleton('customer/session')->addError($this->__('The product is not found.'));
             $this->_redirect('customer/account/');
-            return ;
+            return;
         }
 
         try {
@@ -103,7 +103,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         if (!$product->getId() || !$product->isVisibleInCatalog()) {
             Mage::getSingleton('customer/session')->addError($this->__('The product was not found.'));
             $this->_redirect('customer/account/');
-            return ;
+            return;
         }
 
         try {

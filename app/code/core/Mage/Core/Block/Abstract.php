@@ -650,6 +650,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * @param   string $name
      * @param   Mage_Core_Block_Abstract $child
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _beforeChildToHtml($name, $child) {}
 

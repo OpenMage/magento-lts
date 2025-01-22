@@ -224,7 +224,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Initialize rule model data from array.
      * Set store labels if applicable.
      *
-     *
      * @return $this
      */
     public function loadPost(array $data)
@@ -509,8 +508,8 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      * @deprecated after 1.6.2.0
      *
      * @param string $format
-     *
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function toString($format = '')
     {

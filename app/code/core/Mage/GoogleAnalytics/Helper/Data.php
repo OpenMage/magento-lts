@@ -74,6 +74,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      * @return bool
      * @deprecated
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function isIpAnonymizationEnabled($store = null)
     {
@@ -106,8 +107,9 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns true if should use Google Universal Analytics
      *
      * @param string $store
-     * @return bool
+     * @return false
      * @deprecated
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function isUseUniversalAnalytics($store = null)
     {

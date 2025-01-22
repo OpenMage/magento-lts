@@ -64,8 +64,8 @@
  * @method string getCustomerGender()
  * @method $this setCustomerGender(string $value)
  * @method $this setCustomerGroupId(int $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
+ * @method int|null getCustomerId()
+ * @method $this setCustomerId(int|null $value)
  * @method int getCustomerIsGuest()
  * @method $this setCustomerIsGuest(int $value)
  * @method string getCustomerLastname()
@@ -798,6 +798,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * @param bool $useCache
      * @return Mage_Sales_Model_Resource_Quote_Item_Collection
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getItemsCollection($useCache = true)
     {
@@ -1122,6 +1123,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param int $qty
      * @return  Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Model_Store_Exception
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
     {

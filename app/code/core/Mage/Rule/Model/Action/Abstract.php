@@ -73,6 +73,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
 
     /**
      * @return array
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function asArray(array $arrAttributes = [])
     {
@@ -330,6 +331,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     /**
      * @param string $format
      * @return string
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function asString($format = '')
     {

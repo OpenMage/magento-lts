@@ -128,7 +128,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         if (in_array((string) $value, $checked)) {
             return 'checked';
         }
-        return ;
+        return;
     }
 
     /**
@@ -181,7 +181,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     //        if ($name = $this->getData('name')) {
     //            return str_replace('$value', $value, $name);
     //        }
-    //        return ;
+    //        return;
     //    }
 
     /**

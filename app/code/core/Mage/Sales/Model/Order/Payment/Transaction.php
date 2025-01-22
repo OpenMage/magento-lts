@@ -234,6 +234,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      * @param string $txnId
      * @param bool $recursive
      * @return $this|array|null
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     public function getChildTransactions($types = null, $txnId = null, $recursive = false)
     {
