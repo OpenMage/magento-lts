@@ -353,7 +353,7 @@ tinyMceWysiwygSetup.prototype =
 
     parseAttributesString: function (attributes) {
         var result = {};
-        attributes.gsub(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/, function (match) {
+        attributes.gsub(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"\\])*)")|(?:'((?:\\.|[^'\\])*)')|([^>\s]+)))?/, function (match) {
             result[match[1]] = match[2];
         });
         return result;
