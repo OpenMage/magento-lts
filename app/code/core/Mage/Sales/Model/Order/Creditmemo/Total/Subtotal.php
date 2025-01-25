@@ -32,6 +32,8 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_
         $subtotalInclTax = 0;
         $baseSubtotalInclTax = 0;
 
+        $order = $creditmemo->getOrder();
+
         foreach ($creditmemo->getAllItems() as $item) {
             if ($item->getOrderItem()->isDummy()) {
                 continue;
@@ -41,8 +43,19 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_
 
             $subtotal       += $item->getRowTotal();
             $baseSubtotal   += $item->getBaseRowTotal();
-            $subtotalInclTax += $item->getRowTotalInclTax();
-            $baseSubtotalInclTax += $item->getBaseRowTotalInclTax();
+            $subtotalInclTax += $item->getRowTotalInclTax() + $item->getWeeeTaxAppliedRowAmount();
+            $baseSubtotalInclTax += $item->getBaseRowTotalInclTax() + $item->getBaseWeeeTaxAppliedRowAmount();
+        }
+
+        $allowedSubtotal = $order->getSubtotal() - $order->getSubtotalRefunded();
+        $baseAllowedSubtotal = $order->getBaseSubtotal() - $order->getBaseSubtotalRefunded();
+
+        if ($creditmemo->isLast()) {
+            $subtotal = $allowedSubtotal;
+            $baseSubtotal = $baseAllowedSubtotal;
+        } else {
+            $subtotal = min($allowedSubtotal, $subtotal);
+            $baseSubtotal = min($baseAllowedSubtotal, $baseSubtotal);
         }
 
         $creditmemo->setSubtotal($subtotal);
