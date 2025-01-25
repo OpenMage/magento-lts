@@ -525,6 +525,18 @@ class Mage_Core_Model_Design_Package
             $params['_default'] = false;
         }
         $this->updateParamDefaults($params);
+        if (!empty($file)) {
+            // This updates $params with the base package and default theme if the file is not found
+            $this->_fallback(
+                $file,
+                $params,
+                $this->_fallback->getFallbackScheme(
+                    $params['_area'],
+                    $params['_package'],
+                    $params['_theme'],
+                ),
+            );
+        }
         $result = $this->getSkinBaseUrl($params) . (empty($file) ? '' : $file);
         Varien_Profiler::stop(__METHOD__);
         return $result;
